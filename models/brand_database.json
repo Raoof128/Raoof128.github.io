@@ -1,0 +1,313 @@
+{
+    "brands": {
+        "paypal": {
+            "official_domains": [
+                "paypal.com",
+                "paypal.me"
+            ],
+            "typosquats": [
+                "paypa1",
+                "paypai",
+                "paypol",
+                "paypaI",
+                "pаypal"
+            ],
+            "homographs": [
+                "pаypal",
+                "раypal"
+            ],
+            "combosquats": [
+                "paypal-secure",
+                "paypal-login",
+                "paypal-verify",
+                "paypal-update"
+            ]
+        },
+        "google": {
+            "official_domains": [
+                "google.com",
+                "google.co.uk",
+                "gmail.com",
+                "youtube.com"
+            ],
+            "typosquats": [
+                "g00gle",
+                "googie",
+                "goog1e",
+                "gooogle",
+                "goggle"
+            ],
+            "homographs": [
+                "gооgle"
+            ],
+            "combosquats": [
+                "google-login",
+                "google-verify",
+                "google-account",
+                "google-security"
+            ]
+        },
+        "microsoft": {
+            "official_domains": [
+                "microsoft.com",
+                "live.com",
+                "outlook.com",
+                "office.com"
+            ],
+            "typosquats": [
+                "micr0soft",
+                "rnicrosoft",
+                "mircosoft",
+                "microsft"
+            ],
+            "homographs": [
+                "mісrosoft"
+            ],
+            "combosquats": [
+                "microsoft-login",
+                "microsoft-account",
+                "office-login",
+                "outlook-verify"
+            ]
+        },
+        "amazon": {
+            "official_domains": [
+                "amazon.com",
+                "amazon.co.uk",
+                "aws.amazon.com",
+                "amzn.com"
+            ],
+            "typosquats": [
+                "amaz0n",
+                "arnazon",
+                "amazom",
+                "amazonn"
+            ],
+            "homographs": [
+                "аmazon"
+            ],
+            "combosquats": [
+                "amazon-prime",
+                "amazon-order",
+                "amazon-delivery",
+                "amazon-tracking"
+            ]
+        },
+        "apple": {
+            "official_domains": [
+                "apple.com",
+                "icloud.com",
+                "apple.co"
+            ],
+            "typosquats": [
+                "app1e",
+                "appie",
+                "aple",
+                "applle"
+            ],
+            "homographs": [
+                "аpple"
+            ],
+            "combosquats": [
+                "apple-id",
+                "icloud-login",
+                "apple-verify",
+                "apple-support"
+            ]
+        },
+        "facebook": {
+            "official_domains": [
+                "facebook.com",
+                "fb.com",
+                "meta.com",
+                "instagram.com"
+            ],
+            "typosquats": [
+                "faceb00k",
+                "facebok",
+                "faceboook"
+            ],
+            "homographs": [
+                "fасebook"
+            ],
+            "combosquats": [
+                "facebook-login",
+                "facebook-verify",
+                "fb-security"
+            ]
+        },
+        "netflix": {
+            "official_domains": [
+                "netflix.com"
+            ],
+            "typosquats": [
+                "netf1ix",
+                "netfiix",
+                "nettflix",
+                "netflix1"
+            ],
+            "homographs": [
+                "nеtflix"
+            ],
+            "combosquats": [
+                "netflix-billing",
+                "netflix-update",
+                "netflix-account",
+                "netflix-payment"
+            ]
+        },
+        "instagram": {
+            "official_domains": [
+                "instagram.com"
+            ],
+            "typosquats": [
+                "1nstagram",
+                "instagran",
+                "lnstagram",
+                "instagrarn"
+            ],
+            "homographs": [
+                "іnstagram"
+            ],
+            "combosquats": [
+                "instagram-verify",
+                "instagram-login",
+                "instagram-support"
+            ]
+        },
+        "twitter": {
+            "official_domains": [
+                "twitter.com",
+                "x.com"
+            ],
+            "typosquats": [
+                "twltter",
+                "tw1tter",
+                "twiiter",
+                "twiter"
+            ],
+            "homographs": [
+                "twіtter"
+            ],
+            "combosquats": [
+                "twitter-verify",
+                "twitter-login",
+                "twitter-support"
+            ]
+        },
+        "linkedin": {
+            "official_domains": [
+                "linkedin.com"
+            ],
+            "typosquats": [
+                "1inkedin",
+                "linkedln",
+                "linkdin",
+                "linkedn"
+            ],
+            "homographs": [
+                "lіnkedin"
+            ],
+            "combosquats": [
+                "linkedin-login",
+                "linkedin-verify",
+                "linkedin-job"
+            ]
+        },
+        "whatsapp": {
+            "official_domains": [
+                "whatsapp.com",
+                "wa.me"
+            ],
+            "typosquats": [
+                "whatsap",
+                "watsapp",
+                "whatapp",
+                "whatsaap"
+            ],
+            "homographs": [],
+            "combosquats": [
+                "whatsapp-verify",
+                "whatsapp-update",
+                "whatsapp-web"
+            ]
+        },
+        "dropbox": {
+            "official_domains": [
+                "dropbox.com"
+            ],
+            "typosquats": [
+                "dr0pbox",
+                "dropb0x",
+                "drobox"
+            ],
+            "homographs": [],
+            "combosquats": [
+                "dropbox-login",
+                "dropbox-share",
+                "dropbox-verify"
+            ]
+        },
+        "chase": {
+            "official_domains": [
+                "chase.com"
+            ],
+            "typosquats": [
+                "chas3",
+                "chaze",
+                "chaase"
+            ],
+            "homographs": [
+                "сhase"
+            ],
+            "combosquats": [
+                "chase-login",
+                "chase-verify",
+                "chase-secure",
+                "chase-online"
+            ]
+        },
+        "wellsfargo": {
+            "official_domains": [
+                "wellsfargo.com"
+            ],
+            "typosquats": [
+                "we11sfargo",
+                "wellsfarg0",
+                "wellsfarqo"
+            ],
+            "homographs": [],
+            "combosquats": [
+                "wellsfargo-login",
+                "wellsfargo-online",
+                "wellsfargo-secure"
+            ]
+        },
+        "bankofamerica": {
+            "official_domains": [
+                "bankofamerica.com",
+                "bofa.com"
+            ],
+            "typosquats": [
+                "bankofamorica",
+                "bank0famerica"
+            ],
+            "homographs": [],
+            "combosquats": [
+                "bankofamerica-login",
+                "bofa-secure",
+                "bankofamerica-verify"
+            ]
+        }
+    },
+    "metadata": {
+        "version": "1.0.0",
+        "last_updated": "2024-12-06",
+        "total_brands": 15,
+        "sources": [
+            "Manual curation",
+            "PhishTank database patterns",
+            "APWG reports"
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary -->
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6C5CE7</color>
+    <color name="purple_700">#5B4DCF</color>
+    
+    <!-- Secondary -->
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#00CEC9</color>
+    
+    <!-- Semantic -->
+    <color name="safe_green">#00D68F</color>
+    <color name="warning_amber">#FFAA00</color>
+    <color name="danger_red">#FF3D71</color>
+    
+    <!-- Background -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background_dark">#0D1117</color>
+    <color name="surface_dark">#161B22</color>
+</resources>

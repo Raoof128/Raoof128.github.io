@@ -1,0 +1,115 @@
+package com.qrshield.model
+
+/**
+ * Verdict enum representing the final risk classification
+ */
+enum class Verdict {
+    SAFE,
+    SUSPICIOUS,
+    MALICIOUS,
+    UNKNOWN
+}
+
+/**
+ * Complete risk assessment result
+ */
+data class RiskAssessment(
+    val score: Int,
+    val verdict: Verdict,
+    val flags: List<String>,
+    val details: UrlAnalysisResult,
+    val confidence: Float = 0.8f
+) {
+    val scoreDescription: String
+        get() = when {
+            score <= 30 -> "Low Risk"
+            score <= 70 -> "Medium Risk"
+            else -> "High Risk"
+        }
+    
+    val actionRecommendation: String
+        get() = when (verdict) {
+            Verdict.SAFE -> "This URL appears safe to visit."
+            Verdict.SUSPICIOUS -> "Proceed with caution. Verify the source before clicking."
+            Verdict.MALICIOUS -> "Do not visit this URL. It shows strong phishing indicators."
+            Verdict.UNKNOWN -> "Unable to fully analyze. Verify manually before visiting."
+        }
+}
+
+/**
+ * Detailed URL analysis breakdown
+ */
+data class UrlAnalysisResult(
+    val originalUrl: String,
+    val heuristicScore: Int,
+    val mlScore: Int,
+    val brandScore: Int,
+    val tldScore: Int,
+    val brandMatch: String? = null,
+    val tld: String? = null
+) {
+    companion object {
+        fun empty() = UrlAnalysisResult(
+            originalUrl = "",
+            heuristicScore = 0,
+            mlScore = 0,
+            brandScore = 0,
+            tldScore = 0
+        )
+    }
+}
+
+/**
+ * QR scan result wrapper
+ */
+sealed class ScanResult {
+    data class Success(
+        val content: String,
+        val contentType: ContentType
+    ) : ScanResult()
+    
+    data class Error(
+        val message: String,
+        val code: ErrorCode
+    ) : ScanResult()
+    
+    data object NoQrFound : ScanResult()
+}
+
+enum class ContentType {
+    URL,
+    TEXT,
+    WIFI,
+    VCARD,
+    GEO,
+    PHONE,
+    SMS,
+    EMAIL,
+    UNKNOWN
+}
+
+enum class ErrorCode {
+    CAMERA_PERMISSION_DENIED,
+    CAMERA_NOT_AVAILABLE,
+    IMAGE_DECODE_ERROR,
+    INVALID_QR_FORMAT,
+    UNKNOWN_ERROR
+}
+
+/**
+ * Scan history item for persistence
+ */
+data class ScanHistoryItem(
+    val id: String,
+    val url: String,
+    val score: Int,
+    val verdict: Verdict,
+    val scannedAt: Long,
+    val source: ScanSource
+)
+
+enum class ScanSource {
+    CAMERA,
+    GALLERY,
+    CLIPBOARD
+}

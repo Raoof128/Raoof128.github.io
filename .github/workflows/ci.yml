@@ -1,0 +1,268 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  JAVA_VERSION: '17'
+  GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.parallel=true
+
+jobs:
+  # ============================================
+  # Build & Test Common Module
+  # ============================================
+  build:
+    name: Build & Test Common
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@v2
+
+    - name: Build common module
+      run: ./gradlew :common:build --no-daemon
+
+    - name: Run unit tests
+      run: ./gradlew :common:allTests --no-daemon
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-common
+        path: |
+          common/build/reports/tests/
+          common/build/test-results/
+        retention-days: 7
+
+  # ============================================
+  # Android Build & Test
+  # ============================================
+  android:
+    name: Android Build
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build Android debug APK
+      run: ./gradlew :androidApp:assembleDebug --no-daemon
+
+    - name: Run Android unit tests
+      run: ./gradlew :androidApp:testDebugUnitTest --no-daemon
+
+    - name: Upload debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-debug-apk
+        path: androidApp/build/outputs/apk/debug/*.apk
+        retention-days: 7
+
+    - name: Upload Android test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-android
+        path: androidApp/build/reports/tests/
+        retention-days: 7
+
+  # ============================================
+  # Desktop Build & Test
+  # ============================================
+  desktop:
+    name: Desktop Build
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build Desktop app
+      run: ./gradlew :desktopApp:build --no-daemon
+
+    - name: Run Desktop tests
+      run: ./gradlew :desktopApp:desktopTest --no-daemon
+      continue-on-error: true
+
+    - name: Upload Desktop test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-desktop
+        path: desktopApp/build/reports/tests/
+        retention-days: 7
+
+  # ============================================
+  # Code Quality Checks
+  # ============================================
+  lint:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Run Detekt static analysis
+      run: ./gradlew detekt --no-daemon
+      continue-on-error: true
+
+    - name: Upload Detekt report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: detekt-report
+        path: build/reports/detekt/
+        retention-days: 7
+
+  # ============================================
+  # Security Scan
+  # ============================================
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        severity: 'CRITICAL,HIGH'
+      continue-on-error: true
+
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+      continue-on-error: true
+
+  # ============================================
+  # Dependency Check
+  # ============================================
+  dependency-check:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Check for dependency updates
+      run: ./gradlew dependencyUpdates --no-daemon || true
+      continue-on-error: true
+
+  # ============================================
+  # Release Build (on tag)
+  # ============================================
+  release:
+    name: Release Build
+    runs-on: ubuntu-latest
+    needs: [build, android, desktop, lint]
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v4
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build release APK
+      run: ./gradlew :androidApp:assembleRelease --no-daemon
+      env:
+        SIGNING_KEY_STORE_PATH: ${{ secrets.SIGNING_KEY_STORE_PATH }}
+        SIGNING_KEY_STORE_PASSWORD: ${{ secrets.SIGNING_KEY_STORE_PASSWORD }}
+        SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+        SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+
+    - name: Upload release APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: android-release-apk
+        path: androidApp/build/outputs/apk/release/*.apk
+        retention-days: 30
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          androidApp/build/outputs/apk/release/*.apk
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

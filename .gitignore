@@ -1,0 +1,70 @@
+# Kotlin / Gradle
+.gradle/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+*.log
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Android
+local.properties
+*.apk
+*.ap_
+*.dex
+google-services.json
+
+# iOS
+Pods/
+*.xcworkspace
+*.xcuserdata/
+DerivedData/
+*.ipa
+*.dSYM.zip
+
+# Kotlin/Native
+*.klib
+*.kexe
+
+# Node (for web)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python (for scripts)
+__pycache__/
+*.pyc
+.env
+venv/
+
+# Secrets
+*.keystore
+*.jks
+secrets.properties
+
+# Coverage
+*.exec
+*.ec
+coverage/
+.kover/
+
+# Temporary
+*.tmp
+*.swp
+*~

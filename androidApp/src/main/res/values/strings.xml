@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QR-SHIELD</string>
+    <string name="scan_button">Scan QR Code</string>
+    <string name="gallery_button">Import from Gallery</string>
+    <string name="clipboard_button">Paste from Clipboard</string>
+    <string name="history_title">Scan History</string>
+    <string name="safe_verdict">SAFE</string>
+    <string name="suspicious_verdict">SUSPICIOUS</string>
+    <string name="malicious_verdict">MALICIOUS</string>
+    <string name="camera_permission_rationale">Camera access is needed to scan QR codes</string>
+    <string name="camera_permission_denied">Camera permission denied. Please enable in settings.</string>
+</resources>
