@@ -1,16 +1,18 @@
 // UI/Scanner/CameraPreview.swift
-// QR-SHIELD Native Camera Layer - iOS 18+ Optimized
+// QR-SHIELD Native Camera Layer - iOS 26 Edition
 //
-// UPDATED: December 2024
-// - Uses videoRotationAngle (iOS 17+) instead of deprecated videoOrientation
-// - Improved orientation handling
-// - Better memory management
+// UPDATED: December 2025 - iOS 26.2
+// - videoRotationAngle for modern orientation handling
+// - Improved lifecycle management
+// - Swift 6 concurrency compliance
 
 import SwiftUI
 import AVFoundation
 
+// MARK: - Camera Preview (SwiftUI Wrapper)
+
 /// UIViewRepresentable wrapper for AVCaptureVideoPreviewLayer
-/// Bridges AVFoundation camera to SwiftUI
+/// Bridges AVFoundation camera to SwiftUI with proper lifecycle
 struct CameraPreview: UIViewRepresentable {
     let session: AVCaptureSession?
     
@@ -18,7 +20,8 @@ struct CameraPreview: UIViewRepresentable {
         let view = CameraPreviewView()
         view.backgroundColor = .black
         
-        if let session = session {
+        // Set session immediately if available
+        if let session {
             view.session = session
         }
         
@@ -26,23 +29,27 @@ struct CameraPreview: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: CameraPreviewView, context: Context) {
-        if let session = session {
-            if uiView.session !== session {
-                uiView.session = session
-            }
+        // Only update if session changed
+        if uiView.session !== session {
+            uiView.session = session
         }
     }
     
     static func dismantleUIView(_ uiView: CameraPreviewView, coordinator: ()) {
-        // Clean up when view is removed
-        uiView.session = nil
+        // Clean up resources
+        uiView.cleanup()
     }
 }
 
-/// The underlying UIView that holds the preview layer
+// MARK: - Camera Preview View (UIKit)
+
+/// The underlying UIView that holds the AVCaptureVideoPreviewLayer
 final class CameraPreviewView: UIView {
     
+    // MARK: - Properties
+    
     private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var orientationObserver: NSObjectProtocol?
     
     var session: AVCaptureSession? {
         didSet {
@@ -51,65 +58,89 @@ final class CameraPreviewView: UIView {
         }
     }
     
-    // Use preview layer as the view's backing layer for better performance
-    override class var layerClass: AnyClass {
-        AVCaptureVideoPreviewLayer.self
+    // MARK: - Lifecycle
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupView()
+    }
+    
+    private func setupView() {
+        backgroundColor = .black
+        clipsToBounds = true
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        // Update frame
+        // Update layer frame
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
         previewLayer?.frame = bounds
+        CATransaction.commit()
         
-        // Update rotation for current orientation
+        // Update rotation
         updateVideoRotation()
     }
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
         
-        // Observe orientation changes
         if window != nil {
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(orientationDidChange),
-                name: UIDevice.orientationDidChangeNotification,
-                object: nil
-            )
+            startObservingOrientation()
         } else {
-            NotificationCenter.default.removeObserver(
-                self,
-                name: UIDevice.orientationDidChangeNotification,
-                object: nil
-            )
+            stopObservingOrientation()
         }
     }
     
-    @objc private func orientationDidChange() {
-        updateVideoRotation()
-    }
+    // MARK: - Preview Layer Setup
     
     private func setupPreviewLayer() {
-        // Remove old layer
+        // Remove existing layer
         previewLayer?.removeFromSuperlayer()
         previewLayer = nil
         
-        guard let session = session else { return }
+        guard let session else { return }
         
         let layer = AVCaptureVideoPreviewLayer(session: session)
         layer.frame = bounds
         layer.videoGravity = .resizeAspectFill
+        layer.contentsGravity = .resizeAspectFill
         
         // Set initial rotation
         updateVideoRotation(for: layer)
         
+        // Insert at bottom so overlays appear on top
         self.layer.insertSublayer(layer, at: 0)
         self.previewLayer = layer
     }
     
+    // MARK: - Orientation Handling (iOS 26)
+    
+    private func startObservingOrientation() {
+        orientationObserver = NotificationCenter.default.addObserver(
+            forName: UIDevice.orientationDidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.updateVideoRotation()
+        }
+    }
+    
+    private func stopObservingOrientation() {
+        if let observer = orientationObserver {
+            NotificationCenter.default.removeObserver(observer)
+            orientationObserver = nil
+        }
+    }
+    
     private func updateVideoRotation() {
-        guard let previewLayer = previewLayer else { return }
+        guard let previewLayer else { return }
         updateVideoRotation(for: previewLayer)
     }
     
@@ -117,22 +148,20 @@ final class CameraPreviewView: UIView {
         guard let connection = layer.connection else { return }
         
         // iOS 17+: Use videoRotationAngle instead of deprecated videoOrientation
-        if #available(iOS 17.0, *) {
-            let angle = currentRotationAngle()
-            if connection.isVideoRotationAngleSupported(angle) {
-                connection.videoRotationAngle = angle
-            }
-        } else {
-            // Fallback for iOS 16 and earlier
-            if connection.isVideoOrientationSupported {
-                connection.videoOrientation = currentVideoOrientation()
-            }
+        let angle = currentRotationAngle()
+        
+        if connection.isVideoRotationAngleSupported(angle) {
+            // Apply rotation without animation
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            connection.videoRotationAngle = angle
+            CATransaction.commit()
         }
     }
     
-    // iOS 17+: Get rotation angle based on device orientation
-    @available(iOS 17.0, *)
+    /// Get rotation angle based on current device orientation
     private func currentRotationAngle() -> CGFloat {
+        // Get interface orientation from window scene
         guard let windowScene = window?.windowScene else {
             return 90 // Default portrait
         }
@@ -151,46 +180,136 @@ final class CameraPreviewView: UIView {
         }
     }
     
-    // Legacy orientation support
-    private func currentVideoOrientation() -> AVCaptureVideoOrientation {
-        guard let windowScene = window?.windowScene else {
-            return .portrait
-        }
-        
-        switch windowScene.interfaceOrientation {
-        case .portrait:
-            return .portrait
-        case .portraitUpsideDown:
-            return .portraitUpsideDown
-        case .landscapeLeft:
-            return .landscapeLeft
-        case .landscapeRight:
-            return .landscapeRight
-        default:
-            return .portrait
-        }
+    // MARK: - Cleanup
+    
+    func cleanup() {
+        stopObservingOrientation()
+        previewLayer?.removeFromSuperlayer()
+        previewLayer = nil
+        session = nil
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        cleanup()
     }
 }
 
-// MARK: - Mock Camera Preview for SwiftUI Previews
+// MARK: - Scanning Overlay View
+
+/// Animated overlay for the scanning area
+struct ScanningOverlay: View {
+    let isScanning: Bool
+    let verdict: VerdictMock?
+    
+    @State private var animationPhase: CGFloat = 0
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                // Scan line animation
+                if isScanning && verdict == nil {
+                    scanLine(in: geometry.size)
+                }
+                
+                // Corner markers
+                cornerMarkers
+                    .stroke(markerColor, lineWidth: 4)
+                    .frame(width: 250, height: 250)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+    
+    private var markerColor: Color {
+        guard let verdict else { return .brandPrimary }
+        
+        switch verdict {
+        case .safe: return .verdictSafe
+        case .suspicious: return .verdictWarning
+        case .malicious: return .verdictDanger
+        case .unknown: return .brandPrimary
+        }
+    }
+    
+    private func scanLine(in size: CGSize) -> some View {
+        Rectangle()
+            .fill(
+                LinearGradient(
+                    colors: [.clear, .brandPrimary.opacity(0.5), .clear],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .frame(width: 200, height: 2)
+            .offset(y: sin(animationPhase) * 100)
+            .onAppear {
+                withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true)) {
+                    animationPhase = .pi
+                }
+            }
+    }
+    
+    private var cornerMarkers: some Shape {
+        CornerMarkerShape()
+    }
+}
+
+/// Shape for corner markers
+struct CornerMarkerShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let cornerLength: CGFloat = 35
+        
+        // Top Left
+        path.move(to: CGPoint(x: 0, y: cornerLength))
+        path.addLine(to: CGPoint(x: 0, y: 0))
+        path.addLine(to: CGPoint(x: cornerLength, y: 0))
+        
+        // Top Right
+        path.move(to: CGPoint(x: rect.width - cornerLength, y: 0))
+        path.addLine(to: CGPoint(x: rect.width, y: 0))
+        path.addLine(to: CGPoint(x: rect.width, y: cornerLength))
+        
+        // Bottom Right
+        path.move(to: CGPoint(x: rect.width, y: rect.height - cornerLength))
+        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
+        path.addLine(to: CGPoint(x: rect.width - cornerLength, y: rect.height))
+        
+        // Bottom Left
+        path.move(to: CGPoint(x: cornerLength, y: rect.height))
+        path.addLine(to: CGPoint(x: 0, y: rect.height))
+        path.addLine(to: CGPoint(x: 0, y: rect.height - cornerLength))
+        
+        return path
+    }
+}
+
+// MARK: - Mock Camera Preview (for SwiftUI Previews)
 
 struct MockCameraPreview: View {
     var body: some View {
         ZStack {
+            // Dark background
             Color.black
             
-            VStack(spacing: 20) {
-                Image(systemName: "camera.fill")
-                    .font(.system(size: 60))
-                    .foregroundStyle(.linearGradient(
-                        colors: [.gray, .gray.opacity(0.5)],
-                        startPoint: .top,
-                        endPoint: .bottom
-                    ))
+            // Simulated camera view
+            VStack(spacing: 24) {
+                ZStack {
+                    Circle()
+                        .fill(.ultraThinMaterial)
+                        .frame(width: 100, height: 100)
+                    
+                    Image(systemName: "camera.fill")
+                        .font(.system(size: 40))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.gray, .gray.opacity(0.5)],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .symbolEffect(.pulse)
+                }
                 
                 Text("Camera Preview")
                     .font(.caption)
@@ -198,7 +317,9 @@ struct MockCameraPreview: View {
                 
                 // Simulated scan area
                 RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [10]))
+                    .strokeBorder(
+                        style: StrokeStyle(lineWidth: 2, dash: [10])
+                    )
                     .foregroundColor(.gray.opacity(0.5))
                     .frame(width: 200, height: 200)
             }
@@ -206,6 +327,20 @@ struct MockCameraPreview: View {
     }
 }
 
-#Preview {
-    MockCameraPreview()
+// MARK: - Preview
+
+#Preview("Camera Preview") {
+    ZStack {
+        MockCameraPreview()
+        
+        ScanningOverlay(isScanning: true, verdict: nil)
+    }
+}
+
+#Preview("Scan Complete") {
+    ZStack {
+        MockCameraPreview()
+        
+        ScanningOverlay(isScanning: false, verdict: .safe)
+    }
 }
