@@ -131,7 +131,9 @@ final class ScannerViewModel {
             
             // Setup delegate with Swift 6 concurrency compliance
             let delegate = QRCodeMetadataDelegate { [weak self] code in
-                self?.handleScannedCodeFromDelegate(code)
+                Task { @MainActor in
+                    self?.handleScannedCodeFromDelegate(code)
+                }
             }
             self.metadataDelegate = delegate
             
@@ -434,39 +436,5 @@ enum CameraPermissionStatus: String, Sendable {
     }
 }
 
-// MARK: - Mock Types (Replace with KMP imports)
+// NOTE: VerdictMock and RiskAssessmentMock are now defined in Models/MockTypes.swift
 
-/// Mock verdict type - Replace with common.Verdict
-enum VerdictMock: String, CaseIterable, Sendable {
-    case safe = "SAFE"
-    case suspicious = "SUSPICIOUS"
-    case malicious = "MALICIOUS"
-    case unknown = "UNKNOWN"
-    
-    var icon: String {
-        switch self {
-        case .safe: return "checkmark.shield.fill"
-        case .suspicious: return "exclamationmark.shield.fill"
-        case .malicious: return "xmark.shield.fill"
-        case .unknown: return "questionmark.circle"
-        }
-    }
-}
-
-/// Mock risk assessment - Replace with common.RiskAssessment
-struct RiskAssessmentMock: Identifiable, Sendable {
-    let id = UUID()
-    let score: Int
-    let verdict: VerdictMock
-    let flags: [String]
-    let confidence: Double
-    let url: String
-    let scannedAt: Date
-    
-    var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        formatter.timeStyle = .short
-        return formatter.string(from: scannedAt)
-    }
-}

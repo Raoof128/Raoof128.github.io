@@ -264,30 +264,6 @@ struct InteractiveGlassButton: View {
     }
 }
 
-// MARK: - Mock Types for UI Development
-
-enum VerdictMock: String, Codable, Sendable {
-    case safe = "SAFE"
-    case suspicious = "SUSPICIOUS"
-    case malicious = "MALICIOUS"
-    case unknown = "UNKNOWN"
-}
-
-struct RiskAssessmentMock: Sendable {
-    let score: Int
-    let verdict: VerdictMock
-    let flags: [String]
-    let confidence: Double
-    let url: String
-    let scannedAt: Date
-    
-    var formattedDate: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .abbreviated
-        return formatter.localizedString(for: scannedAt, relativeTo: Date())
-    }
-}
-
 // MARK: - Preview
 
 #Preview("Design System") {
@@ -311,3 +287,4 @@ struct RiskAssessmentMock: Sendable {
     .padding()
     .liquidGlassBackground()
 }
+

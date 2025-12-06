@@ -20,6 +20,7 @@
 		A100000B00000000000000B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000B00000000000000B /* HistoryView.swift */; };
 		A100000C00000000000000C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000C00000000000000C /* SettingsView.swift */; };
 		A100000D00000000000000D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000D00000000000000D /* OnboardingView.swift */; };
+		A100000E00000000000000E /* MockTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000F00000000000000F /* MockTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		B100000C00000000000000C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B100000D00000000000000D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		B100000E00000000000000E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B100000F00000000000000F /* MockTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				E1000004000000000000004 /* App */,
+				E100000C00000000000000C /* Models */,
 				E1000005000000000000005 /* Extensions */,
 				E1000006000000000000006 /* UI */,
 				B1000002000000000000002 /* Assets.xcassets */,
@@ -152,6 +155,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		E100000C00000000000000C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B100000F00000000000000F /* MockTypes.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -233,6 +244,7 @@
 				A100000B00000000000000B /* HistoryView.swift in Sources */,
 				A100000C00000000000000C /* SettingsView.swift in Sources */,
 				A100000D00000000000000D /* OnboardingView.swift in Sources */,
+				A100000E00000000000000E /* MockTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

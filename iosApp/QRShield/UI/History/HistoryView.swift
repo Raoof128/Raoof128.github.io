@@ -477,22 +477,11 @@ enum VerdictFilter: String, CaseIterable {
     }
 }
 
-struct HistoryItemMock: Identifiable {
-    let id: String
-    let url: String
-    let score: Int
-    let verdict: VerdictMock
-    let scannedAt: Date
-    
-    var formattedDate: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.unitsStyle = .abbreviated
-        return formatter.localizedString(for: scannedAt, relativeTo: Date())
-    }
-}
+// NOTE: HistoryItemMock is now defined in Models/MockTypes.swift
 
 #Preview {
     NavigationStack {
         HistoryView()
     }
 }
+
