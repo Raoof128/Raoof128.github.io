@@ -16,8 +16,7 @@ import platform.UIKit.UIImage
 import platform.posix.uint8_tVar
 import kotlin.coroutines.resume
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.concurrent.AtomicReference
-import kotlin.native.concurrent.freeze
+import kotlin.native.concurrent.AtomicInt
 
 /**
  * iOS QR Scanner Implementation
@@ -34,6 +33,7 @@ import kotlin.native.concurrent.freeze
  * - Camera permission is validated before access
  * - All scanned content is length-validated
  * - Resources are properly released on cleanup
+ * - Thread-safe using AtomicInt for state management
  * 
  * @author QR-SHIELD Security Team  
  * @since 1.0.0
@@ -43,10 +43,14 @@ class IosQrScanner : QrScanner {
     companion object {
         /** Maximum content length to accept */
         private const val MAX_CONTENT_LENGTH = 4096
+        
+        // Scanning state constants
+        private const val STATE_STOPPED = 0
+        private const val STATE_SCANNING = 1
     }
     
-    private var isScanning = false
-    private val scanningLock = Any()
+    // Use AtomicInt for thread-safe state on Kotlin/Native
+    private val scanningState = AtomicInt(STATE_STOPPED)
     private var captureSession: AVCaptureSession? = null
     
     /**
@@ -56,9 +60,7 @@ class IosQrScanner : QrScanner {
      * Vision framework's VNDetectBarcodesRequest for QR detection.
      */
     override fun scanFromCamera(): Flow<ScanResult> = callbackFlow {
-        synchronized(scanningLock) {
-            isScanning = true
-        }
+        scanningState.value = STATE_SCANNING
         
         val session = AVCaptureSession()
         captureSession = session
@@ -92,14 +94,15 @@ class IosQrScanner : QrScanner {
             val delegateQueue = dispatch_queue_create("com.qrshield.camera", null)
             
             // Create a delegate that processes frames with Vision
+            val scanningStateRef = scanningState // Capture reference for callback
             val sampleBufferDelegate = object : NSObject(), AVCaptureVideoDataOutputSampleBufferDelegateProtocol {
                 override fun captureOutput(
                     output: AVCaptureOutput,
                     didOutputSampleBuffer: CMSampleBufferRef?,
                     fromConnection: AVCaptureConnection
                 ) {
-                    val currentlyScanning = synchronized(scanningLock) { isScanning }
-                    if (!currentlyScanning || didOutputSampleBuffer == null) return
+                    // Check if still scanning (thread-safe atomic read)
+                    if (scanningStateRef.value != STATE_SCANNING || didOutputSampleBuffer == null) return
                     
                     // Get pixel buffer from sample buffer
                     val pixelBuffer = CMSampleBufferGetImageBuffer(didOutputSampleBuffer) ?: return
@@ -165,9 +168,7 @@ class IosQrScanner : QrScanner {
         }
         
         awaitClose {
-            synchronized(scanningLock) {
-                isScanning = false
-            }
+            scanningState.value = STATE_STOPPED
             captureSession?.stopRunning()
             captureSession = null
         }
@@ -181,7 +182,8 @@ class IosQrScanner : QrScanner {
      */
     override suspend fun scanFromImage(imageBytes: ByteArray): ScanResult {
         return suspendCancellableCoroutine { continuation ->
-            // Flag to prevent double-resume
+            // Flag to prevent double-resume (using simple boolean - 
+            // this is safe as the callback runs on a single thread)
             var hasResumed = false
             val resumeOnce: (ScanResult) -> Unit = { result ->
                 if (!hasResumed) {
@@ -278,9 +280,7 @@ class IosQrScanner : QrScanner {
      * Stop active camera scanning.
      */
     override fun stopScanning() {
-        synchronized(scanningLock) {
-            isScanning = false
-        }
+        scanningState.value = STATE_STOPPED
         captureSession?.stopRunning()
         captureSession = null
     }
