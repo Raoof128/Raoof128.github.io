@@ -13,6 +13,9 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.qrshield.core.PhishingEngine
+import com.qrshield.data.DatabaseDriverFactory
+import com.qrshield.data.SqlDelightHistoryRepository
+import com.qrshield.db.QRShieldDatabase
 import com.qrshield.model.Verdict
 import com.qrshield.ui.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +30,7 @@ import java.util.Properties
  * Features:
  * - Window size/position persistence
  * - Cross-platform preferences storage
+ * - Persistent scan history via SQLDelight
  */
 fun main() = application {
     // Load saved window preferences
@@ -130,7 +134,24 @@ object WindowPreferences {
 @Preview
 fun QRShieldDesktopApp() {
     val coroutineScope = remember { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
-    val viewModel = remember { SharedViewModel(PhishingEngine(), coroutineScope) }
+    
+    // Initialize database and repository
+    val historyRepository = remember {
+        val driverFactory = DatabaseDriverFactory()
+        val driver = driverFactory.createDriver()
+        val database = QRShieldDatabase(driver)
+        SqlDelightHistoryRepository(database)
+    }
+    
+    // ViewModel with persistence
+    val viewModel = remember { 
+        SharedViewModel(
+            phishingEngine = PhishingEngine(),
+            historyRepository = historyRepository,
+            coroutineScope = coroutineScope
+        ) 
+    }
+    
     var urlInput by remember { mutableStateOf("") }
     var analysisResult by remember { mutableStateOf<AnalysisResult?>(null) }
     
