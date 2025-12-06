@@ -136,7 +136,7 @@ class InputValidatorTest {
     // === SQL INJECTION PATTERN DETECTION ===
     
     @Test
-    fun `detects OR 1=1 SQL injection`() {
+    fun `detects OR equals SQL injection`() {
         assertTrue(InputValidator.containsSqlInjectionPatterns("' OR 1=1 --"))
     }
     
@@ -180,7 +180,7 @@ class InputValidatorTest {
     }
     
     @Test
-    fun `punycode hostname passes validation`() {
+    fun testPunycodeHostnamePassesValidation() {
         val result = InputValidator.validateHostname("xn--nxasmq5b.com")
         assertTrue(result.isValid())
     }
@@ -188,14 +188,14 @@ class InputValidatorTest {
     // === EDGE CASES ===
     
     @Test
-    fun `URL with spaces in path is sanitized`() {
+    fun testUrlWithSpacesInPathIsSanitized() {
         val result = InputValidator.validateUrl("https://example.com/path with spaces")
         assertTrue(result.isValid())
         assertTrue(result.getOrNull()?.contains("%20") == true)
     }
     
     @Test
-    fun `URL is trimmed`() {
+    fun testUrlIsTrimmed() {
         val result = InputValidator.validateUrl("  https://example.com  ")
         assertTrue(result.isValid())
         assertEquals("https://example.com", result.getOrNull())
