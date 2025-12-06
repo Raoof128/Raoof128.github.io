@@ -156,6 +156,62 @@ QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, an
                     └───────────────────────┘
 ```
 
+### 🧩 Kotlin Multiplatform Source Sets
+
+```
+                          ┌─────────────────────┐
+                          │     commonMain      │
+                          │  ─────────────────  │
+                          │  • PhishingEngine   │
+                          │  • HeuristicsEngine │
+                          │  • BrandDetector    │
+                          │  • MLModel          │
+                          │  • SharedViewModel  │
+                          │  • ShareManager     │
+                          └─────────┬───────────┘
+                                    │
+            ┌───────────────────────┼───────────────────────┐
+            │                       │                       │
+            ▼                       ▼                       ▼
+   ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+   │   androidMain   │    │    iosMain      │    │   desktopMain   │
+   │ ───────────────  │    │ ─────────────── │    │ ─────────────── │
+   │ AndroidQrScanner │    │  IosQrScanner   │    │DesktopQrScanner │
+   │ (CameraX+MLKit)  │    │ (AVFoundation)  │    │    (ZXing)      │
+   │ DatabaseDriver   │    │ DatabaseDriver  │    │ DatabaseDriver  │
+   │    (SQLite)      │    │   (Native)      │    │    (JDBC)       │
+   └─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                          │
+                                                          │
+                                                 ┌─────────────────┐
+                                                 │     jsMain      │
+                                                 │ ─────────────── │
+                                                 │  WebQrScanner   │
+                                                 │    (jsQR)       │
+                                                 │ DatabaseDriver  │
+                                                 │ (sql.js Worker) │
+                                                 └─────────────────┘
+```
+
+### expect/actual Pattern Example
+
+```kotlin
+// commonMain - Abstraction
+expect class QrScannerFactory {
+    fun create(): QrScanner  // Platform agnostic
+}
+
+// androidMain - Implementation
+actual class QrScannerFactory(private val context: Context) {
+    actual fun create(): QrScanner = AndroidQrScanner(context)
+}
+
+// iosMain - Implementation  
+actual class QrScannerFactory {
+    actual fun create(): QrScanner = IosQrScanner()  // Uses Vision.framework
+}
+```
+
 ### Data Flow
 
 ```

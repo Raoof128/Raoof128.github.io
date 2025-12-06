@@ -7,6 +7,8 @@ import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.ScanResult
 import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
+import com.qrshield.share.ShareContent
+import com.qrshield.share.ShareManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -145,6 +147,50 @@ class SharedViewModel(
             maliciousCount = all.count { it.verdict == Verdict.MALICIOUS },
             averageScore = if (all.isEmpty()) 0.0 else all.map { it.score }.average()
         )
+    }
+    
+    // === SHARE FUNCTIONALITY ===
+    
+    /**
+     * Generate shareable content for the current analysis result.
+     * 
+     * @return ShareContent with text and HTML formats, or null if no result
+     */
+    fun generateShareContent(): ShareContent? {
+        val state = _uiState.value
+        if (state !is UiState.Result) return null
+        
+        val assessment = state.assessment
+        val url = assessment.details.originalUrl
+        
+        return ShareContent(
+            title = "QR-SHIELD Analysis: ${assessment.verdict.name}",
+            text = ShareManager.generateTextSummary(url, assessment),
+            html = ShareManager.generateHtmlReport(url, assessment),
+            url = url
+        )
+    }
+    
+    /**
+     * Generate plain text share content.
+     */
+    fun generateShareText(): String? {
+        val state = _uiState.value
+        if (state !is UiState.Result) return null
+        
+        val assessment = state.assessment
+        return ShareManager.generateTextSummary(assessment.details.originalUrl, assessment)
+    }
+    
+    /**
+     * Generate JSON export of current analysis.
+     */
+    fun generateJsonExport(): String? {
+        val state = _uiState.value
+        if (state !is UiState.Result) return null
+        
+        val assessment = state.assessment
+        return ShareManager.generateJsonReport(assessment.details.originalUrl, assessment)
     }
     
     /**

@@ -317,26 +317,74 @@ class HeuristicsEngine(
     }
     
     /**
-     * Check for encoded payload in query.
+     * Check for encoded payload in query or potential data exfiltration.
+     * 
+     * Detects:
+     * - Base64 encoded data (50+ chars of Base64 alphabet)
+     * - Potential credential exfiltration patterns
+     * - Data URI payloads
+     * 
      * Uses safe pattern matching without catastrophic backtracking.
      */
     private fun hasEncodedPayload(query: String?): Boolean {
-        if (query == null || query.length < 50) return false
+        if (query == null || query.length < 20) return false
         
-        // Count Base64-like characters
-        var consecutiveAlphanumeric = 0
+        // Check for data: URI scheme (inline data exfiltration)
+        if (query.lowercase().contains("data:")) {
+            return true
+        }
+        
+        // Check for suspicious key names that might contain exfiltrated data
+        val exfiltrationKeys = listOf(
+            "token", "auth", "session", "credential", "pwd", "password",
+            "secret", "apikey", "access_token", "refresh_token", "bearer",
+            "payload", "data", "encoded", "b64", "base64"
+        )
+        
+        val queryLower = query.lowercase()
+        val hasExfiltrationKey = exfiltrationKeys.any { key ->
+            queryLower.contains("$key=") && getParamValueLength(queryLower, key) > 30
+        }
+        
+        if (hasExfiltrationKey) return true
+        
+        // Count Base64-like characters (alphanumeric + / + = padding)
+        var consecutiveBase64 = 0
         var maxConsecutive = 0
+        var equalsCount = 0
         
         for (char in query) {
-            if (char.isLetterOrDigit() || char == '+' || char == '/' || char == '=') {
-                consecutiveAlphanumeric++
-                maxConsecutive = maxOf(maxConsecutive, consecutiveAlphanumeric)
+            if (char.isLetterOrDigit() || char == '+' || char == '/') {
+                consecutiveBase64++
+                maxConsecutive = maxOf(maxConsecutive, consecutiveBase64)
+            } else if (char == '=') {
+                equalsCount++
+                // Equals at end of Base64 is padding
+                if (equalsCount <= 2) {
+                    consecutiveBase64++
+                    maxConsecutive = maxOf(maxConsecutive, consecutiveBase64)
+                }
             } else {
-                consecutiveAlphanumeric = 0
+                consecutiveBase64 = 0
+                equalsCount = 0
             }
         }
         
+        // Base64 strings are typically at least 50 chars for meaningful data
         return maxConsecutive >= 50
+    }
+    
+    /**
+     * Get the length of a parameter value from a query string.
+     */
+    private fun getParamValueLength(query: String, key: String): Int {
+        val startIndex = query.indexOf("$key=")
+        if (startIndex < 0) return 0
+        
+        val valueStart = startIndex + key.length + 1
+        val valueEnd = query.indexOf('&', valueStart).takeIf { it > 0 } ?: query.length
+        
+        return (valueEnd - valueStart).coerceAtLeast(0)
     }
     
     /**

@@ -97,7 +97,7 @@ class RiskScorer {
     
     private fun calculateConfidence(
         components: ScoreComponents,
-        finalScore: Int
+        @Suppress("UNUSED_PARAMETER") finalScore: Int
     ): Float {
         // Confidence based on agreement between signals
         val signals = listOf(

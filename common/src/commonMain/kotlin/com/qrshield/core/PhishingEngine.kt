@@ -88,7 +88,7 @@ class PhishingEngine(
         // PHASE 3: Run all analysis engines safely
         val analysisResult = runCatching {
             performAnalysis(validatedUrl)
-        }.getOrElse { exception ->
+        }.getOrElse { _ ->
             // SECURITY: Don't expose internal exceptions
             RiskAssessment(
                 score = 50,
@@ -270,7 +270,7 @@ class PhishingEngine(
      * Create result for invalid URL input.
      */
     private fun createInvalidUrlResult(
-        url: String,
+        @Suppress("UNUSED_PARAMETER") url: String,
         validation: InputValidator.ValidationResult<String>
     ): RiskAssessment {
         val reason = when (validation) {
