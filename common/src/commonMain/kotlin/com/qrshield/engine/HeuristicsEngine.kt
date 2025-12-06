@@ -118,12 +118,25 @@ class HeuristicsEngine(
         
         // === URL STRUCTURE CHECKS ===
         
-        // 6. Long URL
-        if (url.length > 200) {
+        // 6. Long URL (refined to not penalize legitimate marketing URLs)
+        if (url.length > 250) {
+            // Check if this is likely a legitimate marketing URL with UTM params
+            val hasUtmParams = parsed.query?.lowercase()?.let { q ->
+                q.contains("utm_") || q.contains("campaign=") || q.contains("source=")
+            } ?: false
+            
+            // Marketing URLs with UTM params are less suspicious
+            val longUrlWeight = if (hasUtmParams && url.length < 400) {
+                2 // Minimal penalty for marketing URLs
+            } else {
+                WEIGHT_LONG_URL
+            }
+            
             checks.add(HeuristicCheck(
                 "LONG_URL",
-                WEIGHT_LONG_URL,
-                "Unusually long URL (${url.length} characters)"
+                longUrlWeight,
+                "Unusually long URL (${url.length} characters)" + 
+                    if (hasUtmParams) " - contains marketing parameters" else ""
             ))
         }
         

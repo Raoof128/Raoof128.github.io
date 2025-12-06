@@ -43,7 +43,20 @@ QR-SHIELD directly addresses Scamwatch categories:
 - ✅ Impersonation scams
 - ✅ Shopping/delivery scams via QR
 
----
+### SPAM Act 2003 (Cth) Awareness
+
+QR-SHIELD helps users identify QR codes that may link to content violating Australian anti-spam legislation:
+
+| Aspect | QR-SHIELD Contribution |
+|--------|------------------------|
+| **Consent Verification** | Alerts users to unknown senders via QR |
+| **Identification** | Detects URLs hiding sender identity |
+| **Unsubscribe Mechanisms** | Identifies suspicious redirect chains that obscure opt-out options |
+| **Commercial Email Links** | Flags URLs commonly associated with spam campaigns |
+
+**Note**: While QR-SHIELD helps users identify potentially non-compliant QR marketing, it is a user protection tool and does not replace regulatory enforcement. Users who receive suspected spam QR codes should report them to the ACMA.
+
+
 
 ## Global Compliance Frameworks
 

@@ -458,23 +458,37 @@ class BrandDetector {
         if (a.isEmpty()) return b.length
         if (b.isEmpty()) return a.length
         
-        val dp = Array(a.length + 1) { IntArray(b.length + 1) }
+        // OPTIMIZATION: Always make 'a' the shorter string
+        // This reduces space complexity from O(m*n) to O(min(m,n))
+        val (shorter, longer) = if (a.length <= b.length) a to b else b to a
         
-        for (i in 0..a.length) dp[i][0] = i
-        for (j in 0..b.length) dp[0][j] = j
+        // OPTIMIZATION: Early exit if length difference exceeds threshold (3)
+        val lengthDiff = longer.length - shorter.length
+        if (lengthDiff > 3) return lengthDiff  // Can't be close match
         
-        for (i in 1..a.length) {
-            for (j in 1..b.length) {
-                val cost = if (a[i - 1] == b[j - 1]) 0 else 1
-                dp[i][j] = minOf(
-                    dp[i - 1][j] + 1,      // deletion
-                    dp[i][j - 1] + 1,      // insertion
-                    dp[i - 1][j - 1] + cost // substitution
+        // Single-row DP optimization: O(min(m,n)) space instead of O(m*n)
+        var previousRow = IntArray(shorter.length + 1) { it }
+        var currentRow = IntArray(shorter.length + 1)
+        
+        for (i in 1..longer.length) {
+            currentRow[0] = i
+            
+            for (j in 1..shorter.length) {
+                val cost = if (longer[i - 1] == shorter[j - 1]) 0 else 1
+                currentRow[j] = minOf(
+                    currentRow[j - 1] + 1,      // insertion
+                    previousRow[j] + 1,          // deletion
+                    previousRow[j - 1] + cost    // substitution
                 )
             }
+            
+            // Swap rows (reuse arrays to avoid allocation)
+            val temp = previousRow
+            previousRow = currentRow
+            currentRow = temp
         }
         
-        return dp[a.length][b.length]
+        return previousRow[shorter.length]
     }
     
     /**

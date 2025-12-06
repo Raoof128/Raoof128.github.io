@@ -1,14 +1,22 @@
 package com.qrshield.data
 
+import com.qrshield.db.QRShieldDatabase
+import com.qrshield.db.ScanHistory
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
+import app.cash.sqldelight.db.SqlDriver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
+import kotlin.math.min
 
 /**
  * Repository interface for scan history persistence.
@@ -94,6 +102,141 @@ interface HistoryRepository {
 }
 
 /**
+ * SQLDelight-based implementation of HistoryRepository.
+ * 
+ * Provides persistent storage with SQLite across all platforms.
+ * Thread-safe with proper mutex locking.
+ * 
+ * @param driver Platform-specific SqlDriver
+ * @param scope CoroutineScope for Flow updates
+ */
+class SqlDelightHistoryRepository(
+    driver: SqlDriver,
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) : HistoryRepository {
+    
+    private val database = QRShieldDatabase(driver)
+    private val queries = database.qRShieldDatabaseQueries
+    
+    private val mutex = Mutex()
+    private val _historyFlow = MutableStateFlow<List<ScanHistoryItem>>(emptyList())
+    
+    init {
+        // Load initial data with error handling
+        scope.launch {
+            try {
+                refreshFlow()
+            } catch (e: Exception) {
+                // Log error but don't crash - flow will be empty
+                _historyFlow.value = emptyList()
+            }
+        }
+    }
+    
+    override suspend fun insert(item: ScanHistoryItem): Boolean = mutex.withLock {
+        return try {
+            withContext(Dispatchers.Default) {
+                queries.insertScan(
+                    id = item.id,
+                    url = item.url.take(2048), // Bound URL length
+                    score = item.score.toLong(),
+                    verdict = item.verdict.name,
+                    scanned_at = item.scannedAt,
+                    source = item.source.name
+                )
+            }
+            refreshFlow()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+    
+    override suspend fun getAll(): List<ScanHistoryItem> = mutex.withLock {
+        return withContext(Dispatchers.Default) {
+            queries.getAllScans().executeAsList().map { it.toScanHistoryItem() }
+        }
+    }
+    
+    override suspend fun getRecent(limit: Int): List<ScanHistoryItem> = mutex.withLock {
+        return withContext(Dispatchers.Default) {
+            queries.getRecentScans(limit.coerceIn(1, 1000).toLong())
+                .executeAsList()
+                .map { it.toScanHistoryItem() }
+        }
+    }
+    
+    override suspend fun getById(id: String): ScanHistoryItem? = mutex.withLock {
+        return withContext(Dispatchers.Default) {
+            queries.getScanById(id).executeAsOneOrNull()?.toScanHistoryItem()
+        }
+    }
+    
+    override suspend fun delete(id: String): Boolean = mutex.withLock {
+        return try {
+            withContext(Dispatchers.Default) {
+                queries.deleteScan(id)
+            }
+            refreshFlow()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+    
+    override suspend fun clearAll(): Int = mutex.withLock {
+        return try {
+            val count = withContext(Dispatchers.Default) {
+                val currentCount = queries.countScans().executeAsOne().toInt()
+                queries.clearHistory()
+                currentCount
+            }
+            refreshFlow()
+            count
+        } catch (e: Exception) {
+            0
+        }
+    }
+    
+    override suspend fun count(): Long = mutex.withLock {
+        return withContext(Dispatchers.Default) {
+            queries.countScans().executeAsOne()
+        }
+    }
+    
+    override fun observe(): Flow<List<ScanHistoryItem>> = _historyFlow.asStateFlow()
+    
+    override suspend fun getByVerdict(verdict: Verdict): List<ScanHistoryItem> = mutex.withLock {
+        return withContext(Dispatchers.Default) {
+            queries.getScansByVerdict(verdict.name)
+                .executeAsList()
+                .map { it.toScanHistoryItem() }
+        }
+    }
+    
+    private suspend fun refreshFlow() {
+        val items = withContext(Dispatchers.Default) {
+            queries.getAllScans().executeAsList().map { it.toScanHistoryItem() }
+        }
+        _historyFlow.value = items
+    }
+    
+    /**
+     * Extension function to convert SQLDelight entity to domain model.
+     */
+    private fun ScanHistory.toScanHistoryItem(): ScanHistoryItem {
+        return ScanHistoryItem(
+            id = id,
+            url = url,
+            score = score.toInt().coerceIn(0, 100),
+            verdict = try { Verdict.valueOf(verdict) } catch (e: Exception) { Verdict.UNKNOWN },
+            scannedAt = scanned_at,
+            source = try { ScanSource.valueOf(source) } catch (e: Exception) { ScanSource.CAMERA }
+        )
+    }
+}
+
+/**
  * In-memory implementation for testing and initial development.
  * 
  * NOT for production use - data is lost on app restart.
@@ -172,6 +315,17 @@ object HistoryRepositoryFactory {
      * should be injected via dependency injection (Koin).
      */
     fun create(): HistoryRepository = InMemoryHistoryRepository()
+    
+    /**
+     * Creates a SQLDelight-based repository.
+     * 
+     * @param driver Platform-specific SqlDriver
+     * @param scope CoroutineScope for Flow updates
+     */
+    fun createPersistent(
+        driver: SqlDriver, 
+        scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    ): HistoryRepository = SqlDelightHistoryRepository(driver, scope)
 }
 
 /**
@@ -235,8 +389,8 @@ class ScanHistoryManager(
             appendLine("[")
             all.forEachIndexed { index, item ->
                 append("  {")
-                append("\"id\":\"${item.id}\",")
-                append("\"url\":\"${item.url.replace("\"", "\\\"")}\",")
+                append("\"id\":\"${escapeJsonString(item.id)}\",")
+                append("\"url\":\"${escapeJsonString(item.url)}\",")
                 append("\"score\":${item.score},")
                 append("\"verdict\":\"${item.verdict}\",")
                 append("\"scannedAt\":${item.scannedAt},")
@@ -246,6 +400,35 @@ class ScanHistoryManager(
                 appendLine()
             }
             append("]")
+        }
+    }
+    
+    /**
+     * Properly escape a string for JSON output.
+     * Prevents JSON injection attacks.
+     */
+    private fun escapeJsonString(input: String): String {
+        return buildString(input.length + 16) {
+            for (char in input) {
+                when (char) {
+                    '"' -> append("\\\"")
+                    '\\' -> append("\\\\")
+                    '\b' -> append("\\b")
+                    '\u000C' -> append("\\f")  // Form feed
+                    '\n' -> append("\\n")
+                    '\r' -> append("\\r")
+                    '\t' -> append("\\t")
+                    else -> {
+                        if (char.code < 32) {
+                            // Escape control characters
+                            append("\\u")
+                            append(char.code.toString(16).padStart(4, '0'))
+                        } else {
+                            append(char)
+                        }
+                    }
+                }
+            }
         }
     }
     

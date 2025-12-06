@@ -1,0 +1,60 @@
+package com.qrshield.data
+
+import app.cash.sqldelight.db.SqlDriver
+import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
+import com.qrshield.db.QRShieldDatabase
+import java.io.File
+
+/**
+ * Desktop SqlDriver Factory for SQLDelight.
+ * 
+ * Creates a JVM SQLite driver using JdbcSqliteDriver.
+ * The database file is stored in the user's app data directory.
+ * 
+ * @author QR-SHIELD Security Team
+ * @since 1.0.0
+ */
+actual class DatabaseDriverFactory {
+    
+    companion object {
+        private const val DATABASE_NAME = "qrshield.db"
+    }
+    
+    /**
+     * Create SqlDriver for Desktop JVM.
+     * 
+     * @return SqlDriver instance
+     */
+    actual fun createDriver(): SqlDriver {
+        val path = getDefaultDatabasePath()
+        
+        // Ensure parent directory exists
+        val file = File(path)
+        file.parentFile?.mkdirs()
+        
+        val driver = JdbcSqliteDriver("jdbc:sqlite:$path")
+        
+        // Create schema if database is new
+        if (!file.exists() || file.length() == 0L) {
+            QRShieldDatabase.Schema.create(driver)
+        }
+        
+        return driver
+    }
+    
+    /**
+     * Get default database path for the platform.
+     */
+    private fun getDefaultDatabasePath(): String {
+        val os = System.getProperty("os.name").lowercase()
+        val userHome = System.getProperty("user.home")
+        
+        val appDataDir = when {
+            os.contains("windows") -> "${System.getenv("APPDATA")}/QRShield"
+            os.contains("mac") -> "$userHome/Library/Application Support/QRShield"
+            else -> "$userHome/.config/qrshield"
+        }
+        
+        return "$appDataDir/$DATABASE_NAME"
+    }
+}

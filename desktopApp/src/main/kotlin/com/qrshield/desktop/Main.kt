@@ -18,19 +18,110 @@ import com.qrshield.ui.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import java.io.File
+import java.util.Properties
 
 /**
  * QR-SHIELD Desktop Application Entry Point
+ * 
+ * Features:
+ * - Window size/position persistence
+ * - Cross-platform preferences storage
  */
 fun main() = application {
-    val windowState = rememberWindowState(size = DpSize(800.dp, 600.dp))
+    // Load saved window preferences
+    val prefs = WindowPreferences.load()
+    
+    val windowState = rememberWindowState(
+        size = DpSize(prefs.width.dp, prefs.height.dp),
+        position = if (prefs.x >= 0 && prefs.y >= 0) {
+            androidx.compose.ui.window.WindowPosition(prefs.x.dp, prefs.y.dp)
+        } else {
+            androidx.compose.ui.window.WindowPosition.PlatformDefault
+        }
+    )
     
     Window(
-        onCloseRequest = ::exitApplication,
+        onCloseRequest = {
+            // Save window state before exit
+            WindowPreferences.save(
+                width = windowState.size.width.value.toInt(),
+                height = windowState.size.height.value.toInt(),
+                x = windowState.position.x.value.toInt(),
+                y = windowState.position.y.value.toInt()
+            )
+            exitApplication()
+        },
         title = "🛡️ QR-SHIELD - QRishing Detector",
         state = windowState
     ) {
         QRShieldDesktopApp()
+    }
+}
+
+/**
+ * Window preferences persistence for Desktop.
+ */
+object WindowPreferences {
+    private const val PREFS_FILE = "qrshield_window.properties"
+    private const val DEFAULT_WIDTH = 800
+    private const val DEFAULT_HEIGHT = 600
+    
+    data class Prefs(
+        val width: Int,
+        val height: Int,
+        val x: Int,
+        val y: Int
+    )
+    
+    fun load(): Prefs {
+        return try {
+            val file = getPrefsFile()
+            if (file.exists()) {
+                val props = Properties()
+                file.inputStream().use { props.load(it) }
+                Prefs(
+                    width = props.getProperty("width", DEFAULT_WIDTH.toString()).toInt(),
+                    height = props.getProperty("height", DEFAULT_HEIGHT.toString()).toInt(),
+                    x = props.getProperty("x", "-1").toInt(),
+                    y = props.getProperty("y", "-1").toInt()
+                )
+            } else {
+                Prefs(DEFAULT_WIDTH, DEFAULT_HEIGHT, -1, -1)
+            }
+        } catch (e: Exception) {
+            Prefs(DEFAULT_WIDTH, DEFAULT_HEIGHT, -1, -1)
+        }
+    }
+    
+    fun save(width: Int, height: Int, x: Int, y: Int) {
+        try {
+            val file = getPrefsFile()
+            file.parentFile?.mkdirs()
+            
+            val props = Properties()
+            props.setProperty("width", width.toString())
+            props.setProperty("height", height.toString())
+            props.setProperty("x", x.toString())
+            props.setProperty("y", y.toString())
+            
+            file.outputStream().use { props.store(it, "QR-SHIELD Window Preferences") }
+        } catch (e: Exception) {
+            // Silently fail on save error
+        }
+    }
+    
+    private fun getPrefsFile(): File {
+        val os = System.getProperty("os.name").lowercase()
+        val userHome = System.getProperty("user.home")
+        
+        val appDataDir = when {
+            os.contains("windows") -> "${System.getenv("APPDATA")}/QRShield"
+            os.contains("mac") -> "$userHome/Library/Application Support/QRShield"
+            else -> "$userHome/.config/qrshield"
+        }
+        
+        return File(appDataDir, PREFS_FILE)
     }
 }
 

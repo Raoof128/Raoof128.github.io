@@ -168,14 +168,29 @@ class UrlAnalyzer {
     }
 
     /**
-     * Check if host is an IP address (IPv4 only for performance).
+     * Check if host is an IP address (IPv4 or IPv6).
      * 
-     * Uses a safe regex pattern that cannot backtrack excessively.
+     * Detects:
+     * - IPv4: 192.168.1.1
+     * - IPv6 literal: [2001:db8::1]
+     * - IPv6 without brackets for direct checking
+     * 
+     * Uses safe patterns that cannot backtrack excessively.
      */
     fun isIpAddress(host: String): Boolean {
-        if (host.length > 15) return false // IPv4 max: 255.255.255.255 = 15 chars
+        return isIpv4Address(host) || isIpv6Address(host)
+    }
+    
+    /**
+     * Check if host is an IPv4 address.
+     */
+    fun isIpv4Address(host: String): Boolean {
+        // Remove port if present
+        val hostWithoutPort = host.substringBefore(':')
         
-        val match = IPV4_PATTERN.matchEntire(host) ?: return false
+        if (hostWithoutPort.length > 15) return false // IPv4 max: 255.255.255.255 = 15 chars
+        
+        val match = IPV4_PATTERN.matchEntire(hostWithoutPort) ?: return false
         
         // SECURITY: Validate each octet is 0-255
         return try {
@@ -185,6 +200,60 @@ class UrlAnalyzer {
             }
         } catch (e: Exception) {
             false
+        }
+    }
+    
+    /**
+     * Check if host is an IPv6 address.
+     * 
+     * Handles:
+     * - Bracketed notation: [2001:db8::1]
+     * - Full format: 2001:0db8:0000:0000:0000:0000:0000:0001
+     * - Abbreviated: 2001:db8::1
+     * - With zone ID: fe80::1%eth0
+     */
+    fun isIpv6Address(host: String): Boolean {
+        // Security: Length check
+        if (host.length > 45) return false // Max IPv6 with brackets: 45 chars
+        
+        // Handle bracketed notation
+        val ipv6 = when {
+            host.startsWith("[") && host.contains("]") -> {
+                host.substringAfter("[").substringBefore("]")
+            }
+            else -> host
+        }
+        
+        // Remove zone ID if present
+        val cleanIpv6 = ipv6.substringBefore('%')
+        
+        // Empty or too short to be valid IPv6
+        if (cleanIpv6.length < 2) return false
+        
+        // Check for :: (zero abbreviation)
+        val doubleColonCount = "::".toRegex().findAll(cleanIpv6).count()
+        if (doubleColonCount > 1) return false
+        
+        // Split by : and validate each segment
+        val segments = if ("::" in cleanIpv6) {
+            // Handle abbreviated format
+            val parts = cleanIpv6.split("::")
+            val leftParts = if (parts[0].isNotEmpty()) parts[0].split(":") else emptyList()
+            val rightParts = if (parts.size > 1 && parts[1].isNotEmpty()) parts[1].split(":") else emptyList()
+            leftParts + rightParts
+        } else {
+            cleanIpv6.split(":")
+        }
+        
+        // IPv6 has max 8 segments
+        if (segments.size > 8) return false
+        
+        // Each segment must be valid hex (1-4 chars)
+        return segments.all { segment ->
+            segment.isEmpty() || (
+                segment.length in 1..4 && 
+                segment.all { it.isDigit() || it.lowercaseChar() in 'a'..'f' }
+            )
         }
     }
 

@@ -25,6 +25,7 @@
 │  │ • Prize scams   │  │ • Device info   │  │ • WhatsApp Web  │  │
 │  │ • Tech support  │  │ • Location      │  │ • Discord login │  │
 │  │ • Romance scams │  │ • Contacts      │  │ • Email access  │  │
+│  │                 │  │ • Base64 data   │  │                 │  │
 │  └─────────────────┘  └─────────────────┘  └─────────────────┘  │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
@@ -74,6 +75,50 @@ Attack:   https://paypal.com.secure-login.attacker.com/login
 | bit.ly | Medium | bit.ly/3xYz123 → malicious.com |
 | t.co | Medium | Twitter shortener |
 | Custom | High | company-short.ly → phishing.com |
+
+### 2.5 Data Exfiltration via QR
+
+**Description**: QR codes can encode URLs that exfiltrate data via query parameters.
+
+#### Attack Patterns
+
+| Pattern | Example | Detection Method |
+|---------|---------|------------------|
+| Base64 Payload | `?data=SGVsbG9Xb3JsZA==` | Long alphanumeric sequences |
+| Encoded Credentials | `?u=YWRtaW4=&p=cGFzc3dvcmQ=` | Credential param names |
+| Device Info | `?uid=ABC123&model=iPhone` | Device-related params |
+| Location Data | `?lat=40.7128&lng=-74.0060` | Geo coordinate patterns |
+
+#### QR-SHIELD Detection
+
+The HeuristicsEngine specifically looks for exfiltration indicators:
+
+```
+ENCODED_PAYLOAD Detection:
+├── Consecutive alphanumeric run ≥ 50 characters
+├── Base64 character set (A-Z, a-z, 0-9, +, /, =)
+├── Multiple encoded parameters
+└── Penalty: +10 points per indicator
+
+CREDENTIAL_PARAMS Detection:
+├── password, pwd, token, session, auth, secret
+├── api_key, apikey, access_token, jwt, oauth
+└── Penalty: +18 points if found
+```
+
+#### Example Attack
+
+```
+https://tracking.malicious.site/collect?
+  uid=a1b2c3d4e5f6&
+  data=eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJzZWNyZXQifQ==&
+  device=iPhone14Pro
+
+├── Very long URL with encoded data
+├── Base64 payload in query (50+ chars)
+├── Device fingerprinting parameter
+└── Risk Score: 55 (SUSPICIOUS)
+```
 
 ---
 

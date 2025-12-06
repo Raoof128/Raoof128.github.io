@@ -2,6 +2,16 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
+    alias(libs.plugins.sqldelight)
+}
+
+// SQLDelight configuration
+sqldelight {
+    databases {
+        create("QRShieldDatabase") {
+            packageName.set("com.qrshield.db")
+        }
+    }
 }
 
 kotlin {
@@ -21,6 +31,16 @@ kotlin {
         }
     }
     
+    // iOS targets
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    
+    // JS/Web target
+    js(IR) {
+        browser()
+    }
+    
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -32,6 +52,9 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 implementation(compose.ui)
+                // SQLDelight runtime
+                implementation(libs.sqldelight.runtime)
+                implementation(libs.sqldelight.coroutines)
             }
         }
         
@@ -51,6 +74,8 @@ kotlin {
                 implementation(libs.androidx.camera.camera2)
                 implementation(libs.androidx.camera.lifecycle)
                 implementation(libs.androidx.camera.view)
+                // SQLDelight Android driver
+                implementation(libs.sqldelight.android)
             }
         }
         
@@ -59,6 +84,29 @@ kotlin {
                 implementation(libs.zxing.core)
                 implementation(libs.zxing.javase)
                 implementation(compose.desktop.currentOs)
+                // SQLDelight JVM driver
+                implementation(libs.sqldelight.jvm)
+            }
+        }
+        
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                // SQLDelight Native driver
+                implementation(libs.sqldelight.native)
+            }
+        }
+        
+        val jsMain by getting {
+            dependencies {
+                // SQLDelight Web driver
+                implementation(libs.sqldelight.web)
             }
         }
     }

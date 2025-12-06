@@ -112,18 +112,99 @@ class LogisticRegressionModel private constructor(
         /**
          * Load model from JSON string.
          * 
-         * Expected format: {"weights": [...], "bias": ...}
+         * Expected format: 
+         * {
+         *   "weights": {
+         *     "values": [0.25, 0.15, ...],
+         *     "bias": -0.30
+         *   }
+         * }
+         * 
          * Returns default model if parsing fails.
+         * Uses manual parsing for multiplatform compatibility.
          */
         fun fromJson(json: String): LogisticRegressionModel {
             // SECURITY: Validate JSON input length
-            if (json.length > 4096) {
+            if (json.isEmpty() || json.length > 4096) {
                 return default()
             }
             
-            // TODO: Implement proper JSON parsing
-            // For now, return default model
-            return default()
+            return try {
+                parseModelJson(json)
+            } catch (e: Exception) {
+                // Fail safely to default model
+                default()
+            }
+        }
+        
+        /**
+         * Parse model JSON manually for multiplatform compatibility.
+         * 
+         * Supports two formats:
+         * 1. {"weights": {"values": [...], "bias": N}}
+         * 2. {"weights": [...], "bias": N}
+         */
+        private fun parseModelJson(json: String): LogisticRegressionModel {
+            // Extract bias value
+            val bias = extractFloat(json, "bias") ?: return default()
+            
+            // Extract weights array
+            val weightsArray = extractFloatArray(json, "values") 
+                ?: extractFloatArray(json, "weights")
+                ?: return default()
+            
+            // Validate weights count
+            if (weightsArray.size != FEATURE_COUNT) {
+                return default()
+            }
+            
+            // Validate all values are finite
+            if (!weightsArray.all { it.isFinite() } || !bias.isFinite()) {
+                return default()
+            }
+            
+            return create(weightsArray, bias)
+        }
+        
+        /**
+         * Extract a float value from JSON by key.
+         */
+        private fun extractFloat(json: String, key: String): Float? {
+            val pattern = """"$key"\s*:\s*(-?\d+\.?\d*)"""
+            val regex = Regex(pattern)
+            val match = regex.find(json) ?: return null
+            return match.groupValues.getOrNull(1)?.toFloatOrNull()
+        }
+        
+        /**
+         * Extract a float array from JSON by key.
+         */
+        private fun extractFloatArray(json: String, key: String): FloatArray? {
+            // Find the key and the array start
+            val keyPattern = """"$key"\s*:\s*\["""
+            val keyMatch = Regex(keyPattern).find(json) ?: return null
+            
+            val arrayStart = keyMatch.range.last + 1
+            val arrayEnd = json.indexOf(']', arrayStart)
+            if (arrayEnd < 0) return null
+            
+            val arrayContent = json.substring(arrayStart, arrayEnd)
+            
+            // Parse comma-separated values
+            val values = arrayContent.split(',')
+                .mapNotNull { it.trim().toFloatOrNull() }
+            
+            return if (values.isNotEmpty()) values.toFloatArray() else null
+        }
+        
+        /**
+         * Load model from the bundled phishing_model_weights.json file.
+         * 
+         * @param jsonContent The JSON content from the file
+         * @return LogisticRegressionModel loaded from JSON or default
+         */
+        fun fromModelFile(jsonContent: String): LogisticRegressionModel {
+            return fromJson(jsonContent)
         }
     }
     

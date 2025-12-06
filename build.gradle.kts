@@ -12,6 +12,9 @@ allprojects {
     version = "1.0.0"
 }
 
-tasks.register("clean", Delete::class) {
-    delete(rootProject.buildDir)
+// Use the built-in clean task from base plugin
+tasks.matching { it.name == "clean" }.configureEach {
+    doLast {
+        delete(rootProject.layout.buildDirectory)
+    }
 }
