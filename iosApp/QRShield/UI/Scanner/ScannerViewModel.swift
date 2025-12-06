@@ -40,6 +40,9 @@ final class ScannerViewModel {
     private var lastScannedCode: String?
     private var lastScanTime: Date?
     
+    // Swift 6: Dedicated queue for session operations
+    private let sessionQueue = DispatchQueue(label: "com.qrshield.session", qos: .userInteractive)
+    
     // Debounce configuration
     private let scanDebounceInterval: TimeInterval = 2.0
     
@@ -188,11 +191,11 @@ final class ScannerViewModel {
         
         guard let session = captureSession, !session.isRunning else { return }
         
-        // Swift 6: Use Task.detached for background work
-        Task.detached(priority: .userInitiated) { [session] in
+        // Swift 6: Use dedicated queue for session work
+        sessionQueue.async { [weak self] in
             session.startRunning()
             
-            await MainActor.run { [weak self] in
+            Task { @MainActor [weak self] in
                 self?.isScanning = true
             }
         }
@@ -201,10 +204,10 @@ final class ScannerViewModel {
     func stopCamera() {
         guard let session = captureSession, session.isRunning else { return }
         
-        Task.detached(priority: .userInitiated) { [session] in
+        sessionQueue.async { [weak self] in
             session.stopRunning()
             
-            await MainActor.run { [weak self] in
+            Task { @MainActor [weak self] in
                 self?.isScanning = false
             }
         }

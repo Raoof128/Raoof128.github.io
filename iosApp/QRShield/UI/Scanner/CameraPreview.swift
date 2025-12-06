@@ -44,6 +44,7 @@ struct CameraPreview: UIViewRepresentable {
 // MARK: - Camera Preview View (UIKit)
 
 /// The underlying UIView that holds the AVCaptureVideoPreviewLayer
+@MainActor
 final class CameraPreviewView: UIView {
     
     // MARK: - Properties
@@ -189,8 +190,13 @@ final class CameraPreviewView: UIView {
         session = nil
     }
     
+    nonisolated private func cleanupOnDeinit() {
+        // deinit cleanup happens synchronously
+        // NotificationCenter observer is removed automatically
+    }
+    
     deinit {
-        cleanup()
+        cleanupOnDeinit()
     }
 }
 
