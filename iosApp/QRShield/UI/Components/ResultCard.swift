@@ -3,7 +3,8 @@
 //
 // UPDATED: December 2025
 // - Full Liquid Glass styling
-// - Enhanced animations
+// - Custom asset icons with SF Symbol fallback
+// - Animated danger pulse background
 // - iOS 26 symbol effects
 
 import SwiftUI
@@ -16,24 +17,27 @@ struct ResultCard: View {
     @State private var showingFullFlags = false
     
     var themeColor: Color {
-        switch assessment.verdict {
-        case .safe: return .verdictSafe
-        case .suspicious: return .verdictWarning
-        case .malicious: return .verdictDanger
-        case .unknown: return .verdictUnknown
-        }
-    }
-    
-    var iconName: String {
-        switch assessment.verdict {
-        case .safe: return "checkmark.shield.fill"
-        case .suspicious: return "exclamationmark.shield.fill"
-        case .malicious: return "xmark.shield.fill"
-        case .unknown: return "questionmark.circle"
-        }
+        Color.forVerdict(assessment.verdict)
     }
     
     var body: some View {
+        ZStack {
+            // Danger pulse background (only for malicious)
+            if assessment.verdict == .malicious {
+                DangerBackground(isActive: isAppearing)
+            }
+            
+            // Main Card
+            cardContent
+        }
+        .onAppear {
+            withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+                isAppearing = true
+            }
+        }
+    }
+    
+    private var cardContent: some View {
         VStack(spacing: 16) {
             // Header Row
             headerSection
@@ -87,32 +91,24 @@ struct ResultCard: View {
         }
         .shadow(color: themeColor.opacity(0.3), radius: 20, x: 0, y: 10)
         .padding(.horizontal, 24)
-        .onAppear {
-            withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
-                isAppearing = true
-            }
-        }
     }
     
-    // MARK: - Header Section (Liquid Glass iOS 26)
+    // MARK: - Header Section (With Custom Assets)
     
     private var headerSection: some View {
         HStack(alignment: .center, spacing: 14) {
-            // Verdict Icon with glass container
-            ZStack {
+            // Verdict Icon - Uses VerdictIcon component
+            VerdictIcon(
+                verdict: assessment.verdict,
+                size: 40,
+                useSFSymbols: true // Set to false to use custom assets
+            )
+            .frame(width: 64, height: 64)
+            .background {
                 Circle()
                     .fill(themeColor.opacity(0.15))
-                    .frame(width: 64, height: 64)
-                
                 Circle()
                     .stroke(themeColor.opacity(0.3), lineWidth: 1)
-                    .frame(width: 64, height: 64)
-                
-                Image(systemName: iconName)
-                    .font(.system(size: 32))
-                    .foregroundColor(themeColor)
-                    .scaleEffect(isAppearing ? 1.0 : 0.5)
-                    .symbolEffect(.bounce, value: isAppearing)
             }
             .shadow(color: themeColor.opacity(0.4), radius: 8)
             
@@ -301,22 +297,44 @@ struct ResultCard: View {
             verdict: .safe,
             flags: [],
             confidence: 0.92,
-            url: "https://google.com/search?q=hello"
+            url: "https://google.com/search?q=hello",
+            scannedAt: Date()
         ))
     }
 }
 
-#Preview("Malicious Result") {
+#Preview("Malicious Result - Danger Mode") {
+    ZStack {
+        Color.black.ignoresSafeArea()
+        
+        ResultCard(assessment: RiskAssessmentMock(
+            score: 92,
+            verdict: .malicious,
+            flags: [
+                "Known phishing domain",
+                "Suspicious URL pattern",
+                "IP address instead of domain",
+                "HTTP instead of HTTPS"
+            ],
+            confidence: 0.95,
+            url: "https://g00gle-secure.com/login",
+            scannedAt: Date()
+        ))
+    }
+}
+
+#Preview("Warning Result") {
     ZStack {
         MeshGradient.liquidGlassBackground
             .ignoresSafeArea()
         
         ResultCard(assessment: RiskAssessmentMock(
-            score: 78,
-            verdict: .malicious,
-            flags: ["Known phishing domain", "Suspicious URL pattern", "IP address instead of domain", "HTTP instead of HTTPS"],
-            confidence: 0.87,
-            url: "https://g00gle-secure.com/login"
+            score: 55,
+            verdict: .suspicious,
+            flags: ["HTTP instead of HTTPS"],
+            confidence: 0.78,
+            url: "http://example.com/login",
+            scannedAt: Date()
         ))
     }
 }
