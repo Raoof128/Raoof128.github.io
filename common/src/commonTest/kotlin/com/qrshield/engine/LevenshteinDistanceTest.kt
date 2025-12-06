@@ -1,5 +1,6 @@
 package com.qrshield.engine
 
+import kotlinx.datetime.Clock
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -85,9 +86,9 @@ class LevenshteinDistanceTest {
         // Very long URL should not cause performance issues
         val longUrl = "https://" + "a".repeat(1000) + ".com"
         
-        val startTime = System.currentTimeMillis()
+        val startTime = Clock.System.now().toEpochMilliseconds()
         val result = detector.detect(longUrl)
-        val elapsed = System.currentTimeMillis() - startTime
+        val elapsed = Clock.System.now().toEpochMilliseconds() - startTime
         
         // Should complete quickly (under 100ms)
         assertTrue(elapsed < 100, "Processing took ${elapsed}ms - too slow")

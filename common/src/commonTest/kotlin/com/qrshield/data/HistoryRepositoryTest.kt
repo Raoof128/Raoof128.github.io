@@ -5,6 +5,7 @@ import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Clock
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -23,8 +24,10 @@ import kotlin.test.assertTrue
  */
 class HistoryRepositoryTest {
     
+    private fun currentTimeMs(): Long = Clock.System.now().toEpochMilliseconds()
+    
     private fun createTestItem(
-        id: String = "test_${System.currentTimeMillis()}",
+        id: String = "test_${currentTimeMs()}",
         url: String = "https://example.com",
         score: Int = 50,
         verdict: Verdict = Verdict.SAFE,
@@ -35,7 +38,7 @@ class HistoryRepositoryTest {
             url = url,
             score = score,
             verdict = verdict,
-            scannedAt = System.currentTimeMillis(),
+            scannedAt = currentTimeMs(),
             source = source
         )
     }
