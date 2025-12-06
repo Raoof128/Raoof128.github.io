@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import com.qrshield.model.Verdict
 import com.qrshield.ui.SharedViewModel
 import com.qrshield.ui.UiState
-import org.koin.compose.koinInject
 
 /**
  * Main QR-SHIELD application composable.
@@ -18,7 +17,7 @@ import org.koin.compose.koinInject
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QRShieldApp(
-    viewModel: SharedViewModel = koinInject()
+    viewModel: SharedViewModel = remember { SharedViewModel() }
 ) {
     val uiState by viewModel.uiState.collectAsState()
     
