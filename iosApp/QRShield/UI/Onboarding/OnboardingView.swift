@@ -1,60 +1,73 @@
 // UI/Onboarding/OnboardingView.swift
-// QR-SHIELD Onboarding - iOS 26 Liquid Glass Edition
+// QR-SHIELD Onboarding - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025
+// UPDATED: December 2025 - iOS 26.2 RC
 // - Liquid Glass effects throughout
 // - Enhanced page transitions
-// - iOS 26 symbol animations
+// - iOS 26.2 symbol animations
+// - Camera permission request integration
 
 import SwiftUI
+import AVFoundation
 
 struct OnboardingView: View {
     @Binding var isComplete: Bool
     @State private var currentPage = 0
     @State private var isAnimating = false
+    @State private var showCameraPermission = false
     
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             icon: "qrcode.viewfinder",
             title: "Scan Any QR Code",
             description: "Point your camera at any QR code to instantly analyze its contents for potential threats.",
-            color: .brandPrimary
+            color: .brandPrimary,
+            asset: "OnboardScan"
         ),
         OnboardingPage(
             icon: "shield.lefthalf.filled",
             title: "Real-Time Protection",
-            description: "Our AI-powered engine analyzes URLs using 25+ security heuristics and machine learning.",
-            color: .brandSecondary
+            description: "Our AI-powered engine analyzes URLs using 25+ security heuristics and machine learning algorithms.",
+            color: .brandSecondary,
+            asset: "OnboardProtect"
         ),
         OnboardingPage(
             icon: "lock.shield",
             title: "Privacy First",
-            description: "All analysis happens on-device. Your data never leaves your phone.",
-            color: .verdictSafe
+            description: "All analysis happens on-device using Kotlin Multiplatform. Your data never leaves your phone.",
+            color: .verdictSafe,
+            asset: "OnboardPrivacy"
         ),
         OnboardingPage(
             icon: "sparkles",
-            title: "Liquid Glass Design",
-            description: "Experience the beautiful new iOS 26 Liquid Glass interface with smooth animations.",
-            color: .brandAccent
+            title: "Beautiful iOS 26.2 Design",
+            description: "Experience the stunning Liquid Glass interface with smooth animations and modern aesthetics.",
+            color: .brandAccent,
+            asset: nil
         )
     ]
     
     var body: some View {
         ZStack {
-            // iOS 26: Animated mesh gradient background
+            // iOS 26.2: Animated mesh gradient background
             MeshGradient.liquidGlassBackground
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 // Skip button
                 HStack {
+                    // Page counter
+                    Text("\(currentPage + 1)/\(pages.count)")
+                        .font(.caption)
+                        .foregroundColor(.textMuted)
+                        .padding()
+                    
                     Spacer()
                     
                     Button("Skip") {
                         completeOnboarding()
                     }
-                    .font(.subheadline)
+                    .font(.subheadline.weight(.medium))
                     .foregroundColor(.textSecondary)
                     .padding()
                 }
@@ -81,46 +94,35 @@ struct OnboardingView: View {
                 .padding(.bottom, 40)
                 
                 // Action Button
-                Button(action: nextAction) {
-                    HStack(spacing: 8) {
-                        Text(currentPage == pages.count - 1 ? "Get Started" : "Continue")
-                        
-                        Image(systemName: currentPage == pages.count - 1 ? "arrow.right.circle.fill" : "arrow.right")
-                            .symbolEffect(.bounce, value: currentPage)
-                    }
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 18)
-                    .background {
-                        RoundedRectangle(cornerRadius: 16)
-                            .fill(pages[currentPage].color)
-                            .overlay {
-                                // Liquid Glass highlight
-                                RoundedRectangle(cornerRadius: 16)
-                                    .stroke(
-                                        LinearGradient(
-                                            colors: [.white.opacity(0.3), .clear],
-                                            startPoint: .topLeading,
-                                            endPoint: .bottomTrailing
-                                        ),
-                                        lineWidth: 1
-                                    )
-                            }
-                    }
-                    .shadow(color: pages[currentPage].color.opacity(0.4), radius: 10, y: 5)
+                InteractiveGlassButton(
+                    currentPage == pages.count - 1 ? "Get Started" : "Continue",
+                    icon: currentPage == pages.count - 1 ? "arrow.right.circle.fill" : "arrow.right",
+                    color: pages[currentPage].color
+                ) {
+                    nextAction()
                 }
                 .padding(.horizontal, 24)
                 .padding(.bottom, 40)
-                .sensoryFeedback(.impact(weight: .medium), trigger: currentPage)
             }
         }
         .onAppear {
             isAnimating = true
         }
+        .alert("Camera Permission", isPresented: $showCameraPermission) {
+            Button("Allow Camera") {
+                requestCameraPermission()
+            }
+            Button("Maybe Later", role: .cancel) {
+                withAnimation {
+                    isComplete = true
+                }
+            }
+        } message: {
+            Text("QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.")
+        }
     }
     
-    // MARK: - Page View (Liquid Glass iOS 26)
+    // MARK: - Page View (Liquid Glass iOS 26.2)
     
     private func pageView(_ page: OnboardingPage) -> some View {
         VStack(spacing: 40) {
@@ -164,7 +166,7 @@ struct OnboardingView: View {
                     .symbolEffect(.variableColor.iterative, isActive: isAnimating)
             }
             
-            // Text content with glass background
+            // Text content
             VStack(spacing: 16) {
                 Text(page.title)
                     .font(.title.weight(.bold))
@@ -192,7 +194,29 @@ struct OnboardingView: View {
                 currentPage += 1
             }
         } else {
+            // Last page - check camera permission
+            checkCameraAndComplete()
+        }
+    }
+    
+    private func checkCameraAndComplete() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        
+        switch status {
+        case .notDetermined:
+            showCameraPermission = true
+        case .authorized:
             completeOnboarding()
+        default:
+            completeOnboarding()
+        }
+    }
+    
+    private func requestCameraPermission() {
+        AVCaptureDevice.requestAccess(for: .video) { granted in
+            DispatchQueue.main.async {
+                completeOnboarding()
+            }
         }
     }
     
@@ -213,6 +237,7 @@ struct OnboardingPage {
     let title: String
     let description: String
     let color: Color
+    var asset: String? = nil
 }
 
 #Preview {

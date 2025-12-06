@@ -1,10 +1,11 @@
 // UI/Settings/SettingsView.swift
-// QR-SHIELD Settings - iOS 26 Liquid Glass Edition
+// QR-SHIELD Settings - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025
-// - Liquid Glass design throughout
+// UPDATED: December 2025 - iOS 26.2 RC
+// - Liquid Glass customization options
 // - Enhanced form styling
 // - iOS 26 toggle animations
+// - Privacy controls
 
 import SwiftUI
 
@@ -14,6 +15,9 @@ struct SettingsView: View {
     @AppStorage("autoScan") private var autoScan = true
     @AppStorage("saveHistory") private var saveHistory = true
     @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
+    @AppStorage("notificationsEnabled") private var notificationsEnabled = true
+    
+    @State private var showClearConfirmation = false
     
     var body: some View {
         List {
@@ -22,35 +26,71 @@ struct SettingsView: View {
                 SettingsToggle(
                     icon: "qrcode.viewfinder",
                     title: "Auto-scan on launch",
+                    subtitle: "Start scanning immediately when app opens",
                     isOn: $autoScan
                 )
                 
                 SettingsToggle(
                     icon: "waveform",
                     title: "Haptic feedback",
+                    subtitle: "Vibrate on scan results",
                     isOn: $hapticEnabled
                 )
                 
                 SettingsToggle(
                     icon: "speaker.wave.2",
                     title: "Sound effects",
+                    subtitle: "Play sounds for alerts",
                     isOn: $soundEnabled
                 )
             } header: {
-                sectionHeader("Scanning")
+                sectionHeader("Scanning", icon: "viewfinder")
             }
             .listRowBackground(Color.clear)
             
-            // Appearance Section (iOS 26)
+            // Notifications Section
+            Section {
+                SettingsToggle(
+                    icon: "bell.badge",
+                    title: "Security alerts",
+                    subtitle: "Get notified about security threats",
+                    isOn: $notificationsEnabled
+                )
+            } header: {
+                sectionHeader("Notifications", icon: "bell")
+            }
+            .listRowBackground(Color.clear)
+            
+            // Appearance Section (iOS 26.2)
             Section {
                 SettingsToggle(
                     icon: "sparkles",
                     title: "Reduce Liquid Glass",
-                    subtitle: "Simplify visual effects",
+                    subtitle: "Simplify visual effects for performance",
                     isOn: $liquidGlassReduced
                 )
+                
+                // iOS 26.2: Link to system settings for Liquid Glass
+                NavigationLink {
+                    Text("System appearance settings")
+                        .foregroundColor(.textSecondary)
+                } label: {
+                    HStack {
+                        Image(systemName: "paintpalette")
+                            .foregroundColor(.brandPrimary)
+                            .frame(width: 28)
+                        
+                        Text("System Appearance")
+                            .foregroundColor(.textPrimary)
+                    }
+                    .padding(.vertical, 4)
+                }
             } header: {
-                sectionHeader("Appearance")
+                sectionHeader("Appearance", icon: "sparkles")
+            } footer: {
+                Text("iOS 26.2 introduces customizable Liquid Glass effects. Reduce effects if you experience performance issues on older devices.")
+                    .font(.caption2)
+                    .foregroundColor(.textMuted)
             }
             .listRowBackground(Color.clear)
             
@@ -59,10 +99,13 @@ struct SettingsView: View {
                 SettingsToggle(
                     icon: "clock.arrow.circlepath",
                     title: "Save scan history",
+                    subtitle: "Keep a record of scanned URLs",
                     isOn: $saveHistory
                 )
                 
-                Button(action: clearHistory) {
+                Button {
+                    showClearConfirmation = true
+                } label: {
                     HStack {
                         Image(systemName: "trash")
                             .foregroundColor(.verdictDanger)
@@ -75,15 +118,35 @@ struct SettingsView: View {
                     }
                     .padding(.vertical, 4)
                 }
+                
+                // Privacy Policy Link
+                Link(destination: URL(string: "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")!) {
+                    HStack {
+                        Image(systemName: "hand.raised")
+                            .foregroundColor(.brandPrimary)
+                            .frame(width: 28)
+                        
+                        Text("Privacy Policy")
+                            .foregroundColor(.textPrimary)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "arrow.up.right.square")
+                            .font(.caption)
+                            .foregroundColor(.brandPrimary)
+                    }
+                    .padding(.vertical, 4)
+                }
             } header: {
-                sectionHeader("Privacy")
+                sectionHeader("Privacy", icon: "hand.raised")
             }
             .listRowBackground(Color.clear)
             
             // About Section
             Section {
-                aboutRow(icon: "info.circle", title: "Version", value: "1.0.0")
-                aboutRow(icon: "hammer", title: "Build", value: "iOS 26 • KotlinConf 2026")
+                aboutRow(icon: "info.circle", title: "Version", value: "1.0.0 (26)")
+                aboutRow(icon: "hammer", title: "Build", value: "iOS 26.2 • Swift 6.1")
+                aboutRow(icon: "cpu", title: "Engine", value: "KMP PhishingEngine")
                 
                 Link(destination: URL(string: "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")!) {
                     HStack {
@@ -103,20 +166,21 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader("About")
+                sectionHeader("About", icon: "info.circle")
             }
             .listRowBackground(Color.clear)
             
             // Credits Section
             Section {
                 VStack(spacing: 16) {
-                    // Animated Logo
+                    // Animated Logo with custom asset
                     ZStack {
                         Circle()
                             .fill(.ultraThinMaterial)
                             .frame(width: 80, height: 80)
                         
-                        Image(systemName: "shield.fill")
+                        // Use branding logo if available
+                        Image.sfSymbolForVerdict(.safe)
                             .font(.system(size: 40))
                             .foregroundStyle(LinearGradient.brandGradient)
                             .symbolEffect(.pulse)
@@ -136,16 +200,28 @@ struct SettingsView: View {
                         .font(.caption2)
                         .foregroundColor(.textMuted)
                     
-                    // iOS 26 badge
-                    HStack(spacing: 6) {
-                        Image(systemName: "apple.logo")
-                        Text("Built for iOS 26")
+                    // iOS 26.2 + Swift 6.1 badge
+                    HStack(spacing: 12) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "apple.logo")
+                            Text("iOS 26.2")
+                        }
+                        .font(.caption2)
+                        .foregroundColor(.brandPrimary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(.ultraThinMaterial, in: Capsule())
+                        
+                        HStack(spacing: 6) {
+                            Image(systemName: "swift")
+                            Text("Swift 6.1")
+                        }
+                        .font(.caption2)
+                        .foregroundColor(.brandSecondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(.ultraThinMaterial, in: Capsule())
                     }
-                    .font(.caption2)
-                    .foregroundColor(.brandPrimary)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .background(.ultraThinMaterial, in: Capsule())
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 24)
@@ -159,15 +235,31 @@ struct SettingsView: View {
                 .ignoresSafeArea()
         }
         .navigationTitle("Settings")
+        .confirmationDialog(
+            "Clear All History?",
+            isPresented: $showClearConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Clear All", role: .destructive) {
+                clearHistory()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This action cannot be undone. All scan history will be permanently deleted.")
+        }
     }
     
     // MARK: - Components
     
-    private func sectionHeader(_ title: String) -> some View {
-        Text(title)
-            .font(.subheadline.weight(.semibold))
-            .foregroundColor(.brandPrimary)
-            .textCase(nil)
+    private func sectionHeader(_ title: String, icon: String) -> some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon)
+                .font(.caption)
+            Text(title)
+        }
+        .font(.subheadline.weight(.semibold))
+        .foregroundColor(.brandPrimary)
+        .textCase(nil)
     }
     
     private func aboutRow(icon: String, title: String, value: String) -> some View {
@@ -183,6 +275,7 @@ struct SettingsView: View {
             
             Text(value)
                 .foregroundColor(.textSecondary)
+                .font(.subheadline)
         }
         .padding(.vertical, 4)
     }
@@ -191,10 +284,12 @@ struct SettingsView: View {
         // Clear history logic with haptic
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.warning)
+        
+        // In production: Clear from database
     }
 }
 
-// MARK: - Settings Toggle (iOS 26 Liquid Glass)
+// MARK: - Settings Toggle (iOS 26.2 Liquid Glass)
 
 struct SettingsToggle: View {
     let icon: String

@@ -1,11 +1,12 @@
 // UI/Scanner/ScannerView.swift
-// QR-SHIELD Main Scanner Interface - iOS 26 Liquid Glass Edition
+// QR-SHIELD Main Scanner Interface - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025 - iOS 26 / Xcode 26 Features
-// - Liquid Glass design system
-// - glassEffect modifiers
-// - Enhanced navigation transitions
-// - Rebuilt rendering pipeline benefits
+// UPDATED: December 2025 - iOS 26.2 RC Features
+// - scrollEdgeEffectStyle for soft edge effects
+// - Enhanced Liquid Glass toolbars
+// - ToolbarSpacer for grouped actions
+// - GlassButtonStyle integration
+// - Rebuilt rendering pipeline
 
 import SwiftUI
 import AVFoundation
@@ -84,6 +85,17 @@ struct ScannerView: View {
         } message: {
             Text("QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.")
         }
+        // iOS 26.2: Toolbar with glass styling
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Text("Scans: \(viewModel.scanCount)")
+                    .font(.caption)
+                    .foregroundColor(.textSecondary)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(.ultraThinMaterial, in: Capsule())
+            }
+        }
     }
     
     // MARK: - Liquid Glass Overlay (iOS 26)
@@ -115,13 +127,15 @@ struct ScannerView: View {
         .ignoresSafeArea()
     }
     
-    // MARK: - Header Bar (Liquid Glass iOS 26)
+    // MARK: - Header Bar (Liquid Glass iOS 26.2)
     
     private var headerBar: some View {
         HStack {
             // Logo with gradient
             HStack(spacing: 8) {
-                Image(systemName: "shield.fill")
+                // Use custom asset if available, fallback to SF Symbol
+                Image.forVerdict(.safe)
+                    .renderingMode(.template)
                     .foregroundStyle(LinearGradient.brandGradient)
                     .font(.title2)
                     .symbolEffect(.pulse, isActive: viewModel.isScanning)
@@ -160,6 +174,7 @@ struct ScannerView: View {
             }
             .frame(width: 44, height: 44)
             .background(.ultraThinMaterial, in: Circle())
+            .sensoryFeedback(.impact(weight: .light), trigger: viewModel.isFlashOn)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -195,6 +210,8 @@ struct ScannerView: View {
                         Label("Share", systemImage: "square.and.arrow.up")
                     }
                     
+                    Divider()
+                    
                     Button(role: .destructive) {
                         viewModel.dismissResult()
                     } label: {
@@ -222,12 +239,12 @@ struct ScannerView: View {
         }
     }
     
-    // MARK: - Scanning Indicator (iOS 26 Enhanced)
+    // MARK: - Scanning Indicator (iOS 26.2 Enhanced)
     
     private var scanningIndicator: some View {
         ZStack {
-            // Outer glow rings
-            ForEach(0..<3) { i in
+            // Outer glow rings with optimized animation
+            ForEach(0..<3, id: \.self) { i in
                 Circle()
                     .stroke(Color.brandPrimary.opacity(0.2 - Double(i) * 0.05), lineWidth: 2)
                     .frame(width: CGFloat(280 + i * 20), height: CGFloat(280 + i * 20))
@@ -289,7 +306,7 @@ struct ScannerView: View {
         }
     }
     
-    // MARK: - Control Bar (Liquid Glass iOS 26)
+    // MARK: - Control Bar (Liquid Glass iOS 26.2)
     
     private var controlBar: some View {
         HStack(spacing: 50) {
@@ -373,12 +390,12 @@ struct ScannerView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
             
-            Button("Open Settings") {
+            InteractiveGlassButton("Open Settings", icon: "gear") {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url)
                 }
             }
-            .buttonStyle(.glass)
+            .padding(.horizontal, 40)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.ultraThinMaterial)
@@ -410,6 +427,7 @@ struct ControlButton: View {
                     .foregroundColor(.textSecondary)
             }
         }
+        .sensoryFeedback(.impact(weight: .light), trigger: UUID())
     }
 }
 

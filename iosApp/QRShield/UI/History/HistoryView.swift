@@ -1,10 +1,11 @@
 // UI/History/HistoryView.swift
-// QR-SHIELD Scan History - iOS 26 Liquid Glass Edition
+// QR-SHIELD Scan History - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025 - iOS 26 / Xcode 26
-// - Liquid Glass design
-// - Observable in UIKit patterns
+// UPDATED: December 2025 - iOS 26.2 RC
+// - scrollEdgeEffectStyle for soft edges
 // - Enhanced list animations
+// - VerdictIcon asset integration
+// - ShareLink for history items
 
 import SwiftUI
 
@@ -12,6 +13,7 @@ struct HistoryView: View {
     @State private var viewModel = HistoryViewModel()
     @State private var searchText = ""
     @State private var selectedFilter: VerdictFilter = .all
+    @State private var selectedItem: HistoryItemMock?
     
     var body: some View {
         VStack(spacing: 0) {
@@ -37,16 +39,37 @@ struct HistoryView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
-                    Button(role: .destructive) {
-                        viewModel.clearAll()
-                    } label: {
-                        Label("Clear All", systemImage: "trash")
+                    // Sort options
+                    Section("Sort") {
+                        Button {
+                            viewModel.sortByDate()
+                        } label: {
+                            Label("By Date", systemImage: "calendar")
+                        }
+                        
+                        Button {
+                            viewModel.sortByRisk()
+                        } label: {
+                            Label("By Risk", systemImage: "shield")
+                        }
                     }
                     
+                    Divider()
+                    
+                    // Export option
                     Button {
                         viewModel.exportHistory()
                     } label: {
                         Label("Export", systemImage: "square.and.arrow.up")
+                    }
+                    
+                    Divider()
+                    
+                    // Clear all
+                    Button(role: .destructive) {
+                        viewModel.clearAll()
+                    } label: {
+                        Label("Clear All", systemImage: "trash")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -54,13 +77,25 @@ struct HistoryView: View {
                         .symbolEffect(.pulse)
                 }
             }
+            
+            // iOS 26.2: Scan count in toolbar
+            ToolbarItem(placement: .navigationBarLeading) {
+                Text("\(viewModel.filteredHistory.count) scans")
+                    .font(.caption)
+                    .foregroundColor(.textSecondary)
+            }
         }
         .onChange(of: searchText) { _, newValue in
             viewModel.search(query: newValue)
         }
+        .sheet(item: $selectedItem) { item in
+            HistoryDetailSheet(item: item)
+                .presentationDetents([.medium])
+                .presentationBackground(.ultraThinMaterial)
+        }
     }
     
-    // MARK: - Filter Bar (Liquid Glass iOS 26)
+    // MARK: - Filter Bar (Liquid Glass iOS 26.2)
     
     private var filterBar: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -68,6 +103,7 @@ struct HistoryView: View {
                 ForEach(VerdictFilter.allCases, id: \.self) { filter in
                     FilterChip(
                         title: filter.title,
+                        icon: filter.icon,
                         color: filter.color,
                         isSelected: selectedFilter == filter
                     ) {
@@ -79,28 +115,46 @@ struct HistoryView: View {
                 }
             }
         }
+        // iOS 26.2: Soft edge scroll effect
+        .scrollClipDisabled()
     }
     
-    // MARK: - History List
+    // MARK: - History List (iOS 26.2 Enhanced)
     
     private var historyList: some View {
-        List {
-            ForEach(viewModel.filteredHistory) { item in
-                HistoryRow(item: item)
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button(role: .destructive) {
-                            withAnimation {
-                                viewModel.delete(item)
-                            }
-                        } label: {
-                            Label("Delete", systemImage: "trash")
+        ScrollView {
+            LazyVStack(spacing: 8) {
+                ForEach(viewModel.filteredHistory) { item in
+                    HistoryRow(item: item)
+                        .onTapGesture {
+                            selectedItem = item
                         }
-                    }
+                        .contextMenu {
+                            Button {
+                                UIPasteboard.general.string = item.url
+                            } label: {
+                                Label("Copy URL", systemImage: "doc.on.doc")
+                            }
+                            
+                            ShareLink(item: item.url) {
+                                Label("Share", systemImage: "square.and.arrow.up")
+                            }
+                            
+                            Divider()
+                            
+                            Button(role: .destructive) {
+                                withAnimation(.spring(response: 0.3)) {
+                                    viewModel.delete(item)
+                                }
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                        }
+                        .transition(.move(edge: .trailing).combined(with: .opacity))
+                }
             }
+            .padding(.horizontal)
         }
-        .listStyle(.plain)
         .scrollContentBackground(.hidden)
     }
     
@@ -121,11 +175,13 @@ struct HistoryView: View {
                     .symbolEffect(.pulse)
             }
             
-            Text("No Scans Yet")
+            Text(searchText.isEmpty ? "No Scans Yet" : "No Results")
                 .font(.title3.weight(.semibold))
                 .foregroundColor(.textPrimary)
             
-            Text("Your scan history will appear here")
+            Text(searchText.isEmpty ? 
+                 "Your scan history will appear here" : 
+                 "Try a different search term")
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
             
@@ -134,10 +190,11 @@ struct HistoryView: View {
     }
 }
 
-// MARK: - Filter Chip (Liquid Glass iOS 26)
+// MARK: - Filter Chip (Liquid Glass iOS 26.2)
 
 struct FilterChip: View {
     let title: String
+    let icon: String
     let color: Color
     let isSelected: Bool
     let action: () -> Void
@@ -145,10 +202,9 @@ struct FilterChip: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 6) {
-                Circle()
-                    .fill(color)
-                    .frame(width: 8, height: 8)
-                    .shadow(color: isSelected ? color.opacity(0.5) : .clear, radius: 4)
+                Image(systemName: icon)
+                    .font(.caption)
+                    .symbolEffect(.bounce, value: isSelected)
                 
                 Text(title)
                     .font(.subheadline.weight(isSelected ? .semibold : .regular))
@@ -174,33 +230,27 @@ struct FilterChip: View {
     }
 }
 
-// MARK: - History Row (Liquid Glass iOS 26)
+// MARK: - History Row (Liquid Glass iOS 26.2)
 
 struct HistoryRow: View {
     let item: HistoryItemMock
-    @State private var isPressed = false
     
     var verdictColor: Color {
-        switch item.verdict {
-        case .safe: return .verdictSafe
-        case .suspicious: return .verdictWarning
-        case .malicious: return .verdictDanger
-        case .unknown: return .verdictUnknown
-        }
+        Color.forVerdict(item.verdict)
     }
     
     var body: some View {
         HStack(spacing: 12) {
-            // Verdict Indicator with glow
-            ZStack {
+            // Verdict Icon with VerdictIcon component
+            VerdictIcon(
+                verdict: item.verdict,
+                size: 20,
+                useSFSymbols: true
+            )
+            .frame(width: 40, height: 40)
+            .background {
                 Circle()
-                    .fill(verdictColor.opacity(0.2))
-                    .frame(width: 40, height: 40)
-                
-                Circle()
-                    .fill(verdictColor)
-                    .frame(width: 12, height: 12)
-                    .shadow(color: verdictColor.opacity(0.5), radius: 4)
+                    .fill(verdictColor.opacity(0.15))
             }
             
             // Content
@@ -250,14 +300,82 @@ struct HistoryRow: View {
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
         .liquidGlass(cornerRadius: 16)
-        .padding(.horizontal, 4)
-        .padding(.vertical, 4)
+    }
+}
+
+// MARK: - History Detail Sheet
+
+struct HistoryDetailSheet: View {
+    let item: HistoryItemMock
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            // Header
+            VStack(spacing: 8) {
+                VerdictIcon(verdict: item.verdict, size: 40)
+                
+                Text(item.verdict.rawValue)
+                    .font(.title2.weight(.bold))
+                    .foregroundColor(Color.forVerdict(item.verdict))
+                
+                Text("Risk Score: \(item.score)/100")
+                    .font(.subheadline)
+                    .foregroundColor(.textSecondary)
+            }
+            .padding(.top, 20)
+            
+            // URL
+            VStack(alignment: .leading, spacing: 8) {
+                Text("URL")
+                    .font(.caption)
+                    .foregroundColor(.textMuted)
+                
+                Text(item.url)
+                    .font(.body)
+                    .foregroundColor(.textPrimary)
+                    .textSelection(.enabled)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            .liquidGlass(cornerRadius: 12)
+            
+            // Scanned At
+            HStack {
+                Image(systemName: "clock")
+                    .foregroundColor(.textMuted)
+                Text("Scanned \(item.formattedDate)")
+                    .font(.subheadline)
+                    .foregroundColor(.textSecondary)
+            }
+            
+            // Actions
+            HStack(spacing: 16) {
+                ShareLink(item: item.url) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.glass)
+                
+                Button {
+                    UIPasteboard.general.string = item.url
+                } label: {
+                    Label("Copy", systemImage: "doc.on.doc")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.glass(color: .brandSecondary))
+            }
+            .padding(.horizontal)
+            
+            Spacer()
+        }
+        .padding()
     }
 }
 
 // MARK: - View Model (iOS 26 @Observable)
 
 @Observable
+@MainActor
 final class HistoryViewModel {
     var filteredHistory: [HistoryItemMock] = []
     private var allHistory: [HistoryItemMock] = []
@@ -267,18 +385,26 @@ final class HistoryViewModel {
     }
     
     func filter(by filter: VerdictFilter) {
-        if filter == .all {
-            filteredHistory = allHistory
-        } else {
-            filteredHistory = allHistory.filter { $0.verdict.rawValue == filter.rawValue.uppercased() }
+        withAnimation(.spring(response: 0.3)) {
+            if filter == .all {
+                filteredHistory = allHistory
+            } else {
+                filteredHistory = allHistory.filter { 
+                    $0.verdict.rawValue == filter.rawValue.uppercased() 
+                }
+            }
         }
     }
     
     func search(query: String) {
-        if query.isEmpty {
-            filteredHistory = allHistory
-        } else {
-            filteredHistory = allHistory.filter { $0.url.localizedCaseInsensitiveContains(query) }
+        withAnimation(.spring(response: 0.3)) {
+            if query.isEmpty {
+                filteredHistory = allHistory
+            } else {
+                filteredHistory = allHistory.filter { 
+                    $0.url.localizedCaseInsensitiveContains(query) 
+                }
+            }
         }
     }
     
@@ -288,12 +414,28 @@ final class HistoryViewModel {
     }
     
     func clearAll() {
-        allHistory.removeAll()
-        filteredHistory.removeAll()
+        withAnimation {
+            allHistory.removeAll()
+            filteredHistory.removeAll()
+        }
+    }
+    
+    func sortByDate() {
+        withAnimation {
+            filteredHistory.sort { $0.scannedAt > $1.scannedAt }
+        }
+    }
+    
+    func sortByRisk() {
+        withAnimation {
+            filteredHistory.sort { $0.score > $1.score }
+        }
     }
     
     func exportHistory() {
-        // Export logic
+        // In production: Generate CSV/JSON export
+        let haptic = UINotificationFeedbackGenerator()
+        haptic.notificationOccurred(.success)
     }
     
     private func loadMockData() {
@@ -302,7 +444,8 @@ final class HistoryViewModel {
             HistoryItemMock(id: "2", url: "https://suspicious-link.xyz", score: 55, verdict: .suspicious, scannedAt: Date().addingTimeInterval(-3600)),
             HistoryItemMock(id: "3", url: "https://apple.com/store", score: 8, verdict: .safe, scannedAt: Date().addingTimeInterval(-7200)),
             HistoryItemMock(id: "4", url: "https://phishing-attack.com/login", score: 92, verdict: .malicious, scannedAt: Date().addingTimeInterval(-86400)),
-            HistoryItemMock(id: "5", url: "https://amazon.com/product", score: 5, verdict: .safe, scannedAt: Date().addingTimeInterval(-172800))
+            HistoryItemMock(id: "5", url: "https://amazon.com/product", score: 5, verdict: .safe, scannedAt: Date().addingTimeInterval(-172800)),
+            HistoryItemMock(id: "6", url: "http://bank-verify.com/secure", score: 78, verdict: .malicious, scannedAt: Date().addingTimeInterval(-259200))
         ]
         filteredHistory = allHistory
     }
@@ -314,6 +457,15 @@ enum VerdictFilter: String, CaseIterable {
     case all, safe, suspicious, malicious
     
     var title: String { rawValue.capitalized }
+    
+    var icon: String {
+        switch self {
+        case .all: return "line.3.horizontal.decrease.circle"
+        case .safe: return "checkmark.shield"
+        case .suspicious: return "exclamationmark.shield"
+        case .malicious: return "xmark.shield"
+        }
+    }
     
     var color: Color {
         switch self {
