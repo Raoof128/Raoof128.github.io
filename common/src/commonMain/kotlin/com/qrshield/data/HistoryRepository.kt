@@ -161,10 +161,17 @@ class InMemoryHistoryRepository : HistoryRepository {
 /**
  * Factory for creating HistoryRepository instances.
  * 
- * Expect/actual pattern for platform-specific implementations.
+ * Uses InMemoryHistoryRepository by default.
+ * For production, inject platform-specific SQLDelight implementations.
  */
-expect class HistoryRepositoryFactory {
-    fun create(): HistoryRepository
+object HistoryRepositoryFactory {
+    /**
+     * Creates an in-memory repository instance.
+     * 
+     * Note: For production use, platform-specific implementations
+     * should be injected via dependency injection (Koin).
+     */
+    fun create(): HistoryRepository = InMemoryHistoryRepository()
 }
 
 /**
