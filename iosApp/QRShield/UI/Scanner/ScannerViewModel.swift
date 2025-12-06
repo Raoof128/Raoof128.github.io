@@ -1,31 +1,40 @@
 // UI/Scanner/ScannerViewModel.swift
-// QR-SHIELD Scanner ViewModel
+// QR-SHIELD Scanner ViewModel - iOS 18+ / Swift 6 Optimized
 //
+// UPDATED: December 2024 - Using @Observable macro (iOS 17+)
 // Bridges SwiftUI to the Kotlin Multiplatform IosQrScanner.
-// Manages camera state, scanning flow, and phishing analysis.
+// Uses modern Swift Concurrency patterns for thread safety.
 
 import Foundation
 import AVFoundation
-import Combine
+import SwiftUI
+import Observation
 // import common // Uncomment when KMP framework is linked
 
-/// The iOS-native ViewModel that bridges to Kotlin Multiplatform
+// MARK: - Modern Observable ViewModel (iOS 17+)
+
+/// The iOS-native ViewModel using @Observable macro (modern replacement for ObservableObject)
+/// This provides better performance with precise property-level observation
+@Observable
 @MainActor
-class ScannerViewModel: ObservableObject {
+final class ScannerViewModel {
     
-    // MARK: - Published State
+    // MARK: - Observable State
+    // No @Published needed with @Observable macro - all properties are automatically tracked
     
-    @Published var session: AVCaptureSession?
-    @Published var currentResult: RiskAssessmentMock? // Replace with common.RiskAssessment
-    @Published var isScanning = false
-    @Published var isAnalyzing = false
-    @Published var isFlashOn = false
-    @Published var errorMessage: String?
+    var session: AVCaptureSession?
+    var currentResult: RiskAssessmentMock?
+    var isScanning = false
+    var isAnalyzing = false
+    var isFlashOn = false
+    var errorMessage: String?
+    var cameraPermissionStatus: CameraPermissionStatus = .unknown
     
     // MARK: - Private Properties
     
     private var captureSession: AVCaptureSession?
     private var videoOutput: AVCaptureMetadataOutput?
+    private var metadataDelegate: QRCodeMetadataDelegate?
     
     // KMP Dependencies - Uncomment when framework is linked
     // private let scanner: QrScanner
@@ -38,40 +47,100 @@ class ScannerViewModel: ObservableObject {
         // self.scanner = QrScannerFactory().create()
         // self.engine = PhishingEngine()
         
-        setupCamera()
+        Task {
+            await checkCameraPermission()
+        }
     }
     
-    // MARK: - Camera Setup
+    // MARK: - Camera Permission (iOS 18 Best Practice)
     
-    private func setupCamera() {
+    func checkCameraPermission() async {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            cameraPermissionStatus = .authorized
+            await setupCamera()
+        case .notDetermined:
+            cameraPermissionStatus = .notDetermined
+            let granted = await AVCaptureDevice.requestAccess(for: .video)
+            cameraPermissionStatus = granted ? .authorized : .denied
+            if granted {
+                await setupCamera()
+            }
+        case .denied, .restricted:
+            cameraPermissionStatus = .denied
+        @unknown default:
+            cameraPermissionStatus = .unknown
+        }
+    }
+    
+    // MARK: - Camera Setup (iOS 18 Enhanced Configuration)
+    
+    private func setupCamera() async {
         let session = AVCaptureSession()
-        session.sessionPreset = .high
         
-        // Get back camera
+        // iOS 18: Use beginConfiguration/commitConfiguration for atomic changes
+        session.beginConfiguration()
+        
+        // Set high quality preset
+        if session.canSetSessionPreset(.high) {
+            session.sessionPreset = .high
+        }
+        
+        // Get back camera with iOS 18 device discovery
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             errorMessage = "No camera available"
+            session.commitConfiguration()
             return
         }
         
         do {
+            // Configure device for optimal QR scanning
+            try videoDevice.lockForConfiguration()
+            
+            // iOS 18: Enable auto video frame rate for better low-light performance
+            if videoDevice.isAutoVideoFrameRateEnabled {
+                videoDevice.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 30)
+            }
+            
+            // Enable continuous auto-focus for QR codes
+            if videoDevice.isFocusModeSupported(.continuousAutoFocus) {
+                videoDevice.focusMode = .continuousAutoFocus
+            }
+            
+            videoDevice.unlockForConfiguration()
+            
             let videoInput = try AVCaptureDeviceInput(device: videoDevice)
             
             if session.canAddInput(videoInput) {
                 session.addInput(videoInput)
             }
             
-            // QR Code detection output
+            // QR Code detection output with delegate
             let metadataOutput = AVCaptureMetadataOutput()
             if session.canAddOutput(metadataOutput) {
                 session.addOutput(metadataOutput)
-                metadataOutput.metadataObjectTypes = [.qr]
-                // Note: Delegate will be set when using KMP scanner
+                
+                // Set metadata types after adding output
+                metadataOutput.metadataObjectTypes = [.qr, .aztec, .dataMatrix]
+                
+                // Create delegate for metadata handling
+                let delegate = QRCodeMetadataDelegate { [weak self] code in
+                    Task { @MainActor in
+                        self?.handleScannedCode(code)
+                    }
+                }
+                self.metadataDelegate = delegate
+                metadataOutput.setMetadataObjectsDelegate(delegate, queue: .main)
             }
+            
+            session.commitConfiguration()
             
             self.captureSession = session
             self.session = session
+            self.videoOutput = metadataOutput
             
         } catch {
+            session.commitConfiguration()
             errorMessage = "Camera setup failed: \(error.localizedDescription)"
         }
     }
@@ -79,33 +148,23 @@ class ScannerViewModel: ObservableObject {
     // MARK: - Camera Controls
     
     func startCamera() {
-        guard let session = captureSession else { return }
-        
-        // Check permission
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            startSession()
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
-                if granted {
-                    Task { @MainActor in
-                        self?.startSession()
-                    }
-                }
-            }
-        default:
-            errorMessage = "Camera access denied"
+        guard cameraPermissionStatus == .authorized else {
+            Task { await checkCameraPermission() }
+            return
         }
+        
+        startSession()
     }
     
     private func startSession() {
         guard let session = captureSession, !session.isRunning else { return }
         
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        // iOS 18: Run on background queue to avoid blocking main thread
+        Task.detached(priority: .userInitiated) {
             session.startRunning()
             
-            Task { @MainActor in
-                self?.isScanning = true
+            await MainActor.run {
+                self.isScanning = true
             }
         }
     }
@@ -113,11 +172,11 @@ class ScannerViewModel: ObservableObject {
     func stopCamera() {
         guard let session = captureSession, session.isRunning else { return }
         
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+        Task.detached(priority: .userInitiated) {
             session.stopRunning()
             
-            Task { @MainActor in
-                self?.isScanning = false
+            await MainActor.run {
+                self.isScanning = false
             }
         }
     }
@@ -140,8 +199,21 @@ class ScannerViewModel: ObservableObject {
             isFlashOn.toggle()
             device.unlockForConfiguration()
         } catch {
-            print("Flash toggle failed: \(error)")
+            errorMessage = "Flash toggle failed: \(error.localizedDescription)"
         }
+    }
+    
+    // MARK: - QR Code Handling
+    
+    private func handleScannedCode(_ code: String) {
+        // Debounce rapid scans
+        guard currentResult == nil && !isAnalyzing else { return }
+        
+        // Play haptic for scan detection
+        let impact = UIImpactFeedbackGenerator(style: .medium)
+        impact.impactOccurred()
+        
+        analyzeUrl(code)
     }
     
     // MARK: - Analysis
@@ -149,13 +221,13 @@ class ScannerViewModel: ObservableObject {
     func analyzeUrl(_ url: String) {
         isAnalyzing = true
         
-        // Simulate analysis delay
-        // In production, use: let assessment = engine.analyze(url: url)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            guard let self = self else { return }
+        Task {
+            // Simulate analysis delay
+            // In production: let assessment = try await engine.analyze(url: url)
+            try? await Task.sleep(for: .milliseconds(500))
             
             // Mock result for demo - Replace with KMP call
-            let mockResult = self.createMockResult(for: url)
+            let mockResult = createMockResult(for: url)
             
             withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                 self.currentResult = mockResult
@@ -163,38 +235,43 @@ class ScannerViewModel: ObservableObject {
             }
             
             // Haptic feedback based on verdict
-            self.triggerHaptic(for: mockResult.verdict)
+            triggerHaptic(for: mockResult.verdict)
         }
     }
     
     func analyzeImage(_ image: UIImage) {
-        // In production, use KMP scanner.scanFromImage()
         isAnalyzing = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            // Mock: pretend we found a QR code
-            self?.analyzeUrl("https://example.com/demo")
+        Task {
+            // In production: Use Vision framework for QR detection
+            try? await Task.sleep(for: .seconds(1))
+            analyzeUrl("https://example.com/demo")
         }
     }
     
     func dismissResult() {
-        withAnimation {
+        withAnimation(.spring(response: 0.3)) {
             currentResult = nil
         }
     }
     
-    // MARK: - Haptic Feedback
+    // MARK: - Haptic Feedback (iOS 18 Enhanced)
     
     private func triggerHaptic(for verdict: VerdictMock) {
-        let generator = UINotificationFeedbackGenerator()
+        // iOS 18: Prepare haptics ahead of time for better responsiveness
+        let notificationGenerator = UINotificationFeedbackGenerator()
+        notificationGenerator.prepare()
         
         switch verdict {
         case .safe:
-            generator.notificationOccurred(.success)
+            notificationGenerator.notificationOccurred(.success)
         case .suspicious:
-            generator.notificationOccurred(.warning)
+            notificationGenerator.notificationOccurred(.warning)
         case .malicious:
-            generator.notificationOccurred(.error)
+            notificationGenerator.notificationOccurred(.error)
+            // Add extra impact for malicious
+            let impact = UIImpactFeedbackGenerator(style: .heavy)
+            impact.impactOccurred(intensity: 1.0)
         case .unknown:
             let impact = UIImpactFeedbackGenerator(style: .light)
             impact.impactOccurred()
@@ -204,7 +281,6 @@ class ScannerViewModel: ObservableObject {
     // MARK: - Mock Data (Replace with KMP)
     
     private func createMockResult(for url: String) -> RiskAssessmentMock {
-        // Simulate different verdicts based on URL
         let score: Int
         let verdict: VerdictMock
         var flags: [String] = []
@@ -232,10 +308,45 @@ class ScannerViewModel: ObservableObject {
     }
 }
 
+// MARK: - QR Code Metadata Delegate
+
+/// Separate delegate class for AVCaptureMetadataOutputObjectsDelegate
+/// Required for Swift 6 concurrency compatibility
+final class QRCodeMetadataDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+    private let onCodeScanned: (String) -> Void
+    
+    init(onCodeScanned: @escaping (String) -> Void) {
+        self.onCodeScanned = onCodeScanned
+        super.init()
+    }
+    
+    nonisolated func metadataOutput(
+        _ output: AVCaptureMetadataOutput,
+        didOutput metadataObjects: [AVMetadataObject],
+        from connection: AVCaptureConnection
+    ) {
+        guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
+              let stringValue = metadataObject.stringValue else {
+            return
+        }
+        
+        onCodeScanned(stringValue)
+    }
+}
+
+// MARK: - Camera Permission Status
+
+enum CameraPermissionStatus {
+    case unknown
+    case notDetermined
+    case authorized
+    case denied
+}
+
 // MARK: - Mock Types (Replace with KMP imports)
 
 /// Mock verdict type - Replace with common.Verdict
-enum VerdictMock: String {
+enum VerdictMock: String, CaseIterable {
     case safe = "SAFE"
     case suspicious = "SUSPICIOUS"
     case malicious = "MALICIOUS"
@@ -243,7 +354,8 @@ enum VerdictMock: String {
 }
 
 /// Mock risk assessment - Replace with common.RiskAssessment
-struct RiskAssessmentMock {
+struct RiskAssessmentMock: Identifiable {
+    let id = UUID()
     let score: Int
     let verdict: VerdictMock
     let flags: [String]
