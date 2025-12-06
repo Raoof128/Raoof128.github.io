@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Shield shape -->
+    <path
+        android:fillColor="#6366F1"
+        android:pathData="M54,10 L88,26 L88,56 C88,76 73,92 54,98 C35,92 20,76 20,56 L20,26 Z"/>
+    
+    <!-- Inner shield highlight -->
+    <path
+        android:fillColor="#818CF8"
+        android:pathData="M54,18 L80,30 L80,54 C80,70 68,82 54,88 C40,82 28,70 28,54 L28,30 Z"/>
+    
+    <!-- QR code pattern -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,38 L46,38 L46,46 L38,46 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M62,38 L70,38 L70,46 L62,46 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M38,62 L46,62 L46,70 L38,70 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,50 L58,50 L58,58 L50,58 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M62,54 L70,54 L70,62 L62,62 Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M50,62 L58,62 L58,70 L50,70 Z"/>
+    
+    <!-- Check mark overlay -->
+    <path
+        android:fillColor="#10B981"
+        android:strokeWidth="3"
+        android:strokeColor="#10B981"
+        android:pathData="M48,55 L52,60 L64,48"/>
+
+</vector>
