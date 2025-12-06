@@ -1,22 +1,23 @@
 // UI/Scanner/ScannerView.swift
-// QR-SHIELD Main Scanner Interface - iOS 18+ / SwiftUI 2024
+// QR-SHIELD Main Scanner Interface - iOS 26 Liquid Glass Edition
 //
-// UPDATED: December 2024 - Modern SwiftUI patterns
-// - Uses @State with @Observable (replaces @StateObject)
-// - Enhanced animations with matchedTransitionSource
-// - iOS 18 material effects and scroll behavior
+// UPDATED: December 2025 - iOS 26 / Xcode 26 Features
+// - Liquid Glass design system
+// - glassEffect modifiers
+// - Enhanced navigation transitions
+// - Rebuilt rendering pipeline benefits
 
 import SwiftUI
 import AVFoundation
 
 struct ScannerView: View {
-    // iOS 17+: Use @State with @Observable instead of @StateObject
+    // iOS 26: @State with @Observable (replaces @StateObject)
     @State private var viewModel = ScannerViewModel()
     @State private var showDetails = false
     @State private var showGalleryPicker = false
     @State private var showPermissionAlert = false
     
-    // Animation namespace for matched geometry transitions
+    // Animation namespace for transitions
     @Namespace private var animation
     
     var body: some View {
@@ -25,12 +26,12 @@ struct ScannerView: View {
             CameraPreview(session: viewModel.session)
                 .ignoresSafeArea()
             
-            // 2. Gradient Overlay for Readability
-            gradientOverlay
+            // 2. Liquid Glass Gradient Overlay
+            liquidGlassOverlay
             
             // 3. Main Content
             VStack(spacing: 0) {
-                // Header Bar (Glassmorphic)
+                // Header Bar (Liquid Glass)
                 headerBar
                     .padding(.horizontal)
                     .padding(.top, 8)
@@ -42,7 +43,7 @@ struct ScannerView: View {
                 
                 Spacer()
                 
-                // Bottom Controls
+                // Bottom Controls (Liquid Glass)
                 controlBar
                     .padding(.bottom, 30)
             }
@@ -57,6 +58,7 @@ struct ScannerView: View {
                 DetailSheet(assessment: result)
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
+                    // iOS 26: Glass background for sheets
                     .presentationBackground(.ultraThinMaterial)
             }
         }
@@ -84,37 +86,45 @@ struct ScannerView: View {
         }
     }
     
-    // MARK: - Gradient Overlay
+    // MARK: - Liquid Glass Overlay (iOS 26)
     
-    private var gradientOverlay: some View {
-        LinearGradient(
-            gradient: Gradient(colors: [
-                Color.black.opacity(0.7),
-                Color.clear,
-                Color.clear,
-                Color.black.opacity(0.85)
-            ]),
-            startPoint: .top,
-            endPoint: .bottom
-        )
+    private var liquidGlassOverlay: some View {
+        ZStack {
+            // Top gradient - Liquid Glass style
+            LinearGradient(
+                gradient: Gradient(stops: [
+                    .init(color: Color.black.opacity(0.8), location: 0),
+                    .init(color: Color.black.opacity(0.3), location: 0.3),
+                    .init(color: Color.clear, location: 0.5)
+                ]),
+                startPoint: .top,
+                endPoint: .center
+            )
+            
+            // Bottom gradient
+            LinearGradient(
+                gradient: Gradient(stops: [
+                    .init(color: Color.clear, location: 0.5),
+                    .init(color: Color.black.opacity(0.5), location: 0.7),
+                    .init(color: Color.black.opacity(0.9), location: 1.0)
+                ]),
+                startPoint: .center,
+                endPoint: .bottom
+            )
+        }
         .ignoresSafeArea()
     }
     
-    // MARK: - Header Bar
+    // MARK: - Header Bar (Liquid Glass iOS 26)
     
     private var headerBar: some View {
         HStack {
-            // Logo
+            // Logo with gradient
             HStack(spacing: 8) {
                 Image(systemName: "shield.fill")
-                    .foregroundStyle(
-                        LinearGradient(
-                            colors: [.brandPrimary, .brandSecondary],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .foregroundStyle(LinearGradient.brandGradient)
                     .font(.title2)
+                    .symbolEffect(.pulse, isActive: viewModel.isScanning)
                 
                 Text("QR-SHIELD")
                     .font(.system(.headline, design: .rounded))
@@ -124,33 +134,36 @@ struct ScannerView: View {
             
             Spacer()
             
-            // Status Indicator
-            HStack(spacing: 4) {
+            // Status Indicator with glass pill
+            HStack(spacing: 6) {
                 Circle()
                     .fill(viewModel.isScanning ? Color.verdictSafe : Color.gray)
                     .frame(width: 8, height: 8)
-                    // iOS 18: Pulsing animation for scanning state
-                    .scaleEffect(viewModel.isScanning ? 1.2 : 1.0)
-                    .animation(.easeInOut(duration: 0.8).repeatForever(autoreverses: true), value: viewModel.isScanning)
+                    .shadow(color: viewModel.isScanning ? .verdictSafe.opacity(0.5) : .clear, radius: 4)
                 
                 Text(viewModel.isScanning ? "Scanning" : "Paused")
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(.ultraThinMaterial, in: Capsule())
             
             Spacer()
             
-            // Flash Toggle
+            // Flash Toggle with Liquid Glass
             Button(action: viewModel.toggleFlash) {
                 Image(systemName: viewModel.isFlashOn ? "bolt.fill" : "bolt.slash")
                     .foregroundColor(viewModel.isFlashOn ? .yellow : .white.opacity(0.7))
                     .font(.title3)
                     .contentTransition(.symbolEffect(.replace))
             }
+            .frame(width: 44, height: 44)
+            .background(.ultraThinMaterial, in: Circle())
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .liquidGlass(cornerRadius: 20)
     }
     
     // MARK: - Center Content
@@ -158,12 +171,11 @@ struct ScannerView: View {
     @ViewBuilder
     private var centerContent: some View {
         if let result = viewModel.currentResult {
-            // Show Result Card with matched geometry
+            // Show Result Card with Liquid Glass
             ResultCard(assessment: result)
-                .matchedTransitionSource(id: "result", in: animation)
                 .transition(.asymmetric(
-                    insertion: .scale.combined(with: .opacity),
-                    removal: .opacity
+                    insertion: .scale(scale: 0.9).combined(with: .opacity),
+                    removal: .scale(scale: 0.95).combined(with: .opacity)
                 ))
                 .onTapGesture { showDetails = true }
                 .contextMenu {
@@ -179,6 +191,10 @@ struct ScannerView: View {
                         Label("Copy URL", systemImage: "doc.on.doc")
                     }
                     
+                    ShareLink(item: result.url) {
+                        Label("Share", systemImage: "square.and.arrow.up")
+                    }
+                    
                     Button(role: .destructive) {
                         viewModel.dismissResult()
                     } label: {
@@ -186,7 +202,7 @@ struct ScannerView: View {
                     }
                 }
         } else if viewModel.isAnalyzing {
-            // Analyzing State
+            // Analyzing State with Liquid Glass
             VStack(spacing: 16) {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: .brandPrimary))
@@ -197,65 +213,83 @@ struct ScannerView: View {
                     .foregroundColor(.textSecondary)
             }
             .padding(30)
-            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20))
+            .liquidGlass(cornerRadius: 24)
             .transition(.scale.combined(with: .opacity))
         } else {
-            // Scanning Target
+            // Scanning Target with iOS 26 effects
             scanningIndicator
                 .transition(.opacity)
         }
     }
     
-    // MARK: - Scanning Indicator
+    // MARK: - Scanning Indicator (iOS 26 Enhanced)
     
     private var scanningIndicator: some View {
         ZStack {
-            // Outer glow - iOS 18 enhanced animation
-            Circle()
-                .stroke(Color.brandPrimary.opacity(0.3), lineWidth: 2)
-                .frame(width: 280, height: 280)
-                .scaleEffect(viewModel.isScanning ? 1.1 : 1.0)
-                .opacity(viewModel.isScanning ? 0.5 : 0.3)
-                .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: viewModel.isScanning)
+            // Outer glow rings
+            ForEach(0..<3) { i in
+                Circle()
+                    .stroke(Color.brandPrimary.opacity(0.2 - Double(i) * 0.05), lineWidth: 2)
+                    .frame(width: CGFloat(280 + i * 20), height: CGFloat(280 + i * 20))
+                    .scaleEffect(viewModel.isScanning ? 1.1 : 1.0)
+                    .animation(
+                        .easeInOut(duration: 1.5 + Double(i) * 0.2)
+                        .repeatForever(autoreverses: true)
+                        .delay(Double(i) * 0.1),
+                        value: viewModel.isScanning
+                    )
+            }
             
-            // Main circle with gradient
+            // Main circle with Liquid Glass effect
             Circle()
-                .strokeBorder(
-                    LinearGradient(
-                        colors: [.brandPrimary, .brandSecondary],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ),
-                    lineWidth: 3
-                )
+                .fill(.ultraThinMaterial)
                 .frame(width: 250, height: 250)
+                .overlay {
+                    Circle()
+                        .strokeBorder(
+                            LinearGradient(
+                                colors: [
+                                    .white.opacity(0.3),
+                                    .brandPrimary.opacity(0.5),
+                                    .brandSecondary.opacity(0.3),
+                                    .white.opacity(0.1)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 3
+                        )
+                }
+                .shadow(color: .brandPrimary.opacity(0.3), radius: 20)
             
             // Corner markers
             RoundedRectangle(cornerRadius: 4)
                 .stroke(Color.brandPrimary, lineWidth: 4)
-                .frame(width: 220, height: 220)
+                .frame(width: 200, height: 200)
                 .mask(CornerMask())
             
-            // Center icon with SF Symbol animation
+            // Center icon with iOS 26 symbol effects
             Image(systemName: "qrcode.viewfinder")
                 .font(.system(size: 50))
-                .foregroundStyle(.linearGradient(
-                    colors: [.white.opacity(0.5), .white.opacity(0.3)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                ))
-                .symbolEffect(.pulse, isActive: viewModel.isScanning)
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.white.opacity(0.6), .white.opacity(0.3)],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .symbolEffect(.variableColor.iterative, isActive: viewModel.isScanning)
             
             // Scan text
             Text("Point at QR Code")
                 .font(.caption)
+                .fontWeight(.medium)
                 .foregroundColor(.textMuted)
-                .offset(y: 140)
+                .offset(y: 145)
         }
-        .shadow(color: .brandPrimary.opacity(0.4), radius: 20)
     }
     
-    // MARK: - Control Bar
+    // MARK: - Control Bar (Liquid Glass iOS 26)
     
     private var controlBar: some View {
         HStack(spacing: 50) {
@@ -267,25 +301,36 @@ struct ScannerView: View {
                 showGalleryPicker = true
             }
             
-            // Main Scan Button
+            // Main Scan Button with Liquid Glass
             Button(action: viewModel.toggleScanning) {
                 ZStack {
+                    // Glass background
+                    Circle()
+                        .fill(.ultraThinMaterial)
+                        .frame(width: 80, height: 80)
+                    
+                    // Gradient overlay
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [.brandPrimary, .brandSecondary],
+                                colors: [.brandPrimary.opacity(0.8), .brandSecondary.opacity(0.6)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
                         .frame(width: 70, height: 70)
-                        .shadow(color: .brandPrimary.opacity(0.5), radius: 10)
+                    
+                    // Inner highlight
+                    Circle()
+                        .stroke(LinearGradient.liquidGlassOverlay, lineWidth: 2)
+                        .frame(width: 70, height: 70)
                     
                     Image(systemName: viewModel.isScanning ? "pause.fill" : "play.fill")
                         .font(.system(size: 28))
                         .foregroundColor(.white)
                         .contentTransition(.symbolEffect(.replace))
                 }
+                .shadow(color: .brandPrimary.opacity(0.4), radius: 15)
             }
             .sensoryFeedback(.impact(weight: .medium), trigger: viewModel.isScanning)
             
@@ -304,6 +349,9 @@ struct ScannerView: View {
                 }
             }
         }
+        .padding(.horizontal, 40)
+        .padding(.vertical, 20)
+        .liquidGlass(cornerRadius: 30)
     }
     
     // MARK: - Permission Denied Overlay
@@ -313,6 +361,7 @@ struct ScannerView: View {
             Image(systemName: "camera.fill")
                 .font(.system(size: 60))
                 .foregroundColor(.textMuted)
+                .symbolEffect(.pulse)
             
             Text("Camera Access Required")
                 .font(.title2.weight(.semibold))
@@ -329,18 +378,14 @@ struct ScannerView: View {
                     UIApplication.shared.open(url)
                 }
             }
-            .font(.headline)
-            .foregroundColor(.white)
-            .padding(.horizontal, 32)
-            .padding(.vertical, 14)
-            .background(LinearGradient.brandGradient, in: Capsule())
+            .buttonStyle(.glass)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.bgDark.opacity(0.95))
+        .background(.ultraThinMaterial)
     }
 }
 
-// MARK: - Control Button
+// MARK: - Control Button (Liquid Glass)
 
 struct ControlButton: View {
     let icon: String
@@ -355,6 +400,10 @@ struct ControlButton: View {
                     .foregroundColor(.white)
                     .frame(width: 50, height: 50)
                     .background(.ultraThinMaterial, in: Circle())
+                    .overlay {
+                        Circle()
+                            .stroke(Color.white.opacity(0.1), lineWidth: 1)
+                    }
                 
                 Text(label)
                     .font(.caption2)
@@ -364,7 +413,7 @@ struct ControlButton: View {
     }
 }
 
-// MARK: - Corner Mask for Scanning Indicator
+// MARK: - Corner Mask
 
 struct CornerMask: Shape {
     func path(in rect: CGRect) -> Path {
