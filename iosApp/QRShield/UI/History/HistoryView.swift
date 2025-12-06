@@ -1,19 +1,21 @@
 // UI/History/HistoryView.swift
-// QR-SHIELD Scan History
+// QR-SHIELD Scan History - iOS 26 Liquid Glass Edition
 //
-// Native SwiftUI list showing past scans with filtering and search.
-// Integrates with Kotlin Multiplatform HistoryRepository.
+// UPDATED: December 2025 - iOS 26 / Xcode 26
+// - Liquid Glass design
+// - Observable in UIKit patterns
+// - Enhanced list animations
 
 import SwiftUI
 
 struct HistoryView: View {
-    @StateObject private var viewModel = HistoryViewModel()
+    @State private var viewModel = HistoryViewModel()
     @State private var searchText = ""
     @State private var selectedFilter: VerdictFilter = .all
     
     var body: some View {
         VStack(spacing: 0) {
-            // Filter Bar
+            // Filter Bar with Liquid Glass
             filterBar
                 .padding(.horizontal)
                 .padding(.vertical, 8)
@@ -25,7 +27,11 @@ struct HistoryView: View {
                 historyList
             }
         }
-        .background(Color.bgDark)
+        .background {
+            // iOS 26: Mesh gradient background
+            MeshGradient.liquidGlassBackground
+                .ignoresSafeArea()
+        }
         .navigationTitle("History")
         .searchable(text: $searchText, prompt: "Search URLs")
         .toolbar {
@@ -45,6 +51,7 @@ struct HistoryView: View {
                 } label: {
                     Image(systemName: "ellipsis.circle")
                         .foregroundColor(.brandPrimary)
+                        .symbolEffect(.pulse)
                 }
             }
         }
@@ -53,7 +60,7 @@ struct HistoryView: View {
         }
     }
     
-    // MARK: - Filter Bar
+    // MARK: - Filter Bar (Liquid Glass iOS 26)
     
     private var filterBar: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -80,11 +87,13 @@ struct HistoryView: View {
         List {
             ForEach(viewModel.filteredHistory) { item in
                 HistoryRow(item: item)
-                    .listRowBackground(Color.bgCard)
+                    .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
-                            viewModel.delete(item)
+                            withAnimation {
+                                viewModel.delete(item)
+                            }
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
@@ -95,15 +104,22 @@ struct HistoryView: View {
         .scrollContentBackground(.hidden)
     }
     
-    // MARK: - Empty State
+    // MARK: - Empty State (Liquid Glass)
     
     private var emptyState: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 20) {
             Spacer()
             
-            Image(systemName: "clock.badge.questionmark")
-                .font(.system(size: 60))
-                .foregroundColor(.textMuted)
+            ZStack {
+                Circle()
+                    .fill(.ultraThinMaterial)
+                    .frame(width: 120, height: 120)
+                
+                Image(systemName: "clock.badge.questionmark")
+                    .font(.system(size: 50))
+                    .foregroundStyle(LinearGradient.brandGradient)
+                    .symbolEffect(.pulse)
+            }
             
             Text("No Scans Yet")
                 .font(.title3.weight(.semibold))
@@ -118,7 +134,7 @@ struct HistoryView: View {
     }
 }
 
-// MARK: - Filter Chip
+// MARK: - Filter Chip (Liquid Glass iOS 26)
 
 struct FilterChip: View {
     let title: String
@@ -128,31 +144,41 @@ struct FilterChip: View {
     
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 4) {
+            HStack(spacing: 6) {
                 Circle()
                     .fill(color)
                     .frame(width: 8, height: 8)
+                    .shadow(color: isSelected ? color.opacity(0.5) : .clear, radius: 4)
                 
                 Text(title)
                     .font(.subheadline.weight(isSelected ? .semibold : .regular))
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .background(isSelected ? color.opacity(0.2) : Color.bgCard)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background {
+                if isSelected {
+                    Capsule()
+                        .fill(color.opacity(0.2))
+                        .overlay {
+                            Capsule()
+                                .stroke(color.opacity(0.4), lineWidth: 1)
+                        }
+                } else {
+                    Capsule()
+                        .fill(.ultraThinMaterial)
+                }
+            }
             .foregroundColor(isSelected ? color : .textSecondary)
-            .cornerRadius(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(isSelected ? color.opacity(0.5) : Color.clear, lineWidth: 1)
-            )
         }
+        .sensoryFeedback(.selection, trigger: isSelected)
     }
 }
 
-// MARK: - History Row
+// MARK: - History Row (Liquid Glass iOS 26)
 
 struct HistoryRow: View {
     let item: HistoryItemMock
+    @State private var isPressed = false
     
     var verdictColor: Color {
         switch item.verdict {
@@ -165,10 +191,17 @@ struct HistoryRow: View {
     
     var body: some View {
         HStack(spacing: 12) {
-            // Verdict Indicator
-            Circle()
-                .fill(verdictColor)
-                .frame(width: 10, height: 10)
+            // Verdict Indicator with glow
+            ZStack {
+                Circle()
+                    .fill(verdictColor.opacity(0.2))
+                    .frame(width: 40, height: 40)
+                
+                Circle()
+                    .fill(verdictColor)
+                    .frame(width: 12, height: 12)
+                    .shadow(color: verdictColor.opacity(0.5), radius: 4)
+            }
             
             // Content
             VStack(alignment: .leading, spacing: 4) {
@@ -181,7 +214,7 @@ struct HistoryRow: View {
                 HStack(spacing: 8) {
                     Text(item.verdict.rawValue)
                         .font(.caption2)
-                        .fontWeight(.medium)
+                        .fontWeight(.semibold)
                         .foregroundColor(verdictColor)
                     
                     Text("•")
@@ -195,24 +228,38 @@ struct HistoryRow: View {
             
             Spacer()
             
-            // Score Badge
+            // Score Badge with Liquid Glass
             Text("\(item.score)")
                 .font(.caption.weight(.bold))
                 .foregroundColor(verdictColor)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 4)
-                .background(verdictColor.opacity(0.15))
-                .cornerRadius(8)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .background {
+                    Capsule()
+                        .fill(verdictColor.opacity(0.15))
+                        .overlay {
+                            Capsule()
+                                .stroke(verdictColor.opacity(0.3), lineWidth: 1)
+                        }
+                }
+            
+            Image(systemName: "chevron.right")
+                .font(.caption)
+                .foregroundColor(.textMuted)
         }
-        .padding(.vertical, 8)
+        .padding(.vertical, 12)
+        .padding(.horizontal, 16)
+        .liquidGlass(cornerRadius: 16)
+        .padding(.horizontal, 4)
+        .padding(.vertical, 4)
     }
 }
 
-// MARK: - View Model
+// MARK: - View Model (iOS 26 @Observable)
 
-class HistoryViewModel: ObservableObject {
-    @Published var filteredHistory: [HistoryItemMock] = []
-    
+@Observable
+final class HistoryViewModel {
+    var filteredHistory: [HistoryItemMock] = []
     private var allHistory: [HistoryItemMock] = []
     
     init() {
@@ -254,7 +301,8 @@ class HistoryViewModel: ObservableObject {
             HistoryItemMock(id: "1", url: "https://google.com", score: 12, verdict: .safe, scannedAt: Date()),
             HistoryItemMock(id: "2", url: "https://suspicious-link.xyz", score: 55, verdict: .suspicious, scannedAt: Date().addingTimeInterval(-3600)),
             HistoryItemMock(id: "3", url: "https://apple.com/store", score: 8, verdict: .safe, scannedAt: Date().addingTimeInterval(-7200)),
-            HistoryItemMock(id: "4", url: "https://phishing-attack.com/login", score: 92, verdict: .malicious, scannedAt: Date().addingTimeInterval(-86400))
+            HistoryItemMock(id: "4", url: "https://phishing-attack.com/login", score: 92, verdict: .malicious, scannedAt: Date().addingTimeInterval(-86400)),
+            HistoryItemMock(id: "5", url: "https://amazon.com/product", score: 5, verdict: .safe, scannedAt: Date().addingTimeInterval(-172800))
         ]
         filteredHistory = allHistory
     }

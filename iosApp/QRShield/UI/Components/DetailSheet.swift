@@ -1,16 +1,18 @@
 // UI/Components/DetailSheet.swift
-// QR-SHIELD Analysis Details Bottom Sheet
+// QR-SHIELD Detail Sheet - iOS 26 Liquid Glass Edition
 //
-// Presents comprehensive analysis breakdown in a modal sheet.
-// Shows heuristic details, ML scores, brand detection, and more.
+// UPDATED: December 2025
+// - Liquid Glass design
+// - Enhanced sheet styling
+// - iOS 26 share functionality
 
 import SwiftUI
 
-/// Bottom sheet that shows full analysis details
+/// Full analysis detail sheet with Liquid Glass design
 struct DetailSheet: View {
-    let assessment: RiskAssessmentMock // Replace with common.RiskAssessment
-    
+    let assessment: RiskAssessmentMock
     @Environment(\.dismiss) private var dismiss
+    @State private var showShareSheet = false
     
     var themeColor: Color {
         switch assessment.verdict {
@@ -25,159 +27,246 @@ struct DetailSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    // Header Card
-                    headerCard
+                    // Header
+                    headerSection
                     
                     // Score Breakdown
                     scoreBreakdownSection
                     
                     // Risk Flags
                     if !assessment.flags.isEmpty {
-                        flagsSection
+                        riskFlagsSection
                     }
                     
                     // URL Details
-                    urlSection
+                    urlDetailsSection
                     
                     // Actions
                     actionsSection
                 }
-                .padding()
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+                .padding(.bottom, 40)
             }
-            .background(Color.bgDark)
+            .scrollContentBackground(.hidden)
+            .background {
+                MeshGradient.liquidGlassBackground
+                    .ignoresSafeArea()
+            }
             .navigationTitle("Analysis Details")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") { dismiss() }
-                        .foregroundColor(.brandPrimary)
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundStyle(.secondary)
+                            .font(.title3)
+                    }
                 }
             }
         }
-        .presentationDetents([.medium, .large])
-        .presentationDragIndicator(.visible)
     }
     
-    // MARK: - Header Card
+    // MARK: - Header Section (Liquid Glass)
     
-    private var headerCard: some View {
+    private var headerSection: some View {
         VStack(spacing: 16) {
-            // Icon
+            // Large verdict icon with glass container
             ZStack {
                 Circle()
-                    .fill(themeColor.opacity(0.2))
-                    .frame(width: 80, height: 80)
+                    .fill(themeColor.opacity(0.15))
+                    .frame(width: 100, height: 100)
                 
-                Image(systemName: assessment.verdict == .safe ? "checkmark.shield.fill" : "xmark.shield.fill")
-                    .font(.system(size: 40))
+                Circle()
+                    .stroke(themeColor.opacity(0.3), lineWidth: 2)
+                    .frame(width: 100, height: 100)
+                
+                Image(systemName: verdictIcon)
+                    .font(.system(size: 50))
                     .foregroundColor(themeColor)
+                    .symbolEffect(.pulse)
             }
+            .shadow(color: themeColor.opacity(0.4), radius: 15)
             
-            // Score
-            Text("\(assessment.score)")
-                .font(.system(size: 48, weight: .bold, design: .rounded))
+            // Verdict Text
+            Text(assessment.verdict.rawValue)
+                .font(.title)
+                .fontWeight(.bold)
                 .foregroundColor(themeColor)
             
-            Text(assessment.verdict.rawValue)
-                .font(.title3.weight(.semibold))
-                .foregroundColor(.textPrimary)
-            
-            // Confidence
-            HStack {
-                Image(systemName: "chart.bar.fill")
-                    .foregroundColor(.brandSecondary)
-                Text("Confidence: \(Int(assessment.confidence * 100))%")
-                    .foregroundColor(.textSecondary)
+            // Score
+            HStack(spacing: 20) {
+                scoreItem(title: "Risk Score", value: "\(assessment.score)", color: themeColor)
+                
+                Divider()
+                    .frame(height: 40)
+                
+                scoreItem(title: "Confidence", value: "\(Int(assessment.confidence * 100))%", color: .brandPrimary)
             }
-            .font(.subheadline)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 16)
+            .liquidGlass(cornerRadius: 16)
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 24)
-        .background(Color.bgCard)
-        .cornerRadius(20)
     }
     
-    // MARK: - Score Breakdown
+    private var verdictIcon: String {
+        switch assessment.verdict {
+        case .safe: return "checkmark.shield.fill"
+        case .suspicious: return "exclamationmark.shield.fill"
+        case .malicious: return "xmark.shield.fill"
+        case .unknown: return "questionmark.circle"
+        }
+    }
+    
+    private func scoreItem(title: String, value: String, color: Color) -> some View {
+        VStack(spacing: 4) {
+            Text(value)
+                .font(.title2.weight(.bold))
+                .foregroundColor(color)
+                .contentTransition(.numericText())
+            
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.textMuted)
+        }
+    }
+    
+    // MARK: - Score Breakdown (Liquid Glass)
     
     private var scoreBreakdownSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("Score Breakdown")
+            sectionTitle("Score Breakdown")
             
-            VStack(spacing: 8) {
-                ScoreRow(label: "Heuristics", score: 45, maxScore: 100, color: .brandPrimary)
-                ScoreRow(label: "ML Model", score: 38, maxScore: 100, color: .brandSecondary)
-                ScoreRow(label: "Brand Check", score: 0, maxScore: 100, color: .verdictSafe)
-                ScoreRow(label: "TLD Risk", score: 10, maxScore: 100, color: .verdictWarning)
+            VStack(spacing: 12) {
+                breakdownRow(title: "URL Analysis", score: min(assessment.score * 2, 100), color: .brandPrimary)
+                breakdownRow(title: "Domain Reputation", score: assessment.score, color: .brandSecondary)
+                breakdownRow(title: "Pattern Detection", score: max(0, assessment.score - 10), color: .verdictWarning)
             }
-            .padding()
-            .background(Color.bgCard)
-            .cornerRadius(16)
+            .padding(16)
+            .liquidGlass(cornerRadius: 16)
         }
     }
     
-    // MARK: - Flags Section
-    
-    private var flagsSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("Risk Factors")
+    private func breakdownRow(title: String, score: Int, color: Color) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(title)
+                    .font(.subheadline)
+                    .foregroundColor(.textPrimary)
+                
+                Spacer()
+                
+                Text("\(score)/100")
+                    .font(.caption.weight(.semibold))
+                    .foregroundColor(color)
+            }
             
-            VStack(spacing: 0) {
-                ForEach(Array(assessment.flags.enumerated()), id: \.offset) { index, flag in
-                    HStack {
+            GeometryReader { geometry in
+                ZStack(alignment: .leading) {
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(Color.bgSurface)
+                        .frame(height: 6)
+                    
+                    RoundedRectangle(cornerRadius: 3)
+                        .fill(color)
+                        .frame(width: geometry.size.width * CGFloat(score) / 100, height: 6)
+                }
+            }
+            .frame(height: 6)
+        }
+    }
+    
+    // MARK: - Risk Flags (Liquid Glass)
+    
+    private var riskFlagsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            sectionTitle("Risk Flags")
+            
+            VStack(spacing: 8) {
+                ForEach(assessment.flags, id: \.self) { flag in
+                    HStack(spacing: 12) {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundColor(.verdictWarning)
+                            .symbolEffect(.pulse)
                         
                         Text(flag)
+                            .font(.subheadline)
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
                     }
-                    .padding()
-                    
-                    if index < assessment.flags.count - 1 {
-                        Divider()
-                            .background(Color.bgSurface)
-                    }
+                    .padding(12)
+                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
                 }
             }
-            .background(Color.bgCard)
-            .cornerRadius(16)
         }
     }
     
-    // MARK: - URL Section
+    // MARK: - URL Details (Liquid Glass)
     
-    private var urlSection: some View {
+    private var urlDetailsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("Scanned URL")
+            sectionTitle("URL Details")
             
-            VStack(alignment: .leading, spacing: 8) {
-                Text(assessment.url)
-                    .font(.system(.body, design: .monospaced))
-                    .foregroundColor(.textPrimary)
-                    .lineLimit(5)
+            VStack(alignment: .leading, spacing: 16) {
+                // Full URL
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Full URL")
+                        .font(.caption)
+                        .foregroundColor(.textMuted)
+                    
+                    Text(assessment.url)
+                        .font(.system(.subheadline, design: .monospaced))
+                        .foregroundColor(.textPrimary)
+                        .textSelection(.enabled)
+                }
                 
-                Button(action: copyUrl) {
-                    HStack {
-                        Image(systemName: "doc.on.doc")
-                        Text("Copy URL")
+                Divider()
+                
+                // Domain
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Domain")
+                        .font(.caption)
+                        .foregroundColor(.textMuted)
+                    
+                    Text(extractDomain(from: assessment.url))
+                        .font(.subheadline.weight(.medium))
+                        .foregroundColor(.textPrimary)
+                }
+                
+                // Protocol
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Protocol")
+                            .font(.caption)
+                            .foregroundColor(.textMuted)
+                        
+                        HStack(spacing: 6) {
+                            Image(systemName: assessment.url.hasPrefix("https") ? "lock.fill" : "lock.open")
+                                .foregroundColor(assessment.url.hasPrefix("https") ? .verdictSafe : .verdictWarning)
+                            
+                            Text(assessment.url.hasPrefix("https") ? "HTTPS (Secure)" : "HTTP (Not Secure)")
+                                .font(.subheadline)
+                                .foregroundColor(assessment.url.hasPrefix("https") ? .verdictSafe : .verdictWarning)
+                        }
                     }
-                    .font(.caption.weight(.medium))
-                    .foregroundColor(.brandPrimary)
+                    
+                    Spacer()
                 }
             }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.bgCard)
-            .cornerRadius(16)
+            .padding(16)
+            .liquidGlass(cornerRadius: 16)
         }
     }
     
-    // MARK: - Actions Section
+    // MARK: - Actions (Liquid Glass iOS 26)
     
     private var actionsSection: some View {
         VStack(spacing: 12) {
-            Button(action: shareAnalysis) {
+            // Share Button
+            ShareLink(item: assessment.url) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
                     Text("Share Analysis")
@@ -185,89 +274,71 @@ struct DetailSheet: View {
                 .font(.headline)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
-                .padding()
-                .background(LinearGradient.brandGradient)
-                .cornerRadius(14)
+                .padding(.vertical, 16)
+                .background {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(LinearGradient.brandGradient)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                        }
+                }
+                .shadow(color: .brandPrimary.opacity(0.4), radius: 10, y: 4)
             }
             
-            Button(action: reportFalsePositive) {
+            // Copy URL Button
+            Button {
+                UIPasteboard.general.string = assessment.url
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
+            } label: {
+                HStack {
+                    Image(systemName: "doc.on.doc")
+                    Text("Copy URL")
+                }
+                .font(.headline)
+                .foregroundColor(.textPrimary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+            }
+            .sensoryFeedback(.impact(weight: .light), trigger: UUID())
+            
+            // Report Button
+            Button {
+                // Report logic
+            } label: {
                 HStack {
                     Image(systemName: "flag")
-                    Text("Report Issue")
+                    Text("Report False Positive")
                 }
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
             }
+            .padding(.top, 8)
         }
-        .padding(.top, 8)
     }
     
     // MARK: - Helpers
     
-    private func sectionHeader(_ title: String) -> some View {
+    private func sectionTitle(_ title: String) -> some View {
         Text(title)
             .font(.headline)
             .foregroundColor(.textPrimary)
     }
     
-    private func copyUrl() {
-        UIPasteboard.general.string = assessment.url
-        // Show toast feedback
-    }
-    
-    private func shareAnalysis() {
-        // Trigger share sheet
-    }
-    
-    private func reportFalsePositive() {
-        // Open report form
+    private func extractDomain(from url: String) -> String {
+        guard let urlObj = URL(string: url) else { return url }
+        return urlObj.host ?? url
     }
 }
-
-// MARK: - Score Row Component
-
-struct ScoreRow: View {
-    let label: String
-    let score: Int
-    let maxScore: Int
-    let color: Color
-    
-    var body: some View {
-        VStack(spacing: 4) {
-            HStack {
-                Text(label)
-                    .font(.subheadline)
-                    .foregroundColor(.textSecondary)
-                Spacer()
-                Text("\(score)")
-                    .font(.subheadline.weight(.medium))
-                    .foregroundColor(.textPrimary)
-            }
-            
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.bgSurface)
-                        .frame(height: 6)
-                    
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(color)
-                        .frame(width: geometry.size.width * CGFloat(score) / CGFloat(maxScore), height: 6)
-                }
-            }
-            .frame(height: 6)
-        }
-    }
-}
-
-// MARK: - Preview
 
 #Preview {
     DetailSheet(assessment: RiskAssessmentMock(
-        score: 78,
-        verdict: .malicious,
-        flags: ["Known phishing domain", "Suspicious URL pattern", "HTTP instead of HTTPS"],
-        confidence: 0.87,
-        url: "https://g00gle-secure.com/login?redirect=account"
+        score: 72,
+        verdict: .suspicious,
+        flags: ["Suspicious domain pattern", "Recently registered domain"],
+        confidence: 0.85,
+        url: "https://suspicious-site.xyz/login"
     ))
 }

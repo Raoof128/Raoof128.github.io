@@ -1,16 +1,15 @@
 // App/QRShieldApp.swift
-// QR-SHIELD iOS Application Entry Point - iOS 18+ / Swift 6
+// QR-SHIELD iOS Application - iOS 26 Liquid Glass Edition
 //
-// UPDATED: December 2024
-// - Modern app lifecycle handling
-// - iOS 18 scene configuration
-// - Proper privacy manifest compliance
+// UPDATED: December 2025 - iOS 26 / Xcode 26
+// - Liquid Glass system integration
+// - Modern app lifecycle
+// - Enhanced tab bar styling
 
 import SwiftUI
 
 @main
 struct QRShieldApp: App {
-    // iOS 17+: Use @State for app-level observable state
     @State private var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
     
     init() {
@@ -34,10 +33,12 @@ struct QRShieldApp: App {
     }
     
     private func configureAppearance() {
-        // Navigation bar styling
+        // iOS 26: Liquid Glass navigation bar
         let navAppearance = UINavigationBarAppearance()
-        navAppearance.configureWithOpaqueBackground()
-        navAppearance.backgroundColor = UIColor(Color.bgDark)
+        navAppearance.configureWithTransparentBackground()
+        navAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        navAppearance.backgroundColor = UIColor(Color.bgDark.opacity(0.5))
+        
         navAppearance.titleTextAttributes = [
             .foregroundColor: UIColor.white,
             .font: UIFont.systemFont(ofSize: 17, weight: .semibold)
@@ -52,12 +53,13 @@ struct QRShieldApp: App {
         UINavigationBar.appearance().compactAppearance = navAppearance
         UINavigationBar.appearance().tintColor = UIColor(Color.brandPrimary)
         
-        // Tab bar styling
+        // iOS 26: Liquid Glass tab bar
         let tabAppearance = UITabBarAppearance()
-        tabAppearance.configureWithOpaqueBackground()
-        tabAppearance.backgroundColor = UIColor(Color.bgDark)
+        tabAppearance.configureWithTransparentBackground()
+        tabAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+        tabAppearance.backgroundColor = UIColor(Color.bgDark.opacity(0.5))
         
-        // iOS 18: Enhanced tab bar item appearance
+        // Tab bar item styling
         let itemAppearance = UITabBarItemAppearance()
         itemAppearance.normal.iconColor = UIColor.gray
         itemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.gray]
@@ -70,15 +72,10 @@ struct QRShieldApp: App {
         
         UITabBar.appearance().standardAppearance = tabAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabAppearance
-        
-        // Sheet presentation styling
-        if #available(iOS 16.4, *) {
-            // Configure default sheet detent
-        }
     }
 }
 
-// MARK: - Root Content View
+// MARK: - Root Content View (iOS 26)
 
 struct ContentView: View {
     @State private var selectedTab = 0
@@ -113,7 +110,6 @@ struct ContentView: View {
             .tag(2)
         }
         .tint(.brandPrimary)
-        // iOS 18: Add sensory feedback for tab changes
         .sensoryFeedback(.selection, trigger: selectedTab)
     }
 }

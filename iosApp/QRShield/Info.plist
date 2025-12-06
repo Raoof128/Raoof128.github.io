@@ -20,7 +20,11 @@
     <key>CFBundleShortVersionString</key>
     <string>1.0.0</string>
     <key>CFBundleVersion</key>
-    <string>1</string>
+    <string>26</string>
+    
+    <!-- iOS 26 Minimum Deployment -->
+    <key>MinimumOSVersion</key>
+    <string>26.0</string>
     
     <!-- Launch Configuration -->
     <key>LSRequiresIPhoneOS</key>
@@ -52,6 +56,14 @@
     <key>NSPhotoLibraryUsageDescription</key>
     <string>QR-SHIELD needs photo library access to scan QR codes from saved images.</string>
     
+    <!-- iOS 26: Privacy Manifest Requirements -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+    <key>NSPrivacyTrackingUsageDescription</key>
+    <string>QR-SHIELD does not track users.</string>
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+    
     <!-- App Transport Security -->
     <key>NSAppTransportSecurity</key>
     <dict>
@@ -71,7 +83,13 @@
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <true/>
     
-    <!-- App Background Modes (none needed) -->
+    <!-- iOS 26: Liquid Glass Support -->
+    <key>UIUserInterfaceStyle</key>
+    <string>Dark</string>
+    
+    <!-- iOS 26: Observable in UIKit (backport enabled) -->
+    <key>UIObservationTrackingEnabled</key>
+    <true/>
     
 </dict>
 </plist>

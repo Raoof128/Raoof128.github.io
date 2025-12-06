@@ -1,13 +1,17 @@
 // UI/Onboarding/OnboardingView.swift
-// QR-SHIELD Onboarding Experience
+// QR-SHIELD Onboarding - iOS 26 Liquid Glass Edition
 //
-// Beautiful first-run experience explaining the app's purpose.
+// UPDATED: December 2025
+// - Liquid Glass effects throughout
+// - Enhanced page transitions
+// - iOS 26 symbol animations
 
 import SwiftUI
 
 struct OnboardingView: View {
     @Binding var isComplete: Bool
     @State private var currentPage = 0
+    @State private var isAnimating = false
     
     private let pages: [OnboardingPage] = [
         OnboardingPage(
@@ -27,66 +31,140 @@ struct OnboardingView: View {
             title: "Privacy First",
             description: "All analysis happens on-device. Your data never leaves your phone.",
             color: .verdictSafe
+        ),
+        OnboardingPage(
+            icon: "sparkles",
+            title: "Liquid Glass Design",
+            description: "Experience the beautiful new iOS 26 Liquid Glass interface with smooth animations.",
+            color: .brandAccent
         )
     ]
     
     var body: some View {
-        VStack(spacing: 0) {
-            // Page Content
-            TabView(selection: $currentPage) {
-                ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
-                    pageView(page)
-                        .tag(index)
-                }
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.spring(), value: currentPage)
+        ZStack {
+            // iOS 26: Animated mesh gradient background
+            MeshGradient.liquidGlassBackground
+                .ignoresSafeArea()
             
-            // Page Indicators
-            HStack(spacing: 8) {
-                ForEach(0..<pages.count, id: \.self) { index in
-                    Circle()
-                        .fill(index == currentPage ? pages[currentPage].color : Color.textMuted)
-                        .frame(width: index == currentPage ? 10 : 8, height: index == currentPage ? 10 : 8)
-                        .animation(.spring(), value: currentPage)
+            VStack(spacing: 0) {
+                // Skip button
+                HStack {
+                    Spacer()
+                    
+                    Button("Skip") {
+                        completeOnboarding()
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.textSecondary)
+                    .padding()
                 }
-            }
-            .padding(.bottom, 40)
-            
-            // Action Button
-            Button(action: nextAction) {
-                Text(currentPage == pages.count - 1 ? "Get Started" : "Continue")
+                
+                // Page Content
+                TabView(selection: $currentPage) {
+                    ForEach(Array(pages.enumerated()), id: \.offset) { index, page in
+                        pageView(page)
+                            .tag(index)
+                    }
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .animation(.spring(response: 0.5), value: currentPage)
+                
+                // Page Indicators
+                HStack(spacing: 10) {
+                    ForEach(0..<pages.count, id: \.self) { index in
+                        Capsule()
+                            .fill(index == currentPage ? pages[currentPage].color : Color.textMuted.opacity(0.5))
+                            .frame(width: index == currentPage ? 24 : 8, height: 8)
+                            .animation(.spring(response: 0.3), value: currentPage)
+                    }
+                }
+                .padding(.bottom, 40)
+                
+                // Action Button
+                Button(action: nextAction) {
+                    HStack(spacing: 8) {
+                        Text(currentPage == pages.count - 1 ? "Get Started" : "Continue")
+                        
+                        Image(systemName: currentPage == pages.count - 1 ? "arrow.right.circle.fill" : "arrow.right")
+                            .symbolEffect(.bounce, value: currentPage)
+                    }
                     .font(.headline)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(LinearGradient.brandGradient)
-                    .cornerRadius(16)
+                    .padding(.vertical, 18)
+                    .background {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(pages[currentPage].color)
+                            .overlay {
+                                // Liquid Glass highlight
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [.white.opacity(0.3), .clear],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
+                            }
+                    }
+                    .shadow(color: pages[currentPage].color.opacity(0.4), radius: 10, y: 5)
+                }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 40)
+                .sensoryFeedback(.impact(weight: .medium), trigger: currentPage)
             }
-            .padding(.horizontal, 24)
-            .padding(.bottom, 40)
         }
-        .background(Color.bgDark)
+        .onAppear {
+            isAnimating = true
+        }
     }
     
+    // MARK: - Page View (Liquid Glass iOS 26)
+    
     private func pageView(_ page: OnboardingPage) -> some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 40) {
             Spacer()
             
+            // Icon with Liquid Glass container
             ZStack {
-                Circle()
-                    .fill(page.color.opacity(0.15))
-                    .frame(width: 180, height: 180)
-                
+                // Outer glow
                 Circle()
                     .fill(page.color.opacity(0.1))
-                    .frame(width: 140, height: 140)
+                    .frame(width: 220, height: 220)
+                    .blur(radius: 20)
                 
+                // Glass container
+                Circle()
+                    .fill(.ultraThinMaterial)
+                    .frame(width: 180, height: 180)
+                    .overlay {
+                        Circle()
+                            .stroke(
+                                LinearGradient(
+                                    colors: [.white.opacity(0.3), page.color.opacity(0.3), .clear],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 2
+                            )
+                    }
+                    .shadow(color: page.color.opacity(0.3), radius: 20)
+                
+                // Icon with animation
                 Image(systemName: page.icon)
-                    .font(.system(size: 60))
-                    .foregroundColor(page.color)
+                    .font(.system(size: 70))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [page.color, page.color.opacity(0.7)],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                    .symbolEffect(.variableColor.iterative, isActive: isAnimating)
             }
             
+            // Text content with glass background
             VStack(spacing: 16) {
                 Text(page.title)
                     .font(.title.weight(.bold))
@@ -97,24 +175,38 @@ struct OnboardingView: View {
                     .font(.body)
                     .foregroundColor(.textSecondary)
                     .multilineTextAlignment(.center)
-                    .padding(.horizontal, 32)
+                    .lineSpacing(4)
             }
+            .padding(.horizontal, 40)
             
             Spacer()
             Spacer()
         }
     }
     
+    // MARK: - Actions
+    
     private func nextAction() {
         if currentPage < pages.count - 1 {
-            withAnimation {
+            withAnimation(.spring(response: 0.4)) {
                 currentPage += 1
             }
         } else {
+            completeOnboarding()
+        }
+    }
+    
+    private func completeOnboarding() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+        
+        withAnimation(.spring(response: 0.4)) {
             isComplete = true
         }
     }
 }
+
+// MARK: - Onboarding Page Model
 
 struct OnboardingPage {
     let icon: String

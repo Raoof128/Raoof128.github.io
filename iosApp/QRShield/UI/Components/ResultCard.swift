@@ -1,14 +1,14 @@
 // UI/Components/ResultCard.swift
-// QR-SHIELD Animated Result Card - iOS 18+ Optimized
+// QR-SHIELD Result Card - iOS 26 Liquid Glass Edition
 //
-// UPDATED: December 2024
-// - SF Symbol animations with symbolEffect
-// - contentTransition for smooth state changes
-// - phaseAnimator for complex animations
+// UPDATED: December 2025
+// - Full Liquid Glass styling
+// - Enhanced animations
+// - iOS 26 symbol effects
 
 import SwiftUI
 
-/// Animated result card with verdict-specific theming
+/// Animated result card with Liquid Glass design and verdict-specific theming
 struct ResultCard: View {
     let assessment: RiskAssessmentMock
     
@@ -41,9 +41,16 @@ struct ResultCard: View {
             // Risk Score Bar
             scoreBar
             
-            // Divider
-            Divider()
-                .background(Color.bgSurface)
+            // Divider with gradient
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        colors: [.clear, themeColor.opacity(0.3), .clear],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .frame(height: 1)
             
             // Flags Section
             if !assessment.flags.isEmpty {
@@ -57,8 +64,27 @@ struct ResultCard: View {
             actionButton
         }
         .padding(20)
-        .background(Color.bgCard)
-        .clipShape(RoundedRectangle(cornerRadius: 24))
+        .background {
+            // Liquid Glass background
+            RoundedRectangle(cornerRadius: 24)
+                .fill(.ultraThinMaterial)
+                .overlay {
+                    // Inner border gradient
+                    RoundedRectangle(cornerRadius: 24)
+                        .stroke(
+                            LinearGradient(
+                                colors: [
+                                    themeColor.opacity(0.4),
+                                    .white.opacity(0.2),
+                                    themeColor.opacity(0.2)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1.5
+                        )
+                }
+        }
         .shadow(color: themeColor.opacity(0.3), radius: 20, x: 0, y: 10)
         .padding(.horizontal, 24)
         .onAppear {
@@ -68,23 +94,27 @@ struct ResultCard: View {
         }
     }
     
-    // MARK: - Header Section
+    // MARK: - Header Section (Liquid Glass iOS 26)
     
     private var headerSection: some View {
-        HStack(alignment: .center, spacing: 12) {
-            // Verdict Icon with Animation
+        HStack(alignment: .center, spacing: 14) {
+            // Verdict Icon with glass container
             ZStack {
                 Circle()
-                    .fill(themeColor.opacity(0.2))
-                    .frame(width: 60, height: 60)
+                    .fill(themeColor.opacity(0.15))
+                    .frame(width: 64, height: 64)
+                
+                Circle()
+                    .stroke(themeColor.opacity(0.3), lineWidth: 1)
+                    .frame(width: 64, height: 64)
                 
                 Image(systemName: iconName)
                     .font(.system(size: 32))
                     .foregroundColor(themeColor)
                     .scaleEffect(isAppearing ? 1.0 : 0.5)
-                    // iOS 17+: SF Symbol animation
                     .symbolEffect(.bounce, value: isAppearing)
             }
+            .shadow(color: themeColor.opacity(0.4), radius: 8)
             
             // Text Info
             VStack(alignment: .leading, spacing: 4) {
@@ -97,12 +127,11 @@ struct ResultCard: View {
                 Text("Risk Score: \(assessment.score)/100")
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
-                    .contentTransition(.numericText(countsDown: assessment.score > 50))
             }
             
             Spacer()
             
-            // Confidence Badge
+            // Confidence Badge with Liquid Glass
             VStack(spacing: 2) {
                 Text("\(Int(assessment.confidence * 100))%")
                     .font(.headline)
@@ -114,59 +143,70 @@ struct ResultCard: View {
                     .font(.caption2)
                     .foregroundColor(.textMuted)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .background(Color.bgSurface, in: RoundedRectangle(cornerRadius: 10))
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+            .background {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(.ultraThinMaterial)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.white.opacity(0.15), lineWidth: 1)
+                    }
+            }
         }
     }
     
-    // MARK: - Score Bar
+    // MARK: - Score Bar (iOS 26 Animated)
     
     private var scoreBar: some View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 // Background
-                RoundedRectangle(cornerRadius: 4)
+                RoundedRectangle(cornerRadius: 5)
                     .fill(Color.bgSurface)
-                    .frame(height: 8)
+                    .frame(height: 10)
                 
-                // Filled portion with animation
-                RoundedRectangle(cornerRadius: 4)
+                // Filled portion with gradient and animation
+                RoundedRectangle(cornerRadius: 5)
                     .fill(
                         LinearGradient(
-                            colors: [themeColor, themeColor.opacity(0.7)],
+                            colors: [themeColor, themeColor.opacity(0.6)],
                             startPoint: .leading,
                             endPoint: .trailing
                         )
                     )
                     .frame(
                         width: isAppearing ? geometry.size.width * CGFloat(assessment.score) / 100 : 0,
-                        height: 8
+                        height: 10
                     )
+                    .shadow(color: themeColor.opacity(0.5), radius: 4, x: 0, y: 0)
                     .animation(.spring(response: 0.8, dampingFraction: 0.7).delay(0.2), value: isAppearing)
             }
         }
-        .frame(height: 8)
+        .frame(height: 10)
     }
     
     // MARK: - Flags Section
     
     private var flagsSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             ForEach(Array(assessment.flags.prefix(showingFullFlags ? 10 : 3).enumerated()), id: \.offset) { index, flag in
-                HStack(spacing: 8) {
+                HStack(spacing: 10) {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .font(.caption)
                         .foregroundColor(.verdictWarning)
                         .symbolEffect(.pulse, isActive: assessment.verdict == .malicious)
                     
                     Text(flag)
-                        .font(.caption)
+                        .font(.subheadline)
                         .foregroundColor(.textSecondary)
                         .lineLimit(1)
                     
                     Spacer()
                 }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
                 .transition(.asymmetric(
                     insertion: .move(edge: .top).combined(with: .opacity),
                     removal: .opacity
@@ -179,57 +219,73 @@ struct ResultCard: View {
                         showingFullFlags.toggle()
                     }
                 } label: {
-                    Text(showingFullFlags ? "Show less" : "Show \(assessment.flags.count - 3) more...")
-                        .font(.caption)
-                        .foregroundColor(.brandPrimary)
+                    HStack {
+                        Text(showingFullFlags ? "Show less" : "Show \(assessment.flags.count - 3) more...")
+                            .font(.caption)
+                            .foregroundColor(.brandPrimary)
+                        
+                        Image(systemName: showingFullFlags ? "chevron.up" : "chevron.down")
+                            .font(.caption2)
+                            .foregroundColor(.brandPrimary)
+                    }
                 }
+                .sensoryFeedback(.selection, trigger: showingFullFlags)
             }
         }
     }
     
-    // MARK: - URL Preview
+    // MARK: - URL Preview (Liquid Glass)
     
     private var urlPreview: some View {
-        Text(assessment.url)
-            .font(.caption)
-            .foregroundColor(.textMuted)
-            .lineLimit(1)
-            .truncationMode(.middle)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(10)
-            .background(Color.bgSurface, in: RoundedRectangle(cornerRadius: 8))
-            .textSelection(.enabled) // iOS 15+: Allow text selection
+        HStack {
+            Image(systemName: "link")
+                .font(.caption)
+                .foregroundColor(.textMuted)
+            
+            Text(assessment.url)
+                .font(.caption)
+                .foregroundColor(.textMuted)
+                .lineLimit(1)
+                .truncationMode(.middle)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
+        .textSelection(.enabled)
     }
     
-    // MARK: - Action Button
+    // MARK: - Action Button (Liquid Glass iOS 26)
     
     private var actionButton: some View {
         Button(action: {}) {
-            HStack {
-                Image(systemName: "arrow.up.forward.square")
+            HStack(spacing: 8) {
+                Image(systemName: "doc.text.magnifyingglass")
                     .symbolEffect(.bounce, value: isAppearing)
                 Text("View Full Analysis")
             }
             .font(.subheadline.weight(.semibold))
             .foregroundColor(.white)
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 12)
-            .background(themeColor, in: RoundedRectangle(cornerRadius: 10))
+            .padding(.vertical, 14)
+            .background {
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(themeColor)
+                    .overlay {
+                        // Liquid Glass highlight
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [.white.opacity(0.4), .clear],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 1
+                            )
+                    }
+            }
+            .shadow(color: themeColor.opacity(0.4), radius: 8, y: 4)
         }
-        .sensoryFeedback(.impact(weight: .light), trigger: \._button)
-    }
-}
-
-// MARK: - Verdict Extension
-
-extension VerdictMock {
-    var displayEmoji: String {
-        switch self {
-        case .safe: return "✅"
-        case .suspicious: return "⚠️"
-        case .malicious: return "🚨"
-        case .unknown: return "❓"
-        }
+        .sensoryFeedback(.impact(weight: .light), trigger: isAppearing)
     }
 }
 
@@ -237,7 +293,8 @@ extension VerdictMock {
 
 #Preview("Safe Result") {
     ZStack {
-        Color.bgDark.ignoresSafeArea()
+        MeshGradient.liquidGlassBackground
+            .ignoresSafeArea()
         
         ResultCard(assessment: RiskAssessmentMock(
             score: 15,
@@ -251,7 +308,8 @@ extension VerdictMock {
 
 #Preview("Malicious Result") {
     ZStack {
-        Color.bgDark.ignoresSafeArea()
+        MeshGradient.liquidGlassBackground
+            .ignoresSafeArea()
         
         ResultCard(assessment: RiskAssessmentMock(
             score: 78,
