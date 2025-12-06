@@ -54,6 +54,14 @@ class IosQrScanner : QrScanner {
     private var captureSession: AVCaptureSession? = null
     
     /**
+     * Get the AVCaptureSession for use in SwiftUI CameraPreview.
+     * This allows native SwiftUI views to display the camera feed.
+     * 
+     * @return The active capture session, or null if not initialized
+     */
+    fun getSession(): AVCaptureSession? = captureSession
+    
+    /**
      * Start continuous camera scanning using AVFoundation + Vision.
      * 
      * Sets up AVCaptureSession with video output that feeds frames to 
