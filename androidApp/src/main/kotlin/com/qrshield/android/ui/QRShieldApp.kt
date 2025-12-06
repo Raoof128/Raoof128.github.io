@@ -16,9 +16,9 @@ import com.qrshield.ui.UiState
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QRShieldApp(
-    viewModel: SharedViewModel = remember { SharedViewModel() }
-) {
+fun QRShieldApp() {
+    val coroutineScope = rememberCoroutineScope()
+    val viewModel = remember { SharedViewModel(coroutineScope = coroutineScope) }
     val uiState by viewModel.uiState.collectAsState()
     
     Scaffold(
