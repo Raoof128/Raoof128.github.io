@@ -50,7 +50,7 @@ struct OnboardingView: View {
     var body: some View {
         ZStack {
             // iOS 26.2: Animated mesh gradient background
-            MeshGradient.liquidGlassBackground
+            LiquidGlassBackground()
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {

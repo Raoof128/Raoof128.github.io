@@ -231,7 +231,7 @@ struct SettingsView: View {
         .listStyle(.insetGrouped)
         .scrollContentBackground(.hidden)
         .background {
-            MeshGradient.liquidGlassBackground
+            LiquidGlassBackground()
                 .ignoresSafeArea()
         }
         .navigationTitle("Settings")

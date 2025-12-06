@@ -1,8 +1,10 @@
 // Extensions/Assets+Extension.swift
-// QR-SHIELD Asset Extensions - iOS 26
+// QR-SHIELD Asset Extensions - iOS 17+ Compatible
 //
-// CREATED: December 2025
-// Provides type-safe access to all app assets with fallback support
+// UPDATED: December 2025
+// - Removed duplicate color declarations
+// - All assets use SF Symbol fallbacks
+// - VerdictIcon component with animations
 
 import SwiftUI
 
@@ -10,63 +12,40 @@ import SwiftUI
 
 extension Image {
     
-    // MARK: - Verdict Icons
+    // MARK: - Verdict Icons (SF Symbol based)
     
-    /// Safe verdict shield icon (green)
-    static let shieldSafe = Image("ShieldSafe")
+    /// Safe verdict shield icon
+    static let shieldSafe = Image(systemName: "checkmark.shield.fill")
     
-    /// Warning verdict shield icon (orange)
-    static let shieldWarning = Image("ShieldWarning")
+    /// Warning verdict shield icon
+    static let shieldWarning = Image(systemName: "exclamationmark.shield.fill")
     
-    /// Danger verdict shield icon (red)
-    static let shieldDanger = Image("ShieldDanger")
+    /// Danger verdict shield icon
+    static let shieldDanger = Image(systemName: "xmark.shield.fill")
     
     // MARK: - Navigation Icons
     
-    /// History/clock icon for history tab
-    static let iconHistory = Image("IconHistory")
+    /// History icon for history tab
+    static let iconHistory = Image(systemName: "clock.fill")
     
-    /// Settings/gear icon for settings tab
-    static let iconSettings = Image("IconSettings")
+    /// Settings icon for settings tab
+    static let iconSettings = Image(systemName: "gearshape.fill")
     
-    /// Gallery/photo icon for import button
-    static let iconGallery = Image("IconGallery")
+    /// Gallery icon for import button
+    static let iconGallery = Image(systemName: "photo.on.rectangle")
     
     // MARK: - Branding
     
     /// Main app logo
-    static let brandingLogo = Image("BrandingLogo")
+    static let brandingLogo = Image(systemName: "shield.fill")
     
     /// Launch screen logo
-    static let launchLogo = Image("LaunchLogo")
-    
-    /// Danger alert animation graphic
-    static let dangerAlert = Image("DangerAlert")
-    
-    // MARK: - Onboarding
-    
-    static let onboardScan = Image("OnboardScan")
-    static let onboardProtect = Image("OnboardProtect")
-    static let onboardPrivacy = Image("OnboardPrivacy")
+    static let launchLogo = Image(systemName: "shield.fill")
     
     // MARK: - Verdict Icon Helper
     
-    /// Get the appropriate icon for a verdict
+    /// Get the appropriate SF Symbol for a verdict
     static func forVerdict(_ verdict: VerdictMock) -> Image {
-        switch verdict {
-        case .safe:
-            return shieldSafe
-        case .suspicious:
-            return shieldWarning
-        case .malicious:
-            return shieldDanger
-        case .unknown:
-            return Image(systemName: "questionmark.circle.fill")
-        }
-    }
-    
-    /// Get SF Symbol for a verdict (fallback)
-    static func sfSymbolForVerdict(_ verdict: VerdictMock) -> Image {
         switch verdict {
         case .safe:
             return Image(systemName: "checkmark.shield.fill")
@@ -78,60 +57,32 @@ extension Image {
             return Image(systemName: "questionmark.circle.fill")
         }
     }
-}
-
-// MARK: - Safe Image Loading
-
-extension Image {
-    /// Load an asset image with SF Symbol fallback
-    /// - Parameters:
-    ///   - named: Asset catalog image name
-    ///   - fallback: SF Symbol name to use if asset doesn't exist
-    init(named: String, fallback: String) {
-        if let uiImage = UIImage(named: named) {
-            self.init(uiImage: uiImage)
-        } else {
-            self.init(systemName: fallback)
-        }
+    
+    /// Alias for forVerdict
+    static func sfSymbolForVerdict(_ verdict: VerdictMock) -> Image {
+        forVerdict(verdict)
     }
 }
 
-// MARK: - Color Extensions
+// MARK: - Color Verdict Helper
 
 extension Color {
-    
-    // MARK: - Asset Catalog Colors
-    
-    /// Accent color from asset catalog
-    static let accent = Color("AccentColor")
-    
-    /// Safe verdict color from asset catalog
-    static let verdictSafeAsset = Color("VerdictSafe")
-    
-    /// Warning verdict color from asset catalog
-    static let verdictWarningAsset = Color("VerdictWarning")
-    
-    /// Danger verdict color from asset catalog
-    static let verdictDangerAsset = Color("VerdictDanger")
-    
-    // MARK: - Verdict Color Helper
-    
-    /// Get the color for a verdict from asset catalog
+    /// Get the color for a verdict
     static func forVerdict(_ verdict: VerdictMock) -> Color {
         switch verdict {
         case .safe:
-            return verdictSafeAsset
+            return .verdictSafe
         case .suspicious:
-            return verdictWarningAsset
+            return .verdictWarning
         case .malicious:
-            return verdictDangerAsset
+            return .verdictDanger
         case .unknown:
             return .gray
         }
     }
 }
 
-// MARK: - Animated Verdict Icon View
+// MARK: - VerdictIcon Component
 
 /// Animated verdict icon with pulse effect for danger states
 struct VerdictIcon: View {
@@ -141,40 +92,31 @@ struct VerdictIcon: View {
     
     @State private var isPulsing = false
     
-    var body: some View {
-        Group {
-            if useSFSymbols {
-                Image.sfSymbolForVerdict(verdict)
-                    .font(.system(size: size))
-            } else {
-                Image.forVerdict(verdict)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: size, height: size)
-            }
-        }
-        .foregroundColor(color)
-        .symbolEffect(.pulse, isActive: verdict == .malicious)
-        .scaleEffect(isPulsing && verdict == .malicious ? 1.1 : 1.0)
-        .animation(
-            verdict == .malicious ?
-                .easeInOut(duration: 0.6).repeatForever(autoreverses: true) : .default,
-            value: isPulsing
-        )
-        .onAppear {
-            if verdict == .malicious {
-                isPulsing = true
-            }
-        }
-        .sensoryFeedback(.impact(weight: verdict == .malicious ? .heavy : .light), trigger: verdict)
-    }
-    
     private var color: Color {
         Color.forVerdict(verdict)
     }
+    
+    var body: some View {
+        Image.forVerdict(verdict)
+            .font(.system(size: size))
+            .foregroundColor(color)
+            .symbolEffect(.pulse, isActive: verdict == .malicious)
+            .scaleEffect(isPulsing && verdict == .malicious ? 1.1 : 1.0)
+            .animation(
+                verdict == .malicious ?
+                    .easeInOut(duration: 0.6).repeatForever(autoreverses: true) : .default,
+                value: isPulsing
+            )
+            .onAppear {
+                if verdict == .malicious {
+                    isPulsing = true
+                }
+            }
+            .sensoryFeedback(.impact(weight: verdict == .malicious ? .heavy : .light), trigger: verdict)
+    }
 }
 
-// MARK: - Animated Danger Background
+// MARK: - Danger Background
 
 /// Full-screen pulsing danger background for malicious detections
 struct DangerBackground: View {
@@ -214,42 +156,6 @@ struct DangerBackground: View {
     }
 }
 
-// MARK: - App Icon Preview (Debug)
-
-/// Preview the app icon in different sizes
-struct AppIconPreview: View {
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("App Icon Sizes")
-                .font(.headline)
-            
-            HStack(spacing: 20) {
-                iconPreview(size: 60, label: "@3x (60pt)")
-                iconPreview(size: 40, label: "@2x (40pt)")
-                iconPreview(size: 29, label: "Settings")
-            }
-        }
-        .padding()
-    }
-    
-    func iconPreview(size: CGFloat, label: String) -> some View {
-        VStack(spacing: 8) {
-            RoundedRectangle(cornerRadius: size * 0.2237)
-                .fill(LinearGradient.brandGradient)
-                .frame(width: size, height: size)
-                .overlay {
-                    Image(systemName: "shield.fill")
-                        .font(.system(size: size * 0.5))
-                        .foregroundColor(.white)
-                }
-            
-            Text(label)
-                .font(.caption2)
-                .foregroundColor(.secondary)
-        }
-    }
-}
-
 // MARK: - Preview
 
 #Preview("Asset Extensions") {
@@ -260,21 +166,13 @@ struct AppIconPreview: View {
             VerdictIcon(verdict: .malicious, size: 50)
         }
         
-        AppIconPreview()
+        HStack(spacing: 16) {
+            Image.shieldSafe.foregroundColor(.verdictSafe)
+            Image.shieldWarning.foregroundColor(.verdictWarning)
+            Image.shieldDanger.foregroundColor(.verdictDanger)
+        }
+        .font(.largeTitle)
     }
     .padding()
-    .background(Color.bgDark)
-}
-
-#Preview("Danger Background") {
-    ZStack {
-        DangerBackground(isActive: true)
-        
-        VStack {
-            VerdictIcon(verdict: .malicious, size: 80)
-            Text("MALICIOUS DETECTED")
-                .font(.title.bold())
-                .foregroundColor(.white)
-        }
-    }
+    .liquidGlassBackground()
 }

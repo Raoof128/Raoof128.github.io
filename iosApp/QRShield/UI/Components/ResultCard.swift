@@ -289,7 +289,7 @@ struct ResultCard: View {
 
 #Preview("Safe Result") {
     ZStack {
-        MeshGradient.liquidGlassBackground
+        LiquidGlassBackground()
             .ignoresSafeArea()
         
         ResultCard(assessment: RiskAssessmentMock(
@@ -325,7 +325,7 @@ struct ResultCard: View {
 
 #Preview("Warning Result") {
     ZStack {
-        MeshGradient.liquidGlassBackground
+        LiquidGlassBackground()
             .ignoresSafeArea()
         
         ResultCard(assessment: RiskAssessmentMock(

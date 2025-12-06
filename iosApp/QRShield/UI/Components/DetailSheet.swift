@@ -50,7 +50,7 @@ struct DetailSheet: View {
             }
             .scrollContentBackground(.hidden)
             .background {
-                MeshGradient.liquidGlassBackground
+                LiquidGlassBackground()
                     .ignoresSafeArea()
             }
             .navigationTitle("Analysis Details")

@@ -1,16 +1,18 @@
 // UI/Components/ImagePicker.swift
-// QR-SHIELD Image Picker - iOS 26 Edition
+// QR-SHIELD Image Picker - iOS 17+ Compatible
 //
-// UPDATED: December 2025 - iOS 26 PhotosPicker API
-// Uses native SwiftUI PhotosPicker when available
+// UPDATED: December 2025
+// - Uses native SwiftUI PhotosPicker
+// - Vision framework for QR detection
+// - Simplified without VisionKit document scanner
 
 import SwiftUI
 import PhotosUI
+import Vision
 
-// MARK: - iOS 26 Native PhotosPicker Wrapper
+// MARK: - Image Picker View
 
-/// Modern SwiftUI PhotosPicker for iOS 26
-/// Falls back to UIViewControllerRepresentable for older versions
+/// Modern SwiftUI PhotosPicker for selecting images with QR codes
 struct ImagePicker: View {
     let onImagePicked: (UIImage) -> Void
     
@@ -64,27 +66,20 @@ struct ImagePicker: View {
                             .fill(LinearGradient.brandGradient)
                             .overlay {
                                 RoundedRectangle(cornerRadius: 16)
-                                    .stroke(Color.white.opacity(0.2), lineWidth: 0.5)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
                             }
                     }
-                    .shadow(color: .brandPrimary.opacity(0.4), radius: 12, y: 6)
+                    .shadow(color: .brandPrimary.opacity(0.4), radius: 10, y: 4)
                 }
-                .disabled(isLoading)
                 .padding(.horizontal, 24)
-                .sensoryFeedback(.impact(weight: .light), trigger: selectedItem)
-                
-                // Recent Photos hint
-                Text("Or drag and drop an image")
-                    .font(.caption)
-                    .foregroundColor(.textMuted)
+                .onChange(of: selectedItem) { _, newValue in
+                    handleSelection(newValue)
+                }
                 
                 Spacer()
             }
-            .background {
-                MeshGradient.liquidGlassBackground
-                    .ignoresSafeArea()
-            }
-            .navigationTitle("Photo Library")
+            .liquidGlassBackground()
+            .navigationTitle("Import QR Code")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -94,42 +89,41 @@ struct ImagePicker: View {
                     .foregroundColor(.brandPrimary)
                 }
             }
-            .onChange(of: selectedItem) { _, newValue in
-                guard let item = newValue else { return }
-                loadImage(from: item)
-            }
         }
     }
     
-    private func loadImage(from item: PhotosPickerItem) {
+    private func handleSelection(_ item: PhotosPickerItem?) {
+        guard let item else { return }
+        
         isLoading = true
         
         Task {
-            do {
-                if let data = try await item.loadTransferable(type: Data.self),
-                   let image = UIImage(data: data) {
-                    await MainActor.run {
-                        onImagePicked(image)
-                        dismiss()
-                    }
+            if let data = try? await item.loadTransferable(type: Data.self),
+               let image = UIImage(data: data) {
+                await MainActor.run {
+                    isLoading = false
+                    onImagePicked(image)
+                    dismiss()
                 }
-            } catch {
-                print("Failed to load image: \(error)")
-            }
-            
-            await MainActor.run {
-                isLoading = false
+            } else {
+                await MainActor.run {
+                    isLoading = false
+                }
             }
         }
     }
 }
 
-// MARK: - Vision-based QR Scanner from Image
+// MARK: - QR Image Scanner (Vision Framework)
 
-/// Scans QR codes from images using Vision framework
+/// Actor that scans images for QR codes using Vision framework
 actor QRImageScanner {
+    
+    /// Scan an image for QR codes
     func scanQRCode(from image: UIImage) async throws -> String? {
-        guard let cgImage = image.cgImage else { return nil }
+        guard let cgImage = image.cgImage else {
+            throw ScanError.invalidImage
+        }
         
         return try await withCheckedThrowingContinuation { continuation in
             let request = VNDetectBarcodesRequest { request, error in
@@ -138,17 +132,20 @@ actor QRImageScanner {
                     return
                 }
                 
-                guard let results = request.results as? [VNBarcodeObservation],
-                      let firstQR = results.first(where: { $0.symbology == .qr }),
-                      let payload = firstQR.payloadStringValue else {
+                guard let observations = request.results as? [VNBarcodeObservation] else {
                     continuation.resume(returning: nil)
                     return
                 }
                 
-                continuation.resume(returning: payload)
+                // Find QR codes
+                let qrCode = observations.first { observation in
+                    observation.symbology == .qr
+                }
+                
+                continuation.resume(returning: qrCode?.payloadStringValue)
             }
             
-            request.symbologies = [.qr, .aztec, .dataMatrix, .pdf417]
+            request.symbologies = [.qr]
             
             let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
             
@@ -159,105 +156,10 @@ actor QRImageScanner {
             }
         }
     }
-}
-
-import Vision
-
-// MARK: - Document Scanner (iOS 26)
-
-/// Allows scanning documents with camera for embedded QR codes
-struct DocumentScanner: UIViewControllerRepresentable {
-    let onScan: (UIImage) -> Void
     
-    @Environment(\.dismiss) private var dismiss
-    
-    func makeUIViewController(context: Context) -> VNDocumentCameraViewController {
-        let scanner = VNDocumentCameraViewController()
-        scanner.delegate = context.coordinator
-        return scanner
-    }
-    
-    func updateUIViewController(_ uiViewController: VNDocumentCameraViewController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
-        let parent: DocumentScanner
-        
-        init(_ parent: DocumentScanner) {
-            self.parent = parent
-        }
-        
-        func documentCameraViewController(
-            _ controller: VNDocumentCameraViewController,
-            didFinishWith scan: VNDocumentCameraScan
-        ) {
-            parent.dismiss()
-            
-            // Get first page
-            if scan.pageCount > 0 {
-                let image = scan.imageOfPage(at: 0)
-                parent.onScan(image)
-            }
-        }
-        
-        func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
-            parent.dismiss()
-        }
-        
-        func documentCameraViewController(
-            _ controller: VNDocumentCameraViewController,
-            didFailWithError error: Error
-        ) {
-            parent.dismiss()
-            print("Document scan failed: \(error)")
-        }
-    }
-}
-
-// MARK: - Legacy Camera Picker (Fallback)
-
-struct CameraPicker: UIViewControllerRepresentable {
-    let onImageCaptured: (UIImage) -> Void
-    
-    @Environment(\.dismiss) private var dismiss
-    
-    func makeUIViewController(context: Context) -> UIImagePickerController {
-        let picker = UIImagePickerController()
-        picker.sourceType = .camera
-        picker.delegate = context.coordinator
-        return picker
-    }
-    
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
-    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-        let parent: CameraPicker
-        
-        init(_ parent: CameraPicker) {
-            self.parent = parent
-        }
-        
-        func imagePickerController(
-            _ picker: UIImagePickerController,
-            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
-        ) {
-            parent.dismiss()
-            
-            if let image = info[.originalImage] as? UIImage {
-                parent.onImageCaptured(image)
-            }
-        }
-        
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-            parent.dismiss()
-        }
+    enum ScanError: Error {
+        case invalidImage
+        case noQRCode
     }
 }
 

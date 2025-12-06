@@ -31,7 +31,7 @@ struct HistoryView: View {
         }
         .background {
             // iOS 26: Mesh gradient background
-            MeshGradient.liquidGlassBackground
+            LiquidGlassBackground()
                 .ignoresSafeArea()
         }
         .navigationTitle("History")
