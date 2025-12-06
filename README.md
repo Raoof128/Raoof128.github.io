@@ -13,16 +13,15 @@
             🔍 Kotlin Multiplatform QRishing Detector 🔍
 ```
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.0.0-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.22-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
 [![KMP](https://img.shields.io/badge/Kotlin_Multiplatform-Enabled-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/docs/multiplatform.html)
 [![Compose](https://img.shields.io/badge/Compose_Multiplatform-1.6.0-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
-[![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white)](https://developer.apple.com/ios)
 [![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.jetbrains.com/lp/compose-multiplatform)
-[![Web](https://img.shields.io/badge/Web-JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://kotlinlang.org/docs/js-overview.html)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/QDKMP-KotlinConf-2026-/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/actions)
 
-**Scan QR codes. Detect phishing. Stay protected across ALL platforms.**
+**Scan QR codes. Detect phishing. Stay protected on Android and Desktop.**
 
 [Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
