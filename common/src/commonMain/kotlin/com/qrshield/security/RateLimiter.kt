@@ -270,7 +270,8 @@ class Throttler(
     private val clock: () -> Long = { Clock.System.now().toEpochMilliseconds() }
 ) {
     
-    @Volatile
+    // Note: For thread-safe access, use the suspend variants with Mutex
+    // The non-suspend methods are for single-threaded UI access
     private var lastOperationTime: Long = 0L
     
     private val mutex = Mutex()
