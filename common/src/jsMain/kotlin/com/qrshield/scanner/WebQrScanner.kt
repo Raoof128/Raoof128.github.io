@@ -87,11 +87,27 @@ class WebQrScanner : QrScanner {
         isScanning = true
         
         try {
+            // Security check: Camera access requires HTTPS in production
+            val isSecure = window.location.protocol == "https:" || 
+                          window.location.hostname == "localhost" ||
+                          window.location.hostname == "127.0.0.1"
+            
+            if (!isSecure) {
+                trySend(ScanResult.Error(
+                    "Camera access requires a secure connection (HTTPS). " +
+                    "Please use HTTPS or access via localhost for development.",
+                    ErrorCode.CAMERA_NOT_AVAILABLE
+                ))
+                close()
+                return@callbackFlow
+            }
+            
             // Check if getUserMedia is available
             val mediaDevices = window.navigator.asDynamic().mediaDevices
             if (mediaDevices == null) {
                 trySend(ScanResult.Error(
-                    "Camera API not available in this browser",
+                    "Camera API not available. Please use a modern browser " +
+                    "(Chrome, Firefox, Safari, Edge) with camera support.",
                     ErrorCode.CAMERA_NOT_AVAILABLE
                 ))
                 close()

@@ -225,9 +225,77 @@ actual class QrScannerFactory {
                     (25+ rules)        (15 features)      (500+ brands)
 ```
 
+### 🏆 Technical Highlights
+
+#### 🍎 iOS Native Integration (cinterop)
+
+**QR-SHIELD uses Kotlin Native `cinterop` to access iOS `AVFoundation` framework directly from Kotlin code.**
+
+This is our biggest technical achievement—no Swift wrappers needed for camera access:
+
+```kotlin
+// iosMain/kotlin/com/qrshield/scanner/IosQrScanner.kt
+// Direct access to iOS Vision framework from Kotlin!
+
+import platform.Vision.VNBarcodeSymbologyQR
+import platform.Vision.VNDetectBarcodesRequest
+import platform.AVFoundation.AVCaptureDevice
+import platform.AVFoundation.AVCaptureSession
+
+actual class IosQrScanner : QrScanner {
+    private val captureSession = AVCaptureSession()
+    
+    override fun scanFromCamera(): Flow<ScanResult> = callbackFlow {
+        // Pure Kotlin code calling iOS frameworks directly!
+        val device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        val request = VNDetectBarcodesRequest { request, error ->
+            val results = request?.results?.filterIsInstance<VNBarcodeObservation>()
+            results?.firstOrNull()?.payloadStringValue?.let { content ->
+                trySend(ScanResult.Success(content))
+            }
+        }
+        // ... native iOS camera handling
+    }
+}
+```
+
+#### 📱 Swift 6 + SwiftUI iOS App
+
+The iOS host app is built with **Swift 6.0 strict concurrency** and **iOS 26.2 Liquid Glass** design:
+
+- `@Observable` macro for reactive state
+- `@MainActor` isolation for thread safety
+- Native `AVCaptureSession` + `Vision` framework
+- Seamless integration with KMP `common.framework`
+
+#### 💾 SQLDelight Cross-Platform Persistence
+
+Scan history persists across app restarts on ALL platforms:
+
+```kotlin
+// commonMain - Platform-agnostic repository
+class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepository {
+    private val queries = database.scanHistoryQueries
+    
+    override fun observe(): Flow<List<ScanHistoryItem>> = 
+        queries.getAll().asFlow().mapToList()
+    
+    override suspend fun insert(item: ScanHistoryItem) {
+        queries.insert(item.id, item.url, item.score.toLong(), item.verdict.name, item.scannedAt)
+    }
+}
+
+// Platform-specific drivers:
+// - Android: android.database.sqlite.SQLiteDatabase
+// - iOS: NativeSQLite (K/N + cinterop)
+// - Desktop: JDBC SQLite
+// - Web: sql.js (WebAssembly)
+```
+
+
 ---
 
-## �️ Technology Stack
+## ️ Technology Stack
 
 | Layer | Technology | Purpose |
 |-------|------------|---------|
