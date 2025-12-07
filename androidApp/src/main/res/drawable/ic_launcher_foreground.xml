@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Launcher Icon Foreground - Shield with QR Pattern -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
@@ -6,40 +7,49 @@
     android:viewportHeight="108">
     
     <!-- Shield shape -->
-    <path
-        android:fillColor="#6366F1"
-        android:pathData="M54,10 L88,26 L88,56 C88,76 73,92 54,98 C35,92 20,76 20,56 L20,26 Z"/>
-    
-    <!-- Inner shield highlight -->
-    <path
-        android:fillColor="#818CF8"
-        android:pathData="M54,18 L80,30 L80,54 C80,70 68,82 54,88 C40,82 28,70 28,54 L28,30 Z"/>
-    
-    <!-- QR code pattern -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M38,38 L46,38 L46,46 L38,46 Z"/>
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M62,38 L70,38 L70,46 L62,46 Z"/>
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M38,62 L46,62 L46,70 L38,70 Z"/>
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M50,50 L58,50 L58,58 L50,58 Z"/>
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M62,54 L70,54 L70,62 L62,62 Z"/>
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M50,62 L58,62 L58,70 L50,70 Z"/>
-    
-    <!-- Check mark overlay -->
-    <path
-        android:fillColor="#10B981"
-        android:strokeWidth="3"
-        android:strokeColor="#10B981"
-        android:pathData="M48,55 L52,60 L64,48"/>
-
+    <group
+        android:translateX="27"
+        android:translateY="27">
+        
+        <!-- Main shield -->
+        <path
+            android:fillColor="#6C5CE7"
+            android:pathData="M27,4.5L6,13.5v13.5c0,12.47 8.64,24.17 21,27 12.36,-2.83 21,-14.53 21,-27V13.5L27,4.5z"/>
+            
+        <!-- Inner shield highlight -->
+        <path
+            android:fillColor="#00D68F"
+            android:pathData="M27,9L12,15.75v10.5c0,9.35 6.48,18.13 15.75,20.25L27,9z"
+            android:fillAlpha="0.3"/>
+            
+        <!-- QR pattern inside shield -->
+        <path
+            android:fillColor="#00D68F"
+            android:pathData="M18,18h6v6h-6z"/>
+        <path
+            android:fillColor="#00D68F"
+            android:pathData="M30,18h6v6h-6z"/>
+        <path
+            android:fillColor="#00D68F"
+            android:pathData="M18,30h6v6h-6z"/>
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M21,21h3v3h-3z"
+            android:fillAlpha="0.8"/>
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M33,21h3v3h-3z"
+            android:fillAlpha="0.8"/>
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M21,33h3v3h-3z"
+            android:fillAlpha="0.8"/>
+            
+        <!-- Checkmark -->
+        <path
+            android:fillColor="#00D68F"
+            android:strokeColor="#00D68F"
+            android:strokeWidth="2"
+            android:pathData="M24,38L30,32L36,26"/>
+    </group>
 </vector>

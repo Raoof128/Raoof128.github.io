@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Monochrome Icon for Android 13+ Themed Icons -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <group
+        android:translateX="27"
+        android:translateY="27">
+        
+        <!-- Shield outline -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="M27,4.5L6,13.5v13.5c0,12.47 8.64,24.17 21,27 12.36,-2.83 21,-14.53 21,-27V13.5L27,4.5zM27,42c-9.94,-2.28 -15,-11.48 -15,-19.35V17.1l15,-6.43 15,6.43v5.55c0,7.87 -5.06,17.07 -15,19.35z"/>
+            
+        <!-- QR squares -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="M18,18h6v6h-6zM30,18h6v6h-6zM18,30h6v6h-6z"/>
+            
+        <!-- Checkmark -->
+        <path
+            android:fillColor="#000000"
+            android:pathData="M24,36l-6,-6 1.41,-1.41L24,33.17l10.59,-10.59L36,24z"/>
+    </group>
+</vector>

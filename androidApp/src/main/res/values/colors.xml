@@ -1,25 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- QR-SHIELD Android 16 Color Resources -->
 <resources>
+    <!-- ========================== -->
+    <!-- BRAND COLORS               -->
+    <!-- ========================== -->
+    
+    <!-- Primary Brand - Electric Purple -->
+    <color name="brand_primary">#FF6C5CE7</color>
+    <color name="brand_primary_dark">#FF5B4DCF</color>
+    <color name="brand_primary_light">#FFA855F7</color>
+    
+    <!-- Secondary Brand - Neon Teal/Cyan -->
+    <color name="brand_secondary">#FF00D68F</color>
+    <color name="brand_secondary_dark">#FF00B87A</color>
+    
+    <!-- Accent -->
+    <color name="brand_accent">#FF00CEC9</color>
+    
+    <!-- ========================== -->
+    <!-- VERDICT COLORS             -->
+    <!-- ========================== -->
+    
+    <!-- Safe - Neon Green -->
+    <color name="verdict_safe">#FF00D68F</color>
+    <color name="verdict_safe_background">#1A00D68F</color>
+    
+    <!-- Warning - Amber -->
+    <color name="verdict_warning">#FFF5A623</color>
+    <color name="verdict_warning_background">#1AF5A623</color>
+    
+    <!-- Danger - Threat Red -->
+    <color name="verdict_danger">#FFFF3D71</color>
+    <color name="verdict_danger_background">#1AFF3D71</color>
+    
+    <!-- Unknown - Gray -->
+    <color name="verdict_unknown">#FF8B93A1</color>
+    <color name="verdict_unknown_background">#1A8B93A1</color>
+    
+    <!-- ========================== -->
+    <!-- BACKGROUND COLORS          -->
+    <!-- ========================== -->
+    
+    <!-- Dark Theme Backgrounds -->
+    <color name="background_dark">#FF0D1117</color>
+    <color name="background_surface">#FF161B22</color>
+    <color name="background_card">#FF21262D</color>
+    <color name="background_elevated">#FF30363D</color>
+    
+    <!-- Light Theme Backgrounds -->
+    <color name="background_light">#FFF6F8FA</color>
+    <color name="background_surface_light">#FFFFFFFF</color>
+    <color name="background_card_light">#FFF0F3F6</color>
+    
+    <!-- ========================== -->
+    <!-- TEXT COLORS                -->
+    <!-- ========================== -->
+    
+    <color name="text_primary">#FFF0F6FC</color>
+    <color name="text_secondary">#FF8B949E</color>
+    <color name="text_muted">#FF6E7681</color>
+    <color name="text_on_primary">#FFFFFFFF</color>
+    
+    <color name="text_primary_light">#FF24292F</color>
+    <color name="text_secondary_light">#FF57606A</color>
+    
+    <!-- ========================== -->
+    <!-- UI ELEMENT COLORS          -->
+    <!-- ========================== -->
+    
+    <color name="divider">#FF30363D</color>
+    <color name="outline">#FF30363D</color>
+    <color name="ripple">#1AFFFFFF</color>
+    
+    <!-- Scanner Overlay -->
+    <color name="scanner_laser">#FF00D68F</color>
+    <color name="scanner_corner">#FF00D68F</color>
+    <color name="scanner_dim">#80000000</color>
+    
+    <!-- ========================== -->
+    <!-- MATERIAL 3 TOKENS          -->
+    <!-- ========================== -->
+    
     <!-- Primary -->
-    <color name="purple_200">#BB86FC</color>
-    <color name="purple_500">#6C5CE7</color>
-    <color name="purple_700">#5B4DCF</color>
+    <color name="md_theme_dark_primary">#FF6C5CE7</color>
+    <color name="md_theme_dark_onPrimary">#FFFFFFFF</color>
+    <color name="md_theme_dark_primaryContainer">#FF2D2060</color>
+    <color name="md_theme_dark_onPrimaryContainer">#FFE8E0FF</color>
     
     <!-- Secondary -->
-    <color name="teal_200">#03DAC5</color>
-    <color name="teal_700">#00CEC9</color>
+    <color name="md_theme_dark_secondary">#FF00D68F</color>
+    <color name="md_theme_dark_onSecondary">#FF003731</color>
+    <color name="md_theme_dark_secondaryContainer">#FF004D45</color>
+    <color name="md_theme_dark_onSecondaryContainer">#FF96F4E5</color>
     
-    <!-- Semantic -->
-    <color name="safe_green">#00D68F</color>
-    <color name="warning_amber">#FFAA00</color>
-    <color name="danger_red">#FF3D71</color>
+    <!-- Tertiary -->
+    <color name="md_theme_dark_tertiary">#FFA855F7</color>
+    <color name="md_theme_dark_onTertiary">#FF3B0082</color>
     
-    <!-- Background -->
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="background_dark">#0D1117</color>
-    <color name="surface_dark">#161B22</color>
+    <!-- Error -->
+    <color name="md_theme_dark_error">#FFFF3D71</color>
+    <color name="md_theme_dark_onError">#FFFFFFFF</color>
+    <color name="md_theme_dark_errorContainer">#FF93000A</color>
+    <color name="md_theme_dark_onErrorContainer">#FFFFB4AB</color>
     
-    <!-- Launcher Icon -->
-    <color name="ic_launcher_background">#0D1117</color>
+    <!-- Background/Surface -->
+    <color name="md_theme_dark_background">#FF0D1117</color>
+    <color name="md_theme_dark_onBackground">#FFF0F6FC</color>
+    <color name="md_theme_dark_surface">#FF161B22</color>
+    <color name="md_theme_dark_onSurface">#FFF0F6FC</color>
+    <color name="md_theme_dark_surfaceVariant">#FF21262D</color>
+    <color name="md_theme_dark_onSurfaceVariant">#FF8B949E</color>
+    
+    <!-- Outline -->
+    <color name="md_theme_dark_outline">#FF30363D</color>
+    <color name="md_theme_dark_outlineVariant">#FF21262D</color>
+    
+    <!-- ========================== -->
+    <!-- SPLASH SCREEN              -->
+    <!-- ========================== -->
+    
+    <color name="splash_background">#FF0D1117</color>
+    <color name="splash_icon_background">#FF6C5CE7</color>
 </resources>
