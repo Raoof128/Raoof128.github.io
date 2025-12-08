@@ -1,11 +1,27 @@
-// App/QRShieldApp.swift
-// QR-SHIELD iOS Application - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025 - iOS 26.2 RC
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// App/QRShieldApp.swift
+// QR-SHIELD iOS Application - iOS 17+ Liquid Glass Edition
+//
+// UPDATED: December 2025 - iOS 17+ Compatible
 // - Liquid Glass system integration
 // - Enhanced tab bar with glass styling
 // - Scene phase handling
-// - App shortcuts support ready
+// - User preference support
 
 import SwiftUI
 
@@ -13,6 +29,7 @@ import SwiftUI
 struct QRShieldApp: App {
     @State private var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
     @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("useDarkMode") private var useDarkMode = true
     
     init() {
         configureAppearance()
@@ -30,7 +47,7 @@ struct QRShieldApp: App {
                         }
                 }
             }
-            .preferredColorScheme(.dark)
+            .preferredColorScheme(useDarkMode ? .dark : nil)
         }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhase(newPhase)
@@ -55,10 +72,10 @@ struct QRShieldApp: App {
         }
     }
     
-    // MARK: - Appearance Configuration (iOS 26.2)
+    // MARK: - Appearance Configuration (iOS 17+)
     
     private func configureAppearance() {
-        // iOS 26.2: Liquid Glass navigation bar
+        // iOS 17+: Liquid Glass navigation bar
         let navAppearance = UINavigationBarAppearance()
         navAppearance.configureWithTransparentBackground()
         navAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
@@ -83,7 +100,7 @@ struct QRShieldApp: App {
         UINavigationBar.appearance().compactAppearance = navAppearance
         UINavigationBar.appearance().tintColor = UIColor(Color.brandPrimary)
         
-        // iOS 26.2: Liquid Glass tab bar
+        // iOS 17+: Liquid Glass tab bar
         let tabAppearance = UITabBarAppearance()
         tabAppearance.configureWithTransparentBackground()
         tabAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
@@ -113,12 +130,12 @@ struct QRShieldApp: App {
         UITabBar.appearance().standardAppearance = tabAppearance
         UITabBar.appearance().scrollEdgeAppearance = tabAppearance
         
-        // iOS 26.2: Tint color for system controls
+        // iOS 17+: Tint color for system controls
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = UIColor(Color.brandPrimary)
     }
 }
 
-// MARK: - Root Content View (iOS 26.2)
+// MARK: - Root Content View (iOS 17+)
 
 struct ContentView: View {
     @State private var selectedTab = 0
@@ -158,16 +175,16 @@ struct ContentView: View {
         .onAppear {
             // Log app launch
             #if DEBUG
-            print("🛡️ QR-SHIELD launched - iOS 26.2")
+            print("🛡️ QR-SHIELD launched - iOS 17+")
             #endif
         }
     }
 }
 
-// MARK: - App Shortcuts (iOS 26.2 Ready)
+// MARK: - App Shortcuts (iOS 17+ Ready)
 
 /*
- iOS 26.2 App Shortcuts can be added here for Siri integration:
+ iOS 17+ App Shortcuts can be added here for Siri integration:
  
  @AppShortcutsProvider
  struct QRShieldShortcuts: AppShortcutsProvider {

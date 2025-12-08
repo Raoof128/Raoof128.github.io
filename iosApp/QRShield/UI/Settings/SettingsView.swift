@@ -1,10 +1,26 @@
-// UI/Settings/SettingsView.swift
-// QR-SHIELD Settings - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025 - iOS 26.2 RC
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// UI/Settings/SettingsView.swift
+// QR-SHIELD Settings - iOS 17+ Liquid Glass Edition
+//
+// UPDATED: December 2025 - iOS 17+ Compatible
 // - Liquid Glass customization options
 // - Enhanced form styling
-// - iOS 26 toggle animations
+// - iOS 17+ toggle animations
 // - Privacy controls
 
 import SwiftUI
@@ -16,6 +32,7 @@ struct SettingsView: View {
     @AppStorage("saveHistory") private var saveHistory = true
     @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
+    @AppStorage("useDarkMode") private var useDarkMode = true
     
     @State private var showClearConfirmation = false
     
@@ -50,19 +67,54 @@ struct SettingsView: View {
             
             // Notifications Section
             Section {
-                SettingsToggle(
-                    icon: "bell.badge",
-                    title: "Security alerts",
-                    subtitle: "Get notified about security threats",
-                    isOn: $notificationsEnabled
-                )
+                Toggle(isOn: $notificationsEnabled) {
+                    HStack(spacing: 12) {
+                        Image(systemName: "bell.badge")
+                            .foregroundColor(.brandPrimary)
+                            .frame(width: 28)
+                            .symbolEffect(.bounce, value: notificationsEnabled)
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Security alerts")
+                                .foregroundColor(.textPrimary)
+                            
+                            Text("Get notified about security threats")
+                                .font(.caption)
+                                .foregroundColor(.textMuted)
+                        }
+                    }
+                }
+                .tint(.brandPrimary)
+                .padding(.vertical, 4)
+                .onChange(of: notificationsEnabled) { _, newValue in
+                    if newValue {
+                        // Request notification permission when enabled
+                        Task {
+                            let granted = await SettingsManager.shared.requestNotificationPermission()
+                            if !granted {
+                                // If permission denied, turn off the toggle
+                                await MainActor.run {
+                                    notificationsEnabled = false
+                                }
+                            }
+                        }
+                    }
+                    SettingsManager.shared.triggerHaptic(.selection)
+                }
             } header: {
                 sectionHeader("Notifications", icon: "bell")
             }
             .listRowBackground(Color.clear)
             
-            // Appearance Section (iOS 26.2)
+            // Appearance Section (iOS 17+)
             Section {
+                SettingsToggle(
+                    icon: "moon.fill",
+                    title: "Dark Mode",
+                    subtitle: "Use dark color scheme (recommended)",
+                    isOn: $useDarkMode
+                )
+                
                 SettingsToggle(
                     icon: "sparkles",
                     title: "Reduce Liquid Glass",
@@ -70,10 +122,11 @@ struct SettingsView: View {
                     isOn: $liquidGlassReduced
                 )
                 
-                // iOS 26.2: Link to system settings for Liquid Glass
-                NavigationLink {
-                    Text("System appearance settings")
-                        .foregroundColor(.textSecondary)
+                // iOS 17+: Link to system settings for appearance
+                Button {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
                 } label: {
                     HStack {
                         Image(systemName: "paintpalette")
@@ -82,13 +135,19 @@ struct SettingsView: View {
                         
                         Text("System Appearance")
                             .foregroundColor(.textPrimary)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "arrow.up.right.square")
+                            .font(.caption)
+                            .foregroundColor(.brandPrimary)
                     }
                     .padding(.vertical, 4)
                 }
             } header: {
                 sectionHeader("Appearance", icon: "sparkles")
             } footer: {
-                Text("iOS 26.2 introduces customizable Liquid Glass effects. Reduce effects if you experience performance issues on older devices.")
+                Text("iOS 17+ introduces beautiful visual effects. Reduce effects if you experience performance issues on older devices.")
                     .font(.caption2)
                     .foregroundColor(.textMuted)
             }
@@ -145,7 +204,7 @@ struct SettingsView: View {
             // About Section
             Section {
                 aboutRow(icon: "info.circle", title: "Version", value: "1.0.0 (26)")
-                aboutRow(icon: "hammer", title: "Build", value: "iOS 26.2 • Swift 6.1")
+                aboutRow(icon: "hammer", title: "Build", value: "iOS 17+ • Swift 6")
                 aboutRow(icon: "cpu", title: "Engine", value: "KMP PhishingEngine")
                 
                 Link(destination: URL(string: "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")!) {
@@ -200,11 +259,11 @@ struct SettingsView: View {
                         .font(.caption2)
                         .foregroundColor(.textMuted)
                     
-                    // iOS 26.2 + Swift 6.1 badge
+                    // iOS 17+ + Swift 6 badge
                     HStack(spacing: 12) {
                         HStack(spacing: 6) {
                             Image(systemName: "apple.logo")
-                            Text("iOS 26.2")
+                            Text("iOS 17+")
                         }
                         .font(.caption2)
                         .foregroundColor(.brandPrimary)
@@ -214,7 +273,7 @@ struct SettingsView: View {
                         
                         HStack(spacing: 6) {
                             Image(systemName: "swift")
-                            Text("Swift 6.1")
+                            Text("Swift 6")
                         }
                         .font(.caption2)
                         .foregroundColor(.brandSecondary)
@@ -281,15 +340,20 @@ struct SettingsView: View {
     }
     
     private func clearHistory() {
-        // Clear history logic with haptic
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(.warning)
+        // Clear actual history from store
+        HistoryStore.shared.clearAll()
         
-        // In production: Clear from database
+        // Use SettingsManager for haptic since it respects settings
+        SettingsManager.shared.triggerHaptic(.warning)
+        SettingsManager.shared.playSound(.warning)
+        
+        #if DEBUG
+        print("🗑️ History cleared from Settings")
+        #endif
     }
 }
 
-// MARK: - Settings Toggle (iOS 26.2 Liquid Glass)
+// MARK: - Settings Toggle (iOS 17+ Liquid Glass)
 
 struct SettingsToggle: View {
     let icon: String
@@ -319,7 +383,10 @@ struct SettingsToggle: View {
         }
         .tint(.brandPrimary)
         .padding(.vertical, 4)
-        .sensoryFeedback(.selection, trigger: isOn)
+        .onChange(of: isOn) { _, _ in
+            // Use SettingsManager so it respects haptic settings
+            SettingsManager.shared.triggerHaptic(.selection)
+        }
     }
 }
 

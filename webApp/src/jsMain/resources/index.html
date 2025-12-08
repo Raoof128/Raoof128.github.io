@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QR-SHIELD Web - Scan QR codes and detect phishing threats in your browser">
+    <title>QR-SHIELD | Web Scanner</title>
+    <style>
+        :root {
+            --primary: #7F52FF;
+            --safe: #22c55e;
+            --suspicious: #f59e0b;
+            --malicious: #ef4444;
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --text: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #888;
+            margin-bottom: 2rem;
+        }
+        
+        .scanner-box {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #333;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #333;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        button {
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .result.safe {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--safe);
+        }
+        
+        .result.suspicious {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--suspicious);
+        }
+        
+        .result.malicious {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--malicious);
+        }
+        
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .verdict {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .flags {
+            margin-top: 1rem;
+            text-align: left;
+            color: #aaa;
+        }
+        
+        .flags li {
+            padding: 0.25rem 0;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .feature {
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #333;
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .feature-desc {
+            color: #888;
+            font-size: 0.875rem;
+        }
+        
+        footer {
+            margin-top: 2rem;
+            color: #666;
+            font-size: 0.875rem;
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🛡️</div>
+        <h1>QR-SHIELD</h1>
+        <p class="subtitle">Web-based QRishing Detector</p>
+        
+        <div class="scanner-box">
+            <div class="input-group">
+                <input type="text" id="urlInput" placeholder="Enter URL to analyze..." />
+                <button id="analyzeBtn" onclick="analyzeUrl()">Analyze</button>
+            </div>
+            
+            <div id="result" class="result">
+                <div id="scoreDisplay" class="score">--</div>
+                <div id="verdictDisplay" class="verdict">--</div>
+                <ul id="flagsDisplay" class="flags"></ul>
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">25+ Heuristics</div>
+                <div class="feature-desc">Security rules analyzed</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <div class="feature-title">ML Scoring</div>
+                <div class="feature-desc">On-device inference</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🏷️</div>
+                <div class="feature-title">Brand Detection</div>
+                <div class="feature-desc">30+ brands monitored</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Privacy First</div>
+                <div class="feature-desc">No data leaves browser</div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        Powered by <a href="https://kotlinlang.org/docs/multiplatform.html">Kotlin Multiplatform</a> | 
+        <a href="https://github.com/">View on GitHub</a>
+    </footer>
+    
+    <script src="webApp.js"></script>
+    <script>
+        // Fallback JavaScript until Kotlin/JS is loaded
+        function analyzeUrl() {
+            const url = document.getElementById('urlInput').value;
+            if (!url) return;
+            
+            // This will be replaced by actual Kotlin/JS code
+            // For now, show a placeholder
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.className = 'result safe';
+            document.getElementById('scoreDisplay').textContent = '...';
+            document.getElementById('verdictDisplay').textContent = 'Loading Kotlin/JS...';
+        }
+    </script>
+</body>
+</html>

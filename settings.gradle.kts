@@ -20,4 +20,4 @@ rootProject.name = "QRShield"
 include(":common")
 include(":androidApp")
 include(":desktopApp")
-// include(":webApp")  // Uncomment when web module is fully configured
+include(":webApp")

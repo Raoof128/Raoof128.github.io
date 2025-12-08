@@ -120,7 +120,7 @@ kotlin {
 
 android {
     namespace = "com.qrshield.common"
-    compileSdk = 34
+    compileSdk = 35  // Android 16
     
     defaultConfig {
         minSdk = 26

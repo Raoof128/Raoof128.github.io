@@ -1,0 +1,143 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  English (Base) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Kotlin Multiplatform QRishing Detector";
+
+// MARK: - Tab Bar
+"tab.scan" = "Scan";
+"tab.history" = "History";
+"tab.settings" = "Settings";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "Scanning";
+"scanner.paused" = "Paused";
+"scanner.analyzing" = "Analyzing...";
+"scanner.point_at_qr" = "Point at QR Code";
+"scanner.gallery" = "Gallery";
+"scanner.history" = "History";
+"scanner.scans_count" = "Scans: %d";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Camera Access Required";
+"camera.access_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
+"camera.open_settings" = "Open Settings";
+"camera.cancel" = "Cancel";
+"camera.no_camera" = "No camera available";
+"camera.setup_failed" = "Camera setup failed: %@";
+"camera.flash_failed" = "Flash toggle failed: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "SAFE";
+"verdict.suspicious" = "SUSPICIOUS";
+"verdict.malicious" = "MALICIOUS";
+"verdict.unknown" = "UNKNOWN";
+
+// MARK: - Result Card
+"result.risk_score" = "Risk Score: %d/100";
+"result.confidence" = "Confidence";
+"result.view_details" = "View Details";
+"result.view_full_analysis" = "View Full Analysis";
+"result.copy_url" = "Copy URL";
+"result.share" = "Share";
+"result.dismiss" = "Dismiss";
+"result.show_more" = "Show %d more...";
+"result.show_less" = "Show less";
+
+// MARK: - History View
+"history.title" = "Scan History";
+"history.empty_title" = "No Scans Yet";
+"history.empty_message" = "Scanned QR codes will appear here";
+"history.scan_now" = "Scan Now";
+"history.clear_all" = "Clear All";
+"history.delete" = "Delete";
+"history.open_url" = "Open URL";
+
+// MARK: - Settings View
+"settings.title" = "Settings";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Scanning";
+"settings.auto_scan" = "Auto-scan on launch";
+"settings.auto_scan_description" = "Start scanning immediately when app opens";
+"settings.haptic" = "Haptic feedback";
+"settings.haptic_description" = "Vibrate on scan results";
+"settings.sound" = "Sound effects";
+"settings.sound_description" = "Play sounds for alerts";
+
+// Settings: Notifications Section
+"settings.section.notifications" = "Notifications";
+"settings.security_alerts" = "Security alerts";
+"settings.security_alerts_description" = "Get notified about security threats";
+
+// Settings: Appearance Section
+"settings.section.appearance" = "Appearance";
+"settings.reduce_effects" = "Reduce Liquid Glass";
+"settings.reduce_effects_description" = "Simplify visual effects for performance";
+"settings.system_appearance" = "System Appearance";
+"settings.dark_mode" = "Dark Mode";
+"settings.dark_mode_description" = "Enable dark color scheme";
+"settings.appearance_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues on older devices.";
+
+// Settings: Privacy Section
+"settings.section.privacy" = "Privacy";
+"settings.save_history" = "Save scan history";
+"settings.save_history_description" = "Keep a record of scanned URLs";
+"settings.clear_history" = "Clear History";
+"settings.clear_history_title" = "Clear All History?";
+"settings.clear_history_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_all" = "Clear All";
+"settings.privacy_policy" = "Privacy Policy";
+
+// Settings: About Section
+"settings.section.about" = "About";
+"settings.version" = "Version";
+"settings.build" = "Build";
+"settings.engine" = "Engine";
+"settings.source_code" = "Source Code";
+"settings.credits" = "Made with ❤️ for KotlinConf 2026";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Skip";
+"onboarding.continue" = "Continue";
+"onboarding.get_started" = "Get Started";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Scan Any QR Code";
+"onboarding.scan.description" = "Point your camera at any QR code to instantly analyze its contents for potential threats.";
+"onboarding.protect.title" = "Real-Time Protection";
+"onboarding.protect.description" = "Our AI-powered engine analyzes URLs using 25+ security heuristics and machine learning algorithms.";
+"onboarding.privacy.title" = "Privacy First";
+"onboarding.privacy.description" = "All analysis happens on-device using Kotlin Multiplatform. Your data never leaves your phone.";
+"onboarding.design.title" = "Beautiful iOS 17+ Design";
+"onboarding.design.description" = "Experience the stunning Liquid Glass interface with smooth animations and modern aesthetics.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Camera Permission";
+"onboarding.camera.allow" = "Allow Camera";
+"onboarding.camera.later" = "Maybe Later";
+"onboarding.camera.message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Analysis Details";
+"detail.scanned_at" = "Scanned at %@";
+"detail.url_information" = "URL Information";
+"detail.risk_factors" = "Risk Factors";
+"detail.no_risks" = "No risks detected";
+"detail.open_url" = "Open URL";
+"detail.open_warning" = "Opening this URL may be dangerous. Are you sure?";
+"detail.proceed" = "Proceed Anyway";
+
+// MARK: - Errors
+"error.generic" = "An error occurred";
+"error.network" = "Network connection error";
+"error.invalid_url" = "Invalid URL detected";
+"error.analysis_failed" = "Analysis failed";

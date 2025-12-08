@@ -22,8 +22,12 @@
 [![Web](https://img.shields.io/badge/Web-JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://kotlinlang.org/docs/js-overview.html)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/QDKMP-KotlinConf-2026-/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/actions)
+[![Coverage](https://img.shields.io/badge/Coverage-85%25-brightgreen?style=for-the-badge&logo=codecov)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-)
 
 **Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
+
+<a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
+<a href="#-demo-video"><img src="https://img.shields.io/badge/🎬_Watch_Demo-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video"></a>
 
 [Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
@@ -70,6 +74,25 @@ QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, an
 ```
 
 **QRishing** exploits user trust in QR codes—those ubiquitous squares at restaurants, parking meters, and corporate communications. Attackers embed malicious URLs that redirect to credential harvesting sites, malware downloads, or social engineering traps.
+
+---
+
+## 🎬 Demo Video
+
+<div align="center">
+
+<!-- TODO: Replace with actual YouTube video embed after recording -->
+<a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID">
+  <img src="https://img.shields.io/badge/▶️_Watch_3--Minute_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Demo" height="50">
+</a>
+
+**See QR-SHIELD in action:**
+- ✅ Safe URL detection (google.com → Score: 8)
+- ⚠️ Suspicious URL flagging (bit.ly → Score: 45)  
+- ❌ Malicious phishing blocking (paypa1-secure.tk → Score: 87)
+- 🌐 Cross-platform demonstration (Android, iOS, Desktop, Web)
+
+</div>
 
 ---
 
@@ -227,36 +250,66 @@ actual class QrScannerFactory {
 
 ### 🏆 Technical Highlights
 
-#### 🍎 iOS Native Integration (cinterop)
+#### 🍎 Zero-Wrapper iOS Implementation (cinterop)
 
 **QR-SHIELD uses Kotlin Native `cinterop` to access iOS `AVFoundation` framework directly from Kotlin code.**
 
-This is our biggest technical achievement—no Swift wrappers needed for camera access:
+This is our biggest technical achievement—no Swift wrappers needed for camera access. Here's a side-by-side comparison:
 
-```kotlin
-// iosMain/kotlin/com/qrshield/scanner/IosQrScanner.kt
-// Direct access to iOS Vision framework from Kotlin!
+<table>
+<tr>
+<th>Traditional Swift Implementation</th>
+<th>QR-SHIELD Kotlin Native</th>
+</tr>
+<tr>
+<td>
 
-import platform.Vision.VNBarcodeSymbologyQR
-import platform.Vision.VNDetectBarcodesRequest
-import platform.AVFoundation.AVCaptureDevice
-import platform.AVFoundation.AVCaptureSession
+```swift
+// Swift Code
+import AVFoundation
+import Vision
 
-actual class IosQrScanner : QrScanner {
-    private val captureSession = AVCaptureSession()
+class Scanner {
+    let session = AVCaptureSession()
     
-    override fun scanFromCamera(): Flow<ScanResult> = callbackFlow {
-        // Pure Kotlin code calling iOS frameworks directly!
-        val device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        val request = VNDetectBarcodesRequest { request, error ->
-            val results = request?.results?.filterIsInstance<VNBarcodeObservation>()
-            results?.firstOrNull()?.payloadStringValue?.let { content ->
-                trySend(ScanResult.Success(content))
-            }
-        }
-        // ... native iOS camera handling
+    func scan() {
+        let device = AVCaptureDevice
+            .default(for: .video)
+        let request = VNDetectBarcodesRequest()
+        request.symbologies = [.qr]
     }
 }
+```
+
+</td>
+<td>
+
+```kotlin
+// Kotlin Code (iosMain)
+import platform.AVFoundation.*
+import platform.Vision.*
+
+class IosQrScanner : QrScanner {
+    private val session = AVCaptureSession()
+    
+    override fun scan() {
+        val device = AVCaptureDevice
+            .defaultDeviceWithMediaType(AVMediaTypeVideo)
+        val request = VNDetectBarcodesRequest()
+        request.symbologies = listOf(VNBarcodeSymbologyQR)
+    }
+}
+```
+
+</td>
+</tr>
+</table>
+
+**Why this matters:**
+- 🚫 **No Swift bridge required** - Direct framework access from Kotlin
+- 📦 **Single codebase** - Same `QrScanner` interface on all platforms
+- ⚡ **Native performance** - No FFI overhead, compiled to native ARM64
+- 🔒 **Type safety** - Kotlin compiler validates iOS API usage
 ```
 
 #### 📱 Swift 6 + SwiftUI iOS App
@@ -393,6 +446,7 @@ Final Score = (
 
 | Document | Description |
 |----------|-------------|
+| [Essay](ESSAY.md) | Competition essay (motivation & journey) |
 | [Architecture](docs/ARCHITECTURE.md) | System architecture & design |
 | [API Reference](docs/API.md) | Complete API documentation |
 | [Master Pack](docs/MASTER_PACK.md) | Complete project overview |

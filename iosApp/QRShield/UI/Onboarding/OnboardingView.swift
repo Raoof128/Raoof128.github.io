@@ -1,10 +1,26 @@
-// UI/Onboarding/OnboardingView.swift
-// QR-SHIELD Onboarding - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025 - iOS 26.2 RC
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// UI/Onboarding/OnboardingView.swift
+// QR-SHIELD Onboarding - iOS 17+ Liquid Glass Edition
+//
+// UPDATED: December 2025 - iOS 17+ Compatible
 // - Liquid Glass effects throughout
 // - Enhanced page transitions
-// - iOS 26.2 symbol animations
+// - iOS 17+ symbol animations
 // - Camera permission request integration
 
 import SwiftUI
@@ -40,7 +56,7 @@ struct OnboardingView: View {
         ),
         OnboardingPage(
             icon: "sparkles",
-            title: "Beautiful iOS 26.2 Design",
+            title: "Beautiful iOS 17+ Design",
             description: "Experience the stunning Liquid Glass interface with smooth animations and modern aesthetics.",
             color: .brandAccent,
             asset: nil
@@ -49,7 +65,7 @@ struct OnboardingView: View {
     
     var body: some View {
         ZStack {
-            // iOS 26.2: Animated mesh gradient background
+            // iOS 17+: Animated mesh gradient background
             LiquidGlassBackground()
                 .ignoresSafeArea()
             
@@ -122,7 +138,7 @@ struct OnboardingView: View {
         }
     }
     
-    // MARK: - Page View (Liquid Glass iOS 26.2)
+    // MARK: - Page View (Liquid Glass iOS 17+)
     
     private func pageView(_ page: OnboardingPage) -> some View {
         VStack(spacing: 40) {

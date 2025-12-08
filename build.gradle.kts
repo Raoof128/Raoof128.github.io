@@ -11,10 +11,3 @@ allprojects {
     group = "com.qrshield"
     version = "1.0.0"
 }
-
-// Use the built-in clean task from base plugin
-tasks.matching { it.name == "clean" }.configureEach {
-    doLast {
-        delete(rootProject.layout.buildDirectory)
-    }
-}

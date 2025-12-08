@@ -1,9 +1,27 @@
+/*
+ * Copyright 2024 QR-SHIELD Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.qrshield.scanner
 
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Size
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -20,6 +38,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.io.InputStream
 import java.util.concurrent.Executors
 import kotlin.coroutines.resume
 import java.util.concurrent.atomic.AtomicBoolean
@@ -28,12 +47,19 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Android QR Scanner Implementation
  * 
  * Uses Google ML Kit Barcode Scanning + CameraX for real-time QR detection.
- * This is a fully functional production implementation.
+ * Also supports scanning from images (gallery/photo picker).
+ * 
+ * FEATURES:
+ * - Real-time camera scanning via CameraX
+ * - Photo picker/gallery image scanning
+ * - Content URI support for Android 16+
+ * - Security validation on all inputs
  * 
  * SECURITY NOTES:
  * - All scanned content is validated before processing
  * - Camera resources are properly released on cleanup
  * - Permissions are checked before camera access
+ * - Image sizes are limited to prevent OOM
  * 
  * @author QR-SHIELD Security Team
  * @since 1.0.0
@@ -45,6 +71,12 @@ class AndroidQrScanner(
     companion object {
         /** Analysis frame size - balanced for performance/quality */
         private val ANALYSIS_SIZE = Size(1280, 720)
+        
+        /** Maximum image dimension for gallery scanning */
+        private const val MAX_IMAGE_DIMENSION = 2048
+        
+        /** Maximum image size in bytes (10MB) */
+        private const val MAX_IMAGE_SIZE_BYTES = 10 * 1024 * 1024
     }
     
     private val scanner = BarcodeScanning.getClient()
@@ -75,6 +107,9 @@ class AndroidQrScanner(
                     cameraProvider = cameraProviderFuture.get()
                     
                     // Set up image analysis
+                    // Note: setTargetResolution is deprecated but provides simple size control
+                    // Modern approach would use setResolutionSelector, but this works for our use case
+                    @Suppress("DEPRECATION")
                     val imageAnalysis = ImageAnalysis.Builder()
                         .setTargetResolution(ANALYSIS_SIZE)
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
@@ -169,16 +204,25 @@ class AndroidQrScanner(
                 }
                 
                 // Security: Limit image size (10MB max)
-                if (imageBytes.size > 10 * 1024 * 1024) {
+                if (imageBytes.size > MAX_IMAGE_SIZE_BYTES) {
                     continuation.resume(ScanResult.Error(
-                        "Image too large",
+                        "Image too large (max 10MB)",
                         ErrorCode.IMAGE_TOO_LARGE
                     ))
                     return@suspendCancellableCoroutine
                 }
                 
-                // Decode bitmap
-                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+                // Decode bitmap with size limits
+                val options = BitmapFactory.Options().apply {
+                    inJustDecodeBounds = true
+                }
+                BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, options)
+                
+                // Calculate sample size to fit within MAX_IMAGE_DIMENSION
+                options.inSampleSize = calculateSampleSize(options.outWidth, options.outHeight)
+                options.inJustDecodeBounds = false
+                
+                val bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size, options)
                 if (bitmap == null) {
                     continuation.resume(ScanResult.Error(
                         "Failed to decode image",
@@ -187,30 +231,8 @@ class AndroidQrScanner(
                     return@suspendCancellableCoroutine
                 }
                 
-                val inputImage = InputImage.fromBitmap(bitmap, 0)
+                processQrFromBitmap(bitmap, continuation)
                 
-                scanner.process(inputImage)
-                    .addOnSuccessListener { barcodes ->
-                        val qrBarcodes = barcodes.filter { it.format == Barcode.FORMAT_QR_CODE }
-                        
-                        if (qrBarcodes.isNotEmpty()) {
-                            val result = processBarcodeResult(qrBarcodes.first())
-                            continuation.resume(result)
-                        } else {
-                            continuation.resume(ScanResult.NoQrFound)
-                        }
-                        
-                        // Clean up bitmap
-                        bitmap.recycle()
-                    }
-                    .addOnFailureListener { e ->
-                        bitmap.recycle()
-                        continuation.resume(ScanResult.Error(
-                            e.message ?: "ML Kit scan failed",
-                            ErrorCode.ML_KIT_ERROR
-                        ))
-                    }
-                    
             } catch (e: Exception) {
                 continuation.resume(ScanResult.Error(
                     e.message ?: "Unknown error",
@@ -218,6 +240,164 @@ class AndroidQrScanner(
                 ))
             }
         }
+    }
+    
+    /**
+     * Scan QR code from a content URI (photo picker/gallery).
+     * 
+     * This is the main method for gallery scanning on Android.
+     * Handles content:// URIs from photo picker.
+     * 
+     * @param uri Content URI to the image (from photo picker)
+     * @return ScanResult with scanned content or error
+     */
+    suspend fun scanFromUri(uri: Uri): ScanResult {
+        return suspendCancellableCoroutine { continuation ->
+            try {
+                // Open input stream from content resolver
+                val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+                
+                if (inputStream == null) {
+                    continuation.resume(ScanResult.Error(
+                        "Cannot open image file",
+                        ErrorCode.INVALID_IMAGE
+                    ))
+                    return@suspendCancellableCoroutine
+                }
+                
+                inputStream.use { stream ->
+                    // First, get image dimensions only
+                    val optionsForSize = BitmapFactory.Options().apply {
+                        inJustDecodeBounds = true
+                    }
+                    
+                    // We need to reopen the stream for actual decoding
+                    context.contentResolver.openInputStream(uri)?.use { sizeStream ->
+                        BitmapFactory.decodeStream(sizeStream, null, optionsForSize)
+                    }
+                    
+                    // Calculate sample size to prevent OOM
+                    val sampleSize = calculateSampleSize(optionsForSize.outWidth, optionsForSize.outHeight)
+                    
+                    // Decode with sample size
+                    val options = BitmapFactory.Options().apply {
+                        inSampleSize = sampleSize
+                        inPreferredConfig = Bitmap.Config.ARGB_8888
+                    }
+                    
+                    // Reopen stream for final decode
+                    val finalStream = context.contentResolver.openInputStream(uri)
+                    if (finalStream == null) {
+                        continuation.resume(ScanResult.Error(
+                            "Cannot read image file",
+                            ErrorCode.INVALID_IMAGE
+                        ))
+                        return@suspendCancellableCoroutine
+                    }
+                    
+                    finalStream.use { bitmapStream ->
+                        val bitmap = BitmapFactory.decodeStream(bitmapStream, null, options)
+                        
+                        if (bitmap == null) {
+                            continuation.resume(ScanResult.Error(
+                                "Failed to decode image",
+                                ErrorCode.IMAGE_DECODE_ERROR
+                            ))
+                            return@suspendCancellableCoroutine
+                        }
+                        
+                        processQrFromBitmap(bitmap, continuation)
+                    }
+                }
+                
+            } catch (e: SecurityException) {
+                continuation.resume(ScanResult.Error(
+                    "Permission denied to access image",
+                    ErrorCode.CAMERA_PERMISSION_DENIED
+                ))
+            } catch (e: OutOfMemoryError) {
+                continuation.resume(ScanResult.Error(
+                    "Image too large to process",
+                    ErrorCode.IMAGE_TOO_LARGE
+                ))
+            } catch (e: Exception) {
+                continuation.resume(ScanResult.Error(
+                    e.message ?: "Failed to scan image",
+                    ErrorCode.UNKNOWN_ERROR
+                ))
+            }
+        }
+    }
+    
+    /**
+     * Scan QR code from a content URI string.
+     * 
+     * Convenience method that parses the URI string.
+     * 
+     * @param uriString URI string to the image
+     * @return ScanResult with scanned content or error
+     */
+    suspend fun scanFromUriString(uriString: String): ScanResult {
+        return try {
+            val uri = Uri.parse(uriString)
+            scanFromUri(uri)
+        } catch (e: Exception) {
+            ScanResult.Error(
+                "Invalid URI: ${e.message}",
+                ErrorCode.INVALID_IMAGE
+            )
+        }
+    }
+    
+    /**
+     * Process QR code detection from a bitmap.
+     * 
+     * Internal helper method used by both byte array and URI scanning.
+     */
+    private fun processQrFromBitmap(
+        bitmap: Bitmap,
+        continuation: kotlinx.coroutines.CancellableContinuation<ScanResult>
+    ) {
+        val inputImage = InputImage.fromBitmap(bitmap, 0)
+        
+        scanner.process(inputImage)
+            .addOnSuccessListener { barcodes ->
+                val qrBarcodes = barcodes.filter { it.format == Barcode.FORMAT_QR_CODE }
+                
+                if (qrBarcodes.isNotEmpty()) {
+                    val result = processBarcodeResult(qrBarcodes.first())
+                    continuation.resume(result)
+                } else {
+                    continuation.resume(ScanResult.NoQrFound)
+                }
+                
+                // Clean up bitmap
+                bitmap.recycle()
+            }
+            .addOnFailureListener { e ->
+                bitmap.recycle()
+                continuation.resume(ScanResult.Error(
+                    e.message ?: "ML Kit scan failed",
+                    ErrorCode.ML_KIT_ERROR
+                ))
+            }
+    }
+    
+    /**
+     * Calculate sample size for image decoding.
+     * 
+     * Ensures images are downscaled to prevent OOM while maintaining quality
+     * sufficient for QR code detection.
+     */
+    private fun calculateSampleSize(width: Int, height: Int): Int {
+        var sampleSize = 1
+        val maxDimension = maxOf(width, height)
+        
+        while (maxDimension / sampleSize > MAX_IMAGE_DIMENSION) {
+            sampleSize *= 2
+        }
+        
+        return sampleSize
     }
     
     /**

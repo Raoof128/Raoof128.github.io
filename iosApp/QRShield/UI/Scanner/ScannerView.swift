@@ -1,22 +1,40 @@
-// UI/Scanner/ScannerView.swift
-// QR-SHIELD Main Scanner Interface - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025 - iOS 26.2 RC Features
-// - scrollEdgeEffectStyle for soft edge effects
-// - Enhanced Liquid Glass toolbars
-// - ToolbarSpacer for grouped actions
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// UI/Scanner/ScannerView.swift
+// QR-SHIELD Main Scanner Interface - iOS 17+ Liquid Glass Edition
+//
+// UPDATED: December 2025 - iOS 17+ Features
+// - Liquid Glass toolbars
+// - Enhanced visual effects
 // - GlassButtonStyle integration
-// - Rebuilt rendering pipeline
+// - Optimized rendering pipeline
 
 import SwiftUI
 import AVFoundation
 
 struct ScannerView: View {
-    // iOS 26: @State with @Observable (replaces @StateObject)
+    // iOS 17+: @State with @Observable (replaces @StateObject)
     @State private var viewModel = ScannerViewModel()
     @State private var showDetails = false
     @State private var showGalleryPicker = false
     @State private var showPermissionAlert = false
+    
+    // Settings
+    @AppStorage("autoScan") private var autoScan = true
     
     // Animation namespace for transitions
     @Namespace private var animation
@@ -59,7 +77,7 @@ struct ScannerView: View {
                 DetailSheet(assessment: result)
                     .presentationDetents([.medium, .large])
                     .presentationDragIndicator(.visible)
-                    // iOS 26: Glass background for sheets
+                    // iOS 17+: Glass background for sheets
                     .presentationBackground(.ultraThinMaterial)
             }
         }
@@ -67,7 +85,10 @@ struct ScannerView: View {
             ImagePicker(onImagePicked: viewModel.analyzeImage)
         }
         .onAppear {
-            viewModel.startCamera()
+            // Only auto-start scanning if setting is enabled
+            if autoScan {
+                viewModel.startCamera()
+            }
         }
         .onDisappear {
             viewModel.stopCamera()
@@ -85,7 +106,7 @@ struct ScannerView: View {
         } message: {
             Text("QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.")
         }
-        // iOS 26.2: Toolbar with glass styling
+        // iOS 17+: Toolbar with glass styling
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Text("Scans: \(viewModel.scanCount)")
@@ -98,7 +119,7 @@ struct ScannerView: View {
         }
     }
     
-    // MARK: - Liquid Glass Overlay (iOS 26)
+    // MARK: - Liquid Glass Overlay (iOS 17+)
     
     private var liquidGlassOverlay: some View {
         ZStack {
@@ -127,7 +148,7 @@ struct ScannerView: View {
         .ignoresSafeArea()
     }
     
-    // MARK: - Header Bar (Liquid Glass iOS 26.2)
+    // MARK: - Header Bar (Liquid Glass iOS 17+)
     
     private var headerBar: some View {
         HStack {
@@ -174,7 +195,6 @@ struct ScannerView: View {
             }
             .frame(width: 44, height: 44)
             .background(.ultraThinMaterial, in: Circle())
-            .sensoryFeedback(.impact(weight: .light), trigger: viewModel.isFlashOn)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -233,13 +253,13 @@ struct ScannerView: View {
             .liquidGlass(cornerRadius: 24)
             .transition(.scale.combined(with: .opacity))
         } else {
-            // Scanning Target with iOS 26 effects
+            // Scanning Target with iOS 17+ effects
             scanningIndicator
                 .transition(.opacity)
         }
     }
     
-    // MARK: - Scanning Indicator (iOS 26.2 Enhanced)
+    // MARK: - Scanning Indicator (iOS 17+ Enhanced)
     
     private var scanningIndicator: some View {
         ZStack {
@@ -285,7 +305,7 @@ struct ScannerView: View {
                 .frame(width: 200, height: 200)
                 .mask(CornerMask())
             
-            // Center icon with iOS 26 symbol effects
+            // Center icon with iOS 17+ symbol effects
             Image(systemName: "qrcode.viewfinder")
                 .font(.system(size: 50))
                 .foregroundStyle(
@@ -306,7 +326,7 @@ struct ScannerView: View {
         }
     }
     
-    // MARK: - Control Bar (Liquid Glass iOS 26.2)
+    // MARK: - Control Bar (Liquid Glass iOS 17+)
     
     private var controlBar: some View {
         HStack(spacing: 50) {
@@ -349,7 +369,7 @@ struct ScannerView: View {
                 }
                 .shadow(color: .brandPrimary.opacity(0.4), radius: 15)
             }
-            .sensoryFeedback(.impact(weight: .medium), trigger: viewModel.isScanning)
+    
             
             // History Button
             NavigationLink(destination: HistoryView()) {
@@ -409,8 +429,13 @@ struct ControlButton: View {
     let label: String
     var action: () -> Void = {}
     
+    @State private var tapCount = 0
+    
     var body: some View {
-        Button(action: action) {
+        Button {
+            tapCount += 1
+            action()
+        } label: {
             VStack(spacing: 6) {
                 Image(systemName: icon)
                     .font(.title2)
@@ -427,7 +452,7 @@ struct ControlButton: View {
                     .foregroundColor(.textSecondary)
             }
         }
-        .sensoryFeedback(.impact(weight: .light), trigger: UUID())
+        .sensoryFeedback(.impact(weight: .light), trigger: tapCount)
     }
 }
 

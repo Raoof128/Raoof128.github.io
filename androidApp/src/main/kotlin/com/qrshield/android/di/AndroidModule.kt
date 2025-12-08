@@ -1,10 +1,26 @@
+/*
+ * Copyright 2024 QR-SHIELD Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.qrshield.android.di
 
+import app.cash.sqldelight.db.SqlDriver
 import com.qrshield.core.PhishingEngine
 import com.qrshield.data.DatabaseDriverFactory
 import com.qrshield.data.HistoryRepository
 import com.qrshield.data.SqlDelightHistoryRepository
-import com.qrshield.db.QRShieldDatabase
 import com.qrshield.scanner.QrScanner
 import com.qrshield.scanner.QrScannerFactory
 import com.qrshield.ui.SharedViewModel
@@ -36,15 +52,18 @@ val androidModule = module {
     // Database driver factory (Android-specific)
     single { DatabaseDriverFactory(androidContext()) }
     
-    // SQLDelight database
-    single { 
-        val driver = get<DatabaseDriverFactory>().createDriver()
-        QRShieldDatabase(driver)
+    // SQLDriver - used by SqlDelightHistoryRepository
+    single<SqlDriver> { 
+        get<DatabaseDriverFactory>().createDriver()
     }
     
     // History repository with persistence
+    // SqlDelightHistoryRepository takes (driver, scope)
     single<HistoryRepository> { 
-        SqlDelightHistoryRepository(get()) 
+        SqlDelightHistoryRepository(
+            driver = get(),
+            scope = get()
+        )
     }
     
     // Scanner (Android-specific using CameraX + ML Kit)

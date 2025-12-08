@@ -1,3 +1,35 @@
+/*
+ * Copyright 2024 QR-SHIELD Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*
+ * Copyright 2024 QR-SHIELD Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.qrshield.core
 
 import com.qrshield.engine.BrandDetector
@@ -69,7 +101,7 @@ class PhishingEngine(
         // PHASE 1: Input Validation
         val validationResult = InputValidator.validateUrl(url)
         if (!validationResult.isValid()) {
-            return createInvalidUrlResult(url, validationResult)
+            return createInvalidUrlResult(validationResult)
         }
         
         val validatedUrl = validationResult.getOrNull() ?: url
@@ -270,7 +302,6 @@ class PhishingEngine(
      * Create result for invalid URL input.
      */
     private fun createInvalidUrlResult(
-        @Suppress("UNUSED_PARAMETER") url: String,
         validation: InputValidator.ValidationResult<String>
     ): RiskAssessment {
         val reason = when (validation) {

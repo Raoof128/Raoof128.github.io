@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Per-app language preferences (Android 13+) -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />      <!-- English (default) -->
+    <locale android:name="es" />      <!-- Spanish -->
+    <locale android:name="fr" />      <!-- French -->
+    <locale android:name="de" />      <!-- German -->
+    <locale android:name="ja" />      <!-- Japanese -->
+    <locale android:name="zh" />      <!-- Chinese -->
+    <locale android:name="ar" />      <!-- Arabic -->
+</locale-config>

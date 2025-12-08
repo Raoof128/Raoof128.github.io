@@ -1,7 +1,23 @@
-// UI/Scanner/CameraPreview.swift
-// QR-SHIELD Native Camera Layer - iOS 26 Edition
 //
-// UPDATED: December 2025 - iOS 26.2
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// UI/Scanner/CameraPreview.swift
+// QR-SHIELD Native Camera Layer - iOS 17+ Edition
+//
+// UPDATED: December 2025 - iOS 17+
 // - videoRotationAngle for modern orientation handling
 // - Improved lifecycle management
 // - Swift 6 concurrency compliance
@@ -121,7 +137,7 @@ final class CameraPreviewView: UIView {
         self.previewLayer = layer
     }
     
-    // MARK: - Orientation Handling (iOS 26)
+    // MARK: - Orientation Handling (iOS 17+)
     
     private func startObservingOrientation() {
         orientationObserver = NotificationCenter.default.addObserver(

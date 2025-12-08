@@ -1,3 +1,19 @@
+//
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
 // Extensions/Color+Theme.swift
 // QR-SHIELD Design System - iOS 17+ Compatible
 //
@@ -102,6 +118,8 @@ extension LinearGradient {
 // MARK: - Liquid Glass Background (iOS 17+ Compatible)
 
 struct LiquidGlassBackground: View {
+    @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
+    
     var body: some View {
         ZStack {
             // Base dark gradient
@@ -115,24 +133,27 @@ struct LiquidGlassBackground: View {
                 endPoint: .bottomTrailing
             )
             
-            // Animated accent overlays
-            Circle()
-                .fill(Color.brandPrimary.opacity(0.15))
-                .frame(width: 300, height: 300)
-                .blur(radius: 100)
-                .offset(x: -100, y: -200)
-            
-            Circle()
-                .fill(Color.brandSecondary.opacity(0.1))
-                .frame(width: 250, height: 250)
-                .blur(radius: 80)
-                .offset(x: 150, y: 300)
-            
-            Circle()
-                .fill(Color.brandAccent.opacity(0.08))
-                .frame(width: 200, height: 200)
-                .blur(radius: 60)
-                .offset(x: 100, y: -100)
+            // Only show animated effects if not reduced
+            if !liquidGlassReduced {
+                // Animated accent overlays
+                Circle()
+                    .fill(Color.brandPrimary.opacity(0.15))
+                    .frame(width: 300, height: 300)
+                    .blur(radius: 100)
+                    .offset(x: -100, y: -200)
+                
+                Circle()
+                    .fill(Color.brandSecondary.opacity(0.1))
+                    .frame(width: 250, height: 250)
+                    .blur(radius: 80)
+                    .offset(x: 150, y: 300)
+                
+                Circle()
+                    .fill(Color.brandAccent.opacity(0.08))
+                    .frame(width: 200, height: 200)
+                    .blur(radius: 60)
+                    .offset(x: 100, y: -100)
+            }
         }
     }
 }
@@ -155,6 +176,7 @@ extension View {
 struct LiquidGlassStyle: ViewModifier {
     var cornerRadius: CGFloat = 16
     var opacity: Double = 1.0
+    @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
     
     func body(content: Content) -> some View {
         content
@@ -164,22 +186,32 @@ struct LiquidGlassStyle: ViewModifier {
                     .opacity(opacity)
             }
             .overlay {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(
-                        LinearGradient(
-                            colors: [
-                                Color.white.opacity(0.25),
-                                Color.white.opacity(0.1),
-                                Color.clear,
-                                Color.white.opacity(0.05)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1
-                    )
+                if !liquidGlassReduced {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(
+                            LinearGradient(
+                                colors: [
+                                    Color.white.opacity(0.25),
+                                    Color.white.opacity(0.1),
+                                    Color.clear,
+                                    Color.white.opacity(0.05)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
+                } else {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                }
             }
-            .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 5)
+            .shadow(
+                color: liquidGlassReduced ? .clear : Color.black.opacity(0.15),
+                radius: liquidGlassReduced ? 0 : 10,
+                x: 0,
+                y: liquidGlassReduced ? 0 : 5
+            )
     }
 }
 
@@ -225,6 +257,8 @@ struct InteractiveGlassButton: View {
     var color: Color = .brandPrimary
     let action: () -> Void
     
+    @State private var tapCount = 0
+    
     init(_ title: String, icon: String, color: Color = .brandPrimary, action: @escaping () -> Void) {
         self.title = title
         self.icon = icon
@@ -233,10 +267,13 @@ struct InteractiveGlassButton: View {
     }
     
     var body: some View {
-        Button(action: action) {
+        Button {
+            tapCount += 1
+            action()
+        } label: {
             HStack(spacing: 8) {
                 Image(systemName: icon)
-                    .symbolEffect(.bounce, value: UUID())
+                    .symbolEffect(.bounce, value: tapCount)
                 Text(title)
             }
             .font(.headline)
@@ -260,7 +297,7 @@ struct InteractiveGlassButton: View {
             }
             .shadow(color: color.opacity(0.4), radius: 10, y: 4)
         }
-        .sensoryFeedback(.impact(weight: .medium), trigger: UUID())
+        .sensoryFeedback(.impact(weight: .medium), trigger: tapCount)
     }
 }
 
@@ -287,4 +324,3 @@ struct InteractiveGlassButton: View {
     .padding()
     .liquidGlassBackground()
 }
-

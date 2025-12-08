@@ -1,19 +1,37 @@
-// UI/Scanner/ScannerViewModel.swift
-// QR-SHIELD Scanner ViewModel - iOS 26 / Swift 6.1 Optimized
 //
-// UPDATED: December 2025 - iOS 26.2 / Xcode 26
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// UI/Scanner/ScannerViewModel.swift
+// QR-SHIELD Scanner ViewModel - iOS 17+ / Swift 6 Optimized
+//
+// UPDATED: December 2025 - iOS 17+ Compatible
 // - Full @Observable macro support
 // - Swift 6 strict concurrency compliance
-// - Cinematic Mode API ready
 // - Enhanced camera configuration
+// - Comprehensive error handling
 
 import Foundation
 import AVFoundation
 import SwiftUI
 import Observation
-// import common // Uncomment when KMP framework is linked
+#if canImport(common)
+import common
+#endif
 
-// MARK: - iOS 26 Observable ViewModel
+// MARK: - iOS 17+ Observable ViewModel
 
 /// The iOS-native ViewModel using @Observable macro
 /// Provides precise property-level observation for optimal performance
@@ -46,9 +64,10 @@ final class ScannerViewModel {
     // Debounce configuration
     private let scanDebounceInterval: TimeInterval = 2.0
     
-    // KMP Dependencies - Uncomment when framework is linked
-    // private let scanner: QrScanner
-    // private let engine: PhishingEngine
+    // KMP Dependencies
+    #if canImport(common)
+    private let engine: PhishingEngine = PhishingEngine()
+    #endif
     
     // MARK: - Initialization
     
@@ -83,12 +102,12 @@ final class ScannerViewModel {
         }
     }
     
-    // MARK: - Camera Setup (iOS 26 Enhanced)
+    // MARK: - Camera Setup (iOS 17+ Enhanced)
     
     private func setupCamera() async {
         let session = AVCaptureSession()
         
-        // iOS 26: Atomic configuration changes
+        // iOS 17+: Atomic configuration changes
         session.beginConfiguration()
         defer { session.commitConfiguration() }
         
@@ -97,26 +116,48 @@ final class ScannerViewModel {
             session.sessionPreset = .hd1920x1080
         } else if session.canSetSessionPreset(.high) {
             session.sessionPreset = .high
+        } else {
+            session.sessionPreset = .medium
+            #if DEBUG
+            print("⚠️ QR-SHIELD: Using medium quality preset")
+            #endif
         }
         
-        // Get back camera
-        guard let videoDevice = AVCaptureDevice.default(
+        // Get back camera with fallback options
+        var videoDevice: AVCaptureDevice?
+        
+        // Try wide angle camera first
+        videoDevice = AVCaptureDevice.default(
             .builtInWideAngleCamera,
             for: .video,
             position: .back
-        ) else {
-            errorMessage = "No camera available"
+        )
+        
+        // Fallback to any available back camera
+        if videoDevice == nil {
+            videoDevice = AVCaptureDevice.default(for: .video)
+        }
+        
+        guard let device = videoDevice else {
+            errorMessage = "No camera available on this device"
+            cameraPermissionStatus = .denied
+            #if DEBUG
+            print("❌ QR-SHIELD: No camera device found")
+            #endif
             return
         }
         
         do {
             // Configure device for optimal QR scanning
-            try configureDevice(videoDevice)
+            try configureDevice(device)
             
-            let videoInput = try AVCaptureDeviceInput(device: videoDevice)
+            let videoInput = try AVCaptureDeviceInput(device: device)
             
             guard session.canAddInput(videoInput) else {
-                errorMessage = "Cannot add camera input"
+                errorMessage = "Cannot configure camera input. The camera may be in use by another app."
+                #if DEBUG
+                print("❌ QR-SHIELD: Cannot add camera input")
+                #endif
                 return
             }
             session.addInput(videoInput)
@@ -124,13 +165,28 @@ final class ScannerViewModel {
             // Setup QR code detection
             let metadataOutput = AVCaptureMetadataOutput()
             guard session.canAddOutput(metadataOutput) else {
-                errorMessage = "Cannot add metadata output"
+                errorMessage = "Cannot configure camera output. Please restart the app."
+                #if DEBUG
+                print("❌ QR-SHIELD: Cannot add metadata output")
+                #endif
                 return
             }
             session.addOutput(metadataOutput)
             
             // Configure metadata types (after adding to session)
-            metadataOutput.metadataObjectTypes = [.qr, .aztec, .dataMatrix, .pdf417]
+            // Check which types are supported
+            let supportedTypes: [AVMetadataObject.ObjectType] = [.qr, .aztec, .dataMatrix, .pdf417]
+                .filter { metadataOutput.availableMetadataObjectTypes.contains($0) }
+            
+            if supportedTypes.isEmpty {
+                errorMessage = "QR code scanning is not supported on this device"
+                #if DEBUG
+                print("❌ QR-SHIELD: No supported metadata types")
+                #endif
+                return
+            }
+            
+            metadataOutput.metadataObjectTypes = supportedTypes
             
             // Setup delegate with Swift 6 concurrency compliance
             let delegate = QRCodeMetadataDelegate { [weak self] code in
@@ -152,8 +208,31 @@ final class ScannerViewModel {
             self.session = session
             self.videoOutput = metadataOutput
             
+            #if DEBUG
+            print("✅ QR-SHIELD: Camera setup complete")
+            #endif
+            
+        } catch let error as AVError {
+            // Handle specific AVFoundation errors
+            switch error.code {
+            case .applicationIsNotAuthorizedToUseDevice:
+                errorMessage = "Camera access denied. Please enable camera in Settings."
+                cameraPermissionStatus = .denied
+            case .deviceIsNotAvailableInBackground:
+                errorMessage = "Camera cannot be used in background"
+            case .sessionWasInterrupted:
+                errorMessage = "Camera session was interrupted. Please try again."
+            default:
+                errorMessage = "Camera error: \(error.localizedDescription)"
+            }
+            #if DEBUG
+            print("❌ QR-SHIELD: AVError - \(error.localizedDescription)")
+            #endif
         } catch {
             errorMessage = "Camera setup failed: \(error.localizedDescription)"
+            #if DEBUG
+            print("❌ QR-SHIELD: Unknown error - \(error.localizedDescription)")
+            #endif
         }
     }
     
@@ -171,7 +250,7 @@ final class ScannerViewModel {
             device.exposureMode = .continuousAutoExposure
         }
         
-        // Optimize for low light (iOS 26)
+        // Optimize for low light (iOS 17+)
         if device.isLowLightBoostSupported {
             device.automaticallyEnablesLowLightBoostWhenAvailable = true
         }
@@ -280,17 +359,31 @@ final class ScannerViewModel {
         Task { [weak self] in
             guard let self else { return }
             
-            // Simulate analysis delay
-            // In production: let assessment = try await engine.analyze(url: url)
+            // Use actual KMP PhishingEngine when available
+            #if canImport(common)
+            let assessment = engine.analyze(url: url)
+            let result = RiskAssessmentMock(
+                score: Int(assessment.score),
+                verdict: VerdictMock.from(assessment.verdict),
+                flags: assessment.flags as? [String] ?? [],
+                confidence: Double(assessment.confidence),
+                url: url,
+                scannedAt: Date()
+            )
+            #else
+            // Fallback to mock for development without KMP framework
             try? await Task.sleep(for: .milliseconds(500))
-            
             let result = createMockResult(for: url)
+            #endif
             
             await MainActor.run {
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
                     self.currentResult = result
                     self.isAnalyzing = false
                 }
+                
+                // Save to history (respects saveHistory setting)
+                HistoryStore.shared.addScan(result)
                 
                 self.triggerVerdictHaptic(for: result.verdict)
             }
@@ -319,33 +412,30 @@ final class ScannerViewModel {
         }
     }
     
-    // MARK: - Haptic Feedback (iOS 26 Enhanced)
+    // MARK: - Haptic Feedback (iOS 17+ Enhanced)
     
     private func triggerScanHaptic() {
-        let impact = UIImpactFeedbackGenerator(style: .medium)
-        impact.prepare()
-        impact.impactOccurred()
+        SettingsManager.shared.triggerHaptic(.medium)
+        SettingsManager.shared.playSound(.scan)
     }
     
     private func triggerVerdictHaptic(for verdict: VerdictMock) {
-        let notification = UINotificationFeedbackGenerator()
-        notification.prepare()
-        
         switch verdict {
         case .safe:
-            notification.notificationOccurred(.success)
+            SettingsManager.shared.triggerHaptic(.success)
+            SettingsManager.shared.playSound(.success)
         case .suspicious:
-            notification.notificationOccurred(.warning)
+            SettingsManager.shared.triggerHaptic(.warning)
+            SettingsManager.shared.playSound(.warning)
         case .malicious:
-            notification.notificationOccurred(.error)
+            SettingsManager.shared.triggerHaptic(.error)
+            SettingsManager.shared.playSound(.error)
             // Double haptic for malicious
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                let impact = UIImpactFeedbackGenerator(style: .heavy)
-                impact.impactOccurred(intensity: 1.0)
+                SettingsManager.shared.triggerHaptic(.heavy)
             }
         case .unknown:
-            let impact = UIImpactFeedbackGenerator(style: .light)
-            impact.impactOccurred()
+            SettingsManager.shared.triggerHaptic(.light)
         }
     }
     
@@ -440,4 +530,3 @@ enum CameraPermissionStatus: String, Sendable {
 }
 
 // NOTE: VerdictMock and RiskAssessmentMock are now defined in Models/MockTypes.swift
-

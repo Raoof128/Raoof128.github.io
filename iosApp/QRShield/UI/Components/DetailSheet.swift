@@ -1,10 +1,26 @@
-// UI/Components/DetailSheet.swift
-// QR-SHIELD Detail Sheet - iOS 26.2 Liquid Glass Edition
 //
-// UPDATED: December 2025 - iOS 26.2 RC
+// Copyright 2024 QR-SHIELD Contributors
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+// UI/Components/DetailSheet.swift
+// QR-SHIELD Detail Sheet - iOS 17+ Liquid Glass Edition
+//
+// UPDATED: December 2025 - iOS 17+ Compatible
 // - VerdictIcon integration
 // - Enhanced sheet styling
-// - iOS 26.2 share functionality
+// - iOS 17+ share functionality
 // - Animated progress bars
 
 import SwiftUI
@@ -83,7 +99,7 @@ struct DetailSheet: View {
         }
     }
     
-    // MARK: - Header Section (Liquid Glass iOS 26.2)
+    // MARK: - Header Section (Liquid Glass iOS 17+)
     
     private var headerSection: some View {
         VStack(spacing: 16) {
@@ -309,7 +325,7 @@ struct DetailSheet: View {
         .padding(.horizontal)
     }
     
-    // MARK: - Actions (Liquid Glass iOS 26.2)
+    // MARK: - Actions (Liquid Glass iOS 17+)
     
     private var actionsSection: some View {
         VStack(spacing: 12) {
@@ -405,7 +421,7 @@ struct DetailSheet: View {
         
         Flags: \(assessment.flags.joined(separator: ", "))
         
-        Scanned with QR-SHIELD for iOS 26
+        Scanned with QR-SHIELD for iOS 17+
         """
     }
 }

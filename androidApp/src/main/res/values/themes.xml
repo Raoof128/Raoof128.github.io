@@ -1,126 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- QR-SHIELD Android 16 Theme - Dark Mode (Default) -->
+<!-- QR-SHIELD Android Theme -->
 <resources>
     
-    <!-- ========================== -->
-    <!-- BASE APPLICATION THEME     -->
-    <!-- ========================== -->
-    
-    <style name="Theme.QRShield" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Base Application Theme using AppCompat (most compatible) -->
+    <style name="Theme.QRShield" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary Colors -->
-        <item name="colorPrimary">@color/md_theme_dark_primary</item>
-        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
-        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
-        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
-        
-        <!-- Secondary Colors -->
-        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
-        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
-        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
-        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
-        
-        <!-- Tertiary Colors -->
-        <item name="colorTertiary">@color/md_theme_dark_tertiary</item>
-        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
-        
-        <!-- Error Colors -->
-        <item name="colorError">@color/md_theme_dark_error</item>
-        <item name="colorOnError">@color/md_theme_dark_onError</item>
-        <item name="colorErrorContainer">@color/md_theme_dark_errorContainer</item>
-        <item name="colorOnErrorContainer">@color/md_theme_dark_onErrorContainer</item>
-        
-        <!-- Background/Surface -->
-        <item name="android:colorBackground">@color/md_theme_dark_background</item>
-        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
-        <item name="colorSurface">@color/md_theme_dark_surface</item>
-        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
-        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
-        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
-        
-        <!-- Outline -->
-        <item name="colorOutline">@color/md_theme_dark_outline</item>
-        <item name="colorOutlineVariant">@color/md_theme_dark_outlineVariant</item>
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryDark">@color/brand_primary_dark</item>
+        <item name="colorAccent">@color/brand_secondary</item>
         
         <!-- System UI -->
         <item name="android:statusBarColor">@color/background_dark</item>
         <item name="android:navigationBarColor">@color/background_dark</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
         
         <!-- Window -->
         <item name="android:windowBackground">@color/background_dark</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        
-        <!-- Enable edge-to-edge -->
-        <item name="android:enforceNavigationBarContrast">false</item>
-        <item name="android:enforceStatusBarContrast">false</item>
     </style>
     
-    <!-- ========================== -->
-    <!-- SPLASH SCREEN THEME        -->
-    <!-- Android 12+ (API 31+)      -->
-    <!-- ========================== -->
-    
+    <!-- Splash Screen Theme (Android 12+) -->
     <style name="Theme.QRShield.Splash" parent="Theme.SplashScreen">
-        <!-- Splash screen background color -->
         <item name="windowSplashScreenBackground">@color/splash_background</item>
-        
-        <!-- Animated icon (center) -->
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/splash_icon_background</item>
-        
-        <!-- Animation duration -->
         <item name="windowSplashScreenAnimationDuration">1000</item>
-        
-        <!-- Theme to switch to after splash -->
         <item name="postSplashScreenTheme">@style/Theme.QRShield</item>
-    </style>
-    
-    <!-- ========================== -->
-    <!-- COMPONENT STYLES           -->
-    <!-- ========================== -->
-    
-    <!-- Button Style -->
-    <style name="Widget.QRShield.Button" parent="Widget.Material3.Button">
-        <item name="android:textColor">@color/text_on_primary</item>
-        <item name="backgroundTint">@color/brand_primary</item>
-        <item name="rippleColor">@color/ripple</item>
-        <item name="cornerRadius">12dp</item>
-    </style>
-    
-    <!-- Outlined Button Style -->
-    <style name="Widget.QRShield.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="strokeColor">@color/brand_primary</item>
-        <item name="android:textColor">@color/brand_primary</item>
-        <item name="cornerRadius">12dp</item>
-    </style>
-    
-    <!-- Card Style -->
-    <style name="Widget.QRShield.Card" parent="Widget.Material3.CardView.Filled">
-        <item name="cardBackgroundColor">@color/background_card</item>
-        <item name="cardCornerRadius">16dp</item>
-        <item name="cardElevation">0dp</item>
-    </style>
-    
-    <!-- Result Card - Safe -->
-    <style name="Widget.QRShield.ResultCard.Safe" parent="Widget.QRShield.Card">
-        <item name="cardBackgroundColor">@color/verdict_safe_background</item>
-        <item name="strokeColor">@color/verdict_safe</item>
-        <item name="strokeWidth">1dp</item>
-    </style>
-    
-    <!-- Result Card - Warning -->
-    <style name="Widget.QRShield.ResultCard.Warning" parent="Widget.QRShield.Card">
-        <item name="cardBackgroundColor">@color/verdict_warning_background</item>
-        <item name="strokeColor">@color/verdict_warning</item>
-        <item name="strokeWidth">1dp</item>
-    </style>
-    
-    <!-- Result Card - Danger -->
-    <style name="Widget.QRShield.ResultCard.Danger" parent="Widget.QRShield.Card">
-        <item name="cardBackgroundColor">@color/verdict_danger_background</item>
-        <item name="strokeColor">@color/verdict_danger</item>
-        <item name="strokeWidth">2dp</item>
     </style>
     
 </resources>
