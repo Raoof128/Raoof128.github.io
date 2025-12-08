@@ -17,7 +17,9 @@
 package com.qrshield.android.ui.screens
 
 import androidx.compose.animation.*
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -90,7 +92,14 @@ fun HistoryScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        BackgroundDark,
+                        Color(0xFF13171F) // Slightly lighter bottom
+                    )
+                )
+            )
             .semantics { 
                 contentDescription = "Scan history screen with ${filteredHistory.size} items"
             }
@@ -314,7 +323,8 @@ private fun HistoryItemCard(
             .semantics { 
                 contentDescription = "Scan result: $url, verdict ${verdict.name}, score $score"
             },
-        colors = CardDefaults.cardColors(containerColor = BackgroundCard),
+        colors = CardDefaults.cardColors(containerColor = BackgroundCard.copy(alpha = 0.7f)),
+        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.05f)), // Glass border
         shape = RoundedCornerShape(16.dp)
     ) {
         Row(

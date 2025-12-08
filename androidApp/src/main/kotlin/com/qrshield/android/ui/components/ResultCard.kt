@@ -18,6 +18,7 @@ package com.qrshield.android.ui.components
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -27,6 +28,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.res.stringResource
@@ -114,12 +116,20 @@ fun ResultCard(
         Spacer(modifier = Modifier.height(16.dp))
         
         // Animated Score
+        val scoreScale by animateFloatAsState(
+            targetValue = if (animatedScore == score) 1.2f else 1.0f,
+            animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy),
+            label = "score_pop"
+        )
+
         Text(
             text = "$animatedScore",
             fontSize = 72.sp,
             fontWeight = FontWeight.Bold,
             color = color,
-            modifier = Modifier.semantics { 
+            modifier = Modifier
+                .scale(scoreScale)
+                .semantics { 
                 contentDescription = "Risk score: $score out of 100"
             }
         )
@@ -135,7 +145,8 @@ fun ResultCard(
         // Verdict Badge
         Surface(
             color = color.copy(alpha = 0.2f),
-            shape = RoundedCornerShape(24.dp)
+            shape = RoundedCornerShape(24.dp),
+            border = BorderStroke(1.dp, color.copy(alpha = 0.5f)) // Added glowing border
         ) {
             Text(
                 text = verdict.name,

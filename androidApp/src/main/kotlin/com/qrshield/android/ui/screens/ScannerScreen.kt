@@ -28,6 +28,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.LinearGradientShader
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -202,6 +204,15 @@ fun ScannerScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundDark)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color.Black.copy(alpha = 0.3f),
+                        Color.Transparent,
+                        Color.Black.copy(alpha = 0.5f)
+                    )
+                )
+            )
     ) {
         // Show loading overlay when processing gallery image
         if (isProcessingGalleryImage) {

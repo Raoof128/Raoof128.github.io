@@ -52,12 +52,12 @@ val VerdictUnknown = Color(0xFF8B93A1)    // Gray - UNKNOWN
 val BackgroundDark = Color(0xFF0D1117)    // Deep Navy (GitHub Dark)
 val BackgroundSurface = Color(0xFF161B22) // Elevated Surface
 val BackgroundCard = Color(0xFF21262D)    // Card Background
-val BackgroundGlass = Color(0x0DFFFFFF)   // Glass Tint (5% white)
+val BackgroundGlass = Color(0x1AFFFFFF)   // Glass Tint (10% white) - Enhanced for Liquid Effect
 
 // Text Colors (Enhanced contrast for Android 16)
 val TextPrimary = Color(0xFFF0F6FC)       // Near White
 val TextSecondary = Color(0xFF8B949E)     // Muted Gray
-val TextMuted = Color(0xFF6E7681)         // Very Muted
+val TextMuted = Color(0xFF848D97)         // Slightly Lighter Muted for Glass
 
 // Accent Colors
 val AccentBlue = Color(0xFF58A6FF)        // Link Blue

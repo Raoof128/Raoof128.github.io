@@ -23,6 +23,7 @@ import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -75,7 +76,14 @@ fun SettingsScreen() {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        BackgroundDark,
+                        Color(0xFF13171F)
+                    )
+                )
+            )
             .semantics { 
                 contentDescription = "Settings screen with app preferences"
             },

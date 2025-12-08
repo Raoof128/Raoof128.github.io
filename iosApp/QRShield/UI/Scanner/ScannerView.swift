@@ -121,31 +121,38 @@ struct ScannerView: View {
     
     // MARK: - Liquid Glass Overlay (iOS 17+)
     
+    // MARK: - Liquid Glass Overlay (iOS 17+)
+    
     private var liquidGlassOverlay: some View {
-        ZStack {
-            // Top gradient - Liquid Glass style
-            LinearGradient(
-                gradient: Gradient(stops: [
-                    .init(color: Color.black.opacity(0.8), location: 0),
-                    .init(color: Color.black.opacity(0.3), location: 0.3),
-                    .init(color: Color.clear, location: 0.5)
-                ]),
-                startPoint: .top,
-                endPoint: .center
-            )
+        TimelineView(.animation) { timeline in
+            let time = timeline.date.timeIntervalSinceReferenceDate
+            let animate = viewModel.isScanning
             
-            // Bottom gradient
-            LinearGradient(
-                gradient: Gradient(stops: [
-                    .init(color: Color.clear, location: 0.5),
-                    .init(color: Color.black.opacity(0.5), location: 0.7),
-                    .init(color: Color.black.opacity(0.9), location: 1.0)
-                ]),
-                startPoint: .center,
-                endPoint: .bottom
-            )
+            ZStack {
+                // Top gradient - Liquid Glass style with gentle movement
+                LinearGradient(
+                    gradient: Gradient(stops: [
+                        .init(color: Color.black.opacity(0.8), location: 0),
+                        .init(color: Color.black.opacity(0.3), location: 0.3 + (animate ? sin(time * 0.5) * 0.05 : 0)),
+                        .init(color: Color.clear, location: 0.5 + (animate ? cos(time * 0.5) * 0.05 : 0))
+                    ]),
+                    startPoint: .top,
+                    endPoint: .center
+                )
+                
+                // Bottom gradient with phase shift
+                LinearGradient(
+                    gradient: Gradient(stops: [
+                        .init(color: Color.clear, location: 0.5),
+                        .init(color: Color.black.opacity(0.5), location: 0.7 - (animate ? cos(time * 0.4) * 0.05 : 0)),
+                        .init(color: Color.black.opacity(0.9), location: 1.0)
+                    ]),
+                    startPoint: .center,
+                    endPoint: .bottom
+                )
+            }
+            .ignoresSafeArea()
         }
-        .ignoresSafeArea()
     }
     
     // MARK: - Header Bar (Liquid Glass iOS 17+)
@@ -252,6 +259,12 @@ struct ScannerView: View {
             .padding(30)
             .liquidGlass(cornerRadius: 24)
             .transition(.scale.combined(with: .opacity))
+            // Breathing animation
+            .phaseAnimator([0.98, 1.02]) { content, scale in
+                content.scaleEffect(scale)
+            } animation: { _ in
+                .easeInOut(duration: 1.0)
+            }
         } else {
             // Scanning Target with iOS 17+ effects
             scanningIndicator
