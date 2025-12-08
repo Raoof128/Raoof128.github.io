@@ -91,12 +91,12 @@ final class HistoryStore {
     
     /// Clear all history
     func clearAll() {
-        items.removeAll()
+        items = []  // Explicit assignment to trigger @Observable
         saveHistory()
         SettingsManager.shared.triggerHaptic(.warning)
         
         #if DEBUG
-        print("📋 Cleared all history")
+        print("📋 Cleared all history - count now: \(items.count)")
         #endif
     }
     

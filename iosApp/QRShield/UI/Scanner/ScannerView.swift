@@ -36,6 +36,9 @@ struct ScannerView: View {
     // Settings
     @AppStorage("autoScan") private var autoScan = true
     
+    // Environment
+    @Environment(\.scenePhase) private var scenePhase
+    
     // Animation namespace for transitions
     @Namespace private var animation
     
@@ -92,6 +95,18 @@ struct ScannerView: View {
         }
         .onDisappear {
             viewModel.stopCamera()
+        }
+        .onChange(of: scenePhase) { oldValue, newValue in
+            // Recheck permission when returning from Settings
+            if oldValue == .background && newValue == .active {
+                Task {
+                    await viewModel.checkCameraPermission()
+                    // Only dismiss alert if permission is now granted
+                    if viewModel.cameraPermissionStatus == .authorized {
+                        showPermissionAlert = false
+                    }
+                }
+            }
         }
         .onChange(of: viewModel.cameraPermissionStatus) { oldValue, newValue in
             showPermissionAlert = (newValue == .denied)
