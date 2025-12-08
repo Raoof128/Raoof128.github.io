@@ -78,7 +78,7 @@ struct ScannerView: View {
             }
             
             // 4. Permission Overlay
-            if viewModel.cameraPermissionStatus == .denied {
+            if viewModel.cameraPermissionStatus == .denied || viewModel.cameraPermissionStatus == .notDetermined {
                 permissionDeniedOverlay
             }
         }
