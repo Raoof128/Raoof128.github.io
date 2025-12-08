@@ -104,29 +104,12 @@ struct ScannerView: View {
             viewModel.stopCamera()
         }
         .onChange(of: scenePhase) { oldValue, newValue in
-            // Recheck permission when returning from Settings
-            if oldValue == .background && newValue == .active {
+            // Recheck permission when app becomes active
+            if newValue == .active {
                 Task {
                     await viewModel.checkCameraPermission()
-                    // Only dismiss alert if permission is now granted
-                    if viewModel.cameraPermissionStatus == .authorized {
-                        showPermissionAlert = false
-                    }
                 }
             }
-        }
-        .onChange(of: viewModel.cameraPermissionStatus) { oldValue, newValue in
-            showPermissionAlert = (newValue == .denied)
-        }
-        .alert("Camera Access Required", isPresented: $showPermissionAlert) {
-            Button("Open Settings") {
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url)
-                }
-            }
-            Button("Cancel", role: .cancel) {}
-        } message: {
-            Text("QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.")
         }
         // iOS 17+: Toolbar with glass styling
         .toolbar {
@@ -134,14 +117,12 @@ struct ScannerView: View {
                 Text("Scans: \(viewModel.scanCount)")
                     .font(.caption)
                     .foregroundColor(.textSecondary)
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 4)
-                    .background(.ultraThinMaterial, in: Capsule())
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .liquidGlass(cornerRadius: 12)
             }
         }
     }
-    
-    // MARK: - Liquid Glass Overlay (iOS 17+)
     
     // MARK: - Liquid Glass Overlay (iOS 17+)
     
