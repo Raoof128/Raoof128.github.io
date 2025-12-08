@@ -39,6 +39,10 @@ import common
 @MainActor
 final class ScannerViewModel {
     
+    // MARK: - Singleton
+    
+    static let shared = ScannerViewModel()
+    
     // MARK: - Observable State
     
     var session: AVCaptureSession?
@@ -71,7 +75,7 @@ final class ScannerViewModel {
     
     // MARK: - Initialization
     
-    init() {
+    private init() {
         Task {
             await checkCameraPermission()
         }

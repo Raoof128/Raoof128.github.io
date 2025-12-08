@@ -47,7 +47,7 @@ struct QRShieldApp: App {
                         }
                 }
             }
-            .preferredColorScheme(useDarkMode ? .dark : nil)
+            .preferredColorScheme(useDarkMode ? .dark : .light)
         }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhase(newPhase)

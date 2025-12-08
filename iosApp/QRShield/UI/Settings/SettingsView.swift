@@ -114,9 +114,6 @@ struct SettingsView: View {
                     subtitle: "Use dark color scheme (recommended)",
                     isOn: $useDarkMode
                 )
-                .onChange(of: useDarkMode) { _, newValue in
-                    SettingsManager.shared.useDarkMode = newValue
-                }
                 
                 SettingsToggle(
                     icon: "sparkles",
@@ -124,9 +121,6 @@ struct SettingsView: View {
                     subtitle: "Simplify visual effects for performance",
                     isOn: $liquidGlassReduced
                 )
-                .onChange(of: liquidGlassReduced) { _, newValue in
-                    SettingsManager.shared.liquidGlassReduced = newValue
-                }
                 
                 // iOS 17+: Link to system settings for appearance
                 Button {

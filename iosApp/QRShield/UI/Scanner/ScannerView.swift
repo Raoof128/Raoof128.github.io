@@ -27,8 +27,9 @@ import SwiftUI
 import AVFoundation
 
 struct ScannerView: View {
-    // iOS 17+: @State with @Observable (replaces @StateObject)
-    @State private var viewModel = ScannerViewModel()
+    // iOS 17+: Use StateObject pattern with @Observable
+    // This prevents the ViewModel from being recreated when switching tabs
+    @State private var viewModel: ScannerViewModel
     @State private var showDetails = false
     @State private var showGalleryPicker = false
     @State private var showPermissionAlert = false
@@ -41,6 +42,12 @@ struct ScannerView: View {
     
     // Animation namespace for transitions
     @Namespace private var animation
+    
+    // Initialize with a persistent view model
+    init() {
+        // Create the view model once and reuse it
+        _viewModel = State(initialValue: ScannerViewModel.shared)
+    }
     
     var body: some View {
         ZStack {
