@@ -103,27 +103,80 @@ class LogisticRegressionModel private constructor(
          */
         fun default(): LogisticRegressionModel {
             val weights = floatArrayOf(
-                0.25f,   // urlLength - longer URLs slightly risky
-                0.15f,   // hostLength
-                0.10f,   // pathLength
-                0.30f,   // subdomainCount - more subdomains = risky
-                -0.50f,  // hasHttps - HTTPS is protective (negative weight)
-                0.80f,   // hasIpHost - IP hosts very risky
-                0.40f,   // domainEntropy - random domains risky
-                0.20f,   // pathEntropy
-                0.15f,   // queryParamCount
-                0.60f,   // hasAtSymbol - @ in URL is risky
-                0.10f,   // numDots
-                0.05f,   // numDashes
-                0.45f,   // hasPortNumber - non-standard ports risky
-                0.35f,   // shortenerDomain
-                0.55f    // suspiciousTld
+                WEIGHT_URL_LENGTH,      // Longer URLs slightly risky
+                WEIGHT_HOST_LENGTH,     // Host length
+                WEIGHT_PATH_LENGTH,     // Path length
+                WEIGHT_SUBDOMAIN_COUNT, // More subdomains = risky
+                WEIGHT_HAS_HTTPS,       // HTTPS is protective (negative weight)
+                WEIGHT_HAS_IP_HOST,     // IP hosts very risky
+                WEIGHT_DOMAIN_ENTROPY,  // Random domains risky
+                WEIGHT_PATH_ENTROPY,    // Path entropy
+                WEIGHT_QUERY_PARAM_COUNT, // Query params
+                WEIGHT_HAS_AT_SYMBOL,   // @ in URL is risky
+                WEIGHT_NUM_DOTS,        // Dot count
+                WEIGHT_NUM_DASHES,      // Dash count
+                WEIGHT_HAS_PORT_NUMBER, // Non-standard ports risky
+                WEIGHT_SHORTENER_DOMAIN, // URL shorteners
+                WEIGHT_SUSPICIOUS_TLD   // Suspicious TLDs
             )
             
-            val bias = -0.30f  // Slight bias toward "not phishing"
-            
-            return LogisticRegressionModel(weights, bias)
+            return LogisticRegressionModel(weights, DEFAULT_BIAS)
         }
+        
+        // === DEFAULT MODEL WEIGHTS ===
+        // Positive = increases phishing probability
+        // Negative = decreases phishing probability
+        
+        /** URL length weight - longer URLs slightly risky */
+        private const val WEIGHT_URL_LENGTH = 0.25f
+        
+        /** Host length weight */
+        private const val WEIGHT_HOST_LENGTH = 0.15f
+        
+        /** Path length weight */
+        private const val WEIGHT_PATH_LENGTH = 0.10f
+        
+        /** Subdomain count weight - more subdomains = risky */
+        private const val WEIGHT_SUBDOMAIN_COUNT = 0.30f
+        
+        /** HTTPS presence weight - protective (negative) */
+        private const val WEIGHT_HAS_HTTPS = -0.50f
+        
+        /** IP host weight - very risky */
+        private const val WEIGHT_HAS_IP_HOST = 0.80f
+        
+        /** Domain entropy weight - random domains risky */
+        private const val WEIGHT_DOMAIN_ENTROPY = 0.40f
+        
+        /** Path entropy weight */
+        private const val WEIGHT_PATH_ENTROPY = 0.20f
+        
+        /** Query parameter count weight */
+        private const val WEIGHT_QUERY_PARAM_COUNT = 0.15f
+        
+        /** @ symbol in URL weight - risky injection indicator */
+        private const val WEIGHT_HAS_AT_SYMBOL = 0.60f
+        
+        /** Dot count weight */
+        private const val WEIGHT_NUM_DOTS = 0.10f
+        
+        /** Dash count weight */
+        private const val WEIGHT_NUM_DASHES = 0.05f
+        
+        /** Port number weight - non-standard ports risky */
+        private const val WEIGHT_HAS_PORT_NUMBER = 0.45f
+        
+        /** URL shortener domain weight */
+        private const val WEIGHT_SHORTENER_DOMAIN = 0.35f
+        
+        /** Suspicious TLD weight */
+        private const val WEIGHT_SUSPICIOUS_TLD = 0.55f
+        
+        /** Default bias - slight bias toward "not phishing" */
+        private const val DEFAULT_BIAS = -0.30f
+        
+        /** Maximum JSON input length for security */
+        private const val MAX_JSON_LENGTH = 4096
         
         /**
          * Load model from JSON string.
@@ -141,7 +194,7 @@ class LogisticRegressionModel private constructor(
          */
         fun fromJson(json: String): LogisticRegressionModel {
             // SECURITY: Validate JSON input length
-            if (json.isEmpty() || json.length > 4096) {
+            if (json.isEmpty() || json.length > MAX_JSON_LENGTH) {
                 return default()
             }
             
