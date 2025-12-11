@@ -81,16 +81,21 @@ QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, an
 
 <div align="center">
 
-<!-- TODO: Replace with actual YouTube video embed after recording -->
-<a href="https://www.youtube.com/watch?v=YOUR_VIDEO_ID">
-  <img src="https://img.shields.io/badge/▶️_Watch_3--Minute_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Demo" height="50">
-</a>
+[![Demo Video](https://img.shields.io/badge/▶️_Watch_3--Minute_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=DEMO_PENDING)
 
-**See QR-SHIELD in action:**
-- ✅ Safe URL detection (google.com → Score: 8)
-- ⚠️ Suspicious URL flagging (bit.ly → Score: 45)  
-- ❌ Malicious phishing blocking (paypa1-secure.tk → Score: 87)
-- 🌐 Cross-platform demonstration (Android, iOS, Desktop, Web)
+**See QR-SHIELD in action across all platforms:**
+
+| Platform | Feature Demonstrated |
+|----------|---------------------|
+| 📱 Android | Real-time camera scanning with ML Kit |
+| 🍎 iOS | Native Vision framework integration |
+| 🖥️ Desktop | Cross-platform Compose UI |
+| 🌐 Web | Browser-based scanning with jsQR |
+
+**Detection Examples:**
+- ✅ **Safe URL** (google.com) → Score: 8, Verdict: SAFE
+- ⚠️ **Suspicious URL** (bit.ly/xyz) → Score: 45, Verdict: SUSPICIOUS  
+- ❌ **Malicious URL** (paypa1-secure.tk) → Score: 87, Verdict: MALICIOUS
 
 </div>
 
