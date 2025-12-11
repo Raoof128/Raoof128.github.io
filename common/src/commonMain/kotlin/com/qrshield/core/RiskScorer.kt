@@ -135,7 +135,7 @@ class RiskScorer {
     }
     
     companion object {
-        const val SAFE_THRESHOLD = 30
-        const val SUSPICIOUS_THRESHOLD = 70
+        const val SAFE_THRESHOLD = 15
+        const val SUSPICIOUS_THRESHOLD = 50
     }
 }

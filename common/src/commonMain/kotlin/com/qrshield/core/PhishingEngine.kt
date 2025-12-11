@@ -67,14 +67,16 @@ class PhishingEngine(
     
     companion object {
         // Scoring weights (must sum to 1.0)
-        private const val HEURISTIC_WEIGHT = 0.40
-        private const val ML_WEIGHT = 0.35
-        private const val BRAND_WEIGHT = 0.15
-        private const val TLD_WEIGHT = 0.10
+        // Brand detection is critical for phishing, so weighted higher
+        private const val HEURISTIC_WEIGHT = 0.35
+        private const val ML_WEIGHT = 0.25
+        private const val BRAND_WEIGHT = 0.25
+        private const val TLD_WEIGHT = 0.15
         
-        // Verdict thresholds
-        private const val SAFE_THRESHOLD = 30
-        private const val SUSPICIOUS_THRESHOLD = 70
+        // Verdict thresholds - lower is safer
+        // 0-15: SAFE, 16-50: SUSPICIOUS, 51+: MALICIOUS
+        private const val SAFE_THRESHOLD = 15
+        private const val SUSPICIOUS_THRESHOLD = 50
         
         // Validation
         private const val MAX_URL_LENGTH = 2048
@@ -237,12 +239,27 @@ class PhishingEngine(
             return Verdict.MALICIOUS
         }
         
+        // Critical escalation: brand impersonation detected
+        // Any brand match should be at least SUSPICIOUS
+        if (brandResult.match != null) {
+            return if (score > SUSPICIOUS_THRESHOLD || brandResult.score >= 50) {
+                Verdict.MALICIOUS
+            } else {
+                Verdict.SUSPICIOUS
+            }
+        }
+        
         // Critical escalation: multiple high-severity indicators
         val criticalCount = heuristicResult.details.count { (_, weight) ->
             weight >= 20
         }
         if (criticalCount >= 2 && score > SAFE_THRESHOLD) {
             return Verdict.MALICIOUS
+        }
+        
+        // Escalation: @ symbol injection (common phishing technique)
+        if (heuristicResult.flags.any { it.contains("@ symbol", ignoreCase = true) }) {
+            return Verdict.SUSPICIOUS
         }
         
         // Standard threshold-based verdict
