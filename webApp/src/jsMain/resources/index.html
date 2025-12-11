@@ -159,8 +159,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
             backdrop-filter: blur(10px);
+            padding: 8px;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
         }
 
         .logo-text h1 {
@@ -934,7 +939,7 @@
             <div class="container">
                 <div class="header-content">
                     <div class="logo-section">
-                        <div class="logo-icon">🛡️</div>
+                        <div class="logo-icon"><img src="assets/logo.svg" alt="QR-SHIELD"></div>
                         <div class="logo-text">
                             <h1>QR-SHIELD</h1>
                             <span>Web Scanner</span>
@@ -954,7 +959,8 @@
                 <div class="content-wrapper">
                     <!-- Hero Section -->
                     <section class="hero">
-                        <div class="hero-icon">🛡️</div>
+                        <div class="hero-icon"><img src="assets/logo.svg" alt="QR-SHIELD"
+                                style="width:64px;height:64px;"></div>
                         <h2>Scan URLs Safely</h2>
                         <p>AI-powered phishing detection • 100% in-browser</p>
                     </section>
@@ -1011,7 +1017,8 @@
 
                     <!-- Result Card -->
                     <section class="result-card" id="resultCard">
-                        <div class="result-icon" id="resultIcon">✅</div>
+                        <div class="result-icon" id="resultIcon"><img id="resultIconImg" src="assets/shield-safe.svg"
+                                alt="Result"></div>
                         <div class="result-score" id="scoreDisplay">--</div>
                         <div class="result-label">Risk Score</div>
                         <div class="score-bar-wrapper">
@@ -1087,64 +1094,64 @@
         // ============================================
         // STATE MANAGEMENT
         // ============================================
-        
+
         let scanHistory = JSON.parse(localStorage.getItem('qrshield_history') || '[]');
         let scanCount = parseInt(localStorage.getItem('qrshield_count') || '0');
         let isDarkTheme = localStorage.getItem('qrshield_theme') !== 'light';
-        
+
         // Initialize UI
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updateThemeUI();
             updateScanCount();
             renderHistory();
-            
+
             // Focus input
             document.getElementById('urlInput').focus();
         });
-        
+
         // ============================================
         // THEME MANAGEMENT
         // ============================================
-        
+
         function toggleTheme() {
             isDarkTheme = !isDarkTheme;
             localStorage.setItem('qrshield_theme', isDarkTheme ? 'dark' : 'light');
             updateThemeUI();
         }
-        
+
         function updateThemeUI() {
             document.body.classList.toggle('light-theme', !isDarkTheme);
             document.getElementById('themeIcon').textContent = isDarkTheme ? '☀️' : '🌙';
             document.querySelector('.theme-toggle span:last-child').textContent = isDarkTheme ? 'Light' : 'Dark';
         }
-        
+
         // ============================================
         // URL ANALYSIS (Fallback until Kotlin/JS loads)
         // ============================================
-        
+
         function analyzeUrl() {
             const urlInput = document.getElementById('urlInput');
             const url = urlInput.value.trim();
-            
+
             if (!url) {
                 showToast('Please enter a URL to analyze');
                 return;
             }
-            
+
             const btn = document.getElementById('analyzeBtn');
             btn.classList.add('loading');
             btn.innerHTML = '<div class="spinner"></div><span>Analyzing...</span>';
             btn.disabled = true;
-            
+
             // Simulate delay for visual feedback (Kotlin/JS will handle actual analysis)
-            setTimeout(function() {
+            setTimeout(function () {
                 // This will be overridden by Kotlin/JS
                 btn.classList.remove('loading');
                 btn.innerHTML = '<span>🔍</span><span>Analyze URL</span>';
                 btn.disabled = false;
             }, 500);
         }
-        
+
         // Called by Kotlin/JS after analysis
         function displayResult(score, verdict, flags, url) {
             const resultCard = document.getElementById('resultCard');
@@ -1156,30 +1163,30 @@
             const resultIcon = document.getElementById('resultIcon');
             const flagsSection = document.getElementById('flagsSection');
             const flagsList = document.getElementById('flagsList');
-            
+
             // Remove old classes
             resultCard.classList.remove('safe', 'suspicious', 'malicious');
-            
+
             // Get verdict info
-            let verdictClass, icon, message;
+            let verdictClass, iconSrc, message;
             if (verdict === 'SAFE') {
                 verdictClass = 'safe';
-                icon = '✅';
+                iconSrc = 'assets/shield-safe.svg';
                 message = 'This URL appears to be safe';
             } else if (verdict === 'SUSPICIOUS') {
                 verdictClass = 'suspicious';
-                icon = '⚠️';
+                iconSrc = 'assets/shield-warning.svg';
                 message = 'This URL has some suspicious indicators';
             } else if (verdict === 'MALICIOUS') {
                 verdictClass = 'malicious';
-                icon = '🚫';
+                iconSrc = 'assets/shield-danger.svg';
                 message = 'This URL is likely malicious - do not visit!';
             } else {
                 verdictClass = 'suspicious';
-                icon = '❓';
+                iconSrc = 'assets/shield-warning.svg';
                 message = 'Unable to determine safety level';
             }
-            
+
             // Update UI
             resultCard.classList.add(verdictClass, 'visible');
             scoreDisplay.textContent = score;
@@ -1187,12 +1194,12 @@
             verdictBadge.textContent = verdict;
             resultMessage.textContent = message;
             resultUrl.textContent = url;
-            resultIcon.textContent = icon;
-            
+            document.getElementById('resultIconImg').src = iconSrc;
+
             // Update flags
             if (flags && flags.length > 0) {
                 flagsList.innerHTML = '';
-                flags.forEach(function(flag) {
+                flags.forEach(function (flag) {
                     const li = document.createElement('li');
                     li.className = 'flag-item';
                     li.innerHTML = '<span>•</span><span>' + escapeHtml(flag) + '</span>';
@@ -1202,53 +1209,53 @@
             } else {
                 flagsSection.style.display = 'none';
             }
-            
+
             // Update scan count
             scanCount++;
             localStorage.setItem('qrshield_count', scanCount);
             updateScanCount();
-            
+
             // Add to history
             addToHistory(url, score, verdict);
-            
+
             // Reset button
             const btn = document.getElementById('analyzeBtn');
             btn.classList.remove('loading');
             btn.innerHTML = '<span>🔍</span><span>Analyze URL</span>';
             btn.disabled = false;
-            
+
             // Scroll to result
             resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-        
+
         // ============================================
         // HISTORY MANAGEMENT
         // ============================================
-        
+
         function addToHistory(url, score, verdict) {
             scanHistory.unshift({ url, score, verdict, timestamp: Date.now() });
             scanHistory = scanHistory.slice(0, 10); // Keep last 10
             localStorage.setItem('qrshield_history', JSON.stringify(scanHistory));
             renderHistory();
         }
-        
+
         function renderHistory() {
             const section = document.getElementById('historySection');
             const list = document.getElementById('historyList');
-            
+
             if (scanHistory.length === 0) {
                 section.classList.remove('visible');
                 return;
             }
-            
+
             section.classList.add('visible');
             list.innerHTML = '';
-            
-            scanHistory.forEach(function(item) {
+
+            scanHistory.forEach(function (item) {
                 const verdictClass = item.verdict.toLowerCase();
                 const div = document.createElement('div');
                 div.className = 'history-item';
-                div.onclick = function() { loadFromHistory(item.url); };
+                div.onclick = function () { loadFromHistory(item.url); };
                 div.innerHTML = `
                     <div class="history-indicator ${verdictClass}"></div>
                     <div class="history-url">${escapeHtml(item.url)}</div>
@@ -1257,20 +1264,20 @@
                 list.appendChild(div);
             });
         }
-        
+
         function loadFromHistory(url) {
             document.getElementById('urlInput').value = url;
             document.getElementById('urlInput').focus();
         }
-        
+
         // ============================================
         // UTILITY FUNCTIONS
         // ============================================
-        
+
         function updateScanCount() {
             document.getElementById('scanCount').textContent = scanCount;
         }
-        
+
         async function pasteFromClipboard() {
             try {
                 const text = await navigator.clipboard.readText();
@@ -1280,30 +1287,30 @@
                 showToast('Could not access clipboard');
             }
         }
-        
+
         function clearInput() {
             document.getElementById('urlInput').value = '';
             document.getElementById('resultCard').classList.remove('visible');
             document.getElementById('urlInput').focus();
         }
-        
+
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
             toast.classList.add('visible');
-            setTimeout(function() {
+            setTimeout(function () {
                 toast.classList.remove('visible');
             }, 2500);
         }
-        
+
         function escapeHtml(text) {
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
-        
+
         // Handle Enter key
-        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+        document.getElementById('urlInput').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 analyzeUrl();
             }
