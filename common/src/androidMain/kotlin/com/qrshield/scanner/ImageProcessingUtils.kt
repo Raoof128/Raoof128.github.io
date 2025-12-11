@@ -151,7 +151,7 @@ object ImageProcessingUtils {
             content.startsWith("smsto:", ignoreCase = true) -> ContentType.SMS
             
             content.startsWith("mailto:", ignoreCase = true) -> ContentType.EMAIL
-            content.startsWith("BEGIN:VEVENT", ignoreCase = true) -> ContentType.CALENDAR
+            content.startsWith("BEGIN:VEVENT", ignoreCase = true) -> ContentType.TEXT  // Calendar events treated as text
             
             else -> ContentType.TEXT
         }
