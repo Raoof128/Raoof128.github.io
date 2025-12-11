@@ -1107,6 +1107,15 @@
 
             // Focus input
             document.getElementById('urlInput').focus();
+            
+            // Check if Kotlin/JS engine loaded
+            setTimeout(function() {
+                if (window.qrshieldAnalyze) {
+                    console.log('✅ Kotlin/JS engine loaded successfully');
+                } else {
+                    console.warn('⚠️ Kotlin/JS engine not detected');
+                }
+            }, 1000);
         });
 
         // ============================================
@@ -1143,13 +1152,32 @@
             btn.innerHTML = '<div class="spinner"></div><span>Analyzing...</span>';
             btn.disabled = true;
 
-            // Simulate delay for visual feedback (Kotlin/JS will handle actual analysis)
-            setTimeout(function () {
-                // This will be overridden by Kotlin/JS
-                btn.classList.remove('loading');
-                btn.innerHTML = '<span>🔍</span><span>Analyze URL</span>';
-                btn.disabled = false;
-            }, 500);
+            // Check if Kotlin/JS engine is loaded
+            if (window.qrshieldAnalyze) {
+                // Use Kotlin/JS engine
+                try {
+                    window.qrshieldAnalyze(url);
+                } catch (e) {
+                    console.error('Analysis error:', e);
+                    showToast('Error analyzing URL');
+                    btn.classList.remove('loading');
+                    btn.innerHTML = '<span>🔍</span><span>Analyze URL</span>';
+                    btn.disabled = false;
+                }
+            } else {
+                // Fallback - Kotlin/JS not loaded yet
+                console.warn('Kotlin/JS engine not loaded, retrying...');
+                setTimeout(function () {
+                    if (window.qrshieldAnalyze) {
+                        window.qrshieldAnalyze(url);
+                    } else {
+                        showToast('Engine loading, please try again');
+                        btn.classList.remove('loading');
+                        btn.innerHTML = '<span>🔍</span><span>Analyze URL</span>';
+                        btn.disabled = false;
+                    }
+                }, 500);
+            }
         }
 
         // Called by Kotlin/JS after analysis
