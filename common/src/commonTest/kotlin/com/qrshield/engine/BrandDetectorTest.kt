@@ -139,7 +139,7 @@ class BrandDetectorTest {
         
         assertTrue(result.isImpersonation)
         assertEquals("commbank", result.match)
-        assertEquals(BrandDetector.BrandCategory.FINANCIAL, result.details?.category)
+        assertEquals(BrandDatabase.BrandCategory.FINANCIAL, result.details?.category)
     }
     
     @Test
@@ -182,7 +182,7 @@ class BrandDetectorTest {
         
         assertTrue(result.isImpersonation)
         assertEquals("mygovau", result.match)
-        assertEquals(BrandDetector.BrandCategory.GOVERNMENT, result.details?.category)
+        assertEquals(BrandDatabase.BrandCategory.GOVERNMENT, result.details?.category)
     }
     
     @Test
@@ -201,7 +201,7 @@ class BrandDetectorTest {
         
         assertTrue(result.isImpersonation)
         assertEquals("auspost", result.match)
-        assertEquals(BrandDetector.BrandCategory.LOGISTICS, result.details?.category)
+        assertEquals(BrandDatabase.BrandCategory.LOGISTICS, result.details?.category)
     }
     
     @Test

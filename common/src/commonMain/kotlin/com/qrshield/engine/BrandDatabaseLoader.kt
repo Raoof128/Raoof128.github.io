@@ -53,7 +53,7 @@ object BrandDatabaseLoader {
      * @param json The JSON content from brand_database.json
      * @return Map of brand name to BrandConfig, or null on parse failure
      */
-    fun loadFromJson(json: String): Map<String, BrandDetector.BrandConfig>? {
+    fun loadFromJson(json: String): Map<String, BrandDatabase.BrandConfig>? {
         // SECURITY: Validate input size
         if (json.isEmpty() || json.length > MAX_JSON_SIZE) {
             return null
@@ -69,8 +69,8 @@ object BrandDatabaseLoader {
     /**
      * Parse brand database JSON.
      */
-    private fun parseBrandDatabase(json: String): Map<String, BrandDetector.BrandConfig> {
-        val brands = mutableMapOf<String, BrandDetector.BrandConfig>()
+    private fun parseBrandDatabase(json: String): Map<String, BrandDatabase.BrandConfig> {
+        val brands = mutableMapOf<String, BrandDatabase.BrandConfig>()
         
         // Find the "brands" object
         val brandsStart = json.indexOf("\"brands\"")
@@ -124,7 +124,7 @@ object BrandDatabaseLoader {
     /**
      * Parse a single brand configuration object.
      */
-    private fun parseBrandConfig(json: String): BrandDetector.BrandConfig? {
+    private fun parseBrandConfig(json: String): BrandDatabase.BrandConfig? {
         val officialDomains = extractStringArray(json, "official_domains")
         val typosquats = extractStringArray(json, "typosquats")
         val homographs = extractStringArray(json, "homographs")
@@ -133,12 +133,12 @@ object BrandDatabaseLoader {
         // At minimum, need official domains
         if (officialDomains.isEmpty()) return null
         
-        return BrandDetector.BrandConfig(
+        return BrandDatabase.BrandConfig(
             officialDomains = officialDomains.toSet(),
             typosquats = typosquats,
             homographs = homographs,
             combosquats = combosquats,
-            category = BrandDetector.BrandCategory.TECHNOLOGY // Default category
+            category = BrandDatabase.BrandCategory.TECHNOLOGY // Default category
         )
     }
     
@@ -198,11 +198,11 @@ object BrandDatabaseLoader {
  * Extension of BrandDetector with JSON loading capability.
  */
 class ConfigurableBrandDetector(
-    customDatabase: Map<String, BrandDetector.BrandConfig>? = null
+    customDatabase: Map<String, BrandDatabase.BrandConfig>? = null
 ) {
     
-    private val brandDatabase: Map<String, BrandDetector.BrandConfig> = 
-        customDatabase ?: BrandDetector.BRAND_DATABASE
+    private val brandDatabase: Map<String, BrandDatabase.BrandConfig> = 
+        customDatabase ?: BrandDatabase.brands
     
     private val coreDetector = BrandDetector()
     
@@ -225,7 +225,7 @@ class ConfigurableBrandDetector(
          */
         fun withCustomBrands(customBrandsJson: String): ConfigurableBrandDetector {
             val customBrands = BrandDatabaseLoader.loadFromJson(customBrandsJson) ?: emptyMap()
-            val mergedBrands = BrandDetector.BRAND_DATABASE + customBrands
+            val mergedBrands = BrandDatabase.brands + customBrands
             return ConfigurableBrandDetector(mergedBrands)
         }
     }

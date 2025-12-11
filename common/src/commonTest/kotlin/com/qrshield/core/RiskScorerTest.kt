@@ -90,13 +90,13 @@ class RiskScorerTest {
     @Test
     fun `low scores produces safe verdict`() {
         val components = RiskScorer.ScoreComponents(
-            heuristicScore = 10,
-            mlScore = 0.1f,
-            brandScore = 10,
-            tldScore = 10
+            heuristicScore = 5,
+            mlScore = 0.05f,
+            brandScore = 5,
+            tldScore = 5
         )
         val result = scorer.calculate(components)
-        assertTrue(result.score <= 30)
+        assertTrue(result.score <= 15, "Score was ${result.score}")
         assertEquals(Verdict.SAFE, result.verdict)
     }
 
@@ -173,23 +173,23 @@ class RiskScorerTest {
     }
 
     @Test
-    fun `score 30 is SAFE`() {
-        assertEquals(Verdict.SAFE, scorer.determineVerdict(30))
+    fun `score 15 is SAFE`() {
+        assertEquals(Verdict.SAFE, scorer.determineVerdict(15))
     }
 
     @Test
-    fun `score 31 is SUSPICIOUS`() {
-        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(31))
+    fun `score 16 is SUSPICIOUS`() {
+        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(16))
     }
 
     @Test
-    fun `score 70 is SUSPICIOUS`() {
-        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(70))
+    fun `score 50 is SUSPICIOUS`() {
+        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(50))
     }
 
     @Test
-    fun `score 71 is MALICIOUS`() {
-        assertEquals(Verdict.MALICIOUS, scorer.determineVerdict(71))
+    fun `score 51 is MALICIOUS`() {
+        assertEquals(Verdict.MALICIOUS, scorer.determineVerdict(51))
     }
 
     @Test
@@ -258,12 +258,12 @@ class RiskScorerTest {
     // === THRESHOLD CONSTANT TESTS ===
 
     @Test
-    fun `safe threshold is 30`() {
-        assertEquals(30, RiskScorer.SAFE_THRESHOLD)
+    fun `safe threshold is 15`() {
+        assertEquals(15, RiskScorer.SAFE_THRESHOLD)
     }
 
     @Test
-    fun `suspicious threshold is 70`() {
-        assertEquals(70, RiskScorer.SUSPICIOUS_THRESHOLD)
+    fun `suspicious threshold is 50`() {
+        assertEquals(50, RiskScorer.SUSPICIOUS_THRESHOLD)
     }
 }
