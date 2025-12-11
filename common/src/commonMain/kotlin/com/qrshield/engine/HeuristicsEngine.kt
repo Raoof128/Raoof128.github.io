@@ -413,22 +413,22 @@ class HeuristicsEngine(
     
     companion object {
         // === HEURISTIC WEIGHTS ===
-        const val WEIGHT_HTTP_NOT_HTTPS = 15
-        const val WEIGHT_IP_ADDRESS = 20
-        const val WEIGHT_SHORTENER = 8
+        const val WEIGHT_HTTP_NOT_HTTPS = 30  // Increased from 15
+        const val WEIGHT_IP_ADDRESS = 50      // Increased from 20
+        const val WEIGHT_SHORTENER = 15       // Increased from 8
         const val WEIGHT_SUBDOMAINS = 10
-        const val WEIGHT_PORT = 8
-        const val WEIGHT_LONG_URL = 5
-        const val WEIGHT_ENTROPY = 12
-        const val WEIGHT_CREDENTIAL_PARAMS = 18
-        const val WEIGHT_AT_SYMBOL = 15
-        const val WEIGHT_MULTI_TLD = 10
-        const val WEIGHT_PUNYCODE = 15
-        const val WEIGHT_NUMERIC_SUBDOMAIN = 8
-        const val WEIGHT_RISKY_EXTENSION = 25
-        const val WEIGHT_DOUBLE_EXTENSION = 20
-        const val WEIGHT_BASE64 = 10
-        const val WEIGHT_ENCODING = 8
+        const val WEIGHT_PORT = 15            // Increased from 8
+        const val WEIGHT_LONG_URL = 10        // Increased from 5
+        const val WEIGHT_ENTROPY = 20         // Increased from 12
+        const val WEIGHT_CREDENTIAL_PARAMS = 40 // Increased from 18
+        const val WEIGHT_AT_SYMBOL = 60       // Increased from 15 (Critical risk)
+        const val WEIGHT_MULTI_TLD = 25       // Increased from 10
+        const val WEIGHT_PUNYCODE = 30        // Increased from 15
+        const val WEIGHT_NUMERIC_SUBDOMAIN = 20 // Increased from 8
+        const val WEIGHT_RISKY_EXTENSION = 40 // Increased from 25
+        const val WEIGHT_DOUBLE_EXTENSION = 40 // Increased from 20
+        const val WEIGHT_BASE64 = 30          // Increased from 10
+        const val WEIGHT_ENCODING = 20        // Increased from 8
         
         // === THRESHOLDS ===
         const val ENTROPY_THRESHOLD = 4.0

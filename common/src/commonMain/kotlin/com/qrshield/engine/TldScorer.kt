@@ -203,19 +203,19 @@ class TldScorer {
         const val SCORE_SAFE = 0
         
         /** Score for TLDs with moderate abuse history */
-        const val SCORE_MODERATE = 5
+        const val SCORE_MODERATE = 35
         
         /** Score for country-code TLDs */
-        const val SCORE_COUNTRY = 3
+        const val SCORE_COUNTRY = 15
         
         /** Score for historically abused TLDs */
-        const val SCORE_ABUSED = 12
+        const val SCORE_ABUSED = 75
         
         /** Score for free/high-risk TLDs */
-        const val SCORE_FREE_HIGH_RISK = 18
+        const val SCORE_FREE_HIGH_RISK = 90
         
         /** Score for unknown TLDs */
-        const val SCORE_UNKNOWN = 8
+        const val SCORE_UNKNOWN = 30
         
         // === LIMITS ===
         

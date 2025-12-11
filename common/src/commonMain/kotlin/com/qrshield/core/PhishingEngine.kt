@@ -67,15 +67,15 @@ class PhishingEngine(
     
     companion object {
         // Scoring weights (must sum to 1.0)
-        // Brand detection is critical for phishing, so weighted higher
-        private const val HEURISTIC_WEIGHT = 0.35
-        private const val ML_WEIGHT = 0.25
-        private const val BRAND_WEIGHT = 0.25
+        // Heuristics are the primary signal for this engine
+        private const val HEURISTIC_WEIGHT = 0.50
+        private const val ML_WEIGHT = 0.20
+        private const val BRAND_WEIGHT = 0.15
         private const val TLD_WEIGHT = 0.15
         
         // Verdict thresholds - lower is safer
-        // 0-15: SAFE, 16-50: SUSPICIOUS, 51+: MALICIOUS
-        private const val SAFE_THRESHOLD = 15
+        // 0-10: SAFE, 11-50: SUSPICIOUS, 51+: MALICIOUS
+        private const val SAFE_THRESHOLD = 10
         private const val SUSPICIOUS_THRESHOLD = 50
         
         // Validation
@@ -162,7 +162,7 @@ class PhishingEngine(
         )
         
         // Determine verdict
-        val verdict = determineVerdict(combinedScore, heuristicResult, brandResult)
+        val verdict = determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
         
         // Collect all flags
         val allFlags = buildList {
@@ -232,7 +232,8 @@ class PhishingEngine(
     private fun determineVerdict(
         score: Int,
         heuristicResult: HeuristicsEngine.Result,
-        brandResult: BrandDetector.DetectionResult
+        brandResult: BrandDetector.DetectionResult,
+        tldResult: TldScorer.TldResult
     ): Verdict {
         // Critical escalation: confirmed homograph attack
         if (brandResult.details?.matchType == BrandDetector.MatchType.HOMOGRAPH) {
@@ -260,6 +261,16 @@ class PhishingEngine(
         // Escalation: @ symbol injection (common phishing technique)
         if (heuristicResult.flags.any { it.contains("@ symbol", ignoreCase = true) }) {
             return Verdict.SUSPICIOUS
+        }
+        
+        // Escalation: High Risk TLD
+        if (tldResult.isHighRisk) {
+            return if (score > SUSPICIOUS_THRESHOLD) Verdict.MALICIOUS else Verdict.SUSPICIOUS
+        }
+        
+        // Escalation: Strong heuristic signal alone
+        if (heuristicResult.score > 60) {
+            return if (score > SUSPICIOUS_THRESHOLD) Verdict.MALICIOUS else Verdict.SUSPICIOUS
         }
         
         // Standard threshold-based verdict
