@@ -24,6 +24,7 @@
 "scanner.gallery" = "Gallery";
 "scanner.history" = "History";
 "scanner.scans_count" = "Scans: %d";
+"scanner.error_dismiss" = "Dismiss error";
 
 // MARK: - Camera Permission
 "camera.access_required" = "Camera Access Required";
@@ -42,6 +43,7 @@
 
 // MARK: - Result Card
 "result.risk_score" = "Risk Score: %d/100";
+"result.risk_score_label" = "Risk Score";
 "result.confidence" = "Confidence";
 "result.view_details" = "View Details";
 "result.view_full_analysis" = "View Full Analysis";
@@ -50,6 +52,7 @@
 "result.dismiss" = "Dismiss";
 "result.show_more" = "Show %d more...";
 "result.show_less" = "Show less";
+"result.flags_title" = "Risk Flags";
 
 // MARK: - History View
 "history.title" = "Scan History";
@@ -59,12 +62,28 @@
 "history.clear_all" = "Clear All";
 "history.delete" = "Delete";
 "history.open_url" = "Open URL";
+"history.search_prompt" = "Search URLs";
+"history.sort_menu" = "Sort";
+"history.sort.by_date" = "By Date";
+"history.sort.by_risk" = "By Risk";
+"history.export" = "Export";
+"history.clear_all_action" = "Clear All";
+"history.scans_counter" = "%d scans";
+"history.no_results" = "No Results";
+"history.no_results_message" = "Try adjusting your search or filters";
+"history.clear_confirm_title" = "Clear All History?";
+"history.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"history.exported_toast" = "Exported to clipboard";
 
 // MARK: - Settings View
 "settings.title" = "Settings";
 
 // Settings: Scanning Section
 "settings.section.scanning" = "Scanning";
+"settings.section.notifications" = "Notifications";
+"settings.section.appearance" = "Appearance";
+"settings.section.privacy" = "Privacy";
+"settings.section.about" = "About";
 "settings.auto_scan" = "Auto-scan on launch";
 "settings.auto_scan_description" = "Start scanning immediately when app opens";
 "settings.haptic" = "Haptic feedback";
@@ -76,6 +95,10 @@
 "settings.section.notifications" = "Notifications";
 "settings.security_alerts" = "Security alerts";
 "settings.security_alerts_description" = "Get notified about security threats";
+"settings.notifications_denied_title" = "Notifications Disabled";
+"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
+"settings.open_settings" = "Open Settings";
+"settings.cancel" = "Cancel";
 
 // Settings: Appearance Section
 "settings.section.appearance" = "Appearance";
@@ -95,6 +118,8 @@
 "settings.clear_history_message" = "This action cannot be undone. All scan history will be permanently deleted.";
 "settings.clear_all" = "Clear All";
 "settings.privacy_policy" = "Privacy Policy";
+"settings.source_code" = "Source Code";
+"settings.credits" = "Made with ❤️ for KotlinConf 2026";
 
 // Settings: About Section
 "settings.section.about" = "About";
@@ -134,10 +159,57 @@
 "detail.no_risks" = "No risks detected";
 "detail.open_url" = "Open URL";
 "detail.open_warning" = "Opening this URL may be dangerous. Are you sure?";
+"detail.open_warning_title" = "Security Warning";
 "detail.proceed" = "Proceed Anyway";
+"detail.scanned_at_time_ago" = "Scanned %@";
+"detail.score_breakdown" = "Score Breakdown";
+"detail.url_details" = "URL Details";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (Secure)";
+"detail.protocol_http" = "HTTP (Not Secure)";
+"detail.domain" = "Domain";
+"detail.protocol" = "Protocol";
+"detail.share_analysis" = "Share Analysis";
+"detail.copy_url" = "Copy URL";
+"detail.copied" = "Copied!";
+"detail.report_false_positive" = "Report False Positive";
 
 // MARK: - Errors
 "error.generic" = "An error occurred";
 "error.network" = "Network connection error";
 "error.invalid_url" = "Invalid URL detected";
 "error.analysis_failed" = "Analysis failed";
+"error.invalid_or_unsupported" = "Invalid or unsupported QR content.";
+"error.no_qr_found" = "No QR code found in the selected image.";
+"error.image_scan_failed" = "Image scan failed: %@";
+"error.dismiss" = "Dismiss error";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "Scanning";
+"scanner.status_paused" = "Paused";
+"scanner.analyzing" = "Analyzing...";
+"scanner.view_details" = "View Details";
+"scanner.copy_url" = "Copy URL";
+"scanner.share" = "Share";
+"scanner.dismiss" = "Dismiss";
+"scanner.flash_on" = "Flash on";
+"scanner.flash_off" = "Flash off";
+"scanner.gallery" = "Gallery";
+"scanner.history" = "History";
+"scanner.open_history" = "Open history";
+"scanner.scan_toggle" = "Toggle scanning";
+"scanner.scans_count" = "Scans: %d";
+
+// MARK: - History UI
+"history.search_prompt" = "Search URLs";
+"history.sort_menu" = "Sort";
+"history.sort.by_date" = "By Date";
+"history.sort.by_risk" = "By Risk";
+"history.export" = "Export";
+"history.clear_all_action" = "Clear All";
+"history.scans_counter" = "%d scans";
+"history.no_results" = "No Results";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

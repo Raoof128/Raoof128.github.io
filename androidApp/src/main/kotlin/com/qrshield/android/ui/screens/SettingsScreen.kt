@@ -30,6 +30,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.HelpOutline
 import androidx.compose.material.icons.automirrored.filled.OpenInNew
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
@@ -65,13 +66,15 @@ import com.qrshield.android.ui.theme.*
 @Composable
 fun SettingsScreen() {
     val context = LocalContext.current
+    val viewModel: com.qrshield.ui.SharedViewModel = org.koin.compose.koinInject()
+    val settings by viewModel.settings.collectAsState()
     
-    // Preference states - in production, use DataStore
-    var hapticEnabled by remember { mutableStateOf(true) }
-    var soundEnabled by remember { mutableStateOf(true) }
-    var autoScan by remember { mutableStateOf(true) }
-    var saveHistory by remember { mutableStateOf(true) }
-    var notificationsEnabled by remember { mutableStateOf(true) }
+    // Derived states for UI
+    val hapticEnabled = settings.isHapticEnabled
+    val soundEnabled = settings.isSoundEnabled
+    val autoScan = settings.isAutoScanEnabled
+    val saveHistory = settings.isSaveHistoryEnabled
+    val notificationsEnabled = settings.isSecurityAlertsEnabled
     
     LazyColumn(
         modifier = Modifier
@@ -116,7 +119,9 @@ fun SettingsScreen() {
                 title = stringResource(R.string.settings_auto_scan),
                 subtitle = stringResource(R.string.settings_auto_scan_desc),
                 checked = autoScan,
-                onCheckedChange = { autoScan = it }
+                onCheckedChange = { newValue -> 
+                    viewModel.updateSettings(settings.copy(isAutoScanEnabled = newValue)) 
+                }
             )
         }
         
@@ -126,17 +131,21 @@ fun SettingsScreen() {
                 title = stringResource(R.string.settings_haptic),
                 subtitle = stringResource(R.string.settings_haptic_desc),
                 checked = hapticEnabled,
-                onCheckedChange = { hapticEnabled = it }
+                onCheckedChange = { newValue -> 
+                    viewModel.updateSettings(settings.copy(isHapticEnabled = newValue))
+                }
             )
         }
         
         item {
             SettingsToggle(
-                icon = Icons.Filled.VolumeUp,
+                icon = Icons.AutoMirrored.Filled.VolumeUp,
                 title = stringResource(R.string.settings_sound),
                 subtitle = stringResource(R.string.settings_sound_desc),
                 checked = soundEnabled,
-                onCheckedChange = { soundEnabled = it }
+                onCheckedChange = { newValue -> 
+                    viewModel.updateSettings(settings.copy(isSoundEnabled = newValue))
+                }
             )
         }
         
@@ -151,7 +160,9 @@ fun SettingsScreen() {
                 title = stringResource(R.string.settings_security_alerts),
                 subtitle = stringResource(R.string.settings_security_alerts_desc),
                 checked = notificationsEnabled,
-                onCheckedChange = { notificationsEnabled = it }
+                onCheckedChange = { newValue -> 
+                    viewModel.updateSettings(settings.copy(isSecurityAlertsEnabled = newValue))
+                }
             )
         }
         
@@ -189,7 +200,9 @@ fun SettingsScreen() {
                 title = stringResource(R.string.settings_save_history),
                 subtitle = stringResource(R.string.settings_save_history_desc),
                 checked = saveHistory,
-                onCheckedChange = { saveHistory = it }
+                onCheckedChange = { newValue -> 
+                    viewModel.updateSettings(settings.copy(isSaveHistoryEnabled = newValue))
+                }
             )
         }
         

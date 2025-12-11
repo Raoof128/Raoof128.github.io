@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.compose)
 }
 
+import java.util.Properties
+import java.io.FileInputStream
+
 android {
     namespace = "com.qrshield.android"
     compileSdk = 35  // Android 16
@@ -21,10 +24,33 @@ android {
         resourceConfigurations += listOf("en", "es", "fr", "de", "ja", "zh", "ar")
     }
 
+    signingConfigs {
+        create("release") {
+            val keyStoreFile = project.rootProject.file("keystore.properties")
+            if (keyStoreFile.exists()) {
+                val properties = Properties()
+                properties.load(FileInputStream(keyStoreFile))
+                
+                storeFile = file(properties.getProperty("storeFile"))
+                storePassword = properties.getProperty("storePassword")
+                keyAlias = properties.getProperty("keyAlias")
+                keyPassword = properties.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
+            
+            val keyStoreFile = project.rootProject.file("keystore.properties")
+            if (keyStoreFile.exists()) {
+                signingConfig = signingConfigs.getByName("release")
+            } else {
+                signingConfig = signingConfigs.getByName("debug")
+            }
+            
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

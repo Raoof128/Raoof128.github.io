@@ -25,6 +25,8 @@
 import SwiftUI
 import PhotosUI
 import Vision
+#if os(iOS)
+import UIKit
 
 // MARK: - Image Picker View
 
@@ -179,10 +181,5 @@ actor QRImageScanner {
     }
 }
 
-// MARK: - Preview
+#endif
 
-#Preview {
-    ImagePicker { image in
-        print("Selected image: \(image.size)")
-    }
-}

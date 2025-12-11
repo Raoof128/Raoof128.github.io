@@ -22,6 +22,7 @@
 // - All assets use SF Symbol fallbacks
 // - VerdictIcon component with animations
 
+#if os(iOS)
 import SwiftUI
 
 // MARK: - Image Extensions
@@ -129,6 +130,7 @@ struct VerdictIcon: View {
                 }
             }
             .sensoryFeedback(.impact(weight: verdict == .malicious ? .heavy : .light), trigger: verdict)
+            .accessibilityLabel(verdict.rawValue)
     }
 }
 
@@ -172,23 +174,4 @@ struct DangerBackground: View {
     }
 }
 
-// MARK: - Preview
-
-#Preview("Asset Extensions") {
-    VStack(spacing: 24) {
-        HStack(spacing: 20) {
-            VerdictIcon(verdict: .safe, size: 50)
-            VerdictIcon(verdict: .suspicious, size: 50)
-            VerdictIcon(verdict: .malicious, size: 50)
-        }
-        
-        HStack(spacing: 16) {
-            Image.shieldSafe.foregroundColor(.verdictSafe)
-            Image.shieldWarning.foregroundColor(.verdictWarning)
-            Image.shieldDanger.foregroundColor(.verdictDanger)
-        }
-        .font(.largeTitle)
-    }
-    .padding()
-    .liquidGlassBackground()
-}
+#endif

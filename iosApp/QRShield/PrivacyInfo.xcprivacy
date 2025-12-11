@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  PrivacyInfo.xcprivacy
+  QR-SHIELD iOS Application
+  
+  Privacy Manifest - Required for App Store submission (iOS 17+)
+  Declares all APIs that access user data and tracking behavior.
+  
+  Reference: https://developer.apple.com/documentation/bundleresources/privacy_manifest_files
+-->
+<plist version="1.0">
+<dict>
+    <!-- Tracking Declaration -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+    
+    <!-- Tracking Domains - None used -->
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+    
+    <!-- Collected Data Types - None collected -->
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array/>
+    
+    <!-- Required Reason APIs -->
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <!-- UserDefaults - Used for app settings and preferences -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <!-- CA92.1: Access info from apps, app clips in the same app group -->
+                <string>CA92.1</string>
+            </array>
+        </dict>
+        
+        <!-- System Boot Time - Used for rate limiting (if applicable) -->
+        <!-- Note: Not currently used, but included for completeness if RateLimiter uses it -->
+        <!--
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>35F9.1</string>
+            </array>
+        </dict>
+        -->
+    </array>
+</dict>
+</plist>

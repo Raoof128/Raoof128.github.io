@@ -2,7 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Bundle Configuration -->
+    <!-- ============================================ -->
+    <!-- BUNDLE CONFIGURATION                         -->
+    <!-- ============================================ -->
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
@@ -20,15 +22,19 @@
     <key>CFBundleShortVersionString</key>
     <string>1.0.0</string>
     <key>CFBundleVersion</key>
-    <string>26</string>
+    <string>1</string>
     
-    <!-- iOS 17+ Minimum Deployment -->
+    <!-- ============================================ -->
+    <!-- iOS MINIMUM DEPLOYMENT (iOS 17+)             -->
+    <!-- ============================================ -->
     <key>MinimumOSVersion</key>
     <string>17.0</string>
-    
-    <!-- Launch Configuration -->
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    
+    <!-- ============================================ -->
+    <!-- LAUNCH SCREEN CONFIGURATION                  -->
+    <!-- ============================================ -->
     <key>UILaunchScreen</key>
     <dict>
         <key>UIColorName</key>
@@ -37,7 +43,9 @@
         <string>LaunchLogo</string>
     </dict>
     
-    <!-- Orientation -->
+    <!-- ============================================ -->
+    <!-- DEVICE ORIENTATION                           -->
+    <!-- ============================================ -->
     <key>UISupportedInterfaceOrientations</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>
@@ -50,13 +58,17 @@
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
     
-    <!-- Privacy Permissions (REQUIRED for App Store) -->
+    <!-- ============================================ -->
+    <!-- PRIVACY PERMISSIONS (REQUIRED FOR APP STORE) -->
+    <!-- ============================================ -->
     <key>NSCameraUsageDescription</key>
     <string>QR-SHIELD needs camera access to scan QR codes and detect phishing attempts in real-time.</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>QR-SHIELD needs photo library access to scan QR codes from saved images.</string>
     
-    <!-- iOS 17+: Privacy Manifest Requirements -->
+    <!-- ============================================ -->
+    <!-- iOS 17+ PRIVACY MANIFEST REQUIREMENTS        -->
+    <!-- ============================================ -->
     <key>NSPrivacyTracking</key>
     <false/>
     <key>NSPrivacyTrackingUsageDescription</key>
@@ -64,32 +76,44 @@
     <key>NSPrivacyCollectedDataTypes</key>
     <array/>
     
-    <!-- App Transport Security -->
+    <!-- ============================================ -->
+    <!-- APP TRANSPORT SECURITY                       -->
+    <!-- ============================================ -->
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>
         <false/>
     </dict>
     
-    <!-- Capabilities -->
+    <!-- ============================================ -->
+    <!-- DEVICE CAPABILITIES                          -->
+    <!-- ============================================ -->
     <key>UIRequiredDeviceCapabilities</key>
     <array>
         <string>arm64</string>
     </array>
     
-    <!-- Status Bar -->
+    <!-- ============================================ -->
+    <!-- STATUS BAR CONFIGURATION                     -->
+    <!-- ============================================ -->
     <key>UIStatusBarStyle</key>
     <string>UIStatusBarStyleLightContent</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <true/>
     
-    <!-- iOS 17+: Dark Mode Support -->
+    <!-- ============================================ -->
+    <!-- iOS 17+ APPEARANCE & FEATURES                -->
+    <!-- ============================================ -->
     <key>UIUserInterfaceStyle</key>
     <string>Dark</string>
-    
-    <!-- iOS 17+: Observable in UIKit (backport enabled) -->
     <key>UIObservationTrackingEnabled</key>
     <true/>
+    
+    <!-- ============================================ -->
+    <!-- APP STORE METADATA                           -->
+    <!-- ============================================ -->
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
     
 </dict>
 </plist>

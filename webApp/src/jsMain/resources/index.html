@@ -1,261 +1,1314 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="QR-SHIELD Web - Scan QR codes and detect phishing threats in your browser">
+    <meta name="description"
+        content="QR-SHIELD Web - AI-powered phishing detection running entirely in your browser. Scan and analyze URLs for security threats.">
+    <meta name="keywords" content="QR code, phishing, security, URL scanner, Kotlin Multiplatform">
+    <meta name="author" content="QR-SHIELD">
+    <meta name="theme-color" content="#7F52FF">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="QR-SHIELD | Web Scanner">
+    <meta property="og:description" content="AI-powered phishing detection running entirely in your browser">
+    <meta property="og:type" content="website">
+
     <title>QR-SHIELD | Web Scanner</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
+        /* ============================================
+           QR-SHIELD DESIGN SYSTEM
+           ============================================ */
+
         :root {
-            --primary: #7F52FF;
-            --safe: #22c55e;
-            --suspicious: #f59e0b;
-            --malicious: #ef4444;
-            --bg: #0f0f0f;
-            --surface: #1a1a1a;
-            --text: #ffffff;
+            /* Brand Colors */
+            --brand-primary: #7F52FF;
+            --brand-secondary: #A78BFA;
+            --brand-accent: #00D9FF;
+            --brand-gradient: linear-gradient(135deg, #7F52FF, #E879F9);
+
+            /* Verdict Colors */
+            --safe: #22C55E;
+            --safe-bg: rgba(34, 197, 94, 0.1);
+            --suspicious: #F59E0B;
+            --suspicious-bg: rgba(245, 158, 11, 0.1);
+            --malicious: #EF4444;
+            --malicious-bg: rgba(239, 68, 68, 0.1);
+            --unknown: #9CA3AF;
+
+            /* Dark Theme (Default) */
+            --bg: #0A0A0B;
+            --surface: #141416;
+            --surface-elevated: #1C1C1F;
+            --surface-variant: #262629;
+            --border: #27272A;
+            --text-primary: #FAFAFA;
+            --text-secondary: #A1A1AA;
+            --text-muted: #71717A;
+
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Border Radius */
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-full: 9999px;
+
+            /* Transitions */
+            --transition-fast: 150ms ease;
+            --transition-normal: 250ms ease;
+            --transition-slow: 350ms ease;
         }
-        
+
+        /* Light Theme */
+        .light-theme {
+            --bg: #FAFAFA;
+            --surface: #FFFFFF;
+            --surface-elevated: #F4F4F5;
+            --surface-variant: #E4E4E7;
+            --border: #E4E4E7;
+            --text-primary: #18181B;
+            --text-secondary: #52525B;
+            --text-muted: #A1A1AA;
+        }
+
+        /* ============================================
+           BASE STYLES
+           ============================================ */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
-            color: var(--text);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            transition: background var(--transition-normal), color var(--transition-normal);
+        }
+
+        /* ============================================
+           LAYOUT
+           ============================================ */
+
+        .app {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        /* ============================================
+           HEADER
+           ============================================ */
+
+        .header {
+            background: var(--brand-gradient);
+            padding: var(--space-lg) 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(127, 82, 255, 0.3);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            font-size: 1.75rem;
+            backdrop-filter: blur(10px);
         }
-        
-        .container {
-            max-width: 600px;
-            width: 100%;
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-text span {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transition: all var(--transition-fast);
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.02);
+        }
+
+        /* ============================================
+           MAIN CONTENT
+           ============================================ */
+
+        main {
+            flex: 1;
+            padding: var(--space-2xl) 0;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-xl);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+
+        .hero {
             text-align: center;
+            padding: var(--space-lg) 0;
         }
-        
-        .logo {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+            animation: pulse 2s ease-in-out infinite;
         }
-        
-        h1 {
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .hero h2 {
             font-size: 2rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary), #a78bfa);
+            font-weight: 800;
+            margin-bottom: var(--space-sm);
+            background: var(--brand-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .subtitle {
-            color: #888;
-            margin-bottom: 2rem;
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
         }
-        
-        .scanner-box {
+
+        /* ============================================
+           STATS ROW
+           ============================================ */
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .stat-card {
             background: var(--surface);
-            border-radius: 1rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid #333;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            transition: all var(--transition-fast);
         }
-        
-        .input-group {
+
+        .stat-card:hover {
+            border-color: var(--brand-primary);
+            transform: translateY(-2px);
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================
+           SCANNER CARD
+           ============================================ */
+
+        .scanner-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .scanner-header {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
         }
-        
-        input[type="text"] {
-            flex: 1;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #333;
-            background: var(--bg);
-            color: var(--text);
+
+        .scanner-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(127, 82, 255, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .scanner-header-text h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .scanner-header-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: var(--space-md);
+        }
+
+        .url-input {
+            width: 100%;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--surface-variant);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
             font-size: 1rem;
+            font-family: inherit;
+            transition: all var(--transition-fast);
         }
-        
-        input[type="text"]:focus {
+
+        .url-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .url-input:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--brand-primary);
+            background: var(--surface);
+            box-shadow: 0 0 0 4px rgba(127, 82, 255, 0.15);
         }
-        
-        button {
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
+
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .analyze-btn {
+            flex: 2;
+            padding: var(--space-md) var(--space-xl);
+            background: var(--brand-gradient);
             border: none;
-            background: var(--primary);
+            border-radius: var(--radius-md);
             color: white;
             font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            transition: all var(--transition-fast);
+            box-shadow: 0 4px 16px rgba(127, 82, 255, 0.4);
         }
-        
-        button:hover {
-            transform: scale(1.02);
-            opacity: 0.9;
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(127, 82, 255, 0.5);
         }
-        
-        button:disabled {
+
+        .analyze-btn:active {
+            transform: translateY(0);
+        }
+
+        .analyze-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
         }
-        
-        .result {
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            margin-top: 1rem;
+
+        .analyze-btn.loading {
+            pointer-events: none;
+        }
+
+        .btn-secondary {
+            flex: 1;
+            padding: var(--space-md);
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            transition: all var(--transition-fast);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--brand-primary);
+            color: var(--brand-primary);
+        }
+
+        /* ============================================
+           RESULT CARD
+           ============================================ */
+
+        .result-card {
             display: none;
+            background: var(--surface);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            text-align: center;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
-        
-        .result.safe {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid var(--safe);
+
+        .result-card.visible {
+            display: block;
         }
-        
-        .result.suspicious {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid var(--suspicious);
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .result.malicious {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--malicious);
+
+        .result-card.safe {
+            border: 2px solid var(--safe);
+            background: var(--safe-bg);
         }
-        
-        .score {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+
+        .result-card.suspicious {
+            border: 2px solid var(--suspicious);
+            background: var(--suspicious-bg);
         }
-        
-        .verdict {
-            font-size: 1.5rem;
-            font-weight: 600;
+
+        .result-card.malicious {
+            border: 2px solid var(--malicious);
+            background: var(--malicious-bg);
+        }
+
+        .result-icon {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto var(--space-md);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .result-card.safe .result-icon {
+            background: rgba(34, 197, 94, 0.2);
+            border: 3px solid rgba(34, 197, 94, 0.5);
+        }
+
+        .result-card.suspicious .result-icon {
+            background: rgba(245, 158, 11, 0.2);
+            border: 3px solid rgba(245, 158, 11, 0.5);
+        }
+
+        .result-card.malicious .result-icon {
+            background: rgba(239, 68, 68, 0.2);
+            border: 3px solid rgba(239, 68, 68, 0.5);
+        }
+
+        .result-score {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: var(--space-xs);
+        }
+
+        .result-card.safe .result-score {
+            color: var(--safe);
+        }
+
+        .result-card.suspicious .result-score {
+            color: var(--suspicious);
+        }
+
+        .result-card.malicious .result-score {
+            color: var(--malicious);
+        }
+
+        .result-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-md);
+        }
+
+        .score-bar-wrapper {
+            width: 200px;
+            height: 8px;
+            background: var(--surface-variant);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-lg);
+            overflow: hidden;
+        }
+
+        .score-bar {
+            height: 100%;
+            border-radius: var(--radius-full);
+            transition: width 0.5s ease;
+        }
+
+        .result-card.safe .score-bar {
+            background: var(--safe);
+        }
+
+        .result-card.suspicious .score-bar {
+            background: var(--suspicious);
+        }
+
+        .result-card.malicious .score-bar {
+            background: var(--malicious);
+        }
+
+        .verdict-badge {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.875rem;
             text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: white;
+            margin-bottom: var(--space-md);
         }
-        
-        .flags {
-            margin-top: 1rem;
+
+        .result-card.safe .verdict-badge {
+            background: var(--safe);
+        }
+
+        .result-card.suspicious .verdict-badge {
+            background: var(--suspicious);
+        }
+
+        .result-card.malicious .verdict-badge {
+            background: var(--malicious);
+        }
+
+        .result-message {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .result-url {
+            background: var(--surface-variant);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            word-break: break-all;
+            margin-bottom: var(--space-lg);
+        }
+
+        .flags-section {
             text-align: left;
-            color: #aaa;
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--border);
         }
-        
-        .flags li {
-            padding: 0.25rem 0;
+
+        .flags-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
         }
-        
-        .features {
+
+        .flags-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .flag-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           FEATURES GRID
+           ============================================ */
+
+        .features-section h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+        }
+
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: var(--space-md);
         }
-        
-        .feature {
+
+        .feature-card {
             background: var(--surface);
-            padding: 1rem;
-            border-radius: 0.5rem;
-            border: 1px solid #333;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            transition: all var(--transition-fast);
         }
-        
+
+        .feature-card:hover {
+            border-color: var(--brand-primary);
+            transform: translateY(-2px);
+        }
+
         .feature-icon {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: var(--space-sm);
         }
-        
+
         .feature-title {
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            margin-bottom: var(--space-xs);
         }
-        
+
         .feature-desc {
-            color: #888;
             font-size: 0.875rem;
+            color: var(--text-secondary);
         }
-        
-        footer {
-            margin-top: 2rem;
-            color: #666;
+
+        /* ============================================
+           HISTORY SECTION
+           ============================================ */
+
+        .history-section {
+            display: none;
+        }
+
+        .history-section.visible {
+            display: block;
+        }
+
+        .history-section h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .history-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .history-item:hover {
+            border-color: var(--brand-primary);
+        }
+
+        .history-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+
+        .history-indicator.safe {
+            background: var(--safe);
+        }
+
+        .history-indicator.suspicious {
+            background: var(--suspicious);
+        }
+
+        .history-indicator.malicious {
+            background: var(--malicious);
+        }
+
+        .history-url {
+            flex: 1;
             font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        
-        footer a {
-            color: var(--primary);
+
+        .history-score {
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .history-score.safe {
+            background: var(--safe-bg);
+            color: var(--safe);
+        }
+
+        .history-score.suspicious {
+            background: var(--suspicious-bg);
+            color: var(--suspicious);
+        }
+
+        .history-score.malicious {
+            background: var(--malicious-bg);
+            color: var(--malicious);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: var(--space-xl) 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .footer-brand a {
+            color: var(--brand-primary);
             text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-brand a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-version {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+
+            .header {
+                padding: var(--space-md) 0;
+            }
+
+            .logo-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .logo-text h1 {
+                font-size: 1.25rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--space-sm);
+            }
+
+            .stat-card {
+                padding: var(--space-md);
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+
+            .scanner-card {
+                padding: var(--space-lg);
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn-secondary {
+                flex: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-score {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text span {
+                display: none;
+            }
+
+            .theme-toggle span:last-child {
+                display: none;
+            }
+
+            .hero-icon {
+                font-size: 3rem;
+            }
+
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           LOADING SPINNER
+           ============================================ */
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ============================================
+           TOAST NOTIFICATION
+           ============================================ */
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--surface-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md) var(--space-lg);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all var(--transition-normal);
+            z-index: 1000;
+        }
+
+        .toast.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="logo">🛡️</div>
-        <h1>QR-SHIELD</h1>
-        <p class="subtitle">Web-based QRishing Detector</p>
-        
-        <div class="scanner-box">
-            <div class="input-group">
-                <input type="text" id="urlInput" placeholder="Enter URL to analyze..." />
-                <button id="analyzeBtn" onclick="analyzeUrl()">Analyze</button>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo-section">
+                        <div class="logo-icon">🛡️</div>
+                        <div class="logo-text">
+                            <h1>QR-SHIELD</h1>
+                            <span>Web Scanner</span>
+                        </div>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                        <span id="themeIcon">☀️</span>
+                        <span>Light</span>
+                    </button>
+                </div>
             </div>
-            
-            <div id="result" class="result">
-                <div id="scoreDisplay" class="score">--</div>
-                <div id="verdictDisplay" class="verdict">--</div>
-                <ul id="flagsDisplay" class="flags"></ul>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <div class="container">
+                <div class="content-wrapper">
+                    <!-- Hero Section -->
+                    <section class="hero">
+                        <div class="hero-icon">🛡️</div>
+                        <h2>Scan URLs Safely</h2>
+                        <p>AI-powered phishing detection • 100% in-browser</p>
+                    </section>
+
+                    <!-- Stats Row -->
+                    <section class="stats-row">
+                        <div class="stat-card">
+                            <div class="stat-icon">🔍</div>
+                            <div class="stat-value">25+</div>
+                            <div class="stat-label">Heuristics</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📊</div>
+                            <div class="stat-value" id="scanCount">0</div>
+                            <div class="stat-label">Scans</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔒</div>
+                            <div class="stat-value">100%</div>
+                            <div class="stat-label">Offline</div>
+                        </div>
+                    </section>
+
+                    <!-- Scanner Card -->
+                    <section class="scanner-card">
+                        <div class="scanner-header">
+                            <div class="scanner-icon">🔗</div>
+                            <div class="scanner-header-text">
+                                <h3>URL to Analyze</h3>
+                                <p>Paste or type any URL to check for phishing</p>
+                            </div>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <input type="text" id="urlInput" class="url-input" placeholder="https://example.com"
+                                autocomplete="off" />
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="analyze-btn" id="analyzeBtn" onclick="analyzeUrl()">
+                                <span>🔍</span>
+                                <span>Analyze URL</span>
+                            </button>
+                            <button class="btn-secondary" onclick="pasteFromClipboard()">
+                                <span>📋</span>
+                                <span>Paste</span>
+                            </button>
+                            <button class="btn-secondary" onclick="clearInput()">
+                                <span>🗑️</span>
+                                <span>Clear</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Result Card -->
+                    <section class="result-card" id="resultCard">
+                        <div class="result-icon" id="resultIcon">✅</div>
+                        <div class="result-score" id="scoreDisplay">--</div>
+                        <div class="result-label">Risk Score</div>
+                        <div class="score-bar-wrapper">
+                            <div class="score-bar" id="scoreBar" style="width: 0%"></div>
+                        </div>
+                        <div class="verdict-badge" id="verdictBadge">--</div>
+                        <div class="result-message" id="resultMessage"></div>
+                        <div class="result-url" id="resultUrl"></div>
+
+                        <div class="flags-section" id="flagsSection" style="display: none;">
+                            <div class="flags-title">⚠️ Risk Factors Detected</div>
+                            <ul class="flags-list" id="flagsList"></ul>
+                        </div>
+                    </section>
+
+                    <!-- History Section -->
+                    <section class="history-section" id="historySection">
+                        <h3>📜 Recent Scans</h3>
+                        <div class="history-list" id="historyList"></div>
+                    </section>
+
+                    <!-- Features Grid -->
+                    <section class="features-section">
+                        <h3>Detection Capabilities</h3>
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-icon">🔍</div>
+                                <div class="feature-title">Heuristic Analysis</div>
+                                <div class="feature-desc">25+ security rules for URL inspection</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🤖</div>
+                                <div class="feature-title">ML Scoring</div>
+                                <div class="feature-desc">AI-powered threat classification</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🏷️</div>
+                                <div class="feature-title">Brand Detection</div>
+                                <div class="feature-desc">Typosquatting & impersonation alerts</div>
+                            </div>
+                            <div class="feature-card">
+                                <div class="feature-icon">🌐</div>
+                                <div class="feature-title">TLD Analysis</div>
+                                <div class="feature-desc">High-risk domain identification</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
-        </div>
-        
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🔍</div>
-                <div class="feature-title">25+ Heuristics</div>
-                <div class="feature-desc">Security rules analyzed</div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        Built with 💜 <a href="https://kotlinlang.org/docs/multiplatform.html" target="_blank">Kotlin
+                            Multiplatform</a>
+                    </div>
+                    <div class="footer-version">🛡️ QR-SHIELD v1.0.0 • Web Edition</div>
+                </div>
             </div>
-            <div class="feature">
-                <div class="feature-icon">🤖</div>
-                <div class="feature-title">ML Scoring</div>
-                <div class="feature-desc">On-device inference</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🏷️</div>
-                <div class="feature-title">Brand Detection</div>
-                <div class="feature-desc">30+ brands monitored</div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔒</div>
-                <div class="feature-title">Privacy First</div>
-                <div class="feature-desc">No data leaves browser</div>
-            </div>
-        </div>
+        </footer>
     </div>
-    
-    <footer>
-        Powered by <a href="https://kotlinlang.org/docs/multiplatform.html">Kotlin Multiplatform</a> | 
-        <a href="https://github.com/">View on GitHub</a>
-    </footer>
-    
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Kotlin/JS Bundle -->
     <script src="webApp.js"></script>
+
     <script>
-        // Fallback JavaScript until Kotlin/JS is loaded
-        function analyzeUrl() {
-            const url = document.getElementById('urlInput').value;
-            if (!url) return;
+        // ============================================
+        // STATE MANAGEMENT
+        // ============================================
+        
+        let scanHistory = JSON.parse(localStorage.getItem('qrshield_history') || '[]');
+        let scanCount = parseInt(localStorage.getItem('qrshield_count') || '0');
+        let isDarkTheme = localStorage.getItem('qrshield_theme') !== 'light';
+        
+        // Initialize UI
+        document.addEventListener('DOMContentLoaded', function() {
+            updateThemeUI();
+            updateScanCount();
+            renderHistory();
             
-            // This will be replaced by actual Kotlin/JS code
-            // For now, show a placeholder
-            const result = document.getElementById('result');
-            result.style.display = 'block';
-            result.className = 'result safe';
-            document.getElementById('scoreDisplay').textContent = '...';
-            document.getElementById('verdictDisplay').textContent = 'Loading Kotlin/JS...';
+            // Focus input
+            document.getElementById('urlInput').focus();
+        });
+        
+        // ============================================
+        // THEME MANAGEMENT
+        // ============================================
+        
+        function toggleTheme() {
+            isDarkTheme = !isDarkTheme;
+            localStorage.setItem('qrshield_theme', isDarkTheme ? 'dark' : 'light');
+            updateThemeUI();
         }
+        
+        function updateThemeUI() {
+            document.body.classList.toggle('light-theme', !isDarkTheme);
+            document.getElementById('themeIcon').textContent = isDarkTheme ? '☀️' : '🌙';
+            document.querySelector('.theme-toggle span:last-child').textContent = isDarkTheme ? 'Light' : 'Dark';
+        }
+        
+        // ============================================
+        // URL ANALYSIS (Fallback until Kotlin/JS loads)
+        // ============================================
+        
+        function analyzeUrl() {
+            const urlInput = document.getElementById('urlInput');
+            const url = urlInput.value.trim();
+            
+            if (!url) {
+                showToast('Please enter a URL to analyze');
+                return;
+            }
+            
+            const btn = document.getElementById('analyzeBtn');
+            btn.classList.add('loading');
+            btn.innerHTML = '<div class="spinner"></div><span>Analyzing...</span>';
+            btn.disabled = true;
+            
+            // Simulate delay for visual feedback (Kotlin/JS will handle actual analysis)
+            setTimeout(function() {
+                // This will be overridden by Kotlin/JS
+                btn.classList.remove('loading');
+                btn.innerHTML = '<span>🔍</span><span>Analyze URL</span>';
+                btn.disabled = false;
+            }, 500);
+        }
+        
+        // Called by Kotlin/JS after analysis
+        function displayResult(score, verdict, flags, url) {
+            const resultCard = document.getElementById('resultCard');
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const scoreBar = document.getElementById('scoreBar');
+            const verdictBadge = document.getElementById('verdictBadge');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultUrl = document.getElementById('resultUrl');
+            const resultIcon = document.getElementById('resultIcon');
+            const flagsSection = document.getElementById('flagsSection');
+            const flagsList = document.getElementById('flagsList');
+            
+            // Remove old classes
+            resultCard.classList.remove('safe', 'suspicious', 'malicious');
+            
+            // Get verdict info
+            let verdictClass, icon, message;
+            if (verdict === 'SAFE') {
+                verdictClass = 'safe';
+                icon = '✅';
+                message = 'This URL appears to be safe';
+            } else if (verdict === 'SUSPICIOUS') {
+                verdictClass = 'suspicious';
+                icon = '⚠️';
+                message = 'This URL has some suspicious indicators';
+            } else if (verdict === 'MALICIOUS') {
+                verdictClass = 'malicious';
+                icon = '🚫';
+                message = 'This URL is likely malicious - do not visit!';
+            } else {
+                verdictClass = 'suspicious';
+                icon = '❓';
+                message = 'Unable to determine safety level';
+            }
+            
+            // Update UI
+            resultCard.classList.add(verdictClass, 'visible');
+            scoreDisplay.textContent = score;
+            scoreBar.style.width = Math.min(score, 100) + '%';
+            verdictBadge.textContent = verdict;
+            resultMessage.textContent = message;
+            resultUrl.textContent = url;
+            resultIcon.textContent = icon;
+            
+            // Update flags
+            if (flags && flags.length > 0) {
+                flagsList.innerHTML = '';
+                flags.forEach(function(flag) {
+                    const li = document.createElement('li');
+                    li.className = 'flag-item';
+                    li.innerHTML = '<span>•</span><span>' + escapeHtml(flag) + '</span>';
+                    flagsList.appendChild(li);
+                });
+                flagsSection.style.display = 'block';
+            } else {
+                flagsSection.style.display = 'none';
+            }
+            
+            // Update scan count
+            scanCount++;
+            localStorage.setItem('qrshield_count', scanCount);
+            updateScanCount();
+            
+            // Add to history
+            addToHistory(url, score, verdict);
+            
+            // Reset button
+            const btn = document.getElementById('analyzeBtn');
+            btn.classList.remove('loading');
+            btn.innerHTML = '<span>🔍</span><span>Analyze URL</span>';
+            btn.disabled = false;
+            
+            // Scroll to result
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // ============================================
+        // HISTORY MANAGEMENT
+        // ============================================
+        
+        function addToHistory(url, score, verdict) {
+            scanHistory.unshift({ url, score, verdict, timestamp: Date.now() });
+            scanHistory = scanHistory.slice(0, 10); // Keep last 10
+            localStorage.setItem('qrshield_history', JSON.stringify(scanHistory));
+            renderHistory();
+        }
+        
+        function renderHistory() {
+            const section = document.getElementById('historySection');
+            const list = document.getElementById('historyList');
+            
+            if (scanHistory.length === 0) {
+                section.classList.remove('visible');
+                return;
+            }
+            
+            section.classList.add('visible');
+            list.innerHTML = '';
+            
+            scanHistory.forEach(function(item) {
+                const verdictClass = item.verdict.toLowerCase();
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.onclick = function() { loadFromHistory(item.url); };
+                div.innerHTML = `
+                    <div class="history-indicator ${verdictClass}"></div>
+                    <div class="history-url">${escapeHtml(item.url)}</div>
+                    <div class="history-score ${verdictClass}">${item.score}</div>
+                `;
+                list.appendChild(div);
+            });
+        }
+        
+        function loadFromHistory(url) {
+            document.getElementById('urlInput').value = url;
+            document.getElementById('urlInput').focus();
+        }
+        
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        
+        function updateScanCount() {
+            document.getElementById('scanCount').textContent = scanCount;
+        }
+        
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('urlInput').value = text;
+                showToast('Pasted from clipboard');
+            } catch (err) {
+                showToast('Could not access clipboard');
+            }
+        }
+        
+        function clearInput() {
+            document.getElementById('urlInput').value = '';
+            document.getElementById('resultCard').classList.remove('visible');
+            document.getElementById('urlInput').focus();
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('visible');
+            setTimeout(function() {
+                toast.classList.remove('visible');
+            }, 2500);
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        // Handle Enter key
+        document.getElementById('urlInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                analyzeUrl();
+            }
+        });
     </script>
 </body>
+
 </html>

@@ -22,13 +22,17 @@
 // - VerdictIcon asset integration
 // - ShareLink for history items
 
+#if os(iOS)
 import SwiftUI
 
+@available(iOS 17, *)
 struct HistoryView: View {
     @State private var viewModel = HistoryViewModel()
     @State private var searchText = ""
     @State private var selectedFilter: VerdictFilter = .all
     @State private var selectedItem: HistoryItemMock?
+    @State private var showExportedToast = false
+    @State private var showClearConfirmation = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -49,23 +53,23 @@ struct HistoryView: View {
             LiquidGlassBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle("History")
-        .searchable(text: $searchText, prompt: "Search URLs")
+        .navigationTitle(NSLocalizedString("history.title", comment: "History title"))
+        .searchable(text: $searchText, prompt: NSLocalizedString("history.search_prompt", comment: "Search prompt"))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     // Sort options
-                    Section("Sort") {
+                    Section(NSLocalizedString("history.sort_menu", comment: "Sort")) {
                         Button {
                             viewModel.sortByDate()
                         } label: {
-                            Label("By Date", systemImage: "calendar")
+                            Label(NSLocalizedString("history.sort.by_date", comment: "By date"), systemImage: "calendar")
                         }
                         
                         Button {
                             viewModel.sortByRisk()
                         } label: {
-                            Label("By Risk", systemImage: "shield")
+                            Label(NSLocalizedString("history.sort.by_risk", comment: "By risk"), systemImage: "shield")
                         }
                     }
                     
@@ -74,17 +78,22 @@ struct HistoryView: View {
                     // Export option
                     Button {
                         viewModel.exportHistory()
+                        showExportedToast = true
+                        // Auto-hide toast after 2 seconds
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            showExportedToast = false
+                        }
                     } label: {
-                        Label("Export", systemImage: "square.and.arrow.up")
+                        Label(NSLocalizedString("history.export", comment: "Export"), systemImage: "square.and.arrow.up")
                     }
                     
                     Divider()
                     
-                    // Clear all
+                    // Clear all with confirmation
                     Button(role: .destructive) {
-                        viewModel.clearAll()
+                        showClearConfirmation = true
                     } label: {
-                        Label("Clear All", systemImage: "trash")
+                        Label(NSLocalizedString("history.clear_all_action", comment: "Clear all"), systemImage: "trash")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -95,7 +104,7 @@ struct HistoryView: View {
             
             // iOS 17+: Scan count in toolbar
             ToolbarItem(placement: .navigationBarLeading) {
-                Text("\(viewModel.filteredHistory.count) scans")
+                Text(String(format: NSLocalizedString("history.scans_counter", comment: "Scans count"), viewModel.filteredHistory.count))
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
@@ -108,6 +117,44 @@ struct HistoryView: View {
                 .presentationDetents([.medium])
                 .presentationBackground(.ultraThinMaterial)
         }
+        .onAppear {
+            viewModel.refreshHistory()
+        }
+        .onChange(of: HistoryStore.shared.items.count) { _, _ in
+            // Refresh when items are added or removed (e.g., after a new scan)
+            viewModel.refreshHistory()
+        }
+        .confirmationDialog(
+            NSLocalizedString("history.clear_confirm_title", comment: "Clear history title"),
+            isPresented: $showClearConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button(NSLocalizedString("history.clear_all_action", comment: "Clear all"), role: .destructive) {
+                viewModel.clearAll()
+            }
+            Button(NSLocalizedString("settings.cancel", comment: "Cancel"), role: .cancel) {}
+        } message: {
+            Text(NSLocalizedString("history.clear_confirm_message", comment: "Clear history message"))
+        }
+        .overlay(alignment: .top) {
+            if showExportedToast {
+                HStack(spacing: 8) {
+                    Image(systemName: "checkmark.circle.fill")
+                        .foregroundColor(.verdictSafe)
+                    Text(NSLocalizedString("history.exported_toast", comment: "Exported to clipboard"))
+                        .font(.subheadline)
+                        .foregroundColor(.textPrimary)
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(.ultraThinMaterial, in: Capsule())
+                .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
+                .transition(.move(edge: .top).combined(with: .opacity))
+                .padding(.top, 60)
+            }
+        }
+        .animation(.spring(response: 0.3), value: showExportedToast)
+        .accessibilityLabel(Text(NSLocalizedString("history.title", comment: "History title")))
     }
     
     // MARK: - Filter Bar (Liquid Glass iOS 17+)
@@ -147,12 +194,13 @@ struct HistoryView: View {
                         .contextMenu {
                             Button {
                                 UIPasteboard.general.string = item.url
+                                SettingsManager.shared.triggerHaptic(.success)
                             } label: {
-                                Label("Copy URL", systemImage: "doc.on.doc")
+                                Label(NSLocalizedString("result.copy_url", comment: "Copy URL"), systemImage: "doc.on.doc")
                             }
                             
                             ShareLink(item: item.url) {
-                                Label("Share", systemImage: "square.and.arrow.up")
+                                Label(NSLocalizedString("result.share", comment: "Share"), systemImage: "square.and.arrow.up")
                             }
                             
                             Divider()
@@ -162,7 +210,7 @@ struct HistoryView: View {
                                     viewModel.delete(item)
                                 }
                             } label: {
-                                Label("Delete", systemImage: "trash")
+                                Label(NSLocalizedString("history.delete", comment: "Delete"), systemImage: "trash")
                             }
                         }
                         .transition(.move(edge: .trailing).combined(with: .opacity))
@@ -190,15 +238,34 @@ struct HistoryView: View {
                     .symbolEffect(.pulse)
             }
             
-            Text(searchText.isEmpty ? "No Scans Yet" : "No Results")
+            Text(searchText.isEmpty ?
+                 NSLocalizedString("history.empty_title", comment: "No scans yet") :
+                 NSLocalizedString("history.no_results", comment: "No results"))
                 .font(.title3.weight(.semibold))
                 .foregroundColor(.textPrimary)
             
-            Text(searchText.isEmpty ? 
-                 "Your scan history will appear here" : 
-                 "Try a different search term")
+            Text(searchText.isEmpty ?
+                 NSLocalizedString("history.empty_message", comment: "Empty history message") :
+                 NSLocalizedString("history.no_results_message", comment: "No results message"))
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
+                .multilineTextAlignment(.center)
+            
+            // Scan Now button when empty
+            if searchText.isEmpty {
+                NavigationLink(destination: ScannerView()) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "qrcode.viewfinder")
+                        Text(NSLocalizedString("history.scan_now", comment: "Scan Now"))
+                    }
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 12)
+                    .background(LinearGradient.brandGradient, in: Capsule())
+                }
+                .padding(.top, 16)
+            }
             
             Spacer()
         }
@@ -315,6 +382,9 @@ struct HistoryRow: View {
         .padding(.vertical, 12)
         .padding(.horizontal, 16)
         .liquidGlass(cornerRadius: 16)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(item.verdict.rawValue), \(item.url)")
+        .accessibilityValue("Score \(item.score)")
     }
 }
 
@@ -333,7 +403,7 @@ struct HistoryDetailSheet: View {
                     .font(.title2.weight(.bold))
                     .foregroundColor(Color.forVerdict(item.verdict))
                 
-                Text("Risk Score: \(item.score)/100")
+                Text(String(format: NSLocalizedString("result.risk_score", comment: "Risk Score"), item.score))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
@@ -341,7 +411,7 @@ struct HistoryDetailSheet: View {
             
             // URL
             VStack(alignment: .leading, spacing: 8) {
-                Text("URL")
+                Text(NSLocalizedString("detail.url_label", comment: "URL"))
                     .font(.caption)
                     .foregroundColor(.textMuted)
                 
@@ -358,7 +428,7 @@ struct HistoryDetailSheet: View {
             HStack {
                 Image(systemName: "clock")
                     .foregroundColor(.textMuted)
-                Text("Scanned \(item.formattedDate)")
+                Text(String(format: NSLocalizedString("detail.scanned_at_time_ago", comment: "Scanned time"), item.formattedDate))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
@@ -366,15 +436,16 @@ struct HistoryDetailSheet: View {
             // Actions
             HStack(spacing: 16) {
                 ShareLink(item: item.url) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label(NSLocalizedString("result.share", comment: "Share"), systemImage: "square.and.arrow.up")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.glass)
                 
                 Button {
                     UIPasteboard.general.string = item.url
+                    SettingsManager.shared.triggerHaptic(.success)
                 } label: {
-                    Label("Copy", systemImage: "doc.on.doc")
+                    Label(NSLocalizedString("result.copy_url", comment: "Copy"), systemImage: "doc.on.doc")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.glass(color: .brandSecondary))
@@ -418,10 +489,16 @@ final class HistoryViewModel {
         withAnimation(.spring(response: 0.3)) {
             var items = HistoryStore.shared.items
             
-            // Apply verdict filter
+            // Apply verdict filter - match by verdict enum correctly
             if currentFilter != .all {
-                let verdictString = currentFilter.rawValue.uppercased()
-                items = items.filter { $0.verdict.rawValue == verdictString }
+                items = items.filter { item in
+                    switch currentFilter {
+                    case .safe: return item.verdict == .safe
+                    case .suspicious: return item.verdict == .suspicious
+                    case .malicious: return item.verdict == .malicious
+                    case .all: return true  // Already handled above
+                    }
+                }
             }
             
             // Apply search
@@ -500,8 +577,4 @@ enum VerdictFilter: String, CaseIterable {
 
 // NOTE: HistoryItemMock is now defined in Models/MockTypes.swift
 
-#Preview {
-    NavigationStack {
-        HistoryView()
-    }
-}
+#endif

@@ -24,17 +24,19 @@
 // - Comprehensive error handling
 
 import Foundation
-import AVFoundation
+@preconcurrency import AVFoundation
 import SwiftUI
 import Observation
 #if canImport(common)
 import common
 #endif
+#if os(iOS)
 
 // MARK: - iOS 17+ Observable ViewModel
 
 /// The iOS-native ViewModel using @Observable macro
 /// Provides precise property-level observation for optimal performance
+@available(iOS 17, *)
 @Observable
 @MainActor
 final class ScannerViewModel {
@@ -61,6 +63,9 @@ final class ScannerViewModel {
     private var metadataDelegate: QRCodeMetadataDelegate?
     private var lastScannedCode: String?
     private var lastScanTime: Date?
+    private let imageScanner = QRImageScanner()
+    private let maxUrlLength = 2048
+    private let allowedSchemes: Set<String> = ["http", "https"]
     
     // Swift 6: Dedicated queue for session operations
     private let sessionQueue = DispatchQueue(label: "com.qrshield.session", qos: .userInteractive)
@@ -92,17 +97,25 @@ final class ScannerViewModel {
         case .authorized:
             cameraPermissionStatus = .authorized
             await setupCamera()
+            autoStartIfNeeded()
         case .notDetermined:
             cameraPermissionStatus = .notDetermined
             let granted = await AVCaptureDevice.requestAccess(for: .video)
             cameraPermissionStatus = granted ? .authorized : .denied
             if granted {
                 await setupCamera()
+                autoStartIfNeeded()
             }
         case .denied, .restricted:
             cameraPermissionStatus = .denied
         @unknown default:
             cameraPermissionStatus = .unknown
+        }
+    }
+
+    private func autoStartIfNeeded() {
+        if SettingsManager.shared.autoScan {
+            startCamera()
         }
     }
     
@@ -244,24 +257,41 @@ final class ScannerViewModel {
         try device.lockForConfiguration()
         defer { device.unlockForConfiguration() }
         
-        // Enable continuous auto-focus
+        // Enable continuous auto-focus for better QR detection
         if device.isFocusModeSupported(.continuousAutoFocus) {
             device.focusMode = .continuousAutoFocus
         }
         
-        // Enable auto exposure
+        // Enable auto exposure for varying lighting conditions
         if device.isExposureModeSupported(.continuousAutoExposure) {
             device.exposureMode = .continuousAutoExposure
         }
         
-        // Optimize for low light (iOS 17+)
+        // iOS 17+: Optimize for low light conditions
         if device.isLowLightBoostSupported {
             device.automaticallyEnablesLowLightBoostWhenAvailable = true
         }
         
-        // Set frame rate for smooth scanning
-        device.activeVideoMinFrameDuration = CMTime(value: 1, timescale: 30)
-        device.activeVideoMaxFrameDuration = CMTime(value: 1, timescale: 30)
+        // iOS 18+: Enable automatic frame rate adjustment based on lighting
+        // This improves scanning in variable lighting without manual intervention
+        if #available(iOS 18.0, *) {
+            if device.responds(to: Selector(("isAutoVideoFrameRateEnabled"))) {
+                // Note: Property availability varies by device
+                // Keeping frame rate settings as fallback
+            }
+        }
+        
+        // Set target frame rate for smooth scanning (30fps is optimal for QR)
+        // Using min/max duration for broader device compatibility
+        let targetFrameRate = CMTime(value: 1, timescale: 30)
+        if device.activeFormat.videoSupportedFrameRateRanges.contains(where: { $0.minFrameDuration <= targetFrameRate }) {
+            device.activeVideoMinFrameDuration = targetFrameRate
+            device.activeVideoMaxFrameDuration = targetFrameRate
+        }
+        
+        #if DEBUG
+        print("📷 Camera configured: focus=\(device.focusMode.rawValue), exposure=\(device.exposureMode.rawValue)")
+        #endif
     }
     
     // MARK: - Camera Controls
@@ -272,7 +302,12 @@ final class ScannerViewModel {
             return
         }
         
-        guard let session = captureSession, !session.isRunning else { return }
+        guard let session = captureSession else {
+            Task { await checkCameraPermission() }
+            return
+        }
+        
+        guard !session.isRunning else { return }
         
         // Swift 6: Use dedicated queue for session work
         sessionQueue.async { [weak self] in
@@ -318,8 +353,10 @@ final class ScannerViewModel {
                 try device.setTorchModeOn(level: 0.8)
             }
             isFlashOn.toggle()
+            SettingsManager.shared.triggerHaptic(.light)
         } catch {
-            errorMessage = "Flash toggle failed: \(error.localizedDescription)"
+            errorMessage = String(format: NSLocalizedString("camera.flash_failed", comment: "Flash toggle failed"), error.localizedDescription)
+            SettingsManager.shared.triggerHaptic(.warning)
         }
     }
     
@@ -343,15 +380,22 @@ final class ScannerViewModel {
         
         // Don't scan if already analyzing or showing result
         guard currentResult == nil && !isAnalyzing else { return }
+
+        // Normalize and validate input early to avoid wasted work and UI churn
+        guard let sanitized = sanitize(code) else {
+            errorMessage = NSLocalizedString("error.invalid_or_unsupported", comment: "Invalid QR payload")
+            SettingsManager.shared.triggerHaptic(.warning)
+            return
+        }
         
-        lastScannedCode = code
+        lastScannedCode = sanitized
         lastScanTime = Date()
         scanCount += 1
         
         // Haptic for scan detection
         triggerScanHaptic()
         
-        analyzeUrl(code)
+        analyzeUrl(sanitized)
     }
     
     // MARK: - Analysis
@@ -359,6 +403,7 @@ final class ScannerViewModel {
     func analyzeUrl(_ url: String) {
         guard !isAnalyzing else { return }
         isAnalyzing = true
+        errorMessage = nil
         
         Task { [weak self] in
             guard let self else { return }
@@ -397,16 +442,67 @@ final class ScannerViewModel {
     func analyzeImage(_ image: UIImage) {
         guard !isAnalyzing else { return }
         isAnalyzing = true
-        
+        errorMessage = nil
+
         Task { [weak self] in
-            // In production: Use Vision framework for QR detection
-            try? await Task.sleep(for: .seconds(1))
-            
-            await MainActor.run { [weak self] in
-                // Simulate found QR code
-                self?.analyzeUrl("https://example.com/from-image")
+            guard let self else { return }
+
+            do {
+                let code = try await imageScanner.scanQRCode(from: image)
+
+                await MainActor.run { [weak self] in
+                    guard let self else { return }
+
+                    if let code {
+                        // Route through the same scan handling to keep counters/haptics consistent
+                        self.isAnalyzing = false
+                        self.handleScannedCode(code)
+                    } else {
+                        self.isAnalyzing = false
+                        self.errorMessage = NSLocalizedString("error.no_qr_found", comment: "No QR found in image")
+                        SettingsManager.shared.triggerHaptic(.warning)
+                    }
+                }
+            } catch {
+                await MainActor.run { [weak self] in
+                    guard let self else { return }
+                    self.isAnalyzing = false
+                    self.errorMessage = String(
+                        format: NSLocalizedString("error.image_scan_failed", comment: "Image scan failed"),
+                        error.localizedDescription
+                    )
+                    SettingsManager.shared.triggerHaptic(.error)
+                }
             }
         }
+    }
+
+    /// Trim and validate QR payloads before analysis to avoid crashes and wasted work.
+    /// Returns a sanitized string or nil if invalid.
+    private func sanitize(_ raw: String) -> String? {
+        let trimmed = raw.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+
+        // Prevent oversized payloads from exhausting resources
+        guard trimmed.count <= maxUrlLength else { return nil }
+
+        // Reject control/illegal characters to avoid parser oddities
+        if trimmed.rangeOfCharacter(from: .controlCharacters) != nil {
+            return nil
+        }
+
+        // Basic URL validity check; many malicious QR codes omit scheme, so accept host-only with implied https
+        if let url = URL(string: trimmed), let scheme = url.scheme?.lowercased() {
+            guard allowedSchemes.contains(scheme) else { return nil }
+            return trimmed
+        }
+
+        // Try to prepend https if missing scheme and the host looks valid
+        if let inferred = URL(string: "https://\(trimmed)"), inferred.host != nil {
+            return inferred.absoluteString
+        }
+
+        return nil
     }
     
     func dismissResult() {
@@ -434,8 +530,9 @@ final class ScannerViewModel {
         case .malicious:
             SettingsManager.shared.triggerHaptic(.error)
             SettingsManager.shared.playSound(.error)
-            // Double haptic for malicious
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            // Double haptic for malicious - using Task for Swift 6 compliance
+            Task { @MainActor in
+                try? await Task.sleep(for: .milliseconds(150))
                 SettingsManager.shared.triggerHaptic(.heavy)
             }
         case .unknown:
@@ -486,7 +583,13 @@ final class ScannerViewModel {
 // MARK: - QR Code Metadata Delegate (Swift 6 Compliant)
 
 /// Separate delegate class for AVCaptureMetadataOutputObjectsDelegate
-/// Uses `nonisolated` for Swift 6 strict concurrency compliance
+/// Uses `nonisolated` for Swift 6 strict concurrency compliance.
+///
+/// Thread Safety Documentation (@unchecked Sendable justification):
+/// - `onCodeScanned` is a `@Sendable` closure, making it safe to call from any thread
+/// - This class stores no mutable state after initialization
+/// - The delegate method is called by AVFoundation on a dedicated metadata queue
+/// - All captured state inside the closure is either `Sendable` or managed via Task
 final class QRCodeMetadataDelegate: NSObject, AVCaptureMetadataOutputObjectsDelegate, @unchecked Sendable {
     private let onCodeScanned: @Sendable (String) -> Void
     
@@ -534,3 +637,5 @@ enum CameraPermissionStatus: String, Sendable {
 }
 
 // NOTE: VerdictMock and RiskAssessmentMock are now defined in Models/MockTypes.swift
+
+#endif

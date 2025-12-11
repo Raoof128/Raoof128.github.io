@@ -24,6 +24,8 @@
 // - Animated progress bars
 
 import SwiftUI
+#if os(iOS)
+import UIKit
 
 /// Full analysis detail sheet with Liquid Glass design
 struct DetailSheet: View {
@@ -31,6 +33,7 @@ struct DetailSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isAppearing = false
     @State private var copiedURL = false
+    @State private var showOpenURLConfirmation = false
     
     var themeColor: Color {
         Color.forVerdict(assessment.verdict)
@@ -69,7 +72,7 @@ struct DetailSheet: View {
                 LiquidGlassBackground()
                     .ignoresSafeArea()
             }
-            .navigationTitle("Analysis Details")
+            .navigationTitle(NSLocalizedString("detail.analysis_details", comment: "Analysis details"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -122,12 +125,12 @@ struct DetailSheet: View {
             
             // Score
             HStack(spacing: 20) {
-                scoreItem(title: "Risk Score", value: "\(assessment.score)", color: themeColor)
+                scoreItem(title: NSLocalizedString("result.risk_score_label", comment: "Risk score label"), value: "\(assessment.score)/100", color: themeColor)
                 
                 Divider()
                     .frame(height: 40)
                 
-                scoreItem(title: "Confidence", value: "\(Int(assessment.confidence * 100))%", color: .brandPrimary)
+                scoreItem(title: NSLocalizedString("result.confidence", comment: "Confidence"), value: "\(Int(assessment.confidence * 100))%", color: .brandPrimary)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 16)
@@ -152,32 +155,32 @@ struct DetailSheet: View {
     
     private var scoreBreakdownSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle("Score Breakdown", icon: "chart.bar.fill")
+            sectionTitle(NSLocalizedString("detail.score_breakdown", comment: "Score breakdown"), icon: "chart.bar.fill")
             
             VStack(spacing: 12) {
                 breakdownRow(
-                    title: "URL Analysis",
+                    title: NSLocalizedString("detail.url_details", comment: "URL details"),
                     icon: "link",
                     score: min(assessment.score * 2, 100),
                     color: .brandPrimary,
                     delay: 0
                 )
                 breakdownRow(
-                    title: "Domain Reputation",
+                    title: NSLocalizedString("detail.domain", comment: "Domain"),
                     icon: "globe",
                     score: assessment.score,
                     color: .brandSecondary,
                     delay: 0.1
                 )
                 breakdownRow(
-                    title: "Pattern Detection",
+                    title: NSLocalizedString("detail.risk_factors", comment: "Risk factors"),
                     icon: "waveform",
                     score: max(0, assessment.score - 10),
                     color: .verdictWarning,
                     delay: 0.2
                 )
                 breakdownRow(
-                    title: "ML Confidence",
+                    title: NSLocalizedString("result.confidence", comment: "Confidence"),
                     icon: "brain",
                     score: Int(assessment.confidence * 100),
                     color: .verdictSafe,
@@ -230,7 +233,7 @@ struct DetailSheet: View {
     
     private var riskFlagsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle("Risk Flags", icon: "exclamationmark.triangle.fill")
+            sectionTitle(NSLocalizedString("result.flags_title", comment: "Risk flags"), icon: "exclamationmark.triangle.fill")
             
             VStack(spacing: 8) {
                 ForEach(assessment.flags, id: \.self) { flag in
@@ -256,12 +259,12 @@ struct DetailSheet: View {
     
     private var urlDetailsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle("URL Details", icon: "link")
+            sectionTitle(NSLocalizedString("detail.url_details", comment: "URL details"), icon: "link")
             
             VStack(alignment: .leading, spacing: 16) {
                 // Full URL
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Full URL")
+                    Text(NSLocalizedString("detail.url_label", comment: "URL"))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -275,7 +278,7 @@ struct DetailSheet: View {
                 
                 // Domain
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Domain")
+                    Text(NSLocalizedString("detail.domain", comment: "Domain"))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -287,7 +290,7 @@ struct DetailSheet: View {
                 // Protocol
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Protocol")
+                        Text(NSLocalizedString("detail.protocol", comment: "Protocol"))
                             .font(.caption)
                             .foregroundColor(.textMuted)
                         
@@ -295,7 +298,7 @@ struct DetailSheet: View {
                             Image(systemName: assessment.url.hasPrefix("https") ? "lock.fill" : "lock.open")
                                 .foregroundColor(assessment.url.hasPrefix("https") ? .verdictSafe : .verdictWarning)
                             
-                            Text(assessment.url.hasPrefix("https") ? "HTTPS (Secure)" : "HTTP (Not Secure)")
+                            Text(assessment.url.hasPrefix("https") ? NSLocalizedString("detail.protocol_https", comment: "HTTPS") : NSLocalizedString("detail.protocol_http", comment: "HTTP"))
                                 .font(.subheadline)
                                 .foregroundColor(assessment.url.hasPrefix("https") ? .verdictSafe : .verdictWarning)
                         }
@@ -316,7 +319,7 @@ struct DetailSheet: View {
             Image(systemName: "clock")
                 .foregroundColor(.textMuted)
             
-            Text("Scanned \(assessment.formattedDate)")
+            Text(String(format: NSLocalizedString("detail.scanned_at_time_ago", comment: "Scanned at"), assessment.formattedDate))
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
             
@@ -333,7 +336,7 @@ struct DetailSheet: View {
             ShareLink(item: shareText) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
-                    Text("Share Analysis")
+                    Text(NSLocalizedString("detail.share_analysis", comment: "Share analysis"))
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -348,6 +351,37 @@ struct DetailSheet: View {
                         }
                 }
                 .shadow(color: .brandPrimary.opacity(0.4), radius: 10, y: 4)
+            }
+            
+            // Open URL Button (with safety confirmation for dangerous URLs)
+            Button {
+                if assessment.verdict == .safe || assessment.verdict == .unknown {
+                    openURL()
+                } else {
+                    showOpenURLConfirmation = true
+                }
+            } label: {
+                HStack {
+                    Image(systemName: "globe")
+                    Text(NSLocalizedString("detail.open_url", comment: "Open URL"))
+                }
+                .font(.headline)
+                .foregroundColor(assessment.verdict == .safe ? .verdictSafe : .textPrimary)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
+            }
+            .confirmationDialog(
+                NSLocalizedString("detail.open_warning_title", comment: "Warning"),
+                isPresented: $showOpenURLConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button(NSLocalizedString("detail.proceed", comment: "Proceed Anyway"), role: .destructive) {
+                    openURL()
+                }
+                Button(NSLocalizedString("settings.cancel", comment: "Cancel"), role: .cancel) {}
+            } message: {
+                Text(NSLocalizedString("detail.open_warning", comment: "Opening this URL may be dangerous"))
             }
             
             // Copy URL Button
@@ -366,7 +400,7 @@ struct DetailSheet: View {
                 HStack {
                     Image(systemName: copiedURL ? "checkmark" : "doc.on.doc")
                         .contentTransition(.symbolEffect(.replace))
-                    Text(copiedURL ? "Copied!" : "Copy URL")
+                    Text(copiedURL ? NSLocalizedString("detail.copied", comment: "Copied") : NSLocalizedString("detail.copy_url", comment: "Copy URL"))
                 }
                 .font(.headline)
                 .foregroundColor(copiedURL ? .verdictSafe : .textPrimary)
@@ -378,13 +412,26 @@ struct DetailSheet: View {
             
             // Report Button
             Button {
-                // Report logic
-                let generator = UIImpactFeedbackGenerator(style: .light)
-                generator.impactOccurred()
+                // TODO: Implement full report submission to backend
+                // For now, show feedback and copy report data
+                let reportText = """
+                QR-SHIELD False Positive Report
+                URL: \(assessment.url)
+                Verdict: \(assessment.verdict.rawValue)
+                Score: \(assessment.score)
+                """
+                UIPasteboard.general.string = reportText
+                
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
+                
+                #if DEBUG
+                print("📋 Report copied to clipboard: \(reportText)")
+                #endif
             } label: {
                 HStack {
                     Image(systemName: "flag")
-                    Text("Report False Positive")
+                    Text(NSLocalizedString("detail.report_false_positive", comment: "Report FP"))
                 }
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
@@ -410,6 +457,12 @@ struct DetailSheet: View {
         return urlObj.host ?? url
     }
     
+    private func openURL() {
+        guard let url = URL(string: assessment.url) else { return }
+        UIApplication.shared.open(url)
+        SettingsManager.shared.triggerHaptic(.medium)
+    }
+    
     private var shareText: String {
         """
         🛡️ QR-SHIELD Analysis
@@ -426,13 +479,4 @@ struct DetailSheet: View {
     }
 }
 
-#Preview {
-    DetailSheet(assessment: RiskAssessmentMock(
-        score: 72,
-        verdict: .suspicious,
-        flags: ["Suspicious domain pattern", "Recently registered domain"],
-        confidence: 0.85,
-        url: "https://suspicious-site.xyz/login",
-        scannedAt: Date()
-    ))
-}
+#endif

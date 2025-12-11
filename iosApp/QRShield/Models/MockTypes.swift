@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+#if os(iOS)
 // Models/MockTypes.swift
 // QR-SHIELD Mock Types
 //
@@ -149,3 +150,5 @@ struct HistoryItemMock: Identifiable, Sendable, Hashable, Codable {
         lhs.id == rhs.id
     }
 }
+
+#endif

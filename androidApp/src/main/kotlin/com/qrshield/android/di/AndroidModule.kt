@@ -69,11 +69,17 @@ val androidModule = module {
     // Scanner (Android-specific using CameraX + ML Kit)
     single<QrScanner> { QrScannerFactory(androidContext()).create() }
     
+    // Settings DataSource
+    single<com.qrshield.data.SettingsDataSource> { 
+        com.qrshield.data.AndroidSettingsDataSource(androidContext())
+    }
+    
     // ViewModel with injected repository
     factory { 
         SharedViewModel(
             phishingEngine = get(),
             historyRepository = get(),
+            settingsDataSource = get(),
             coroutineScope = get()
         ) 
     }

@@ -50,6 +50,7 @@ import kotlinx.datetime.Clock
 class SharedViewModel(
     private val phishingEngine: PhishingEngine = PhishingEngine(),
     private val historyRepository: HistoryRepository,
+    private val settingsDataSource: com.qrshield.data.SettingsDataSource,
     private val coroutineScope: CoroutineScope
 ) {
     private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -81,8 +82,10 @@ class SharedViewModel(
                     
                     _uiState.value = UiState.Result(assessment)
                     
-                    // Persist to database
-                    saveToHistory(result.content, assessment, source)
+                    // Persist to database if enabled
+                    if (settings.value.isSaveHistoryEnabled) {
+                        saveToHistory(result.content, assessment, source)
+                    }
                 }
                 is ScanResult.Error -> {
                     _uiState.value = UiState.Error(result.message)
@@ -229,12 +232,40 @@ class SharedViewModel(
         historyRepository.insert(item)
     }
     
+    
+    // === SETTINGS ===
+    
+    val settings: StateFlow<AppSettings> = settingsDataSource.settings
+        .stateIn(
+            scope = coroutineScope,
+            started = SharingStarted.Eagerly,
+            initialValue = AppSettings()
+        )
+    
+    fun updateSettings(newSettings: AppSettings) {
+        coroutineScope.launch {
+            settingsDataSource.saveSettings(newSettings)
+        }
+    }
+    
     private fun generateId(): String {
         return "scan_${currentTimeMillis()}_${(0..9999).random()}"
     }
     
     private fun currentTimeMillis(): Long = Clock.System.now().toEpochMilliseconds()
 }
+
+/**
+ * App Settings for preferences.
+ */
+data class AppSettings(
+    val isAutoScanEnabled: Boolean = true,
+    val isHapticEnabled: Boolean = true,
+    val isSoundEnabled: Boolean = true,
+    val isSaveHistoryEnabled: Boolean = true,
+    val isSecurityAlertsEnabled: Boolean = true
+)
+
 
 /**
  * UI State sealed class for managing screen states.

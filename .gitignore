@@ -68,3 +68,9 @@ coverage/
 *.tmp
 *.swp
 *~
+
+# Build artifacts
+iosApp/.build/
+iosApp/.swiftpm/
+kotlin-js-store/
+app_running*.png

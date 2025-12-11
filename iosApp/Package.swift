@@ -3,6 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "QRShield",
+    defaultLocalization: "en",
     platforms: [
         .iOS(.v17)
     ],
@@ -15,6 +16,15 @@ let package = Package(
         .target(
             name: "QRShield",
             dependencies: [],
-            path: "QRShield"),
+            path: "QRShield",
+            exclude: [
+                "Info.plist",
+                "README_PERMISSIONS.md"
+            ],
+            resources: [
+                .process("en.lproj"),
+                .process("Assets.xcassets"),
+                .process("PrivacyInfo.xcprivacy")
+            ]),
     ]
 )

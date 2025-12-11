@@ -66,6 +66,7 @@ import com.qrshield.ui.SharedViewModel
 import com.qrshield.ui.UiState
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
+import com.qrshield.android.util.SoundManager
 
 /**
  * Main Scanner Screen with camera preview and QR code detection.
@@ -83,6 +84,7 @@ fun ScannerScreen() {
     val viewModel: SharedViewModel = koinInject()
     val uiState by viewModel.uiState.collectAsState()
     val scanHistory by viewModel.scanHistory.collectAsState()
+    val settings by viewModel.settings.collectAsState()
     
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -127,7 +129,8 @@ fun ScannerScreen() {
         uri?.let {
             // Scan QR code from selected image
             isProcessingGalleryImage = true
-            triggerHapticFeedback(vibrator, HapticType.SCAN)
+            triggerHapticFeedback(vibrator, HapticType.SCAN, settings.isHapticEnabled)
+            SoundManager.playSound(SoundManager.SoundType.SCAN, settings.isSoundEnabled)
             
             scope.launch {
                 val result = qrScanner.scanFromUri(uri)
@@ -135,16 +138,19 @@ fun ScannerScreen() {
                 
                 when (result) {
                     is ScanResult.Success -> {
-                        triggerHapticFeedback(vibrator, HapticType.SUCCESS)
+                        triggerHapticFeedback(vibrator, HapticType.SUCCESS, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.SUCCESS, settings.isSoundEnabled)
                         viewModel.processScanResult(result, ScanSource.GALLERY)
                     }
                     is ScanResult.NoQrFound -> {
-                        triggerHapticFeedback(vibrator, HapticType.ERROR)
+                        triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.ERROR, settings.isSoundEnabled)
                         // Show error message - no QR found
                         cameraError = "No QR code found in the selected image"
                     }
                     is ScanResult.Error -> {
-                        triggerHapticFeedback(vibrator, HapticType.ERROR)
+                        triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.ERROR, settings.isSoundEnabled)
                         cameraError = result.message
                     }
                 }
@@ -159,16 +165,17 @@ fun ScannerScreen() {
         hasCameraPermission = granted
         if (granted) {
             viewModel.startScanning()
-            triggerHapticFeedback(vibrator, HapticType.SUCCESS)
+            triggerHapticFeedback(vibrator, HapticType.SUCCESS, settings.isHapticEnabled)
         } else {
-            triggerHapticFeedback(vibrator, HapticType.ERROR)
+            triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
         }
     }
     
     // QR code scanned callback with haptic
-    val onQrCodeScanned: (String) -> Unit = remember(viewModel) {
+    val onQrCodeScanned: (String) -> Unit = remember(viewModel, settings) {
         { content ->
-            triggerHapticFeedback(vibrator, HapticType.SCAN)
+            triggerHapticFeedback(vibrator, HapticType.SCAN, settings.isHapticEnabled)
+            SoundManager.playSound(SoundManager.SoundType.SCAN, settings.isSoundEnabled)
             viewModel.processScanResult(
                 ScanResult.Success(content, ContentType.URL),
                 ScanSource.CAMERA
@@ -182,13 +189,25 @@ fun ScannerScreen() {
             is UiState.Result -> {
                 val verdict = (uiState as UiState.Result).assessment.verdict
                 when (verdict) {
-                    Verdict.SAFE -> triggerHapticFeedback(vibrator, HapticType.SUCCESS)
-                    Verdict.SUSPICIOUS -> triggerHapticFeedback(vibrator, HapticType.WARNING)
-                    Verdict.MALICIOUS -> triggerHapticFeedback(vibrator, HapticType.ERROR)
-                    else -> triggerHapticFeedback(vibrator, HapticType.LIGHT)
+                    Verdict.SAFE -> {
+                        triggerHapticFeedback(vibrator, HapticType.SUCCESS, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.SUCCESS, settings.isSoundEnabled)
+                    }
+                    Verdict.SUSPICIOUS -> {
+                        triggerHapticFeedback(vibrator, HapticType.WARNING, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.WARNING, settings.isSoundEnabled)
+                    }
+                    Verdict.MALICIOUS -> {
+                        triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.ERROR, settings.isSoundEnabled)
+                    }
+                    else -> triggerHapticFeedback(vibrator, HapticType.LIGHT, settings.isHapticEnabled)
                 }
             }
-            is UiState.Error -> triggerHapticFeedback(vibrator, HapticType.ERROR)
+            is UiState.Error -> {
+                triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
+                SoundManager.playSound(SoundManager.SoundType.ERROR, settings.isSoundEnabled)
+            }
             else -> {}
         }
     }
@@ -197,6 +216,13 @@ fun ScannerScreen() {
     LaunchedEffect(uiState) {
         if (uiState !is UiState.Scanning) {
             cameraError = null
+        }
+    }
+    
+    // Auto-scan: Start scanning automatically when enabled and have permission
+    LaunchedEffect(settings.isAutoScanEnabled, hasCameraPermission) {
+        if (settings.isAutoScanEnabled && hasCameraPermission && uiState is UiState.Idle) {
+            viewModel.startScanning()
         }
     }
     
@@ -711,8 +737,8 @@ private enum class HapticType {
     LIGHT, SCAN, SUCCESS, WARNING, ERROR
 }
 
-private fun triggerHapticFeedback(vibrator: Vibrator?, type: HapticType) {
-    if (vibrator == null || !vibrator.hasVibrator()) return
+private fun triggerHapticFeedback(vibrator: Vibrator?, type: HapticType, enabled: Boolean = true) {
+    if (!enabled || vibrator == null || !vibrator.hasVibrator()) return
     
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         val effect = when (type) {

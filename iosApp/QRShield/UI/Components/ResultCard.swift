@@ -24,10 +24,12 @@
 // - iOS 17+ symbol effects
 
 import SwiftUI
+#if os(iOS)
 
 /// Animated result card with Liquid Glass design and verdict-specific theming
 struct ResultCard: View {
     let assessment: RiskAssessmentMock
+    var onTap: (() -> Void)? = nil
     
     @State private var isAppearing = false
     @State private var showingFullFlags = false
@@ -136,10 +138,13 @@ struct ResultCard: View {
                     .foregroundColor(themeColor)
                     .contentTransition(.numericText())
                 
-                Text("Risk Score: \(assessment.score)/100")
+                Text(String(format: NSLocalizedString("result.risk_score", comment: "Risk score"), assessment.score))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text(assessment.verdict.rawValue))
+            .accessibilityValue(Text(String(format: NSLocalizedString("result.risk_score_label", comment: "Risk score label"), assessment.score)))
             
             Spacer()
             
@@ -151,7 +156,7 @@ struct ResultCard: View {
                     .foregroundColor(.white)
                     .contentTransition(.numericText())
                 
-                Text("Confidence")
+                Text(NSLocalizedString("result.confidence", comment: "Confidence"))
                     .font(.caption2)
                     .foregroundColor(.textMuted)
             }
@@ -196,6 +201,9 @@ struct ResultCard: View {
             }
         }
         .frame(height: 10)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text(NSLocalizedString("result.risk_score_label", comment: "Risk score label")))
+        .accessibilityValue(Text("\(assessment.score) / 100"))
     }
     
     // MARK: - Flags Section
@@ -223,6 +231,9 @@ struct ResultCard: View {
                     insertion: .move(edge: .top).combined(with: .opacity),
                     removal: .opacity
                 ))
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(Text(NSLocalizedString("result.flags_title", comment: "Flags")))
+                .accessibilityValue(Text(flag))
             }
             
             if assessment.flags.count > 3 {
@@ -232,7 +243,10 @@ struct ResultCard: View {
                     }
                 } label: {
                     HStack {
-                        Text(showingFullFlags ? "Show less" : "Show \(assessment.flags.count - 3) more...")
+                        Text(showingFullFlags
+                             ? NSLocalizedString("result.show_less", comment: "Show less")
+                             : String(format: NSLocalizedString("result.show_more", comment: "Show more"), assessment.flags.count - 3)
+                        )
                             .font(.caption)
                             .foregroundColor(.brandPrimary)
                         
@@ -269,11 +283,14 @@ struct ResultCard: View {
     // MARK: - Action Button (Liquid Glass iOS 17+)
     
     private var actionButton: some View {
-        Button(action: {}) {
+        Button(action: {
+            onTap?()
+            SettingsManager.shared.triggerHaptic(.light)
+        }) {
             HStack(spacing: 8) {
                 Image(systemName: "doc.text.magnifyingglass")
                     .symbolEffect(.bounce, value: isAppearing)
-                Text("View Full Analysis")
+                Text(NSLocalizedString("result.view_full_analysis", comment: "View full analysis"))
             }
             .font(.subheadline.weight(.semibold))
             .foregroundColor(.white)
@@ -298,59 +315,8 @@ struct ResultCard: View {
             .shadow(color: themeColor.opacity(0.4), radius: 8, y: 4)
         }
         .sensoryFeedback(.impact(weight: .light), trigger: isAppearing)
+        .accessibilityLabel(Text(NSLocalizedString("result.view_full_analysis", comment: "View full analysis")))
     }
 }
 
-// MARK: - Preview
-
-#Preview("Safe Result") {
-    ZStack {
-        LiquidGlassBackground()
-            .ignoresSafeArea()
-        
-        ResultCard(assessment: RiskAssessmentMock(
-            score: 15,
-            verdict: .safe,
-            flags: [],
-            confidence: 0.92,
-            url: "https://google.com/search?q=hello",
-            scannedAt: Date()
-        ))
-    }
-}
-
-#Preview("Malicious Result - Danger Mode") {
-    ZStack {
-        Color.black.ignoresSafeArea()
-        
-        ResultCard(assessment: RiskAssessmentMock(
-            score: 92,
-            verdict: .malicious,
-            flags: [
-                "Known phishing domain",
-                "Suspicious URL pattern",
-                "IP address instead of domain",
-                "HTTP instead of HTTPS"
-            ],
-            confidence: 0.95,
-            url: "https://g00gle-secure.com/login",
-            scannedAt: Date()
-        ))
-    }
-}
-
-#Preview("Warning Result") {
-    ZStack {
-        LiquidGlassBackground()
-            .ignoresSafeArea()
-        
-        ResultCard(assessment: RiskAssessmentMock(
-            score: 55,
-            verdict: .suspicious,
-            flags: ["HTTP instead of HTTPS"],
-            confidence: 0.78,
-            url: "http://example.com/login",
-            scannedAt: Date()
-        ))
-    }
-}
+#endif

@@ -20,12 +20,14 @@
 // Provides persistent storage for scan history using UserDefaults.
 // Respects the "saveHistory" user preference.
 
+#if os(iOS)
 import Foundation
 import SwiftUI
 
 // MARK: - History Store
 
 /// Singleton manager for scan history persistence
+@available(iOS 17, *)
 @Observable
 @MainActor
 final class HistoryStore {
@@ -166,8 +168,12 @@ final class HistoryStore {
     
     private func loadHistory() {
         guard let data = UserDefaults.standard.data(forKey: storageKey) else {
-            // Load mock data on first run
+            // For production, start with an empty history. In DEBUG builds we seed mock data.
+            #if DEBUG
             loadMockData()
+            #else
+            items = []
+            #endif
             return
         }
         
@@ -180,7 +186,11 @@ final class HistoryStore {
             print("📋 Loaded \(items.count) history items")
             #endif
         } else {
+            #if DEBUG
             loadMockData()
+            #else
+            items = []
+            #endif
         }
     }
     
@@ -205,3 +215,5 @@ final class HistoryStore {
         saveHistory()
     }
 }
+
+#endif

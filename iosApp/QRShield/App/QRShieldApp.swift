@@ -23,7 +23,9 @@
 // - Scene phase handling
 // - User preference support
 
+#if os(iOS)
 import SwiftUI
+import UIKit
 
 @main
 struct QRShieldApp: App {
@@ -148,7 +150,7 @@ struct ContentView: View {
                 ScannerView()
             }
             .tabItem {
-                Label("Scan", systemImage: selectedTab == 0 ? "qrcode.viewfinder" : "qrcode")
+                Label(NSLocalizedString("tab.scan", comment: "Scan"), systemImage: selectedTab == 0 ? "qrcode.viewfinder" : "qrcode")
             }
             .tag(0)
             
@@ -157,7 +159,7 @@ struct ContentView: View {
                 HistoryView()
             }
             .tabItem {
-                Label("History", systemImage: selectedTab == 1 ? "clock.fill" : "clock")
+                Label(NSLocalizedString("tab.history", comment: "History"), systemImage: selectedTab == 1 ? "clock.fill" : "clock")
             }
             .tag(1)
             
@@ -166,7 +168,7 @@ struct ContentView: View {
                 SettingsView()
             }
             .tabItem {
-                Label("Settings", systemImage: selectedTab == 2 ? "gearshape.fill" : "gearshape")
+                Label(NSLocalizedString("tab.settings", comment: "Settings"), systemImage: selectedTab == 2 ? "gearshape.fill" : "gearshape")
             }
             .tag(2)
         }
@@ -181,30 +183,4 @@ struct ContentView: View {
     }
 }
 
-// MARK: - App Shortcuts (iOS 17+ Ready)
-
-/*
- iOS 17+ App Shortcuts can be added here for Siri integration:
- 
- @AppShortcutsProvider
- struct QRShieldShortcuts: AppShortcutsProvider {
-     static var appShortcuts: [AppShortcut] {
-         AppShortcut(
-             intent: ScanQRCodeIntent(),
-             phrases: ["Scan a QR code with \(.applicationName)"],
-             shortTitle: "Scan QR",
-             systemImageName: "qrcode.viewfinder"
-         )
-     }
- }
- */
-
-// MARK: - Preview
-
-#Preview("Main App") {
-    ContentView()
-}
-
-#Preview("Onboarding") {
-    OnboardingView(isComplete: .constant(false))
-}
+#endif

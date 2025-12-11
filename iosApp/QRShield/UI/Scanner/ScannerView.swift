@@ -25,6 +25,7 @@
 
 import SwiftUI
 import AVFoundation
+#if os(iOS)
 
 struct ScannerView: View {
     // iOS 17+: Use StateObject pattern with @Observable
@@ -36,6 +37,7 @@ struct ScannerView: View {
     
     // Settings
     @AppStorage("autoScan") private var autoScan = true
+    @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
     
     // Environment
     @Environment(\.scenePhase) private var scenePhase
@@ -81,6 +83,12 @@ struct ScannerView: View {
             if viewModel.cameraPermissionStatus == .denied || viewModel.cameraPermissionStatus == .notDetermined {
                 permissionDeniedOverlay
             }
+
+            // 5. Error Banner
+            if let error = viewModel.errorMessage {
+                errorBanner(error)
+                    .transition(.move(edge: .top).combined(with: .opacity))
+            }
         }
         .sheet(isPresented: $showDetails) {
             if let result = viewModel.currentResult {
@@ -95,8 +103,9 @@ struct ScannerView: View {
             ImagePicker(onImagePicked: viewModel.analyzeImage)
         }
         .onAppear {
-            // Only auto-start scanning if setting is enabled
-            if autoScan {
+            // ViewModel handles auto-start in checkCameraPermission -> autoStartIfNeeded
+            // Only start if already authorized and autoScan is enabled; otherwise wait for permission
+            if ScannerViewModel.shared.cameraPermissionStatus == .authorized && autoScan {
                 viewModel.startCamera()
             }
         }
@@ -104,17 +113,27 @@ struct ScannerView: View {
             viewModel.stopCamera()
         }
         .onChange(of: scenePhase) { oldValue, newValue in
-            // Recheck permission when app becomes active
-            if newValue == .active {
-                Task {
-                    await viewModel.checkCameraPermission()
-                }
+            switch newValue {
+            case .active:
+                // Re-check permission when coming from background
+                Task { await viewModel.checkCameraPermission() }
+            case .inactive, .background:
+                viewModel.stopCamera()
+            @unknown default:
+                break
+            }
+        }
+        .onChange(of: autoScan) { _, newValue in
+            if newValue && viewModel.cameraPermissionStatus == .authorized {
+                viewModel.startCamera()
+            } else if !newValue {
+                viewModel.stopCamera()
             }
         }
         // iOS 17+: Toolbar with glass styling
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Text("Scans: \(viewModel.scanCount)")
+                Text(String(format: NSLocalizedString("scanner.scans_count", comment: "Scan count"), viewModel.scanCount))
                     .font(.caption)
                     .foregroundColor(.textSecondary)
                     .padding(.horizontal, 12)
@@ -123,39 +142,108 @@ struct ScannerView: View {
             }
         }
     }
+
+    // MARK: - Error Banner
+
+    private func errorBanner(_ message: String) -> some View {
+        VStack {
+            HStack(spacing: 12) {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.verdictWarning)
+                Text(message)
+                    .font(.footnote)
+                    .foregroundColor(.textPrimary)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                Spacer(minLength: 8)
+                Button {
+                    withAnimation {
+                        viewModel.errorMessage = nil
+                    }
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.textMuted)
+                }
+                .accessibilityLabel(Text(NSLocalizedString("error.dismiss", comment: "Dismiss error")))
+            }
+            .padding(12)
+            .background(.ultraThinMaterial, in: Capsule())
+            .padding(.horizontal, 16)
+            .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
+
+            Spacer()
+        }
+        .padding(.top, 20)
+    }
     
     // MARK: - Liquid Glass Overlay (iOS 17+)
     
     private var liquidGlassOverlay: some View {
-        TimelineView(.animation) { timeline in
-            let time = timeline.date.timeIntervalSinceReferenceDate
-            let animate = viewModel.isScanning
-            
-            ZStack {
-                // Top gradient - Liquid Glass style with gentle movement
+        Group {
+            if liquidGlassReduced {
+                // Simplified static gradient when effects are reduced
                 LinearGradient(
-                    gradient: Gradient(stops: [
-                        .init(color: Color.black.opacity(0.8), location: 0),
-                        .init(color: Color.black.opacity(0.3), location: 0.3 + (animate ? sin(time * 0.5) * 0.05 : 0)),
-                        .init(color: Color.clear, location: 0.5 + (animate ? cos(time * 0.5) * 0.05 : 0))
-                    ]),
+                    colors: [
+                        Color.black.opacity(0.75),
+                        Color.black.opacity(0.4),
+                        Color.clear
+                    ],
                     startPoint: .top,
-                    endPoint: .center
-                )
-                
-                // Bottom gradient with phase shift
-                LinearGradient(
-                    gradient: Gradient(stops: [
-                        .init(color: Color.clear, location: 0.5),
-                        .init(color: Color.black.opacity(0.5), location: 0.7 - (animate ? cos(time * 0.4) * 0.05 : 0)),
-                        .init(color: Color.black.opacity(0.9), location: 1.0)
-                    ]),
-                    startPoint: .center,
                     endPoint: .bottom
                 )
+            } else if viewModel.isScanning {
+                // Animated overlay ONLY when actively scanning (performance optimization)
+                TimelineView(.animation(minimumInterval: 1.0/30.0)) { timeline in
+                    let time = timeline.date.timeIntervalSinceReferenceDate
+                    
+                    ZStack {
+                        LinearGradient(
+                            gradient: Gradient(stops: [
+                                .init(color: Color.black.opacity(0.8), location: 0),
+                                .init(color: Color.black.opacity(0.3), location: 0.3 + sin(time * 0.5) * 0.05),
+                                .init(color: Color.clear, location: 0.5 + cos(time * 0.5) * 0.05)
+                            ]),
+                            startPoint: .top,
+                            endPoint: .center
+                        )
+                        
+                        LinearGradient(
+                            gradient: Gradient(stops: [
+                                .init(color: Color.clear, location: 0.5),
+                                .init(color: Color.black.opacity(0.5), location: 0.7 - cos(time * 0.4) * 0.05),
+                                .init(color: Color.black.opacity(0.9), location: 1.0)
+                            ]),
+                            startPoint: .center,
+                            endPoint: .bottom
+                        )
+                    }
+                }
+            } else {
+                // Static overlay when paused (no animation overhead)
+                ZStack {
+                    LinearGradient(
+                        gradient: Gradient(stops: [
+                            .init(color: Color.black.opacity(0.8), location: 0),
+                            .init(color: Color.black.opacity(0.3), location: 0.3),
+                            .init(color: Color.clear, location: 0.5)
+                        ]),
+                        startPoint: .top,
+                        endPoint: .center
+                    )
+                    
+                    LinearGradient(
+                        gradient: Gradient(stops: [
+                            .init(color: Color.clear, location: 0.5),
+                            .init(color: Color.black.opacity(0.5), location: 0.7),
+                            .init(color: Color.black.opacity(0.9), location: 1.0)
+                        ]),
+                        startPoint: .center,
+                        endPoint: .bottom
+                    )
+                }
             }
-            .ignoresSafeArea()
         }
+        .ignoresSafeArea()
     }
     
     // MARK: - Header Bar (Liquid Glass iOS 17+)
@@ -171,7 +259,7 @@ struct ScannerView: View {
                     .font(.title2)
                     .symbolEffect(.pulse, isActive: viewModel.isScanning)
                 
-                Text("QR-SHIELD")
+                Text(NSLocalizedString("scanner.brand", comment: "App name"))
                     .font(.system(.headline, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -186,7 +274,7 @@ struct ScannerView: View {
                     .frame(width: 8, height: 8)
                     .shadow(color: viewModel.isScanning ? .verdictSafe.opacity(0.5) : .clear, radius: 4)
                 
-                Text(viewModel.isScanning ? "Scanning" : "Paused")
+                Text(viewModel.isScanning ? NSLocalizedString("scanner.status_scanning", comment: "Scanning") : NSLocalizedString("scanner.status_paused", comment: "Paused"))
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
@@ -205,6 +293,7 @@ struct ScannerView: View {
             }
             .frame(width: 44, height: 44)
             .background(.ultraThinMaterial, in: Circle())
+            .accessibilityLabel(Text(viewModel.isFlashOn ? NSLocalizedString("scanner.flash_on", comment: "Flash on") : NSLocalizedString("scanner.flash_off", comment: "Flash off")))
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -217,7 +306,7 @@ struct ScannerView: View {
     private var centerContent: some View {
         if let result = viewModel.currentResult {
             // Show Result Card with Liquid Glass
-            ResultCard(assessment: result)
+            ResultCard(assessment: result, onTap: { showDetails = true })
                 .transition(.asymmetric(
                     insertion: .scale(scale: 0.9).combined(with: .opacity),
                     removal: .scale(scale: 0.95).combined(with: .opacity)
@@ -227,17 +316,27 @@ struct ScannerView: View {
                     Button {
                         showDetails = true
                     } label: {
-                        Label("View Details", systemImage: "doc.text.magnifyingglass")
+                        Label(
+                            NSLocalizedString("scanner.view_details", comment: "View details"),
+                            systemImage: "doc.text.magnifyingglass"
+                        )
                     }
                     
                     Button {
                         UIPasteboard.general.string = result.url
+                        SettingsManager.shared.triggerHaptic(.success)
                     } label: {
-                        Label("Copy URL", systemImage: "doc.on.doc")
+                        Label(
+                            NSLocalizedString("scanner.copy_url", comment: "Copy URL"),
+                            systemImage: "doc.on.doc"
+                        )
                     }
                     
                     ShareLink(item: result.url) {
-                        Label("Share", systemImage: "square.and.arrow.up")
+                        Label(
+                            NSLocalizedString("scanner.share", comment: "Share"),
+                            systemImage: "square.and.arrow.up"
+                        )
                     }
                     
                     Divider()
@@ -245,7 +344,10 @@ struct ScannerView: View {
                     Button(role: .destructive) {
                         viewModel.dismissResult()
                     } label: {
-                        Label("Dismiss", systemImage: "xmark")
+                        Label(
+                            NSLocalizedString("scanner.dismiss", comment: "Dismiss"),
+                            systemImage: "xmark"
+                        )
                     }
                 }
         } else if viewModel.isAnalyzing {
@@ -255,7 +357,7 @@ struct ScannerView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: .brandPrimary))
                     .scaleEffect(1.5)
                 
-                Text("Analyzing...")
+                Text(NSLocalizedString("scanner.analyzing", comment: "Analyzing"))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
@@ -280,17 +382,19 @@ struct ScannerView: View {
     private var scanningIndicator: some View {
         ZStack {
             // Outer glow rings with optimized animation
-            ForEach(0..<3, id: \.self) { i in
-                Circle()
-                    .stroke(Color.brandPrimary.opacity(0.2 - Double(i) * 0.05), lineWidth: 2)
-                    .frame(width: CGFloat(280 + i * 20), height: CGFloat(280 + i * 20))
-                    .scaleEffect(viewModel.isScanning ? 1.1 : 1.0)
-                    .animation(
-                        .easeInOut(duration: 1.5 + Double(i) * 0.2)
-                        .repeatForever(autoreverses: true)
-                        .delay(Double(i) * 0.1),
-                        value: viewModel.isScanning
-                    )
+            if !liquidGlassReduced {
+                ForEach(0..<3, id: \.self) { i in
+                    Circle()
+                        .stroke(Color.brandPrimary.opacity(0.2 - Double(i) * 0.05), lineWidth: 2)
+                        .frame(width: CGFloat(280 + i * 20), height: CGFloat(280 + i * 20))
+                        .scaleEffect(viewModel.isScanning ? 1.1 : 1.0)
+                        .animation(
+                            .easeInOut(duration: 1.5 + Double(i) * 0.2)
+                            .repeatForever(autoreverses: true)
+                            .delay(Double(i) * 0.1),
+                            value: viewModel.isScanning
+                        )
+                }
             }
             
             // Main circle with Liquid Glass effect
@@ -314,6 +418,8 @@ struct ScannerView: View {
                         )
                 }
                 .shadow(color: .brandPrimary.opacity(0.3), radius: 20)
+                .accessibilityLabel(Text(NSLocalizedString("scanner.point_at_qr", comment: "Point at QR")))
+                .accessibilityHint(Text(NSLocalizedString("scanner.scan_toggle", comment: "Toggle scanning")))
             
             // Corner markers
             RoundedRectangle(cornerRadius: 4)
@@ -334,7 +440,7 @@ struct ScannerView: View {
                 .symbolEffect(.variableColor.iterative, isActive: viewModel.isScanning)
             
             // Scan text
-            Text("Point at QR Code")
+            Text(NSLocalizedString("scanner.point_at_qr", comment: "Point at QR"))
                 .font(.caption)
                 .fontWeight(.medium)
                 .foregroundColor(.textMuted)
@@ -349,10 +455,11 @@ struct ScannerView: View {
             // Gallery Button
             ControlButton(
                 icon: "photo.on.rectangle",
-                label: "Gallery"
+                label: NSLocalizedString("scanner.gallery", comment: "Gallery")
             ) {
                 showGalleryPicker = true
             }
+            .accessibilityLabel(Text(NSLocalizedString("scanner.gallery", comment: "Gallery")))
             
             // Main Scan Button with Liquid Glass
             Button(action: viewModel.toggleScanning) {
@@ -385,6 +492,7 @@ struct ScannerView: View {
                 }
                 .shadow(color: .brandPrimary.opacity(0.4), radius: 15)
             }
+            .accessibilityLabel(Text(NSLocalizedString("scanner.scan_toggle", comment: "Toggle scanning")))
     
             
             // History Button
@@ -396,11 +504,12 @@ struct ScannerView: View {
                         .frame(width: 50, height: 50)
                         .background(.ultraThinMaterial, in: Circle())
                     
-                    Text("History")
+                    Text(NSLocalizedString("scanner.history", comment: "History"))
                         .font(.caption2)
                         .foregroundColor(.textSecondary)
                 }
             }
+            .accessibilityLabel(Text(NSLocalizedString("scanner.open_history", comment: "Open history")))
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 20)
@@ -416,17 +525,17 @@ struct ScannerView: View {
                 .foregroundColor(.textMuted)
                 .symbolEffect(.pulse)
             
-            Text("Camera Access Required")
+            Text(NSLocalizedString("camera.access_required", comment: "Camera Access Required"))
                 .font(.title2.weight(.semibold))
                 .foregroundColor(.textPrimary)
             
-            Text("QR-SHIELD needs access to your camera to scan QR codes.")
+            Text(NSLocalizedString("camera.access_message", comment: "Camera access message"))
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
             
-            InteractiveGlassButton("Open Settings", icon: "gear") {
+            InteractiveGlassButton(NSLocalizedString("camera.open_settings", comment: "Open Settings"), icon: "gear") {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url)
                 }
@@ -503,8 +612,4 @@ struct CornerMask: Shape {
     }
 }
 
-#Preview {
-    NavigationStack {
-        ScannerView()
-    }
-}
+#endif

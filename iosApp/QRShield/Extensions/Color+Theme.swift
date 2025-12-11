@@ -23,6 +23,7 @@
 // - Liquid Glass styling
 
 import SwiftUI
+#if os(iOS)
 
 // MARK: - Brand Colors
 
@@ -298,29 +299,8 @@ struct InteractiveGlassButton: View {
             .shadow(color: color.opacity(0.4), radius: 10, y: 4)
         }
         .sensoryFeedback(.impact(weight: .medium), trigger: tapCount)
+        .accessibilityLabel(Text(title))
     }
 }
 
-// MARK: - Preview
-
-#Preview("Design System") {
-    VStack(spacing: 20) {
-        Text("QR-SHIELD")
-            .font(.largeTitle.bold())
-            .foregroundStyle(LinearGradient.brandGradient)
-        
-        HStack(spacing: 16) {
-            Circle().fill(Color.verdictSafe).frame(width: 40)
-            Circle().fill(Color.verdictWarning).frame(width: 40)
-            Circle().fill(Color.verdictDanger).frame(width: 40)
-        }
-        
-        Text("Liquid Glass Card")
-            .padding()
-            .liquidGlass()
-        
-        InteractiveGlassButton("Get Started", icon: "arrow.right") {}
-    }
-    .padding()
-    .liquidGlassBackground()
-}
+#endif

@@ -16,19 +16,20 @@
 
 package com.qrshield.desktop
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.*
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -42,36 +43,44 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import com.qrshield.core.PhishingEngine
 import com.qrshield.model.Verdict
+import kotlinx.coroutines.delay
 import java.io.File
 import java.util.Properties
 
 // ============================================
-// QR-SHIELD DESIGN SYSTEM
+// QR-SHIELD DESIGN SYSTEM - ENHANCED
 // ============================================
 
 // Brand Colors
 private val BrandPrimary = Color(0xFF7F52FF)  // Kotlin Purple
 private val BrandSecondary = Color(0xFFA78BFA)
 private val BrandAccent = Color(0xFF00D9FF)
+private val BrandGradientStart = Color(0xFF7F52FF)
+private val BrandGradientEnd = Color(0xFFE879F9)
 
 // Verdict Colors
 private val VerdictSafe = Color(0xFF22C55E)      // Green
 private val VerdictSuspicious = Color(0xFFF59E0B) // Amber
 private val VerdictMalicious = Color(0xFFEF4444)  // Red
+private val VerdictUnknown = Color(0xFF9CA3AF)    // Gray
 
-// Dark Theme Colors
-private val DarkBackground = Color(0xFF0F0F0F)
-private val DarkSurface = Color(0xFF1A1A1A)
-private val DarkSurfaceVariant = Color(0xFF262626)
-private val DarkTextPrimary = Color(0xFFFFFFFF)
-private val DarkTextSecondary = Color(0xFFB3B3B3)
+// Dark Theme Colors - Refined
+private val DarkBackground = Color(0xFF0A0A0B)
+private val DarkSurface = Color(0xFF141416)
+private val DarkSurfaceElevated = Color(0xFF1C1C1F)
+private val DarkSurfaceVariant = Color(0xFF262629)
+private val DarkTextPrimary = Color(0xFFFAFAFA)
+private val DarkTextSecondary = Color(0xFFA1A1AA)
+private val DarkBorder = Color(0xFF27272A)
 
-// Light Theme Colors  
-private val LightBackground = Color(0xFFF8F9FA)
+// Light Theme Colors - Refined
+private val LightBackground = Color(0xFFFAFAFB)
 private val LightSurface = Color(0xFFFFFFFF)
-private val LightSurfaceVariant = Color(0xFFF0F0F0)
-private val LightTextPrimary = Color(0xFF1A1A1A)
-private val LightTextSecondary = Color(0xFF4A4A4A)
+private val LightSurfaceElevated = Color(0xFFF4F4F5)
+private val LightSurfaceVariant = Color(0xFFE4E4E7)
+private val LightTextPrimary = Color(0xFF18181B)
+private val LightTextSecondary = Color(0xFF52525B)
+private val LightBorder = Color(0xFFE4E4E7)
 
 // Custom Color Schemes
 private val QRShieldDarkColors = darkColorScheme(
@@ -84,6 +93,7 @@ private val QRShieldDarkColors = darkColorScheme(
     onBackground = DarkTextPrimary,
     onSurface = DarkTextPrimary,
     onSurfaceVariant = DarkTextSecondary,
+    outline = DarkBorder,
     error = VerdictMalicious
 )
 
@@ -97,6 +107,7 @@ private val QRShieldLightColors = lightColorScheme(
     onBackground = LightTextPrimary,
     onSurface = LightTextPrimary,
     onSurfaceVariant = LightTextSecondary,
+    outline = LightBorder,
     error = VerdictMalicious
 )
 
@@ -111,7 +122,8 @@ private val QRShieldLightColors = lightColorScheme(
  * - Dark/Light theme toggle with persistence
  * - Window size/position persistence
  * - Cross-platform preferences storage
- * - Modern Material 3 design
+ * - Modern Material 3 design with animations
+ * - Glassmorphism effects
  */
 fun main() = application {
     val prefs = WindowPreferences.load()
@@ -147,8 +159,8 @@ fun main() = application {
  */
 object WindowPreferences {
     private const val PREFS_FILE = "qrshield_window.properties"
-    private const val DEFAULT_WIDTH = 460
-    private const val DEFAULT_HEIGHT = 820
+    private const val DEFAULT_WIDTH = 480
+    private const val DEFAULT_HEIGHT = 860
     
     data class Prefs(
         val width: Int,
@@ -217,11 +229,13 @@ object WindowPreferences {
 fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var isDarkMode by remember { mutableStateOf(initialDarkMode) }
     
-    // Simple phishing engine for desktop - direct usage
+    // Phishing engine
     val phishingEngine = remember { PhishingEngine() }
     
     var urlInput by remember { mutableStateOf("") }
     var analysisResult by remember { mutableStateOf<AnalysisResult?>(null) }
+    var isAnalyzing by remember { mutableStateOf(false) }
+    var scanHistory by remember { mutableStateOf<List<AnalysisResult>>(emptyList()) }
     
     MaterialTheme(
         colorScheme = if (isDarkMode) QRShieldDarkColors else QRShieldLightColors
@@ -234,7 +248,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                 modifier = Modifier.fillMaxSize()
             ) {
                 // Top App Bar with gradient
-                TopAppBar(
+                EnhancedTopAppBar(
                     isDarkMode = isDarkMode,
                     onThemeToggle = { isDarkMode = !isDarkMode }
                 )
@@ -246,40 +260,77 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                         .verticalScroll(rememberScrollState())
                         .padding(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                    verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    // Hero Section
-                    HeroSection()
+                    // Hero Section with animated shield
+                    AnimatedHeroSection()
+                    
+                    // Stats Row
+                    StatsRow(scanCount = scanHistory.size)
                     
                     // Scanner Card
-                    ScannerCard(
+                    EnhancedScannerCard(
                         urlInput = urlInput,
                         onUrlChange = { urlInput = it },
+                        isAnalyzing = isAnalyzing,
                         onAnalyze = {
                             if (urlInput.isNotBlank()) {
+                                isAnalyzing = true
                                 val assessment = phishingEngine.analyze(urlInput)
-                                analysisResult = AnalysisResult(
+                                val result = AnalysisResult(
                                     url = urlInput,
                                     score = assessment.score,
                                     verdict = assessment.verdict,
-                                    flags = assessment.flags
+                                    flags = assessment.flags,
+                                    timestamp = System.currentTimeMillis()
                                 )
+                                analysisResult = result
+                                scanHistory = listOf(result) + scanHistory.take(9)
+                                isAnalyzing = false
                             }
                         }
                     )
                     
+                    // Quick Actions
+                    QuickActionsRow(
+                        onPasteFromClipboard = {
+                            // In a real app, implement clipboard access
+                        },
+                        onClearInput = { 
+                            urlInput = ""
+                            analysisResult = null
+                        }
+                    )
+                    
                     // Results
-                    analysisResult?.let { result ->
-                        ResultCard(result = result)
+                    AnimatedVisibility(
+                        visible = analysisResult != null,
+                        enter = fadeIn() + slideInVertically { -40 },
+                        exit = fadeOut() + slideOutVertically { -40 }
+                    ) {
+                        analysisResult?.let { result ->
+                            EnhancedResultCard(result = result, isDarkMode = isDarkMode)
+                        }
                     }
                     
-                    Spacer(modifier = Modifier.height(8.dp))
-                    
                     // Features Grid
-                    FeaturesGrid()
+                    EnhancedFeaturesGrid()
+                    
+                    // Recent Scans
+                    if (scanHistory.isNotEmpty()) {
+                        RecentScansSection(
+                            scans = scanHistory,
+                            onScanClick = { result ->
+                                urlInput = result.url
+                                analysisResult = result
+                            }
+                        )
+                    }
+                    
+                    Spacer(modifier = Modifier.height(12.dp))
                     
                     // Footer
-                    Footer()
+                    EnhancedFooter()
                 }
             }
         }
@@ -287,7 +338,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
 }
 
 @Composable
-private fun TopAppBar(
+private fun EnhancedTopAppBar(
     isDarkMode: Boolean,
     onThemeToggle: () -> Unit
 ) {
@@ -296,10 +347,10 @@ private fun TopAppBar(
             .fillMaxWidth()
             .background(
                 Brush.horizontalGradient(
-                    colors = listOf(BrandPrimary, BrandSecondary)
+                    colors = listOf(BrandGradientStart, BrandGradientEnd)
                 )
             )
-            .padding(horizontal = 20.dp, vertical = 12.dp)
+            .padding(horizontal = 20.dp, vertical = 16.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -308,55 +359,113 @@ private fun TopAppBar(
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Text(
-                    text = "🛡️",
-                    fontSize = 24.sp
-                )
-                Text(
-                    text = "QR-SHIELD",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
-                )
+                // Animated Shield Icon
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(CircleShape)
+                        .background(Color.White.copy(alpha = 0.2f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "🛡️",
+                        fontSize = 22.sp
+                    )
+                }
+                
+                Column {
+                    Text(
+                        text = "QR-SHIELD",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                    Text(
+                        text = "QRishing Detector",
+                        color = Color.White.copy(alpha = 0.8f),
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
             
             // Theme Toggle Button
-            Button(
+            Surface(
                 onClick = onThemeToggle,
-                modifier = Modifier.height(36.dp),
-                shape = RoundedCornerShape(18.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White.copy(alpha = 0.2f)
-                ),
-                contentPadding = PaddingValues(horizontal = 12.dp)
+                modifier = Modifier.height(40.dp),
+                shape = RoundedCornerShape(20.dp),
+                color = Color.White.copy(alpha = 0.15f)
             ) {
-                Text(
-                    text = if (isDarkMode) "☀️ Light" else "🌙 Dark",
-                    color = Color.White,
-                    fontSize = 12.sp
-                )
+                Row(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = if (isDarkMode) "☀️" else "🌙",
+                        fontSize = 16.sp
+                    )
+                    Text(
+                        text = if (isDarkMode) "Light" else "Dark",
+                        color = Color.White,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun HeroSection() {
+private fun AnimatedHeroSection() {
+    val infiniteTransition = rememberInfiniteTransition(label = "hero")
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.05f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = EaseInOutSine),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "scale"
+    )
+    
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        Box(
+            modifier = Modifier
+                .size((64 * scale).dp)
+                .clip(CircleShape)
+                .background(
+                    Brush.radialGradient(
+                        colors = listOf(
+                            BrandPrimary.copy(alpha = 0.3f),
+                            BrandPrimary.copy(alpha = 0.1f),
+                            Color.Transparent
+                        )
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "🛡️",
+                fontSize = 36.sp
+            )
+        }
+        
         Text(
-            text = "QRishing Detector",
-            style = MaterialTheme.typography.headlineMedium,
+            text = "Scan URLs Safely",
+            style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
         
         Text(
-            text = "Scan URLs safely with AI-powered phishing detection",
+            text = "AI-powered phishing detection • 100% offline",
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
@@ -365,38 +474,117 @@ private fun HeroSection() {
 }
 
 @Composable
-private fun ScannerCard(
+private fun StatsRow(scanCount: Int) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        StatCard(
+            value = "25+",
+            label = "Heuristics",
+            icon = "🔍",
+            modifier = Modifier.weight(1f)
+        )
+        StatCard(
+            value = "${scanCount}",
+            label = "Scans",
+            icon = "📊",
+            modifier = Modifier.weight(1f)
+        )
+        StatCard(
+            value = "100%",
+            label = "Offline",
+            icon = "🔒",
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+private fun StatCard(
+    value: String,
+    label: String,
+    icon: String,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.7f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text(text = icon, fontSize = 20.sp)
+            Text(
+                text = value,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = BrandPrimary
+            )
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+@Composable
+private fun EnhancedScannerCard(
     urlInput: String,
     onUrlChange: (String) -> Unit,
+    isAnalyzing: Boolean,
     onAnalyze: () -> Unit
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(8.dp, RoundedCornerShape(20.dp)),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
     ) {
         Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = Modifier.padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             // Input Label
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Text(
-                    text = "🔗",
-                    fontSize = 20.sp
-                )
-                Text(
-                    text = "Enter URL to analyze",
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
+                Box(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(BrandPrimary.copy(alpha = 0.1f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "🔗",
+                        fontSize = 18.sp
+                    )
+                }
+                Column {
+                    Text(
+                        text = "URL to Analyze",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = "Paste or type any URL to check for phishing",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
             }
             
             // URL Input
@@ -406,41 +594,58 @@ private fun ScannerCard(
                 placeholder = { 
                     Text(
                         "https://example.com",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(14.dp),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = BrandPrimary,
-                    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+                    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                    focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
                 )
             )
             
             // Analyze Button
             Button(
                 onClick = onAnalyze,
-                enabled = urlInput.isNotBlank(),
-                modifier = Modifier.fillMaxWidth().height(48.dp),
-                shape = RoundedCornerShape(12.dp),
+                enabled = urlInput.isNotBlank() && !isAnalyzing,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(52.dp),
+                shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = BrandPrimary,
                     disabledContainerColor = BrandPrimary.copy(alpha = 0.5f)
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 4.dp,
+                    pressedElevation = 8.dp
                 )
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "🔍",
-                        fontSize = 18.sp
+                if (isAnalyzing) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = Color.White,
+                        strokeWidth = 2.dp
                     )
-                    Text(
-                        text = "Analyze URL",
-                        fontWeight = FontWeight.SemiBold
-                    )
+                } else {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "🔍",
+                            fontSize = 18.sp
+                        )
+                        Text(
+                            text = "Analyze URL",
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 15.sp
+                        )
+                    }
                 }
             }
         }
@@ -448,124 +653,228 @@ private fun ScannerCard(
 }
 
 @Composable
-private fun ResultCard(result: AnalysisResult) {
+private fun QuickActionsRow(
+    onPasteFromClipboard: () -> Unit,
+    onClearInput: () -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        OutlinedButton(
+            onClick = onPasteFromClipboard,
+            modifier = Modifier.weight(1f).height(44.dp),
+            shape = RoundedCornerShape(12.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("📋", fontSize = 14.sp)
+                Text("Paste", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+            }
+        }
+        
+        OutlinedButton(
+            onClick = onClearInput,
+            modifier = Modifier.weight(1f).height(44.dp),
+            shape = RoundedCornerShape(12.dp),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text("🗑️", fontSize = 14.sp)
+                Text("Clear", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+            }
+        }
+    }
+}
+
+@Composable
+private fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
     val verdictColor = when (result.verdict) {
         Verdict.SAFE -> VerdictSafe
         Verdict.SUSPICIOUS -> VerdictSuspicious
         Verdict.MALICIOUS -> VerdictMalicious
-        Verdict.UNKNOWN -> MaterialTheme.colorScheme.outline
+        Verdict.UNKNOWN -> VerdictUnknown
     }
     
     val verdictEmoji = when (result.verdict) {
         Verdict.SAFE -> "✅"
         Verdict.SUSPICIOUS -> "⚠️"
-        Verdict.MALICIOUS -> "❌"
+        Verdict.MALICIOUS -> "🚫"
         Verdict.UNKNOWN -> "❓"
+    }
+    
+    val verdictMessage = when (result.verdict) {
+        Verdict.SAFE -> "This URL appears to be safe"
+        Verdict.SUSPICIOUS -> "This URL has some suspicious indicators"
+        Verdict.MALICIOUS -> "This URL is likely malicious - do not visit!"
+        Verdict.UNKNOWN -> "Unable to determine safety level"
     }
     
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .border(
-                width = 2.dp,
-                color = verdictColor.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(16.dp)
-            ),
-        shape = RoundedCornerShape(16.dp),
+            .shadow(12.dp, RoundedCornerShape(24.dp)),
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = verdictColor.copy(alpha = 0.1f)
-        )
+            containerColor = if (isDarkMode) 
+                verdictColor.copy(alpha = 0.08f) 
+            else 
+                verdictColor.copy(alpha = 0.06f)
+        ),
+        border = BorderStroke(2.dp, verdictColor.copy(alpha = 0.4f))
     ) {
         Column(
-            modifier = Modifier.padding(24.dp),
+            modifier = Modifier.padding(28.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             // Verdict Icon
             Box(
                 modifier = Modifier
-                    .size(80.dp)
+                    .size(88.dp)
                     .clip(CircleShape)
-                    .background(verdictColor.copy(alpha = 0.2f)),
+                    .background(
+                        Brush.radialGradient(
+                            colors = listOf(
+                                verdictColor.copy(alpha = 0.3f),
+                                verdictColor.copy(alpha = 0.1f)
+                            )
+                        )
+                    )
+                    .border(3.dp, verdictColor.copy(alpha = 0.5f), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = verdictEmoji,
-                    fontSize = 40.sp
+                    fontSize = 44.sp
                 )
             }
             
-            // Score
-            Text(
-                text = result.score.toString(),
-                style = MaterialTheme.typography.displayLarge,
-                fontWeight = FontWeight.Bold,
-                color = verdictColor
-            )
-            
-            // Risk Score Label
-            Text(
-                text = "Risk Score",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            // Score with circular progress
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = result.score.toString(),
+                    style = MaterialTheme.typography.displayMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = verdictColor
+                )
+                
+                Text(
+                    text = "Risk Score",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                
+                // Score Bar
+                Box(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .height(8.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(result.score / 100f)
+                            .clip(RoundedCornerShape(4.dp))
+                            .background(
+                                Brush.horizontalGradient(
+                                    colors = listOf(verdictColor, verdictColor.copy(alpha = 0.7f))
+                                )
+                            )
+                    )
+                }
+            }
             
             // Verdict Badge
             Surface(
                 color = verdictColor,
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(24.dp),
+                shadowElevation = 4.dp
             ) {
                 Text(
                     text = result.verdict.name,
-                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 8.dp),
+                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 10.dp),
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.labelLarge
                 )
             }
             
-            // URL
+            // Verdict Message
             Text(
-                text = result.url,
-                style = MaterialTheme.typography.bodySmall,
+                text = verdictMessage,
+                style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+                textAlign = TextAlign.Center
             )
+            
+            // URL
+            Surface(
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+            ) {
+                Text(
+                    text = result.url,
+                    modifier = Modifier.padding(12.dp),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
             
             // Flags
             if (result.flags.isNotEmpty()) {
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 8.dp),
-                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
                 )
                 
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = "Risk Factors Detected:",
+                        text = "⚠️ Risk Factors Detected",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     
                     result.flags.forEach { flag ->
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = VerdictSuspicious.copy(alpha = 0.1f),
+                            border = BorderStroke(1.dp, VerdictSuspicious.copy(alpha = 0.3f))
                         ) {
-                            Text(
-                                text = "⚠️",
-                                fontSize = 14.sp
-                            )
-                            Text(
-                                text = flag,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
+                            Row(
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "•",
+                                    fontSize = 16.sp,
+                                    color = VerdictSuspicious
+                                )
+                                Text(
+                                    text = flag,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
                         }
                     }
                 }
@@ -575,29 +884,31 @@ private fun ResultCard(result: AnalysisResult) {
 }
 
 @Composable
-private fun FeaturesGrid() {
+private fun EnhancedFeaturesGrid() {
     Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Powered by",
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            text = "Detection Capabilities",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
         )
         
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            FeatureChip(
+            FeatureCard(
                 icon = "🔍",
-                title = "25+ Heuristics",
+                title = "Heuristics",
+                description = "25+ detection rules",
                 modifier = Modifier.weight(1f)
             )
-            FeatureChip(
+            FeatureCard(
                 icon = "🤖",
-                title = "ML Scoring",
+                title = "ML Model",
+                description = "AI-powered scoring",
                 modifier = Modifier.weight(1f)
             )
         }
@@ -606,14 +917,16 @@ private fun FeaturesGrid() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            FeatureChip(
+            FeatureCard(
                 icon = "🏷️",
-                title = "Brand Detection",
+                title = "Brand Check",
+                description = "Typosquat detection",
                 modifier = Modifier.weight(1f)
             )
-            FeatureChip(
-                icon = "🔒",
-                title = "100% Offline",
+            FeatureCard(
+                icon = "🌐",
+                title = "TLD Analysis",
+                description = "Risk domain scoring",
                 modifier = Modifier.weight(1f)
             )
         }
@@ -621,26 +934,37 @@ private fun FeaturesGrid() {
 }
 
 @Composable
-private fun FeatureChip(
+private fun FeatureCard(
     icon: String,
     title: String,
+    description: String,
     modifier: Modifier = Modifier
 ) {
     Surface(
         modifier = modifier,
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
     ) {
-        Row(
-            modifier = Modifier.padding(12.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = icon, fontSize = 16.sp)
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(text = icon, fontSize = 20.sp)
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
             Text(
-                text = title,
+                text = description,
                 style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -648,20 +972,122 @@ private fun FeatureChip(
 }
 
 @Composable
-private fun Footer() {
+private fun RecentScansSection(
+    scans: List<AnalysisResult>,
+    onScanClick: (AnalysisResult) -> Unit
+) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
-            text = "Built with Kotlin Multiplatform",
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+            text = "Recent Scans",
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
         )
+        
+        scans.take(5).forEach { scan ->
+            RecentScanItem(scan = scan, onClick = { onScanClick(scan) })
+        }
+    }
+}
+
+@Composable
+private fun RecentScanItem(
+    scan: AnalysisResult,
+    onClick: () -> Unit
+) {
+    val verdictColor = when (scan.verdict) {
+        Verdict.SAFE -> VerdictSafe
+        Verdict.SUSPICIOUS -> VerdictSuspicious
+        Verdict.MALICIOUS -> VerdictMalicious
+        Verdict.UNKNOWN -> VerdictUnknown
+    }
+    
+    Surface(
+        onClick = onClick,
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Verdict indicator
+            Box(
+                modifier = Modifier
+                    .size(8.dp)
+                    .clip(CircleShape)
+                    .background(verdictColor)
+            )
+            
+            // URL
+            Text(
+                text = scan.url,
+                modifier = Modifier.weight(1f),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            
+            // Score badge
+            Surface(
+                shape = RoundedCornerShape(6.dp),
+                color = verdictColor.copy(alpha = 0.15f)
+            ) {
+                Text(
+                    text = "${scan.score}",
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = verdictColor
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EnhancedFooter() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 8.dp),
+            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+        )
+        
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Built with",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+            )
+            Text(
+                text = "💜",
+                fontSize = 14.sp
+            )
+            Text(
+                text = "Kotlin Multiplatform",
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Medium,
+                color = BrandPrimary
+            )
+        }
+        
         Text(
-            text = "🛡️ QR-SHIELD v1.0.0",
+            text = "🛡️ QR-SHIELD v1.0.0 • Desktop Edition",
             style = MaterialTheme.typography.labelSmall,
-            color = BrandPrimary
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
         )
     }
 }
@@ -670,5 +1096,6 @@ data class AnalysisResult(
     val url: String,
     val score: Int,
     val verdict: Verdict,
-    val flags: List<String>
+    val flags: List<String>,
+    val timestamp: Long = System.currentTimeMillis()
 )

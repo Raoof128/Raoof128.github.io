@@ -20,6 +20,7 @@
 // Provides a centralized way to access user preferences throughout the app.
 // All settings are persisted via UserDefaults through @AppStorage.
 
+#if os(iOS)
 import Foundation
 import SwiftUI
 import AVFoundation
@@ -28,6 +29,7 @@ import AVFoundation
 
 /// Singleton manager for app-wide settings access
 /// Uses @Observable for SwiftUI integration
+@available(iOS 17, *)
 @Observable
 @MainActor
 final class SettingsManager {
@@ -167,7 +169,9 @@ final class SettingsManager {
         do {
             return try await center.requestAuthorization(options: [.alert, .badge, .sound])
         } catch {
+            #if DEBUG
             print("❌ Failed to request notification permission: \(error)")
+            #endif
             return false
         }
     }
@@ -200,7 +204,9 @@ final class SettingsManager {
         do {
             try await UNUserNotificationCenter.current().add(request)
         } catch {
+            #if DEBUG
             print("❌ Failed to send notification: \(error)")
+            #endif
         }
     }
 }
@@ -230,3 +236,4 @@ enum SoundType {
 
 import AudioToolbox
 import UserNotifications
+#endif

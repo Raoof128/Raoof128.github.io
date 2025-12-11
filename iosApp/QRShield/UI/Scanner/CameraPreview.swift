@@ -24,6 +24,7 @@
 
 import SwiftUI
 import AVFoundation
+#if os(iOS)
 
 // MARK: - Camera Preview (SwiftUI Wrapper)
 
@@ -60,7 +61,8 @@ struct CameraPreview: UIViewRepresentable {
 // MARK: - Camera Preview View (UIKit)
 
 /// The underlying UIView that holds the AVCaptureVideoPreviewLayer
-@MainActor
+/// Note: Do NOT use @MainActor here - UIKit views in UIViewRepresentable
+/// must allow AVFoundation to update the preview layer from its capture queues
 final class CameraPreviewView: UIView {
     
     // MARK: - Properties
@@ -145,7 +147,10 @@ final class CameraPreviewView: UIView {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.updateVideoRotation()
+            // UIView methods are MainActor isolated, so call on main
+            Task { @MainActor in
+                self?.updateVideoRotation()
+            }
         }
     }
     
@@ -206,13 +211,9 @@ final class CameraPreviewView: UIView {
         session = nil
     }
     
-    nonisolated private func cleanupOnDeinit() {
-        // deinit cleanup happens synchronously
-        // NotificationCenter observer is removed automatically
-    }
-    
     deinit {
-        cleanupOnDeinit()
+        // NotificationCenter observer is removed automatically when the object deallocates
+        // previewLayer cleanup is handled by ARC
     }
 }
 
@@ -366,3 +367,5 @@ struct MockCameraPreview: View {
         ScanningOverlay(isScanning: false, verdict: .safe)
     }
 }
+
+#endif
