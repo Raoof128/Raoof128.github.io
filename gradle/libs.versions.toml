@@ -7,6 +7,7 @@ coroutines = "1.8.0"
 sqldelight = "2.0.1"
 koin = "3.5.3"
 datetime = "0.5.0"
+kover = "0.7.5"
 camerax = "1.4.0"
 navigation = "2.7.7"
 lifecycle = "2.7.0"
@@ -87,3 +88,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 baselineprofile = { id = "androidx.baselineprofile", version = "1.2.4" }
+kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+

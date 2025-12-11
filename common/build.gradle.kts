@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose)
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.kover)
 }
 
 // SQLDelight configuration
