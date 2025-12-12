@@ -32,10 +32,17 @@ kotlin {
         }
     }
     
-    // iOS targets
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    // iOS targets with framework export
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "common"
+            isStatic = true
+        }
+    }
     
     // JS/Web target
     js(IR) {

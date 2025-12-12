@@ -78,3 +78,6 @@ iosApp/.swiftpm/
 kotlin-js-store/
 app_running*.png
 releases/
+
+# iOS Frameworks (built locally)
+iosApp/Frameworks/
