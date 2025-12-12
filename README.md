@@ -29,6 +29,16 @@
 <a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
 <a href="#-demo-video"><img src="https://img.shields.io/badge/🎬_Watch_Demo-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video"></a>
 
+### 📥 Download Now
+
+<a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest/download/QRShield-release.apk"><img src="https://img.shields.io/badge/Android-Download_APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download Android APK"></a>
+<a href="https://testflight.apple.com/join/XXXXXXXX"><img src="https://img.shields.io/badge/iOS-TestFlight_Beta-0D96F6?style=for-the-badge&logo=apple&logoColor=white" alt="TestFlight Beta"></a>
+<a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest"><img src="https://img.shields.io/badge/Desktop-Download_JAR-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Download Desktop"></a>
+<a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/Web-Try_Online-F7DF1E?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Web Demo"></a>
+
+[![Latest Release](https://img.shields.io/github/v/release/Raoof128/QDKMP-KotlinConf-2026-?style=flat-square&label=Latest%20Release&color=success)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest)
+[![GitHub Downloads](https://img.shields.io/github/downloads/Raoof128/QDKMP-KotlinConf-2026-/total?style=flat-square&label=Downloads&color=blue)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases)
+
 [Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
 </div>
@@ -37,6 +47,7 @@
 
 ## 📋 Table of Contents
 
+- [Download](#-download-now)
 - [The Problem](#-the-problem-qrishing-is-exploding)
 - [Features](#-features)
 - [Architecture](#-architecture)
@@ -460,6 +471,8 @@ Final Score = (
 | [Compliance](docs/COMPLIANCE.md) | ACSC, Privacy Act, ISO mapping |
 | [Competition Pitch](docs/PITCH.md) | Presentation materials |
 | [Demo Script](docs/DEMO_SCRIPT.md) | Video storyboard |
+| [TestFlight Setup](docs/TESTFLIGHT_SETUP.md) | iOS beta testing configuration |
+| [App Store Review](iosApp/APP_STORE_REVIEW.md) | iOS App Store submission guide |
 | [Changelog](CHANGELOG.md) | Version history |
 | [Security Policy](SECURITY.md) | Vulnerability reporting |
 | [Contributing](CONTRIBUTING.md) | Contribution guidelines |

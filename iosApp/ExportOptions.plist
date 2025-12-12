@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Export method for App Store / TestFlight -->
+    <key>method</key>
+    <string>app-store</string>
+    
+    <!-- Your Apple Developer Team ID (replace with actual) -->
+    <key>teamID</key>
+    <string>TEAM_ID_HERE</string>
+    
+    <!-- Bitcode is deprecated in Xcode 14+ -->
+    <key>uploadBitcode</key>
+    <false/>
+    
+    <!-- Include dSYM symbols for crash reporting -->
+    <key>uploadSymbols</key>
+    <true/>
+    
+    <!-- Destination for the export -->
+    <key>destination</key>
+    <string>upload</string>
+    
+    <!-- Signing style -->
+    <key>signingStyle</key>
+    <string>manual</string>
+    
+    <!-- Signing certificate name -->
+    <key>signingCertificate</key>
+    <string>Apple Distribution</string>
+    
+    <!-- Provisioning profiles by bundle ID -->
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.qrshield.ios</key>
+        <string>QRShield AppStore Profile</string>
+    </dict>
+</dict>
+</plist>

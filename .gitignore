@@ -56,7 +56,10 @@ venv/
 # Secrets
 *.keystore
 *.jks
+*.p12
 secrets.properties
+keystore.properties
+google-play.json
 
 # Coverage
 *.exec
@@ -74,3 +77,4 @@ iosApp/.build/
 iosApp/.swiftpm/
 kotlin-js-store/
 app_running*.png
+releases/

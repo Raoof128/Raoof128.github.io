@@ -286,38 +286,86 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Build debug APK (unsigned for demo)
-      run: ./gradlew :androidApp:assembleDebug --no-daemon
+    - name: Decode Keystore (if available)
+      if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'release-keystore.jks'
+        fileDir: './androidApp'
+        encodedString: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+
+    - name: Create keystore.properties (if available)
+      if: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+      run: |
+        echo "storeFile=release-keystore.jks" > keystore.properties
+        echo "storePassword=${{ secrets.KEYSTORE_PASSWORD }}" >> keystore.properties
+        echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> keystore.properties
+        echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> keystore.properties
+
+    - name: Build Release APK (signed if keystore available)
+      run: ./gradlew :androidApp:assembleRelease --no-daemon
 
     - name: Build Desktop JAR
       run: ./gradlew :desktopApp:packageUberJarForCurrentOS --no-daemon
 
+    - name: Get version from tag
+      id: get_version
+      run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
     - name: Rename artifacts for release
       run: |
-        mv androidApp/build/outputs/apk/debug/androidApp-debug.apk qrshield-android-debug.apk || true
-        mv desktopApp/build/compose/jars/*.jar qrshield-desktop.jar || true
+        VERSION=${{ steps.get_version.outputs.version }}
+        mkdir -p release-artifacts
+        
+        # Copy APK (release if signed, debug if not)
+        if [ -f "androidApp/build/outputs/apk/release/androidApp-release.apk" ]; then
+          cp androidApp/build/outputs/apk/release/androidApp-release.apk release-artifacts/QRShield-${VERSION}-release.apk
+        else
+          cp androidApp/build/outputs/apk/debug/androidApp-debug.apk release-artifacts/QRShield-${VERSION}-debug.apk
+        fi
+        
+        # Copy Desktop JAR
+        cp desktopApp/build/compose/jars/*.jar release-artifacts/QRShield-${VERSION}-desktop.jar || true
 
     - name: Create GitHub Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
-        files: |
-          qrshield-android-debug.apk
-          qrshield-desktop.jar
+        files: release-artifacts/*
         generate_release_notes: true
         body: |
-          ## QR-SHIELD Release ${{ github.ref_name }}
+          ## 🛡️ QR-SHIELD ${{ github.ref_name }}
           
-          ### 📱 Download
-          - **Android**: Download `qrshield-android-debug.apk` and install
-          - **Desktop**: Download `qrshield-desktop.jar` and run with `java -jar qrshield-desktop.jar`
+          **Protect yourself from QRishing attacks with intelligent QR code scanning.**
           
-          ### 🌐 Web Demo
-          Try the web version at: https://raoof128.github.io/QDKMP-KotlinConf-2026-/
+          ---
           
-          ### 🛡️ Features
-          - 25+ security heuristics
-          - ML-powered phishing detection
-          - Brand impersonation detection
-          - 100% offline, privacy-first
+          ### 📥 Downloads
+          
+          | Platform | Download | Requirements |
+          |----------|----------|--------------|
+          | **Android** | [📱 Download APK](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/QRShield-${{ steps.get_version.outputs.version }}-release.apk) | Android 8.0+ (API 26) |
+          | **iOS** | [🍎 TestFlight Beta](https://testflight.apple.com/join/XXXXXXXX) | iOS 17.0+ |
+          | **Desktop** | [🖥️ Download JAR](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/QRShield-${{ steps.get_version.outputs.version }}-desktop.jar) | JRE 17+ |
+          | **Web** | [🌐 Try Online](https://raoof128.github.io/QDKMP-KotlinConf-2026-/) | Modern browser |
+          
+          ---
+          
+          ### 🚀 Installation
+          
+          **Android:** Download the APK and enable "Install from unknown sources" in Settings.
+          
+          **iOS:** Install TestFlight from App Store, then click the TestFlight link above.
+          
+          **Desktop:** Run with `java -jar QRShield-${{ steps.get_version.outputs.version }}-desktop.jar`
+          
+          ---
+          
+          ### ✨ Features
+          - 🔍 25+ security heuristics
+          - 🤖 ML-powered phishing detection
+          - 🏢 Brand impersonation detection (500+ brands)
+          - 🔒 100% offline, privacy-first
+          - 🌍 Cross-platform (Android, iOS, Desktop, Web)
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
