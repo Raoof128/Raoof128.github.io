@@ -20,6 +20,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - QR Scanner modal with camera overlay
   - Scan history with localStorage persistence
 - **Contest Compliance** section in README with git history proof
+- **Redirect Chain Simulator** (NEW WOW Feature)
+  - Offline redirect pattern detection
+  - Detects URL shorteners (bit.ly, t.co, goo.gl, etc.)
+  - Detects embedded URLs in query parameters
+  - Detects double URL encoding (obfuscation)
+  - Identifies tracking/analytics redirects
+  - 30 comprehensive test cases
+- **Coroutines & Flow Best Practices** documentation
+- **Test Coverage (Kover)** documentation with badge
+- **Performance Benchmarks** section with detailed metrics
+- **Accuracy & Sanity Checks** section with real test results
 
 ### Changed
 - **Desktop App Refactoring** (reduced from 1102 lines to ~190 lines)
@@ -32,12 +43,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Build now skips JS test compilation (backtick test names incompatible)
 - **Updated all copyright headers to 2025-2026** for contest compliance
 - LICENSE file updated to 2025-2026
+- **ESSAY.md expanded** (594 → 1,150 words) with more personal narrative
+- **README.md** updated with 115+ lines of new documentation
 
 ### Fixed
 - Cross-platform test compilation for iOS/Native targets
   - Replaced `String.format()` with platform-agnostic `formatDouble()` helper
   - Renamed test function to avoid `@` symbol in test names (breaks iOS/Native)
   - Performance benchmarks now compile on all platforms
+- **Web App UI Fixes**
+  - Fixed 'warnings not appearing' bug (CSS `display: none` issue)
+  - Fixed broken GitHub link in header
+  - Replaced emoji placeholder with actual logo SVG
+- **Web App Security Fixes**
+  - Fixed XSS vulnerability in history URL display
+  - Fixed XSS vulnerability in risk flags rendering
+  - Added `escapeHtml()` utility function
+- **Web App Technical Fixes**
+  - Added favicon link (`assets/logo.svg`)
+  - Added PWA manifest link
+  - Fixed button reset to use Material Icons consistently
+  - Improved toast notification styling
 
 ---
 
