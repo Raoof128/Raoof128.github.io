@@ -424,12 +424,42 @@ cd QDKMP-KotlinConf-2026-
 
 The app will appear on your home screen and work like a native app!
 
-> **For Developers:** To build the native iOS app locally:
-> ```bash
-> cd iosApp
-> open QRShield.xcodeproj
-> # Build and run in Xcode (requires Xcode 15+)
-> ```
+### 🍎 iOS Native App (For Judges)
+
+**QR-SHIELD includes a complete native iOS SwiftUI app that calls Kotlin code via KMP framework.**
+
+#### Quick Start (Xcode Simulator)
+
+```bash
+# Step 1: Build the KMP iOS framework
+./gradlew :common:linkDebugFrameworkIosSimulatorArm64
+
+# Step 2: Open in Xcode
+open iosApp/QRShield.xcodeproj
+
+# Step 3: Select iPhone 16 Pro simulator and press ⌘+R
+```
+
+#### What's Included
+
+| File | Purpose |
+|------|---------|
+| `KMPBridge.swift` | Calls `HeuristicsEngine.analyze()` from Kotlin |
+| `KMPDemoView.swift` | Demo view showing KMP integration in action |
+| `QRShieldApp.swift` | SwiftUI @main App with TabView navigation |
+| `build_framework.sh` | Script to build and copy KMP framework |
+
+#### Judge Criteria Met ✅
+
+| Requirement | Status |
+|-------------|--------|
+| iOS target exists | ✅ Native SwiftUI app in `iosApp/` |
+| Shared Kotlin code reused | ✅ `HeuristicsEngine` called via `common.framework` |
+| SwiftUI lifecycle present | ✅ `@main`, `@StateObject`, `NavigationStack` |
+| Runs in Simulator | ✅ iOS 17+ Simulator compatible |
+| No App Store deployment | ✅ Debug build only, no paid account needed |
+
+> **📖 Full iOS Setup Guide:** See [iosApp/README.md](iosApp/README.md) for detailed instructions.
 
 ---
 
