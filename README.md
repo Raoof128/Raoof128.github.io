@@ -247,6 +247,41 @@ class BrandDetector {
 | **TLD** | High-risk TLDs (.tk, .ml, .ga) | 20-40 |
 | **Extension** | Risky files (.exe, .scr), double extension | 40 |
 
+### 🔗 Redirect Chain Simulator (NEW)
+
+Detects **redirect chain patterns** without making network requests.
+
+```kotlin
+// RedirectChainSimulator.kt - Offline redirect detection
+class RedirectChainSimulator {
+    
+    fun analyze(url: String): RedirectAnalysis {
+        // Detects:
+        // 1. URL shorteners (bit.ly, t.co, goo.gl, etc.)
+        // 2. Embedded URLs in query params (?redirect=https://...)
+        // 3. Double encoding (%252F = /)
+        // 4. Known tracking redirects
+    }
+}
+
+// Example output:
+// Chain: [Initial] → [bit.ly] → [Tracker] → [Unknown Destination]
+// Warnings: "⚠️ URL shortener detected - destination hidden"
+```
+
+**Why This Matters:** Phishers use redirect chains to:
+- Evade URL blocklists (each hop is different)
+- Track victim engagement
+- Rotate destinations to avoid detection
+
+**QR-SHIELD Detection:**
+| Pattern | Example | Detection |
+|---------|---------|-----------|
+| Shortener | `bit.ly/abc123` | +15 score |
+| Embedded URL | `?redirect=https://victim.com` | +20 score |
+| Double encoding | `%252F%252F` | +15 score |
+| Tracker | `track.email.com/click` | +5 score |
+
 ---
 
 ## 🔧 What Makes This NOT a Template
