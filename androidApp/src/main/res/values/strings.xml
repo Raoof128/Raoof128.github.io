@@ -98,4 +98,24 @@
     <string name="cd_close_scanner">Close scanner</string>
     <string name="cd_toggle_flash">Toggle flashlight</string>
     <string name="cd_scan_result">Scan result showing verdict and risk score</string>
+    <string name="cd_scan_button">Start scanning for QR codes</string>
+    <string name="cd_gallery_button">Select QR code image from photo gallery</string>
+    <string name="cd_copy_button">Copy URL to clipboard</string>
+    <string name="cd_share_button">Share URL</string>
+    <string name="cd_open_url">Open URL in browser</string>
+    <string name="cd_delete_item">Delete this scan from history</string>
+    <string name="cd_clear_history">Clear all scan history</string>
+    <string name="cd_search_history">Search scan history</string>
+    <string name="cd_filter_safe">Show only safe scans</string>
+    <string name="cd_filter_suspicious">Show only suspicious scans</string>
+    <string name="cd_filter_malicious">Show only malicious scans</string>
+    <string name="cd_history_item">Scan history item</string>
+    <string name="cd_settings_toggle">Toggle setting</string>
+    <string name="cd_back_button">Go back</string>
+    <string name="cd_processing">Processing, please wait</string>
+    <string name="cd_safe_verdict">URL is safe to visit</string>
+    <string name="cd_suspicious_verdict">URL is suspicious, proceed with caution</string>
+    <string name="cd_malicious_verdict">Warning, URL appears to be malicious phishing attempt</string>
+    <string name="cd_risk_score">Risk score out of 100</string>
 </resources>
+

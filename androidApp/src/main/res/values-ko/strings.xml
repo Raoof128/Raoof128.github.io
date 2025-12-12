@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">QR 코드 스캔. 피싱 탐지.</string>
+    
+    <!-- Navigation -->
+    <string name="nav_scan">스캔</string>
+    <string name="nav_history">히스토리</string>
+    <string name="nav_settings">설정</string>
+    
+    <!-- Scanner Screen -->
+    <string name="start_scanning">스캔 시작</string>
+    <string name="scan_from_gallery">갤러리에서 스캔</string>
+    <string name="scan_instruction">프레임 안에 QR 코드를 맞추세요</string>
+    <string name="analyzing_url">URL 분석 중…</string>
+    <string name="scans_in_history">히스토리에 %d개의 스캔</string>
+    
+    <!-- Results -->
+    <string name="risk_score">위험 점수</string>
+    <string name="scanned_url">스캔된 URL</string>
+    <string name="copy">복사</string>
+    <string name="risk_factors">위험 요소</string>
+    <string name="done">완료</string>
+    <string name="scan_another">다른 것 스캔</string>
+    <string name="safe_verdict">안전</string>
+    <string name="suspicious_verdict">의심스러움</string>
+    <string name="malicious_verdict">악성</string>
+    
+    <!-- Recommendations -->
+    <string name="recommendation_safe">이 URL은 안전해 보입니다. 안심하고 진행하세요.</string>
+    <string name="recommendation_suspicious">이 URL에 주의하세요. 진행하기 전에 출처를 확인하세요.</string>
+    <string name="recommendation_malicious">⛔ 경고: 이 URL은 피싱의 징후를 보입니다. 개인 정보를 입력하지 마세요.</string>
+    <string name="recommendation_unknown">이 URL을 완전히 확인할 수 없습니다. 주의해서 진행하세요.</string>
+    
+    <!-- History Screen -->
+    <string name="search_placeholder">URL 검색…</string>
+    <string name="clear_history_title">모든 히스토리 삭제?</string>
+    <string name="clear_history_message">이 작업은 취소할 수 없습니다. 모든 스캔 히스토리가 영구적으로 삭제됩니다.</string>
+    <string name="clear_all">모두 삭제</string>
+    <string name="cancel">취소</string>
+    <string name="delete">삭제</string>
+    <string name="delete_item_title">이 스캔 삭제?</string>
+    <string name="delete_item_message">이 항목이 히스토리에서 제거됩니다.</string>
+    <string name="copy_url">URL 복사</string>
+    <string name="no_history">스캔 히스토리 없음</string>
+    <string name="scan_to_see_history">스캔 결과가 여기에 표시됩니다</string>
+    <string name="no_results">결과 없음</string>
+    <string name="try_different_filter">다른 필터나 검색어를 시도하세요</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_scanning">스캔</string>
+    <string name="settings_auto_scan">앱 실행 시 자동 스캔</string>
+    <string name="settings_auto_scan_desc">앱을 열면 즉시 스캔 시작</string>
+    <string name="settings_haptic">진동 피드백</string>
+    <string name="settings_haptic_desc">스캔 결과에 진동</string>
+    <string name="settings_sound">사운드 효과</string>
+    <string name="settings_sound_desc">알림음 재생</string>
+    
+    <string name="settings_notifications">알림</string>
+    <string name="settings_security_alerts">보안 알림</string>
+    <string name="settings_security_alerts_desc">보안 위협에 대한 알림 받기</string>
+    
+    <string name="settings_privacy">개인정보</string>
+    <string name="settings_save_history">스캔 히스토리 저장</string>
+    <string name="settings_save_history_desc">스캔된 URL 기록 유지</string>
+    <string name="settings_privacy_policy">개인정보처리방침</string>
+    <string name="settings_privacy_policy_desc">개인정보 보호 정책 보기</string>
+    
+    <string name="settings_about">정보</string>
+    <string name="settings_version">버전</string>
+    <string name="settings_build">빌드</string>
+    <string name="settings_engine">탐지 엔진</string>
+    <string name="settings_source_code">소스 코드</string>
+    <string name="settings_help">도움말 및 지원</string>
+    <string name="settings_help_desc">문제 신고 또는 도움말 받기</string>
+    
+    <!-- Errors -->
+    <string name="error_title">문제가 발생했습니다</string>
+    <string name="try_again">다시 시도</string>
+    <string name="camera_permission_rationale">QR 코드를 스캔하려면 카메라 접근이 필요합니다</string>
+    <string name="camera_permission_denied">카메라 권한이 거부되었습니다. 설정에서 활성화하세요.</string>
+</resources>

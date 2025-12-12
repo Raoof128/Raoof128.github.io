@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">Escaneie códigos QR. Detecte phishing.</string>
+    
+    <!-- Navigation -->
+    <string name="nav_scan">Escanear</string>
+    <string name="nav_history">Histórico</string>
+    <string name="nav_settings">Configurações</string>
+    
+    <!-- Scanner Screen -->
+    <string name="start_scanning">Iniciar Escaneamento</string>
+    <string name="scan_from_gallery">Escanear da Galeria</string>
+    <string name="scan_instruction">Alinhe o código QR dentro do quadro</string>
+    <string name="analyzing_url">Analisando URL…</string>
+    <string name="scans_in_history">%d escaneamentos no histórico</string>
+    
+    <!-- Results -->
+    <string name="risk_score">Pontuação de Risco</string>
+    <string name="scanned_url">URL Escaneada</string>
+    <string name="copy">Copiar</string>
+    <string name="risk_factors">Fatores de Risco</string>
+    <string name="done">Concluído</string>
+    <string name="scan_another">Escanear Outro</string>
+    <string name="safe_verdict">SEGURO</string>
+    <string name="suspicious_verdict">SUSPEITO</string>
+    <string name="malicious_verdict">MALICIOSO</string>
+    
+    <!-- Recommendations -->
+    <string name="recommendation_safe">Esta URL parece ser segura. Você pode prosseguir com confiança.</string>
+    <string name="recommendation_suspicious">Tenha cuidado com esta URL. Verifique a fonte antes de prosseguir.</string>
+    <string name="recommendation_malicious">⛔ AVISO: Esta URL mostra sinais de phishing. NÃO insira informações pessoais.</string>
+    <string name="recommendation_unknown">Não foi possível verificar completamente esta URL. Prossiga com cautela.</string>
+    
+    <!-- History Screen -->
+    <string name="search_placeholder">Pesquisar URLs…</string>
+    <string name="clear_history_title">Limpar Todo o Histórico?</string>
+    <string name="clear_history_message">Esta ação não pode ser desfeita. Todo o histórico de escaneamentos será excluído permanentemente.</string>
+    <string name="clear_all">Limpar Tudo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="delete">Excluir</string>
+    <string name="delete_item_title">Excluir Este Escaneamento?</string>
+    <string name="delete_item_message">Este item será removido do seu histórico.</string>
+    <string name="copy_url">Copiar URL</string>
+    <string name="no_history">Sem Histórico de Escaneamentos</string>
+    <string name="scan_to_see_history">Seus resultados de escaneamento aparecerão aqui</string>
+    <string name="no_results">Nenhum Resultado Encontrado</string>
+    <string name="try_different_filter">Tente um filtro ou termo de pesquisa diferente</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_scanning">Escaneamento</string>
+    <string name="settings_auto_scan">Escaneamento automático ao abrir</string>
+    <string name="settings_auto_scan_desc">Iniciar escaneamento imediatamente quando o app abrir</string>
+    <string name="settings_haptic">Feedback tátil</string>
+    <string name="settings_haptic_desc">Vibrar nos resultados do escaneamento</string>
+    <string name="settings_sound">Efeitos sonoros</string>
+    <string name="settings_sound_desc">Reproduzir sons para alertas</string>
+    
+    <string name="settings_notifications">Notificações</string>
+    <string name="settings_security_alerts">Alertas de segurança</string>
+    <string name="settings_security_alerts_desc">Receba notificações sobre ameaças de segurança</string>
+    
+    <string name="settings_privacy">Privacidade</string>
+    <string name="settings_save_history">Salvar histórico de escaneamentos</string>
+    <string name="settings_save_history_desc">Manter um registro das URLs escaneadas</string>
+    <string name="settings_privacy_policy">Política de Privacidade</string>
+    <string name="settings_privacy_policy_desc">Veja nossas práticas de privacidade</string>
+    
+    <string name="settings_about">Sobre</string>
+    <string name="settings_version">Versão</string>
+    <string name="settings_build">Build</string>
+    <string name="settings_engine">Motor de Detecção</string>
+    <string name="settings_source_code">Código Fonte</string>
+    <string name="settings_help">Ajuda e Suporte</string>
+    <string name="settings_help_desc">Reporte problemas ou obtenha ajuda</string>
+    
+    <!-- Errors -->
+    <string name="error_title">Algo deu errado</string>
+    <string name="try_again">Tentar Novamente</string>
+    <string name="camera_permission_rationale">Acesso à câmera é necessário para escanear códigos QR</string>
+    <string name="camera_permission_denied">Permissão de câmera negada. Por favor, habilite nas configurações.</string>
+</resources>
