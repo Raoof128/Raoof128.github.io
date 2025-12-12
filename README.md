@@ -22,11 +22,11 @@
 [![Web](https://img.shields.io/badge/Web-JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://kotlinlang.org/docs/js-overview.html)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/QDKMP-KotlinConf-2026-/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/actions)
-[![Coverage](https://img.shields.io/badge/coverage-56%25-yellow?style=for-the-badge&logo=codecov)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-)
+[![Version](https://img.shields.io/badge/Version-1.1.0-green?style=for-the-badge)](CHANGELOG.md)
 
 **Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
 
-<a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
+<a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
 <a href="#-demo-video"><img src="https://img.shields.io/badge/🎬_Watch_Demo-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video"></a>
 
 ### 📥 Download Now
@@ -369,7 +369,7 @@ class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepositor
 
 | Layer | Technology | Purpose |
 |-------|------------|---------|
-| **Language** | Kotlin 2.0.0 | Cross-platform business logic |
+| **Language** | Kotlin 1.9.22 | Cross-platform business logic |
 | **UI Framework** | Compose Multiplatform 1.6.0 | Shared declarative UI |
 | **Async** | Kotlin Coroutines + Flow | Reactive programming |
 | **DI** | Koin Multiplatform | Dependency injection |
@@ -390,14 +390,14 @@ class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepositor
 - **JDK 17+**
 - **Android Studio Hedgehog (2023.1.1)** or IntelliJ IDEA
 - **Xcode 15+** (for iOS)
-- **Kotlin 2.0.0**
+- **Kotlin 1.9.22+**
 
 ### Clone & Build
 
 ```bash
 # Clone the repository
 git clone https://github.com/Raoof128/QDKMP-KotlinConf-2026-.git
-cd qrshield
+cd QDKMP-KotlinConf-2026-
 
 # Build all platforms
 ./gradlew build
