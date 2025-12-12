@@ -2,7 +2,7 @@
 
 ## The Problem That Inspired Me
 
-In 2024, I watched my grandmother nearly fall victim to a QR code scam at a parking meter. She scanned what appeared to be a legitimate payment code, only to land on a convincing phishing page mimicking her bank. That moment crystallized a problem I'd been reading about: **QRishing attacks have increased 587% since 2023**, yet no mainstream solution exists to protect everyday users.
+In early 2025, I watched my grandmother nearly fall victim to a QR code scam at a parking meter. She scanned what appeared to be a legitimate payment code, only to land on a convincing phishing page mimicking her bank. That moment crystallized a problem I'd been reading about: **QRishing attacks have increased 587% since 2023**, yet no mainstream solution exists to protect everyday users.
 
 The irony struck me—we've spent decades teaching people to hover over links before clicking, but QR codes bypass that instinct entirely. 71% of users never verify URLs after scanning. The attack vector is simple, effective, and devastating.
 
@@ -37,10 +37,13 @@ Building a phishing detector that works offline was the core challenge. I develo
 
 | Module | Lines of Code | Shared (%) |
 |--------|---------------|------------|
-| Detection Engine | 2,500+ | 100% |
-| UI Components | 1,200+ | 100% |
-| Platform Adapters | 800 | 0% |
-| **Total** | **4,500+** | **~85%** |
+| Detection Engine (commonMain) | 7,400+ | 100% |
+| Android UI | 5,800+ | 0% |
+| iOS UI (Swift) | 6,400+ | 0% |
+| Desktop/Web UI | 1,700+ | 0% |
+| **Total** | **21,400+** | **~35%** |
+
+*Note: While UI is platform-specific, the business logic (PhishingEngine, HeuristicsEngine, BrandDetector) is 100% shared.*
 
 ## What I Learned
 
