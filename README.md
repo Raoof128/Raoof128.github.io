@@ -486,10 +486,12 @@ ls common/build/bin/iosArm64/releaseFramework/common.framework
 - **Confidence scoring**: Probabilistic risk assessment
 
 ### 🎨 Beautiful Cross-Platform UI
-- **Compose Multiplatform**: Shared UI across all platforms
+- **Hybrid UI Architecture**: Compose (Android/Desktop) + SwiftUI (iOS) + HTML/JS (Web)
 - **Dark/Light themes**: System-aware theming
 - **Accessibility**: Screen reader support, large text
 - **Animations**: Smooth, engaging micro-interactions
+
+> **Why Hybrid UI?** We use **native UI frameworks** per platform (Compose for Android/Desktop, SwiftUI for iOS, HTML/JS for Web) while sharing **100% of the business logic** via KMP. This provides the best native experience on each platform while eliminating code duplication in the detection engine.
 
 ### 🔒 Privacy-First Design
 - **100% offline capable**: No data leaves device
@@ -514,8 +516,8 @@ ls common/build/bin/iosArm64/releaseFramework/common.framework
        └────────────────┴────────────────┴────────────────┘
                                 │
                     ┌───────────▼───────────┐
-                    │   Compose Multiplatform │
-                    │         UI Layer        │
+                    │   Platform UI Layer     │
+                    │  (Compose/SwiftUI/JS)   │
                     └───────────┬───────────┘
                                 │
                   ┌─────────────▼─────────────┐
@@ -722,7 +724,7 @@ class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepositor
 | Layer | Technology | Purpose |
 |-------|------------|---------|
 | **Language** | Kotlin 1.9.22 | Cross-platform business logic |
-| **UI Framework** | Compose Multiplatform 1.6.0 | Shared declarative UI |
+| **UI Framework** | Compose + SwiftUI + HTML | Hybrid UI per platform |
 | **Async** | Kotlin Coroutines + Flow | Reactive programming |
 | **DI** | Koin Multiplatform | Dependency injection |
 | **Networking** | Ktor Client | Optional URL expansion |
