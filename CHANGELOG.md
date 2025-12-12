@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Desktop unit tests (`DesktopAppTest.kt`) with 15+ test cases
 - Desktop component architecture with organized package structure
+- **Web Premium UI Redesign**
+  - Glassmorphism-inspired design system with CSS variables
+  - Dark/Light theme with system-aware toggle
+  - Premium typography (Inter + JetBrains Mono)
+  - Responsive layouts for mobile/tablet/desktop
+  - Modern animations and transitions
+  - Toast notifications for user feedback
+  - QR Scanner modal with camera overlay
+  - Scan history with localStorage persistence
+- **Contest Compliance** section in README with git history proof
 
 ### Changed
 - **Desktop App Refactoring** (reduced from 1102 lines to ~190 lines)
@@ -20,6 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Extracted `components/ScannerComponents.kt` - Scanner-specific components
 - Improved platform compatibility in test suite
 - Build now skips JS test compilation (backtick test names incompatible)
+- **Updated all copyright headers to 2025-2026** for contest compliance
+- LICENSE file updated to 2025-2026
 
 ### Fixed
 - Cross-platform test compilation for iOS/Native targets
@@ -28,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Performance benchmarks now compile on all platforms
 
 ---
+
 
 
 ## [1.1.0] - 2025-12-12

@@ -58,6 +58,7 @@
 - [Testing](#-testing)
 - [Security](#-security)
 - [Contributing](#-contributing)
+- [Contest Compliance](#-contest-compliance)
 - [License](#-license)
 
 ---
@@ -568,6 +569,47 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md).
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+---
+
+## 🏆 Contest Compliance
+
+**Kotlin Student Coding Competition 2025–2026**
+
+This project was created specifically for the **Kotlin Student Coding Competition 2025–2026**.
+
+### ✅ New Work Verification
+
+| Requirement | Proof |
+|-------------|-------|
+| **First Commit** | December 6, 2025 (`d61beda`) |
+| **First Release** | v1.1.0 on December 12, 2025 |
+| **Development Window** | December 2025 – Present |
+| **Copyright** | 2025-2026 QR-SHIELD Contributors |
+
+### 📜 Git History Proof
+
+```bash
+# Earliest commits (run locally to verify)
+$ git log --reverse --oneline | head -5
+d61beda 🛡️ Initial release: QR-SHIELD v1.0.0
+5db1b98 🔧 Add Gradle wrapper
+f3498d8 📦 Add gradle-wrapper.jar
+ffccb81 🔧 Fix CI: Remove chmod steps
+95f2613 🔧 Fix Kotlin version compatibility
+
+# First commit date
+$ git log --reverse --format="%ad" --date=short | head -1
+2025-12-06
+
+# Tagged releases
+$ git tag -l --sort=creatordate
+v1.1.0  # Created: 2025-12-12
+```
+
+### 📋 Statement
+
+> This project is **original work** created during the Kotlin Student Coding Competition 2025–2026 window. All code was written by the project contributors starting December 2025. The repository history demonstrates incremental development with meaningful commits, not a single "dump" import.
 
 ---
 
