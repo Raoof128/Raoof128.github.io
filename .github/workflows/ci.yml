@@ -344,7 +344,7 @@ jobs:
           | Platform | Download | Requirements |
           |----------|----------|--------------|
           | **Android** | [📱 Download APK](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/QRShield-${{ steps.get_version.outputs.version }}-release.apk) | Android 8.0+ (API 26) |
-          | **iOS** | 🍎 Coming Soon | iOS 17.0+ |
+          | **iOS** | [🍎 Use Web App](https://raoof128.github.io/QDKMP-KotlinConf-2026-/) | Safari + Add to Home Screen |
           | **Desktop** | [🖥️ Download JAR](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/QRShield-${{ steps.get_version.outputs.version }}-desktop.jar) | JRE 17+ |
           | **Web** | [🌐 Try Online](https://raoof128.github.io/QDKMP-KotlinConf-2026-/) | Modern browser |
           

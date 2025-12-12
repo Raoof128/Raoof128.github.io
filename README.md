@@ -32,7 +32,7 @@
 ### 📥 Download Now
 
 <a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest/download/QRShield-release.apk"><img src="https://img.shields.io/badge/Android-Download_APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download Android APK"></a>
-<img src="https://img.shields.io/badge/iOS-Coming_Soon-999999?style=for-the-badge&logo=apple&logoColor=white" alt="iOS Coming Soon">
+<a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/iOS-Use_Web_App-0D96F6?style=for-the-badge&logo=apple&logoColor=white" alt="iOS Web App"></a>
 <a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest"><img src="https://img.shields.io/badge/Desktop-Download_JAR-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Download Desktop"></a>
 <a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/Web-Try_Online-F7DF1E?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Web Demo"></a>
 
@@ -411,14 +411,24 @@ cd qrshield
 ./gradlew :webApp:jsBrowserDevelopmentRun
 ```
 
-### iOS Setup
+### iOS Setup (Web App)
 
-```bash
-cd iosApp
-pod install
-open QRShield.xcworkspace
-# Build and run in Xcode
-```
+**No Apple Developer account needed!** iOS users can use the web app:
+
+1. Open Safari on your iPhone/iPad
+2. Navigate to: **https://raoof128.github.io/QDKMP-KotlinConf-2026-/**
+3. Tap the **Share** button (box with arrow)
+4. Scroll down and tap **"Add to Home Screen"**
+5. Name it "QR-SHIELD" and tap **Add**
+
+The app will appear on your home screen and work like a native app!
+
+> **For Developers:** To build the native iOS app locally:
+> ```bash
+> cd iosApp
+> open QRShield.xcodeproj
+> # Build and run in Xcode (requires Xcode 15+)
+> ```
 
 ---
 
