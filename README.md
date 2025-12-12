@@ -328,6 +328,7 @@ class IosQrScanner : QrScanner {
 - 🔒 **Type safety** - Kotlin compiler validates iOS API usage
 ```
 
+
 #### 📱 Swift 6 + SwiftUI iOS App
 
 The iOS host app is built with **Swift 6.0 strict concurrency** and **iOS 26.2 Liquid Glass** design:
@@ -364,7 +365,7 @@ class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepositor
 
 ---
 
-## ️ Technology Stack
+## 🛠️ Technology Stack
 
 | Layer | Technology | Purpose |
 |-------|------------|---------|
@@ -382,7 +383,7 @@ class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepositor
 
 ---
 
-## �🚀 Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -395,7 +396,7 @@ class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepositor
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/qrshield.git
+git clone https://github.com/Raoof128/QDKMP-KotlinConf-2026-.git
 cd qrshield
 
 # Build all platforms
