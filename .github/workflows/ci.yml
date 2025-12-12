@@ -275,7 +275,7 @@ jobs:
 
     - name: Run Detekt static analysis
       run: ./gradlew detekt --no-daemon
-      continue-on-error: true
+      # CI will FAIL if detekt finds style violations
 
     - name: Upload Detekt report
       uses: actions/upload-artifact@v4
