@@ -78,5 +78,5 @@ The QR code isn't going away. Neither are the attackers exploiting it. But with 
 I'm a student developer passionate about cybersecurity and cross-platform development. QR-SHIELD is my submission to the 2025-2026 KotlinConf Student Coding Competition.
 
 - **GitHub:** [github.com/Raoof128](https://github.com/Raoof128)
-- **Project:** [QR-SHIELD](https://github.com/Raoof128/QDKMP-KotlinConf-2026-)
-- **Live Demo:** [raoof128.github.io](https://raoof128.github.io/QDKMP-KotlinConf-2026-/)
+- **Project:** [QR-SHIELD](https://github.com/Raoof128/Raoof128.github.io)
+- **Live Demo:** [raoof128.github.io](https://raoof128.github.io/)

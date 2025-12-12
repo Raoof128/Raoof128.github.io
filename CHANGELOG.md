@@ -117,6 +117,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Release Links
 
-[1.1.0]: https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/tag/v1.1.0
-[1.0.0]: https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/tag/v1.0.0
-[0.1.0]: https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/tag/v0.1.0
+[1.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.0
+[1.0.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.0.0
+[0.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v0.1.0

@@ -36,8 +36,8 @@ We welcome contributions of all kinds—bug reports, feature requests, documenta
 
 2. **Clone your fork:**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/QDKMP-KotlinConf-2026-.git
-   cd QDKMP-KotlinConf-2026-
+   git clone https://github.com/YOUR_USERNAME/Raoof128.github.io.git
+   cd Raoof128.github.io
    ```
 
 3. **Open in Android Studio or IntelliJ IDEA**

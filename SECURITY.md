@@ -104,7 +104,7 @@ We recommend always using the latest version for the best security.
 
 1. **Download from official sources only:**
    - GitHub Releases
-   - https://raoof128.github.io/QDKMP-KotlinConf-2026-/
+   - https://raoof128.github.io/
 
 2. **Keep the app updated** for latest security patches
 
@@ -199,7 +199,7 @@ We thank the following security researchers for their responsible disclosures:
 
 - **Security issues:** security@qrshield.dev
 - **General inquiries:** contributors@qrshield.dev
-- **GitHub:** https://github.com/Raoof128/QDKMP-KotlinConf-2026-
+- **GitHub:** https://github.com/Raoof128/Raoof128.github.io
 
 ---
 

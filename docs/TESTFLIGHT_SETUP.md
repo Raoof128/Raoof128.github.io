@@ -124,8 +124,8 @@ In `Info.plist` or Xcode:
 |-------|-------|
 | **Beta App Description** | QR-SHIELD scans QR codes and detects phishing attempts using advanced heuristic analysis. Help us test before the public release! |
 | **Feedback Email** | beta@qrshield.app |
-| **Marketing URL** | https://github.com/Raoof128/QDKMP-KotlinConf-2026- |
-| **Privacy Policy URL** | https://github.com/Raoof128/QDKMP-KotlinConf-2026-/blob/main/SECURITY.md |
+| **Marketing URL** | https://github.com/Raoof128/Raoof128.github.io |
+| **Privacy Policy URL** | https://github.com/Raoof128/Raoof128.github.io/blob/main/SECURITY.md |
 
 ### 4.4 Get Public TestFlight Link
 

@@ -78,7 +78,7 @@ The app will flag suspicious URLs that contain:
 
 - **Email**: support@qrshield.app
 - **Website**: https://qrshield.app
-- **GitHub**: https://github.com/Raoof128/QDKMP-KotlinConf-2026-
+- **GitHub**: https://github.com/Raoof128/Raoof128.github.io
 
 ## App Store Review Notes
 

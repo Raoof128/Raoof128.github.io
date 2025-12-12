@@ -21,23 +21,23 @@
 [![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.jetbrains.com/lp/compose-multiplatform)
 [![Web](https://img.shields.io/badge/Web-JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://kotlinlang.org/docs/js-overview.html)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/QDKMP-KotlinConf-2026-/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Version](https://img.shields.io/badge/Version-1.1.0-green?style=for-the-badge)](CHANGELOG.md)
 
 **Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
 
-<a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
+<a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
 <a href="#-demo-video"><img src="https://img.shields.io/badge/🎬_Watch_Demo-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video"></a>
 
 ### 📥 Download Now
 
-<a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest/download/QRShield-release.apk"><img src="https://img.shields.io/badge/Android-Download_APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download Android APK"></a>
-<a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/iOS-Use_Web_App-0D96F6?style=for-the-badge&logo=apple&logoColor=white" alt="iOS Web App"></a>
-<a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest"><img src="https://img.shields.io/badge/Desktop-Download_JAR-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Download Desktop"></a>
-<a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/Web-Try_Online-F7DF1E?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Web Demo"></a>
+<a href="https://github.com/Raoof128/Raoof128.github.io/releases/latest/download/QRShield-release.apk"><img src="https://img.shields.io/badge/Android-Download_APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download Android APK"></a>
+<a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/iOS-Use_Web_App-0D96F6?style=for-the-badge&logo=apple&logoColor=white" alt="iOS Web App"></a>
+<a href="https://github.com/Raoof128/Raoof128.github.io/releases/latest"><img src="https://img.shields.io/badge/Desktop-Download_JAR-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Download Desktop"></a>
+<a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/Web-Try_Online-F7DF1E?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Web Demo"></a>
 
-[![Latest Release](https://img.shields.io/github/v/release/Raoof128/QDKMP-KotlinConf-2026-?style=flat-square&label=Latest%20Release&color=success)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest)
-[![GitHub Downloads](https://img.shields.io/github/downloads/Raoof128/QDKMP-KotlinConf-2026-/total?style=flat-square&label=Downloads&color=blue)](https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases)
+[![Latest Release](https://img.shields.io/github/v/release/Raoof128/Raoof128.github.io?style=flat-square&label=Latest%20Release&color=success)](https://github.com/Raoof128/Raoof128.github.io/releases/latest)
+[![GitHub Downloads](https://img.shields.io/github/downloads/Raoof128/Raoof128.github.io/total?style=flat-square&label=Downloads&color=blue)](https://github.com/Raoof128/Raoof128.github.io/releases)
 
 [Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
@@ -396,8 +396,8 @@ class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepositor
 
 ```bash
 # Clone the repository
-git clone https://github.com/Raoof128/QDKMP-KotlinConf-2026-.git
-cd QDKMP-KotlinConf-2026-
+git clone https://github.com/Raoof128/Raoof128.github.io.git
+cd Raoof128.github.io
 
 # Build all platforms
 ./gradlew build
@@ -417,7 +417,7 @@ cd QDKMP-KotlinConf-2026-
 **No Apple Developer account needed!** iOS users can use the web app:
 
 1. Open Safari on your iPhone/iPad
-2. Navigate to: **https://raoof128.github.io/QDKMP-KotlinConf-2026-/**
+2. Navigate to: **https://raoof128.github.io/**
 3. Tap the **Share** button (box with arrow)
 4. Scroll down and tap **"Add to Home Screen"**
 5. Name it "QR-SHIELD" and tap **Add**
