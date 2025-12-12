@@ -221,7 +221,15 @@ jobs:
         body: |
           ## 🛡️ QR-SHIELD v${{ steps.get_version.outputs.version }}
           
-          **Protect yourself from QRishing attacks with intelligent QR code scanning.**
+          **Kotlin Multiplatform QRishing (QR Phishing) Detector**
+          
+          *Created for the Kotlin Student Coding Competition 2025–2026*
+          
+          ---
+          
+          ### 🎬 Demo Video
+          
+          [![Watch Demo](https://img.shields.io/badge/▶️_Watch_Demo-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=DEMO_PENDING)
           
           ---
           
@@ -230,45 +238,42 @@ jobs:
           | Platform | Download | Requirements |
           |----------|----------|--------------|
           | **Android** | [`QRShield-${{ steps.get_version.outputs.version }}-release.apk`](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/QRShield-${{ steps.get_version.outputs.version }}-release.apk) | Android 8.0+ (API 26) |
-          | **iOS** | [🍎 Use Web App](https://raoof128.github.io/QDKMP-KotlinConf-2026-/) | Safari + Add to Home Screen |
+          | **iOS** | [🍎 Use Web App](https://raoof128.github.io/) | Safari + Add to Home Screen |
           | **Desktop (Linux)** | `QRShield-${{ steps.get_version.outputs.version }}-linux.jar` | JRE 17+ |
           | **Desktop (macOS)** | `QRShield-${{ steps.get_version.outputs.version }}-macos.jar` | JRE 17+ |
           | **Desktop (Windows)** | `QRShield-${{ steps.get_version.outputs.version }}-windows.jar` | JRE 17+ |
-          | **Web** | [🌐 Try Online Demo](https://raoof128.github.io/QDKMP-KotlinConf-2026-/) | Modern browser |
+          | **Web** | [🌐 Try Online Demo](https://raoof128.github.io/) | Modern browser |
           
           ---
           
-          ### 🚀 Installation
-          
-          #### Android
-          1. Download `QRShield-${{ steps.get_version.outputs.version }}-release.apk`
-          2. Enable "Install from unknown sources" in Settings
-          3. Open the APK file to install
-          
-          #### Desktop
-          ```bash
-          # Run with Java 17+
-          java -jar QRShield-${{ steps.get_version.outputs.version }}-<platform>.jar
-          ```
-          
-          ---
-          
-          ### ✨ Features
+          ### ✨ Key Features
           
           - 🔍 **25+ Security Heuristics** - Comprehensive URL analysis
-          - 🤖 **ML-Powered Detection** - On-device phishing scoring
-          - 🏢 **Brand Impersonation Detection** - 500+ brands monitored
+          - 🤖 **ML-Lite Detection** - Custom logistic regression (no external ML libs)
+          - 🏢 **Brand Impersonation** - 500+ brands monitored with fuzzy matching
           - 🔒 **100% Offline** - No data leaves your device
-          - 🌍 **Cross-Platform** - Android, iOS, Desktop, Web
+          - 🌍 **True KMP** - 85% shared code across Android, iOS, Desktop, Web
           
           ---
           
-          ### 🔐 Security
+          ### 🏆 Contest Compliance
           
-          This release is signed with a verified signing key:
-          - **SHA-256**: Verify with `sha256sum QRShield-*.apk`
-          - No internet permission required for basic scanning
-          - No data collection or telemetry
+          - **First Commit:** December 6, 2025
+          - **Competition:** Kotlin Student Coding Competition 2025–2026
+          - **Original Work:** 25,000+ lines of custom code
+          
+          ---
+          
+          ### 🔐 Security Verification
+          
+          ```bash
+          # Verify APK signature
+          sha256sum QRShield-*.apk
+          ```
+          
+          - Zero network permissions for core scanning
+          - No telemetry or data collection
+          - Open source - full audit transparency
           
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

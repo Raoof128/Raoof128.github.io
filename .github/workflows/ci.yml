@@ -231,8 +231,11 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Build Web/JS
+    - name: Build Web/JS (Development)
       run: ./gradlew :common:compileKotlinJs --no-daemon
+
+    - name: Build Web App (Production Bundle)
+      run: ./gradlew :webApp:jsBrowserProductionWebpack --no-daemon
 
     # JS browser tests disabled - backtick test names incompatible with JS
 
@@ -242,6 +245,14 @@ jobs:
         name: web-js-build
         path: common/build/compileSync/js/
         retention-days: 30
+
+    - name: Upload Web Production Bundle
+      uses: actions/upload-artifact@v4
+      with:
+        name: web-production-bundle
+        path: webApp/build/dist/js/productionExecutable/
+        retention-days: 30
+
 
 
   # ============================================
