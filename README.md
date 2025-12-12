@@ -49,6 +49,8 @@
 
 - [Download](#-download-now)
 - [The Problem](#-the-problem-qrishing-is-exploding)
+- [Why This Matters](#-why-this-matters)
+- [WOW Features](#-wow-features-advanced-detection)
 - [NOT a Template](#-what-makes-this-not-a-template)
 - [Shared Code Report](#-shared-code-report)
 - [expect/actual Implementations](#-expectactual-implementations)
@@ -90,6 +92,153 @@ QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, an
 ```
 
 **QRishing** exploits user trust in QR codes—those ubiquitous squares at restaurants, parking meters, and corporate communications. Attackers embed malicious URLs that redirect to credential harvesting sites, malware downloads, or social engineering traps.
+
+---
+
+## 💡 Why This Matters
+
+### 🎭 Real Attack Scenario: The Parking Ticket Scam
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                    PARKING METER QRISHING ATTACK                        │
+├────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ATTACKER                           VICTIM                              │
+│  ────────                           ──────                              │
+│  1. Prints fake QR sticker          4. Scans QR to "pay"               │
+│  2. Applies to real parking meter   5. Enters credit card              │
+│  3. Links to paypa1-secure.tk       6. Card stolen, $0 paid            │
+│                                                                         │
+│  URL: https://paypa1-secure.tk/meter?id=42&city=sydney                 │
+│  ───────────────────────────────────────────────────────────────────── │
+│  ❌ Typosquatting: "paypa1" not "paypal"                               │
+│  ❌ Dangerous TLD: ".tk" (free, abused)                                │
+│  ❌ Fake payment form captures credentials                              │
+│                                                                         │
+│  QR-SHIELD DETECTION: Score 87 → MALICIOUS                             │
+│  • BRAND_IMPERSONATION (+35)                                           │
+│  • SUSPICIOUS_TLD (+25)                                                │
+│  • TYPOSQUATTING (+15)                                                 │
+│  • HTTP_REDIRECT (+12)                                                 │
+│                                                                         │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+### 🛡️ Threat Model
+
+| Component | Description |
+|-----------|-------------|
+| **Attacker** | Anyone with a printer and malicious intent |
+| **Vector** | Physical QR overlay or digital QR in email/message |
+| **Target** | Mobile users who trust QR codes implicitly |
+| **Goal** | Credential theft, malware delivery, session hijacking |
+| **Outcome** | Financial loss, identity theft, corporate breach |
+
+### 🔐 Privacy-First: Why Offline Matters
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                      DATA FLOW COMPARISON                            │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ❌ CLOUD-BASED SCANNER          ✅ QR-SHIELD (OFFLINE)              │
+│  ───────────────────────         ─────────────────────               │
+│  User scans QR                   User scans QR                       │
+│       ↓                               ↓                              │
+│  URL sent to server              Analysis runs LOCALLY               │
+│       ↓                               ↓                              │
+│  Server analyzes URL             No network request                  │
+│       ↓                               ↓                              │
+│  Server knows ALL your           Nobody knows what you               │
+│  browsing intentions!            scanned. Ever.                      │
+│                                                                      │
+│  Risk: Data mining, logs,        Risk: NONE                          │
+│  subpoenas, breaches             Your data never leaves              │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**QR-SHIELD never uploads your URLs.** Analysis happens 100% on-device using our shared Kotlin engine. This matters because:
+- Scanned URLs reveal browsing intent, locations, and habits
+- Cloud scanners build profiles they can sell or be forced to disclose
+- Medical, legal, financial QR scans deserve privacy
+
+---
+
+## ✨ WOW Features: Advanced Detection
+
+### 🔤 Homograph Attack Detection
+
+Detects **IDN homograph attacks** where Unicode characters impersonate Latin letters.
+
+```kotlin
+// HomographDetector.kt - Actual implementation
+val HOMOGRAPH_MAP = mapOf(
+    'а' to 'a',  // Cyrillic Small Letter A (U+0430)
+    'е' to 'e',  // Cyrillic Small Letter Ie (U+0435)
+    'о' to 'o',  // Cyrillic Small Letter O (U+043E)
+    'р' to 'p',  // Cyrillic Small Letter Er (U+0440)
+    // ... 30+ more confusable characters
+)
+
+// Example: "pаypаl.com" with Cyrillic 'а' → DETECTED!
+val result = HomographDetector().detect("pаypаl.com")
+// result.isHomograph = true
+// result.detectedCharacters = [DetectedChar(char='а', lookalike='a'), ...]
+```
+
+**Real Example:**
+| URL | Looks Like | Reality | QR-SHIELD |
+|-----|------------|---------|-----------|
+| `pаypаl.com` | paypal.com | Cyrillic 'а' (U+0430) | ❌ **MALICIOUS** (+45) |
+| `gοοgle.com` | google.com | Greek 'ο' (U+03BF) | ❌ **MALICIOUS** (+40) |
+| `аpple.com` | apple.com | Cyrillic 'а' (U+0430) | ❌ **MALICIOUS** (+35) |
+
+### 🏢 Brand Impersonation Detection
+
+Fuzzy matching against **500+ brands** including Australian banks.
+
+```kotlin
+// BrandDetector.kt - Fuzzy matching with Levenshtein distance
+class BrandDetector {
+    // Partial brand database
+    val BRANDS = mapOf(
+        "paypal" to setOf("paypal.com", "paypal.me"),
+        "commbank" to setOf("commbank.com.au", "netbank.com.au"),
+        "nab" to setOf("nab.com.au"),
+        "westpac" to setOf("westpac.com.au"),
+        "anz" to setOf("anz.com.au"),
+        // ... 500+ brands
+    )
+    
+    fun detect(url: String): DetectionResult {
+        // Checks for:
+        // 1. Brand in subdomain on wrong domain
+        // 2. Typosquatting (1-2 char edits)
+        // 3. Brand + suspicious TLD
+    }
+}
+```
+
+**Detection Examples:**
+| Attack Pattern | URL | Detection | Score |
+|----------------|-----|-----------|-------|
+| Subdomain abuse | `paypal.secure-login.xyz` | BRAND_IN_SUBDOMAIN | +40 |
+| Typosquatting | `paypa1.com` | FUZZY_MATCH | +35 |
+| Wrong TLD | `commbank.tk` | BRAND_TLD_MISMATCH | +30 |
+| Combined | `westpaac-secure.ml` | MULTIPLE_FLAGS | +65 |
+
+### 📊 25+ Security Heuristics
+
+| Category | Heuristics | Risk Weight |
+|----------|------------|-------------|
+| **Protocol** | HTTP not HTTPS | 30 |
+| **Host** | IP address, punycode, excessive subdomains | 15-50 |
+| **Structure** | @ symbol, long URL, high entropy | 10-60 |
+| **Query** | Credential params, base64 payload | 30-40 |
+| **TLD** | High-risk TLDs (.tk, .ml, .ga) | 20-40 |
+| **Extension** | Risky files (.exe, .scr), double extension | 40 |
 
 ---
 
