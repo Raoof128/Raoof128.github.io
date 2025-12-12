@@ -1,237 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description"
         content="QR-SHIELD Web - AI-powered phishing detection running entirely in your browser. Scan and analyze URLs for security threats.">
-    <meta name="keywords" content="QR code, phishing, security, URL scanner, Kotlin Multiplatform">
-    <meta name="author" content="QR-SHIELD">
-    <meta name="theme-color" content="#7F52FF">
+    <meta name="theme-color" content="#6C5CE7">
 
-    <!-- PWA -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="format-detection" content="telephone=no">
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="QR-SHIELD | Web Scanner">
-    <meta property="og:description" content="AI-powered phishing detection running entirely in your browser">
-    <meta property="og:type" content="website">
-
-    <title>QR-SHIELD | Web Scanner</title>
+    <title>QR-SHIELD | Premium Web Scanner</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
 
-    <!-- QR Code Decoder Library -->
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-    <!-- Custom Styles -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Core JS QR library for camera scanning -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 </head>
 
 <body>
-    <div class="app">
+    <div class="app-container">
+
         <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo-section">
-                        <div class="logo-icon"><img src="assets/logo.svg" alt="QR-SHIELD"></div>
-                        <div class="logo-text">
-                            <h1>QR-SHIELD</h1>
-                            <span>Web Scanner</span>
-                        </div>
-                    </div>
-                    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
-                        <span id="themeIcon">☀️</span>
-                        <span>Light</span>
-                    </button>
-                </div>
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-shield">🛡️</div>
+                <div class="app-title">QR-SHIELD</div>
+            </div>
+
+            <div class="header-actions">
+                <a href="https://github.com/Raoof128/qrshield" target="_blank" class="btn-icon" aria-label="GitHub">
+                    <span class="material-icons-round">code</span>
+                </a>
+                <button id="themeToggle" class="btn-icon" aria-label="Toggle Theme">
+                    <span class="material-icons-round">light_mode</span>
+                </button>
             </div>
         </header>
 
-        <!-- Main Content -->
-        <main>
-            <div class="container">
-                <div class="content-wrapper">
-                    <!-- Hero Section -->
-                    <section class="hero">
-                        <div class="hero-icon"><img src="assets/logo.svg" alt="QR-SHIELD"
-                                style="width:64px;height:64px;"></div>
-                        <h2>Scan URLs Safely</h2>
-                        <p>AI-powered phishing detection • 100% in-browser</p>
-                    </section>
+        <!-- Hero -->
+        <section class="hero-section">
+            <h1 class="text-gradient">Scan URLs Safely</h1>
+            <p class="hero-subtitle">AI-powered phishing detection running 100% offline in your browser.</p>
+        </section>
 
-                    <!-- Stats Row -->
-                    <section class="stats-row">
-                        <div class="stat-card">
-                            <div class="stat-icon">🔍</div>
-                            <div class="stat-value">25+</div>
-                            <div class="stat-label">Heuristics</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">📊</div>
-                            <div class="stat-value" id="scanCount">0</div>
-                            <div class="stat-label">Scans</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-icon">🔒</div>
-                            <div class="stat-value">100%</div>
-                            <div class="stat-label">Offline</div>
-                        </div>
-                    </section>
+        <!-- Metrics -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <span class="metric-value">25+</span>
+                <span class="metric-label">Heuristic Rules</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-value">0ms</span>
+                <span class="metric-label">Network Latency</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-value">100%</span>
+                <span class="metric-label">Privacy First</span>
+            </div>
+        </div>
 
-                    <!-- Scanner Card -->
-                    <section class="scanner-card">
-                        <div class="scanner-header">
-                            <div class="scanner-icon">🔗</div>
-                            <div class="scanner-header-text">
-                                <h3>URL to Analyze</h3>
-                                <p>Paste or type any URL to check for phishing</p>
-                            </div>
-                        </div>
+        <!-- Scanner Input -->
+        <main class="scanner-card">
+            <div class="input-group">
+                <span class="material-icons-round input-icon">link</span>
+                <input type="url" id="urlInput" class="url-input" placeholder="https://example.com/login"
+                    autocomplete="off" spellcheck="false">
+            </div>
 
-                        <div class="scan-actions">
-                            <button class="scan-action-btn" onclick="startCameraScan()">
-                                <span class="icon">📸</span>
-                                <span>Scan QR Code</span>
-                            </button>
-                            <button class="scan-action-btn" onclick="triggerFileUpload()">
-                                <span class="icon">🖼️</span>
-                                <span>Upload Image</span>
-                            </button>
-                        </div>
-
-                        <div class="input-wrapper">
-                            <input type="text" id="urlInput" class="url-input" placeholder="https://example.com"
-                                autocomplete="off" />
-                        </div>
-
-                        <input type="file" id="fileInput" accept="image/*" style="display: none;"
-                            onchange="handleFileUpload(this)">
-
-                        <div class="action-buttons">
-                            <button class="analyze-btn" id="analyzeBtn" onclick="analyzeUrl()">
-                                <span>🔍</span>
-                                <span>Analyze URL</span>
-                            </button>
-                            <button class="btn-secondary" onclick="pasteFromClipboard()">
-                                <span>📋</span>
-                                <span>Paste</span>
-                            </button>
-                            <button class="btn-secondary" onclick="clearInput()">
-                                <span>🗑️</span>
-                                <span>Clear</span>
-                            </button>
-                        </div>
-                    </section>
-
-                    <!-- Result Card -->
-                    <section class="result-card" id="resultCard">
-                        <div class="result-icon" id="resultIcon"><img id="resultIconImg" src="assets/shield-safe.svg"
-                                alt="Result"></div>
-                        <div class="result-score" id="scoreDisplay">--</div>
-                        <div class="result-label">Risk Score</div>
-                        <div class="score-bar-wrapper">
-                            <div class="score-bar" id="scoreBar" style="width: 0%"></div>
-                        </div>
-                        <div class="verdict-badge" id="verdictBadge">--</div>
-                        <div class="result-message" id="resultMessage"></div>
-                        <div class="result-url" id="resultUrl"></div>
-
-                        <div style="margin-bottom: var(--space-lg);">
-                            <button class="btn-secondary" onclick="shareResult()"
-                                style="width: 100%; justify-content: center;">
-                                <span>📤</span> Share Result
-                            </button>
-                        </div>
-
-                        <div class="flags-section" id="flagsSection" style="display: none;">
-                            <div class="flags-title">⚠️ Risk Factors Detected</div>
-                            <ul class="flags-list" id="flagsList"></ul>
-                        </div>
-                    </section>
-
-                    <!-- History Section -->
-                    <section class="history-section" id="historySection">
-                        <h3>📜 Recent Scans</h3>
-                        <div class="history-list" id="historyList"></div>
-                    </section>
-
-                    <!-- Features Grid -->
-                    <section class="features-section">
-                        <h3>Detection Capabilities</h3>
-                        <div class="features-grid">
-                            <div class="feature-card">
-                                <div class="feature-icon">🔍</div>
-                                <div class="feature-title">Heuristic Analysis</div>
-                                <div class="feature-desc">25+ security rules for URL inspection</div>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">🤖</div>
-                                <div class="feature-title">ML Scoring</div>
-                                <div class="feature-desc">AI-powered threat classification</div>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">🏷️</div>
-                                <div class="feature-title">Brand Detection</div>
-                                <div class="feature-desc">Typosquatting & impersonation alerts</div>
-                            </div>
-                            <div class="feature-card">
-                                <div class="feature-icon">🌐</div>
-                                <div class="feature-title">TLD Analysis</div>
-                                <div class="feature-desc">High-risk domain identification</div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
+            <div class="action-row">
+                <button id="analyzeBtn" class="btn-primary">
+                    <span class="material-icons-round">search</span>
+                    Analyze URL
+                </button>
+                <button id="scanQrBtn" class="btn-secondary">
+                    <span class="material-icons-round">qr_code_scanner</span>
+                    Scan QR
+                </button>
             </div>
         </main>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="footer-brand">
-                        Built with 💜 <a href="https://kotlinlang.org/docs/multiplatform.html" target="_blank">Kotlin
-                            Multiplatform</a>
-                    </div>
-                    <div class="footer-version">🛡️ QR-SHIELD v1.0.0 • Web Edition</div>
+        <!-- Result Card -->
+        <section id="resultCard" class="result-card hidden">
+            <div class="result-header">
+                <div class="score-ring">0</div>
+                <div class="verdict-info">
+                    <span class="verdict-pill">UNKNOWN</span>
+                    <h3>Verifying...</h3>
                 </div>
             </div>
-        </footer>
+
+            <div id="riskFactors" class="risk-factors">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="result-actions">
+                <button class="btn-secondary" onclick="resetScanner()">
+                    <span class="material-icons-round">refresh</span> Scan Another
+                </button>
+            </div>
+        </section>
+
+        <!-- Recent Scans -->
+        <section class="recent-scans">
+            <div class="section-title">
+                <h3>Recent Scans</h3>
+                <button id="clearHistoryBtn" class="btn-text">Clear History</button>
+            </div>
+
+            <div id="historyList" class="scan-list">
+                <!-- Populated by JS -->
+                <div class="scan-item" style="justify-content: center; opacity: 0.5;">
+                    <span>No recent scans</span>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <!-- Toast -->
-    <div class="toast" id="toast"></div>
+    <!-- QR Scan Modal -->
+    <div id="qrModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Scan QR Code</h2>
+            <p>Point your camera at a QR code to detect</p>
 
-    <!-- Scan Modal -->
-    <div class="scan-modal" id="scanModal">
-        <div class="scan-modal-header">
-            <h3 style="color: white; margin: 0;">Scan QR Code</h3>
-            <button class="scan-close-btn" onclick="stopCameraScan()">×</button>
-        </div>
-        <div class="scan-viewport">
-            <video id="scanVideo" class="scan-video" playsinline></video>
-            <div class="scan-overlay">
-                <div class="scan-frame">
-                    <div class="scan-laser"></div>
-                </div>
+            <div class="qr-viewport">
+                <video id="qr-video" style="width: 100%; height: 100%; object-fit: cover;"></video>
+                <canvas id="qr-canvas" hidden></canvas>
+                <div class="qr-scanner-overlay"></div>
             </div>
-            <div class="scan-status" id="scanStatus">Searching for QR code...</div>
+
+            <button id="closeModalBtn" class="btn-secondary" style="width: 100%">Cancel</button>
         </div>
-        <canvas id="scanCanvas" hidden></canvas>
     </div>
 
     <!-- Kotlin/JS Bundle -->
     <script src="webApp.js"></script>
-    <!-- Application Logic -->
+    <!-- UI Logic -->
     <script src="app.js"></script>
 </body>
 
