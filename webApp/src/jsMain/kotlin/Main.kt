@@ -74,7 +74,7 @@ fun main() {
                 
                 // Reset button
                 analyzeBtn?.classList?.remove("loading")
-                analyzeBtn?.innerHTML = """<span>🔍</span><span>Analyze URL</span>"""
+                analyzeBtn?.innerHTML = """<span class="material-icons-round">search</span>Analyze URL"""
                 analyzeBtn?.disabled = false
             }
         }, 100)

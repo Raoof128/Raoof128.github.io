@@ -121,10 +121,17 @@ function updateResultCard(score, verdict, flags) {
         flags.forEach(flag => {
             const div = document.createElement('div');
             div.className = 'risk-item';
-            div.innerHTML = `
-                <span class="material-icons-round risk-icon">warning</span>
-                <span class="risk-text">${flag}</span>
-            `;
+            // Use textContent for the flag to prevent XSS
+            const iconSpan = document.createElement('span');
+            iconSpan.className = 'material-icons-round risk-icon';
+            iconSpan.textContent = 'warning';
+
+            const textSpan = document.createElement('span');
+            textSpan.className = 'risk-text';
+            textSpan.textContent = flag;
+
+            div.appendChild(iconSpan);
+            div.appendChild(textSpan);
             riskContainer.appendChild(div);
         });
     } else {
@@ -204,9 +211,12 @@ function renderHistory() {
 
         const date = new Date(item.timestamp).toLocaleTimeString();
 
+        // Escape HTML to prevent XSS
+        const safeUrl = escapeHtml(item.url);
+
         div.innerHTML = `
             <div class="scan-status" style="background: ${color}"></div>
-            <span class="scan-url">${item.url}</span>
+            <span class="scan-url">${safeUrl}</span>
             <span class="scan-time">${date}</span>
         `;
         historyList.appendChild(div);
@@ -297,8 +307,22 @@ window.showToast = (message, type = 'info') => {
     toast.style.bottom = '20px';
     toast.style.left = '50%';
     toast.style.transform = 'translateX(-50%)';
-    toast.style.backgroundColor = type === 'error' ? 'var(--color-danger)' : 'var(--bg-surface)';
-    toast.style.color = type === 'error' ? 'white' : 'var(--text-primary)';
+
+    // Handle different types
+    if (type === 'error') {
+        toast.style.backgroundColor = 'var(--color-danger)';
+        toast.style.color = 'white';
+    } else if (type === 'success') {
+        toast.style.backgroundColor = 'var(--color-safe)';
+        toast.style.color = 'white';
+    } else if (type === 'warning') {
+        toast.style.backgroundColor = 'var(--color-warning)';
+        toast.style.color = 'black';
+    } else {
+        toast.style.backgroundColor = 'var(--bg-surface)';
+        toast.style.color = 'var(--text-primary)';
+    }
+
     toast.style.padding = '12px 24px';
     toast.style.borderRadius = '50px';
     toast.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
@@ -314,3 +338,13 @@ window.showToast = (message, type = 'info') => {
         setTimeout(() => toast.remove(), 500);
     }, 3000);
 };
+
+/**
+ * Escape HTML special characters to prevent XSS
+ */
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
