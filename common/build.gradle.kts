@@ -16,6 +16,16 @@ sqldelight {
 }
 
 kotlin {
+    // Suppress expect/actual class warnings (required for KMP, in Beta)
+    // See: https://youtrack.jetbrains.com/issue/KT-61573
+    targets.all {
+        compilations.all {
+            compilerOptions.configure {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+        }
+    }
+    
     // Android target
     androidTarget {
         compilations.all {
