@@ -32,7 +32,7 @@
 ### 📥 Download Now
 
 <a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest/download/QRShield-release.apk"><img src="https://img.shields.io/badge/Android-Download_APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download Android APK"></a>
-<a href="https://testflight.apple.com/join/XXXXXXXX"><img src="https://img.shields.io/badge/iOS-TestFlight_Beta-0D96F6?style=for-the-badge&logo=apple&logoColor=white" alt="TestFlight Beta"></a>
+<img src="https://img.shields.io/badge/iOS-Coming_Soon-999999?style=for-the-badge&logo=apple&logoColor=white" alt="iOS Coming Soon">
 <a href="https://github.com/Raoof128/QDKMP-KotlinConf-2026-/releases/latest"><img src="https://img.shields.io/badge/Desktop-Download_JAR-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Download Desktop"></a>
 <a href="https://raoof128.github.io/QDKMP-KotlinConf-2026-/"><img src="https://img.shields.io/badge/Web-Try_Online-F7DF1E?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Web Demo"></a>
 
