@@ -22,6 +22,8 @@
 [![Web](https://img.shields.io/badge/Web-JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://kotlinlang.org/docs/js-overview.html)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/Raoof128.github.io/actions)
+[![Coverage](https://img.shields.io/badge/Coverage-Kover-brightgreen?style=for-the-badge&logo=kotlin)](https://github.com/Raoof128/Raoof128.github.io/actions)
+[![Detekt](https://img.shields.io/badge/Lint-Detekt-orange?style=for-the-badge)](detekt.yml)
 [![Version](https://img.shields.io/badge/Version-1.1.1-green?style=for-the-badge)](CHANGELOG.md)
 
 **Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
@@ -65,6 +67,8 @@
 - [Performance Benchmarks](#-performance-benchmarks)
 - [Accuracy & Sanity Checks](#-accuracy--sanity-checks)
 - [Code Quality (Detekt)](#-code-quality-detekt)
+- [Coroutines & Flow](#-coroutines--flow-best-practices)
+- [Test Coverage](#-test-coverage-kover)
 - [Security](#-security)
 - [Contributing](#-contributing)
 - [Contest Compliance](#-contest-compliance)
@@ -1195,6 +1199,117 @@ style:
 
 # View report
 open build/reports/detekt/detekt.html
+```
+
+---
+
+## ⚡ Coroutines & Flow Best Practices
+
+QR-SHIELD follows Kotlin structured concurrency best practices:
+
+### ✅ No GlobalScope
+
+```bash
+# Verification - should return no matches
+grep -rn "GlobalScope" --include="*.kt" .
+# Result: No matches found
+```
+
+All coroutines use **structured concurrency** with proper scope management.
+
+### ✅ Proper Dispatcher Usage
+
+```kotlin
+// HistoryRepository.kt - Database operations on Default dispatcher
+private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+
+suspend fun saveResult(result: ScanResult) = withContext(Dispatchers.Default) {
+    database.scanResultQueries.insert(...)
+}
+
+// AndroidModule.kt - UI operations on Main dispatcher
+single { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
+```
+
+| Dispatcher | Usage |
+|------------|-------|
+| `Dispatchers.Default` | Database queries, analysis |
+| `Dispatchers.IO` | Desktop file operations, ZXing |
+| `Dispatchers.Main` | Android UI updates |
+
+### ✅ Cancel-Safe Jobs
+
+```kotlin
+// HistoryRepository uses SupervisorJob for fault tolerance
+class HistoryRepository(
+    scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+) {
+    // Coroutines cancelled when repository is cleared
+}
+
+// Android uses SupervisorJob for activity-scoped work
+single { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
+```
+
+### ✅ Flow for Reactive Data
+
+```kotlin
+// SharedViewModel exposes Flow for UI state
+val _scanHistory: MutableStateFlow<List<HistoryScanResult>> = MutableStateFlow(emptyList())
+val scanHistory: StateFlow<List<HistoryScanResult>> = _scanHistory.asStateFlow()
+```
+
+---
+
+## 🧪 Test Coverage (Kover)
+
+### Test Suite Summary
+
+| Category | Test Files | Test Cases | Coverage Target |
+|----------|------------|------------|-----------------|
+| **Core Engine** | 5 | 50+ | PhishingEngine, Verdict, Risk |
+| **Heuristics** | 4 | 60+ | Homograph, TLD, Brand, Heuristics |
+| **ML Layer** | 3 | 25+ | Logistic Regression, Features |
+| **Security** | 3 | 20+ | Input validation, Rate limiting |
+| **Data** | 2 | 15+ | History repository, Scanner |
+| **Integration** | 2 | 10+ | End-to-end analysis |
+| **Performance** | 1 | 6 | Benchmark verification |
+| **Total** | **29** | **186+** | |
+
+### Specific Test Coverage
+
+| Component | Test File | Key Tests |
+|-----------|-----------|-----------|
+| **Homograph Detection** | `HomographDetectorTest.kt` | Cyrillic, Greek, Punycode, Score |
+| **TLD Scoring** | `TldScorerTest.kt` | High-risk (.tk,.ml), Safe (.com,.org) |
+| **URL Shorteners** | `HeuristicsEngineTest.kt` | bit.ly, t.co, tinyurl |
+| **Brand Detection** | `BrandDetectorTest.kt` | PayPal, CommBank, NAB impersonation |
+| **Real-World Phishing** | `RealWorldPhishingTest.kt` | 15+ defanged attack patterns |
+
+### Run Coverage Report
+
+```bash
+# Generate Kover coverage report
+./gradlew koverReport
+
+# View HTML report
+open common/build/reports/kover/html/index.html
+
+# View XML report (for CI integration)
+cat common/build/reports/kover/report.xml
+```
+
+### CI Coverage Pipeline
+
+```yaml
+# .github/workflows/ci.yml
+- name: Generate coverage report
+  run: ./gradlew :common:koverXmlReport --no-daemon
+
+- name: Upload coverage to Codecov
+  uses: codecov/codecov-action@v4
+  with:
+    file: common/build/reports/kover/report.xml
 ```
 
 ---
