@@ -178,13 +178,13 @@ class RealWorldPhishingTest {
     }
     
     @Test
-    fun `detects @ symbol URL spoofing`() {
+    fun `detects at-symbol URL spoofing`() {
         val url = defangedToUrl("https://google[.]com@evil-site[.]tk/login")
         val result = engine.analyze(url)
         
         assertTrue(
             result.score >= 30,
-            "@ symbol URL spoofing should be detected. Score: ${result.score}"
+            "At-symbol URL spoofing should be detected. Score: ${result.score}"
         )
     }
     

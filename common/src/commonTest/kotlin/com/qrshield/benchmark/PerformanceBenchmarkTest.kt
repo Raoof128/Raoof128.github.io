@@ -306,13 +306,13 @@ class PerformanceBenchmarkTest {
         println("╠══════════════════════════════════════════════════════════╣")
         println("║ Duration:     ${actualDurationMs}ms                              ")
         println("║ Operations:   $operationCount URLs analyzed                      ")
-        println("║ Throughput:   ${"%.1f".format(throughput)} URLs/second               ")
+        println("║ Throughput:   ${formatDouble(throughput, 1)} URLs/second               ")
         println("╚══════════════════════════════════════════════════════════╝")
         
         // Should be able to analyze at least 100 URLs per second
         assertTrue(
             throughput >= 100,
-            "Throughput was ${"%.1f".format(throughput)} URLs/s, minimum is 100 URLs/s"
+            "Throughput was ${formatDouble(throughput, 1)} URLs/s, minimum is 100 URLs/s"
         )
     }
     
@@ -335,7 +335,7 @@ class PerformanceBenchmarkTest {
         println("╠══════════════════════════════════════════════════════════╣")
         println("║ Operations:   $operations")
         println("║ Total Time:   ${totalTimeMs}ms")
-        println("║ Avg Time:     ${"%.3f".format(avgTimeMs)}ms")
+        println("║ Avg Time:     ${formatDouble(avgTimeMs, 3)}ms")
         println("║ Target:       ${targetMs}ms")
         println("║ Status:       $status")
         println("╚══════════════════════════════════════════════════════════╝")
@@ -347,5 +347,22 @@ class PerformanceBenchmarkTest {
      */
     private fun currentTimeMillis(): Long {
         return kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
+    }
+    
+    /**
+     * Cross-platform double formatting.
+     * Formats a double to a specified number of decimal places.
+     */
+    private fun formatDouble(value: Double, decimals: Int): String {
+        var factor = 1.0
+        repeat(decimals) { factor *= 10 }
+        val rounded = kotlin.math.round(value * factor) / factor
+        val parts = rounded.toString().split(".")
+        return if (parts.size == 1) {
+            parts[0] + "." + "0".repeat(decimals)
+        } else {
+            val decPart = parts[1].take(decimals).padEnd(decimals, '0')
+            parts[0] + "." + decPart
+        }
     }
 }

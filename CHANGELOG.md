@@ -5,6 +5,31 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2025-12-13
+
+### Added
+- Desktop unit tests (`DesktopAppTest.kt`) with 15+ test cases
+- Desktop component architecture with organized package structure
+
+### Changed
+- **Desktop App Refactoring** (reduced from 1102 lines to ~190 lines)
+  - Extracted `theme/DesktopTheme.kt` - Color schemes and brand colors
+  - Extracted `model/AnalysisResult.kt` - Analysis result data class
+  - Extracted `WindowPreferences.kt` - Window state persistence
+  - Extracted `components/CommonComponents.kt` - Reusable UI components
+  - Extracted `components/ScannerComponents.kt` - Scanner-specific components
+- Improved platform compatibility in test suite
+- Build now skips JS test compilation (backtick test names incompatible)
+
+### Fixed
+- Cross-platform test compilation for iOS/Native targets
+  - Replaced `String.format()` with platform-agnostic `formatDouble()` helper
+  - Renamed test function to avoid `@` symbol in test names (breaks iOS/Native)
+  - Performance benchmarks now compile on all platforms
+
+---
+
+
 ## [1.1.0] - 2025-12-12
 
 ### Added
@@ -117,6 +142,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Release Links
 
+[1.1.1]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.1
 [1.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.0.0
 [0.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v0.1.0
