@@ -24,7 +24,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.input.key.*
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
@@ -36,6 +40,8 @@ import com.qrshield.desktop.components.*
 import com.qrshield.desktop.model.AnalysisResult
 import com.qrshield.desktop.theme.QRShieldDarkColors
 import com.qrshield.desktop.theme.QRShieldLightColors
+import java.awt.Toolkit
+import java.awt.datatransfer.DataFlavor
 
 /**
  * QR-SHIELD Desktop Application Entry Point
@@ -48,6 +54,14 @@ import com.qrshield.desktop.theme.QRShieldLightColors
  * - Cross-platform preferences storage
  * - Modern Material 3 design with animations
  * - Glassmorphism effects
+ * - Keyboard shortcuts (Cmd/Ctrl+V paste, Enter analyze, Esc clear)
+ *
+ * Keyboard Shortcuts:
+ * - Cmd/Ctrl+L: Focus URL input
+ * - Cmd/Ctrl+V: Paste from clipboard
+ * - Enter: Analyze URL
+ * - Esc: Clear input and results
+ * - Cmd/Ctrl+D: Toggle dark mode
  *
  * @author QR-SHIELD Team
  * @since 1.0.0
@@ -86,7 +100,7 @@ fun main() = application {
  *
  * Orchestrates the phishing detection UI and manages application state.
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 @Preview
 fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
@@ -100,11 +114,80 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var isAnalyzing by remember { mutableStateOf(false) }
     var scanHistory by remember { mutableStateOf<List<AnalysisResult>>(emptyList()) }
 
+    // Focus requester for keyboard navigation
+    val inputFocusRequester = remember { FocusRequester() }
+
+    // Analysis function extracted for reuse
+    val performAnalysis: () -> Unit = {
+        if (urlInput.isNotBlank() && !isAnalyzing) {
+            isAnalyzing = true
+            val assessment = phishingEngine.analyze(urlInput)
+            val result = AnalysisResult(
+                url = urlInput,
+                score = assessment.score,
+                verdict = assessment.verdict,
+                flags = assessment.flags,
+                timestamp = System.currentTimeMillis()
+            )
+            analysisResult = result
+            scanHistory = listOf(result) + scanHistory.take(9)
+            isAnalyzing = false
+        }
+    }
+
+    // Clipboard paste function
+    val pasteFromClipboard: () -> Unit = {
+        try {
+            val clipboard = Toolkit.getDefaultToolkit().systemClipboard
+            val data = clipboard.getData(DataFlavor.stringFlavor) as? String
+            if (!data.isNullOrBlank()) {
+                urlInput = data.trim()
+            }
+        } catch (e: Exception) {
+            // Clipboard access failed, ignore
+        }
+    }
+
     MaterialTheme(
         colorScheme = if (isDarkMode) QRShieldDarkColors else QRShieldLightColors
     ) {
         Surface(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .onKeyEvent { keyEvent ->
+                    if (keyEvent.type == KeyEventType.KeyDown) {
+                        val isCtrlOrCmd = keyEvent.isCtrlPressed || keyEvent.isMetaPressed
+                        when {
+                            // Cmd/Ctrl+L: Focus input
+                            isCtrlOrCmd && keyEvent.key == Key.L -> {
+                                inputFocusRequester.requestFocus()
+                                true
+                            }
+                            // Cmd/Ctrl+V: Paste
+                            isCtrlOrCmd && keyEvent.key == Key.V -> {
+                                pasteFromClipboard()
+                                true
+                            }
+                            // Cmd/Ctrl+D: Toggle dark mode
+                            isCtrlOrCmd && keyEvent.key == Key.D -> {
+                                isDarkMode = !isDarkMode
+                                true
+                            }
+                            // Enter: Analyze
+                            keyEvent.key == Key.Enter -> {
+                                performAnalysis()
+                                true
+                            }
+                            // Escape: Clear
+                            keyEvent.key == Key.Escape -> {
+                                urlInput = ""
+                                analysisResult = null
+                                true
+                            }
+                            else -> false
+                        }
+                    } else false
+                },
             color = MaterialTheme.colorScheme.background
         ) {
             Column(
@@ -136,29 +219,12 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                         urlInput = urlInput,
                         onUrlChange = { urlInput = it },
                         isAnalyzing = isAnalyzing,
-                        onAnalyze = {
-                            if (urlInput.isNotBlank()) {
-                                isAnalyzing = true
-                                val assessment = phishingEngine.analyze(urlInput)
-                                val result = AnalysisResult(
-                                    url = urlInput,
-                                    score = assessment.score,
-                                    verdict = assessment.verdict,
-                                    flags = assessment.flags,
-                                    timestamp = System.currentTimeMillis()
-                                )
-                                analysisResult = result
-                                scanHistory = listOf(result) + scanHistory.take(9)
-                                isAnalyzing = false
-                            }
-                        }
+                        onAnalyze = performAnalysis
                     )
 
                     // Quick Actions
                     QuickActionsRow(
-                        onPasteFromClipboard = {
-                            // In a real app, implement clipboard access
-                        },
+                        onPasteFromClipboard = pasteFromClipboard,
                         onClearInput = {
                             urlInput = ""
                             analysisResult = null
