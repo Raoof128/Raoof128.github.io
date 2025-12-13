@@ -44,6 +44,14 @@
             </div>
 
             <div class="header-actions">
+                <button id="judgeModeToggle" class="btn-icon judge-mode-btn" onclick="toggleJudgeMode()"
+                    aria-label="Toggle Judge Mode" title="Judge Mode: Force MALICIOUS results for demo">
+                    <span class="material-icons-round">gavel</span>
+                </button>
+                <button id="generateTestQR" class="btn-icon" onclick="generateTestQR()" aria-label="Generate Test QR"
+                    title="Generate a test malicious QR code">
+                    <span class="material-icons-round">qr_code_2</span>
+                </button>
                 <a href="https://github.com/Raoof128/Raoof128.github.io" target="_blank" class="btn-icon"
                     aria-label="GitHub">
                     <span class="material-icons-round">code</span>
@@ -169,6 +177,10 @@
                 <button id="reportBtn" class="btn-danger" onclick="reportPhishing()" style="display: none;"
                     data-testid="report-button">
                     <span class="material-icons-round">report</span> Report Phishing
+                </button>
+                <button class="btn-text" onclick="reportIncorrectVerdict()" data-testid="feedback-button"
+                    title="Report if this verdict is wrong">
+                    <span class="material-icons-round">feedback</span> Wrong Verdict?
                 </button>
             </div>
         </section>

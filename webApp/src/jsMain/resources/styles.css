@@ -1400,3 +1400,190 @@ kbd {
         justify-content: center;
     }
 }
+
+/* ==========================================
+   Judge Mode & Demo Features
+   ========================================== */
+
+/* Judge Mode Toggle Button */
+.judge-mode-btn {
+    position: relative;
+}
+
+.judge-mode-btn.active {
+    background: linear-gradient(135deg, #FF6B6B, #FF3D71);
+    border-color: #FF3D71;
+    color: white;
+    animation: judgeGlow 2s ease-in-out infinite;
+}
+
+@keyframes judgeGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px rgba(255, 61, 113, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(255, 61, 113, 0.6);
+    }
+}
+
+/* Demo Banner (Judge Mode Active) */
+.demo-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: linear-gradient(90deg, #FF6B6B, #FF3D71, #6C5CE7);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.demo-banner .material-icons-round {
+    font-size: 20px;
+}
+
+.demo-banner-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background var(--transition-fast);
+    margin-left: 16px;
+}
+
+.demo-banner-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Adjust body padding when demo banner is visible */
+body:has(.demo-banner) .app-header {
+    margin-top: 50px;
+}
+
+/* Report False Positive / Feedback Button */
+.btn-text {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+    border-radius: var(--radius-sm);
+}
+
+.btn-text:hover {
+    color: var(--color-primary);
+    background: rgba(108, 92, 231, 0.1);
+}
+
+.btn-text .material-icons-round {
+    font-size: 18px;
+}
+
+/* Verdict Options in Report Modal */
+.verdict-option {
+    min-width: 100px;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.verdict-option:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Browser Compatibility Warning */
+.browser-warning {
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    color: #92400E;
+    padding: 12px 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9rem;
+}
+
+.browser-warning .material-icons-round {
+    color: #D97706;
+    font-size: 24px;
+}
+
+/* Result Actions - accommodate more buttons */
+.result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+    justify-content: center;
+}
+
+.result-actions .btn-text {
+    flex: 0 1 auto;
+}
+
+/* Mobile adjustments for result actions */
+@media (max-width: 600px) {
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .result-actions button {
+        width: 100%;
+    }
+
+    .demo-banner {
+        flex-wrap: wrap;
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .demo-banner-close {
+        margin-left: 0;
+        margin-top: 8px;
+    }
+}
+
+/* Elevated background for modal code blocks */
+.error-modal-details code {
+    background: var(--bg-input);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+}
+
+/* Generate Test QR button styling */
+#generateTestQR:hover {
+    color: var(--color-warning);
+    border-color: var(--color-warning);
+}

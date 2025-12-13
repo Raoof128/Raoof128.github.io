@@ -102,6 +102,46 @@ Conducted official Judge Evaluation and implemented Detekt code quality improvem
 
 ---
 
+### UX Feature Enhancements (Session Part 5)
+
+**Files Modified:**
+- `webApp/src/jsMain/resources/app.js` — Added ~250 lines
+- `webApp/src/jsMain/resources/index.html` — Added Judge Mode and Report buttons
+- `webApp/src/jsMain/resources/styles.css` — Added ~175 lines
+
+**Features Implemented:**
+
+1. **Judge Mode (Demo Mode)**
+   - Toggle via gavel icon in header
+   - Activates via `?judge=true` URL param
+   - Forces MALICIOUS results for demo purposes
+   - Shows animated banner when active
+   - `forceMaliciousResult()` for instant demo
+
+2. **Generate Test QR**
+   - QR code 2 icon in header
+   - Generates real QR code with malicious URL
+   - Modal with QR image + one-click analyze
+
+3. **Report False Positive Stub**
+   - "Wrong Verdict?" button on result cards
+   - Modal with verdict correction options (SAFE/SUSPICIOUS/MALICIOUS)
+   - Stores feedback locally (production: would send to backend)
+   - Demonstrates product maturity
+
+4. **Browser Compatibility Handling**
+   - Checks camera API availability
+   - Checks localStorage support
+   - Checks FileReader for image upload
+   - Gracefully disables unsupported features
+   - Shows helpful modals with alternatives
+
+**New URL Params:**
+- `?demo=true` — Pre-fills malicious URL, skips onboarding
+- `?judge=true` — Activates Judge Mode
+
+---
+
 ## Session: 2025-12-14
 
 ### Summary

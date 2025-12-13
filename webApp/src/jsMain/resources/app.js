@@ -1099,3 +1099,344 @@ function setupOnboarding() {
         });
     }
 }
+
+// ==========================================
+// Judge Mode (Demo Mode) - Force Malicious Result
+// ==========================================
+
+const JUDGE_MODE_KEY = 'qrshield_judge_mode';
+let isJudgeMode = localStorage.getItem(JUDGE_MODE_KEY) === 'true';
+
+/**
+ * Toggle Judge Mode - forces malicious results for demo purposes
+ */
+window.toggleJudgeMode = () => {
+    isJudgeMode = !isJudgeMode;
+    localStorage.setItem(JUDGE_MODE_KEY, isJudgeMode);
+    updateJudgeModeUI();
+
+    if (isJudgeMode) {
+        showToast('🧑‍⚖️ Judge Mode ON - All URLs will show MALICIOUS', 'warning');
+    } else {
+        showToast('Judge Mode OFF - Normal detection active', 'info');
+    }
+};
+
+/**
+ * Update Judge Mode toggle UI state
+ */
+function updateJudgeModeUI() {
+    const toggleBtn = document.getElementById('judgeModeToggle');
+    if (toggleBtn) {
+        toggleBtn.classList.toggle('active', isJudgeMode);
+        toggleBtn.innerHTML = isJudgeMode
+            ? '<span class="material-icons-round">gavel</span> Judge Mode: ON'
+            : '<span class="material-icons-round">gavel</span> Judge Mode';
+    }
+}
+
+/**
+ * Force a malicious result (Judge Mode simulation)
+ */
+window.forceMaliciousResult = () => {
+    const demoUrl = urlInput.value.trim() || 'https://demo-malicious.evil.tk/login';
+
+    // Simulate a MALICIOUS result
+    const mockFlags = [
+        'Brand Impersonation Detected',
+        'Suspicious TLD (.tk)',
+        'Credential Harvesting Path (/login)',
+        'No HTTPS encryption',
+        'Typosquatting pattern detected'
+    ];
+
+    // Show demo result
+    window.displayResult(92, 'MALICIOUS', mockFlags, demoUrl);
+    showToast('🧑‍⚖️ Demo: Forced MALICIOUS result', 'warning');
+};
+
+/**
+ * Generate a test QR code with malicious URL (for demo)
+ */
+window.generateTestQR = () => {
+    const testUrl = 'https://paypa1-secure.tk/login?redirect=steal';
+    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(testUrl)}`;
+
+    showModal({
+        icon: 'qr_code',
+        iconColor: 'var(--color-warning)',
+        title: 'Test QR Code',
+        message: 'Scan this QR code with QR-SHIELD to see malicious URL detection:',
+        details: `<img src="${qrApiUrl}" alt="Test QR Code" style="display:block; margin:16px auto; border-radius:8px;">
+                  <code style="display:block; text-align:center; margin-top:8px; font-size:12px;">${testUrl}</code>`,
+        primaryAction: {
+            text: 'Analyze This URL',
+            action: () => {
+                hideModal();
+                urlInput.value = testUrl;
+                if (window.qrshieldAnalyze) window.qrshieldAnalyze(testUrl);
+            }
+        },
+        secondaryAction: { text: 'Close', action: () => hideModal() }
+    });
+};
+
+// Initialize Judge Mode UI on load
+document.addEventListener('DOMContentLoaded', () => {
+    updateJudgeModeUI();
+
+    // Check for ?judge=true in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('judge') === 'true') {
+        isJudgeMode = true;
+        localStorage.setItem(JUDGE_MODE_KEY, 'true');
+        updateJudgeModeUI();
+        showToast('🧑‍⚖️ Judge Mode activated via URL', 'warning');
+    }
+});
+
+// ==========================================
+// Report False Positive / Incorrect Verdict
+// ==========================================
+
+/**
+ * Show Report Incorrect Verdict modal
+ */
+window.reportIncorrectVerdict = () => {
+    const { url, score, verdict } = currentAnalysis;
+
+    if (!url) {
+        showToast('No URL to report - analyze one first', 'error');
+        return;
+    }
+
+    showModal({
+        icon: 'feedback',
+        iconColor: 'var(--text-secondary)',
+        title: 'Report Incorrect Verdict',
+        message: `You're reporting that this verdict may be wrong:`,
+        details: `<div style="background: var(--bg-elevated); padding: 12px; border-radius: 8px; margin: 12px 0;">
+            <strong>URL:</strong> ${escapeHtml(url.substring(0, 50))}...<br>
+            <strong>Current Verdict:</strong> ${verdict}<br>
+            <strong>Score:</strong> ${score}/100
+        </div>
+        <p style="font-size: 14px; opacity: 0.8;">
+            What should the verdict be?
+        </p>
+        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px;">
+            <button class="verdict-option" data-verdict="SAFE" onclick="submitFeedback('SAFE')" 
+                    style="padding: 8px 16px; border-radius: 8px; background: var(--color-safe); color: white; border: none; cursor: pointer;">
+                Should be SAFE
+            </button>
+            <button class="verdict-option" data-verdict="SUSPICIOUS" onclick="submitFeedback('SUSPICIOUS')"
+                    style="padding: 8px 16px; border-radius: 8px; background: var(--color-warning); color: black; border: none; cursor: pointer;">
+                Should be SUSPICIOUS
+            </button>
+            <button class="verdict-option" data-verdict="MALICIOUS" onclick="submitFeedback('MALICIOUS')"
+                    style="padding: 8px 16px; border-radius: 8px; background: var(--color-danger); color: white; border: none; cursor: pointer;">
+                Should be MALICIOUS
+            </button>
+        </div>`,
+        primaryAction: { text: 'Cancel', action: () => hideModal() }
+    });
+};
+
+/**
+ * Submit feedback about incorrect verdict
+ * NOTE: This is a stub - in production, would send to backend
+ */
+window.submitFeedback = (correctVerdict) => {
+    const { url, score, verdict } = currentAnalysis;
+
+    // Create feedback object (would be sent to server in production)
+    const feedback = {
+        url: url,
+        originalVerdict: verdict,
+        originalScore: score,
+        correctedVerdict: correctVerdict,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent
+    };
+
+    // Store locally for now (demo purposes)
+    const feedbackHistory = JSON.parse(localStorage.getItem('qrshield_feedback') || '[]');
+    feedbackHistory.push(feedback);
+    localStorage.setItem('qrshield_feedback', JSON.stringify(feedbackHistory));
+
+    hideModal();
+
+    showToast(`Thank you! Feedback recorded: Should be ${correctVerdict}`, 'success');
+
+    // Log for demo purposes
+    console.log('[QR-SHIELD] Feedback submitted:', feedback);
+};
+
+// ==========================================
+// Browser Compatibility & Graceful Degradation
+// ==========================================
+
+/**
+ * Check browser compatibility and show warnings
+ */
+function checkBrowserCompatibility() {
+    const issues = [];
+
+    // Check for required APIs
+    if (!window.URL) {
+        issues.push('URL parsing (please update your browser)');
+    }
+
+    if (!window.localStorage) {
+        issues.push('Local storage (history won\'t persist)');
+    }
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        issues.push('Camera API (QR scanning unavailable)');
+        // Disable camera button gracefully
+        const scanBtn = document.getElementById('scanQrBtn');
+        if (scanBtn) {
+            scanBtn.disabled = true;
+            scanBtn.title = 'Camera not supported in this browser';
+            scanBtn.innerHTML = '<span class="material-icons-round">videocam_off</span> Camera N/A';
+        }
+    }
+
+    if (!window.FileReader) {
+        issues.push('File upload (image scanning unavailable)');
+        const uploadBtn = document.getElementById('uploadQrBtn');
+        if (uploadBtn) {
+            uploadBtn.disabled = true;
+        }
+    }
+
+    // Check if Kotlin/JS loaded
+    setTimeout(() => {
+        if (!window.qrshieldAnalyze || typeof window.qrshieldAnalyze !== 'function') {
+            showBrowserError('engine');
+        }
+    }, 3000);
+
+    // Show warning if issues found
+    if (issues.length > 0) {
+        console.warn('[QR-SHIELD] Browser compatibility issues:', issues);
+        // Don't show modal for minor issues, just log
+        if (issues.length > 2) {
+            showBrowserError('compatibility', issues);
+        }
+    }
+
+    return issues.length === 0;
+}
+
+/**
+ * Show browser-specific error with helpful guidance
+ */
+function showBrowserError(type, details = []) {
+    if (type === 'engine') {
+        showModal({
+            icon: 'warning',
+            iconColor: 'var(--color-warning)',
+            title: 'Analysis Engine Loading...',
+            message: 'The Kotlin/JS analysis engine is still loading or failed to initialize.',
+            details: `This may happen if:
+• You're using a very old browser
+• JavaScript is disabled
+• The page didn't fully load
+
+Try refreshing the page. If the issue persists, try Chrome, Firefox, or Safari.`,
+            primaryAction: {
+                text: 'Refresh Page',
+                action: () => window.location.reload()
+            },
+            secondaryAction: {
+                text: 'Continue Anyway',
+                action: () => hideModal()
+            }
+        });
+    } else if (type === 'compatibility') {
+        showModal({
+            icon: 'browser_not_supported',
+            iconColor: 'var(--color-warning)',
+            title: 'Limited Browser Support',
+            message: 'Some features may not work in your browser.',
+            details: `Missing features:
+${details.map(d => '• ' + d).join('\n')}
+
+For the best experience, use Chrome, Firefox, Safari, or Edge.`,
+            primaryAction: { text: 'Got it', action: () => hideModal() }
+        });
+    } else if (type === 'camera') {
+        showCameraPermissionError();
+    }
+}
+
+/**
+ * Show unsupported camera state gracefully
+ */
+function showCameraUnsupportedState() {
+    const scanBtn = document.getElementById('scanQrBtn');
+    if (scanBtn) {
+        scanBtn.onclick = () => {
+            showModal({
+                icon: 'videocam_off',
+                iconColor: 'var(--text-secondary)',
+                title: 'Camera Not Available',
+                message: 'Your browser doesn\'t support camera access, or you\'re on a device without a camera.',
+                details: `You can still use QR-SHIELD:
+• Upload QR code images
+• Paste URLs directly
+• Use the sample URLs provided`,
+                primaryAction: {
+                    text: 'Upload Image',
+                    action: () => { hideModal(); fileInput?.click(); }
+                },
+                secondaryAction: {
+                    text: 'Enter URL',
+                    action: () => { hideModal(); urlInput.focus(); }
+                }
+            });
+        };
+    }
+}
+
+// Run compatibility check on load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(checkBrowserCompatibility, 500);
+});
+
+// ==========================================
+// Enhanced Demo Mode Banner
+// ==========================================
+
+/**
+ * Show demo mode banner at top of page
+ */
+function showDemoModeBanner() {
+    if (document.getElementById('demoBanner')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'demoBanner';
+    banner.className = 'demo-banner';
+    banner.innerHTML = `
+        <span class="material-icons-round">gavel</span>
+        <span><strong>Judge Mode Active</strong> — All URLs will show as MALICIOUS for demo purposes</span>
+        <button onclick="toggleJudgeMode()" class="demo-banner-close">✕ Exit</button>
+    `;
+    document.body.prepend(banner);
+}
+
+function hideDemoModeBanner() {
+    const banner = document.getElementById('demoBanner');
+    if (banner) banner.remove();
+}
+
+// Update banner when judge mode changes
+const originalToggleJudgeMode = window.toggleJudgeMode;
+window.toggleJudgeMode = () => {
+    originalToggleJudgeMode?.();
+    if (isJudgeMode) {
+        showDemoModeBanner();
+    } else {
+        hideDemoModeBanner();
+    }
+};
