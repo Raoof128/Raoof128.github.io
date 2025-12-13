@@ -110,6 +110,35 @@ Also completed documentation polish:
 
 ---
 
+#### Repo Friction Removal (#42)
+**Files Modified:**
+- `README.md` - Complete header rewrite
+
+**Changes:**
+- Simplified header with "Judges: Start Here" at very top
+- Replaced complex badge grid with simple markdown badges
+- Added Quick Stats table (shared code %, platforms, tests)
+- Added Links table (demo, download, source, changelog)
+- Removed ASCII art banner (renders poorly on mobile)
+- Removed duplicate Start Here section
+
+---
+
+#### Judge Build Helper (#43)
+**Files Created:**
+- `judge.sh` - macOS/Linux interactive helper
+- `judge.ps1` - Windows PowerShell helper
+
+**Features:**
+- Environment checks (Java, Gradle, Node, Xcode)
+- Quick run commands with explanations
+- Sample URLs with expected results
+- KMP architecture proof points
+- Interactive menu (1-6 options)
+- Demo mode link prominently displayed
+
+---
+
 ### Updates Made
 
 #### 1. Mutation Testing Setup (#31)

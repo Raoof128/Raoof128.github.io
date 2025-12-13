@@ -1,119 +1,66 @@
 # 🛡️ QR-SHIELD
 
-<div align="center">
+**Kotlin Multiplatform QRishing (QR Phishing) Detector**
 
-```
-   ██████╗ ██████╗       ███████╗██╗  ██╗██╗███████╗██╗     ██████╗ 
-  ██╔═══██╗██╔══██╗      ██╔════╝██║  ██║██║██╔════╝██║     ██╔══██╗
-  ██║   ██║██████╔╝█████╗███████╗███████║██║█████╗  ██║     ██║  ██║
-  ██║▄▄ ██║██╔══██╗╚════╝╚════██║██╔══██║██║██╔══╝  ██║     ██║  ██║
-  ╚██████╔╝██║  ██║      ███████║██║  ██║██║███████╗███████╗██████╔╝
-   ╚══▀▀═╝ ╚═╝  ╚═╝      ╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═════╝ 
-                                                                   
-            🔍 Kotlin Multiplatform QRishing Detector 🔍
-```
-
-[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.22-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org)
-[![KMP](https://img.shields.io/badge/Kotlin_Multiplatform-Enabled-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/docs/multiplatform.html)
-[![Compose](https://img.shields.io/badge/Compose_Multiplatform-1.6.0-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)](https://www.jetbrains.com/lp/compose-multiplatform/)
-[![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com)
-[![iOS](https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=apple&logoColor=white)](https://developer.apple.com/ios/)
-[![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?style=for-the-badge&logo=openjdk&logoColor=white)](https://www.jetbrains.com/lp/compose-multiplatform)
-[![Web](https://img.shields.io/badge/Web-JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://kotlinlang.org/docs/js-overview.html)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/Raoof128.github.io/actions)
-[![Coverage](https://img.shields.io/badge/Coverage-89%25-brightgreen?style=for-the-badge&logo=codecov)](https://github.com/Raoof128/Raoof128.github.io/actions)
-[![Detekt](https://img.shields.io/badge/Lint-Detekt-orange?style=for-the-badge)](detekt.yml)
-[![Version](https://img.shields.io/badge/Version-1.1.4-green?style=for-the-badge)](CHANGELOG.md)
-
-**Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
-
-<a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
-<a href="#-demo-video-1"><img src="https://img.shields.io/badge/🎬_Watch_Demo-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video"></a>
-
-### 📥 Download Now
-
-<a href="https://github.com/Raoof128/Raoof128.github.io/releases/latest"><img src="https://img.shields.io/badge/Android-Download_APK-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download Android APK"></a>
-<a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/iOS-Use_Web_App-0D96F6?style=for-the-badge&logo=apple&logoColor=white" alt="iOS Web App"></a>
-<a href="https://github.com/Raoof128/Raoof128.github.io/releases/latest"><img src="https://img.shields.io/badge/Desktop-Download_JAR-007396?style=for-the-badge&logo=openjdk&logoColor=white" alt="Download Desktop"></a>
-<a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/Web-Try_Online-F7DF1E?style=for-the-badge&logo=googlechrome&logoColor=black" alt="Web Demo"></a>
-
-[![Latest Release](https://img.shields.io/github/v/release/Raoof128/Raoof128.github.io?style=flat-square&label=Latest%20Release&color=success)](https://github.com/Raoof128/Raoof128.github.io/releases/latest)
-[![GitHub Downloads](https://img.shields.io/github/downloads/Raoof128/Raoof128.github.io/total?style=flat-square&label=Downloads&color=blue)](https://github.com/Raoof128/Raoof128.github.io/releases)
-
-[Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Limitations](#️-limitations) • [Roadmap](#-future-roadmap) • [API](#-api-documentation) • [Contributing](#-contributing)
-
-</div>
+> Scan QR codes. Detect phishing. Stay protected on **Android, iOS, Desktop, and Web**.
 
 ---
 
-## 🧑‍⚖️ Judges: Start Here (60 seconds)
+## 🧑‍⚖️ Judges: Start Here
 
-> **TL;DR:** QR-SHIELD is a Kotlin Multiplatform security app that detects QRishing (QR code phishing) attacks across **4 platforms** using a single shared codebase.
+```bash
+# Interactive build helper - checks environment, runs demos
+./judge.sh        # macOS/Linux
+.\judge.ps1       # Windows PowerShell
 
-### 📱 What It Does
-Scans QR codes in real-time, extracts embedded URLs, and uses **25+ security heuristics** + **ML-lite scoring** to detect phishing attempts—all **100% offline, zero network requests**.
-
-### 🌐 Platforms Supported
-| Platform | Technology | Run Command |
-|----------|------------|-------------|
-| **Android** | Compose + ML Kit | `./gradlew :androidApp:installDebug` |
-| **iOS** | SwiftUI + AVFoundation | Open `iosApp/QRShield.xcodeproj` → ⌘R |
-| **Desktop** | Compose Desktop (JVM) | `./gradlew :desktopApp:run` |
-| **Web** | Kotlin/JS + jsQR | [🌐 Live Demo](https://raoof128.github.io/) • [🎬 Demo Mode](https://raoof128.github.io/?demo=true) |
-
-#### 🎬 Web Demo Mode (For Judges)
-Open **[https://raoof128.github.io/?demo=true](https://raoof128.github.io/?demo=true)** to:
-- Skip the onboarding tutorial
-- Pre-fill a sample malicious URL (`paypa1-secure.tk`)
-- One click to see the detection in action
-
-#### ⌨️ Desktop Keyboard Shortcuts
-| Shortcut | Action |
-|----------|--------|
-| `/` | Focus URL input |
-| `Enter` | Analyze URL |
-| `Cmd/Ctrl+V` | Paste and focus |
-| `Esc` | Reset scanner |
-
-
-### 🧪 Sample Malicious QR Payloads (Test These!)
-```
-❌ MALICIOUS (Score ~85+):
-   https://paypa1-secure.tk/login
-   https://commbank.ml/verify-account
-   https://pаypаl.com/signin  (← Cyrillic 'а' homograph!)
-
-⚠️ SUSPICIOUS (Score ~40-70):
-   https://bit.ly/3xYz123
-   http://192.168.1.100/admin
-   https://login-secure-bank.xyz
-
-✅ SAFE (Score <30):
-   https://google.com
-   https://github.com
-   https://www.apple.com
+# Or jump straight to the live demo (no build required!)
+# → https://raoof128.github.io/?demo=true
 ```
 
-### 📤 Expected Output
-```
-┌─────────────────────────────────────────────────────┐
-│  URL: https://paypa1-secure.tk/login                │
-│  ─────────────────────────────────────────────────  │
-│  Score: 87/100                                      │
-│  Verdict: ❌ MALICIOUS                              │
-│  ─────────────────────────────────────────────────  │
-│  Risk Signals Detected:                             │
-│  • BRAND_IMPERSONATION (+35) - "paypal" fuzzy match │
-│  • SUSPICIOUS_TLD (+25) - ".tk" high-risk TLD       │
-│  • TYPOSQUATTING (+15) - "paypa1" edit distance=1   │
-│  • HTTP_REDIRECT (+12) - Path suggests login flow   │
-└─────────────────────────────────────────────────────┘
-```
+| What to Try | Expected Result |
+|-------------|-----------------|
+| `https://paypa1-secure.tk/login` | MALICIOUS (Score ~85) — Brand impersonation + suspicious TLD |
+| `https://google.com` | SAFE (Score <20) — No threats detected |
+
+**Key Files:**
+- Shared detection engine: `common/src/commonMain/kotlin/com/qrshield/`
+- Android app: `androidApp/` — iOS app: `iosApp/` — Desktop: `desktopApp/` — Web: `webApp/`
 
 ---
 
-## 📸 Key Screens (Judge Preview)
+### 📊 Quick Stats
+
+| Metric | Value |
+|--------|-------|
+| **Shared Code** | ~80% (detection engine, ML, models) |
+| **Platform Targets** | 4 (Android, iOS, Desktop, Web) |
+| **Security Heuristics** | 25+ |
+| **Test Coverage** | 89% |
+| **Unit Tests** | 900+ |
+
+### 🔗 Links
+
+| Resource | Link |
+|----------|------|
+| **Live Demo** | [raoof128.github.io/?demo=true](https://raoof128.github.io/?demo=true) |
+| **APK Download** | [Releases](https://github.com/Raoof128/Raoof128.github.io/releases/latest) |
+| **Source Code** | [GitHub](https://github.com/Raoof128/Raoof128.github.io) |
+| **Changelog** | [CHANGELOG.md](CHANGELOG.md) |
+
+### Badges
+
+![Kotlin](https://img.shields.io/badge/Kotlin-1.9.22-7F52FF?logo=kotlin&logoColor=white)
+![KMP](https://img.shields.io/badge/KMP-Enabled-7F52FF?logo=kotlin&logoColor=white)
+![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
+![iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)
+![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?logo=openjdk&logoColor=white)
+![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
+![License](https://img.shields.io/badge/License-Apache_2.0-blue)
+![Version](https://img.shields.io/badge/v1.1.4-green)
+
+---
+
+## 📸 Key Screens
 
 > **Visual overview of QR-SHIELD's detection capabilities and cross-platform UI.**
 
