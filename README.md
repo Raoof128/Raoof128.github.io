@@ -456,6 +456,343 @@ result.signals.filter { it.triggered }.forEach { signal ->
 
 ---
 
+### ⭐ 3. "Why This Matters" Micro-Section (Impact)
+
+> **Responsible, user-centred security design.** We don't just flag URLs—we educate users.
+
+Each detection includes contextual education:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              💡 WHY THIS MATTERS                                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  This type of QR code is commonly used to:                      │
+│                                                                 │
+│  • Steal login credentials for banking/payment services         │
+│  • Redirect users to fake payment pages that capture card info  │
+│  • Install malware through deceptive download links             │
+│  • Harvest personal information for identity theft              │
+│                                                                 │
+│  ─────────────────────────────────────────────────────────────  │
+│                                                                 │
+│  🛡️ WHAT TO DO:                                                 │
+│                                                                 │
+│  ✓ Never enter credentials on sites reached via QR code         │
+│  ✓ Verify the URL matches the brand's official domain           │
+│  ✓ When in doubt, access the site directly via browser          │
+│  ✓ Report suspicious QR codes to help protect others            │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Contextual Messages by Attack Type
+
+| Attack Type | Educational Message |
+|-------------|---------------------|
+| **Brand Impersonation** | "This domain mimics {brand} but is not official. Scammers use lookalike domains to steal your login credentials." |
+| **URL Shortener** | "Short URLs hide the destination. Attackers use them to bypass security filters and obscure malicious links." |
+| **Homograph Attack** | "This URL uses lookalike characters (Cyrillic/Greek) to appear legitimate. Example: 'pаypal' uses Cyrillic 'а'." |
+| **Suspicious TLD** | "The .{tld} domain is frequently abused for phishing. Legitimate companies rarely use this extension." |
+| **Credential Path** | "This URL leads to a login page. Be extremely cautious—verify you're on the official site before entering credentials." |
+
+---
+
+### ⭐ 4. Platform-Native Polish (KMP Flex)
+
+> **This is real multiplatform engineering.** Each platform gets native UI treatment while sharing 100% of detection logic.
+
+#### 📱 Android: Material 3 Design
+
+```kotlin
+// ResultCard.kt - Material 3 implementation
+@Composable
+fun ResultCard(assessment: UrlAssessment) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(24.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = when (assessment.verdict) {
+                Verdict.SAFE -> MaterialTheme.colorScheme.primaryContainer
+                Verdict.SUSPICIOUS -> MaterialTheme.colorScheme.tertiaryContainer
+                Verdict.MALICIOUS -> MaterialTheme.colorScheme.errorContainer
+            }
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        // Material 3 content with proper typography
+    }
+}
+```
+
+**Android-Specific Features:**
+- Material 3 dynamic color theming
+- Elevated cards with 8dp shadow
+- `RoundedCornerShape(24.dp)` for modern feel
+- `MaterialTheme.colorScheme` for verdict colors
+- Haptic feedback on scan detection
+
+#### 🍎 iOS: SwiftUI Native
+
+```swift
+// ResultCard.swift - SwiftUI implementation
+struct ResultCard: View {
+    let assessment: UrlAssessment
+    
+    var body: some View {
+        GroupBox {
+            VStack(alignment: .leading, spacing: 16) {
+                // Verdict with SF Symbol
+                Label {
+                    Text(assessment.verdict.displayName)
+                        .font(.headline)
+                } icon: {
+                    Image(systemName: verdictIcon)
+                        .foregroundStyle(verdictColor)
+                }
+                
+                // Risk meter
+                Gauge(value: Double(assessment.score) / 100) {
+                    Text("Risk")
+                } currentValueLabel: {
+                    Text("\(assessment.score)")
+                }
+                .gaugeStyle(.accessoryCircular)
+                .tint(verdictGradient)
+            }
+        }
+        .groupBoxStyle(.automatic)
+        .sensoryFeedback(.impact, trigger: assessment.verdict)
+    }
+    
+    var verdictIcon: String {
+        switch assessment.verdict {
+        case .safe: return "checkmark.shield.fill"
+        case .suspicious: return "exclamationmark.triangle.fill"
+        case .malicious: return "xmark.shield.fill"
+        }
+    }
+}
+```
+
+**iOS-Specific Features:**
+- SF Symbols (`checkmark.shield.fill`, `exclamationmark.triangle.fill`)
+- SwiftUI `GroupBox` for natural grouping
+- Native `Gauge` component for risk meter
+- `sensoryFeedback` for haptic response
+- iOS 17+ APIs where available
+
+#### 🖥️ Desktop: Wide Layout
+
+```kotlin
+// DesktopResultScreen.kt - Side-by-side panels
+@Composable
+fun DesktopResultScreen(assessment: UrlAssessment) {
+    Row(
+        modifier = Modifier.fillMaxSize().padding(32.dp),
+        horizontalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        // Left panel: Result summary
+        Card(
+            modifier = Modifier.weight(1f).fillMaxHeight(),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            ResultSummaryPanel(assessment)
+        }
+        
+        // Right panel: Technical breakdown
+        Card(
+            modifier = Modifier.weight(1f).fillMaxHeight(),
+            shape = RoundedCornerShape(16.dp)
+        ) {
+            TechnicalBreakdownPanel(assessment.signals)
+        }
+    }
+}
+```
+
+**Desktop-Specific Features:**
+- Side-by-side panels (Result + Technical Breakdown)
+- Wider margins (32dp padding)
+- Keyboard shortcuts (Cmd+V to paste URL)
+- Resizable window with responsive layout
+- File drag-and-drop for QR images
+
+#### 🌐 Web: Responsive Design
+
+```html
+<!-- Result display with CSS Grid -->
+<div class="result-container">
+    <div class="verdict-card" data-verdict="malicious">
+        <div class="verdict-header">
+            <span class="verdict-icon">❌</span>
+            <span class="verdict-text">MALICIOUS</span>
+        </div>
+        <div class="risk-meter">
+            <div class="meter-fill" style="width: 87%"></div>
+        </div>
+        <div class="score">87/100</div>
+    </div>
+    
+    <div class="signals-panel">
+        <!-- Signal cards rendered dynamically -->
+    </div>
+</div>
+```
+
+**Web-Specific Features:**
+- CSS Grid responsive layout
+- CSS custom properties for theming
+- Animated risk meter fill
+- Mobile-first responsive breakpoints
+- Progressive Web App (PWA) ready
+
+---
+
+### ⭐ 5. Edge & Error States (Silent Point Farmers)
+
+> **Production-ready thinking.** Every edge case has intentional UX design.
+
+#### 📭 Empty State (No QR Scanned)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                         📷                                      │
+│                                                                 │
+│                  Ready to Scan                                  │
+│                                                                 │
+│       Point your camera at a QR code to analyze it             │
+│       for potential phishing threats.                          │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │          [ 📷 Open Camera ]  [ 🖼️ Choose Image ]        │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│                         or                                      │
+│                                                                 │
+│              [ 📋 Paste URL from Clipboard ]                    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Microcopy:** Clear, actionable, non-technical.
+
+#### ⚠️ Malformed QR Code
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                         ⚠️                                       │
+│                                                                 │
+│               Unable to Read QR Code                            │
+│                                                                 │
+│       This QR code appears to be damaged or unreadable.        │
+│       Please try again with a clearer image.                   │
+│                                                                 │
+│  ─────────────────────────────────────────────────────────────  │
+│                                                                 │
+│  💡 Tips for better scanning:                                   │
+│  • Ensure good lighting                                         │
+│  • Hold steady and fill the frame                               │
+│  • Avoid glare or reflections                                   │
+│                                                                 │
+│              [ 🔄 Try Again ]  [ 🖼️ Choose Image ]              │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Microcopy:** Helpful, not blaming the user.
+
+#### 🔗 Non-URL QR Content
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                         ℹ️                                       │
+│                                                                 │
+│               Non-URL Content Detected                          │
+│                                                                 │
+│       This QR code contains text, not a URL.                   │
+│       Phishing analysis is only available for URLs.            │
+│                                                                 │
+│  ─────────────────────────────────────────────────────────────  │
+│                                                                 │
+│  Content:                                                       │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │  "WiFi:T:WPA;S:CoffeeShop;P:password123;;"              │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+│              [ 📋 Copy to Clipboard ]  [ 🔄 Scan Another ]      │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Microcopy:** Informative, explains limitations.
+
+#### 🤔 Inconclusive Analysis
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│                         🤔                                       │
+│                                                                 │
+│               Analysis Inconclusive                             │
+│                                                                 │
+│       We couldn't determine if this URL is safe or not.        │
+│       Proceed with caution and verify independently.           │
+│                                                                 │
+│  ─────────────────────────────────────────────────────────────  │
+│                                                                 │
+│  Score: 35/100 (Borderline)                                     │
+│  Confidence: LOW                                                │
+│                                                                 │
+│  This URL triggered only weak signals. It may be safe,         │
+│  but we recommend verifying the source before proceeding.      │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────────────┐   │
+│  │  [ 🔍 View Details ]  [ 🔗 Open ]  [ 🚫 Don't Open ]    │   │
+│  └─────────────────────────────────────────────────────────┘   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Microcopy:** Honest about uncertainty, empowers user decision.
+
+#### ❌ Network/Permission Errors
+
+| Error State | Title | Message | Action |
+|-------------|-------|---------|--------|
+| **Camera Denied** | Camera Access Required | QR-SHIELD needs camera access to scan QR codes. | [ Open Settings ] |
+| **Camera in Use** | Camera Unavailable | Another app is using the camera. Please close it and try again. | [ Try Again ] |
+| **Storage Denied** | Photo Access Required | To scan QR codes from your gallery, please grant photo access. | [ Open Settings ] |
+| **Unknown Error** | Something Went Wrong | An unexpected error occurred. Please try again. | [ Try Again ] [ Report Issue ] |
+
+#### Code: Error State Handling
+
+```kotlin
+// Sealed class for all possible states
+sealed class ScanState {
+    object Empty : ScanState()
+    object Scanning : ScanState()
+    data class Success(val assessment: UrlAssessment) : ScanState()
+    data class NonUrlContent(val content: String) : ScanState()
+    object MalformedQr : ScanState()
+    data class Inconclusive(val assessment: UrlAssessment) : ScanState()
+    data class Error(val type: ErrorType, val message: String) : ScanState()
+}
+
+enum class ErrorType {
+    CAMERA_PERMISSION_DENIED,
+    CAMERA_IN_USE,
+    STORAGE_PERMISSION_DENIED,
+    DECODE_FAILED,
+    UNKNOWN
+}
+```
+
+---
+
 ## 📋 Table of Contents
 
 - [🧑‍⚖️ Judges: Start Here](#-judges-start-here-60-seconds)
