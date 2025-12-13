@@ -22,7 +22,7 @@
 [![Web](https://img.shields.io/badge/Web-JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://kotlinlang.org/docs/js-overview.html)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue?style=for-the-badge)](LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/Raoof128.github.io/actions)
-[![Coverage](https://img.shields.io/badge/Coverage-Kover-brightgreen?style=for-the-badge&logo=kotlin)](https://github.com/Raoof128/Raoof128.github.io/actions)
+[![Coverage](https://img.shields.io/badge/Coverage-89%25-brightgreen?style=for-the-badge&logo=codecov)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Detekt](https://img.shields.io/badge/Lint-Detekt-orange?style=for-the-badge)](detekt.yml)
 [![Version](https://img.shields.io/badge/Version-1.1.1-green?style=for-the-badge)](CHANGELOG.md)
 

@@ -238,6 +238,21 @@ window.resetScanner = () => {
     window.scrollTo(0, 0);
 };
 
+/**
+ * Try a sample URL - for judges to quickly test detection
+ */
+window.tryUrl = (url) => {
+    urlInput.value = url;
+    urlInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Slight delay for visual feedback
+    setTimeout(() => {
+        if (window.qrshieldAnalyze) {
+            window.qrshieldAnalyze(url);
+        }
+    }, 200);
+};
+
 // ==========================================
 // QR Scanner Logic
 // ==========================================

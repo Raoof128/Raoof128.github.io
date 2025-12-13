@@ -55,23 +55,32 @@
 
         <!-- Hero -->
         <section class="hero-section">
+            <div class="kmp-badge">
+                <img src="https://img.shields.io/badge/Kotlin_Multiplatform-Powered-7F52FF?style=flat&logo=kotlin&logoColor=white"
+                    alt="Kotlin Multiplatform">
+            </div>
             <h1 class="text-gradient">Scan URLs Safely</h1>
             <p class="hero-subtitle">AI-powered phishing detection running 100% offline in your browser.</p>
+            <p class="hero-trust">🔒 Zero data collection • 🚀 Same engine as Android & iOS • 🧠 25+ AI heuristics</p>
         </section>
 
         <!-- Metrics -->
         <div class="metrics-grid">
             <div class="metric-card">
                 <span class="metric-value">25+</span>
-                <span class="metric-label">Heuristic Rules</span>
+                <span class="metric-label">Security Heuristics</span>
             </div>
             <div class="metric-card">
-                <span class="metric-value">0ms</span>
-                <span class="metric-label">Network Latency</span>
+                <span class="metric-value">500+</span>
+                <span class="metric-label">Brands Detected</span>
+            </div>
+            <div class="metric-card">
+                <span class="metric-value">&lt;50ms</span>
+                <span class="metric-label">Analysis Time</span>
             </div>
             <div class="metric-card">
                 <span class="metric-value">100%</span>
-                <span class="metric-label">Privacy First</span>
+                <span class="metric-label">Local Privacy</span>
             </div>
         </div>
 
@@ -92,6 +101,29 @@
                     <span class="material-icons-round">qr_code_scanner</span>
                     Scan QR
                 </button>
+            </div>
+
+            <!-- Try Now: Sample URLs for Judges -->
+            <div class="try-now-section">
+                <p class="try-now-label">🧪 Try these examples:</p>
+                <div class="sample-urls">
+                    <button class="sample-url safe" onclick="tryUrl('https://google.com')">
+                        <span class="sample-icon">✅</span>
+                        <span class="sample-text">google.com</span>
+                    </button>
+                    <button class="sample-url malicious" onclick="tryUrl('https://paypa1-secure.tk/login')">
+                        <span class="sample-icon">❌</span>
+                        <span class="sample-text">paypa1-secure.tk</span>
+                    </button>
+                    <button class="sample-url malicious" onclick="tryUrl('https://commbank.secure-verify.ml/account')">
+                        <span class="sample-icon">❌</span>
+                        <span class="sample-text">commbank.ml</span>
+                    </button>
+                    <button class="sample-url suspicious" onclick="tryUrl('https://bit.ly/3xYz123')">
+                        <span class="sample-icon">⚠️</span>
+                        <span class="sample-text">bit.ly shortener</span>
+                    </button>
+                </div>
             </div>
         </main>
 
@@ -130,6 +162,25 @@
                 </div>
             </div>
         </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <p>🛡️ QR-SHIELD — Kotlin Multiplatform QRishing Detector</p>
+                <p class="footer-meta">
+                    Built for <strong>KotlinConf Student Competition 2025-2026</strong>
+                </p>
+                <div class="footer-links">
+                    <a href="https://github.com/Raoof128/Raoof128.github.io" target="_blank">
+                        <span class="material-icons-round">code</span> GitHub
+                    </a>
+                    <a href="https://github.com/Raoof128/Raoof128.github.io/releases" target="_blank">
+                        <span class="material-icons-round">download</span> Download Apps
+                    </a>
+                </div>
+                <p class="footer-privacy">🔒 100% offline • Zero data collection • Open source (Apache 2.0)</p>
+            </div>
+        </footer>
 
     </div>
 
