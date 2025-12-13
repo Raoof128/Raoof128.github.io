@@ -29,7 +29,7 @@
 **Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
 
 <a href="https://raoof128.github.io/"><img src="https://img.shields.io/badge/🌐_Try_Live_Demo-7F52FF?style=for-the-badge" alt="Live Demo"></a>
-<a href="#-demo-video"><img src="https://img.shields.io/badge/🎬_Watch_Demo-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video"></a>
+<a href="#-demo-video-1"><img src="https://img.shields.io/badge/🎬_Watch_Demo-FF0000?style=for-the-badge&logo=youtube" alt="Demo Video"></a>
 
 ### 📥 Download Now
 
@@ -41,7 +41,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/Raoof128/Raoof128.github.io?style=flat-square&label=Latest%20Release&color=success)](https://github.com/Raoof128/Raoof128.github.io/releases/latest)
 [![GitHub Downloads](https://img.shields.io/github/downloads/Raoof128/Raoof128.github.io/total?style=flat-square&label=Downloads&color=blue)](https://github.com/Raoof128/Raoof128.github.io/releases)
 
-[Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing)
+[Features](#-features) • [Architecture](#-architecture) • [Quick Start](#-quick-start) • [Limitations](#️-limitations) • [Roadmap](#-future-roadmap) • [API](#-api-documentation) • [Contributing](#-contributing)
 
 </div>
 
@@ -2664,6 +2664,244 @@ v1.1.0  # Created: 2025-12-12
 ### 📋 Statement
 
 > This project is **original work** created during the Kotlin Student Coding Competition 2025–2026 window. All code was written by the project contributors starting December 2025. The repository history demonstrates incremental development with meaningful commits, not a single "dump" import.
+
+---
+
+## 🎬 Demo Video
+
+<div align="center">
+
+[![QR-SHIELD Demo](https://img.shields.io/badge/▶️_Watch_Full_Demo-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+
+*Coming Soon: Full walkthrough video showing QR-SHIELD in action across all 4 platforms*
+
+</div>
+
+### Quick Demo GIFs
+
+| Android | iOS (Web) | Desktop |
+|---------|-----------|---------|
+| Scan QR → Instant Result | Same engine, same speed | Native desktop experience |
+| 📱 Real-time camera | 🍎 PWA with camera | 💻 JAR + JVM |
+
+---
+
+## ⚠️ Limitations
+
+> **Transparency builds trust.** Here's what QR-SHIELD can and cannot do.
+
+### What QR-SHIELD CANNOT Detect
+
+| Limitation | Reason | Mitigation |
+|------------|--------|------------|
+| **Zero-day phishing domains** | Brand-new domains not in heuristic patterns | Regular pattern updates planned |
+| **Legitimate-looking homographs on trusted TLDs** | `gооgle.com` (.co domain with Cyrillic) may evade if TLD is trusted | Homograph detection is active but not 100% |
+| **URL shorteners hiding the final destination** | We flag shorteners but can't resolve them offline | User is warned to proceed with caution |
+| **QR codes with non-URL payloads** | WiFi, vCard, SMS payloads not analyzed for phishing | Only URL analysis is performed |
+| **Post-redirect phishing pages** | We analyze the URL, not the page content | SSL/content analysis would require network |
+| **Sophisticated targeted attacks** | Spear-phishing with personalized domains | Heuristics are pattern-based, not intent-aware |
+
+### Known Edge Cases
+
+```
+✅ Detects: paypal-login.tk, amaz0n.com, g00gle-verify.ml
+⚠️ May miss: legitimate-looking.com (if patterns don't match)
+❌ Cannot detect: Brand new domain registered 1 hour ago
+```
+
+### Why We're Honest About This
+
+Real security tools acknowledge their boundaries. QR-SHIELD is a **first line of defense**, not a replacement for:
+- User education about phishing
+- Enterprise security solutions
+- Network-level threat detection
+
+---
+
+## 🚀 Future Roadmap
+
+> **Where we're going after the competition.**
+
+### Version 1.2 (Q1 2026)
+- [ ] **URL Shortener Resolution** - Optional online mode to follow redirects
+- [ ] **Custom Allowlist/Blocklist** - User-defined trusted/blocked domains
+- [ ] **Cloud Sync** - Sync scan history across devices
+- [ ] **Widget Support** - Android/iOS home screen widgets
+
+### Version 1.3 (Q2 2026)
+- [ ] **ML Model v2** - Trained on 100K+ real phishing URLs
+- [ ] **Screenshot Analysis** - Detect phishing based on page appearance
+- [ ] **Enterprise Mode** - Centralized policy management
+- [ ] **API Service** - Cloud API for integration (opt-in)
+
+### Version 2.0 (2026)
+- [ ] **Browser Extension** - Chrome/Firefox/Safari support
+- [ ] **Email Scanner** - Analyze URLs in email bodies
+- [ ] **Threat Intelligence** - Optional threat feed integration
+- [ ] **Multi-language Brands** - 1000+ brands, 10+ languages
+
+### Community Wishlist
+Have a feature idea? [Open an issue](https://github.com/Raoof128/Raoof128.github.io/issues/new)!
+
+---
+
+## 👥 Team & Contributors
+
+<div align="center">
+
+### Core Team
+
+<table>
+<tr>
+<td align="center">
+<a href="https://github.com/Raoof128">
+<img src="https://github.com/Raoof128.png" width="100" style="border-radius: 50%;" alt="Raoof128"/>
+<br />
+<sub><b>Raoof128</b></sub>
+</a>
+<br />
+<sub>Lead Developer</sub>
+</td>
+</tr>
+</table>
+
+### Technology Stack Credits
+
+| Technology | Purpose | Link |
+|------------|---------|------|
+| Kotlin Multiplatform | Core engine, shared code | [kotlinlang.org](https://kotlinlang.org) |
+| Compose Multiplatform | UI across platforms | [jetbrains.com](https://www.jetbrains.com/lp/compose-multiplatform/) |
+| ML Kit | Android barcode scanning | [developers.google.com](https://developers.google.com/ml-kit) |
+| AVFoundation | iOS camera access | [developer.apple.com](https://developer.apple.com/av-foundation/) |
+| SQLDelight | Local database | [cashapp.github.io](https://cashapp.github.io/sqldelight/) |
+| Ktor | Networking (future) | [ktor.io](https://ktor.io) |
+
+</div>
+
+---
+
+## 📚 API Documentation
+
+> **For developers who want to integrate QR-SHIELD's detection engine.**
+
+### Core API
+
+#### PhishingEngine
+
+The main entry point for phishing analysis.
+
+```kotlin
+import com.qrshield.core.PhishingEngine
+import com.qrshield.model.Verdict
+
+val engine = PhishingEngine()
+
+// Analyze a URL
+val result = engine.analyze("https://suspicious-site.tk/login")
+
+// Result properties
+result.score      // Int (0-100 risk score)
+result.verdict    // Verdict.SAFE | SUSPICIOUS | MALICIOUS | UNKNOWN
+result.flags      // List<String> - detected risk factors
+result.confidence // Float (0.0-1.0)
+```
+
+#### Verdict Enum
+
+```kotlin
+enum class Verdict {
+    SAFE,       // Score 0-29: No significant risks detected
+    SUSPICIOUS, // Score 30-59: Proceed with caution
+    MALICIOUS,  // Score 60-100: High risk, likely phishing
+    UNKNOWN     // Unable to analyze (malformed URL)
+}
+```
+
+### Heuristics Engine
+
+Direct access to heuristic analysis.
+
+```kotlin
+import com.qrshield.engine.HeuristicsEngine
+
+val heuristics = HeuristicsEngine()
+val result = heuristics.analyze("https://paypal-verify.tk/login")
+
+// Result properties
+result.score    // Int - cumulative heuristic score
+result.flags    // List<String> - triggered heuristics
+result.details  // Map<String, Int> - individual scores
+```
+
+### Brand Detection
+
+Detect brand impersonation attempts.
+
+```kotlin
+import com.qrshield.engine.BrandDetector
+
+val detector = BrandDetector()
+val brand = detector.detect("https://paypa1-secure.com/login")
+
+// Returns matching brand info or null
+brand?.name        // "PayPal"
+brand?.isHighValue // true (financial target)
+brand?.keywords    // ["paypal", "pay", "pal"]
+```
+
+### TLD Scoring
+
+Evaluate domain risk based on TLD.
+
+```kotlin
+import com.qrshield.engine.TldScorer
+
+val scorer = TldScorer()
+val result = scorer.score("https://suspicious.tk/path")
+
+result.tld          // "tk"
+result.score        // 25 (high risk)
+result.isHighRisk   // true
+result.riskCategory // RiskCategory.FREE_TIER
+```
+
+### Integration Example
+
+```kotlin
+// Full analysis pipeline
+class SecurityScanner(context: Context) {
+    private val engine = PhishingEngine()
+    
+    fun scanQrCode(qrContent: String): ScanResult {
+        val analysis = engine.analyze(qrContent)
+        
+        return when (analysis.verdict) {
+            Verdict.SAFE -> ScanResult.Safe(qrContent)
+            Verdict.SUSPICIOUS -> ScanResult.Warning(
+                url = qrContent,
+                message = "Proceed with caution",
+                risks = analysis.flags
+            )
+            Verdict.MALICIOUS -> ScanResult.Blocked(
+                url = qrContent,
+                message = "Phishing detected",
+                risks = analysis.flags
+            )
+            Verdict.UNKNOWN -> ScanResult.Unknown(qrContent)
+        }
+    }
+}
+```
+
+### Gradle Dependency (Coming Soon)
+
+```kotlin
+// build.gradle.kts
+dependencies {
+    implementation("com.qrshield:core:1.1.3")
+    implementation("com.qrshield:engine:1.1.3")
+}
+```
 
 ---
 

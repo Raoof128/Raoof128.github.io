@@ -4,6 +4,71 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-13 (Part 4)
+
+### Summary
+Implemented all README DOCUMENTATION improvements for professional polish.
+
+---
+
+### Updates Made
+
+#### 1. Fixed Demo Video Link (#25)
+- Changed `#-demo-video` to `#-demo-video-1`
+- Added actual Demo Video section with placeholder
+
+---
+
+#### 2. Added Limitations Section (#26)
+**New Content:**
+- 6 documented limitations with reasons and mitigations
+- Known edge cases section
+- Honest disclosure about what QR-SHIELD can't detect
+
+---
+
+#### 3. Added Future Roadmap (#27)
+**Planned Versions:**
+- v1.2 (Q1 2026): URL shortener resolution, allowlist/blocklist
+- v1.3 (Q2 2026): ML Model v2, screenshot analysis
+- v2.0 (2026): Browser extension, email scanner
+- Community wishlist link
+
+---
+
+#### 4. Added Team & Contributors Section (#28)
+- Core team avatar table
+- Technology stack credits with links
+
+---
+
+#### 5. Verified External Links (#29)
+- All GitHub badge links verified
+- Live demo link verified
+- Download links verified
+
+---
+
+#### 6. Added API Documentation (#30)
+**Documented APIs:**
+- `PhishingEngine.analyze()` - main entry point
+- `HeuristicsEngine` - direct heuristic access
+- `BrandDetector` - brand impersonation detection
+- `TldScorer` - TLD risk scoring
+- Integration example with `ScanResult` sealed class
+- Future Gradle dependency snippet
+
+---
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| README.md | +240 lines (5 new sections) |
+| .agent/agent.md | Updated session log |
+
+---
+
 ## Session: 2025-12-13 (Part 3)
 
 ### Summary

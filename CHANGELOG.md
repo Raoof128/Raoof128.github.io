@@ -58,6 +58,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed all trailing whitespace from `.kt` files
 - Detekt now passes with 0 build failures
 - No TODO/FIXME comments in codebase
+- Fixed `#-demo-video` dead link in badges
+
+#### DOCUMENTATION Improvements
+- **Demo Video Section** (#25) - Added placeholder with proper anchor
+- **Limitations Section** (#26) - Honest disclosure of what QR-SHIELD cannot detect:
+  - Zero-day domains, sophisticated homographs, URL shortener resolution
+  - Post-redirect pages, non-URL payloads
+- **Future Roadmap** (#27) - Planned features for v1.2, v1.3, v2.0
+- **Team & Contributors** (#28) - Core team avatars, technology credits
+- **API Documentation** (#30) - Full API docs for developer integration:
+  - `PhishingEngine`, `HeuristicsEngine`, `BrandDetector`, `TldScorer`
+  - Integration examples, future Gradle dependency
 
 ---
 
