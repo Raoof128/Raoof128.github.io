@@ -65,17 +65,14 @@
 > **Visual overview of QR-SHIELD's detection capabilities and cross-platform UI.**
 
 ### 🔴 High-Risk QR Detection Screen
-<!-- PLACEHOLDER: Add screenshot showing a detected malicious URL with score 85+ -->
 ![High-Risk Detection](docs/screenshots/high_risk_detection.png)
 *Detection of homograph attack on "paypal" using Cyrillic characters*
 
 ### 🧠 Explainable Signal Breakdown
-<!-- PLACEHOLDER: Add screenshot showing the detailed risk factor breakdown -->
 ![Signal Breakdown](docs/screenshots/signal_breakdown.png)
 *25+ heuristic signals with weighted scores and explanations*
 
 ### 📱 Cross-Platform UI Consistency
-<!-- PLACEHOLDER: Add side-by-side comparison of Android, iOS, Desktop, Web -->
 ![Cross Platform](docs/screenshots/cross_platform_comparison.png)
 *Same shared detection engine powering Android, iOS, Desktop, and Web*
 
@@ -1170,7 +1167,7 @@ Before submitting, we asked ourselves the hardest questions:
 - [Documentation](#-documentation)
 - [Testing](#-testing)
 - [Performance Benchmarks](#-performance-benchmarks)
-- [Accuracy & Sanity Checks](#-accuracy--sanity-checks)
+- [ML Model](docs/ML_MODEL.md)
 - [Code Quality (Detekt)](#-code-quality-detekt)
 - [Coroutines & Flow](#-coroutines--flow-best-practices)
 - [Test Coverage](#-test-coverage-kover)
