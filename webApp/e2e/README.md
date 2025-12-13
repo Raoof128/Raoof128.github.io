@@ -80,6 +80,42 @@ test('should do something', async ({ page }) => {
 2. **Wait for visibility**: Use `expect(element).toBeVisible()` 
 3. **Keep tests independent**: Each test should be runnable in isolation
 4. **Use page objects**: For complex pages, extract selectors into page objects
+5. **Dismiss modals**: Use `dismissOnboarding(page)` helper in beforeEach
+
+## Available Test IDs
+
+The web app provides the following `data-testid` attributes:
+
+| Selector | Element |
+|----------|---------|
+| `url-input` | Main URL input field |
+| `analyze-button` | Analyze URL button |
+| `logo` | QR-SHIELD logo |
+| `result-card` | Analysis result container |
+| `score-ring` | Risk score display |
+| `verdict-pill` | Verdict badge (SAFE/SUSPICIOUS/MALICIOUS) |
+| `risk-factors` | Risk factors list |
+| `scan-another-button` | Reset/scan another button |
+| `share-button` | Share result button |
+| `report-button` | Report phishing button |
+
+## Handling Onboarding Modal
+
+First-time users see an onboarding modal. Tests should dismiss it:
+
+```typescript
+async function dismissOnboarding(page: Page) {
+    const skipBtn = page.locator('#skipOnboarding');
+    const modal = page.locator('#onboardingModal');
+    
+    if (await modal.isVisible({ timeout: 2000 }).catch(() => false)) {
+        if (await skipBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
+            await skipBtn.click();
+            await page.waitForTimeout(500);
+        }
+    }
+}
+```
 
 ## License
 

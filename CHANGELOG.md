@@ -5,6 +5,115 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.4] - 2025-12-14
+
+### Added
+
+#### Comprehensive Testing Infrastructure
+
+##### Mutation Testing (Pitest)
+- `pitest.yml` - Configuration for mutation testing:
+  - 60% mutation score threshold
+  - 80% line coverage threshold
+  - Targets: core, engine, ML, security, scanner classes
+- `gradle/pitest.gradle.kts` - Gradle plugin configuration for JVM targets
+
+##### Property-Based / Fuzz Testing
+- **`PropertyBasedTests.kt`** (19 tests):
+  - URL generators: random, suspicious, homograph, malformed
+  - Engine stability tests (never crashes on arbitrary input)
+  - Score range validation (0-100)
+  - Brand detection idempotency
+  - Feature extraction consistency
+  - Input validation edge cases
+  - Homograph detection Unicode handling
+  - 100 sample iterations per test
+
+##### Performance Regression Tests
+- **`PerformanceRegressionTest.kt`** (11 strict tests):
+  - Single URL analysis: < 50ms P99
+  - Complex URL analysis: < 100ms P99
+  - Batch 10 URLs: < 200ms total
+  - Component-level: Heuristics < 15ms, ML < 10ms, TLD < 5ms
+  - Throughput: ≥ 100 URLs/second
+  - Memory efficiency: < 5MB per analysis
+
+##### iOS XCUITest Suite
+- **`HistoryFlowUITests.swift`** - History tab tests:
+  - Navigation, empty state, filter pills
+  - Search, swipe-to-delete, sharing, sorting
+- **`SettingsFlowUITests.swift`** - Settings tests:
+  - All toggle persistence
+  - Dark mode switching, clear history confirmation
+  - About section, settings persistence across restarts
+- **`AccessibilityUITests.swift`** - Accessibility tests:
+  - VoiceOver labels, 44pt touch targets
+  - Focus order, Dynamic Type, reduce motion
+
+##### Playwright Web E2E Tests
+- **`homepage.spec.ts`** (16 tests):
+  - Page load, logo/heading/input visibility
+  - Safe/suspicious URL analysis
+  - Enter key submission, score display
+  - URL validation (http, https, long URLs)
+- **`accessibility.spec.ts`** (18 tests):
+  - WCAG 2.1 AA compliance
+  - Keyboard navigation, ARIA labels
+  - Focus indicators, heading hierarchy
+  - Color contrast, reduced motion
+- **`performance.spec.ts`** - Performance tests:
+  - Page load < 3s, FCP < 2s
+  - Analysis < 5s, memory leak detection
+  - 3G mobile simulation
+- **`visual.spec.ts`** - Visual regression tests:
+  - Screenshot comparisons across viewports
+  - Dark/light mode consistency
+  - Component state screenshots
+
+##### CI/CD Quality Workflow
+- **`.github/workflows/quality-tests.yml`**:
+  - Property-based tests job
+  - Performance regression tests job
+  - Web E2E tests with Playwright
+  - iOS UI tests (macOS, main branch only)
+  - Quality summary aggregation
+
+#### Web App Testing Improvements
+- Added `data-testid` attributes for E2E testing:
+  - `url-input`, `analyze-button`, `result-card`
+  - `score-ring`, `verdict-pill`, `risk-factors`
+  - `logo`, `scan-another-button`, `share-button`
+- Added accessibility improvements:
+  - `aria-label` on inputs and buttons
+  - `role="region"` and `aria-live="polite"` on result card
+  - `.sr-only` CSS class for screen readers
+  - Proper `<label>` elements
+
+#### New Makefile Targets
+```
+make test-fuzz         # Property-based/fuzz tests
+make test-performance  # Performance regression tests
+make test-benchmark    # Benchmark suite
+make test-ios-ui       # iOS XCUITest suite
+make test-web-e2e      # Playwright E2E tests
+make test-web-e2e-headed  # E2E with visible browser
+make test-web-e2e-report  # Generate HTML report
+make test-quality      # All quality tests combined
+```
+
+### Changed
+- **Total Tests**: 804+ → 900+ tests
+- **E2E Test Count**: 0 → 50+ Playwright tests
+- **iOS UI Tests**: 0 → ~50 XCUITest cases
+- **Performance Tests**: 6 → 17 (with strict thresholds)
+
+### Fixed
+- Fixed E2E tests blocked by onboarding modal (added `dismissOnboarding()` helper)
+- Fixed TypeScript errors in Playwright tests
+- Fixed heading hierarchy test for modal headings
+
+---
+
 ## [1.1.3] - 2025-12-13
 
 ### Added
@@ -291,6 +400,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Release Links
 
+[1.1.4]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.4
 [1.1.3]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.3
 [1.1.2]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.2
 [1.1.1]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.1

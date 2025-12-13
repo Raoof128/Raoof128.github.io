@@ -24,7 +24,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Coverage](https://img.shields.io/badge/Coverage-89%25-brightgreen?style=for-the-badge&logo=codecov)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Detekt](https://img.shields.io/badge/Lint-Detekt-orange?style=for-the-badge)](detekt.yml)
-[![Version](https://img.shields.io/badge/Version-1.1.3-green?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.1.4-green?style=for-the-badge)](CHANGELOG.md)
 
 **Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
 
@@ -2559,8 +2559,11 @@ val scanHistory: StateFlow<List<HistoryScanResult>> = _scanHistory.asStateFlow()
 | **Security** | 3 | 20+ | Input validation, Rate limiting |
 | **Data** | 2 | 15+ | History repository, Scanner |
 | **Integration** | 2 | 10+ | End-to-end analysis |
-| **Performance** | 1 | 6 | Benchmark verification |
-| **Total** | **29** | **186+** | |
+| **Performance** | 2 | 17 | Benchmark + Regression tests |
+| **Property-Based** | 1 | 19 | Fuzz testing with random URLs |
+| **iOS XCUITest** | 3 | ~50 | UI flow, accessibility |
+| **Web E2E (Playwright)** | 4 | 50+ | Homepage, accessibility, visual |
+| **Total** | **29+** | **300+** | |
 
 ### Specific Test Coverage
 
@@ -2596,6 +2599,108 @@ cat common/build/reports/kover/report.xml
   uses: codecov/codecov-action@v4
   with:
     file: common/build/reports/kover/report.xml
+```
+
+---
+
+## 🔬 Advanced Testing (v1.1.4)
+
+### Property-Based / Fuzz Testing
+
+Inspired by QuickCheck patterns, these tests generate **random inputs** to find edge cases:
+
+```bash
+# Run fuzz tests
+make test-fuzz
+# or: ./gradlew :common:desktopTest --tests "*PropertyBasedTests*"
+```
+
+**Tests Include:**
+- 19 property tests with 100 random samples each
+- URL generators: random, suspicious, homograph, malformed
+- Engine stability (never crashes on arbitrary input)
+- Score validation (always 0-100)
+- Idempotency checks (same input = same output)
+
+### Performance Regression Tests
+
+**Strict thresholds that FAIL the build if exceeded:**
+
+```bash
+# Run performance tests
+make test-performance
+# or: ./gradlew :common:desktopTest --tests "*PerformanceRegressionTest*"
+```
+
+| Test | Threshold | Enforcement |
+|------|-----------|-------------|
+| Single URL Analysis | < 50ms P99 | ❌ Fail if exceeded |
+| Complex URL Analysis | < 100ms P99 | ❌ Fail if exceeded |
+| Batch 10 URLs | < 200ms | ❌ Fail if exceeded |
+| Heuristics Engine | < 15ms | ❌ Fail if exceeded |
+| ML Scoring | < 10ms | ❌ Fail if exceeded |
+| TLD Scoring | < 5ms | ❌ Fail if exceeded |
+| Throughput | ≥ 100 URLs/sec | ❌ Fail if below |
+| Memory | < 5MB per analysis | ❌ Fail if exceeded |
+
+### iOS XCUITest Suite
+
+Native UI tests for iOS using XCUITest framework:
+
+```bash
+# Run iOS UI tests (macOS only)
+make test-ios-ui
+```
+
+**Test Files:**
+- `HistoryFlowUITests.swift` - History tab navigation, filters, search, delete
+- `SettingsFlowUITests.swift` - Toggle persistence, dark mode, clear history
+- `AccessibilityUITests.swift` - VoiceOver, 44pt targets, Dynamic Type
+
+### Playwright Web E2E Tests
+
+Cross-browser E2E tests for the web application:
+
+```bash
+# Install dependencies
+cd webApp/e2e && npm install
+
+# Run E2E tests (headless)
+make test-web-e2e
+
+# Run with visible browser
+make test-web-e2e-headed
+
+# Generate HTML report
+make test-web-e2e-report
+```
+
+**Test Suites:**
+| Suite | Tests | Coverage |
+|-------|-------|----------|
+| `homepage.spec.ts` | 16 | Page load, logo, analysis, validation |
+| `accessibility.spec.ts` | 18 | WCAG 2.1 AA, keyboard nav, ARIA |
+| `performance.spec.ts` | ~10 | Load time, FCP, memory |
+| `visual.spec.ts` | ~15 | Screenshot comparisons |
+
+### Mutation Testing (Pitest)
+
+Verify test quality by mutating the code:
+
+```bash
+# Run mutation tests (JVM only)
+./gradlew pitest
+```
+
+**Configuration:** See `pitest.yml` for target classes and thresholds.
+
+### Quality Test Workflow
+
+All quality tests run in CI via `.github/workflows/quality-tests.yml`:
+
+```bash
+# Run all quality tests locally
+make test-quality
 ```
 
 ---
