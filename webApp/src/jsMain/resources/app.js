@@ -199,52 +199,418 @@ function updateResultCard(score, verdict, flags) {
     const pill = resultCard.querySelector('.verdict-pill');
     pill.textContent = verdict;
 
+    // Calculate confidence based on signal count and score extremity
+    const confidence = calculateConfidence(score, flags?.length || 0);
+
     const title = resultCard.querySelector('h3');
     if (verdict === 'SAFE') title.textContent = 'Safe to Visit';
-    else if (verdict === 'SUSPICIOUS') title.textContent = 'Suspicious URL';
-    else if (verdict === 'MALICIOUS') title.textContent = 'Malicious URL Content';
+    else if (verdict === 'SUSPICIOUS') title.textContent = 'Proceed with Caution';
+    else if (verdict === 'MALICIOUS') title.textContent = 'Do Not Visit This URL';
     else title.textContent = 'Unknown Verdict';
 
-    // Update Flags
+    // Update Flags with enhanced explainability
     const riskContainer = document.getElementById('riskFactors');
     riskContainer.innerHTML = '';
 
+    // Add "Why this verdict?" header with confidence
+    const headerDiv = document.createElement('div');
+    headerDiv.className = 'explainability-header';
+    headerDiv.innerHTML = `
+        <div class="why-verdict">
+            <span class="material-icons-round">psychology</span>
+            <span>Why this verdict?</span>
+        </div>
+        <div class="confidence-badge ${confidence.level}">
+            <span class="confidence-dots">${'●'.repeat(confidence.dots)}${'○'.repeat(5 - confidence.dots)}</span>
+            <span class="confidence-label">${confidence.label} Confidence</span>
+        </div>
+    `;
+    riskContainer.appendChild(headerDiv);
+
     if (flags && flags.length > 0) {
         flags.forEach(flag => {
+            const signalInfo = getSignalExplanation(flag);
             const div = document.createElement('div');
-            div.className = 'risk-item';
-            // Use textContent for the flag to prevent XSS
-            const iconSpan = document.createElement('span');
-            iconSpan.className = 'material-icons-round risk-icon';
-            iconSpan.textContent = 'warning';
+            div.className = `risk-item-expanded severity-${signalInfo.severity}`;
 
-            const textSpan = document.createElement('span');
-            textSpan.className = 'risk-text';
-            textSpan.textContent = flag;
-
-            div.appendChild(iconSpan);
-            div.appendChild(textSpan);
+            div.innerHTML = `
+                <div class="signal-header" onclick="this.parentElement.classList.toggle('expanded')">
+                    <span class="material-icons-round signal-icon">${signalInfo.icon}</span>
+                    <span class="signal-name">${signalInfo.name}</span>
+                    <span class="signal-severity ${signalInfo.severity}">${signalInfo.severity.toUpperCase()}</span>
+                    <span class="material-icons-round expand-icon">expand_more</span>
+                </div>
+                <div class="signal-details">
+                    <div class="signal-row">
+                        <span class="signal-label">What it checks:</span>
+                        <span class="signal-value">${signalInfo.whatItChecks}</span>
+                    </div>
+                    <div class="signal-row">
+                        <span class="signal-label">Why it matters:</span>
+                        <span class="signal-value">${signalInfo.whyItMatters}</span>
+                    </div>
+                    <div class="signal-row">
+                        <span class="signal-label">Risk impact:</span>
+                        <span class="signal-value">${signalInfo.riskImpact}</span>
+                    </div>
+                </div>
+            `;
             riskContainer.appendChild(div);
         });
     } else {
         // Empty state for safe URLs
         if (verdict === 'SAFE') {
-            riskContainer.innerHTML = `
-                <div style="text-align: center; color: var(--color-safe); padding: 10px;">
-                    <span class="material-icons-round" style="font-size: 48px;">check_circle</span>
-                    <p>No threats detected</p>
+            riskContainer.innerHTML += `
+                <div class="safe-explanation">
+                    <span class="material-icons-round" style="font-size: 48px; color: var(--color-safe);">verified_user</span>
+                    <p class="safe-title">No threats detected</p>
+                    <p class="safe-subtitle">This URL passed all ${getHeuristicCount()} security checks</p>
+                    <div class="safe-checks">
+                        <span>✓ No brand impersonation</span>
+                        <span>✓ Safe TLD</span>
+                        <span>✓ No suspicious patterns</span>
+                        <span>✓ No homograph attacks</span>
+                    </div>
                 </div>
             `;
         }
     }
 }
 
+// ==========================================
+// Signal Explainability Database
+// ==========================================
+
+function getSignalExplanation(flag) {
+    const flagLower = flag.toLowerCase();
+
+    // Map of signals with full explanations
+    const signals = {
+        'brand': {
+            name: 'Brand Impersonation',
+            icon: 'business',
+            severity: 'high',
+            whatItChecks: 'Domain contains or mimics a known brand name (PayPal, Amazon, etc.)',
+            whyItMatters: 'Attackers create domains that look like trusted brands to steal credentials',
+            riskImpact: '+30-40 points — This is a primary phishing indicator'
+        },
+        'typo': {
+            name: 'Typosquatting',
+            icon: 'spellcheck',
+            severity: 'high',
+            whatItChecks: 'Domain uses common misspellings or character substitutions (paypa1, amaz0n)',
+            whyItMatters: 'Users may not notice subtle character swaps like "1" for "l" or "0" for "o"',
+            riskImpact: '+20-30 points — Deliberate deception technique'
+        },
+        'homograph': {
+            name: 'Homograph Attack',
+            icon: 'translate',
+            severity: 'critical',
+            whatItChecks: 'URL contains Cyrillic, Greek, or other lookalike Unicode characters',
+            whyItMatters: 'Characters like Cyrillic "а" look identical to Latin "a" but are different',
+            riskImpact: '+40-50 points — Advanced attack requiring intentional deception'
+        },
+        'punycode': {
+            name: 'Punycode Domain',
+            icon: 'code',
+            severity: 'high',
+            whatItChecks: 'Domain contains "xn--" IDN encoding',
+            whyItMatters: 'International domains can hide malicious lookalike characters',
+            riskImpact: '+30-35 points — Requires investigation of actual characters'
+        },
+        'tld': {
+            name: 'Suspicious TLD',
+            icon: 'public',
+            severity: 'medium',
+            whatItChecks: 'Uses high-risk TLDs like .tk, .ml, .ga, .cf, .xyz',
+            whyItMatters: 'Free/cheap TLDs are heavily abused for throwaway phishing domains',
+            riskImpact: '+20-30 points — Legitimate brands rarely use these'
+        },
+        'shortener': {
+            name: 'URL Shortener',
+            icon: 'link',
+            severity: 'medium',
+            whatItChecks: 'Uses bit.ly, t.co, tinyurl, or similar shortening service',
+            whyItMatters: 'Hides the true destination URL from the user',
+            riskImpact: '+15-20 points — Requires caution, not definitive'
+        },
+        'ip': {
+            name: 'IP Address Host',
+            icon: 'dns',
+            severity: 'high',
+            whatItChecks: 'URL uses raw IP address instead of domain name',
+            whyItMatters: 'Legitimate services use domains; IPs hide identity and bypass filters',
+            riskImpact: '+25-30 points — Strong phishing indicator'
+        },
+        'subdomain': {
+            name: 'Excessive Subdomains',
+            icon: 'account_tree',
+            severity: 'low',
+            whatItChecks: 'More than 3 subdomain levels (secure.login.paypal.fake.com)',
+            whyItMatters: 'Deep subdomains can hide the actual domain at the end',
+            riskImpact: '+10-15 points — Suspicious but not definitive'
+        },
+        'login': {
+            name: 'Credential Harvesting Path',
+            icon: 'password',
+            severity: 'medium',
+            whatItChecks: 'URL path contains /login, /signin, /verify, /secure, /account',
+            whyItMatters: 'Combined with other signals, suggests intent to steal credentials',
+            riskImpact: '+10-15 points — Context-dependent signal'
+        },
+        'http': {
+            name: 'No HTTPS Encryption',
+            icon: 'lock_open',
+            severity: 'medium',
+            whatItChecks: 'URL uses http:// instead of https://',
+            whyItMatters: 'Data sent without encryption can be intercepted',
+            riskImpact: '+15-20 points — Security baseline not met'
+        },
+        'entropy': {
+            name: 'High Entropy',
+            icon: 'shuffle',
+            severity: 'low',
+            whatItChecks: 'Domain or path contains random-looking character sequences',
+            whyItMatters: 'Randomly generated domains are often temporary phishing sites',
+            riskImpact: '+10-15 points — Suggestive but not conclusive'
+        },
+        'redirect': {
+            name: 'Embedded Redirect',
+            icon: 'open_in_new',
+            severity: 'medium',
+            whatItChecks: 'URL contains another URL in query parameters',
+            whyItMatters: 'Can redirect through tracking or to malicious destinations',
+            riskImpact: '+15-20 points — Requires destination inspection'
+        },
+        'long': {
+            name: 'Excessively Long URL',
+            icon: 'straighten',
+            severity: 'low',
+            whatItChecks: 'URL exceeds 100 characters',
+            whyItMatters: 'Long URLs can hide malicious parameters or overwhelm users',
+            riskImpact: '+5-10 points — Minor signal'
+        }
+    };
+
+    // Find matching signal
+    for (const [key, info] of Object.entries(signals)) {
+        if (flagLower.includes(key)) {
+            return info;
+        }
+    }
+
+    // Default for unknown signals
+    return {
+        name: flag,
+        icon: 'warning',
+        severity: 'medium',
+        whatItChecks: 'This URL triggered a security check',
+        whyItMatters: 'The pattern matches known phishing characteristics',
+        riskImpact: '+10-20 points — Contributes to overall risk score'
+    };
+}
+
+function calculateConfidence(score, signalCount) {
+    // Calculate confidence based on score extremity and signal agreement
+    let dots = 2; // Base confidence
+    let level = 'low';
+    let label = 'Low';
+
+    if (score >= 80 || score <= 15) {
+        dots = 5;
+        level = 'very-high';
+        label = 'Very High';
+    } else if (score >= 65 || score <= 25) {
+        dots = 4;
+        level = 'high';
+        label = 'High';
+    } else if (score >= 50 || score <= 35) {
+        dots = 3;
+        level = 'medium';
+        label = 'Medium';
+    }
+
+    // Boost confidence if multiple signals agree
+    if (signalCount >= 4) dots = Math.min(5, dots + 1);
+    if (signalCount >= 6) dots = 5;
+
+    return { dots, level, label };
+}
+
+function getHeuristicCount() {
+    return 25; // Match the actual engine count
+}
+
+// ==========================================
+// Graceful Failure Handling
+// ==========================================
+
+/**
+ * Check if URL is valid and well-formed
+ */
+function isValidUrl(string) {
+    try {
+        const url = new URL(string);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Check if app is offline
+ */
+function isOffline() {
+    return !navigator.onLine;
+}
+
+/**
+ * Show offline mode message
+ */
+function showOfflineMessage() {
+    showModal({
+        icon: 'cloud_off',
+        iconColor: 'var(--text-tertiary)',
+        title: 'You\'re Offline',
+        message: 'QR-SHIELD works 100% offline! All analysis is done locally on your device. No internet connection required.',
+        details: 'This is a security feature — your URLs never leave your device.',
+        primaryAction: { text: 'Got it', action: () => hideModal() }
+    });
+}
+
+/**
+ * Show malformed URL error with suggestions
+ */
+function showMalformedUrlError(input) {
+    showModal({
+        icon: 'link_off',
+        iconColor: 'var(--color-warning)',
+        title: 'Invalid URL Format',
+        message: 'The input doesn\'t appear to be a valid URL.',
+        details: `Tip: URLs should start with "https://" or "http://"`,
+        primaryAction: {
+            text: 'Fix it',
+            action: () => {
+                hideModal();
+                // Auto-fix by adding https://
+                if (input && !input.includes('://')) {
+                    urlInput.value = 'https://' + input;
+                    showToast('Added https:// — try analyzing again', 'info');
+                }
+            }
+        },
+        secondaryAction: { text: 'Cancel', action: () => hideModal() }
+    });
+}
+
+/**
+ * Show QR decode failure with helpful tips
+ */
+function showQrDecodeError() {
+    showModal({
+        icon: 'qr_code',
+        iconColor: 'var(--color-warning)',
+        title: 'Couldn\'t Read QR Code',
+        message: 'The image doesn\'t contain a recognizable QR code, or it may be damaged.',
+        details: `Tips for better scanning:
+• Ensure good lighting
+• Hold the camera steady
+• Fill the frame with the QR code
+• Avoid glare or reflections
+• Try uploading a clearer image`,
+        primaryAction: { text: 'Try Again', action: () => hideModal() },
+        secondaryAction: { text: 'Enter URL Manually', action: () => { hideModal(); urlInput.focus(); } }
+    });
+}
+
+/**
+ * Show camera permission denied with recovery path
+ */
+function showCameraPermissionError() {
+    showModal({
+        icon: 'videocam_off',
+        iconColor: 'var(--color-danger)',
+        title: 'Camera Access Required',
+        message: 'QR-SHIELD needs camera access to scan QR codes in real-time.',
+        details: 'You can still use QR-SHIELD by uploading images or pasting URLs directly.',
+        primaryAction: {
+            text: 'Upload Image Instead',
+            action: () => {
+                hideModal();
+                fileInput?.click();
+            }
+        },
+        secondaryAction: {
+            text: 'Enter URL Manually',
+            action: () => {
+                hideModal();
+                urlInput.focus();
+            }
+        }
+    });
+}
+
+/**
+ * Generic modal display helper
+ */
+function showModal({ icon, iconColor, title, message, details, primaryAction, secondaryAction }) {
+    // Remove existing modal if any
+    const existingModal = document.getElementById('errorModal');
+    if (existingModal) existingModal.remove();
+
+    const modalHtml = `
+        <div id="errorModal" class="error-modal active">
+            <div class="error-modal-content">
+                <span class="material-icons-round error-modal-icon" style="color: ${iconColor}">${icon}</span>
+                <h3 class="error-modal-title">${title}</h3>
+                <p class="error-modal-message">${message}</p>
+                ${details ? `<p class="error-modal-details">${details.replace(/\n/g, '<br>')}</p>` : ''}
+                <div class="error-modal-actions">
+                    <button class="btn-primary" id="modalPrimaryBtn">${primaryAction.text}</button>
+                    ${secondaryAction ? `<button class="btn-secondary" id="modalSecondaryBtn">${secondaryAction.text}</button>` : ''}
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    document.getElementById('modalPrimaryBtn').addEventListener('click', primaryAction.action);
+    if (secondaryAction) {
+        document.getElementById('modalSecondaryBtn').addEventListener('click', secondaryAction.action);
+    }
+}
+
+function hideModal() {
+    const modal = document.getElementById('errorModal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+// Listen for online/offline events
+window.addEventListener('online', () => showToast('Back online', 'success'));
+window.addEventListener('offline', () => showToast('You\'re offline — analysis still works!', 'info'));
+
 // Button Click Listener (connects to global Kotlin function)
 analyzeBtn.addEventListener('click', () => {
     const url = urlInput.value.trim();
+
     if (!url) {
         showToast("Please enter a URL", "error");
         return;
+    }
+
+    // Validate URL format
+    if (!isValidUrl(url)) {
+        showMalformedUrlError(url);
+        return;
+    }
+
+    // Show offline indicator if needed (but still analyze)
+    if (isOffline()) {
+        showToast('Analyzing offline...', 'info');
     }
 
     // Call exposed Kotlin function
@@ -365,8 +731,9 @@ function startQrScanner() {
         })
         .catch(function (err) {
             console.error(err);
-            showToast("Camera access denied or unavailable", "error");
             stopQrScanner();
+            // Use graceful error modal instead of toast
+            showCameraPermissionError();
         });
 }
 
@@ -532,7 +899,8 @@ function processImageFile(file) {
                     }
                 }, 300);
             } else {
-                showToast('No QR code found in image', 'warning');
+                // Use graceful error modal with tips
+                showQrDecodeError();
             }
         };
         img.onerror = () => {

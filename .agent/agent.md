@@ -77,6 +77,39 @@ Also completed documentation polish:
 
 ---
 
+#### Explainability as a Feature (#40)
+**Files Modified:**
+- `webApp/src/jsMain/resources/app.js` - Signal explanations database
+- `webApp/src/jsMain/resources/styles.css` - Expandable signal cards
+
+**Added:**
+- "Why this verdict?" header on every result
+- Confidence indicator (●●●●○ dots with LOW/MEDIUM/HIGH/VERY HIGH)
+- 13 signal types with full explanations:
+  - What it checks
+  - Why it matters
+  - Risk impact (+X points)
+- Expandable signal cards with severity colors (CRITICAL/HIGH/MEDIUM/LOW)
+- Safe URL explanation showing "passed all 25 checks"
+
+---
+
+#### Graceful Failure Handling (#41)
+**Files Modified:**
+- `webApp/src/jsMain/resources/app.js` - Error handling functions
+- `webApp/src/jsMain/resources/styles.css` - Error modal styles
+
+**Added:**
+- `isValidUrl()` - URL format validation
+- `isOffline()` - Offline detection
+- `showMalformedUrlError()` - Invalid URL with "Fix it" auto-add https://
+- `showQrDecodeError()` - QR decode failure with tips
+- `showCameraPermissionError()` - Camera denied with "Upload Image" fallback
+- `showModal()` - Generic modal helper with primary/secondary actions
+- Online/offline event listeners with toasts
+
+---
+
 ### Updates Made
 
 #### 1. Mutation Testing Setup (#31)
