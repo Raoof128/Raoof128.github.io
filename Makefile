@@ -75,6 +75,57 @@ coverage:
 	./gradlew koverReport
 	@echo "Coverage report: build/reports/kover/html/index.html"
 
+## Run property-based/fuzz tests
+test-fuzz:
+	@echo "🎲 Running property-based/fuzz tests..."
+	./gradlew :common:allTests --tests "*PropertyBasedTests*"
+	@echo "✅ Fuzz tests completed!"
+
+## Run performance regression tests (fail if latency > 50ms)
+test-performance:
+	@echo "⚡ Running performance regression tests..."
+	./gradlew :common:allTests --tests "*PerformanceRegressionTest*"
+	@echo "✅ Performance tests passed!"
+
+## Run benchmark tests
+test-benchmark:
+	@echo "📈 Running benchmarks..."
+	./gradlew :common:allTests --tests "*Benchmark*"
+	@echo "Benchmark results printed above."
+
+## Run iOS UI tests (requires macOS with Xcode)
+test-ios-ui:
+	@echo "📱 Running iOS UI tests..."
+	cd iosApp && xcodebuild test \
+		-scheme QRShield \
+		-destination 'platform=iOS Simulator,name=iPhone 15' \
+		-testPlan QRShieldUITests || true
+	@echo "✅ iOS UI tests completed!"
+
+## Run Web E2E tests with Playwright
+test-web-e2e:
+	@echo "🌐 Running Web E2E tests..."
+	cd webApp/e2e && npm install && npx playwright install && npm test
+	@echo "✅ Web E2E tests completed!"
+
+## Run Web E2E tests in headed mode (visible browser)
+test-web-e2e-headed:
+	@echo "🌐 Running Web E2E tests (headed)..."
+	cd webApp/e2e && npm install && npx playwright install && npm run test:headed
+
+## Generate Web E2E test report
+test-web-e2e-report:
+	@echo "📊 Opening Playwright test report..."
+	cd webApp/e2e && npm run test:report
+
+## Run all quality tests (fuzz + performance + coverage)
+test-quality:
+	@echo "🔬 Running quality test suite..."
+	$(MAKE) test-fuzz
+	$(MAKE) test-performance
+	$(MAKE) coverage
+	@echo "✅ All quality tests passed!"
+
 # ============================================
 # Code Quality
 # ============================================
@@ -200,6 +251,12 @@ help:
 	@echo "  test-android   Run Android unit tests"
 	@echo "  test-desktop   Run Desktop tests"
 	@echo "  coverage       Run tests with coverage report"
+	@echo "  test-fuzz      Run property-based/fuzz tests"
+	@echo "  test-performance Run performance regression tests"
+	@echo "  test-benchmark Run benchmark tests"
+	@echo "  test-ios-ui    Run iOS XCUITest suite"
+	@echo "  test-web-e2e   Run Playwright web E2E tests"
+	@echo "  test-quality   Run all quality tests (fuzz+perf+coverage)"
 	@echo ""
 	@echo "Quality:"
 	@echo "  lint           Run Detekt static analysis"

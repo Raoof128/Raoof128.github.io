@@ -36,8 +36,8 @@
         <!-- Header -->
         <header class="app-header">
             <div class="brand">
-                <div class="logo-shield">
-                    <img src="assets/logo.svg" alt="QR-SHIELD" style="width: 24px; height: 24px;">
+                <div class="logo-shield" id="logo" data-testid="logo">
+                    <img src="assets/logo.svg" alt="QR-SHIELD Logo" class="logo" style="width: 24px; height: 24px;">
                 </div>
                 <div class="app-title">QR-SHIELD</div>
             </div>
@@ -88,12 +88,13 @@
         <main class="scanner-card">
             <div class="input-group">
                 <span class="material-icons-round input-icon">link</span>
+                <label for="urlInput" class="sr-only">URL to analyze</label>
                 <input type="url" id="urlInput" class="url-input" placeholder="https://example.com/login"
-                    autocomplete="off" spellcheck="false">
+                    autocomplete="off" spellcheck="false" aria-label="URL to analyze" data-testid="url-input">
             </div>
 
             <div class="action-row">
-                <button id="analyzeBtn" class="btn-primary">
+                <button id="analyzeBtn" class="btn-primary" data-testid="analyze-button" aria-label="Analyze URL">
                     <span class="material-icons-round">search</span>
                     Analyze URL
                 </button>
@@ -140,27 +141,29 @@
         </main>
 
         <!-- Result Card -->
-        <section id="resultCard" class="result-card hidden">
+        <section id="resultCard" class="result-card result hidden" data-testid="result-card" role="region"
+            aria-live="polite">
             <div class="result-header">
-                <div class="score-ring">0</div>
+                <div class="score-ring" data-testid="score-ring">0</div>
                 <div class="verdict-info">
-                    <span class="verdict-pill">UNKNOWN</span>
-                    <h3>Verifying...</h3>
+                    <span class="verdict-pill" data-testid="verdict-pill">UNKNOWN</span>
+                    <h3 data-testid="result-message">Verifying...</h3>
                 </div>
             </div>
 
-            <div id="riskFactors" class="risk-factors">
+            <div id="riskFactors" class="risk-factors" data-testid="risk-factors" role="list">
                 <!-- Populated by JS -->
             </div>
 
             <div class="result-actions">
-                <button class="btn-secondary" onclick="resetScanner()">
+                <button class="btn-secondary" onclick="resetScanner()" data-testid="scan-another-button">
                     <span class="material-icons-round">refresh</span> Scan Another
                 </button>
-                <button class="btn-secondary" onclick="shareResult()">
+                <button class="btn-secondary" onclick="shareResult()" data-testid="share-button">
                     <span class="material-icons-round">share</span> Share
                 </button>
-                <button id="reportBtn" class="btn-danger" onclick="reportPhishing()" style="display: none;">
+                <button id="reportBtn" class="btn-danger" onclick="reportPhishing()" style="display: none;"
+                    data-testid="report-button">
                     <span class="material-icons-round">report</span> Report Phishing
                 </button>
             </div>

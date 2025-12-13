@@ -1,0 +1,77 @@
+# Pitest Mutation Testing Configuration for QR-SHIELD
+#
+# This file configures mutation testing for the JVM targets (desktop).
+# Pitest introduces small changes (mutations) to your code and verifies
+# that your tests catch these mutations.
+#
+# ## Usage
+# Run mutation testing:
+#   ./gradlew pitest
+#
+# ## What Gets Mutated
+# - Conditionals (e.g., > becomes >=)
+# - Return values (e.g., return true becomes return false)
+# - Math operations (e.g., + becomes -)
+# - Void method calls (removed)
+#
+# ## Understanding Results
+# - **Killed**: Test detected the mutation (good!)
+# - **Survived**: Mutation not detected (need more tests!)
+# - **No Coverage**: No test ran this code
+#
+# ## Target Mutation Score
+# Aim for 70%+ mutation score for critical security code.
+
+# Classes to mutate (glob patterns)
+targetClasses:
+  - "com.qrshield.core.*"
+  - "com.qrshield.engine.*"
+  - "com.qrshield.ml.*"
+  - "com.qrshield.security.*"
+  - "com.qrshield.scanner.*"
+
+# Classes to NOT mutate
+excludedClasses:
+  - "*Test*"
+  - "*Mock*"
+  - "*Stub*"
+  - "*.di.*"
+  - "*.ui.*"
+  - "*.theme.*"
+
+# Test classes to run
+targetTests:
+  - "com.qrshield.*Test"
+
+# Mutation operators to use
+mutators:
+  - DEFAULTS
+  - STRONGER
+  # - ALL (use for comprehensive testing, but slower)
+
+# Thresholds (fail build if below)
+mutationThreshold: 60
+coverageThreshold: 80
+
+# Timeout multiplier for mutants
+timeoutFactor: 1.5
+timeoutConstant: 4000
+
+# Output formats
+outputFormats:
+  - HTML
+  - XML
+  - CSV
+
+# Threads for parallel execution
+threads: 4
+
+# History for incremental mutation testing (speeds up reruns)
+historyInputLocation: "build/pitest/history"
+historyOutputLocation: "build/pitest/history"
+
+# Verbose output
+verbose: true
+
+# Timestamp in reports
+timestampedReports: false
