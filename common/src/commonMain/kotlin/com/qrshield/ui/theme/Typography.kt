@@ -23,12 +23,12 @@ import androidx.compose.ui.unit.sp
 
 /**
  * QR-SHIELD Typography System
- * 
+ *
  * Consistent text styles across all platforms.
  * Uses Inter font family for modern, clean appearance.
  */
 object QRShieldTypography {
-    
+
     // Display styles - Used for large headlines
     val displayLarge = TextStyle(
         fontFamily = FontFamily.Default, // Replace with Inter when loaded
@@ -37,7 +37,7 @@ object QRShieldTypography {
         lineHeight = 48.sp,
         letterSpacing = (-0.25).sp
     )
-    
+
     val displayMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
@@ -45,7 +45,7 @@ object QRShieldTypography {
         lineHeight = 40.sp,
         letterSpacing = 0.sp
     )
-    
+
     val displaySmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
@@ -53,7 +53,7 @@ object QRShieldTypography {
         lineHeight = 34.sp,
         letterSpacing = 0.sp
     )
-    
+
     // Headline styles - Used for section headers
     val headlineLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -62,7 +62,7 @@ object QRShieldTypography {
         lineHeight = 30.sp,
         letterSpacing = 0.sp
     )
-    
+
     val headlineMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.SemiBold,
@@ -70,7 +70,7 @@ object QRShieldTypography {
         lineHeight = 26.sp,
         letterSpacing = 0.sp
     )
-    
+
     val headlineSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.SemiBold,
@@ -78,7 +78,7 @@ object QRShieldTypography {
         lineHeight = 24.sp,
         letterSpacing = 0.sp
     )
-    
+
     // Title styles - Used for card titles, list items
     val titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -87,7 +87,7 @@ object QRShieldTypography {
         lineHeight = 24.sp,
         letterSpacing = 0.sp
     )
-    
+
     val titleMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
@@ -95,7 +95,7 @@ object QRShieldTypography {
         lineHeight = 22.sp,
         letterSpacing = 0.15.sp
     )
-    
+
     val titleSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
@@ -103,7 +103,7 @@ object QRShieldTypography {
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp
     )
-    
+
     // Body styles - Used for main content
     val bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -112,7 +112,7 @@ object QRShieldTypography {
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     )
-    
+
     val bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
@@ -120,7 +120,7 @@ object QRShieldTypography {
         lineHeight = 20.sp,
         letterSpacing = 0.25.sp
     )
-    
+
     val bodySmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
@@ -128,7 +128,7 @@ object QRShieldTypography {
         lineHeight = 16.sp,
         letterSpacing = 0.4.sp
     )
-    
+
     // Label styles - Used for buttons, chips, captions
     val labelLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -137,7 +137,7 @@ object QRShieldTypography {
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp
     )
-    
+
     val labelMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
@@ -145,7 +145,7 @@ object QRShieldTypography {
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )
-    
+
     val labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Medium,
@@ -153,7 +153,7 @@ object QRShieldTypography {
         lineHeight = 14.sp,
         letterSpacing = 0.5.sp
     )
-    
+
     // Special styles for QR-SHIELD
     val riskScore = TextStyle(
         fontFamily = FontFamily.Default,
@@ -162,7 +162,7 @@ object QRShieldTypography {
         lineHeight = 80.sp,
         letterSpacing = (-2).sp
     )
-    
+
     val verdictLabel = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
@@ -170,7 +170,7 @@ object QRShieldTypography {
         lineHeight = 24.sp,
         letterSpacing = 2.sp
     )
-    
+
     val urlText = TextStyle(
         fontFamily = FontFamily.Monospace,
         fontWeight = FontWeight.Normal,

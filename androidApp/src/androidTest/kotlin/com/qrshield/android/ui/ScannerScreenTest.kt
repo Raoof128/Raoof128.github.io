@@ -35,89 +35,89 @@ import org.junit.runner.RunWith
 
 /**
  * UI Tests for Scanner Screen
- * 
+ *
  * Tests the main scanner interface using Compose UI Testing.
  * These tests verify:
  * - UI elements are visible and accessible
  * - Navigation between states works correctly
  * - User interactions trigger expected behaviors
- * 
+ *
  * Note: Camera-related tests require device/emulator with camera support.
  */
 @RunWith(AndroidJUnit4::class)
 class ScannerScreenTest {
-    
+
     @get:Rule
     val composeTestRule = createComposeRule()
-    
+
     // =========================================================================
     // IDLE STATE TESTS
     // =========================================================================
-    
+
     @Test
     fun idleState_displaysWelcomeMessage() {
         composeTestRule.setContent {
             IdleStateTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Scan QR", substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun idleState_scanButtonIsClickable() {
         var clicked = false
-        
+
         composeTestRule.setContent {
             IdleStateTestContent(onScanClick = { clicked = true })
         }
-        
+
         composeTestRule.onNodeWithContentDescription("Scan QR Code", substring = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(clicked) { "Scan button click was not registered" }
     }
-    
+
     @Test
     fun idleState_galleryButtonExists() {
         composeTestRule.setContent {
             IdleStateTestContent()
         }
-        
+
         composeTestRule.onNodeWithContentDescription("gallery", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // ANALYZING STATE TESTS
     // =========================================================================
-    
+
     @Test
     fun analyzingState_showsLoadingIndicator() {
         composeTestRule.setContent {
             AnalyzingStateTestContent(url = "https://example.com")
         }
-        
+
         composeTestRule.onNodeWithContentDescription("Loading", substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun analyzingState_showsUrl() {
         val testUrl = "https://test.example.com"
-        
+
         composeTestRule.setContent {
             AnalyzingStateTestContent(url = testUrl)
         }
-        
+
         composeTestRule.onNodeWithText(testUrl, substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // RESULT STATE TESTS - SAFE VERDICT
     // =========================================================================
-    
+
     @Test
     fun resultState_safeVerdict_showsGreenIndicator() {
         composeTestRule.setContent {
@@ -127,11 +127,11 @@ class ScannerScreenTest {
                 score = 5
             )
         }
-        
+
         composeTestRule.onNodeWithText("Safe", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun resultState_safeVerdict_showsLowScore() {
         composeTestRule.setContent {
@@ -141,15 +141,15 @@ class ScannerScreenTest {
                 score = 5
             )
         }
-        
+
         composeTestRule.onNodeWithText("5", substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // RESULT STATE TESTS - SUSPICIOUS VERDICT
     // =========================================================================
-    
+
     @Test
     fun resultState_suspiciousVerdict_showsWarning() {
         composeTestRule.setContent {
@@ -159,15 +159,15 @@ class ScannerScreenTest {
                 score = 35
             )
         }
-        
+
         composeTestRule.onNodeWithText("Suspicious", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // RESULT STATE TESTS - MALICIOUS VERDICT
     // =========================================================================
-    
+
     @Test
     fun resultState_maliciousVerdict_showsDanger() {
         composeTestRule.setContent {
@@ -177,11 +177,11 @@ class ScannerScreenTest {
                 score = 85
             )
         }
-        
+
         composeTestRule.onNodeWithText("Malicious", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun resultState_maliciousVerdict_showsHighScore() {
         composeTestRule.setContent {
@@ -191,58 +191,58 @@ class ScannerScreenTest {
                 score = 85
             )
         }
-        
+
         composeTestRule.onNodeWithText("85", substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // ERROR STATE TESTS
     // =========================================================================
-    
+
     @Test
     fun errorState_showsErrorMessage() {
         val errorMessage = "Camera access denied"
-        
+
         composeTestRule.setContent {
             ErrorStateTestContent(message = errorMessage)
         }
-        
+
         composeTestRule.onNodeWithText(errorMessage, substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun errorState_retryButtonIsClickable() {
         var retryClicked = false
-        
+
         composeTestRule.setContent {
             ErrorStateTestContent(
                 message = "Something went wrong",
                 onRetry = { retryClicked = true }
             )
         }
-        
+
         composeTestRule.onNodeWithText("Retry", substring = true, ignoreCase = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(retryClicked) { "Retry button click was not registered" }
     }
-    
+
     // =========================================================================
     // ACCESSIBILITY TESTS
     // =========================================================================
-    
+
     @Test
     fun scanButton_hasContentDescription() {
         composeTestRule.setContent {
             IdleStateTestContent()
         }
-        
+
         composeTestRule.onAllNodesWithContentDescription("Scan", substring = true, useUnmergedTree = true)
             .assertCountEquals(1)
     }
-    
+
     @Test
     fun resultCard_isFocusable() {
         composeTestRule.setContent {
@@ -252,7 +252,7 @@ class ScannerScreenTest {
                 score = 10
             )
         }
-        
+
         composeTestRule.onRoot(useUnmergedTree = true).assertExists()
     }
 }
@@ -272,20 +272,20 @@ private fun IdleStateTestContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text("Scan QR Code to check for phishing")
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Button(
             onClick = onScanClick,
-            modifier = Modifier.semantics { 
+            modifier = Modifier.semantics {
                 contentDescription = "Scan QR Code Button"
             }
         ) {
             Text("Scan QR")
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         OutlinedButton(
             onClick = onGalleryClick,
             modifier = Modifier.semantics {
@@ -309,9 +309,9 @@ private fun AnalyzingStateTestContent(url: String) {
                 contentDescription = "Loading indicator"
             }
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         Text("Analyzing...")
         Text(url, style = MaterialTheme.typography.bodySmall)
     }
@@ -332,14 +332,14 @@ private fun ResultStateTestContent(
         Verdict.MALICIOUS -> Color(0xFFF44336)
         Verdict.UNKNOWN -> Color.Gray
     }
-    
+
     val verdictText = when (verdict) {
         Verdict.SAFE -> "Safe"
         Verdict.SUSPICIOUS -> "Suspicious"
         Verdict.MALICIOUS -> "Malicious"
         Verdict.UNKNOWN -> "Unknown"
     }
-    
+
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -357,27 +357,27 @@ private fun ResultStateTestContent(
                     style = MaterialTheme.typography.headlineMedium,
                     color = verdictColor
                 )
-                
+
                 Text(
                     text = "Score: $score",
                     style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         Text(url, style = MaterialTheme.typography.bodyMedium)
-        
+
         if (flags.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
             flags.forEach { flag ->
                 Text("• $flag", style = MaterialTheme.typography.bodySmall)
             }
         }
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedButton(onClick = onDismiss) {
                 Text("Close")
@@ -400,13 +400,13 @@ private fun ErrorStateTestContent(
         verticalArrangement = Arrangement.Center
     ) {
         Text("Error", style = MaterialTheme.typography.headlineSmall)
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         Text(message, style = MaterialTheme.typography.bodyMedium)
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Button(onClick = onRetry) {
             Text("Retry")
         }

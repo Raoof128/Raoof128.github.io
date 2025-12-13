@@ -32,55 +32,55 @@ import org.koin.dsl.module
 
 /**
  * Koin dependency injection module for Android.
- * 
+ *
  * Provides all dependencies needed for the Android app including:
  * - Database and repository
  * - Scanner implementation
  * - ViewModel with persistence
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 val androidModule = module {
-    
+
     // Application scope for coroutines
     single { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
-    
+
     // Core engines
     single { PhishingEngine() }
-    
+
     // Database driver factory (Android-specific)
     single { DatabaseDriverFactory(androidContext()) }
-    
+
     // SQLDriver - used by SqlDelightHistoryRepository
-    single<SqlDriver> { 
+    single<SqlDriver> {
         get<DatabaseDriverFactory>().createDriver()
     }
-    
+
     // History repository with persistence
     // SqlDelightHistoryRepository takes (driver, scope)
-    single<HistoryRepository> { 
+    single<HistoryRepository> {
         SqlDelightHistoryRepository(
             driver = get(),
             scope = get()
         )
     }
-    
+
     // Scanner (Android-specific using CameraX + ML Kit)
     single<QrScanner> { QrScannerFactory(androidContext()).create() }
-    
+
     // Settings DataSource
-    single<com.qrshield.data.SettingsDataSource> { 
+    single<com.qrshield.data.SettingsDataSource> {
         com.qrshield.data.AndroidSettingsDataSource(androidContext())
     }
-    
+
     // ViewModel with injected repository
-    factory { 
+    factory {
         SharedViewModel(
             phishingEngine = get(),
             historyRepository = get(),
             settingsDataSource = get(),
             coroutineScope = get()
-        ) 
+        )
     }
 }

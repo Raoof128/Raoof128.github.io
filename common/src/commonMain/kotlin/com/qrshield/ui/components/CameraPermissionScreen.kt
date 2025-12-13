@@ -44,10 +44,10 @@ enum class CameraPermissionState {
 
 /**
  * Camera Permission Screen Component
- * 
+ *
  * Handles all camera permission states with appropriate UI and actions.
  * Provides a robust UX flow for camera permission on all platforms.
- * 
+ *
  * @param permissionState Current permission state
  * @param onRequestPermission Callback to request camera permission
  * @param onOpenSettings Callback to open device settings
@@ -85,7 +85,7 @@ fun CameraPermissionScreen(
                         onSecondaryClick = onDismiss
                     )
                 }
-                
+
                 CameraPermissionState.REQUESTING -> {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -98,7 +98,7 @@ fun CameraPermissionScreen(
                         )
                     }
                 }
-                
+
                 CameraPermissionState.GRANTED -> {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,7 +115,7 @@ fun CameraPermissionScreen(
                         )
                     }
                 }
-                
+
                 CameraPermissionState.DENIED -> {
                     PermissionRequestContent(
                         icon = "🚫",
@@ -127,7 +127,7 @@ fun CameraPermissionScreen(
                         onSecondaryClick = onDismiss
                     )
                 }
-                
+
                 CameraPermissionState.PERMANENTLY_DENIED -> {
                     PermissionRequestContent(
                         icon = "⚙️",
@@ -139,7 +139,7 @@ fun CameraPermissionScreen(
                         onSecondaryClick = onDismiss
                     )
                 }
-                
+
                 CameraPermissionState.CAMERA_NOT_AVAILABLE -> {
                     PermissionRequestContent(
                         icon = "📵",
@@ -178,14 +178,14 @@ private fun PermissionRequestContent(
             text = icon,
             style = MaterialTheme.typography.displayLarge
         )
-        
+
         // Title
         Text(
             text = title,
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center
         )
-        
+
         // Description
         Text(
             text = description,
@@ -193,9 +193,9 @@ private fun PermissionRequestContent(
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Primary Button
         Button(
             onClick = onPrimaryClick,
@@ -203,7 +203,7 @@ private fun PermissionRequestContent(
         ) {
             Text(primaryButtonText)
         }
-        
+
         // Secondary Button (optional)
         if (secondaryButtonText != null && onSecondaryClick != null) {
             TextButton(

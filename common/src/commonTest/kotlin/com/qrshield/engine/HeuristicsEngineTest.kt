@@ -42,7 +42,7 @@ class HeuristicsEngineTest {
     fun `analyze returns higher score for suspicious url`() {
         val safeResult = engine.analyze("https://google.com")
         val suspiciousResult = engine.analyze("http://192.168.1.1/login.php")
-        
+
         assertTrue(suspiciousResult.score > safeResult.score)
     }
 
@@ -103,7 +103,7 @@ class HeuristicsEngineTest {
     fun `http url gets higher score than https`() {
         val httpResult = engine.analyze("http://example.com")
         val httpsResult = engine.analyze("https://example.com")
-        
+
         assertTrue(httpResult.score >= httpsResult.score)
     }
 

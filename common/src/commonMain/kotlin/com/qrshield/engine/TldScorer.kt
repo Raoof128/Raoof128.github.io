@@ -18,20 +18,20 @@ package com.qrshield.engine
 
 /**
  * TLD Risk Scorer for QR-SHIELD
- * 
+ *
  * Scores top-level domains based on historical abuse data from
  * threat intelligence feeds (Spamhaus, SURBL, etc.).
- * 
+ *
  * SECURITY NOTES:
  * - Input is validated and normalized before processing
  * - TLD lists are immutable and cannot be modified at runtime
  * - Thread-safe for concurrent access
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 class TldScorer {
-    
+
     /**
      * TLD scoring result.
      */
@@ -51,7 +51,7 @@ class TldScorer {
                 RiskCategory.COUNTRY_CODE -> "Country-specific domain"
             }
     }
-    
+
     /**
      * TLD risk categories.
      */
@@ -62,10 +62,10 @@ class TldScorer {
         FREE_TIER,      // Free registration, very high abuse (.tk, .ml, .ga)
         COUNTRY_CODE    // Country-specific, context-dependent (.uk, .de, .au)
     }
-    
+
     /**
      * Score TLD risk level.
-     * 
+     *
      * @param url The URL to extract and score TLD from
      * @return TldResult with score and risk category
      */
@@ -79,9 +79,9 @@ class TldScorer {
                 riskCategory = RiskCategory.MODERATE
             )
         }
-        
+
         val tld = extractTld(url)
-        
+
         // Empty TLD - invalid URL
         if (tld.isEmpty()) {
             return TldResult(
@@ -91,7 +91,7 @@ class TldScorer {
                 riskCategory = RiskCategory.MODERATE
             )
         }
-        
+
         // Check each risk category in order of severity
         return when {
             tld in FREE_HIGH_RISK_TLDS -> TldResult(
@@ -100,28 +100,28 @@ class TldScorer {
                 isHighRisk = true,
                 riskCategory = RiskCategory.FREE_TIER
             )
-            
+
             tld in ABUSED_TLDS -> TldResult(
                 tld = tld,
                 score = SCORE_ABUSED,
                 isHighRisk = true,
                 riskCategory = RiskCategory.HIGH_RISK
             )
-            
+
             tld in MODERATE_RISK_TLDS -> TldResult(
                 tld = tld,
                 score = SCORE_MODERATE,
                 isHighRisk = false,
                 riskCategory = RiskCategory.MODERATE
             )
-            
+
             tld in SAFE_TLDS -> TldResult(
                 tld = tld,
                 score = SCORE_SAFE,
                 isHighRisk = false,
                 riskCategory = RiskCategory.SAFE
             )
-            
+
             // 2-letter TLDs are likely country codes
             tld.length == 2 -> TldResult(
                 tld = tld,
@@ -129,7 +129,7 @@ class TldScorer {
                 isHighRisk = false,
                 riskCategory = RiskCategory.COUNTRY_CODE
             )
-            
+
             // Unknown TLD - moderate suspicion
             else -> TldResult(
                 tld = tld,
@@ -139,10 +139,10 @@ class TldScorer {
             )
         }
     }
-    
+
     /**
      * Batch score multiple URLs.
-     * 
+     *
      * @param urls List of URLs to score
      * @return Map of URL to TldResult
      */
@@ -151,10 +151,10 @@ class TldScorer {
         val bounded = urls.take(MAX_BATCH_SIZE)
         return bounded.associateWith { score(it) }
     }
-    
+
     /**
      * Check if a TLD is in the high-risk category.
-     * 
+     *
      * @param tld The TLD to check (without leading dot)
      * @return true if high risk
      */
@@ -162,14 +162,14 @@ class TldScorer {
         val normalized = tld.lowercase().removePrefix(".")
         return normalized in FREE_HIGH_RISK_TLDS || normalized in ABUSED_TLDS
     }
-    
+
     /**
      * Safely extract TLD from URL.
      */
     private fun extractTld(url: String): String {
         // SECURITY: Bound input processing
         val bounded = url.take(MAX_URL_LENGTH)
-        
+
         val host = bounded
             .removePrefix("https://")
             .removePrefix("http://")
@@ -179,53 +179,53 @@ class TldScorer {
             .substringBefore(":")
             .lowercase()
             .take(MAX_HOST_LENGTH)
-        
+
         // Validate host is not empty and contains a dot
         if (host.isEmpty() || '.' !in host) {
             return ""
         }
-        
+
         val parts = host.split(".")
         val tld = parts.lastOrNull()?.trim() ?: ""
-        
+
         // SECURITY: Validate TLD format (letters only, reasonable length)
         if (tld.isEmpty() || tld.length > 20 || !tld.all { it.isLetter() }) {
             return ""
         }
-        
+
         return tld
     }
-    
+
     companion object {
         // === RISK SCORES ===
-        
+
         /** Score for safe, well-established TLDs */
         const val SCORE_SAFE = 0
-        
+
         /** Score for TLDs with moderate abuse history */
         const val SCORE_MODERATE = 35
-        
+
         /** Score for country-code TLDs */
         const val SCORE_COUNTRY = 15
-        
+
         /** Score for historically abused TLDs */
         const val SCORE_ABUSED = 75
-        
+
         /** Score for free/high-risk TLDs */
         const val SCORE_FREE_HIGH_RISK = 90
-        
+
         /** Score for unknown TLDs */
         const val SCORE_UNKNOWN = 30
-        
+
         // === LIMITS ===
-        
+
         private const val MAX_URL_LENGTH = 2048
         private const val MAX_HOST_LENGTH = 255
         private const val MAX_BATCH_SIZE = 100
-        
+
         // === TLD DATABASES ===
         // Sources: Spamhaus, SURBL, APWG, various threat intelligence feeds
-        
+
         /**
          * Free TLDs with very high abuse rates.
          * These domains are often used because they're free to register.
@@ -237,7 +237,7 @@ class TldScorer {
             "buzz", "top", "work", "surf", "monster",
             "ooo", "rest", "bar"
         )
-        
+
         /**
          * TLDs with historically high abuse rates.
          * Not necessarily free, but commonly abused.
@@ -250,7 +250,7 @@ class TldScorer {
             "stream", "download", "racing", "win", "review",
             "party", "science", "trade", "date", "faith"
         )
-        
+
         /**
          * TLDs with moderate risk.
          * Legitimate use but also some abuse history.
@@ -260,7 +260,7 @@ class TldScorer {
             "ws", "mobi", "pro", "name", "asia", "in",
             "tech", "cloud", "digital", "media", "studio"
         )
-        
+
         /**
          * Safe, well-established TLDs.
          * Low abuse rates, often have registration requirements.

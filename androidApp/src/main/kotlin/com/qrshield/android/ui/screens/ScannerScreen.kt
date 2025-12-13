@@ -70,7 +70,7 @@ import com.qrshield.android.util.SoundManager
 
 /**
  * Main Scanner Screen with camera preview and QR code detection.
- * 
+ *
  * Features:
  * - Full camera preview with ML Kit scanning
  * - Photo picker for gallery scanning with QR decode
@@ -85,13 +85,13 @@ fun ScannerScreen() {
     val uiState by viewModel.uiState.collectAsState()
     val scanHistory by viewModel.scanHistory.collectAsState()
     val settings by viewModel.settings.collectAsState()
-    
+
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    
+
     // QR Scanner for gallery images
     val qrScanner = remember { AndroidQrScanner(context) }
-    
+
     // Camera permission state
     var hasCameraPermission by remember {
         mutableStateOf(
@@ -101,16 +101,16 @@ fun ScannerScreen() {
             ) == PackageManager.PERMISSION_GRANTED
         )
     }
-    
+
     // Camera error state
     var cameraError by remember { mutableStateOf<String?>(null) }
-    
+
     // Flash state
     var isFlashOn by remember { mutableStateOf(false) }
-    
+
     // Gallery scanning state
     var isProcessingGalleryImage by remember { mutableStateOf(false) }
-    
+
     // Vibrator for haptic feedback
     val vibrator = remember {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -121,7 +121,7 @@ fun ScannerScreen() {
             context.getSystemService(Vibrator::class.java)
         }
     }
-    
+
     // Photo picker launcher with QR decode
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
@@ -131,11 +131,11 @@ fun ScannerScreen() {
             isProcessingGalleryImage = true
             triggerHapticFeedback(vibrator, HapticType.SCAN, settings.isHapticEnabled)
             SoundManager.playSound(SoundManager.SoundType.SCAN, settings.isSoundEnabled)
-            
+
             scope.launch {
                 val result = qrScanner.scanFromUri(uri)
                 isProcessingGalleryImage = false
-                
+
                 when (result) {
                     is ScanResult.Success -> {
                         triggerHapticFeedback(vibrator, HapticType.SUCCESS, settings.isHapticEnabled)
@@ -157,7 +157,7 @@ fun ScannerScreen() {
             }
         }
     }
-    
+
     // Permission launcher
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -170,7 +170,7 @@ fun ScannerScreen() {
             triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
         }
     }
-    
+
     // QR code scanned callback with haptic
     val onQrCodeScanned: (String) -> Unit = remember(viewModel, settings) {
         { content ->
@@ -182,7 +182,7 @@ fun ScannerScreen() {
             )
         }
     }
-    
+
     // Handle state changes with haptic feedback
     LaunchedEffect(uiState) {
         when (uiState) {
@@ -211,21 +211,21 @@ fun ScannerScreen() {
             else -> {}
         }
     }
-    
+
     // Clear camera errors when state changes
     LaunchedEffect(uiState) {
         if (uiState !is UiState.Scanning) {
             cameraError = null
         }
     }
-    
+
     // Auto-scan: Start scanning automatically when enabled and have permission
     LaunchedEffect(settings.isAutoScanEnabled, hasCameraPermission) {
         if (settings.isAutoScanEnabled && hasCameraPermission && uiState is UiState.Idle) {
             viewModel.startScanning()
         }
     }
-    
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -244,7 +244,7 @@ fun ScannerScreen() {
         if (isProcessingGalleryImage) {
             ProcessingOverlay()
         }
-        
+
         when (val state = uiState) {
             is UiState.Idle -> {
                 IdleContent(
@@ -263,7 +263,7 @@ fun ScannerScreen() {
                     }
                 )
             }
-            
+
             is UiState.Scanning -> {
                 ScanningContent(
                     onQrCodeScanned = onQrCodeScanned,
@@ -279,11 +279,11 @@ fun ScannerScreen() {
                     onCameraError = { error -> cameraError = error }
                 )
             }
-            
+
             is UiState.Analyzing -> {
                 AnalyzingContent(url = state.url)
             }
-            
+
             is UiState.Result -> {
                 ResultContent(
                     url = state.assessment.details.originalUrl,
@@ -294,7 +294,7 @@ fun ScannerScreen() {
                     onScanAnother = { viewModel.startScanning() }
                 )
             }
-            
+
             is UiState.Error -> {
                 ErrorContent(
                     message = state.message,
@@ -315,7 +315,7 @@ private fun ProcessingOverlay() {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.7f))
-            .semantics { 
+            .semantics {
                 contentDescription = "Processing image, please wait"
             },
         contentAlignment = Alignment.Center
@@ -353,7 +353,7 @@ private fun IdleContent(
             .fillMaxSize()
             .background(BackgroundDark)
             .padding(32.dp)
-            .semantics { 
+            .semantics {
                 contentDescription = "QR Shield home screen. Tap Start Scanning to begin, or choose from gallery."
             },
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -370,45 +370,45 @@ private fun IdleContent(
             ),
             label = "scale"
         )
-        
+
         Text(
             text = "🛡️",
             fontSize = (80 * scale).sp,
-            modifier = Modifier.semantics { 
+            modifier = Modifier.semantics {
                 contentDescription = "QR Shield logo"
             }
         )
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Text(
             text = stringResource(R.string.app_name),
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             color = BrandPrimary,
-            modifier = Modifier.semantics { 
+            modifier = Modifier.semantics {
                 contentDescription = "QR Shield, Phishing Detection App"
             }
         )
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         Text(
             text = stringResource(R.string.tagline),
             fontSize = 16.sp,
             color = TextSecondary,
             textAlign = TextAlign.Center
         )
-        
+
         Spacer(modifier = Modifier.height(48.dp))
-        
+
         // Main scan button
         Button(
             onClick = onScanClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .semantics { 
+                .semantics {
                     contentDescription = "Start scanning for QR codes using camera"
                 },
             colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
@@ -420,16 +420,16 @@ private fun IdleContent(
                 fontWeight = FontWeight.SemiBold
             )
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Gallery button
         OutlinedButton(
             onClick = onGalleryClick,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
-                .semantics { 
+                .semantics {
                     contentDescription = "Choose QR code image from photo gallery"
                 },
             colors = ButtonDefaults.outlinedButtonColors(contentColor = BrandSecondary),
@@ -447,14 +447,14 @@ private fun IdleContent(
                 fontWeight = FontWeight.Medium
             )
         }
-        
+
         if (scanCount > 0) {
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = stringResource(R.string.scans_in_history, scanCount),
                 fontSize = 14.sp,
                 color = TextMuted,
-                modifier = Modifier.semantics { 
+                modifier = Modifier.semantics {
                     contentDescription = "$scanCount scans saved in history"
                 }
             )
@@ -479,7 +479,7 @@ private fun ScanningContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .semantics { 
+            .semantics {
                 contentDescription = "Camera scanning mode. Point camera at a QR code."
             }
     ) {
@@ -489,10 +489,10 @@ private fun ScanningContent(
             onQrCodeScanned = onQrCodeScanned,
             onCameraError = onCameraError
         )
-        
+
         // Scanner overlay with animated corners
         ScannerOverlay(modifier = Modifier.fillMaxSize())
-        
+
         // Top bar with controls
         Row(
             modifier = Modifier
@@ -510,7 +510,7 @@ private fun ScanningContent(
                         color = Color.Black.copy(alpha = 0.5f),
                         shape = CircleShape
                     )
-                    .semantics { 
+                    .semantics {
                         contentDescription = "Close scanner and return to home"
                     }
             ) {
@@ -520,17 +520,17 @@ private fun ScanningContent(
                     tint = Color.White
                 )
             }
-            
+
             // Flash toggle
             IconButton(
                 onClick = onFlashToggle,
                 modifier = Modifier
                     .background(
-                        color = if (isFlashOn) BrandPrimary.copy(alpha = 0.8f) 
+                        color = if (isFlashOn) BrandPrimary.copy(alpha = 0.8f)
                                else Color.Black.copy(alpha = 0.5f),
                         shape = CircleShape
                     )
-                    .semantics { 
+                    .semantics {
                         contentDescription = if (isFlashOn) "Turn off flashlight" else "Turn on flashlight"
                     }
             ) {
@@ -541,7 +541,7 @@ private fun ScanningContent(
                 )
             }
         }
-        
+
         // Bottom controls
         Column(
             modifier = Modifier
@@ -553,7 +553,7 @@ private fun ScanningContent(
             // Gallery button
             FilledTonalButton(
                 onClick = onGalleryClick,
-                modifier = Modifier.semantics { 
+                modifier = Modifier.semantics {
                     contentDescription = "Scan QR code from photo gallery"
                 },
                 colors = ButtonDefaults.filledTonalButtonColors(
@@ -569,9 +569,9 @@ private fun ScanningContent(
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(stringResource(R.string.scan_from_gallery))
             }
-            
+
             Spacer(modifier = Modifier.height(12.dp))
-            
+
             // Instruction text
             Text(
                 text = stringResource(R.string.scan_instruction),
@@ -584,7 +584,7 @@ private fun ScanningContent(
                     )
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             )
-            
+
             // Error message if any
             AnimatedVisibility(visible = cameraError != null) {
                 Text(
@@ -598,7 +598,7 @@ private fun ScanningContent(
                             shape = RoundedCornerShape(8.dp)
                         )
                         .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .semantics { 
+                        .semantics {
                             contentDescription = "Error: $cameraError"
                         }
                 )
@@ -618,7 +618,7 @@ private fun AnalyzingContent(url: String) {
             .fillMaxSize()
             .background(BackgroundDark)
             .padding(32.dp)
-            .semantics { 
+            .semantics {
                 contentDescription = "Analyzing URL for security threats. Please wait."
             },
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -629,17 +629,17 @@ private fun AnalyzingContent(url: String) {
             color = BrandPrimary,
             strokeWidth = 4.dp
         )
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Text(
             text = stringResource(R.string.analyzing_url),
             fontSize = 18.sp,
             color = Color.White
         )
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         Text(
             text = url.take(50) + if (url.length > 50) "..." else "",
             fontSize = 12.sp,
@@ -686,7 +686,7 @@ private fun ErrorContent(
             .fillMaxSize()
             .background(BackgroundDark)
             .padding(32.dp)
-            .semantics { 
+            .semantics {
                 contentDescription = "Error occurred: $message. Tap Try Again to retry."
             },
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -696,31 +696,31 @@ private fun ErrorContent(
             text = "❌",
             fontSize = 64.sp
         )
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Text(
             text = stringResource(R.string.error_title),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         Text(
             text = message,
             fontSize = 14.sp,
             textAlign = TextAlign.Center,
             color = VerdictDanger
         )
-        
+
         Spacer(modifier = Modifier.height(32.dp))
-        
+
         Button(
             onClick = onRetry,
             colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
-            modifier = Modifier.semantics { 
+            modifier = Modifier.semantics {
                 contentDescription = "Try again"
             }
         ) {
@@ -739,7 +739,7 @@ private enum class HapticType {
 
 private fun triggerHapticFeedback(vibrator: Vibrator?, type: HapticType, enabled: Boolean = true) {
     if (!enabled || vibrator == null || !vibrator.hasVibrator()) return
-    
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         val effect = when (type) {
             HapticType.LIGHT -> VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK)

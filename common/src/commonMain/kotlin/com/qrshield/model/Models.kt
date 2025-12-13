@@ -18,15 +18,15 @@ package com.qrshield.model
 
 /**
  * Verdict enum representing the final risk classification of a scanned URL.
- * 
+ *
  * Used to categorize URLs based on their combined risk scores from heuristics,
  * ML analysis, and brand detection.
- * 
+ *
  * @property SAFE URL shows no signs of phishing (score 0-30)
  * @property SUSPICIOUS URL has some risk indicators (score 31-70)
  * @property MALICIOUS URL shows strong phishing indicators (score 71-100)
  * @property UNKNOWN Unable to determine risk level
- * 
+ *
  * @see RiskAssessment
  * @since 1.0.0
  */
@@ -43,13 +43,13 @@ enum class Verdict {
 
 /**
  * Complete risk assessment result from URL analysis.
- * 
+ *
  * Contains the combined analysis from all detection engines:
  * - Heuristics Engine (25+ security rules)
  * - ML Scoring Model
  * - Brand Impersonation Detection
  * - TLD Risk Scoring
- * 
+ *
  * ## Usage Example
  * ```kotlin
  * val assessment = urlAnalyzer.analyze("https://example.com")
@@ -59,13 +59,13 @@ enum class Verdict {
  *     Verdict.MALICIOUS -> showDanger(assessment.flags)
  * }
  * ```
- * 
+ *
  * @property score Risk score from 0 (safe) to 100 (malicious)
  * @property verdict Final classification based on score thresholds
  * @property flags List of triggered security flags (e.g., "SUSPICIOUS_TLD", "BRAND_IMPERSONATION")
  * @property details Detailed breakdown of individual analysis scores
  * @property confidence Analysis confidence level from 0.0 to 1.0
- * 
+ *
  * @see UrlAnalysisResult
  * @see Verdict
  * @since 1.0.0
@@ -94,7 +94,7 @@ data class RiskAssessment(
             score <= 70 -> "Medium Risk"
             else -> "High Risk"
         }
-    
+
     /**
      * User-facing action recommendation based on verdict.
      * Provides guidance on whether to proceed with the URL.
@@ -110,10 +110,10 @@ data class RiskAssessment(
 
 /**
  * Detailed URL analysis breakdown with individual engine scores.
- * 
+ *
  * Provides transparency into how the final score was calculated,
  * showing contributions from each detection engine.
- * 
+ *
  * @property originalUrl The URL that was analyzed
  * @property heuristicScore Score from 25+ security heuristics (0-40)
  * @property mlScore Score from ML phishing model (0-30)
@@ -121,7 +121,7 @@ data class RiskAssessment(
  * @property tldScore Score from TLD risk analysis (0-10)
  * @property brandMatch Name of impersonated brand, if detected (e.g., "PayPal")
  * @property tld Extracted top-level domain (e.g., "com", "tk")
- * 
+ *
  * @since 1.0.0
  */
 data class UrlAnalysisResult(
@@ -154,12 +154,12 @@ data class UrlAnalysisResult(
 
 /**
  * Sealed class representing QR code scan results.
- * 
+ *
  * Provides type-safe handling of scan outcomes:
  * - [Success] - QR code successfully decoded with content
  * - [Error] - Scan failed with error details
  * - [NoQrFound] - No QR code detected in the image/frame
- * 
+ *
  * ## Usage Example
  * ```kotlin
  * when (val result = scanner.scan(image)) {
@@ -168,13 +168,13 @@ data class UrlAnalysisResult(
  *     is ScanResult.NoQrFound -> showNoQrMessage()
  * }
  * ```
- * 
+ *
  * @since 1.0.0
  */
 sealed class ScanResult {
     /**
      * Successful QR code scan with decoded content.
-     * 
+     *
      * @property content The decoded QR code content (URL, text, etc.)
      * @property contentType Detected type of content (URL, WiFi, vCard, etc.)
      */
@@ -182,10 +182,10 @@ sealed class ScanResult {
         val content: String,
         val contentType: ContentType
     ) : ScanResult()
-    
+
     /**
      * Scan failed with an error.
-     * 
+     *
      * @property message Human-readable error message
      * @property code Specific error code for programmatic handling
      */
@@ -193,16 +193,16 @@ sealed class ScanResult {
         val message: String,
         val code: ErrorCode
     ) : ScanResult()
-    
+
     /** No QR code was found in the scanned image/frame */
     data object NoQrFound : ScanResult()
 }
 
 /**
  * Type of content encoded in a QR code.
- * 
+ *
  * Used to determine appropriate handling and UI display.
- * 
+ *
  * @since 1.0.0
  */
 enum class ContentType {
@@ -228,10 +228,10 @@ enum class ContentType {
 
 /**
  * Error codes for scan failures.
- * 
+ *
  * Provides programmatic error identification for appropriate
  * error handling and user messaging.
- * 
+ *
  * @since 1.0.0
  */
 enum class ErrorCode {
@@ -265,17 +265,17 @@ enum class ErrorCode {
 
 /**
  * Scan history item for persistence and display.
- * 
+ *
  * Stored in local database for history tab display
  * and trend analysis.
- * 
+ *
  * @property id Unique identifier for the scan
  * @property url The scanned URL
  * @property score Risk score at time of scan
  * @property verdict Verdict at time of scan
  * @property scannedAt Unix timestamp of when scan occurred
  * @property source How the QR code was scanned
- * 
+ *
  * @since 1.0.0
  */
 data class ScanHistoryItem(
@@ -295,11 +295,11 @@ data class ScanHistoryItem(
 
 /**
  * Source of QR code scan input.
- * 
+ *
  * @property CAMERA Live camera capture
  * @property GALLERY Image selected from photo gallery
  * @property CLIPBOARD URL pasted from clipboard
- * 
+ *
  * @since 1.0.0
  */
 enum class ScanSource {

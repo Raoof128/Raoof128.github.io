@@ -11,7 +11,7 @@ interface SettingsDataSource {
      * Observe settings changes.
      */
     val settings: Flow<AppSettings>
-    
+
     /**
      * Update settings.
      */

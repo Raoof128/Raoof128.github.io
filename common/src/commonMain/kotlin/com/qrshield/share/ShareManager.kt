@@ -21,15 +21,15 @@ import com.qrshield.model.Verdict
 
 /**
  * Share Manager for QR-SHIELD
- * 
+ *
  * Generates shareable content from scan analysis results.
  * Platform-specific implementations handle actual sharing.
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 object ShareManager {
-    
+
     /**
      * Generate plain text summary for sharing.
      */
@@ -40,7 +40,7 @@ object ShareManager {
             Verdict.MALICIOUS -> "🚨"
             Verdict.UNKNOWN -> "❓"
         }
-        
+
         return buildString {
             appendLine("$emoji QR-SHIELD Analysis Report")
             appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
@@ -50,7 +50,7 @@ object ShareManager {
             appendLine("📊 Risk Score: ${assessment.score}/100")
             appendLine("🏷️ Verdict: ${assessment.verdict.name}")
             appendLine("📈 Confidence: ${(assessment.confidence * 100).toInt()}%")
-            
+
             if (assessment.flags.isNotEmpty()) {
                 appendLine()
                 appendLine("⚠️ Risk Factors:")
@@ -61,14 +61,14 @@ object ShareManager {
                     appendLine("  • ...and ${assessment.flags.size - 5} more")
                 }
             }
-            
+
             appendLine()
             appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             appendLine("Analyzed with QR-SHIELD 🛡️")
             appendLine("Kotlin Multiplatform QRishing Detector")
         }
     }
-    
+
     /**
      * Generate HTML report for sharing/email.
      */
@@ -79,14 +79,14 @@ object ShareManager {
             Verdict.MALICIOUS -> "#FF3D71"
             Verdict.UNKNOWN -> "#8B949E"
         }
-        
+
         val emoji = when (assessment.verdict) {
             Verdict.SAFE -> "✅"
             Verdict.SUSPICIOUS -> "⚠️"
             Verdict.MALICIOUS -> "🚨"
             Verdict.UNKNOWN -> "❓"
         }
-        
+
         return """
             <!DOCTYPE html>
             <html>
@@ -157,12 +157,12 @@ object ShareManager {
                         <h1>🛡️ QR-SHIELD</h1>
                         <p>Analysis Report</p>
                     </div>
-                    
+
                     <div class="score">${emoji} ${assessment.score}</div>
                     <div class="verdict">${assessment.verdict.name}</div>
-                    
+
                     <div class="url">${escapeHtml(url.take(200))}</div>
-                    
+
                     ${if (assessment.flags.isNotEmpty()) """
                     <div class="flags">
                         <strong>Risk Factors:</strong>
@@ -171,7 +171,7 @@ object ShareManager {
                         }}
                     </div>
                     """ else ""}
-                    
+
                     <div class="footer">
                         <p>Confidence: ${(assessment.confidence * 100).toInt()}%</p>
                         <p>Analyzed with QR-SHIELD - Kotlin Multiplatform QRishing Detector</p>
@@ -181,7 +181,7 @@ object ShareManager {
             </html>
         """.trimIndent()
     }
-    
+
     /**
      * Generate JSON export for programmatic use.
      */
@@ -213,7 +213,7 @@ object ShareManager {
             appendLine("}")
         }
     }
-    
+
     /**
      * Escape HTML special characters.
      */
@@ -225,7 +225,7 @@ object ShareManager {
             .replace("\"", "&quot;")
             .replace("'", "&#x27;")
     }
-    
+
     /**
      * Escape JSON special characters.
      */

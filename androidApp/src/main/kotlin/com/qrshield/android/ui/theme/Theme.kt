@@ -44,7 +44,7 @@ val BrandAccent = Color(0xFFA855F7)       // Light Purple
 
 // Verdict Colors - Security Status (WCAG AA compliant)
 val VerdictSafe = Color(0xFF00D68F)       // Neon Green - SAFE
-val VerdictWarning = Color(0xFFF5A623)    // Amber - SUSPICIOUS  
+val VerdictWarning = Color(0xFFF5A623)    // Amber - SUSPICIOUS
 val VerdictDanger = Color(0xFFFF3D71)     // Threat Red - MALICIOUS
 val VerdictUnknown = Color(0xFF8B93A1)    // Gray - UNKNOWN
 
@@ -74,25 +74,25 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary = Color.White,
     primaryContainer = Color(0xFF2D2060),
     onPrimaryContainer = Color(0xFFE8E0FF),
-    
+
     // Secondary (Teal)
     secondary = BrandSecondary,
     onSecondary = Color(0xFF003731),
     secondaryContainer = Color(0xFF004D45),
     onSecondaryContainer = Color(0xFF96F4E5),
-    
+
     // Tertiary (Accent)
     tertiary = BrandAccent,
     onTertiary = Color(0xFF3B0082),
     tertiaryContainer = Color(0xFF4E0594),
     onTertiaryContainer = Color(0xFFF0DBFF),
-    
+
     // Error/Danger
     error = VerdictDanger,
     onError = Color.White,
     errorContainer = Color(0xFF93000A),
     onErrorContainer = Color(0xFFFFDAD6),
-    
+
     // Backgrounds - Hacker Dark Theme
     background = BackgroundDark,
     onBackground = TextPrimary,
@@ -100,16 +100,16 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = TextPrimary,
     surfaceVariant = BackgroundCard,
     onSurfaceVariant = TextSecondary,
-    
+
     // Outlines
     outline = Color(0xFF30363D),
     outlineVariant = Color(0xFF21262D),
-    
+
     // Special (Android 16 surfaces)
     inverseSurface = TextPrimary,
     inverseOnSurface = BackgroundDark,
     inversePrimary = Color(0xFF4A3E9E),
-    
+
     // Tonal
     surfaceTint = BrandPrimary,
     scrim = Color(0x80000000)
@@ -121,25 +121,25 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = Color.White,
     primaryContainer = Color(0xFFE8E0FF),
     onPrimaryContainer = Color(0xFF1B0063),
-    
+
     // Secondary (Teal)
     secondary = Color(0xFF006B62),
     onSecondary = Color.White,
     secondaryContainer = Color(0xFF73F8E5),
     onSecondaryContainer = Color(0xFF00201D),
-    
+
     // Tertiary
     tertiary = Color(0xFF7B4397),
     onTertiary = Color.White,
     tertiaryContainer = Color(0xFFF9D8FF),
     onTertiaryContainer = Color(0xFF2F004C),
-    
+
     // Error
     error = Color(0xFFBA1A1A),
     onError = Color.White,
     errorContainer = Color(0xFFFFDAD6),
     onErrorContainer = Color(0xFF410002),
-    
+
     // Backgrounds
     background = Color(0xFFF6F8FA),
     onBackground = Color(0xFF1C1B1F),
@@ -147,7 +147,7 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     surfaceVariant = Color(0xFFE7E0EC),
     onSurfaceVariant = Color(0xFF49454F),
-    
+
     // Outlines
     outline = Color(0xFF79747E),
     outlineVariant = Color(0xFFCAC4D0)
@@ -167,7 +167,7 @@ val Typography = Typography(
         lineHeight = 64.sp,
         letterSpacing = (-0.25).sp
     ),
-    
+
     // Display Medium - Section Headers
     displayMedium = TextStyle(
         fontFamily = FontFamily.Default,
@@ -176,7 +176,7 @@ val Typography = Typography(
         lineHeight = 52.sp,
         letterSpacing = 0.sp
     ),
-    
+
     // Headline Large - Screen Titles
     headlineLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -185,7 +185,7 @@ val Typography = Typography(
         lineHeight = 40.sp,
         letterSpacing = 0.sp
     ),
-    
+
     // Headline Medium - Card Titles
     headlineMedium = TextStyle(
         fontFamily = FontFamily.Default,
@@ -194,7 +194,7 @@ val Typography = Typography(
         lineHeight = 36.sp,
         letterSpacing = 0.sp
     ),
-    
+
     // Title Large - Component Headers
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -203,7 +203,7 @@ val Typography = Typography(
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
-    
+
     // Title Medium - List Item Headers
     titleMedium = TextStyle(
         fontFamily = FontFamily.Default,
@@ -212,7 +212,7 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.15.sp
     ),
-    
+
     // Body Large - Main Content
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -221,7 +221,7 @@ val Typography = Typography(
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
-    
+
     // Body Medium - Secondary Content
     bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
@@ -230,7 +230,7 @@ val Typography = Typography(
         lineHeight = 20.sp,
         letterSpacing = 0.25.sp
     ),
-    
+
     // Body Small - Captions
     bodySmall = TextStyle(
         fontFamily = FontFamily.Default,
@@ -239,7 +239,7 @@ val Typography = Typography(
         lineHeight = 16.sp,
         letterSpacing = 0.4.sp
     ),
-    
+
     // Label Large - Buttons
     labelLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -248,7 +248,7 @@ val Typography = Typography(
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp
     ),
-    
+
     // Label Medium - Tags
     labelMedium = TextStyle(
         fontFamily = FontFamily.Default,
@@ -257,7 +257,7 @@ val Typography = Typography(
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     ),
-    
+
     // Label Small - Chips
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
@@ -310,12 +310,12 @@ fun QRShieldTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
-    
+
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            
+
             // Android 16: Enhanced edge-to-edge with transparent status bar
             // Note: statusBarColor and navigationBarColor are deprecated in API 35+
             // but still needed for backward compatibility on older versions
@@ -329,12 +329,12 @@ fun QRShieldTheme(
                 window.statusBarColor = BackgroundDark.toArgb()
                 window.navigationBarColor = BackgroundDark.toArgb()
             }
-            
+
             WindowCompat.getInsetsController(window, view).apply {
                 isAppearanceLightStatusBars = !darkTheme
                 isAppearanceLightNavigationBars = !darkTheme
             }
-            
+
             // Ensure edge-to-edge is enabled
             WindowCompat.setDecorFitsSystemWindows(window, false)
         }

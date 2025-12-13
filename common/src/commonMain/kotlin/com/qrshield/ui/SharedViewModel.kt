@@ -36,14 +36,14 @@ import kotlinx.datetime.Clock
 
 /**
  * Shared ViewModel for QR-SHIELD UI
- * 
+ *
  * Manages UI state across all platforms using Kotlin Coroutines Flow.
  * Now with persistent history storage via HistoryRepository.
- * 
+ *
  * @param phishingEngine Engine for analyzing URLs for phishing threats
  * @param historyRepository Repository for persisting scan history
  * @param coroutineScope Scope for launching coroutines
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
@@ -55,7 +55,7 @@ class SharedViewModel(
 ) {
     private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
-    
+
     /**
      * Scan history as an observable Flow from the database.
      * Automatically updates when new scans are added.
@@ -67,7 +67,7 @@ class SharedViewModel(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
-    
+
     /**
      * Process a scan result from camera or gallery.
      * Analyzes the content and persists to database.
@@ -77,11 +77,11 @@ class SharedViewModel(
             when (result) {
                 is ScanResult.Success -> {
                     _uiState.value = UiState.Analyzing(result.content)
-                    
+
                     val assessment = phishingEngine.analyze(result.content)
-                    
+
                     _uiState.value = UiState.Result(assessment)
-                    
+
                     // Persist to database if enabled
                     if (settings.value.isSaveHistoryEnabled) {
                         saveToHistory(result.content, assessment, source)
@@ -96,7 +96,7 @@ class SharedViewModel(
             }
         }
     }
-    
+
     /**
      * Analyze a URL directly (e.g., from clipboard).
      * Analyzes and persists to database.
@@ -104,30 +104,30 @@ class SharedViewModel(
     fun analyzeUrl(url: String, source: ScanSource = ScanSource.CLIPBOARD) {
         coroutineScope.launch {
             _uiState.value = UiState.Analyzing(url)
-            
+
             val assessment = phishingEngine.analyze(url)
-            
+
             _uiState.value = UiState.Result(assessment)
-            
+
             // Persist to database
             saveToHistory(url, assessment, source)
         }
     }
-    
+
     /**
      * Start scanning mode.
      */
     fun startScanning() {
         _uiState.value = UiState.Scanning
     }
-    
+
     /**
      * Return to idle state.
      */
     fun resetToIdle() {
         _uiState.value = UiState.Idle
     }
-    
+
     /**
      * Clear scan history from database.
      */
@@ -136,7 +136,7 @@ class SharedViewModel(
             historyRepository.clearAll()
         }
     }
-    
+
     /**
      * Delete a specific scan from history.
      */
@@ -145,20 +145,20 @@ class SharedViewModel(
             historyRepository.delete(id)
         }
     }
-    
+
     /**
      * Get scan by ID from history.
      */
     suspend fun getScanById(id: String): ScanHistoryItem? {
         return historyRepository.getById(id)
     }
-    
+
     /**
      * Get history statistics (for dashboard display).
      */
     suspend fun getStatistics(): HistoryStatistics {
         val all = historyRepository.getAll()
-        
+
         return HistoryStatistics(
             totalScans = all.size,
             safeCount = all.count { it.verdict == Verdict.SAFE },
@@ -167,21 +167,21 @@ class SharedViewModel(
             averageScore = if (all.isEmpty()) 0.0 else all.map { it.score }.average()
         )
     }
-    
+
     // === SHARE FUNCTIONALITY ===
-    
+
     /**
      * Generate shareable content for the current analysis result.
-     * 
+     *
      * @return ShareContent with text and HTML formats, or null if no result
      */
     fun generateShareContent(): ShareContent? {
         val state = _uiState.value
         if (state !is UiState.Result) return null
-        
+
         val assessment = state.assessment
         val url = assessment.details.originalUrl
-        
+
         return ShareContent(
             title = "QR-SHIELD Analysis: ${assessment.verdict.name}",
             text = ShareManager.generateTextSummary(url, assessment),
@@ -189,29 +189,29 @@ class SharedViewModel(
             url = url
         )
     }
-    
+
     /**
      * Generate plain text share content.
      */
     fun generateShareText(): String? {
         val state = _uiState.value
         if (state !is UiState.Result) return null
-        
+
         val assessment = state.assessment
         return ShareManager.generateTextSummary(assessment.details.originalUrl, assessment)
     }
-    
+
     /**
      * Generate JSON export of current analysis.
      */
     fun generateJsonExport(): String? {
         val state = _uiState.value
         if (state !is UiState.Result) return null
-        
+
         val assessment = state.assessment
         return ShareManager.generateJsonReport(assessment.details.originalUrl, assessment)
     }
-    
+
     /**
      * Save scan result to persistent database.
      */
@@ -228,30 +228,30 @@ class SharedViewModel(
             scannedAt = currentTimeMillis(),
             source = source
         )
-        
+
         historyRepository.insert(item)
     }
-    
-    
+
+
     // === SETTINGS ===
-    
+
     val settings: StateFlow<AppSettings> = settingsDataSource.settings
         .stateIn(
             scope = coroutineScope,
             started = SharingStarted.Eagerly,
             initialValue = AppSettings()
         )
-    
+
     fun updateSettings(newSettings: AppSettings) {
         coroutineScope.launch {
             settingsDataSource.saveSettings(newSettings)
         }
     }
-    
+
     private fun generateId(): String {
         return "scan_${currentTimeMillis()}_${(0..9999).random()}"
     }
-    
+
     private fun currentTimeMillis(): Long = Clock.System.now().toEpochMilliseconds()
 }
 
@@ -290,7 +290,7 @@ data class HistoryStatistics(
 ) {
     val safePercentage: Double
         get() = if (totalScans > 0) safeCount.toDouble() / totalScans * 100 else 0.0
-    
+
     val threatPercentage: Double
         get() = if (totalScans > 0) (suspiciousCount + maliciousCount).toDouble() / totalScans * 100 else 0.0
 }

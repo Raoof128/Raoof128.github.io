@@ -122,7 +122,7 @@ class RiskScorerTest {
             tldScore = 50
         )
         val result = scorer.calculate(components)
-        
+
         assertTrue(result.breakdown.containsKey("heuristic"))
         assertTrue(result.breakdown.containsKey("ml"))
         assertTrue(result.breakdown.containsKey("brand"))

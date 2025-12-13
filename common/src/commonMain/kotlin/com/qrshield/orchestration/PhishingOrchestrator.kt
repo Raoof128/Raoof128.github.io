@@ -22,7 +22,7 @@ import com.qrshield.model.RiskAssessment
 // =============================================================================
 // QR-SHIELD Orchestration Package
 // =============================================================================
-// 
+//
 // This package provides the main entry points for phishing detection.
 // It contains orchestrators that coordinate multiple analysis engines.
 //
@@ -39,25 +39,25 @@ import com.qrshield.model.RiskAssessment
 
 /**
  * Type alias for the main phishing analysis orchestrator.
- * 
+ *
  * This provides a cleaner name that reflects the orchestrator pattern.
  * The underlying implementation is [PhishingEngine] from the core package.
- * 
+ *
  * ## Example
  * ```kotlin
  * val orchestrator = PhishingOrchestrator()
  * val result = orchestrator.analyze("https://example.com")
  * ```
- * 
+ *
  * @see PhishingEngine
  */
 typealias PhishingOrchestrator = PhishingEngine
 
 /**
  * Type alias for the analysis result.
- * 
+ *
  * Provides semantic clarity that this is an assessment from the orchestrator.
- * 
+ *
  * @see RiskAssessment
  */
 typealias AnalysisResult = RiskAssessment

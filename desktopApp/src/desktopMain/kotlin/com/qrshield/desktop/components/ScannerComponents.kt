@@ -41,7 +41,7 @@ import com.qrshield.model.Verdict
 
 /**
  * Scanner-related UI components for QR-SHIELD Desktop
- * 
+ *
  * @author QR-SHIELD Team
  * @since 1.1.0
  */
@@ -105,12 +105,12 @@ fun EnhancedScannerCard(
                     )
                 }
             }
-            
+
             // URL Input
             OutlinedTextField(
                 value = urlInput,
                 onValueChange = onUrlChange,
-                placeholder = { 
+                placeholder = {
                     Text(
                         "https://example.com",
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
@@ -126,7 +126,7 @@ fun EnhancedScannerCard(
                     unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
                 )
             )
-            
+
             // Analyze Button
             Button(
                 onClick = onAnalyze,
@@ -201,7 +201,7 @@ fun QuickActionsRow(
                 Text("Paste", fontSize = 13.sp, fontWeight = FontWeight.Medium)
             }
         }
-        
+
         OutlinedButton(
             onClick = onClearInput,
             modifier = Modifier.weight(1f).height(44.dp),
@@ -234,30 +234,30 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
         Verdict.MALICIOUS -> DesktopColors.VerdictMalicious
         Verdict.UNKNOWN -> DesktopColors.VerdictUnknown
     }
-    
+
     val verdictEmoji = when (result.verdict) {
         Verdict.SAFE -> "✅"
         Verdict.SUSPICIOUS -> "⚠️"
         Verdict.MALICIOUS -> "🚫"
         Verdict.UNKNOWN -> "❓"
     }
-    
+
     val verdictMessage = when (result.verdict) {
         Verdict.SAFE -> "This URL appears to be safe"
         Verdict.SUSPICIOUS -> "This URL has some suspicious indicators"
         Verdict.MALICIOUS -> "This URL is likely malicious - do not visit!"
         Verdict.UNKNOWN -> "Unable to determine safety level"
     }
-    
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .shadow(12.dp, RoundedCornerShape(24.dp)),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = if (isDarkMode) 
-                verdictColor.copy(alpha = 0.08f) 
-            else 
+            containerColor = if (isDarkMode)
+                verdictColor.copy(alpha = 0.08f)
+            else
                 verdictColor.copy(alpha = 0.06f)
         ),
         border = BorderStroke(2.dp, verdictColor.copy(alpha = 0.4f))
@@ -288,7 +288,7 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                     fontSize = 44.sp
                 )
             }
-            
+
             // Score with circular progress
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -300,13 +300,13 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                     fontWeight = FontWeight.Bold,
                     color = verdictColor
                 )
-                
+
                 Text(
                     text = "Risk Score",
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                
+
                 // Score Bar
                 Box(
                     modifier = Modifier
@@ -328,7 +328,7 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                     )
                 }
             }
-            
+
             // Verdict Badge
             Surface(
                 color = verdictColor,
@@ -343,7 +343,7 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                     style = MaterialTheme.typography.labelLarge
                 )
             }
-            
+
             // Verdict Message
             Text(
                 text = verdictMessage,
@@ -351,7 +351,7 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
-            
+
             // URL
             Surface(
                 shape = RoundedCornerShape(12.dp),
@@ -367,14 +367,14 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            
+
             // Flags
             if (result.flags.isNotEmpty()) {
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 8.dp),
                     color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
                 )
-                
+
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -385,7 +385,7 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
-                    
+
                     result.flags.forEach { flag ->
                         Surface(
                             shape = RoundedCornerShape(8.dp),
@@ -434,7 +434,7 @@ fun EnhancedFeaturesGrid() {
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
-        
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -452,7 +452,7 @@ fun EnhancedFeaturesGrid() {
                 modifier = Modifier.weight(1f)
             )
         }
-        
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -494,7 +494,7 @@ fun RecentScansSection(
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
-        
+
         scans.take(5).forEach { scan ->
             RecentScanItem(scan = scan, onClick = { onScanClick(scan) })
         }
@@ -515,7 +515,7 @@ fun RecentScanItem(
         Verdict.MALICIOUS -> DesktopColors.VerdictMalicious
         Verdict.UNKNOWN -> DesktopColors.VerdictUnknown
     }
-    
+
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(12.dp),
@@ -536,7 +536,7 @@ fun RecentScanItem(
                     .clip(CircleShape)
                     .background(verdictColor)
             )
-            
+
             // URL
             Text(
                 text = scan.url,
@@ -546,7 +546,7 @@ fun RecentScanItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            
+
             // Score badge
             Surface(
                 shape = RoundedCornerShape(6.dp),

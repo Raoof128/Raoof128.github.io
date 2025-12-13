@@ -36,81 +36,81 @@ import kotlin.math.min
 
 /**
  * Repository interface for scan history persistence.
- * 
+ *
  * Implementations should be platform-specific:
  * - Android: SQLDelight with Android driver
  * - iOS: SQLDelight with Native driver
  * - Desktop: SQLDelight with JVM driver
  * - Web: SQLDelight with Web driver
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 interface HistoryRepository {
-    
+
     /**
      * Insert a new scan record.
-     * 
+     *
      * @param item The scan history item to save
      * @return true if successful, false otherwise
      */
     suspend fun insert(item: ScanHistoryItem): Boolean
-    
+
     /**
      * Get all scans ordered by date (newest first).
-     * 
+     *
      * @return List of all scan history items
      */
     suspend fun getAll(): List<ScanHistoryItem>
-    
+
     /**
      * Get recent scans with limit.
-     * 
+     *
      * @param limit Maximum number of items to return
      * @return List of recent scan history items
      */
     suspend fun getRecent(limit: Int): List<ScanHistoryItem>
-    
+
     /**
      * Get scan by ID.
-     * 
+     *
      * @param id The scan ID
      * @return ScanHistoryItem if found, null otherwise
      */
     suspend fun getById(id: String): ScanHistoryItem?
-    
+
     /**
      * Delete scan by ID.
-     * 
+     *
      * @param id The scan ID to delete
      * @return true if deleted, false if not found
      */
     suspend fun delete(id: String): Boolean
-    
+
     /**
      * Clear all history.
-     * 
+     *
      * @return Number of items deleted
      */
     suspend fun clearAll(): Int
-    
+
     /**
      * Get total count of scans.
-     * 
+     *
      * @return Total number of scan records
      */
     suspend fun count(): Long
-    
+
     /**
      * Observe history changes as Flow.
-     * 
+     *
      * @return Flow of history item lists
      */
     fun observe(): Flow<List<ScanHistoryItem>>
-    
+
     /**
      * Get scans by verdict.
-     * 
+     *
      * @param verdict The verdict to filter by
      * @return List of scan history items with matching verdict
      */
@@ -119,10 +119,10 @@ interface HistoryRepository {
 
 /**
  * SQLDelight-based implementation of HistoryRepository.
- * 
+ *
  * Provides persistent storage with SQLite across all platforms.
  * Thread-safe with proper mutex locking.
- * 
+ *
  * @param driver Platform-specific SqlDriver
  * @param scope CoroutineScope for Flow updates
  */
@@ -130,13 +130,13 @@ class SqlDelightHistoryRepository(
     driver: SqlDriver,
     private val scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) : HistoryRepository {
-    
+
     private val database = QRShieldDatabase(driver)
     private val queries = database.qRShieldDatabaseQueries
-    
+
     private val mutex = Mutex()
     private val _historyFlow = MutableStateFlow<List<ScanHistoryItem>>(emptyList())
-    
+
     init {
         // Load initial data with error handling
         scope.launch {
@@ -148,7 +148,7 @@ class SqlDelightHistoryRepository(
             }
         }
     }
-    
+
     override suspend fun insert(item: ScanHistoryItem): Boolean = mutex.withLock {
         return try {
             withContext(Dispatchers.Default) {
@@ -167,13 +167,13 @@ class SqlDelightHistoryRepository(
             false
         }
     }
-    
+
     override suspend fun getAll(): List<ScanHistoryItem> = mutex.withLock {
         return withContext(Dispatchers.Default) {
             queries.getAllScans().executeAsList().map { it.toScanHistoryItem() }
         }
     }
-    
+
     override suspend fun getRecent(limit: Int): List<ScanHistoryItem> = mutex.withLock {
         return withContext(Dispatchers.Default) {
             queries.getRecentScans(limit.coerceIn(1, 1000).toLong())
@@ -181,13 +181,13 @@ class SqlDelightHistoryRepository(
                 .map { it.toScanHistoryItem() }
         }
     }
-    
+
     override suspend fun getById(id: String): ScanHistoryItem? = mutex.withLock {
         return withContext(Dispatchers.Default) {
             queries.getScanById(id).executeAsOneOrNull()?.toScanHistoryItem()
         }
     }
-    
+
     override suspend fun delete(id: String): Boolean = mutex.withLock {
         return try {
             withContext(Dispatchers.Default) {
@@ -199,7 +199,7 @@ class SqlDelightHistoryRepository(
             false
         }
     }
-    
+
     override suspend fun clearAll(): Int = mutex.withLock {
         return try {
             val count = withContext(Dispatchers.Default) {
@@ -213,15 +213,15 @@ class SqlDelightHistoryRepository(
             0
         }
     }
-    
+
     override suspend fun count(): Long = mutex.withLock {
         return withContext(Dispatchers.Default) {
             queries.countScans().executeAsOne()
         }
     }
-    
+
     override fun observe(): Flow<List<ScanHistoryItem>> = _historyFlow.asStateFlow()
-    
+
     override suspend fun getByVerdict(verdict: Verdict): List<ScanHistoryItem> = mutex.withLock {
         return withContext(Dispatchers.Default) {
             queries.getScansByVerdict(verdict.name)
@@ -229,14 +229,14 @@ class SqlDelightHistoryRepository(
                 .map { it.toScanHistoryItem() }
         }
     }
-    
+
     private suspend fun refreshFlow() {
         val items = withContext(Dispatchers.Default) {
             queries.getAllScans().executeAsList().map { it.toScanHistoryItem() }
         }
         _historyFlow.value = items
     }
-    
+
     /**
      * Extension function to convert SQLDelight entity to domain model.
      */
@@ -254,43 +254,43 @@ class SqlDelightHistoryRepository(
 
 /**
  * In-memory implementation for testing and initial development.
- * 
+ *
  * NOT for production use - data is lost on app restart.
  */
 class InMemoryHistoryRepository : HistoryRepository {
-    
+
     companion object {
         private const val MAX_ITEMS = 1000
     }
-    
+
     private val mutex = Mutex()
     private val items = mutableListOf<ScanHistoryItem>()
     private val _historyFlow = MutableStateFlow<List<ScanHistoryItem>>(emptyList())
-    
+
     override suspend fun insert(item: ScanHistoryItem): Boolean = mutex.withLock {
         // Remove oldest if at capacity
         if (items.size >= MAX_ITEMS) {
             items.removeAt(items.size - 1)
         }
-        
+
         // Insert at beginning (newest first)
         items.add(0, item)
         _historyFlow.value = items.toList()
         true
     }
-    
+
     override suspend fun getAll(): List<ScanHistoryItem> = mutex.withLock {
         items.toList()
     }
-    
+
     override suspend fun getRecent(limit: Int): List<ScanHistoryItem> = mutex.withLock {
         items.take(limit.coerceIn(1, MAX_ITEMS))
     }
-    
+
     override suspend fun getById(id: String): ScanHistoryItem? = mutex.withLock {
         items.find { it.id == id }
     }
-    
+
     override suspend fun delete(id: String): Boolean = mutex.withLock {
         val removed = items.removeAll { it.id == id }
         if (removed) {
@@ -298,20 +298,20 @@ class InMemoryHistoryRepository : HistoryRepository {
         }
         removed
     }
-    
+
     override suspend fun clearAll(): Int = mutex.withLock {
         val count = items.size
         items.clear()
         _historyFlow.value = emptyList()
         count
     }
-    
+
     override suspend fun count(): Long = mutex.withLock {
         items.size.toLong()
     }
-    
+
     override fun observe(): Flow<List<ScanHistoryItem>> = _historyFlow.asStateFlow()
-    
+
     override suspend fun getByVerdict(verdict: Verdict): List<ScanHistoryItem> = mutex.withLock {
         items.filter { it.verdict == verdict }
     }
@@ -319,43 +319,43 @@ class InMemoryHistoryRepository : HistoryRepository {
 
 /**
  * Factory for creating HistoryRepository instances.
- * 
+ *
  * Uses InMemoryHistoryRepository by default.
  * For production, inject platform-specific SQLDelight implementations.
  */
 object HistoryRepositoryFactory {
     /**
      * Creates an in-memory repository instance.
-     * 
+     *
      * Note: For production use, platform-specific implementations
      * should be injected via dependency injection (Koin).
      */
     fun create(): HistoryRepository = InMemoryHistoryRepository()
-    
+
     /**
      * Creates a SQLDelight-based repository.
-     * 
+     *
      * @param driver Platform-specific SqlDriver
      * @param scope CoroutineScope for Flow updates
      */
     fun createPersistent(
-        driver: SqlDriver, 
+        driver: SqlDriver,
         scope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ): HistoryRepository = SqlDelightHistoryRepository(driver, scope)
 }
 
 /**
  * Scan history manager providing high-level operations.
- * 
+ *
  * Wraps the repository with additional business logic.
  */
 class ScanHistoryManager(
     private val repository: HistoryRepository
 ) {
-    
+
     /**
      * Record a new scan.
-     * 
+     *
      * @param url The scanned URL
      * @param score Risk score (0-100)
      * @param verdict Verdict classification
@@ -376,17 +376,17 @@ class ScanHistoryManager(
             scannedAt = Clock.System.now().toEpochMilliseconds(),
             source = source
         )
-        
+
         repository.insert(item)
         return item
     }
-    
+
     /**
      * Get history summary statistics.
      */
     suspend fun getStatistics(): HistoryStatistics {
         val all = repository.getAll()
-        
+
         return HistoryStatistics(
             totalScans = all.size,
             safeCount = all.count { it.verdict == Verdict.SAFE },
@@ -395,7 +395,7 @@ class ScanHistoryManager(
             averageScore = if (all.isEmpty()) 0.0 else all.map { it.score }.average()
         )
     }
-    
+
     /**
      * Export history as JSON.
      */
@@ -418,7 +418,7 @@ class ScanHistoryManager(
             append("]")
         }
     }
-    
+
     /**
      * Properly escape a string for JSON output.
      * Prevents JSON injection attacks.
@@ -447,13 +447,13 @@ class ScanHistoryManager(
             }
         }
     }
-    
+
     private fun generateId(): String {
         val timestamp = Clock.System.now().toEpochMilliseconds()
         val random = (0..9999).random()
         return "scan_${timestamp}_$random"
     }
-    
+
     /**
      * History statistics summary.
      */
@@ -466,7 +466,7 @@ class ScanHistoryManager(
     ) {
         val safePercentage: Double
             get() = if (totalScans > 0) safeCount.toDouble() / totalScans * 100 else 0.0
-        
+
         val threatPercentage: Double
             get() = if (totalScans > 0) (suspiciousCount + maliciousCount).toDouble() / totalScans * 100 else 0.0
     }

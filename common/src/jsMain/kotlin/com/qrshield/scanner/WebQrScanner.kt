@@ -38,7 +38,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * External declaration for jsQR library.
- * 
+ *
  * jsQR is a pure JavaScript QR code reading library.
  * Must be included via <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
  */
@@ -54,60 +54,60 @@ external interface JsQRResult {
 
 /**
  * Web QR Scanner Implementation
- * 
+ *
  * Uses jsQR library and MediaDevices API for browser-based QR scanning.
  * Works in modern browsers (Chrome, Firefox, Safari, Edge).
- * 
+ *
  * ARCHITECTURE:
  * - navigator.mediaDevices.getUserMedia for camera access
  * - Canvas API for frame capture
  * - jsQR library for QR decoding
- * 
+ *
  * SECURITY NOTES:
  * - HTTPS required for camera access in production
  * - Content length is validated
  * - Media streams are properly stopped on cleanup
- * 
+ *
  * REQUIREMENTS:
- * - Include jsQR library in HTML: 
+ * - Include jsQR library in HTML:
  *   <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js"></script>
  * - HTTPS connection (localhost allowed for development)
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 class WebQrScanner : QrScanner {
-    
+
     companion object {
         /** Maximum content length to accept */
         private const val MAX_CONTENT_LENGTH = 4096
-        
+
         /** Frame analysis interval in milliseconds */
         private const val FRAME_DELAY_MS = 100L
-        
+
         /** Camera resolution constraints */
         private const val VIDEO_WIDTH = 1280
         private const val VIDEO_HEIGHT = 720
     }
-    
+
     private var isScanning = false
     private var mediaStream: MediaStream? = null
-    
+
     /**
      * Start continuous camera scanning using MediaDevices API.
-     * 
+     *
      * Creates a video element, captures frames to canvas, and
      * processes them with jsQR for QR code detection.
      */
     override fun scanFromCamera(): Flow<ScanResult> = callbackFlow {
         isScanning = true
-        
+
         try {
             // Security check: Camera access requires HTTPS in production
-            val isSecure = window.location.protocol == "https:" || 
+            val isSecure = window.location.protocol == "https:" ||
                           window.location.hostname == "localhost" ||
                           window.location.hostname == "127.0.0.1"
-            
+
             if (!isSecure) {
                 trySend(ScanResult.Error(
                     "Camera access requires a secure connection (HTTPS). " +
@@ -117,7 +117,7 @@ class WebQrScanner : QrScanner {
                 close()
                 return@callbackFlow
             }
-            
+
             // Check if getUserMedia is available
             val mediaDevices = window.navigator.asDynamic().mediaDevices
             if (mediaDevices == null) {
@@ -129,14 +129,14 @@ class WebQrScanner : QrScanner {
                 close()
                 return@callbackFlow
             }
-            
+
             // Request camera access
             val constraints = js("{video: {facingMode: 'environment', width: {ideal: $VIDEO_WIDTH}, height: {ideal: $VIDEO_HEIGHT}}}")
-            
+
             val streamPromise: Promise<MediaStream> = mediaDevices.getUserMedia(constraints).unsafeCast<Promise<MediaStream>>()
-            
+
             mediaStream = streamPromise.await()
-            
+
             val stream = mediaStream
             if (stream == null) {
                 trySend(ScanResult.Error(
@@ -146,46 +146,46 @@ class WebQrScanner : QrScanner {
                 close()
                 return@callbackFlow
             }
-            
+
             // Create video element
             val video = document.createElement("video") as HTMLVideoElement
             video.srcObject = stream
             video.setAttribute("playsinline", "true") // Required for iOS
             video.play()
-            
+
             // Wait for video to be ready
             while (video.readyState != HTMLVideoElement.HAVE_ENOUGH_DATA) {
                 delay(100)
             }
-            
+
             // Create canvas for frame capture
             val canvas = document.createElement("canvas") as HTMLCanvasElement
             canvas.width = video.videoWidth
             canvas.height = video.videoHeight
             val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-            
+
             // Scanning loop
             while (isScanning) {
                 try {
                     // Draw current frame to canvas
                     ctx.drawImage(video, 0.0, 0.0, canvas.width.toDouble(), canvas.height.toDouble())
-                    
+
                     // Get image data
                     val imageData = ctx.getImageData(0.0, 0.0, canvas.width.toDouble(), canvas.height.toDouble())
-                    
+
                     // Process with jsQR
                     val result = processImageData(imageData)
                     if (result is ScanResult.Success) {
                         trySend(result)
                     }
-                    
+
                 } catch (e: Exception) {
                     // Continue on frame processing errors
                 }
-                
+
                 delay(FRAME_DELAY_MS)
             }
-            
+
         } catch (e: Exception) {
             val errorMessage = when {
                 e.message?.contains("NotAllowed") == true -> "Camera permission denied"
@@ -193,19 +193,19 @@ class WebQrScanner : QrScanner {
                 e.message?.contains("NotReadable") == true -> "Camera is in use by another app"
                 else -> e.message ?: "Camera error"
             }
-            
+
             trySend(ScanResult.Error(errorMessage, ErrorCode.CAMERA_ERROR))
         }
-        
+
         awaitClose {
             isScanning = false
             stopMediaStream()
         }
     }
-    
+
     /**
      * Scan QR code from image bytes.
-     * 
+     *
      * @param imageBytes Raw image data
      * @return ScanResult with scanned content or error
      */
@@ -220,7 +220,7 @@ class WebQrScanner : QrScanner {
                     ))
                     return@suspendCancellableCoroutine
                 }
-                
+
                 // Security: Limit image size
                 if (imageBytes.size > 10 * 1024 * 1024) {
                     continuation.resume(ScanResult.Error(
@@ -229,34 +229,34 @@ class WebQrScanner : QrScanner {
                     ))
                     return@suspendCancellableCoroutine
                 }
-                
+
                 // Convert to Blob and create image
                 val blob = js("new Blob([new Uint8Array(imageBytes)], {type: 'image/png'})")
                 val url = js("URL.createObjectURL(blob)") as String
-                
+
                 val img = js("new Image()").unsafeCast<dynamic>()
-                
+
                 img.onload = {
                     try {
                         val canvas = document.createElement("canvas") as HTMLCanvasElement
                         canvas.width = (img.width as Number).toInt()
                         canvas.height = (img.height as Number).toInt()
                         val ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-                        
+
                         ctx.drawImage(img, 0.0, 0.0)
-                        
+
                         val imageData = ctx.getImageData(
-                            0.0, 0.0, 
-                            canvas.width.toDouble(), 
+                            0.0, 0.0,
+                            canvas.width.toDouble(),
                             canvas.height.toDouble()
                         )
-                        
+
                         val result = processImageData(imageData)
                         continuation.resume(result)
-                        
+
                         // Clean up
                         js("URL.revokeObjectURL(url)")
-                        
+
                     } catch (e: Exception) {
                         continuation.resume(ScanResult.Error(
                             e.message ?: "Failed to process image",
@@ -264,7 +264,7 @@ class WebQrScanner : QrScanner {
                         ))
                     }
                 }
-                
+
                 img.onerror = {
                     js("URL.revokeObjectURL(url)")
                     continuation.resume(ScanResult.Error(
@@ -272,9 +272,9 @@ class WebQrScanner : QrScanner {
                         ErrorCode.IMAGE_DECODE_ERROR
                     ))
                 }
-                
+
                 img.src = url
-                
+
             } catch (e: Exception) {
                 continuation.resume(ScanResult.Error(
                     e.message ?: "Unknown error",
@@ -283,7 +283,7 @@ class WebQrScanner : QrScanner {
             }
         }
     }
-    
+
     /**
      * Process ImageData with jsQR library.
      */
@@ -295,10 +295,10 @@ class WebQrScanner : QrScanner {
                 imageData.height,
                 js("{inversionAttempts: 'dontInvert'}")
             )
-            
+
             if (result != null) {
                 val content = result.data
-                
+
                 // Security: Validate content length
                 if (content.length > MAX_CONTENT_LENGTH) {
                     return ScanResult.Error(
@@ -306,13 +306,13 @@ class WebQrScanner : QrScanner {
                         ErrorCode.CONTENT_TOO_LARGE
                     )
                 }
-                
+
                 val contentType = detectContentType(content)
                 ScanResult.Success(content, contentType)
             } else {
                 ScanResult.NoQrFound
             }
-            
+
         } catch (e: Exception) {
             // jsQR may not be loaded
             if (js("typeof jsQR === 'undefined'") as Boolean) {
@@ -328,7 +328,7 @@ class WebQrScanner : QrScanner {
             }
         }
     }
-    
+
     /**
      * Stop active camera scanning.
      */
@@ -336,7 +336,7 @@ class WebQrScanner : QrScanner {
         isScanning = false
         stopMediaStream()
     }
-    
+
     /**
      * Stop and clean up media stream.
      */
@@ -346,7 +346,7 @@ class WebQrScanner : QrScanner {
         }
         mediaStream = null
     }
-    
+
     /**
      * Check if camera permission is granted.
      */
@@ -364,10 +364,10 @@ class WebQrScanner : QrScanner {
             false
         }
     }
-    
+
     /**
      * Request camera permission.
-     * 
+     *
      * In browsers, permission is requested when getUserMedia is called.
      */
     override suspend fun requestCameraPermission(): Boolean {
@@ -375,30 +375,30 @@ class WebQrScanner : QrScanner {
             val mediaDevices = window.navigator.asDynamic().mediaDevices ?: return false
             val constraints = js("{video: true}")
             val stream = (mediaDevices.getUserMedia(constraints) as Promise<MediaStream>).await()
-            
+
             // Stop the test stream immediately
-            stream.getTracks().forEach { track -> 
-                track.asDynamic().stop() 
+            stream.getTracks().forEach { track ->
+                track.asDynamic().stop()
             }
-            
+
             true
         } catch (e: Exception) {
             false
         }
     }
-    
+
     /**
      * Detect content type from scanned string.
      */
     private fun detectContentType(content: String): ContentType {
         return when {
-            content.startsWith("http://", ignoreCase = true) || 
+            content.startsWith("http://", ignoreCase = true) ||
             content.startsWith("https://", ignoreCase = true) -> ContentType.URL
             content.startsWith("WIFI:", ignoreCase = true) -> ContentType.WIFI
             content.startsWith("BEGIN:VCARD", ignoreCase = true) -> ContentType.VCARD
             content.startsWith("geo:", ignoreCase = true) -> ContentType.GEO
             content.startsWith("tel:", ignoreCase = true) -> ContentType.PHONE
-            content.startsWith("sms:", ignoreCase = true) || 
+            content.startsWith("sms:", ignoreCase = true) ||
             content.startsWith("smsto:", ignoreCase = true) -> ContentType.SMS
             content.startsWith("mailto:", ignoreCase = true) -> ContentType.EMAIL
             else -> ContentType.TEXT

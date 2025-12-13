@@ -34,156 +34,156 @@ import org.junit.runner.RunWith
 
 /**
  * UI Tests for Settings Screen
- * 
+ *
  * Tests the settings interface using Compose UI Testing.
  */
 @RunWith(AndroidJUnit4::class)
 class SettingsScreenTest {
-    
+
     @get:Rule
     val composeTestRule = createComposeRule()
-    
+
     // =========================================================================
     // SETTINGS VISIBILITY TESTS
     // =========================================================================
-    
+
     @Test
     fun settings_showsTitle() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Settings", useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun settings_showsHapticFeedbackToggle() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Haptic Feedback", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun settings_showsSoundToggle() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Sound", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun settings_showsAutoScanToggle() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Auto", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun settings_showsSaveHistoryToggle() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("History", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // TOGGLE INTERACTION TESTS
     // =========================================================================
-    
+
     @Test
     fun hapticToggle_isClickable() {
         var toggled = false
-        
+
         composeTestRule.setContent {
             SettingsTestContent(
                 onHapticToggle = { toggled = true }
             )
         }
-        
+
         composeTestRule.onNodeWithContentDescription("Haptic", substring = true, ignoreCase = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(toggled) { "Haptic toggle was not triggered" }
     }
-    
+
     @Test
     fun soundToggle_isClickable() {
         var toggled = false
-        
+
         composeTestRule.setContent {
             SettingsTestContent(
                 onSoundToggle = { toggled = true }
             )
         }
-        
+
         composeTestRule.onNodeWithContentDescription("Sound", substring = true, ignoreCase = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(toggled) { "Sound toggle was not triggered" }
     }
-    
+
     // =========================================================================
     // ABOUT SECTION TESTS
     // =========================================================================
-    
+
     @Test
     fun settings_showsVersion() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Version", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun settings_showsPrivacyLink() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Privacy", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // DANGER ZONE TESTS
     // =========================================================================
-    
+
     @Test
     fun settings_showsClearHistoryButton() {
         composeTestRule.setContent {
             SettingsTestContent()
         }
-        
+
         composeTestRule.onNodeWithText("Clear History", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun clearHistory_triggersConfirmation() {
         var confirmationRequested = false
-        
+
         composeTestRule.setContent {
             SettingsTestContent(
                 onClearHistory = { confirmationRequested = true }
             )
         }
-        
+
         composeTestRule.onNodeWithText("Clear History", substring = true, ignoreCase = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(confirmationRequested) { "Clear history confirmation was not requested" }
     }
 }
@@ -211,50 +211,50 @@ private fun SettingsTestContent(
             .padding(16.dp)
     ) {
         Text("Settings", style = MaterialTheme.typography.headlineMedium)
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Feedback Section
         Text("Feedback", style = MaterialTheme.typography.titleMedium)
-        
+
         SettingsToggleRow(
             label = "Haptic Feedback",
             description = "Vibrate on scan events",
             checked = hapticEnabled,
             onToggle = onHapticToggle
         )
-        
+
         SettingsToggleRow(
             label = "Sound Effects",
             description = "Play sounds on scan",
             checked = soundEnabled,
             onToggle = onSoundToggle
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Scanning Section
         Text("Scanning", style = MaterialTheme.typography.titleMedium)
-        
+
         SettingsToggleRow(
             label = "Auto-Scan on Launch",
             description = "Start camera automatically",
             checked = autoScanEnabled,
             onToggle = onAutoScanToggle
         )
-        
+
         SettingsToggleRow(
             label = "Save History",
             description = "Keep scan history locally",
             checked = saveHistoryEnabled,
             onToggle = onSaveHistoryToggle
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // About Section
         Text("About", style = MaterialTheme.typography.titleMedium)
-        
+
         Row(
             modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -262,20 +262,20 @@ private fun SettingsTestContent(
             Text("Version")
             Text("1.1.0")
         }
-        
+
         TextButton(onClick = {}) {
             Text("Privacy Policy")
         }
-        
+
         TextButton(onClick = {}) {
             Text("Open Source Licenses")
         }
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         // Danger Zone
         Text("Danger Zone", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.error)
-        
+
         OutlinedButton(
             onClick = onClearHistory,
             colors = ButtonDefaults.outlinedButtonColors(
@@ -304,7 +304,7 @@ private fun SettingsToggleRow(
             Text(label)
             Text(description, style = MaterialTheme.typography.bodySmall)
         }
-        
+
         Switch(
             checked = checked,
             onCheckedChange = { onToggle() },

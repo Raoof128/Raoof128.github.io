@@ -22,18 +22,18 @@ import android.util.Log
 
 /**
  * Sound Manager for QR-SHIELD scan feedback.
- * 
+ *
  * Uses ToneGenerator for efficient, lightweight beep sounds.
  * This avoids the need for raw audio files while providing
  * clear auditory feedback.
  */
 object SoundManager {
-    
+
     private const val TAG = "SoundManager"
     private const val TONE_DURATION_MS = 150
-    
+
     private var toneGenerator: ToneGenerator? = null
-    
+
     /**
      * Sound types for different scan events.
      */
@@ -43,7 +43,7 @@ object SoundManager {
         WARNING,    // Suspicious result
         ERROR       // Malicious result or error
     }
-    
+
     /**
      * Initialize the ToneGenerator lazily.
      */
@@ -57,18 +57,18 @@ object SoundManager {
         }
         return toneGenerator
     }
-    
+
     /**
      * Play a sound for the given type.
-     * 
+     *
      * @param type The type of sound to play
      * @param enabled Whether sound is enabled in settings
      */
     fun playSound(type: SoundType, enabled: Boolean) {
         if (!enabled) return
-        
+
         val generator = getToneGenerator() ?: return
-        
+
         try {
             val toneType = when (type) {
                 SoundType.SCAN -> ToneGenerator.TONE_PROP_BEEP
@@ -76,13 +76,13 @@ object SoundManager {
                 SoundType.WARNING -> ToneGenerator.TONE_PROP_PROMPT
                 SoundType.ERROR -> ToneGenerator.TONE_PROP_NACK
             }
-            
+
             generator.startTone(toneType, TONE_DURATION_MS)
         } catch (e: Exception) {
             Log.w(TAG, "Failed to play tone: ${e.message}")
         }
     }
-    
+
     /**
      * Release resources when no longer needed.
      */

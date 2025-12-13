@@ -28,210 +28,210 @@ import org.junit.runner.RunWith
 
 /**
  * End-to-end Integration Tests for QR-SHIELD Android
- * 
+ *
  * Tests the complete analysis pipeline from URL input to verdict.
  * These tests run on an Android device/emulator.
  */
 @RunWith(AndroidJUnit4::class)
 class ScanFlowIntegrationTest {
-    
+
     private lateinit var context: Context
     private lateinit var engine: PhishingEngine
-    
+
     @Before
     fun setup() {
         context = ApplicationProvider.getApplicationContext()
         engine = PhishingEngine()
     }
-    
+
     // =========================================================================
     // SAFE URL FLOW TESTS
     // =========================================================================
-    
+
     @Test
     fun safeUrl_producesCorrectVerdict() {
         val result = engine.analyze("https://www.google.com")
-        
+
         assertEquals(Verdict.SAFE, result.verdict)
         assertTrue("Score should be low", result.score <= 20)
         assertTrue("Confidence should be positive", result.confidence > 0)
         assertNotNull("Details should not be null", result.details)
     }
-    
+
     @Test
     fun safeUrl_officialBankingDomain() {
         val result = engine.analyze("https://www.commbank.com.au/netbank")
-        
+
         // Should be safe or low score (country TLD may add small points)
         assertTrue(
             "Official banking site should be low risk",
             result.verdict == Verdict.SAFE || result.score <= 25
         )
     }
-    
+
     @Test
     fun safeUrl_githubRepository() {
         val result = engine.analyze("https://github.com/user/qrshield")
-        
+
         assertEquals(Verdict.SAFE, result.verdict)
     }
-    
+
     // =========================================================================
     // PHISHING URL FLOW TESTS
     // =========================================================================
-    
+
     @Test
     fun phishingUrl_typosquatDetected() {
         val result = engine.analyze("https://paypa1.com/login")
-        
+
         // Should have elevated score due to brand impersonation
         assertTrue("Typosquat should have elevated score", result.score > 10)
         assertTrue("Should have flags", result.flags.isNotEmpty())
     }
-    
+
     @Test
     fun phishingUrl_ipAddressHost() {
         val result = engine.analyze("http://192.168.1.1/login")
-        
+
         // IP address + HTTP should be flagged
         assertTrue("IP address should be flagged", result.score >= 15)
-        assertTrue("Should have IP-related flag", 
+        assertTrue("Should have IP-related flag",
             result.flags.any { it.contains("IP", ignoreCase = true) })
     }
-    
+
     @Test
     fun phishingUrl_highRiskTld() {
         val result = engine.analyze("https://login-bank.tk/verify")
-        
+
         // High-risk TLD should increase score
         assertTrue("High-risk TLD should increase score", result.score >= 20)
     }
-    
+
     @Test
     fun phishingUrl_combosquatDomain() {
         val result = engine.analyze("https://netflix-billing.com/update")
-        
+
         // Combosquat should be detected
         assertNotNull("Should complete analysis", result.verdict)
     }
-    
+
     @Test
     fun phishingUrl_multipleRiskFactors() {
         // HTTP + IP + credential params
         val result = engine.analyze("http://192.168.1.1:8080/login.php?password=test")
-        
+
         // Multiple risk factors should produce high score
         assertTrue("Multiple risks should elevate score", result.score >= 30)
-        assertTrue("Should be flagged as risky", 
+        assertTrue("Should be flagged as risky",
             result.verdict != Verdict.SAFE)
     }
-    
+
     // =========================================================================
     // EDGE CASE FLOW TESTS
     // =========================================================================
-    
+
     @Test
     fun edgeCase_emptyUrl() {
         val result = engine.analyze("")
-        
+
         assertEquals(Verdict.UNKNOWN, result.verdict)
     }
-    
+
     @Test
     fun edgeCase_longUrl() {
         val longPath = "a".repeat(2000)
         val result = engine.analyze("https://example.com/$longPath")
-        
+
         // Should handle gracefully without crashing
         assertNotNull("Should not crash on long URL", result.verdict)
     }
-    
+
     @Test
     fun edgeCase_urlWithAtSymbol() {
         val result = engine.analyze("https://google.com@evil.com")
-        
+
         // @ symbol should add risk
         assertTrue("@ symbol should be flagged", result.score >= 10)
     }
-    
+
     @Test
     fun edgeCase_urlShortener() {
         val result = engine.analyze("https://bit.ly/abc123")
-        
+
         // Should complete analysis
         assertNotNull("Shortener URL should be analyzed", result.verdict)
     }
-    
+
     @Test
     fun edgeCase_unicodeUrl() {
         val result = engine.analyze("https://exаmple.com") // 'а' is Cyrillic
-        
+
         // Should complete analysis
         assertNotNull("Unicode URL should be analyzed", result.verdict)
     }
-    
+
     // =========================================================================
     // ANALYSIS CONSISTENCY TESTS
     // =========================================================================
-    
+
     @Test
     fun consistency_sameUrlProducesSameResult() {
         val url = "https://google.com"
-        
+
         val result1 = engine.analyze(url)
         val result2 = engine.analyze(url)
-        
+
         assertEquals("Score should be consistent", result1.score, result2.score)
         assertEquals("Verdict should be consistent", result1.verdict, result2.verdict)
     }
-    
+
     @Test
     fun consistency_caseInsensitive() {
         val lower = engine.analyze("https://google.com")
         val upper = engine.analyze("https://GOOGLE.COM")
         val mixed = engine.analyze("https://GoOgLe.CoM")
-        
+
         // All should produce similar results
         assertEquals("Case should not affect verdict", lower.verdict, upper.verdict)
         assertEquals("Case should not affect verdict", lower.verdict, mixed.verdict)
     }
-    
+
     // =========================================================================
     // AUSTRALIAN PHISHING FLOW TESTS
     // =========================================================================
-    
+
     @Test
     fun australianPhishing_commBankTyposquat() {
         val result = engine.analyze("https://cornmbank-login.tk")
-        
+
         // Should detect brand impersonation + high-risk TLD
         assertTrue("CommBank typosquat should be flagged", result.score >= 20)
     }
-    
+
     @Test
     fun australianPhishing_ausPostDeliveryScam() {
         val result = engine.analyze("https://auspost-delivery.tk/tracking")
-        
+
         // Should be flagged as suspicious
         assertTrue("AusPost scam should be flagged", result.score >= 20)
     }
-    
+
     @Test
     fun australianPhishing_myGovPhishing() {
         val result = engine.analyze("https://mygov-update.com/verify")
-        
+
         // Should analyze correctly
         assertNotNull("myGov phishing should be analyzed", result.verdict)
     }
-    
+
     // =========================================================================
     // RESULT STRUCTURE VALIDATION
     // =========================================================================
-    
+
     @Test
     fun resultStructure_hasAllFields() {
         val result = engine.analyze("https://example.com")
-        
+
         // Verify all fields are populated
         assertNotNull("Score should not be null", result.score)
         assertNotNull("Verdict should not be null", result.verdict)
@@ -239,16 +239,16 @@ class ScanFlowIntegrationTest {
         assertNotNull("Details should not be null", result.details)
         assertNotNull("Confidence should not be null", result.confidence)
         assertNotNull("Score description should not be null", result.scoreDescription)
-        
+
         // Verify ranges
         assertTrue("Score should be 0-100", result.score in 0..100)
         assertTrue("Confidence should be 0-1", result.confidence in 0f..1f)
     }
-    
+
     @Test
     fun resultStructure_flagsAreReadable() {
         val result = engine.analyze("http://192.168.1.1/login?password=test")
-        
+
         // Flags should be human-readable strings
         result.flags.forEach { flag ->
             assertTrue("Flag should not be empty", flag.isNotBlank())

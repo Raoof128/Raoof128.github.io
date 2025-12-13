@@ -33,45 +33,45 @@ import org.junit.runner.RunWith
 
 /**
  * UI Tests for History Screen
- * 
+ *
  * Tests the scan history interface using Compose UI Testing.
  */
 @RunWith(AndroidJUnit4::class)
 class HistoryScreenTest {
-    
+
     @get:Rule
     val composeTestRule = createComposeRule()
-    
+
     // =========================================================================
     // EMPTY STATE TESTS
     // =========================================================================
-    
+
     @Test
     fun emptyState_showsEmptyMessage() {
         composeTestRule.setContent {
             EmptyHistoryTestContent()
         }
-        
+
         // Empty message should be visible
         composeTestRule.onNodeWithText("No scans yet", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun emptyState_showsScanPrompt() {
         composeTestRule.setContent {
             EmptyHistoryTestContent()
         }
-        
+
         // Prompt to scan should be visible
         composeTestRule.onNodeWithText("scan", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     // =========================================================================
     // HISTORY LIST TESTS
     // =========================================================================
-    
+
     @Test
     fun historyList_showsItems() {
         composeTestRule.setContent {
@@ -83,7 +83,7 @@ class HistoryScreenTest {
                 )
             )
         }
-        
+
         // All URLs should be visible
         composeTestRule.onNodeWithText("google.com", substring = true, useUnmergedTree = true)
             .assertExists()
@@ -92,7 +92,7 @@ class HistoryScreenTest {
         composeTestRule.onNodeWithText("192.168.1.1", substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun historyList_showsVerdicts() {
         composeTestRule.setContent {
@@ -103,18 +103,18 @@ class HistoryScreenTest {
                 )
             )
         }
-        
+
         // Verdicts should be visible
         composeTestRule.onNodeWithText("Safe", substring = true, useUnmergedTree = true)
             .assertExists()
         composeTestRule.onNodeWithText("Suspicious", substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun historyItem_isClickable() {
         var clickedUrl: String? = null
-        
+
         composeTestRule.setContent {
             HistoryListTestContent(
                 items = listOf(
@@ -123,50 +123,50 @@ class HistoryScreenTest {
                 onItemClick = { clickedUrl = it }
             )
         }
-        
+
         // Click on history item
         composeTestRule.onNodeWithText("example.com", substring = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(clickedUrl == "https://example.com") { "Item click was not registered" }
     }
-    
+
     // =========================================================================
     // FILTER TESTS
     // =========================================================================
-    
+
     @Test
     fun filterChips_exist() {
         composeTestRule.setContent {
             HistoryWithFiltersTestContent()
         }
-        
+
         // Filter chips should exist
         composeTestRule.onNodeWithText("All", substring = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun filterChip_isClickable() {
         var selectedFilter: String? = null
-        
+
         composeTestRule.setContent {
             HistoryWithFiltersTestContent(
                 onFilterChange = { selectedFilter = it }
             )
         }
-        
+
         // Click on a filter chip
         composeTestRule.onNodeWithText("Safe", substring = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(selectedFilter == "Safe") { "Filter selection was not registered" }
     }
-    
+
     // =========================================================================
     // CLEAR HISTORY TESTS
     // =========================================================================
-    
+
     @Test
     fun clearButton_exists() {
         composeTestRule.setContent {
@@ -176,16 +176,16 @@ class HistoryScreenTest {
                 )
             )
         }
-        
+
         // Clear button should exist
         composeTestRule.onNodeWithContentDescription("Clear", substring = true, ignoreCase = true, useUnmergedTree = true)
             .assertExists()
     }
-    
+
     @Test
     fun clearButton_triggersConfirmation() {
         var confirmationShown = false
-        
+
         composeTestRule.setContent {
             HistoryListTestContent(
                 items = listOf(
@@ -194,11 +194,11 @@ class HistoryScreenTest {
                 onClearClick = { confirmationShown = true }
             )
         }
-        
+
         // Click clear button
         composeTestRule.onNodeWithContentDescription("Clear", substring = true, ignoreCase = true, useUnmergedTree = true)
             .performClick()
-        
+
         assert(confirmationShown) { "Clear confirmation was not triggered" }
     }
 }
@@ -240,7 +240,7 @@ private fun HistoryListTestContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text("History", style = MaterialTheme.typography.headlineSmall)
-            
+
             IconButton(
                 onClick = onClearClick,
                 modifier = Modifier.semantics {
@@ -250,7 +250,7 @@ private fun HistoryListTestContent(
                 Text("🗑️")
             }
         }
-        
+
         // History items
         items.forEach { item ->
             Surface(
@@ -278,7 +278,7 @@ private fun HistoryWithFiltersTestContent(
 ) {
     val filters = listOf("All", "Safe", "Suspicious", "Malicious")
     var selected by remember { mutableStateOf("All") }
-    
+
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
@@ -295,7 +295,7 @@ private fun HistoryWithFiltersTestContent(
                 )
             }
         }
-        
+
         // Placeholder content
         Text("Filtered history items would appear here")
     }

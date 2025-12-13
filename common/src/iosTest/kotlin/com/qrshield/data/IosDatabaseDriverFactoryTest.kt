@@ -23,37 +23,37 @@ import kotlin.test.assertFailsWith
 
 /**
  * iOS-specific unit tests for DatabaseDriverFactory.
- * 
+ *
  * These tests verify that the iOS platform correctly implements
  * the expect/actual pattern for SQLDelight database access.
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 class IosDatabaseDriverFactoryTest {
-    
+
     @Test
     fun `factory can be instantiated`() {
         val factory = DatabaseDriverFactory()
         assertNotNull(factory, "DatabaseDriverFactory should be instantiable on iOS")
     }
-    
+
     @Test
     fun `factory creates SqlDriver`() {
         val factory = DatabaseDriverFactory()
         val driver = factory.createDriver()
-        
+
         assertNotNull(driver, "createDriver should return a non-null SqlDriver")
     }
-    
+
     @Test
     fun `driver can execute simple query`() {
         val factory = DatabaseDriverFactory()
         val driver = factory.createDriver()
-        
+
         // Execute a simple query to verify driver works
         driver.execute(null, "SELECT 1", 0)
-        
+
         // If we get here without exception, the driver works
         assertTrue(true, "Driver should execute simple query without error")
     }

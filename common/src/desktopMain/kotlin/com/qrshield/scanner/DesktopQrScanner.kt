@@ -38,39 +38,39 @@ import javax.imageio.ImageIO
 
 /**
  * Desktop QR Scanner Implementation
- * 
+ *
  * Uses ZXing library for barcode detection on JVM Desktop.
  * Supports image file scanning (webcam requires additional OpenCV integration).
- * 
+ *
  * ARCHITECTURE:
  * - ZXing MultiFormatReader for QR decoding
  * - BufferedImageLuminanceSource for image processing
  * - HybridBinarizer for optimal detection
- * 
+ *
  * SECURITY NOTES:
  * - Image size is validated to prevent DoS
  * - Content length is bounds-checked
  * - All resources are properly closed
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 class DesktopQrScanner : QrScanner {
-    
+
     companion object {
         /** Maximum content length to accept */
         private const val MAX_CONTENT_LENGTH = 4096
-        
+
         /** Maximum image file size (10MB) */
         private const val MAX_IMAGE_SIZE = 10 * 1024 * 1024
-        
+
         /** Frame rate for webcam scanning (if implemented) */
         private const val FRAME_DELAY_MS = 100L
     }
-    
+
     @Volatile
     private var isScanning = false
-    
+
     // ZXing reader with optimized hints for QR codes
     private val reader = MultiFormatReader().apply {
         setHints(mapOf(
@@ -79,14 +79,14 @@ class DesktopQrScanner : QrScanner {
             DecodeHintType.CHARACTER_SET to "UTF-8"
         ))
     }
-    
+
     /**
      * Start continuous camera scanning using webcam.
-     * 
+     *
      * NOTE: Full webcam support requires OpenCV integration.
      * This implementation provides the framework - OpenCV capture
      * should be added based on deployment requirements.
-     * 
+     *
      * For a complete implementation, you would:
      * 1. Add org.openpnp:opencv dependency
      * 2. Initialize VideoCapture(0) for webcam
@@ -95,22 +95,22 @@ class DesktopQrScanner : QrScanner {
      */
     override fun scanFromCamera(): Flow<ScanResult> = callbackFlow {
         isScanning = true
-        
+
         // Emit a notification that webcam scanning is starting
         // In production, this would integrate with OpenCV
-        
+
         /*
          * OpenCV Integration Example (requires opencv dependency):
-         * 
+         *
          * System.loadLibrary(Core.NATIVE_LIBRARY_NAME)
          * val capture = VideoCapture(0)
-         * 
+         *
          * if (!capture.isOpened) {
          *     trySend(ScanResult.Error("Cannot open webcam", ErrorCode.CAMERA_NOT_AVAILABLE))
          *     close()
          *     return@callbackFlow
          * }
-         * 
+         *
          * val frame = Mat()
          * while (isScanning) {
          *     if (capture.read(frame)) {
@@ -122,25 +122,25 @@ class DesktopQrScanner : QrScanner {
          *     }
          *     delay(FRAME_DELAY_MS)
          * }
-         * 
+         *
          * capture.release()
          */
-        
+
         // For now, emit a message that webcam is not available on this build
         // This allows the app to work while webcam support can be added
         trySend(ScanResult.Error(
             "Webcam scanning requires OpenCV integration. Use image scanning instead.",
             ErrorCode.CAMERA_NOT_AVAILABLE
         ))
-        
+
         awaitClose {
             isScanning = false
         }
     }
-    
+
     /**
      * Scan QR code from image bytes using ZXing.
-     * 
+     *
      * @param imageBytes Raw image data (JPEG, PNG, BMP, GIF)
      * @return ScanResult with scanned content or error
      */
@@ -154,7 +154,7 @@ class DesktopQrScanner : QrScanner {
                         ErrorCode.INVALID_IMAGE
                     )
                 }
-                
+
                 // Security: Limit image size
                 if (imageBytes.size > MAX_IMAGE_SIZE) {
                     return@withContext ScanResult.Error(
@@ -162,21 +162,21 @@ class DesktopQrScanner : QrScanner {
                         ErrorCode.IMAGE_TOO_LARGE
                     )
                 }
-                
+
                 // Decode image
                 val bufferedImage = ByteArrayInputStream(imageBytes).use { stream ->
                     ImageIO.read(stream)
                 }
-                
+
                 if (bufferedImage == null) {
                     return@withContext ScanResult.Error(
                         "Failed to decode image format",
                         ErrorCode.IMAGE_DECODE_ERROR
                     )
                 }
-                
+
                 processBufferedImage(bufferedImage)
-                
+
             } catch (e: Exception) {
                 ScanResult.Error(
                     e.message ?: "Unknown error processing image",
@@ -185,7 +185,7 @@ class DesktopQrScanner : QrScanner {
             }
         }
     }
-    
+
     /**
      * Process a BufferedImage and extract QR code content.
      */
@@ -194,11 +194,11 @@ class DesktopQrScanner : QrScanner {
             // Create luminance source from image
             val luminanceSource = BufferedImageLuminanceSource(image)
             val binaryBitmap = BinaryBitmap(HybridBinarizer(luminanceSource))
-            
+
             // Attempt to decode
             val result = reader.decode(binaryBitmap)
             val content = result.text
-            
+
             // Security: Validate content length
             if (content.length > MAX_CONTENT_LENGTH) {
                 return ScanResult.Error(
@@ -206,10 +206,10 @@ class DesktopQrScanner : QrScanner {
                     ErrorCode.CONTENT_TOO_LARGE
                 )
             }
-            
+
             val contentType = detectContentType(content)
             ScanResult.Success(content, contentType)
-            
+
         } catch (e: NotFoundException) {
             ScanResult.NoQrFound
         } catch (e: Exception) {
@@ -219,17 +219,17 @@ class DesktopQrScanner : QrScanner {
             )
         }
     }
-    
+
     /**
      * Stop active camera scanning.
      */
     override fun stopScanning() {
         isScanning = false
     }
-    
+
     /**
      * Check if camera permission is granted.
-     * 
+     *
      * Desktop apps typically don't require explicit permission,
      * but we check if a camera device is potentially available.
      */
@@ -238,29 +238,29 @@ class DesktopQrScanner : QrScanner {
         // Return true to indicate no permission blocking
         return true
     }
-    
+
     /**
      * Request camera permission.
-     * 
+     *
      * On desktop, there's no permission dialog - access is either
      * available or not based on hardware/OS settings.
      */
     override suspend fun requestCameraPermission(): Boolean {
         return true
     }
-    
+
     /**
      * Detect content type from scanned string.
      */
     private fun detectContentType(content: String): ContentType {
         return when {
-            content.startsWith("http://", ignoreCase = true) || 
+            content.startsWith("http://", ignoreCase = true) ||
             content.startsWith("https://", ignoreCase = true) -> ContentType.URL
             content.startsWith("WIFI:", ignoreCase = true) -> ContentType.WIFI
             content.startsWith("BEGIN:VCARD", ignoreCase = true) -> ContentType.VCARD
             content.startsWith("geo:", ignoreCase = true) -> ContentType.GEO
             content.startsWith("tel:", ignoreCase = true) -> ContentType.PHONE
-            content.startsWith("sms:", ignoreCase = true) || 
+            content.startsWith("sms:", ignoreCase = true) ||
             content.startsWith("smsto:", ignoreCase = true) -> ContentType.SMS
             content.startsWith("mailto:", ignoreCase = true) -> ContentType.EMAIL
             else -> ContentType.TEXT

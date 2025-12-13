@@ -20,16 +20,16 @@ import kotlin.math.exp
 
 /**
  * Logistic Regression Model for QR-SHIELD
- * 
+ *
  * Lightweight ML model for phishing URL classification.
  * Runs entirely on-device with no external dependencies.
- * 
+ *
  * SECURITY NOTES:
  * - All inputs are bounded to prevent numerical overflow
  * - Safe sigmoid prevents exp() overflow
  * - Model is immutable after construction
  * - Thread-safe for concurrent predictions
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
@@ -40,16 +40,16 @@ class LogisticRegressionModel private constructor(
     companion object {
         /** Number of features expected by the model */
         const val FEATURE_COUNT = 15
-        
+
         /** Maximum safe exponent value to prevent overflow */
         private const val MAX_EXP = 88.0f
-        
+
         /** Minimum prediction value (avoid exact 0 for log-loss) */
         private const val MIN_PREDICTION = 1e-7f
-        
+
         /** Maximum prediction value (avoid exact 1 for log-loss) */
         private const val MAX_PREDICTION = 1f - 1e-7f
-        
+
         /**
          * Feature order documentation:
          * 0: urlLength (normalized 0-1)
@@ -68,10 +68,10 @@ class LogisticRegressionModel private constructor(
          * 13: shortenerDomain (0/1)
          * 14: suspiciousTld (0/1)
          */
-        
+
         /**
          * Create model with validated weights.
-         * 
+         *
          * @param weights Feature weights array (must have FEATURE_COUNT elements)
          * @param bias Model bias term
          * @return LogisticRegressionModel instance
@@ -81,23 +81,23 @@ class LogisticRegressionModel private constructor(
             require(weights.size == FEATURE_COUNT) {
                 "Expected $FEATURE_COUNT weights, got ${weights.size}"
             }
-            
+
             // Validate weights are finite
             require(weights.all { it.isFinite() }) {
                 "Weights must be finite numbers"
             }
-            
+
             require(bias.isFinite()) {
                 "Bias must be a finite number"
             }
-            
+
             // Create defensive copy of weights
             return LogisticRegressionModel(weights.copyOf(), bias)
         }
-        
+
         /**
          * Default model with pre-trained weights.
-         * 
+         *
          * These weights are calibrated for phishing URL detection.
          * In production, consider loading from an encrypted model file.
          */
@@ -119,76 +119,76 @@ class LogisticRegressionModel private constructor(
                 WEIGHT_SHORTENER_DOMAIN, // URL shorteners
                 WEIGHT_SUSPICIOUS_TLD   // Suspicious TLDs
             )
-            
+
             return LogisticRegressionModel(weights, DEFAULT_BIAS)
         }
-        
+
         // === DEFAULT MODEL WEIGHTS ===
         // Positive = increases phishing probability
         // Negative = decreases phishing probability
-        
+
         /** URL length weight - longer URLs slightly risky */
         private const val WEIGHT_URL_LENGTH = 0.25f
-        
+
         /** Host length weight */
         private const val WEIGHT_HOST_LENGTH = 0.15f
-        
+
         /** Path length weight */
         private const val WEIGHT_PATH_LENGTH = 0.10f
-        
+
         /** Subdomain count weight - more subdomains = risky */
         private const val WEIGHT_SUBDOMAIN_COUNT = 0.30f
-        
+
         /** HTTPS presence weight - protective (negative) */
         private const val WEIGHT_HAS_HTTPS = -0.50f
-        
+
         /** IP host weight - very risky */
         private const val WEIGHT_HAS_IP_HOST = 0.80f
-        
+
         /** Domain entropy weight - random domains risky */
         private const val WEIGHT_DOMAIN_ENTROPY = 0.40f
-        
+
         /** Path entropy weight */
         private const val WEIGHT_PATH_ENTROPY = 0.20f
-        
+
         /** Query parameter count weight */
         private const val WEIGHT_QUERY_PARAM_COUNT = 0.15f
-        
+
         /** @ symbol in URL weight - risky injection indicator */
         private const val WEIGHT_HAS_AT_SYMBOL = 0.60f
-        
+
         /** Dot count weight */
         private const val WEIGHT_NUM_DOTS = 0.10f
-        
+
         /** Dash count weight */
         private const val WEIGHT_NUM_DASHES = 0.05f
-        
+
         /** Port number weight - non-standard ports risky */
         private const val WEIGHT_HAS_PORT_NUMBER = 0.45f
-        
+
         /** URL shortener domain weight */
         private const val WEIGHT_SHORTENER_DOMAIN = 0.35f
-        
+
         /** Suspicious TLD weight */
         private const val WEIGHT_SUSPICIOUS_TLD = 0.55f
-        
+
         /** Default bias - slight bias toward "not phishing" */
         private const val DEFAULT_BIAS = -0.30f
-        
+
         /** Maximum JSON input length for security */
         private const val MAX_JSON_LENGTH = 4096
-        
+
         /**
          * Load model from JSON string.
-         * 
-         * Expected format: 
+         *
+         * Expected format:
          * {
          *   "weights": {
          *     "values": [0.25, 0.15, ...],
          *     "bias": -0.30
          *   }
          * }
-         * 
+         *
          * Returns default model if parsing fails.
          * Uses manual parsing for multiplatform compatibility.
          */
@@ -197,7 +197,7 @@ class LogisticRegressionModel private constructor(
             if (json.isEmpty() || json.length > MAX_JSON_LENGTH) {
                 return default()
             }
-            
+
             return try {
                 parseModelJson(json)
             } catch (e: Exception) {
@@ -205,10 +205,10 @@ class LogisticRegressionModel private constructor(
                 default()
             }
         }
-        
+
         /**
          * Parse model JSON manually for multiplatform compatibility.
-         * 
+         *
          * Supports two formats:
          * 1. {"weights": {"values": [...], "bias": N}}
          * 2. {"weights": [...], "bias": N}
@@ -216,25 +216,25 @@ class LogisticRegressionModel private constructor(
         private fun parseModelJson(json: String): LogisticRegressionModel {
             // Extract bias value
             val bias = extractFloat(json, "bias") ?: return default()
-            
+
             // Extract weights array
-            val weightsArray = extractFloatArray(json, "values") 
+            val weightsArray = extractFloatArray(json, "values")
                 ?: extractFloatArray(json, "weights")
                 ?: return default()
-            
+
             // Validate weights count
             if (weightsArray.size != FEATURE_COUNT) {
                 return default()
             }
-            
+
             // Validate all values are finite
             if (!weightsArray.all { it.isFinite() } || !bias.isFinite()) {
                 return default()
             }
-            
+
             return create(weightsArray, bias)
         }
-        
+
         /**
          * Extract a float value from JSON by key.
          */
@@ -244,7 +244,7 @@ class LogisticRegressionModel private constructor(
             val match = regex.find(json) ?: return null
             return match.groupValues.getOrNull(1)?.toFloatOrNull()
         }
-        
+
         /**
          * Extract a float array from JSON by key.
          */
@@ -252,23 +252,23 @@ class LogisticRegressionModel private constructor(
             // Find the key and the array start
             val keyPattern = """"$key"\s*:\s*\["""
             val keyMatch = Regex(keyPattern).find(json) ?: return null
-            
+
             val arrayStart = keyMatch.range.last + 1
             val arrayEnd = json.indexOf(']', arrayStart)
             if (arrayEnd < 0) return null
-            
+
             val arrayContent = json.substring(arrayStart, arrayEnd)
-            
+
             // Parse comma-separated values
             val values = arrayContent.split(',')
                 .mapNotNull { it.trim().toFloatOrNull() }
-            
+
             return if (values.isNotEmpty()) values.toFloatArray() else null
         }
-        
+
         /**
          * Load model from the bundled phishing_model_weights.json file.
-         * 
+         *
          * @param jsonContent The JSON content from the file
          * @return LogisticRegressionModel loaded from JSON or default
          */
@@ -276,10 +276,10 @@ class LogisticRegressionModel private constructor(
             return fromJson(jsonContent)
         }
     }
-    
+
     /**
      * Predict phishing probability.
-     * 
+     *
      * @param features Normalized feature vector (must have FEATURE_COUNT elements)
      * @return Probability [0, 1] where higher values indicate higher phishing risk
      * @throws IllegalArgumentException if feature vector size is incorrect
@@ -289,7 +289,7 @@ class LogisticRegressionModel private constructor(
         require(features.size == FEATURE_COUNT) {
             "Feature size mismatch: expected $FEATURE_COUNT, got ${features.size}"
         }
-        
+
         // Validate all features are finite and normalized
         for (i in features.indices) {
             val f = features[i]
@@ -298,7 +298,7 @@ class LogisticRegressionModel private constructor(
                 return 0.5f  // Return neutral prediction for invalid input
             }
         }
-        
+
         // Calculate weighted sum
         var z = bias
         for (i in features.indices) {
@@ -306,14 +306,14 @@ class LogisticRegressionModel private constructor(
             val clampedFeature = features[i].coerceIn(-10f, 10f)
             z += weights[i] * clampedFeature
         }
-        
+
         // Apply safe sigmoid
         return safeSigmoid(z)
     }
-    
+
     /**
      * Predict with confidence threshold.
-     * 
+     *
      * @param features Normalized feature vector
      * @param threshold Classification threshold (default: 0.5)
      * @return Prediction with class, probability, and confidence
@@ -324,24 +324,24 @@ class LogisticRegressionModel private constructor(
     ): Prediction {
         val probability = predict(features)
         val isPhishing = probability >= threshold
-        
+
         // Confidence is distance from threshold, scaled to [0, 1]
         val confidence = if (isPhishing) {
             ((probability - threshold) / (1 - threshold)).coerceIn(0f, 1f)
         } else {
             ((threshold - probability) / threshold).coerceIn(0f, 1f)
         }
-        
+
         return Prediction(
             isPhishing = isPhishing,
             probability = probability,
             confidence = confidence
         )
     }
-    
+
     /**
      * Safe sigmoid function that prevents overflow.
-     * 
+     *
      * For large positive x: returns ~1
      * For large negative x: returns ~0
      * These limits prevent exp() overflow.
@@ -356,7 +356,7 @@ class LogisticRegressionModel private constructor(
             }
         }
     }
-    
+
     /**
      * Prediction result.
      */

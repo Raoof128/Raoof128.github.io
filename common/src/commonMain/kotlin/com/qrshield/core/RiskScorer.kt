@@ -20,11 +20,11 @@ import com.qrshield.model.Verdict
 
 /**
  * Risk Scorer for QR-SHIELD
- * 
+ *
  * Combines multiple analysis signals into a final risk score.
  */
 class RiskScorer {
-    
+
     data class ScoringWeights(
         val heuristic: Double = 0.40,
         val ml: Double = 0.35,
@@ -37,23 +37,23 @@ class RiskScorer {
             }
         }
     }
-    
+
     data class ScoreComponents(
         val heuristicScore: Int,
         val mlScore: Float,
         val brandScore: Int,
         val tldScore: Int
     )
-    
+
     data class FinalScore(
         val score: Int,
         val verdict: Verdict,
         val confidence: Float,
         val breakdown: Map<String, Int>
     )
-    
+
     private val weights = ScoringWeights()
-    
+
     /**
      * Calculate final risk score from component scores
      */
@@ -62,13 +62,13 @@ class RiskScorer {
         val weightedMl = ((components.mlScore * 100) * weights.ml).toInt()
         val weightedBrand = (components.brandScore * weights.brand).toInt()
         val weightedTld = (components.tldScore * weights.tld).toInt()
-        
+
         val totalScore = (weightedHeuristic + weightedMl + weightedBrand + weightedTld)
             .coerceIn(0, 100)
-        
+
         val verdict = determineVerdict(totalScore)
         val confidence = calculateConfidence(components, totalScore)
-        
+
         return FinalScore(
             score = totalScore,
             verdict = verdict,
@@ -81,7 +81,7 @@ class RiskScorer {
             )
         )
     }
-    
+
     /**
      * Determine verdict based on score thresholds
      */
@@ -90,7 +90,7 @@ class RiskScorer {
         score <= SUSPICIOUS_THRESHOLD -> Verdict.SUSPICIOUS
         else -> Verdict.MALICIOUS
     }
-    
+
     /**
      * Get human-readable explanation for verdict
      */
@@ -100,7 +100,7 @@ class RiskScorer {
         Verdict.MALICIOUS -> "This URL shows strong indicators of phishing. Access is not recommended."
         Verdict.UNKNOWN -> "Unable to analyze this URL. Please verify manually."
     }
-    
+
     /**
      * Get color code for verdict (hex)
      */
@@ -110,7 +110,7 @@ class RiskScorer {
         Verdict.MALICIOUS -> 0xFFFF3D71  // Red
         Verdict.UNKNOWN -> 0xFF8B949E    // Gray
     }
-    
+
     private fun calculateConfidence(
         components: ScoreComponents,
         @Suppress("UNUSED_PARAMETER") finalScore: Int
@@ -122,18 +122,18 @@ class RiskScorer {
             components.brandScore,
             components.tldScore
         )
-        
+
         val mean = signals.average()
         val variance = signals.map { (it - mean) * (it - mean) }.average()
         val stdDev = kotlin.math.sqrt(variance)
-        
+
         // Lower variance = higher confidence
         val maxStdDev = 50.0
         val normalizedStdDev = (stdDev / maxStdDev).coerceIn(0.0, 1.0)
-        
+
         return (1.0 - normalizedStdDev * 0.5).toFloat()
     }
-    
+
     companion object {
         const val SAFE_THRESHOLD = 15
         const val SUSPICIOUS_THRESHOLD = 50

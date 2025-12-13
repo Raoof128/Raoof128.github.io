@@ -25,42 +25,42 @@ import org.w3c.dom.events.Event
 
 /**
  * QR-SHIELD Web Application
- * 
+ *
  * Kotlin/JS implementation that runs the PhishingEngine entirely in the browser.
  * Demonstrates true cross-platform code sharing with the common module.
  * All analysis happens client-side - no data leaves the browser.
  */
 fun main() {
     console.log("🛡️ QR-SHIELD Web loaded - Kotlin/JS initialized")
-    
+
     // Initialize PhishingEngine - same code as Android, iOS, and Desktop
     val engine = PhishingEngine()
     console.log("📦 PhishingEngine ready for analysis")
-    
+
     // Get DOM elements
     val urlInput = document.getElementById("urlInput") as? HTMLInputElement
     val analyzeBtn = document.getElementById("analyzeBtn") as? HTMLButtonElement
-    
+
     // Expose the analyze function globally for JavaScript to call
     window.asDynamic().qrshieldAnalyze = { url: String ->
         console.log("🔍 Analyzing URL: $url")
-        
+
         // Show loading state
         analyzeBtn?.classList?.add("loading")
         analyzeBtn?.innerHTML = """<div class="spinner"></div><span>Analyzing...</span>"""
         analyzeBtn?.disabled = true
-        
+
         // Run analysis asynchronously to allow UI update
         window.setTimeout({
             try {
                 // Run analysis using SHARED KMP PhishingEngine
                 val assessment = engine.analyze(url)
-                
+
                 console.log("✅ Analysis complete: Score=${assessment.score}, Verdict=${assessment.verdict}")
-                
+
                 // Convert flags to JS array
                 val flagsArray = assessment.flags.toTypedArray()
-                
+
                 // Call the display function defined in HTML
                 window.asDynamic().displayResult(
                     assessment.score,
@@ -71,7 +71,7 @@ fun main() {
             } catch (e: Exception) {
                 console.error("❌ Analysis error: ${e.message}")
                 window.asDynamic().showToast("Error analyzing URL: ${e.message}")
-                
+
                 // Reset button
                 analyzeBtn?.classList?.remove("loading")
                 analyzeBtn?.innerHTML = """<span class="material-icons-round">search</span>Analyze URL"""
@@ -79,7 +79,7 @@ fun main() {
             }
         }, 100)
     }
-    
+
     // Handle enter key in input
     urlInput?.addEventListener("keypress", { event: Event ->
         if (event.asDynamic().key == "Enter") {
@@ -90,7 +90,7 @@ fun main() {
             }
         }
     })
-    
+
     // Log ready status
     console.log("🚀 QR-SHIELD Web is ready!")
     console.log("   • Heuristic analysis: ✓")

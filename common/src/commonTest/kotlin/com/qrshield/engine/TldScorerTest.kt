@@ -262,6 +262,6 @@ class TldScorerTest {
     @Test
     fun `scores url with query string`() {
         val result = scorer.score("https://example.ga?foo=bar")
-        assertTrue(result.score >= 15, "Score was ${result.score}")  
+        assertTrue(result.score >= 15, "Score was ${result.score}")
     }
 }

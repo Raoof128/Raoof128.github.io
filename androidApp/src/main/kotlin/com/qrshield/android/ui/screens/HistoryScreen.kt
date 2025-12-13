@@ -55,7 +55,7 @@ import java.util.*
 
 /**
  * History Screen showing all previous scan results.
- * 
+ *
  * Features:
  * - Filterable list by verdict type
  * - Copy URL to clipboard
@@ -67,13 +67,13 @@ import java.util.*
 fun HistoryScreen() {
     val viewModel: SharedViewModel = koinInject()
     val scanHistory by viewModel.scanHistory.collectAsState()
-    
+
     var selectedFilter by remember { mutableStateOf(VerdictFilter.ALL) }
     var showClearConfirmation by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
-    
+
     val clipboardManager = LocalClipboardManager.current
-    
+
     // Filter history based on selection
     val filteredHistory = remember(scanHistory, selectedFilter, searchQuery) {
         scanHistory.filter { item ->
@@ -83,12 +83,12 @@ fun HistoryScreen() {
                 VerdictFilter.SUSPICIOUS -> item.verdict == Verdict.SUSPICIOUS
                 VerdictFilter.MALICIOUS -> item.verdict == Verdict.MALICIOUS
             }
-            val matchesSearch = searchQuery.isBlank() || 
+            val matchesSearch = searchQuery.isBlank() ||
                 item.url.contains(searchQuery, ignoreCase = true)
             matchesFilter && matchesSearch
         }
     }
-    
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -100,7 +100,7 @@ fun HistoryScreen() {
                     )
                 )
             )
-            .semantics { 
+            .semantics {
                 contentDescription = "Scan history screen with ${filteredHistory.size} items"
             }
     ) {
@@ -117,7 +117,7 @@ fun HistoryScreen() {
                 if (scanHistory.isNotEmpty()) {
                     IconButton(
                         onClick = { showClearConfirmation = true },
-                        modifier = Modifier.semantics { 
+                        modifier = Modifier.semantics {
                             contentDescription = "Clear all history"
                         }
                     ) {
@@ -133,7 +133,7 @@ fun HistoryScreen() {
                 containerColor = BackgroundDark
             )
         )
-        
+
         // Search Bar
         OutlinedTextField(
             value = searchQuery,
@@ -141,7 +141,7 @@ fun HistoryScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
-                .semantics { 
+                .semantics {
                     contentDescription = "Search scan history by URL"
                 },
             placeholder = { Text(stringResource(R.string.search_placeholder)) },
@@ -175,9 +175,9 @@ fun HistoryScreen() {
             ),
             shape = RoundedCornerShape(12.dp)
         )
-        
+
         Spacer(modifier = Modifier.height(12.dp))
-        
+
         // Filter Chips
         LazyRow(
             modifier = Modifier
@@ -204,15 +204,15 @@ fun HistoryScreen() {
                             modifier = Modifier.size(18.dp)
                         )
                     },
-                    modifier = Modifier.semantics { 
+                    modifier = Modifier.semantics {
                         contentDescription = "Filter by ${filter.displayName}"
                     }
                 )
             }
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // History List or Empty State
         if (filteredHistory.isEmpty()) {
             EmptyHistoryState(
@@ -241,7 +241,7 @@ fun HistoryScreen() {
                         }
                     )
                 }
-                
+
                 // Bottom padding for navigation bar
                 item {
                     Spacer(modifier = Modifier.height(80.dp))
@@ -249,7 +249,7 @@ fun HistoryScreen() {
             }
         }
     }
-    
+
     // Clear All Confirmation Dialog
     if (showClearConfirmation) {
         AlertDialog(
@@ -314,13 +314,13 @@ private fun HistoryItemCard(
         Verdict.MALICIOUS -> "🚨"
         Verdict.UNKNOWN -> "❓"
     }
-    
+
     var showDeleteConfirm by remember { mutableStateOf(false) }
-    
+
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .semantics { 
+            .semantics {
                 contentDescription = "Scan result: $url, verdict ${verdict.name}, score $score"
             },
         colors = CardDefaults.cardColors(containerColor = BackgroundCard.copy(alpha = 0.7f)),
@@ -346,9 +346,9 @@ private fun HistoryItemCard(
                     fontSize = 24.sp
                 )
             }
-            
+
             Spacer(modifier = Modifier.width(12.dp))
-            
+
             // URL and Details
             Column(
                 modifier = Modifier.weight(1f)
@@ -361,9 +361,9 @@ private fun HistoryItemCard(
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
-                
+
                 Spacer(modifier = Modifier.height(4.dp))
-                
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -374,13 +374,13 @@ private fun HistoryItemCard(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.SemiBold
                     )
-                    
+
                     Text(
                         text = " • ",
                         color = TextMuted,
                         fontSize = 12.sp
                     )
-                    
+
                     // Timestamp
                     Text(
                         text = formatTimestamp(scannedAt),
@@ -389,9 +389,9 @@ private fun HistoryItemCard(
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.width(8.dp))
-            
+
             // Score Badge
             Surface(
                 color = verdictColor.copy(alpha = 0.15f),
@@ -405,14 +405,14 @@ private fun HistoryItemCard(
                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
                 )
             }
-            
+
             // Actions Menu
             Box {
                 var expanded by remember { mutableStateOf(false) }
-                
+
                 IconButton(
                     onClick = { expanded = true },
-                    modifier = Modifier.semantics { 
+                    modifier = Modifier.semantics {
                         contentDescription = "More options for this scan"
                     }
                 ) {
@@ -422,7 +422,7 @@ private fun HistoryItemCard(
                         tint = TextMuted
                     )
                 }
-                
+
                 DropdownMenu(
                     expanded = expanded,
                     onDismissRequest = { expanded = false }
@@ -459,7 +459,7 @@ private fun HistoryItemCard(
             }
         }
     }
-    
+
     // Delete Confirmation
     if (showDeleteConfirm) {
         AlertDialog(
@@ -495,10 +495,10 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
         modifier = Modifier
             .fillMaxSize()
             .padding(32.dp)
-            .semantics { 
-                contentDescription = if (hasFilters) 
-                    "No results match your filters" 
-                else 
+            .semantics {
+                contentDescription = if (hasFilters)
+                    "No results match your filters"
+                else
                     "No scan history yet. Start scanning to see results here."
             },
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -517,35 +517,35 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
                 fontSize = 56.sp
             )
         }
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         Text(
-            text = if (hasFilters) 
-                stringResource(R.string.no_results) 
-            else 
+            text = if (hasFilters)
+                stringResource(R.string.no_results)
+            else
                 "No Scans Yet",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = TextPrimary
         )
-        
+
         Spacer(modifier = Modifier.height(8.dp))
-        
+
         Text(
-            text = if (hasFilters) 
-                stringResource(R.string.try_different_filter) 
-            else 
+            text = if (hasFilters)
+                stringResource(R.string.try_different_filter)
+            else
                 "Stay Safe! Scan a QR code to start\nbuilding your security history.",
             fontSize = 15.sp,
             color = TextSecondary,
             textAlign = androidx.compose.ui.text.style.TextAlign.Center,
             lineHeight = 22.sp
         )
-        
+
         if (!hasFilters) {
             Spacer(modifier = Modifier.height(24.dp))
-            
+
             // Subtle hint
             Surface(
                 color = BackgroundCard,

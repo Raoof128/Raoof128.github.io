@@ -40,20 +40,20 @@ import androidx.compose.ui.unit.dp
 
 /**
  * Animated Scanner Overlay - Android 16 Enhanced
- * 
+ *
  * Features:
  * 1. Corner brackets to define scan area
  * 2. Animated laser line sweeping up/down with glow effect
  * 3. Subtle pulsing corner animation
  * 4. Dark mask outside scan area
- * 
+ *
  * Design inspired by modern cybersecurity apps with premium feel.
- * 
+ *
  * @param modifier Modifier for the overlay
  * @param scanAreaRatio Ratio of screen width for scan area (0.0 - 1.0)
  * @param cornerColor Color for the corner brackets
  * @param laserColor Color for the animated laser line
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
@@ -65,7 +65,7 @@ fun ScannerOverlay(
     laserColor: Color = Color(0xFF00D68F)
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "scanner_animation")
-    
+
     // Animate the laser line moving up and down with smooth easing
     val laserOffset by infiniteTransition.animateFloat(
         initialValue = 0f,
@@ -76,7 +76,7 @@ fun ScannerOverlay(
         ),
         label = "laser_sweep"
     )
-    
+
     // Subtle pulse for corners
     val cornerPulse by infiniteTransition.animateFloat(
         initialValue = 0.7f,
@@ -87,7 +87,7 @@ fun ScannerOverlay(
         ),
         label = "corner_pulse"
     )
-    
+
     // Glow intensity animation
     val glowIntensity by infiniteTransition.animateFloat(
         initialValue = 0.4f,
@@ -105,56 +105,56 @@ fun ScannerOverlay(
         val scanAreaSize = width * scanAreaRatio
         val left = (width - scanAreaSize) / 2
         val top = (height - scanAreaSize) / 2
-        
+
         // Corner dimensions
         val cornerLength = 45.dp.toPx()
         val cornerWidth = 4.dp.toPx()
         val cornerRadius = 10.dp.toPx()
-        
+
         val activeColor = cornerColor.copy(alpha = cornerPulse)
-        
+
         // ===================
         // 1. Dim Outside Area (Draw first as background)
         // ===================
-        
+
         val dimColor = Color.Black.copy(alpha = 0.65f)
-        
+
         // Top dim
         drawRect(
             color = dimColor,
             topLeft = Offset(0f, 0f),
             size = Size(width, top)
         )
-        
+
         // Bottom dim
         drawRect(
             color = dimColor,
             topLeft = Offset(0f, top + scanAreaSize),
             size = Size(width, height - top - scanAreaSize)
         )
-        
+
         // Left dim
         drawRect(
             color = dimColor,
             topLeft = Offset(0f, top),
             size = Size(left, scanAreaSize)
         )
-        
+
         // Right dim
         drawRect(
             color = dimColor,
             topLeft = Offset(left + scanAreaSize, top),
             size = Size(width - left - scanAreaSize, scanAreaSize)
         )
-        
+
         // ===================
         // 2. Draw Rounded Corners with Glow Effect
         // ===================
-        
+
         // Draw glow behind corners
         val glowColor = cornerColor.copy(alpha = glowIntensity * 0.3f)
         val glowWidth = cornerWidth * 3
-        
+
         // Top Left Corner Glow
         drawPath(
             path = Path().apply {
@@ -166,7 +166,7 @@ fun ScannerOverlay(
             color = glowColor,
             style = Stroke(width = glowWidth)
         )
-        
+
         // Top Left Corner
         drawPath(
             path = Path().apply {
@@ -178,7 +178,7 @@ fun ScannerOverlay(
             color = activeColor,
             style = Stroke(width = cornerWidth)
         )
-        
+
         // Top Right Corner Glow
         drawPath(
             path = Path().apply {
@@ -190,7 +190,7 @@ fun ScannerOverlay(
             color = glowColor,
             style = Stroke(width = glowWidth)
         )
-        
+
         // Top Right Corner
         drawPath(
             path = Path().apply {
@@ -202,7 +202,7 @@ fun ScannerOverlay(
             color = activeColor,
             style = Stroke(width = cornerWidth)
         )
-        
+
         // Bottom Left Corner Glow
         drawPath(
             path = Path().apply {
@@ -214,7 +214,7 @@ fun ScannerOverlay(
             color = glowColor,
             style = Stroke(width = glowWidth)
         )
-        
+
         // Bottom Left Corner
         drawPath(
             path = Path().apply {
@@ -226,7 +226,7 @@ fun ScannerOverlay(
             color = activeColor,
             style = Stroke(width = cornerWidth)
         )
-        
+
         // Bottom Right Corner Glow
         drawPath(
             path = Path().apply {
@@ -238,7 +238,7 @@ fun ScannerOverlay(
             color = glowColor,
             style = Stroke(width = glowWidth)
         )
-        
+
         // Bottom Right Corner
         drawPath(
             path = Path().apply {
@@ -250,16 +250,16 @@ fun ScannerOverlay(
             color = activeColor,
             style = Stroke(width = cornerWidth)
         )
-        
+
         // ===================
         // 3. Draw Animated Laser Line with Enhanced Glow
         // ===================
-        
+
         val padding = cornerWidth * 2
         val laserY = top + padding + ((scanAreaSize - padding * 2) * laserOffset)
         val laserHeight = 3.dp.toPx()
         val gradientHeight = 40.dp.toPx()
-        
+
         // Laser outer glow (wide gradient)
         drawRect(
             brush = Brush.verticalGradient(
@@ -276,7 +276,7 @@ fun ScannerOverlay(
             topLeft = Offset(left + padding, laserY - gradientHeight),
             size = Size(scanAreaSize - padding * 2, gradientHeight * 2)
         )
-        
+
         // Laser inner glow (narrow gradient)
         drawRect(
             brush = Brush.verticalGradient(
@@ -293,7 +293,7 @@ fun ScannerOverlay(
             topLeft = Offset(left + padding, laserY - gradientHeight / 3),
             size = Size(scanAreaSize - padding * 2, gradientHeight / 1.5f)
         )
-        
+
         // Laser core line (solid)
         drawRoundRect(
             color = laserColor,

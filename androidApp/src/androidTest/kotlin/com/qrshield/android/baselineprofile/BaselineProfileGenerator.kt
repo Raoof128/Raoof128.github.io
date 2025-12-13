@@ -22,20 +22,20 @@ import org.junit.Test
 
 /**
  * Baseline Profile Generator for QR-SHIELD
- * 
+ *
  * Generates a baseline profile that improves app startup
  * and runtime performance by pre-compiling critical paths.
- * 
+ *
  * Run this with:
  * ./gradlew :androidApp:generateBaselineProfile
- * 
+ *
  * The generated profile will be included in release builds.
  */
 class BaselineProfileGenerator {
-    
+
     @get:Rule
     val rule = BaselineProfileRule()
-    
+
     @Test
     fun generateBaselineProfile() {
         rule.collect(
@@ -45,34 +45,34 @@ class BaselineProfileGenerator {
             // Critical startup path
             pressHome()
             startActivityAndWait()
-            
+
             // Wait for UI to settle
             Thread.sleep(1000)
-            
+
             // Simulate user journeys for profile collection
-            
+
             // Journey 1: Navigate through tabs
             device.findObject(
                 androidx.test.uiautomator.By.desc("History screen, tap to navigate")
             )?.click()
             Thread.sleep(500)
-            
+
             device.findObject(
                 androidx.test.uiautomator.By.desc("Settings screen, tap to navigate")
             )?.click()
             Thread.sleep(500)
-            
+
             device.findObject(
                 androidx.test.uiautomator.By.desc("QR code scanner screen, tap to navigate")
             )?.click()
             Thread.sleep(500)
-            
+
             // Journey 2: Start scanning (if permission granted)
             device.findObject(
                 androidx.test.uiautomator.By.desc("Start scanning for QR codes using camera")
             )?.click()
             Thread.sleep(1000)
-            
+
             // Close scanner
             device.findObject(
                 androidx.test.uiautomator.By.desc("Close scanner and return to home")

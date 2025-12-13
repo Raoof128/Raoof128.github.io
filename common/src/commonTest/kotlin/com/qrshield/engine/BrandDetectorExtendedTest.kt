@@ -224,7 +224,7 @@ class BrandDetectorExtendedTest {
     fun `result isImpersonation is correct`() {
         val match = detector.detect("paypa1.com")
         val noMatch = detector.detect("randomsite.com")
-        
+
         assertTrue(match.isImpersonation)
         assertFalse(noMatch.isImpersonation)
     }

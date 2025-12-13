@@ -54,7 +54,7 @@ import com.qrshield.android.ui.theme.*
 
 /**
  * Settings Screen with app preferences and information.
- * 
+ *
  * Features:
  * - Toggle settings for haptics, sounds, auto-scan
  * - Privacy controls
@@ -68,14 +68,14 @@ fun SettingsScreen() {
     val context = LocalContext.current
     val viewModel: com.qrshield.ui.SharedViewModel = org.koin.compose.koinInject()
     val settings by viewModel.settings.collectAsState()
-    
+
     // Derived states for UI
     val hapticEnabled = settings.isHapticEnabled
     val soundEnabled = settings.isSoundEnabled
     val autoScan = settings.isAutoScanEnabled
     val saveHistory = settings.isSaveHistoryEnabled
     val notificationsEnabled = settings.isSecurityAlertsEnabled
-    
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -87,7 +87,7 @@ fun SettingsScreen() {
                     )
                 )
             )
-            .semantics { 
+            .semantics {
                 contentDescription = "Settings screen with app preferences"
             },
         contentPadding = PaddingValues(bottom = 100.dp)
@@ -107,65 +107,65 @@ fun SettingsScreen() {
                 )
             )
         }
-        
+
         // Scanning Section
         item {
             SettingsSection(title = stringResource(R.string.settings_scanning))
         }
-        
+
         item {
             SettingsToggle(
                 icon = Icons.Default.QrCodeScanner,
                 title = stringResource(R.string.settings_auto_scan),
                 subtitle = stringResource(R.string.settings_auto_scan_desc),
                 checked = autoScan,
-                onCheckedChange = { newValue -> 
-                    viewModel.updateSettings(settings.copy(isAutoScanEnabled = newValue)) 
+                onCheckedChange = { newValue ->
+                    viewModel.updateSettings(settings.copy(isAutoScanEnabled = newValue))
                 }
             )
         }
-        
+
         item {
             SettingsToggle(
                 icon = Icons.Default.Vibration,
                 title = stringResource(R.string.settings_haptic),
                 subtitle = stringResource(R.string.settings_haptic_desc),
                 checked = hapticEnabled,
-                onCheckedChange = { newValue -> 
+                onCheckedChange = { newValue ->
                     viewModel.updateSettings(settings.copy(isHapticEnabled = newValue))
                 }
             )
         }
-        
+
         item {
             SettingsToggle(
                 icon = Icons.AutoMirrored.Filled.VolumeUp,
                 title = stringResource(R.string.settings_sound),
                 subtitle = stringResource(R.string.settings_sound_desc),
                 checked = soundEnabled,
-                onCheckedChange = { newValue -> 
+                onCheckedChange = { newValue ->
                     viewModel.updateSettings(settings.copy(isSoundEnabled = newValue))
                 }
             )
         }
-        
+
         // Notifications Section
         item {
             SettingsSection(title = stringResource(R.string.settings_notifications))
         }
-        
+
         item {
             SettingsToggle(
                 icon = Icons.Default.Notifications,
                 title = stringResource(R.string.settings_security_alerts),
                 subtitle = stringResource(R.string.settings_security_alerts_desc),
                 checked = notificationsEnabled,
-                onCheckedChange = { newValue -> 
+                onCheckedChange = { newValue ->
                     viewModel.updateSettings(settings.copy(isSecurityAlertsEnabled = newValue))
                 }
             )
         }
-        
+
         item {
             SettingsClickable(
                 icon = Icons.Default.NotificationsActive,
@@ -188,24 +188,24 @@ fun SettingsScreen() {
                 }
             )
         }
-        
+
         // Privacy Section
         item {
             SettingsSection(title = stringResource(R.string.settings_privacy))
         }
-        
+
         item {
             SettingsToggle(
                 icon = Icons.Default.History,
                 title = stringResource(R.string.settings_save_history),
                 subtitle = stringResource(R.string.settings_save_history_desc),
                 checked = saveHistory,
-                onCheckedChange = { newValue -> 
+                onCheckedChange = { newValue ->
                     viewModel.updateSettings(settings.copy(isSaveHistoryEnabled = newValue))
                 }
             )
         }
-        
+
         item {
             SettingsClickable(
                 icon = Icons.Default.PrivacyTip,
@@ -227,12 +227,12 @@ fun SettingsScreen() {
                 }
             )
         }
-        
+
         // Accessibility Section
         item {
             SettingsSection(title = stringResource(R.string.settings_accessibility))
         }
-        
+
         item {
             SettingsClickable(
                 icon = Icons.Default.Accessibility,
@@ -252,12 +252,12 @@ fun SettingsScreen() {
                 }
             )
         }
-        
+
         // About Section
         item {
             SettingsSection(title = stringResource(R.string.settings_about))
         }
-        
+
         item {
             SettingsInfo(
                 icon = Icons.Default.Info,
@@ -265,7 +265,7 @@ fun SettingsScreen() {
                 value = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
             )
         }
-        
+
         item {
             SettingsInfo(
                 icon = Icons.Default.Build,
@@ -273,7 +273,7 @@ fun SettingsScreen() {
                 value = "Android ${Build.VERSION.RELEASE} • API ${Build.VERSION.SDK_INT}"
             )
         }
-        
+
         item {
             SettingsInfo(
                 icon = Icons.Default.Memory,
@@ -281,7 +281,7 @@ fun SettingsScreen() {
                 value = "KMP PhishingEngine v1.0"
             )
         }
-        
+
         item {
             SettingsClickable(
                 icon = Icons.Default.Code,
@@ -303,7 +303,7 @@ fun SettingsScreen() {
                 }
             )
         }
-        
+
         item {
             SettingsClickable(
                 icon = Icons.AutoMirrored.Filled.HelpOutline,
@@ -325,11 +325,11 @@ fun SettingsScreen() {
                 }
             )
         }
-        
+
         // Credits Footer
         item {
             Spacer(modifier = Modifier.height(32.dp))
-            
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -349,32 +349,32 @@ fun SettingsScreen() {
                         fontSize = 40.sp
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
-                
+
                 Text(
                     text = stringResource(R.string.app_name),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = TextPrimary
                 )
-                
+
                 Text(
                     text = "Kotlin Multiplatform QRishing Detector",
                     fontSize = 12.sp,
                     color = TextSecondary
                 )
-                
+
                 Spacer(modifier = Modifier.height(8.dp))
-                
+
                 Text(
                     text = "Made with ❤️ for KotlinConf 2026",
                     fontSize = 11.sp,
                     color = TextMuted
                 )
-                
+
                 Spacer(modifier = Modifier.height(16.dp))
-                
+
                 // Platform badges
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -418,7 +418,7 @@ private fun SettingsToggle(
             .fillMaxWidth()
             .clickable { onCheckedChange(!checked) }
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .semantics { 
+            .semantics {
                 contentDescription = "$title, ${if (checked) "enabled" else "disabled"}. $subtitle"
             },
         verticalAlignment = Alignment.CenterVertically
@@ -429,9 +429,9 @@ private fun SettingsToggle(
             tint = BrandPrimary,
             modifier = Modifier.size(24.dp)
         )
-        
+
         Spacer(modifier = Modifier.width(16.dp))
-        
+
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
@@ -444,7 +444,7 @@ private fun SettingsToggle(
                 fontSize = 12.sp
             )
         }
-        
+
         Switch(
             checked = checked,
             onCheckedChange = onCheckedChange,
@@ -471,7 +471,7 @@ private fun SettingsClickable(
             .fillMaxWidth()
             .clickable(onClick = onClick)
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .semantics { 
+            .semantics {
                 contentDescription = "$title. $subtitle. Tap to open."
             },
         verticalAlignment = Alignment.CenterVertically
@@ -482,9 +482,9 @@ private fun SettingsClickable(
             tint = BrandPrimary,
             modifier = Modifier.size(24.dp)
         )
-        
+
         Spacer(modifier = Modifier.width(16.dp))
-        
+
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
@@ -497,7 +497,7 @@ private fun SettingsClickable(
                 fontSize = 12.sp
             )
         }
-        
+
         trailing?.invoke()
     }
 }
@@ -512,7 +512,7 @@ private fun SettingsInfo(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
-            .semantics { 
+            .semantics {
                 contentDescription = "$title: $value"
             },
         verticalAlignment = Alignment.CenterVertically
@@ -523,16 +523,16 @@ private fun SettingsInfo(
             tint = BrandPrimary,
             modifier = Modifier.size(24.dp)
         )
-        
+
         Spacer(modifier = Modifier.width(16.dp))
-        
+
         Text(
             text = title,
             color = TextPrimary,
             fontSize = 15.sp,
             modifier = Modifier.weight(1f)
         )
-        
+
         Text(
             text = value,
             color = TextSecondary,

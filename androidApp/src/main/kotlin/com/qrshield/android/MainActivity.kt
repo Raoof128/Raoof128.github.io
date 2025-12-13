@@ -32,16 +32,16 @@ import com.qrshield.android.ui.theme.QRShieldTheme
  * Main entry point for QR-SHIELD Android application.
  */
 class MainActivity : ComponentActivity() {
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // Install splash screen BEFORE calling super.onCreate()
         installSplashScreen()
-        
+
         super.onCreate(savedInstanceState)
-        
+
         // Enable edge-to-edge display
         enableEdgeToEdge()
-        
+
         setContent {
             QRShieldTheme {
                 Surface(

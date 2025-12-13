@@ -22,53 +22,53 @@ import androidx.compose.ui.graphics.Color
 
 /**
  * QR-SHIELD Desktop Design System
- * 
+ *
  * Centralized color definitions and theme configuration.
- * 
+ *
  * @author QR-SHIELD Team
  * @since 1.1.0
  */
 object DesktopColors {
-    
+
     // ========================================
     // BRAND COLORS
     // ========================================
-    
+
     /** Kotlin Purple - Primary brand color */
     val BrandPrimary = Color(0xFF7F52FF)
-    
+
     /** Secondary brand color - lighter purple */
     val BrandSecondary = Color(0xFFA78BFA)
-    
+
     /** Accent color - cyan highlight */
     val BrandAccent = Color(0xFF00D9FF)
-    
+
     /** Gradient start color */
     val BrandGradientStart = Color(0xFF7F52FF)
-    
+
     /** Gradient end color */
     val BrandGradientEnd = Color(0xFFE879F9)
-    
+
     // ========================================
     // VERDICT COLORS
     // ========================================
-    
+
     /** Safe verdict - green */
     val VerdictSafe = Color(0xFF22C55E)
-    
+
     /** Suspicious verdict - amber */
     val VerdictSuspicious = Color(0xFFF59E0B)
-    
+
     /** Malicious verdict - red */
     val VerdictMalicious = Color(0xFFEF4444)
-    
+
     /** Unknown verdict - gray */
     val VerdictUnknown = Color(0xFF9CA3AF)
-    
+
     // ========================================
     // DARK THEME COLORS
     // ========================================
-    
+
     val DarkBackground = Color(0xFF0A0A0B)
     val DarkSurface = Color(0xFF141416)
     val DarkSurfaceElevated = Color(0xFF1C1C1F)
@@ -76,11 +76,11 @@ object DesktopColors {
     val DarkTextPrimary = Color(0xFFFAFAFA)
     val DarkTextSecondary = Color(0xFFA1A1AA)
     val DarkBorder = Color(0xFF27272A)
-    
+
     // ========================================
     // LIGHT THEME COLORS
     // ========================================
-    
+
     val LightBackground = Color(0xFFFAFAFB)
     val LightSurface = Color(0xFFFFFFFF)
     val LightSurfaceElevated = Color(0xFFF4F4F5)

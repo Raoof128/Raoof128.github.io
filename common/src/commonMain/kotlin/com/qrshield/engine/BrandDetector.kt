@@ -18,42 +18,42 @@ package com.qrshield.engine
 
 /**
  * Brand Impersonation Detector for QR-SHIELD
- * 
+ *
  * Detects when URLs attempt to impersonate well-known brands
  * using typosquatting, homographs, subdomain abuse, and fuzzy matching.
- * 
+ *
  * SECURITY NOTES:
  * - All inputs are bounded to prevent DoS
  * - Brand database is immutable
  * - Thread-safe for concurrent detection
  * - Includes Australian banking institutions
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 class BrandDetector {
-    
+
     companion object {
         // === CONFIGURATION ===
-        
+
         /** Maximum URL length to process */
         private const val MAX_URL_LENGTH = 2048
-        
+
         /** Maximum host length to process */
         private const val MAX_HOST_LENGTH = 255
-        
+
         /** Minimum edit distance threshold for fuzzy matching */
         private const val FUZZY_MATCH_THRESHOLD = 2
-        
+
         // === SCORING ===
-        
+
         const val SCORE_EXACT_SUBDOMAIN = 30
         const val SCORE_TYPOSQUAT = 35
         const val SCORE_HOMOGRAPH = 40
         const val SCORE_COMBOSQUAT = 25
         const val SCORE_FUZZY_MATCH = 20
     }
-    
+
 
     /**
      * Match type classification.
@@ -65,7 +65,7 @@ class BrandDetector {
         COMBO_SQUAT,
         FUZZY_MATCH
     }
-    
+
     /**
      * Brand match details.
      */
@@ -75,7 +75,7 @@ class BrandDetector {
         val matchedPattern: String,
         val category: BrandDatabase.BrandCategory
     )
-    
+
     /**
      * Detection result.
      */
@@ -85,7 +85,7 @@ class BrandDetector {
         val details: BrandMatch?
     ) {
         val isImpersonation: Boolean get() = match != null
-        
+
         val severity: String
             get() = when {
                 score >= SCORE_HOMOGRAPH -> "CRITICAL"
@@ -95,10 +95,10 @@ class BrandDetector {
                 else -> "NONE"
             }
     }
-    
+
     /**
      * Detect brand impersonation in URL.
-     * 
+     *
      * @param url The URL to analyze
      * @return DetectionResult with score and match details
      */
@@ -107,16 +107,16 @@ class BrandDetector {
         if (url.isBlank() || url.length > MAX_URL_LENGTH) {
             return DetectionResult(score = 0, match = null, details = null)
         }
-        
+
         val host = extractHost(url)
-        
+
         // SECURITY: Validate extracted host
         if (host.isBlank() || host.length > MAX_HOST_LENGTH) {
             return DetectionResult(score = 0, match = null, details = null)
         }
-        
+
         val hostLower = host.lowercase()
-        
+
         // Check each brand from the database
         for ((brand, config) in BrandDatabase.brands) {
             // 1. EXACT_IN_SUBDOMAIN - brand appears in subdomain
@@ -127,7 +127,7 @@ class BrandDetector {
                     details = BrandMatch(brand, MatchType.EXACT_IN_SUBDOMAIN, brand, config.category)
                 )
             }
-            
+
             // 2. HOMOGRAPH - highest severity, check first
             for (variant in config.homographs) {
                 if (hostLower.contains(variant.lowercase())) {
@@ -138,7 +138,7 @@ class BrandDetector {
                     )
                 }
             }
-            
+
             // 3. TYPOSQUAT - character substitution
             for (variant in config.typosquats) {
                 if (hostLower.contains(variant.lowercase())) {
@@ -149,7 +149,7 @@ class BrandDetector {
                     )
                 }
             }
-            
+
             // 4. COMBOSQUAT - brand + keyword
             for (combo in config.combosquats) {
                 if (hostLower.contains(combo.lowercase())) {
@@ -160,7 +160,7 @@ class BrandDetector {
                     )
                 }
             }
-            
+
             // 5. FUZZY MATCH - edit distance (expensive, check last)
             if (isFuzzyMatch(hostLower, brand)) {
                 return DetectionResult(
@@ -170,13 +170,13 @@ class BrandDetector {
                 )
             }
         }
-        
+
         return DetectionResult(score = 0, match = null, details = null)
     }
-    
+
     /**
      * Check multiple URLs in batch.
-     * 
+     *
      * @param urls List of URLs to check
      * @return Map of URL to DetectionResult
      */
@@ -185,7 +185,7 @@ class BrandDetector {
         val bounded = urls.take(100)
         return bounded.associateWith { detect(it) }
     }
-    
+
     /**
      * Check if brand appears in subdomain but not on official domain.
      */
@@ -194,15 +194,15 @@ class BrandDetector {
         if (officialDomains.any { host.endsWith(it) }) {
             return false
         }
-        
+
         val parts = host.split(".")
         if (parts.size < 3) return false
-        
+
         // Check subdomains for brand name
         val subdomains = parts.dropLast(2).joinToString(".")
         return subdomains.contains(brand)
     }
-    
+
     /**
      * Calculate Levenshtein distance for fuzzy matching.
      * Limited to short strings for performance.
@@ -211,47 +211,47 @@ class BrandDetector {
         // Only check domain part, not full host
         val parts = host.split(".")
         if (parts.size < 2) return false
-        
+
         val domain = parts[parts.size - 2].lowercase()
-        
+
         // Skip if lengths are too different
         if (kotlin.math.abs(domain.length - brand.length) > FUZZY_MATCH_THRESHOLD) {
             return false
         }
-        
+
         // Calculate edit distance
         val distance = levenshteinDistance(domain, brand)
         return distance in 1..FUZZY_MATCH_THRESHOLD
     }
-    
+
     /**
      * Calculate Levenshtein edit distance.
-     * 
+     *
      * Bounded implementation to prevent DoS on very long strings.
      */
     private fun levenshteinDistance(s1: String, s2: String): Int {
         // SECURITY: Limit input size
         val a = s1.take(50)
         val b = s2.take(50)
-        
+
         if (a == b) return 0
         if (a.isEmpty()) return b.length
         if (b.isEmpty()) return a.length
-        
+
         // OPTIMIZATION: Always make 'a' the shorter string
         val (shorter, longer) = if (a.length <= b.length) a to b else b to a
-        
+
         // OPTIMIZATION: Early exit if length difference exceeds threshold
         val lengthDiff = longer.length - shorter.length
         if (lengthDiff > 3) return lengthDiff
-        
+
         // Single-row DP optimization: O(min(m,n)) space
         var previousRow = IntArray(shorter.length + 1) { it }
         var currentRow = IntArray(shorter.length + 1)
-        
+
         for (i in 1..longer.length) {
             currentRow[0] = i
-            
+
             for (j in 1..shorter.length) {
                 val cost = if (longer[i - 1] == shorter[j - 1]) 0 else 1
                 currentRow[j] = minOf(
@@ -260,28 +260,28 @@ class BrandDetector {
                     previousRow[j - 1] + cost    // substitution
                 )
             }
-            
+
             // Swap rows
             val temp = previousRow
             previousRow = currentRow
             currentRow = temp
         }
-        
+
         return previousRow[shorter.length]
     }
-    
+
     /**
      * Safely extract host from URL.
      */
     private fun extractHost(url: String): String {
         val bounded = url.take(MAX_URL_LENGTH)
-        
+
         val withoutProtocol = bounded
             .removePrefix("https://")
             .removePrefix("http://")
-        
+
         val endIndex = withoutProtocol.indexOfFirst { it == '/' || it == '?' || it == '#' || it == ':' }
-        
+
         return when {
             endIndex > 0 -> withoutProtocol.substring(0, endIndex)
             else -> withoutProtocol

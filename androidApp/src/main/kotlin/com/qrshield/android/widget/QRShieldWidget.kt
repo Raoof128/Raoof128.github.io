@@ -39,7 +39,7 @@ import com.qrshield.android.R
 
 /**
  * QR-SHIELD Quick Scan Widget for Android 16
- * 
+ *
  * Features:
  * - One-tap to open scanner
  * - Shows last scan result
@@ -65,7 +65,7 @@ class QRShieldWidget : GlanceAppWidget() {
     @Composable
     private fun QRShieldWidgetContent() {
         val size = LocalSize.current
-        
+
         GlanceTheme {
             Box(
                 modifier = GlanceModifier
@@ -84,7 +84,7 @@ class QRShieldWidget : GlanceAppWidget() {
             }
         }
     }
-    
+
     @Composable
     private fun SmallWidgetLayout() {
         Column(
@@ -109,7 +109,7 @@ class QRShieldWidget : GlanceAppWidget() {
             )
         }
     }
-    
+
     @Composable
     private fun MediumWidgetLayout() {
         Row(
@@ -143,7 +143,7 @@ class QRShieldWidget : GlanceAppWidget() {
             }
         }
     }
-    
+
     @Composable
     private fun LargeWidgetLayout() {
         Row(
@@ -165,9 +165,9 @@ class QRShieldWidget : GlanceAppWidget() {
                     style = TextStyle(fontSize = 28.sp)
                 )
             }
-            
+
             Spacer(modifier = GlanceModifier.width(16.dp))
-            
+
             // Center - Text
             Column(
                 modifier = GlanceModifier.defaultWeight()
@@ -188,7 +188,7 @@ class QRShieldWidget : GlanceAppWidget() {
                     )
                 )
             }
-            
+
             // Right side - Action button
             Box(
                 modifier = GlanceModifier

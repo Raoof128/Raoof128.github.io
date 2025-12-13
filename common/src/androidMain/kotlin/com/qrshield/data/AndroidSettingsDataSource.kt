@@ -12,24 +12,24 @@ import kotlinx.coroutines.flow.distinctUntilChanged
  * Android implementation of SettingsDataSource using SharedPreferences.
  */
 class AndroidSettingsDataSource(context: Context) : SettingsDataSource {
-    
+
     private val prefs: SharedPreferences = context.getSharedPreferences("qr_shield_settings", Context.MODE_PRIVATE)
-    
+
     override val settings: Flow<AppSettings> = callbackFlow {
         // Initial value
         trySend(readSettings())
-        
+
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
             trySend(readSettings())
         }
-        
+
         prefs.registerOnSharedPreferenceChangeListener(listener)
-        
+
         awaitClose {
             prefs.unregisterOnSharedPreferenceChangeListener(listener)
         }
     }.distinctUntilChanged()
-    
+
     override suspend fun saveSettings(settings: AppSettings) {
         prefs.edit().apply {
             putBoolean("auto_scan", settings.isAutoScanEnabled)
@@ -40,7 +40,7 @@ class AndroidSettingsDataSource(context: Context) : SettingsDataSource {
             apply()
         }
     }
-    
+
     private fun readSettings(): AppSettings {
         return AppSettings(
             isAutoScanEnabled = prefs.getBoolean("auto_scan", true),

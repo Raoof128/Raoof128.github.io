@@ -21,7 +21,7 @@ import androidx.compose.runtime.Composable
 
 /**
  * Main QR-SHIELD Application Composable
- * 
+ *
  * This is the root composable that sets up navigation.
  * Updated for Android 16 with Navigation Compose.
  */

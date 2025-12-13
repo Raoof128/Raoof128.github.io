@@ -46,9 +46,9 @@ class RateLimiterTest {
     @Test
     fun `exceeding limit blocks requests`() {
         val limiter = RateLimiter(maxRequests = 3, windowMs = 60000)
-        
+
         repeat(3) { limiter.tryAcquire() }
-        
+
         val result = limiter.tryAcquire()
         assertFalse(result.allowed)
     }
@@ -58,10 +58,10 @@ class RateLimiterTest {
     @Test
     fun `tryAcquire returns correct remaining count`() {
         val limiter = RateLimiter(maxRequests = 5, windowMs = 60000)
-        
+
         val result1 = limiter.tryAcquire()
         assertEquals(4, result1.remaining)
-        
+
         val result2 = limiter.tryAcquire()
         assertEquals(3, result2.remaining)
     }
@@ -69,10 +69,10 @@ class RateLimiterTest {
     @Test
     fun `tryAcquire returns reset time when blocked`() {
         val limiter = RateLimiter(maxRequests = 2, windowMs = 60000)
-        
+
         limiter.tryAcquire()
         limiter.tryAcquire()
-        
+
         val result = limiter.tryAcquire()
         assertFalse(result.allowed)
         assertTrue(result.resetMs > 0)
@@ -83,11 +83,11 @@ class RateLimiterTest {
     @Test
     fun `getStatus shows current count`() {
         val limiter = RateLimiter(maxRequests = 10, windowMs = 60000)
-        
+
         limiter.tryAcquire()
         limiter.tryAcquire()
         limiter.tryAcquire()
-        
+
         val status = limiter.getStatus()
         assertEquals(3, status.currentCount)
         assertEquals(7, status.remaining)
@@ -96,7 +96,7 @@ class RateLimiterTest {
     @Test
     fun `getStatus shows correct limit`() {
         val limiter = RateLimiter(maxRequests = 100, windowMs = 60000)
-        
+
         val status = limiter.getStatus()
         assertEquals(100, status.limit)
     }
@@ -106,12 +106,12 @@ class RateLimiterTest {
     @Test
     fun `reset clears all requests`() {
         val limiter = RateLimiter(maxRequests = 3, windowMs = 60000)
-        
+
         repeat(3) { limiter.tryAcquire() }
         assertFalse(limiter.isAllowed())
-        
+
         limiter.reset()
-        
+
         assertTrue(limiter.isAllowed())
     }
 
@@ -151,7 +151,7 @@ class RateLimiterTest {
     fun `result contains all expected fields`() {
         val limiter = RateLimiter(maxRequests = 10, windowMs = 60000)
         val result = limiter.tryAcquire()
-        
+
         assertNotNull(result.allowed)
         assertNotNull(result.remaining)
         assertNotNull(result.resetMs)
@@ -170,7 +170,7 @@ class RateLimiterTest {
     @Test
     fun `single request limit works`() {
         val limiter = RateLimiter(maxRequests = 1, windowMs = 60000)
-        
+
         assertTrue(limiter.tryAcquire().allowed)
         assertFalse(limiter.tryAcquire().allowed)
     }
@@ -192,9 +192,9 @@ class ThrottlerTest {
     @Test
     fun `immediate second request is blocked`() {
         val throttler = Throttler(minDelayMs = 1000)
-        
+
         throttler.tryAcquire()
-        
+
         assertFalse(throttler.isAllowed())
     }
 
@@ -210,10 +210,10 @@ class ThrottlerTest {
     @Test
     fun `tryAcquire returns wait time when blocked`() {
         val throttler = Throttler(minDelayMs = 1000)
-        
+
         throttler.tryAcquire()
         val result = throttler.tryAcquire()
-        
+
         assertFalse(result.allowed)
         assertTrue(result.waitMs > 0)
     }
@@ -224,7 +224,7 @@ class ThrottlerTest {
     fun `record updates last operation time`() {
         val throttler = Throttler(minDelayMs = 100)
         throttler.record()
-        
+
         assertFalse(throttler.isAllowed())
     }
 

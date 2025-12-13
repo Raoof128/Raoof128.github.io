@@ -23,72 +23,72 @@ import kotlin.test.assertTrue
 
 /**
  * iOS-specific unit tests for the QrScanner platform implementation.
- * 
+ *
  * These tests verify that the iOS platform layer correctly implements
  * the QrScanner interface and integrates with shared commonMain code.
- * 
+ *
  * TESTING PHILOSOPHY:
  * - The camera scanning is tested in native XCUITest (Swift)
  * - This tests the Kotlin/Native layer that bridges to Swift
  * - Ensures expect/actual pattern is correctly implemented
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 class IosQrScannerTest {
-    
+
     @Test
     fun `factory creates IosQrScanner instance`() {
         val factory = QrScannerFactory()
         val scanner = factory.create()
-        
+
         assertNotNull(scanner, "Factory should create a non-null scanner")
         assertTrue(scanner is IosQrScanner, "Factory should create IosQrScanner type")
     }
-    
+
     @Test
     fun `scanner returns NoQrFound for empty image`() = runBlockingTest {
         val scanner = IosQrScanner()
         val result = scanner.scanFromImage(byteArrayOf())
-        
+
         assertEquals(
             com.qrshield.model.ScanResult.NoQrFound,
             result,
             "Empty image should return NoQrFound"
         )
     }
-    
+
     @Test
     fun `scanner camera flow returns empty for stub implementation`() {
         val scanner = IosQrScanner()
         val flow = scanner.scanFromCamera()
-        
+
         assertNotNull(flow, "Camera flow should not be null")
     }
-    
+
     @Test
     fun `scanner reports camera permission as handled by native`() = runBlockingTest {
         val scanner = IosQrScanner()
-        
+
         // iOS handles permissions natively, so this returns false
         // indicating the Kotlin layer doesn't manage permissions
         val hasPermission = scanner.hasCameraPermission()
         assertEquals(false, hasPermission, "Permission should be managed by native layer")
     }
-    
+
     @Test
     fun `scanner permission request delegates to native`() = runBlockingTest {
         val scanner = IosQrScanner()
-        
+
         // iOS handles permission requests natively via AVCaptureDevice
         val requestResult = scanner.requestCameraPermission()
         assertEquals(false, requestResult, "Permission requests should be handled by native layer")
     }
-    
+
     @Test
     fun `stopScanning does not throw`() {
         val scanner = IosQrScanner()
-        
+
         // Should not throw - actual stopping is in Swift
         scanner.stopScanning()
         assertTrue(true, "stopScanning should complete without error")

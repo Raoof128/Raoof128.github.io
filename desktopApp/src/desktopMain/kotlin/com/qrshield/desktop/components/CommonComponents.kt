@@ -38,7 +38,7 @@ import com.qrshield.desktop.theme.DesktopColors
 
 /**
  * Reusable UI components for QR-SHIELD Desktop
- * 
+ *
  * @author QR-SHIELD Team
  * @since 1.1.0
  */
@@ -90,7 +90,7 @@ fun EnhancedTopAppBar(
                         fontSize = 22.sp
                     )
                 }
-                
+
                 Column {
                     Text(
                         text = "QR-SHIELD",
@@ -106,7 +106,7 @@ fun EnhancedTopAppBar(
                     )
                 }
             }
-            
+
             // Theme Toggle Button
             Surface(
                 onClick = onThemeToggle,
@@ -154,7 +154,7 @@ fun AnimatedHeroSection() {
         ),
         label = "scale"
     )
-    
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -179,14 +179,14 @@ fun AnimatedHeroSection() {
                 fontSize = 36.sp
             )
         }
-        
+
         Text(
             text = "Scan URLs Safely",
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
-        
+
         Text(
             text = "AI-powered phishing detection • 100% offline",
             style = MaterialTheme.typography.bodyMedium,
@@ -329,7 +329,7 @@ fun EnhancedFooter() {
             modifier = Modifier.padding(vertical = 8.dp),
             color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
         )
-        
+
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -350,7 +350,7 @@ fun EnhancedFooter() {
                 color = DesktopColors.BrandPrimary
             )
         }
-        
+
         Text(
             text = "🛡️ QR-SHIELD v1.1.1 • Desktop Edition",
             style = MaterialTheme.typography.labelSmall,

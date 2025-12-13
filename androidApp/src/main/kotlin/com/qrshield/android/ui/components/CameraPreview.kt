@@ -48,7 +48,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Enhanced Camera Preview with ML Kit QR Scanning
- * 
+ *
  * Android 16 Features:
  * - CameraX 1.4.0 with improved stability
  * - Optimized frame analysis with ML Kit 17.3.0
@@ -56,13 +56,13 @@ import java.util.concurrent.atomic.AtomicBoolean
  * - Memory-efficient debouncing
  * - Full accessibility support with TalkBack
  * - Fixed processing flag reset bug
- * 
+ *
  * @param modifier Modifier for the preview
  * @param scaleType How to scale the preview
  * @param cameraSelector Front or back camera
  * @param onQrCodeScanned Callback when QR code is detected
  * @param onCameraError Callback when camera error occurs
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.1.0
  */
@@ -77,17 +77,17 @@ fun CameraPreview(
     // Deprecated in Compose 1.6+, migrate when lifecycle 2.8.0+ is adopted
     val lifecycleOwner = LocalLifecycleOwner.current
     val context = LocalContext.current
-    
+
     // State for camera
     var camera by remember { mutableStateOf<Camera?>(null) }
     var cameraError by remember { mutableStateOf<String?>(null) }
-    
+
     // Thread-safe flag to prevent multiple simultaneous callbacks
     val isProcessing = remember { AtomicBoolean(false) }
-    
+
     // Executor for image analysis (single thread for sequential processing)
     val analysisExecutor = remember { Executors.newSingleThreadExecutor() }
-    
+
     // Remember the PreviewView to prevent rebuilds on recomposition
     val previewView = remember {
         PreviewView(context).apply {
@@ -104,28 +104,28 @@ fun CameraPreview(
             ).let { "QR code scanner camera preview. Point your camera at a QR code to scan it." }
         }
     }
-    
+
     // Barcode scanner (ML Kit 17.3.0)
     val barcodeScanner = remember { BarcodeScanning.getClient() }
-    
+
     // Debouncing for scanned codes (prevent duplicate callbacks)
     val lastScannedCode = remember { mutableMapOf<String, Long>() }
     val debounceMs = 2000L // Don't re-scan same code within 2 seconds
 
     DisposableEffect(lifecycleOwner, cameraSelector) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
-        
+
         cameraProviderFuture.addListener({
             try {
                 val cameraProvider = cameraProviderFuture.get()
-                
+
                 // Preview use case
                 val preview = Preview.Builder()
                     .build()
                     .also {
                         it.setSurfaceProvider(previewView.surfaceProvider)
                     }
-                
+
                 // Image analysis use case for QR scanning
                 val imageAnalysis = ImageAnalysis.Builder()
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
@@ -138,16 +138,16 @@ fun CameraPreview(
                                 imageProxy.close()
                                 return@setAnalyzer
                             }
-                            
+
                             @Suppress("UnsafeOptInUsageError")
                             val mediaImage = imageProxy.image
-                            
+
                             if (mediaImage != null) {
                                 val image = InputImage.fromMediaImage(
                                     mediaImage,
                                     imageProxy.imageInfo.rotationDegrees
                                 )
-                                
+
                                 barcodeScanner.process(image)
                                     .addOnSuccessListener { barcodes ->
                                         for (barcode in barcodes) {
@@ -160,13 +160,13 @@ fun CameraPreview(
                                                     if (content != null && content.isNotBlank()) {
                                                         val now = System.currentTimeMillis()
                                                         val lastScan = lastScannedCode[content] ?: 0L
-                                                        
+
                                                         // Debounce: only notify if not recently scanned
                                                         if (now - lastScan > debounceMs) {
                                                             // Set processing flag before callback
                                                             if (isProcessing.compareAndSet(false, true)) {
                                                                 lastScannedCode[content] = now
-                                                                
+
                                                                 try {
                                                                     onQrCodeScanned?.invoke(content)
                                                                 } finally {
@@ -196,10 +196,10 @@ fun CameraPreview(
                             }
                         }
                     }
-                
+
                 // Unbind all use cases before rebinding
                 cameraProvider.unbindAll()
-                
+
                 // Bind preview and analysis to lifecycle
                 camera = cameraProvider.bindToLifecycle(
                     lifecycleOwner,
@@ -207,10 +207,10 @@ fun CameraPreview(
                     preview,
                     imageAnalysis
                 )
-                
+
                 // Clear any previous errors on successful binding
                 cameraError = null
-                
+
             } catch (exc: Exception) {
                 // Log and report camera binding errors
                 val errorMessage = when (exc) {
@@ -224,7 +224,7 @@ fun CameraPreview(
                 exc.printStackTrace()
             }
         }, ContextCompat.getMainExecutor(context))
-        
+
         onDispose {
             // Shutdown executor when composable leaves
             try {
@@ -232,10 +232,10 @@ fun CameraPreview(
             } catch (e: Exception) {
                 // Ignore shutdown errors
             }
-            
+
             // Clear the debounce cache
             lastScannedCode.clear()
-            
+
             // Reset processing flag
             isProcessing.set(false)
         }

@@ -45,7 +45,7 @@ import com.qrshield.model.Verdict
 
 /**
  * Result Card displaying scan analysis results.
- * 
+ *
  * Features:
  * - Animated score display
  * - Verdict badge with color coding
@@ -63,14 +63,14 @@ fun ResultCard(
     onScanAnother: () -> Unit
 ) {
     val clipboardManager = LocalClipboardManager.current
-    
+
     val (color, emoji) = when (verdict) {
         Verdict.SAFE -> VerdictSafe to "✅"
         Verdict.SUSPICIOUS -> VerdictWarning to "⚠️"
         Verdict.MALICIOUS -> VerdictDanger to "🚨"
         Verdict.UNKNOWN -> VerdictUnknown to "❓"
     }
-    
+
     // Animate score counting up
     var animatedScore by remember { mutableStateOf(0) }
     LaunchedEffect(score) {
@@ -82,14 +82,14 @@ fun ResultCard(
             animatedScore = value.toInt()
         }
     }
-    
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundDark)
             .verticalScroll(rememberScrollState())
             .padding(24.dp)
-            .semantics { 
+            .semantics {
                 contentDescription = "Scan result: ${verdict.name}, risk score $score out of 100. " +
                     "URL: $url. ${flags.size} risk factors found."
             },
@@ -107,14 +107,14 @@ fun ResultCard(
             ),
             label = "emoji_scale"
         )
-        
+
         Text(
             text = emoji,
             fontSize = (64 * scale).sp
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Animated Score
         val scoreScale by animateFloatAsState(
             targetValue = if (animatedScore == score) 1.2f else 1.0f,
@@ -129,19 +129,19 @@ fun ResultCard(
             color = color,
             modifier = Modifier
                 .scale(scoreScale)
-                .semantics { 
+                .semantics {
                 contentDescription = "Risk score: $score out of 100"
             }
         )
-        
+
         Text(
             text = stringResource(R.string.risk_score),
             fontSize = 14.sp,
             color = TextSecondary
         )
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         // Verdict Badge
         Surface(
             color = color.copy(alpha = 0.2f),
@@ -156,14 +156,14 @@ fun ResultCard(
                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)
             )
         }
-        
+
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         // URL Card
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .semantics { 
+                .semantics {
                     contentDescription = "Scanned URL: $url"
                 },
             colors = CardDefaults.cardColors(containerColor = BackgroundCard),
@@ -182,12 +182,12 @@ fun ResultCard(
                         fontSize = 12.sp,
                         color = TextMuted
                     )
-                    
+
                     TextButton(
                         onClick = {
                             clipboardManager.setText(AnnotatedString(url))
                         },
-                        modifier = Modifier.semantics { 
+                        modifier = Modifier.semantics {
                             contentDescription = "Copy URL to clipboard"
                         }
                     ) {
@@ -198,7 +198,7 @@ fun ResultCard(
                         )
                     }
                 }
-                
+
                 Text(
                     text = url,
                     fontSize = 14.sp,
@@ -207,15 +207,15 @@ fun ResultCard(
                 )
             }
         }
-        
+
         // Risk Factors
         if (flags.isNotEmpty()) {
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .semantics { 
+                    .semantics {
                         contentDescription = "${flags.size} risk factors detected"
                     },
                 colors = CardDefaults.cardColors(
@@ -230,9 +230,9 @@ fun ResultCard(
                         fontWeight = FontWeight.Bold,
                         color = TextPrimary
                     )
-                    
+
                     Spacer(modifier = Modifier.height(8.dp))
-                    
+
                     flags.take(5).forEach { flag ->
                         Row(
                             modifier = Modifier.padding(vertical = 2.dp)
@@ -249,7 +249,7 @@ fun ResultCard(
                             )
                         }
                     }
-                    
+
                     if (flags.size > 5) {
                         Text(
                             text = "+${flags.size - 5} more",
@@ -261,10 +261,10 @@ fun ResultCard(
                 }
             }
         }
-        
+
         // Safety recommendation
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(
@@ -290,9 +290,9 @@ fun ResultCard(
                 textAlign = TextAlign.Center
             )
         }
-        
+
         Spacer(modifier = Modifier.height(32.dp))
-        
+
         // Action Buttons
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -303,7 +303,7 @@ fun ResultCard(
                 modifier = Modifier
                     .weight(1f)
                     .height(48.dp)
-                    .semantics { 
+                    .semantics {
                         contentDescription = "Dismiss result and return home"
                     },
                 colors = ButtonDefaults.outlinedButtonColors(
@@ -312,13 +312,13 @@ fun ResultCard(
             ) {
                 Text(stringResource(R.string.done))
             }
-            
+
             Button(
                 onClick = onScanAnother,
                 modifier = Modifier
                     .weight(1f)
                     .height(48.dp)
-                    .semantics { 
+                    .semantics {
                         contentDescription = "Scan another QR code"
                     },
                 colors = ButtonDefaults.buttonColors(

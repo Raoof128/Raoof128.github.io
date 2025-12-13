@@ -111,7 +111,7 @@ class LogisticRegressionExtendedTest {
             "https://paypal-secure.evil.com",
             "http://192.168.1.1/admin"
         )
-        
+
         urls.forEach { url ->
             val features = extractor.extract(url)
             val prediction = model.predict(features)
@@ -125,7 +125,7 @@ class LogisticRegressionExtendedTest {
     fun `features have consistent count`() {
         val features1 = extractor.extract("https://google.com")
         val features2 = extractor.extract("https://example.com")
-        
+
         // Feature vectors should have same dimension
         assertEquals(features1.size, features2.size)
     }
@@ -177,7 +177,7 @@ class LogisticRegressionExtendedTest {
     fun `same url produces same features`() {
         val features1 = extractor.extract("https://google.com")
         val features2 = extractor.extract("https://google.com")
-        
+
         assertEquals(features1.size, features2.size)
         for (i in features1.indices) {
             assertEquals(features1[i], features2[i], 0.001f)
@@ -189,7 +189,7 @@ class LogisticRegressionExtendedTest {
         val features = extractor.extract("https://google.com")
         val prediction1 = model.predict(features)
         val prediction2 = model.predict(features)
-        
+
         assertEquals(prediction1, prediction2, 0.001f)
     }
 
@@ -199,7 +199,7 @@ class LogisticRegressionExtendedTest {
     fun `predict with threshold returns prediction object`() {
         val features = extractor.extract("https://google.com")
         val prediction = model.predictWithThreshold(features)
-        
+
         assertNotNull(prediction)
         assertTrue(prediction.probability in 0f..1f)
     }
@@ -208,7 +208,7 @@ class LogisticRegressionExtendedTest {
     fun `predict with custom threshold`() {
         val features = extractor.extract("https://google.com")
         val prediction = model.predictWithThreshold(features, 0.7f)
-        
+
         assertNotNull(prediction)
     }
 }

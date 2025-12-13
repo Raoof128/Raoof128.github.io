@@ -23,7 +23,7 @@ import com.qrshield.core.VerdictEngine
 // =============================================================================
 // QR-SHIELD Analysis Package
 // =============================================================================
-// 
+//
 // This package provides URL analysis utilities and parsers.
 // These are lower-level components used by orchestrators.
 //
@@ -39,23 +39,23 @@ import com.qrshield.core.VerdictEngine
 
 /**
  * Type alias for URL analysis functionality.
- * 
+ *
  * Provides URL parsing, component extraction, and security validation.
- * 
+ *
  * @see UrlAnalyzer
  */
 typealias UrlAnalysisUtility = UrlAnalyzer
 
 /**
  * Type alias for risk scoring utility.
- * 
+ *
  * @see RiskScorer
  */
 typealias RiskScoringUtility = RiskScorer
 
 /**
  * Type alias for verdict determination.
- * 
+ *
  * @see VerdictEngine
  */
 typealias VerdictDeterminer = VerdictEngine

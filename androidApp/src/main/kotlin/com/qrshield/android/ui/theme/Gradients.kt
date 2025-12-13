@@ -22,19 +22,19 @@ import com.qrshield.model.Verdict
 
 /**
  * QR-SHIELD Gradient Definitions
- * 
+ *
  * Provides pre-defined gradients for backgrounds and effects.
  * Matches iOS Liquid Glass aesthetic.
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 object QRShieldGradients {
-    
+
     // =====================================
     // BACKGROUND GRADIENTS
     // =====================================
-    
+
     /** Main app background gradient */
     val Background = Brush.verticalGradient(
         colors = listOf(
@@ -43,7 +43,7 @@ object QRShieldGradients {
             Color(0xFF0D1117)
         )
     )
-    
+
     /** Card background with subtle glow */
     val CardBackground = Brush.verticalGradient(
         colors = listOf(
@@ -51,11 +51,11 @@ object QRShieldGradients {
             Color(0xFF161B22)
         )
     )
-    
+
     // =====================================
     // VERDICT GRADIENTS
     // =====================================
-    
+
     /** Safe verdict gradient */
     val Safe = Brush.verticalGradient(
         colors = listOf(
@@ -63,7 +63,7 @@ object QRShieldGradients {
             Color(0xFF00D68F).copy(alpha = 0.05f)
         )
     )
-    
+
     /** Warning verdict gradient */
     val Warning = Brush.verticalGradient(
         colors = listOf(
@@ -71,7 +71,7 @@ object QRShieldGradients {
             Color(0xFFF5A623).copy(alpha = 0.05f)
         )
     )
-    
+
     /** Danger verdict gradient */
     val Danger = Brush.verticalGradient(
         colors = listOf(
@@ -79,7 +79,7 @@ object QRShieldGradients {
             Color(0xFFFF3D71).copy(alpha = 0.05f)
         )
     )
-    
+
     /** Unknown verdict gradient */
     val Unknown = Brush.verticalGradient(
         colors = listOf(
@@ -87,11 +87,11 @@ object QRShieldGradients {
             Color(0xFF8B93A1).copy(alpha = 0.05f)
         )
     )
-    
+
     // =====================================
     // BRAND GRADIENTS
     // =====================================
-    
+
     /** Primary brand gradient */
     val Brand = Brush.horizontalGradient(
         colors = listOf(
@@ -99,7 +99,7 @@ object QRShieldGradients {
             Color(0xFFA855F7)
         )
     )
-    
+
     /** Scanner laser gradient */
     val ScannerLaser = Brush.verticalGradient(
         colors = listOf(
@@ -110,11 +110,11 @@ object QRShieldGradients {
             Color.Transparent
         )
     )
-    
+
     // =====================================
     // HELPER FUNCTIONS
     // =====================================
-    
+
     /**
      * Get the appropriate gradient for a verdict.
      */
@@ -124,7 +124,7 @@ object QRShieldGradients {
         Verdict.MALICIOUS -> Danger
         Verdict.UNKNOWN -> Unknown
     }
-    
+
     /**
      * Get the appropriate gradient for a risk score.
      */

@@ -20,13 +20,13 @@ import com.qrshield.model.Verdict
 
 /**
  * Represents the result of a URL phishing analysis.
- * 
+ *
  * @property url The analyzed URL
  * @property score The risk score (0-100)
  * @property verdict The verdict (SAFE, SUSPICIOUS, MALICIOUS, UNKNOWN)
  * @property flags List of detected risk indicators
  * @property timestamp When the analysis was performed
- * 
+ *
  * @author QR-SHIELD Team
  * @since 1.0.0
  */

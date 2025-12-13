@@ -44,16 +44,16 @@ import com.qrshield.security.InputValidator
 
 /**
  * QR-SHIELD Phishing Engine
- * 
+ *
  * Main orchestrator for URL phishing analysis.
  * Combines heuristics, ML scoring, brand detection, and TLD analysis.
- * 
+ *
  * SECURITY NOTES:
  * - All inputs are validated before processing
  * - Analysis is performed locally (no network requests)
  * - Scoring uses defensive arithmetic with bounds checking
  * - Thread-safe: all dependencies are stateless
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
@@ -64,7 +64,7 @@ class PhishingEngine(
     private val mlModel: LogisticRegressionModel = LogisticRegressionModel.default(),
     private val featureExtractor: FeatureExtractor = FeatureExtractor()
 ) {
-    
+
     companion object {
         // Scoring weights (must sum to 1.0)
         // Heuristics are the primary signal for this engine
@@ -72,22 +72,22 @@ class PhishingEngine(
         private const val ML_WEIGHT = 0.20
         private const val BRAND_WEIGHT = 0.15
         private const val TLD_WEIGHT = 0.15
-        
+
         // Verdict thresholds - lower is safer
         // 0-10: SAFE, 11-50: SUSPICIOUS, 51+: MALICIOUS
         private const val SAFE_THRESHOLD = 10
         private const val SUSPICIOUS_THRESHOLD = 50
-        
+
         // Validation
         private const val MAX_URL_LENGTH = 2048
-        
+
         // Default confidence for edge cases
         private const val DEFAULT_CONFIDENCE = 0.5f
     }
-    
+
     /**
      * Analyze a URL for phishing indicators.
-     * 
+     *
      * This is the main entry point for phishing analysis. It:
      * 1. Validates the input URL
      * 2. Runs heuristic analysis (25+ rules)
@@ -95,7 +95,7 @@ class PhishingEngine(
      * 4. Checks for brand impersonation
      * 5. Evaluates TLD risk
      * 6. Combines all signals into a final verdict
-     * 
+     *
      * @param url The URL extracted from a QR code
      * @return Complete risk assessment with score, verdict, and details
      */
@@ -105,9 +105,9 @@ class PhishingEngine(
         if (!validationResult.isValid()) {
             return createInvalidUrlResult(validationResult)
         }
-        
+
         val validatedUrl = validationResult.getOrNull() ?: url
-        
+
         // PHASE 2: Basic URL validation
         if (!isValidUrl(validatedUrl)) {
             return RiskAssessment(
@@ -118,7 +118,7 @@ class PhishingEngine(
                 confidence = DEFAULT_CONFIDENCE
             )
         }
-        
+
         // PHASE 3: Run all analysis engines safely
         val analysisResult = runCatching {
             performAnalysis(validatedUrl)
@@ -132,27 +132,27 @@ class PhishingEngine(
                 confidence = 0.3f
             )
         }
-        
+
         return analysisResult
     }
-    
+
     /**
      * Perform the actual analysis (called after validation).
      */
     private fun performAnalysis(url: String): RiskAssessment {
         // Run heuristics engine
         val heuristicResult = heuristicsEngine.analyze(url)
-        
+
         // Run brand detection
         val brandResult = brandDetector.detect(url)
-        
+
         // Run TLD scoring
         val tldResult = tldScorer.score(url)
-        
+
         // Extract features and run ML model
         val features = featureExtractor.extract(url)
         val mlScore = mlModel.predict(features).coerceIn(0f, 1f)
-        
+
         // Calculate combined score
         val combinedScore = calculateCombinedScore(
             heuristicScore = heuristicResult.score,
@@ -160,24 +160,24 @@ class PhishingEngine(
             brandScore = brandResult.score,
             tldScore = tldResult.score
         )
-        
+
         // Determine verdict
         val verdict = determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
-        
+
         // Collect all flags
         val allFlags = buildList {
             addAll(heuristicResult.flags)
-            brandResult.match?.let { 
+            brandResult.match?.let {
                 add("Brand impersonation detected: $it")
             }
             if (tldResult.isHighRisk) {
                 add("High-risk TLD: ${tldResult.tld}")
             }
         }
-        
+
         // Calculate confidence score
         val confidence = calculateConfidence(heuristicResult, mlScore, brandResult)
-        
+
         return RiskAssessment(
             score = combinedScore,
             verdict = verdict,
@@ -194,10 +194,10 @@ class PhishingEngine(
             confidence = confidence
         )
     }
-    
+
     /**
      * Calculate combined risk score from all engines.
-     * 
+     *
      * Uses weighted average with bounds checking.
      */
     private fun calculateCombinedScore(
@@ -211,7 +211,7 @@ class PhishingEngine(
         val normalizedMl = (mlScore * 100).toInt().coerceIn(0, 100)
         val normalizedBrand = brandScore.coerceIn(0, 100)
         val normalizedTld = tldScore.coerceIn(0, 100)
-        
+
         // Weighted combination
         val weighted = (
             normalizedHeuristic * HEURISTIC_WEIGHT +
@@ -219,13 +219,13 @@ class PhishingEngine(
             normalizedBrand * BRAND_WEIGHT +
             normalizedTld * TLD_WEIGHT
         )
-        
+
         return weighted.toInt().coerceIn(0, 100)
     }
-    
+
     /**
      * Determine verdict based on score and critical factors.
-     * 
+     *
      * Some indicators (like confirmed brand impersonation) can
      * escalate the verdict regardless of overall score.
      */
@@ -239,7 +239,7 @@ class PhishingEngine(
         if (brandResult.details?.matchType == BrandDetector.MatchType.HOMOGRAPH) {
             return Verdict.MALICIOUS
         }
-        
+
         // Critical escalation: brand impersonation detected
         // Any brand match should be at least SUSPICIOUS
         if (brandResult.match != null) {
@@ -249,7 +249,7 @@ class PhishingEngine(
                 Verdict.SUSPICIOUS
             }
         }
-        
+
         // Critical escalation: multiple high-severity indicators
         val criticalCount = heuristicResult.details.count { (_, weight) ->
             weight >= 20
@@ -257,22 +257,22 @@ class PhishingEngine(
         if (criticalCount >= 2 && score > SAFE_THRESHOLD) {
             return Verdict.MALICIOUS
         }
-        
+
         // Escalation: @ symbol injection (common phishing technique)
         if (heuristicResult.flags.any { it.contains("@ symbol", ignoreCase = true) }) {
             return Verdict.SUSPICIOUS
         }
-        
+
         // Escalation: High Risk TLD
         if (tldResult.isHighRisk) {
             return if (score > SUSPICIOUS_THRESHOLD) Verdict.MALICIOUS else Verdict.SUSPICIOUS
         }
-        
+
         // Escalation: Strong heuristic signal alone
         if (heuristicResult.score > 60) {
             return if (score > SUSPICIOUS_THRESHOLD) Verdict.MALICIOUS else Verdict.SUSPICIOUS
         }
-        
+
         // Standard threshold-based verdict
         return when {
             score <= SAFE_THRESHOLD -> Verdict.SAFE
@@ -280,10 +280,10 @@ class PhishingEngine(
             else -> Verdict.MALICIOUS
         }
     }
-    
+
     /**
      * Calculate confidence score based on signals.
-     * 
+     *
      * Higher confidence when:
      * - Heuristics and ML agree
      * - Brand detection has a match
@@ -295,37 +295,37 @@ class PhishingEngine(
         brandResult: BrandDetector.DetectionResult
     ): Float {
         var confidence = 0.5f
-        
+
         // Agreement between heuristics and ML
         val heuristicNormalized = heuristicResult.score / 100f
         val agreement = 1f - kotlin.math.abs(heuristicNormalized - mlScore)
         confidence += agreement * 0.2f
-        
+
         // Brand detection adds certainty
         if (brandResult.match != null) {
             confidence += 0.15f
         }
-        
+
         // More signals = more confidence
         val signalCount = heuristicResult.flags.size
         confidence += (signalCount.coerceAtMost(5) * 0.02f)
-        
+
         return confidence.coerceIn(0.3f, 0.99f)
     }
-    
+
     /**
      * Basic URL format validation.
      */
     private fun isValidUrl(url: String): Boolean {
         if (url.isBlank()) return false
         if (url.length > MAX_URL_LENGTH) return false
-        
+
         // Must start with http:// or https:// or contain a dot
         return url.startsWith("http://") ||
                url.startsWith("https://") ||
                (url.contains(".") && !url.contains(" "))
     }
-    
+
     /**
      * Create result for invalid URL input.
      */
@@ -336,7 +336,7 @@ class PhishingEngine(
             is InputValidator.ValidationResult.Invalid -> validation.reason
             else -> "Invalid URL"
         }
-        
+
         return RiskAssessment(
             score = 0,
             verdict = Verdict.UNKNOWN,

@@ -52,7 +52,7 @@ import com.qrshield.android.ui.theme.TextMuted
 
 /**
  * Navigation routes for the QR-SHIELD app.
- * 
+ *
  * Sealed class ensures type-safe navigation and compile-time verification.
  */
 sealed class Screen(
@@ -69,7 +69,7 @@ sealed class Screen(
         unselectedIcon = Icons.Outlined.QrCodeScanner,
         contentDescription = "QR code scanner screen"
     )
-    
+
     data object History : Screen(
         route = "history",
         titleResId = R.string.nav_history,
@@ -77,7 +77,7 @@ sealed class Screen(
         unselectedIcon = Icons.Outlined.History,
         contentDescription = "Scan history screen"
     )
-    
+
     data object Settings : Screen(
         route = "settings",
         titleResId = R.string.nav_settings,
@@ -85,7 +85,7 @@ sealed class Screen(
         unselectedIcon = Icons.Outlined.Settings,
         contentDescription = "Settings screen"
     )
-    
+
     companion object {
         val bottomNavItems = listOf(Scanner, History, Settings)
     }
@@ -93,7 +93,7 @@ sealed class Screen(
 
 /**
  * Main navigation scaffold with bottom navigation bar.
- * 
+ *
  * Features:
  * - Material 3 Navigation Bar with proper accessibility
  * - Haptic feedback on navigation
@@ -104,7 +104,7 @@ sealed class Screen(
 @Composable
 fun QRShieldNavigation() {
     val navController = rememberNavController()
-    
+
     Scaffold(
         bottomBar = {
             QRShieldBottomNavBar(navController = navController)
@@ -127,7 +127,7 @@ fun QRShieldBottomNavBar(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    
+
     NavigationBar(
         containerColor = BackgroundDark.copy(alpha = 0.95f),
         contentColor = BrandPrimary,
@@ -137,7 +137,7 @@ fun QRShieldBottomNavBar(
     ) {
         Screen.bottomNavItems.forEach { screen ->
             val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
-            
+
             NavigationBarItem(
                 icon = {
                     Icon(
@@ -230,11 +230,11 @@ fun QRShieldNavHost(
         composable(Screen.Scanner.route) {
             ScannerScreen()
         }
-        
+
         composable(Screen.History.route) {
             HistoryScreen()
         }
-        
+
         composable(Screen.Settings.route) {
             SettingsScreen()
         }

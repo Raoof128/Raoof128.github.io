@@ -37,7 +37,7 @@ class VerdictEngineTest {
     fun `enrich safe assessment produces correct summary`() {
         val assessment = createAssessment(Verdict.SAFE, 15, emptyList())
         val enriched = engine.enrich(assessment)
-        
+
         assertEquals(Verdict.SAFE, enriched.verdict)
         assertTrue(enriched.summary.contains("safe", ignoreCase = true))
         assertTrue(enriched.summary.contains("15"))
@@ -47,7 +47,7 @@ class VerdictEngineTest {
     fun `enrich suspicious assessment produces correct summary`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 50, listOf("HTTP"))
         val enriched = engine.enrich(assessment)
-        
+
         assertEquals(Verdict.SUSPICIOUS, enriched.verdict)
         assertTrue(enriched.summary.contains("suspicious", ignoreCase = true))
         assertTrue(enriched.summary.contains("50"))
@@ -57,7 +57,7 @@ class VerdictEngineTest {
     fun `enrich malicious assessment produces correct summary`() {
         val assessment = createAssessment(Verdict.MALICIOUS, 85, listOf("Brand impersonation"))
         val enriched = engine.enrich(assessment)
-        
+
         assertEquals(Verdict.MALICIOUS, enriched.verdict)
         assertTrue(enriched.summary.contains("malicious", ignoreCase = true))
         assertTrue(enriched.summary.contains("85"))
@@ -67,7 +67,7 @@ class VerdictEngineTest {
     fun `enrich unknown assessment produces correct summary`() {
         val assessment = createAssessment(Verdict.UNKNOWN, 0, emptyList())
         val enriched = engine.enrich(assessment)
-        
+
         assertEquals(Verdict.UNKNOWN, enriched.verdict)
         assertTrue(enriched.summary.contains("unable", ignoreCase = true) || enriched.summary.contains("invalid", ignoreCase = true))
     }
@@ -78,7 +78,7 @@ class VerdictEngineTest {
     fun `safe recommendation allows proceeding`() {
         val assessment = createAssessment(Verdict.SAFE, 10, emptyList())
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.recommendation.contains("proceed", ignoreCase = true) || enriched.recommendation.contains("safe", ignoreCase = true))
     }
 
@@ -86,7 +86,7 @@ class VerdictEngineTest {
     fun `suspicious recommendation warns user`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 50, listOf("Shortener"))
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.recommendation.contains("caution", ignoreCase = true) || enriched.recommendation.contains("verify", ignoreCase = true))
     }
 
@@ -94,7 +94,7 @@ class VerdictEngineTest {
     fun `malicious recommendation blocks access`() {
         val assessment = createAssessment(Verdict.MALICIOUS, 90, listOf("Brand"))
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.recommendation.contains("DO NOT", ignoreCase = true) || enriched.recommendation.contains("not recommended", ignoreCase = true))
     }
 
@@ -104,8 +104,8 @@ class VerdictEngineTest {
     fun `HTTP flag produces encryption explanation`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 40, listOf("HTTP not HTTPS"))
         val enriched = engine.enrich(assessment)
-        
-        assertTrue(enriched.riskFactorExplanations.any { 
+
+        assertTrue(enriched.riskFactorExplanations.any {
             it.contains("HTTP", ignoreCase = true) || it.contains("encrypt", ignoreCase = true)
         })
     }
@@ -114,9 +114,9 @@ class VerdictEngineTest {
     fun `IP address flag produces domain explanation`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 50, listOf("IP address host"))
         val enriched = engine.enrich(assessment)
-        
-        assertTrue(enriched.riskFactorExplanations.any { 
-            it.contains("IP", ignoreCase = true) 
+
+        assertTrue(enriched.riskFactorExplanations.any {
+            it.contains("IP", ignoreCase = true)
         })
     }
 
@@ -124,8 +124,8 @@ class VerdictEngineTest {
     fun `brand flag produces impersonation explanation`() {
         val assessment = createAssessment(Verdict.MALICIOUS, 80, listOf("Brand impersonation"))
         val enriched = engine.enrich(assessment)
-        
-        assertTrue(enriched.riskFactorExplanations.any { 
+
+        assertTrue(enriched.riskFactorExplanations.any {
             it.contains("Brand", ignoreCase = true) || it.contains("impersonate", ignoreCase = true)
         })
     }
@@ -134,8 +134,8 @@ class VerdictEngineTest {
     fun `TLD flag produces risk explanation`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 60, listOf("High-risk TLD"))
         val enriched = engine.enrich(assessment)
-        
-        assertTrue(enriched.riskFactorExplanations.any { 
+
+        assertTrue(enriched.riskFactorExplanations.any {
             it.contains("TLD", ignoreCase = true) || it.contains("domain", ignoreCase = true)
         })
     }
@@ -144,8 +144,8 @@ class VerdictEngineTest {
     fun `shortener flag produces hiding explanation`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 35, listOf("URL shortener"))
         val enriched = engine.enrich(assessment)
-        
-        assertTrue(enriched.riskFactorExplanations.any { 
+
+        assertTrue(enriched.riskFactorExplanations.any {
             it.contains("shortener", ignoreCase = true) || it.contains("hiding", ignoreCase = true)
         })
     }
@@ -154,8 +154,8 @@ class VerdictEngineTest {
     fun `subdomain flag produces mislead explanation`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 45, listOf("Excessive subdomains"))
         val enriched = engine.enrich(assessment)
-        
-        assertTrue(enriched.riskFactorExplanations.any { 
+
+        assertTrue(enriched.riskFactorExplanations.any {
             it.contains("subdomain", ignoreCase = true)
         })
     }
@@ -164,8 +164,8 @@ class VerdictEngineTest {
     fun `credential flag produces harvesting explanation`() {
         val assessment = createAssessment(Verdict.MALICIOUS, 75, listOf("Credential parameters"))
         val enriched = engine.enrich(assessment)
-        
-        assertTrue(enriched.riskFactorExplanations.any { 
+
+        assertTrue(enriched.riskFactorExplanations.any {
             it.contains("credential", ignoreCase = true)
         })
     }
@@ -176,7 +176,7 @@ class VerdictEngineTest {
     fun `safe verdict has safety tips`() {
         val assessment = createAssessment(Verdict.SAFE, 10, emptyList())
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.safetyTips.isNotEmpty())
         assertTrue(enriched.safetyTips.size >= 2)
     }
@@ -185,7 +185,7 @@ class VerdictEngineTest {
     fun `suspicious verdict has safety tips`() {
         val assessment = createAssessment(Verdict.SUSPICIOUS, 50, listOf("HTTP"))
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.safetyTips.isNotEmpty())
         assertTrue(enriched.safetyTips.size >= 3)
     }
@@ -194,7 +194,7 @@ class VerdictEngineTest {
     fun `malicious verdict has safety tips`() {
         val assessment = createAssessment(Verdict.MALICIOUS, 90, listOf("Brand"))
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.safetyTips.isNotEmpty())
         assertTrue(enriched.safetyTips.any { it.contains("DO NOT", ignoreCase = true) || it.contains("not click", ignoreCase = true) })
     }
@@ -203,7 +203,7 @@ class VerdictEngineTest {
     fun `unknown verdict has safety tips`() {
         val assessment = createAssessment(Verdict.UNKNOWN, 0, emptyList())
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.safetyTips.isNotEmpty())
     }
 
@@ -214,7 +214,7 @@ class VerdictEngineTest {
         val flags = listOf("HTTP not HTTPS", "IP address", "Brand impersonation", "High-risk TLD")
         val assessment = createAssessment(Verdict.MALICIOUS, 95, flags)
         val enriched = engine.enrich(assessment)
-        
+
         assertEquals(flags.size, enriched.riskFactorExplanations.size)
     }
 
@@ -222,7 +222,7 @@ class VerdictEngineTest {
     fun `empty flags produces empty explanations`() {
         val assessment = createAssessment(Verdict.SAFE, 5, emptyList())
         val enriched = engine.enrich(assessment)
-        
+
         assertTrue(enriched.riskFactorExplanations.isEmpty())
     }
 

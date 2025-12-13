@@ -21,12 +21,12 @@ import com.qrshield.model.Verdict
 
 /**
  * Verdict Engine for QR-SHIELD
- * 
+ *
  * Generates human-readable explanations and recommendations
  * based on risk assessment results.
  */
 class VerdictEngine {
-    
+
     data class EnrichedVerdict(
         val verdict: Verdict,
         val summary: String,
@@ -34,7 +34,7 @@ class VerdictEngine {
         val riskFactorExplanations: List<String>,
         val safetyTips: List<String>
     )
-    
+
     /**
      * Generate enriched verdict with explanations
      */
@@ -44,7 +44,7 @@ class VerdictEngine {
         val recommendation = generateRecommendation(verdict)
         val explanations = generateExplanations(assessment.flags)
         val tips = generateSafetyTips(verdict)
-        
+
         return EnrichedVerdict(
             verdict = verdict,
             summary = summary,
@@ -53,73 +53,73 @@ class VerdictEngine {
             safetyTips = tips
         )
     }
-    
+
     private fun generateSummary(verdict: Verdict, score: Int): String {
         return when (verdict) {
-            Verdict.SAFE -> 
+            Verdict.SAFE ->
                 "This URL appears to be safe with a risk score of $score. " +
                 "No significant phishing indicators were detected."
-            
-            Verdict.SUSPICIOUS -> 
+
+            Verdict.SUSPICIOUS ->
                 "This URL has some suspicious characteristics with a risk score of $score. " +
                 "Several potential phishing indicators were found."
-            
-            Verdict.MALICIOUS -> 
+
+            Verdict.MALICIOUS ->
                 "This URL is likely malicious with a high risk score of $score. " +
                 "Multiple strong phishing indicators were detected."
-            
-            Verdict.UNKNOWN -> 
+
+            Verdict.UNKNOWN ->
                 "Unable to fully analyze this URL. " +
                 "The format may be unsupported or invalid."
         }
     }
-    
+
     private fun generateRecommendation(verdict: Verdict): String {
         return when (verdict) {
-            Verdict.SAFE -> 
+            Verdict.SAFE ->
                 "You can proceed to this URL. However, always verify that you're " +
                 "on the official website before entering any personal information."
-            
-            Verdict.SUSPICIOUS -> 
+
+            Verdict.SUSPICIOUS ->
                 "Proceed with caution. Verify the URL carefully, check for typos, " +
                 "and confirm the source before clicking. When in doubt, navigate " +
                 "directly to the official website instead."
-            
-            Verdict.MALICIOUS -> 
+
+            Verdict.MALICIOUS ->
                 "DO NOT visit this URL. It has strong indicators of being a " +
                 "phishing attempt. If you received this in a message, report it " +
                 "as spam or phishing."
-            
-            Verdict.UNKNOWN -> 
+
+            Verdict.UNKNOWN ->
                 "Could not analyze this URL. If you must visit it, use caution " +
                 "and verify through official channels first."
         }
     }
-    
+
     private fun generateExplanations(flags: List<String>): List<String> {
         return flags.map { flag ->
             when {
-                flag.contains("HTTP", ignoreCase = true) -> 
+                flag.contains("HTTP", ignoreCase = true) ->
                     "The URL uses HTTP instead of HTTPS, meaning data is not encrypted."
-                flag.contains("IP", ignoreCase = true) -> 
+                flag.contains("IP", ignoreCase = true) ->
                     "The URL uses an IP address instead of a domain name, which is unusual for legitimate sites."
-                flag.contains("Brand", ignoreCase = true) -> 
+                flag.contains("Brand", ignoreCase = true) ->
                     "The URL appears to impersonate a well-known brand, which is a common phishing tactic."
-                flag.contains("TLD", ignoreCase = true) -> 
+                flag.contains("TLD", ignoreCase = true) ->
                     "The domain uses a top-level domain commonly associated with malicious sites."
-                flag.contains("shortener", ignoreCase = true) -> 
+                flag.contains("shortener", ignoreCase = true) ->
                     "The URL uses a shortening service, hiding the actual destination."
-                flag.contains("subdomain", ignoreCase = true) -> 
+                flag.contains("subdomain", ignoreCase = true) ->
                     "The URL has an unusual number of subdomains, which can be used to mislead users."
-                flag.contains("credential", ignoreCase = true) -> 
+                flag.contains("credential", ignoreCase = true) ->
                     "The URL contains parameters that suggest credential harvesting."
-                flag.contains("long", ignoreCase = true) -> 
+                flag.contains("long", ignoreCase = true) ->
                     "The URL is unusually long, which can be used to hide the actual destination."
                 else -> flag
             }
         }
     }
-    
+
     private fun generateSafetyTips(verdict: Verdict): List<String> {
         return when (verdict) {
             Verdict.SAFE -> listOf(

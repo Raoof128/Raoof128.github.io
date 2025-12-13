@@ -120,7 +120,7 @@ class HomographDetectorTest {
     fun `multiple homograph chars increase score`() {
         val singleResult = detector.detect("pаypal.com")  // 1 Cyrillic char
         val multiResult = detector.detect("pаypаl.com")  // 2 Cyrillic chars
-        
+
         assertTrue(multiResult.score >= singleResult.score)
     }
 
@@ -142,7 +142,7 @@ class HomographDetectorTest {
     @Test
     fun `detected characters have position info`() {
         val result = detector.detect("pаypal.com")  // 'а' at position 1
-        
+
         assertTrue(result.detectedCharacters.isNotEmpty())
         val detected = result.detectedCharacters.first()
         assertTrue(detected.position >= 0)
@@ -151,17 +151,17 @@ class HomographDetectorTest {
     @Test
     fun `detected characters have unicode name`() {
         val result = detector.detect("gооgle.com")  // Cyrillic 'о'
-        
+
         val detected = result.detectedCharacters.first()
         assertTrue(detected.unicodeName.isNotEmpty())
-        assertTrue(detected.unicodeName.contains("Cyrillic", ignoreCase = true) || 
+        assertTrue(detected.unicodeName.contains("Cyrillic", ignoreCase = true) ||
                    detected.unicodeName.contains("Unicode", ignoreCase = true))
     }
 
     @Test
     fun `detected characters have lookalike info`() {
-        val result = detector.detect("pаypal.com")  
-        
+        val result = detector.detect("pаypal.com")
+
         val detected = result.detectedCharacters.first()
         assertEquals('a', detected.lookalike)
     }

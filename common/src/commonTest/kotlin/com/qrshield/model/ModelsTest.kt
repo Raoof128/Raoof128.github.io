@@ -95,7 +95,7 @@ class ModelsTest {
     @Test
     fun `risk assessment has action recommendation for unknown`() {
         val assessment = createAssessment(0, Verdict.UNKNOWN)
-        assertTrue(assessment.actionRecommendation.contains("verify", ignoreCase = true) || 
+        assertTrue(assessment.actionRecommendation.contains("verify", ignoreCase = true) ||
                    assessment.actionRecommendation.contains("unable", ignoreCase = true))
     }
 
@@ -201,7 +201,7 @@ class ModelsTest {
             scannedAt = 1234567890L,
             source = ScanSource.CAMERA
         )
-        
+
         assertEquals("123", item.id)
         assertEquals("https://google.com", item.url)
         assertEquals(10, item.score)

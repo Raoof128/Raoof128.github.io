@@ -23,23 +23,23 @@ import org.w3c.dom.Worker
 
 /**
  * Web SqlDriver Factory for SQLDelight.
- * 
+ *
  * Creates a Web Worker-based SQLite driver using sql.js.
  * Data is stored in browser IndexedDB for persistence.
- * 
+ *
  * NOTE: Requires sql.js worker script to be available.
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 actual class DatabaseDriverFactory {
-    
+
     /**
      * Create SqlDriver for Web/JS.
-     * 
+     *
      * Uses WebWorkerDriver for non-blocking database operations.
      * Falls back to in-memory if worker is not available.
-     * 
+     *
      * @return SqlDriver instance
      */
     actual fun createDriver(): SqlDriver {

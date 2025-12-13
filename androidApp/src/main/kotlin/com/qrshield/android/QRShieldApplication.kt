@@ -26,33 +26,33 @@ import org.koin.core.logger.Level
 
 /**
  * QR-SHIELD Android Application
- * 
+ *
  * Entry point for the Android application.
  * Initializes Koin dependency injection with all required modules.
- * 
+ *
  * Features:
  * - Koin DI initialization
  * - Production-ready logging configuration
  * - Android 16 compatibility
- * 
+ *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
  */
 class QRShieldApplication : Application() {
-    
+
     companion object {
         /** Check if running on Android 16+ */
         val isAndroid16OrHigher: Boolean
             get() = Build.VERSION.SDK_INT >= 35
-        
+
         /** Check if running on Android 12+ (dynamic colors) */
         val supportsDynamicColors: Boolean
             get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     }
-    
+
     override fun onCreate() {
         super.onCreate()
-        
+
         // Initialize Koin for dependency injection
         startKoin {
             // Use ERROR level logging in production for performance
@@ -60,10 +60,10 @@ class QRShieldApplication : Application() {
             androidLogger(
                 if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR
             )
-            
+
             // Provide Android context
             androidContext(this@QRShieldApplication)
-            
+
             // Load all modules
             modules(androidModule)
         }

@@ -18,38 +18,38 @@ package com.qrshield.engine
 
 /**
  * Homograph Attack Detector for QR-SHIELD
- * 
+ *
  * Detects IDN homograph attacks where Unicode characters
  * are used to impersonate Latin characters.
  */
 class HomographDetector {
-    
+
     data class HomographResult(
         val isHomograph: Boolean,
         val score: Int,
         val detectedCharacters: List<DetectedChar>,
         val punycode: String?
     )
-    
+
     data class DetectedChar(
         val char: Char,
         val position: Int,
         val unicodeName: String,
         val lookalike: Char
     )
-    
+
     /**
      * Detect homograph attacks in a domain name
      */
     fun detect(domain: String): HomographResult {
         val detectedChars = mutableListOf<DetectedChar>()
         var hasPunycode = false
-        
+
         // Check for punycode prefix
         if (domain.contains("xn--")) {
             hasPunycode = true
         }
-        
+
         // Scan each character for homographs
         domain.forEachIndexed { index, char ->
             val lookalike = findHomograph(char)
@@ -64,9 +64,9 @@ class HomographDetector {
                 )
             }
         }
-        
+
         val score = calculateScore(detectedChars, hasPunycode)
-        
+
         return HomographResult(
             isHomograph = detectedChars.isNotEmpty() || hasPunycode,
             score = score,
@@ -74,14 +74,14 @@ class HomographDetector {
             punycode = if (hasPunycode) domain else null
         )
     }
-    
+
     /**
      * Check if a character is a homograph lookalike
      */
     private fun findHomograph(char: Char): Char? {
         return HOMOGRAPH_MAP[char]
     }
-    
+
     /**
      * Get Unicode name for character (simplified)
      */
@@ -94,23 +94,23 @@ class HomographDetector {
             else -> "Unicode U+${char.code.toString(16).uppercase()}"
         }
     }
-    
+
     private fun calculateScore(detectedChars: List<DetectedChar>, hasPunycode: Boolean): Int {
         var score = 0
-        
+
         // Each homograph character adds points
         score += detectedChars.size * 15
-        
+
         // Punycode domains are suspicious
         if (hasPunycode) score += 20
-        
+
         // Multiple different scripts is very suspicious
         val scripts = detectedChars.map { it.unicodeName }.toSet()
         if (scripts.size > 1) score += 10
-        
+
         return score.coerceAtMost(50)
     }
-    
+
     companion object {
         /**
          * Map of confusable Unicode characters to their Latin lookalikes
@@ -127,7 +127,7 @@ class HomographDetector {
             'у' to 'y',  // Cyrillic Small Letter U
             'і' to 'i',  // Cyrillic Small Letter Byelorussian-Ukrainian I
             'ј' to 'j',  // Cyrillic Small Letter Je
-            
+
             // Cyrillic Capital lookalikes
             'А' to 'A',
             'В' to 'B',
@@ -140,13 +140,13 @@ class HomographDetector {
             'С' to 'C',
             'Т' to 'T',
             'Х' to 'X',
-            
+
             // Greek lookalikes
             'ο' to 'o',  // Greek Small Letter Omicron
             'α' to 'a',  // Greek Small Letter Alpha
             'ν' to 'v',  // Greek Small Letter Nu
             'τ' to 't',  // Greek Small Letter Tau
-            
+
             // Other common confusables
             'ı' to 'i',  // Latin Small Letter Dotless I
             'ɑ' to 'a',  // Latin Small Letter Alpha

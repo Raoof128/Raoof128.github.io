@@ -39,22 +39,22 @@ import com.qrshield.desktop.theme.QRShieldLightColors
 
 /**
  * QR-SHIELD Desktop Application Entry Point
- * 
+ *
  * A cross-platform desktop application for detecting phishing URLs.
- * 
+ *
  * Features:
  * - Dark/Light theme toggle with persistence
  * - Window size/position persistence
  * - Cross-platform preferences storage
  * - Modern Material 3 design with animations
  * - Glassmorphism effects
- * 
+ *
  * @author QR-SHIELD Team
  * @since 1.0.0
  */
 fun main() = application {
     val prefs = WindowPreferences.load()
-    
+
     val windowState = rememberWindowState(
         size = DpSize(prefs.width.dp, prefs.height.dp),
         position = if (prefs.x >= 0 && prefs.y >= 0) {
@@ -63,7 +63,7 @@ fun main() = application {
             WindowPosition.PlatformDefault
         }
     )
-    
+
     Window(
         onCloseRequest = {
             WindowPreferences.save(
@@ -83,7 +83,7 @@ fun main() = application {
 
 /**
  * Main application composable.
- * 
+ *
  * Orchestrates the phishing detection UI and manages application state.
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,15 +91,15 @@ fun main() = application {
 @Preview
 fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var isDarkMode by remember { mutableStateOf(initialDarkMode) }
-    
+
     // Phishing engine
     val phishingEngine = remember { PhishingEngine() }
-    
+
     var urlInput by remember { mutableStateOf("") }
     var analysisResult by remember { mutableStateOf<AnalysisResult?>(null) }
     var isAnalyzing by remember { mutableStateOf(false) }
     var scanHistory by remember { mutableStateOf<List<AnalysisResult>>(emptyList()) }
-    
+
     MaterialTheme(
         colorScheme = if (isDarkMode) QRShieldDarkColors else QRShieldLightColors
     ) {
@@ -115,7 +115,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     isDarkMode = isDarkMode,
                     onThemeToggle = { isDarkMode = !isDarkMode }
                 )
-                
+
                 // Main Content
                 Column(
                     modifier = Modifier
@@ -127,10 +127,10 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                 ) {
                     // Hero Section with animated shield
                     AnimatedHeroSection()
-                    
+
                     // Stats Row
                     StatsRow(scanCount = scanHistory.size)
-                    
+
                     // Scanner Card
                     EnhancedScannerCard(
                         urlInput = urlInput,
@@ -153,18 +153,18 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                             }
                         }
                     )
-                    
+
                     // Quick Actions
                     QuickActionsRow(
                         onPasteFromClipboard = {
                             // In a real app, implement clipboard access
                         },
-                        onClearInput = { 
+                        onClearInput = {
                             urlInput = ""
                             analysisResult = null
                         }
                     )
-                    
+
                     // Results
                     AnimatedVisibility(
                         visible = analysisResult != null,
@@ -175,10 +175,10 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                             EnhancedResultCard(result = result, isDarkMode = isDarkMode)
                         }
                     }
-                    
+
                     // Features Grid
                     EnhancedFeaturesGrid()
-                    
+
                     // Recent Scans
                     if (scanHistory.isNotEmpty()) {
                         RecentScansSection(
@@ -189,9 +189,9 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                             }
                         )
                     }
-                    
+
                     Spacer(modifier = Modifier.height(12.dp))
-                    
+
                     // Footer
                     EnhancedFooter()
                 }

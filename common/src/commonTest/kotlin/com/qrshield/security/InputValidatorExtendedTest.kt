@@ -271,7 +271,7 @@ class InputValidatorExtendedTest {
             "https://example.com",
             "http://test.com"
         )
-        
+
         urls.forEach { url ->
             val result = InputValidator.validateUrl(url)
             assertTrue(result.isValid(), "Failed for $url")
