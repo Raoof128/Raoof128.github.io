@@ -32,6 +32,8 @@ const HISTORY_KEY = 'qrshield_history';
 // Initialization
 // ==========================================
 
+const ONBOARDING_KEY = 'qrshield_onboarding_complete';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Load theme
     const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
@@ -40,6 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load history
     loadHistory();
+
+    // Show onboarding for first-time users
+    if (!localStorage.getItem(ONBOARDING_KEY)) {
+        showOnboarding();
+    }
+
+    // Setup onboarding event listeners
+    setupOnboarding();
 
     // Fallback if Kotlin hasn't loaded yet
     if (!window.qrshieldAnalyze) {
@@ -72,6 +82,9 @@ function updateThemeIcon(theme) {
 // Analysis Logic (Called by Kotlin/JS)
 // ==========================================
 
+// Store current analysis for share/report
+let currentAnalysis = { url: '', score: 0, verdict: '' };
+
 /**
  * Called by Main.kt when analysis is complete
  */
@@ -81,8 +94,17 @@ window.displayResult = (score, verdict, flags, url) => {
     analyzeBtn.innerHTML = '<span class="material-icons-round">search</span>Analyze URL';
     analyzeBtn.disabled = false;
 
+    // Store current analysis
+    currentAnalysis = { url, score, verdict };
+
     // Update Result Card
     updateResultCard(score, verdict, flags);
+
+    // Show/hide report button based on verdict
+    const reportBtn = document.getElementById('reportBtn');
+    if (reportBtn) {
+        reportBtn.style.display = (verdict === 'MALICIOUS' || verdict === 'SUSPICIOUS') ? 'flex' : 'none';
+    }
 
     // Show Result
     resultCard.classList.remove('hidden');
@@ -465,3 +487,163 @@ document.body.addEventListener('dragover', (e) => {
 document.body.addEventListener('drop', (e) => {
     e.preventDefault();
 });
+
+// ==========================================
+// Share & Report Functions
+// ==========================================
+
+/**
+ * Share scan result using Web Share API or clipboard
+ */
+window.shareResult = async () => {
+    const { url, score, verdict } = currentAnalysis;
+
+    const shareText = `🛡️ QR-SHIELD Analysis
+URL: ${url}
+Verdict: ${verdict}
+Risk Score: ${score}/100
+
+Scanned with QR-SHIELD - https://raoof128.github.io/`;
+
+    // Try Web Share API first
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'QR-SHIELD Scan Result',
+                text: shareText,
+                url: 'https://raoof128.github.io/'
+            });
+            showToast('Shared successfully!', 'success');
+            return;
+        } catch (err) {
+            // User cancelled or API failed, fallback to clipboard
+        }
+    }
+
+    // Fallback: copy to clipboard
+    try {
+        await navigator.clipboard.writeText(shareText);
+        showToast('Result copied to clipboard!', 'success');
+    } catch (err) {
+        showToast('Failed to share', 'error');
+    }
+};
+
+/**
+ * Report a phishing URL to security services
+ */
+window.reportPhishing = () => {
+    const { url, score, verdict } = currentAnalysis;
+
+    // Create mailto link for reporting
+    const subject = encodeURIComponent(`Phishing Report: ${url}`);
+    const body = encodeURIComponent(`I am reporting a suspected phishing URL detected by QR-SHIELD:
+
+URL: ${url}
+QR-SHIELD Verdict: ${verdict}
+Risk Score: ${score}/100
+Reported: ${new Date().toISOString()}
+
+This URL was flagged by QR-SHIELD's offline phishing detection engine.
+
+---
+Submitted via QR-SHIELD
+https://raoof128.github.io/
+`);
+
+    // Open PhishTank submission page for verified reports
+    const phishTankUrl = `https://phishtank.org/add_web_phish.php`;
+
+    // Create options for user
+    const reportOptions = `
+Would you like to report this URL?
+
+Options:
+1. PhishTank - Click OK to open submission page
+2. Email - Click Cancel to compose email
+
+URL: ${url}
+`;
+
+    if (confirm(reportOptions)) {
+        // Open PhishTank
+        window.open(phishTankUrl, '_blank');
+        showToast('Opening PhishTank...', 'info');
+    } else {
+        // Open email client
+        const mailtoUrl = `mailto:security@qr-shield.app?subject=${subject}&body=${body}`;
+        window.location.href = mailtoUrl;
+        showToast('Opening email client...', 'info');
+    }
+};
+
+// ==========================================
+// Onboarding Tutorial
+// ==========================================
+
+let currentSlide = 1;
+const totalSlides = 3;
+
+function showOnboarding() {
+    const modal = document.getElementById('onboardingModal');
+    if (modal) {
+        modal.classList.add('active');
+    }
+}
+
+function hideOnboarding() {
+    const modal = document.getElementById('onboardingModal');
+    if (modal) {
+        modal.classList.remove('active');
+        localStorage.setItem(ONBOARDING_KEY, 'true');
+    }
+}
+
+window.goToSlide = (slideNum) => {
+    currentSlide = slideNum;
+    updateOnboardingSlides();
+};
+
+function updateOnboardingSlides() {
+    // Update slides
+    document.querySelectorAll('.onboarding-slide').forEach((slide, index) => {
+        slide.classList.toggle('active', index + 1 === currentSlide);
+    });
+
+    // Update dots
+    document.querySelectorAll('.onboarding-dots .dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index + 1 === currentSlide);
+    });
+
+    // Update button text
+    const nextBtn = document.getElementById('nextOnboarding');
+    if (nextBtn) {
+        if (currentSlide === totalSlides) {
+            nextBtn.textContent = 'Get Started! 🚀';
+        } else {
+            nextBtn.textContent = 'Next →';
+        }
+    }
+}
+
+function setupOnboarding() {
+    const nextBtn = document.getElementById('nextOnboarding');
+    const skipBtn = document.getElementById('skipOnboarding');
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateOnboardingSlides();
+            } else {
+                hideOnboarding();
+            }
+        });
+    }
+
+    if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+            hideOnboarding();
+        });
+    }
+}

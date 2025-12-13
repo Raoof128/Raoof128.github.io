@@ -410,6 +410,29 @@ h3 {
     background: var(--bg-input);
 }
 
+/* Report Phishing Button */
+.btn-danger {
+    background: var(--color-danger);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 12px rgba(255, 61, 113, 0.25);
+}
+
+.btn-danger:hover {
+    background: #E6365F;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(255, 61, 113, 0.35);
+}
+
 .sample-url:hover {
     transform: scale(1.05);
 }
@@ -718,6 +741,100 @@ h3 {
 
 .modal-overlay.active .modal-content {
     transform: scale(1);
+}
+
+/* Onboarding Modal */
+.onboarding-modal {
+    max-width: 450px;
+    padding: 40px;
+}
+
+.onboarding-slide {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.onboarding-slide.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.onboarding-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.onboarding-modal h2 {
+    color: var(--color-primary);
+    margin-bottom: 12px;
+}
+
+.onboarding-modal p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.onboarding-features {
+    text-align: left;
+    background: var(--bg-input);
+    border-radius: var(--radius-md);
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.feature-item {
+    padding: 8px 0;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.feature-item+.feature-item {
+    border-top: 1px solid var(--border-color);
+}
+
+.onboarding-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border-color);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.dot.active {
+    background: var(--color-primary);
+    width: 24px;
+    border-radius: 5px;
+}
+
+.onboarding-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.onboarding-actions .btn-primary {
+    flex: 1;
 }
 
 .qr-viewport {
