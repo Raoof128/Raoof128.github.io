@@ -80,4 +80,30 @@
     <string name="try_again">Riprova</string>
     <string name="camera_permission_rationale">L\'accesso alla fotocamera è necessario per scansionare i codici QR</string>
     <string name="camera_permission_denied">Permesso fotocamera negato. Si prega di abilitare nelle impostazioni.</string>
+    
+    <!-- Accessibility (content descriptions) -->
+    <string name="cd_app_logo">Logo QR-SHIELD</string>
+    <string name="cd_scanner_preview">Anteprima fotocamera per scansione codici QR</string>
+    <string name="cd_close_scanner">Chiudi scanner</string>
+    <string name="cd_toggle_flash">Attiva/disattiva torcia</string>
+    <string name="cd_scan_result">Risultato scansione con verdetto e punteggio di rischio</string>
+    <string name="cd_scan_button">Avvia scansione codici QR</string>
+    <string name="cd_gallery_button">Seleziona immagine codice QR dalla galleria</string>
+    <string name="cd_copy_button">Copia URL negli appunti</string>
+    <string name="cd_share_button">Condividi URL</string>
+    <string name="cd_open_url">Apri URL nel browser</string>
+    <string name="cd_delete_item">Elimina questa scansione dalla cronologia</string>
+    <string name="cd_clear_history">Cancella tutta la cronologia</string>
+    <string name="cd_search_history">Cerca nella cronologia</string>
+    <string name="cd_filter_safe">Mostra solo scansioni sicure</string>
+    <string name="cd_filter_suspicious">Mostra solo scansioni sospette</string>
+    <string name="cd_filter_malicious">Mostra solo scansioni malevole</string>
+    <string name="cd_history_item">Elemento cronologia scansioni</string>
+    <string name="cd_settings_toggle">Attiva/disattiva impostazione</string>
+    <string name="cd_back_button">Torna indietro</string>
+    <string name="cd_processing">Elaborazione in corso, attendere</string>
+    <string name="cd_safe_verdict">URL sicuro da visitare</string>
+    <string name="cd_suspicious_verdict">URL sospetto, procedere con cautela</string>
+    <string name="cd_malicious_verdict">Attenzione, URL sembra essere un tentativo di phishing</string>
+    <string name="cd_risk_score">Punteggio di rischio su 100</string>
 </resources>

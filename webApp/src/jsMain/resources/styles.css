@@ -455,6 +455,53 @@ h3 {
     font-family: var(--font-mono);
 }
 
+/* Drop Zone */
+.drop-zone {
+    margin-top: 20px;
+    padding: 32px;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    text-align: center;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    background: var(--bg-input);
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+    border-color: var(--color-primary);
+    background: rgba(108, 92, 231, 0.05);
+}
+
+.drop-zone.drag-over {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+}
+
+.drop-icon {
+    font-size: 48px;
+    color: var(--text-tertiary);
+    margin-bottom: 12px;
+    display: block;
+}
+
+.drop-zone:hover .drop-icon,
+.drop-zone.drag-over .drop-icon {
+    color: var(--color-primary);
+}
+
+.drop-text {
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin: 0 0 4px 0;
+}
+
+.drop-hint {
+    color: var(--text-tertiary);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
 /* Result Card */
 .result-card {
     background: var(--bg-surface);

@@ -80,4 +80,30 @@
     <string name="try_again">다시 시도</string>
     <string name="camera_permission_rationale">QR 코드를 스캔하려면 카메라 접근이 필요합니다</string>
     <string name="camera_permission_denied">카메라 권한이 거부되었습니다. 설정에서 활성화하세요.</string>
+    
+    <!-- Accessibility (content descriptions) -->
+    <string name="cd_app_logo">QR-SHIELD 로고</string>
+    <string name="cd_scanner_preview">QR 코드 스캔을 위한 카메라 미리보기</string>
+    <string name="cd_close_scanner">스캐너 닫기</string>
+    <string name="cd_toggle_flash">플래시 전환</string>
+    <string name="cd_scan_result">판정 및 위험 점수가 표시된 스캔 결과</string>
+    <string name="cd_scan_button">QR 코드 스캔 시작</string>
+    <string name="cd_gallery_button">갤러리에서 QR 코드 이미지 선택</string>
+    <string name="cd_copy_button">URL 클립보드에 복사</string>
+    <string name="cd_share_button">URL 공유</string>
+    <string name="cd_open_url">브라우저에서 URL 열기</string>
+    <string name="cd_delete_item">히스토리에서 이 스캔 삭제</string>
+    <string name="cd_clear_history">모든 스캔 히스토리 삭제</string>
+    <string name="cd_search_history">스캔 히스토리 검색</string>
+    <string name="cd_filter_safe">안전한 스캔만 표시</string>
+    <string name="cd_filter_suspicious">의심스러운 스캔만 표시</string>
+    <string name="cd_filter_malicious">악성 스캔만 표시</string>
+    <string name="cd_history_item">스캔 히스토리 항목</string>
+    <string name="cd_settings_toggle">설정 전환</string>
+    <string name="cd_back_button">뒤로 가기</string>
+    <string name="cd_processing">처리 중, 잠시 기다려 주세요</string>
+    <string name="cd_safe_verdict">방문해도 안전한 URL</string>
+    <string name="cd_suspicious_verdict">의심스러운 URL, 주의해서 진행하세요</string>
+    <string name="cd_malicious_verdict">경고, URL이 악성 피싱 시도로 보입니다</string>
+    <string name="cd_risk_score">100점 만점의 위험 점수</string>
 </resources>

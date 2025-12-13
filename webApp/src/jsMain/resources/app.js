@@ -12,6 +12,9 @@ const themeToggle = document.getElementById('themeToggle');
 const urlInput = document.getElementById('urlInput');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const scanQrBtn = document.getElementById('scanQrBtn');
+const uploadQrBtn = document.getElementById('uploadQrBtn');
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
 const resultCard = document.getElementById('resultCard');
 const historyList = document.getElementById('historyList');
 const clearHistoryBtn = document.getElementById('clearHistoryBtn');
@@ -363,3 +366,102 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// ==========================================
+// Drag & Drop + File Upload
+// ==========================================
+
+// Upload button click
+uploadQrBtn?.addEventListener('click', () => {
+    fileInput?.click();
+});
+
+// Drop zone click
+dropZone?.addEventListener('click', () => {
+    fileInput?.click();
+});
+
+// File input change
+fileInput?.addEventListener('change', (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+        processImageFile(file);
+    }
+});
+
+// Drag events
+dropZone?.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+});
+
+dropZone?.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+});
+
+dropZone?.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+
+    const file = e.dataTransfer.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+        processImageFile(file);
+    } else {
+        showToast('Please drop an image file', 'error');
+    }
+});
+
+/**
+ * Process dropped/selected image file for QR code
+ */
+function processImageFile(file) {
+    showToast('Processing image...', 'info');
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+            // Draw to canvas
+            canvasElement.width = img.width;
+            canvasElement.height = img.height;
+            canvas.drawImage(img, 0, 0);
+
+            // Get image data
+            const imageData = canvas.getImageData(0, 0, img.width, img.height);
+
+            // Decode QR with jsQR
+            const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+            if (code) {
+                urlInput.value = code.data;
+                showToast('QR Code detected!', 'success');
+
+                // Auto-analyze
+                setTimeout(() => {
+                    if (window.qrshieldAnalyze) {
+                        window.qrshieldAnalyze(code.data);
+                    }
+                }, 300);
+            } else {
+                showToast('No QR code found in image', 'warning');
+            }
+        };
+        img.onerror = () => {
+            showToast('Failed to load image', 'error');
+        };
+        img.src = e.target.result;
+    };
+    reader.onerror = () => {
+        showToast('Failed to read file', 'error');
+    };
+    reader.readAsDataURL(file);
+}
+
+// Prevent default drag behavior on body
+document.body.addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+document.body.addEventListener('drop', (e) => {
+    e.preventDefault();
+});

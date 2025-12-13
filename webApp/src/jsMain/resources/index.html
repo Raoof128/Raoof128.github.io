@@ -101,7 +101,19 @@
                     <span class="material-icons-round">qr_code_scanner</span>
                     Scan QR
                 </button>
+                <button id="uploadQrBtn" class="btn-secondary">
+                    <span class="material-icons-round">image</span>
+                    Upload
+                </button>
             </div>
+
+            <!-- Drag & Drop Zone -->
+            <div id="dropZone" class="drop-zone">
+                <span class="material-icons-round drop-icon">cloud_upload</span>
+                <p class="drop-text">Drag & Drop QR code image here</p>
+                <p class="drop-hint">or click "Upload" to select a file</p>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" hidden>
 
             <!-- Try Now: Sample URLs for Judges -->
             <div class="try-now-section">
