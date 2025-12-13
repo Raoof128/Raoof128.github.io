@@ -1,6 +1,10 @@
 # QR-SHIELD: My Journey Building a Cross-Platform QRishing Detector
 
-## The Problem That Inspired Me
+> **"The UI intentionally exposes detection reasoning to avoid black-box security decisions."**
+
+---
+
+## 🚨 Why QR Phishing Matters NOW
 
 In early 2025, I watched my grandmother nearly fall victim to a QR code scam at a parking meter in Sydney. She scanned what appeared to be a legitimate payment code, only to land on a convincing phishing page mimicking her bank—complete with the right colors, logo, and that familiar "verify your details" prompt.
 
@@ -10,11 +14,78 @@ She squinted at the address bar: `paypa1-secure.tk`. She didn't see anything wro
 
 That moment crystallized a problem I'd been reading about: **QRishing attacks have increased 587% since 2023**, yet no mainstream solution exists to protect everyday users like my grandmother. The irony struck me—we've spent decades teaching people to hover over links before clicking, but QR codes bypass that instinct entirely. 71% of users never verify URLs after scanning. The attack vector is simple, effective, and devastating.
 
-## Why Kotlin Multiplatform?
+### The Perfect Storm
+
+| Factor | Why It Matters |
+|--------|----------------|
+| **Post-pandemic adoption** | QR codes are now ubiquitous (restaurants, payments, boarding passes) |
+| **Implicit trust** | Users treat QR codes as inherently safe—they look official |
+| **Hidden URLs** | Unlike hyperlinks, you can't "hover" over a QR code |
+| **Low barrier for attackers** | Free domains, free QR generators, printable stickers |
+| **High-value targets** | Banking, payments, healthcare—sensitive transactions |
+
+---
+
+## 🔒 Why OFFLINE Detection is Critical
+
+Building a phishing detector that works offline was the core challenge. Cloud-based solutions like Google Safe Browsing are effective, but they have fundamental limitations:
+
+### The Privacy Problem
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  WHAT CLOUD SCANNERS KNOW ABOUT YOU                             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Every URL you scan reveals:                                     │
+│  • Which banks you use                                           │
+│  • Which doctors you visit                                       │
+│  • Which lawyers you consult                                     │
+│  • Where you park, shop, eat                                     │
+│  • Your travel patterns and habits                               │
+│                                                                  │
+│  This data can be:                                               │
+│  • Sold to advertisers                                           │
+│  • Subpoenaed by governments                                     │
+│  • Leaked in data breaches                                       │
+│  • Used for targeted attacks                                     │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### The Availability Problem
+
+QR codes appear in places without reliable internet:
+- Underground parking garages
+- Remote hiking trails (trailhead info)
+- Airplane mode during flights
+- Developing regions with spotty connectivity
+
+**If your security tool needs internet to work, it fails when you need it most.**
+
+### Our Solution
+
+QR-SHIELD performs all analysis **100% on-device**. No URL ever leaves your phone. The privacy isn't a feature—it's the architecture. We sacrifice some detection power (no real-time blocklists) for absolute privacy. For most users, that trade-off is correct.
+
+---
+
+## 🧩 Why Kotlin Multiplatform is the RIGHT Solution
 
 I chose Kotlin Multiplatform because security shouldn't depend on which device you own. My grandmother uses an iPhone. My father uses Android. My younger sister browses on a Chromebook. A phishing attack targeting one is equally dangerous to all, yet most security solutions are platform-siloed.
 
+### The KMP Advantage
+
 KMP allowed me to write the detection engine once and deploy everywhere—sharing **100% of my business logic** across Android, iOS, Desktop, and Web. When I fix a bug in the phishing heuristics, every platform gets the fix. When I add detection for a new attack pattern, everyone is protected immediately.
+
+| Without KMP | With KMP |
+|-------------|----------|
+| 4 separate codebases | 1 shared + 4 thin UI layers |
+| Bug fixed 4 times | Bug fixed once, deployed everywhere |
+| Feature parity drift | Guaranteed consistency |
+| 4x maintenance burden | Focused optimization |
+| Platform-specific bugs | Shared testing, shared quality |
+
+### Technical Challenges Conquered
 
 The technical challenge was exhilarating:
 
