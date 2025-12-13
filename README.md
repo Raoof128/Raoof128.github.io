@@ -47,8 +47,82 @@
 
 ---
 
+## 🧑‍⚖️ Judges: Start Here (60 seconds)
+
+> **TL;DR:** QR-SHIELD is a Kotlin Multiplatform security app that detects QRishing (QR code phishing) attacks across **4 platforms** using a single shared codebase.
+
+### 📱 What It Does
+Scans QR codes in real-time, extracts embedded URLs, and uses **25+ security heuristics** + **ML-lite scoring** to detect phishing attempts—all **100% offline, zero network requests**.
+
+### 🌐 Platforms Supported
+| Platform | Technology | Run Command |
+|----------|------------|-------------|
+| **Android** | Compose + ML Kit | `./gradlew :androidApp:installDebug` |
+| **iOS** | SwiftUI + AVFoundation | Open `iosApp/QRShield.xcodeproj` → ⌘R |
+| **Desktop** | Compose Desktop (JVM) | `./gradlew :desktopApp:run` |
+| **Web** | Kotlin/JS + jsQR | [🌐 Live Demo](https://raoof128.github.io/) or `./gradlew :webApp:jsBrowserRun` |
+
+### 🧪 Sample Malicious QR Payloads (Test These!)
+```
+❌ MALICIOUS (Score ~85+):
+   https://paypa1-secure.tk/login
+   https://commbank.ml/verify-account
+   https://pаypаl.com/signin  (← Cyrillic 'а' homograph!)
+
+⚠️ SUSPICIOUS (Score ~40-70):
+   https://bit.ly/3xYz123
+   http://192.168.1.100/admin
+   https://login-secure-bank.xyz
+
+✅ SAFE (Score <30):
+   https://google.com
+   https://github.com
+   https://www.apple.com
+```
+
+### 📤 Expected Output
+```
+┌─────────────────────────────────────────────────────┐
+│  URL: https://paypa1-secure.tk/login                │
+│  ─────────────────────────────────────────────────  │
+│  Score: 87/100                                      │
+│  Verdict: ❌ MALICIOUS                              │
+│  ─────────────────────────────────────────────────  │
+│  Risk Signals Detected:                             │
+│  • BRAND_IMPERSONATION (+35) - "paypal" fuzzy match │
+│  • SUSPICIOUS_TLD (+25) - ".tk" high-risk TLD       │
+│  • TYPOSQUATTING (+15) - "paypa1" edit distance=1   │
+│  • HTTP_REDIRECT (+12) - Path suggests login flow   │
+└─────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📸 Key Screens (Judge Preview)
+
+> **Visual overview of QR-SHIELD's detection capabilities and cross-platform UI.**
+
+### 🔴 High-Risk QR Detection Screen
+<!-- PLACEHOLDER: Add screenshot showing a detected malicious URL with score 85+ -->
+![High-Risk Detection](docs/screenshots/high_risk_detection.png)
+*Detection of homograph attack on "paypal" using Cyrillic characters*
+
+### 🧠 Explainable Signal Breakdown
+<!-- PLACEHOLDER: Add screenshot showing the detailed risk factor breakdown -->
+![Signal Breakdown](docs/screenshots/signal_breakdown.png)
+*25+ heuristic signals with weighted scores and explanations*
+
+### 📱 Cross-Platform UI Consistency
+<!-- PLACEHOLDER: Add side-by-side comparison of Android, iOS, Desktop, Web -->
+![Cross Platform](docs/screenshots/cross_platform_comparison.png)
+*Same shared detection engine powering Android, iOS, Desktop, and Web*
+
+---
+
 ## 📋 Table of Contents
 
+- [🧑‍⚖️ Judges: Start Here](#-judges-start-here-60-seconds)
+- [📸 Key Screens](#-key-screens-judge-preview)
 - [Download](#-download-now)
 - [The Problem](#-the-problem-qrishing-is-exploding)
 - [Why This Matters](#-why-this-matters)
