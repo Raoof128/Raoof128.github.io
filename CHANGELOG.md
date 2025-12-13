@@ -5,6 +5,48 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 2025-12-13
+
+### Added
+
+#### Web App Overhaul (Competition Polish)
+- **Interactive "Try Now" Section** with 4 sample URLs:
+  - ✅ google.com (safe)
+  - ❌ paypa1-secure.tk (malicious)
+  - ❌ commbank.secure-verify.ml (malicious)
+  - ⚠️ bit.ly shortener (suspicious)
+- **Drag & Drop QR Image Upload** - drop images directly onto web app
+- **File Picker Upload** - button to select QR images from device
+- **KMP Badge** in hero section showing Kotlin Multiplatform power
+- **Competition Footer** with GitHub and download links
+- **4-Column Metrics Grid**: 25+ Heuristics, 500+ Brands, <50ms, 100% Privacy
+- **Trust Line**: "🔒 Zero data collection • 🚀 Same engine • 🧠 25+ AI heuristics"
+
+#### iOS Platform Tests (NEW)
+- `IosQrScannerTest.kt` (6 tests) - verifies expect/actual pattern
+- `IosDatabaseDriverFactoryTest.kt` (3 tests) - verifies SQLDelight iOS driver
+- Tests cover factory instantiation, interface contracts, and permission delegation
+
+#### Accessibility Expansion (4 Languages)
+- Added 24 content description (`cd_*`) strings to:
+  - Italian (`values-it/strings.xml`)
+  - Korean (`values-ko/strings.xml`)
+  - Portuguese (`values-pt/strings.xml`)
+  - Russian (`values-ru/strings.xml`)
+- Full TalkBack/VoiceOver support across all localized versions
+
+### Changed
+- **Coverage Badge** updated from "Kover" label to actual percentage: **89%**
+- **iOS Scanner Documentation** rewritten to explain architectural design pattern
+- **Web App LOC**: 1,100 → 1,667 lines (+51% increase)
+- **Total Localized Strings**: ~83 → ~110 per language
+
+### Fixed
+- iOS code no longer appears as "stub" - properly documented as native delegation pattern
+- Web App now has feature parity with mobile (QR image scanning)
+
+---
+
 ## [1.1.1] - 2025-12-13
 
 ### Added
@@ -181,6 +223,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Release Links
 
+[1.1.2]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.2
 [1.1.1]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.1
 [1.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.0.0

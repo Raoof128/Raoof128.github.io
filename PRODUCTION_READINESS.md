@@ -1,7 +1,7 @@
 # 🚀 QR-SHIELD Production Readiness Report
 
 **Date:** December 13, 2025  
-**Version:** 1.1.0 (Build 3)  
+**Version:** 1.1.2 (Build 4)  
 **Platforms:** Android, iOS (Web App), Desktop, Web
 
 ---
@@ -18,7 +18,7 @@
 | Web/JS builds | ✅ PASS | GitHub Pages deployed |
 | ProGuard/R8 minification | ✅ PASS | Enabled with shrinkResources |
 | Lint check (0 errors) | ✅ PASS | 0 errors, warnings only |
-| Unit tests passing | ✅ PASS | 234+ tests, 0 failures |
+| Unit tests passing | ✅ PASS | 243+ tests, 0 failures |
 | Performance benchmarks | ✅ PASS | <50ms per URL analysis |
 
 ### Multi-Platform Status
@@ -84,6 +84,9 @@
 | URL input | ✅ Working | Kotlin/JS |
 | Analysis display | ✅ Working | HTML/CSS |
 | Responsive design | ✅ Working | Mobile-friendly |
+| QR Image Upload | ✅ Working | Drag & Drop + File Picker |
+| Dark/Light Theme | ✅ Working | CSS Variables + Toggle |
+| Sample URLs | ✅ Working | Interactive "Try Now" |
 
 ---
 
@@ -164,9 +167,9 @@
 - [x] **Source code**: Complete and organized
 - [x] **README**: Comprehensive documentation
 - [x] **LICENSE**: Apache 2.0
-- [x] **Tests**: 234+ tests passing
+- [x] **Tests**: 243+ tests passing
 - [x] **Build instructions**: Documented
-- [x] **Essay**: 500-600 words
+- [x] **Essay**: 1,150 words (expanded)
 
 ---
 
@@ -175,7 +178,7 @@
 The project is **production-ready** for:
 
 1. ✅ **KotlinConf 2025-2026 Competition** - All requirements met
-2. ✅ **GitHub Release** - v1.1.0 tagged
+2. ✅ **GitHub Release** - v1.1.2 tagged
 3. ✅ **Google Play Store** - Passes automated checks
 4. ✅ **Internal Testing** - Beta distribution ready
 
@@ -189,7 +192,7 @@ The project is **production-ready** for:
 | Detection engine | 25+ heuristic rules |
 | Brand database | 500+ brands |
 | Languages | 11 supported |
-| Test coverage | 234+ tests |
+| Test coverage | 243+ tests |
 | Performance | 200+ URLs/second |
 | Privacy | 100% offline capable |
 

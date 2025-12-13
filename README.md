@@ -24,7 +24,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/ci.yml?style=for-the-badge&logo=github&label=CI)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Coverage](https://img.shields.io/badge/Coverage-89%25-brightgreen?style=for-the-badge&logo=codecov)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Detekt](https://img.shields.io/badge/Lint-Detekt-orange?style=for-the-badge)](detekt.yml)
-[![Version](https://img.shields.io/badge/Version-1.1.1-green?style=for-the-badge)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/Version-1.1.2-green?style=for-the-badge)](CHANGELOG.md)
 
 **Scan QR codes. Detect phishing. Stay protected on Android, iOS, Desktop, and Web.**
 

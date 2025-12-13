@@ -15,8 +15,8 @@ android {
         applicationId = "com.qrshield.android"
         minSdk = 26
         targetSdk = 35  // Android 16
-        versionCode = 2  // Incremented for release
-        versionName = "1.1.0"
+        versionCode = 4  // v1.1.2 release
+        versionName = "1.1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         
