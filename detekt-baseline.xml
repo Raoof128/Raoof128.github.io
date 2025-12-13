@@ -1,0 +1,258 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ClassOrdering:AndroidQrScanner.kt$AndroidQrScanner$Companion</ID>
+    <ID>ClassOrdering:BrandDatabaseLoader.kt$ConfigurableBrandDetector$/** * Get number of brands in database. */ val brandCount: Int get() = brandDatabase.size</ID>
+    <ID>ClassOrdering:BrandDatabaseLoader.kt$ConfigurableBrandDetector$fun detect(url: String): BrandDetector.DetectionResult</ID>
+    <ID>ClassOrdering:BrandDetector.kt$BrandDetector$Companion</ID>
+    <ID>ClassOrdering:DatabaseDriverFactory.kt$DatabaseDriverFactory$Companion</ID>
+    <ID>ClassOrdering:DatabaseDriverFactory.kt$DatabaseDriverFactory$actual fun createDriver(): SqlDriver</ID>
+    <ID>ClassOrdering:DesktopQrScanner.kt$DesktopQrScanner$Companion</ID>
+    <ID>ClassOrdering:FeatureExtractor.kt$FeatureExtractor$Companion</ID>
+    <ID>ClassOrdering:HeuristicWeightsConfig.kt$HeuristicWeightsConfig$Companion</ID>
+    <ID>ClassOrdering:HistoryRepository.kt$InMemoryHistoryRepository$Companion</ID>
+    <ID>ClassOrdering:LogisticRegressionModel.kt$LogisticRegressionModel$Companion</ID>
+    <ID>ClassOrdering:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$fun create(weights: FloatArray, bias: Float): LogisticRegressionModel</ID>
+    <ID>ClassOrdering:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$fun default(): LogisticRegressionModel</ID>
+    <ID>ClassOrdering:PhishingEngine.kt$PhishingEngine$Companion</ID>
+    <ID>ClassOrdering:QRShieldApplication.kt$QRShieldApplication$override fun onCreate()</ID>
+    <ID>ClassOrdering:SharedViewModel.kt$SharedViewModel$val settings: StateFlow&lt;AppSettings&gt; = settingsDataSource.settings .stateIn( scope = coroutineScope, started = SharingStarted.Eagerly, initialValue = AppSettings() )</ID>
+    <ID>ClassOrdering:UrlAnalyzer.kt$UrlAnalyzer$Companion</ID>
+    <ID>ClassOrdering:WebQrScanner.kt$WebQrScanner$Companion</ID>
+    <ID>CognitiveComplexMethod:AndroidQrScanner.kt$AndroidQrScanner$@androidx.camera.core.ExperimentalGetImage override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>CognitiveComplexMethod:CameraPreview.kt$@Composable fun CameraPreview( modifier: Modifier = Modifier, scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER, cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA, onQrCodeScanned: ((String) -&gt; Unit)? = null, onCameraError: ((String) -&gt; Unit)? = null )</ID>
+    <ID>CognitiveComplexMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
+    <ID>CognitiveComplexMethod:ScannerScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ScannerScreen()</ID>
+    <ID>CognitiveComplexMethod:WebQrScanner.kt$WebQrScanner$override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>CollapsibleIfStatements:CameraPreview.kt$if (now - lastScan &gt; debounceMs) { // Set processing flag before callback if (isProcessing.compareAndSet(false, true)) { lastScannedCode[content] = now try { onQrCodeScanned?.invoke(content) } finally { // FIX: Always reset the processing flag after callback // This was the critical bug causing scanning to stop isProcessing.set(false) } } }</ID>
+    <ID>CollapsibleIfStatements:InputValidator.kt$InputValidator$if (!validHostPattern.matches(trimmed) &amp;&amp; !isValidIpAddress(trimmed)) { // Allow punycode domains if (!trimmed.contains("xn--")) { return ValidationResult.Invalid( "Invalid hostname format", ErrorCode.INVALID_HOST ) } }</ID>
+    <ID>CyclomaticComplexMethod:BrandDatabaseLoader.kt$BrandDatabaseLoader$private fun parseBrandDatabase(json: String): Map&lt;String, BrandDatabase.BrandConfig&gt;</ID>
+    <ID>CyclomaticComplexMethod:CameraPreview.kt$@Composable fun CameraPreview( modifier: Modifier = Modifier, scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER, cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA, onQrCodeScanned: ((String) -&gt; Unit)? = null, onCameraError: ((String) -&gt; Unit)? = null )</ID>
+    <ID>CyclomaticComplexMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
+    <ID>CyclomaticComplexMethod:PhishingEngine.kt$PhishingEngine$private fun determineVerdict( score: Int, heuristicResult: HeuristicsEngine.Result, brandResult: BrandDetector.DetectionResult, tldResult: TldScorer.TldResult ): Verdict</ID>
+    <ID>CyclomaticComplexMethod:ResultCard.kt$@Composable fun ResultCard( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>CyclomaticComplexMethod:ScannerComponents.kt$@Composable fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean)</ID>
+    <ID>CyclomaticComplexMethod:ScannerScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ScannerScreen()</ID>
+    <ID>CyclomaticComplexMethod:UrlAnalyzer.kt$UrlAnalyzer$fun isIpv6Address(host: String): Boolean</ID>
+    <ID>CyclomaticComplexMethod:UrlAnalyzer.kt$UrlAnalyzer$fun parse(url: String): ParsedUrl?</ID>
+    <ID>CyclomaticComplexMethod:UrlParser.kt$UrlParser$fun isIpv6(host: String): Boolean</ID>
+    <ID>CyclomaticComplexMethod:UrlParser.kt$UrlParser$fun parseComponents(url: String): UrlComponents?</ID>
+    <ID>CyclomaticComplexMethod:WebQrScanner.kt$WebQrScanner$override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>FunctionNaming:CameraPermissionScreen.kt$@Composable fun CameraPermissionScreen( permissionState: CameraPermissionState, onRequestPermission: () -&gt; Unit, onOpenSettings: () -&gt; Unit, onDismiss: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CameraPermissionScreen.kt$@Composable fun CameraPrivacyCard( modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CameraPermissionScreen.kt$@Composable private fun PermissionRequestContent( icon: String, title: String, description: String, primaryButtonText: String, onPrimaryClick: () -&gt; Unit, secondaryButtonText: String?, onSecondaryClick: (() -&gt; Unit)? )</ID>
+    <ID>FunctionNaming:CameraPreview.kt$@Composable fun CameraPreview( modifier: Modifier = Modifier, scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER, cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA, onQrCodeScanned: ((String) -&gt; Unit)? = null, onCameraError: ((String) -&gt; Unit)? = null )</ID>
+    <ID>FunctionNaming:CommonComponents.kt$@Composable fun AnimatedHeroSection()</ID>
+    <ID>FunctionNaming:CommonComponents.kt$@Composable fun EnhancedFooter()</ID>
+    <ID>FunctionNaming:CommonComponents.kt$@Composable fun EnhancedTopAppBar( isDarkMode: Boolean, onThemeToggle: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:CommonComponents.kt$@Composable fun FeatureCard( icon: String, title: String, description: String, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CommonComponents.kt$@Composable fun StatCard( value: String, label: String, icon: String, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:CommonComponents.kt$@Composable fun StatsRow(scanCount: Int)</ID>
+    <ID>FunctionNaming:HistoryScreen.kt$@Composable private fun EmptyHistoryState(hasFilters: Boolean)</ID>
+    <ID>FunctionNaming:HistoryScreen.kt$@Composable private fun HistoryItemCard( url: String, score: Int, verdict: Verdict, scannedAt: Long, onCopyUrl: () -&gt; Unit, onDelete: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:HistoryScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun HistoryScreen()</ID>
+    <ID>FunctionNaming:Main.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable @Preview fun QRShieldDesktopApp(initialDarkMode: Boolean = true)</ID>
+    <ID>FunctionNaming:Navigation.kt$@Composable fun QRShieldBottomNavBar( navController: NavHostController )</ID>
+    <ID>FunctionNaming:Navigation.kt$@Composable fun QRShieldNavHost( navController: NavHostController, modifier: Modifier = Modifier )</ID>
+    <ID>FunctionNaming:Navigation.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun QRShieldNavigation()</ID>
+    <ID>FunctionNaming:QRShieldApp.kt$@Composable fun QRShieldApp()</ID>
+    <ID>FunctionNaming:QRShieldWidget.kt$QRShieldWidget$@Composable private fun LargeWidgetLayout()</ID>
+    <ID>FunctionNaming:QRShieldWidget.kt$QRShieldWidget$@Composable private fun MediumWidgetLayout()</ID>
+    <ID>FunctionNaming:QRShieldWidget.kt$QRShieldWidget$@Composable private fun QRShieldWidgetContent()</ID>
+    <ID>FunctionNaming:QRShieldWidget.kt$QRShieldWidget$@Composable private fun SmallWidgetLayout()</ID>
+    <ID>FunctionNaming:ResultCard.kt$@Composable fun ResultCard( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerComponents.kt$@Composable fun EnhancedFeaturesGrid()</ID>
+    <ID>FunctionNaming:ScannerComponents.kt$@Composable fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean)</ID>
+    <ID>FunctionNaming:ScannerComponents.kt$@Composable fun EnhancedScannerCard( urlInput: String, onUrlChange: (String) -&gt; Unit, isAnalyzing: Boolean, onAnalyze: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerComponents.kt$@Composable fun QuickActionsRow( onPasteFromClipboard: () -&gt; Unit, onClearInput: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerComponents.kt$@Composable fun RecentScanItem( scan: AnalysisResult, onClick: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerComponents.kt$@Composable fun RecentScansSection( scans: List&lt;AnalysisResult&gt;, onScanClick: (AnalysisResult) -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerOverlay.kt$@Composable fun ScannerOverlay( modifier: Modifier = Modifier, scanAreaRatio: Float = 0.75f, cornerColor: Color = Color(0xFF00D68F), // Neon Green laserColor: Color = Color(0xFF00D68F) )</ID>
+    <ID>FunctionNaming:ScannerScreen.kt$@Composable private fun AnalyzingContent(url: String)</ID>
+    <ID>FunctionNaming:ScannerScreen.kt$@Composable private fun ErrorContent( message: String, onRetry: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerScreen.kt$@Composable private fun IdleContent( scanCount: Int, onScanClick: () -&gt; Unit, onGalleryClick: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerScreen.kt$@Composable private fun ProcessingOverlay()</ID>
+    <ID>FunctionNaming:ScannerScreen.kt$@Composable private fun ResultContent( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerScreen.kt$@Composable private fun ScanningContent( onQrCodeScanned: (String) -&gt; Unit, onClose: () -&gt; Unit, onGalleryClick: () -&gt; Unit, isFlashOn: Boolean, onFlashToggle: () -&gt; Unit, cameraError: String?, onCameraError: (String) -&gt; Unit )</ID>
+    <ID>FunctionNaming:ScannerScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ScannerScreen()</ID>
+    <ID>FunctionNaming:SettingsScreen.kt$@Composable private fun PlatformBadge(text: String, color: Color)</ID>
+    <ID>FunctionNaming:SettingsScreen.kt$@Composable private fun SettingsClickable( icon: ImageVector, title: String, subtitle: String, onClick: () -&gt; Unit, trailing: @Composable (() -&gt; Unit)? = null )</ID>
+    <ID>FunctionNaming:SettingsScreen.kt$@Composable private fun SettingsInfo( icon: ImageVector, title: String, value: String )</ID>
+    <ID>FunctionNaming:SettingsScreen.kt$@Composable private fun SettingsSection(title: String)</ID>
+    <ID>FunctionNaming:SettingsScreen.kt$@Composable private fun SettingsToggle( icon: ImageVector, title: String, subtitle: String, checked: Boolean, onCheckedChange: (Boolean) -&gt; Unit )</ID>
+    <ID>FunctionNaming:SettingsScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun SettingsScreen()</ID>
+    <ID>FunctionNaming:Theme.kt$@Composable fun QRShieldTheme( darkTheme: Boolean = isSystemInDarkTheme(), // Dynamic color is available on Android 12+ (default enabled on Android 16) dynamicColor: Boolean = Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.S, content: @Composable () -&gt; Unit )</ID>
+    <ID>InvalidPackageDeclaration:Main.kt$package com.qrshield.web</ID>
+    <ID>LongMethod:AndroidQrScanner.kt$AndroidQrScanner$@androidx.camera.core.ExperimentalGetImage override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>LongMethod:AndroidQrScanner.kt$AndroidQrScanner$suspend fun scanFromUri(uri: Uri): ScanResult</ID>
+    <ID>LongMethod:BrandDatabase.kt$BrandDatabase$private fun buildBrandDatabase(): Map&lt;String, BrandConfig&gt;</ID>
+    <ID>LongMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
+    <ID>LongMethod:ShareManager.kt$ShareManager$fun generateHtmlReport(url: String, assessment: RiskAssessment): String</ID>
+    <ID>LongMethod:WebQrScanner.kt$WebQrScanner$override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>LongParameterList:CameraPermissionScreen.kt$( icon: String, title: String, description: String, primaryButtonText: String, onPrimaryClick: () -&gt; Unit, secondaryButtonText: String?, onSecondaryClick: (() -&gt; Unit)? )</ID>
+    <ID>LongParameterList:HistoryScreen.kt$( url: String, score: Int, verdict: Verdict, scannedAt: Long, onCopyUrl: () -&gt; Unit, onDelete: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>LongParameterList:ResultCard.kt$( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>LongParameterList:ScannerScreen.kt$( onQrCodeScanned: (String) -&gt; Unit, onClose: () -&gt; Unit, onGalleryClick: () -&gt; Unit, isFlashOn: Boolean, onFlashToggle: () -&gt; Unit, cameraError: String?, onCameraError: (String) -&gt; Unit )</ID>
+    <ID>LongParameterList:ScannerScreen.kt$( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>LoopWithTooManyJumpStatements:BrandDatabaseLoader.kt$BrandDatabaseLoader$while</ID>
+    <ID>MagicNumber:AndroidQrScanner.kt$AndroidQrScanner$4096</ID>
+    <ID>MagicNumber:CameraPermissionScreen.kt$0.8f</ID>
+    <ID>MagicNumber:CameraPreview.kt$2000L</ID>
+    <ID>MagicNumber:Colors.kt$QRShieldColors$70</ID>
+    <ID>MagicNumber:CommonComponents.kt$2000</ID>
+    <ID>MagicNumber:CommonComponents.kt$64</ID>
+    <ID>MagicNumber:DesktopQrScanner.kt$DesktopQrScanner$1024</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$1024</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$11</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$13</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$15</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$255</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$256</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$7</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$9</ID>
+    <ID>MagicNumber:HistoryRepository.kt$ScanHistoryManager$2048</ID>
+    <ID>MagicNumber:HistoryRepository.kt$ScanHistoryManager$9999</ID>
+    <ID>MagicNumber:HistoryRepository.kt$SqlDelightHistoryRepository$1000</ID>
+    <ID>MagicNumber:HistoryRepository.kt$SqlDelightHistoryRepository$2048</ID>
+    <ID>MagicNumber:HistoryScreen.kt$0xFF13171F</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x0370</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x03FF</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x0400</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x04FF</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x0530</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x058F</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x10A0</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x10FF</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$15</ID>
+    <ID>MagicNumber:InputValidator.kt$InputValidator$253</ID>
+    <ID>MagicNumber:InputValidator.kt$InputValidator$255</ID>
+    <ID>MagicNumber:InputValidator.kt$InputValidator$63</ID>
+    <ID>MagicNumber:LogisticRegressionModel.kt$LogisticRegressionModel$10f</ID>
+    <ID>MagicNumber:Main.kt$40</ID>
+    <ID>MagicNumber:Main.kt$9</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$0xFF0D1117</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.02f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.15f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.2f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.3f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.99f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$256</ID>
+    <ID>MagicNumber:RedirectChainSimulator.kt$RedirectChainSimulator$15</ID>
+    <ID>MagicNumber:ResultCard.kt$1000</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFF00D68F</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFF8B949E</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFFFF3D71</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFFFFAA00</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$0xFF00D68F</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$1.5f</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$1200</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$1800</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$2200</ID>
+    <ID>MagicNumber:ScannerScreen.kt$150</ID>
+    <ID>MagicNumber:ScannerScreen.kt$1500</ID>
+    <ID>MagicNumber:SettingsScreen.kt$0xFF13171F</ID>
+    <ID>MagicNumber:SharedViewModel.kt$SharedViewModel$2048</ID>
+    <ID>MagicNumber:SharedViewModel.kt$SharedViewModel$9999</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$1024</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$15</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$255</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$256</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$45</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$512</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$65535</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$1024</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$15</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$255</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$45</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$65535</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$9</ID>
+    <ID>MagicNumber:WebQrScanner.kt$WebQrScanner$1024</ID>
+    <ID>MatchingDeclarationName:CameraPermissionScreen.kt$CameraPermissionState</ID>
+    <ID>MatchingDeclarationName:DesktopTheme.kt$DesktopColors</ID>
+    <ID>MatchingDeclarationName:Gradients.kt$QRShieldGradients</ID>
+    <ID>MatchingDeclarationName:Icons.kt$QRShieldIcons</ID>
+    <ID>MatchingDeclarationName:Navigation.kt$Screen</ID>
+    <ID>MatchingDeclarationName:Typography.kt$QRShieldTypography</ID>
+    <ID>MaxLineLength:BrandDatabase.kt$BrandDatabase$combosquats = listOf("microsoft-login", "microsoft-account", "office-login", "microsoft-security", "office365-login")</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Camera permission was denied. Please enable it in your device settings to use QR scanning."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "QR-SHIELD needs camera access to scan QR codes and protect you from phishing attacks."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "This device doesn't have a camera available. You can still analyze URLs by entering them manually or importing QR code images."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Without camera access, QR-SHIELD cannot scan QR codes. Please grant permission to continue."</ID>
+    <ID>MaxLineLength:CameraPreview.kt$// FIX: Always reset the processing flag after callback</ID>
+    <ID>MaxLineLength:CameraPreview.kt$// This was the critical bug causing scanning to stop</ID>
+    <ID>MaxLineLength:CameraPreview.kt$@file:Suppress("DEPRECATION")</ID>
+    <ID>MaxLineLength:ErrorMessages.kt$ErrorMessages.Scanner$const val CAMERA_PERMISSION_DENIED = "Camera access is required to scan QR codes. Please enable camera permission in settings."</ID>
+    <ID>MaxLineLength:ImageProcessingUtils.kt$ImageProcessingUtils$content.startsWith("BEGIN:VEVENT", ignoreCase = true) -&gt; ContentType.TEXT</ID>
+    <ID>MaxLineLength:ScannerOverlay.kt$quadraticBezierTo(left + scanAreaSize, top + scanAreaSize, left + scanAreaSize - cornerRadius, top + scanAreaSize)</ID>
+    <ID>MaxLineLength:WebQrScanner.kt$WebQrScanner$"jsQR library not loaded. Add: &lt;script src=\"https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js\"&gt;&lt;/script&gt;"</ID>
+    <ID>MaxLineLength:WebQrScanner.kt$WebQrScanner$val constraints = js("{video: {facingMode: 'environment', width: {ideal: $VIDEO_WIDTH}, height: {ideal: $VIDEO_HEIGHT}}}")</ID>
+    <ID>MaxLineLength:WebQrScanner.kt$WebQrScanner$val streamPromise: Promise&lt;MediaStream&gt; = mediaDevices.getUserMedia(constraints).unsafeCast&lt;Promise&lt;MediaStream&gt;&gt;()</ID>
+    <ID>NestedBlockDepth:BrandDatabaseLoader.kt$BrandDatabaseLoader$private fun findMatchingBrace(json: String, openPos: Int): Int</ID>
+    <ID>ReturnCount:BrandDetector.kt$BrandDetector$fun detect(url: String): DetectionResult</ID>
+    <ID>ReturnCount:BrandDetector.kt$BrandDetector$private fun levenshteinDistance(s1: String, s2: String): Int</ID>
+    <ID>ReturnCount:InputValidator.kt$InputValidator$fun validateHostname(host: String?): ValidationResult&lt;String&gt;</ID>
+    <ID>ReturnCount:InputValidator.kt$InputValidator$fun validateUrl(url: String?): ValidationResult&lt;String&gt;</ID>
+    <ID>ReturnCount:PhishingEngine.kt$PhishingEngine$private fun determineVerdict( score: Int, heuristicResult: HeuristicsEngine.Result, brandResult: BrandDetector.DetectionResult, tldResult: TldScorer.TldResult ): Verdict</ID>
+    <ID>ReturnCount:UrlAnalyzer.kt$UrlAnalyzer$fun isIpv6Address(host: String): Boolean</ID>
+    <ID>ReturnCount:UrlAnalyzer.kt$UrlAnalyzer$fun parse(url: String): ParsedUrl?</ID>
+    <ID>ReturnCount:UrlParser.kt$UrlParser$fun isIpv6(host: String): Boolean</ID>
+    <ID>ReturnCount:UrlParser.kt$UrlParser$fun parseComponents(url: String): UrlComponents?</ID>
+    <ID>SwallowedException:AndroidQrScanner.kt$AndroidQrScanner$e: OutOfMemoryError</ID>
+    <ID>SwallowedException:AndroidQrScanner.kt$AndroidQrScanner$e: SecurityException</ID>
+    <ID>SwallowedException:BrandDatabaseLoader.kt$BrandDatabaseLoader$e: Exception</ID>
+    <ID>SwallowedException:CameraPreview.kt$e: Exception</ID>
+    <ID>SwallowedException:DesktopQrScanner.kt$DesktopQrScanner$e: NotFoundException</ID>
+    <ID>SwallowedException:HeuristicWeightsConfig.kt$HeuristicWeightsConfig.Companion$e: Exception</ID>
+    <ID>SwallowedException:HistoryRepository.kt$SqlDelightHistoryRepository$e: Exception</ID>
+    <ID>SwallowedException:ImageProcessingUtils.kt$ImageProcessingUtils$e: Exception</ID>
+    <ID>SwallowedException:InputValidator.kt$InputValidator$e: Exception</ID>
+    <ID>SwallowedException:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$e: Exception</ID>
+    <ID>SwallowedException:RedirectChainSimulator.kt$RedirectChainSimulator$e: Exception</ID>
+    <ID>SwallowedException:UrlAnalyzer.kt$UrlAnalyzer$e: Exception</ID>
+    <ID>SwallowedException:WebQrScanner.kt$WebQrScanner$e: Exception</ID>
+    <ID>SwallowedException:WindowPreferences.kt$WindowPreferences$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidQrScanner.kt$AndroidQrScanner$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:BrandDatabaseLoader.kt$BrandDatabaseLoader$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:CameraPreview.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:CameraPreview.kt$exc: Exception</ID>
+    <ID>TooGenericExceptionCaught:DesktopQrScanner.kt$DesktopQrScanner$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:HeuristicWeightsConfig.kt$HeuristicWeightsConfig.Companion$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:HistoryRepository.kt$SqlDelightHistoryRepository$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ImageProcessingUtils.kt$ImageProcessingUtils$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:InputValidator.kt$InputValidator$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:Main.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:RedirectChainSimulator.kt$RedirectChainSimulator$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SoundManager.kt$SoundManager$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:UrlAnalyzer.kt$UrlAnalyzer$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:WebQrScanner.kt$WebQrScanner$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:WindowPreferences.kt$WindowPreferences$e: Exception</ID>
+    <ID>UnderscoresInNumericLiterals:UrlAnalyzer.kt$UrlAnalyzer$65535</ID>
+    <ID>UnderscoresInNumericLiterals:UrlParser.kt$UrlParser$65535</ID>
+    <ID>UnusedImports:AndroidQrScanner.kt$import androidx.camera.core.Preview</ID>
+    <ID>UnusedImports:DesktopQrScanner.kt$import kotlinx.coroutines.delay</ID>
+    <ID>UnusedImports:HistoryRepository.kt$import kotlin.math.min</ID>
+    <ID>UnusedImports:HistoryScreen.kt$import androidx.compose.ui.platform.LocalContext</ID>
+    <ID>UnusedImports:IosQrScanner.kt$import com.qrshield.model.ContentType</ID>
+    <ID>UnusedImports:QRShieldWidget.kt$import androidx.glance.appwidget.action.actionRunCallback</ID>
+    <ID>UnusedImports:QRShieldWidget.kt$import com.qrshield.android.R</ID>
+    <ID>UnusedImports:ResultCard.kt$import androidx.compose.ui.graphics.Color</ID>
+    <ID>UnusedImports:ScannerOverlay.kt$import androidx.compose.ui.graphics.BlendMode</ID>
+    <ID>UnusedImports:ScannerScreen.kt$import androidx.compose.ui.graphics.LinearGradientShader</ID>
+    <ID>UnusedImports:Typography.kt$import androidx.compose.ui.text.font.Font</ID>
+    <ID>UnusedImports:WebQrScanner.kt$import org.w3c.dom.mediacapture.MediaStreamConstraints</ID>
+    <ID>UnusedPrivateProperty:DesktopQrScanner.kt$DesktopQrScanner.Companion$/** Frame rate for webcam scanning (if implemented) */ private const val FRAME_DELAY_MS = 100L</ID>
+    <ID>UnusedPrivateProperty:WebQrScanner.kt$WebQrScanner$val blob = js("new Blob([new Uint8Array(imageBytes)], {type: 'image/png'})")</ID>
+    <ID>UseCheckOrError:AndroidQrScanner.kt$AndroidQrScanner$throw IllegalStateException("Context must be LifecycleOwner")</ID>
+    <ID>WildcardImport:HistoryScreen.kt$import com.qrshield.android.ui.theme.*</ID>
+    <ID>WildcardImport:Main.kt$import com.qrshield.desktop.components.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.appwidget.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.layout.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.text.*</ID>
+    <ID>WildcardImport:ResultCard.kt$import com.qrshield.android.ui.theme.*</ID>
+    <ID>WildcardImport:ScannerScreen.kt$import com.qrshield.android.ui.theme.*</ID>
+    <ID>WildcardImport:SettingsScreen.kt$import com.qrshield.android.ui.theme.*</ID>
+  </CurrentIssues>
+</SmellBaseline>

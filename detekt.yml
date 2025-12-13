@@ -1,8 +1,11 @@
 # Detekt Configuration for QR-SHIELD
 # Static code analysis for Kotlin
+#
+# Strategy: Zero tolerance for NEW issues. Existing issues tracked in detekt-baseline.xml
+# and will be fixed incrementally. This prevents regression while allowing deadline flexibility.
 
 build:
-  maxIssues: 300  # Threshold adjusted for competition deadline
+  maxIssues: 0  # Zero tolerance for production quality
   excludeCorrectable: false
   weights:
     complexity: 2
@@ -12,7 +15,7 @@ build:
 
 config:
   validation: true
-  warningsAsErrors: false
+  warningsAsErrors: true
   checkExhaustiveness: false
 
 processors:
@@ -69,7 +72,7 @@ complexity:
     includePrivateDeclarations: false
   CyclomaticComplexMethod:
     active: true
-    threshold: 25  # Increased for URL parsing complexity
+    threshold: 15  # Standard complexity threshold
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
     ignoreNestingFunctions: false
@@ -90,7 +93,7 @@ complexity:
     threshold: 600
   LongMethod:
     active: true
-    threshold: 150  # Compose functions are naturally longer
+    threshold: 60  # Standard method length
     ignoreAnnotated:
       - 'Composable'
   LongParameterList:
@@ -439,12 +442,9 @@ style:
     active: false
   ForbiddenComment:
     active: false  # Allow TODO/FIXME during development
-    values:
-      - 'FIXME:'
-      - 'STOPSHIP:'
-      - 'TODO:'
-    allowedPatterns: ''
-    customMessage: ''
+    comments:
+      - reason: 'Should not be committed'
+        value: 'STOPSHIP:'
   ForbiddenImport:
     active: false
   ForbiddenMethodCall:
@@ -506,7 +506,7 @@ style:
     ignoreEnums: true
     ignoreRanges: false
     ignoreExtensionFunctions: true
-  MandatoryBracesIfStatements:
+  BracesOnIfStatements:
     active: false
   MandatoryBracesLoops:
     active: false
