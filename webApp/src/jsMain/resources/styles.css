@@ -974,6 +974,35 @@ h3 {
     animation: spin 0.8s linear infinite;
 }
 
+/* Keyboard Hint (Desktop) */
+.keyboard-hint {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin-top: 16px;
+    opacity: 0.7;
+}
+
+kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-shadow: 0 2px 0 var(--border-color);
+    margin: 0 2px;
+}
+
+/* Hide keyboard hint on mobile (touch devices) */
+@media (max-width: 800px),
+(hover: none) {
+    .keyboard-hint {
+        display: none;
+    }
+}
+
 /* Responsive */
 @media (max-width: 800px) {
     .metrics-grid {

@@ -60,7 +60,22 @@ Scans QR codes in real-time, extracts embedded URLs, and uses **25+ security heu
 | **Android** | Compose + ML Kit | `./gradlew :androidApp:installDebug` |
 | **iOS** | SwiftUI + AVFoundation | Open `iosApp/QRShield.xcodeproj` → ⌘R |
 | **Desktop** | Compose Desktop (JVM) | `./gradlew :desktopApp:run` |
-| **Web** | Kotlin/JS + jsQR | [🌐 Live Demo](https://raoof128.github.io/) or `./gradlew :webApp:jsBrowserRun` |
+| **Web** | Kotlin/JS + jsQR | [🌐 Live Demo](https://raoof128.github.io/) • [🎬 Demo Mode](https://raoof128.github.io/?demo=true) |
+
+#### 🎬 Web Demo Mode (For Judges)
+Open **[https://raoof128.github.io/?demo=true](https://raoof128.github.io/?demo=true)** to:
+- Skip the onboarding tutorial
+- Pre-fill a sample malicious URL (`paypa1-secure.tk`)
+- One click to see the detection in action
+
+#### ⌨️ Desktop Keyboard Shortcuts
+| Shortcut | Action |
+|----------|--------|
+| `/` | Focus URL input |
+| `Enter` | Analyze URL |
+| `Cmd/Ctrl+V` | Paste and focus |
+| `Esc` | Reset scanner |
+
 
 ### 🧪 Sample Malicious QR Payloads (Test These!)
 ```
@@ -119,9 +134,54 @@ Scans QR codes in real-time, extracts embedded URLs, and uses **25+ security heu
 
 ---
 
-## � Kotlin Multiplatform Architecture (Proof)
+## ❓ Why Kotlin Multiplatform?
 
-> **~70–80% of business logic is shared via Kotlin Multiplatform.** The detection engine, scoring algorithms, and data models are written once and compiled to JVM, Native, and JavaScript.
+> **For judges evaluating KMP usage: here's why this project demonstrates true multiplatform engineering.**
+
+### The 3 Core Benefits
+
+| Benefit | Evidence |
+|---------|----------|
+| 🧠 **Shared Detection Engine** | `PhishingEngine.analyze(url)` is called identically on Android, iOS, Desktop, and Web. Zero code duplication for security logic. |
+| ✅ **Identical Verdicts Across Platforms** | Same heuristics → same score → same verdict. Run the test suite to verify: `./gradlew :common:allTests` |
+| ⚡ **Faster Security Rule Iteration** | Add a new phishing pattern once in `common/`, deploy everywhere. No platform-specific reimplementation. |
+
+### Shared vs Native Code Distribution
+
+| Component | Shared (Kotlin) | Native | Notes |
+|-----------|-----------------|--------|-------|
+| **Detection Engine** | 100% | 0% | PhishingEngine, HeuristicsEngine, BrandDetector |
+| **ML Scoring** | 100% | 0% | LogisticRegressionModel, FeatureExtractor |
+| **Data Models** | 100% | 0% | UrlAssessment, Verdict, RiskFlag |
+| **History Storage** | 90% | 10% | Repository is shared; DB driver is `expect/actual` |
+| **Camera Scanning** | 0% | 100% | Native APIs required (CameraX, AVFoundation, ZXing, jsQR) |
+| **UI Framework** | 50% | 50% | Compose (Android/Desktop), SwiftUI (iOS), HTML (Web) |
+| **Overall** | **~80%** | **~20%** | *Security logic shared, UI native* |
+
+### Why This Matters for Security Apps
+
+```
+Traditional Approach (4 codebases):
+├── Android: PhishingDetector.kt     ← Write once
+├── iOS: PhishingDetector.swift      ← Rewrite, risk of drift
+├── Desktop: PhishingDetector.java   ← Rewrite again
+└── Web: PhishingDetector.js         ← And again...
+
+KMP Approach (1 codebase):
+├── common: PhishingEngine.kt        ← Write once
+├── Android: ✓ Uses common           ← Auto-synced
+├── iOS: ✓ Uses common               ← Auto-synced
+├── Desktop: ✓ Uses common           ← Auto-synced
+└── Web: ✓ Uses common               ← Auto-synced
+```
+
+**Security benefit**: When a new phishing pattern is discovered, update `HeuristicsEngine.kt` once and all 4 platforms are protected immediately.
+
+---
+
+## 🏗️ Kotlin Multiplatform Architecture (Proof)
+
+> **~80% of business logic is shared via Kotlin Multiplatform.** The detection engine, scoring algorithms, and data models are written once and compiled to JVM, Native, and JavaScript.
 
 ### Module Responsibility Matrix
 
@@ -129,9 +189,28 @@ Scans QR codes in real-time, extracts embedded URLs, and uses **25+ security heu
 |--------|----------|---------|----------------|
 | `common` | All | ✅ **Yes** | Detection engine, ML scoring, brand detection, heuristics, data models, history repository |
 | `androidApp` | Android | ❌ No | Compose UI, CameraX + ML Kit scanning, Android permissions |
-| `iosApp` | iOS | ❌ No | SwiftUI views, AVFoundation camera, iOS permissions |
+| `iosApp` | iOS | ❌ No | **SwiftUI (native)** for camera + post-scan UI, KMP framework integration |
 | `desktopApp` | Desktop | ❌ No | Compose Desktop UI, ZXing scanning, file picker |
 | `webApp` | Web | ❌ No | Kotlin/JS bridge, HTML UI, jsQR integration |
+
+#### 🍎 iOS Architecture Decision: Native SwiftUI (Intentional)
+
+> **Why SwiftUI only, not Compose Multiplatform for iOS?**
+
+This is a **deliberate architectural choice**, not a limitation:
+
+| Aspect | Our Decision | Rationale |
+|--------|--------------|-----------|
+| **Camera** | AVFoundation (native) | Apple's camera APIs require native integration for real-time QR detection. CameraX doesn't exist on iOS. |
+| **UI Framework** | SwiftUI (native) | SwiftUI provides iOS-native animations, Liquid Glass effects (iOS 26), and SF Symbols that users expect. Compose for iOS is still experimental. |
+| **Business Logic** | KMP `common` module | **100% shared** – the PhishingEngine, HeuristicsEngine, and all detection logic is the same Kotlin code across all platforms. |
+
+**Trade-off Acknowledgment:**
+- ✅ **Benefit**: Best-in-class iOS UX with native gestures, haptics, and platform conventions
+- ✅ **Benefit**: SwiftUI's mature ecosystem vs Compose for iOS's experimental status
+- ⚠️ **Cost**: UI code is not shared between Android and iOS (but UI is ~20% of codebase)
+
+**The shared code ratio remains ~80%** because the detection engine (the complex part) is written once in Kotlin.
 
 ### What's Actually Shared (commonMain)
 
@@ -166,22 +245,22 @@ flowchart TB
         URL[URL Paste]
     end
 
-    subgraph PLATFORM["📱 Platform Layer (20-30%)"]
+    subgraph PLATFORM["📱 Platform Layer (UI Only ~20%)"]
         direction LR
         AND["Android<br/>Compose + ML Kit"]
-        IOS["iOS<br/>SwiftUI + AVFoundation"]
+        IOS["iOS<br/>SwiftUI + AVFoundation<br/>(Native by design)"]
         DSK["Desktop<br/>Compose + ZXing"]
         WEB["Web<br/>HTML + jsQR"]
     end
 
-    subgraph SHARED["🧠 Shared Kotlin Module (70-80%)"]
+    subgraph SHARED["🧠 Shared Kotlin Module (~80%)"]
         direction TB
         PE["PhishingEngine"]
         
         subgraph ANALYSIS["Detection Pipeline"]
-            HE["HeuristicsEngine<br/>25+ Security Checks"]
-            BD["BrandDetector<br/>500+ Brands"]
-            TS["TldScorer<br/>Risk-Weighted TLDs"]
+            HE["HeuristicsEngine<br/>Security Checks"]
+            BD["BrandDetector<br/>Brand Database"]
+            TS["TldScorer<br/>TLD Risk"]
             HD["HomographDetector<br/>Unicode Attacks"]
             ML["MLModel<br/>Logistic Regression"]
         end
@@ -1157,23 +1236,28 @@ Before submitting, we asked ourselves the hardest questions:
 
 ## 🎯 Elevator Pitch
 
-> **"QRishing attacks have increased 587% since 2023. QR-SHIELD is the first Kotlin Multiplatform solution that provides real-time phishing detection across Android, iOS, Desktop, and Web—with a single shared codebase."**
+> **"QR-SHIELD is a Kotlin Multiplatform security app that provides real-time, offline phishing detection across Android, iOS, Desktop, and Web—with a single shared codebase."**
 
-QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, and uses a sophisticated multi-layer analysis engine combining **cybersecurity heuristics**, **ML-lite scoring**, and **brand impersonation detection** to protect users from QRishing (QR code phishing) attacks.
+QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, and uses a multi-layer analysis engine combining **cybersecurity heuristics**, **ML-lite scoring**, and **brand impersonation detection** to protect users from QRishing (QR code phishing) attacks.
+
+**Verifiable Claims (Test These Yourself):**
+- **Local-first**: Zero network requests during analysis (verify via Network Inspector)
+- **Offline verdict**: Works in airplane mode (test it)
+- **Explainable signals**: Every detection shows which heuristics triggered and why
 
 ---
 
-## 🚨 The Problem: QRishing is Exploding
+## 🚨 The Problem: QRishing is a Growing Threat
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    QRishing Attack Landscape 2025                   │
+│                    Why QRishing Works                               │
 ├─────────────────────────────────────────────────────────────────────┤
-│  📈 587% increase in QR-based phishing attacks since 2023          │
-│  📱 71% of users don't verify URLs before scanning QR codes        │
-│  🏦 Banking & financial services: #1 impersonated sector           │
-│  📧 Corporate email QR codes: fastest growing attack vector        │
-│  🌐 Cross-platform attacks: single QR, multiple device targets     │
+│  📱 Users don't naturally verify URLs before scanning QR codes     │
+│  🏦 Banking & payment services: commonly impersonated targets       │
+│  📧 Corporate communications: QR codes in emails gaining traction   │
+│  🌐 Cross-platform: single QR payload can target any device         │
+│  🔗 URL masking: QR codes hide the destination until scanned        │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 

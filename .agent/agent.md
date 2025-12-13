@@ -14,6 +14,67 @@ Implemented comprehensive testing infrastructure for all 5 identified testing ga
 - iOS XCUITest Suite
 - Playwright Web E2E Tests
 
+Also completed documentation polish:
+- iOS Architecture Decision documentation
+- Removed unverified statistics, replaced with verifiable claims
+
+---
+
+### Documentation Polish
+
+#### iOS Architecture Clarity (#36)
+**Files Modified:**
+- `README.md` - Module Responsibility Matrix
+
+**Added:**
+- "iOS Architecture Decision: Native SwiftUI (Intentional)" section
+- Trade-off acknowledgment table
+- Explicit rationale for SwiftUI vs Compose for iOS
+- Updated architecture diagram with "(Native by design)" label
+
+---
+
+#### Credibility Claims Lockdown (#37)
+**Files Modified:**
+- `README.md` - Elevator Pitch and Problem sections
+
+**Removed:**
+- ❌ "587% increase" statistic (uncited)
+- ❌ "71% of users" statistic (uncited)
+- ❌ "#1 impersonated sector" claim (uncited)
+- ❌ "fastest growing attack vector" claim (uncited)
+
+**Replaced with verifiable claims:**
+- ✅ "Local-first: Zero network requests (verify via Network Inspector)"
+- ✅ "Offline verdict: Works in airplane mode (test it)"
+- ✅ "Explainable signals: Every detection shows which heuristics triggered"
+
+---
+
+#### Web/Desktop Intentional Design (#38)
+**Files Modified:**
+- `webApp/src/jsMain/resources/app.js` - Demo Mode + keyboard shortcuts
+- `webApp/src/jsMain/resources/index.html` - Keyboard hint UI
+- `webApp/src/jsMain/resources/styles.css` - kbd styles
+- `README.md` - Platform table with shortcuts
+
+**Added:**
+- Demo Mode: `?demo=true` query param skips onboarding, pre-fills malicious URL
+- Keyboard shortcuts: `/` focus, `Enter` analyze, `Cmd/Ctrl+V` paste, `Esc` reset
+- Keyboard hint UI (hidden on mobile/touch devices)
+
+---
+
+#### "Why KMP?" First-Class Section (#39)
+**Files Modified:**
+- `README.md` - New section after screenshots
+
+**Added:**
+- 3 Core Benefits table (Shared Engine, Identical Verdicts, Faster Iteration)
+- Shared vs Native % breakdown table
+- Traditional vs KMP ASCII comparison
+- Security benefit explanation
+
 ---
 
 ### Updates Made

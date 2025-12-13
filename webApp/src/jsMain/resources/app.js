@@ -51,6 +51,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup onboarding event listeners
     setupOnboarding();
 
+    // Demo Mode: Auto-fill sample URL if ?demo=true
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('demo') === 'true') {
+        // Skip onboarding in demo mode
+        localStorage.setItem(ONBOARDING_KEY, 'true');
+        hideOnboarding();
+
+        // Pre-fill a sample malicious URL for judges
+        urlInput.value = 'https://paypa1-secure.tk/login';
+        urlInput.focus();
+
+        // Show helpful toast
+        setTimeout(() => {
+            showToast('🎬 Demo Mode: Click "Analyze URL" to see detection', 'info');
+        }, 500);
+    }
+
+    // Keyboard shortcuts
+    setupKeyboardShortcuts();
+
     // Fallback if Kotlin hasn't loaded yet
     if (!window.qrshieldAnalyze) {
         window.qrshieldAnalyze = (url) => {
@@ -59,6 +79,53 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 });
+
+// ==========================================
+// Keyboard Shortcuts (Desktop-friendly)
+// ==========================================
+
+function setupKeyboardShortcuts() {
+    // Enter key to analyze (when input focused)
+    urlInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && urlInput.value.trim()) {
+            e.preventDefault();
+            if (window.qrshieldAnalyze) {
+                window.qrshieldAnalyze(urlInput.value.trim());
+            }
+        }
+    });
+
+    // Global keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Cmd/Ctrl + V when not in input = focus and paste
+        if ((e.metaKey || e.ctrlKey) && e.key === 'v' && document.activeElement !== urlInput) {
+            e.preventDefault();
+            urlInput.focus();
+            navigator.clipboard.readText().then(text => {
+                if (text) {
+                    urlInput.value = text;
+                    showToast('URL pasted - press Enter to analyze', 'info');
+                }
+            }).catch(() => {
+                // Fallback: just focus the input
+                showToast('Press Cmd/Ctrl+V again to paste', 'info');
+            });
+        }
+
+        // Escape to reset
+        if (e.key === 'Escape') {
+            if (!resultCard.classList.contains('hidden')) {
+                window.resetScanner();
+            }
+        }
+
+        // Forward slash to focus input (like many search UIs)
+        if (e.key === '/' && document.activeElement !== urlInput) {
+            e.preventDefault();
+            urlInput.focus();
+        }
+    });
+}
 
 // ==========================================
 // Theme Handling
