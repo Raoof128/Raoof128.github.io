@@ -139,6 +139,46 @@ Also completed documentation polish:
 
 ---
 
+#### Counterfactual Insights (#44)
+**Files Modified:**
+- `webApp/src/jsMain/resources/app.js` - Signal database with counterfactuals
+
+**Added:**
+- "💡 What would reduce this?" row in every signal explanation
+- 13 counterfactual hints (e.g., "If domain matched brand exactly, score drops by ~35 points")
+- Green-highlighted counterfactual row in expanded signal cards
+
+---
+
+#### Accessibility Polish (#45)
+**Files Modified:**
+- `webApp/src/jsMain/resources/styles.css` - Accessibility improvements
+- `webApp/src/jsMain/resources/index.html` - Viewport meta fix
+
+**Added:**
+- WCAG 2.1 AA compliant contrast ratios (darkened text colors)
+- `prefers-reduced-motion` support (disables animations)
+- Text scaling support (18px base on large screens)
+- Focus-visible outlines for keyboard navigation
+- Removed `user-scalable=no` for accessibility
+
+---
+
+#### Polished PWA Artifact (#46)
+**Files Modified:**
+- `webApp/src/jsMain/resources/manifest.json` - Enhanced manifest
+- `webApp/src/jsMain/resources/sw.js` - New service worker
+- `webApp/src/jsMain/resources/index.html` - SW registration
+
+**Features:**
+- Full offline support via service worker
+- App shortcuts for quick "Scan URL" action
+- Categories: security, utilities, productivity
+- Stale-while-revalidate caching strategy
+- PWA installable on Chrome/Safari/Edge
+
+---
+
 ### Updates Made
 
 #### 1. Mutation Testing Setup (#31)

@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Accessibility: Allow text scaling, maintain zoom capabilities -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="QR-SHIELD Web - AI-powered phishing detection running entirely in your browser. Scan and analyze URLs for security threats.">
     <meta name="theme-color" content="#6C5CE7">
@@ -138,7 +139,8 @@
                     </button>
                 </div>
                 <p class="keyboard-hint">⌨️ Tip: Press <kbd>/</kbd> to focus, <kbd>Enter</kbd> to analyze,
-                    <kbd>Esc</kbd> to reset</p>
+                    <kbd>Esc</kbd> to reset
+                </p>
             </div>
         </main>
 
@@ -276,6 +278,17 @@
     <script src="webApp.js"></script>
     <!-- UI Logic -->
     <script src="app.js"></script>
+
+    <!-- Service Worker Registration (PWA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker registration failed:', err));
+            });
+        }
+    </script>
 </body>
 
 </html>

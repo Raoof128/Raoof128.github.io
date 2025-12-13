@@ -253,6 +253,10 @@ function updateResultCard(score, verdict, flags) {
                         <span class="signal-label">Risk impact:</span>
                         <span class="signal-value">${signalInfo.riskImpact}</span>
                     </div>
+                    <div class="signal-row counterfactual-row">
+                        <span class="signal-label">💡 What would reduce this?</span>
+                        <span class="signal-value">${signalInfo.counterfactual}</span>
+                    </div>
                 </div>
             `;
             riskContainer.appendChild(div);
@@ -284,7 +288,7 @@ function updateResultCard(score, verdict, flags) {
 function getSignalExplanation(flag) {
     const flagLower = flag.toLowerCase();
 
-    // Map of signals with full explanations
+    // Map of signals with full explanations + counterfactual hints
     const signals = {
         'brand': {
             name: 'Brand Impersonation',
@@ -292,7 +296,8 @@ function getSignalExplanation(flag) {
             severity: 'high',
             whatItChecks: 'Domain contains or mimics a known brand name (PayPal, Amazon, etc.)',
             whyItMatters: 'Attackers create domains that look like trusted brands to steal credentials',
-            riskImpact: '+30-40 points — This is a primary phishing indicator'
+            riskImpact: '+30-40 points — This is a primary phishing indicator',
+            counterfactual: 'If this were the official brand domain (paypal.com), this signal would not trigger and score would drop by ~35 points.'
         },
         'typo': {
             name: 'Typosquatting',
@@ -300,7 +305,8 @@ function getSignalExplanation(flag) {
             severity: 'high',
             whatItChecks: 'Domain uses common misspellings or character substitutions (paypa1, amaz0n)',
             whyItMatters: 'Users may not notice subtle character swaps like "1" for "l" or "0" for "o"',
-            riskImpact: '+20-30 points — Deliberate deception technique'
+            riskImpact: '+20-30 points — Deliberate deception technique',
+            counterfactual: 'If the domain spelled the brand correctly without substitutions, score would drop by ~25 points.'
         },
         'homograph': {
             name: 'Homograph Attack',
@@ -308,7 +314,8 @@ function getSignalExplanation(flag) {
             severity: 'critical',
             whatItChecks: 'URL contains Cyrillic, Greek, or other lookalike Unicode characters',
             whyItMatters: 'Characters like Cyrillic "а" look identical to Latin "a" but are different',
-            riskImpact: '+40-50 points — Advanced attack requiring intentional deception'
+            riskImpact: '+40-50 points — Advanced attack requiring intentional deception',
+            counterfactual: 'If all characters were ASCII Latin letters, this signal would not trigger and score would drop by ~45 points.'
         },
         'punycode': {
             name: 'Punycode Domain',
@@ -316,7 +323,8 @@ function getSignalExplanation(flag) {
             severity: 'high',
             whatItChecks: 'Domain contains "xn--" IDN encoding',
             whyItMatters: 'International domains can hide malicious lookalike characters',
-            riskImpact: '+30-35 points — Requires investigation of actual characters'
+            riskImpact: '+30-35 points — Requires investigation of actual characters',
+            counterfactual: 'If the domain used only ASCII characters (no IDN), score would drop by ~32 points.'
         },
         'tld': {
             name: 'Suspicious TLD',
@@ -324,7 +332,8 @@ function getSignalExplanation(flag) {
             severity: 'medium',
             whatItChecks: 'Uses high-risk TLDs like .tk, .ml, .ga, .cf, .xyz',
             whyItMatters: 'Free/cheap TLDs are heavily abused for throwaway phishing domains',
-            riskImpact: '+20-30 points — Legitimate brands rarely use these'
+            riskImpact: '+20-30 points — Legitimate brands rarely use these',
+            counterfactual: 'If this URL used .com, .org, or country TLDs, score would drop by ~25 points.'
         },
         'shortener': {
             name: 'URL Shortener',
@@ -332,7 +341,8 @@ function getSignalExplanation(flag) {
             severity: 'medium',
             whatItChecks: 'Uses bit.ly, t.co, tinyurl, or similar shortening service',
             whyItMatters: 'Hides the true destination URL from the user',
-            riskImpact: '+15-20 points — Requires caution, not definitive'
+            riskImpact: '+15-20 points — Requires caution, not definitive',
+            counterfactual: 'If the full destination URL was visible, score would drop by ~18 points (assuming destination is safe).'
         },
         'ip': {
             name: 'IP Address Host',
@@ -340,7 +350,8 @@ function getSignalExplanation(flag) {
             severity: 'high',
             whatItChecks: 'URL uses raw IP address instead of domain name',
             whyItMatters: 'Legitimate services use domains; IPs hide identity and bypass filters',
-            riskImpact: '+25-30 points — Strong phishing indicator'
+            riskImpact: '+25-30 points — Strong phishing indicator',
+            counterfactual: 'If a registered domain name was used instead of IP address, score would drop by ~28 points.'
         },
         'subdomain': {
             name: 'Excessive Subdomains',
@@ -348,7 +359,8 @@ function getSignalExplanation(flag) {
             severity: 'low',
             whatItChecks: 'More than 3 subdomain levels (secure.login.paypal.fake.com)',
             whyItMatters: 'Deep subdomains can hide the actual domain at the end',
-            riskImpact: '+10-15 points — Suspicious but not definitive'
+            riskImpact: '+10-15 points — Suspicious but not definitive',
+            counterfactual: 'If only 1-2 subdomains were used, this signal would not trigger. Score would drop by ~12 points.'
         },
         'login': {
             name: 'Credential Harvesting Path',
@@ -356,7 +368,8 @@ function getSignalExplanation(flag) {
             severity: 'medium',
             whatItChecks: 'URL path contains /login, /signin, /verify, /secure, /account',
             whyItMatters: 'Combined with other signals, suggests intent to steal credentials',
-            riskImpact: '+10-15 points — Context-dependent signal'
+            riskImpact: '+10-15 points — Context-dependent signal',
+            counterfactual: 'Without other risk signals, login paths on safe domains would not increase score significantly.'
         },
         'http': {
             name: 'No HTTPS Encryption',
@@ -364,7 +377,8 @@ function getSignalExplanation(flag) {
             severity: 'medium',
             whatItChecks: 'URL uses http:// instead of https://',
             whyItMatters: 'Data sent without encryption can be intercepted',
-            riskImpact: '+15-20 points — Security baseline not met'
+            riskImpact: '+15-20 points — Security baseline not met',
+            counterfactual: 'If HTTPS was used, this signal would not trigger and score would drop by ~18 points.'
         },
         'entropy': {
             name: 'High Entropy',
@@ -372,7 +386,8 @@ function getSignalExplanation(flag) {
             severity: 'low',
             whatItChecks: 'Domain or path contains random-looking character sequences',
             whyItMatters: 'Randomly generated domains are often temporary phishing sites',
-            riskImpact: '+10-15 points — Suggestive but not conclusive'
+            riskImpact: '+10-15 points — Suggestive but not conclusive',
+            counterfactual: 'If the domain used readable words instead of random characters, score would drop by ~12 points.'
         },
         'redirect': {
             name: 'Embedded Redirect',
@@ -380,7 +395,8 @@ function getSignalExplanation(flag) {
             severity: 'medium',
             whatItChecks: 'URL contains another URL in query parameters',
             whyItMatters: 'Can redirect through tracking or to malicious destinations',
-            riskImpact: '+15-20 points — Requires destination inspection'
+            riskImpact: '+15-20 points — Requires destination inspection',
+            counterfactual: 'If no embedded URLs were present in query parameters, score would drop by ~18 points.'
         },
         'long': {
             name: 'Excessively Long URL',
@@ -388,7 +404,8 @@ function getSignalExplanation(flag) {
             severity: 'low',
             whatItChecks: 'URL exceeds 100 characters',
             whyItMatters: 'Long URLs can hide malicious parameters or overwhelm users',
-            riskImpact: '+5-10 points — Minor signal'
+            riskImpact: '+5-10 points — Minor signal',
+            counterfactual: 'A shorter, cleaner URL would reduce this signal contribution by ~8 points.'
         }
     };
 

@@ -1,11 +1,20 @@
 {
-    "name": "QR-SHIELD Web Scanner",
+    "name": "QR-SHIELD - QRishing Detector",
     "short_name": "QR-SHIELD",
-    "start_url": "./index.html",
+    "description": "Detect phishing attacks in QR codes. 100% offline, AI-powered security scanning running entirely in your browser.",
+    "start_url": "./index.html?source=pwa",
+    "scope": "./",
     "display": "standalone",
+    "orientation": "portrait-primary",
     "background_color": "#0A0A0B",
     "theme_color": "#7F52FF",
-    "description": "AI-powered phishing detection running entirely in your browser.",
+    "lang": "en",
+    "categories": [
+        "security",
+        "utilities",
+        "productivity"
+    ],
+    "id": "qr-shield-web",
     "icons": [
         {
             "src": "assets/logo.svg",
@@ -24,5 +33,37 @@
             "type": "image/svg+xml",
             "purpose": "any maskable"
         }
-    ]
+    ],
+    "screenshots": [
+        {
+            "src": "assets/screenshots/desktop.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "QR-SHIELD Desktop View"
+        },
+        {
+            "src": "assets/screenshots/mobile.png",
+            "sizes": "390x844",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "QR-SHIELD Mobile View"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Scan URL",
+            "short_name": "Scan",
+            "description": "Quickly analyze a URL for phishing",
+            "url": "./index.html?demo=true",
+            "icons": [
+                {
+                    "src": "assets/logo.svg",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
 }
