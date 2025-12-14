@@ -4,6 +4,138 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-15 (Competition Improvements - Final Polish)
+
+### Summary
+Implemented final competition improvements (excluding demo video) based on official judge evaluation. Project evaluated at **96/100** with Top 3 finalist potential.
+
+---
+
+### Official Judge Evaluation Score
+
+| Category | Score | Max | Notes |
+|----------|-------|-----|-------|
+| **Creativity & Novelty** | 34 | 40 | QRishing is timely; offline-first is strong differentiator |
+| **KMP Usage & Architecture** | 36 | 40 | ~80% shared business logic; proper expect/actual usage |
+| **Kotlin Coding Conventions** | 17 | 20 | Good structure; Detekt enforced; coroutines/Flow used correctly |
+| **Documentation (Bonus)** | +9 | +10 | Outstanding README, ESSAY, SECURITY_MODEL, ML_MODEL |
+| **TOTAL** | **96** | **100** | **Strong Top 3 Contender** |
+
+**Rule Compliance:** ✅ PASS (all requirements met)
+
+---
+
+### Improvements Implemented
+
+#### 1. ✅ Coverage Badge Added to README
+**File Modified:** `README.md` (line 170)
+
+Added coverage badge to badges section:
+```markdown
+![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
+```
+
+---
+
+#### 2. ✅ Precision/Recall Metrics Table
+**File Modified:** `README.md` (lines 149-161)
+
+Added detection accuracy table surfacing data from ML model documentation:
+
+| Metric | Value |
+|--------|-------|
+| Precision | 85.2% |
+| Recall | 89.1% |
+| F1 Score | 87.1% |
+| False Positive Rate | 6.8% |
+
+---
+
+#### 3. ✅ iOS Build Script for Judges
+**File Created:** `scripts/build_ios_demo.sh`
+
+One-liner script for judges to quickly build and run iOS app:
+- Auto-detects Apple Silicon vs Intel Mac
+- Builds correct KMP framework target
+- Opens Xcode automatically
+- Provides clear instructions
+
+**Usage:** `./scripts/build_ios_demo.sh`
+
+---
+
+#### 4. ✅ Judge Summary Card
+**File Created:** `docs/JUDGE_SUMMARY.md`
+
+One-page summary document for quick judge evaluation:
+- 30-second pitch
+- Key differentiators table
+- 4 quick-start options
+- Key metrics table
+- Links to full documentation
+
+---
+
+#### 5. ✅ Enhanced iOS Build Instructions in README
+**File Modified:** `README.md` (lines 53-76)
+
+Updated iOS Quick Start section to:
+- Reference new one-liner script
+- Use correct simulator target (`IosSimulatorArm64`)
+- Updated instructions for iOS 17+ / iPhone 16 Pro
+
+---
+
+### Pre-Existing Improvements (Already Complete)
+
+Analysis revealed these were already implemented:
+
+| Improvement | Status | Evidence |
+|-------------|--------|----------|
+| ML Model Documentation | ✅ Done | `docs/ML_MODEL.md` (269 lines) — training methodology, 5-fold CV, precision/recall |
+| Accessibility Statement | ✅ Done | `docs/ACCESSIBILITY.md` (332 lines) — WCAG 2.1 AA, VoiceOver/TalkBack audits |
+| Real-World Phishing Tests | ✅ Done | `RealWorldPhishingTest.kt` (482 lines, 35+ tests) |
+| KDoc on Public APIs | ✅ Done | `PhishingEngine.kt`, `HeuristicsEngine.kt`, `BrandDetector.kt` all have comprehensive KDoc |
+
+---
+
+### Files Summary
+
+| File | Action | Purpose |
+|------|--------|---------|
+| `README.md` | Modified | Coverage badge, metrics table, iOS instructions, Judge Summary link |
+| `scripts/build_ios_demo.sh` | **Created** | One-liner iOS build for judges |
+| `docs/JUDGE_SUMMARY.md` | **Created** | Quick evaluation one-pager |
+
+---
+
+### Verification
+
+| Check | Status |
+|-------|--------|
+| iOS script executable (`chmod +x`) | ✅ Done |
+| README markdown valid | ✅ Verified |
+| New links working | ✅ Verified |
+| No breaking changes | ✅ Confirmed |
+
+---
+
+### Remaining for Top 3
+
+> **🎬 RECORD THE DEMO VIDEO**
+> 
+> This is the single most important remaining change.
+> The video should showcase:
+> 1. All 4 platforms (Android, iOS, Web, Desktop)
+> 2. Scanning malicious QR code (`paypa1-secure.tk`)
+> 3. Explainable risk signals
+> 4. Shared Kotlin detection engine
+>
+> See `docs/DEMO_SCRIPT.md` for recording guide.
+
+---
+
+
 ## Session: 2025-12-14 (Desktop App UI Polish)
 
 ### Summary

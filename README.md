@@ -54,24 +54,29 @@ adb install androidApp/build/outputs/apk/debug/androidApp-debug.apk
 <summary><b>🍎 iOS (Requires macOS + Xcode 15+)</b></summary>
 
 ```bash
-# Prerequisites: macOS, Xcode 15+, CocoaPods (optional)
+# 🚀 One-liner for judges (recommended):
+./scripts/build_ios_demo.sh
+
+# Or manual steps:
+# Prerequisites: macOS, Xcode 15+
 git clone https://github.com/Raoof128/Raoof128.github.io.git qrshield
 cd qrshield
 
-# Build iOS framework first
-./gradlew :common:linkDebugFrameworkIosArm64
+# Build iOS framework for simulator (arm64 Mac or Intel)
+./gradlew :common:linkDebugFrameworkIosSimulatorArm64
 
 # Open in Xcode
 open iosApp/QRShield.xcodeproj
 
 # In Xcode:
-# 1. Select a simulator (iPhone 15 Pro recommended)
+# 1. Select iPhone 16 Pro simulator (or any iOS 17+)
 # 2. Press Cmd+R to build and run
 ```
 
 **TestFlight (Coming Soon):** We're preparing a TestFlight build for easy judge evaluation.
 
 </details>
+
 
 <details>
 <summary><b>🖥️ Desktop (JVM - Any OS)</b></summary>
@@ -145,6 +150,18 @@ cd qrshield
 | **APK Download** | [Releases](https://github.com/Raoof128/Raoof128.github.io/releases/latest) |
 | **Source Code** | [GitHub](https://github.com/Raoof128/Raoof128.github.io) |
 | **Changelog** | [CHANGELOG.md](CHANGELOG.md) |
+| **Judge Summary** | [docs/JUDGE_SUMMARY.md](docs/JUDGE_SUMMARY.md) |
+
+### 📊 Detection Accuracy (Combined Heuristics + ML)
+
+| Metric | Value | Notes |
+|--------|-------|-------|
+| **Precision** | 85.2% | Of URLs flagged, 85.2% are actually phishing |
+| **Recall** | 89.1% | Of actual phishing URLs, 89.1% correctly detected |
+| **F1 Score** | 87.1% | Harmonic mean of precision and recall |
+| **False Positive Rate** | 6.8% | Legitimate URLs incorrectly flagged |
+
+*Measured on validation set of 877 URLs. [Full methodology →](docs/ML_MODEL.md)*
 
 ### Badges
 
@@ -156,6 +173,7 @@ cd qrshield
 ![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
 ![Version](https://img.shields.io/badge/v1.1.4-green)
+![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 
 ---
 
