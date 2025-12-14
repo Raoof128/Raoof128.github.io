@@ -50,6 +50,13 @@ class LogisticRegressionModel private constructor(
         /** Maximum prediction value (avoid exact 1 for log-loss) */
         private const val MAX_PREDICTION = 1f - 1e-7f
 
+        /** Neutral prediction for invalid inputs */
+        private const val NEUTRAL_PREDICTION = 0.5f
+
+        /** Feature clamping range to prevent overflow */
+        private const val FEATURE_MIN = -10f
+        private const val FEATURE_MAX = 10f
+
         /**
          * Feature order documentation:
          * 0: urlLength (normalized 0-1)
@@ -290,26 +297,40 @@ class LogisticRegressionModel private constructor(
             "Feature size mismatch: expected $FEATURE_COUNT, got ${features.size}"
         }
 
-        // Validate all features are finite and normalized
-        for (i in features.indices) {
-            val f = features[i]
-            if (!f.isFinite()) {
-                // Replace invalid values with 0 (fail safe)
-                return 0.5f  // Return neutral prediction for invalid input
+        // Early return for invalid input (fail-safe)
+        if (features.any { !it.isFinite() }) return NEUTRAL_PREDICTION
+
+        // Calculate weighted sum using idiomatic Kotlin:
+        // zip pairs each weight with feature, then fold accumulates the dot product
+        val z = weights
+            .zip(features.asIterable())
+            .fold(bias) { acc, (weight, feature) ->
+                acc + weight * feature.coerceIn(FEATURE_MIN, FEATURE_MAX)
             }
-        }
 
-        // Calculate weighted sum
-        var z = bias
-        for (i in features.indices) {
-            // Clamp features to reasonable range to prevent overflow
-            val clampedFeature = features[i].coerceIn(-10f, 10f)
-            z += weights[i] * clampedFeature
-        }
-
-        // Apply safe sigmoid
+        // Apply safe sigmoid activation
         return safeSigmoid(z)
     }
+
+    /**
+     * Batch predict for multiple feature vectors.
+     *
+     * Uses functional transform for clean batch processing.
+     *
+     * @param featureVectors List of feature vectors
+     * @return List of probabilities in same order
+     */
+    fun predictBatch(featureVectors: List<FloatArray>): List<Float> =
+        featureVectors.map(::predict)
+
+    /**
+     * Compute dot product using functional approach.
+     *
+     * Demonstrates idiomatic Kotlin: operator overloading could be added
+     * for a custom Vector class, but FloatArray + zip works cleanly.
+     */
+    private infix fun FloatArray.dot(other: FloatArray): Float =
+        this.zip(other.asIterable()) { a, b -> a * b }.sum()
 
     /**
      * Predict with confidence threshold.

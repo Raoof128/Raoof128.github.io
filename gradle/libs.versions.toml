@@ -1,18 +1,19 @@
 [versions]
-kotlin = "1.9.22"
-compose = "1.6.0"
-agp = "8.6.0"
-ktor = "2.3.7"
-coroutines = "1.8.0"
-sqldelight = "2.0.1"
-koin = "3.5.3"
-datetime = "0.5.0"
-kover = "0.7.5"
-dokka = "1.9.10"
-camerax = "1.4.0"
-navigation = "2.7.7"
-lifecycle = "2.7.0"
-glance = "1.1.0"
+# Updated December 2025 - Latest stable versions
+kotlin = "2.0.21"
+compose = "1.7.1"
+agp = "8.7.2"
+ktor = "3.0.2"
+coroutines = "1.9.0"
+sqldelight = "2.0.2"
+koin = "4.0.0"
+datetime = "0.6.1"
+kover = "0.8.3"
+dokka = "1.9.20"
+camerax = "1.4.1"
+navigation = "2.8.4"
+lifecycle = "2.8.7"
+glance = "1.1.1"
 
 [libraries]
 # Kotlin
@@ -84,6 +85,7 @@ zxing-javase = { module = "com.google.zxing:javase", version = "3.5.2" }
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }

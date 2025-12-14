@@ -256,6 +256,78 @@ The current SwiftUI implementation is well-justified and working.
 
 ---
 
+### Session Part 4: Code & Engineering "Glow Up"
+
+#### 12. ✅ Dependencies Updated to Latest Stable
+**File Modified:** `gradle/libs.versions.toml`
+
+| Dependency | Before | After |
+|------------|--------|-------|
+| Kotlin | 1.9.22 | **2.0.21** |
+| Compose | 1.6.0 | **1.7.1** |
+| AGP | 8.6.0 | **8.7.2** |
+| Ktor | 2.3.7 | **3.0.2** |
+| Coroutines | 1.8.0 | **1.9.0** |
+| SQLDelight | 2.0.1 | **2.0.2** |
+| Koin | 3.5.3 | **4.0.0** |
+| Lifecycle | 2.7.0 | **2.8.7** |
+| Navigation | 2.7.7 | **2.8.4** |
+| Detekt | 1.23.4 | **1.23.7** |
+
+**Added:** `kotlin-compose` plugin for Kotlin 2.0+ Compose Compiler support.
+
+---
+
+#### 13. ✅ ML Code Polished with Idiomatic Kotlin
+**File Modified:** `common/src/commonMain/kotlin/com/qrshield/ml/LogisticRegressionModel.kt`
+
+**Before (C-style loops):**
+```kotlin
+// Old: C-style loop
+var z = bias
+for (i in features.indices) {
+    val clampedFeature = features[i].coerceIn(-10f, 10f)
+    z += weights[i] * clampedFeature
+}
+```
+
+**After (Idiomatic Kotlin):**
+```kotlin
+// New: Functional style with zip + fold
+val z = weights
+    .zip(features.asIterable())
+    .fold(bias) { acc, (weight, feature) ->
+        acc + weight * feature.coerceIn(FEATURE_MIN, FEATURE_MAX)
+    }
+```
+
+**New Features Added:**
+- `predictBatch()` — Batch prediction using `map(::predict)`
+- Infix `dot` function — `private infix fun FloatArray.dot(other: FloatArray)`
+- Named constants — `NEUTRAL_PREDICTION`, `FEATURE_MIN`, `FEATURE_MAX`
+
+---
+
+#### 14. ✅ Build Verified with Kotlin 2.0
+**Test Results:**
+- ✅ `compileKotlinDesktop` — SUCCESS
+- ✅ `desktopTest` — ALL 849 TESTS PASS
+- ⚠️ Deprecation warnings (kotlinOptions DSL) — cosmetic, non-blocking
+
+---
+
+### Build Configuration Updates
+
+**Files Modified:**
+| File | Change |
+|------|--------|
+| `build.gradle.kts` | Added `kotlin-compose` plugin, updated Detekt |
+| `common/build.gradle.kts` | Added `kotlin-compose` plugin |
+| `androidApp/build.gradle.kts` | Added `kotlin-compose`, removed deprecated composeOptions |
+| `desktopApp/build.gradle.kts` | Added `kotlin-compose` plugin |
+
+---
+
 ## Session: 2025-12-14 (Desktop App UI Polish)
 
 ### Summary
