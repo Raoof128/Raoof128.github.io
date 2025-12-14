@@ -10,6 +10,22 @@
 > - **Proven Accuracy:** 87.1% F1 score, 89.1% recall on phishing detection
 > - **Production Quality:** 89% test coverage, 900+ tests, Detekt CI enforcement
 
+### ⚔️ How QR-SHIELD Compares
+
+| Feature | QR-SHIELD | Google Lens | Kaspersky QR |
+|---------|:---------:|:-----------:|:------------:|
+| **Privacy (Offline)** | ✅ 100% offline | ❌ Cloud required | ❌ Cloud required |
+| **Data Collection** | ✅ Zero | ❌ Sends to Google | ❌ Sends to servers |
+| **Platforms** | ✅ 4 (Android, iOS, Desktop, Web) | ⚠️ 2 (Android, iOS) | ⚠️ 2 (Android, iOS) |
+| **Open Source** | ✅ Apache 2.0 | ❌ Proprietary | ❌ Proprietary |
+| **Explainable AI** | ✅ Shows *why* URLs are risky | ❌ Black box | ❌ Black box |
+| **Works Without Internet** | ✅ Yes | ❌ No | ❌ No |
+| **Brand Impersonation Detection** | ✅ 500+ brands | ⚠️ Limited | ⚠️ Limited |
+| **Kotlin Multiplatform** | ✅ Yes | ❌ No | ❌ No |
+| **Custom ML Model** | ✅ On-device logistic regression | ❌ Cloud ML | ❌ Cloud ML |
+
+> 🔒 **The Privacy Advantage:** When you scan a QR code with QR-SHIELD, the URL *never leaves your device*. With Google Lens or Kaspersky, every URL you scan is sent to their servers — forever logged, potentially shared, and definitely not private.
+
 ---
 
 ## 🧑‍⚖️ Judges: Start Here
@@ -3254,3 +3270,19 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ⭐ Star us on GitHub if you find this useful!
 
 </div>
+
+---
+
+## ⚖️ Legal Disclaimer
+
+> **Educational Project Notice**
+>
+> QR-SHIELD is an educational project created for the KotlinConf 2025-2026 Student Coding Competition.
+>
+> - All brand names, logos, and trademarks mentioned in the brand detection database are the property of their respective owners.
+> - Brand detection is performed solely for security research purposes to identify potential phishing attempts.
+> - This project is not affiliated with, endorsed by, or sponsored by any of the brands it detects.
+> - Google Lens™ is a trademark of Google LLC. Kaspersky™ is a trademark of Kaspersky Lab.
+> - Shield icons and UI elements are original creations or used under permissive licenses.
+>
+> **Use at your own risk.** While QR-SHIELD provides phishing detection, no security tool is 100% accurate. Always exercise caution when visiting unfamiliar URLs.
