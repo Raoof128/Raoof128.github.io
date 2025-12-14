@@ -266,4 +266,216 @@ class RealWorldPhishingTest {
             "Should have flags. Got: ${result.flags.size}"
         )
     }
+
+    // === SOCIAL MEDIA SCAM PATTERNS ===
+
+    @Test
+    fun `detects Instagram verification scam`() {
+        val url = defangedToUrl("https://instagram-verify-badge[.]ml/verify/username")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.verdict != Verdict.SAFE,
+            "Instagram scam should not be SAFE. Got: ${result.verdict}"
+        )
+    }
+
+    @Test
+    fun `detects Facebook account recovery scam`() {
+        val url = defangedToUrl("https://facebook-account-recovery[.]tk/recover?id=123456")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.score >= 30 || result.flags.isNotEmpty(),
+            "Facebook recovery scam should be flagged. Score: ${result.score}"
+        )
+    }
+
+    @Test
+    fun `detects WhatsApp prize scam`() {
+        val url = defangedToUrl("http://whatsapp-winner[.]ga/claim-prize?phone=0412345678")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.verdict == Verdict.MALICIOUS || result.verdict == Verdict.SUSPICIOUS,
+            "WhatsApp prize scam should not be SAFE. Got: ${result.verdict}"
+        )
+    }
+
+    // === CRYPTOCURRENCY SCAM PATTERNS ===
+
+    @Test
+    fun `detects crypto wallet drainer`() {
+        val url = defangedToUrl("https://metamask-sync[.]io/wallet/connect?key=abc123")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.flags.any {
+                it.contains("impersonation", ignoreCase = true) ||
+                it.contains("credential", ignoreCase = true)
+            } || result.score > 20,
+            "Crypto wallet scam should be detected. Score: ${result.score}"
+        )
+    }
+
+    @Test
+    fun `detects fake airdrop claim`() {
+        val url = defangedToUrl("https://solana-airdrop-claim[.]tk/claim?wallet=0x1234")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.verdict != Verdict.SAFE,
+            "Fake airdrop should not be SAFE. Got: ${result.verdict}"
+        )
+    }
+
+    // === QR-SPECIFIC ATTACK PATTERNS ===
+
+    @Test
+    fun `detects parking meter QR scam`() {
+        // Common QRishing attack: fake parking payment
+        val url = defangedToUrl("https://parking-payment-sydney[.]ml/pay?meter=123")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.score >= 20,
+            "Parking scam with .ml TLD should be flagged. Score: ${result.score}"
+        )
+    }
+
+    @Test
+    fun `detects restaurant menu with hidden redirect`() {
+        val url = defangedToUrl("https://menu-view[.]tk/restaurant?redirect=https://evil[.]com")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.flags.any {
+                it.contains("redirect", ignoreCase = true) ||
+                it.contains("TLD", ignoreCase = true)
+            },
+            "Hidden redirect should be detected. Flags: ${result.flags}"
+        )
+    }
+
+    @Test
+    fun `detects WiFi login portal phishing`() {
+        val url = defangedToUrl("http://wifi-login[.]cf/connect?ssid=CoffeeShop&session=abc")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.verdict != Verdict.SAFE,
+            "Fake WiFi portal should not be SAFE. Got: ${result.verdict}"
+        )
+    }
+
+    // === EVASION TECHNIQUE PATTERNS ===
+
+    @Test
+    fun `detects base64 encoded redirect`() {
+        // Base64: "https://evil.com" = "aHR0cHM6Ly9ldmlsLmNvbQ=="
+        val url = defangedToUrl("https://legitimate-looking[.]com/redirect?url=aHR0cHM6Ly9ldmlsLmNvbQ==")
+        val result = engine.analyze(url)
+
+        // Should detect encoded payload or at least flag the suspicious query
+        assertTrue(
+            result.flags.any {
+                it.contains("encoded", ignoreCase = true) ||
+                it.contains("base64", ignoreCase = true) ||
+                it.contains("payload", ignoreCase = true)
+            } || result.score > 15,
+            "Base64 encoded redirect should be flagged. Score: ${result.score}, Flags: ${result.flags}"
+        )
+    }
+
+    @Test
+    fun `detects double URL encoding evasion`() {
+        // Double-encoded characters to evade filters
+        val url = defangedToUrl("https://trusted[.]com/%252e%252e/admin/login")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.score > 10 || result.flags.isNotEmpty(),
+            "Double encoding should raise some flags. Score: ${result.score}"
+        )
+    }
+
+    @Test
+    fun `detects extremely long subdomain obfuscation`() {
+        val url = defangedToUrl("https://secure.login.verify.account.update.paypal.suspicious-domain[.]tk/")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.flags.any {
+                it.contains("subdomain", ignoreCase = true) ||
+                it.contains("TLD", ignoreCase = true)
+            },
+            "Excessive subdomains + brand should be flagged. Flags: ${result.flags}"
+        )
+    }
+
+    // === LEGITIMATE URL FALSE POSITIVE CHECKS ===
+
+    @Test
+    fun `does not flag legitimate short domain`() {
+        val url = defangedToUrl("https://t[.]co/about")
+        val result = engine.analyze(url)
+
+        // t.co is Twitter's shortener - should be flagged as shortener but not MALICIOUS
+        assertTrue(
+            result.verdict != Verdict.MALICIOUS,
+            "Twitter's t.co should not be MALICIOUS. Got: ${result.verdict}"
+        )
+    }
+
+    @Test
+    fun `does not flag legitimate Australian bank`() {
+        val url = defangedToUrl("https://www[.]commbank[.]com[.]au/netbank/login")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.verdict == Verdict.SAFE || result.score < 40,
+            "Real CommBank should be SAFE. Got: ${result.verdict}, Score: ${result.score}"
+        )
+    }
+
+    @Test
+    fun `does not flag legitimate government site`() {
+        val url = defangedToUrl("https://my[.]gov[.]au/mygov/")
+        val result = engine.analyze(url)
+
+        assertTrue(
+            result.verdict == Verdict.SAFE,
+            "Australian government should be SAFE. Got: ${result.verdict}"
+        )
+    }
+
+    // === CHALLENGE CASES (Known Edge Cases) ===
+
+    @Test
+    fun `handles unicode normalization attack`() {
+        // Using full-width characters that look like ASCII
+        val url = defangedToUrl("https://www.google。com/search") // Full-width period
+        val result = engine.analyze(url)
+
+        // This is a tricky one - depends on normalization
+        // At minimum, should parse without crashing
+        assertTrue(
+            result.score >= 0,
+            "Should handle unicode without crashing. Score: ${result.score}"
+        )
+    }
+
+    @Test
+    fun `handles very long URL without timeout`() {
+        val longPath = "a".repeat(500)
+        val url = defangedToUrl("https://example[.]com/$longPath")
+        val result = engine.analyze(url)
+
+        // Should complete analysis and possibly flag length
+        assertTrue(
+            result.score >= 0,
+            "Should handle long URLs. Score: ${result.score}"
+        )
+    }
 }
+
