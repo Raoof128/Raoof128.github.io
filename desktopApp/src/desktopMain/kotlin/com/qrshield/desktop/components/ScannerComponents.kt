@@ -368,7 +368,13 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                 )
             }
 
-            // Flags
+            // Confidence Indicator
+            ConfidenceIndicator(
+                score = result.score,
+                flagCount = result.flags.size
+            )
+
+            // Flags with Expandable Details
             if (result.flags.isNotEmpty()) {
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 8.dp),
@@ -379,36 +385,27 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(text = "🧠", fontSize = 18.sp)
+                        Text(
+                            text = "Why This Verdict?",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+
                     Text(
-                        text = "⚠️ Risk Factors Detected",
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        text = "Click on any signal to see details and remediation tips",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
 
                     result.flags.forEach { flag ->
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = DesktopColors.VerdictSuspicious.copy(alpha = 0.1f),
-                            border = BorderStroke(1.dp, DesktopColors.VerdictSuspicious.copy(alpha = 0.3f))
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-                                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "•",
-                                    fontSize = 16.sp,
-                                    color = DesktopColors.VerdictSuspicious
-                                )
-                                Text(
-                                    text = flag,
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                        }
+                        ExpandableSignalCard(flag = flag)
                     }
                 }
             }

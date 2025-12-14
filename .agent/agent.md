@@ -4,6 +4,165 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-14 (Desktop App Feature Parity)
+
+### Summary
+Major update to desktop app to match web app feature parity. Added sample URLs, keyboard shortcuts hints, expandable signal explanations with counterfactuals, confidence indicators, and help guidance.
+
+---
+
+### New Files Created
+
+#### `EnhancedComponents.kt`
+**Location:** `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/components/EnhancedComponents.kt`
+
+**New Components:**
+
+| Component | Description |
+|-----------|-------------|
+| `SampleUrlsSection` | "Try These Examples" section with 4 sample URLs (safe, suspicious, malicious) |
+| `SampleUrlChip` | Clickable chip for each sample URL with color-coded verdict |
+| `KeyboardShortcutsHint` | Shows all keyboard shortcuts (⌘L, ⌘V, ↵, ⎋, ⌘D) |
+| `ShortcutBadge` | Individual key badge with action label |
+| `ExpandableSignalCard` | Expandable card for each risk signal |
+| `getSignalExplanation()` | Returns detailed info for 10+ signal types |
+| `SignalDetailRow` | Row for each signal detail (what/why/impact) |
+| `ConfidenceIndicator` | 5-dot confidence meter with level label |
+| `HelpCard` | First-time user welcome/guidance card |
+| `FeatureBullet` | Feature item with icon and text |
+
+---
+
+### Features Implemented
+
+#### 1. ✅ Sample URLs Section (Like Web App)
+- 4 pre-configured sample URLs
+- Color-coded chips: green (safe), amber (suspicious), red (malicious)
+- Click to analyze instantly
+
+#### 2. ✅ Keyboard Shortcuts Hint
+- Displays all shortcuts in a compact bar
+- Matches web app keyboard functionality
+- Professional macOS-style key badges
+
+#### 3. ✅ Expandable Signal Explanations
+Each risk factor now shows:
+- **Icon & Name** with severity badge
+- **What it checks:** Technical explanation
+- **Why it matters:** Risk context
+- **Risk impact:** Score contribution
+- **Counterfactual:** "What would reduce this?"
+
+#### 4. ✅ Confidence Indicator
+- 5-dot visual meter
+- Levels: Very High, High, Medium, Low
+- Based on score extremity + signal agreement
+
+#### 5. ✅ Help Card (First-Time Guidance)
+- Welcome message for new users
+- Key features: 100% offline, AI-powered, 25+ heuristics
+- Dismissible with "Dismiss" button
+
+---
+
+### Files Modified
+
+#### `Main.kt`
+- Added `showHelpCard` state
+- Integrated `HelpCard` with animated visibility
+- Added `SampleUrlsSection` with URL click handler
+- Added `KeyboardShortcutsHint`
+- Clear button now also clears error messages
+
+#### `ScannerComponents.kt`
+- Replaced simple flag list with `ExpandableSignalCard`
+- Added `ConfidenceIndicator` in result card
+- Added "Why This Verdict?" section header
+- Added instruction text for expandable cards
+
+---
+
+### Web → Desktop Feature Parity
+
+| Web Feature | Desktop Status |
+|-------------|----------------|
+| Sample URLs section | ✅ Implemented |
+| Keyboard shortcuts hint | ✅ Implemented |
+| Expandable signal details | ✅ Implemented |
+| Counterfactual hints | ✅ Implemented |
+| Confidence indicator | ✅ Implemented |
+| Welcome/onboarding | ✅ Implemented |
+| History with clear | ✅ Already had |
+| Dark/Light theme | ✅ Already had |
+| QR camera scanning | ⏭️ N/A for desktop |
+| QR image upload | ⏭️ Future enhancement |
+
+---
+
+### Build Status
+
+| Task | Result |
+|------|--------|
+| `compileKotlinDesktop` | ✅ Success |
+
+---
+
+## Session: 2025-12-14 (Web & Desktop App Polish)
+
+### Summary
+Performed comprehensive polish and debugging of the Web and Desktop applications to ensure production-quality UX.
+
+---
+
+### Web App Improvements
+
+#### 1. ✅ Default Counterfactual for Unknown Signals
+**File Modified:** `webApp/src/jsMain/resources/app.js`
+
+**Change:** Added a default `counterfactual` property to unknown signal fallback so all risk factors consistently display the helpful "What would reduce this?" hint.
+
+**Before:** Unknown signals had no counterfactual hint
+**After:** All signals now show actionable remediation guidance
+
+---
+
+### Desktop App Improvements
+
+#### 1. ✅ Version Number Update
+**File Modified:** `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/components/CommonComponents.kt`
+
+**Change:** Updated footer version from v1.1.1 to v1.1.4 to match competition submission.
+
+---
+
+#### 2. ✅ URL Validation & Normalization
+**File Modified:** `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/Main.kt`
+
+**New Features:**
+- **Auto-normalization:** Adds `https://` to URLs that don't have a protocol
+- **Validation:** Checks for valid URL format before analysis
+- **Error handling:** Try-catch around analysis with user feedback
+
+---
+
+#### 3. ✅ Error Message Display
+**File Modified:** `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/Main.kt`
+
+**New Feature:** Animated error message card that appears when:
+- URL validation fails
+- Analysis throws an exception
+
+---
+
+### Build Verification
+
+| App | Status |
+|-----|--------|
+| Desktop (`compileKotlinDesktop`) | ✅ Success |
+| Web (`jsBrowserDevelopmentWebpack`) | ✅ Success |
+
+---
+
 ## Session: 2025-12-14 (Judge Improvement Implementation)
 
 ### Summary

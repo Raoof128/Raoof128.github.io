@@ -20,6 +20,7 @@ import androidx.compose.animation.*
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -31,6 +32,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
@@ -113,25 +115,59 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var analysisResult by remember { mutableStateOf<AnalysisResult?>(null) }
     var isAnalyzing by remember { mutableStateOf(false) }
     var scanHistory by remember { mutableStateOf<List<AnalysisResult>>(emptyList()) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    var showHelpCard by remember { mutableStateOf(true) } // Show help on first launch
 
     // Focus requester for keyboard navigation
     val inputFocusRequester = remember { FocusRequester() }
 
+    // URL Validation helper
+    fun isValidUrl(url: String): Boolean {
+        return url.startsWith("http://") || url.startsWith("https://") ||
+            url.contains(".") // Allow domain-only entries
+    }
+
+    // Auto-fix URL by adding https:// if missing
+    fun normalizeUrl(url: String): String {
+        return if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            "https://$url"
+        } else {
+            url
+        }
+    }
+
     // Analysis function extracted for reuse
-    val performAnalysis: () -> Unit = {
+    val performAnalysis: () -> Unit = performAnalysis@{
         if (urlInput.isNotBlank() && !isAnalyzing) {
+            val normalizedUrl = normalizeUrl(urlInput.trim())
+
+            // Basic validation
+            if (!isValidUrl(normalizedUrl)) {
+                errorMessage = "Invalid URL format. Please enter a valid URL."
+                return@performAnalysis
+            }
+
+            errorMessage = null
             isAnalyzing = true
-            val assessment = phishingEngine.analyze(urlInput)
-            val result = AnalysisResult(
-                url = urlInput,
-                score = assessment.score,
-                verdict = assessment.verdict,
-                flags = assessment.flags,
-                timestamp = System.currentTimeMillis()
-            )
-            analysisResult = result
-            scanHistory = listOf(result) + scanHistory.take(9)
-            isAnalyzing = false
+
+            try {
+                val assessment = phishingEngine.analyze(normalizedUrl)
+                val result = AnalysisResult(
+                    url = normalizedUrl,
+                    score = assessment.score,
+                    verdict = assessment.verdict,
+                    flags = assessment.flags,
+                    timestamp = System.currentTimeMillis()
+                )
+                analysisResult = result
+                scanHistory = listOf(result) + scanHistory.take(9)
+                // Update input with normalized URL
+                urlInput = normalizedUrl
+            } catch (e: Exception) {
+                errorMessage = "Analysis failed: ${e.message}"
+            } finally {
+                isAnalyzing = false
+            }
         }
     }
 
@@ -208,11 +244,33 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
+                    // Help Card (first-time guidance)
+                    AnimatedVisibility(
+                        visible = showHelpCard,
+                        enter = fadeIn() + slideInVertically { -40 },
+                        exit = fadeOut() + slideOutVertically { -40 }
+                    ) {
+                        HelpCard(
+                            onDismiss = { showHelpCard = false }
+                        )
+                    }
+
                     // Hero Section with animated shield
                     AnimatedHeroSection()
 
                     // Stats Row
                     StatsRow(scanCount = scanHistory.size)
+
+                    // Sample URLs Section (Try Now for judges)
+                    SampleUrlsSection(
+                        onUrlSelected = { selectedUrl ->
+                            urlInput = selectedUrl
+                            performAnalysis()
+                        }
+                    )
+
+                    // Keyboard Shortcuts Hint
+                    KeyboardShortcutsHint()
 
                     // Scanner Card
                     EnhancedScannerCard(
@@ -228,8 +286,37 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                         onClearInput = {
                             urlInput = ""
                             analysisResult = null
+                            errorMessage = null
                         }
                     )
+
+                    // Error Message Display
+                    AnimatedVisibility(
+                        visible = errorMessage != null,
+                        enter = fadeIn() + slideInVertically { -20 },
+                        exit = fadeOut() + slideOutVertically { -20 }
+                    ) {
+                        errorMessage?.let { message ->
+                            Surface(
+                                shape = RoundedCornerShape(12.dp),
+                                color = MaterialTheme.colorScheme.errorContainer,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(16.dp),
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(text = "⚠️", fontSize = 18.sp)
+                                    Text(
+                                        text = message,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onErrorContainer
+                                    )
+                                }
+                            }
+                        }
+                    }
 
                     // Results
                     AnimatedVisibility(

@@ -423,7 +423,8 @@ function getSignalExplanation(flag) {
         severity: 'medium',
         whatItChecks: 'This URL triggered a security check',
         whyItMatters: 'The pattern matches known phishing characteristics',
-        riskImpact: '+10-20 points — Contributes to overall risk score'
+        riskImpact: '+10-20 points — Contributes to overall risk score',
+        counterfactual: 'Removing or changing the suspicious pattern would reduce the overall risk score.'
     };
 }
 

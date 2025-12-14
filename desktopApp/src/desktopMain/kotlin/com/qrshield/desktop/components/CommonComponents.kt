@@ -352,7 +352,7 @@ fun EnhancedFooter() {
         }
 
         Text(
-            text = "🛡️ QR-SHIELD v1.1.1 • Desktop Edition",
+            text = "🛡️ QR-SHIELD v1.1.4 • Desktop Edition",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
         )
