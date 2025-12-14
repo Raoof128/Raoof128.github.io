@@ -114,9 +114,14 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var urlInput by remember { mutableStateOf("") }
     var analysisResult by remember { mutableStateOf<AnalysisResult?>(null) }
     var isAnalyzing by remember { mutableStateOf(false) }
-    var scanHistory by remember { mutableStateOf<List<AnalysisResult>>(emptyList()) }
+    var scanHistory by remember { mutableStateOf(HistoryManager.loadHistory()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    var showHelpCard by remember { mutableStateOf(true) } // Show help on first launch
+    var showHelpCard by remember { mutableStateOf(true) }
+
+    // Dialog states
+    var showAboutDialog by remember { mutableStateOf(false) }
+    var showSettingsDialog by remember { mutableStateOf(false) }
+    var toastMessage by remember { mutableStateOf<String?>(null) }
 
     // Focus requester for keyboard navigation
     val inputFocusRequester = remember { FocusRequester() }
@@ -160,7 +165,9 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     timestamp = System.currentTimeMillis()
                 )
                 analysisResult = result
-                scanHistory = listOf(result) + scanHistory.take(9)
+                val newHistory = listOf(result) + scanHistory.take(49)
+                scanHistory = newHistory
+                HistoryManager.saveHistory(newHistory)
                 // Update input with normalized URL
                 urlInput = normalizedUrl
             } catch (e: Exception) {
@@ -232,7 +239,9 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                 // Top App Bar with gradient
                 EnhancedTopAppBar(
                     isDarkMode = isDarkMode,
-                    onThemeToggle = { isDarkMode = !isDarkMode }
+                    onThemeToggle = { isDarkMode = !isDarkMode },
+                    onSettingsClick = { showSettingsDialog = true },
+                    onAboutClick = { showAboutDialog = true }
                 )
 
                 // Main Content
@@ -290,6 +299,26 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                         }
                     )
 
+                    // Advanced Actions Row (Upload QR + Judge Mode)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        // Upload QR Image Button
+                        UploadQrButton(
+                            onUrlDecoded = { decodedUrl ->
+                                urlInput = decodedUrl
+                                performAnalysis()
+                            },
+                            onError = { error ->
+                                errorMessage = error
+                            }
+                        )
+
+                        // Judge Mode Toggle
+                        JudgeModeToggle()
+                    }
+
                     // Error Message Display
                     AnimatedVisibility(
                         visible = errorMessage != null,
@@ -339,6 +368,12 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                             onScanClick = { result ->
                                 urlInput = result.url
                                 analysisResult = result
+                            },
+                            onClearHistory = {
+                                scanHistory = emptyList()
+                                HistoryManager.saveHistory(emptyList())
+                                analysisResult = null
+                                urlInput = ""
                             }
                         )
                     }
@@ -349,6 +384,25 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     EnhancedFooter()
                 }
             }
+
+            // Dialogs
+            AboutDialog(
+                isVisible = showAboutDialog,
+                onDismiss = { showAboutDialog = false }
+            )
+
+            SettingsDialog(
+                isVisible = showSettingsDialog,
+                onDismiss = { showSettingsDialog = false },
+                isDarkMode = isDarkMode,
+                onDarkModeChange = { isDarkMode = it },
+                onClearHistory = {
+                    scanHistory = emptyList()
+                    HistoryManager.saveHistory(emptyList())
+                    analysisResult = null
+                    urlInput = ""
+                }
+            )
         }
     }
 }

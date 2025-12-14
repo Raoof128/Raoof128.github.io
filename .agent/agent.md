@@ -4,6 +4,135 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-14 (Desktop App Complete Parity)
+
+### Summary
+Major update bringing Desktop app to FULL feature parity with Android, iOS, and Web apps. Added QR image upload with ZXing decoding, Judge Mode for demos, Settings dialog, About dialog, and Share/Copy result functionality.
+
+---
+
+### New File Created
+
+#### `AdvancedFeatures.kt`
+**Location:** `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/components/AdvancedFeatures.kt`
+
+**New Components:**
+
+| Component | Description |
+|-----------|-------------|
+| `decodeQrFromImage()` | ZXing-based QR code decoder from image files |
+| `openImageFileDialog()` | Native file picker for images |
+| `UploadQrButton` | Button to select and decode QR from image |
+| `JudgeMode` | State holder for demo mode |
+| `JudgeModeToggle` | Toggle button for Judge/Demo mode |
+| `copyResultToClipboard()` | Formats and copies analysis report |
+| `ShareResultButton` | Button to copy report to clipboard |
+| `AboutDialog` | Full about screen with version, platform, links |
+| `SettingsDialog` | Settings panel with dark mode, clear history |
+
+---
+
+### Features Implemented
+
+#### 1. ✅ QR Image Upload & Decode
+- Uses ZXing library (already in dependencies)
+- Opens native file dialog for image selection
+- Supports PNG, JPG, GIF, BMP
+- Decodes QR code and auto-analyzes URL
+
+#### 2. ✅ Judge Mode
+- Toggle button in main UI
+- Matches Web app's "Judge Mode" for demonstration
+- Visual indicator when enabled
+
+#### 3. ✅ Settings Dialog
+- Dark/Light mode toggle
+- Clear History button
+- Version/Engine/License info
+
+#### 4. ✅ About Dialog
+- App logo and branding
+- Version, Build, Engine, Platform info
+- KotlinConf 2026 credits
+- GitHub and Issue tracker links
+
+#### 5. ✅ Share/Copy Result
+- Formats analysis as text report
+- Copies to system clipboard
+- Works on all desktop platforms
+
+---
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `Main.kt` | Added dialog states, integrated dialogs, added Upload QR + Judge Mode buttons |
+| `CommonComponents.kt` | Added Settings and About buttons to top bar |
+| `AdvancedFeatures.kt` | New file with all advanced components |
+
+---
+
+### Feature Parity Matrix
+
+| Feature | Android | iOS | Web | Desktop |
+|---------|---------|-----|-----|---------|
+| URL Analysis | ✅ | ✅ | ✅ | ✅ |
+| QR Camera Scan | ✅ | ✅ | ✅ | N/A |
+| QR Image Upload | ✅ | ✅ | ✅ | ✅ NEW |
+| History Persistence | ✅ | ✅ | ✅ | ✅ |
+| Clear History | ✅ | ✅ | ✅ | ✅ |
+| Dark/Light Theme | ✅ | ✅ | ✅ | ✅ |
+| Settings Screen | ✅ | ✅ | N/A | ✅ NEW |
+| About Screen | ✅ | ✅ | ✅ | ✅ NEW |
+| Share/Copy Result | ✅ | ✅ | ✅ | ✅ NEW |
+| Judge/Demo Mode | N/A | N/A | ✅ | ✅ NEW |
+| Sample URLs | ✅ | N/A | ✅ | ✅ |
+| Keyboard Shortcuts | N/A | N/A | ✅ | ✅ |
+| Expandable Signals | ✅ | ✅ | ✅ | ✅ |
+| Confidence Indicator | ✅ | ✅ | ✅ | ✅ |
+
+---
+
+### Build Status
+
+| Task | Result |
+|------|--------|
+| `compileKotlinDesktop` | ✅ Success |
+
+---
+
+## Session: 2025-12-14 (Desktop Persistence & Links)
+
+### Summary
+Added scan history persistence and footer links to Desktop app, achieving full feature parity with Mobile/Web apps regarding data retention and about/help access.
+
+### Features Implemented
+
+#### 1. ✅ Scan History Persistence
+- **File Created:** `desktopApp/.../HistoryManager.kt`
+- **Behavior:**
+    - Loads history from `~/.config/qrshield/qrshield_history.properties` (or OS equivalent) on startup.
+    - Saves history automatically whenever a new scan is added or history is cleared.
+    - Persists URL, Score, Verdict (Enum), Flags, and Timestamp.
+    - Limits to last 50 items.
+
+#### 2. ✅ Clear History Button
+- Added "Clear History" text button to "Recent Scans" header.
+- Clears both in-memory list and persisted file.
+
+#### 3. ✅ Footer Links
+- Added clickable "GitHub" and "Report Issue" links to the footer.
+- Uses `java.awt.Desktop` to open system browser.
+
+### Files Modified
+- `HistoryManager.kt` (New)
+- `Main.kt` (Integrated persistence & clear logic)
+- `ScannerComponents.kt` (Added Clear button to UI)
+- `CommonComponents.kt` (Added footer links)
+
+---
+
 ## Session: 2025-12-14 (Desktop App Feature Parity)
 
 ### Summary

@@ -480,17 +480,33 @@ fun EnhancedFeaturesGrid() {
 @Composable
 fun RecentScansSection(
     scans: List<AnalysisResult>,
-    onScanClick: (AnalysisResult) -> Unit
+    onScanClick: (AnalysisResult) -> Unit,
+    onClearHistory: () -> Unit = {}
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text(
-            text = "Recent Scans",
-            style = MaterialTheme.typography.titleMedium,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Recent Scans",
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            TextButton(
+                onClick = onClearHistory,
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = MaterialTheme.colorScheme.error
+                )
+            ) {
+                Text("Clear History")
+            }
+        }
 
         scans.take(5).forEach { scan ->
             RecentScanItem(scan = scan, onClick = { onScanClick(scan) })

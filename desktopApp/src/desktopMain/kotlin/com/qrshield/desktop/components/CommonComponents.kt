@@ -19,6 +19,7 @@ package com.qrshield.desktop.components
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,7 +54,9 @@ import com.qrshield.desktop.theme.DesktopColors
 @Composable
 fun EnhancedTopAppBar(
     isDarkMode: Boolean,
-    onThemeToggle: () -> Unit
+    onThemeToggle: () -> Unit,
+    onSettingsClick: () -> Unit = {},
+    onAboutClick: () -> Unit = {}
 ) {
     Box(
         modifier = Modifier
@@ -107,28 +110,58 @@ fun EnhancedTopAppBar(
                 }
             }
 
-            // Theme Toggle Button
-            Surface(
-                onClick = onThemeToggle,
-                modifier = Modifier.height(40.dp),
-                shape = RoundedCornerShape(20.dp),
-                color = Color.White.copy(alpha = 0.15f)
+            // Action Buttons Row
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                // About Button
+                Surface(
+                    onClick = onAboutClick,
+                    modifier = Modifier.size(40.dp),
+                    shape = CircleShape,
+                    color = Color.White.copy(alpha = 0.15f)
                 ) {
-                    Text(
-                        text = if (isDarkMode) "☀️" else "🌙",
-                        fontSize = 16.sp
-                    )
-                    Text(
-                        text = if (isDarkMode) "Light" else "Dark",
-                        color = Color.White,
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium
-                    )
+                    Box(contentAlignment = Alignment.Center) {
+                        Text(text = "ℹ️", fontSize = 16.sp)
+                    }
+                }
+
+                // Settings Button
+                Surface(
+                    onClick = onSettingsClick,
+                    modifier = Modifier.size(40.dp),
+                    shape = CircleShape,
+                    color = Color.White.copy(alpha = 0.15f)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Text(text = "⚙️", fontSize = 16.sp)
+                    }
+                }
+
+                // Theme Toggle Button
+                Surface(
+                    onClick = onThemeToggle,
+                    modifier = Modifier.height(40.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    color = Color.White.copy(alpha = 0.15f)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text(
+                            text = if (isDarkMode) "☀️" else "🌙",
+                            fontSize = 16.sp
+                        )
+                        Text(
+                            text = if (isDarkMode) "Light" else "Dark",
+                            color = Color.White,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
                 }
             }
         }
@@ -356,5 +389,32 @@ fun EnhancedFooter() {
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
         )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            FooterLink("GitHub", "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")
+            FooterLink("Report Issue", "https://github.com/Raoof128/QDKMP-KotlinConf-2026-/issues")
+        }
     }
+}
+
+@Composable
+fun FooterLink(text: String, url: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelSmall,
+        color = MaterialTheme.colorScheme.primary,
+        modifier = Modifier
+            .clickable {
+                try {
+                    if (java.awt.Desktop.isDesktopSupported()) {
+                        java.awt.Desktop.getDesktop().browse(java.net.URI(url))
+                    }
+                } catch (e: Exception) {
+                    // Ignore
+                }
+            }
+    )
 }
