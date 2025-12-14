@@ -161,7 +161,7 @@ cd qrshield
 | **F1 Score** | 87.1% | Harmonic mean of precision and recall |
 | **False Positive Rate** | 6.8% | Legitimate URLs incorrectly flagged |
 
-*Measured on validation set of 877 URLs. [Full methodology →](docs/ML_MODEL.md)*
+*Measured on validation set of 877 URLs. [Full methodology →](docs/ML_MODEL.md) | [Test Dataset (100 URLs) →](data/test_urls.csv)*
 
 ### Badges
 
@@ -174,6 +174,9 @@ cd qrshield
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
 ![Version](https://img.shields.io/badge/v1.1.4-green)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
+![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
+![Recall](https://img.shields.io/badge/recall-89.1%25-blue)
+![F1 Score](https://img.shields.io/badge/F1-87.1%25-blue)
 
 ---
 
