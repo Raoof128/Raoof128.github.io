@@ -181,18 +181,18 @@ class UtilsTest {
     }
 
     @Test
-    fun `isHighEntropy returns true for random strings`() {
-        // Use a longer string with more character variety
-        assertTrue(EntropyCalculator.isHighEntropy("x7kP9mQ2wL!@#\$%^&*()abcdefghij"))
+    fun testIsHighEntropyReturnsTrueForRandomStrings() {
+        // Use a longer string with more character variety (JS-safe)
+        assertTrue(EntropyCalculator.isHighEntropy("x7kP9mQ2wL12345abcdefghij"))
     }
 
     @Test
-    fun `isHighEntropy returns false for repeated strings`() {
+    fun testIsHighEntropyReturnsFalseForRepeatedStrings() {
         assertFalse(EntropyCalculator.isHighEntropy("aaaaaaaaaa"))
     }
 
     @Test
-    fun `isHighEntropy with custom threshold`() {
+    fun testIsHighEntropyWithCustomThreshold() {
         val result = EntropyCalculator.isHighEntropy("abc", 1.0)
         assertTrue(result)
     }

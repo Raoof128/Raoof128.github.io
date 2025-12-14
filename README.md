@@ -2331,10 +2331,13 @@ Final Score = (
 | [Essay](ESSAY.md) | Competition essay (motivation & journey) |
 | [Architecture](docs/ARCHITECTURE.md) | System architecture & design |
 | [API Reference](docs/API.md) | Complete API documentation |
+| [ML Model](docs/ML_MODEL.md) | Training methodology, features, metrics |
+| [Limitations](docs/LIMITATIONS.md) | Known limitations & trade-offs |
 | [Master Pack](docs/MASTER_PACK.md) | Complete project overview |
 | [UI Design System](docs/UI_DESIGN_SYSTEM.md) | Colors, typography, components |
 | [Threat Model](docs/THREAT_MODEL.md) | Attack vectors & defenses |
 | [Compliance](docs/COMPLIANCE.md) | ACSC, Privacy Act, ISO mapping |
+| [Demo QR Codes](docs/DEMO_QR_CODES.md) | Printable test QR gallery |
 | [Competition Pitch](docs/PITCH.md) | Presentation materials |
 | [Demo Script](docs/DEMO_SCRIPT.md) | Video storyboard |
 | [TestFlight Setup](docs/TESTFLIGHT_SETUP.md) | iOS beta testing configuration |

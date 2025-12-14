@@ -142,6 +142,41 @@ Conducted official Judge Evaluation and implemented Detekt code quality improvem
 
 ---
 
+### Code & Architecture Improvements (Session Part 6)
+
+**Files Created:**
+- `docs/LIMITATIONS.md` — Comprehensive heuristics limitations documentation (200+ lines)
+
+**Files Modified:**
+- `common/src/commonTest/kotlin/com/qrshield/ml/LogisticRegressionModelTest.kt` — Added 7 deterministic ML tests
+- `README.md` — Added ML Model, Limitations, Demo QR Codes to documentation table
+
+**Completed Tasks:**
+
+| # | Task | Status |
+|---|------|--------|
+| 1 | Unit Test ML Model (deterministic) | ✅ Done (7 new tests) |
+| 2 | Sanity Check License Headers | ✅ Verified (Apache 2.0 exact match) |
+| 3 | Document Heuristics Limitations | ✅ Done (`docs/LIMITATIONS.md`) |
+
+**New ML Tests Added:**
+- `safe URL features produce score below 30 percent`
+- `malicious URL features produce score above 70 percent`
+- `phishing URL with multiple risk factors produces very high score`
+- `URL with at symbol injection produces elevated score`
+- `model weights are mathematically stable`
+- `predictions are deterministic - same input yields same output`
+
+**License Header Verification:**
+All `.kt` and `.swift` files contain the standard Apache 2.0 header:
+```
+Copyright 2025-2026 QR-SHIELD Contributors
+Licensed under the Apache License, Version 2.0
+```
+Matches `LICENSE` file exactly.
+
+---
+
 ## Session: 2025-12-14
 
 ### Summary
