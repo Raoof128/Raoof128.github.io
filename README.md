@@ -243,7 +243,11 @@ cd qrshield
 | **History Storage** | 90% | 10% | Repository is shared; DB driver is `expect/actual` |
 | **Camera Scanning** | 0% | 100% | Native APIs required (CameraX, AVFoundation, ZXing, jsQR) |
 | **UI Framework** | 50% | 50% | Compose (Android/Desktop), SwiftUI (iOS), HTML (Web) |
-| **Overall** | **~80%** | **~20%** | *Security logic shared, UI native* |
+| **Overall** | **~82%** | **~18%** | *Verified via `./scripts/loc_report.sh`* |
+
+> 📊 **Proof:** Run `./scripts/loc_report.sh` for exact LOC counts by sourceSet.
+> 
+> 📐 **Architecture:** See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed diagrams and expect/actual usage.
 
 ### Why This Matters for Security Apps
 

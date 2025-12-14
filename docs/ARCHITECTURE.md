@@ -1,392 +1,238 @@
-# QR-SHIELD Architecture
+# 🏗️ QR-SHIELD Architecture
 
-> Comprehensive technical architecture for the Kotlin Multiplatform QRishing Detector
-
-## Table of Contents
-
-- [Overview](#overview)
-- [System Architecture](#system-architecture)
-- [Module Structure](#module-structure)
-- [Data Flow](#data-flow)
-- [Security Model](#security-model)
-- [Platform Implementations](#platform-implementations)
-- [Analysis Pipeline](#analysis-pipeline)
-- [ML Model](#ml-model)
-- [Database Schema](#database-schema)
-- [API Reference](#api-reference)
+> High-level architecture overview: what's shared, what's platform-specific, and where expect/actual is used.
 
 ---
 
-## Overview
-
-QR-SHIELD is a Kotlin Multiplatform (KMP) application designed to detect QRishing (QR code phishing) attacks across Android, iOS, Desktop, and Web platforms with a single shared codebase.
-
-### Design Principles
-
-1. **Offline-First**: All analysis performed locally without network dependency
-2. **Privacy-Focused**: No user data leaves the device
-3. **Layered Security**: Multiple detection mechanisms combined for robustness
-4. **Cross-Platform**: Single codebase for maximum code reuse
-5. **Extensible**: Modular design for easy enhancement
-
----
-
-## System Architecture
+## 📊 Architecture Diagram
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              QR-SHIELD SYSTEM                               │
+│                           QR-SHIELD Architecture                            │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐        │
-│  │   Android   │  │     iOS     │  │   Desktop   │  │     Web     │        │
-│  │  (ML Kit)   │  │  (Vision)   │  │   (ZXing)   │  │   (jsQR)    │        │
-│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘        │
-│         │                │                │                │               │
-│         └────────────────┴────────────────┴────────────────┘               │
-│                                   │                                         │
-│                    ┌──────────────▼──────────────┐                         │
-│                    │     PRESENTATION LAYER      │                         │
-│                    │   (Compose Multiplatform)   │                         │
-│                    │   ┌───────────────────┐     │                         │
-│                    │   │  SharedViewModel  │     │                         │
-│                    │   │   ┌──────────┐    │     │                         │
-│                    │   │   │ UiState  │    │     │                         │
-│                    │   │   └──────────┘    │     │                         │
-│                    │   └───────────────────┘     │                         │
-│                    └──────────────┬──────────────┘                         │
-│                                   │                                         │
-│                    ┌──────────────▼──────────────┐                         │
-│                    │        DOMAIN LAYER         │                         │
-│                    │                             │                         │
-│                    │  ┌───────────────────────┐  │                         │
-│                    │  │    PhishingEngine     │  │ ◄── Main Orchestrator   │
-│                    │  │    ────────────────   │  │                         │
-│                    │  │  • analyze(url)       │  │                         │
-│                    │  │  • calculateScore()   │  │                         │
-│                    │  │  • determineVerdict() │  │                         │
-│                    │  └───────────┬───────────┘  │                         │
-│                    │              │              │                         │
-│                    │   ┌──────────┼──────────┐   │                         │
-│                    │   ▼          ▼          ▼   │                         │
-│                    │ ┌────┐   ┌────┐   ┌────┐    │                         │
-│                    │ │Heur│   │ ML │   │Brand│   │                         │
-│                    │ │isti│   │Mode│   │Detec│   │                         │
-│                    │ │cs  │   │l   │   │tor  │   │                         │
-│                    │ └────┘   └────┘   └────┘    │                         │
-│                    │   17+     15       30+      │                         │
-│                    │  rules  features  brands    │                         │
-│                    └──────────────┬──────────────┘                         │
-│                                   │                                         │
-│                    ┌──────────────▼──────────────┐                         │
-│                    │         DATA LAYER          │                         │
-│                    │                             │                         │
-│                    │  ┌─────────────────────┐    │                         │
-│                    │  │  HistoryRepository  │    │                         │
-│                    │  │  (SQLDelight)       │    │                         │
-│                    │  └─────────────────────┘    │                         │
-│                    │                             │                         │
-│                    └─────────────────────────────┘                         │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                     SHARED LAYER (common module)                     │   │
+│  │                        ~80% of business logic                        │   │
+│  │   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                 │   │
+│  │   │  Detection  │  │    ML       │  │   Data      │                 │   │
+│  │   │   Engine    │  │   Model     │  │   Layer     │                 │   │
+│  │   ├─────────────┤  ├─────────────┤  ├─────────────┤                 │   │
+│  │   │PhishingEngin│  │LogisticRegr.│  │HistoryRepo  │                 │   │
+│  │   │HeuristicsEng│  │FeatureExtrt │  │SQLDelight   │                 │   │
+│  │   │BrandDetector│  │ModelWeights │  │Queries      │                 │   │
+│  │   └─────────────┘  └─────────────┘  └─────────────┘                 │   │
+│  │                                                                      │   │
+│  │   ┌───────────────────────────────────────────────────────┐         │   │
+│  │   │          EXPECT/ACTUAL DECLARATIONS                   │         │   │
+│  │   │  ─────────────────────────────────────────────────── │         │   │
+│  │   │  expect class DatabaseDriverFactory                   │         │   │
+│  │   │  expect class QrScanner                               │         │   │
+│  │   │  expect class PlatformInfo                            │         │   │
+│  │   │  expect fun getCurrentTimeMillis(): Long              │         │   │
+│  │   └───────────────────────────────────────────────────────┘         │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                      │                                      │
+│                    ┌─────────────────┼─────────────────┐                    │
+│                    │                 │                 │                    │
+│                    ▼                 ▼                 ▼                    │
+│  ┌─────────────────────┐ ┌─────────────────┐ ┌─────────────────┐ ┌────────┐│
+│  │   ANDROID LAYER     │ │   IOS LAYER     │ │  DESKTOP LAYER  │ │  WEB   ││
+│  │   (androidApp/)     │ │   (iosApp/)     │ │  (desktopApp/)  │ │(webApp)││
+│  ├─────────────────────┤ ├─────────────────┤ ├─────────────────┤ ├────────┤│
+│  │ Jetpack Compose UI  │ │  SwiftUI UI     │ │ Compose Desktop │ │HTML/CSS││
+│  │ ML Kit Scanner      │ │ AVFoundation    │ │ ZXing Scanner   │ │ jsQR   ││
+│  │ Android SQLite      │ │ Core Data       │ │ JVM SQLite      │ │IndexedD││
+│  │ CameraX             │ │ Vision Kit      │ │ Swing fallback  │ │ Canvas ││
+│  └─────────────────────┘ └─────────────────┘ └─────────────────┘ └────────┘│
 │                                                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Module Structure
+## 📁 Shared Code (common module)
 
-```
-qrshield/
-├── common/                      # Shared KMP module
-│   └── src/
-│       ├── commonMain/          # Platform-agnostic code
-│       │   └── kotlin/com/qrshield/
-│       │       ├── core/        # Business logic
-│       │       ├── data/        # Data layer
-│       │       ├── engine/      # Detection engines
-│       │       ├── ml/          # Machine learning
-│       │       ├── model/       # Data models
-│       │       ├── scanner/     # QR scanner interface
-│       │       ├── security/    # Security utilities
-│       │       ├── ui/          # Shared UI components
-│       │       └── utils/       # Utilities
-│       ├── commonTest/          # Shared tests
-│       ├── androidMain/         # Android-specific
-│       ├── iosMain/             # iOS-specific
-│       ├── desktopMain/         # Desktop-specific
-│       └── jsMain/              # Web-specific
-│
-├── androidApp/                  # Android application
-├── desktopApp/                  # Desktop application
-└── docs/                        # Documentation
-```
+All business logic lives in `common/src/commonMain/kotlin/`:
 
-### Package Responsibilities
+### Core Detection Engine
 
-| Package | Responsibility |
-|---------|---------------|
-| `core` | PhishingEngine, UrlAnalyzer, RiskScorer, VerdictEngine |
-| `engine` | HeuristicsEngine, BrandDetector, TldScorer, HomographDetector |
-| `ml` | LogisticRegressionModel, FeatureExtractor |
-| `security` | InputValidator, RateLimiter |
-| `data` | HistoryRepository, ScanHistoryManager |
-| `model` | RiskAssessment, Verdict, ScanResult |
-| `scanner` | QrScanner interface + platform implementations |
-| `ui` | SharedViewModel, UiState, theme components |
+| File | Purpose | LOC |
+|------|---------|-----|
+| `PhishingEngine.kt` | Main analysis orchestrator | ~350 |
+| `HeuristicsEngine.kt` | 25+ security heuristics | ~400 |
+| `BrandDetector.kt` | Brand impersonation detection | ~500 |
+| `BrandDatabase.kt` | 500+ brand patterns | ~600 |
+
+### ML Model
+
+| File | Purpose | LOC |
+|------|---------|-----|
+| `LogisticRegressionModel.kt` | On-device ML classifier | ~400 |
+| `FeatureExtractor.kt` | URL feature extraction | ~300 |
+
+### Data Layer
+
+| File | Purpose | LOC |
+|------|---------|-----|
+| `HistoryRepository.kt` | Scan history CRUD | ~200 |
+| `QRShieldDatabase.sq` | SQLDelight schema | ~50 |
+
+### Models & Utilities
+
+| File | Purpose | LOC |
+|------|---------|-----|
+| `RiskAssessment.kt` | Analysis result data class | ~100 |
+| `UrlParser.kt` | URL parsing utilities | ~200 |
+| `Entropy.kt` | Domain entropy calculation | ~50 |
 
 ---
 
-## Data Flow
+## 📱 Platform-Specific Code
 
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                           DATA FLOW DIAGRAM                              │
-└──────────────────────────────────────────────────────────────────────────┘
+### What's Platform-Specific
 
-  📷 QR Code                                                   📊 Result
-      │                                                            │
-      ▼                                                            ▲
-┌──────────┐     ┌──────────┐     ┌──────────┐     ┌──────────┐   │
-│  Camera  │────▶│  Scanner │────▶│   URL    │────▶│ Analysis │───┘
-│  Input   │     │  (ML Kit │     │Extracted │     │ Pipeline │
-│          │     │  Vision) │     │          │     │          │
-└──────────┘     └──────────┘     └────┬─────┘     └──────────┘
-                                       │
-                                       ▼
-                              ┌────────────────┐
-                              │ InputValidator │
-                              │ ──────────────│
-                              │ • Length check │
-                              │ • Null bytes   │
-                              │ • Protocol     │
-                              └───────┬────────┘
-                                      │
-                    ┌─────────────────┼─────────────────┐
-                    ▼                 ▼                 ▼
-            ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-            │  Heuristics  │  │   ML Model   │  │    Brand     │
-            │   Engine     │  │  Inference   │  │   Detector   │
-            │  ──────────  │  │  ──────────  │  │  ──────────  │
-            │  17+ rules   │  │  15 features │  │  30+ brands  │
-            │  scored      │  │  probability │  │  fuzzy match │
-            └──────┬───────┘  └──────┬───────┘  └──────┬───────┘
-                   │                 │                 │
-                   └─────────────────┼─────────────────┘
-                                     ▼
-                           ┌─────────────────┐
-                           │   RiskScorer    │
-                           │   ───────────   │
-                           │ Combined Score  │
-                           │    (0-100)      │
-                           └────────┬────────┘
-                                    │
-                                    ▼
-                           ┌─────────────────┐
-                           │ Verdict Engine  │
-                           │ ─────────────── │
-                           │ SAFE/SUSPICIOUS │
-                           │   /MALICIOUS    │
-                           └────────┬────────┘
-                                    │
-                                    ▼
-                           ┌─────────────────┐
-                           │ RiskAssessment  │
-                           │ ─────────────── │
-                           │ • score         │
-                           │ • verdict       │
-                           │ • flags[]       │
-                           │ • confidence    │
-                           └─────────────────┘
-```
+| Component | Android | iOS | Desktop | Web |
+|-----------|---------|-----|---------|-----|
+| **UI Framework** | Jetpack Compose | SwiftUI | Compose Desktop | HTML/JS |
+| **QR Scanner** | ML Kit | AVFoundation | ZXing | jsQR |
+| **Database Driver** | Android SQLite | Native SQLite | JVM SQLite | IndexedDB |
+| **Camera Access** | CameraX | AVCaptureSession | Webcam API | getUserMedia |
+| **Haptic Feedback** | Vibrator | UIImpactFeedback | N/A | N/A |
 
----
+### expect/actual Declarations
 
-## Security Model
-
-### Threat Defense Matrix
-
-| Attack Vector | Detection Method | Engine |
-|---------------|------------------|--------|
-| Typosquatting | Character substitution patterns | BrandDetector |
-| Homograph | Unicode confusable detection | HomographDetector |
-| Combosquatting | Brand + keyword patterns | BrandDetector |
-| Subdomain abuse | Brand in subdomain check | BrandDetector |
-| Credential harvesting | Query param inspection | HeuristicsEngine |
-| URL obfuscation | Encoding analysis | HeuristicsEngine |
-| IP address hosting | IP vs domain check | HeuristicsEngine |
-| Risky TLDs | TLD abuse database | TldScorer |
-
-### Input Security
+Located in `common/src/commonMain/kotlin/com/qrshield/platform/`:
 
 ```kotlin
-// All inputs validated before processing
-InputValidator.validateUrl(url) returns:
-  - ValidationResult.Valid(sanitizedUrl)
-  - ValidationResult.Invalid(reason, ErrorCode)
+// Database driver - different SQLite implementation per platform
+expect class DatabaseDriverFactory {
+    fun createDriver(): SqlDriver
+}
 
-// Validation checks:
-- Length: max 2048 characters
-- Null bytes: rejected
-- Control characters: rejected  
-- Protocol: http/https only
-- Dangerous schemes: javascript:, data:, vbscript: blocked
-```
+// Platform info - OS detection
+expect class PlatformInfo {
+    val name: String
+    val isDebug: Boolean
+}
 
-### Privacy Guarantees
-
-1. **No Network Calls**: Analysis performed entirely on-device
-2. **No Telemetry**: Zero tracking or analytics
-3. **Local Storage**: History encrypted with platform keystore
-4. **No Cloud**: ML model embedded, no external inference
-
----
-
-## Platform Implementations
-
-### QrScanner Interface
-
-```kotlin
-interface QrScanner {
-    fun scanFromCamera(): Flow<ScanResult>
-    suspend fun scanFromImage(imageBytes: ByteArray): ScanResult
+// QR Scanner abstraction
+expect class QrScanner {
+    suspend fun startScanning(): Flow<String>
     fun stopScanning()
-    suspend fun hasCameraPermission(): Boolean
-    suspend fun requestCameraPermission(): Boolean
 }
+
+// Time utility
+expect fun getCurrentTimeMillis(): Long
 ```
 
-### Platform Implementation Matrix
+### actual Implementations
 
-| Platform | Scanner Library | Camera API | Storage |
-|----------|-----------------|------------|---------|
-| Android | Google ML Kit | CameraX | SQLDelight Android |
-| iOS | Vision Framework | AVFoundation | SQLDelight Native |
-| Desktop | ZXing | OpenCV | SQLDelight JVM |
-| Web | jsQR | MediaDevices | SQLDelight Web |
+| Expect | Android Actual | iOS Actual | Desktop Actual | Web Actual |
+|--------|----------------|------------|----------------|------------|
+| `DatabaseDriverFactory` | `AndroidSqliteDriver` | `NativeSqliteDriver` | `JdbcSqliteDriver` | `WebWorkerDriver` |
+| `getCurrentTimeMillis()` | `System.currentTimeMillis()` | `NSDate` | `System.currentTimeMillis()` | `Date.now()` |
+| `PlatformInfo.name` | `"Android"` | `"iOS"` | `"Desktop"` | `"Web"` |
 
 ---
 
-## Analysis Pipeline
-
-### Scoring Formula
+## 🔄 Data Flow
 
 ```
-Final Score = (
-    Heuristic Score × 0.40 +
-    ML Model Score × 0.35 +
-    Brand Score × 0.15 +
-    TLD Score × 0.10
-) × 100
-```
-
-### Verdict Thresholds
-
-| Score Range | Verdict | Action |
-|-------------|---------|--------|
-| 0-30 | SAFE | URL appears legitimate |
-| 31-70 | SUSPICIOUS | Proceed with caution |
-| 71-100 | MALICIOUS | Do not visit |
-
-### Heuristic Rules (17+)
-
-| Rule | Weight | Description |
-|------|--------|-------------|
-| HTTP_NOT_HTTPS | 15 | No TLS encryption |
-| IP_ADDRESS_HOST | 20 | IP instead of domain |
-| URL_SHORTENER | 8 | Redirect service |
-| EXCESSIVE_SUBDOMAINS | 10 | >3 subdomain levels |
-| CREDENTIAL_PARAMS | 18 | Password in query |
-| AT_SYMBOL_INJECTION | 15 | URL spoofing |
-| PUNYCODE_DOMAIN | 15 | IDN homograph risk |
-| RISKY_EXTENSION | 25 | .exe, .scr, etc. |
-
----
-
-## ML Model
-
-### Architecture
-
-```
-Logistic Regression (Binary Classification)
-├── Input: 15 normalized features
-├── Weights: Trained on phishing URL dataset
-├── Output: Probability [0, 1]
-└── Inference: ~1ms on-device
-```
-
-### Feature Vector
-
-| Index | Feature | Normalization |
-|-------|---------|---------------|
-| 0 | URL Length | /500, max 1.0 |
-| 1 | Host Length | /100, max 1.0 |
-| 2 | Path Length | /200, max 1.0 |
-| 3 | Subdomain Count | /5, max 1.0 |
-| 4 | Has HTTPS | 0 or 1 |
-| 5 | IP Host | 0 or 1 |
-| 6 | Domain Entropy | /5, max 1.0 |
-| 7 | Path Entropy | /5, max 1.0 |
-| 8 | Query Param Count | /10, max 1.0 |
-| 9 | Has @ Symbol | 0 or 1 |
-| 10 | Dot Count | /10, max 1.0 |
-| 11 | Dash Count | /10, max 1.0 |
-| 12 | Has Port | 0 or 1 |
-| 13 | Shortener Domain | 0 or 1 |
-| 14 | Suspicious TLD | 0 or 1 |
-
----
-
-## Database Schema
-
-### SQLDelight Schema
-
-```sql
--- Scan History Table
-CREATE TABLE ScanHistory (
-    id TEXT NOT NULL PRIMARY KEY,
-    url TEXT NOT NULL,
-    score INTEGER NOT NULL,
-    verdict TEXT NOT NULL,
-    scanned_at INTEGER NOT NULL,
-    source TEXT NOT NULL
-);
-
-CREATE INDEX idx_scanned_at ON ScanHistory(scanned_at DESC);
+1. User scans QR code / enters URL
+              │
+              ▼
+2. Platform-specific scanner extracts URL
+              │
+              ▼
+3. URL sent to shared PhishingEngine
+              │
+              ▼
+4. ┌─────────────────────────────────┐
+   │   SHARED ANALYSIS PIPELINE      │
+   │                                 │
+   │  URL → UrlParser.parse()        │
+   │     → HeuristicsEngine.analyze()│
+   │     → LogisticRegressionModel   │
+   │     → BrandDetector.detect()    │
+   │     → Score aggregation         │
+   │     → RiskAssessment            │
+   └─────────────────────────────────┘
+              │
+              ▼
+5. RiskAssessment returned to platform UI
+              │
+              ▼
+6. Platform-specific UI displays result
+   • Verdict (SAFE/SUSPICIOUS/MALICIOUS)
+   • Score (0-100)
+   • Detailed risk signals
+   • Counterfactual hints
 ```
 
 ---
 
-## API Reference
+## 📊 Code Distribution
 
-### Core Classes
+```
+Total Codebase: ~12,000 LOC
 
-#### PhishingEngine
+┌────────────────────────────────────────────────────────┐
+│ SHARED (commonMain)                                    │
+│ ████████████████████████████████░░░░░░░░░░ ~80%       │
+│ • Detection engines                                    │
+│ • ML model                                            │
+│ • Business logic                                      │
+│ • Data layer                                          │
+└────────────────────────────────────────────────────────┘
 
-```kotlin
-class PhishingEngine {
-    fun analyze(url: String): RiskAssessment
-}
+┌────────────────────────────────────────────────────────┐
+│ PLATFORM-SPECIFIC                                      │
+│ ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░████████ ~20%         │
+│ • UI (Compose, SwiftUI, HTML)                         │
+│ • Camera/Scanner (ML Kit, AVFoundation, ZXing)        │
+│ • Database drivers                                    │
+└────────────────────────────────────────────────────────┘
 ```
 
-#### RiskAssessment
-
-```kotlin
-data class RiskAssessment(
-    val score: Int,              // 0-100
-    val verdict: Verdict,        // SAFE, SUSPICIOUS, MALICIOUS, UNKNOWN
-    val flags: List<String>,     // Risk factors detected
-    val details: UrlAnalysisResult,
-    val confidence: Float        // 0.0-1.0
-)
-```
-
-See [API.md](API.md) for complete API documentation.
+Run `./scripts/loc_report.sh` for exact counts.
 
 ---
 
-## References
+## 🎯 Why This Architecture
 
-- [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
-- [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)
-- [SQLDelight](https://cashapp.github.io/sqldelight/)
-- [Google ML Kit](https://developers.google.com/ml-kit/vision/barcode-scanning)
+### Benefits of KMP
+
+1. **Single Source of Truth**: Detection logic written once, tested once
+2. **Consistent Security**: Same analysis on all platforms
+3. **Faster Updates**: Fix a bug in common → fixed everywhere
+4. **Shared Tests**: 849 tests run on all targets
+
+### iOS Decision: SwiftUI vs Compose Multiplatform
+
+We chose native SwiftUI for iOS because:
+
+1. **Better UX**: Native animations, gestures, feel
+2. **Camera Access**: AVFoundation is more mature than KMP camera libs
+3. **App Store Ready**: No experimental Compose iOS issues
+4. **The shared code still works**: DetectionEngine is 100% Kotlin
+
+```swift
+// iOS code calling Kotlin shared engine
+let engine = PhishingEngine()
+let result = engine.analyze(url: userUrl)
+// Same result as Android, Desktop, Web!
+```
+
+---
+
+## 📚 Related Documentation
+
+- [Evaluation Methodology](EVALUATION.md)
+- [ML Model Details](ML_MODEL.md)
+- [Security Model](../SECURITY_MODEL.md)
+- [API Documentation](API.md)
+
+---
+
+*Last updated: December 2025*
