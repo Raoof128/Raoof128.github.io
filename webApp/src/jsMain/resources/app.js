@@ -1035,7 +1035,7 @@ URL: ${url}
 // ==========================================
 
 let currentSlide = 1;
-const totalSlides = 3;
+const totalSlides = 4; // Updated: now includes safe vs risky example slide
 
 function showOnboarding() {
     const modal = document.getElementById('onboardingModal');

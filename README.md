@@ -43,10 +43,13 @@
 |-------------|-----------------|
 | `https://paypa1-secure.tk/login` | MALICIOUS (Score ~85) — Brand impersonation + suspicious TLD |
 | `https://google.com` | SAFE (Score <20) — No threats detected |
+| `https://gооgle.com` | MALICIOUS — Homograph attack (Cyrillic 'о') |
+| `https://bit.ly/xyz123` | SUSPICIOUS — URL shortener obfuscation |
 
 **Key Files:**
 - Shared detection engine: `common/src/commonMain/kotlin/com/qrshield/`
 - Android app: `androidApp/` — iOS app: `iosApp/` — Desktop: `desktopApp/` — Web: `webApp/`
+- **Attack Scenarios:** [docs/ATTACK_DEMOS.md](docs/ATTACK_DEMOS.md) — Curated demos with detection signals
 
 ---
 
