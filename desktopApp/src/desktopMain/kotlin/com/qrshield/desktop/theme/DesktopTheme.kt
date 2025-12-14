@@ -23,71 +23,79 @@ import androidx.compose.ui.graphics.Color
 /**
  * QR-SHIELD Desktop Design System
  *
- * Centralized color definitions and theme configuration.
+ * Centralized color definitions matching Android/iOS/Web exactly.
+ * Based on the shared brand identity for cross-platform consistency.
  *
  * @author QR-SHIELD Team
- * @since 1.1.0
+ * @since 1.1.4
  */
 object DesktopColors {
 
     // ========================================
-    // BRAND COLORS
+    // BRAND COLORS (Matching Web/Android/iOS)
     // ========================================
 
-    /** Kotlin Purple - Primary brand color */
-    val BrandPrimary = Color(0xFF7F52FF)
+    /** Electric Purple - Primary brand color (from Web: #6C5CE7) */
+    val BrandPrimary = Color(0xFF6C5CE7)
 
-    /** Secondary brand color - lighter purple */
-    val BrandSecondary = Color(0xFFA78BFA)
+    /** Neon Teal/Cyan - Secondary brand color (from Web: #00CEC9) */
+    val BrandSecondary = Color(0xFF00D68F)
 
-    /** Accent color - cyan highlight */
-    val BrandAccent = Color(0xFF00D9FF)
+    /** Light Purple Accent (from Web: #A78BFA) */
+    val BrandAccent = Color(0xFFA855F7)
 
-    /** Gradient start color */
-    val BrandGradientStart = Color(0xFF7F52FF)
+    /** Gradient start color - Primary Purple */
+    val BrandGradientStart = Color(0xFF6C5CE7)
 
-    /** Gradient end color */
-    val BrandGradientEnd = Color(0xFFE879F9)
-
-    // ========================================
-    // VERDICT COLORS
-    // ========================================
-
-    /** Safe verdict - green */
-    val VerdictSafe = Color(0xFF22C55E)
-
-    /** Suspicious verdict - amber */
-    val VerdictSuspicious = Color(0xFFF59E0B)
-
-    /** Malicious verdict - red */
-    val VerdictMalicious = Color(0xFFEF4444)
-
-    /** Unknown verdict - gray */
-    val VerdictUnknown = Color(0xFF9CA3AF)
+    /** Gradient end color - Light Purple */
+    val BrandGradientEnd = Color(0xFFA855F7)
 
     // ========================================
-    // DARK THEME COLORS
+    // VERDICT COLORS (WCAG AA Compliant)
     // ========================================
 
-    val DarkBackground = Color(0xFF0A0A0B)
-    val DarkSurface = Color(0xFF141416)
-    val DarkSurfaceElevated = Color(0xFF1C1C1F)
-    val DarkSurfaceVariant = Color(0xFF262629)
-    val DarkTextPrimary = Color(0xFFFAFAFA)
-    val DarkTextSecondary = Color(0xFFA1A1AA)
-    val DarkBorder = Color(0xFF27272A)
+    /** Safe verdict - Neon Green (#00D68F) */
+    val VerdictSafe = Color(0xFF00D68F)
+
+    /** Suspicious verdict - Amber (#F5A623) */
+    val VerdictSuspicious = Color(0xFFF5A623)
+
+    /** Malicious verdict - Threat Red (#FF3D71) */
+    val VerdictMalicious = Color(0xFFFF3D71)
+
+    /** Unknown verdict - Gray (#8B93A1) */
+    val VerdictUnknown = Color(0xFF8B93A1)
+
+    // ========================================
+    // DARK THEME COLORS (GitHub Dark Style)
+    // ========================================
+
+    val DarkBackground = Color(0xFF0D1117)        // Deep Navy (GitHub Dark)
+    val DarkSurface = Color(0xFF161B22)           // Elevated Surface
+    val DarkSurfaceElevated = Color(0xFF21262D)   // Card Background
+    val DarkSurfaceVariant = Color(0xFF1C2128)    // Surface Variant
+    val DarkTextPrimary = Color(0xFFF0F6FC)       // Near White
+    val DarkTextSecondary = Color(0xFF8B949E)     // Muted Gray
+    val DarkBorder = Color(0xFF30363D)            // Border color
 
     // ========================================
     // LIGHT THEME COLORS
     // ========================================
 
-    val LightBackground = Color(0xFFFAFAFB)
+    val LightBackground = Color(0xFFF6F8FA)
     val LightSurface = Color(0xFFFFFFFF)
-    val LightSurfaceElevated = Color(0xFFF4F4F5)
-    val LightSurfaceVariant = Color(0xFFE4E4E7)
+    val LightSurfaceElevated = Color(0xFFF0F2F5)
+    val LightSurfaceVariant = Color(0xFFE7E0EC)
     val LightTextPrimary = Color(0xFF18181B)
-    val LightTextSecondary = Color(0xFF52525B)
+    val LightTextSecondary = Color(0xFF3F3F46)
     val LightBorder = Color(0xFFE4E4E7)
+
+    // ========================================
+    // ACCENT COLORS
+    // ========================================
+
+    val AccentBlue = Color(0xFF58A6FF)            // Link Blue
+    val AccentPurple = Color(0xFFD2A8FF)          // Highlight Purple
 }
 
 /**

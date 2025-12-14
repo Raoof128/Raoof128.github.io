@@ -18,6 +18,7 @@ package com.qrshield.desktop
 
 import androidx.compose.animation.*
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,6 +30,8 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -37,9 +40,11 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import androidx.compose.ui.res.painterResource
 import com.qrshield.core.PhishingEngine
 import com.qrshield.desktop.components.*
 import com.qrshield.desktop.model.AnalysisResult
+import com.qrshield.desktop.theme.DesktopColors
 import com.qrshield.desktop.theme.QRShieldDarkColors
 import com.qrshield.desktop.theme.QRShieldLightColors
 import java.awt.Toolkit
@@ -91,7 +96,8 @@ fun main() = application {
             exitApplication()
         },
         title = "🛡️ QR-SHIELD - QRishing Detector",
-        state = windowState
+        state = windowState,
+        icon = painterResource("assets/app-icon.png")
     ) {
         QRShieldDesktopApp(initialDarkMode = prefs.darkMode)
     }
@@ -233,26 +239,40 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                 },
             color = MaterialTheme.colorScheme.background
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize()
+            // Subtle gradient overlay for premium feel
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                DesktopColors.BrandPrimary.copy(alpha = 0.03f),
+                                Color.Transparent,
+                                DesktopColors.BrandSecondary.copy(alpha = 0.02f)
+                            )
+                        )
+                    )
             ) {
-                // Top App Bar with gradient
-                EnhancedTopAppBar(
-                    isDarkMode = isDarkMode,
-                    onThemeToggle = { isDarkMode = !isDarkMode },
-                    onSettingsClick = { showSettingsDialog = true },
-                    onAboutClick = { showAboutDialog = true }
-                )
-
-                // Main Content
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                        .padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(24.dp)
+                    modifier = Modifier.fillMaxSize()
                 ) {
+                    // Top App Bar with gradient
+                    EnhancedTopAppBar(
+                        isDarkMode = isDarkMode,
+                        onThemeToggle = { isDarkMode = !isDarkMode },
+                        onSettingsClick = { showSettingsDialog = true },
+                        onAboutClick = { showAboutDialog = true }
+                    )
+
+                    // Main Content
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState())
+                            .padding(horizontal = 32.dp, vertical = 28.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(28.dp)
+                    ) {
                     // Help Card (first-time guidance)
                     AnimatedVisibility(
                         visible = showHelpCard,
@@ -267,8 +287,8 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     // Hero Section with animated shield
                     AnimatedHeroSection()
 
-                    // Stats Row
-                    StatsRow(scanCount = scanHistory.size)
+                    // Metrics Grid (matching Web)
+                    MetricsGrid()
 
                     // Sample URLs Section (Try Now for judges)
                     SampleUrlsSection(
@@ -384,6 +404,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     EnhancedFooter()
                 }
             }
+        }
 
             // Dialogs
             AboutDialog(

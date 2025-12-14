@@ -18,6 +18,7 @@ package com.qrshield.desktop.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -31,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -80,7 +82,7 @@ fun EnhancedTopAppBar(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                // Animated Shield Icon
+                // App Logo
                 Box(
                     modifier = Modifier
                         .size(40.dp)
@@ -88,9 +90,12 @@ fun EnhancedTopAppBar(
                         .background(Color.White.copy(alpha = 0.2f)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "🛡️",
-                        fontSize = 22.sp
+                    Image(
+                        painter = painterResource("assets/app-icon.png"),
+                        contentDescription = "Logo",
+                        modifier = Modifier
+                            .size(28.dp)
+                            .clip(RoundedCornerShape(8.dp))
                     )
                 }
 
@@ -173,16 +178,16 @@ fun EnhancedTopAppBar(
 // ============================================
 
 /**
- * Animated hero section with pulsing shield icon.
+ * Animated hero section matching Web app design.
  */
 @Composable
 fun AnimatedHeroSection() {
     val infiniteTransition = rememberInfiniteTransition(label = "hero")
     val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
-        targetValue = 1.05f,
+        targetValue = 1.08f,
         animationSpec = infiniteRepeatable(
-            animation = tween(2000, easing = EaseInOutSine),
+            animation = tween(1500, easing = EaseInOutCubic),
             repeatMode = RepeatMode.Reverse
         ),
         label = "scale"
@@ -190,41 +195,73 @@ fun AnimatedHeroSection() {
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        // Animated Logo with glow effect
         Box(
             modifier = Modifier
-                .size((64 * scale).dp)
+                .size((96 * scale).dp)
                 .clip(CircleShape)
                 .background(
                     Brush.radialGradient(
                         colors = listOf(
-                            DesktopColors.BrandPrimary.copy(alpha = 0.3f),
-                            DesktopColors.BrandPrimary.copy(alpha = 0.1f),
+                            DesktopColors.BrandPrimary.copy(alpha = 0.4f),
+                            DesktopColors.BrandAccent.copy(alpha = 0.2f),
                             Color.Transparent
                         )
                     )
                 ),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "🛡️",
-                fontSize = 36.sp
+            // Load PNG logo from resources
+            Image(
+                painter = painterResource("assets/app-icon.png"),
+                contentDescription = "QR-SHIELD Logo",
+                modifier = Modifier
+                    .size((64 * scale).dp)
+                    .clip(RoundedCornerShape(16.dp))
             )
         }
 
+        // Gradient Title (matching Web "Scan URLs Safely")
         Text(
             text = "Scan URLs Safely",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.ExtraBold,
+            color = DesktopColors.BrandPrimary
         )
 
+        // Subtitle
         Text(
-            text = "AI-powered phishing detection • 100% offline",
-            style = MaterialTheme.typography.bodyMedium,
+            text = "AI-powered phishing detection running 100% offline",
+            style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
+        )
+
+        // Trust badges row (matching Web)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TrustBadge("🔒", "Zero data collection")
+            TrustBadge("🚀", "Same engine as Mobile")
+            TrustBadge("🧠", "25+ AI heuristics")
+        }
+    }
+}
+
+@Composable
+private fun TrustBadge(icon: String, text: String) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = icon, fontSize = 12.sp)
+        Text(
+            text = text,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
         )
     }
 }
@@ -234,7 +271,73 @@ fun AnimatedHeroSection() {
 // ============================================
 
 /**
- * Row of stats cards showing scan metrics.
+ * Metrics Grid matching Web app design.
+ */
+@Composable
+fun MetricsGrid() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        MetricCard(
+            value = "25+",
+            label = "Security Heuristics",
+            modifier = Modifier.weight(1f)
+        )
+        MetricCard(
+            value = "500+",
+            label = "Brands Detected",
+            modifier = Modifier.weight(1f)
+        )
+        MetricCard(
+            value = "<50ms",
+            label = "Analysis Time",
+            modifier = Modifier.weight(1f)
+        )
+        MetricCard(
+            value = "100%",
+            label = "Local Privacy",
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
+fun MetricCard(
+    value: String,
+    label: String,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(18.dp),
+        color = DesktopColors.BrandPrimary.copy(alpha = 0.08f),
+        border = BorderStroke(3.dp, DesktopColors.BrandPrimary.copy(alpha = 0.5f))
+    ) {
+        Column(
+            modifier = Modifier.padding(vertical = 24.dp, horizontal = 18.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Text(
+                text = value,
+                style = MaterialTheme.typography.headlineLarge,
+                fontWeight = FontWeight.ExtraBold,
+                color = DesktopColors.BrandPrimary
+            )
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+/**
+ * Row of stats cards showing scan metrics (legacy).
  */
 @Composable
 fun StatsRow(scanCount: Int) {
@@ -350,71 +453,97 @@ fun FeatureCard(
 // ============================================
 
 /**
- * Application footer with branding.
+ * Application footer with premium design.
  */
 @Composable
 fun EnhancedFooter() {
     Column(
+        modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        HorizontalDivider(
-            modifier = Modifier.padding(vertical = 8.dp),
-            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+        // Gradient divider
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(0.6f)
+                .height(2.dp)
+                .background(
+                    Brush.horizontalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            DesktopColors.BrandPrimary.copy(alpha = 0.3f),
+                            DesktopColors.BrandAccent.copy(alpha = 0.3f),
+                            Color.Transparent
+                        )
+                    )
+                )
         )
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
+        // KMP Badge
+        Surface(
+            shape = RoundedCornerShape(20.dp),
+            color = DesktopColors.BrandPrimary.copy(alpha = 0.1f),
+            border = BorderStroke(1.dp, DesktopColors.BrandPrimary.copy(alpha = 0.2f))
         ) {
-            Text(
-                text = "Built with",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
-            )
-            Text(
-                text = "💜",
-                fontSize = 14.sp
-            )
-            Text(
-                text = "Kotlin Multiplatform",
-                style = MaterialTheme.typography.bodySmall,
-                fontWeight = FontWeight.Medium,
-                color = DesktopColors.BrandPrimary
-            )
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "💜", fontSize = 14.sp)
+                Text(
+                    text = "Built with Kotlin Multiplatform",
+                    style = MaterialTheme.typography.labelMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = DesktopColors.BrandPrimary
+                )
+            }
         }
 
+        // Version & Edition
         Text(
-            text = "🛡️ QR-SHIELD v1.1.4 • Desktop Edition",
+            text = "🛡️ QR-SHIELD v1.1.4 • Desktop Edition • KotlinConf 2026",
             style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
         )
 
+        // Links Row
         Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalArrangement = Arrangement.spacedBy(24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            FooterLink("GitHub", "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")
-            FooterLink("Report Issue", "https://github.com/Raoof128/QDKMP-KotlinConf-2026-/issues")
+            FooterLink("🔗 GitHub", "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")
+            Text("•", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f))
+            FooterLink("🐛 Report Issue", "https://github.com/Raoof128/QDKMP-KotlinConf-2026-/issues")
+            Text("•", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f))
+            FooterLink("📜 License", "https://github.com/Raoof128/QDKMP-KotlinConf-2026-/blob/main/LICENSE")
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
 @Composable
 fun FooterLink(text: String, url: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.labelSmall,
-        color = MaterialTheme.colorScheme.primary,
-        modifier = Modifier
-            .clickable {
-                try {
-                    if (java.awt.Desktop.isDesktopSupported()) {
-                        java.awt.Desktop.getDesktop().browse(java.net.URI(url))
-                    }
-                } catch (e: Exception) {
-                    // Ignore
+    Surface(
+        onClick = {
+            try {
+                if (java.awt.Desktop.isDesktopSupported()) {
+                    java.awt.Desktop.getDesktop().browse(java.net.URI(url))
                 }
+            } catch (e: Exception) {
+                // Ignore
             }
-    )
+        },
+        shape = RoundedCornerShape(8.dp),
+        color = Color.Transparent
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.8f)
+        )
+    }
 }

@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,15 +44,16 @@ import com.qrshield.model.Verdict
  * Scanner-related UI components for QR-SHIELD Desktop
  *
  * @author QR-SHIELD Team
- * @since 1.1.0
+ * @since 1.1.4
  */
 
 // ============================================
-// SCANNER CARD
+// SCANNER CARD - Premium Glassmorphism Design
 // ============================================
 
 /**
  * Main scanner input card with URL field and analyze button.
+ * Features glassmorphism, gradient accents, and premium feel.
  */
 @Composable
 fun EnhancedScannerCard(
@@ -63,107 +65,190 @@ fun EnhancedScannerCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(8.dp, RoundedCornerShape(20.dp)),
-        shape = RoundedCornerShape(20.dp),
+            .shadow(
+                elevation = 24.dp,
+                shape = RoundedCornerShape(24.dp),
+                ambientColor = DesktopColors.BrandPrimary.copy(alpha = 0.15f),
+                spotColor = DesktopColors.BrandPrimary.copy(alpha = 0.25f)
+            ),
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+        border = BorderStroke(
+            1.dp,
+            Brush.linearGradient(
+                colors = listOf(
+                    DesktopColors.BrandPrimary.copy(alpha = 0.3f),
+                    DesktopColors.BrandAccent.copy(alpha = 0.2f),
+                    MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)
+                )
+            )
+        )
     ) {
+        // Gradient overlay at top
+        Box {
+            // Top accent gradient bar
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(4.dp)
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(
+                                DesktopColors.BrandPrimary,
+                                DesktopColors.BrandAccent,
+                                DesktopColors.BrandSecondary
+                            )
+                        )
+                    )
+            )
+        }
+
         Column(
-            modifier = Modifier.padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            modifier = Modifier.padding(28.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Input Label
+            // Header with icon
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
+                // Floating icon with glow
                 Box(
                     modifier = Modifier
-                        .size(36.dp)
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(DesktopColors.BrandPrimary.copy(alpha = 0.1f)),
+                        .size(48.dp)
+                        .shadow(8.dp, CircleShape, spotColor = DesktopColors.BrandPrimary.copy(alpha = 0.3f))
+                        .clip(CircleShape)
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(
+                                    DesktopColors.BrandPrimary,
+                                    DesktopColors.BrandAccent
+                                )
+                            )
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "🔗",
-                        fontSize = 18.sp
+                        fontSize = 22.sp
                     )
                 }
                 Column {
                     Text(
-                        text = "URL to Analyze",
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.SemiBold,
+                        text = "Analyze URL",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "Paste or type any URL to check for phishing",
+                        text = "Paste or type any URL to check for phishing threats",
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                     )
                 }
             }
 
-            // URL Input
+            // URL Input with premium styling
+            // URL Input with high visibility
             OutlinedTextField(
                 value = urlInput,
                 onValueChange = onUrlChange,
                 placeholder = {
                     Text(
-                        "https://example.com",
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                        "https://example.com/suspicious-page",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                        fontSize = 15.sp
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
-                shape = RoundedCornerShape(14.dp),
+                shape = RoundedCornerShape(16.dp),
+                textStyle = LocalTextStyle.current.copy(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = DesktopColors.BrandPrimary,
                     unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
                     focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.2f),
+                    cursorColor = DesktopColors.BrandPrimary
                 )
             )
 
-            // Analyze Button
+            // Gradient Analyze Button
             Button(
                 onClick = onAnalyze,
                 enabled = urlInput.isNotBlank() && !isAnalyzing,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(52.dp),
-                shape = RoundedCornerShape(14.dp),
+                    .height(56.dp),
+                shape = RoundedCornerShape(16.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = DesktopColors.BrandPrimary,
-                    disabledContainerColor = DesktopColors.BrandPrimary.copy(alpha = 0.5f)
+                    containerColor = Color.Transparent,
+                    disabledContainerColor = Color.Transparent
                 ),
-                elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 4.dp,
-                    pressedElevation = 8.dp
-                )
+                contentPadding = PaddingValues(0.dp)
             ) {
-                if (isAnalyzing) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(20.dp),
-                        color = Color.White,
-                        strokeWidth = 2.dp
-                    )
-                } else {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(10.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "🔍",
-                            fontSize = 18.sp
-                        )
-                        Text(
-                            text = "Analyze URL",
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 15.sp
-                        )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            if (urlInput.isNotBlank() && !isAnalyzing) {
+                                Brush.horizontalGradient(
+                                    colors = listOf(
+                                        DesktopColors.BrandPrimary,
+                                        DesktopColors.BrandAccent
+                                    )
+                                )
+                            } else {
+                                Brush.horizontalGradient(
+                                    colors = listOf(
+                                        DesktopColors.BrandPrimary.copy(alpha = 0.4f),
+                                        DesktopColors.BrandAccent.copy(alpha = 0.4f)
+                                    )
+                                )
+                            }
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (isAnalyzing) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(22.dp),
+                                color = Color.White,
+                                strokeWidth = 2.5.dp
+                            )
+                            Text(
+                                text = "Analyzing...",
+                                color = Color.White,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 15.sp
+                            )
+                        }
+                    } else {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "🔍",
+                                fontSize = 20.sp
+                            )
+                            Text(
+                                text = "Analyze URL",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 16.sp,
+                                letterSpacing = 0.5.sp
+                            )
+                        }
                     }
                 }
             }
@@ -172,11 +257,11 @@ fun EnhancedScannerCard(
 }
 
 // ============================================
-// QUICK ACTIONS
+// QUICK ACTIONS - Premium Design
 // ============================================
 
 /**
- * Row of quick action buttons (paste/clear).
+ * Premium quick action buttons (paste/clear).
  */
 @Composable
 fun QuickActionsRow(
@@ -185,46 +270,72 @@ fun QuickActionsRow(
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        horizontalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        OutlinedButton(
+        // Paste Button - Primary action
+        Surface(
             onClick = onPasteFromClipboard,
-            modifier = Modifier.weight(1f).height(44.dp),
-            shape = RoundedCornerShape(12.dp),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            modifier = Modifier.weight(1f).height(48.dp),
+            shape = RoundedCornerShape(14.dp),
+            color = DesktopColors.BrandPrimary.copy(alpha = 0.1f),
+            border = BorderStroke(
+                1.dp,
+                Brush.linearGradient(
+                    colors = listOf(
+                        DesktopColors.BrandPrimary.copy(alpha = 0.4f),
+                        DesktopColors.BrandPrimary.copy(alpha = 0.2f)
+                    )
+                )
+            )
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("📋", fontSize = 14.sp)
-                Text("Paste", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                Text("📋", fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = "Paste from Clipboard",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = DesktopColors.BrandPrimary
+                )
             }
         }
 
-        OutlinedButton(
+        // Clear Button - Secondary action
+        Surface(
             onClick = onClearInput,
-            modifier = Modifier.weight(1f).height(44.dp),
-            shape = RoundedCornerShape(12.dp),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            modifier = Modifier.weight(1f).height(48.dp),
+            shape = RoundedCornerShape(14.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("🗑️", fontSize = 14.sp)
-                Text("Clear", fontSize = 13.sp, fontWeight = FontWeight.Medium)
+                Text("🗑️", fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = "Clear Input",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }
 }
 
 // ============================================
-// RESULT CARD
+// RESULT CARD - Premium Design
 // ============================================
 
 /**
- * Enhanced result card displaying analysis verdict.
+ * Premium result card displaying analysis verdict with glassmorphism.
  */
 @Composable
 fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
@@ -251,164 +362,313 @@ fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean) {
 
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .shadow(12.dp, RoundedCornerShape(24.dp)),
-        shape = RoundedCornerShape(24.dp),
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(28.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (isDarkMode)
-                verdictColor.copy(alpha = 0.08f)
+                MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
             else
-                verdictColor.copy(alpha = 0.06f)
+                MaterialTheme.colorScheme.surface
         ),
-        border = BorderStroke(2.dp, verdictColor.copy(alpha = 0.4f))
+        border = BorderStroke(
+            2.dp,
+            Brush.linearGradient(
+                colors = listOf(
+                    verdictColor.copy(alpha = 0.6f),
+                    verdictColor.copy(alpha = 0.3f),
+                    verdictColor.copy(alpha = 0.1f)
+                )
+            )
+        )
     ) {
+        // Top gradient bar
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(6.dp)
+                .background(
+                    Brush.horizontalGradient(
+                        colors = listOf(
+                            verdictColor,
+                            verdictColor.copy(alpha = 0.7f),
+                            verdictColor.copy(alpha = 0.4f)
+                        )
+                    )
+                )
+        )
+
         Column(
-            modifier = Modifier.padding(28.dp),
+            modifier = Modifier.padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Verdict Icon
+            // Verdict Icon with glow
             Box(
                 modifier = Modifier
-                    .size(88.dp)
+                    .size(100.dp)
                     .clip(CircleShape)
                     .background(
                         Brush.radialGradient(
                             colors = listOf(
-                                verdictColor.copy(alpha = 0.3f),
-                                verdictColor.copy(alpha = 0.1f)
+                                verdictColor.copy(alpha = 0.35f),
+                                verdictColor.copy(alpha = 0.15f),
+                                Color.Transparent
                             )
                         )
                     )
-                    .border(3.dp, verdictColor.copy(alpha = 0.5f), CircleShape),
+                    .border(
+                        width = 3.dp,
+                        brush = Brush.linearGradient(
+                            colors = listOf(
+                                verdictColor,
+                                verdictColor.copy(alpha = 0.5f)
+                            )
+                        ),
+                        shape = CircleShape
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = verdictEmoji,
-                    fontSize = 44.sp
+                    fontSize = 48.sp
                 )
             }
 
-            // Score with circular progress
+            // Score Section
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                // Score Number with gradient
                 Text(
                     text = result.score.toString(),
-                    style = MaterialTheme.typography.displayMedium,
-                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.displayLarge,
+                    fontWeight = FontWeight.ExtraBold,
                     color = verdictColor
                 )
 
                 Text(
                     text = "Risk Score",
-                    style = MaterialTheme.typography.labelMedium,
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
-                // Score Bar
+                // Premium Score Bar
                 Box(
                     modifier = Modifier
-                        .width(200.dp)
-                        .height(8.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
+                        .width(240.dp)
+                        .height(12.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                        .border(
+                            1.dp,
+                            MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
+                            RoundedCornerShape(6.dp)
+                        )
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
                             .fillMaxWidth(result.score / 100f)
-                            .clip(RoundedCornerShape(4.dp))
+                            .clip(RoundedCornerShape(6.dp))
                             .background(
                                 Brush.horizontalGradient(
-                                    colors = listOf(verdictColor, verdictColor.copy(alpha = 0.7f))
+                                    colors = listOf(
+                                        verdictColor,
+                                        verdictColor.copy(alpha = 0.8f)
+                                    )
                                 )
                             )
+                            .shadow(4.dp, RoundedCornerShape(6.dp), spotColor = verdictColor)
                     )
                 }
             }
 
-            // Verdict Badge
+            // Verdict Badge - Pill shape
             Surface(
                 color = verdictColor,
-                shape = RoundedCornerShape(24.dp),
-                shadowElevation = 4.dp
+                shape = RoundedCornerShape(28.dp),
+                shadowElevation = 8.dp
             ) {
                 Text(
                     text = result.verdict.name,
-                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 10.dp),
+                    modifier = Modifier.padding(horizontal = 32.dp, vertical = 12.dp),
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
-                    style = MaterialTheme.typography.labelLarge
+                    style = MaterialTheme.typography.titleMedium,
+                    letterSpacing = 1.sp
                 )
             }
 
             // Verdict Message
             Text(
                 text = verdictMessage,
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
             )
 
-            // URL
+            // URL Display - Premium style
             Surface(
-                shape = RoundedCornerShape(12.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.15f))
             ) {
-                Text(
-                    text = result.url,
-                    modifier = Modifier.padding(12.dp),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    textAlign = TextAlign.Center,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = "🔗", fontSize = 16.sp)
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Text(
+                        text = result.url,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
 
-            // Confidence Indicator
-            ConfidenceIndicator(
+            // Confidence Indicator - Enhanced
+            EnhancedConfidenceIndicator(
                 score = result.score,
                 flagCount = result.flags.size
             )
 
             // Flags with Expandable Details
             if (result.flags.isNotEmpty()) {
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+                // Gradient Divider
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .height(2.dp)
+                        .background(
+                            Brush.horizontalGradient(
+                                colors = listOf(
+                                    Color.Transparent,
+                                    MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                                    Color.Transparent
+                                )
+                            )
+                        )
                 )
 
                 Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
+                    // Section Header
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = "🧠", fontSize = 18.sp)
-                        Text(
-                            text = "Why This Verdict?",
-                            style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
+                        Box(
+                            modifier = Modifier
+                                .size(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(DesktopColors.BrandPrimary.copy(alpha = 0.15f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = "🧠", fontSize = 16.sp)
+                        }
+                        Column {
+                            Text(
+                                text = "Why This Verdict?",
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "Click signals for details and remediation",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                            )
+                        }
                     }
 
-                    Text(
-                        text = "Click on any signal to see details and remediation tips",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-
+                    // Signal Cards
                     result.flags.forEach { flag ->
                         ExpandableSignalCard(flag = flag)
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * Enhanced Confidence Indicator with better visibility.
+ */
+@Composable
+fun EnhancedConfidenceIndicator(
+    score: Int,
+    flagCount: Int
+) {
+    val (dots, level, label) = remember(score, flagCount) {
+        var d = 2
+        var l = "low"
+        var lb = "Low"
+        
+        if (score >= 80 || score <= 15) {
+            d = 5; l = "very-high"; lb = "Very High"
+        } else if (score >= 65 || score <= 25) {
+            d = 4; l = "high"; lb = "High"
+        } else if (score >= 50 || score <= 35) {
+            d = 3; l = "medium"; lb = "Medium"
+        }
+        
+        if (flagCount >= 4 && d < 5) {
+            d += 1
+            if (l == "medium") { l = "high"; lb = "High" }
+        }
+        
+        Triple(d, l, lb)
+    }
+
+    val dotColor = when (level) {
+        "very-high" -> DesktopColors.VerdictSafe
+        "high" -> DesktopColors.VerdictSafe.copy(alpha = 0.85f)
+        "medium" -> DesktopColors.VerdictSuspicious
+        else -> DesktopColors.VerdictSuspicious.copy(alpha = 0.6f)
+    }
+
+    Surface(
+        shape = RoundedCornerShape(24.dp),
+        color = dotColor.copy(alpha = 0.15f),
+        border = BorderStroke(2.dp, dotColor.copy(alpha = 0.4f))
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Confidence dots
+            Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                repeat(5) { index ->
+                    Box(
+                        modifier = Modifier
+                            .size(10.dp)
+                            .clip(CircleShape)
+                            .background(
+                                if (index < dots) dotColor else dotColor.copy(alpha = 0.2f)
+                            )
+                    )
+                }
+            }
+
+            Text(
+                text = "$label Confidence",
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = dotColor
+            )
         }
     }
 }

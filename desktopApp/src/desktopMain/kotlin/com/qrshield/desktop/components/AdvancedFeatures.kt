@@ -22,6 +22,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -36,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -273,22 +275,27 @@ fun AboutDialog(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // Logo
+                    // Logo with glow effect
                     Box(
                         modifier = Modifier
-                            .size(80.dp)
+                            .size(100.dp)
                             .clip(CircleShape)
                             .background(
-                                Brush.linearGradient(
+                                Brush.radialGradient(
                                     colors = listOf(
-                                        DesktopColors.BrandPrimary,
-                                        DesktopColors.BrandSecondary
+                                        DesktopColors.BrandPrimary.copy(alpha = 0.3f),
+                                        DesktopColors.BrandAccent.copy(alpha = 0.1f),
+                                        Color.Transparent
                                     )
                                 )
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = "🛡️", fontSize = 40.sp)
+                        Image(
+                            painter = painterResource("assets/app-icon.png"),
+                            contentDescription = "QR-SHIELD Logo",
+                            modifier = Modifier.size(72.dp)
+                        )
                     }
 
                     // Title

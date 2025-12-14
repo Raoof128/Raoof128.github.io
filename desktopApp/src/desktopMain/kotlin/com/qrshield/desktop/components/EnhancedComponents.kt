@@ -22,6 +22,7 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -70,39 +71,71 @@ val sampleUrls = listOf(
 fun SampleUrlsSection(
     onUrlSelected: (String) -> Unit
 ) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(22.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = DesktopColors.BrandPrimary.copy(alpha = 0.06f)
+        ),
+        border = BorderStroke(3.dp, DesktopColors.BrandPrimary.copy(alpha = 0.4f))
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        Column(
+            modifier = Modifier.padding(28.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text(text = "🧪", fontSize = 18.sp)
-            Text(
-                text = "Try These Examples",
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
+            // Header with icon
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(DesktopColors.BrandPrimary.copy(alpha = 0.2f))
+                        .border(
+                            2.dp,
+                            DesktopColors.BrandPrimary.copy(alpha = 0.5f),
+                            RoundedCornerShape(14.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(text = "🧪", fontSize = 24.sp)
+                }
+                Column {
+                    Text(
+                        text = "Try These Examples",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = "Click any card to auto-analyze",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            sampleUrls.forEach { sample ->
-                SampleUrlChip(
-                    sample = sample,
-                    onClick = { onUrlSelected(sample.url) },
-                    modifier = Modifier.weight(1f)
-                )
+            // Sample URL Chips
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                sampleUrls.forEach { sample ->
+                    PremiumSampleUrlChip(
+                        sample = sample,
+                        onClick = { onUrlSelected(sample.url) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-fun SampleUrlChip(
+fun PremiumSampleUrlChip(
     sample: SampleUrl,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -114,87 +147,140 @@ fun SampleUrlChip(
         else -> MaterialTheme.colorScheme.outline
     }
 
+    // Strong colors for visibility in both light and dark mode
+    val bgAlpha = 0.28f
+    val borderColor = chipColor.copy(alpha = 0.85f)
+    val textColor = chipColor // Full saturation for text
+
     Surface(
         onClick = onClick,
         modifier = modifier,
-        shape = RoundedCornerShape(12.dp),
-        color = chipColor.copy(alpha = 0.1f),
-        border = BorderStroke(1.dp, chipColor.copy(alpha = 0.3f))
+        shape = RoundedCornerShape(16.dp),
+        color = chipColor.copy(alpha = bgAlpha),
+        border = BorderStroke(3.dp, borderColor)
     ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier.padding(horizontal = 18.dp, vertical = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Text(text = sample.icon, fontSize = 14.sp)
+            // Large icon
+            Text(text = sample.icon, fontSize = 28.sp)
             Text(
                 text = sample.label,
-                style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Medium,
-                color = chipColor,
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.ExtraBold,
+                color = textColor,
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center
             )
         }
     }
 }
 
+// Keep old one for compatibility
+@Composable
+fun SampleUrlChip(
+    sample: SampleUrl,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    PremiumSampleUrlChip(sample, onClick, modifier)
+}
+
 // ============================================
-// KEYBOARD SHORTCUTS HINT
+// KEYBOARD SHORTCUTS HINT - Premium Design
 // ============================================
 
 @Composable
 fun KeyboardShortcutsHint() {
     Surface(
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(horizontal = 20.dp, vertical = 14.dp),
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "⌨️", fontSize = 16.sp)
+            // Icon with visible background
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(DesktopColors.BrandPrimary.copy(alpha = 0.12f))
+                    .border(
+                        1.dp,
+                        DesktopColors.BrandPrimary.copy(alpha = 0.25f),
+                        RoundedCornerShape(10.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "⌨️", fontSize = 18.sp)
+            }
+            
             Text(
-                text = "Shortcuts:",
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                text = "Shortcuts",
+                style = MaterialTheme.typography.labelLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
-            ShortcutBadge("⌘L", "Focus")
-            ShortcutBadge("⌘V", "Paste")
-            ShortcutBadge("↵", "Analyze")
-            ShortcutBadge("⎋", "Clear")
-            ShortcutBadge("⌘D", "Theme")
+            // Divider
+            Box(
+                modifier = Modifier
+                    .width(2.dp)
+                    .height(24.dp)
+                    .clip(RoundedCornerShape(1.dp))
+                    .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            )
+
+            // Shortcuts
+            PremiumShortcutBadge("⌘L", "Focus")
+            PremiumShortcutBadge("⌘V", "Paste")
+            PremiumShortcutBadge("↵", "Analyze")
+            PremiumShortcutBadge("⎋", "Clear")
+            PremiumShortcutBadge("⌘D", "Theme")
         }
     }
 }
 
 @Composable
-fun ShortcutBadge(key: String, action: String) {
+fun PremiumShortcutBadge(key: String, action: String) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(4.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Surface(
-            shape = RoundedCornerShape(4.dp),
+            shape = RoundedCornerShape(6.dp),
             color = MaterialTheme.colorScheme.surface,
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.25f)),
+            shadowElevation = 1.dp
         ) {
             Text(
                 text = key,
-                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                 style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurface
+                fontWeight = FontWeight.Bold,
+                color = DesktopColors.BrandPrimary
             )
         }
         Text(
             text = action,
             style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
         )
     }
+}
+
+// Keep old one for compatibility
+@Composable
+fun ShortcutBadge(key: String, action: String) {
+    PremiumShortcutBadge(key, action)
 }
 
 // ============================================
@@ -535,7 +621,7 @@ private fun calculateConfidence(score: Int, signalCount: Int): Triple<Int, Strin
 }
 
 // ============================================
-// HELP CARD (First-time user guidance)
+// HELP CARD - Premium Welcome Design
 // ============================================
 
 @Composable
@@ -545,15 +631,40 @@ fun HelpCard(
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            containerColor = DesktopColors.BrandPrimary.copy(alpha = 0.08f)
+            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.95f)
         ),
-        border = BorderStroke(1.dp, DesktopColors.BrandPrimary.copy(alpha = 0.2f))
+        border = BorderStroke(
+            1.dp,
+            Brush.linearGradient(
+                colors = listOf(
+                    DesktopColors.BrandPrimary.copy(alpha = 0.4f),
+                    DesktopColors.BrandAccent.copy(alpha = 0.3f),
+                    DesktopColors.BrandSecondary.copy(alpha = 0.2f)
+                )
+            )
+        )
     ) {
+        // Top gradient accent
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(4.dp)
+                .background(
+                    Brush.horizontalGradient(
+                        colors = listOf(
+                            DesktopColors.BrandPrimary,
+                            DesktopColors.BrandAccent,
+                            DesktopColors.BrandSecondary
+                        )
+                    )
+                )
+        )
+
         Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            modifier = Modifier.padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -561,52 +672,102 @@ fun HelpCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(14.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "👋", fontSize = 24.sp)
-                    Text(
-                        text = "Welcome to QR-SHIELD",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
+                    // Icon with glow
+                    Box(
+                        modifier = Modifier
+                            .size(44.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(
+                                Brush.linearGradient(
+                                    colors = listOf(
+                                        DesktopColors.BrandPrimary.copy(alpha = 0.2f),
+                                        DesktopColors.BrandAccent.copy(alpha = 0.1f)
+                                    )
+                                )
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(text = "👋", fontSize = 24.sp)
+                    }
+                    Column {
+                        Text(
+                            text = "Welcome to QR-SHIELD",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "Your offline phishing detector",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                        )
+                    }
                 }
 
-                TextButton(onClick = onDismiss) {
-                    Text("Dismiss")
+                Surface(
+                    onClick = onDismiss,
+                    shape = RoundedCornerShape(8.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                ) {
+                    Text(
+                        text = "✕",
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        fontSize = 14.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
 
             Text(
-                text = "Paste any URL to check for phishing threats. Our AI analyzes 25+ security signals completely offline.",
+                text = "Paste any URL to check for phishing threats. Our AI analyzes 25+ security signals completely offline — your data never leaves your device.",
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                lineHeight = 22.sp
             )
 
+            // Feature badges row
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                FeatureBullet("🔒", "100% offline")
-                FeatureBullet("🤖", "AI-powered")
-                FeatureBullet("🎯", "25+ heuristics")
+                PremiumFeatureBadge("🔒", "100% Offline", Modifier.weight(1f))
+                PremiumFeatureBadge("🤖", "AI-Powered", Modifier.weight(1f))
+                PremiumFeatureBadge("🎯", "25+ Heuristics", Modifier.weight(1f))
             }
         }
     }
 }
 
 @Composable
-fun FeatureBullet(icon: String, text: String) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        verticalAlignment = Alignment.CenterVertically
+fun PremiumFeatureBadge(icon: String, text: String, modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(12.dp),
+        color = DesktopColors.BrandPrimary.copy(alpha = 0.08f),
+        border = BorderStroke(1.dp, DesktopColors.BrandPrimary.copy(alpha = 0.15f))
     ) {
-        Text(text = icon, fontSize = 14.sp)
-        Text(
-            text = text,
-            style = MaterialTheme.typography.labelMedium,
-            color = MaterialTheme.colorScheme.onSurface
-        )
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = icon, fontSize = 16.sp)
+            Spacer(modifier = Modifier.width(8.dp))
+            Text(
+                text = text,
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
     }
+}
+
+// Keep old one for compatibility
+@Composable
+fun FeatureBullet(icon: String, text: String) {
+    PremiumFeatureBadge(icon, text)
 }

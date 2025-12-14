@@ -4,6 +4,71 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-14 (Desktop App UI Polish)
+
+### Summary
+Comprehensive UI polish to make the Desktop app look premium and match Web/Mobile apps. Updated colors, added glassmorphism effects, gradient accents, and improved all components for a modern, professional appearance.
+
+---
+
+### UI Improvements Made
+
+#### 1. ✅ Color Palette Sync
+Updated `DesktopTheme.kt` to use **exact same colors** as Android/iOS/Web:
+- Primary: `#6C5CE7` (Electric Purple)
+- Secondary: `#00D68F` (Neon Teal)
+- VerdictSafe: `#00D68F`, VerdictDanger: `#FF3D71`
+- Dark Background: `#0D1117` (GitHub Dark)
+
+#### 2. ✅ Premium Scanner Card
+- Glassmorphism card with gradient border
+- Top accent gradient bar (Purple → Accent → Teal)
+- Floating icon with glow shadow
+- Premium gradient Analyze button
+- Enhanced text input styling
+
+#### 3. ✅ App Icon Integration
+- Copied iOS app icon (1024px PNG) to Desktop resources
+- Window icon shows QR-SHIELD logo
+- Hero section uses PNG logo instead of emoji
+- About dialog uses logo with glow effect
+
+#### 4. ✅ Gradient Background Overlay
+- Subtle gradient overlay on main content area
+- Purple to Teal gradient for premium feel
+
+#### 5. ✅ Premium Footer
+- Gradient divider line
+- KMP Badge with border
+- Version & edition text
+- Styled footer links with icons
+
+#### 6. ✅ Metrics Grid
+- 4-card layout matching Web: Heuristics, Brands, Time, Privacy
+- Consistent styling with Web app
+
+---
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `DesktopTheme.kt` | Synced colors with Web/Mobile palette |
+| `ScannerComponents.kt` | Premium glassmorphism scanner card |
+| `CommonComponents.kt` | Hero with logo, premium footer, metrics grid |
+| `Main.kt` | Gradient background, app icon, new imports |
+| `AdvancedFeatures.kt` | About dialog with logo |
+
+---
+
+### Build Status
+
+| Task | Result |
+|------|--------|
+| `compileKotlinDesktop` | ✅ Success |
+
+---
+
 ## Session: 2025-12-14 (Desktop App Complete Parity)
 
 ### Summary
@@ -1517,6 +1582,65 @@ Conducted full judge evaluation with scoring:
 | ee1469b | ✨ Major improvements for competition submission |
 | e473655 | 🐛 Fix Web App UI issues |
 | b9da346 | 🔧 Technical fixes for Web App (no design changes) |
+
+---
+
+
+---
+
+## Session: 2025-12-14 (Desktop App Visual Fixes)
+
+### Summary
+Addressed critical visual artifacts and "light mode" visibility issues to ensure the polished Desktop UI is robust and production-ready.
+
+### 🐛 Visual Fixes Implemented
+
+#### 1. ✅ Fixed "Inner Box" Artifacts
+**Issue:** Translucent glass cards showed weird "dirty rectangle" or "inner box" artifacts.
+**Root Cause:** Applying `shadow()` modifiers to Composables with translucent/transparent backgrounds causes rendering artifacts in Skia.
+**Fix:** Removed `shadowElevation` and `shadow()` modifiers from all glass components (`EnhancedResultCard`, `PremiumSampleUrlChip`, `MetricCard`, `VerdictIconBox`). Replaced with stronger borders and gradients for depth.
+
+#### 2. ✅ Light Mode Visibility
+**Issue:** New premium design looked washed out and invisible in Light Mode.
+**Fixes:**
+- **Chips:** Increased background alpha (0.18 → 0.28), added strong 3dp borders.
+- **Metric Cards:** Added 3dp purple borders, stronger backgrounds.
+- **Icon Boxes:** Added visible borders and solid backgrounds.
+- **Typography:** Increased font weights to `Bold`/`ExtraBold` and sizes for readability.
+
+#### 3. ✅ Logo Artifacts (White Box)
+**Issue:** App icon PNG had visible white square background corners in Hero and Header.
+**Fix:** Applied `clip(RoundedCornerShape(...))` to the `Image` composable in:
+- `AnimatedHeroSection` (16.dp rounding)
+- `EnhancedTopAppBar` (8.dp rounding, replaced emoji with real logo)
+
+#### 4. ✅ Input & Button Visibility
+**Issue:** URL Input placeholder invisible in dark mode; Button had shadow artifacts.
+**Fixes:**
+- Increased placeholder alpha to `0.7f`.
+- Removed shadow from transparent button container.
+- Simplified button gradient logic for cleaner rendering.
+
+---
+
+### UI Components Polished
+
+| Component | Improvement |
+|-----------|-------------|
+| **Result Card** | Clean glassmorphism, removed dirty shadow artifacts |
+| **Verdict Icon** | Clean radial glow without box artifacts |
+| **Sample URLs** | High-visibility chips with strong borders |
+| **Metrics Grid** | Clearer boundaries, readable text in Light Mode |
+| **Header/Hero** | Artifact-free logo display |
+
+---
+
+### Build Status
+
+| Task | Result |
+|------|--------|
+| `compileKotlinDesktop` | ✅ Success |
+| `desktopApp:run` | ✅ Verified visually |
 
 ---
 
