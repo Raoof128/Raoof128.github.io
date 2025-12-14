@@ -1186,15 +1186,64 @@ window.generateTestQR = () => {
 document.addEventListener('DOMContentLoaded', () => {
     updateJudgeModeUI();
 
-    // Check for ?judge=true in URL
+    // Check for ?judge=true or ?demo=true in URL
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('judge') === 'true') {
+    if (urlParams.get('judge') === 'true' || urlParams.get('demo') === 'true') {
         isJudgeMode = true;
         localStorage.setItem(JUDGE_MODE_KEY, 'true');
         updateJudgeModeUI();
-        showToast('🧑‍⚖️ Judge Mode activated via URL', 'warning');
+        populateDemoHistory(); // Auto-populate with demo examples!
+        showToast('🧑‍⚖️ Judge Mode activated - Demo history loaded!', 'warning');
+        showDemoModeBanner();
     }
 });
+
+/**
+ * Populate history with perfect demo examples for judges
+ * Called when Judge Mode is activated
+ */
+function populateDemoHistory() {
+    // Demo examples covering all verdicts
+    const demoExamples = [
+        {
+            url: 'https://paypa1-secure.tk/login',
+            score: 92,
+            verdict: 'MALICIOUS',
+            timestamp: Date.now() - 60000 // 1 min ago
+        },
+        {
+            url: 'https://gооgle.com/login', // Homograph: Cyrillic 'о'
+            score: 88,
+            verdict: 'MALICIOUS',
+            timestamp: Date.now() - 120000 // 2 min ago
+        },
+        {
+            url: 'https://commbank.secure-verify.ml/account',
+            score: 85,
+            verdict: 'MALICIOUS',
+            timestamp: Date.now() - 180000 // 3 min ago
+        },
+        {
+            url: 'https://bit.ly/3xY7abc',
+            score: 35,
+            verdict: 'SUSPICIOUS',
+            timestamp: Date.now() - 240000 // 4 min ago
+        },
+        {
+            url: 'https://google.com',
+            score: 5,
+            verdict: 'SAFE',
+            timestamp: Date.now() - 300000 // 5 min ago
+        }
+    ];
+
+    // Only add if history is empty or small
+    if (history.length < 3) {
+        history = demoExamples;
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        renderHistory();
+    }
+}
 
 // ==========================================
 // Report False Positive / Incorrect Verdict

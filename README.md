@@ -187,7 +187,7 @@ cd qrshield
 
 ### Badges
 
-![Kotlin](https://img.shields.io/badge/Kotlin-1.9.22-7F52FF?logo=kotlin&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white)
 ![KMP](https://img.shields.io/badge/KMP-Enabled-7F52FF?logo=kotlin&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)
@@ -195,6 +195,7 @@ cd qrshield
 ![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
 ![Version](https://img.shields.io/badge/v1.1.4-green)
+![Tests](https://img.shields.io/badge/Tests-849_Passed-brightgreen?logo=checkmarx&logoColor=white)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 ![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
 ![Recall](https://img.shields.io/badge/recall-89.1%25-blue)
