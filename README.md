@@ -3229,6 +3229,22 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ---
 
+## 📧 Contact & Support
+
+**Developer:** Mohammad Raouf Abedini  
+**University:** Macquarie University, Sydney, Australia
+
+| Contact | Details |
+|---------|---------|
+| 📧 Personal Email | [raoof.r12@gmail.com](mailto:raoof.r12@gmail.com) |
+| 🎓 University Email | [mohammadraouf.abedini@students.mq.edu.au](mailto:mohammadraouf.abedini@students.mq.edu.au) |
+| 🐛 Report Issues | [GitHub Issues](https://github.com/Raoof128/Raoof128.github.io/issues) |
+| 💬 Discussions | [GitHub Discussions](https://github.com/Raoof128/Raoof128.github.io/discussions) |
+
+> 💡 **Judges:** Feel free to reach out with any questions about the project, architecture decisions, or to request a live demo!
+
+---
+
 <div align="center">
 
 **Made with 💜 using Kotlin Multiplatform**

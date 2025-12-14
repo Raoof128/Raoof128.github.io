@@ -66,4 +66,14 @@ open https://raoof128.github.io/?demo=true
 
 ---
 
+## 📧 Contact
+
+**Developer:** Mohammad Raouf Abedini  
+**University:** Macquarie University, Sydney, Australia  
+**Email:** [raoof.r12@gmail.com](mailto:raoof.r12@gmail.com)
+
+> 💡 Questions? Feel free to reach out!
+
+---
+
 *Created for KotlinConf Student Competition 2025-2026*
