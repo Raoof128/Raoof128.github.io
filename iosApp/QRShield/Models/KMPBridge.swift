@@ -77,12 +77,31 @@ class KMPAnalyzer: ObservableObject {
 
 #else
 
-/// Fallback mock implementation when common.framework is not linked
-/// This allows the app to compile and run for UI development
+// ============================================================================
+// ⚠️ KMP FRAMEWORK NOT LINKED - EXPLICIT FAILURE MODE
+// ============================================================================
+//
+// This fallback exists ONLY to allow the project to compile without the
+// common.framework. In production, the KMP framework MUST be linked.
+//
+// To build with the real KMP framework:
+// 1. Run: ./gradlew :common:linkDebugFrameworkIosArm64
+// 2. Ensure Frameworks/common.framework exists
+// 3. Rebuild the iOS app in Xcode
+//
+// This is NOT a mock - it shows an error state to make clear that
+// real analysis requires the shared Kotlin module.
+// ============================================================================
+
+import SwiftUI
+
+/// Stub implementation when common.framework is not linked.
+/// Shows explicit error state - NOT a functional mock.
 @MainActor
 class KMPAnalyzer: ObservableObject {
     @Published var lastResult: AnalysisResult?
     @Published var isAnalyzing = false
+    @Published var isKMPAvailable = false  // Always false in stub mode
     
     struct AnalysisResult: Identifiable {
         let id = UUID()
@@ -93,36 +112,29 @@ class KMPAnalyzer: ObservableObject {
         let timestamp: Date
     }
     
-    /// Mock analysis - replace with real KMP when framework is linked
+    init() {
+        // Log warning on initialization
+        print("⚠️ [QR-SHIELD] KMP common.framework NOT LINKED")
+        print("⚠️ [QR-SHIELD] Analysis will show error state")
+        print("⚠️ [QR-SHIELD] Run: ./gradlew :common:linkDebugFrameworkIosArm64")
+    }
+    
+    /// Analysis is unavailable without KMP framework.
+    /// Returns an error result instead of mocking.
     func analyze(url: String) {
         isAnalyzing = true
         
-        // Simulate analysis delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            // Generate mock result based on URL characteristics
-            let score: Int
-            let verdict: String
-            var flags: [String] = []
-            
-            if url.contains("paypa1") || url.contains(".tk") || url.contains(".ml") {
-                score = 85
-                verdict = "MALICIOUS"
-                flags = ["BRAND_IMPERSONATION", "SUSPICIOUS_TLD", "TYPOSQUATTING"]
-            } else if url.contains("bit.ly") || url.contains("tinyurl") || !url.hasPrefix("https") {
-                score = 45
-                verdict = "SUSPICIOUS"
-                flags = ["URL_SHORTENER", "HTTP_NOT_HTTPS"]
-            } else {
-                score = 12
-                verdict = "SAFE"
-                flags = []
-            }
-            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            // Return explicit error result - NOT a mock
             self?.lastResult = AnalysisResult(
                 url: url,
-                score: score,
-                verdict: verdict,
-                flags: flags,
+                score: -1,  // Invalid score indicates error
+                verdict: "ERROR",
+                flags: [
+                    "⚠️ KMP Framework Not Linked",
+                    "Run: ./gradlew :common:linkDebugFrameworkIosArm64",
+                    "Then rebuild the iOS app in Xcode"
+                ],
                 timestamp: Date()
             )
             self?.isAnalyzing = false

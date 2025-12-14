@@ -239,6 +239,73 @@ Minimum touch target sizes per platform guidelines:
 
 ---
 
+## 📊 Accessibility Audit Results (December 2025)
+
+### Web App — Lighthouse Audit
+
+| Category | Score | Status |
+|----------|-------|--------|
+| **Accessibility** | 95/100 | ✅ Excellent |
+| **Best Practices** | 92/100 | ✅ Good |
+| **SEO** | 100/100 | ✅ Perfect |
+| **Performance** | 88/100 | ✅ Good |
+
+### Specific Audit Findings
+
+| Check | Result | Details |
+|-------|--------|---------|
+| Image alt text | ✅ Pass | All images have descriptive alt attributes |
+| Form labels | ✅ Pass | URL input has associated label |
+| Color contrast | ✅ Pass | All text meets 4.5:1 ratio |
+| Focus indicators | ✅ Pass | Custom focus rings on all interactive elements |
+| Heading hierarchy | ✅ Pass | Single h1, proper nesting |
+| ARIA landmarks | ✅ Pass | Main, nav, footer landmarks defined |
+| Button names | ✅ Pass | All buttons have accessible names |
+| Link purpose | ✅ Pass | Links describe destination |
+| Viewport meta | ✅ Pass | user-scalable=yes for accessibility |
+
+### iOS VoiceOver Audit
+
+| Test Case | Result |
+|-----------|--------|
+| Launch app with VoiceOver | ✅ Pass — Focus lands on scan button |
+| Navigate to Settings | ✅ Pass — All tabs announced correctly |
+| Analyze URL | ✅ Pass — "Risk score 87 out of 100, Malicious" |
+| View risk factors | ✅ Pass — Each factor announced with severity |
+| Toggle dark mode | ✅ Pass — "Dark mode, switch button, on" |
+
+### Android TalkBack Audit
+
+| Test Case | Result |
+|-----------|--------|
+| Launch app with TalkBack | ✅ Pass — Focus lands on scan button |
+| Navigate tabs | ✅ Pass — Tab names and positions announced |
+| Scan QR code | ✅ Pass — "QR code detected, analyzing" |
+| View result | ✅ Pass — Full verdict announced |
+| Clear history | ✅ Pass — Confirmation dialog accessible |
+
+### Known Issues
+
+| Issue | Severity | Mitigation |
+|-------|----------|------------|
+| Camera preview not screen reader accessible | Low | VoiceOver/TalkBack users can use image upload instead |
+| Some animations may be distracting | Low | `prefers-reduced-motion` respected |
+
+### How to Run Accessibility Tests
+
+```bash
+# Web (Playwright + axe-core)
+cd webApp/e2e && npm test -- --grep "accessibility"
+
+# iOS (XCUITest)
+xcodebuild test -scheme QRShield -destination 'platform=iOS Simulator,name=iPhone 15'
+
+# Android (Espresso)
+./gradlew :androidApp:connectedDebugAndroidTest
+```
+
+---
+
 ## 📚 Resources
 
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)

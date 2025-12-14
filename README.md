@@ -2429,10 +2429,11 @@ Final Score = (
 |----------|-------------|
 | [Essay](ESSAY.md) | Competition essay (motivation & journey) |
 | [Architecture](docs/ARCHITECTURE.md) | System architecture & design |
-| [Architecture Tour](docs/ARCHITECTURE_TOUR.md) | **NEW:** Visual codebase guide for judges |
+| [Architecture Tour](docs/ARCHITECTURE_TOUR.md) | Visual codebase guide for judges |
 | [API Reference](docs/API.md) | Complete API documentation |
 | [ML Model](docs/ML_MODEL.md) | Training methodology, features, metrics |
-| [Accessibility](docs/ACCESSIBILITY.md) | **NEW:** WCAG compliance & assistive tech |
+| [ML Evaluation Metrics](docs/ML_EVALUATION_METRICS.md) | **NEW:** Precision/Recall/F1/ROC analysis |
+| [Accessibility](docs/ACCESSIBILITY.md) | WCAG compliance & assistive tech |
 | [Limitations](docs/LIMITATIONS.md) | Known limitations & trade-offs |
 | [Master Pack](docs/MASTER_PACK.md) | Complete project overview |
 | [UI Design System](docs/UI_DESIGN_SYSTEM.md) | Colors, typography, components |
@@ -2442,12 +2443,13 @@ Final Score = (
 | [Competition Pitch](docs/PITCH.md) | Presentation materials |
 | [Demo Script](docs/DEMO_SCRIPT.md) | Video storyboard |
 | [TestFlight Setup](docs/TESTFLIGHT_SETUP.md) | iOS beta testing configuration |
-| [Desktop App](desktopApp/README.md) | **NEW:** Desktop app usage guide |
+| [Desktop App](desktopApp/README.md) | Desktop app usage guide |
 | [App Store Review](iosApp/APP_STORE_REVIEW.md) | iOS App Store submission guide |
 | [Changelog](CHANGELOG.md) | Version history |
 | [Security Policy](SECURITY.md) | Vulnerability reporting |
 | [Contributing](CONTRIBUTING.md) | Contribution guidelines |
 | [Code of Conduct](CODE_OF_CONDUCT.md) | Community standards |
+| [LOC Script](scripts/count-loc.sh) | **NEW:** Verified code statistics |
 
 ---
 
