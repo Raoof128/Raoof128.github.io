@@ -251,6 +251,8 @@ cd qrshield
 > 📊 **Proof:** Run `./scripts/loc_report.sh` for exact LOC counts by sourceSet.
 > 
 > 📐 **Architecture:** See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for detailed diagrams and expect/actual usage.
+>
+> 📱 **Platform Parity:** See [docs/PLATFORM_PARITY.md](docs/PLATFORM_PARITY.md) for feature comparison + known limitations.
 
 ### Why This Matters for Security Apps
 
