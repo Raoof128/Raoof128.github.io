@@ -378,7 +378,7 @@ data class OrgPolicy(
         
         val body = bodyMatch?.groupValues?.get(1)?.let { 
             try { 
-                java.net.URLDecoder.decode(it, "UTF-8") 
+                decodeUrlComponent(it)
             } catch (_: Exception) { 
                 it 
             }
@@ -400,6 +400,37 @@ data class OrgPolicy(
         }
         
         return PolicyResult.PassedPolicy
+    }
+    
+    /**
+     * Simple URL decode without Java dependencies (multiplatform compatible).
+     */
+    private fun decodeUrlComponent(encoded: String): String {
+        val result = StringBuilder()
+        var i = 0
+        while (i < encoded.length) {
+            when {
+                encoded[i] == '%' && i + 2 < encoded.length -> {
+                    val hex = encoded.substring(i + 1, i + 3)
+                    try {
+                        result.append(hex.toInt(16).toChar())
+                        i += 3
+                    } catch (_: Exception) {
+                        result.append(encoded[i])
+                        i++
+                    }
+                }
+                encoded[i] == '+' -> {
+                    result.append(' ')
+                    i++
+                }
+                else -> {
+                    result.append(encoded[i])
+                    i++
+                }
+            }
+        }
+        return result.toString()
     }
     
     /**
