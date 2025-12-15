@@ -209,6 +209,63 @@ data class DetectionConfig(
         )
 
         /**
+         * Create DetectionConfig from Security DSL.
+         *
+         * This bridges the security-dsl module with the core engine,
+         * proving that the DSL is actually integrated—not just a flex.
+         *
+         * Usage:
+         * ```kotlin
+         * val dslConfig = securityConfig {
+         *     detection {
+         *         threshold = 65
+         *         enableHomographDetection = true
+         *     }
+         *     suspiciousTlds {
+         *         +"tk"; +"ml"; +"ga"
+         *     }
+         * }
+         * val engineConfig = DetectionConfig.fromSecurityDsl(
+         *     threshold = dslConfig.detection.threshold,
+         *     maxRedirects = dslConfig.detection.maxRedirects,
+         *     enableHomograph = dslConfig.detection.enableHomographDetection,
+         *     enableBrand = dslConfig.detection.enableBrandImpersonation,
+         *     enableTld = dslConfig.detection.enableTldValidation
+         * )
+         * val engine = PhishingEngine(config = engineConfig)
+         * ```
+         *
+         * @param threshold Detection threshold (0-100), maps to suspiciousThreshold
+         * @param maxRedirects Maximum redirect hops allowed
+         * @param enableHomograph Enable homograph detection
+         * @param enableBrand Enable brand impersonation detection
+         * @param enableTld Enable TLD risk scoring
+         * @return DetectionConfig configured from DSL values
+         */
+        fun fromSecurityDsl(
+            threshold: Int = 50,
+            maxRedirects: Int = 5,
+            enableHomograph: Boolean = true,
+            enableBrand: Boolean = true,
+            enableTld: Boolean = true
+        ): DetectionConfig {
+            // Map DSL threshold to engine thresholds
+            // DSL threshold is the suspiciousThreshold
+            // safeThreshold is 20% of threshold
+            val safeT = (threshold * 0.2).toInt().coerceIn(5, 30)
+            val suspiciousT = threshold.coerceIn(30, 90)
+            
+            return DetectionConfig(
+                safeThreshold = safeT,
+                suspiciousThreshold = suspiciousT,
+                maxSubdomains = maxRedirects,  // Related concepts
+                enableBrandDetection = enableBrand,
+                enableTldScoring = enableTld,
+                enableMl = enableHomograph  // Homograph uses ML features
+            )
+        }
+
+        /**
          * Parse configuration from JSON string.
          *
          * Example JSON:

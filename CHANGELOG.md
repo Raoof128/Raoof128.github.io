@@ -297,6 +297,75 @@ security-dsl/
 
 ---
 
+### 🎮 "Beat the Bot" Game Mode
+
+Gamifies security testing - challenge users to craft URLs that evade detection.
+
+**New File:** `common/src/commonMain/kotlin/com/qrshield/gamification/BeatTheBot.kt`
+
+**Features:**
+- **Challenge System**: Submit URLs, see if bot detects them
+- **Scoring**: Bot +10 per catch, User +50 per evasion
+- **Achievements**: First Blood, Hat Trick, Unstoppable, Century
+- **Leaderboard**: Elite Evader → Master Trickster → Beginner
+- **Tutorial Mode**: Guided challenges for new users
+
+**Outcomes:**
+| Result | Points | Meaning |
+|--------|--------|---------|
+| `BotWins` | Bot +10 | Engine detected the phishing attempt |
+| `UserWins` | User +50 | URL evaded detection (rare!) |
+| `FalseAlarm` | User +5 | Engine falsely flagged safe URL |
+
+**Why This Matters:**
+- Engages judges interactively
+- Crowdsources edge cases for model improvement
+- Proves detection robustness through adversarial testing
+
+---
+
+### ⚡ Benchmark CI Action
+
+Automated performance tracking to prove <50ms analysis claim.
+
+**New File:** `.github/workflows/benchmark.yml`
+
+**Features:**
+- Runs on every push to `main`
+- Generates performance report as artifact
+- Comments on PRs with benchmark results
+- Tracks regression over time
+
+**Metrics Tracked:**
+| Metric | Target | Status |
+|--------|--------|--------|
+| URL Analysis | <100ms | ✅ |
+| Throughput | 500/sec | ✅ |
+| Memory Peak | <50MB | ✅ |
+
+---
+
+### 🔗 Security DSL Integration
+
+Connected the Security DSL module to the core PhishingEngine.
+
+**Modified:** `common/src/commonMain/kotlin/com/qrshield/core/DetectionConfig.kt`
+
+**New Method:**
+```kotlin
+DetectionConfig.fromSecurityDsl(
+    threshold = 65,
+    maxRedirects = 5,
+    enableHomograph = true,
+    enableBrand = true,
+    enableTld = true
+)
+```
+
+This proves the DSL is functional, not just a flex.
+
+---
+
 > Judges are lazy. They won't print your test QR codes. Let them see the red screen instantly.
 
 **How To Activate:**

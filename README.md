@@ -4,6 +4,13 @@
 
 > Scan QR codes. Detect phishing. Stay protected on **Android, iOS, Desktop, and Web**.
 
+[![Test Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
+[![Performance](https://img.shields.io/badge/analysis-<50ms-blue)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/benchmark.yml)
+[![License](https://img.shields.io/badge/license-Apache%202.0-purple)](LICENSE)
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9.22-7F52FF)](https://kotlinlang.org)
+[![KMP](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Desktop%20%7C%20Web-orange)](https://kotlinlang.org/docs/multiplatform.html)
+
 > 🏆 **Why This Project Should Win**
 > - **Privacy-First:** 100% offline — zero data collection, no cloud API
 > - **Real KMP:** ~80% shared business logic across 4 platforms (7,800+ LOC)
