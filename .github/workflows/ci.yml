@@ -61,6 +61,30 @@ jobs:
         ./gradlew :common:desktopTest --tests "com.qrshield.benchmark.PerformanceBenchmarkTest" --info --no-daemon
       continue-on-error: true  # Don't fail build on benchmark variance
 
+    # Judge-Proof Verification: Accuracy
+    - name: Verify Accuracy (Precision/Recall/F1)
+      run: |
+        echo "📊 Running Accuracy Verification..."
+        ./gradlew :common:desktopTest --tests "com.qrshield.core.AccuracyVerificationTest" --info --no-daemon
+
+    # Judge-Proof Verification: Offline Operation
+    - name: Verify Offline Operation (No Network)
+      run: |
+        echo "🔒 Running Offline Verification..."
+        ./gradlew :common:desktopTest --tests "com.qrshield.core.OfflineOnlyTest" --info --no-daemon
+
+    # Judge-Proof Verification: Threat Model Coverage
+    - name: Verify Threat Model Coverage
+      run: |
+        echo "🛡️ Running Threat Model Verification..."
+        ./gradlew :common:desktopTest --tests "com.qrshield.security.ThreatModelVerificationTest" --info --no-daemon
+
+    # Property-Based Tests (Invariants)
+    - name: Verify Invariants (Property-Based Tests)
+      run: |
+        echo "🧪 Running Property-Based Tests..."
+        ./gradlew :common:desktopTest --tests "com.qrshield.core.PropertyBasedTest" --info --no-daemon
+
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
       if: always()

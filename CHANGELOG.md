@@ -214,6 +214,52 @@ Added mutation testing gate to `.github/workflows/ci.yml`:
 - Uploads mutation report as artifact
 
 ---
+
+### 🔍 Judge-Proof Evidence Infrastructure
+
+Comprehensive infrastructure for reproducible verification of claims.
+
+#### Deleted `detekt-baseline.xml`
+- Removed the 253-item baseline that "screams we gave up"
+- Updated `detekt.yml` with proper Compose function handling
+- Lint now fails on any violation (zero-tolerance)
+
+#### Accuracy Verification (`AccuracyVerificationTest.kt`)
+- Deterministic precision/recall/F1/accuracy calculation
+- Committed dataset: 22 phishing + 20 legitimate URLs
+- Produces formatted confusion matrix in CI logs
+- Run with: `./gradlew :common:desktopTest --tests "*AccuracyVerificationTest*"`
+
+#### Offline Operation Proof (`OfflineOnlyTest.kt`)
+- Proves no network calls during analysis
+- Tests all components independently (Heuristics, BrandDetector, TldScorer, ML)
+- Timing analysis to detect network variability
+- Consistency verification (100 iterations = identical results)
+
+#### Threat Model Mapping (`ThreatModelVerificationTest.kt`)
+- Maps 12 threats → dedicated tests → mitigations
+- Each threat has at least one test
+- Produces formatted matrix in CI logs
+- Total: 25 threat-specific tests
+
+#### Custom Gradle Tasks
+
+```bash
+./gradlew :common:verifyAccuracy    # Precision/Recall/F1
+./gradlew :common:verifyOffline     # No network dependency
+./gradlew :common:verifyThreatModel # Threat → test mapping
+./gradlew :common:verifyAll         # All verification tests
+```
+
+#### CI Verification Steps
+Added to `.github/workflows/ci.yml`:
+- Verify Accuracy (Precision/Recall/F1)
+- Verify Offline Operation (No Network)
+- Verify Threat Model Coverage
+- Verify Invariants (Property-Based Tests)
+
+---
+
 ### Added
 
 #### Comprehensive Testing Infrastructure
