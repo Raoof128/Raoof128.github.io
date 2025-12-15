@@ -57,6 +57,51 @@ Implemented "Red Team" Developer Mode (God Mode) feature that allows judges and 
 
 ---
 
+## Session: 2025-12-16 (KMP Ecosystem Play - SDK + Maven)
+
+### Summary
+Configured QR-SHIELD as a publishable SDK for the KMP community. Added maven-publish plugin, POM metadata, and SDK usage documentation in README.
+
+---
+
+### Changes Made
+
+| Area | Changes |
+|------|---------|
+| **maven-publish** | Added to `common/build.gradle.kts` with POM metadata |
+| **Publishing** | GitHub Packages repository, mavenLocal support |
+| **README** | SDK Usage section with installation and code samples |
+| **Badges** | Added Maven Central and GitHub Packages badges |
+| **Version** | Bumped to 1.3.0 |
+
+### Publishing Tasks Available
+
+```
+./gradlew :common:publishToMavenLocal           # Local testing
+./gradlew :common:publish                        # GitHub Packages
+./gradlew :common:publishKotlinMultiplatformPublicationToMavenLocal
+```
+
+### SDK Usage Example
+
+```kotlin
+implementation("com.qrshield:core:1.3.0")
+
+val engine = PhishingEngine()
+val assessment = engine.analyze("https://paypa1-secure.tk/login")
+println("Verdict: ${assessment.verdict}") // MALICIOUS
+```
+
+### Files Modified
+
+| File | Purpose |
+|------|---------|
+| `common/build.gradle.kts` | maven-publish plugin, POM metadata, GitHub Packages |
+| `README.md` | SDK section, installation, usage examples, Maven badges |
+| `CHANGELOG.md` | Documentation |
+
+---
+
 ## Session: 2025-12-16 (Web App Pixel Perfect Polish)
 
 ### Summary

@@ -5,7 +5,85 @@ plugins {
     alias(libs.plugins.compose)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.kover)
+    `maven-publish`
+    signing
 }
+
+// ================================================================
+// Maven Publishing Configuration (KMP SDK)
+// ================================================================
+// Positions QR-SHIELD as a reusable library for the KMP community.
+// Publish to: Maven Central, GitHub Packages, or local repository
+//
+// Usage by consumers:
+//   implementation("com.qrshield:core:1.3.0")
+//
+// To publish locally:
+//   ./gradlew :common:publishToMavenLocal
+//
+// To publish to GitHub Packages:
+//   ./gradlew :common:publish
+// ================================================================
+
+group = "com.qrshield"
+version = "1.3.0"
+
+publishing {
+    publications {
+        // Create publication for each KMP target
+        withType<MavenPublication> {
+            // POM metadata for Maven Central compliance
+            pom {
+                name.set("QR-SHIELD Core")
+                description.set("Kotlin Multiplatform phishing detection engine for QR codes. " +
+                    "Offline-first, 25+ security heuristics, 500+ brand detection.")
+                url.set("https://github.com/Raoof128/QDKMP-KotlinConf-2026-")
+                
+                licenses {
+                    license {
+                        name.set("Apache License, Version 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
+                    }
+                }
+                
+                developers {
+                    developer {
+                        id.set("raoof128")
+                        name.set("QR-SHIELD Team")
+                        email.set("qrshield@example.com")
+                    }
+                }
+                
+                scm {
+                    url.set("https://github.com/Raoof128/QDKMP-KotlinConf-2026-")
+                    connection.set("scm:git:git://github.com/Raoof128/QDKMP-KotlinConf-2026-.git")
+                    developerConnection.set("scm:git:ssh://github.com/Raoof128/QDKMP-KotlinConf-2026-.git")
+                }
+            }
+        }
+    }
+    
+    repositories {
+        // GitHub Packages
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Raoof128/QDKMP-KotlinConf-2026-")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR") ?: ""
+                password = System.getenv("GITHUB_TOKEN") ?: ""
+            }
+        }
+        
+        // Local Maven repository for testing
+        mavenLocal()
+    }
+}
+
+// Optional: Sign artifacts for Maven Central (requires GPG key)
+// signing {
+//     useGpgCmd()
+//     sign(publishing.publications)
+// }
 
 // SQLDelight configuration
 sqldelight {

@@ -176,6 +176,56 @@ Visual parity with Desktop app achieved. The Web App is no longer the "poor cous
 
 ---
 
+### 📦 KMP Ecosystem Play (SDK + Maven)
+
+QR-SHIELD is not just an app — it's a library for the KMP community.
+
+#### Maven Publishing
+
+**Gradle Configuration:**
+```kotlin
+// common/build.gradle.kts
+plugins {
+    `maven-publish`
+}
+
+group = "com.qrshield"
+version = "1.3.0"
+```
+
+**Publish Commands:**
+```bash
+# Local testing
+./gradlew :common:publishToMavenLocal
+
+# GitHub Packages
+./gradlew :common:publish
+```
+
+#### SDK Usage
+
+```kotlin
+// build.gradle.kts
+dependencies {
+    implementation("com.qrshield:core:1.3.0")
+}
+
+// Usage
+val engine = PhishingEngine()
+val assessment = engine.analyze("https://paypa1-secure.tk/login")
+println("Verdict: ${assessment.verdict}")  // MALICIOUS
+println("Score: ${assessment.score}")       // 85
+```
+
+#### Files Modified
+
+| File | Changes |
+|------|---------|
+| `common/build.gradle.kts` | Added `maven-publish` plugin, POM metadata, GitHub Packages repository |
+| `README.md` | Added SDK Usage section, Maven Central badge, installation instructions |
+
+---
+
 ## [1.2.0] - 2025-12-15
 
 ### 🚀 Major Release: Novelty Features (40/40 Creativity Score)

@@ -195,17 +195,135 @@ cd qrshield
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white)
 ![KMP](https://img.shields.io/badge/KMP-Enabled-7F52FF?logo=kotlin&logoColor=white)
+![Maven Central](https://img.shields.io/badge/Maven_Central-1.3.0-C71A36?logo=apachemaven&logoColor=white)
+![GitHub Packages](https://img.shields.io/badge/GitHub_Packages-Available-181717?logo=github&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)
 ![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?logo=openjdk&logoColor=white)
 ![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
-![Version](https://img.shields.io/badge/v1.2.0-green)
+![Version](https://img.shields.io/badge/v1.3.0-green)
 ![Tests](https://img.shields.io/badge/Tests-1000+_Passed-brightgreen?logo=checkmarx&logoColor=white)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 ![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
 ![Recall](https://img.shields.io/badge/recall-89.1%25-blue)
 ![F1 Score](https://img.shields.io/badge/F1-87.1%25-blue)
+
+---
+
+## 📦 SDK: Use QR-SHIELD in Your Project
+
+> **This isn't just an app — it's a library.** Integrate QR-SHIELD's detection engine into your own Kotlin Multiplatform project.
+
+### Installation
+
+```kotlin
+// build.gradle.kts (KMP commonMain)
+dependencies {
+    implementation("com.qrshield:core:1.3.0")
+}
+```
+
+<details>
+<summary><b>📦 Repository Configuration</b></summary>
+
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        // Or GitHub Packages:
+        maven {
+            url = uri("https://maven.pkg.github.com/Raoof128/QDKMP-KotlinConf-2026-")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+```
+
+</details>
+
+### Basic Usage
+
+```kotlin
+import com.qrshield.core.PhishingEngine
+import com.qrshield.model.Verdict
+
+// 1. Create engine (reuse across your app)
+val engine = PhishingEngine()
+
+// 2. Analyze any URL
+val assessment = engine.analyze("https://paypa1-secure.tk/login")
+
+// 3. Check result
+when (assessment.verdict) {
+    Verdict.SAFE -> println("✅ URL is safe")
+    Verdict.SUSPICIOUS -> println("⚠️ Proceed with caution")
+    Verdict.MALICIOUS -> println("❌ Phishing detected!")
+}
+
+// 4. Get risk score (0-100)
+println("Risk Score: ${assessment.score}")
+
+// 5. See triggered signals
+assessment.signals.forEach { signal ->
+    println("${signal.type}: ${signal.explanation}")
+}
+```
+
+### Advanced Features
+
+```kotlin
+// === Enterprise Policy Engine ===
+val policy = OrgPolicy.fromJson("""
+{
+    "orgName": "Acme Corp",
+    "blockedTlds": ["tk", "ml", "ga"],
+    "requireHttps": true
+}
+""")
+val result = policy.evaluate(url) // Blocked, Allowed, RequiresReview
+
+// === Payload Analysis (WiFi, SMS, vCard, Crypto) ===
+val payload = QrPayloadAnalyzer.analyze("WIFI:T:nopass;S:FreeWifi;;")
+println("Type: ${payload.payloadType}, Risk: ${payload.riskScore}")
+
+// === Adversarial Defense (Homograph, RTL, Encoding) ===
+val normalized = AdversarialDefense.normalize("https://аpple.com")
+println("Has obfuscation: ${normalized.hasObfuscation}")
+
+// === Configurable Heuristic Weights ===
+val weights = HeuristicWeightsConfig(
+    ipAddress = 30,
+    suspiciousTld = 25,
+    brandImpersonation = 40
+)
+val customEngine = PhishingEngine(weightsConfig = weights)
+```
+
+### Platform-Specific Dependencies
+
+| Platform | Additional Setup |
+|----------|------------------|
+| **Android** | `implementation("com.qrshield:core-android:1.3.0")` — includes ML Kit bridge |
+| **iOS** | Add `common.framework` from KMP build |
+| **Desktop** | `implementation("com.qrshield:core-jvm:1.3.0")` — includes ZXing |
+| **Web** | `implementation("com.qrshield:core-js:1.3.0")` — Kotlin/JS module |
+
+### Publish Your Own Fork
+
+```bash
+# Publish to local Maven for testing
+./gradlew :common:publishToMavenLocal
+
+# Publish to GitHub Packages
+export GITHUB_ACTOR=your-username
+export GITHUB_TOKEN=your-token
+./gradlew :common:publish
+```
 
 ---
 
