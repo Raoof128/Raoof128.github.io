@@ -19,11 +19,50 @@ package com.qrshield.engine
 /**
  * Homograph Attack Detector for QR-SHIELD
  *
- * Detects IDN homograph attacks where Unicode characters
- * are used to impersonate Latin characters.
+ * Detects IDN (Internationalized Domain Name) homograph attacks where Unicode
+ * characters are used to impersonate ASCII Latin characters, creating
+ * visually identical but technically different domain names.
+ *
+ * ## Security Rationale
+ *
+ * Homograph attacks exploit the visual similarity between characters from
+ * different Unicode scripts. For example:
+ * - Cyrillic 'а' (U+0430) looks identical to Latin 'a' (U+0061)
+ * - Greek 'ο' (U+03BF) looks identical to Latin 'o' (U+006F)
+ *
+ * Attackers register domains like "gооgle.com" (with Cyrillic 'о') that appear
+ * identical to "google.com" but resolve to completely different servers.
+ *
+ * ## Detection Strategy
+ *
+ * 1. **Script Scanning**: Check each character against known confusables map
+ * 2. **Punycode Detection**: Flag domains starting with "xn--" (IDN encoding)
+ * 3. **Mixed Script Detection**: Multiple non-Latin scripts is highly suspicious
+ * 4. **Risk Scoring**: Score based on number and type of confusable characters
+ *
+ * ## Dangerous Unicode Blocks
+ *
+ * | Block | Range | Risk Level | Why Dangerous |
+ * |-------|-------|------------|---------------|
+ * | Cyrillic | U+0400-04FF | Very High | Many perfect Latin lookalikes |
+ * | Greek | U+0370-03FF | High | Common lookalikes (α→a, ο→o) |
+ * | Armenian | U+0530-058F | Medium | Some lookalikes |
+ * | Georgian | U+10A0-10FF | Medium | Some lookalikes |
+ *
+ * @author QR-SHIELD Security Team
+ * @since 1.0.0
+ * @see <a href="https://unicode.org/reports/tr39/">Unicode Security Mechanisms</a>
  */
 class HomographDetector {
 
+    /**
+     * Result of homograph analysis on a domain.
+     *
+     * @property isHomograph True if any confusable characters detected
+     * @property score Risk score from 0 (none) to 50 (severe)
+     * @property detectedCharacters List of specific confusable chars found
+     * @property punycode Original punycode representation if detected
+     */
     data class HomographResult(
         val isHomograph: Boolean,
         val score: Int,
@@ -31,6 +70,14 @@ class HomographDetector {
         val punycode: String?
     )
 
+    /**
+     * Information about a detected confusable character.
+     *
+     * @property char The Unicode character found
+     * @property position Index position in the domain string
+     * @property unicodeName Human-readable script name (e.g., "Cyrillic")
+     * @property lookalike The ASCII character it impersonates
+     */
     data class DetectedChar(
         val char: Char,
         val position: Int,
@@ -39,7 +86,19 @@ class HomographDetector {
     )
 
     /**
-     * Detect homograph attacks in a domain name
+     * Detect homograph attacks in a domain name.
+     *
+     * Scans all characters in the domain for known confusables and calculates
+     * a risk score based on the number and type of matches.
+     *
+     * ## Scoring Logic
+     * - Each confusable character: +15 points
+     * - Punycode domain (xn-- prefix): +20 points
+     * - Multiple different scripts: +10 points
+     * - Maximum capped at 50 points
+     *
+     * @param domain The domain name to analyze (e.g., "gооgle.com")
+     * @return [HomographResult] with detection details and risk score
      */
     fun detect(domain: String): HomographResult {
         val detectedChars = mutableListOf<DetectedChar>()

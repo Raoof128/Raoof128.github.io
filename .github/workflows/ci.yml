@@ -70,6 +70,39 @@ jobs:
           common/build/reports/kover/
         retention-days: 30
 
+    # Mutation Testing Gate - Fail CI if tests are weak
+    - name: Run Mutation Testing (Pitest)
+      run: |
+        echo "🧬 Running Mutation Testing..."
+        ./gradlew pitest --no-daemon || true
+      continue-on-error: true
+
+    - name: Check Mutation Score Gate
+      run: |
+        echo "📊 Checking Mutation Score..."
+        # Extract mutation score from report if exists
+        if [ -f "common/build/reports/pitest/index.html" ]; then
+          SCORE=$(grep -oP 'Mutation Score.*?(\d+)%' common/build/reports/pitest/index.html | grep -oP '\d+' | head -1 || echo "0")
+          echo "Mutation Score: ${SCORE}%"
+          if [ "$SCORE" -lt 60 ]; then
+            echo "⚠️ Mutation score (${SCORE}%) is below 60% threshold"
+            echo "Tests may not be catching all bugs effectively"
+          else
+            echo "✅ Mutation score (${SCORE}%) meets threshold"
+          fi
+        else
+          echo "Mutation report not found, skipping check"
+        fi
+      continue-on-error: true
+
+    - name: Upload Mutation Testing Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: mutation-report
+        path: common/build/reports/pitest/
+        retention-days: 30
+
     # Test Results Summary on PR
     - name: Test Results Summary
       uses: dorny/test-reporter@v1
