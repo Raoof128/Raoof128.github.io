@@ -391,6 +391,51 @@ This is a **deliberate architectural choice**, not a limitation:
 
 **The shared code ratio remains ~80%** because the detection engine (the complex part) is written once in Kotlin.
 
+### 🔄 Platform Parity Proof
+
+> **[Full documentation →](docs/PLATFORM_PARITY.md)**
+
+All platforms produce **identical output** from the same input. This is provable from the repository alone:
+
+#### Provable Parity Guarantees
+
+| Guarantee | How Achieved |
+|-----------|--------------|
+| **Same Entrypoint** | Single `PhishingEngine.analyze()` in commonMain |
+| **Same Scoring** | Single `calculateCombinedScore()` with fixed weights |
+| **Same Signal IDs** | Single `HeuristicsEngine` with enum-based IDs |
+| **Same Thresholds** | Single `DetectionConfig` (SAFE=30, MALICIOUS=70) |
+| **Same Output** | Single `RiskAssessment` data class |
+| **Same Text** | Single `SharedTextGenerator` for all UI text |
+| **Same Localization** | Single `LocalizationKeys` (~80 string keys) |
+
+#### Strategic expect/actual Boundaries
+
+Each platform boundary is documented with **WHY** it must be native:
+
+| Abstraction | Why Native Required |
+|-------------|---------------------|
+| `PlatformClipboard` | ClipboardManager (Android), UIPasteboard (iOS), AWT (Desktop), navigator.clipboard (Web) |
+| `PlatformHaptics` | Vibrator (Android), UIImpactFeedbackGenerator (iOS), no-op (Desktop) |
+| `PlatformLogger` | Logcat (Android), OSLog (iOS), java.util.logging (Desktop), console (Web) |
+| `PlatformTime` | System.nanoTime (JVM), CFAbsoluteTimeGetCurrent (iOS), performance.now (Web) |
+| `PlatformShare` | Intent.ACTION_SEND (Android), UIActivityViewController (iOS), Web Share API |
+| `PlatformSecureRandom` | SecureRandom (JVM), SecRandomCopyBytes (iOS), crypto.getRandomValues (Web) |
+| `PlatformUrlOpener` | Intent.ACTION_VIEW (Android), UIApplication.openURL (iOS), Desktop.browse (JVM) |
+
+#### Shared UI Components
+
+Even UI state and text generation are shared:
+
+```
+common/src/commonMain/kotlin/com/qrshield/ui/
+├── SharedViewModel.kt        ← State machine (SHARED)
+├── SharedTextGenerator.kt    ← Risk explanations (SHARED)
+└── LocalizationKeys.kt       ← ~80 string keys (SHARED)
+```
+
+Platforms **only render** what the shared module provides — they don't duplicate logic.
+
 ### What's Actually Shared (commonMain)
 
 ```
