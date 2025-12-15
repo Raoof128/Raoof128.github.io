@@ -52,6 +52,10 @@ import androidx.compose.ui.unit.sp
 import com.qrshield.android.BuildConfig
 import com.qrshield.android.R
 import com.qrshield.android.ui.theme.*
+import com.qrshield.verification.SystemIntegrityVerifier
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Settings Screen with app preferences and information.
@@ -73,6 +77,12 @@ fun SettingsScreen() {
     // Developer Mode 7-Tap Counter
     var developerTapCount by remember { mutableStateOf(0) }
     var lastTapTime by remember { mutableStateOf(0L) }
+    
+    // System Integrity Verification State
+    var isVerifying by remember { mutableStateOf(false) }
+    var verificationResult by remember { mutableStateOf<SystemIntegrityVerifier.VerificationResult?>(null) }
+    var showVerificationDialog by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
     // Derived states for UI
     val hapticEnabled = settings.isHapticEnabled
@@ -399,6 +409,44 @@ fun SettingsScreen() {
             )
         }
 
+        // System Integrity Verification - "The Receipt"
+        item {
+            SettingsClickable(
+                icon = Icons.Default.VerifiedUser,
+                title = "Verify System Integrity",
+                subtitle = if (isVerifying) "Running verification..." else "Prove 87% accuracy claim on-device",
+                onClick = {
+                    if (!isVerifying) {
+                        isVerifying = true
+                        coroutineScope.launch {
+                            val result = withContext(Dispatchers.Default) {
+                                SystemIntegrityVerifier().verify()
+                            }
+                            verificationResult = result
+                            isVerifying = false
+                            showVerificationDialog = true
+                        }
+                    }
+                },
+                trailing = {
+                    if (isVerifying) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            color = BrandSecondary,
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = "Run verification",
+                            tint = BrandSecondary,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+            )
+        }
+
         item {
             SettingsClickable(
                 icon = Icons.Default.Code,
@@ -501,6 +549,111 @@ fun SettingsScreen() {
                 }
             }
         }
+    }
+    
+    // Verification Result Dialog
+    if (showVerificationDialog && verificationResult != null) {
+        val result = verificationResult!!
+        AlertDialog(
+            onDismissRequest = { showVerificationDialog = false },
+            containerColor = BackgroundSurface,
+            titleContentColor = TextPrimary,
+            textContentColor = TextSecondary,
+            icon = {
+                Icon(
+                    imageVector = if (result.isHealthy) Icons.Default.CheckCircle else Icons.Default.Warning,
+                    contentDescription = null,
+                    tint = if (result.isHealthy) VerdictSafe else VerdictWarning,
+                    modifier = Modifier.size(48.dp)
+                )
+            },
+            title = {
+                Text(
+                    text = if (result.isHealthy) "System Healthy ✓" else "Verification Complete",
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    // Pass/Fail Banner
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (result.isHealthy) VerdictSafe.copy(alpha = 0.15f) 
+                                             else VerdictWarning.copy(alpha = 0.15f)
+                        )
+                    ) {
+                        Text(
+                            text = "Passed ${result.passed}/${result.totalTests} tests",
+                            modifier = Modifier.padding(12.dp),
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 16.sp,
+                            color = if (result.isHealthy) VerdictSafe else VerdictWarning
+                        )
+                    }
+                    
+                    // Confusion Matrix
+                    Text("Confusion Matrix", fontWeight = FontWeight.Medium, color = TextPrimary)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        MetricBox("TP", result.truePositives, VerdictSafe)
+                        MetricBox("FP", result.falsePositives, VerdictDanger)
+                        MetricBox("FN", result.falseNegatives, VerdictWarning)
+                        MetricBox("TN", result.trueNegatives, VerdictSafe)
+                    }
+                    
+                    HorizontalDivider(color = TextMuted.copy(alpha = 0.3f))
+                    
+                    // Metrics
+                    Text("Performance Metrics", fontWeight = FontWeight.Medium, color = TextPrimary)
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column {
+                            Text("Accuracy", fontSize = 11.sp, color = TextMuted)
+                            Text("${String.format("%.1f", result.accuracy * 100)}%", 
+                                fontWeight = FontWeight.Bold, color = TextPrimary)
+                        }
+                        Column {
+                            Text("Precision", fontSize = 11.sp, color = TextMuted)
+                            Text("${String.format("%.1f", result.precision * 100)}%",
+                                fontWeight = FontWeight.Bold, color = TextPrimary)
+                        }
+                        Column {
+                            Text("Recall", fontSize = 11.sp, color = TextMuted)
+                            Text("${String.format("%.1f", result.recall * 100)}%",
+                                fontWeight = FontWeight.Bold, color = TextPrimary)
+                        }
+                        Column {
+                            Text("F1 Score", fontSize = 11.sp, color = TextMuted)
+                            Text("${String.format("%.2f", result.f1Score)}",
+                                fontWeight = FontWeight.Bold, color = TextPrimary)
+                        }
+                    }
+                    
+                    // Execution time
+                    Text(
+                        text = "Completed in ${result.executionTimeMs}ms",
+                        fontSize = 11.sp,
+                        color = TextMuted
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = { showVerificationDialog = false },
+                    colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary)
+                ) {
+                    Text("Close")
+                }
+            }
+        )
     }
 }
 
@@ -715,3 +868,28 @@ private fun SettingsInfoClickable(
     }
 }
 
+/**
+ * Metric box for confusion matrix display.
+ */
+@Composable
+private fun MetricBox(label: String, value: Int, color: Color) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .background(color.copy(alpha = 0.15f), RoundedCornerShape(8.dp))
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        Text(
+            text = label,
+            fontSize = 10.sp,
+            color = color,
+            fontWeight = FontWeight.Medium
+        )
+        Text(
+            text = value.toString(),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = color
+        )
+    }
+}
