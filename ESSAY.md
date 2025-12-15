@@ -118,12 +118,46 @@ I developed a **multi-layer analysis system** that runs entirely on-device:
 |--------|---------------|------------|
 | Detection Engine (commonMain) | 9,500+ | 100% |
 | Policy & Adversarial (commonMain) | 2,000+ | 100% |
+| Platform Parity (commonMain) | 1,200+ | 100% |
 | Android UI (Compose) | 5,800+ | 0% |
 | iOS UI (SwiftUI) | 6,400+ | 0% |
 | Desktop/Web UI | 1,700+ | 0% |
-| **Total** | **23,400+** | **~40%** |
+| **Total** | **24,600+** | **~42%** |
 
 *Note: While UI is platform-specific (using native frameworks for the best user experience), the entire business logic—the core that actually protects users—is 100% shared.*
+
+### Platform Parity: Provable from the Repository
+
+A key insight from building QR-SHIELD is that **true KMP parity must be provable from the codebase alone**. Judges shouldn't have to "trust" that all platforms behave identically—they should be able to verify it.
+
+I achieved this by pushing more into shared modules:
+
+**Shared Text Generation (`SharedTextGenerator.kt`):**
+- All verdict titles, descriptions, and accessibility labels
+- Risk explanations and action recommendations
+- Share content and JSON export formats
+- No platform duplicates "safe means safe in their own words"
+
+**Shared Localization Keys (`LocalizationKeys.kt`):**
+- ~80 string keys for all UI text
+- `LocalizedKey(key, defaultText)` ensures consistency
+- Platforms use the same keys with their localization systems
+
+**Strategic expect/actual Boundaries (`PlatformAbstractions.kt`):**
+
+Each expect declaration documents **WHY** it must be native:
+
+| Abstraction | Why Native |
+|-------------|------------|
+| `PlatformClipboard` | ClipboardManager (Android), UIPasteboard (iOS), AWT (Desktop) |
+| `PlatformHaptics` | Vibrator (Android), UIImpactFeedbackGenerator (iOS) |
+| `PlatformLogger` | Logcat (Android), OSLog (iOS), console (Web) |
+| `PlatformTime` | System.nanoTime (JVM), performance.now (Web) |
+| `PlatformShare` | Intent.ACTION_SEND (Android), UIActivityViewController (iOS) |
+| `PlatformSecureRandom` | SecureRandom (JVM), Security.framework (iOS) |
+| `PlatformUrlOpener` | Intent.ACTION_VIEW (Android), UIApplication.openURL (iOS) |
+
+This approach ensures that when a judge looks at the repository, they can see exactly what's shared (PhishingEngine, SharedTextGenerator, LocalizationKeys) and why certain things must be native (camera, haptics, clipboard).
 
 ---
 

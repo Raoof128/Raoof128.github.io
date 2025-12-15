@@ -25,6 +25,18 @@
 - **[Adversarial Defense (NEW)](#adversarial-defense)**
   - [AdversarialDefense](#adversarialdefense)
   - [ObfuscationAttack](#obfuscationattack)
+- **[Shared UI Components (NEW)](#shared-ui-components)**
+  - [SharedTextGenerator](#sharedtextgenerator)
+  - [LocalizationKeys](#localizationkeys)
+  - [SharedViewModel](#sharedviewmodel)
+- **[Platform Abstractions (NEW)](#platform-abstractions)**
+  - [PlatformClipboard](#platformclipboard)
+  - [PlatformHaptics](#platformhaptics)
+  - [PlatformLogger](#platformlogger)
+  - [PlatformTime](#platformtime)
+  - [PlatformShare](#platformshare)
+  - [PlatformSecureRandom](#platformsecurerandom)
+  - [PlatformUrlOpener](#platformurlopener)
 - [Security Utilities](#security-utilities)
   - [InputValidator](#inputvalidator)
   - [RateLimiter](#ratelimiter)
@@ -34,6 +46,7 @@
   - [QrScanner](#qrscanner)
   - [ScanResult](#scanresult)
 - [Error Handling](#error-handling)
+
 
 ---
 
@@ -654,6 +667,228 @@ if (result.hasObfuscation) {
     }
 }
 ```
+
+---
+
+## Shared UI Components
+
+> **NEW in v1.2.0** — Shared text generation and localization for platform parity.
+
+### SharedTextGenerator
+
+Centralized text generation ensuring identical messaging across all platforms.
+
+```kotlin
+object SharedTextGenerator {
+    // Verdict text
+    fun getVerdictTitle(verdict: Verdict): String
+    fun getVerdictDescription(verdict: Verdict): String
+    fun getVerdictAccessibilityLabel(verdict: Verdict, score: Int): String
+
+    // Score text
+    fun getScoreDescription(score: Int): String
+    fun getScoreRangeLabel(score: Int): String
+
+    // Risk explanations
+    fun getRiskExplanation(assessment: RiskAssessment): String
+    fun getShortRiskSummary(assessment: RiskAssessment): String
+
+    // Action recommendations
+    fun getRecommendedAction(verdict: Verdict): String
+    fun getActionGuidance(verdict: Verdict): List<String>
+
+    // Signal explanations
+    val signalExplanations: Map<String, SignalExplanation>
+    fun getSignalExplanation(signalId: String): SignalExplanation?
+
+    // Export formats
+    fun generateShareText(url: String, assessment: RiskAssessment): String
+    fun generateJsonExport(url: String, assessment: RiskAssessment, timestamp: Long): String
+}
+```
+
+#### Usage Example
+
+```kotlin
+val explanation = SharedTextGenerator.getRiskExplanation(assessment)
+val shareText = SharedTextGenerator.generateShareText(url, assessment)
+```
+
+---
+
+### LocalizationKeys
+
+~80 centralized localization keys for all platforms.
+
+```kotlin
+object LocalizationKeys {
+    val APP_NAME = LocalizedKey("app_name", "QR-SHIELD")
+    val VERDICT_SAFE = LocalizedKey("verdict_safe", "Safe")
+    val VERDICT_SUSPICIOUS = LocalizedKey("verdict_suspicious", "Suspicious")
+    val VERDICT_MALICIOUS = LocalizedKey("verdict_malicious", "Dangerous")
+    // ...~80 more keys for tabs, scanner, results, actions, history, settings
+}
+
+data class LocalizedKey(val key: String, val defaultText: String)
+```
+
+#### Key Categories
+
+| Category | Examples |
+|----------|----------|
+| **App** | `APP_NAME`, `APP_TAGLINE` |
+| **Tabs** | `TAB_SCAN`, `TAB_HISTORY`, `TAB_SETTINGS` |
+| **Scanner** | `SCANNER_TITLE`, `SCANNER_INSTRUCTION` |
+| **Verdicts** | `VERDICT_SAFE`, `VERDICT_SUSPICIOUS`, `VERDICT_MALICIOUS` |
+| **Actions** | `ACTION_COPY_URL`, `ACTION_SHARE`, `ACTION_REPORT` |
+| **Errors** | `ERROR_INVALID_URL`, `ERROR_NO_QR_FOUND` |
+| **Accessibility** | `A11Y_RISK_SCORE_LABEL`, `A11Y_SCAN_BUTTON` |
+
+---
+
+### SharedViewModel
+
+Shared state machine for UI across all platforms.
+
+```kotlin
+class SharedViewModel(
+    phishingEngine: PhishingEngine,
+    historyRepository: HistoryRepository,
+    coroutineScope: CoroutineScope
+) {
+    val uiState: StateFlow<UiState>
+    val history: StateFlow<List<ScanHistoryItem>>
+    val settings: StateFlow<AppSettings>
+
+    fun processScanResult(result: ScanResult, source: ScanSource)
+    fun analyzeUrl(url: String, source: ScanSource = ScanSource.CLIPBOARD)
+    fun clearHistory()
+    fun deleteScan(id: String)
+    fun generateShareContent(): ShareContent?
+}
+```
+
+---
+
+## Platform Abstractions
+
+> **NEW in v1.2.0** — Strategic expect/actual declarations with documented native boundaries.
+
+All platform abstractions follow this pattern:
+- `commonMain`: expect declaration with WHY documentation
+- `androidMain`, `iosMain`, `desktopMain`, `jsMain`: actual implementations
+
+### PlatformClipboard
+
+System clipboard operations.
+
+```kotlin
+expect object PlatformClipboard {
+    fun copyToClipboard(text: String): Boolean
+    fun getClipboardText(): String?
+    fun hasText(): Boolean
+}
+```
+
+**Why Native:** ClipboardManager (Android), UIPasteboard (iOS), AWT (Desktop), navigator.clipboard (Web)
+
+---
+
+### PlatformHaptics
+
+Tactile feedback.
+
+```kotlin
+expect object PlatformHaptics {
+    fun light()   // Button taps
+    fun medium()  // Confirmations
+    fun heavy()   // Important actions
+    fun success() // Safe verdict
+    fun warning() // Suspicious verdict
+    fun error()   // Malicious verdict
+}
+```
+
+**Why Native:** Vibrator (Android), UIImpactFeedbackGenerator (iOS), no-op (Desktop)
+
+---
+
+### PlatformLogger
+
+Platform-appropriate logging.
+
+```kotlin
+expect object PlatformLogger {
+    fun debug(tag: String, message: String)
+    fun info(tag: String, message: String)
+    fun warn(tag: String, message: String)
+    fun error(tag: String, message: String, throwable: Throwable? = null)
+}
+```
+
+**Why Native:** Logcat (Android), OSLog (iOS), java.util.logging (Desktop), console (Web)
+
+---
+
+### PlatformTime
+
+High-resolution time operations.
+
+```kotlin
+expect object PlatformTime {
+    fun currentTimeMillis(): Long
+    fun nanoTime(): Long
+    fun formatTimestamp(millis: Long): String
+    fun formatRelativeTime(millis: Long): String
+}
+```
+
+**Why Native:** System.nanoTime (JVM), CFAbsoluteTimeGetCurrent (iOS), performance.now (Web)
+
+---
+
+### PlatformShare
+
+System share sheet integration.
+
+```kotlin
+expect object PlatformShare {
+    fun shareText(text: String, title: String = ""): Boolean
+    fun isShareSupported(): Boolean
+}
+```
+
+**Why Native:** Intent.ACTION_SEND (Android), UIActivityViewController (iOS), Web Share API
+
+---
+
+### PlatformSecureRandom
+
+Cryptographically secure random generation.
+
+```kotlin
+expect object PlatformSecureRandom {
+    fun nextBytes(size: Int): ByteArray
+    fun randomUUID(): String
+}
+```
+
+**Why Native:** SecureRandom (JVM), SecRandomCopyBytes (iOS), crypto.getRandomValues (Web)
+
+---
+
+### PlatformUrlOpener
+
+Open URLs in default browser.
+
+```kotlin
+expect object PlatformUrlOpener {
+    fun openUrl(url: String): Boolean
+    fun canOpenUrl(url: String): Boolean
+}
+```
+
+**Why Native:** Intent.ACTION_VIEW (Android), UIApplication.openURL (iOS), Desktop.browse (JVM)
 
 ---
 
