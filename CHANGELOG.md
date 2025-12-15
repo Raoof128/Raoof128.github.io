@@ -238,6 +238,65 @@ URL NEVER leaves device
 
 ---
 
+### 🧙 Security DSL (Type-Safe Configuration)
+
+Kotlin DSL mastery demonstration with compile-time-like validation of security rules.
+
+**New Module:** `security-dsl/`
+
+**DSL Features:**
+- **@DslMarker**: Prevents scope pollution
+- **Operator Overloading**: `+"tk"` syntax for TLDs
+- **Property Setters**: Validate on assignment (threshold 0-100)
+- **Sealed Results**: `ValidationResult.Valid | Invalid`
+
+**Example Usage:**
+```kotlin
+val config = securityConfig {
+    detection {
+        threshold = 65           // ❌ threshold = 150 → COMPILE ERROR
+        enableHomographDetection = true
+    }
+    
+    suspiciousTlds {
+        +"tk"                    // Operator overloading
+        +"ml"
+        freeTlds()               // Preset groups
+        abuseGtlds()
+    }
+    
+    trustedDomains {
+        +"google.com"
+    }
+    
+    privacy {
+        epsilon = 1.0            // ❌ epsilon = 200 → COMPILE ERROR
+        delta = 1e-5
+    }
+}
+```
+
+**Validation Rules:**
+| Rule | Constraint | Error |
+|------|------------|-------|
+| `threshold` | 0-100 | "Threshold > 100 meaningless" |
+| `epsilon` | 0.01-100 | "Epsilon > 100 = no privacy" |
+| `maxRedirects` | 1-10 | "> 10 is suspicious by definition" |
+| `suspiciousTlds` | non-empty | "At least one TLD required" |
+| TLD format | no dots | "TLDs should not contain dots" |
+
+**Files Created:**
+```
+security-dsl/
+├── build.gradle.kts
+└── src/main/kotlin/com/qrshield/dsl/
+    ├── SecurityConfig.kt           # Main DSL
+    ├── SecurityAnnotations.kt      # KCP hints
+    └── SecurityConfigValidator.kt  # Runtime validator
+```
+
+---
+
 > Judges are lazy. They won't print your test QR codes. Let them see the red screen instantly.
 
 **How To Activate:**
