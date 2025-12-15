@@ -170,6 +170,7 @@ A brand-new phishing domain registered 1 hour ago will **not** be in any blockli
 - Camera API requires HTTPS and user permission
 - No file system access for batch scanning
 - jsQR library may miss damaged QR codes
+- **Single-threaded JavaScript execution**: Kotlin/JS runs on the main browser thread. If `PhishingEngine.analyze()` takes 50ms (as measured in benchmarks), it may cause brief UI jank during analysis. Web Workers could mitigate this but add significant complexity. Current implementation is acceptable for occasional scans but not optimized for batch processing.
 
 ### Desktop
 - No native QR scanning (clipboard/file only)

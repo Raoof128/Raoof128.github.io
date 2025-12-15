@@ -26,8 +26,19 @@ import Foundation
 import common
 
 /// Bridge to KMP HeuristicsEngine for URL analysis
+///
+/// ## Memory Safety Notes
+/// - `HeuristicsEngine` is a stateless Kotlin class with no internal mutable state.
+/// - It is safe to hold a strong reference as it doesn't capture callbacks.
+/// - The engine is thread-safe and can be called from any thread.
+/// - No retain cycles are possible because HeuristicsEngine doesn't hold
+///   references back to Swift objects.
+/// - This class is `@MainActor` isolated to ensure UI updates are on main thread.
 @MainActor
 class KMPAnalyzer: ObservableObject {
+    // HeuristicsEngine is stateless - safe to hold strong reference
+    // It's a pure function wrapper: analyze(url) -> Result
+    // No callbacks, no delegates, no retain cycle risk
     private let heuristicsEngine = HeuristicsEngine()
     
     @Published var lastResult: AnalysisResult?

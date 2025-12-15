@@ -17,10 +17,32 @@
 package com.qrshield.engine
 
 /**
- * Redirect Chain Simulator for QR-SHIELD
+ * Static Redirect Pattern Analyzer for QR-SHIELD
  *
- * Analyzes URL patterns that commonly indicate redirect chains,
- * which are frequently used in phishing attacks to evade detection.
+ * ⚠️ **IMPORTANT CLARIFICATION FOR SECURITY EXPERTS:**
+ * This class performs **STATIC PATTERN ANALYSIS** on URL strings.
+ * It does **NOT** actually follow HTTP redirects (301, 302, etc.).
+ *
+ * We cannot follow real redirects because:
+ * 1. QR-SHIELD is offline-first (no network requests)
+ * 2. Server-side redirects (bit.ly → actual-site.com) require network
+ * 3. Privacy: we don't want to contact untrusted servers
+ *
+ * ## What We Actually Do
+ *
+ * We detect **patterns that INDICATE redirect chains** in the URL string:
+ * - URL shortener domains (bit.ly, t.co, etc.)
+ * - Embedded URLs in query parameters (?url=https://evil.com)
+ * - Common redirect parameter names (redirect=, goto=, next=)
+ * - Double URL encoding (potential obfuscation)
+ * - Known tracking/redirect services
+ *
+ * ## What We DON'T Do
+ *
+ * - Follow actual HTTP 301/302 redirects
+ * - Contact any external server
+ * - Resolve shortened URLs
+ * - Verify final destination
  *
  * ## Attack Pattern
  *
@@ -30,15 +52,14 @@ package com.qrshield.engine
  * 3. Present different content based on location/device
  * 4. Delay detection by rotating destinations
  *
- * ## Detection Approach
+ * ## Detection Approach (Static Analysis)
  *
- * Since QR-SHIELD is offline-first, we cannot follow actual redirects.
- * Instead, we detect *indicators of redirect chains* in the URL:
- * - URL shortener domains
- * - Embedded URLs (URL contains another URL)
- * - Common redirect parameters (redirect=, url=, goto=, next=)
- * - Double-encoded URLs
- * - Known redirect services
+ * We flag URLs that **appear to use redirect patterns**:
+ * - "This URL uses a known shortener" (we can't tell WHERE it redirects)
+ * - "This URL has an embedded URL in a parameter"
+ * - "This URL has multiple redirect indicators"
+ *
+ * The warning is: "This URL may redirect - we can't verify the destination offline."
  *
  * @author QR-SHIELD Security Team
  * @since 1.1.0
