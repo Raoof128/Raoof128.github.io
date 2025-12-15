@@ -34,7 +34,36 @@ A hidden developer mode for competition judges and security researchers to insta
 - **Category-colored Chips**: Visual distinction by attack type
 - **Toggle Off**: Can disable via Developer Mode section in Settings
 
-**Why This Exists:**
+---
+
+### 🚦 Aggressive Mode (URL Unshortener)
+
+Optional feature to resolve URL shorteners (bit.ly, t.co, etc.) and reveal hidden destinations.
+
+**New Files:**
+- `common/src/commonMain/kotlin/com/qrshield/network/ShortLinkResolver.kt`
+- `common/src/androidMain/kotlin/com/qrshield/network/AndroidShortLinkResolver.kt`
+
+**Features:**
+- **Opt-in Setting**: "Resolve Short Links (Online Only)" in Privacy section
+- **HTTP HEAD Only**: Never downloads body, just follows redirects
+- **"Resolving..." Spinner**: New UI state shows progress
+- **Resolved URL Analysis**: Analyzes final destination, not the shortener
+- **Audit Trail**: Adds "Resolved from: bit.ly/..." to assessment flags
+- **Privacy First**: Disabled by default to preserve offline-only mode
+
+**Supported Shorteners (25+):**
+```
+bit.ly, tinyurl.com, t.co, goo.gl, ow.ly, is.gd, buff.ly, 
+adf.ly, j.mp, tr.im, short.link, cutt.ly, rb.gy, shorturl.at,
+tiny.cc, shorte.st, v.gd, clicky.me, rebrand.ly, bl.ink, 
+soo.gd, s.id, clck.ru, bc.vc, po.st, mcaf.ee, u.to
+```
+
+**Security Limits:**
+- Max 5 redirects
+- 5-second timeout per hop
+- HTTPS-only trust for final destination
 > Judges are lazy. They won't print your test QR codes. Let them see the red screen instantly.
 
 **How To Activate:**

@@ -212,6 +212,19 @@ fun SettingsScreen() {
             )
         }
 
+        // Aggressive Mode (URL Unshortener)
+        item {
+            SettingsToggle(
+                icon = Icons.Default.LinkOff,
+                title = "Resolve Short Links",
+                subtitle = "Reveal hidden destinations (Online Only). Requires network access.",
+                checked = settings.isAggressiveModeEnabled,
+                onCheckedChange = { newValue ->
+                    viewModel.updateSettings(settings.copy(isAggressiveModeEnabled = newValue))
+                }
+            )
+        }
+
         item {
             SettingsClickable(
                 icon = Icons.Default.PrivacyTip,

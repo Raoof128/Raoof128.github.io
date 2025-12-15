@@ -23,6 +23,8 @@ import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.ScanResult
 import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
+import com.qrshield.network.NoOpShortLinkResolver
+import com.qrshield.network.ShortLinkResolver
 import com.qrshield.share.ShareContent
 import com.qrshield.share.ShareManager
 import kotlinx.coroutines.CoroutineScope
@@ -42,6 +44,7 @@ import kotlinx.datetime.Clock
  *
  * @param phishingEngine Engine for analyzing URLs for phishing threats
  * @param historyRepository Repository for persisting scan history
+ * @param shortLinkResolver Resolver for URL shorteners (Aggressive Mode)
  * @param coroutineScope Scope for launching coroutines
  *
  * @author QR-SHIELD Security Team
@@ -51,6 +54,7 @@ class SharedViewModel(
     private val phishingEngine: PhishingEngine = PhishingEngine(),
     private val historyRepository: HistoryRepository,
     private val settingsDataSource: com.qrshield.data.SettingsDataSource,
+    private val shortLinkResolver: ShortLinkResolver = NoOpShortLinkResolver(),
     private val coroutineScope: CoroutineScope
 ) {
     private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -100,17 +104,54 @@ class SharedViewModel(
     /**
      * Analyze a URL directly (e.g., from clipboard).
      * Analyzes and persists to database.
+     *
+     * If aggressive mode is enabled and the URL is a shortener,
+     * resolves it first to reveal the final destination.
      */
     fun analyzeUrl(url: String, source: ScanSource = ScanSource.CLIPBOARD) {
         coroutineScope.launch {
-            _uiState.value = UiState.Analyzing(url)
+            // Check if we should resolve shortened URLs
+            val urlToAnalyze = if (settings.value.isAggressiveModeEnabled &&
+                                   shortLinkResolver.isResolvableShortener(url)) {
+                // Show resolving state
+                _uiState.value = UiState.Resolving(url)
+                
+                // Attempt to resolve
+                when (val result = shortLinkResolver.resolve(url)) {
+                    is ShortLinkResolver.ResolveResult.Success -> {
+                        // Use the resolved URL for analysis
+                        result.resolvedUrl
+                    }
+                    is ShortLinkResolver.ResolveResult.Failure -> {
+                        // Resolution failed, analyze original with warning
+                        url
+                    }
+                    is ShortLinkResolver.ResolveResult.NotShortener -> {
+                        // Not a shortener, use original
+                        url
+                    }
+                }
+            } else {
+                url
+            }
+            
+            _uiState.value = UiState.Analyzing(urlToAnalyze)
 
-            val assessment = phishingEngine.analyze(url)
+            val assessment = phishingEngine.analyze(urlToAnalyze)
+            
+            // If we resolved a short link, add that info to the assessment
+            val enrichedAssessment = if (urlToAnalyze != url) {
+                assessment.copy(
+                    flags = assessment.flags + "Resolved from: $url"
+                )
+            } else {
+                assessment
+            }
 
-            _uiState.value = UiState.Result(assessment)
+            _uiState.value = UiState.Result(enrichedAssessment)
 
-            // Persist to database
-            saveToHistory(url, assessment, source)
+            // Persist to database (save original URL for reference)
+            saveToHistory(url, enrichedAssessment, source)
         }
     }
 
@@ -257,6 +298,10 @@ class SharedViewModel(
 
 /**
  * App Settings for preferences.
+ *
+ * @param isAggressiveModeEnabled When true, resolves URL shorteners via HTTP HEAD
+ *        to reveal the final destination. This requires network access.
+ *        Disabled by default to preserve privacy.
  */
 data class AppSettings(
     val isAutoScanEnabled: Boolean = true,
@@ -264,7 +309,8 @@ data class AppSettings(
     val isSoundEnabled: Boolean = true,
     val isSaveHistoryEnabled: Boolean = true,
     val isSecurityAlertsEnabled: Boolean = true,
-    val isDeveloperModeEnabled: Boolean = false
+    val isDeveloperModeEnabled: Boolean = false,
+    val isAggressiveModeEnabled: Boolean = false  // NEW: Resolve short links (online only)
 )
 
 
@@ -274,6 +320,8 @@ data class AppSettings(
 sealed class UiState {
     data object Idle : UiState()
     data object Scanning : UiState()
+    /** Resolving shortened URL (Aggressive Mode) */
+    data class Resolving(val originalUrl: String) : UiState()
     data class Analyzing(val url: String) : UiState()
     data class Result(val assessment: RiskAssessment) : UiState()
     data class Error(val message: String) : UiState()

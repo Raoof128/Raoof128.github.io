@@ -57,6 +57,48 @@ Implemented "Red Team" Developer Mode (God Mode) feature that allows judges and 
 
 ---
 
+## Session: 2025-12-16 (Aggressive Mode - URL Unshortener)
+
+### Summary
+Implemented optional "Aggressive Mode" to resolve URL shorteners (bit.ly, t.co, etc.) via HTTP HEAD requests, revealing hidden destinations while preserving privacy choice.
+
+---
+
+### Changes Made
+
+| Area | Changes |
+|------|---------|
+| **ShortLinkResolver** | Interface for resolving shortened URLs with Result sealed class |
+| **AndroidShortLinkResolver** | HTTP HEAD implementation following redirects |
+| **AppSettings** | Added `isAggressiveModeEnabled` (default: false) |
+| **UiState** | Added `Resolving` state for spinner |
+| **SharedViewModel** | Integrated resolver into `analyzeUrl()` flow |
+| **ScannerScreen** | Added `ResolvingContent` composable |
+| **SettingsScreen** | Added "Resolve Short Links" toggle in Privacy section |
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `common/src/commonMain/kotlin/com/qrshield/network/ShortLinkResolver.kt` | Interface + NoOpResolver |
+| `common/src/androidMain/kotlin/com/qrshield/network/AndroidShortLinkResolver.kt` | HttpURLConnection impl |
+
+### Security Limits
+
+- Max 5 redirects
+- 5-second timeout per hop
+- HTTP HEAD only (no body download)
+- HTTPS-only trust for final destination
+
+### Build Status
+
+```bash
+✅ ./gradlew :common:compileKotlinDesktop
+✅ ./gradlew :androidApp:compileDebugKotlin
+```
+
+---
+
 ## Session: 2025-12-16 (KMP Ecosystem Play - SDK + Maven)
 
 ### Summary

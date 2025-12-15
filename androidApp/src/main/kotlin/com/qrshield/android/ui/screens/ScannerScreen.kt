@@ -38,6 +38,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.FlashOff
 import androidx.compose.material.icons.filled.FlashOn
+import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -287,6 +288,10 @@ fun ScannerScreen() {
                     cameraError = cameraError,
                     onCameraError = { error -> cameraError = error }
                 )
+            }
+
+            is UiState.Resolving -> {
+                ResolvingContent(originalUrl = state.originalUrl)
             }
 
             is UiState.Analyzing -> {
@@ -784,6 +789,76 @@ private fun ScanningContent(
                         }
                 )
             }
+        }
+    }
+}
+
+// =============================================================================
+// RESOLVING STATE (Aggressive Mode - URL Unshortener)
+// =============================================================================
+
+@Composable
+private fun ResolvingContent(originalUrl: String) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BackgroundDark)
+            .padding(32.dp)
+            .semantics {
+                contentDescription = "Resolving shortened URL. Please wait."
+            },
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        // Link icon with animation
+        Icon(
+            imageVector = Icons.Default.Link,
+            contentDescription = null,
+            modifier = Modifier.size(48.dp),
+            tint = BrandSecondary
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        CircularProgressIndicator(
+            modifier = Modifier.size(48.dp),
+            color = BrandSecondary,
+            strokeWidth = 3.dp
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Resolving Short Link...",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.White
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Revealing hidden destination",
+            fontSize = 14.sp,
+            color = TextSecondary
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Show original short URL
+        Surface(
+            modifier = Modifier
+                .padding(horizontal = 16.dp),
+            shape = RoundedCornerShape(8.dp),
+            color = BackgroundCard.copy(alpha = 0.5f)
+        ) {
+            Text(
+                text = originalUrl.take(60) + if (originalUrl.length > 60) "..." else "",
+                fontSize = 11.sp,
+                color = TextMuted,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+            )
         }
     }
 }
