@@ -33,6 +33,9 @@ struct QRShieldApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("useDarkMode") private var useDarkMode = true
     
+    /// Deep link action from widget
+    @State private var shouldOpenScanner = false
+    
     init() {
         configureAppearance()
     }
@@ -41,7 +44,7 @@ struct QRShieldApp: App {
         WindowGroup {
             Group {
                 if hasCompletedOnboarding {
-                    ContentView()
+                    ContentView(shouldOpenScanner: $shouldOpenScanner)
                 } else {
                     OnboardingView(isComplete: $hasCompletedOnboarding)
                         .onChange(of: hasCompletedOnboarding) { _, newValue in
@@ -50,9 +53,28 @@ struct QRShieldApp: App {
                 }
             }
             .preferredColorScheme(useDarkMode ? .dark : .light)
+            .onOpenURL { url in
+                handleDeepLink(url)
+            }
         }
         .onChange(of: scenePhase) { _, newPhase in
             handleScenePhase(newPhase)
+        }
+    }
+    
+    // MARK: - Deep Link Handling
+    
+    /// Handle deep links from widgets and shortcuts.
+    /// URL scheme: qrshield://scan
+    private func handleDeepLink(_ url: URL) {
+        guard url.scheme == "qrshield" else { return }
+        
+        switch url.host {
+        case "scan":
+            // Navigate to scanner tab
+            shouldOpenScanner = true
+        default:
+            break
         }
     }
     
@@ -143,6 +165,9 @@ struct ContentView: View {
     @State private var selectedTab = 0
     @AppStorage("autoScan") private var autoScan = true
     
+    /// Binding to trigger scanner from widget deep link
+    @Binding var shouldOpenScanner: Bool
+    
     var body: some View {
         TabView(selection: $selectedTab) {
             // Scan Tab
@@ -179,6 +204,12 @@ struct ContentView: View {
             #if DEBUG
             print("🛡️ QR-SHIELD launched - iOS 17+")
             #endif
+        }
+        .onChange(of: shouldOpenScanner) { _, shouldOpen in
+            if shouldOpen {
+                selectedTab = 0  // Navigate to Scanner tab
+                shouldOpenScanner = false  // Reset
+            }
         }
     }
 }

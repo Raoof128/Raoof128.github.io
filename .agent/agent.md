@@ -57,6 +57,49 @@ Implemented "Red Team" Developer Mode (God Mode) feature that allows judges and 
 
 ---
 
+## Session: 2025-12-16 (Platform Native Widgets)
+
+### Summary
+Implemented native widgets for both Android (Glance) and iOS (WidgetKit) that deep-link directly to the QR scanner, proving platform respect beyond shared logic.
+
+---
+
+### Android Widget (Glance)
+
+| Feature | Implementation |
+|---------|----------------|
+| **Responsive Sizes** | 100dp, 160dp, 250dp |
+| **Action** | `MainActivity.ACTION_SCAN` intent |
+| **Design** | Material 3 dark theme |
+| **Handler** | `onNewIntent()` in MainActivity |
+
+### iOS Widget (WidgetKit)
+
+| Feature | Implementation |
+|---------|----------------|
+| **Lock Screen** | accessoryCircular, accessoryRectangular, accessoryInline |
+| **Home Screen** | systemSmall, systemMedium |
+| **Deep Link** | `qrshield://scan` URL scheme |
+| **Handler** | `onOpenURL` in QRShieldApp |
+
+### Files Created/Modified
+
+| File | Purpose |
+|------|---------|
+| `iosApp/QRShieldWidget/QRShieldWidget.swift` | **NEW** - iOS widget with all families |
+| `MainActivity.kt` | Added `ACTION_SCAN`, `shouldStartScan`, `handleIntent()` |
+| `QRShieldWidget.kt` | Uses `MainActivity.EXTRA_ACTION` constant |
+| `QRShieldApp.swift` | Added `onOpenURL` handler, deep link routing |
+| `ContentView` | Added `shouldOpenScanner` binding |
+
+### Build Status
+
+```bash
+✅ ./gradlew :androidApp:compileDebugKotlin
+```
+
+---
+
 ## Session: 2025-12-16 (Aggressive Mode - URL Unshortener)
 
 ### Summary

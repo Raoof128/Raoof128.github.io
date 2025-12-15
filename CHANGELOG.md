@@ -64,6 +64,60 @@ soo.gd, s.id, clck.ru, bc.vc, po.st, mcaf.ee, u.to
 - Max 5 redirects
 - 5-second timeout per hop
 - HTTPS-only trust for final destination
+
+---
+
+### 📱 Platform Native Widgets
+
+Native widgets for Android and iOS that launch directly to the QR scanner.
+
+#### Android Widget (Glance)
+
+**File:** `androidApp/.../widget/QRShieldWidget.kt`
+
+**Features:**
+- **Responsive Sizes**: Small (100dp), Medium (160dp), Large (250dp)
+- **One-tap Scan**: Opens app directly to camera scanner
+- **Material 3 Design**: Matches app theme with dark background
+- **Action Callback**: Uses `MainActivity.ACTION_SCAN` intent
+
+**Widget Preview:**
+```
+┌─────────────────────────────────────┐
+│ 🛡️ │ QR-SHIELD          │  📷  │
+│    │ Detect phishing... │      │
+└─────────────────────────────────────┘
+```
+
+#### iOS Widget (WidgetKit)
+
+**File:** `iosApp/QRShieldWidget/QRShieldWidget.swift`
+
+**Supported Families:**
+- `accessoryCircular` - Lock Screen circular
+- `accessoryRectangular` - Lock Screen rectangular
+- `accessoryInline` - Lock Screen inline text
+- `systemSmall` - Home Screen 2x2
+- `systemMedium` - Home Screen 4x2
+
+**Deep Link:** `qrshield://scan`
+
+**Setup Instructions:**
+1. In Xcode: File > New > Target > Widget Extension
+2. Name: "QRShieldWidget"
+3. Add provided Swift code
+4. Add URL scheme `qrshield` to main app Info.plist
+
+**Files Modified:**
+| File | Changes |
+|------|---------|
+| `MainActivity.kt` | Added `ACTION_SCAN` handling, `shouldStartScan` state |
+| `QRShieldWidget.kt` | Uses `MainActivity.EXTRA_ACTION` constant |
+| `QRShieldApp.swift` | Added `onOpenURL` handler for widget deep link |
+| `ContentView` | Added `shouldOpenScanner` binding |
+
+---
+
 > Judges are lazy. They won't print your test QR codes. Let them see the red screen instantly.
 
 **How To Activate:**

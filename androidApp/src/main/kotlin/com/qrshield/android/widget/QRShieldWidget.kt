@@ -227,6 +227,7 @@ class QRShieldWidgetReceiver : GlanceAppWidgetReceiver() {
 
 /**
  * Callback for widget actions.
+ * Launches MainActivity with SCAN action to start camera immediately.
  */
 class ScanActionCallback : ActionCallback {
     override suspend fun onAction(
@@ -236,8 +237,9 @@ class ScanActionCallback : ActionCallback {
     ) {
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-            putExtra("ACTION", "SCAN")
+            putExtra(MainActivity.EXTRA_ACTION, MainActivity.ACTION_SCAN)
         }
         context.startActivity(intent)
     }
 }
+

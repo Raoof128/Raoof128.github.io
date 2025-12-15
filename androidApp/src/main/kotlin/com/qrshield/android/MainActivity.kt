@@ -16,12 +16,14 @@
 
 package com.qrshield.android
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -30,8 +32,23 @@ import com.qrshield.android.ui.theme.QRShieldTheme
 
 /**
  * Main entry point for QR-SHIELD Android application.
+ *
+ * Handles deep links and widget actions:
+ * - ACTION=SCAN: Opens directly to scanner with camera active
+ * - Default: Opens to home screen
  */
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        /** Intent extra key for widget/shortcut actions */
+        const val EXTRA_ACTION = "ACTION"
+        
+        /** Action to start scanning immediately */
+        const val ACTION_SCAN = "SCAN"
+        
+        /** Observable state for quick scan from widget */
+        val shouldStartScan = mutableStateOf(false)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Install splash screen BEFORE calling super.onCreate()
@@ -41,6 +58,9 @@ class MainActivity : ComponentActivity() {
 
         // Enable edge-to-edge display
         enableEdgeToEdge()
+        
+        // Handle widget/shortcut action
+        handleIntent(intent)
 
         setContent {
             QRShieldTheme {
@@ -53,4 +73,23 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+    
+    /**
+     * Handle intents from widgets, shortcuts, and deep links.
+     */
+    private fun handleIntent(intent: Intent?) {
+        val action = intent?.getStringExtra(EXTRA_ACTION)
+        when (action) {
+            ACTION_SCAN -> {
+                // Signal to start scanning immediately
+                shouldStartScan.value = true
+            }
+        }
+    }
 }
+
