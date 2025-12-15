@@ -118,6 +118,64 @@ https://raoof128.github.io/QDKMP-KotlinConf-2026-/data/updates/
 
 ---
 
+### 🌐 Web App "Pixel Perfect" Polish
+
+Visual parity with Desktop app achieved. The Web App is no longer the "poor cousin."
+
+#### CSS Improvements
+
+**Color Parity:**
+- Synced all colors from `common/src/commonMain/kotlin/com/qrshield/ui/theme/Colors.kt`
+- Primary: `#6C5CE7` (Deep Purple)
+- Safe: `#00D68F` (Emerald Green)
+- Warning: `#FFAA00` (Amber)
+- Danger: `#FF3D71` (Coral Red)
+- Dark background: `#0D1117`
+- Surface: `#161B22`
+
+**CSS Grid Layouts:**
+- Action row: `grid-template-columns: 2fr 1fr`
+- Sample URLs: `grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))`
+- Metrics: Responsive grid (4 → 2 → 2 columns)
+
+**Touch Targets (48px+ per WCAG):**
+```css
+--touch-target-min: 48px;
+--touch-target-lg: 56px;
+```
+- All buttons: `min-height: var(--touch-target-min)`
+- Icon buttons: `width/height: var(--touch-target-min)`
+- Sample URL chips: `min-height: 48px`
+- Mobile: Even larger 56px targets
+
+#### PWA Manifest Enhancements
+
+- `display: standalone` with `display_override`
+- iOS icons: 180x180, 167x167, 152x152, 120x120 (maskable)
+- Orientation: `any` (was portrait-only)
+- Theme colors synced with Colors.kt
+- Added Quick Scan + Demo Mode shortcuts
+- Launch handler for native-like experience
+
+#### iOS Meta Tags
+
+```html
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="QR-SHIELD">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/logo.svg">
+```
+
+#### Files Modified
+
+| File | Changes |
+|------|---------|
+| `styles.css` | CSS variables, Grid layouts, touch targets, color sync |
+| `manifest.json` | iOS icons, standalone display, shortcuts |
+| `index.html` | iOS meta tags, viewport-fit, color-scheme |
+
+---
+
 ## [1.2.0] - 2025-12-15
 
 ### 🚀 Major Release: Novelty Features (40/40 Creativity Score)

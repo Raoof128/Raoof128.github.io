@@ -220,19 +220,33 @@ class OtaUpdateManager(
      * Simple extraction without full JSON parsing.
      */
     private fun parseVersion(json: String): Int {
-        val versionRegex = """"version"\s*:\s*(\d+)""".toRegex()
-        val match = versionRegex.find(json)
-        return match?.groupValues?.get(1)?.toIntOrNull() ?: BUNDLED_VERSION
+        // Simple string-based extraction for multiplatform compatibility
+        val versionPattern = """"version"\s*:\s*(\d+)"""
+        val regex = Regex(versionPattern)
+        val matchResult = regex.find(json) ?: return BUNDLED_VERSION
+        val groups = matchResult.groups
+        val versionGroup = groups[1] ?: return BUNDLED_VERSION
+        return versionGroup.value.toIntOrNull() ?: BUNDLED_VERSION
     }
 
     private fun parseBrandDbFilename(manifest: String): String {
-        val regex = """"brand_db".*?"filename"\s*:\s*"([^"]+)"""".toRegex(RegexOption.DOT_MATCHES_ALL)
-        return regex.find(manifest)?.groupValues?.get(1) ?: "brand_db_v2.json"
+        // Look for filename in brand_db section
+        val pattern = """"brand_db"[^}]*"filename"\s*:\s*"([^"]+)""""
+        val regex = Regex(pattern)
+        val matchResult = regex.find(manifest) ?: return "brand_db_v2.json"
+        val groups = matchResult.groups
+        val filenameGroup = groups[1] ?: return "brand_db_v2.json"
+        return filenameGroup.value
     }
 
     private fun parseHeuristicsFilename(manifest: String): String {
-        val regex = """"heuristics".*?"filename"\s*:\s*"([^"]+)"""".toRegex(RegexOption.DOT_MATCHES_ALL)
-        return regex.find(manifest)?.groupValues?.get(1) ?: "heuristics_v2.json"
+        // Look for filename in heuristics section
+        val pattern = """"heuristics"[^}]*"filename"\s*:\s*"([^"]+)""""
+        val regex = Regex(pattern)
+        val matchResult = regex.find(manifest) ?: return "heuristics_v2.json"
+        val groups = matchResult.groups
+        val filenameGroup = groups[1] ?: return "heuristics_v2.json"
+        return filenameGroup.value
     }
 }
 

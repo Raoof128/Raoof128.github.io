@@ -4,12 +4,43 @@
 <head>
     <meta charset="UTF-8">
     <!-- Accessibility: Allow text scaling, maintain zoom capabilities -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description"
         content="QR-SHIELD Web - AI-powered phishing detection running entirely in your browser. Scan and analyze URLs for security threats.">
-    <meta name="theme-color" content="#6C5CE7">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#6C5CE7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0D1117" media="(prefers-color-scheme: dark)">
+    <meta name="color-scheme" content="dark light">
 
     <title>QR-SHIELD | Premium Web Scanner</title>
+
+    <!-- ==========================================================================
+         iOS / Apple PWA Meta Tags (for standalone experience)
+         ========================================================================== -->
+    <!-- Apple Touch Icon (iOS Home Screen) -->
+    <link rel="apple-touch-icon" href="assets/logo.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.svg">
+    <link rel="apple-touch-icon" sizes="167x167" href="assets/logo.svg">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/logo.svg">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/logo.svg">
+    
+    <!-- iOS Standalone Mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="QR-SHIELD">
+    
+    <!-- iOS Startup Screen Placeholder (uses theme color) -->
+    <meta name="apple-touch-startup-image" href="assets/logo.svg">
+    
+    <!-- Disable iOS telephone number detection -->
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- Mobile-specific meta tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="QR-SHIELD">
+    <meta name="msapplication-TileColor" content="#6C5CE7">
+    <meta name="msapplication-config" content="none">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

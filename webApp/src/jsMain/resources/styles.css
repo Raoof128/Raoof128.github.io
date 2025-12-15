@@ -2,54 +2,117 @@
  * QR-SHIELD Web Design System
  * Premium, Dark-First, Glassmorphism
  * 
+ * PIXEL PERFECT: Colors from common/src/commonMain/kotlin/com/qrshield/ui/theme/Colors.kt
+ * 
  * ACCESSIBILITY: 
  * - WCAG 2.1 AA compliant contrast ratios
  * - Supports text scaling up to 200%
  * - Respects prefers-reduced-motion
  * - Full keyboard navigation support
+ * - 48px minimum touch targets
  */
 
 :root {
-    /* Brand Colors */
+    /* ==========================================================================
+       BRAND COLORS (from QRShieldColors)
+       ========================================================================== */
     --color-primary: #6C5CE7;
+    /* QRShieldColors.primary */
     --color-primary-variant: #5B4DCF;
+    /* QRShieldColors.primaryVariant */
+    --color-primary-dark: #4A3FB0;
+    /* QRShieldColors.primaryDark */
     --color-secondary: #00CEC9;
+    /* QRShieldColors.secondary */
     --color-accent: #A78BFA;
 
-    /* Semantic Colors (WCAG AA contrast) */
+    /* ==========================================================================
+       SEMANTIC COLORS - VERDICTS (from QRShieldColors)
+       ========================================================================== */
     --color-safe: #00D68F;
-    --color-warning: #E6A200;
-    /* Darker for better contrast */
-    --color-danger: #FF3D71;
-    --color-unknown: #8B949E;
+    /* QRShieldColors.safe - Emerald Green */
+    --color-safe-light: #00F5A0;
+    /* QRShieldColors.safeLight */
+    --color-safe-dark: #00B377;
+    /* QRShieldColors.safeDark */
+    --color-safe-bg: rgba(0, 214, 143, 0.1);
+    /* QRShieldColors.safeBackground */
 
-    /* Light Theme (Default) */
+    --color-warning: #FFAA00;
+    /* QRShieldColors.warning - Amber */
+    --color-warning-light: #FFBB33;
+    /* QRShieldColors.warningLight */
+    --color-warning-dark: #E69900;
+    /* QRShieldColors.warningDark */
+    --color-warning-bg: rgba(255, 170, 0, 0.1);
+    /* QRShieldColors.warningBackground */
+
+    --color-danger: #FF3D71;
+    /* QRShieldColors.danger - Coral Red */
+    --color-danger-light: #FF6B8A;
+    /* QRShieldColors.dangerLight */
+    --color-danger-dark: #E6365F;
+    /* QRShieldColors.dangerDark */
+    --color-danger-bg: rgba(255, 61, 113, 0.1);
+    /* QRShieldColors.dangerBackground */
+
+    --color-unknown: #8B949E;
+    /* QRShieldColors.neutral */
+    --color-unknown-bg: rgba(139, 148, 158, 0.1);
+
+    /* ==========================================================================
+       LIGHT THEME (from QRShieldColorScheme.Light)
+       ========================================================================== */
     --bg-app: #F6F8FA;
+    /* QRShieldColors.backgroundLight */
     --bg-surface: #FFFFFF;
-    --bg-surface-translucent: rgba(255, 255, 255, 0.8);
+    /* QRShieldColors.surfaceLight */
+    --bg-surface-translucent: rgba(255, 255, 255, 0.9);
+    --bg-surface-variant: #E8ECEF;
+    /* QRShieldColors.surfaceVariantLight */
     --bg-card: #FFFFFF;
+    /* QRShieldColors.cardLight */
     --bg-input: #F0F2F5;
 
-    --text-primary: #18181B;
-    --text-secondary: #3F3F46;
-    /* Darker for better contrast */
-    --text-tertiary: #71717A;
-    /* Darker for better contrast */
+    --text-primary: #24292F;
+    /* QRShieldColors.textPrimaryLight */
+    --text-secondary: #57606A;
+    /* QRShieldColors.textSecondaryLight */
+    --text-tertiary: #8B949E;
+    /* QRShieldColors.textTertiaryLight */
     --text-on-primary: #FFFFFF;
 
     --border-color: #E4E4E7;
     --border-focus: #6C5CE7;
+    --divider: #30363D;
+    /* QRShieldColors.divider */
 
+    /* ==========================================================================
+       SHADOWS & EFFECTS
+       ========================================================================== */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     --shadow-glow: 0 0 20px rgba(108, 92, 231, 0.3);
+    --shadow-glow-safe: 0 0 20px rgba(0, 214, 143, 0.4);
+    --shadow-glow-warning: 0 0 20px rgba(255, 170, 0, 0.4);
+    --shadow-glow-danger: 0 0 20px rgba(255, 61, 113, 0.4);
 
+    /* ==========================================================================
+       SPACING & SIZING
+       ========================================================================== */
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 20px;
     --radius-full: 9999px;
 
+    /* Touch target sizing (48px minimum per WCAG) */
+    --touch-target-min: 48px;
+    --touch-target-lg: 56px;
+
+    /* ==========================================================================
+       TYPOGRAPHY
+       ========================================================================== */
     --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -91,19 +154,30 @@ html {
     outline-offset: 2px;
 }
 
-/* Dark Theme */
+/* ==========================================================================
+   DARK THEME (from QRShieldColorScheme.Dark)
+   ========================================================================== */
 [data-theme='dark'] {
     --bg-app: #0D1117;
+    /* QRShieldColors.backgroundDark */
     --bg-surface: #161B22;
-    --bg-surface-translucent: rgba(22, 27, 34, 0.8);
+    /* QRShieldColors.surfaceDark */
+    --bg-surface-translucent: rgba(22, 27, 34, 0.9);
+    --bg-surface-variant: #21262D;
+    /* QRShieldColors.surfaceVariantDark */
     --bg-card: #1C2128;
+    /* QRShieldColors.cardDark */
     --bg-input: #0D1117;
 
     --text-primary: #F0F6FC;
+    /* QRShieldColors.textPrimaryDark */
     --text-secondary: #8B949E;
+    /* QRShieldColors.textSecondaryDark */
     --text-tertiary: #6E7681;
+    /* QRShieldColors.textTertiaryDark */
 
     --border-color: #30363D;
+    /* QRShieldColors.divider */
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
@@ -222,8 +296,11 @@ h3 {
     background: transparent;
     border: 1px solid var(--border-color);
     color: var(--text-secondary);
-    width: 40px;
-    height: 40px;
+    /* 48px minimum touch target */
+    width: var(--touch-target-min);
+    height: var(--touch-target-min);
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -365,7 +442,8 @@ h3 {
 }
 
 .action-row {
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
     gap: 12px;
 }
 
@@ -373,11 +451,12 @@ h3 {
     background: var(--color-primary);
     color: white;
     border: none;
+    /* 48px minimum touch target */
     padding: 14px 24px;
+    min-height: var(--touch-target-min);
     border-radius: var(--radius-md);
     font-weight: 600;
     font-size: 1rem;
-    flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -392,6 +471,11 @@ h3 {
     box-shadow: 0 6px 16px rgba(108, 92, 231, 0.35);
 }
 
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(108, 92, 231, 0.2);
+}
+
 .btn-primary:disabled {
     opacity: 0.7;
     cursor: not-allowed;
@@ -402,10 +486,11 @@ h3 {
     background: transparent;
     color: var(--text-primary);
     border: 1px solid var(--border-color);
+    /* 48px minimum touch target */
     padding: 14px 20px;
+    min-height: var(--touch-target-min);
     border-radius: var(--radius-md);
     font-weight: 500;
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -416,6 +501,10 @@ h3 {
 .btn-secondary:hover {
     background: var(--bg-input);
     border-color: var(--text-tertiary);
+}
+
+.btn-secondary:active {
+    transform: scale(0.98);
 }
 
 /* Try Now Sample URLs */
@@ -433,18 +522,20 @@ h3 {
 }
 
 .sample-urls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
 }
 
 .sample-url {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    border-radius: var(--radius-full);
-    font-size: 0.8rem;
+    gap: 8px;
+    /* 48px minimum touch target */
+    padding: 12px 16px;
+    min-height: var(--touch-target-min);
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
     transition: all var(--transition-fast);
@@ -457,22 +548,27 @@ h3 {
     background: var(--color-danger);
     color: white;
     border: none;
+    /* 48px minimum touch target */
     padding: 14px 20px;
+    min-height: var(--touch-target-min);
     border-radius: var(--radius-md);
     font-weight: 500;
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     transition: all var(--transition-fast);
-    box-shadow: 0 4px 12px rgba(255, 61, 113, 0.25);
+    box-shadow: var(--shadow-glow-danger);
 }
 
 .btn-danger:hover {
-    background: #E6365F;
+    background: var(--color-danger-dark);
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(255, 61, 113, 0.35);
+}
+
+.btn-danger:active {
+    transform: translateY(0);
 }
 
 .sample-url:hover {
@@ -1365,15 +1461,17 @@ kbd {
 
 @media (max-width: 600px) {
     .metrics-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .scanner-card {
         padding: 20px;
     }
 
+    /* Stack action buttons on mobile */
     .action-row {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .result-header {
@@ -1381,9 +1479,11 @@ kbd {
         text-align: center;
     }
 
+    /* Full width buttons with maintained touch targets */
     .btn-primary,
     .btn-secondary {
         width: 100%;
+        min-height: var(--touch-target-min);
     }
 
     .hero-trust {
@@ -1391,13 +1491,20 @@ kbd {
         gap: 8px;
     }
 
+    /* Single column sample URLs on mobile */
     .sample-urls {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
     .sample-url {
         width: 100%;
         justify-content: center;
+    }
+
+    /* Larger touch targets on mobile */
+    .btn-icon {
+        width: var(--touch-target-lg);
+        height: var(--touch-target-lg);
     }
 }
 
