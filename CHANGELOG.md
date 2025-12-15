@@ -171,6 +171,73 @@ On-device ML verification that proves accuracy claims on the judge's phone.
 
 ---
 
+### 👻 Federated Learning "Ghost Protocol"
+
+Privacy-preserving feedback loop using (ε,δ)-Differential Privacy for model improvement.
+
+**New Files:**
+- `common/src/commonMain/kotlin/com/qrshield/privacy/PrivacyPreservingAnalytics.kt`
+- `common/src/commonMain/kotlin/com/qrshield/privacy/FeedbackManager.kt`
+
+**Core Privacy Guarantees:**
+```
+✓ NO URL Transmission - Only encrypted feature gradients
+✓ Differential Privacy - Calibrated Gaussian noise (ε=1, δ=10⁻⁵)
+✓ Gradient Clipping - L2 norm bounded for sensitivity
+✓ Secure Aggregation - Masks cancel in aggregation
+✓ k-Anonymity - Timestamps bucketed to hours
+```
+
+**Mathematical Foundation:**
+
+For (ε, δ)-Differential Privacy with Gaussian mechanism:
+```
+σ = Δf × √(2 × ln(1.25/δ)) / ε
+
+where:
+  Δf = L2 sensitivity (max gradient norm)
+  ε  = privacy budget (lower = more private)
+  δ  = failure probability (should be < 1/n)
+```
+
+**Privacy Budget Accounting (Advanced Composition):**
+```
+After k reports:
+  ε' = √(2k × ln(1/δ')) × ε + k × ε × (e^ε - 1)
+```
+
+**Feedback Types:**
+| Type | Description | Priority |
+|------|-------------|----------|
+| FALSE_NEGATIVE | URL marked SAFE but is phishing | Critical |
+| FALSE_POSITIVE | URL marked PHISHING but is safe | Low |
+
+**Workflow:**
+```
+User taps "Report as Phishing"
+        ↓
+FeatureExtractor.extract(url) → [15 floats]
+        ↓
+gradient = expected - actual
+        ↓
+clipped = clip(gradient, L2_norm=1.0)
+        ↓
+noised = clipped + N(0, σ²)
+        ↓
+masked = noised + secureAggregationMask
+        ↓
+EncryptedGradient queued for batch transmission
+        ↓
+URL NEVER leaves device
+```
+
+**References:**
+- Dwork & Roth (2014) "Algorithmic Foundations of Differential Privacy"
+- Bonawitz et al. (2017) "Practical Secure Aggregation"
+- McMahan et al. (2017) "Federated Learning"
+
+---
+
 > Judges are lazy. They won't print your test QR codes. Let them see the red screen instantly.
 
 **How To Activate:**
