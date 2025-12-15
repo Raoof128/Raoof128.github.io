@@ -1,0 +1,324 @@
+{
+    "version": 2,
+    "lastUpdated": "2025-12-16T00:00:00Z",
+    "brands": {
+        "paypal": {
+            "official_domains": [
+                "paypal.com",
+                "paypal.me"
+            ],
+            "typosquats": [
+                "paypa1",
+                "paypai",
+                "paypol",
+                "paypaI",
+                "paypall",
+                "pypai",
+                "paypaI1",
+                "paypaal"
+            ],
+            "homographs": [
+                "pаypal",
+                "раypal",
+                "раураl"
+            ],
+            "combosquats": [
+                "paypal-secure",
+                "paypal-login",
+                "paypal-verify",
+                "paypal-update",
+                "paypal-support",
+                "paypal-help",
+                "paypal-refund"
+            ]
+        },
+        "google": {
+            "official_domains": [
+                "google.com",
+                "google.co.uk",
+                "google.com.au",
+                "gmail.com",
+                "youtube.com",
+                "accounts.google.com"
+            ],
+            "typosquats": [
+                "g00gle",
+                "googie",
+                "goog1e",
+                "gooogle",
+                "goggle",
+                "gogle",
+                "googel",
+                "googlr"
+            ],
+            "homographs": [
+                "gооgle",
+                "googlе",
+                "gооglе"
+            ],
+            "combosquats": [
+                "google-login",
+                "google-verify",
+                "google-account",
+                "google-security",
+                "google-alert",
+                "google-docs-share",
+                "google-drive-share"
+            ]
+        },
+        "microsoft": {
+            "official_domains": [
+                "microsoft.com",
+                "live.com",
+                "outlook.com",
+                "office.com",
+                "azure.com",
+                "onedrive.com"
+            ],
+            "typosquats": [
+                "micr0soft",
+                "rnicrosoft",
+                "mircosoft",
+                "microsft",
+                "microsofl",
+                "mlcrosoft",
+                "microsolt"
+            ],
+            "homographs": [
+                "mісrosoft",
+                "miсrosoft",
+                "mіcrosoft"
+            ],
+            "combosquats": [
+                "microsoft-login",
+                "microsoft-account",
+                "office-login",
+                "microsoft-security",
+                "office365-login",
+                "microsoft-teams",
+                "azure-login"
+            ]
+        },
+        "apple": {
+            "official_domains": [
+                "apple.com",
+                "icloud.com",
+                "apple.co",
+                "appleid.apple.com"
+            ],
+            "typosquats": [
+                "app1e",
+                "appie",
+                "aple",
+                "applle",
+                "applе",
+                "aplle",
+                "appIe"
+            ],
+            "homographs": [
+                "аpple",
+                "apрle",
+                "аррle"
+            ],
+            "combosquats": [
+                "apple-id",
+                "icloud-login",
+                "apple-verify",
+                "apple-support",
+                "appleid-login",
+                "apple-find-my",
+                "apple-itunes"
+            ]
+        },
+        "amazon": {
+            "official_domains": [
+                "amazon.com",
+                "amazon.co.uk",
+                "amazon.com.au",
+                "aws.amazon.com",
+                "amzn.com",
+                "prime.amazon.com"
+            ],
+            "typosquats": [
+                "amaz0n",
+                "arnazon",
+                "amazom",
+                "amazonn",
+                "amazn",
+                "amezon",
+                "amazoon"
+            ],
+            "homographs": [
+                "аmazon",
+                "amаzon",
+                "аmаzon"
+            ],
+            "combosquats": [
+                "amazon-prime",
+                "amazon-order",
+                "amazon-delivery",
+                "amazon-login",
+                "amazon-security",
+                "amazon-gift",
+                "amazon-refund"
+            ]
+        },
+        "facebook": {
+            "official_domains": [
+                "facebook.com",
+                "fb.com",
+                "meta.com",
+                "messenger.com",
+                "instagram.com"
+            ],
+            "typosquats": [
+                "faceb00k",
+                "facebok",
+                "faceboook",
+                "facebk",
+                "facbook",
+                "faebook",
+                "fecebook"
+            ],
+            "homographs": [
+                "fасebook",
+                "facebооk",
+                "fаcebook"
+            ],
+            "combosquats": [
+                "facebook-login",
+                "facebook-verify",
+                "fb-security",
+                "facebook-support",
+                "facebook-recovery",
+                "fb-help"
+            ]
+        },
+        "netflix": {
+            "official_domains": [
+                "netflix.com"
+            ],
+            "typosquats": [
+                "netf1ix",
+                "netfiix",
+                "nettflix",
+                "netfllx",
+                "netlfix",
+                "netfilx",
+                "netflx"
+            ],
+            "homographs": [
+                "nеtflix",
+                "netflіx",
+                "nеtflіx"
+            ],
+            "combosquats": [
+                "netflix-billing",
+                "netflix-update",
+                "netflix-account",
+                "netflix-payment",
+                "netflix-renewal",
+                "netflix-verify"
+            ]
+        },
+        "coinbase": {
+            "official_domains": [
+                "coinbase.com",
+                "pro.coinbase.com"
+            ],
+            "typosquats": [
+                "c0inbase",
+                "coinbasse",
+                "colnbase",
+                "coinbasee",
+                "coinbaze",
+                "coinbaase"
+            ],
+            "homographs": [
+                "соinbase",
+                "coinbаse",
+                "соinbаse"
+            ],
+            "combosquats": [
+                "coinbase-login",
+                "coinbase-verify",
+                "coinbase-wallet",
+                "coinbase-support",
+                "coinbase-security"
+            ]
+        },
+        "binance": {
+            "official_domains": [
+                "binance.com",
+                "binance.us"
+            ],
+            "typosquats": [
+                "b1nance",
+                "blnance",
+                "binnance",
+                "binence",
+                "biance",
+                "binanc"
+            ],
+            "homographs": [
+                "bіnance",
+                "binаnce",
+                "bіnаnce"
+            ],
+            "combosquats": [
+                "binance-login",
+                "binance-verify",
+                "binance-wallet",
+                "binance-support",
+                "binance-security"
+            ]
+        },
+        "metamask": {
+            "official_domains": [
+                "metamask.io"
+            ],
+            "typosquats": [
+                "metam4sk",
+                "metamsk",
+                "metamaask",
+                "rnetamask",
+                "metamaksio",
+                "metarnask"
+            ],
+            "homographs": [
+                "metаmask",
+                "mеtamask",
+                "mеtаmask"
+            ],
+            "combosquats": [
+                "metamask-verify",
+                "metamask-connect",
+                "metamask-wallet",
+                "metamask-sync",
+                "metamask-support"
+            ]
+        },
+        "opensea": {
+            "official_domains": [
+                "opensea.io"
+            ],
+            "typosquats": [
+                "0pensea",
+                "opencea",
+                "opensee",
+                "openseea",
+                "opernsea"
+            ],
+            "homographs": [
+                "opеnsea",
+                "opensеa"
+            ],
+            "combosquats": [
+                "opensea-verify",
+                "opensea-airdrop",
+                "opensea-wallet",
+                "opensea-nft"
+            ]
+        }
+    }
+}

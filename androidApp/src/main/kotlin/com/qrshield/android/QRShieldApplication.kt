@@ -18,7 +18,14 @@ package com.qrshield.android
 
 import android.app.Application
 import android.os.Build
+import android.util.Log
 import com.qrshield.android.di.androidModule
+import com.qrshield.android.ota.AndroidOtaFactory
+import com.qrshield.ota.OtaUpdateManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -28,12 +35,13 @@ import org.koin.core.logger.Level
  * QR-SHIELD Android Application
  *
  * Entry point for the Android application.
- * Initializes Koin dependency injection with all required modules.
+ * Initializes Koin dependency injection and OTA update manager.
  *
  * Features:
  * - Koin DI initialization
  * - Production-ready logging configuration
  * - Android 16 compatibility
+ * - **Living Engine OTA Updates** (NEW in v1.3.0)
  *
  * @author QR-SHIELD Security Team
  * @since 1.0.0
@@ -41,6 +49,8 @@ import org.koin.core.logger.Level
 class QRShieldApplication : Application() {
 
     companion object {
+        private const val TAG = "QRShieldApplication"
+
         /** Check if running on Android 16+ */
         val isAndroid16OrHigher: Boolean
             get() = Build.VERSION.SDK_INT >= 35
@@ -48,7 +58,14 @@ class QRShieldApplication : Application() {
         /** Check if running on Android 12+ (dynamic colors) */
         val supportsDynamicColors: Boolean
             get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+
+        /** OTA Update Manager instance (accessible app-wide) */
+        lateinit var otaUpdateManager: OtaUpdateManager
+            private set
     }
+
+    // Application-scoped coroutine scope for background tasks
+    private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     override fun onCreate() {
         super.onCreate()
@@ -66,6 +83,51 @@ class QRShieldApplication : Application() {
 
             // Load all modules
             modules(androidModule)
+        }
+
+        // Initialize and launch OTA updates (Living Engine)
+        initializeOtaUpdates()
+    }
+
+    /**
+     * Initialize the Living Engine OTA update system.
+     *
+     * Launches a background coroutine to:
+     * 1. Check version.json on GitHub Pages
+     * 2. Download newer engine data if available
+     * 3. Cache to local storage for offline use
+     *
+     * This ensures the detection engine stays fresh
+     * even between app store releases.
+     */
+    private fun initializeOtaUpdates() {
+        Log.d(TAG, "Initializing OTA Update Manager...")
+
+        otaUpdateManager = AndroidOtaFactory.createUpdateManager(this)
+
+        // Launch update check in background
+        applicationScope.launch {
+            try {
+                Log.d(TAG, "Starting OTA update check...")
+                otaUpdateManager.checkAndUpdate()
+
+                when (val state = otaUpdateManager.updateState.value) {
+                    is OtaUpdateManager.UpdateState.Success -> {
+                        Log.i(TAG, "✅ OTA Update successful! Version: ${state.version}")
+                    }
+                    is OtaUpdateManager.UpdateState.NoUpdateNeeded -> {
+                        Log.d(TAG, "📦 Using current engine version: ${otaUpdateManager.currentVersion.value}")
+                    }
+                    is OtaUpdateManager.UpdateState.Error -> {
+                        Log.w(TAG, "⚠️ OTA Update failed: ${state.message}")
+                    }
+                    else -> {
+                        Log.d(TAG, "OTA State: $state")
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "OTA Update error: ${e.message}", e)
+            }
         }
     }
 }

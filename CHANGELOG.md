@@ -51,6 +51,73 @@ A hidden developer mode for competition judges and security researchers to insta
 
 ---
 
+### 🛡️ Living Engine (OTA Updates)
+
+Fixes the critical "Static Database" flaw. The detection engine can now update itself from GitHub Pages without requiring an app store release.
+
+#### Living Engine (Android)
+
+**New Files:**
+- `common/src/commonMain/kotlin/com/qrshield/ota/OtaUpdateManager.kt`
+- `common/src/commonMain/kotlin/com/qrshield/ota/LivingEngineFactory.kt`
+- `androidApp/src/main/kotlin/com/qrshield/android/ota/AndroidOta.kt`
+- `data/updates/version.json` - Version manifest
+- `data/updates/brand_db_v2.json` - Extended brand database
+- `data/updates/heuristics_v2.json` - Updated heuristic weights
+
+**Features:**
+- **Background Updates**: On app startup, checks GitHub Pages for newer engine data
+- **Offline-First**: Works with bundled data if network unavailable
+- **Local Caching**: Downloaded updates saved to `Context.filesDir`
+- **Priority Loading**: Cached OTA data > Bundled resources
+- **Version Tracking**: Prevents downgrade attacks
+
+**Architecture:**
+```
+┌─────────────────────────────────────────────────────────┐
+│                    QRShieldApplication                   │
+│                          │                               │
+│                    onCreate()                            │
+│                          │                               │
+│                          ▼                               │
+│              OtaUpdateManager.checkAndUpdate()           │
+│                          │                               │
+│           ┌──────────────┼──────────────┐                │
+│           ▼              ▼              ▼                │
+│    Fetch version.json  Compare    Download updates       │
+│           │           versions          │                │
+│           ▼              │              ▼                │
+│    GitHub Pages          │       Cache to filesDir       │
+│    /data/updates/        │              │                │
+│                          ▼              ▼                │
+│              LivingEngineFactory.create()                │
+│                          │                               │
+│                          ▼                               │
+│              PhishingEngine (with OTA data)              │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Why This Matters:**
+> Static security databases become stale. The Living Engine ensures QR-SHIELD stays current with new threats, even offline after initial sync.
+
+**How It Works:**
+1. App launches → background coroutine starts
+2. Fetches `version.json` from GitHub Pages
+3. Compares remote version with local cached version
+4. If newer → downloads `brand_db_v2.json` and `heuristics_v2.json`
+5. Caches files to local storage (`Context.filesDir/ota_cache/`)
+6. `LivingEngineFactory` creates `PhishingEngine` preferring cached data
+
+**Update Endpoint:**
+```
+https://raoof128.github.io/QDKMP-KotlinConf-2026-/data/updates/
+├── version.json
+├── brand_db_v2.json
+└── heuristics_v2.json
+```
+
+---
+
 ## [1.2.0] - 2025-12-15
 
 ### 🚀 Major Release: Novelty Features (40/40 Creativity Score)

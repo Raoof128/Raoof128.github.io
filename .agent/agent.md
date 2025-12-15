@@ -57,6 +57,59 @@ Implemented "Red Team" Developer Mode (God Mode) feature that allows judges and 
 
 ---
 
+## Session: 2025-12-16 (Living Engine - OTA Updates)
+
+### Summary
+Implemented "Living Engine" OTA (Over-the-Air) update system that allows the detection engine to update itself from GitHub Pages without requiring an app store release. Fixes the "Static Database" criticism.
+
+---
+
+### New Features
+
+| Feature | Description |
+|---------|-------------|
+| **Version Checking** | Fetches `version.json` from GitHub Pages on app startup |
+| **Background Downloads** | Downloads `brand_db_v2.json` and `heuristics_v2.json` if newer |
+| **Local Caching** | Saves updates to `Context.filesDir/ota_cache/` |
+| **Offline-First** | Works with bundled data if network unavailable |
+| **Priority Loading** | Cached OTA data preferred over bundled resources |
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `common/src/commonMain/kotlin/com/qrshield/ota/OtaUpdateManager.kt` | Core OTA manager with version checking and download logic |
+| `common/src/commonMain/kotlin/com/qrshield/ota/LivingEngineFactory.kt` | Factory for creating PhishingEngine with OTA data |
+| `androidApp/src/main/kotlin/com/qrshield/android/ota/AndroidOta.kt` | Android-specific storage and HTTP implementations |
+| `data/updates/version.json` | Version manifest for OTA updates |
+| `data/updates/brand_db_v2.json` | Extended brand database (11 brands, enhanced patterns) |
+| `data/updates/heuristics_v2.json` | Updated heuristic weights and suspicious TLD lists |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `QRShieldApplication.kt` | Added OTA initialization on startup with background coroutine |
+| `CHANGELOG.md` | Added Living Engine documentation |
+
+### OTA Update Endpoint
+
+```
+https://raoof128.github.io/QDKMP-KotlinConf-2026-/data/updates/
+├── version.json       # Version manifest
+├── brand_db_v2.json   # Extended brand database
+└── heuristics_v2.json # Updated heuristic weights
+```
+
+### Build Status
+
+```bash
+✅ ./gradlew :common:compileKotlinDesktop
+✅ ./gradlew :androidApp:compileDebugKotlin
+```
+
+---
+
 ## Session: 2025-12-15 (CI Fixes)
 
 ### Summary
