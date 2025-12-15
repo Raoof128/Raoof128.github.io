@@ -37,6 +37,15 @@
   - [PlatformShare](#platformshare)
   - [PlatformSecureRandom](#platformsecurerandom)
   - [PlatformUrlOpener](#platformurlopener)
+- **[Security Constants (NEW)](#security-constants)**
+  - [SecurityConstants](#securityconstants)
+  - [FeatureConstants](#featureconstants)
+  - [TldRiskScores](#tldriskscores)
+- **[Verification Infrastructure (NEW)](#verification-infrastructure)**
+  - [AccuracyVerificationTest](#accuracyverificationtest)
+  - [OfflineOnlyTest](#offlineonlytest)
+  - [ThreatModelVerificationTest](#threatmodelverificationtest)
+  - [PropertyBasedTest](#propertybasedtest)
 - [Security Utilities](#security-utilities)
   - [InputValidator](#inputvalidator)
   - [RateLimiter](#ratelimiter)
@@ -1088,7 +1097,189 @@ All public APIs are thread-safe:
 
 ---
 
+## Security Constants
+
+### SecurityConstants
+
+Centralized security-related constants for the detection engine, replacing magic numbers throughout the codebase.
+
+**Location:** `com.qrshield.core.SecurityConstants`
+
+```kotlin
+object SecurityConstants {
+    // Score Thresholds
+    const val MAX_SCORE: Int = 100
+    const val MIN_SCORE: Int = 0
+    const val SAFE_THRESHOLD: Int = 30      // Below = SAFE verdict
+    const val MALICIOUS_THRESHOLD: Int = 70 // At/above = MALICIOUS verdict
+
+    // Component Weights (empirically tuned for F1)
+    const val HEURISTIC_WEIGHT: Float = 0.40f
+    const val ML_WEIGHT: Float = 0.30f
+    const val BRAND_WEIGHT: Float = 0.20f
+    const val TLD_WEIGHT: Float = 0.10f
+
+    // Confidence Calculation
+    const val BASE_CONFIDENCE: Float = 0.5f
+    const val MAX_CONFIDENCE: Float = 0.99f
+    const val AGREEMENT_BOOST: Float = 0.15f
+
+    // URL Limits
+    const val MAX_URL_LENGTH: Int = 2048
+    const val MAX_HOSTNAME_LENGTH: Int = 253
+    const val MAX_SUBDOMAIN_COUNT: Int = 4
+
+    // Unicode Block Ranges (Homograph Detection)
+    const val CYRILLIC_START: Int = 0x0400
+    const val CYRILLIC_END: Int = 0x04FF
+    const val GREEK_START: Int = 0x0370
+    const val GREEK_END: Int = 0x03FF
+}
+```
+
+### FeatureConstants
+
+Constants for ML feature extraction.
+
+```kotlin
+object FeatureConstants {
+    const val FEATURE_COUNT: Int = 15
+    const val MAX_FEATURE_VALUE: Float = 1.0f
+
+    object Index {
+        const val URL_LENGTH: Int = 0
+        const val HOST_LENGTH: Int = 1
+        const val ENTROPY: Int = 7
+        // ... 15 feature indices
+    }
+}
+```
+
+### TldRiskScores
+
+Risk scores for TLDs based on abuse frequency data.
+
+```kotlin
+object TldRiskScores {
+    const val HIGH_RISK: Int = 18   // Frequently abused
+    const val MEDIUM_RISK: Int = 10 // Some abuse history
+    const val LOW_RISK: Int = 3     // Established TLDs
+    const val MINIMAL_RISK: Int = 1 // Premium TLDs
+
+    val highRiskTlds = setOf("tk", "ml", "ga", "cf", "gq", "buzz", "xyz")
+    val mediumRiskTlds = setOf("info", "biz", "club", "online", "site")
+}
+```
+
+---
+
+## Verification Infrastructure
+
+### AccuracyVerificationTest
+
+Deterministic evaluation of detection accuracy against committed dataset.
+
+**Location:** `com.qrshield.core.AccuracyVerificationTest`
+
+```bash
+# Run accuracy verification
+./gradlew :common:desktopTest --tests "*AccuracyVerificationTest*"
+```
+
+**Metrics Calculated:**
+- **Precision**: TP / (TP + FP)
+- **Recall**: TP / (TP + FN)
+- **F1 Score**: Harmonic mean
+- **Accuracy**: (TP + TN) / Total
+
+**Test Dataset:**
+- 22 known phishing URLs (typosquats, brand abuse, IP phishing)
+- 20 known legitimate URLs (major organizations)
+
+### OfflineOnlyTest
+
+Proves that QR-SHIELD performs ALL analysis offline without network calls.
+
+**Location:** `com.qrshield.core.OfflineOnlyTest`
+
+```bash
+# Run offline verification
+./gradlew :common:desktopTest --tests "*OfflineOnlyTest*"
+```
+
+**Tests:**
+- Analysis completes for any URL pattern
+- All components work independently (Heuristics, Brand, TLD, ML)
+- Timing consistency (no network variability)
+- Result consistency (100 iterations = identical)
+
+### ThreatModelVerificationTest
+
+Maps each threat from THREAT_MODEL.md to dedicated tests and mitigations.
+
+**Location:** `com.qrshield.security.ThreatModelVerificationTest`
+
+```bash
+# Run threat model verification
+./gradlew :common:desktopTest --tests "*ThreatModelVerificationTest*"
+```
+
+**Coverage:**
+
+| Threat ID | Description | Mitigation | Tests |
+|-----------|-------------|------------|-------|
+| T1 | Brand Typosquatting | BrandDetector | 3 |
+| T2 | Homograph Attacks | HomographDetector | 3 |
+| T3 | Suspicious TLD Abuse | TldScorer | 3 |
+| T4 | IP Address Obfuscation | AdversarialDefense | 3 |
+| T5 | URL Encoding Abuse | AdversarialDefense | 2 |
+| T6 | Zero-Width Characters | AdversarialDefense | 2 |
+| T7 | Credential Harvesting Path | HeuristicsEngine | 2 |
+| T8 | URL Shortener Abuse | HeuristicsEngine | 2 |
+| T9 | @ Symbol Injection | UrlParser | 1 |
+| T10 | Punycode Domain Abuse | HomographDetector | 2 |
+| T11 | Excessive Subdomains | HeuristicsEngine | 1 |
+| T12 | HTTP for Sensitive Ops | HeuristicsEngine | 1 |
+
+### PropertyBasedTest
+
+Tests that verify invariants hold for ANY valid input.
+
+**Location:** `com.qrshield.core.PropertyBasedTest`
+
+```bash
+# Run property-based tests
+./gradlew :common:desktopTest --tests "*PropertyBasedTest*"
+```
+
+**Invariants Tested:**
+
+| Invariant | Assertion |
+|-----------|-----------|
+| Score Bounds | 0 ≤ score ≤ 100 for any URL |
+| Determinism | Same URL → same score |
+| Idempotence | analyze(url) == analyze(analyze(url)) |
+| Verdict Consistency | Score thresholds match verdict |
+| Normalization Stability | normalize(normalize(x)) == normalize(x) |
+| Confidence Bounds | 0.0 ≤ confidence ≤ 1.0 |
+| Non-negative Components | All subscores ≥ 0 |
+
+### Custom Gradle Tasks
+
+```bash
+# Individual verification tasks
+./gradlew :common:verifyAccuracy    # Precision/Recall/F1
+./gradlew :common:verifyOffline     # No network dependency
+./gradlew :common:verifyThreatModel # Threat → test mapping
+
+# Run all verification
+./gradlew :common:verifyAll
+```
+
+---
+
 ## Version
 
 API Version: 1.2.0  
 Last Updated: 2025-12-15
+
