@@ -16,6 +16,15 @@
 - [ML Model](#ml-model)
   - [LogisticRegressionModel](#logisticregressionmodel)
   - [FeatureExtractor](#featureextractor)
+- **[Policy Engine (NEW)](#policy-engine)**
+  - [OrgPolicy](#orgpolicy)
+  - [PolicyResult](#policyresult)
+- **[Payload Analyzer (NEW)](#payload-analyzer)**
+  - [QrPayloadType](#qrpayloadtype)
+  - [QrPayloadAnalyzer](#qrpayloadanalyzer)
+- **[Adversarial Defense (NEW)](#adversarial-defense)**
+  - [AdversarialDefense](#adversarialdefense)
+  - [ObfuscationAttack](#obfuscationattack)
 - [Security Utilities](#security-utilities)
   - [InputValidator](#inputvalidator)
   - [RateLimiter](#ratelimiter)
@@ -348,6 +357,306 @@ class FeatureExtractor()
 
 ---
 
+## Policy Engine
+
+> **NEW in v1.2.0** — Enterprise policy enforcement for organizational deployments.
+
+### OrgPolicy
+
+Organization-specific security policy.
+
+```kotlin
+data class OrgPolicy(
+    val version: String = "1.0",
+    val orgId: String = "",
+    val orgName: String = "",
+    val strictMode: Boolean = false,
+    val allowedDomains: Set<String> = emptySet(),
+    val blockedDomains: Set<String> = emptySet(),
+    val blockedTlds: Set<String> = emptySet(),
+    val blockedCategories: Set<String> = emptySet(),
+    val allowedBrands: Set<String> = emptySet(),
+    val sensitiveBrands: Set<String> = emptySet(),
+    val safeThreshold: Int? = null,
+    val suspiciousThreshold: Int? = null,
+    val requireHttps: Boolean = false,
+    val blockIpAddresses: Boolean = false,
+    val blockShorteners: Boolean = false,
+    val maxUrlLength: Int? = null,
+    val blockedPatterns: List<String> = emptyList(),
+    val allowedPatterns: List<String> = emptyList(),
+    val allowedPayloadTypes: Set<QrPayloadType>? = null
+)
+```
+
+#### Factory Methods
+
+```kotlin
+// Load from JSON
+OrgPolicy.fromJson(json: String): OrgPolicy
+
+// Preset policies
+OrgPolicy.DEFAULT          // Minimal restrictions
+OrgPolicy.ENTERPRISE_STRICT // Block risky TLDs, require HTTPS
+OrgPolicy.FINANCIAL        // Block crypto, gambling, strict mode
+```
+
+#### Methods
+
+| Method | Parameters | Returns | Description |
+|--------|------------|---------|-------------|
+| `evaluate` | `url: String` | `PolicyResult` | Evaluate URL against policy |
+| `evaluatePayload` | `payload: String, type: QrPayloadType` | `PolicyResult` | Evaluate non-URL payload |
+| `toJson` | - | `String` | Export policy to JSON |
+
+#### Usage Example
+
+```kotlin
+val policy = OrgPolicy(
+    orgName = "Acme Corp",
+    strictMode = true,
+    blockedTlds = setOf("tk", "ml", "ga"),
+    allowedDomains = setOf("*.acme.com"),
+    requireHttps = true,
+    blockShorteners = true
+)
+
+when (val result = policy.evaluate("https://suspicious.tk/phish")) {
+    is PolicyResult.Allowed -> proceedDirectly()
+    is PolicyResult.Blocked -> showBlockedMessage(result.reason)
+    is PolicyResult.RequiresReview -> flagForReview(result.reason)
+    is PolicyResult.PassedPolicy -> performFullAnalysis()
+}
+```
+
+---
+
+### PolicyResult
+
+Sealed class for policy evaluation results.
+
+```kotlin
+sealed class PolicyResult {
+    data class Allowed(val reason: String) : PolicyResult()
+    data class Blocked(
+        val blockReason: BlockReason,
+        val details: String = ""
+    ) : PolicyResult()
+    data class RequiresReview(val reason: String) : PolicyResult()
+    object PassedPolicy : PolicyResult()
+}
+```
+
+#### BlockReason Enum
+
+| Reason | Description |
+|--------|-------------|
+| `DOMAIN_BLOCKED` | Domain in blocklist |
+| `TLD_BLOCKED` | TLD is blocked |
+| `HTTPS_REQUIRED` | HTTP when HTTPS required |
+| `IP_ADDRESS` | IP address when blocked |
+| `SHORTENER` | URL shortener when blocked |
+| `LENGTH_EXCEEDED` | URL too long |
+| `PATTERN_MATCH` | Matched blocked pattern |
+| `PAYLOAD_TYPE_BLOCKED` | Payload type not allowed |
+| `SMISHING_DETECTED` | SMS contains blocked URL |
+
+---
+
+## Payload Analyzer
+
+> **NEW in v1.2.0** — Analysis for non-URL QR payloads (WiFi, SMS, vCard, crypto).
+
+### QrPayloadType
+
+Enum of supported QR payload types.
+
+```kotlin
+enum class QrPayloadType(
+    val displayName: String,
+    val riskLevel: RiskLevel
+) {
+    // URLs
+    URL("Generic URL", RiskLevel.MEDIUM),
+    URL_HTTP("HTTP URL", RiskLevel.HIGH),
+    URL_HTTPS("HTTPS URL", RiskLevel.LOW),
+    
+    // Communication
+    SMS("SMS Message", RiskLevel.HIGH),
+    PHONE("Phone Call", RiskLevel.MEDIUM),
+    EMAIL("Email", RiskLevel.LOW),
+    
+    // Contact/Calendar
+    VCARD("vCard Contact", RiskLevel.MEDIUM),
+    MECARD("MeCard Contact", RiskLevel.MEDIUM),
+    VEVENT("Calendar Event", RiskLevel.LOW),
+    
+    // Network
+    WIFI("WiFi Config", RiskLevel.HIGH),
+    
+    // Location
+    GEO("Geographic Location", RiskLevel.LOW),
+    
+    // Payments - Crypto
+    BITCOIN("Bitcoin Payment", RiskLevel.CRITICAL),
+    ETHEREUM("Ethereum Payment", RiskLevel.CRITICAL),
+    CRYPTO_OTHER("Crypto Payment", RiskLevel.CRITICAL),
+    
+    // Payments - Traditional
+    UPI("UPI Payment", RiskLevel.HIGH),
+    PAYPAL("PayPal Payment", RiskLevel.HIGH),
+    WECHAT_PAY("WeChat Pay", RiskLevel.HIGH),
+    ALIPAY("Alipay", RiskLevel.HIGH),
+    
+    // Other
+    TEXT("Plain Text", RiskLevel.LOW),
+    UNKNOWN("Unknown", RiskLevel.MEDIUM)
+}
+```
+
+#### Static Methods
+
+```kotlin
+QrPayloadType.detect(content: String): QrPayloadType
+```
+
+---
+
+### QrPayloadAnalyzer
+
+Analyzes non-URL QR payloads for security risks.
+
+```kotlin
+object QrPayloadAnalyzer {
+    fun analyze(content: String): PayloadAnalysisResult
+    fun analyzeWifi(content: String): PayloadAnalysisResult
+    fun analyzeSms(content: String): PayloadAnalysisResult
+    fun analyzeContact(content: String, type: QrPayloadType): PayloadAnalysisResult
+    fun analyzeCrypto(content: String, type: QrPayloadType): PayloadAnalysisResult
+}
+```
+
+#### PayloadAnalysisResult
+
+```kotlin
+data class PayloadAnalysisResult(
+    val payloadType: QrPayloadType,
+    val riskScore: Int,              // 0-100
+    val signals: List<PayloadSignal>,
+    val parsedData: Map<String, String>,
+    val recommendation: String
+) {
+    val verdict: PayloadVerdict  // SAFE, CAUTION, SUSPICIOUS, DANGEROUS
+}
+```
+
+#### PayloadSignal
+
+```kotlin
+data class PayloadSignal(
+    val name: String,
+    val description: String,
+    val riskPoints: Int
+)
+```
+
+#### Usage Example
+
+```kotlin
+val result = QrPayloadAnalyzer.analyze("WIFI:T:nopass;S:Free Airport Wifi;;")
+
+println("Type: ${result.payloadType}")        // WIFI
+println("Risk: ${result.riskScore}")          // 65
+println("Verdict: ${result.verdict}")         // SUSPICIOUS
+
+result.signals.forEach { signal ->
+    println("- ${signal.name}: +${signal.riskPoints}")
+}
+// Output:
+// - Open Network: +35
+// - Suspicious SSID: free: +15
+// - Suspicious SSID: airport: +15
+```
+
+---
+
+## Adversarial Defense
+
+> **NEW in v1.2.0** — Detection of URL obfuscation attacks.
+
+### AdversarialDefense
+
+Detects and normalizes obfuscated URLs.
+
+```kotlin
+object AdversarialDefense {
+    fun normalize(url: String): NormalizationResult
+}
+```
+
+#### NormalizationResult
+
+```kotlin
+data class NormalizationResult(
+    val originalUrl: String,
+    val normalizedUrl: String,
+    val detectedAttacks: List<ObfuscationAttack>,
+    val nestedUrls: List<String>,
+    val riskScore: Int
+) {
+    val hasObfuscation: Boolean
+    val attackSummary: String
+}
+```
+
+---
+
+### ObfuscationAttack
+
+Enum of detectable obfuscation techniques.
+
+```kotlin
+enum class ObfuscationAttack(
+    val displayName: String,
+    val description: String,
+    val riskScore: Int
+) {
+    ZERO_WIDTH_CHARACTERS("Zero-Width Characters", "...", 30),
+    RTL_OVERRIDE("RTL Override", "...", 40),
+    DOUBLE_ENCODING("Double Encoding", "...", 35),
+    UNNECESSARY_ENCODING("Unnecessary Encoding", "...", 15),
+    MIXED_CASE_ENCODING("Mixed Case Encoding", "...", 10),
+    MIXED_SCRIPTS("Mixed Scripts (Homograph)", "...", 45),
+    COMBINING_MARKS("Combining Marks", "...", 25),
+    PUNYCODE_DOMAIN("Punycode Domain", "...", 20),
+    NESTED_REDIRECTS("Nested Redirects", "...", 30),
+    UNICODE_NORMALIZATION("Unicode Normalization", "...", 15),
+    DECIMAL_IP("Decimal IP Address", "...", 25),
+    OCTAL_IP("Octal IP Address", "...", 30),
+    HEX_IP("Hexadecimal IP Address", "...", 30),
+    MIXED_IP_NOTATION("Mixed IP Notation", "...", 35)
+}
+```
+
+#### Usage Example
+
+```kotlin
+val result = AdversarialDefense.normalize("https://аpple.com/verify")
+
+if (result.hasObfuscation) {
+    println("Attacks detected: ${result.attackSummary}")
+    // "Mixed Scripts (Homograph)"
+    
+    println("Risk score: ${result.riskScore}")  // 45
+    
+    result.detectedAttacks.forEach { attack ->
+        println("- ${attack.displayName}: +${attack.riskScore}")
+    }
+}
+```
+
+---
+
 ## Security Utilities
 
 ### InputValidator
@@ -546,5 +855,5 @@ All public APIs are thread-safe:
 
 ## Version
 
-API Version: 1.0.0  
-Last Updated: 2025-12-13
+API Version: 1.2.0  
+Last Updated: 2025-12-15

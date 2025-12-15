@@ -150,6 +150,88 @@ The user mentioned "QRshield" is already used as a product name (qrshield.ca, Cy
 
 ---
 
+### Documentation Updates (Same Session)
+
+All documentation upgraded to reflect v1.2.0 novelty features:
+
+#### `CHANGELOG.md`
+- Added comprehensive v1.2.0 release section (130+ lines)
+- Documented all 3 novelty features with code examples
+- Listed 103 new tests across 3 test suites
+- Added file creation details and usage examples
+
+#### `README.md`
+- **Quick Stats**: Updated to show 1000+ tests, 15+ payload types, 13 obfuscation attacks
+- **Badges**: Updated version to v1.2.0, tests to 1000+
+- **Links Table**: Added Red Team Corpus link
+- **NEW Section**: "Novelty Features (v1.2.0)" with 80+ lines:
+  - 🏢 Local Policy Engine with code example
+  - 📦 QR Payload Type Coverage table
+  - 🛡️ Adversarial Robustness attack table
+- **Module Structure**: Added `policy/`, `payload/`, `adversarial/` packages
+
+#### `ESSAY.md`
+- Updated LOC metrics (21,400+ → 23,400+)
+- Added Policy & Adversarial row to code reuse table
+- **NEW Section**: "Novelty Features (v1.2.0)" with 50+ lines
+- Updated impact statistics (30+ test files, 1000+ tests, 103 adversarial tests)
+
+#### `docs/API.md`
+- Updated Table of Contents with 3 new sections
+- **NEW Section**: "Policy Engine" (~100 lines)
+  - `OrgPolicy` data class documentation
+  - `PolicyResult` sealed class documentation
+  - `BlockReason` enum table
+  - Usage examples
+- **NEW Section**: "Payload Analyzer" (~100 lines)
+  - `QrPayloadType` enum documentation
+  - `QrPayloadAnalyzer` object methods
+  - `PayloadAnalysisResult` and `PayloadSignal` classes
+  - Usage examples
+- **NEW Section**: "Adversarial Defense" (~80 lines)
+  - `AdversarialDefense` object methods
+  - `NormalizationResult` data class
+  - `ObfuscationAttack` enum with all 14 attack types
+  - Usage examples
+- Updated API version: 1.0.0 → 1.2.0
+
+#### `docs/THREAT_MODEL.md`
+- Updated defense implementation table with 3 new rows
+- **Defense Layers**: Expanded from 5 to 8 layers:
+  - Layer 0: Policy Enforcement (NEW)
+  - Layer 1: Adversarial Defense (NEW)
+  - Layer 2: Payload Type Analysis (NEW)
+- **NEW Tables**:
+  - Adversarial Attack Defenses (6 attack types with detection methods)
+  - QR Payload-Specific Threats (5 payload types with attack vectors)
+  - Enterprise Policy Defenses (5 policy features with use cases)
+
+---
+
+### Version Updates Applied
+
+| Location | Old | New |
+|----------|-----|-----|
+| README version badge | v1.1.4 | v1.2.0 |
+| README tests badge | 849 Passed | 1000+ Passed |
+| docs/API.md version | 1.0.0 | 1.2.0 |
+| README Quick Stats | 900+ tests | 1000+ tests |
+| ESSAY impact section | 29 test files | 30+ test files |
+
+---
+
+### Build Verification
+
+All tests pass after implementation:
+```
+./gradlew :common:desktopTest
+BUILD SUCCESSFUL
+103 new tests + existing tests = 1000+ total
+```
+
+---
+
+
 ## Session: 2025-12-15 (Engineering Hardening for 100/100)
 
 ### Summary

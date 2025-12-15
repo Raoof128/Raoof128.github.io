@@ -116,13 +116,59 @@ I developed a **multi-layer analysis system** that runs entirely on-device:
 
 | Module | Lines of Code | Shared (%) |
 |--------|---------------|------------|
-| Detection Engine (commonMain) | 7,400+ | 100% |
+| Detection Engine (commonMain) | 9,500+ | 100% |
+| Policy & Adversarial (commonMain) | 2,000+ | 100% |
 | Android UI (Compose) | 5,800+ | 0% |
 | iOS UI (SwiftUI) | 6,400+ | 0% |
 | Desktop/Web UI | 1,700+ | 0% |
-| **Total** | **21,400+** | **~35%** |
+| **Total** | **23,400+** | **~40%** |
 
 *Note: While UI is platform-specific (using native frameworks for the best user experience), the entire business logic—the core that actually protects users—is 100% shared.*
+
+---
+
+## 🆕 Novelty Features (v1.2.0)
+
+Beyond the standard "heuristics + ML" approach, I pushed to create genuinely novel security features:
+
+### 1. Enterprise Policy Engine
+
+For organizational deployments, I built `OrgPolicy` — a complete policy enforcement system:
+
+- **Domain allowlists/blocklists** with wildcard support (`*.company.com`)
+- **TLD restrictions** (block all `.tk`, `.ml`, `.ga` organization-wide)
+- **HTTPS enforcement** and URL shortener blocking
+- **Custom thresholds** per department or security level
+
+This isn't just academic — it's what enterprise security teams actually need. Banks can allowlist their domains, universities can enforce HTTPS for all scanned URLs, and security-conscious organizations can block high-risk TLDs entirely.
+
+### 2. QR Payload Type Coverage (Beyond URLs)
+
+Most QR security tools only analyze URLs. But QR codes carry much more:
+
+| Payload | Attack Vector | Our Detection |
+|---------|---------------|---------------|
+| **WiFi configs** | Rogue access points, credential harvesting | Open network warnings, WEP alerts, suspicious SSIDs |
+| **SMS messages** | Smishing, premium rate scams | Embedded URL extraction, premium number detection |
+| **vCards** | Executive impersonation, embedded phishing URLs | CEO/CFO title flags, URL analysis |
+| **Crypto payments** | Address replacement, scam labels | Irreversibility warnings, suspicious label detection |
+| **UPI/PayPal** | Payment fraud | Large amount alerts, unknown payee warnings |
+
+This is genuinely novel — I haven't found another open-source tool that applies security analysis to the full spectrum of QR payload types.
+
+### 3. Adversarial Robustness Module
+
+Sophisticated attackers use obfuscation to bypass security tools. I built defenses for:
+
+- **Homograph attacks** — Detecting Cyrillic 'а' (U+0430) masquerading as Latin 'a'
+- **RTL override** — Characters that visually reverse filenames (exe.pdf → pdf.exe)
+- **Double/triple encoding** — %252e%252e → %2e%2e → ..
+- **Zero-width characters** — Invisible Unicode that defeats pattern matching
+- **IP obfuscation** — Detecting decimal (3232235777) and hex (0xC0A80101) IP addresses
+
+I even published a **Red Team Corpus** (`data/red_team_corpus.md`) with 60+ adversarial test cases for other researchers to use.
+
+---
 
 ## The Hardest Part
 
@@ -146,7 +192,9 @@ Since publishing QR-SHIELD:
 
 - **100% open source** under Apache 2.0 license—anyone can audit the security
 - **11 languages** supported for global accessibility
-- **29 test files** with 200+ test cases including real-world (defanged) phishing patterns
+- **30+ test files** with 1000+ test cases including real-world (defanged) phishing patterns
+- **103 adversarial tests** covering obfuscation attacks
+- **60+ red team test cases** published for the security research community
 - **Zero runtime permissions** beyond camera access
 - **CI/CD pipeline** with Detekt enforcement and Kover coverage
 

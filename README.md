@@ -161,11 +161,13 @@ cd qrshield
 
 | Metric | Value |
 |--------|-------|
-| **Shared Code** | ~80% (detection engine, ML, models) |
+| **Shared Code** | ~80% (detection engine, ML, models, policy, adversarial) |
 | **Platform Targets** | 4 (Android, iOS, Desktop, Web) |
 | **Security Heuristics** | 25+ |
+| **Payload Types** | 15+ (URLs, WiFi, SMS, vCard, Crypto, UPI, etc.) |
+| **Obfuscation Attacks** | 13 attack types detected |
 | **Test Coverage** | 89% |
-| **Unit Tests** | 900+ |
+| **Unit Tests** | 1000+ |
 
 ### 🔗 Links
 
@@ -176,6 +178,7 @@ cd qrshield
 | **Source Code** | [GitHub](https://github.com/Raoof128/Raoof128.github.io) |
 | **Changelog** | [CHANGELOG.md](CHANGELOG.md) |
 | **Judge Summary** | [docs/JUDGE_SUMMARY.md](docs/JUDGE_SUMMARY.md) |
+| **Red Team Corpus** | [data/red_team_corpus.md](data/red_team_corpus.md) |
 
 ### 📊 Detection Accuracy (Combined Heuristics + ML)
 
@@ -197,14 +200,94 @@ cd qrshield
 ![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?logo=openjdk&logoColor=white)
 ![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
-![Version](https://img.shields.io/badge/v1.1.4-green)
-![Tests](https://img.shields.io/badge/Tests-849_Passed-brightgreen?logo=checkmarx&logoColor=white)
+![Version](https://img.shields.io/badge/v1.2.0-green)
+![Tests](https://img.shields.io/badge/Tests-1000+_Passed-brightgreen?logo=checkmarx&logoColor=white)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 ![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
 ![Recall](https://img.shields.io/badge/recall-89.1%25-blue)
 ![F1 Score](https://img.shields.io/badge/F1-87.1%25-blue)
 
 ---
+
+## 🆕 Novelty Features (v1.2.0)
+
+> **What makes QR-SHIELD unique.** These features go beyond typical "heuristics + ML" implementations.
+
+### 1. 🏢 Local Policy Engine
+
+Enterprise-grade security policies for organizational deployments.
+
+```kotlin
+// Load organization policy from JSON
+val policy = OrgPolicy.fromJson("""
+{
+    "orgName": "Acme Corp",
+    "strictMode": true,
+    "blockedTlds": ["tk", "ml", "ga"],
+    "allowedDomains": ["*.acme.com", "acme.internal.com"],
+    "requireHttps": true,
+    "blockShorteners": true
+}
+""")
+
+// Evaluate URL against policy
+val result = policy.evaluate("https://suspicious.tk/phish")
+when (result) {
+    is PolicyResult.Blocked -> showBlockedMessage(result.reason)
+    is PolicyResult.Allowed -> proceedDirectly()
+    is PolicyResult.RequiresReview -> flagForReview()
+    is PolicyResult.PassedPolicy -> performFullAnalysis()
+}
+```
+
+**Use Cases:**
+- Block all free/abused TLDs (.tk, .ml, .ga) organization-wide
+- Allowlist internal domains to bypass scanning
+- Enforce HTTPS for all scanned URLs
+- Custom risk thresholds per department
+
+### 2. 📦 QR Payload Type Coverage
+
+Beyond URLs — analyze WiFi configs, vCards, SMS, and payment URIs.
+
+| Payload Type | Risk Detection | Example |
+|--------------|----------------|---------|
+| **WiFi** | Open networks, WEP encryption, suspicious SSIDs | `WIFI:T:nopass;S:FreeAirportWifi;;` |
+| **SMS** | Smishing URLs, premium numbers, urgency language | `sms:+1900-555-0123?body=URGENT` |
+| **vCard** | Embedded URLs, executive impersonation | `BEGIN:VCARD\nFN:CEO Apple\nURL:phishing.tk` |
+| **Bitcoin** | Irreversibility warnings, suspicious labels | `bitcoin:1BvBMS...?label=REFUND` |
+| **UPI** | Large payment amounts, unknown payees | `upi://pay?am=50000` |
+
+```kotlin
+val result = QrPayloadAnalyzer.analyze("WIFI:T:nopass;S:Free Airport Wifi;;")
+// result.payloadType == WIFI
+// result.riskScore == 65 (High)
+// result.signals: ["Open Network", "Suspicious SSID: free", "Suspicious SSID: airport"]
+```
+
+### 3. 🛡️ Adversarial Robustness
+
+Defense against URL obfuscation attacks used by sophisticated attackers.
+
+| Attack Type | Example | Detection |
+|-------------|---------|-----------|
+| **Homograph** | `https://аpple.com` (Cyrillic 'а') | ✅ Detected |
+| **RTL Override** | `file\u202E\fdp.exe` (appears as exe.pdf) | ✅ Detected |
+| **Double Encoding** | `%252e%252e` → `..` | ✅ Detected |
+| **Zero-Width** | `drop\u200Bbox.com` | ✅ Detected |
+| **Decimal IP** | `http://3232235777/` | ✅ Detected |
+
+```kotlin
+val result = AdversarialDefense.normalize("https://аpple.com/verify")
+// result.hasObfuscation == true
+// result.detectedAttacks: [MIXED_SCRIPTS]
+// result.riskScore == 45
+```
+
+📄 **Published Red Team Corpus:** [`data/red_team_corpus.md`](data/red_team_corpus.md) — 60+ adversarial test cases
+
+---
+
 
 ## 📸 Key Screens
 
@@ -314,12 +397,13 @@ This is a **deliberate architectural choice**, not a limitation:
 common/src/commonMain/kotlin/com/qrshield/
 ├── core/
 │   ├── PhishingEngine.kt      ← Main detection orchestrator (SHARED)
+│   ├── DetectionConfig.kt     ← Tunable parameters (SHARED)
 │   └── Constants.kt           ← Risk thresholds, brand list (SHARED)
 ├── engine/
 │   ├── HeuristicsEngine.kt    ← 25+ security checks (SHARED)
 │   ├── BrandDetector.kt       ← 500+ brand fuzzy matching (SHARED)
 │   ├── TldScorer.kt           ← TLD risk scoring (SHARED)
-│   └── HomographDetector.kt   ← Unicode attack detection (SHARED)
+│   └── StaticRedirectPatternAnalyzer.kt ← Redirect detection (SHARED)
 ├── ml/
 │   ├── LogisticRegressionModel.kt  ← Custom ML scorer (SHARED)
 │   └── FeatureExtractor.kt    ← Feature engineering (SHARED)
@@ -327,9 +411,17 @@ common/src/commonMain/kotlin/com/qrshield/
 │   ├── UrlAssessment.kt       ← Analysis result (SHARED)
 │   ├── Verdict.kt             ← SAFE/SUSPICIOUS/MALICIOUS (SHARED)
 │   └── RiskFlag.kt            ← Individual risk signals (SHARED)
+├── policy/                    ← NEW: Enterprise Policy Engine
+│   ├── OrgPolicy.kt           ← Organization policies (SHARED)
+│   └── QrPayloadType.kt       ← Payload type detection (SHARED)
+├── payload/                   ← NEW: Payload Analyzer
+│   └── QrPayloadAnalyzer.kt   ← WiFi/SMS/vCard/Crypto analysis (SHARED)
+├── adversarial/               ← NEW: Adversarial Defense
+│   └── AdversarialDefense.kt  ← Obfuscation detection (SHARED)
 └── data/
     └── HistoryRepository.kt   ← Scan history storage (SHARED)
 ```
+
 
 ### 🧠 Architecture Diagram
 

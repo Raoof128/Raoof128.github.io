@@ -171,27 +171,71 @@ https://bit.ly/free-gift-claim
 | TLD Risk Scoring | Threat intel data | Medium |
 | ML Classification | 15-feature model | Medium |
 | Path Analysis | Keyword detection | Medium |
+| **Adversarial Defense (NEW)** | **13 obfuscation types** | **High** |
+| **Payload Analysis (NEW)** | **15+ payload types** | **High** |
+| **Policy Engine (NEW)** | **Enterprise policies** | **High** |
 
 ### Defense Layers
 
 ```
 ┌─────────────────────────────────────────────────┐
-│ Layer 1: Structural Analysis                    │
+│ Layer 0: Policy Enforcement (NEW v1.2.0)        │
+│   • Org allowlists • TLD blocking • HTTPS req   │
+├─────────────────────────────────────────────────┤
+│ Layer 1: Adversarial Defense (NEW v1.2.0)       │
+│   • Homograph • RTL override • Encoding abuse   │
+├─────────────────────────────────────────────────┤
+│ Layer 2: Payload Type Analysis (NEW v1.2.0)     │
+│   • WiFi config • SMS • vCard • Crypto payments │
+├─────────────────────────────────────────────────┤
+│ Layer 3: Structural Analysis                    │
 │   • Protocol • Host type • Port • Domain depth  │
 ├─────────────────────────────────────────────────┤
-│ Layer 2: Heuristic Rules                        │
+│ Layer 4: Heuristic Rules                        │
 │   • 25+ individual checks • Weighted scoring    │
 ├─────────────────────────────────────────────────┤
-│ Layer 3: Brand Detection                        │
+│ Layer 5: Brand Detection                        │
 │   • Exact match • Typosquat • Homograph         │
 ├─────────────────────────────────────────────────┤
-│ Layer 4: ML Classification                      │
+│ Layer 6: ML Classification                      │
 │   • Feature extraction • Logistic regression    │
 ├─────────────────────────────────────────────────┤
-│ Layer 5: Combined Scoring                       │
+│ Layer 7: Combined Scoring                       │
 │   • Weighted aggregation • Confidence scoring   │
 └─────────────────────────────────────────────────┘
 ```
+
+### New in v1.2.0: Adversarial Attack Defenses
+
+| Attack Type | Unicode/Encoding Trick | Detection Method |
+|-------------|------------------------|------------------|
+| **Homograph** | Cyrillic 'а' (U+0430) | Script mixing detection |
+| **RTL Override** | U+202E reverses text | RTL character removal |
+| **Double Encoding** | %25 → % | Iterative decoding |
+| **Zero-Width** | U+200B invisible | Zero-width removal |
+| **Decimal IP** | 3232235777 | Decimal pattern match |
+| **Punycode** | xn--pple-43d | IDN domain detection |
+
+### New in v1.2.0: QR Payload-Specific Threats
+
+| Payload Type | Attack Vector | Detection |
+|--------------|---------------|-----------|
+| **WiFi** | Rogue access points, WEP | Open network alerts, SSID analysis |
+| **SMS** | Smishing, premium numbers | URL extraction, number validation |
+| **vCard** | Executive impersonation | Title/org analysis, embedded URLs |
+| **Bitcoin** | Address swapping, scam labels | Irreversibility warnings |
+| **UPI** | Large amount fraud | Payee verification prompts |
+
+### New in v1.2.0: Enterprise Policy Defenses
+
+| Policy Feature | Use Case |
+|----------------|----------|
+| **Domain Allowlists** | Skip scanning for internal domains |
+| **TLD Blocking** | Block all .tk, .ml, .ga organization-wide |
+| **HTTPS Enforcement** | Reject all HTTP URLs |
+| **Shortener Blocking** | Block all URL shorteners |
+| **Custom Thresholds** | Adjust risk tolerance per department |
+
 
 ---
 
