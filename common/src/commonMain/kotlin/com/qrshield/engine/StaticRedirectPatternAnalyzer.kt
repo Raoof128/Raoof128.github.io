@@ -64,7 +64,7 @@ package com.qrshield.engine
  * @author QR-SHIELD Security Team
  * @since 1.1.0
  */
-class RedirectChainSimulator {
+class StaticRedirectPatternAnalyzer {
 
     /**
      * Result of redirect chain analysis.

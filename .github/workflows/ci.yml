@@ -54,6 +54,13 @@ jobs:
           common/build/test-results/
         retention-days: 30
 
+    # Run Performance Benchmarks (with verbose output for judges)
+    - name: Run Performance Benchmarks
+      run: |
+        echo "📊 Running Performance Benchmarks..."
+        ./gradlew :common:desktopTest --tests "com.qrshield.benchmark.PerformanceBenchmarkTest" --info --no-daemon
+      continue-on-error: true  # Don't fail build on benchmark variance
+
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
       if: always()

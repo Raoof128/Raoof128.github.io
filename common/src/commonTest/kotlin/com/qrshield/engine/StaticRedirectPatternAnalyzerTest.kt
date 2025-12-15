@@ -23,13 +23,13 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 /**
- * Comprehensive tests for RedirectChainSimulator.
+ * Comprehensive tests for StaticRedirectPatternAnalyzer.
  *
  * Tests the offline redirect chain detection capability.
  */
-class RedirectChainSimulatorTest {
+class StaticRedirectPatternAnalyzerTest {
 
-    private val simulator = RedirectChainSimulator()
+    private val simulator = StaticRedirectPatternAnalyzer()
 
     // === URL SHORTENER DETECTION ===
 
@@ -39,7 +39,7 @@ class RedirectChainSimulatorTest {
 
         assertTrue(result.hasRedirectIndicators, "Should detect bit.ly as redirect")
         assertTrue(result.score > 0, "Should have positive score")
-        assertTrue(result.chain.any { it.type == RedirectChainSimulator.HopType.SHORTENER })
+        assertTrue(result.chain.any { it.type == StaticRedirectPatternAnalyzer.HopType.SHORTENER })
     }
 
     @Test
@@ -82,7 +82,7 @@ class RedirectChainSimulatorTest {
         )
 
         assertTrue(result.hasRedirectIndicators)
-        assertTrue(result.chain.any { it.type == RedirectChainSimulator.HopType.EMBEDDED })
+        assertTrue(result.chain.any { it.type == StaticRedirectPatternAnalyzer.HopType.EMBEDDED })
         assertTrue(result.score >= 20, "Embedded URL should add 20+ points")
     }
 
@@ -144,7 +144,7 @@ class RedirectChainSimulatorTest {
         val result = simulator.analyze("https://track.mailchimp.com/click/abc123")
 
         assertTrue(result.hasRedirectIndicators)
-        assertTrue(result.chain.any { it.type == RedirectChainSimulator.HopType.TRACKER })
+        assertTrue(result.chain.any { it.type == StaticRedirectPatternAnalyzer.HopType.TRACKER })
     }
 
     @Test
@@ -178,7 +178,7 @@ class RedirectChainSimulatorTest {
     fun chainStartsWithInitial() {
         val result = simulator.analyze("https://bit.ly/abc")
 
-        assertEquals(RedirectChainSimulator.HopType.INITIAL, result.chain.first().type)
+        assertEquals(StaticRedirectPatternAnalyzer.HopType.INITIAL, result.chain.first().type)
     }
 
     @Test
@@ -186,7 +186,7 @@ class RedirectChainSimulatorTest {
         val result = simulator.analyze("https://bit.ly/abc")
 
         assertTrue(result.hasRedirectIndicators)
-        assertEquals(RedirectChainSimulator.HopType.UNKNOWN, result.chain.last().type)
+        assertEquals(StaticRedirectPatternAnalyzer.HopType.UNKNOWN, result.chain.last().type)
     }
 
     @Test
@@ -195,7 +195,7 @@ class RedirectChainSimulatorTest {
 
         // Should have: INITIAL -> SHORTENER -> EMBEDDED -> UNKNOWN
         assertTrue(result.chain.size >= 3, "Should have multiple hops")
-        assertEquals(RedirectChainSimulator.HopType.INITIAL, result.chain.first().type)
+        assertEquals(StaticRedirectPatternAnalyzer.HopType.INITIAL, result.chain.first().type)
     }
 
     // === SCORE TESTS ===
@@ -227,22 +227,22 @@ class RedirectChainSimulatorTest {
 
     @Test
     fun quickCheckDetectsShortener() {
-        assertTrue(RedirectChainSimulator.quickCheck("https://bit.ly/abc"))
-        assertTrue(RedirectChainSimulator.quickCheck("https://t.co/xyz"))
-        assertTrue(RedirectChainSimulator.quickCheck("https://goo.gl/123"))
+        assertTrue(StaticRedirectPatternAnalyzer.quickCheck("https://bit.ly/abc"))
+        assertTrue(StaticRedirectPatternAnalyzer.quickCheck("https://t.co/xyz"))
+        assertTrue(StaticRedirectPatternAnalyzer.quickCheck("https://goo.gl/123"))
     }
 
     @Test
     fun quickCheckDetectsRedirectParam() {
-        assertTrue(RedirectChainSimulator.quickCheck("https://example.com?redirect=x"))
-        assertTrue(RedirectChainSimulator.quickCheck("https://example.com?url=x"))
-        assertTrue(RedirectChainSimulator.quickCheck("https://example.com?goto=x"))
+        assertTrue(StaticRedirectPatternAnalyzer.quickCheck("https://example.com?redirect=x"))
+        assertTrue(StaticRedirectPatternAnalyzer.quickCheck("https://example.com?url=x"))
+        assertTrue(StaticRedirectPatternAnalyzer.quickCheck("https://example.com?goto=x"))
     }
 
     @Test
     fun quickCheckReturnsFalseForSafeUrl() {
-        assertFalse(RedirectChainSimulator.quickCheck("https://www.google.com"))
-        assertFalse(RedirectChainSimulator.quickCheck("https://example.org/page"))
+        assertFalse(StaticRedirectPatternAnalyzer.quickCheck("https://www.google.com"))
+        assertFalse(StaticRedirectPatternAnalyzer.quickCheck("https://example.org/page"))
     }
 
     // === COMBINED ATTACK PATTERNS ===

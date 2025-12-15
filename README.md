@@ -1509,13 +1509,13 @@ class BrandDetector {
 | **TLD** | High-risk TLDs (.tk, .ml, .ga) | 20-40 |
 | **Extension** | Risky files (.exe, .scr), double extension | 40 |
 
-### 🔗 Redirect Chain Simulator (NEW)
+### 🔗 Static Redirect Pattern Analyzer (NEW)
 
-Detects **redirect chain patterns** without making network requests.
+Detects **redirect chain patterns** using static URL analysis — no network requests required. This ensures privacy and offline capability.
 
 ```kotlin
-// RedirectChainSimulator.kt - Offline redirect detection
-class RedirectChainSimulator {
+// StaticRedirectPatternAnalyzer.kt - Static pattern analysis (NOT actual redirect following)
+class StaticRedirectPatternAnalyzer {
     
     fun analyze(url: String): RedirectAnalysis {
         // Detects:
