@@ -2950,6 +2950,24 @@ Verifies mathematical invariants:
 - **Idempotence**: `analyze(url) == analyze(analyze(url))`
 - **Normalization stability**: `normalize(normalize(x)) == normalize(x)`
 
+### Reproducible Builds
+
+```bash
+./gradlew generateSbom              # Generate Software Bill of Materials
+./gradlew verifyDependencyVersions  # Verify no dynamic versions
+./gradlew verifyReproducibility     # Complete reproducibility check
+```
+
+**SBOM Output** (`build/reports/sbom.txt`):
+- Lists all dependencies from version catalog
+- Includes version numbers for audit
+- Generated on every reproducibility check
+
+**Dependency Hygiene**:
+- All versions pinned in `gradle/libs.versions.toml`
+- No `+` or `latest` version specifiers allowed
+- CI fails if dynamic versions detected
+
 ---
 
 ## ⚡ Coroutines & Flow Best Practices

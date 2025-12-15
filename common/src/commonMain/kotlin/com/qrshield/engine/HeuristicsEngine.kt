@@ -21,15 +21,53 @@ import com.qrshield.core.UrlAnalyzer
 /**
  * Heuristics Engine for QR-SHIELD
  *
- * Applies 25+ security heuristics to detect phishing indicators.
+ * Applies 17+ security heuristics to detect phishing indicators in URLs.
+ * Each heuristic is assigned a weight based on its predictive power for phishing.
  *
- * SECURITY NOTES:
- * - All inputs are validated before processing
- * - Regex patterns are designed to avoid catastrophic backtracking
- * - Score calculations use safe arithmetic with bounds
+ * ## Heuristic Categories
  *
+ * | Category | Heuristics | Weight Range |
+ * |----------|------------|--------------|
+ * | Protocol | HTTP (no TLS) | 30 |
+ * | Host | IP address, shortener, subdomains, port, entropy | 10-50 |
+ * | Path | Keywords, extensions, double extensions | 10-40 |
+ * | Query | Credentials, encoded payloads | 30-40 |
+ * | Obfuscation | @ injection, punycode, excessive encoding | 20-60 |
+ *
+ * ## Weighting Rationale
+ *
+ * Weights are empirically tuned based on:
+ * 1. **False positive rates** - Lower weights for ambiguous signals
+ * 2. **Attack severity** - Higher weights for confirmed attack patterns
+ * 3. **Frequency in phishing** - From PhishTank/OpenPhish analysis
+ *
+ * ### Critical Weights (40-60)
+ * - `IP_ADDRESS_HOST (50)`: Rarely legitimate, often phishing infrastructure
+ * - `AT_SYMBOL_INJECTION (60)`: Almost always malicious URL spoofing
+ * - `CREDENTIAL_PARAMS (40)`: Strong phishing indicator
+ * - `RISKY_EXTENSION (40)`: Malware delivery via file extensions
+ *
+ * ### Moderate Weights (15-30)
+ * - `HTTP_NOT_HTTPS (30)`: Serious for sensitive pages
+ * - `PUNYCODE_DOMAIN (30)`: Homograph attack vector
+ * - `ENTROPY (20)`: DGA domains, but some legit CDNs
+ *
+ * ### Low Weights (5-15)
+ * - `SHORTENER (15)`: Legitimate use cases exist
+ * - `LONG_URL (10)`: Marketing URLs can be long
+ * - `SUBDOMAINS (10)`: Some legit services use many
+ *
+ * ## Security Notes
+ *
+ * - All inputs are validated before processing (max 2048 chars)
+ * - Regex patterns avoid catastrophic backtracking (O(n) max)
+ * - Score calculations use safe arithmetic with 0-100 bounds
+ * - Thread-safe: no mutable state
+ *
+ * @property urlAnalyzer The URL parser for extracting components
  * @author QR-SHIELD Security Team
  * @since 1.0.0
+ * @see com.qrshield.core.SecurityConstants for threshold values
  */
 class HeuristicsEngine(
     private val urlAnalyzer: UrlAnalyzer = UrlAnalyzer()

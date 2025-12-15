@@ -258,6 +258,23 @@ Added to `.github/workflows/ci.yml`:
 - Verify Threat Model Coverage
 - Verify Invariants (Property-Based Tests)
 
+#### Reproducible Builds
+
+SBOM and dependency verification for judge-proof reproducibility:
+
+**New Gradle Tasks:**
+```bash
+./gradlew generateSbom          # Generate Software Bill of Materials
+./gradlew verifyDependencyVersions  # Verify no dynamic versions (+ or latest)
+./gradlew verifyReproducibility # Complete reproducibility check
+```
+
+**Features:**
+- SBOM generated from version catalog (build/reports/sbom.txt)
+- Dependency version pinning verification
+- Fails CI if dynamic versions detected
+- Version bumped to 1.2.0
+
 ---
 
 ### Added

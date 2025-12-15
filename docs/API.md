@@ -1276,10 +1276,39 @@ Tests that verify invariants hold for ANY valid input.
 ./gradlew :common:verifyAll
 ```
 
+### Reproducible Builds Tasks
+
+```bash
+# Generate Software Bill of Materials
+./gradlew generateSbom
+# Output: build/reports/sbom.txt
+
+# Verify all dependencies have pinned versions
+./gradlew verifyDependencyVersions
+# Fails if '+' or 'latest' version specifiers found
+
+# Complete reproducibility check
+./gradlew verifyReproducibility
+# Runs both SBOM generation and version verification
+```
+
+**SBOM Format:**
+```
+# QR-SHIELD Software Bill of Materials (SBOM)
+# Generated: 2025-12-15T20:50:00
+# Version: 1.2.0
+
+## Direct Dependencies
+### From Version Catalog (gradle/libs.versions.toml)
+[versions]
+kotlin = "2.1.0"
+compose = "1.7.1"
+...
+```
+
 ---
 
 ## Version
 
 API Version: 1.2.0  
 Last Updated: 2025-12-15
-
