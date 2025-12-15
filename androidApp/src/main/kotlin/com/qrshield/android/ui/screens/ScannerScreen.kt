@@ -28,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.LinearGradientShader
 import androidx.compose.foundation.layout.*
@@ -64,6 +65,7 @@ import com.qrshield.model.Verdict
 import com.qrshield.scanner.AndroidQrScanner
 import com.qrshield.ui.SharedViewModel
 import com.qrshield.ui.UiState
+import com.qrshield.redteam.RedTeamScenarios
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 import com.qrshield.android.util.SoundManager
@@ -249,6 +251,7 @@ fun ScannerScreen() {
             is UiState.Idle -> {
                 IdleContent(
                     scanCount = scanHistory.size,
+                    isDeveloperModeEnabled = settings.isDeveloperModeEnabled,
                     onScanClick = {
                         if (hasCameraPermission) {
                             viewModel.startScanning()
@@ -260,6 +263,12 @@ fun ScannerScreen() {
                         photoPickerLauncher.launch(
                             PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                         )
+                    },
+                    onRedTeamScenarioClick = { scenario ->
+                        // Bypass camera - feed malicious URL directly to analysis engine
+                        triggerHapticFeedback(vibrator, HapticType.WARNING, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.SCAN, settings.isSoundEnabled)
+                        viewModel.analyzeUrl(scenario.maliciousUrl, ScanSource.CAMERA)
                     }
                 )
             }
@@ -345,119 +354,291 @@ private fun ProcessingOverlay() {
 @Composable
 private fun IdleContent(
     scanCount: Int,
+    isDeveloperModeEnabled: Boolean = false,
     onScanClick: () -> Unit,
-    onGalleryClick: () -> Unit
+    onGalleryClick: () -> Unit,
+    onRedTeamScenarioClick: (RedTeamScenarios.Scenario) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundDark)
-            .padding(32.dp)
             .semantics {
                 contentDescription = "QR Shield home screen. Tap Start Scanning to begin, or choose from gallery."
-            },
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            }
     ) {
-        // Animated shield icon
-        val infiniteTransition = rememberInfiniteTransition(label = "shield_pulse")
-        val scale by infiniteTransition.animateFloat(
-            initialValue = 1f,
-            targetValue = 1.1f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(1500, easing = EaseInOutCubic),
-                repeatMode = RepeatMode.Reverse
-            ),
-            label = "scale"
-        )
-
-        Text(
-            text = "🛡️",
-            fontSize = (80 * scale).sp,
-            modifier = Modifier.semantics {
-                contentDescription = "QR Shield logo"
-            }
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        Text(
-            text = stringResource(R.string.app_name),
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            color = BrandPrimary,
-            modifier = Modifier.semantics {
-                contentDescription = "QR Shield, Phishing Detection App"
-            }
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = stringResource(R.string.tagline),
-            fontSize = 16.sp,
-            color = TextSecondary,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(48.dp))
-
-        // Main scan button
-        Button(
-            onClick = onScanClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .semantics {
-                    contentDescription = "Start scanning for QR codes using camera"
-                },
-            colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
-            shape = RoundedCornerShape(12.dp)
+        // === RED TEAM SCENARIOS PANEL (Developer Mode Only) ===
+        AnimatedVisibility(
+            visible = isDeveloperModeEnabled,
+            enter = expandVertically() + fadeIn(),
+            exit = shrinkVertically() + fadeOut()
         ) {
-            Text(
-                text = stringResource(R.string.start_scanning),
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold
+            RedTeamScenariosPanel(
+                scenarios = RedTeamScenarios.SCENARIOS,
+                onScenarioClick = onRedTeamScenarioClick
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        // === MAIN CONTENT ===
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            // Animated shield icon
+            val infiniteTransition = rememberInfiniteTransition(label = "shield_pulse")
+            val scale by infiniteTransition.animateFloat(
+                initialValue = 1f,
+                targetValue = 1.1f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(1500, easing = EaseInOutCubic),
+                    repeatMode = RepeatMode.Reverse
+                ),
+                label = "scale"
+            )
 
-        // Gallery button
-        OutlinedButton(
-            onClick = onGalleryClick,
+            Text(
+                text = "🛡️",
+                fontSize = (80 * scale).sp,
+                modifier = Modifier.semantics {
+                    contentDescription = "QR Shield logo"
+                }
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = stringResource(R.string.app_name),
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = BrandPrimary,
+                modifier = Modifier.semantics {
+                    contentDescription = "QR Shield, Phishing Detection App"
+                }
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = stringResource(R.string.tagline),
+                fontSize = 16.sp,
+                color = TextSecondary,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(48.dp))
+
+            // Main scan button
+            Button(
+                onClick = onScanClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .semantics {
+                        contentDescription = "Start scanning for QR codes using camera"
+                    },
+                colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.start_scanning),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Gallery button
+            OutlinedButton(
+                onClick = onGalleryClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .semantics {
+                        contentDescription = "Choose QR code image from photo gallery"
+                    },
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = BrandSecondary),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PhotoLibrary,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.scan_from_gallery),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+
+            if (scanCount > 0) {
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    text = stringResource(R.string.scans_in_history, scanCount),
+                    fontSize = 14.sp,
+                    color = TextMuted,
+                    modifier = Modifier.semantics {
+                        contentDescription = "$scanCount scans saved in history"
+                    }
+                )
+            }
+        }
+    }
+}
+
+// =============================================================================
+// RED TEAM SCENARIOS PANEL
+// =============================================================================
+
+/**
+ * Red Team Scenarios Panel - Shows attack scenarios for testing.
+ * This panel appears at the top of the scanner screen when Developer Mode is enabled.
+ * Clicking a scenario bypasses the camera and feeds the malicious URL directly to PhishingEngine.
+ */
+@Composable
+private fun RedTeamScenariosPanel(
+    scenarios: List<RedTeamScenarios.Scenario>,
+    onScenarioClick: (RedTeamScenarios.Scenario) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF3D1515), // Dark red
+                        Color(0xFF2A1010)  // Darker red
+                    )
+                )
+            )
+            .padding(vertical = 12.dp)
+    ) {
+        // Header
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
-                .semantics {
-                    contentDescription = "Choose QR code image from photo gallery"
-                },
-            colors = ButtonDefaults.outlinedButtonColors(contentColor = BrandSecondary),
-            shape = RoundedCornerShape(12.dp)
+                .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.PhotoLibrary,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp)
+            Text(
+                text = "🕵️",
+                fontSize = 20.sp
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = stringResource(R.string.scan_from_gallery),
+                text = "Red Team Scenarios",
+                color = Color(0xFFFF6B6B),
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                text = "${scenarios.size} attacks",
+                color = Color(0xFFFF9999),
+                fontSize = 12.sp
             )
         }
 
-        if (scanCount > 0) {
-            Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Horizontally scrolling scenario chips
+        androidx.compose.foundation.lazy.LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(scenarios.size) { index ->
+                val scenario = scenarios[index]
+                RedTeamScenarioChip(
+                    scenario = scenario,
+                    onClick = { onScenarioClick(scenario) }
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        // Hint text
+        Text(
+            text = "Tap a scenario to test detection without camera",
+            color = Color(0xFFAA7777),
+            fontSize = 11.sp,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+    }
+}
+
+/**
+ * A single Red Team scenario chip.
+ */
+@Composable
+private fun RedTeamScenarioChip(
+    scenario: RedTeamScenarios.Scenario,
+    onClick: () -> Unit
+) {
+    val categoryColor = when {
+        scenario.category.contains("Homograph", ignoreCase = true) -> Color(0xFFE53935) // Red
+        scenario.category.contains("IP", ignoreCase = true) -> Color(0xFFFF9800) // Orange
+        scenario.category.contains("TLD", ignoreCase = true) -> Color(0xFFE91E63) // Pink
+        scenario.category.contains("Redirect", ignoreCase = true) -> Color(0xFF9C27B0) // Purple
+        scenario.category.contains("Brand", ignoreCase = true) -> Color(0xFF3F51B5) // Indigo
+        scenario.category.contains("Shortener", ignoreCase = true) -> Color(0xFF00BCD4) // Cyan
+        scenario.category.contains("Safe", ignoreCase = true) -> Color(0xFF4CAF50) // Green
+        else -> Color(0xFFFF5722) // Deep Orange
+    }
+
+    Surface(
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .semantics {
+                contentDescription = "${scenario.title}. ${scenario.description}. Tap to test."
+            },
+        color = categoryColor.copy(alpha = 0.2f),
+        shape = RoundedCornerShape(20.dp),
+        border = androidx.compose.foundation.BorderStroke(1.dp, categoryColor.copy(alpha = 0.5f))
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // Category icon
             Text(
-                text = stringResource(R.string.scans_in_history, scanCount),
-                fontSize = 14.sp,
-                color = TextMuted,
-                modifier = Modifier.semantics {
-                    contentDescription = "$scanCount scans saved in history"
-                }
+                text = when {
+                    scenario.category.contains("Homograph") -> "🔤"
+                    scenario.category.contains("IP") -> "🔢"
+                    scenario.category.contains("TLD") -> "🌐"
+                    scenario.category.contains("Redirect") -> "↪️"
+                    scenario.category.contains("Brand") -> "🏷️"
+                    scenario.category.contains("Shortener") -> "🔗"
+                    scenario.category.contains("Safe") -> "✅"
+                    else -> "⚠️"
+                },
+                fontSize = 14.sp
             )
+            Spacer(modifier = Modifier.width(6.dp))
+
+            Column {
+                Text(
+                    text = scenario.title,
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1
+                )
+                scenario.targetBrand?.let { brand ->
+                    Text(
+                        text = brand,
+                        color = categoryColor,
+                        fontSize = 10.sp,
+                        maxLines = 1
+                    )
+                }
+            }
         }
     }
 }

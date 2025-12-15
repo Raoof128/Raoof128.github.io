@@ -263,7 +263,8 @@ data class AppSettings(
     val isHapticEnabled: Boolean = true,
     val isSoundEnabled: Boolean = true,
     val isSaveHistoryEnabled: Boolean = true,
-    val isSecurityAlertsEnabled: Boolean = true
+    val isSecurityAlertsEnabled: Boolean = true,
+    val isDeveloperModeEnabled: Boolean = false
 )
 
 

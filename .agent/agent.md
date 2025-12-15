@@ -4,6 +4,59 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-16 (Red Team Developer Mode)
+
+### Summary
+Implemented "Red Team" Developer Mode (God Mode) feature that allows judges and developers to instantly test the detection engine without printing QR codes. Activated via 7 taps on version text in Settings.
+
+---
+
+### New Features
+
+| Feature | Description |
+|---------|-------------|
+| **7-Tap Secret Entry** | Tap version text in Settings 7 times to toggle Developer Mode |
+| **Red Team Panel** | Dark red panel with attack scenarios appears at top of Scanner screen |
+| **19 Attack Scenarios** | Pre-loaded scenarios covering homograph, IP obfuscation, TLD, redirects, brand impersonation |
+| **Bypass Camera** | Tap any scenario to feed URL directly to PhishingEngine.analyze() |
+| **Visual Indicator** | "(DEV)" suffix on version text when enabled |
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `common/src/commonMain/kotlin/com/qrshield/redteam/RedTeamScenarios.kt` | Red team scenario data class and 19 pre-loaded attack scenarios |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `SharedViewModel.kt` | Added `isDeveloperModeEnabled` to `AppSettings` |
+| `SettingsScreen.kt` | Added 7-tap counter on version text, Developer Mode section |
+| `ScannerScreen.kt` | Added `RedTeamScenariosPanel` and `RedTeamScenarioChip` composables |
+| `CHANGELOG.md` | Added v1.3.0 release notes |
+
+### Attack Scenarios Included
+
+| Category | Count | Examples |
+|----------|-------|----------|
+| Homograph Attack | 3 | Cyrillic 'а' in Apple, PayPal, Microsoft |
+| IP Obfuscation | 3 | Decimal, Hex, Octal IP |
+| Suspicious TLD | 3 | .tk, .ml, .ga domains |
+| Nested Redirect | 2 | URL in query parameter |
+| Brand Impersonation | 3 | Typosquatting (paypa1, googIe) |
+| URL Shortener | 2 | bit.ly, tinyurl |
+| Safe Control | 2 | google.com, github.com |
+
+### Build Status
+
+```bash
+✅ ./gradlew :common:compileKotlinDesktop
+✅ ./gradlew :androidApp:compileDebugKotlin
+```
+
+---
+
 ## Session: 2025-12-15 (CI Fixes)
 
 ### Summary

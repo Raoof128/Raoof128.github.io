@@ -5,6 +5,52 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2025-12-16
+
+### 🕵️ Red Team Developer Mode (God Mode)
+
+A hidden developer mode for competition judges and security researchers to instantly test the detection engine without printing QR codes.
+
+### Added
+
+#### Red Team Developer Mode (Android)
+
+**New Files:**
+- `common/src/commonMain/kotlin/com/qrshield/redteam/RedTeamScenarios.kt`
+
+**Features:**
+- **Secret Entry**: Tap version text in Settings 7 times to toggle Developer Mode
+- **Visual Indicator**: "(DEV)" suffix appears on version when enabled
+- **Red Team Scenarios Panel**: Dark red panel appears at top of Scanner screen
+- **19 Pre-loaded Attack Scenarios**:
+  - 3 Homograph attacks (Cyrillic character substitution)
+  - 3 IP obfuscation attacks (decimal, hex, octal)
+  - 3 Suspicious TLD attacks (.tk, .ml, .ga)
+  - 2 Nested redirect attacks
+  - 3 Brand impersonation attacks (typosquatting)
+  - 2 URL shortener tests
+  - 2 Safe control URLs (baseline comparison)
+- **Instant Testing**: Tap any scenario to bypass camera and feed URL directly to PhishingEngine
+- **Category-colored Chips**: Visual distinction by attack type
+- **Toggle Off**: Can disable via Developer Mode section in Settings
+
+**Why This Exists:**
+> Judges are lazy. They won't print your test QR codes. Let them see the red screen instantly.
+
+**How To Activate:**
+1. Go to Settings tab
+2. Scroll to "About" section
+3. Tap on "Version" row 7 times quickly
+4. Toast will confirm: "🕵️ Developer Mode enabled!"
+5. Return to Scanner tab — Red Team panel now visible
+
+### Changed
+- `AppSettings` now includes `isDeveloperModeEnabled` field
+- `ScannerScreen` conditionally renders Red Team panel
+- `SettingsScreen` includes clickable version text with tap counter
+
+---
+
 ## [1.2.0] - 2025-12-15
 
 ### 🚀 Major Release: Novelty Features (40/40 Creativity Score)

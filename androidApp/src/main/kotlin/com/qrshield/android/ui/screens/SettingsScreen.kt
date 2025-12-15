@@ -35,6 +35,7 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import android.widget.Toast
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -69,11 +70,16 @@ fun SettingsScreen() {
     val viewModel: com.qrshield.ui.SharedViewModel = org.koin.compose.koinInject()
     val settings by viewModel.settings.collectAsState()
 
+    // Developer Mode 7-Tap Counter
+    var developerTapCount by remember { mutableStateOf(0) }
+    var lastTapTime by remember { mutableStateOf(0L) }
+
     // Derived states for UI
     val hapticEnabled = settings.isHapticEnabled
     val soundEnabled = settings.isSoundEnabled
     val autoScan = settings.isAutoScanEnabled
     val saveHistory = settings.isSaveHistoryEnabled
+    val developerModeEnabled = settings.isDeveloperModeEnabled
     val notificationsEnabled = settings.isSecurityAlertsEnabled
 
     LazyColumn(
@@ -253,16 +259,114 @@ fun SettingsScreen() {
             )
         }
 
+        // Developer Mode Section (only visible when enabled)
+        if (developerModeEnabled) {
+            item {
+                SettingsSection(title = "🕵️ Developer Mode")
+            }
+
+            item {
+                SettingsToggle(
+                    icon = Icons.Default.BugReport,
+                    title = "Red Team Mode",
+                    subtitle = "Show attack scenarios on scanner screen",
+                    checked = developerModeEnabled,
+                    onCheckedChange = { newValue ->
+                        viewModel.updateSettings(settings.copy(isDeveloperModeEnabled = newValue))
+                        if (!newValue) {
+                            Toast.makeText(context, "Developer Mode disabled", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                )
+            }
+
+            item {
+                // Warning card for developer mode
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = Color(0xFF442222)
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "⚠️",
+                            fontSize = 24.sp
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Text(
+                            text = "Red Team Mode bypasses camera and injects test URLs directly into the detection engine.",
+                            color = Color(0xFFFFAAAA),
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+            }
+        }
+
         // About Section
         item {
             SettingsSection(title = stringResource(R.string.settings_about))
         }
 
+        // Version info with 7-tap developer mode activation
         item {
-            SettingsInfo(
+            SettingsInfoClickable(
                 icon = Icons.Default.Info,
                 title = stringResource(R.string.settings_version),
-                value = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+                value = if (developerModeEnabled) {
+                    "${BuildConfig.VERSION_NAME} (DEV)"
+                } else {
+                    "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+                },
+                onClick = {
+                    val currentTime = System.currentTimeMillis()
+
+                    // Reset counter if more than 2 seconds between taps
+                    if (currentTime - lastTapTime > 2000) {
+                        developerTapCount = 0
+                    }
+
+                    lastTapTime = currentTime
+                    developerTapCount++
+
+                    when {
+                        developerTapCount >= 7 -> {
+                            // Toggle developer mode
+                            val newDevMode = !settings.isDeveloperModeEnabled
+                            viewModel.updateSettings(settings.copy(isDeveloperModeEnabled = newDevMode))
+                            developerTapCount = 0
+
+                            if (newDevMode) {
+                                Toast.makeText(
+                                    context,
+                                    "🕵️ Developer Mode enabled! Red Team scenarios available.",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Developer Mode disabled",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        developerTapCount >= 4 -> {
+                            val remaining = 7 - developerTapCount
+                            Toast.makeText(
+                                context,
+                                "$remaining more taps to ${if (developerModeEnabled) "disable" else "enable"} developer mode",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
             )
         }
 
@@ -556,3 +660,45 @@ private fun PlatformBadge(text: String, color: Color) {
         )
     }
 }
+
+@Composable
+private fun SettingsInfoClickable(
+    icon: ImageVector,
+    title: String,
+    value: String,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .semantics {
+                contentDescription = "$title: $value. Tap to interact."
+            },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = BrandPrimary,
+            modifier = Modifier.size(24.dp)
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Text(
+            text = title,
+            color = TextPrimary,
+            fontSize = 15.sp,
+            modifier = Modifier.weight(1f)
+        )
+
+        Text(
+            text = value,
+            color = TextSecondary,
+            fontSize = 14.sp
+        )
+    }
+}
+
