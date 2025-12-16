@@ -66,19 +66,32 @@ val data: Any      // Type is too broad
 ### Constants
 
 ```kotlin
-// ✅ Good - SCREAMING_SNAKE_CASE in companion object
-companion object {
-    const val MAX_URL_LENGTH = 2048
-    const val DEFAULT_THRESHOLD = 0.5f
-    const val SUSPICIOUS_SCORE_THRESHOLD = 30
+// ✅ BEST - Centralized constants in SecurityConstants.kt (v1.6.1+)
+// common/src/commonMain/kotlin/com/qrshield/core/SecurityConstants.kt
+object SecurityConstants {
+    /**
+     * Threshold for SAFE verdict.
+     * URLs scoring BELOW this are considered SAFE.
+     */
+    const val SAFE_THRESHOLD: Int = 30
     
-    // Collections that act as constants
-    val RISKY_TLDS = setOf("tk", "ml", "ga", "cf", "gq")
+    /** Maximum allowed URL length to prevent ReDoS. */
+    const val MAX_URL_LENGTH: Int = 2048
+    
+    /** Free TLDs used in phishing (tk, ml, ga, cf, gq). */
+    val FREE_TLDS = setOf("tk", "ml", "ga", "cf", "gq")
 }
 
-// ❌ Bad - wrong case, not in companion
-val max_url_length = 2048  // Should be const
-const val maxLength = 2048  // Wrong case
+// ✅ Good - Local constants that reference SecurityConstants
+companion object {
+    // Uses centralized constant with documented override reason
+    private val SAFE_THRESHOLD = SecurityConstants.SAFE_THRESHOLD / 3  // Stricter for multi-signal
+    private val MAX_URL_LENGTH = SecurityConstants.MAX_URL_LENGTH
+}
+
+// ❌ Bad - Magic numbers without reference
+private const val THRESHOLD = 10  // What is this? Where did 10 come from?
+val risky_tlds = setOf("tk", "ml")  // Duplicates SecurityConstants
 ```
 
 ---

@@ -103,7 +103,9 @@ const val MALICIOUS_SCORE_THRESHOLD = 60
 | @ symbol in URL | 99% | 0.5% |
 | HTTPS absence | 65% | 15% |
 
-### ML Model (Logistic Regression)
+### ML Model (Ensemble Architecture v1.6.0+)
+
+The ensemble combines Logistic Regression (40%), Gradient Boosting (35%), and Decision Stumps (25%):
 
 | Feature | Weight | Impact |
 |---------|--------|--------|
@@ -115,6 +117,8 @@ const val MALICIOUS_SCORE_THRESHOLD = 60
 | `domainEntropy` | +0.40 | Random domains risky |
 | `shortenerDomain` | +0.35 | Obscures destination |
 | `subdomainCount` | +0.30 | Complex URLs risky |
+
+**Model Agreement Boost:** When all 3 ensemble members agree, confidence is increased.
 
 ### Brand Detector (500+ brands)
 

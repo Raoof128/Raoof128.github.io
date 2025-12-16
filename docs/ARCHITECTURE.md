@@ -15,12 +15,13 @@
 │  │                     SHARED LAYER (common module)                     │   │
 │  │                        ~80% of business logic                        │   │
 │  │   ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                 │   │
-│  │   │  Detection  │  │    ML       │  │   Data      │                 │   │
-│  │   │   Engine    │  │   Model     │  │   Layer     │                 │   │
+│  │   │  Detection  │  │  Ensemble   │  │   Data      │                 │   │
+│  │   │   Engine    │  │  ML Model   │  │   Layer     │                 │   │
 │  │   ├─────────────┤  ├─────────────┤  ├─────────────┤                 │   │
-│  │   │PhishingEngin│  │LogisticRegr.│  │HistoryRepo  │                 │   │
-│  │   │HeuristicsEng│  │FeatureExtrt │  │SQLDelight   │                 │   │
-│  │   │BrandDetector│  │ModelWeights │  │Queries      │                 │   │
+│  │   │PhishingEngin│  │EnsembleModel│  │HistoryRepo  │                 │   │
+│  │   │HeuristicsEng│  │LogisticRegr.│  │SQLDelight   │                 │   │
+│  │   │BrandDetector│  │GradientBoost│  │Queries      │                 │   │
+│  │   │AdversarialD.│  │DecisionStump│  │             │                 │   │
 │  │   └─────────────┘  └─────────────┘  └─────────────┘                 │   │
 │  │                                                                      │   │
 │  │   ┌───────────────────────────────────────────────────────┐         │   │
@@ -28,8 +29,8 @@
 │  │   │  ─────────────────────────────────────────────────── │         │   │
 │  │   │  expect class DatabaseDriverFactory                   │         │   │
 │  │   │  expect class QrScanner                               │         │   │
-│  │   │  expect class PlatformInfo                            │         │   │
-│  │   │  expect fun getCurrentTimeMillis(): Long              │         │   │
+│  │   │  expect object PlatformClipboard                      │         │   │
+│  │   │  expect object PlatformHaptics                        │         │   │
 │  │   └───────────────────────────────────────────────────────┘         │   │
 │  └─────────────────────────────────────────────────────────────────────┘   │
 │                                      │                                      │
@@ -40,9 +41,9 @@
 │  │   ANDROID LAYER     │ │   IOS LAYER     │ │  DESKTOP LAYER  │ │  WEB   ││
 │  │   (androidApp/)     │ │   (iosApp/)     │ │  (desktopApp/)  │ │(webApp)││
 │  ├─────────────────────┤ ├─────────────────┤ ├─────────────────┤ ├────────┤│
-│  │ Jetpack Compose UI  │ │  SwiftUI UI     │ │ Compose Desktop │ │HTML/CSS││
-│  │ ML Kit Scanner      │ │ AVFoundation    │ │ ZXing Scanner   │ │ jsQR   ││
-│  │ Android SQLite      │ │ Core Data       │ │ JVM SQLite      │ │IndexedD││
+│  │ Jetpack Compose UI  │ │  SwiftUI UI +   │ │ Compose Desktop │ │HTML/CSS││
+│  │ ML Kit Scanner      │ │  SharedResultCd │ │ ZXing Scanner   │ │ jsQR   ││
+│  │ Android SQLite      │ │ AVFoundation    │ │ JVM SQLite      │ │IndexedD││
 │  │ CameraX             │ │ Vision Kit      │ │ Swing fallback  │ │ Canvas ││
 │  └─────────────────────┘ └─────────────────┘ └─────────────────┘ └────────┘│
 │                                                                             │
@@ -59,17 +60,19 @@ All business logic lives in `common/src/commonMain/kotlin/`:
 
 | File | Purpose | LOC |
 |------|---------|-----|
-| `PhishingEngine.kt` | Main analysis orchestrator | ~350 |
+| `PhishingEngine.kt` | Main analysis orchestrator (suspend + blocking APIs) | ~400 |
 | `HeuristicsEngine.kt` | 25+ security heuristics | ~400 |
 | `BrandDetector.kt` | Brand impersonation detection | ~500 |
 | `BrandDatabase.kt` | 500+ brand patterns | ~600 |
+| `SecurityConstants.kt` | Centralized thresholds and weights | ~370 |
 
-### ML Model
+### Ensemble ML Model
 
 | File | Purpose | LOC |
 |------|---------|-----|
+| `EnsembleModel.kt` | 3-model ensemble (LR + GB + Rules) | ~380 |
 | `LogisticRegressionModel.kt` | On-device ML classifier | ~400 |
-| `FeatureExtractor.kt` | URL feature extraction | ~300 |
+| `FeatureExtractor.kt` | URL feature extraction (15 features) | ~300 |
 
 ### Data Layer
 
@@ -78,13 +81,22 @@ All business logic lives in `common/src/commonMain/kotlin/`:
 | `HistoryRepository.kt` | Scan history CRUD | ~200 |
 | `QRShieldDatabase.sq` | SQLDelight schema | ~50 |
 
+### Shared UI Components
+
+| File | Purpose | LOC |
+|------|---------|-----|
+| `SharedResultCard.kt` | Compose MP result card (iOS + Desktop + Android) | ~200 |
+| `ThreatRadar.kt` | Radar visualization component | ~150 |
+| `SharedTextGenerator.kt` | Centralized verdict/explanation text | ~300 |
+| `LocalizationKeys.kt` | ~80 localization keys | ~200 |
+
 ### Models & Utilities
 
 | File | Purpose | LOC |
 |------|---------|-----|
 | `RiskAssessment.kt` | Analysis result data class | ~100 |
 | `UrlParser.kt` | URL parsing utilities | ~200 |
-| `Entropy.kt` | Domain entropy calculation | ~50 |
+| `AdversarialDefense.kt` | Obfuscation detection | ~350 |
 
 ---
 

@@ -6,15 +6,41 @@
 
 ## Overview
 
-QR-SHIELD uses a **Logistic Regression model** for probabilistic phishing URL classification. The model runs entirely on-device with no cloud dependencies, ensuring privacy and offline functionality.
+QR-SHIELD uses an **Ensemble ML architecture** for robust phishing URL classification. The model combines three complementary approaches and runs entirely on-device with no cloud dependencies, ensuring privacy and offline functionality.
+
+### Ensemble Architecture (v1.6.0+)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    ENSEMBLE PREDICTION                          │
+├─────────────────────────────────────────────────────────────────┤
+│   ┌───────────────┐   ┌───────────────┐   ┌───────────────┐    │
+│   │   Logistic    │   │   Gradient    │   │   Decision    │    │
+│   │  Regression   │   │   Boosting    │   │   Stump       │    │
+│   │   (Linear)    │   │  (Non-linear) │   │  (Rule-based) │    │
+│   └───────┬───────┘   └───────┬───────┘   └───────┬───────┘    │
+│           │ 40%               │ 35%               │ 25%        │
+│           └───────────────────┴───────────────────┘             │
+│                    Weighted Average Combiner                    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+| Component | Weight | Strength | Use Case |
+|-----------|--------|----------|----------|
+| **Logistic Regression** | 40% | Fast, interpretable | Linear feature relationships |
+| **Gradient Boosting** | 35% | Non-linear patterns | Complex attack signatures |
+| **Decision Stumps** | 25% | Explicit rules | Known attack patterns (@ symbol, IP hosts) |
+
+### Model Properties
 
 | Property | Value |
 |----------|-------|
-| **Model Type** | Logistic Regression |
+| **Model Type** | Ensemble (LR + GB + Decision Rules) |
 | **Features** | 15 |
-| **Inference Time** | <10ms |
-| **Memory Footprint** | ~1KB weights |
+| **Inference Time** | <5ms |
+| **Memory Footprint** | ~2KB weights |
 | **Platforms** | Android, iOS, Desktop, Web |
+| **Model Agreement Tracking** | Yes (confidence boosting) |
 
 ---
 

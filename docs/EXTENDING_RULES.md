@@ -111,6 +111,30 @@ fun `ignores safe query params`() {
 
 Weights determine how much each signal contributes to the total score.
 
+### Centralized Constants (v1.6.1+)
+
+All tunable constants are now centralized in `SecurityConstants.kt`:
+
+```kotlin
+// common/src/commonMain/kotlin/com/qrshield/core/SecurityConstants.kt
+object SecurityConstants {
+    // Score thresholds
+    const val SAFE_THRESHOLD: Int = 30       // URLs below this are SAFE
+    const val MALICIOUS_THRESHOLD: Int = 70  // URLs at/above this are MALICIOUS
+    
+    // Component weights (must sum to 1.0)
+    const val HEURISTIC_WEIGHT: Float = 0.50f
+    const val ML_WEIGHT: Float = 0.25f
+    const val BRAND_WEIGHT: Float = 0.15f
+    const val TLD_WEIGHT: Float = 0.10f
+    
+    // TLD risk scores
+    const val FREE_TLD_SCORE: Int = 18       // .tk, .ml, .ga
+    const val HIGH_RISK_TLD_SCORE: Int = 12  // .xyz, .icu
+    // ... more constants
+}
+```
+
 ### Weight Guidelines
 
 | Severity | Score Range | Use Case |
@@ -133,14 +157,17 @@ Weights determine how much each signal contributes to the total score.
 
 ### Adjusting Weights
 
-Edit the `score` value in each heuristic:
+**Preferred:** Edit values in `SecurityConstants.kt` for centralized tuning.
+
+**Alternative:** Override locally in the heuristic (document why it differs):
 
 ```kotlin
 private fun checkSuspiciousTld(url: String): HeuristicResult {
-    // ...
+    // Using SecurityConstants for consistency
+    val score = SecurityConstants.FREE_TLD_SCORE
     return HeuristicResult(
         name = "SUSPICIOUS_TLD",
-        score = 20,  // ← Adjust this value
+        score = score,
         description = "..."
     )
 }

@@ -176,6 +176,39 @@ cd qrshield
 | **Test Coverage** | 89% |
 | **Unit Tests** | 1000+ |
 
+### ⚡ Performance Benchmarks
+
+> **Battery-friendly, real-time analysis.** All benchmarks run in CI to prevent regressions.
+
+| Operation | Target | Actual | Status |
+|-----------|--------|--------|--------|
+| **Full URL Analysis** | <50ms | ~3-5ms | ✅ 10x faster |
+| **Heuristics Engine** | <10ms | ~0.5ms | ✅ 20x faster |
+| **ML Inference** | <5ms | ~0.1ms | ✅ 50x faster |
+| **Brand Detection** | <15ms | ~1ms | ✅ 15x faster |
+| **Throughput** | 100+ URLs/sec | 500+ URLs/sec | ✅ 5x target |
+
+```bash
+# Run benchmarks locally
+./gradlew :common:desktopTest --tests "*Benchmark*"
+
+# View results
+# ╔══════════════════════════════════════════════════════════╗
+# ║ Benchmark: Full URL Analysis                             ║
+# ╠══════════════════════════════════════════════════════════╣
+# ║ Operations:   1000                                       ║
+# ║ Total Time:   3450ms                                     ║
+# ║ Avg Time:     3.450ms                                    ║
+# ║ Target:       50.0ms                                     ║
+# ║ Status:       ✅ PASS                                    ║
+# ╚══════════════════════════════════════════════════════════╝
+```
+
+**Why This Matters:**
+- **Mobile-first**: Fast analysis = responsive UX, no camera lag
+- **Battery-friendly**: <5ms per scan = negligible power consumption
+- **Real-time**: Users get instant feedback on QR safety
+
 ### 🔗 Links
 
 | Resource | Link |

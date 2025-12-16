@@ -91,7 +91,7 @@ println("Risk factors: ${result.flags.joinToString()}")
 
 ### PhishingEngine
 
-Main orchestrator for URL phishing analysis.
+Main orchestrator for URL phishing analysis. Uses an ensemble ML architecture for robust detection.
 
 ```kotlin
 class PhishingEngine(
@@ -99,7 +99,9 @@ class PhishingEngine(
     brandDetector: BrandDetector = BrandDetector(),
     tldScorer: TldScorer = TldScorer(),
     mlModel: LogisticRegressionModel = LogisticRegressionModel.default(),
-    featureExtractor: FeatureExtractor = FeatureExtractor()
+    ensembleModel: EnsembleModel = EnsembleModel.default(),
+    featureExtractor: FeatureExtractor = FeatureExtractor(),
+    useEnsemble: Boolean = true  // Use advanced ensemble by default
 )
 ```
 
@@ -107,18 +109,30 @@ class PhishingEngine(
 
 | Method | Parameters | Returns | Description |
 |--------|------------|---------|-------------|
-| `analyze` | `url: String` | `RiskAssessment` | Perform complete phishing analysis |
+| `analyze` | `url: String` | `RiskAssessment` | **Suspend** - Async analysis on `Dispatchers.Default` |
+| `analyzeBlocking` | `url: String` | `RiskAssessment` | **Sync** - Direct analysis for tests/JS |
 
-#### Example
+#### Example (Coroutines)
 
 ```kotlin
 val engine = PhishingEngine()
-val result = engine.analyze("https://paypa1.com/login")
 
-if (result.verdict == Verdict.MALICIOUS) {
-    showWarning("Phishing detected: ${result.details.brandMatch}")
+// In a coroutine scope (recommended)
+viewModelScope.launch {
+    val result = engine.analyze("https://paypa1.com/login")
+    if (result.verdict == Verdict.MALICIOUS) {
+        showWarning("Phishing detected: ${result.details.brandMatch}")
+    }
 }
 ```
+
+#### Example (Blocking)
+
+```kotlin
+// For tests, JavaScript, or non-coroutine contexts
+val engine = PhishingEngine()
+val result = engine.analyzeBlocking("https://paypa1.com/login")
+println("Score: ${result.score}, Verdict: ${result.verdict}")
 
 ---
 

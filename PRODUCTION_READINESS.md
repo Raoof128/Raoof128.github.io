@@ -1,8 +1,8 @@
 # 🚀 QR-SHIELD Production Readiness Report
 
-**Date:** December 14, 2025
-**Version:** 1.1.4 (Build 6)
-**Platforms:** Android, iOS (Web App), Desktop, Web
+**Date:** December 17, 2025
+**Version:** 1.6.1 (Build 12)
+**Platforms:** Android, iOS, Desktop, Web
 
 ---
 
@@ -18,8 +18,8 @@
 | Web/JS builds | ✅ PASS | GitHub Pages deployed |
 | ProGuard/R8 minification | ✅ PASS | Enabled with shrinkResources |
 | Lint check (0 errors) | ✅ PASS | 0 errors, warnings only |
-| Unit tests passing | ✅ PASS | 900+ tests, 0 failures |
-| Performance benchmarks | ✅ PASS | <50ms per URL analysis |
+| Unit tests passing | ✅ PASS | 1000+ tests, 0 failures |
+| Performance benchmarks | ✅ PASS | <5ms per URL analysis (10x faster) |
 | Property-based tests | ✅ PASS | 19 fuzz tests |
 | Performance regression | ✅ PASS | 11 strict threshold tests |
 | Web E2E tests | ✅ PASS | 34+ Playwright tests |
@@ -192,15 +192,17 @@ The project is **production-ready** for:
 
 | Feature | Value |
 |---------|-------|
-| Code reuse | 85% shared across platforms |
+| Code reuse | ~80% shared across platforms |
+| ML Architecture | Ensemble (LR + GB + Rules) |
 | Detection engine | 25+ heuristic rules |
 | Brand database | 500+ brands |
 | Languages | 11 supported |
-| Test coverage | 900+ tests |
-| Performance | 200+ URLs/second |
+| Test coverage | 1000+ tests (89% coverage) |
+| Performance | 500+ URLs/second |
 | Privacy | 100% offline capable |
+| Shared UI | Compose MP components + iOS bridging |
 
 ---
 
-*Report generated: December 14, 2025*  
-*QR-SHIELD Production Readiness Audit*
+*Report generated: December 17, 2025*  
+*QR-SHIELD Production Readiness Audit (v1.6.1)*

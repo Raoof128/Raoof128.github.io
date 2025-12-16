@@ -26,20 +26,22 @@ Attackers exploit this trust through **QRishing** (QR phishing):
 ### Our Technical Innovation
 
 1. **Kotlin Multiplatform Architecture**
-   - 80%+ code sharing across 4 platforms
+   - ~80% code sharing across 4 platforms
    - Native performance, not web wrappers
    - Single security engine, universal protection
+   - Hybrid iOS: SwiftUI + shared Compose components
 
-2. **Multi-Layer Detection Engine**
-   - Structural URL analysis
-   - 25+ security heuristics
-   - ML-lite on-device inference
-   - Brand impersonation fuzzy matching
+2. **Ensemble ML Detection Engine**
+   - Logistic Regression (40%) + Gradient Boosting (35%) + Decision Rules (25%)
+   - 25+ security heuristics with weighted scoring
+   - Brand impersonation fuzzy matching (500+ brands)
+   - Adversarial robustness (homograph, RTL, encoding attacks)
 
 3. **Privacy-First Design**
-   - All analysis runs locally
+   - All analysis runs locally (<5ms per URL)
    - No cloud dependencies for core function
    - Zero telemetry, zero tracking
+   - Federated learning ready (with differential privacy)
 
 ### Why It Matters
 

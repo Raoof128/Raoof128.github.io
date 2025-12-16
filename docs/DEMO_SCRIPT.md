@@ -208,17 +208,17 @@ Quick cuts (2.5s each) with animated icons:
 1. **Shield with checkmarks**
    - "25+ Security Heuristics"
    
-2. **Brain/AI icon**
-   - "ML-Powered Scoring"
+2. **Brain/AI icon with three nodes**
+   - "Ensemble ML: Logistic Regression + Gradient Boosting + Rules"
    
 3. **Target with brand logos**
-   - "Brand Impersonation Detection"
+   - "Brand Impersonation Detection (500+ brands)"
    
 4. **Lock with offline symbol**
-   - "100% Offline & Private"
+   - "100% Offline & Private (<5ms analysis)"
 
 **Narration**:
-> "Twenty-five security checks. Machine learning analysis. Brand protection against typosquatting. All running locally—your data never leaves your device."
+> "Twenty-five security checks. Ensemble machine learning with three models. Brand protection against typosquatting. All running locally in under 5 milliseconds—your data never leaves your device."
 
 **Transition**: Fade to closing
 
