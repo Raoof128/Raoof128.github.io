@@ -102,11 +102,11 @@ private class Particle {
     
     fun reset() {
         // Randomize
-        val angle = Random.nextFloat() * 2 * Math.PI
+        val angle = Random.nextFloat() * 2 * kotlin.math.PI
         val speed = Random.nextFloat() * 2 + 1
         velocity = Offset(
-            x = (Math.cos(angle) * speed).toFloat(),
-            y = (Math.sin(angle) * speed).toFloat()
+            x = (kotlin.math.cos(angle) * speed).toFloat(),
+            y = (kotlin.math.sin(angle) * speed).toFloat()
         )
         // Set center (will be updated in draw based on screen size ideally, but we'll assume center logic in usage)
         // For simplicity, we assume drawing happens relative to the container center in usage if properly offset

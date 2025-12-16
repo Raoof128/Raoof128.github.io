@@ -58,7 +58,7 @@ fun analyzeUrl(engine: PhishingEngine, url: String, analyzeBtn: HTMLButtonElemen
 
     window.setTimeout({
         try {
-            val assessment = engine.analyze(url)
+            val assessment = engine.analyzeBlocking(url)
             console.log("✅ Analysis complete: Score=${assessment.score}")
 
             // Call existing JS display function via interop

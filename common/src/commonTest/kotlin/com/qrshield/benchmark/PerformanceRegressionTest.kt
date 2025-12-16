@@ -103,13 +103,13 @@ class PerformanceRegressionTest {
     fun regressionSingleUrlAnalysisUnder50ms() {
         // Warmup
         repeat(WARMUP_ITERATIONS) {
-            SIMPLE_URLS.forEach { phishingEngine.analyze(it) }
+            SIMPLE_URLS.forEach { phishingEngine.analyzeBlocking(it) }
         }
         
         // Measure each URL individually
         SIMPLE_URLS.forEach { url ->
             val latencies = measureLatencies(MEASURE_ITERATIONS) {
-                phishingEngine.analyze(url)
+                phishingEngine.analyzeBlocking(url)
             }
             
             val p99 = percentile(latencies, 99)
@@ -124,13 +124,13 @@ class PerformanceRegressionTest {
     fun regressionComplexUrlAnalysisUnder100ms() {
         // Warmup
         repeat(WARMUP_ITERATIONS) {
-            COMPLEX_URLS.forEach { phishingEngine.analyze(it) }
+            COMPLEX_URLS.forEach { phishingEngine.analyzeBlocking(it) }
         }
         
         // Measure complex URLs
         COMPLEX_URLS.forEach { url ->
             val latencies = measureLatencies(MEASURE_ITERATIONS) {
-                phishingEngine.analyze(url)
+                phishingEngine.analyzeBlocking(url)
             }
             
             val p99 = percentile(latencies, 99)
@@ -145,13 +145,13 @@ class PerformanceRegressionTest {
     fun regressionBatch10UrlsUnder200ms() {
         // Warmup
         repeat(WARMUP_ITERATIONS) {
-            MIXED_BATCH.forEach { phishingEngine.analyze(it) }
+            MIXED_BATCH.forEach { phishingEngine.analyzeBlocking(it) }
         }
         
         // Measure batch analysis
         val latencies = measureLatencies(MEASURE_ITERATIONS) {
             MIXED_BATCH.forEach { url ->
-                phishingEngine.analyze(url)
+                phishingEngine.analyzeBlocking(url)
             }
         }
         
@@ -299,7 +299,7 @@ class PerformanceRegressionTest {
         
         // Warmup
         repeat(WARMUP_ITERATIONS) {
-            MIXED_BATCH.forEach { phishingEngine.analyze(it) }
+            MIXED_BATCH.forEach { phishingEngine.analyzeBlocking(it) }
         }
         
         // Measure throughput
@@ -309,7 +309,7 @@ class PerformanceRegressionTest {
         
         while (currentTimeMillis() < endTarget) {
             SIMPLE_URLS.forEach { url ->
-                phishingEngine.analyze(url)
+                phishingEngine.analyzeBlocking(url)
                 operationCount++
             }
         }
@@ -333,7 +333,7 @@ class PerformanceRegressionTest {
         // This test catches accumulating internal state
         repeat(1000) { i ->
             val url = MIXED_BATCH[i % MIXED_BATCH.size]
-            phishingEngine.analyze(url)
+            phishingEngine.analyzeBlocking(url)
         }
         
         // If we got here without OOM, we pass

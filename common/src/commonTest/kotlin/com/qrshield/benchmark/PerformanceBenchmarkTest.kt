@@ -88,13 +88,13 @@ class PerformanceBenchmarkTest {
 
         // Warmup
         repeat(WARMUP_ITERATIONS) {
-            TEST_URLS.forEach { url -> engine.analyze(url) }
+            TEST_URLS.forEach { url -> engine.analyzeBlocking(url) }
         }
 
         // Benchmark
         val startTime = currentTimeMillis()
         repeat(ITERATIONS) {
-            TEST_URLS.forEach { url -> engine.analyze(url) }
+            TEST_URLS.forEach { url -> engine.analyzeBlocking(url) }
         }
         val endTime = currentTimeMillis()
 
@@ -283,7 +283,7 @@ class PerformanceBenchmarkTest {
 
         // Warmup
         repeat(WARMUP_ITERATIONS) {
-            TEST_URLS.forEach { url -> engine.analyze(url) }
+            TEST_URLS.forEach { url -> engine.analyzeBlocking(url) }
         }
 
         // Measure throughput
@@ -293,7 +293,7 @@ class PerformanceBenchmarkTest {
 
         while (currentTimeMillis() < endTimeTarget) {
             TEST_URLS.forEach { url ->
-                engine.analyze(url)
+                engine.analyzeBlocking(url)
                 operationCount++
             }
         }

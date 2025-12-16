@@ -174,7 +174,7 @@ class PropertyBasedTests {
         repeat(SAMPLE_SIZE) { i ->
             val url = generateRandomUrl()
             try {
-                val result = phishingEngine.analyze(url)
+                val result = phishingEngine.analyzeBlocking(url)
                 assertNotNull(result, "Analysis result should never be null for URL #$i: $url")
             } catch (e: Exception) {
                 throw AssertionError("PhishingEngine crashed on URL #$i: '$url'", e)
@@ -187,7 +187,7 @@ class PropertyBasedTests {
         repeat(SAMPLE_SIZE) { i ->
             val url = generateSuspiciousUrl()
             try {
-                val result = phishingEngine.analyze(url)
+                val result = phishingEngine.analyzeBlocking(url)
                 assertNotNull(result, "Analysis result should never be null for suspicious URL #$i")
             } catch (e: Exception) {
                 throw AssertionError("PhishingEngine crashed on suspicious URL #$i: '$url'", e)
@@ -200,7 +200,7 @@ class PropertyBasedTests {
         repeat(SAMPLE_SIZE) { i ->
             val url = generateMalformedUrl()
             try {
-                val result = phishingEngine.analyze(url)
+                val result = phishingEngine.analyzeBlocking(url)
                 assertNotNull(result, "Analysis should handle malformed URL #$i gracefully")
             } catch (e: Exception) {
                 throw AssertionError("PhishingEngine crashed on malformed URL #$i: '$url'", e)
@@ -213,7 +213,7 @@ class PropertyBasedTests {
         repeat(SAMPLE_SIZE) { i ->
             val url = generateHomographUrl()
             try {
-                val result = phishingEngine.analyze(url)
+                val result = phishingEngine.analyzeBlocking(url)
                 assertNotNull(result, "Analysis should handle homograph URL #$i")
             } catch (e: Exception) {
                 throw AssertionError("PhishingEngine crashed on homograph URL #$i: '$url'", e)
@@ -229,7 +229,7 @@ class PropertyBasedTests {
     fun propertyRiskScoreAlwaysInValidRange() {
         repeat(SAMPLE_SIZE) { i ->
             val url = generateRandomUrl()
-            val result = phishingEngine.analyze(url)
+            val result = phishingEngine.analyzeBlocking(url)
             
             assertTrue(
                 result.score in 0..100,
@@ -260,8 +260,8 @@ class PropertyBasedTests {
             val safeUrl = "https://www.google.com/search?q=" + generateRandomString(5, 10)
             val suspiciousUrl = generateSuspiciousUrl()
             
-            safeScores.add(phishingEngine.analyze(safeUrl).score)
-            suspiciousScores.add(phishingEngine.analyze(suspiciousUrl).score)
+            safeScores.add(phishingEngine.analyzeBlocking(safeUrl).score)
+            suspiciousScores.add(phishingEngine.analyzeBlocking(suspiciousUrl).score)
         }
         
         val avgSafeScore = safeScores.average()
@@ -455,7 +455,7 @@ class PropertyBasedTests {
     fun propertyVerdictIsConsistentWithScore() {
         repeat(SAMPLE_SIZE) { i ->
             val url = generateRandomUrl()
-            val result = phishingEngine.analyze(url)
+            val result = phishingEngine.analyzeBlocking(url)
             
             // Very high scores should never be SAFE
             if (result.score > 60) {
@@ -508,7 +508,7 @@ class PropertyBasedTests {
         
         edgeCases.forEachIndexed { index, url ->
             try {
-                val result = phishingEngine.analyze(url)
+                val result = phishingEngine.analyzeBlocking(url)
                 assertNotNull(result, "Should handle edge case #$index: '$url'")
             } catch (e: Exception) {
                 throw AssertionError("Engine crashed on edge case #$index: '$url'", e)

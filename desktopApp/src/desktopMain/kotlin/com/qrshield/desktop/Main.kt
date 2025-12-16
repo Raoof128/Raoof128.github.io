@@ -162,7 +162,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
             isAnalyzing = true
 
             try {
-                val assessment = phishingEngine.analyze(normalizedUrl)
+                val assessment = phishingEngine.analyzeBlocking(normalizedUrl)
                 val result = AnalysisResult(
                     url = normalizedUrl,
                     score = assessment.score,

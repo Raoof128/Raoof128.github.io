@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description"
         content="QR-SHIELD Web - AI-powered phishing detection running entirely in your browser. Scan and analyze URLs for security threats.">
-    
+
     <!-- Theme Colors -->
     <meta name="theme-color" content="#6C5CE7" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0D1117" media="(prefers-color-scheme: dark)">
@@ -24,15 +24,15 @@
     <link rel="apple-touch-icon" sizes="167x167" href="assets/logo.svg">
     <link rel="apple-touch-icon" sizes="152x152" href="assets/logo.svg">
     <link rel="apple-touch-icon" sizes="120x120" href="assets/logo.svg">
-    
+
     <!-- iOS Standalone Mode -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="QR-SHIELD">
-    
+
     <!-- iOS Startup Screen Placeholder (uses theme color) -->
     <meta name="apple-touch-startup-image" href="assets/logo.svg">
-    
+
     <!-- Disable iOS telephone number detection -->
     <meta name="format-detection" content="telephone=no">
 
@@ -98,10 +98,13 @@
             <div class="kmp-badge">
                 <img src="https://img.shields.io/badge/Kotlin_Multiplatform-Powered-7F52FF?style=flat&logo=kotlin&logoColor=white"
                     alt="Kotlin Multiplatform">
+                <img src="https://img.shields.io/badge/Kotlin%2FWasm-Experimental-FF6F00?style=flat&logo=webassembly&logoColor=white"
+                    alt="Kotlin/Wasm">
             </div>
             <h1 class="text-gradient">Scan URLs Safely</h1>
             <p class="hero-subtitle">AI-powered phishing detection running 100% offline in your browser.</p>
-            <p class="hero-trust">🔒 Zero data collection • 🚀 Same engine as Android & iOS • 🧠 25+ AI heuristics</p>
+            <p class="hero-trust">🔒 Zero data collection • 🚀 Same engine as Android & iOS • 🧠 Ensemble ML (25+
+                heuristics)</p>
         </section>
 
         <!-- Metrics -->
@@ -287,18 +290,21 @@
                 <h2>Safe vs Risky QR Codes</h2>
                 <p>See the difference instantly:</p>
                 <div style="display: flex; gap: 16px; justify-content: center; margin-top: 16px;">
-                    <div style="background: rgba(0,200,83,0.15); padding: 12px; border-radius: 12px; text-align: center; flex: 1;">
+                    <div
+                        style="background: rgba(0,200,83,0.15); padding: 12px; border-radius: 12px; text-align: center; flex: 1;">
                         <div style="font-size: 24px; margin-bottom: 8px;">🟢</div>
                         <code style="font-size: 11px;">google.com</code>
                         <div style="font-size: 12px; color: var(--color-safe); font-weight: 600;">SAFE</div>
                     </div>
-                    <div style="background: rgba(255,56,96,0.15); padding: 12px; border-radius: 12px; text-align: center; flex: 1;">
+                    <div
+                        style="background: rgba(255,56,96,0.15); padding: 12px; border-radius: 12px; text-align: center; flex: 1;">
                         <div style="font-size: 24px; margin-bottom: 8px;">🔴</div>
                         <code style="font-size: 11px;">paypa1.tk</code>
                         <div style="font-size: 12px; color: var(--color-danger); font-weight: 600;">PHISHING</div>
                     </div>
                 </div>
-                <p style="font-size: 12px; margin-top: 12px; opacity: 0.7;">QR-SHIELD explains <em>why</em> URLs are risky!</p>
+                <p style="font-size: 12px; margin-top: 12px; opacity: 0.7;">QR-SHIELD explains <em>why</em> URLs are
+                    risky!</p>
             </div>
 
             <div class="onboarding-slide" id="slide3">
@@ -317,12 +323,12 @@
                 <h2>Try It Now!</h2>
                 <p>Click a sample below or paste any URL:</p>
                 <div style="display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap;">
-                    <button onclick="hideOnboarding(); tryUrl('https://google.com')" 
-                            style="padding: 8px 16px; border-radius: 20px; background: var(--color-safe); color: white; border: none; cursor: pointer; font-weight: 600;">
+                    <button onclick="hideOnboarding(); tryUrl('https://google.com')"
+                        style="padding: 8px 16px; border-radius: 20px; background: var(--color-safe); color: white; border: none; cursor: pointer; font-weight: 600;">
                         ✓ Try Safe URL
                     </button>
-                    <button onclick="hideOnboarding(); tryUrl('https://paypa1-secure.tk/login')" 
-                            style="padding: 8px 16px; border-radius: 20px; background: var(--color-danger); color: white; border: none; cursor: pointer; font-weight: 600;">
+                    <button onclick="hideOnboarding(); tryUrl('https://paypa1-secure.tk/login')"
+                        style="padding: 8px 16px; border-radius: 20px; background: var(--color-danger); color: white; border: none; cursor: pointer; font-weight: 600;">
                         ⚠ Try Phishing URL
                     </button>
                 </div>

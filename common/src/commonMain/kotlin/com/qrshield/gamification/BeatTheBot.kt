@@ -147,8 +147,8 @@ class BeatTheBot(
             return ChallengeResult.Invalid("URL too long (max 2048 characters)")
         }
         
-        // Analyze URL
-        val result = engine.analyze(url)
+        // Analyze URL (use blocking variant for game logic simplicity)
+        val result = engine.analyzeBlocking(url)
         val isDetected = result.verdict == Verdict.MALICIOUS || result.verdict == Verdict.SUSPICIOUS
         
         // Determine outcome

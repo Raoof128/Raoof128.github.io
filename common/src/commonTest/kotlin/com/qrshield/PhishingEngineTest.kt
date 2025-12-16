@@ -38,7 +38,7 @@ class PhishingEngineTest {
 
     @Test
     fun `safe URL returns low risk score`() {
-        val result = engine.analyze("https://www.google.com")
+        val result = engine.analyzeBlocking("https://www.google.com")
 
         assertTrue(result.score <= 30, "Expected safe score <= 30, got ${result.score}")
         assertEquals(Verdict.SAFE, result.verdict)
@@ -46,8 +46,8 @@ class PhishingEngineTest {
 
     @Test
     fun `HTTP URL adds risk points`() {
-        val httpResult = engine.analyze("http://example.com")
-        val httpsResult = engine.analyze("https://example.com")
+        val httpResult = engine.analyzeBlocking("http://example.com")
+        val httpsResult = engine.analyzeBlocking("https://example.com")
 
         assertTrue(
             httpResult.score > httpsResult.score,
@@ -57,14 +57,14 @@ class PhishingEngineTest {
 
     @Test
     fun `IP address host flagged as suspicious`() {
-        val result = engine.analyze("http://192.168.1.1/login")
+        val result = engine.analyzeBlocking("http://192.168.1.1/login")
 
         assertTrue(result.score >= 20, "IP host should increase risk score significantly")
     }
 
     @Test
     fun `combined score calculated correctly`() {
-        val result = engine.analyze("http://192.168.1.1:8080/login.php?password=test")
+        val result = engine.analyzeBlocking("http://192.168.1.1:8080/login.php?password=test")
 
         // Should have multiple risk factors
         assertTrue(result.score >= 40, "Multiple risk factors should produce high score")
@@ -74,10 +74,10 @@ class PhishingEngineTest {
     @Test
     fun `verdict thresholds are correct`() {
         // These are synthetic URLs to test threshold boundaries
-        val safeResult = engine.analyze("https://www.github.com")
+        val safeResult = engine.analyzeBlocking("https://www.github.com")
         assertEquals(Verdict.SAFE, safeResult.verdict, "Score ${safeResult.score} should be SAFE")
 
-        val maliciousResult = engine.analyze("http://paypa1-secure.tk/login?password=steal")
+        val maliciousResult = engine.analyzeBlocking("http://paypa1-secure.tk/login?password=steal")
         assertTrue(
             maliciousResult.verdict == Verdict.MALICIOUS || maliciousResult.verdict == Verdict.SUSPICIOUS,
             "Obvious phishing should be flagged as risky"

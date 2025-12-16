@@ -52,7 +52,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T1 typosquatting paypa1 detected as PayPal impersonation`() {
-        val result = engine.analyze("http://paypa1-secure.tk/login")
+        val result = engine.analyzeBlocking("http://paypa1-secure.tk/login")
         assertTrue(
             result.verdict == Verdict.MALICIOUS || result.verdict == Verdict.SUSPICIOUS,
             "Typosquat 'paypa1' should be flagged"
@@ -65,7 +65,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T1 typosquatting amaz0n detected as Amazon impersonation`() {
-        val result = engine.analyze("http://amaz0n-verify.ml/account")
+        val result = engine.analyzeBlocking("http://amaz0n-verify.ml/account")
         assertTrue(
             result.verdict == Verdict.MALICIOUS || result.verdict == Verdict.SUSPICIOUS,
             "Typosquat 'amaz0n' should be flagged"
@@ -74,7 +74,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T1 typosquatting g00gle detected as Google impersonation`() {
-        val result = engine.analyze("http://g00gle-security.tk/verify")
+        val result = engine.analyzeBlocking("http://g00gle-security.tk/verify")
         assertTrue(
             result.score >= 40,
             "Typosquat 'g00gle' should have elevated score"
@@ -106,7 +106,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T2 mixed script homograph has high risk score`() {
-        val result = engine.analyze("https://gооgle.com")  // Cyrillic o
+        val result = engine.analyzeBlocking("https://gооgle.com")  // Cyrillic o
         // Homograph detection should contribute to risk, though score may vary
         // The key is that it's detected, not that it reaches a specific threshold
         assertTrue(
@@ -122,7 +122,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T3 free TLD tk flagged as high risk`() {
-        val result = engine.analyze("http://legitimate-looking.tk/page")
+        val result = engine.analyzeBlocking("http://legitimate-looking.tk/page")
         assertTrue(
             result.flags.any { it.contains("TLD", ignoreCase = true) || it.contains("tk", ignoreCase = true) },
             "Should flag .tk TLD"
@@ -131,13 +131,13 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T3 free TLD ml flagged as high risk`() {
-        val result = engine.analyze("http://secure-site.ml/login")
+        val result = engine.analyzeBlocking("http://secure-site.ml/login")
         assertTrue(result.score >= 20, ".ml TLD should contribute to risk score")
     }
 
     @Test
     fun `THREAT T3 legitimate TLDs have low base risk`() {
-        val result = engine.analyze("https://example.com")
+        val result = engine.analyzeBlocking("https://example.com")
         assertTrue(result.score < 30, ".com should have low risk")
     }
 
@@ -148,7 +148,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T4 raw IP address flagged`() {
-        val result = engine.analyze("http://192.168.1.1/login")
+        val result = engine.analyzeBlocking("http://192.168.1.1/login")
         assertTrue(
             result.flags.any { it.contains("IP", ignoreCase = true) },
             "Should flag IP address host"
@@ -233,7 +233,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T7 login path flagged`() {
-        val result = engine.analyze("http://random.tk/login")
+        val result = engine.analyzeBlocking("http://random.tk/login")
         assertTrue(
             result.flags.any { 
                 it.contains("login", ignoreCase = true) || 
@@ -246,7 +246,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T7 verify account path flagged`() {
-        val result = engine.analyze("http://suspicious.ml/verify-account/update")
+        val result = engine.analyzeBlocking("http://suspicious.ml/verify-account/update")
         assertTrue(
             result.score >= 30,
             "Credential harvesting path should elevate score"
@@ -260,7 +260,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T8 bit ly shortener flagged`() {
-        val result = engine.analyze("https://bit.ly/secure-login")
+        val result = engine.analyzeBlocking("https://bit.ly/secure-login")
         assertTrue(
             result.flags.any { it.contains("shortener", ignoreCase = true) } || result.score >= 20,
             "Should flag URL shortener"
@@ -269,7 +269,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T8 tinyurl shortener flagged`() {
-        val result = engine.analyze("https://tinyurl.com/verify-account")
+        val result = engine.analyzeBlocking("https://tinyurl.com/verify-account")
         assertTrue(
             result.score >= 15,
             "URL shortener should contribute to risk"
@@ -284,7 +284,7 @@ class ThreatModelVerificationTest {
     @Test
     fun `THREAT T9 at symbol injection detected`() {
         // This URL appears to go to paypal.com but actually goes to evil.tk
-        val result = engine.analyze("http://paypal.com@evil.tk/login")
+        val result = engine.analyzeBlocking("http://paypal.com@evil.tk/login")
         assertTrue(
             result.verdict == Verdict.MALICIOUS || result.verdict == Verdict.SUSPICIOUS,
             "@ symbol injection should be flagged as dangerous"
@@ -308,7 +308,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T10 punycode in full URL detected`() {
-        val result = engine.analyze("https://xn--pple-43d.com/store")
+        val result = engine.analyzeBlocking("https://xn--pple-43d.com/store")
         assertTrue(
             result.score >= 20,
             "Punycode domain should elevate risk"
@@ -322,7 +322,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T11 excessive subdomains flagged`() {
-        val result = engine.analyze("http://secure.login.verify.account.update.evil.tk/signin")
+        val result = engine.analyzeBlocking("http://secure.login.verify.account.update.evil.tk/signin")
         assertTrue(
             result.flags.any { it.contains("subdomain", ignoreCase = true) } || result.score >= 30,
             "Excessive subdomains should be flagged"
@@ -336,7 +336,7 @@ class ThreatModelVerificationTest {
 
     @Test
     fun `THREAT T12 HTTP login page flagged`() {
-        val result = engine.analyze("http://banking.example.com/login")
+        val result = engine.analyzeBlocking("http://banking.example.com/login")
         assertTrue(
             result.flags.any { 
                 it.contains("HTTP", ignoreCase = true) || 

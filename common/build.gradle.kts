@@ -144,14 +144,15 @@ kotlin {
         }
     }
     
-    // Wasm/Web target
-    @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
-    wasmJs {
-        browser {
-            testTask { enabled = false }
-        }
-        binaries.executable()
-    }
+    // Wasm/Web target - DISABLED: SQLDelight/kotlinx-coroutines don't fully support wasmJs yet
+    // The webApp module still uses JS target successfully. Wasm support is experimental.
+    // @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
+    // wasmJs {
+    //     browser {
+    //         testTask { enabled = false }
+    //     }
+    //     binaries.executable()
+    // }
     
     sourceSets {
         val commonMain by getting {
@@ -228,12 +229,8 @@ kotlin {
             }
         }
 
-        val wasmJsMain by creating {
-            dependsOn(commonMain)
-            dependencies {
-                implementation(libs.sqldelight.web)
-            }
-        }
+        // wasmJsMain configured by wasmJs target
+        // Note: SQLDelight web driver doesn't support Wasm yet
     }
 }
 

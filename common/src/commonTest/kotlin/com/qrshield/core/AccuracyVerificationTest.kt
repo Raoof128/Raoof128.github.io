@@ -150,7 +150,7 @@ class AccuracyVerificationTest {
 
         // Test phishing URLs (expecting MALICIOUS or SUSPICIOUS)
         knownPhishingUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             if (result.verdict == Verdict.MALICIOUS || result.verdict == Verdict.SUSPICIOUS) {
                 tp++
             } else {
@@ -160,7 +160,7 @@ class AccuracyVerificationTest {
 
         // Test legitimate URLs (expecting SAFE)
         knownLegitimateUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             if (result.verdict == Verdict.SAFE) {
                 tn++
             } else {
@@ -255,12 +255,12 @@ class AccuracyVerificationTest {
     @Test
     fun `VERIFY results are deterministic across runs`() {
         val firstRun = knownPhishingUrls.map { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             url to result.score
         }
 
         val secondRun = knownPhishingUrls.map { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             url to result.score
         }
 

@@ -61,7 +61,7 @@ class PropertyBasedTest {
         )
 
         testUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             assertTrue(
                 result.score in 0..100,
                 "Score ${result.score} out of bounds for URL: $url"
@@ -82,7 +82,7 @@ class PropertyBasedTest {
                 paths.forEach { path ->
                     queries.forEach { query ->
                         val url = "$proto$host$path$query"
-                        val result = engine.analyze(url)
+                        val result = engine.analyzeBlocking(url)
                         assertTrue(
                             result.score in 0..100,
                             "Score ${result.score} out of bounds for: $url"
@@ -104,7 +104,7 @@ class PropertyBasedTest {
         )
 
         testUrls.forEach { url ->
-            val results = (1..10).map { engine.analyze(url) }
+            val results = (1..10).map { engine.analyzeBlocking(url) }
             val expectedScore = results.first().score
             val expectedVerdict = results.first().verdict
 
@@ -125,8 +125,8 @@ class PropertyBasedTest {
     fun `INVARIANT analysis is idempotent (analyzing twice gives same result)`() {
         val url = "https://suspicious-looking-domain.tk/verify-account"
 
-        val first = engine.analyze(url)
-        val second = engine.analyze(url)
+        val first = engine.analyzeBlocking(url)
+        val second = engine.analyzeBlocking(url)
 
         assertEquals(first.score, second.score, "Idempotence violated for score")
         assertEquals(first.verdict, second.verdict, "Idempotence violated for verdict")
@@ -158,7 +158,7 @@ class PropertyBasedTest {
         )
 
         testUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             val expectedVerdict = when {
                 result.score < 30 -> Verdict.SAFE
                 result.score < 70 -> Verdict.SUSPICIOUS
@@ -221,7 +221,7 @@ class PropertyBasedTest {
     @Test
     fun `INVARIANT adding suspicious elements never decreases score`() {
         val baseUrl = "https://example.com"
-        val baseScore = engine.analyze(baseUrl).score
+        val baseScore = engine.analyzeBlocking(baseUrl).score
 
         val suspiciousVariants = listOf(
             "http://example.com",  // HTTP instead of HTTPS
@@ -231,7 +231,7 @@ class PropertyBasedTest {
         )
 
         suspiciousVariants.forEach { variant ->
-            val variantScore = engine.analyze(variant).score
+            val variantScore = engine.analyzeBlocking(variant).score
             // Score should not decrease significantly (allow small numerical variance)
             assertTrue(
                 variantScore >= baseScore - 5,
@@ -251,7 +251,7 @@ class PropertyBasedTest {
         )
 
         testUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             assertTrue(
                 result.confidence in 0.0f..1.0f,
                 "Confidence ${result.confidence} out of bounds for: $url"
@@ -270,7 +270,7 @@ class PropertyBasedTest {
         )
 
         testUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             val details = result.details
 
             assertTrue(
@@ -304,7 +304,7 @@ class PropertyBasedTest {
         )
 
         testUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             assertTrue(
                 result.flags != null,
                 "Flags should never be null for: $url"
@@ -321,7 +321,7 @@ class PropertyBasedTest {
         )
 
         highScoreUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             if (result.score >= 50) {
                 assertTrue(
                     result.flags.isNotEmpty(),

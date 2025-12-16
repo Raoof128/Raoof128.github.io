@@ -15,13 +15,13 @@ class EnergyProxyBenchmark {
         
         // Warmup (to simulate steady state, JIT compilation)
         repeat(warmUpIterations) {
-            engine.analyze(url)
+            engine.analyzeBlocking(url)
         }
         
         // Measurement
         val totalTimeNs = measureNanoTime {
             repeat(measuredIterations) {
-                engine.analyze(url)
+                engine.analyzeBlocking(url)
             }
         }
         

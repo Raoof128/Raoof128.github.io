@@ -547,6 +547,54 @@ This is a **deliberate architectural choice**, not a limitation:
 
 **The shared code ratio remains ~80%** because the detection engine (the complex part) is written once in Kotlin.
 
+#### 🆕 Hybrid Compose UI Integration (v1.5.0)
+
+**NEW:** We now provide a **hybrid approach** for shared UI components via Compose Multiplatform:
+
+```kotlin
+// commonMain: SharedResultCard.kt - Built once in Compose
+@Composable
+fun SharedResultCard(
+    assessment: RiskAssessment,
+    onDismiss: () -> Unit = {},
+    onShare: () -> Unit = {}
+)
+```
+
+```kotlin
+// iosMain: SharedResultCardViewController.kt - UIViewController wrapper
+fun SharedResultCardViewController(
+    assessment: RiskAssessment,
+    onDismiss: () -> Unit,
+    onShare: () -> Unit
+): UIViewController = ComposeUIViewController {
+    SharedResultCard(assessment, onDismiss, onShare)
+}
+```
+
+```swift
+// SwiftUI integration via UIViewControllerRepresentable
+struct SharedResultCardView: UIViewControllerRepresentable {
+    let assessment: RiskAssessment
+    
+    func makeUIViewController(context: Context) -> UIViewController {
+        return SharedResultCardViewControllerKt.SharedResultCardViewController(
+            assessment: assessment,
+            onDismiss: { },
+            onShare: { }
+        )
+    }
+}
+```
+
+**Hybrid Strategy:**
+| Component Type | Framework | Rationale |
+|----------------|-----------|-----------|
+| Camera Scanner | SwiftUI + AVFoundation | Native performance required |
+| Navigation | SwiftUI | iOS conventions |
+| Result Card | Compose Multiplatform | Shared across all platforms |
+| Beat the Bot Game | Compose Multiplatform | Complex animations shared |
+
 ### 🔄 Platform Parity Proof
 
 > **[Full documentation →](docs/PLATFORM_PARITY.md)**

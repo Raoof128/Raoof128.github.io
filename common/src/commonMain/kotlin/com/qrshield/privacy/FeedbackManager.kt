@@ -99,9 +99,10 @@ class FeedbackManager(
         // Check rate limiting
         if (sessionReportCount >= maxReportsPerSession) {
             val budgetUsed = analytics.calculatePrivacyBudgetUsed(sessionReportCount)
+            val formattedBudget = (kotlin.math.round(budgetUsed * 100) / 100).toString()
             return FeedbackResult.RateLimited(
                 "Privacy budget exhausted. $sessionReportCount reports this session. " +
-                "Total ε used: ${String.format("%.2f", budgetUsed)}"
+                "Total ε used: $formattedBudget"
             )
         }
         

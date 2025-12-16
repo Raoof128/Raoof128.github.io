@@ -136,7 +136,7 @@ class CrossPlatformConsistencyTest {
     @Test
     fun `all canonical URLs produce scores within expected range`() {
         canonicalTestCases.forEach { testCase ->
-            val result = engine.analyze(testCase.url)
+            val result = engine.analyzeBlocking(testCase.url)
 
             assertTrue(
                 result.score >= testCase.minScore && result.score <= testCase.maxScore,
@@ -152,7 +152,7 @@ class CrossPlatformConsistencyTest {
         canonicalTestCases
             .filter { it.expectedVerdict != null }
             .forEach { testCase ->
-                val result = engine.analyze(testCase.url)
+                val result = engine.analyzeBlocking(testCase.url)
 
                 assertEquals(
                     testCase.expectedVerdict,
@@ -167,7 +167,7 @@ class CrossPlatformConsistencyTest {
     fun `identical URLs produce identical scores across multiple calls`() {
         val testUrl = "https://paypa1-secure.tk/login"
 
-        val scores = (1..10).map { engine.analyze(testUrl).score }
+        val scores = (1..10).map { engine.analyzeBlocking(testUrl).score }
 
         // All scores must be identical
         val uniqueScores = scores.distinct()
@@ -182,7 +182,7 @@ class CrossPlatformConsistencyTest {
     fun `identical URLs produce identical verdicts across multiple calls`() {
         val testUrl = "https://google.com@evil-site.tk/login"
 
-        val verdicts = (1..10).map { engine.analyze(testUrl).verdict }
+        val verdicts = (1..10).map { engine.analyzeBlocking(testUrl).verdict }
 
         // All verdicts must be identical
         val uniqueVerdicts = verdicts.distinct()
@@ -197,7 +197,7 @@ class CrossPlatformConsistencyTest {
     fun `identical URLs produce identical flag counts across multiple calls`() {
         val testUrl = "http://192.168.1.100:8080/paypal/login"
 
-        val flagCounts = (1..10).map { engine.analyze(testUrl).flags.size }
+        val flagCounts = (1..10).map { engine.analyzeBlocking(testUrl).flags.size }
 
         // All flag counts must be identical
         val uniqueCounts = flagCounts.distinct()
@@ -217,8 +217,8 @@ class CrossPlatformConsistencyTest {
         val safeUrl = "https://google.com"
         val suspiciousUrl = "https://secure-login.xyz/account"
 
-        val safeResult = engine.analyze(safeUrl)
-        val suspiciousResult = engine.analyze(suspiciousUrl)
+        val safeResult = engine.analyzeBlocking(safeUrl)
+        val suspiciousResult = engine.analyzeBlocking(suspiciousUrl)
 
         assertTrue(
             safeResult.score < suspiciousResult.score,
@@ -235,8 +235,8 @@ class CrossPlatformConsistencyTest {
         // URL with many risk factors
         val higherRiskUrl = "http://google.com@evil-site.tk/login" // @ symbol + TLD + HTTP + login
 
-        val lowerResult = engine.analyze(lowerRiskUrl)
-        val higherResult = engine.analyze(higherRiskUrl)
+        val lowerResult = engine.analyzeBlocking(lowerRiskUrl)
+        val higherResult = engine.analyzeBlocking(higherRiskUrl)
 
         assertTrue(
             lowerResult.score < higherResult.score,
@@ -253,8 +253,8 @@ class CrossPlatformConsistencyTest {
         // URL with multiple risk factors
         val multipleRisks = "http://paypa1-secure.tk/login" // HTTP + brand + TLD + login
 
-        val singleResult = engine.analyze(singleRisk)
-        val multipleResult = engine.analyze(multipleRisks)
+        val singleResult = engine.analyzeBlocking(singleRisk)
+        val multipleResult = engine.analyzeBlocking(multipleRisks)
 
         assertTrue(
             singleResult.score < multipleResult.score,
@@ -282,7 +282,7 @@ class CrossPlatformConsistencyTest {
         )
 
         extremeUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             assertTrue(
                 result.score in 0..100,
                 "URL '$url' produced out-of-range score: ${result.score}"
@@ -293,7 +293,7 @@ class CrossPlatformConsistencyTest {
     @Test
     fun `verdict is never null`() {
         canonicalTestCases.forEach { testCase ->
-            val result = engine.analyze(testCase.url)
+            val result = engine.analyzeBlocking(testCase.url)
             assertTrue(
                 result.verdict in listOf(Verdict.SAFE, Verdict.SUSPICIOUS, Verdict.MALICIOUS),
                 "URL '${testCase.url}' produced invalid verdict: ${result.verdict}"
@@ -311,7 +311,7 @@ class CrossPlatformConsistencyTest {
         // If this fingerprint differs between platforms, there's a consistency bug
 
         val fingerprint = canonicalTestCases.map { testCase ->
-            val result = engine.analyze(testCase.url)
+            val result = engine.analyzeBlocking(testCase.url)
             "${testCase.url}|${result.verdict}|${result.score in testCase.minScore..testCase.maxScore}"
         }.joinToString("\n")
 

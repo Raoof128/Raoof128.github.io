@@ -42,6 +42,8 @@ import com.qrshield.model.RiskAssessment
 import com.qrshield.model.UrlAnalysisResult
 import com.qrshield.model.Verdict
 import com.qrshield.security.InputValidator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * QR-SHIELD Phishing Engine
@@ -132,8 +134,30 @@ class PhishingEngine(
      *
      * @param url The URL extracted from a QR code
      * @return Complete risk assessment with score, verdict, and details
+     *
+     * Note: This is a suspend function to ensure ML inference runs on a background
+     * dispatcher, preventing UI jank on mobile devices.
      */
-    fun analyze(url: String): RiskAssessment {
+    suspend fun analyze(url: String): RiskAssessment = withContext(Dispatchers.Default) {
+        analyzeInternal(url)
+    }
+
+    /**
+     * Synchronous analysis for backward compatibility and tests.
+     *
+     * Use this in non-coroutine contexts (JS, games, benchmarks).
+     * On JVM/Native, prefer [analyze] in production code for non-blocking behavior.
+     *
+     * @param url The URL to analyze
+     * @return Complete risk assessment
+     */
+    fun analyzeBlocking(url: String): RiskAssessment = analyzeInternal(url)
+
+    /**
+     * Core synchronous analysis logic.
+     * All actual analysis happens here synchronously.
+     */
+    private fun analyzeInternal(url: String): RiskAssessment {
         // PHASE 1: Input Validation
         val validationResult = InputValidator.validateUrl(url)
         if (!validationResult.isValid()) {
@@ -154,7 +178,7 @@ class PhishingEngine(
         }
 
         // PHASE 3: Run all analysis engines safely
-        val analysisResult = runCatching {
+        return runCatching {
             performAnalysis(validatedUrl)
         }.getOrElse { _ ->
             // SECURITY: Don't expose internal exceptions
@@ -166,8 +190,6 @@ class PhishingEngine(
                 confidence = 0.3f
             )
         }
-
-        return analysisResult
     }
 
     /**

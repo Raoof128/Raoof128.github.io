@@ -54,7 +54,7 @@ fun main() {
         window.setTimeout({
             try {
                 // Run analysis using SHARED KMP PhishingEngine
-                val assessment = engine.analyze(url)
+                val assessment = engine.analyzeBlocking(url)
 
                 console.log("✅ Analysis complete: Score=${assessment.score}, Verdict=${assessment.verdict}")
 

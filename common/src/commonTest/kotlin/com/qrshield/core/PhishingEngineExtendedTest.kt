@@ -34,44 +34,44 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `google com is safe`() {
-        val result = engine.analyze("https://google.com")
+        val result = engine.analyzeBlocking("https://google.com")
         assertEquals(Verdict.SAFE, result.verdict)
         assertTrue(result.score <= 30)
     }
 
     @Test
     fun `microsoft com is safe`() {
-        val result = engine.analyze("https://microsoft.com")
+        val result = engine.analyzeBlocking("https://microsoft.com")
         assertEquals(Verdict.SAFE, result.verdict)
     }
 
     @Test
     fun `apple com is safe`() {
-        val result = engine.analyze("https://apple.com")
+        val result = engine.analyzeBlocking("https://apple.com")
         assertEquals(Verdict.SAFE, result.verdict)
     }
 
     @Test
     fun `amazon com is safe`() {
-        val result = engine.analyze("https://amazon.com")
+        val result = engine.analyzeBlocking("https://amazon.com")
         assertEquals(Verdict.SAFE, result.verdict)
     }
 
     @Test
     fun `github com is safe`() {
-        val result = engine.analyze("https://github.com")
+        val result = engine.analyzeBlocking("https://github.com")
         assertEquals(Verdict.SAFE, result.verdict)
     }
 
     @Test
     fun `wikipedia org is safe`() {
-        val result = engine.analyze("https://wikipedia.org")
+        val result = engine.analyzeBlocking("https://wikipedia.org")
         assertEquals(Verdict.SAFE, result.verdict)
     }
 
     @Test
     fun `linkedin com is safe`() {
-        val result = engine.analyze("https://linkedin.com")
+        val result = engine.analyzeBlocking("https://linkedin.com")
         assertEquals(Verdict.SAFE, result.verdict)
     }
 
@@ -79,26 +79,26 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `http url is at least suspicious`() {
-        val result = engine.analyze("http://example.com")
+        val result = engine.analyzeBlocking("http://example.com")
         assertTrue(result.score > 0)
     }
 
     @Test
     fun `ip address url is suspicious`() {
-        val result = engine.analyze("http://192.168.1.1")
+        val result = engine.analyzeBlocking("http://192.168.1.1")
         assertTrue(result.flags.any { it.contains("IP", ignoreCase = true) })
     }
 
     @Test
     fun `shortener url is flagged`() {
-        val result = engine.analyze("https://bit.ly/abc123")
+        val result = engine.analyzeBlocking("https://bit.ly/abc123")
         assertTrue(result.score > 0)
     }
 
     @Test
     fun `high risk tld increases score`() {
-        val safeResult = engine.analyze("https://example.com")
-        val riskyResult = engine.analyze("https://example.tk")
+        val safeResult = engine.analyzeBlocking("https://example.com")
+        val riskyResult = engine.analyzeBlocking("https://example.tk")
         assertTrue(riskyResult.score > safeResult.score)
     }
 
@@ -106,37 +106,37 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `paypal typosquat is flagged`() {
-        val result = engine.analyze("https://paypa1.com/login")
+        val result = engine.analyzeBlocking("https://paypa1.com/login")
         assertTrue(result.score > 10, "Score was ${result.score}")
     }
 
     @Test
     fun `google typosquat is flagged`() {
-        val result = engine.analyze("https://g00gle.com")  // Use actual typosquat from database
+        val result = engine.analyzeBlocking("https://g00gle.com")  // Use actual typosquat from database
         assertTrue(result.score > 10, "Score was ${result.score}")
     }
 
     @Test
     fun `microsoft typosquat is flagged`() {
-        val result = engine.analyze("https://rnicrosoft.com")  // Use actual typosquat: rn looks like m
+        val result = engine.analyzeBlocking("https://rnicrosoft.com")  // Use actual typosquat: rn looks like m
         assertTrue(result.score > 10, "Score was ${result.score}")
     }
 
     @Test
     fun `apple typosquat is flagged`() {
-        val result = engine.analyze("https://app1e.com")
+        val result = engine.analyzeBlocking("https://app1e.com")
         assertTrue(result.score > 10)
     }
 
     @Test
     fun `amazon typosquat is flagged`() {
-        val result = engine.analyze("https://amaz0n.com")
+        val result = engine.analyzeBlocking("https://amaz0n.com")
         assertTrue(result.score > 10)
     }
 
     @Test
     fun `facebook typosquat is flagged`() {
-        val result = engine.analyze("https://faceb00k.com")
+        val result = engine.analyzeBlocking("https://faceb00k.com")
         assertTrue(result.score > 10)
     }
 
@@ -144,31 +144,31 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `login path keyword detected`() {
-        val result = engine.analyze("https://example.com/login")
+        val result = engine.analyzeBlocking("https://example.com/login")
         assertTrue(result.score >= 0)
     }
 
     @Test
     fun `signin path keyword detected`() {
-        val result = engine.analyze("https://example.com/signin")
+        val result = engine.analyzeBlocking("https://example.com/signin")
         assertTrue(result.score >= 0)
     }
 
     @Test
     fun `verify path keyword detected`() {
-        val result = engine.analyze("https://example.com/verify")
+        val result = engine.analyzeBlocking("https://example.com/verify")
         assertTrue(result.score >= 0)
     }
 
     @Test
     fun `account path keyword detected`() {
-        val result = engine.analyze("https://example.com/account")
+        val result = engine.analyzeBlocking("https://example.com/account")
         assertTrue(result.score >= 0)
     }
 
     @Test
     fun `security path keyword detected`() {
-        val result = engine.analyze("https://example.com/security")
+        val result = engine.analyzeBlocking("https://example.com/security")
         assertTrue(result.score >= 0)
     }
 
@@ -176,13 +176,13 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `password query param flagged`() {
-        val result = engine.analyze("https://example.com?password=test")
+        val result = engine.analyzeBlocking("https://example.com?password=test")
         assertTrue(result.score > 0)
     }
 
     @Test
     fun `token query param flagged`() {
-        val result = engine.analyze("https://example.com?token=abc123")
+        val result = engine.analyzeBlocking("https://example.com?token=abc123")
         assertTrue(result.flags.any { it.contains("credential", ignoreCase = true) || it.contains("param", ignoreCase = true) } || result.score > 0)
     }
 
@@ -190,7 +190,7 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `many subdomains increases score`() {
-        val result = engine.analyze("https://secure.login.account.verify.bank.example.com")
+        val result = engine.analyzeBlocking("https://secure.login.account.verify.bank.example.com")
         assertTrue(result.score > 0)
     }
 
@@ -198,7 +198,7 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `url with all components analyzed`() {
-        val result = engine.analyze("https://user:pass@example.com:8080/path?query=1#fragment")
+        val result = engine.analyzeBlocking("https://user:pass@example.com:8080/path?query=1#fragment")
         assertNotNull(result)
         assertTrue(result.score >= 0)
     }
@@ -206,7 +206,7 @@ class PhishingEngineExtendedTest {
     @Test
     fun `very long url handled`() {
         val longPath = "a".repeat(500)
-        val result = engine.analyze("https://example.com/$longPath")
+        val result = engine.analyzeBlocking("https://example.com/$longPath")
         assertNotNull(result)
     }
 
@@ -214,31 +214,31 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `result has score`() {
-        val result = engine.analyze("https://google.com")
+        val result = engine.analyzeBlocking("https://google.com")
         assertTrue(result.score in 0..100)
     }
 
     @Test
     fun `result has verdict`() {
-        val result = engine.analyze("https://google.com")
+        val result = engine.analyzeBlocking("https://google.com")
         assertNotNull(result.verdict)
     }
 
     @Test
     fun `result has flags list`() {
-        val result = engine.analyze("https://google.com")
+        val result = engine.analyzeBlocking("https://google.com")
         assertNotNull(result.flags)
     }
 
     @Test
     fun `result has details`() {
-        val result = engine.analyze("https://google.com")
+        val result = engine.analyzeBlocking("https://google.com")
         assertNotNull(result.details)
     }
 
     @Test
     fun `result has confidence`() {
-        val result = engine.analyze("https://google.com")
+        val result = engine.analyzeBlocking("https://google.com")
         assertTrue(result.confidence in 0f..1f)
     }
 
@@ -246,19 +246,19 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `empty url handled`() {
-        val result = engine.analyze("")
+        val result = engine.analyzeBlocking("")
         assertNotNull(result)
     }
 
     @Test
     fun `null-like url handled`() {
-        val result = engine.analyze("null")
+        val result = engine.analyzeBlocking("null")
         assertNotNull(result)
     }
 
     @Test
     fun `javascript url handled`() {
-        val result = engine.analyze("javascript:alert(1)")
+        val result = engine.analyzeBlocking("javascript:alert(1)")
         assertNotNull(result)
         // May or may not have score > 0 depending on detection
         assertTrue(result.score >= 0)
@@ -266,19 +266,19 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `data url handled`() {
-        val result = engine.analyze("data:text/html,<script>alert(1)</script>")
+        val result = engine.analyzeBlocking("data:text/html,<script>alert(1)</script>")
         assertNotNull(result)
     }
 
     @Test
     fun `file url handled`() {
-        val result = engine.analyze("file:///etc/passwd")
+        val result = engine.analyzeBlocking("file:///etc/passwd")
         assertNotNull(result)
     }
 
     @Test
     fun `ftp url handled`() {
-        val result = engine.analyze("ftp://example.com/file")
+        val result = engine.analyzeBlocking("ftp://example.com/file")
         assertNotNull(result)
     }
 
@@ -286,16 +286,16 @@ class PhishingEngineExtendedTest {
 
     @Test
     fun `same url produces same score`() {
-        val result1 = engine.analyze("https://google.com")
-        val result2 = engine.analyze("https://google.com")
+        val result1 = engine.analyzeBlocking("https://google.com")
+        val result2 = engine.analyzeBlocking("https://google.com")
         assertEquals(result1.score, result2.score)
         assertEquals(result1.verdict, result2.verdict)
     }
 
     @Test
     fun `case insensitive domain scoring`() {
-        val lower = engine.analyze("https://google.com")
-        val upper = engine.analyze("https://GOOGLE.COM")
+        val lower = engine.analyzeBlocking("https://google.com")
+        val upper = engine.analyzeBlocking("https://GOOGLE.COM")
         // Should produce similar results
         assertTrue(kotlin.math.abs(lower.score - upper.score) <= 5)
     }

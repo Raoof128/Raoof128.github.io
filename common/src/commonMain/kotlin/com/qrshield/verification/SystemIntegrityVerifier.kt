@@ -105,7 +105,7 @@ class SystemIntegrityVerifier(
         val failedCases = mutableListOf<FailedCase>()
 
         for (testCase in testCases) {
-            val result = engine.analyze(testCase.url)
+            val result = engine.analyzeBlocking(testCase.url)
             val predictedMalicious = result.verdict == Verdict.MALICIOUS || 
                                      result.verdict == Verdict.SUSPICIOUS
             

@@ -34,7 +34,7 @@ class IntegrationTest {
     @Test
     fun testFullPipelineSafeUrl() {
         val engine = PhishingEngine()
-        val result = engine.analyze("https://google.com")
+        val result = engine.analyzeBlocking("https://google.com")
 
         assertNotNull(result)
         assertTrue(result.score < 30, "Google.com should be safe, got ${result.score}")
@@ -44,7 +44,7 @@ class IntegrationTest {
     @Test
     fun testFullPipelineMaliciousUrl() {
         val engine = PhishingEngine()
-        val result = engine.analyze("https://paypa1-secure.tk/login/verify")
+        val result = engine.analyzeBlocking("https://paypa1-secure.tk/login/verify")
 
         assertNotNull(result)
         assertTrue(result.score >= 30, "Phishing URL should be flagged, got ${result.score}")
@@ -68,7 +68,7 @@ class IntegrationTest {
         )
 
         phishingUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             assertTrue(
                 result.score > 0,
                 "Bank phishing URL '$url' should be flagged (was ${result.score})"
@@ -87,7 +87,7 @@ class IntegrationTest {
         )
 
         safeUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             assertTrue(
                 result.verdict == Verdict.SAFE,
                 "Legitimate URL '$url' should be safe (verdict: ${result.verdict})"
@@ -105,7 +105,7 @@ class IntegrationTest {
             "https://bank-secure.ml/verify"
         )
 
-        val results = urls.map { engine.analyze(it) }
+        val results = urls.map { engine.analyzeBlocking(it) }
 
         assertEquals(4, results.size, "All analyses should complete")
         results.forEach { result ->

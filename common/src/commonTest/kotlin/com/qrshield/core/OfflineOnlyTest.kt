@@ -90,7 +90,7 @@ class OfflineOnlyTest {
         val startTime = System.currentTimeMillis()
 
         testUrls.forEach { url ->
-            val result = engine.analyze(url)
+            val result = engine.analyzeBlocking(url)
             assertNotNull(result, "Result should not be null for: $url")
             assertTrue(result.score in 0..100, "Score out of bounds for: $url")
         }
@@ -208,7 +208,7 @@ class OfflineOnlyTest {
         val url = "http://paypal-secure.tk/verify-account/login"
 
         // Analyze same URL 100 times
-        val results = (1..100).map { engine.analyze(url) }
+        val results = (1..100).map { engine.analyzeBlocking(url) }
 
         val firstScore = results.first().score
         val firstVerdict = results.first().verdict
@@ -234,13 +234,13 @@ class OfflineOnlyTest {
         val url = "http://suspicious-domain.tk/phishing/login"
 
         // Warm up
-        repeat(10) { engine.analyze(url) }
+        repeat(10) { engine.analyzeBlocking(url) }
 
         // Measure
         val times = mutableListOf<Long>()
         repeat(50) {
             val start = System.currentTimeMillis()
-            engine.analyze(url)
+            engine.analyzeBlocking(url)
             times.add(System.currentTimeMillis() - start)
         }
 
