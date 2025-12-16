@@ -35,6 +35,7 @@ package com.qrshield.core
 import com.qrshield.engine.BrandDetector
 import com.qrshield.engine.HeuristicsEngine
 import com.qrshield.engine.TldScorer
+import com.qrshield.ml.EnsembleModel
 import com.qrshield.ml.FeatureExtractor
 import com.qrshield.ml.LogisticRegressionModel
 import com.qrshield.model.RiskAssessment
@@ -93,7 +94,9 @@ class PhishingEngine(
     private val brandDetector: BrandDetector = BrandDetector(),
     private val tldScorer: TldScorer = TldScorer(),
     private val mlModel: LogisticRegressionModel = LogisticRegressionModel.default(),
-    private val featureExtractor: FeatureExtractor = FeatureExtractor()
+    private val ensembleModel: EnsembleModel = EnsembleModel.default(),
+    private val featureExtractor: FeatureExtractor = FeatureExtractor(),
+    private val useEnsemble: Boolean = true
 ) {
 
     companion object {
@@ -180,9 +183,16 @@ class PhishingEngine(
         // Run TLD scoring
         val tldResult = tldScorer.score(url)
 
-        // Extract features and run ML model
+        // Extract features and run ML model (ensemble or basic)
         val features = featureExtractor.extract(url)
-        val mlScore = mlModel.predict(features).coerceIn(0f, 1f)
+        val mlScore = if (useEnsemble) {
+            // Use advanced ensemble model for more sophisticated scoring
+            val ensemblePrediction = ensembleModel.predict(features)
+            ensemblePrediction.probability
+        } else {
+            // Fallback to basic logistic regression
+            mlModel.predict(features)
+        }.coerceIn(0f, 1f)
 
         // Calculate combined score
         val combinedScore = calculateCombinedScore(

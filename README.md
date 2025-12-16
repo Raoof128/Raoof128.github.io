@@ -29,7 +29,7 @@
 | **Works Without Internet** | ✅ Yes | ❌ No | ❌ No |
 | **Brand Impersonation Detection** | ✅ 500+ brands | ⚠️ Limited | ⚠️ Limited |
 | **Kotlin Multiplatform** | ✅ Yes | ❌ No | ❌ No |
-| **Custom ML Model** | ✅ On-device logistic regression | ❌ Cloud ML | ❌ Cloud ML |
+| **Custom ML Model** | ✅ On-device ensemble (LR + Boosting + Rules) | ❌ Cloud ML | ❌ Cloud ML |
 
 > 🔒 **The Privacy Advantage:** When you scan a QR code with QR-SHIELD, the URL *never leaves your device*. With Google Lens or Kaspersky, every URL you scan is sent to their servers — forever logged, potentially shared, and definitely not private.
 
@@ -198,18 +198,49 @@ cd qrshield
 
 *Measured on validation set of 877 URLs. [Full methodology →](docs/ML_MODEL.md) | [Test Dataset (100 URLs) →](data/test_urls.csv)*
 
+### 🧠 Ensemble ML Architecture
+
+> **Beyond basic classification:** QR-SHIELD uses an ensemble of three model types for robust, explainable predictions.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    ENSEMBLE PREDICTION                          │
+├─────────────────────────────────────────────────────────────────┤
+│   ┌───────────────┐   ┌───────────────┐   ┌───────────────┐    │
+│   │   Logistic    │   │   Gradient    │   │   Decision    │    │
+│   │  Regression   │   │   Boosting    │   │   Stump       │    │
+│   │   (Linear)    │   │  (Non-linear) │   │  (Rule-based) │    │
+│   └───────┬───────┘   └───────┬───────┘   └───────┬───────┘    │
+│           │ 40%               │ 35%               │ 25%        │
+│           └───────────────────┴───────────────────┘             │
+│                    Weighted Average Combiner                    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+| Model | Strength | Use Case |
+|-------|----------|----------|
+| **Logistic Regression** | Fast, interpretable | Linear feature relationships |
+| **Gradient Boosting** | Captures non-linear patterns | Complex attack signatures |
+| **Decision Stumps** | Explicit rules | Known attack patterns (@ symbol, IP hosts) |
+
+**Why Ensemble?**
+- **Robustness**: Different models catch different patterns
+- **Reduced Variance**: Averaging reduces individual model errors  
+- **Explainability**: Each component provides different perspectives
+- **Model Agreement**: Low variance between models = high confidence
+
 ### Badges
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white)
 ![KMP](https://img.shields.io/badge/KMP-Enabled-7F52FF?logo=kotlin&logoColor=white)
-![Maven Central](https://img.shields.io/badge/Maven_Central-1.3.0-C71A36?logo=apachemaven&logoColor=white)
+![Maven Central](https://img.shields.io/badge/Maven_Central-1.4.0-C71A36?logo=apachemaven&logoColor=white)
 ![GitHub Packages](https://img.shields.io/badge/GitHub_Packages-Available-181717?logo=github&logoColor=white)
 ![Android](https://img.shields.io/badge/Android-3DDC84?logo=android&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)
 ![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?logo=openjdk&logoColor=white)
 ![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
-![Version](https://img.shields.io/badge/v1.3.0-green)
+![Version](https://img.shields.io/badge/v1.4.0-green)
 ![Tests](https://img.shields.io/badge/Tests-1000+_Passed-brightgreen?logo=checkmarx&logoColor=white)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 ![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
@@ -227,7 +258,7 @@ cd qrshield
 ```kotlin
 // build.gradle.kts (KMP commonMain)
 dependencies {
-    implementation("com.qrshield:core:1.3.0")
+    implementation("com.qrshield:core:1.4.0")
 }
 ```
 
@@ -315,10 +346,10 @@ val customEngine = PhishingEngine(weightsConfig = weights)
 
 | Platform | Additional Setup |
 |----------|------------------|
-| **Android** | `implementation("com.qrshield:core-android:1.3.0")` — includes ML Kit bridge |
+| **Android** | `implementation("com.qrshield:core-android:1.4.0")` — includes ML Kit bridge |
 | **iOS** | Add `common.framework` from KMP build |
-| **Desktop** | `implementation("com.qrshield:core-jvm:1.3.0")` — includes ZXing |
-| **Web** | `implementation("com.qrshield:core-js:1.3.0")` — Kotlin/JS module |
+| **Desktop** | `implementation("com.qrshield:core-jvm:1.4.0")` — includes ZXing |
+| **Web** | `implementation("com.qrshield:core-js:1.4.0")` — Kotlin/JS module |
 
 ### Publish Your Own Fork
 

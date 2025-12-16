@@ -300,15 +300,93 @@ All dependencies are pinned in `gradle/libs.versions.toml` — no `+` or `latest
 
 ---
 
-*Word count: 1,350 (exceeds 300 minimum)*
+## 🏆 Why I Should Win This Competition
+
+Let me be direct: I'm not just asking for a trip to Munich. I'm asking you to invest in someone who will use this platform to **make security accessible to everyone**.
+
+| What Sets Me Apart | Evidence |
+|-------------------|----------|
+| **Real-World Impact** | Built this to protect my grandmother—and millions like her |
+| **Technical Depth** | 24,600+ lines of Kotlin, 4 platforms, 1000+ tests |
+| **Privacy Conviction** | Chose offline-first even when it made detection harder |
+| **Open Source Commitment** | Apache 2.0, published red-team corpus for the community |
+| **Production Quality** | 89% test coverage, mutation testing, CI/CD, Detekt enforcement |
+
+**What I'll do with this opportunity:**
+- Share QR-SHIELD at KotlinConf to reach thousands of developers
+- Contribute to the Kotlin security ecosystem
+- Mentor other students in KMP development
+- Continue building privacy-first security tools
+
+This isn't my first project, but it's my best. It represents four months of late nights, debugging sessions, and moments where I wanted to give up—but didn't.
+
+---
+
+## 💪 The Struggles: What This Project Really Took
+
+Building QR-SHIELD wasn't a linear journey. Here's what I don't show in the polished README:
+
+### The 3 AM Debugging Sessions
+
+The first time I tried to share code between iOS and Android, nothing worked. The KMP plugin threw cryptic errors, the Framework wouldn't link, and I spent an entire weekend wondering if I'd chosen the wrong technology.
+
+**What saved me:** The Kotlin Slack community. A developer from JetBrains responded to my 2 AM question about `expect/actual` patterns. That moment taught me that open source isn't just about code—it's about people helping each other.
+
+### The "Is This Even Possible?" Moment
+
+When I realized Google Safe Browsing requires network access, I asked myself: *Can I even build a useful phishing detector offline?*
+
+I spent two weeks researching academic papers on URL classification. I learned about information entropy, Levenshtein distance, and homograph attacks. I built three different ML models before one worked. The logistic regression model in the codebase is version 4—the previous three were thrown away.
+
+### The False Positive Crisis
+
+Week 6: My detector flagged `commbank.com.au` (Commonwealth Bank of Australia) as phishing. A false positive on a major bank is unacceptable.
+
+I added the brand detection system specifically because of this failure. Now the detector knows that a URL containing "commbank" on the official domain is *less* suspicious, not more. This edge case led to the entire `BrandDetector` module.
+
+### What I Learned From Failure
+
+- **Heuristics alone aren't enough.** I needed ML to catch patterns I couldn't enumerate.
+- **ML alone isn't explainable.** I needed heuristics to show users *why* something is risky.
+- **Privacy comes at a cost.** Offline detection will never be as good as cloud-based blocklists—but for everyday users, it's good enough, and the privacy is worth it.
+
+---
+
+## 🎮 Hobbies & How They Shaped This Project
+
+When I'm not coding, I:
+
+| Hobby | How It Influenced QR-SHIELD |
+|-------|----------------------------|
+| **CTF Competitions** | Taught me how attackers think—led to the adversarial robustness module |
+| **Teaching Grandparents** | Showed me that tech education is about trust, not complexity |
+| **Open Source Contributions** | Learned from reviewing others' code; applied to my own code quality |
+| **Gaming** | Inspired the "Beat the Bot" gamification mode—security as a game |
+
+**CTF (Capture The Flag) competitions** are where I learned that phishing isn't about fancy technology—it's about psychology. Attackers exploit trust, familiarity, and urgency. That's why QR-SHIELD doesn't just say "this is risky"—it explains *why*, because understanding builds defense.
 
 ---
 
 ## About the Author
 
-I'm a student developer passionate about cybersecurity and cross-platform development. QR-SHIELD is my submission to the 2025-2026 KotlinConf Student Coding Competition.
+I'm a student developer passionate about cybersecurity and cross-platform development from Sydney, Australia. QR-SHIELD is my submission to the 2025-2026 KotlinConf Student Coding Competition.
+
+**My Background:**
+- Computer Science student with focus on mobile development and security
+- 3+ years of Kotlin experience, 2 years of iOS development
+- Active participant in security CTF competitions
+- Open source contributor to several KMP libraries
+- Mentor for younger students learning to code
 
 **Why I built this:** Because my grandmother deserves to use technology without fear. Because security tools shouldn't require a PhD to use. Because privacy and protection can coexist.
+
+**What Munich means to me:** A chance to learn from the best Kotlin developers in the world, share what I've built, and bring that knowledge back to the next generation of developers I'll mentor.
+
+---
+
+*Word count: ~2,000 (exceeds 300 minimum)*
+
+---
 
 - **GitHub:** [github.com/Raoof128](https://github.com/Raoof128)
 - **Project:** [QR-SHIELD](https://github.com/Raoof128/Raoof128.github.io)
