@@ -44,6 +44,12 @@ class AccuracyVerificationTest {
 
     private val engine = PhishingEngine()
 
+    /** Multiplatform-compatible percent formatting */
+    private fun formatPercent(value: Double): String {
+        val percent = (value * 100 * 10).toInt() / 10.0
+        return percent.toString()
+    }
+
     // ==================== Committed Test Dataset ====================
 
     /**
@@ -235,10 +241,10 @@ class AccuracyVerificationTest {
             |║  └─────────────┴─────────────┴─────────────┘                ║
             |╠══════════════════════════════════════════════════════════════╣
             |║  METRICS:                                                   ║
-            |║  • Precision: ${String.format("%.1f", metrics.precision * 100)}%                                          ║
-            |║  • Recall:    ${String.format("%.1f", metrics.recall * 100)}%                                          ║
-            |║  • F1 Score:  ${String.format("%.1f", metrics.f1Score * 100)}%                                          ║
-            |║  • Accuracy:  ${String.format("%.1f", metrics.accuracy * 100)}%                                          ║
+            |║  • Precision: ${formatPercent(metrics.precision)}%                                          ║
+            |║  • Recall:    ${formatPercent(metrics.recall)}%                                          ║
+            |║  • F1 Score:  ${formatPercent(metrics.f1Score)}%                                          ║
+            |║  • Accuracy:  ${formatPercent(metrics.accuracy)}%                                          ║
             |╚══════════════════════════════════════════════════════════════╝
             |
         """.trimMargin())

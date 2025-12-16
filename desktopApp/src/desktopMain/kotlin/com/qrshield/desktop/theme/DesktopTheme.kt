@@ -96,6 +96,19 @@ object DesktopColors {
 
     val AccentBlue = Color(0xFF58A6FF)            // Link Blue
     val AccentPurple = Color(0xFFD2A8FF)          // Highlight Purple
+
+    // ========================================
+    // BEAT THE BOT GAME MODE COLORS
+    // ========================================
+
+    /** Cyberpunk Cyan - Primary game color */
+    val GameCyan = Color(0xFF22D3EE)
+
+    /** Cyberpunk Green - Secondary game color */
+    val GameGreen = Color(0xFF4ADE80)
+
+    /** Dark Navy - Game background */
+    val GameDarkNavy = Color(0xFF0F172A)
 }
 
 /**

@@ -20,6 +20,8 @@ import com.qrshield.model.Verdict
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import kotlin.time.measureTime
+import kotlin.time.TimeSource
 
 /**
  * Offline-Only Verification Test
@@ -49,6 +51,13 @@ import kotlin.test.assertTrue
 class OfflineOnlyTest {
 
     private val engine = PhishingEngine()
+    private val timeSource = TimeSource.Monotonic
+
+    /** Multiplatform-compatible percent formatting */
+    private fun formatDouble(value: Double, decimals: Int = 1): String {
+        val multiplier = if (decimals == 1) 10.0 else if (decimals == 2) 100.0 else 1.0
+        return ((value * multiplier).toInt() / multiplier).toString()
+    }
 
     // ==================== Offline Analysis Verification ====================
 
@@ -87,7 +96,7 @@ class OfflineOnlyTest {
             "https://"
         )
 
-        val startTime = System.currentTimeMillis()
+        val mark = timeSource.markNow()
 
         testUrls.forEach { url ->
             val result = engine.analyzeBlocking(url)
@@ -95,7 +104,7 @@ class OfflineOnlyTest {
             assertTrue(result.score in 0..100, "Score out of bounds for: $url")
         }
 
-        val elapsed = System.currentTimeMillis() - startTime
+        val elapsed = mark.elapsedNow().inWholeMilliseconds
 
         println("""
             |
@@ -185,7 +194,7 @@ class OfflineOnlyTest {
 
         assertTrue(score in 0.0f..1.0f, "ML score should be between 0 and 1")
 
-        println("✅ ML Model: Prediction score = ${String.format("%.2f", score)}")
+        println("✅ ML Model: Prediction score = ${formatDouble(score.toDouble(), 2)}")
     }
 
     @Test
@@ -239,9 +248,9 @@ class OfflineOnlyTest {
         // Measure
         val times = mutableListOf<Long>()
         repeat(50) {
-            val start = System.currentTimeMillis()
+            val mark = timeSource.markNow()
             engine.analyzeBlocking(url)
-            times.add(System.currentTimeMillis() - start)
+            times.add(mark.elapsedNow().inWholeMilliseconds)
         }
 
         val avgTime = times.average()
@@ -251,7 +260,7 @@ class OfflineOnlyTest {
         println("""
             |
             |📊 TIMING ANALYSIS (50 iterations)
-            |   Average: ${String.format("%.1f", avgTime)}ms
+            |   Average: ${formatDouble(avgTime)}ms
             |   Min: ${minTime}ms
             |   Max: ${maxTime}ms
             |   

@@ -221,14 +221,14 @@ fun BeatTheBotButton(
     Surface(
         onClick = onClick,
         shape = RoundedCornerShape(12.dp),
-        color = if (isOpen) Color(0xFF22D3EE).copy(alpha = 0.15f)
-               else Color(0xFF0F172A).copy(alpha = 0.8f),
+        color = if (isOpen) DesktopColors.GameCyan.copy(alpha = 0.15f)
+               else DesktopColors.GameDarkNavy.copy(alpha = 0.8f),
         border = BorderStroke(
             2.dp,
             Brush.horizontalGradient(
                 colors = listOf(
-                    Color(0xFF22D3EE), // Cyan
-                    Color(0xFF4ADE80)  // Green
+                    DesktopColors.GameCyan,
+                    DesktopColors.GameGreen
                 )
             )
         )
@@ -244,18 +244,18 @@ fun BeatTheBotButton(
                     text = "Beat the Bot",
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF22D3EE)
+                    color = DesktopColors.GameCyan
                 )
                 Text(
                     text = "Challenge our AI!",
                     style = MaterialTheme.typography.labelSmall,
-                    color = Color(0xFF4ADE80)
+                    color = DesktopColors.GameGreen
                 )
             }
             if (isOpen) {
-                Text(text = "▲", color = Color(0xFF22D3EE), fontSize = 12.sp)
+                Text(text = "▲", color = DesktopColors.GameCyan, fontSize = 12.sp)
             } else {
-                Text(text = "▶", color = Color(0xFF22D3EE), fontSize = 12.sp)
+                Text(text = "▶", color = DesktopColors.GameCyan, fontSize = 12.sp)
             }
         }
     }

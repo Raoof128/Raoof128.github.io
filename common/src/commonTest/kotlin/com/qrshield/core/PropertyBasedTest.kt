@@ -96,7 +96,7 @@ class PropertyBasedTest {
     // ==================== Determinism Invariants ====================
 
     @Test
-    fun `INVARIANT same URL always produces same score (determinism)`() {
+    fun `INVARIANT same URL always produces same score - determinism`() {
         val testUrls = listOf(
             "https://google.com",
             "http://paypal-secure.tk/login",
@@ -122,7 +122,7 @@ class PropertyBasedTest {
     }
 
     @Test
-    fun `INVARIANT analysis is idempotent (analyzing twice gives same result)`() {
+    fun `INVARIANT analysis is idempotent - analyzing twice gives same result`() {
         val url = "https://suspicious-looking-domain.tk/verify-account"
 
         val first = engine.analyzeBlocking(url)
@@ -180,7 +180,7 @@ class PropertyBasedTest {
     // ==================== Normalization Stability Invariants ====================
 
     @Test
-    fun `INVARIANT URL normalization is stable (normalize twice equals once)`() {
+    fun `INVARIANT URL normalization is stable - normalize twice equals once`() {
         val testUrls = listOf(
             "https://exаmple.com",  // Has Cyrillic 'а'
             "https://example%2ecom/path%20here",

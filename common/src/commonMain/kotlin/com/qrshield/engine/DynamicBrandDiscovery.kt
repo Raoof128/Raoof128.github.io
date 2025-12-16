@@ -63,6 +63,28 @@ import com.qrshield.core.SecurityConstants
  */
 object DynamicBrandDiscovery {
 
+    // === CONSTANTS ===
+
+    /** Minimum length for a subdomain to be considered brand-like. */
+    private const val MIN_BRAND_SUBDOMAIN_LENGTH = 4
+
+    /** Maximum length for a subdomain to be considered brand-like. */
+    private const val MAX_BRAND_SUBDOMAIN_LENGTH = 15
+
+    /** Minimum subdomain depth to trigger impersonation structure detection. */
+    private const val MIN_SUBDOMAIN_DEPTH = 2
+
+    /** Minimum hyphens to trigger excessive hyphen warning. */
+    private const val EXCESSIVE_HYPHEN_THRESHOLD = 3
+
+    /** Common subdomains that should not be flagged as brand-like. */
+    private val COMMON_SUBDOMAINS = setOf(
+        "www", "mail", "blog", "shop", "app", "api", "cdn", "dev", "staging",
+        "beta", "test", "admin", "portal", "login", "auth", "secure", "m", "mobile"
+    )
+
+    // === WORD LISTS ===
+
     /**
      * Trust-related keywords often abused in phishing domains.
      * These create false sense of security.
@@ -136,7 +158,7 @@ object DynamicBrandDiscovery {
     ): DiscoveryResult {
         val actualHost = host ?: extractHost(url) ?: return DiscoveryResult(0, emptyList())
         val actualSubdomains = subdomains ?: extractSubdomains(actualHost)
-        
+
         val findings = mutableListOf<Finding>()
         var suggestedBrand: String? = null
 
@@ -241,20 +263,22 @@ object DynamicBrandDiscovery {
 
         for (subdomain in subdomains) {
             val lower = subdomain.lowercase()
-            
-            // Pattern: subdomain looks like a brand (capitalized word, 4-15 chars)
-            if (lower.length in 4..15 && lower.all { it.isLetter() }) {
-                // Could be impersonating an unknown brand
-                if (lower !in setOf("www", "mail", "blog", "shop", "app", "api", "cdn", "dev", "staging")) {
-                    detectedBrand = subdomain.replaceFirstChar { it.uppercase() }
-                    findings.add(
-                        Finding(
-                            type = FindingType.BRAND_LIKE_SUBDOMAIN,
-                            description = "Subdomain '$subdomain' may impersonate brand '$detectedBrand'",
-                            severity = 6
-                        )
+
+            // Pattern: subdomain looks like a brand (capitalized word, MIN..MAX chars)
+            // Also exclude common non-brand subdomains
+            val isValidLength = lower.length in MIN_BRAND_SUBDOMAIN_LENGTH..MAX_BRAND_SUBDOMAIN_LENGTH
+            val isAllLetters = lower.all { it.isLetter() }
+            val isNotCommonSubdomain = lower !in COMMON_SUBDOMAINS
+
+            if (isValidLength && isAllLetters && isNotCommonSubdomain) {
+                detectedBrand = subdomain.replaceFirstChar { it.uppercase() }
+                findings.add(
+                    Finding(
+                        type = FindingType.BRAND_LIKE_SUBDOMAIN,
+                        description = "Subdomain '$subdomain' may impersonate brand '$detectedBrand'",
+                        severity = 6
                     )
-                }
+                )
             }
         }
 
@@ -275,7 +299,7 @@ object DynamicBrandDiscovery {
                     severity = 15
                 )
             )
-        } else if (hyphenCount >= 3) {
+        } else if (hyphenCount >= EXCESSIVE_HYPHEN_THRESHOLD) {
             findings.add(
                 Finding(
                     type = FindingType.SUSPICIOUS_HYPHEN_PATTERN,
@@ -288,12 +312,13 @@ object DynamicBrandDiscovery {
         return findings
     }
 
+    @Suppress("UnusedParameter") // host kept for future TLD validation
     private fun checkImpersonationStructure(host: String, subdomains: List<String>): List<Finding> {
         val findings = mutableListOf<Finding>()
 
         // Pattern: legitimate-looking subdomain on suspicious TLD
         // e.g., google.security-check.tk
-        if (subdomains.size >= 2) {
+        if (subdomains.size >= MIN_SUBDOMAIN_DEPTH) {
             val deepestSubdomain = subdomains.last()
             if (deepestSubdomain.length >= 4 && deepestSubdomain.all { it.isLetter() }) {
                 findings.add(
