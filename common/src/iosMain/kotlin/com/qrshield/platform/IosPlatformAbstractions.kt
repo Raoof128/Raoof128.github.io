@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+
 package com.qrshield.platform
 
 import platform.Foundation.NSDate
@@ -23,13 +25,13 @@ import platform.Foundation.NSLog
 import platform.Foundation.NSProcessInfo
 import platform.Foundation.NSURL
 import platform.Foundation.NSUUID
-import platform.Foundation.UIPasteboard
 import platform.Foundation.timeIntervalSince1970
 import platform.UIKit.UIApplication
 import platform.UIKit.UIImpactFeedbackGenerator
 import platform.UIKit.UIImpactFeedbackStyle
 import platform.UIKit.UINotificationFeedbackGenerator
 import platform.UIKit.UINotificationFeedbackType
+import platform.UIKit.UIPasteboard
 import platform.Security.SecRandomCopyBytes
 import platform.Security.kSecRandomDefault
 import kotlinx.cinterop.addressOf
@@ -166,7 +168,11 @@ actual object PlatformTime {
     }
 
     actual fun formatTimestamp(millis: Long): String {
-        val date = NSDate(timeIntervalSince1970 = millis / 1000.0)
+        // NSDate uses timeIntervalSinceReferenceDate (seconds since Jan 1, 2001)
+        // Convert from Unix epoch (1970) to Apple Reference Date (2001)
+        val unixEpochToAppleRef = 978307200.0 // seconds between 1970 and 2001
+        val secondsSince1970 = millis / 1000.0
+        val date = NSDate(timeIntervalSinceReferenceDate = secondsSince1970 - unixEpochToAppleRef)
         return dateFormatter.stringFromDate(date) ?: ""
     }
 

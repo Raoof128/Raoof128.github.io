@@ -123,6 +123,13 @@ private fun analyzeInternal(url: String): RiskAssessment { ... }
 - **Fixed duplicate `wasmJsMain`** source set declarations in build.gradle.kts
 - **Disabled wasmJs target** - SQLDelight/kotlinx-coroutines don't support it yet
 
+#### iOS Platform Fixes
+
+- **Added `@file:OptIn(ExperimentalForeignApi::class)`** to `IosPlatformAbstractions.kt`
+- **Moved `UIPasteboard` import** from `platform.Foundation` to `platform.UIKit`
+- **Fixed `NSDate` creation** - Using `NSDate(timeIntervalSinceReferenceDate)` with epoch conversion
+- **Added `@file:OptIn(ExperimentalNativeApi::class)`** to `Platform.ios.kt`
+
 #### Tests
 
 - Updated all PhishingEngine test callers to use `analyzeBlocking()`

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:OptIn(kotlin.experimental.ExperimentalNativeApi::class)
+
 package com.qrshield.platform
 
 import platform.UIKit.UIDevice
