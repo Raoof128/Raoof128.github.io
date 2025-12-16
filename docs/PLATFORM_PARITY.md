@@ -76,8 +76,10 @@ Platform parity means:
 | `HeuristicsEngine.kt` | commonMain | 25+ rules — **SINGLE SOURCE** |
 | `BrandDetector.kt` | commonMain | 500+ brands — **SINGLE SOURCE** |
 | `TldScorer.kt` | commonMain | TLD risk db — **SINGLE SOURCE** |
-| `LogisticRegressionModel.kt` | commonMain | ML inference — **SINGLE SOURCE** |
+| `EnsembleModel.kt` | commonMain | Ensemble ML (LR + GB + Rules) — **SINGLE SOURCE** |
+| `LogisticRegressionModel.kt` | commonMain | Linear ML — **SINGLE SOURCE** |
 | `FeatureExtractor.kt` | commonMain | Feature extraction — **SINGLE SOURCE** |
+| `SecurityConstants.kt` | commonMain | Centralized thresholds — **SINGLE SOURCE** |
 
 ### 2. Novelty Features (100% Shared)
 
@@ -265,5 +267,5 @@ Legend: ✅ = Full implementation | ⚙️ = Platform limitation (documented fal
 
 ---
 
-*Last Updated: 2025-12-15*
-*Version: 1.2.0*
+*Last Updated: 2025-12-17*
+*Version: 1.6.1*

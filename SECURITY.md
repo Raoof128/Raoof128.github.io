@@ -55,8 +55,9 @@ If you discover a security vulnerability in QR-SHIELD, please report it responsi
 
 | Version | Status | Support |
 |---------|--------|---------|
-| 1.1.x | ✅ Current | Active security updates |
-| 1.0.x | ✅ Stable | Security patches only |
+| 1.6.x | ✅ Current | Active security updates |
+| 1.5.x | ✅ Stable | Security patches only |
+| 1.0.x-1.4.x | ⚠️ Legacy | Critical patches only |
 | < 1.0 | ❌ Pre-release | Not supported |
 
 We recommend always using the latest version for the best security.

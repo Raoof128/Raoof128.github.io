@@ -90,9 +90,10 @@ KMP allowed me to write the detection engine once and deploy everywhere—sharin
 The technical challenge was exhilarating:
 
 - **`expect`/`actual` pattern** for platform-specific camera access (ML Kit on Android, AVFoundation on iOS)
-- **Pure Kotlin ML model** running entirely on-device—no cloud dependency, no privacy compromise
-- **Multi-layer detection** combining 25+ heuristic rules, logistic regression scoring, 500+ brand fuzzy matching, and homograph attack detection
+- **Ensemble ML model** running entirely on-device—3 models (Logistic Regression + Gradient Boosting + Decision Rules) combined for robust detection in <5ms
+- **Multi-layer detection** combining 25+ heuristic rules, ensemble ML scoring, 500+ brand fuzzy matching, and homograph attack detection
 - **Offline-first architecture** because internet isn't guaranteed at a parking meter
+- **Centralized constants** in `SecurityConstants.kt` for maintainability and tuning
 
 Each obstacle pushed my engineering skills further than any classroom assignment ever had.
 

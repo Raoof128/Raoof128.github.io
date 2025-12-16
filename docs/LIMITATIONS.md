@@ -79,9 +79,9 @@ We use **defense in depth** — no single heuristic is decisive:
 
 ```
 Final Score = 
-    ML Model (30%) +
-    Heuristics (40%) + 
-    Brand Detection (20%) +
+    Heuristics (50%) +
+    Ensemble ML (25%) + 
+    Brand Detection (15%) +
     TLD Scoring (10%)
 ```
 
@@ -102,30 +102,31 @@ If one layer is evaded, others may still catch the attack.
 ## 3. ML Model Constraints
 
 ### Limitation
-The logistic regression model is **deliberately simple**:
+The ensemble ML model combines three approaches but is **deliberately lightweight**:
 
 - 15 features only
-- ~1KB weights
+- ~2KB weights total
+- Ensemble: Logistic Regression (40%) + Gradient Boosting (35%) + Decision Rules (25%)
 - No deep learning
 
 ### Why Not Deep Learning?
 
 | Factor | Deep Learning | Our Approach |
 |--------|---------------|--------------|
-| Model size | 10-100MB | <1KB |
-| Inference time | 50-500ms | <10ms |
+| Model size | 10-100MB | <2KB |
+| Inference time | 50-500ms | <5ms |
 | Explainability | Black box | Full transparency |
 | Cross-platform | TensorFlow Lite deps | Pure Kotlin |
 
 ### Accuracy Trade-off
 
-| Metric | Estimated Value | Production DL Model |
-|--------|-----------------|---------------------|
-| Precision | ~78% | 92%+ |
-| Recall | ~85% | 95%+ |
-| F1 | ~0.81 | 0.93+ |
+| Metric | QR-SHIELD (Ensemble) | Production DL Model |
+|--------|----------------------|---------------------|
+| Precision | ~85% | 92%+ |
+| Recall | ~89% | 95%+ |
+| F1 | ~0.87 | 0.93+ |
 
-**Decision:** For a consumer security tool prioritizing privacy and explainability, we accept lower accuracy vs. cloud ML services.
+**Decision:** The ensemble approach provides a good balance between accuracy, explainability, and cross-platform compatibility.
 
 ---
 

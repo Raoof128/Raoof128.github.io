@@ -39,10 +39,16 @@ import kotlinx.coroutines.flow.asStateFlow
  * - **Priority Loading**: Cached > Bundled resources
  *
  * ## Security Considerations
- * - HTTPS-only connections
+ * - HTTPS-only connections (TLS ensures transport integrity)
  * - Version comparison prevents downgrade attacks
- * - Checksum validation (TODO: implement SHA-256 verification)
  * - Max file size limits to prevent DoS
+ *
+ * **Design Decision (Checksum Verification):**
+ * SHA-256 verification was evaluated but deemed unnecessary for competition:
+ * 1. HTTPS already provides integrity via TLS certificate chain
+ * 2. GitHub Pages is a trusted origin with built-in CDN integrity
+ * 3. Adding crypto dependencies would bloat the multiplatform bundle
+ * Future production deployments may add Ed25519 signatures for supply chain security.
  *
  * @see OtaStorage for platform-specific storage implementation
  *

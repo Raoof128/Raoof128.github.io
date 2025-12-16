@@ -27,7 +27,7 @@ We welcome contributions of all kinds—bug reports, feature requests, documenta
 | JDK | 17+ | Build toolchain |
 | Android Studio | Hedgehog (2023.1.1) | Android development |
 | Xcode | 15+ | iOS development |
-| Kotlin | 1.9.22+ | Language |
+| Kotlin | 2.0.21+ | Language |
 | Gradle | 8.0+ | Build system |
 
 ### Setting Up Development Environment

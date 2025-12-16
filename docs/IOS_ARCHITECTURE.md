@@ -93,13 +93,33 @@ class ScannerViewModel: ObservableObject {
 
 | Module | Purpose | Lines |
 |--------|---------|-------|
-| `PhishingEngine` | Main analysis orchestrator | 350 |
+| `PhishingEngine` | Main analysis orchestrator (suspend/blocking API) | 400 |
 | `HeuristicsEngine` | 25+ security checks | 450 |
 | `BrandDetector` | Brand impersonation | 500 |
-| `LogisticRegressionModel` | ML scoring | 400 |
+| `EnsembleModel` | 3-model ML ensemble | 380 |
+| `LogisticRegressionModel` | Linear ML scoring | 400 |
 | `TldScorer` | TLD risk assessment | 150 |
 | `FeatureExtractor` | URL feature extraction | 300 |
-| **Total Shared** | **Business Logic** | **~4,700 LOC** |
+| `SharedResultCard` (Compose) | Compose MP result card (can embed in SwiftUI!) | 200 |
+| `SharedTextGenerator` | Centralized verdict text | 300 |
+| **Total Shared** | **Business Logic + UI Components** | **~5,500 LOC** |
+
+### Hybrid Approach (v1.6.0+)
+
+We now support embedding Compose MP components in SwiftUI via `SharedResultCardViewController`:
+
+```swift
+// iOS SwiftUI embedding Compose MP component
+struct ComposeResultView: UIViewControllerRepresentable {
+    let assessment: RiskAssessment
+    
+    func makeUIViewController(context: Context) -> UIViewController {
+        return SharedResultCardViewController(assessment: assessment)
+    }
+}
+```
+
+This gives us the **best of both worlds**: native SwiftUI where needed, shared Compose components for complex visualizations.
 
 ---
 

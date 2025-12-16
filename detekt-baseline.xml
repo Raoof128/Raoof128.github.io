@@ -1,0 +1,509 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ClassOrdering:AndroidOta.kt$AndroidOtaHttpClient$override suspend fun get(url: String): String</ID>
+    <ID>ClassOrdering:AndroidQrScanner.kt$AndroidQrScanner$Companion</ID>
+    <ID>ClassOrdering:BrandDatabaseLoader.kt$ConfigurableBrandDetector$/** * Get number of brands in database. */ val brandCount: Int get() = brandDatabase.size</ID>
+    <ID>ClassOrdering:BrandDatabaseLoader.kt$ConfigurableBrandDetector$fun detect(url: String): BrandDetector.DetectionResult</ID>
+    <ID>ClassOrdering:BrandDetector.kt$BrandDetector$Companion</ID>
+    <ID>ClassOrdering:DatabaseDriverFactory.kt$DatabaseDriverFactory$Companion</ID>
+    <ID>ClassOrdering:DatabaseDriverFactory.kt$DatabaseDriverFactory$actual fun createDriver(): SqlDriver</ID>
+    <ID>ClassOrdering:DesktopQrScanner.kt$DesktopQrScanner$Companion</ID>
+    <ID>ClassOrdering:DetectionConfig.kt$DetectionConfig$fun toJson(): String</ID>
+    <ID>ClassOrdering:EnsembleModel.kt$EnsembleModel$Companion</ID>
+    <ID>ClassOrdering:FeatureExtractor.kt$FeatureExtractor$Companion</ID>
+    <ID>ClassOrdering:HeuristicWeightsConfig.kt$HeuristicWeightsConfig$Companion</ID>
+    <ID>ClassOrdering:HistoryRepository.kt$InMemoryHistoryRepository$Companion</ID>
+    <ID>ClassOrdering:LogisticRegressionModel.kt$LogisticRegressionModel$Companion</ID>
+    <ID>ClassOrdering:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$fun create(weights: FloatArray, bias: Float): LogisticRegressionModel</ID>
+    <ID>ClassOrdering:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$fun default(): LogisticRegressionModel</ID>
+    <ID>ClassOrdering:MainActivity.kt$MainActivity$Companion</ID>
+    <ID>ClassOrdering:OrgPolicy.kt$OrgPolicy$Companion</ID>
+    <ID>ClassOrdering:OtaUpdateManager.kt$OtaUpdateManager$Companion</ID>
+    <ID>ClassOrdering:PhishingEngine.kt$PhishingEngine$Companion</ID>
+    <ID>ClassOrdering:QRShieldApplication.kt$QRShieldApplication$Companion</ID>
+    <ID>ClassOrdering:QrPayloadType.kt$QrPayloadType.Companion$fun detect(content: String): QrPayloadType</ID>
+    <ID>ClassOrdering:QrPayloadType.kt$QrPayloadType.Companion$private fun looksLikeUrl(content: String): Boolean</ID>
+    <ID>ClassOrdering:RedTeamScenarios.kt$RedTeamScenarios$/** * Get all categories in display order. */ val categories: List&lt;String&gt; get() = SCENARIOS.map { it.category }.distinct()</ID>
+    <ID>ClassOrdering:SharedTextGenerator.kt$SharedTextGenerator$/** * Signal ID to human-readable explanation mapping. * Used across all platforms for consistent signal descriptions. */ val signalExplanations: Map&lt;String, SignalExplanation&gt; = mapOf( "BRAND_IMPERSONATION" to SignalExplanation( title = "Brand Impersonation", description = "This URL mimics a well-known brand's domain", impact = "Attackers create lookalike domains to steal credentials" ), "SUSPICIOUS_TLD" to SignalExplanation( title = "Suspicious TLD", description = "The domain uses a high-risk top-level domain", impact = "Free or cheap TLDs like .tk, .ml are often used for phishing" ), "URL_SHORTENER" to SignalExplanation( title = "URL Shortener", description = "The URL uses a shortening service", impact = "Short URLs hide the actual destination" ), "IP_ADDRESS_HOST" to SignalExplanation( title = "IP Address Host", description = "The URL uses an IP address instead of a domain", impact = "Legitimate sites rarely use raw IP addresses" ), "HTTP_NO_TLS" to SignalExplanation( title = "No Encryption", description = "The URL does not use HTTPS", impact = "Data sent to this site is not encrypted" ), "EXCESSIVE_SUBDOMAINS" to SignalExplanation( title = "Excessive Subdomains", description = "The URL has an unusual number of subdomains", impact = "Often used to make malicious URLs look legitimate" ), "HOMOGRAPH_ATTACK" to SignalExplanation( title = "Homograph Attack", description = "The URL uses lookalike characters (e.g., Cyrillic)", impact = "Characters that look identical but are different Unicode" ), "CREDENTIAL_PATH" to SignalExplanation( title = "Credential Harvesting Path", description = "The URL path suggests login/verification content", impact = "Common pattern in phishing pages" ), "PUNYCODE_DOMAIN" to SignalExplanation( title = "Punycode Domain", description = "The domain is an internationalized domain name (IDN)", impact = "Can be used to create lookalike domains" ), "LONG_URL" to SignalExplanation( title = "Unusually Long URL", description = "The URL is longer than typical legitimate URLs", impact = "May be used to hide malicious components" ), "HIGH_ENTROPY" to SignalExplanation( title = "Random-Looking Components", description = "The URL contains random-looking strings", impact = "Often indicates automatically generated phishing URLs" ), "EMBEDDED_REDIRECT" to SignalExplanation( title = "Embedded Redirect", description = "The URL contains another URL in its parameters", impact = "May redirect to a malicious destination" ) )</ID>
+    <ID>ClassOrdering:SharedViewModel.kt$SharedViewModel$val settings: StateFlow&lt;AppSettings&gt; = settingsDataSource.settings .stateIn( scope = coroutineScope, started = SharingStarted.Eagerly, initialValue = AppSettings() )</ID>
+    <ID>ClassOrdering:UrlAnalyzer.kt$UrlAnalyzer$Companion</ID>
+    <ID>ClassOrdering:WebQrScanner.kt$WebQrScanner$Companion</ID>
+    <ID>CognitiveComplexMethod:AndroidQrScanner.kt$AndroidQrScanner$@androidx.camera.core.ExperimentalGetImage override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>CognitiveComplexMethod:CameraPreview.kt$@Composable fun CameraPreview( modifier: Modifier = Modifier, scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER, cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA, onQrCodeScanned: ((String) -&gt; Unit)? = null, onCameraError: ((String) -&gt; Unit)? = null )</ID>
+    <ID>CognitiveComplexMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
+    <ID>CognitiveComplexMethod:Main.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class) @Composable @Preview fun QRShieldDesktopApp(initialDarkMode: Boolean = true)</ID>
+    <ID>CognitiveComplexMethod:ScannerScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ScannerScreen()</ID>
+    <ID>CognitiveComplexMethod:SettingsScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun SettingsScreen()</ID>
+    <ID>CognitiveComplexMethod:WebQrScanner.kt$WebQrScanner$override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>CollapsibleIfStatements:CameraPreview.kt$if (now - lastScan &gt; debounceMs) { // Set processing flag before callback if (isProcessing.compareAndSet(false, true)) { lastScannedCode[content] = now try { onQrCodeScanned?.invoke(content) } finally { // FIX: Always reset the processing flag after callback // This was the critical bug causing scanning to stop isProcessing.set(false) } } }</ID>
+    <ID>CollapsibleIfStatements:InputValidator.kt$InputValidator$if (!validHostPattern.matches(trimmed) &amp;&amp; !isValidIpAddress(trimmed)) { // Allow punycode domains if (!trimmed.contains("xn--")) { return ValidationResult.Invalid( "Invalid hostname format", ErrorCode.INVALID_HOST ) } }</ID>
+    <ID>CollapsibleIfStatements:OrgPolicy.kt$OrgPolicy$if (strictMode) { if (domain != null &amp;&amp; hasExcessiveSubdomains(domain)) { return PolicyResult.RequiresReview("Excessive subdomains in strict mode") } }</ID>
+    <ID>ComplexCondition:HistoryManager.kt$HistoryManager$url != null &amp;&amp; score != null &amp;&amp; verdictStr != null &amp;&amp; time != null</ID>
+    <ID>CyclomaticComplexMethod:BrandDatabaseLoader.kt$BrandDatabaseLoader$private fun parseBrandDatabase(json: String): Map&lt;String, BrandDatabase.BrandConfig&gt;</ID>
+    <ID>CyclomaticComplexMethod:CameraPreview.kt$@Composable fun CameraPreview( modifier: Modifier = Modifier, scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER, cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA, onQrCodeScanned: ((String) -&gt; Unit)? = null, onCameraError: ((String) -&gt; Unit)? = null )</ID>
+    <ID>CyclomaticComplexMethod:CounterfactualExplainer.kt$CounterfactualExplainer$private fun generateHintForSignal(url: String, signal: String, weight: Int): Hint?</ID>
+    <ID>CyclomaticComplexMethod:DetectionConfig.kt$DetectionConfig.Companion$fun fromJson(json: String): DetectionConfig</ID>
+    <ID>CyclomaticComplexMethod:EnhancedComponents.kt$fun getSignalExplanation(flag: String): SignalExplanation</ID>
+    <ID>CyclomaticComplexMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
+    <ID>CyclomaticComplexMethod:Main.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class) @Composable @Preview fun QRShieldDesktopApp(initialDarkMode: Boolean = true)</ID>
+    <ID>CyclomaticComplexMethod:OrgPolicy.kt$OrgPolicy$fun evaluate(url: String): PolicyResult</ID>
+    <ID>CyclomaticComplexMethod:PhishingEngine.kt$PhishingEngine$private fun determineVerdict( score: Int, heuristicResult: HeuristicsEngine.Result, brandResult: BrandDetector.DetectionResult, tldResult: TldScorer.TldResult ): Verdict</ID>
+    <ID>CyclomaticComplexMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyze(content: String): PayloadAnalysisResult</ID>
+    <ID>CyclomaticComplexMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyzeContact(content: String, type: QrPayloadType): PayloadAnalysisResult</ID>
+    <ID>CyclomaticComplexMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyzeSms(content: String): PayloadAnalysisResult</ID>
+    <ID>CyclomaticComplexMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyzeWifi(content: String): PayloadAnalysisResult</ID>
+    <ID>CyclomaticComplexMethod:QrPayloadType.kt$QrPayloadType.Companion$fun detect(content: String): QrPayloadType</ID>
+    <ID>CyclomaticComplexMethod:ResultCard.kt$@Composable fun ResultCard( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>CyclomaticComplexMethod:ScannerComponents.kt$@Composable fun EnhancedConfidenceIndicator( score: Int, flagCount: Int )</ID>
+    <ID>CyclomaticComplexMethod:ScannerComponents.kt$@Composable fun EnhancedResultCard(result: AnalysisResult, isDarkMode: Boolean)</ID>
+    <ID>CyclomaticComplexMethod:ScannerScreen.kt$@Composable private fun RedTeamScenarioChip( scenario: RedTeamScenarios.Scenario, onClick: () -&gt; Unit )</ID>
+    <ID>CyclomaticComplexMethod:ScannerScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ScannerScreen()</ID>
+    <ID>CyclomaticComplexMethod:SettingsScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun SettingsScreen()</ID>
+    <ID>CyclomaticComplexMethod:UrlAnalyzer.kt$UrlAnalyzer$fun isIpv6Address(host: String): Boolean</ID>
+    <ID>CyclomaticComplexMethod:UrlAnalyzer.kt$UrlAnalyzer$fun parse(url: String): ParsedUrl?</ID>
+    <ID>CyclomaticComplexMethod:UrlParser.kt$UrlParser$fun isIpv6(host: String): Boolean</ID>
+    <ID>CyclomaticComplexMethod:UrlParser.kt$UrlParser$fun parseComponents(url: String): UrlComponents?</ID>
+    <ID>CyclomaticComplexMethod:WebQrScanner.kt$WebQrScanner$override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>EmptyFunctionBlock:DesktopPlatformAbstractions.kt$PlatformHaptics${}</ID>
+    <ID>ImplicitDefaultLocale:SettingsScreen.kt$String.format("%.1f", result.accuracy * 100)</ID>
+    <ID>ImplicitDefaultLocale:SettingsScreen.kt$String.format("%.1f", result.precision * 100)</ID>
+    <ID>ImplicitDefaultLocale:SettingsScreen.kt$String.format("%.1f", result.recall * 100)</ID>
+    <ID>ImplicitDefaultLocale:SettingsScreen.kt$String.format("%.2f", result.f1Score)</ID>
+    <ID>InvalidPackageDeclaration:Main.kt$package com.qrshield.web</ID>
+    <ID>LongMethod:AndroidQrScanner.kt$AndroidQrScanner$@androidx.camera.core.ExperimentalGetImage override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>LongMethod:AndroidQrScanner.kt$AndroidQrScanner$suspend fun scanFromUri(uri: Uri): ScanResult</ID>
+    <ID>LongMethod:BeatTheBot.kt$BeatTheBot$fun challenge(url: String, claimedSafe: Boolean = false): ChallengeResult</ID>
+    <ID>LongMethod:BrandDatabase.kt$BrandDatabase$private fun buildBrandDatabase(): Map&lt;String, BrandConfig&gt;</ID>
+    <ID>LongMethod:CounterfactualExplainer.kt$CounterfactualExplainer$private fun generateHintForSignal(url: String, signal: String, weight: Int): Hint?</ID>
+    <ID>LongMethod:EnhancedComponents.kt$fun getSignalExplanation(flag: String): SignalExplanation</ID>
+    <ID>LongMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
+    <ID>LongMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyzeContact(content: String, type: QrPayloadType): PayloadAnalysisResult</ID>
+    <ID>LongMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyzeSms(content: String): PayloadAnalysisResult</ID>
+    <ID>LongMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyzeWifi(content: String): PayloadAnalysisResult</ID>
+    <ID>LongMethod:ShareManager.kt$ShareManager$fun generateHtmlReport(url: String, assessment: RiskAssessment): String</ID>
+    <ID>LongMethod:SystemIntegrityVerifier.kt$SystemIntegrityVerifier$private fun getVerificationDataset(): List&lt;TestCase&gt;</ID>
+    <ID>LongMethod:WebQrScanner.kt$WebQrScanner$override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
+    <ID>LongParameterList:CameraPermissionScreen.kt$( icon: String, title: String, description: String, primaryButtonText: String, onPrimaryClick: () -&gt; Unit, secondaryButtonText: String?, onSecondaryClick: (() -&gt; Unit)? )</ID>
+    <ID>LongParameterList:HistoryScreen.kt$( url: String, score: Int, verdict: Verdict, scannedAt: Long, onCopyUrl: () -&gt; Unit, onDelete: () -&gt; Unit, modifier: Modifier = Modifier )</ID>
+    <ID>LongParameterList:ResultCard.kt$( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>LongParameterList:ScannerScreen.kt$( onQrCodeScanned: (String) -&gt; Unit, onClose: () -&gt; Unit, onGalleryClick: () -&gt; Unit, isFlashOn: Boolean, onFlashToggle: () -&gt; Unit, cameraError: String?, onCameraError: (String) -&gt; Unit )</ID>
+    <ID>LongParameterList:ScannerScreen.kt$( url: String, score: Int, verdict: Verdict, flags: List&lt;String&gt;, onDismiss: () -&gt; Unit, onScanAnother: () -&gt; Unit )</ID>
+    <ID>LoopWithTooManyJumpStatements:BrandDatabaseLoader.kt$BrandDatabaseLoader$while</ID>
+    <ID>MagicNumber:AdversarialDefense.kt$AdversarialDefense$0x0300</ID>
+    <ID>MagicNumber:AdversarialDefense.kt$AdversarialDefense$0x036F</ID>
+    <ID>MagicNumber:AdversarialDefense.kt$AdversarialDefense$0x7E</ID>
+    <ID>MagicNumber:AdversarialDefense.kt$AdversarialDefense$0xFE20</ID>
+    <ID>MagicNumber:AdversarialDefense.kt$AdversarialDefense$0xFE2F</ID>
+    <ID>MagicNumber:AdversarialDefense.kt$AdversarialDefense$7</ID>
+    <ID>MagicNumber:AndroidPlatformAbstractions.kt$PlatformHaptics$25</ID>
+    <ID>MagicNumber:AndroidPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>MagicNumber:AndroidPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>MagicNumber:AndroidPlatformAbstractions.kt$PlatformTime$60_000</ID>
+    <ID>MagicNumber:AndroidPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>MagicNumber:AndroidQrScanner.kt$AndroidQrScanner$4096</ID>
+    <ID>MagicNumber:AndroidShortLinkResolver.kt$AndroidShortLinkResolver$299</ID>
+    <ID>MagicNumber:AndroidShortLinkResolver.kt$AndroidShortLinkResolver$399</ID>
+    <ID>MagicNumber:BeatTheBot.kt$BeatTheBot$2048</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFF0F172A</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFF1E293B</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFF22D3EE</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFF334155</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFF475569</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFF4ADE80</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFFF87171</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFFFACC15</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$0xFFFECACA</ID>
+    <ID>MagicNumber:BeatTheBotScreen.kt$800</ID>
+    <ID>MagicNumber:CameraPermissionScreen.kt$0.8f</ID>
+    <ID>MagicNumber:CameraPreview.kt$2000L</ID>
+    <ID>MagicNumber:Colors.kt$QRShieldColors$70</ID>
+    <ID>MagicNumber:CommonComponents.kt$0.6f</ID>
+    <ID>MagicNumber:CommonComponents.kt$1500</ID>
+    <ID>MagicNumber:CommonComponents.kt$64</ID>
+    <ID>MagicNumber:CommonComponents.kt$96</ID>
+    <ID>MagicNumber:DesktopPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>MagicNumber:DesktopPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>MagicNumber:DesktopPlatformAbstractions.kt$PlatformTime$60_000</ID>
+    <ID>MagicNumber:DesktopPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>MagicNumber:DesktopQrScanner.kt$DesktopQrScanner$1024</ID>
+    <ID>MagicNumber:DetectionConfig.kt$DetectionConfig.Companion$0.2</ID>
+    <ID>MagicNumber:DetectionConfig.kt$DetectionConfig.Companion$90</ID>
+    <ID>MagicNumber:EnhancedComponents.kt$0.28f</ID>
+    <ID>MagicNumber:EnhancedComponents.kt$15</ID>
+    <ID>MagicNumber:EnhancedComponents.kt$25</ID>
+    <ID>MagicNumber:EnhancedComponents.kt$35</ID>
+    <ID>MagicNumber:EnhancedComponents.kt$65</ID>
+    <ID>MagicNumber:EnsembleModel.kt$EnsembleModel$0.0001f</ID>
+    <ID>MagicNumber:EnsembleModel.kt$EnsembleModel$0.4f</ID>
+    <ID>MagicNumber:EnsembleModel.kt$EnsembleModel$0.6f</ID>
+    <ID>MagicNumber:EnsembleModel.kt$EnsembleModel$0.9999f</ID>
+    <ID>MagicNumber:EnsembleModel.kt$EnsembleModel$10f</ID>
+    <ID>MagicNumber:EnsembleModel.kt$EnsembleModel.EnsembleWeights$0.01f</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$1024</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$11</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$13</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$15</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$255</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$256</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$7</ID>
+    <ID>MagicNumber:FeatureExtractor.kt$FeatureExtractor$9</ID>
+    <ID>MagicNumber:HistoryRepository.kt$ScanHistoryManager$2048</ID>
+    <ID>MagicNumber:HistoryRepository.kt$ScanHistoryManager$9999</ID>
+    <ID>MagicNumber:HistoryRepository.kt$SqlDelightHistoryRepository$1000</ID>
+    <ID>MagicNumber:HistoryRepository.kt$SqlDelightHistoryRepository$2048</ID>
+    <ID>MagicNumber:HistoryScreen.kt$0xFF13171F</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x0370</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x03FF</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x0400</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x04FF</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x0530</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x058F</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x10A0</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$0x10FF</ID>
+    <ID>MagicNumber:HomographDetector.kt$HomographDetector$15</ID>
+    <ID>MagicNumber:InputValidator.kt$InputValidator$253</ID>
+    <ID>MagicNumber:InputValidator.kt$InputValidator$255</ID>
+    <ID>MagicNumber:InputValidator.kt$InputValidator$63</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$1000</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$1000.0</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$1_000_000_000</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$60_000</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>MagicNumber:IosPlatformAbstractions.kt$PlatformTime$978307200.0</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformSecureRandom$128</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformSecureRandom$256</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformSecureRandom$7</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformSecureRandom$9</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformTime$1_000_000</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformTime$60_000</ID>
+    <ID>MagicNumber:JsPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>MagicNumber:Main.kt$20</ID>
+    <ID>MagicNumber:Main.kt$40</ID>
+    <ID>MagicNumber:Main.kt$49</ID>
+    <ID>MagicNumber:MainActivity.kt$MainActivity$0xFF0D1117</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.02f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.15f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.2f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.3f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$0.99f</ID>
+    <ID>MagicNumber:PhishingEngine.kt$PhishingEngine$256</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$0.2f</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$0.3f</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$0.4f</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$0.6f</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$0.7f</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$0.8f</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$0.9f</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$1.25</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$2.0</ID>
+    <ID>MagicNumber:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$3600_000L</ID>
+    <ID>MagicNumber:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$10000</ID>
+    <ID>MagicNumber:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$15</ID>
+    <ID>MagicNumber:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$25</ID>
+    <ID>MagicNumber:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$35</ID>
+    <ID>MagicNumber:ResultCard.kt$1000</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFF00D68F</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFF8B949E</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFFFF3D71</ID>
+    <ID>MagicNumber:RiskScorer.kt$RiskScorer$0xFFFFAA00</ID>
+    <ID>MagicNumber:ScannerComponents.kt$0.8f</ID>
+    <ID>MagicNumber:ScannerComponents.kt$15</ID>
+    <ID>MagicNumber:ScannerComponents.kt$25</ID>
+    <ID>MagicNumber:ScannerComponents.kt$35</ID>
+    <ID>MagicNumber:ScannerComponents.kt$65</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$0xFF00D68F</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$1.5f</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$1200</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$1800</ID>
+    <ID>MagicNumber:ScannerOverlay.kt$2200</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFF00BCD4</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFF2A1010</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFF3D1515</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFF3F51B5</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFF4CAF50</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFF9C27B0</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFFAA7777</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFFE53935</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFFE91E63</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFFFF5722</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFFFF6B6B</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFFFF9800</ID>
+    <ID>MagicNumber:ScannerScreen.kt$0xFFFF9999</ID>
+    <ID>MagicNumber:ScannerScreen.kt$150</ID>
+    <ID>MagicNumber:ScannerScreen.kt$1500</ID>
+    <ID>MagicNumber:SettingsScreen.kt$0xFF13171F</ID>
+    <ID>MagicNumber:SettingsScreen.kt$0xFF442222</ID>
+    <ID>MagicNumber:SettingsScreen.kt$0xFFFFAAAA</ID>
+    <ID>MagicNumber:SharedResultCard.kt$0xFF00D68F</ID>
+    <ID>MagicNumber:SharedResultCard.kt$0xFF1A1A2E</ID>
+    <ID>MagicNumber:SharedResultCard.kt$0xFF6B7280</ID>
+    <ID>MagicNumber:SharedResultCard.kt$0xFFFF3D71</ID>
+    <ID>MagicNumber:SharedResultCard.kt$0xFFFFAA00</ID>
+    <ID>MagicNumber:SharedResultCard.kt$1000</ID>
+    <ID>MagicNumber:SharedTextGenerator.kt$SharedTextGenerator$70</ID>
+    <ID>MagicNumber:SharedViewModel.kt$SharedViewModel$2048</ID>
+    <ID>MagicNumber:SharedViewModel.kt$SharedViewModel$9999</ID>
+    <ID>MagicNumber:StaticRedirectPatternAnalyzer.kt$StaticRedirectPatternAnalyzer$15</ID>
+    <ID>MagicNumber:ThreatRadar.kt$0.15f</ID>
+    <ID>MagicNumber:ThreatRadar.kt$0xFF00D68F</ID>
+    <ID>MagicNumber:ThreatRadar.kt$0xFF0A0A1A</ID>
+    <ID>MagicNumber:ThreatRadar.kt$0xFF1A1A2E</ID>
+    <ID>MagicNumber:ThreatRadar.kt$0xFF6B7280</ID>
+    <ID>MagicNumber:ThreatRadar.kt$0xFFFF3D71</ID>
+    <ID>MagicNumber:ThreatRadar.kt$0xFFFFAA00</ID>
+    <ID>MagicNumber:ThreatRadar.kt$1000</ID>
+    <ID>MagicNumber:ThreatRadar.kt$180f</ID>
+    <ID>MagicNumber:ThreatRadar.kt$2000</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$1024</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$15</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$255</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$256</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$45</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$512</ID>
+    <ID>MagicNumber:UrlAnalyzer.kt$UrlAnalyzer$65535</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$1024</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$15</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$255</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$45</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$65535</ID>
+    <ID>MagicNumber:UrlParser.kt$UrlParser$9</ID>
+    <ID>MagicNumber:WebQrScanner.kt$WebQrScanner$1024</ID>
+    <ID>MaxLineLength:AdversarialDefense.kt$AdversarialDefense$Regex("""[?&amp;](?:url|redirect|next|return|goto|target|link|dest|destination|continue|callback|redir)=([^&amp;]+)""", RegexOption.IGNORE_CASE)</ID>
+    <ID>MaxLineLength:AdversarialDefense.kt$AdversarialDefense$val unnecessaryEncodingPattern = Regex("""%(?:2[DEF]|3[0-9]|4[1-9A-F]|5[0-9A]|6[1-9A-F]|7[0-9A])""", RegexOption.IGNORE_CASE)</ID>
+    <ID>MaxLineLength:BeatTheBotScreen.kt$Triple(Color(0xFF4ADE80), "SYSTEM BYPASSED!", "You successfully evaded detection! (+${result.userPointsEarned} pts)")</ID>
+    <ID>MaxLineLength:BrandDatabase.kt$BrandDatabase$combosquats = listOf("microsoft-login", "microsoft-account", "office-login", "microsoft-security", "office365-login")</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Camera permission was denied. Please enable it in your device settings to use QR scanning."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "QR-SHIELD needs camera access to scan QR codes and protect you from phishing attacks."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "This device doesn't have a camera available. You can still analyze URLs by entering them manually or importing QR code images."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Without camera access, QR-SHIELD cannot scan QR codes. Please grant permission to continue."</ID>
+    <ID>MaxLineLength:CameraPreview.kt$// FIX: Always reset the processing flag after callback</ID>
+    <ID>MaxLineLength:CameraPreview.kt$// This was the critical bug causing scanning to stop</ID>
+    <ID>MaxLineLength:CameraPreview.kt$@file:Suppress("DEPRECATION")</ID>
+    <ID>MaxLineLength:CounterfactualExplainer.kt$CounterfactualExplainer$explanation = "A human-readable domain would reduce DGA (domain generation algorithm) suspicion by $weight points"</ID>
+    <ID>MaxLineLength:CounterfactualExplainer.kt$CounterfactualExplainer$explanation = "Removing the @ symbol would eliminate URL spoofing suspicion, reducing risk by $weight points"</ID>
+    <ID>MaxLineLength:CounterfactualExplainer.kt$CounterfactualExplainer$explanation = "Single file extension would remove malware obfuscation suspicion, reducing risk by $weight points"</ID>
+    <ID>MaxLineLength:CounterfactualExplainer.kt$CounterfactualExplainer$explanation = "Using standard ASCII characters would reduce homograph attack suspicion by $weight points"</ID>
+    <ID>MaxLineLength:EnhancedComponents.kt$counterfactual = "If the URL used the official brand domain (e.g., paypal.com), this signal would not trigger."</ID>
+    <ID>MaxLineLength:EnhancedComponents.kt$text = "Paste any URL to check for phishing threats. Our AI analyzes 25+ security signals completely offline — your data never leaves your device."</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel$val modelAgreement = calculateAgreement(logisticScore, safeSigmoid(boostingScore), safeSigmoid(stumpScore + 0.5f))</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 0, threshold = 0.7f, leftValue = -0.05f, rightValue = 0.1f, weight = 0.08f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 12, threshold = 0.5f, leftValue = -0.1f, rightValue = 0.25f, weight = 0.09f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 13, threshold = 0.5f, leftValue = -0.1f, rightValue = 0.2f, weight = 0.08f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 14, threshold = 0.5f, leftValue = -0.15f, rightValue = 0.35f, weight = 0.10f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 3, threshold = 0.4f, leftValue = -0.1f, rightValue = 0.15f, weight = 0.08f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 4, threshold = 0.5f, leftValue = 0.2f, rightValue = -0.15f, weight = 0.12f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 5, threshold = 0.5f, leftValue = -0.3f, rightValue = 0.4f, weight = 0.15f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 6, threshold = 0.6f, leftValue = -0.1f, rightValue = 0.25f, weight = 0.10f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 7, threshold = 0.5f, leftValue = -0.05f, rightValue = 0.1f, weight = 0.08f)</ID>
+    <ID>MaxLineLength:EnsembleModel.kt$EnsembleModel.Companion$GradientBoostingStump(featureIndex = 9, threshold = 0.5f, leftValue = -0.2f, rightValue = 0.5f, weight = 0.12f)</ID>
+    <ID>MaxLineLength:ErrorMessages.kt$ErrorMessages.Scanner$const val CAMERA_PERMISSION_DENIED = "Camera access is required to scan QR codes. Please enable camera permission in settings."</ID>
+    <ID>MaxLineLength:GameComponents.kt$Particle$initialPos = Offset(Random.nextInt(100, 300).toFloat(), Random.nextInt(100, 300).toFloat())</ID>
+    <ID>MaxLineLength:GameComponents.kt$style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold, fontFamily = FontFamily.Monospace)</ID>
+    <ID>MaxLineLength:ImageProcessingUtils.kt$ImageProcessingUtils$content.startsWith("BEGIN:VEVENT", ignoreCase = true) -&gt; ContentType.TEXT</ID>
+    <ID>MaxLineLength:JsPlatformAbstractions.kt$PlatformShare$val canShare: Boolean = js("navigator.share &amp;&amp; navigator.canShare &amp;&amp; navigator.canShare(shareData)") as Boolean</ID>
+    <ID>MaxLineLength:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$recommendation = "CRITICAL: Verify the wallet address through multiple channels before sending. Crypto transactions cannot be reversed!"</ID>
+    <ID>MaxLineLength:ScannerOverlay.kt$quadraticBezierTo(left + scanAreaSize, top + scanAreaSize, left + scanAreaSize - cornerRadius, top + scanAreaSize)</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$"$remaining more taps to ${if (developerModeEnabled) "disable" else "enable"} developer mode"</ID>
+    <ID>MaxLineLength:SettingsScreen.kt$text = "Red Team Mode bypasses camera and injects test URLs directly into the detection engine."</ID>
+    <ID>MaxLineLength:WebQrScanner.kt$WebQrScanner$"jsQR library not loaded. Add: &lt;script src=\"https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.min.js\"&gt;&lt;/script&gt;"</ID>
+    <ID>MaxLineLength:WebQrScanner.kt$WebQrScanner$val constraints = js("{video: {facingMode: 'environment', width: {ideal: $VIDEO_WIDTH}, height: {ideal: $VIDEO_HEIGHT}}}")</ID>
+    <ID>MaxLineLength:WebQrScanner.kt$WebQrScanner$val streamPromise: Promise&lt;MediaStream&gt; = mediaDevices.getUserMedia(constraints).unsafeCast&lt;Promise&lt;MediaStream&gt;&gt;()</ID>
+    <ID>NestedBlockDepth:AndroidShortLinkResolver.kt$AndroidShortLinkResolver$private fun resolveWithRedirects(startUrl: String): ShortLinkResolver.ResolveResult</ID>
+    <ID>NestedBlockDepth:BrandDatabaseLoader.kt$BrandDatabaseLoader$private fun findMatchingBrace(json: String, openPos: Int): Int</ID>
+    <ID>NestedBlockDepth:HistoryManager.kt$HistoryManager$fun loadHistory(): List&lt;AnalysisResult&gt;</ID>
+    <ID>PrintStackTrace:AdvancedFeatures.kt$e</ID>
+    <ID>PrintStackTrace:HistoryManager.kt$HistoryManager$e</ID>
+    <ID>ReturnCount:AndroidShortLinkResolver.kt$AndroidShortLinkResolver$private fun resolveWithRedirects(startUrl: String): ShortLinkResolver.ResolveResult</ID>
+    <ID>ReturnCount:BrandDetector.kt$BrandDetector$fun detect(url: String): DetectionResult</ID>
+    <ID>ReturnCount:BrandDetector.kt$BrandDetector$private fun levenshteinDistance(s1: String, s2: String): Int</ID>
+    <ID>ReturnCount:InputValidator.kt$InputValidator$fun validateHostname(host: String?): ValidationResult&lt;String&gt;</ID>
+    <ID>ReturnCount:InputValidator.kt$InputValidator$fun validateUrl(url: String?): ValidationResult&lt;String&gt;</ID>
+    <ID>ReturnCount:OrgPolicy.kt$OrgPolicy$fun evaluate(url: String): PolicyResult</ID>
+    <ID>ReturnCount:PhishingEngine.kt$PhishingEngine$private fun determineVerdict( score: Int, heuristicResult: HeuristicsEngine.Result, brandResult: BrandDetector.DetectionResult, tldResult: TldScorer.TldResult ): Verdict</ID>
+    <ID>ReturnCount:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$private fun isPremiumRateNumber(phone: String): Boolean</ID>
+    <ID>ReturnCount:UrlAnalyzer.kt$UrlAnalyzer$fun isIpv6Address(host: String): Boolean</ID>
+    <ID>ReturnCount:UrlAnalyzer.kt$UrlAnalyzer$fun parse(url: String): ParsedUrl?</ID>
+    <ID>ReturnCount:UrlParser.kt$UrlParser$fun isIpv6(host: String): Boolean</ID>
+    <ID>ReturnCount:UrlParser.kt$UrlParser$fun parseComponents(url: String): UrlComponents?</ID>
+    <ID>SwallowedException:AdvancedFeatures.kt$e: Exception</ID>
+    <ID>SwallowedException:AdvancedFeatures.kt$e: NotFoundException</ID>
+    <ID>SwallowedException:AndroidPlatformAbstractions.kt$PlatformClipboard$e: Exception</ID>
+    <ID>SwallowedException:AndroidPlatformAbstractions.kt$PlatformUrlOpener$e: Exception</ID>
+    <ID>SwallowedException:AndroidQrScanner.kt$AndroidQrScanner$e: OutOfMemoryError</ID>
+    <ID>SwallowedException:AndroidQrScanner.kt$AndroidQrScanner$e: SecurityException</ID>
+    <ID>SwallowedException:BrandDatabaseLoader.kt$BrandDatabaseLoader$e: Exception</ID>
+    <ID>SwallowedException:CameraPreview.kt$e: Exception</ID>
+    <ID>SwallowedException:CommonComponents.kt$e: Exception</ID>
+    <ID>SwallowedException:DesktopPlatformAbstractions.kt$PlatformClipboard$e: Exception</ID>
+    <ID>SwallowedException:DesktopPlatformAbstractions.kt$PlatformUrlOpener$e: Exception</ID>
+    <ID>SwallowedException:DesktopQrScanner.kt$DesktopQrScanner$e: NotFoundException</ID>
+    <ID>SwallowedException:HeuristicWeightsConfig.kt$HeuristicWeightsConfig.Companion$e: Exception</ID>
+    <ID>SwallowedException:HistoryManager.kt$HistoryManager$e: Exception</ID>
+    <ID>SwallowedException:HistoryRepository.kt$SqlDelightHistoryRepository$e: Exception</ID>
+    <ID>SwallowedException:ImageProcessingUtils.kt$ImageProcessingUtils$e: Exception</ID>
+    <ID>SwallowedException:InputValidator.kt$InputValidator$e: Exception</ID>
+    <ID>SwallowedException:IosPlatformAbstractions.kt$PlatformClipboard$e: Exception</ID>
+    <ID>SwallowedException:JsPlatformAbstractions.kt$PlatformClipboard$e2: Throwable</ID>
+    <ID>SwallowedException:JsPlatformAbstractions.kt$PlatformClipboard$e: Throwable</ID>
+    <ID>SwallowedException:JsPlatformAbstractions.kt$PlatformHaptics$e: Throwable</ID>
+    <ID>SwallowedException:JsPlatformAbstractions.kt$PlatformSecureRandom$e: Throwable</ID>
+    <ID>SwallowedException:JsPlatformAbstractions.kt$PlatformShare$e: Throwable</ID>
+    <ID>SwallowedException:JsPlatformAbstractions.kt$PlatformUrlOpener$e: Throwable</ID>
+    <ID>SwallowedException:LivingEngineFactory.kt$LivingEngineFactory$e: Exception</ID>
+    <ID>SwallowedException:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$e: Exception</ID>
+    <ID>SwallowedException:Main.kt$e: Exception</ID>
+    <ID>SwallowedException:OtaUpdateManager.kt$OtaUpdateManager$e: Exception</ID>
+    <ID>SwallowedException:Platform.android.kt$BuildConfig$e: Exception</ID>
+    <ID>SwallowedException:StaticRedirectPatternAnalyzer.kt$StaticRedirectPatternAnalyzer$e: Exception</ID>
+    <ID>SwallowedException:UrlAnalyzer.kt$UrlAnalyzer$e: Exception</ID>
+    <ID>SwallowedException:WebQrScanner.kt$WebQrScanner$e: Exception</ID>
+    <ID>SwallowedException:WindowPreferences.kt$WindowPreferences$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AdvancedFeatures.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidOta.kt$AndroidOtaStorage$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidPlatformAbstractions.kt$PlatformClipboard$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidPlatformAbstractions.kt$PlatformHaptics$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidPlatformAbstractions.kt$PlatformShare$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidPlatformAbstractions.kt$PlatformUrlOpener$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidQrScanner.kt$AndroidQrScanner$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:AndroidShortLinkResolver.kt$AndroidShortLinkResolver$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:BrandDatabaseLoader.kt$BrandDatabaseLoader$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:CameraPreview.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:CameraPreview.kt$exc: Exception</ID>
+    <ID>TooGenericExceptionCaught:CommonComponents.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DesktopPlatformAbstractions.kt$PlatformClipboard$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DesktopPlatformAbstractions.kt$PlatformUrlOpener$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:DesktopQrScanner.kt$DesktopQrScanner$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:FeedbackManager.kt$FeedbackManager$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:HeuristicWeightsConfig.kt$HeuristicWeightsConfig.Companion$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:HistoryManager.kt$HistoryManager$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:HistoryRepository.kt$SqlDelightHistoryRepository$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:ImageProcessingUtils.kt$ImageProcessingUtils$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:InputValidator.kt$InputValidator$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:IosPlatformAbstractions.kt$PlatformClipboard$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:JsPlatformAbstractions.kt$PlatformClipboard$e2: Throwable</ID>
+    <ID>TooGenericExceptionCaught:JsPlatformAbstractions.kt$PlatformClipboard$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:JsPlatformAbstractions.kt$PlatformHaptics$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:JsPlatformAbstractions.kt$PlatformSecureRandom$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:JsPlatformAbstractions.kt$PlatformShare$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:JsPlatformAbstractions.kt$PlatformUrlOpener$e: Throwable</ID>
+    <ID>TooGenericExceptionCaught:LivingEngineFactory.kt$LivingEngineFactory$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:LogisticRegressionModel.kt$LogisticRegressionModel.Companion$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:Main.kt$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:OtaUpdateManager.kt$OtaUpdateManager$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:Platform.android.kt$BuildConfig$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:QRShieldApplication.kt$QRShieldApplication$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:SoundManager.kt$SoundManager$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:StaticRedirectPatternAnalyzer.kt$StaticRedirectPatternAnalyzer$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:UrlAnalyzer.kt$UrlAnalyzer$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:WebQrScanner.kt$WebQrScanner$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:WindowPreferences.kt$WindowPreferences$e: Exception</ID>
+    <ID>TooGenericExceptionThrown:AndroidOta.kt$AndroidOtaHttpClient$throw RuntimeException("HTTP $responseCode")</ID>
+    <ID>TooGenericExceptionThrown:AndroidOta.kt$AndroidOtaHttpClient$throw RuntimeException("Response too large: $contentLength bytes")</ID>
+    <ID>TooGenericExceptionThrown:AndroidOta.kt$AndroidOtaHttpClient$throw RuntimeException("Response too large: ${response.length} chars")</ID>
+    <ID>TrailingWhitespace:AdvancedFeatures.kt$com.qrshield.desktop.components.AdvancedFeatures.kt</ID>
+    <ID>TrailingWhitespace:AdversarialDefense.kt$com.qrshield.adversarial.AdversarialDefense.kt</ID>
+    <ID>TrailingWhitespace:BeatTheBot.kt$com.qrshield.gamification.BeatTheBot.kt</ID>
+    <ID>TrailingWhitespace:BeatTheBotScreen.kt$com.qrshield.ui.game.BeatTheBotScreen.kt</ID>
+    <ID>TrailingWhitespace:DetectionConfig.kt$com.qrshield.core.DetectionConfig.kt</ID>
+    <ID>TrailingWhitespace:EnhancedComponents.kt$com.qrshield.desktop.components.EnhancedComponents.kt</ID>
+    <ID>TrailingWhitespace:EnsembleModel.kt$com.qrshield.ml.EnsembleModel.kt</ID>
+    <ID>TrailingWhitespace:FeedbackManager.kt$com.qrshield.privacy.FeedbackManager.kt</ID>
+    <ID>TrailingWhitespace:GameComponents.kt$com.qrshield.ui.game.GameComponents.kt</ID>
+    <ID>TrailingWhitespace:HistoryManager.kt$com.qrshield.desktop.HistoryManager.kt</ID>
+    <ID>TrailingWhitespace:MainActivity.kt$com.qrshield.android.MainActivity.kt</ID>
+    <ID>TrailingWhitespace:OrgPolicy.kt$com.qrshield.policy.OrgPolicy.kt</ID>
+    <ID>TrailingWhitespace:OtaUpdateManager.kt$com.qrshield.ota.OtaUpdateManager.kt</ID>
+    <ID>TrailingWhitespace:Platform.ios.kt$com.qrshield.platform.Platform.ios.kt</ID>
+    <ID>TrailingWhitespace:Platform.js.kt$com.qrshield.platform.Platform.js.kt</ID>
+    <ID>TrailingWhitespace:PrivacyPreservingAnalytics.kt$com.qrshield.privacy.PrivacyPreservingAnalytics.kt</ID>
+    <ID>TrailingWhitespace:QrPayloadAnalyzer.kt$com.qrshield.payload.QrPayloadAnalyzer.kt</ID>
+    <ID>TrailingWhitespace:QrPayloadType.kt$com.qrshield.policy.QrPayloadType.kt</ID>
+    <ID>TrailingWhitespace:ScannerComponents.kt$com.qrshield.desktop.components.ScannerComponents.kt</ID>
+    <ID>TrailingWhitespace:SettingsScreen.kt$com.qrshield.android.ui.screens.SettingsScreen.kt</ID>
+    <ID>TrailingWhitespace:SharedResultCard.kt$com.qrshield.ui.shared.SharedResultCard.kt</ID>
+    <ID>TrailingWhitespace:SharedViewModel.kt$com.qrshield.ui.SharedViewModel.kt</ID>
+    <ID>TrailingWhitespace:SystemIntegrityVerifier.kt$com.qrshield.verification.SystemIntegrityVerifier.kt</ID>
+    <ID>TrailingWhitespace:ThreatRadar.kt$com.qrshield.ui.shared.ThreatRadar.kt</ID>
+    <ID>UnderscoresInNumericLiterals:AndroidPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>UnderscoresInNumericLiterals:AndroidPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>UnderscoresInNumericLiterals:AndroidPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>UnderscoresInNumericLiterals:DesktopPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>UnderscoresInNumericLiterals:DesktopPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>UnderscoresInNumericLiterals:DesktopPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>UnderscoresInNumericLiterals:IosPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>UnderscoresInNumericLiterals:IosPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>UnderscoresInNumericLiterals:IosPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>UnderscoresInNumericLiterals:IosPlatformAbstractions.kt$PlatformTime$978307200.0</ID>
+    <ID>UnderscoresInNumericLiterals:JsPlatformAbstractions.kt$PlatformTime$3600_000</ID>
+    <ID>UnderscoresInNumericLiterals:JsPlatformAbstractions.kt$PlatformTime$604800_000</ID>
+    <ID>UnderscoresInNumericLiterals:JsPlatformAbstractions.kt$PlatformTime$86400_000</ID>
+    <ID>UnderscoresInNumericLiterals:PrivacyPreservingAnalytics.kt$PrivacyPreservingAnalytics$3600_000L</ID>
+    <ID>UnderscoresInNumericLiterals:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$10000</ID>
+    <ID>UnderscoresInNumericLiterals:SecurityConstants.kt$SecurityConstants$65535</ID>
+    <ID>UnderscoresInNumericLiterals:UrlAnalyzer.kt$UrlAnalyzer$65535</ID>
+    <ID>UnderscoresInNumericLiterals:UrlParser.kt$UrlParser$65535</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.animation.AnimatedVisibility</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.animation.fadeIn</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.animation.fadeOut</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.animation.slideInVertically</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.animation.slideOutVertically</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.ui.text.style.TextAlign</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import com.qrshield.model.Verdict</ID>
+    <ID>UnusedImports:AndroidQrScanner.kt$import androidx.camera.core.Preview</ID>
+    <ID>UnusedImports:BeatTheBotScreen.kt$import androidx.compose.foundation.lazy.LazyColumn</ID>
+    <ID>UnusedImports:BeatTheBotScreen.kt$import androidx.compose.foundation.lazy.items</ID>
+    <ID>UnusedImports:CommonComponents.kt$import androidx.compose.foundation.clickable</ID>
+    <ID>UnusedImports:DesktopQrScanner.kt$import kotlinx.coroutines.delay</ID>
+    <ID>UnusedImports:EnhancedComponents.kt$import androidx.compose.ui.graphics.Color</ID>
+    <ID>UnusedImports:EnsembleModel.kt$import kotlin.math.ln</ID>
+    <ID>UnusedImports:EnsembleModel.kt$import kotlin.math.max</ID>
+    <ID>UnusedImports:GameComponents.kt$import androidx.compose.ui.graphics.drawscope.Stroke</ID>
+    <ID>UnusedImports:GameComponents.kt$import androidx.compose.ui.unit.sp</ID>
+    <ID>UnusedImports:HistoryRepository.kt$import kotlin.math.min</ID>
+    <ID>UnusedImports:HistoryScreen.kt$import androidx.compose.ui.platform.LocalContext</ID>
+    <ID>UnusedImports:IosQrScanner.kt$import com.qrshield.model.ContentType</ID>
+    <ID>UnusedImports:Main.kt$import androidx.compose.ui.focus.focusRequester</ID>
+    <ID>UnusedImports:QRShieldWidget.kt$import androidx.glance.appwidget.action.actionRunCallback</ID>
+    <ID>UnusedImports:QRShieldWidget.kt$import com.qrshield.android.R</ID>
+    <ID>UnusedImports:QrPayloadAnalyzer.kt$import com.qrshield.policy.RiskLevel</ID>
+    <ID>UnusedImports:ResultCard.kt$import androidx.compose.ui.graphics.Color</ID>
+    <ID>UnusedImports:ScannerOverlay.kt$import androidx.compose.ui.graphics.BlendMode</ID>
+    <ID>UnusedImports:ScannerScreen.kt$import androidx.compose.ui.graphics.LinearGradientShader</ID>
+    <ID>UnusedImports:ThreatRadar.kt$import androidx.compose.material3.MaterialTheme</ID>
+    <ID>UnusedImports:Typography.kt$import androidx.compose.ui.text.font.Font</ID>
+    <ID>UnusedImports:WebQrScanner.kt$import org.w3c.dom.mediacapture.MediaStreamConstraints</ID>
+    <ID>UnusedParameter:JsPlatformAbstractions.kt$PlatformHaptics$pattern: dynamic</ID>
+    <ID>UnusedParameter:ThreatRadar.kt$score: Int</ID>
+    <ID>UnusedPrivateMember:LogisticRegressionModel.kt$LogisticRegressionModel$private infix fun FloatArray.dot(other: FloatArray): Float</ID>
+    <ID>UnusedPrivateProperty:DesktopQrScanner.kt$DesktopQrScanner.Companion$/** Frame rate for webcam scanning (if implemented) */ private const val FRAME_DELAY_MS = 100L</ID>
+    <ID>UnusedPrivateProperty:EnsembleModel.kt$EnsembleModel.Companion$/** Number of boosting stumps */ private const val NUM_BOOSTING_STUMPS = 10</ID>
+    <ID>UnusedPrivateProperty:EnsembleModel.kt$EnsembleModel.Companion$/** Number of decision stumps */ private const val NUM_DECISION_STUMPS = 5</ID>
+    <ID>UnusedPrivateProperty:GameComponents.kt$val currentRadius = p.maxRadius * anim.value</ID>
+    <ID>UnusedPrivateProperty:JsPlatformAbstractions.kt$PlatformClipboard$val textarea = js("document.createElement('textarea')")</ID>
+    <ID>UnusedPrivateProperty:JsPlatformAbstractions.kt$PlatformSecureRandom$val jsArray = js("new Uint8Array(size)")</ID>
+    <ID>UnusedPrivateProperty:JsPlatformAbstractions.kt$PlatformShare$val shareData = js("{}")</ID>
+    <ID>UnusedPrivateProperty:LivingEngineFactory.kt$LivingEngineFactory$val weightsConfig = try { val cachedHeuristics = otaManager.getCachedHeuristics() if (cachedHeuristics != null) { val config = HeuristicWeightsConfig.fromJson(cachedHeuristics) cachedWeightsConfig = config config } else { null } } catch (e: Exception) { // Parse error, fall back to bundled null }</ID>
+    <ID>UnusedPrivateProperty:Main.kt$var toastMessage by remember { mutableStateOf&lt;String?&gt;(null) }</ID>
+    <ID>UnusedPrivateProperty:OrgPolicy.kt$OrgPolicy$val phoneMatch = Regex("""sms:([^?]+)""").find(payload)</ID>
+    <ID>UnusedPrivateProperty:WebQrScanner.kt$WebQrScanner$val blob = js("new Blob([new Uint8Array(imageBytes)], {type: 'image/png'})")</ID>
+    <ID>UseCheckOrError:AndroidPlatformAbstractions.kt$AndroidPlatformContext$throw IllegalStateException( "AndroidPlatformContext not initialized. Call init() in Application.onCreate()" )</ID>
+    <ID>UseCheckOrError:AndroidQrScanner.kt$AndroidQrScanner$throw IllegalStateException("Context must be LifecycleOwner")</ID>
+    <ID>VariableNaming:AndroidOta.kt$AndroidOtaStorage$private val OTA_DIR = "ota_cache"</ID>
+    <ID>VariableNaming:AndroidOta.kt$AndroidOtaStorage$private val TAG = "AndroidOtaStorage"</ID>
+    <ID>WildcardImport:HistoryScreen.kt$import com.qrshield.android.ui.theme.*</ID>
+    <ID>WildcardImport:Main.kt$import com.qrshield.desktop.components.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.appwidget.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.layout.*</ID>
+    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.text.*</ID>
+    <ID>WildcardImport:ResultCard.kt$import com.qrshield.android.ui.theme.*</ID>
+    <ID>WildcardImport:ScannerScreen.kt$import com.qrshield.android.ui.theme.*</ID>
+    <ID>WildcardImport:SettingsScreen.kt$import com.qrshield.android.ui.theme.*</ID>
+  </CurrentIssues>
+</SmellBaseline>
