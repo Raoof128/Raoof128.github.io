@@ -144,6 +144,15 @@ kotlin {
         }
     }
     
+    // Wasm/Web target
+    @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
+    wasmJs {
+        browser {
+            testTask { enabled = false }
+        }
+        binaries.executable()
+    }
+    
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -191,6 +200,12 @@ kotlin {
                 implementation(libs.sqldelight.jvm)
             }
         }
+
+        val desktopTest by getting {
+            dependencies {
+                implementation(libs.konsist)
+            }
+        }
         
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -209,6 +224,13 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 // SQLDelight Web driver
+                implementation(libs.sqldelight.web)
+            }
+        }
+
+        val wasmJsMain by creating {
+            dependsOn(commonMain)
+            dependencies {
                 implementation(libs.sqldelight.web)
             }
         }

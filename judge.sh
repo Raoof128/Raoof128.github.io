@@ -130,10 +130,11 @@ echo "  1) Open Web Demo (browser)"
 echo "  2) Run unit tests"
 echo "  3) Run desktop app"
 echo "  4) Build Android APK"
-echo "  5) Run web locally"
-echo "  6) Exit"
+echo "  5) Run web locally (JS)"
+echo "  6) Run web locally (Wasm - NEW)"
+echo "  7) Exit"
 echo ""
-read -p "Enter choice [1-6]: " choice
+read -p "Enter choice [1-7]: " choice
 
 case $choice in
     1)
@@ -154,10 +155,14 @@ case $choice in
         echo -e "${GREEN}APK: androidApp/build/outputs/apk/debug/androidApp-debug.apk${NC}"
         ;;
     5)
-        echo -e "${GREEN}Starting web server...${NC}"
+        echo -e "${GREEN}Starting web server (JS)...${NC}"
         ./gradlew :webApp:jsBrowserRun
         ;;
     6)
+        echo -e "${GREEN}Starting web server (Wasm)...${NC}"
+        ./gradlew :webApp:wasmJsBrowserRun
+        ;;
+    7)
         echo -e "${CYAN}Goodbye! 👋${NC}"
         exit 0
         ;;
