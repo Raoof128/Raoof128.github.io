@@ -75,7 +75,8 @@ val result = orchestrator.analyze("https://suspicious-url.com")
 | `HeuristicsEngine.kt` | 25+ security heuristic rules |
 | `HeuristicRules.kt` | Rule definitions |
 | `HeuristicWeightsConfig.kt` | Configurable rule weights |
-| `BrandDetector.kt` | Brand impersonation detection |
+| `BrandDetector.kt` | Static brand impersonation detection (500+ brands) |
+| `DynamicBrandDiscovery.kt` | Pattern-based brand detection for unknown brands |
 | `BrandDatabase.kt` | 500+ brand definitions |
 | `BrandDatabaseLoader.kt` | Brand data loading |
 | `HomographDetector.kt` | Unicode lookalike detection |

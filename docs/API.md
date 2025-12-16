@@ -12,6 +12,7 @@
 - [Detection Engines](#detection-engines)
   - [HeuristicsEngine](#heuristicsengine)
   - [BrandDetector](#branddetector)
+  - [DynamicBrandDiscovery](#dynamicbranddiscovery)
   - [TldScorer](#tldscorer)
 - [ML Model](#ml-model)
   - [LogisticRegressionModel](#logisticregressionmodel)

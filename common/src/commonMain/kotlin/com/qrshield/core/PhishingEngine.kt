@@ -189,8 +189,15 @@ class PhishingEngine(
         // Run heuristics engine
         val heuristicResult = heuristicsEngine.analyze(url)
 
-        // Run brand detection
+        // Run static brand detection (500+ known brands)
         val brandResult = brandDetector.detect(url)
+
+        // Run dynamic brand discovery (pattern-based for unknown brands)
+        val dynamicBrandResult = com.qrshield.engine.DynamicBrandDiscovery.analyze(url)
+
+        // Combine brand scores (static + dynamic, capped)
+        val combinedBrandScore = (brandResult.score + dynamicBrandResult.score)
+            .coerceAtMost(SecurityConstants.MAX_BRAND_SCORE)
 
         // Run TLD scoring
         val tldResult = tldScorer.score(url)
@@ -206,22 +213,31 @@ class PhishingEngine(
             mlModel.predict(features)
         }.coerceIn(0f, 1f)
 
-        // Calculate combined score
+        // Calculate combined score (using combined brand score)
         val combinedScore = calculateCombinedScore(
             heuristicScore = heuristicResult.score,
             mlScore = mlScore,
-            brandScore = brandResult.score,
+            brandScore = combinedBrandScore,
             tldScore = tldResult.score
         )
 
         // Determine verdict
         val verdict = determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
 
-        // Collect all flags
+        // Collect all flags (including dynamic brand findings)
         val allFlags = buildList {
             addAll(heuristicResult.flags)
             brandResult.match?.let {
                 add("Brand impersonation detected: $it")
+            }
+            // Add dynamic brand findings
+            dynamicBrandResult.findings.take(2).forEach { finding ->
+                add("Dynamic detection: ${finding.description}")
+            }
+            dynamicBrandResult.suggestedBrand?.let {
+                if (brandResult.match == null) {
+                    add("Possible brand impersonation: $it")
+                }
             }
             if (tldResult.isHighRisk) {
                 add("High-risk TLD: ${tldResult.tld}")
@@ -239,9 +255,9 @@ class PhishingEngine(
                 originalUrl = url.take(256), // Truncate for storage
                 heuristicScore = heuristicResult.score,
                 mlScore = (mlScore * 100).toInt(),
-                brandScore = brandResult.score,
+                brandScore = combinedBrandScore, // Combined static + dynamic
                 tldScore = tldResult.score,
-                brandMatch = brandResult.match,
+                brandMatch = brandResult.match ?: dynamicBrandResult.suggestedBrand,
                 tld = tldResult.tld
             ),
             confidence = confidence

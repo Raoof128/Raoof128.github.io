@@ -78,11 +78,12 @@ open https://raoof128.github.io/?demo=true
 
 | Feature | Description |
 |---------|-------------|
+| **Dynamic Brand Discovery** | Pattern-based detection for unknown brands (trust word, action word, hyphen abuse) |
 | **Enterprise Policy Engine** | OrgPolicy with domain blocklists, TLD restrictions, HTTPS enforcement |
 | **Multi-Payload Analysis** | WiFi, SMS, vCard, Crypto, UPI beyond just URLs |
 | **Adversarial Robustness** | Homograph, RTL override, double encoding, zero-width detection |
 | **Federated Learning** | (ε,δ)-Differential Privacy for model improvement |
-| **Beat the Bot** | Gamification mode for adversarial testing |
+| **Beat the Bot** | Gamification mode for adversarial testing (prominent in Desktop/Web UI!) |
 | **Living Engine** | OTA updates from GitHub Pages |
 
 ---

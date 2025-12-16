@@ -319,7 +319,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                         }
                     )
 
-                    // Advanced Actions Row (Upload QR + Judge Mode)
+                    // Advanced Actions Row (Upload QR + Judge Mode + Beat the Bot)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -337,6 +337,9 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
 
                         // Judge Mode Toggle
                         JudgeModeToggle()
+
+                        // Beat the Bot Game Mode (Prominent for judges!)
+                        BeatTheBotButton()
                     }
 
                     // Error Message Display

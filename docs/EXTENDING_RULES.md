@@ -19,12 +19,16 @@ QR-SHIELD's detection engine uses a pluggable heuristics system. This guide show
 
 ```
 common/src/commonMain/kotlin/com/qrshield/
-├── engine/
+├── core/
 │   ├── PhishingEngine.kt      ← Main orchestrator
+│   └── SecurityConstants.kt   ← Centralized thresholds
+├── engine/
 │   ├── HeuristicsEngine.kt    ← 25+ detection rules
-│   ├── BrandDetector.kt       ← Brand impersonation
+│   ├── BrandDetector.kt       ← Static brand impersonation (500+ brands)
+│   ├── DynamicBrandDiscovery.kt ← Pattern-based brand detection
 │   └── BrandDatabase.kt       ← 500+ brand patterns
 ├── ml/
+│   ├── EnsembleModel.kt       ← 3-model ensemble
 │   ├── LogisticRegressionModel.kt  ← ML scoring
 │   └── FeatureExtractor.kt         ← Feature engineering
 └── model/

@@ -34,14 +34,24 @@ Attackers exploit this trust through **QRishing** (QR phishing):
 2. **Ensemble ML Detection Engine**
    - Logistic Regression (40%) + Gradient Boosting (35%) + Decision Rules (25%)
    - 25+ security heuristics with weighted scoring
-   - Brand impersonation fuzzy matching (500+ brands)
+   - Brand impersonation: 500+ static brands + dynamic pattern discovery
    - Adversarial robustness (homograph, RTL, encoding attacks)
 
-3. **Privacy-First Design**
+3. **Dynamic Brand Discovery** (NEW!)
+   - Detects unknown brand impersonation via pattern analysis
+   - Trust word abuse, action words, suspicious hyphens
+   - Complements static database for novel attacks
+
+4. **Privacy-First Design**
    - All analysis runs locally (<5ms per URL)
    - No cloud dependencies for core function
    - Zero telemetry, zero tracking
    - Federated learning ready (with differential privacy)
+
+5. **Beat the Bot Game Mode**
+   - Users challenge the AI with creative phishing URLs
+   - Crowdsourced edge case discovery
+   - Gamified security education
 
 ### Why It Matters
 

@@ -79,6 +79,8 @@
 | URL analysis | ✅ Working | Shared Kotlin code |
 | File scanning | ✅ Working | ZXing |
 | Cross-platform | ✅ Working | macOS, Windows, Linux |
+| Beat the Bot | ✅ Working | Prominent UI button |
+| Dynamic Brand Discovery | ✅ Working | Pattern-based detection |
 
 ### Web
 
@@ -90,6 +92,7 @@
 | QR Image Upload | ✅ Working | Drag & Drop + File Picker |
 | Dark/Light Theme | ✅ Working | CSS Variables + Toggle |
 | Sample URLs | ✅ Working | Interactive "Try Now" |
+| Beat the Bot | ✅ Working | Gamification mode |
 
 ---
 

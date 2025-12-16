@@ -203,7 +203,7 @@ Android • iOS • Desktop • Web
 **Duration**: 10 seconds
 
 **Visual**:
-Quick cuts (2.5s each) with animated icons:
+Quick cuts (2s each) with animated icons:
 
 1. **Shield with checkmarks**
    - "25+ Security Heuristics"
@@ -211,14 +211,17 @@ Quick cuts (2.5s each) with animated icons:
 2. **Brain/AI icon with three nodes**
    - "Ensemble ML: Logistic Regression + Gradient Boosting + Rules"
    
-3. **Target with brand logos**
-   - "Brand Impersonation Detection (500+ brands)"
+3. **Target with brand logos + pattern icon**
+   - "Brand Detection: 500+ static + dynamic pattern discovery"
    
 4. **Lock with offline symbol**
    - "100% Offline & Private (<5ms analysis)"
 
+5. **Game controller icon**
+   - "Beat the Bot: Challenge the AI!"
+
 **Narration**:
-> "Twenty-five security checks. Ensemble machine learning with three models. Brand protection against typosquatting. All running locally in under 5 milliseconds—your data never leaves your device."
+> "Twenty-five security checks. Ensemble machine learning with three models. Brand protection with both known brands and dynamic pattern discovery. All running locally in under 5 milliseconds—your data never leaves your device. Plus, challenge our AI in Beat the Bot mode!"
 
 **Transition**: Fade to closing
 

@@ -105,6 +105,14 @@ object SecurityConstants {
      */
     const val TLD_WEIGHT: Float = 0.10f
 
+    /**
+     * Maximum brand detection score (static + dynamic combined).
+     *
+     * Caps the contribution from brand detection to prevent
+     * over-penalization when multiple brand signals fire.
+     */
+    const val MAX_BRAND_SCORE: Int = 45
+
     // ==================== Confidence Calculation ====================
 
     /**
