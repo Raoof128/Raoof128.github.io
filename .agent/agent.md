@@ -4,6 +4,46 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-17 (Performance Regression CI)
+
+### Summary
+Added Performance Regression CI workflow to enforce performance isn't hoped for—it's enforced.
+
+---
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `.github/workflows/performance.yml` | Performance regression CI workflow |
+
+### Workflow Features
+
+- Runs on every push/PR to main
+- Executes `PerformanceBenchmarkTest` and `PerformanceRegressionTest`
+- **Fails build** if P99 latency thresholds exceeded
+- Generates performance report as artifact
+- Comments on PRs with results
+
+### Thresholds Enforced
+
+| Metric | Target |
+|--------|--------|
+| Single URL Analysis | <50ms P99 |
+| Complex URL Analysis | <100ms P99 |
+| Batch 10 URLs | <200ms P99 |
+| Heuristics Engine | <15ms P99 |
+| ML Inference | <10ms P99 |
+| Brand Detection | <20ms P99 |
+| Throughput | >100 URLs/sec |
+
+### README Update
+
+- Updated Performance badge to link to new `performance.yml` workflow
+- Badge now shows CI status (pass/fail) instead of static claim
+
+---
+
 ## Session: 2025-12-17 (Architecture Enforcement + Web App Honesty)
 
 ### Summary
