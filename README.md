@@ -84,6 +84,19 @@
 | **iOS** | Coming to TestFlight | Contact for beta access |
 | **Desktop** | `./gradlew :desktopApp:run` | Build from source |
 
+### 📊 Platform Support Status
+
+| Platform | Status | Implementation | LOC |
+|----------|--------|----------------|-----|
+| **Android** | ✅ **Full** | Native app with CameraX, ML Kit, Compose UI | ~4,500 |
+| **iOS** | ✅ **Full** | Native app with AVFoundation, SwiftUI + KMP engine | ~6,500 |
+| **Desktop** | ✅ **Full** | Compose Desktop with ZXing scanner | ~2,000 |
+| **Web** | ⚠️ **Demo** | Lightweight Kotlin/JS demo (~500 LOC) | ~500 |
+
+> **Core achievement:** Same `PhishingEngine` compiled to JVM, Native, and JS from a single Kotlin codebase.
+>
+> **Web note:** The web app is a functional demo proving the engine compiles to JavaScript. Full PWA with offline support and history is planned for v2.0 ([see ROADMAP](ROADMAP.md)).
+
 ---
 
 ### 🧪 Judge Verification Suite (5 Minutes)
