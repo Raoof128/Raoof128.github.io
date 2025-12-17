@@ -116,40 +116,54 @@ struct SharedResultCardView: UIViewControllerRepresentable {
  * BeatTheBotGameView - Gamification component from shared Compose
  *
  * Embeds the "Beat the Bot" game mode UI from commonMain.
+ * This demonstrates Compose Multiplatform UI integration with SwiftUI.
+ *
+ * ## Game Features
+ * - Challenge users to create adversarial URLs
+ * - Real-time PhishingEngine verdicts
+ * - Score tracking and leaderboards
+ * - Educational security feedback
  */
 struct BeatTheBotGameView: UIViewControllerRepresentable {
     let onClose: () -> Void
     
     func makeUIViewController(context: Context) -> UIViewController {
-        // Note: This requires BeatTheBotViewController to be exported from iosMain
-        // return BeatTheBotViewControllerKt.BeatTheBotViewController(onClose: onClose)
-        
-        // Placeholder until full integration
-        let vc = UIViewController()
-        vc.view.backgroundColor = .systemBackground
-        return vc
+        // Real Kotlin Compose integration from iosMain
+        return BeatTheBotViewControllerKt.BeatTheBotViewController(
+            onClose: onClose
+        )
     }
     
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // Compose handles its own state updates via recomposition
+    }
 }
 
 /**
  * ThreatRadarView - Animated threat visualization from shared Compose
  *
  * Displays the signature "radar" animation for detected threats.
+ * This component provides visual feedback during URL analysis.
+ *
+ * ## Visual Features
+ * - Animated radar sweep effect
+ * - Signal dots for detected threats  
+ * - Pulsing effects for active threats
+ * - Color-coded severity levels based on verdict (green → amber → red)
  */
 struct ThreatRadarView: UIViewControllerRepresentable {
-    let threatLevel: Float // 0.0 - 1.0
-    let isActive: Bool
+    let assessment: RiskAssessment
     
     func makeUIViewController(context: Context) -> UIViewController {
-        // Note: Requires ThreatRadarViewController export
-        let vc = UIViewController()
-        vc.view.backgroundColor = .clear
-        return vc
+        // Real Kotlin Compose integration from iosMain
+        return ThreatRadarViewControllerKt.ThreatRadarViewController(
+            assessment: assessment
+        )
     }
     
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // Compose handles its own state updates via recomposition
+    }
 }
 
 // MARK: - Preview Helpers
