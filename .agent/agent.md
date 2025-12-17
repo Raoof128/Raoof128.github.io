@@ -15,6 +15,8 @@ Implemented ALL remaining improvements from official judge evaluation to achieve
 | 2 | **iOS ComposeInterop Fix** | ✅ | Removed fatalError, documented integration |
 | 3 | **ML Training Doc Link** | ✅ | Added to README Documentation table |
 | 4 | **FP Rate in Quality Section** | ✅ | Added to Quality & Testing table |
+| 5 | **CI Fix: GitHub Pages Deploy** | ✅ | Fixed Kotlin/JS build failure |
+
 
 ---
 
@@ -81,13 +83,45 @@ preconditionFailure(
 
 ---
 
+### 4. CI Fix: GitHub Pages Deployment
+
+**Problem:** The "Deploy Web to GitHub Pages / Build Web App" workflow was failing because `SecureAggregation.kt` used `String.format()` which is JVM-only.
+
+**Error:**
+```
+e: SecureAggregation.kt:434:77 Unresolved reference 'format'.
+FAILURE: Build failed for task ':common:compileKotlinJs'
+```
+
+**Before:**
+```kotlin
+return "ecdh_${secret.keyMaterial.take(8).joinToString("") { "%02x".format(it) }}"
+```
+
+**After:**
+```kotlin
+return "ecdh_${secret.keyMaterial.take(8).joinToString("") { byteToHex(it) }}"
+
+private fun byteToHex(byte: Byte): String {
+    val hexChars = "0123456789abcdef"
+    val unsigned = byte.toInt() and 0xFF
+    return "${hexChars[unsigned shr 4]}${hexChars[unsigned and 0x0F]}"
+}
+```
+
+**Why:** `String.format()` is a JVM platform API that doesn't exist in Kotlin/JS. The custom `byteToHex()` function works across all Kotlin targets.
+
+---
+
 ### Build Verification
 
 ```bash
 ✅ ./gradlew :common:desktopTest --tests "*FalsePositiveRateTest*"  # 5 tests pass
+✅ ./gradlew :webApp:jsBrowserProductionWebpack  # JS build now passes!
 ✅ README.md updated with ML Training and FP Rate
 ✅ iOS ComposeInterop no longer has fatalError
 ```
+
 
 ---
 
