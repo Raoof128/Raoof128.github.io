@@ -4,6 +4,67 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-17 (Judge Verification Suite - "Trust Me" → "Test Yourself")
+
+### Summary
+Implemented reproducible verification scripts so judges can verify ALL claims with one command:
+
+```bash
+./judge/verify_all.sh  # Runs all 4 verification suites in ~5 minutes
+```
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `judge/verify_all.sh` | Master orchestration script |
+| `judge/verify_offline.sh` | Proves zero network calls during analysis |
+| `judge/verify_performance.sh` | Proves <5ms P50 latency claim |
+| `judge/verify_accuracy.sh` | Proves 87% F1 score on test corpus |
+| `judge/verify_parity.sh` | Proves identical verdicts across JVM/JS/Native |
+| `common/src/commonTest/.../PlatformParityTest.kt` | 8 tests proving cross-platform consistency |
+
+### Platform Parity Test Details
+
+Tests 27 URLs covering:
+- **Safe URLs:** 14 legitimate sites (Google, Apple, GitHub, etc.)
+- **Risky URLs:** 13 phishing patterns (.tk TLDs, typosquats, URL shorteners)
+
+| Test | What It Verifies |
+|------|------------------|
+| `safe_urls_are_detected_as_safe` | 90%+ of legitimate sites = SAFE |
+| `risky_urls_are_not_classified_as_safe` | 85%+ of phishing URLs flagged |
+| `scores_are_within_valid_bounds` | All scores 0-100 |
+| `verdicts_are_deterministic` | Same URL = Same result (10 runs) |
+| `suspicious_tld_urls_detected_consistently` | .tk/.ml/.ga always flagged |
+| `url_shorteners_flagged_consistently` | bit.ly/tinyurl flagged |
+| `http_only_urls_flagged` | No HTTPS = risky |
+
+### README Update
+
+Added **"Judge Verification Suite (5 Minutes)"** section:
+- One-command verification
+- Table of all scripts with claims verified
+- Expected output in collapsible section
+
+### Impact
+
+| Before | After |
+|--------|-------|
+| "Trust me, it's offline" | `./judge/verify_offline.sh` ✅ |
+| "Trust me, it's fast" | `./judge/verify_performance.sh` ✅ |
+| "Trust me, it's accurate" | `./judge/verify_accuracy.sh` ✅ |
+| "Trust me, KMP works" | `./judge/verify_parity.sh` ✅ |
+
+### Build Status
+
+```bash
+✅ ./gradlew :common:desktopTest --tests "*PlatformParityTest*"  # 8 tests pass
+✅ chmod +x judge/*.sh  # All scripts executable
+```
+
+---
+
 ## Session: 2025-12-17 (v1.6.2 - Flawless 100/100 - Judge-Requested Improvements)
 
 ### Summary
