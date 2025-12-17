@@ -1,8 +1,6 @@
 # 🛡️ QR-SHIELD
 
-**Kotlin Multiplatform QRishing (QR Phishing) Detector**
-
-> Scan QR codes. Detect phishing. Stay protected on **Android, iOS, Desktop, and Web**.
+> **Kotlin Multiplatform security app detecting QR phishing attacks entirely offline.** Protects users' privacy (no URL ever leaves device) while achieving 87% F1 score on real phishing samples. One shared detection engine across Android, iOS, Desktop, and Web.
 
 [![Test Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
@@ -11,14 +9,46 @@
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF)](https://kotlinlang.org)
 [![KMP](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Desktop%20%7C%20Web-orange)](https://kotlinlang.org/docs/multiplatform.html)
 
-> 🏆 **100/100 Competition Ready — Why This Project Should Win**
-> - **Privacy-First:** 100% offline — zero data collection, no cloud API
-> - **Real KMP:** ~80% shared business logic across 4 platforms (9,500+ LOC)
-> - **Ensemble ML:** 3-model architecture (Logistic Regression + Gradient Boosting + Decision Rules)
-> - **Dynamic Brand Discovery:** Pattern-based detection for unknown brands (not just hardcoded database)
-> - **Proven Accuracy:** 87.1% F1 score, 89.1% recall on phishing detection
-> - **Production Quality:** 89% test coverage, 1000+ tests, Detekt CI enforcement
-> - **Performance:** <5ms per URL analysis (10x faster than targets)
+---
+
+## 📋 Executive Summary
+
+### The Problem
+
+**QRishing attacks increased 587% since 2023.** Users scan parking meters, restaurant menus, payment terminals—never verifying the URL. My grandmother nearly lost her bank account to a PayPal phishing QR at a parking meter. Existing solutions require cloud APIs, meaning every scanned URL is logged on corporate servers. **Privacy is sacrificed for protection.**
+
+### The Solution
+
+**Privacy-first phishing detection with zero network requests:**
+
+| Feature | Implementation |
+|---------|----------------|
+| 🔒 **100% Offline** | No URL ever leaves the device—zero data collection |
+| 🧠 **Ensemble ML** | 3 models: Logistic Regression + Gradient Boosting + Decision Rules |
+| 🔍 **25+ Heuristics** | Homograph detection, typosquatting, suspicious TLDs, IP obfuscation |
+| 🏢 **500+ Brand Database** | Plus dynamic pattern discovery for unknown brands |
+| ⚡ **<5ms Analysis** | Real-time feedback during QR scanning |
+
+**80% code sharing across 4 platforms:**
+
+| Platform | Implementation | Status |
+|----------|----------------|--------|
+| **Android** | CameraX + ML Kit + Compose UI | ✅ Full |
+| **iOS** | AVFoundation + SwiftUI + KMP engine | ✅ Full |
+| **Desktop** | Compose Desktop + ZXing | ✅ Full |
+| **Web** | Kotlin/JS | ⚠️ Demo |
+
+### Why This Wins
+
+| Criterion | Evidence |
+|-----------|----------|
+| ✅ **Real Impact** | Protects users from $12B+ annual QRishing losses |
+| ✅ **Privacy Architecture** | No cloud API = no data collection = no privacy violation |
+| ✅ **Technical Depth** | Ensemble ML, adversarial robustness, ECDH secure aggregation |
+| ✅ **Production Quality** | 89% test coverage, 1000+ tests, zero-tolerance Detekt CI |
+| ✅ **Kotlin Showcase** | Coroutines, sealed classes, null safety, expect/actual pattern |
+
+---
 
 ### ⚔️ How QR-SHIELD Compares
 
@@ -30,12 +60,9 @@
 | **Open Source** | ✅ Apache 2.0 | ❌ Proprietary | ❌ Proprietary |
 | **Explainable AI** | ✅ Shows *why* URLs are risky | ❌ Black box | ❌ Black box |
 | **Works Without Internet** | ✅ Yes | ❌ No | ❌ No |
-| **Brand Impersonation Detection** | ✅ 500+ static + dynamic patterns | ⚠️ Limited | ⚠️ Limited |
-| **Kotlin Multiplatform** | ✅ Yes | ❌ No | ❌ No |
-| **Custom ML Model** | ✅ On-device ensemble (LR + Boosting + Rules) | ❌ Cloud ML | ❌ Cloud ML |
-| **Beat the Bot Game** | ✅ Adversarial testing mode | ❌ No | ❌ No |
+| **Custom ML Model** | ✅ On-device ensemble | ❌ Cloud ML | ❌ Cloud ML |
 
-> 🔒 **The Privacy Advantage:** When you scan a QR code with QR-SHIELD, the URL *never leaves your device*. With Google Lens or Kaspersky, every URL you scan is sent to their servers — forever logged, potentially shared, and definitely not private.
+> 🔒 **The Privacy Advantage:** When you scan a QR code with QR-SHIELD, the URL *never leaves your device*. With Google Lens or Kaspersky, every URL you scan is sent to their servers—forever logged, potentially shared, and definitely not private.
 
 ---
 
