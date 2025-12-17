@@ -82,31 +82,37 @@ class PhishingEngine(
     private val mlModel: LogisticRegressionModel = LogisticRegressionModel.default(),
     private val ensembleModel: EnsembleModel = EnsembleModel.default(),
     private val featureExtractor: FeatureExtractor = FeatureExtractor(),
-    private val useEnsemble: Boolean = true
+    private val useEnsemble: Boolean = true,
+    /**
+     * Injectable scoring configuration.
+     *
+     * Allows customization of weights, thresholds, and confidence
+     * parameters for testing, A/B testing, or enterprise policies.
+     *
+     * @see ScoringConfig for available options and presets
+     */
+    private val config: ScoringConfig = ScoringConfig.DEFAULT
 ) {
 
+    // =========================================================================
+    // INJECTABLE CONFIGURATION (Dependency Injection for Testability)
+    // =========================================================================
+    //
+    // All weights and thresholds are now sourced from the config object.
+    // This enables:
+    //   - Unit tests with isolated components (zero some weights)
+    //   - A/B testing with different configurations
+    //   - Enterprise policies with custom sensitivity
+    //   - Research with tunable parameters
+    //
+    // See ScoringConfig for available presets:
+    //   - ScoringConfig.DEFAULT (production)
+    //   - ScoringConfig.HIGH_SENSITIVITY (paranoid mode)
+    //   - ScoringConfig.BRAND_FOCUSED (brand protection)
+    //   - ScoringConfig.ML_FOCUSED (ML-first scoring)
+    // =========================================================================
+
     companion object {
-        /**
-         * Scoring weights (must sum to 1.0).
-         * Using slightly adjusted weights optimized for this engine's pipeline.
-         * @see SecurityConstants for global weight definitions
-         */
-        private const val HEURISTIC_WEIGHT = 0.50
-        private const val ML_WEIGHT = 0.20
-        private const val BRAND_WEIGHT = 0.15
-        private const val TLD_WEIGHT = 0.15
-
-        /**
-         * Verdict thresholds - uses dedicated PhishingEngine thresholds.
-         * @see SecurityConstants.PHISHING_ENGINE_SAFE_THRESHOLD for rationale
-         * @see SecurityConstants.PHISHING_ENGINE_SUSPICIOUS_THRESHOLD for rationale
-         */
-        private const val SAFE_THRESHOLD = SecurityConstants.PHISHING_ENGINE_SAFE_THRESHOLD
-        private const val SUSPICIOUS_THRESHOLD = SecurityConstants.PHISHING_ENGINE_SUSPICIOUS_THRESHOLD
-
-        /** Maximum URL length - uses centralized constant */
-        private const val MAX_URL_LENGTH = SecurityConstants.MAX_URL_LENGTH
-
         /** Default confidence for edge cases - uses centralized constant */
         private const val DEFAULT_CONFIDENCE = SecurityConstants.BASE_CONFIDENCE
     }
@@ -398,12 +404,12 @@ class PhishingEngine(
         val normalizedBrand = brandScore.coerceIn(0, 100)
         val normalizedTld = tldScore.coerceIn(0, 100)
 
-        // Weighted combination
+        // Weighted combination using injectable config
         val weighted = (
-            normalizedHeuristic * HEURISTIC_WEIGHT +
-            normalizedMl * ML_WEIGHT +
-            normalizedBrand * BRAND_WEIGHT +
-            normalizedTld * TLD_WEIGHT
+            normalizedHeuristic * config.heuristicWeight +
+            normalizedMl * config.mlWeight +
+            normalizedBrand * config.brandWeight +
+            normalizedTld * config.tldWeight
         )
 
         return weighted.toInt().coerceIn(0, 100)
@@ -429,7 +435,7 @@ class PhishingEngine(
         // Critical escalation: brand impersonation detected
         // Any brand match should be at least SUSPICIOUS
         if (brandResult.match != null) {
-            return if (score > SUSPICIOUS_THRESHOLD || brandResult.score >= 50) {
+            return if (score > config.suspiciousThreshold || brandResult.score >= 50) {
                 Verdict.MALICIOUS
             } else {
                 Verdict.SUSPICIOUS
@@ -440,7 +446,7 @@ class PhishingEngine(
         val criticalCount = heuristicResult.details.count { (_, weight) ->
             weight >= 20
         }
-        if (criticalCount >= 2 && score > SAFE_THRESHOLD) {
+        if (criticalCount >= 2 && score > config.safeThreshold) {
             return Verdict.MALICIOUS
         }
 
@@ -451,18 +457,18 @@ class PhishingEngine(
 
         // Escalation: High Risk TLD
         if (tldResult.isHighRisk) {
-            return if (score > SUSPICIOUS_THRESHOLD) Verdict.MALICIOUS else Verdict.SUSPICIOUS
+            return if (score > config.suspiciousThreshold) Verdict.MALICIOUS else Verdict.SUSPICIOUS
         }
 
         // Escalation: Strong heuristic signal alone
         if (heuristicResult.score > 60) {
-            return if (score > SUSPICIOUS_THRESHOLD) Verdict.MALICIOUS else Verdict.SUSPICIOUS
+            return if (score > config.suspiciousThreshold) Verdict.MALICIOUS else Verdict.SUSPICIOUS
         }
 
-        // Standard threshold-based verdict
+        // Standard threshold-based verdict using injectable config
         return when {
-            score <= SAFE_THRESHOLD -> Verdict.SAFE
-            score <= SUSPICIOUS_THRESHOLD -> Verdict.SUSPICIOUS
+            score <= config.safeThreshold -> Verdict.SAFE
+            score <= config.suspiciousThreshold -> Verdict.SUSPICIOUS
             else -> Verdict.MALICIOUS
         }
     }
@@ -480,7 +486,8 @@ class PhishingEngine(
         mlScore: Float,
         brandResult: BrandDetector.DetectionResult
     ): Float {
-        var confidence = 0.5f
+        // Start with injectable base confidence
+        var confidence = config.baseConfidence
 
         // Agreement between heuristics and ML
         val heuristicNormalized = heuristicResult.score / 100f
@@ -504,7 +511,7 @@ class PhishingEngine(
      */
     private fun isValidUrl(url: String): Boolean {
         if (url.isBlank()) return false
-        if (url.length > MAX_URL_LENGTH) return false
+        if (url.length > config.maxUrlLength) return false
 
         // Must start with http:// or https:// or contain a dot
         return url.startsWith("http://") ||

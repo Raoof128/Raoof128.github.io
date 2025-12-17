@@ -4,6 +4,167 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-18 (Battle Plan: 95→100 Final Push)
+
+### Summary
+Implemented the "Battle Plan" improvements to bridge from **95/100** to a perfect **100/100**:
+
+| # | Improvement | Status | Impact |
+|---|-------------|--------|--------|
+| 1 | **Essay Trimmed** | ✅ | 2,000→400 words (judge-compliant) |
+| 2 | **ScoringConfig DI** | ✅ | Injectable weights/thresholds for testability |
+| 3 | **verifyMlMath Tests** | ✅ | Proves ML is real math, not fake |
+| 4 | **iOS Hybrid Comments** | ✅ | Explains SwiftUI+Compose is a FEATURE |
+| 5 | **Why Not Cloud?** | ✅ | README comparison table vs Google Safe Browsing |
+
+---
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `common/src/commonMain/kotlin/com/qrshield/core/ScoringConfig.kt` | Injectable scoring configuration with presets |
+| `common/src/commonTest/kotlin/com/qrshield/ml/VerifyMlMathTest.kt` | 15 tests proving ML math is real (sigmoid, dot product, determinism) |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `ESSAY.md` | Trimmed from 2,000 to ~400 words (judge compliant) |
+| `README.md` | Added "Why Not Cloud?" section with privacy vs cloud comparison |
+| `iosApp/QRShield/ComposeInterop.swift` | Added comment block explaining hybrid architecture is a feature |
+| `PhishingEngine.kt` | Now accepts `ScoringConfig` parameter for DI |
+
+---
+
+### 1. Essay Trimmed (300-500 word compliance)
+
+**Before:** ~2,000 words (flagged as arrogant by judge)
+**After:** ~400 words
+
+**Kept:**
+- Grandma story (emotional hook)
+- Offline-first constraint (technical hook)
+- KMP "write once, deploy everywhere" win
+
+**Removed:**
+- Industry stats ("587% increase")
+- Lengthy "Why KMP" comparison tables
+- Generic "Privacy Problem" diagrams
+
+---
+
+### 2. ScoringConfig Dependency Injection
+
+**New file:** `ScoringConfig.kt`
+
+```kotlin
+data class ScoringConfig(
+    val heuristicWeight: Double = 0.50,
+    val mlWeight: Double = 0.20,
+    val brandWeight: Double = 0.15,
+    val tldWeight: Double = 0.15,
+    val safeThreshold: Int = 10,
+    val suspiciousThreshold: Int = 50,
+    // ...
+)
+```
+
+**Presets available:**
+- `ScoringConfig.DEFAULT` — Production configuration
+- `ScoringConfig.HIGH_SENSITIVITY` — Paranoid mode
+- `ScoringConfig.BRAND_FOCUSED` — Brand protection
+- `ScoringConfig.ML_FOCUSED` — ML-first scoring
+
+**PhishingEngine usage:**
+```kotlin
+// Default (production)
+val engine = PhishingEngine()
+
+// Custom config for testing
+val testEngine = PhishingEngine(config = ScoringConfig(
+    heuristicWeight = 1.0,
+    mlWeight = 0.0,
+    brandWeight = 0.0,
+    tldWeight = 0.0
+))
+```
+
+---
+
+### 3. verifyMlMath Tests (Proves ML is Real)
+
+**New file:** `VerifyMlMathTest.kt`
+
+Tests proving the ML model is mathematically correct:
+
+| Test | What It Proves |
+|------|----------------|
+| `sigmoid at zero equals exactly 0_5` | σ(0) = 0.5 (mathematical correctness) |
+| `sigmoid is symmetric around 0_5` | σ(x) + σ(-x) = 1 (sigmoid property) |
+| `sigmoid saturates at extremes` | No overflow/underflow |
+| `dot product with unit features` | z = Σwᵢ + b calculation correct |
+| `specific feature activates specific weight` | Each weight affects prediction correctly |
+| `predictions are deterministic - 100 iterations` | NOT a random number generator |
+| `different inputs produce different outputs` | Model varies with input |
+| `https protective effect is measurable` | HTTPS reduces score by >5% |
+| `suspicious TLD effect is measurable` | .tk TLD increases score by >10% |
+| `combined risk factors compound correctly` | Multiple risks compound |
+
+---
+
+### 4. iOS Hybrid Architecture Comments
+
+**File:** `iosApp/QRShield/ComposeInterop.swift`
+
+Added 30+ line comment block explaining:
+- **Why hybrid**: Best of both worlds (native navigation + shared UI)
+- **What's shared**: 100% of business logic in commonMain
+- **What's native**: Navigation, scanner, haptics, settings
+- **Why not 100% Compose**: iOS UX expectations, App Store conventions
+- **Code sharing strategy**: Business logic = shared, UI shell = native
+
+---
+
+### 5. Why Not Cloud? Section
+
+**File:** `README.md`
+
+Added comparison table answering "Why not Google Safe Browsing?":
+
+| Factor | Google Safe Browsing | QR-SHIELD (Offline) |
+|--------|---------------------|---------------------|
+| Privacy | ❌ URLs sent to Google | ✅ Zero URLs leave device |
+| Data Risk | Can be subpoenaed/leaked | No data = no risk |
+| Offline Support | ❌ Requires internet | ✅ Works everywhere |
+| Latency | ~100-500ms | <5ms |
+
+Includes honest trade-offs we accept and why we still win.
+
+---
+
+### Build Verification
+
+```bash
+✅ ./gradlew :common:compileKotlinDesktop
+✅ ./gradlew :common:desktopTest --tests "*VerifyMlMathTest*"
+✅ ./gradlew :common:desktopTest --tests "*PhishingEngineTest*"
+```
+
+---
+
+### Checklist (from Battle Plan)
+
+- [x] Essay trimmed to <500 words
+- [x] `PhishingEngine` refactored to use `ScoringConfig`
+- [x] `verifyMlMath` test added
+- [x] "Why Not Cloud?" section added to README
+- [x] iOS hybrid architecture commented
+
+---
+
+
+
 ## Session: 2025-12-17 (Judge Feedback Implementation - 8 Critical Improvements)
 
 ### Summary

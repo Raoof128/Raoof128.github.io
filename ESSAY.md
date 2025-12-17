@@ -1,393 +1,69 @@
-# QR-SHIELD: My Journey Building a Cross-Platform QRishing Detector
+# QR-SHIELD: Cross-Platform QRishing Detection
 
 > **"The UI intentionally exposes detection reasoning to avoid black-box security decisions."**
 
 ---
 
-## 🚨 Why QR Phishing Matters NOW
+## The Spark: My Grandmother's Close Call
 
-In early 2025, I watched my grandmother nearly fall victim to a QR code scam at a parking meter in Sydney. She scanned what appeared to be a legitimate payment code, only to land on a convincing phishing page mimicking her bank—complete with the right colors, logo, and that familiar "verify your details" prompt.
+In early 2025, I watched my grandmother nearly fall victim to a QR code scam at a Sydney parking meter. She scanned what appeared to be a legitimate payment code, landing on a convincing phishing page mimicking her bank.
 
 I grabbed her phone just as she was about to enter her card details. **"Nana, stop—look at the URL."**
 
-She squinted at the address bar: `paypa1-secure.tk`. She didn't see anything wrong. Neither would most people. The attacker had replaced the 'l' with a '1', used a free Tokelau domain, and created a near-perfect replica of a payment page. If I hadn't been there, she would have handed her credit card to a criminal.
+She squinted at `paypa1-secure.tk`. She didn't see anything wrong. Neither would most people. The attacker had replaced 'l' with '1', used a free Tokelau domain, and created a near-perfect bank replica.
 
-That moment crystallized a problem I'd been reading about: **QRishing attacks have increased 587% since 2023**, yet no mainstream solution exists to protect everyday users like my grandmother. The irony struck me—we've spent decades teaching people to hover over links before clicking, but QR codes bypass that instinct entirely. 71% of users never verify URLs after scanning. The attack vector is simple, effective, and devastating.
-
-### The Perfect Storm
-
-| Factor | Why It Matters |
-|--------|----------------|
-| **Post-pandemic adoption** | QR codes are now ubiquitous (restaurants, payments, boarding passes) |
-| **Implicit trust** | Users treat QR codes as inherently safe—they look official |
-| **Hidden URLs** | Unlike hyperlinks, you can't "hover" over a QR code |
-| **Low barrier for attackers** | Free domains, free QR generators, printable stickers |
-| **High-value targets** | Banking, payments, healthcare—sensitive transactions |
+**That moment crystallized the problem:** QRishing attacks have skyrocketed, yet no mainstream solution protects everyday users like my grandmother—especially offline.
 
 ---
 
-## 🔒 Why OFFLINE Detection is Critical
+## The Solution: Offline-First Detection
 
-Building a phishing detector that works offline was the core challenge. Cloud-based solutions like Google Safe Browsing are effective, but they have fundamental limitations:
+QR-SHIELD performs all analysis **100% on-device**. No URL ever leaves your phone. The privacy isn't a feature—it's the architecture.
 
-### The Privacy Problem
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  WHAT CLOUD SCANNERS KNOW ABOUT YOU                             │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  Every URL you scan reveals:                                     │
-│  • Which banks you use                                           │
-│  • Which doctors you visit                                       │
-│  • Which lawyers you consult                                     │
-│  • Where you park, shop, eat                                     │
-│  • Your travel patterns and habits                               │
-│                                                                  │
-│  This data can be:                                               │
-│  • Sold to advertisers                                           │
-│  • Subpoenaed by governments                                     │
-│  • Leaked in data breaches                                       │
-│  • Used for targeted attacks                                     │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### The Availability Problem
-
-QR codes appear in places without reliable internet:
-- Underground parking garages
-- Remote hiking trails (trailhead info)
-- Airplane mode during flights
-- Developing regions with spotty connectivity
-
-**If your security tool needs internet to work, it fails when you need it most.**
-
-### Our Solution
-
-QR-SHIELD performs all analysis **100% on-device**. No URL ever leaves your phone. The privacy isn't a feature—it's the architecture. We sacrifice some detection power (no real-time blocklists) for absolute privacy. For most users, that trade-off is correct.
+**Why offline?** Cloud scanners know which banks you use, which doctors you visit, which lawyers you consult. This data can be sold, subpoenaed, or leaked. QR-SHIELD can't leak what it never collects.
 
 ---
 
-## 🧩 Why Kotlin Multiplatform is the RIGHT Solution
+## Why Kotlin Multiplatform?
 
-I chose Kotlin Multiplatform because security shouldn't depend on which device you own. My grandmother uses an iPhone. My father uses Android. My younger sister browses on a Chromebook. A phishing attack targeting one is equally dangerous to all, yet most security solutions are platform-siloed.
+KMP let me write the detection engine once and deploy everywhere—sharing **100% of business logic** across Android, iOS, Desktop, and Web.
 
-### The KMP Advantage
+- **One bug fix** → All platforms protected
+- **`expect`/`actual` pattern** → Native camera access (ML Kit, AVFoundation)
+- **Ensemble ML** → 3 models combined for robust detection in <5ms
 
-KMP allowed me to write the detection engine once and deploy everywhere—sharing **100% of my business logic** across Android, iOS, Desktop, and Web. When I fix a bug in the phishing heuristics, every platform gets the fix. When I add detection for a new attack pattern, everyone is protected immediately.
-
-| Without KMP | With KMP |
-|-------------|----------|
-| 4 separate codebases | 1 shared + 4 thin UI layers |
-| Bug fixed 4 times | Bug fixed once, deployed everywhere |
-| Feature parity drift | Guaranteed consistency |
-| 4x maintenance burden | Focused optimization |
-| Platform-specific bugs | Shared testing, shared quality |
-
-### Technical Challenges Conquered
-
-The technical challenge was exhilarating:
-
-- **`expect`/`actual` pattern** for platform-specific camera access (ML Kit on Android, AVFoundation on iOS)
-- **Ensemble ML model** running entirely on-device—3 models (Logistic Regression + Gradient Boosting + Decision Rules) combined for robust detection in <5ms
-- **Multi-layer detection** combining 25+ heuristic rules, ensemble ML scoring, 500+ brand fuzzy matching, and homograph attack detection
-- **Offline-first architecture** because internet isn't guaranteed at a parking meter
-- **Centralized constants** in `SecurityConstants.kt` for maintainability and tuning
-
-Each obstacle pushed my engineering skills further than any classroom assignment ever had.
+---
 
 ## Technical Highlights
 
-### The Detection Engine
-
-Building a phishing detector that works offline was the core challenge. Cloud-based solutions like Google Safe Browsing are effective, but they require internet access and upload every URL you scan—a privacy nightmare for users who might be scanning sensitive QR codes at medical offices, legal firms, or financial institutions.
-
-I developed a **multi-layer analysis system** that runs entirely on-device:
-
-1. **25+ Heuristic Rules** — Detecting patterns like IP addresses as hosts, suspicious TLDs (.tk, .ml, .ga), homograph attacks using Cyrillic/Greek characters, excessive subdomains, @ symbol injection, and credential keywords in URLs.
-
-2. **Logistic Regression ML Model** — A lightweight classifier trained on URL features (entropy, length, special character ratios) that provides probabilistic risk scoring without requiring a neural network runtime.
-
-3. **Brand Impersonation Detection** — Fuzzy matching using Levenshtein distance against 500+ brand names to catch typosquatting attacks like "paypa1" or "amaz0n" or "commbank-secure".
-
-4. **Redirect Chain Simulation** — Offline analysis of URL patterns that indicate redirect chains—a common phishing technique to evade blocklists.
-
-### Code Reuse Metrics
-
-| Module | Lines of Code | Shared (%) |
-|--------|---------------|------------|
-| Detection Engine (commonMain) | 9,500+ | 100% |
-| Policy & Adversarial (commonMain) | 2,000+ | 100% |
-| Platform Parity (commonMain) | 1,200+ | 100% |
-| Android UI (Compose) | 5,800+ | 0% |
-| iOS UI (SwiftUI) | 6,400+ | 0% |
-| Desktop/Web UI | 1,700+ | 0% |
-| **Total** | **24,600+** | **~42%** |
-
-*Note: While UI is platform-specific (using native frameworks for the best user experience), the entire business logic—the core that actually protects users—is 100% shared.*
-
-### Platform Parity: Provable from the Repository
-
-A key insight from building QR-SHIELD is that **true KMP parity must be provable from the codebase alone**. Judges shouldn't have to "trust" that all platforms behave identically—they should be able to verify it.
-
-I achieved this by pushing more into shared modules:
-
-**Shared Text Generation (`SharedTextGenerator.kt`):**
-- All verdict titles, descriptions, and accessibility labels
-- Risk explanations and action recommendations
-- Share content and JSON export formats
-- No platform duplicates "safe means safe in their own words"
-
-**Shared Localization Keys (`LocalizationKeys.kt`):**
-- ~80 string keys for all UI text
-- `LocalizedKey(key, defaultText)` ensures consistency
-- Platforms use the same keys with their localization systems
-
-**Strategic expect/actual Boundaries (`PlatformAbstractions.kt`):**
-
-Each expect declaration documents **WHY** it must be native:
-
-| Abstraction | Why Native |
-|-------------|------------|
-| `PlatformClipboard` | ClipboardManager (Android), UIPasteboard (iOS), AWT (Desktop) |
-| `PlatformHaptics` | Vibrator (Android), UIImpactFeedbackGenerator (iOS) |
-| `PlatformLogger` | Logcat (Android), OSLog (iOS), console (Web) |
-| `PlatformTime` | System.nanoTime (JVM), performance.now (Web) |
-| `PlatformShare` | Intent.ACTION_SEND (Android), UIActivityViewController (iOS) |
-| `PlatformSecureRandom` | SecureRandom (JVM), Security.framework (iOS) |
-| `PlatformUrlOpener` | Intent.ACTION_VIEW (Android), UIApplication.openURL (iOS) |
-
-This approach ensures that when a judge looks at the repository, they can see exactly what's shared (PhishingEngine, SharedTextGenerator, LocalizationKeys) and why certain things must be native (camera, haptics, clipboard).
+| Feature | Implementation |
+|---------|---------------|
+| **25+ Heuristics** | Homographs, typosquats, @ injection, suspicious TLDs |
+| **Ensemble ML** | Logistic Regression + Gradient Boosting + Decision Rules |
+| **Brand Detection** | 500+ brands + Dynamic Discovery patterns |
+| **<5ms Analysis** | Real-time feedback during scanning |
 
 ---
-
-## 🆕 Novelty Features (v1.2.0)
-
-Beyond the standard "heuristics + ML" approach, I pushed to create genuinely novel security features:
-
-### 1. Enterprise Policy Engine
-
-For organizational deployments, I built `OrgPolicy` — a complete policy enforcement system:
-
-- **Domain allowlists/blocklists** with wildcard support (`*.company.com`)
-- **TLD restrictions** (block all `.tk`, `.ml`, `.ga` organization-wide)
-- **HTTPS enforcement** and URL shortener blocking
-- **Custom thresholds** per department or security level
-
-This isn't just academic — it's what enterprise security teams actually need. Banks can allowlist their domains, universities can enforce HTTPS for all scanned URLs, and security-conscious organizations can block high-risk TLDs entirely.
-
-### 2. QR Payload Type Coverage (Beyond URLs)
-
-Most QR security tools only analyze URLs. But QR codes carry much more:
-
-| Payload | Attack Vector | Our Detection |
-|---------|---------------|---------------|
-| **WiFi configs** | Rogue access points, credential harvesting | Open network warnings, WEP alerts, suspicious SSIDs |
-| **SMS messages** | Smishing, premium rate scams | Embedded URL extraction, premium number detection |
-| **vCards** | Executive impersonation, embedded phishing URLs | CEO/CFO title flags, URL analysis |
-| **Crypto payments** | Address replacement, scam labels | Irreversibility warnings, suspicious label detection |
-| **UPI/PayPal** | Payment fraud | Large amount alerts, unknown payee warnings |
-
-This is genuinely novel — I haven't found another open-source tool that applies security analysis to the full spectrum of QR payload types.
-
-### 3. Adversarial Robustness Module
-
-Sophisticated attackers use obfuscation to bypass security tools. I built defenses for:
-
-- **Homograph attacks** — Detecting Cyrillic 'а' (U+0430) masquerading as Latin 'a'
-- **RTL override** — Characters that visually reverse filenames (exe.pdf → pdf.exe)
-- **Double/triple encoding** — %252e%252e → %2e%2e → ..
-- **Zero-width characters** — Invisible Unicode that defeats pattern matching
-- **IP obfuscation** — Detecting decimal (3232235777) and hex (0xC0A80101) IP addresses
-
-I even published a **Red Team Corpus** (`data/red_team_corpus.md`) with 60+ adversarial test cases for other researchers to use.
-
----
-
-## The Hardest Part
-
-The hardest part wasn't the code. It was accepting that **my tool can't catch everything**.
-
-In security, there are no silver bullets. A sufficiently sophisticated attacker will always find a way. What I learned building QR-SHIELD is that **security is about raising the cost of attack**. By catching the obvious scams—the `.tk` domains, the homograph attacks, the typosquats—I protect users from the 90% of attacks that exploit lazy shortcuts.
-
-The other 10%? That's what defense-in-depth is for. That's why banks have MFA. That's why we teach users to be skeptical. My tool is one layer in a larger system, and I've made peace with that.
 
 ## What I Learned
 
-Building QR-SHIELD taught me that **privacy and protection aren't mutually exclusive**. Every URL analysis happens entirely on-device. No telemetry. No tracking. No data leaves your phone. Ever.
+Building QR-SHIELD taught me that **privacy and protection aren't mutually exclusive**. Every URL analysis happens entirely on-device. No telemetry. No tracking.
 
-This matters because the QR codes people scan reveal their intentions: which banks they use, which doctors they visit, which lawyers they consult. Cloud scanners build profiles they can sell or be forced to disclose. QR-SHIELD doesn't—because it can't. The privacy isn't a feature; it's an architecture.
-
-I also discovered the power of Kotlin Multiplatform for real-world applications. The ability to share complex security logic across four platforms while still accessing native APIs was transformative. When I added homograph detection, every platform got it. When I fixed a false positive on Australian bank domains, the fix deployed everywhere.
-
-## Impact
-
-Since publishing QR-SHIELD:
-
-- **100% open source** under Apache 2.0 license—anyone can audit the security
-- **11 languages** supported for global accessibility
-- **30+ test files** with 1000+ test cases including real-world (defanged) phishing patterns
-- **103 adversarial tests** covering obfuscation attacks
-- **60+ red team test cases** published for the security research community
-- **Zero runtime permissions** beyond camera access
-- **CI/CD pipeline** with Detekt enforcement and Kover coverage
-
-## Looking Forward
-
-The QR code isn't going away. It's on restaurant tables, airline boarding passes, vaccine certificates, parking meters, and increasingly in corporate email. Neither are the attackers exploiting it.
-
-But with tools like QR-SHIELD, we can shift the balance back toward the user. I built this for my grandmother—and for every person who doesn't know that `paypa1` isn't `paypal`, that Cyrillic 'а' isn't Latin 'a', that `.tk` isn't `.com`.
-
-**Scan smart. Stay protected.**
+I also discovered that security is about **raising the cost of attack**. By catching 90% of scams—the `.tk` domains, the homographs, the typosquats—I protect users from lazy attackers. The other 10%? That's what defense-in-depth is for.
 
 ---
 
-## 🔍 Code Quality Excellence (20/20)
+## About Me
 
-A competition-winning project requires competition-grade code quality. I didn't just write working code — I made it **verifiable**, **maintainable**, and **auditable**.
+I'm a Computer Science student from Sydney, passionate about cybersecurity and cross-platform development. I've been coding in Kotlin for 3+ years and participate in security CTF competitions.
 
-### Zero-Tolerance Lint Policy
+**Why I built this:** Because my grandmother deserves to use technology without fear.
 
-I deleted the `detekt-baseline.xml` file that contained 253 suppressed issues and now fail CI on ANY violation. No baseline = no excuses = judges can trust the code quality.
-
-### Centralized Security Constants
-
-All magic numbers replaced with documented constants in `SecurityConstants.kt`:
-
-```kotlin
-const val SAFE_THRESHOLD: Int = 30     // Below = SAFE verdict
-const val MALICIOUS_THRESHOLD: Int = 70 // At/above = MALICIOUS verdict
-const val HEURISTIC_WEIGHT: Float = 0.40f // Based on F1 optimization
-```
-
-Every constant includes KDoc explaining WHY that value was chosen, making tuning explicit and reviewable.
-
-### Property-Based Tests
-
-Rather than just testing specific cases, I test **invariants that must hold for ANY input**:
-
-| Invariant | Assertion |
-|-----------|-----------|
-| Score Bounds | 0 ≤ score ≤ 100 for any URL |
-| Determinism | Same URL → same score (10 iterations) |
-| Idempotence | `analyze(url) == analyze(analyze(url))` |
-| Normalization | `normalize(normalize(x)) == normalize(x)` |
-
-### Judge-Proof Evidence Infrastructure
-
-Reproducible verification of ALL claims from CI logs:
-
-```bash
-./gradlew :common:verifyAccuracy    # Precision/Recall/F1 from committed dataset
-./gradlew :common:verifyOffline     # Proves no network calls
-./gradlew :common:verifyThreatModel # Maps threats → tests → mitigations
-./gradlew :common:verifyAll         # All verification tests
-```
-
-Each verification produces formatted output in CI logs — judges can copy-paste commands and see the same results I claim.
-
-### Reproducible Builds
-
-To ensure every build is auditable and reproducible:
-
-```bash
-./gradlew generateSbom          # Software Bill of Materials
-./gradlew verifyDependencyVersions  # No dynamic versions
-./gradlew verifyReproducibility # Complete verification
-```
-
-All dependencies are pinned in `gradle/libs.versions.toml` — no `+` or `latest` specifiers allowed. The SBOM lists every dependency with exact versions for security audits.
+**What Munich means to me:** A chance to learn from the best Kotlin developers, share what I've built, and bring that knowledge back to the next generation.
 
 ---
 
-## 🏆 Why I Should Win This Competition
-
-Let me be direct: I'm not just asking for a trip to Munich. I'm asking you to invest in someone who will use this platform to **make security accessible to everyone**.
-
-| What Sets Me Apart | Evidence |
-|-------------------|----------|
-| **Real-World Impact** | Built this to protect my grandmother—and millions like her |
-| **Technical Depth** | 24,600+ lines of Kotlin, 4 platforms, 1000+ tests |
-| **Privacy Conviction** | Chose offline-first even when it made detection harder |
-| **Open Source Commitment** | Apache 2.0, published red-team corpus for the community |
-| **Production Quality** | 89% test coverage, mutation testing, CI/CD, Detekt enforcement |
-
-**What I'll do with this opportunity:**
-- Share QR-SHIELD at KotlinConf to reach thousands of developers
-- Contribute to the Kotlin security ecosystem
-- Mentor other students in KMP development
-- Continue building privacy-first security tools
-
-This isn't my first project, but it's my best. It represents four months of late nights, debugging sessions, and moments where I wanted to give up—but didn't.
-
----
-
-## 💪 The Struggles: What This Project Really Took
-
-Building QR-SHIELD wasn't a linear journey. Here's what I don't show in the polished README:
-
-### The 3 AM Debugging Sessions
-
-The first time I tried to share code between iOS and Android, nothing worked. The KMP plugin threw cryptic errors, the Framework wouldn't link, and I spent an entire weekend wondering if I'd chosen the wrong technology.
-
-**What saved me:** The Kotlin Slack community. A developer from JetBrains responded to my 2 AM question about `expect/actual` patterns. That moment taught me that open source isn't just about code—it's about people helping each other.
-
-### The "Is This Even Possible?" Moment
-
-When I realized Google Safe Browsing requires network access, I asked myself: *Can I even build a useful phishing detector offline?*
-
-I spent two weeks researching academic papers on URL classification. I learned about information entropy, Levenshtein distance, and homograph attacks. I built three different ML models before one worked. The logistic regression model in the codebase is version 4—the previous three were thrown away.
-
-### The False Positive Crisis
-
-Week 6: My detector flagged `commbank.com.au` (Commonwealth Bank of Australia) as phishing. A false positive on a major bank is unacceptable.
-
-I added the brand detection system specifically because of this failure. Now the detector knows that a URL containing "commbank" on the official domain is *less* suspicious, not more. This edge case led to the entire `BrandDetector` module.
-
-### What I Learned From Failure
-
-- **Heuristics alone aren't enough.** I needed ML to catch patterns I couldn't enumerate.
-- **ML alone isn't explainable.** I needed heuristics to show users *why* something is risky.
-- **Privacy comes at a cost.** Offline detection will never be as good as cloud-based blocklists—but for everyday users, it's good enough, and the privacy is worth it.
-
----
-
-## 🎮 Hobbies & How They Shaped This Project
-
-When I'm not coding, I:
-
-| Hobby | How It Influenced QR-SHIELD |
-|-------|----------------------------|
-| **CTF Competitions** | Taught me how attackers think—led to the adversarial robustness module |
-| **Teaching Grandparents** | Showed me that tech education is about trust, not complexity |
-| **Open Source Contributions** | Learned from reviewing others' code; applied to my own code quality |
-| **Gaming** | Inspired the "Beat the Bot" gamification mode—security as a game |
-
-**CTF (Capture The Flag) competitions** are where I learned that phishing isn't about fancy technology—it's about psychology. Attackers exploit trust, familiarity, and urgency. That's why QR-SHIELD doesn't just say "this is risky"—it explains *why*, because understanding builds defense.
-
----
-
-## About the Author
-
-I'm a student developer passionate about cybersecurity and cross-platform development from Sydney, Australia. QR-SHIELD is my submission to the 2025-2026 KotlinConf Student Coding Competition.
-
-**My Background:**
-- Computer Science student with focus on mobile development and security
-- 3+ years of Kotlin experience, 2 years of iOS development
-- Active participant in security CTF competitions
-- Open source contributor to several KMP libraries
-- Mentor for younger students learning to code
-
-**Why I built this:** Because my grandmother deserves to use technology without fear. Because security tools shouldn't require a PhD to use. Because privacy and protection can coexist.
-
-**What Munich means to me:** A chance to learn from the best Kotlin developers in the world, share what I've built, and bring that knowledge back to the next generation of developers I'll mentor.
-
----
-
-*Word count: ~2,000 (exceeds 300 minimum)*
-
----
+*Word count: ~400*
 
 - **GitHub:** [github.com/Raoof128](https://github.com/Raoof128)
 - **Project:** [QR-SHIELD](https://github.com/Raoof128/Raoof128.github.io)
