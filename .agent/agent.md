@@ -15,7 +15,8 @@ Implemented ALL remaining improvements from official judge evaluation to achieve
 | 2 | **iOS ComposeInterop Fix** | ✅ | Removed fatalError, documented integration |
 | 3 | **ML Training Doc Link** | ✅ | Added to README Documentation table |
 | 4 | **FP Rate in Quality Section** | ✅ | Added to Quality & Testing table |
-| 5 | **CI Fix: GitHub Pages Deploy** | ✅ | Fixed Kotlin/JS build failure |
+| 5 | **CI Fix: String.format** | ✅ | Fixed Kotlin/JS build (JVM-only API) |
+| 6 | **CI Fix: Gradle Task** | ✅ | Use jsBrowserDistribution for full bundle |
 
 
 ---
@@ -113,11 +114,41 @@ private fun byteToHex(byte: Byte): String {
 
 ---
 
+### 5. CI Fix: Gradle Task for Full Web Bundle
+
+**Problem:** Even after fixing the String.format issue, the GitHub Pages workflow was still failing because:
+- `jsBrowserProductionWebpack` only builds the JS bundle
+- It does NOT include HTML, CSS, assets, or other resources
+- The output path was wrong: `kotlin-webpack/js/productionExecutable` vs expected `dist/js/productionExecutable`
+
+**Before (`pages.yml`):**
+```yaml
+- name: Build Web App
+  run: ./gradlew :webApp:jsBrowserProductionWebpack --no-daemon
+```
+
+**After:**
+```yaml
+- name: Build Web App
+  run: ./gradlew :webApp:jsBrowserDistribution --no-daemon
+```
+
+**Why:** `jsBrowserDistribution` properly bundles:
+- `index.html` - Main HTML file
+- `styles.css` - Stylesheets
+- `assets/` - Images and icons
+- `webApp.js` - Kotlin/JS bundle
+- `manifest.json` - PWA manifest
+- `sw.js` - Service worker
+
+---
+
 ### Build Verification
 
 ```bash
 ✅ ./gradlew :common:desktopTest --tests "*FalsePositiveRateTest*"  # 5 tests pass
-✅ ./gradlew :webApp:jsBrowserProductionWebpack  # JS build now passes!
+✅ ./gradlew :webApp:jsBrowserDistribution  # Full web bundle builds!
+✅ ls webApp/build/dist/js/productionExecutable/  # All files present
 ✅ README.md updated with ML Training and FP Rate
 ✅ iOS ComposeInterop no longer has fatalError
 ```

@@ -31,7 +31,7 @@ jobs:
         cache: gradle
 
     - name: Build Web App
-      run: ./gradlew :webApp:jsBrowserProductionWebpack --no-daemon
+      run: ./gradlew :webApp:jsBrowserDistribution --no-daemon
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
