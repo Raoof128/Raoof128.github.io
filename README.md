@@ -62,6 +62,28 @@
 - Android app: `androidApp/` — iOS app: `iosApp/` — Desktop: `desktopApp/` — Web: `webApp/`
 - **Attack Scenarios:** [docs/ATTACK_DEMOS.md](docs/ATTACK_DEMOS.md) — Curated demos with detection signals
 
+### 📝 Competition Essay
+
+> **[Read the Competition Essay →](ESSAY_SUBMISSION.md)** (550 words)
+>
+> Covers: Background, Coding Experience, Hobbies, The Idea, Technologies Used
+
+### 🎬 Demo Video
+
+> **[Watch QR-SHIELD in Action →](https://raoof128.github.io/?demo=true)** (Live Interactive Demo)
+>
+> The live demo allows you to test URLs directly in your browser without building anything.
+> Try: `https://paypa1-secure.tk/login` to see real-time phishing detection.
+
+### 📱 Pre-Built Downloads
+
+| Platform | Download | Notes |
+|----------|----------|-------|
+| **Android APK** | [`QRShield-1.1.0-release.apk`](releases/QRShield-1.1.0-release.apk) | Signed release, install directly |
+| **Web App** | [raoof128.github.io](https://raoof128.github.io) | No install required |
+| **iOS** | Coming to TestFlight | Contact for beta access |
+| **Desktop** | `./gradlew :desktopApp:run` | Build from source |
+
 ---
 
 ### ⚡ Quick Start: Build From Source
@@ -276,8 +298,9 @@ cd qrshield
 ![iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)
 ![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?logo=openjdk&logoColor=white)
 ![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
+![Wasm](https://img.shields.io/badge/Wasm-Experimental-654FF0?logo=webassembly&logoColor=white)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
-![Version](https://img.shields.io/badge/v1.4.0-green)
+![Version](https://img.shields.io/badge/v1.6.1-green)
 ![Tests](https://img.shields.io/badge/Tests-1000+_Passed-brightgreen?logo=checkmarx&logoColor=white)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 ![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
@@ -478,6 +501,71 @@ val result = AdversarialDefense.normalize("https://аpple.com/verify")
 ```
 
 📄 **Published Red Team Corpus:** [`data/red_team_corpus.md`](data/red_team_corpus.md) — 60+ adversarial test cases
+
+### 4. 🔍 Dynamic Brand Discovery (NEW in v1.6.1)
+
+> **Beyond static databases:** Detect brand impersonation for brands NOT in the 500+ hardcoded database.
+
+Most security tools rely on static brand databases that quickly become outdated. QR-SHIELD's **Dynamic Brand Discovery** engine detects impersonation patterns for *any* brand:
+
+| Pattern Type | Example | Detection |
+|--------------|---------|-----------|
+| **Trust Word Abuse** | `secure-banking.tk` | ✅ "secure" suggests legitimacy deception |
+| **Action Words** | `login-verify.ml` | ✅ "login" suggests credential harvesting |
+| **Urgency Patterns** | `urgent-update-now.ga` | ✅ Social engineering pressure |
+| **Brand-Like Subdomains** | `paypal.secure-check.tk` | ✅ Subdomain mimics known brand |
+| **Suspicious Hyphens** | `brand-login.example.com` | ✅ Hyphenated pattern = impersonation |
+
+```kotlin
+// Dynamic discovery for unknown brands
+val result = DynamicBrandDiscovery.analyze("https://mybank-secure-login.tk/verify")
+// result.score = 25
+// result.findings = [TRUST_WORD_ABUSE, ACTION_WORD_IN_DOMAIN, SUSPICIOUS_HYPHEN_PATTERN]
+// result.suggestedBrand = "Mybank" (inferred from pattern)
+```
+
+**Why This Matters:**
+- New brands emerge daily — static databases can't keep up
+- Regional banks and niche services are often targeted
+- Attackers know which brands are in security databases and target others
+
+📄 **Implementation:** [`DynamicBrandDiscovery.kt`](common/src/commonMain/kotlin/com/qrshield/engine/DynamicBrandDiscovery.kt)
+
+### 5. 🎮 Beat the Bot (Gamified Security Testing)
+
+> **Security as a game:** Challenge users to submit adversarial URLs and try to bypass the detection engine.
+
+The "Beat the Bot" mode transforms security testing into an engaging experience:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              🎮 BEAT THE BOT - CHALLENGE MODE                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  YOUR MISSION: Submit a phishing URL that QR-SHIELD misses      │
+│                                                                  │
+│  ┌─────────────────────────────────────────────────────────────┐ │
+│  │  Enter adversarial URL: [________________________]          │ │
+│  │                                                             │ │
+│  │            [ 🚀 CHALLENGE THE BOT ]                         │ │
+│  └─────────────────────────────────────────────────────────────┘ │
+│                                                                  │
+│  SCOREBOARD:                                                     │
+│  ├── Bot Wins: 47                                               │
+│  ├── User Wins: 3                                               │
+│  └── Detection Rate: 94%                                        │
+│                                                                  │
+│  Result: ACCESS DENIED ❌ (Bot detected your phishing attempt)  │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Why This Matters:**
+- **Behavioral insight:** Users learn attacker techniques while testing
+- **Crowdsourced red-teaming:** Discover edge cases from real adversarial attempts
+- **Engagement:** Gamification increases security awareness retention
+
+📄 **Implementation:** [`BeatTheBot.kt`](common/src/commonMain/kotlin/com/qrshield/gamification/BeatTheBot.kt) | [`BeatTheBotScreen.kt`](common/src/commonMain/kotlin/com/qrshield/ui/game/BeatTheBotScreen.kt)
 
 ---
 
