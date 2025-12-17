@@ -4,6 +4,92 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-17 (Code Quality + Credibility Fixes)
+
+### Summary
+Fixed security constants inconsistency, removed vaporware claims, and added iOS integration proof:
+
+| Fix | Impact | Files |
+|-----|--------|-------|
+| **Security Constants** | 🟡 MEDIUM | PhishingEngine, SecurityConstants |
+| **Vaporware Removal** | 🔴 HIGH | README, ROADMAP.md (new) |
+| **iOS Integration Proof** | 🔴 HIGH | README, INTEGRATION_GUIDE.md (new) |
+
+---
+
+### 1. Security Constants Fix
+
+**Problem:** PhishingEngine had confusing local redefinitions:
+```kotlin
+// ❌ BEFORE: Magic number calculations
+private val SAFE_THRESHOLD = SecurityConstants.SAFE_THRESHOLD / 3  // ~10
+private val SUSPICIOUS_THRESHOLD = SecurityConstants.MALICIOUS_THRESHOLD - 20  // ~50
+```
+
+**Solution:** Proper named constants with KDoc explaining why:
+```kotlin
+// ✅ AFTER: Dedicated constants in SecurityConstants.kt
+const val PHISHING_ENGINE_SAFE_THRESHOLD: Int = 10
+const val PHISHING_ENGINE_SUSPICIOUS_THRESHOLD: Int = 50
+
+// In PhishingEngine.kt
+private const val SAFE_THRESHOLD = SecurityConstants.PHISHING_ENGINE_SAFE_THRESHOLD
+private const val SUSPICIOUS_THRESHOLD = SecurityConstants.PHISHING_ENGINE_SUSPICIOUS_THRESHOLD
+```
+
+---
+
+### 2. Vaporware Cleanup
+
+**Problem:** README claimed features that weren't fully shipped:
+- Wasm badge (experimental, not production)
+- References to "differential privacy" and "federated learning" (scaffolding only)
+
+**Solution:**
+1. Removed Wasm badge from README
+2. Created `ROADMAP.md` for future/planned features
+3. README now documents only **shipped features**
+
+**ROADMAP.md contents:**
+- v2.0: Kotlin/Wasm, Federated Learning, Living Engine, Differential Privacy
+- v1.7: App Clip, Watch OS, Browser Extension
+
+---
+
+### 3. iOS Integration Proof
+
+**Problem:** "4 platforms" claim needs proof iOS uses shared Kotlin code
+
+**Solution:** Created comprehensive integration guide:
+
+**File:** `iosApp/INTEGRATION_GUIDE.md`
+
+Contents:
+- Architecture diagram showing Swift ↔ Kotlin bridge
+- Code walkthrough (`KMPBridge.swift` calling `PhishingEngine`)
+- Step-by-step verification for judges
+- LOC breakdown: 53% Kotlin, 47% Swift
+- Debugging instructions
+
+**README Update:** Added iOS Integration Proof section with:
+- Actual Swift code showing Kotlin imports
+- Verification steps
+- Link to full guide
+
+---
+
+### Files Changed
+
+| File | Action | Purpose |
+|------|--------|---------|
+| `SecurityConstants.kt` | Modified | Added PHISHING_ENGINE_* constants |
+| `PhishingEngine.kt` | Modified | Use proper constants |
+| `ROADMAP.md` | Created | Future features documentation |
+| `iosApp/INTEGRATION_GUIDE.md` | Created | iOS Kotlin integration proof |
+| `README.md` | Modified | Removed Wasm badge, added iOS proof |
+
+---
+
 ## Session: 2025-12-17 (Judge Verification Suite - "Trust Me" → "Test Yourself")
 
 ### Summary
