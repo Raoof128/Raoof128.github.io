@@ -4,6 +4,62 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-17 (Architecture Enforcement + Web App Honesty)
+
+### Summary
+Added layer dependency enforcement tests and honest web app status:
+
+| Change | Impact | Files |
+|--------|--------|-------|
+| **Layer Dependency Tests** | 🟡 MEDIUM | KonsistTest.kt |
+| **Web App Demo Status** | 🟡 MEDIUM | README.md |
+
+---
+
+### 1. Architecture Enforcement Tests
+
+**File:** `common/src/desktopTest/kotlin/com/qrshield/architecture/KonsistTest.kt`
+
+**New Tests Added:**
+
+| Test | What It Enforces |
+|------|------------------|
+| `engine layer does not depend on UI layer` | Engine/core cannot import ui/screens |
+| `core module has no platform-specific imports` | No android.*/platform.*/org.w3c.* in core |
+| `model classes should not have business logic imports` | Models are pure data containers |
+| `security constants should be in SecurityConstants object` | Centralized thresholds |
+| `feature constants should be in FeatureConstants object` | Centralized ML indices |
+
+**Total Tests:** 9 (4 naming + 5 architecture)
+
+---
+
+### 2. Web App Status (Option B: Honest Downgrade)
+
+**Added Platform Support Status table to README:**
+
+| Platform | Status |
+|----------|--------|
+| Android | ✅ **Full** (4,500 LOC) |
+| iOS | ✅ **Full** (6,500 LOC) |
+| Desktop | ✅ **Full** (2,000 LOC) |
+| Web | ⚠️ **Demo** (500 LOC) |
+
+**Why this is better:**
+- Honest about web app being a demo
+- Links to ROADMAP.md for full PWA plans
+- Core achievement highlighted: Same engine compiles to JVM/Native/JS
+
+---
+
+### Build Status
+
+```bash
+✅ ./gradlew :common:desktopTest --tests "*KonsistTest*"  # 9 tests pass
+```
+
+---
+
 ## Session: 2025-12-17 (Code Quality + Credibility Fixes)
 
 ### Summary
