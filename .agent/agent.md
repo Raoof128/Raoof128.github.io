@@ -87,6 +87,7 @@ Contents:
 | `ROADMAP.md` | Created | Future features documentation |
 | `iosApp/INTEGRATION_GUIDE.md` | Created | iOS Kotlin integration proof |
 | `README.md` | Modified | Removed Wasm badge, added iOS proof |
+| `detekt.yml` | Modified | Tightened MagicNumber rule (35→8 allowed) |
 
 ---
 
