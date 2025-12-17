@@ -431,7 +431,17 @@ class SecureAggregation {
      * Generate session ID from shared secret.
      */
     private fun generateSessionId(secret: SharedSecret): String {
-        return "ecdh_${secret.keyMaterial.take(8).joinToString("") { "%02x".format(it) }}"
+        return "ecdh_${secret.keyMaterial.take(8).joinToString("") { byteToHex(it) }}"
+    }
+
+    /**
+     * Convert a byte to a two-character hex string.
+     * Multiplatform-compatible (no String.format which is JVM-only).
+     */
+    private fun byteToHex(byte: Byte): String {
+        val hexChars = "0123456789abcdef"
+        val unsigned = byte.toInt() and 0xFF
+        return "${hexChars[unsigned shr 4]}${hexChars[unsigned and 0x0F]}"
     }
 
     companion object {
