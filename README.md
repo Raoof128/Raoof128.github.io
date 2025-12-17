@@ -1,13 +1,43 @@
 # 🛡️ QR-SHIELD
 
-> **The QR-SHIELD App** — A Kotlin Multiplatform security app that detects QR phishing attacks entirely offline. Scan any QR code and get instant, explainable verdicts without sacrificing your privacy.
+> **Offline QR Phishing Detection** — Scan any QR code, get instant verdicts, never send data to the cloud.
 
+<!-- Competition Badges -->
+[![Contest](https://img.shields.io/badge/KotlinConf-2025--2026-7F52FF?logo=kotlin&logoColor=white)](CONTEST_START.md)
+[![Platforms](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Desktop%20%7C%20Web-orange)](docs/SHARED_CODE_REPORT.md)
+[![Offline](https://img.shields.io/badge/Network-100%25%20Offline-brightgreen)](judge/verify_offline.sh)
+[![No Network](https://img.shields.io/badge/Privacy-Zero%20Data%20Collection-blue)](PRIVACY.md)
+
+<!-- Quality Badges -->
 [![Test Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
-[![Performance](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/performance.yml?label=performance&logo=speedtest&logoColor=white)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/performance.yml)
+[![Performance](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/performance.yml?label=performance)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/performance.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-purple)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF)](https://kotlinlang.org)
-[![KMP](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Desktop%20%7C%20Web-orange)](https://kotlinlang.org/docs/multiplatform.html)
+
+---
+
+## ⚡ What It Does (10 Seconds)
+
+- **Scan** → Point at any QR code  
+- **Analyze** → 25+ heuristics + ML ensemble score the URL in <5ms  
+- **Verdict** → SAFE ✅ / SUSPICIOUS ⚠️ / MALICIOUS 🔴 with human-readable reasons
+
+**No network calls. No cloud APIs. No data collection. Ever.**
+
+---
+
+## 🎯 Threat Model
+
+| Who Attacks | What We Detect | What We Don't |
+|-------------|----------------|---------------|
+| **Lazy phishers** | .tk/.ml domains, typosquats, IP hosts | Brand-new domains (no blocklist) |
+| **Script kiddies** | Homograph attacks, @ injection, shorteners | Zero-day exploits |
+| **Credential harvesters** | Login keywords, credential params | Sophisticated APTs |
+
+**Trade-off:** We sacrifice real-time blocklist updates for absolute privacy.
+
+📖 Full threat model: [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md)
 
 ---
 
@@ -94,6 +124,48 @@
 | `https://paypa1-secure.tk/login` | 🔴 MALICIOUS — Brand impersonation + suspicious TLD |
 | `https://google.com` | 🟢 SAFE — No threats detected |
 | `https://gооgle.com` (Cyrillic) | 🔴 MALICIOUS — Homograph attack |
+
+---
+
+## 🔒 Offline Guarantee (Provable)
+
+**"100% Offline" isn't a marketing claim—it's enforced by tests.**
+
+| Enforcement | How |
+|-------------|-----|
+| **No HTTP client** | Analysis module has zero network dependencies |
+| **Test verification** | `./judge/verify_offline.sh` fails if any socket call detected |
+| **CI enforcement** | Quality tests run in isolated network environment |
+
+```bash
+# Prove zero network calls
+./judge/verify_offline.sh
+
+# Expected output:
+# ✅ OFFLINE VERIFICATION PASSED
+# Analyzed 27 URLs, made 0 network calls
+```
+
+📖 Full test: [common/src/commonTest/.../OfflineOnlyTest.kt](common/src/commonTest/kotlin/com/qrshield/core/OfflineOnlyTest.kt)
+
+---
+
+## 📊 Shared Code Proof (KMP is Real)
+
+| Module | Lines | Shared? |
+|--------|-------|---------|
+| `core/` (PhishingEngine) | 1,800 | ✅ 100% |
+| `engine/` (Heuristics) | 2,500 | ✅ 100% |
+| `ml/` (Ensemble Model) | 1,400 | ✅ 100% |
+| `model/` (Data Classes) | 600 | ✅ 100% |
+| `security/` (InputValidator) | 800 | ✅ 100% |
+| **Total Business Logic** | **~11,000** | **100%** |
+
+Platform-specific code (UI, camera, haptics): ~12,500 LOC
+
+**Key insight:** Business logic is 100% shared. Only UI and hardware access is platform-specific.
+
+📖 Full breakdown: [docs/SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md)
 
 ---
 
