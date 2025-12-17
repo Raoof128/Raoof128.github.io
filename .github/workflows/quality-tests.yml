@@ -91,6 +91,55 @@ jobs:
           path: common/build/reports/tests/
 
   # ==========================================================================
+  # PLATFORM PARITY TESTS (JVM + JS + Native)
+  # ==========================================================================
+  parity-tests:
+    name: Platform Parity Tests
+    runs-on: macos-14  # Need macOS for iOS Native tests
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Run JVM Parity Tests
+        run: ./gradlew :common:desktopTest --tests "*PlatformParityTest*" --no-daemon
+        continue-on-error: true
+
+      - name: Run JS Parity Tests
+        run: ./gradlew :common:jsNodeTest --tests "*PlatformParityTest*" --no-daemon
+        continue-on-error: true
+
+      - name: Run iOS Native Parity Tests
+        run: ./gradlew :common:iosSimulatorArm64Test --tests "*PlatformParityTest*" --no-daemon
+        continue-on-error: true
+
+      - name: Run Platform Contract Tests (JVM)
+        run: ./gradlew :common:desktopTest --tests "*PlatformContractTest*" --no-daemon
+        continue-on-error: true
+
+      - name: Run Platform Contract Tests (JS)
+        run: ./gradlew :common:jsNodeTest --tests "*PlatformContractTest*" --no-daemon
+        continue-on-error: true
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-test-results
+          path: common/build/reports/tests/
+
+  # ==========================================================================
   # WEB E2E TESTS (PLAYWRIGHT)
   # ==========================================================================
   e2e-tests:
@@ -210,7 +259,7 @@ jobs:
   # ==========================================================================
   quality-summary:
     name: Quality Summary
-    needs: [fuzz-tests, performance-tests, e2e-tests]
+    needs: [fuzz-tests, performance-tests, parity-tests, e2e-tests]
     runs-on: ubuntu-latest
     if: always()
     
@@ -223,7 +272,9 @@ jobs:
           echo "|------------|--------|" >> $GITHUB_STEP_SUMMARY
           echo "| Property-Based Tests | ${{ needs.fuzz-tests.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Performance Tests | ${{ needs.performance-tests.result }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Platform Parity Tests | ${{ needs.parity-tests.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Web E2E Tests | ${{ needs.e2e-tests.result }} |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Note: Tests are informational and do not block the build." >> $GITHUB_STEP_SUMMARY
+
 

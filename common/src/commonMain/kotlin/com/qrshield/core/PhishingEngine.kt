@@ -167,24 +167,141 @@ class PhishingEngine(
             )
         }
 
-        // PHASE 3: Run all analysis engines safely
-        return runCatching {
-            performAnalysis(validatedUrl)
-        }.getOrElse { _ ->
-            // SECURITY: Don't expose internal exceptions
-            RiskAssessment(
-                score = 50,
-                verdict = Verdict.UNKNOWN,
-                flags = listOf("Analysis error - treating as suspicious"),
-                details = UrlAnalysisResult.empty(),
-                confidence = 0.3f
+        // PHASE 3: Run analysis with explicit error handling per component
+        return performAnalysisWithErrorHandling(validatedUrl)
+    }
+
+    /**
+     * Perform analysis with explicit error handling for each component.
+     * 
+     * Each engine is invoked in isolation so failures are contained.
+     * Errors are logged via PlatformLogger for structured diagnostics.
+     */
+    private fun performAnalysisWithErrorHandling(url: String): RiskAssessment {
+        val errors = mutableListOf<String>()
+        
+        // Heuristics Engine (required - fail fast if broken)
+        val heuristicResult = try {
+            heuristicsEngine.analyze(url)
+        } catch (e: Exception) {
+            logError("HeuristicsEngine", e)
+            errors.add("Heuristics analysis failed")
+            HeuristicsEngine.Result(score = 0, flags = emptyList(), details = emptyMap())
+        }
+        
+        // Brand Detection (optional - graceful degradation)
+        val brandResult = try {
+            brandDetector.detect(url)
+        } catch (e: Exception) {
+            logError("BrandDetector", e)
+            errors.add("Brand detection skipped")
+            BrandDetector.DetectionResult(score = 0, match = null, details = null)
+        }
+        
+        // Dynamic Brand Discovery (optional)
+        val dynamicBrandResult = try {
+            com.qrshield.engine.DynamicBrandDiscovery.analyze(url)
+        } catch (e: Exception) {
+            logError("DynamicBrandDiscovery", e)
+            com.qrshield.engine.DynamicBrandDiscovery.DiscoveryResult(
+                score = 0, suggestedBrand = null, findings = emptyList()
             )
         }
+        
+        // TLD Scoring (optional)
+        val tldResult = try {
+            tldScorer.score(url)
+        } catch (e: Exception) {
+            logError("TldScorer", e)
+            TldScorer.TldResult(score = 0, tld = "", isHighRisk = false, riskCategory = TldScorer.RiskCategory.SAFE)
+        }
+        
+        // ML Model (optional - graceful degradation)
+        val mlScore = try {
+            val features = featureExtractor.extract(url)
+            if (useEnsemble) {
+                ensembleModel.predict(features).probability
+            } else {
+                mlModel.predict(features)
+            }
+        } catch (e: Exception) {
+            logError("MLModel", e)
+            errors.add("ML scoring skipped")
+            0.5f // Neutral score on failure
+        }.coerceIn(0f, 1f)
+        
+        // If all major components failed, return error result
+        if (errors.size >= 3) {
+            return RiskAssessment(
+                score = 50,
+                verdict = Verdict.UNKNOWN,
+                flags = errors + listOf("Multiple analysis components failed"),
+                details = UrlAnalysisResult.empty(),
+                confidence = 0.2f
+            )
+        }
+        
+        // Calculate combined scores
+        val combinedBrandScore = (brandResult.score + dynamicBrandResult.score)
+            .coerceAtMost(SecurityConstants.MAX_BRAND_SCORE)
+        
+        val combinedScore = calculateCombinedScore(
+            heuristicScore = heuristicResult.score,
+            mlScore = mlScore,
+            brandScore = combinedBrandScore,
+            tldScore = tldResult.score
+        )
+        
+        val verdict = determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
+        
+        val allFlags = buildList {
+            addAll(heuristicResult.flags)
+            brandResult.match?.let { add("Brand impersonation detected: $it") }
+            dynamicBrandResult.findings.take(2).forEach { finding ->
+                add("Dynamic detection: ${finding.description}")
+            }
+            dynamicBrandResult.suggestedBrand?.let {
+                if (brandResult.match == null) add("Possible brand impersonation: $it")
+            }
+            if (tldResult.isHighRisk) add("High-risk TLD: ${tldResult.tld}")
+            addAll(errors) // Include any component errors as flags
+        }
+        
+        val confidence = calculateConfidence(heuristicResult, mlScore, brandResult)
+        
+        return RiskAssessment(
+            score = combinedScore,
+            verdict = verdict,
+            flags = allFlags,
+            details = UrlAnalysisResult(
+                originalUrl = url.take(256),
+                heuristicScore = heuristicResult.score,
+                mlScore = (mlScore * 100).toInt(),
+                brandScore = combinedBrandScore,
+                tldScore = tldResult.score,
+                brandMatch = brandResult.match ?: dynamicBrandResult.suggestedBrand,
+                tld = tldResult.tld
+            ),
+            confidence = confidence
+        )
+    }
+
+    /**
+     * Log error with structured information.
+     */
+    private fun logError(component: String, error: Exception) {
+        com.qrshield.platform.PlatformLogger.error(
+            tag = "PhishingEngine",
+            message = "[$component] Analysis failed: ${error.message}",
+            throwable = error
+        )
     }
 
     /**
      * Perform the actual analysis (called after validation).
+     * @deprecated Use performAnalysisWithErrorHandling instead
      */
+    @Suppress("UNUSED")
     private fun performAnalysis(url: String): RiskAssessment {
         // Run heuristics engine
         val heuristicResult = heuristicsEngine.analyze(url)

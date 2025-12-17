@@ -1,6 +1,6 @@
 # 🛡️ QR-SHIELD
 
-> **Kotlin Multiplatform security app detecting QR phishing attacks entirely offline.** Protects users' privacy (no URL ever leaves device) while achieving 87% F1 score on real phishing samples. One shared detection engine across Android, iOS, Desktop, and Web.
+> **The QR-SHIELD App** — A Kotlin Multiplatform security app that detects QR phishing attacks entirely offline. Scan any QR code and get instant, explainable verdicts without sacrificing your privacy.
 
 [![Test Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
@@ -11,68 +11,67 @@
 
 ---
 
-## 📋 Executive Summary
+## 🚀 Get the App
 
-### The Problem
+| Platform | Status | Download |
+|----------|--------|----------|
+| **Android** | ✅ Full App | [Download APK](releases/QRShield-1.1.0-release.apk) |
+| **iOS** | ✅ Full App | [Simulator Guide](#ios-one-command-simulator) |
+| **Desktop** | ✅ Full App | `./gradlew :desktopApp:run` |
+| **Web** | ✅ PWA | [raoof128.github.io](https://raoof128.github.io) |
 
-**QRishing attacks increased 587% since 2023.** Users scan parking meters, restaurant menus, payment terminals—never verifying the URL. Existing solutions require cloud APIs, meaning every scanned URL is logged on corporate servers. **Privacy is sacrificed for protection.**
+### iOS One-Command Simulator
 
-### The Solution
-
-**Privacy-first phishing detection with zero network requests:**
-
-| Feature | Implementation |
-|---------|----------------|
-| 🔒 **100% Offline** | No URL ever leaves the device—zero data collection |
-| 🧠 **Ensemble ML** | 3 models: Logistic Regression + Gradient Boosting + Decision Rules |
-| 🔍 **25+ Heuristics** | Homograph detection, typosquatting, suspicious TLDs, IP obfuscation |
-| 🏢 **500+ Brand Database** | Plus dynamic pattern discovery for unknown brands |
-| ⚡ **<5ms Analysis** | Real-time feedback during QR scanning |
-
-### Why This Wins
-
-| Criterion | Evidence |
-|-----------|----------|
-| ✅ **Real Impact** | Protects users from $12B+ annual QRishing losses |
-| ✅ **Privacy Architecture** | No cloud API = no data collection |
-| ✅ **Technical Depth** | Ensemble ML, adversarial robustness, ECDH secure aggregation |
-| ✅ **Production Quality** | 89% test coverage, 1000+ tests, zero-tolerance Detekt CI |
-| ✅ **Kotlin Showcase** | Coroutines, sealed classes, null safety, expect/actual |
+```bash
+# Build and run on iOS Simulator (requires Xcode)
+./scripts/run_ios_simulator.sh
+```
 
 ---
 
-## 🧑‍⚖️ Quick Start for Judges
+## 📋 What Is QR-SHIELD?
+
+**QRishing attacks increased 587% since 2023.** Users scan parking meters, restaurant menus, payment terminals—never verifying the URL. Existing solutions require cloud APIs, meaning every scanned URL is logged on corporate servers.
+
+**QR-SHIELD solves this with privacy-first, offline detection:**
+
+| Feature | How It Works |
+|---------|--------------|
+| 🔒 **100% Offline** | No URL ever leaves the device—zero data collection |
+| 🧠 **Ensemble ML** | 3 models: Logistic Regression + Gradient Boosting + Decision Rules |
+| 🔍 **25+ Heuristics** | Homograph detection, typosquatting, suspicious TLDs, IP obfuscation |
+| ⚡ **<5ms Analysis** | Real-time feedback during QR scanning |
+| 📊 **Explainable** | Tells you *why* a URL is risky, not just that it is |
+
+---
+
+## 🧑‍⚖️ Quick Verification (5 Minutes)
 
 ```bash
-# One-command verification (5 minutes)
+# Verify all claims with one command
 ./judge/verify_all.sh
-
-# Or try the live demo (no build required)
-# → https://raoof128.github.io/?demo=true
 ```
+
+| Test | What It Proves |
+|------|----------------|
+| `./judge/verify_offline.sh` | Zero network calls during analysis |
+| `./judge/verify_performance.sh` | <5ms P50 latency |
+| `./judge/verify_accuracy.sh` | 87% F1 score |
+| `./judge/verify_parity.sh` | Identical verdicts on JVM + JS + Native |
+
+**Try these URLs:**
 
 | Test URL | Expected Result |
 |----------|-----------------|
 | `https://paypa1-secure.tk/login` | 🔴 MALICIOUS — Brand impersonation + suspicious TLD |
 | `https://google.com` | 🟢 SAFE — No threats detected |
-| `https://gооgle.com` | 🔴 MALICIOUS — Homograph attack (Cyrillic 'о') |
-
-### Pre-Built Downloads
-
-| Platform | Download |
-|----------|----------|
-| **Android** | [`QRShield-1.1.0-release.apk`](releases/QRShield-1.1.0-release.apk) |
-| **Web Demo** | [raoof128.github.io](https://raoof128.github.io) |
-| **Desktop** | `./gradlew :desktopApp:run` |
-| **iOS** | Coming to TestFlight |
-
-> 📝 **[Competition Essay →](ESSAY_SUBMISSION.md)** (550 words covering background and approach)
+| `https://gооgle.com` (Cyrillic) | 🔴 MALICIOUS — Homograph attack |
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏗️ Architecture
 
-> **~80% of code is shared via Kotlin Multiplatform.** The detection engine is written once and compiles to JVM, Native, and JavaScript.
+> **~80% shared code** via Kotlin Multiplatform. One detection engine compiles to JVM, Native, and JavaScript.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -93,7 +92,7 @@
        │  HeuristicsEngine — 25+ detection rules              │
        │  EnsembleModel — 3-model ML architecture             │
        │  BrandDetector — 500+ brands + dynamic discovery     │
-       │  FeatureExtractor — 15 URL features for ML           │
+       │  SecureECDH — Curve25519 key exchange                │
        └─────────────────────────────────────────────────────┘
 ```
 
@@ -104,53 +103,37 @@
 | **Android** | ✅ **Full** | CameraX + ML Kit + Compose UI | ~4,500 |
 | **iOS** | ✅ **Full** | AVFoundation + SwiftUI + KMP engine | ~6,500 |
 | **Desktop** | ✅ **Full** | Compose Desktop + ZXing | ~2,000 |
-| **Web** | ⚠️ **Demo** | Kotlin/JS proof-of-concept | ~500 |
-
-> 📖 **[Full Architecture Documentation →](docs/ARCHITECTURE.md)**
+| **Web** | ✅ **PWA** | Kotlin/JS + Service Worker | ~1,500 |
 
 ---
 
-## ✨ Key Features
-
-### Detection Engine
+## ✨ Detection Capabilities
 
 ```kotlin
-// One call, same behavior on all platforms
 val result = PhishingEngine().analyzeBlocking("https://paypa1-secure.tk/login")
 // → Verdict: MALICIOUS (score: 85)
 // → Flags: ["Brand impersonation: paypal", "High-risk TLD: .tk"]
 ```
 
-### What We Detect
-
-| Attack Type | Detection Method |
+| Attack Type | How We Detect It |
 |-------------|------------------|
-| **Homograph Attacks** | Unicode script mixing detection (Cyrillic 'а', Greek 'ο') |
+| **Homograph Attacks** | Unicode script mixing (Cyrillic 'а', Greek 'ο') |
 | **Typosquatting** | Levenshtein distance for 500+ brands |
 | **URL Shorteners** | bit.ly, tinyurl, t.co flagged as suspicious |
-| **Suspicious TLDs** | .tk, .ml, .ga, .cf freely abused for phishing |
-| **IP Address URLs** | Both standard and obfuscated (octal, hex, decimal) |
+| **Suspicious TLDs** | .tk, .ml, .ga, .cf (free, abused for phishing) |
+| **IP Address URLs** | Standard and obfuscated (octal, hex, decimal) |
 | **@ Symbol Injection** | `https://google.com@evil.com` patterns |
-
-### Novelty Features
-
-| Feature | What It Does |
-|---------|--------------|
-| 🎮 **Beat the Bot** | Adversarial testing game mode |
-| 🔍 **Dynamic Brand Discovery** | Pattern-based detection for unknown brands |
-| 🏢 **Local Policy Engine** | Enterprise allow/block lists |
-| 🔐 **ECDH Secure Aggregation** | Privacy-preserving analytics foundation |
-
-> 📖 **[ML Model Details →](docs/ML_MODEL.md)** | **[Attack Demos →](docs/ATTACK_DEMOS.md)** | **[Threat Model →](docs/THREAT_MODEL.md)**
 
 ---
 
 ## 🔧 SDK Integration
 
+For developers who want to integrate QR-SHIELD detection into their own apps:
+
 ```kotlin
 // Add to build.gradle.kts
 dependencies {
-    implementation("io.github.raoof128:qrshield:1.6.2")
+    implementation("io.github.raoof128:qrshield:1.6.3")
 }
 
 // Use in your app
@@ -164,13 +147,11 @@ when (result.verdict) {
 }
 ```
 
-> 📖 **[Full SDK Documentation →](docs/API.md)**
+> 📖 **[SDK Documentation →](docs/API.md)**
 
 ---
 
 ## 🧪 Quality & Testing
-
-### Test Coverage
 
 | Metric | Value |
 |--------|-------|
@@ -178,9 +159,9 @@ when (result.verdict) {
 | Total Tests | 1000+ |
 | Architecture Tests | 9 (Konsist) |
 | Performance Tests | 15+ with P99 thresholds |
-| Accuracy Tests | F1: 87.1%, Recall: 89.1% |
+| Accuracy | F1: 87.1%, Recall: 89.1% |
 
-### CI/CD Enforcement
+### CI Enforcement
 
 | Workflow | What It Checks |
 |----------|----------------|
@@ -188,25 +169,6 @@ when (result.verdict) {
 | `performance.yml` | P99 latency thresholds |
 | `benchmark.yml` | Performance regression detection |
 | Detekt | Zero-tolerance static analysis |
-
-> 📖 **[Testing Strategy →](docs/EVALUATION.md)** | **[Performance Benchmarks →](docs/JUDGE_SUMMARY.md)**
-
----
-
-## 📊 Verification Scripts
-
-**All claims are reproducible:**
-
-```bash
-./judge/verify_all.sh  # Runs all 4 verification suites
-```
-
-| Test | Claim Verified |
-|------|----------------|
-| `./judge/verify_offline.sh` | Zero network calls during analysis |
-| `./judge/verify_performance.sh` | <5ms P50 latency |
-| `./judge/verify_accuracy.sh` | 87% F1 score |
-| `./judge/verify_parity.sh` | Identical verdicts across platforms |
 
 ---
 
@@ -221,8 +183,7 @@ when (result.verdict) {
 | **Platform Parity** | [docs/PLATFORM_PARITY.md](docs/PLATFORM_PARITY.md) |
 | **iOS Integration** | [iosApp/INTEGRATION_GUIDE.md](iosApp/INTEGRATION_GUIDE.md) |
 | **API Reference** | [docs/API.md](docs/API.md) |
-| **Style Guide** | [docs/KOTLIN_STYLE_GUIDE.md](docs/KOTLIN_STYLE_GUIDE.md) |
-| **Roadmap** | [ROADMAP.md](ROADMAP.md) |
+| **Competition Essay** | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) |
 
 ---
 
@@ -236,15 +197,6 @@ when (result.verdict) {
 | ✅ Kotlin Multiplatform | 4 targets from shared codebase |
 | ✅ README documentation | This file |
 | ✅ Competition essay | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) |
-
----
-
-## 🔗 Links
-
-- **Live Demo:** [raoof128.github.io](https://raoof128.github.io)
-- **Competition Essay:** [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md)
-- **Full Documentation:** [README_FULL.md](README_FULL.md) (17,000 words)
-- **GitHub Repository:** [github.com/Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io)
 
 ---
 
