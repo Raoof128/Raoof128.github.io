@@ -4,6 +4,54 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-17 (Executive Summary - First Impression)
+
+### Summary
+Added compelling executive summary to README opening - captures judges in first 30 seconds.
+
+---
+
+### Why This Matters
+
+> "Judges evaluate 50+ projects. First impression determines whether they read deeply or skim."
+
+**Before:** README started with badges and bullet points
+**After:** README starts with clear problem/solution/win narrative
+
+### New Structure
+
+1. **3-Sentence Pitch** (Blockquote)
+   - What: Offline phishing detector
+   - How: 87% F1 score, 4 platforms
+   - Why: Privacy-first
+
+2. **The Problem**
+   - 587% QRishing attack increase
+   - Personal story (grandmother nearly lost bank account)
+   - Existing solutions sacrifice privacy
+
+3. **The Solution**
+   - Feature table with implementations
+   - Platform table with status
+   - Honest about Web being "Demo"
+
+4. **Why This Wins**
+   - Real impact ($12B losses)
+   - Privacy architecture
+   - Technical depth
+   - Production quality
+   - Kotlin showcase
+
+### Impact
+
+| Before | After |
+|--------|-------|
+| Badges first | 3-sentence pitch first |
+| Bullet points | Scannable tables |
+| Buried value prop | Value prop in first 50 words |
+
+---
+
 ## Session: 2025-12-17 (Performance Regression CI)
 
 ### Summary
