@@ -88,8 +88,8 @@ class PhishingEngine(
     companion object {
         /**
          * Scoring weights (must sum to 1.0).
-         * Centralized in [SecurityConstants] for tuning and documentation.
          * Using slightly adjusted weights optimized for this engine's pipeline.
+         * @see SecurityConstants for global weight definitions
          */
         private const val HEURISTIC_WEIGHT = 0.50
         private const val ML_WEIGHT = 0.20
@@ -97,18 +97,18 @@ class PhishingEngine(
         private const val TLD_WEIGHT = 0.15
 
         /**
-         * Verdict thresholds.
-         * @see SecurityConstants.SAFE_THRESHOLD for global definition
-         * Using local values tuned for this engine's multi-signal approach.
+         * Verdict thresholds - uses dedicated PhishingEngine thresholds.
+         * @see SecurityConstants.PHISHING_ENGINE_SAFE_THRESHOLD for rationale
+         * @see SecurityConstants.PHISHING_ENGINE_SUSPICIOUS_THRESHOLD for rationale
          */
-        private val SAFE_THRESHOLD = SecurityConstants.SAFE_THRESHOLD / 3  // ~10 for stricter pipeline
-        private val SUSPICIOUS_THRESHOLD = SecurityConstants.MALICIOUS_THRESHOLD - 20  // ~50
+        private const val SAFE_THRESHOLD = SecurityConstants.PHISHING_ENGINE_SAFE_THRESHOLD
+        private const val SUSPICIOUS_THRESHOLD = SecurityConstants.PHISHING_ENGINE_SUSPICIOUS_THRESHOLD
 
         /** Maximum URL length - uses centralized constant */
-        private val MAX_URL_LENGTH = SecurityConstants.MAX_URL_LENGTH
+        private const val MAX_URL_LENGTH = SecurityConstants.MAX_URL_LENGTH
 
         /** Default confidence for edge cases - uses centralized constant */
-        private val DEFAULT_CONFIDENCE = SecurityConstants.BASE_CONFIDENCE
+        private const val DEFAULT_CONFIDENCE = SecurityConstants.BASE_CONFIDENCE
     }
 
     /**

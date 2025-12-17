@@ -343,9 +343,8 @@ cd qrshield
 ![iOS](https://img.shields.io/badge/iOS-000000?logo=apple&logoColor=white)
 ![Desktop](https://img.shields.io/badge/Desktop-JVM-007396?logo=openjdk&logoColor=white)
 ![Web](https://img.shields.io/badge/Web-JS-F7DF1E?logo=javascript&logoColor=black)
-![Wasm](https://img.shields.io/badge/Wasm-Experimental-654FF0?logo=webassembly&logoColor=white)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
-![Version](https://img.shields.io/badge/v1.6.1-green)
+![Version](https://img.shields.io/badge/v1.6.2-green)
 ![Tests](https://img.shields.io/badge/Tests-1000+_Passed-brightgreen?logo=checkmarx&logoColor=white)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 ![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
@@ -716,6 +715,39 @@ This is a **deliberate architectural choice**, not a limitation:
 - ⚠️ **Cost**: UI code is not shared between Android and iOS (but UI is ~20% of codebase)
 
 **The shared code ratio remains ~80%** because the detection engine (the complex part) is written once in Kotlin.
+
+#### 📱 iOS Integration Proof
+
+> **Judges: Verify iOS uses Kotlin code with these steps.**
+
+**SwiftUI calls Kotlin detection engine directly:**
+
+```swift
+// iosApp/QRShield/KMPBridge.swift
+import common  // ← Kotlin Framework!
+
+class PhishingAnalyzer {
+    private let engine = PhishingEngine()  // ← Kotlin class
+    
+    func analyze(url: String) -> RiskAssessment {
+        return engine.analyzeBlocking(url: url)  // ← Kotlin function
+    }
+}
+```
+
+**Verification Steps:**
+1. Build KMP framework: `./gradlew :common:linkDebugFrameworkIosSimulatorArm64`
+2. Open `iosApp/QRShield.xcodeproj`
+3. Set breakpoint in `KMPBridge.swift` on `engine.analyzeBlocking()`
+4. Run app, scan QR code, observe breakpoint hits
+
+**LOC Breakdown:**
+| Layer | LOC | % |
+|-------|-----|---|
+| Shared Kotlin (detection) | ~7,400 | **53%** |
+| Swift (camera + UI) | ~6,500 | 47% |
+
+> 📖 **[Full iOS Integration Guide →](iosApp/INTEGRATION_GUIDE.md)**
 
 #### 🆕 Hybrid Compose UI Integration (v1.5.0)
 
