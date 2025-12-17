@@ -4,6 +4,50 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-17 (README 93% Trim - Judge-Friendly)
+
+### Summary
+Trimmed README from 17,181 words to 1,140 words (93% reduction).
+
+---
+
+### Why This Matters
+
+> "21,000 words guarantees judges skim instead of read. Ruthless editing is required."
+
+**Before:** 17,181 words, 3,995 lines → Judges will skim
+**After:** 1,140 words, 266 lines → Judges will read
+
+### New README Structure
+
+| Section | Words | Purpose |
+|---------|-------|---------|
+| Executive Summary | ~400 | Problem/Solution/Why This Wins |
+| Quick Start | ~200 | 5-minute verification |
+| Architecture | ~200 | Diagram + platform table |
+| Key Features | ~200 | Detection capabilities |
+| Documentation | ~100 | Links to detailed docs |
+| **Total** | **~1,100** | Within 3,000 word limit |
+
+### Files
+
+| File | Action |
+|------|--------|
+| `README.md` | Replaced (17k → 1.1k words) |
+| `README_FULL.md` | Created (backup of full version) |
+
+### Content Preserved
+
+All detailed documentation remains accessible via links:
+- `docs/ARCHITECTURE.md` - Full architecture details
+- `docs/ML_MODEL.md` - ML implementation details
+- `docs/THREAT_MODEL.md` - Security analysis
+- `docs/ATTACK_DEMOS.md` - Attack scenario demos
+- `iosApp/INTEGRATION_GUIDE.md` - iOS integration proof
+- `ROADMAP.md` - Future features
+
+---
+
 ## Session: 2025-12-17 (Executive Summary - First Impression)
 
 ### Summary
