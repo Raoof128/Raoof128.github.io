@@ -260,6 +260,8 @@ when (result.verdict) {
 | Architecture Tests | 9 (Konsist) |
 | Performance Tests | 15+ with P99 thresholds |
 | Accuracy | F1: 87.1%, Recall: 89.1% |
+| **False Positive Rate** | **<5%** on Alexa Top 100 |
+
 
 ### CI Enforcement
 
@@ -278,12 +280,14 @@ when (result.verdict) {
 |-------|----------|
 | **Architecture** | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
 | **ML Model** | [docs/ML_MODEL.md](docs/ML_MODEL.md) |
+| **ML Training & Validation** | [docs/ML_TRAINING.md](docs/ML_TRAINING.md) |
 | **Threat Model** | [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) |
 | **Attack Demos** | [docs/ATTACK_DEMOS.md](docs/ATTACK_DEMOS.md) |
 | **Platform Parity** | [docs/PLATFORM_PARITY.md](docs/PLATFORM_PARITY.md) |
 | **iOS Integration** | [iosApp/INTEGRATION_GUIDE.md](iosApp/INTEGRATION_GUIDE.md) |
 | **API Reference** | [docs/API.md](docs/API.md) |
 | **Competition Essay** | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) |
+
 
 ---
 
