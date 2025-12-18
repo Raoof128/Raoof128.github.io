@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>QR-SHIELD - Dashboard</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="QR-SHIELD Dashboard - Enterprise offline QR code security with explainable threat detection." />
+    <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+
+    <!-- PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Dashboard Styles -->
+    <link href="dashboard.css" rel="stylesheet" />
+</head>
+
+<body class="dashboard-body">
+    <div class="dashboard-layout">
+
+        <!-- ============================================
+             SIDEBAR NAVIGATION
+             ============================================ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="material-symbols-outlined filled">shield_lock</span>
+                    <span class="logo-text">QR-SHIELD</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Overview</div>
+                <a class="nav-link active" href="dashboard.html" id="nav-dashboard">
+                    <span class="material-symbols-outlined filled">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-link" href="scanner.html" id="nav-scanner">
+                    <span class="material-symbols-outlined">qr_code_scanner</span>
+                    <span>Live Scanner</span>
+                </a>
+                <a class="nav-link" href="threat.html" id="nav-history">
+                    <span class="material-symbols-outlined">history</span>
+                    <span>Scan History</span>
+                </a>
+
+                <div class="nav-section-title">Security</div>
+                <a class="nav-link" href="trust.html" id="nav-allowlist">
+                    <span class="material-symbols-outlined">verified_user</span>
+                    <span>Allow List</span>
+                </a>
+                <a class="nav-link" href="onboarding.html" id="nav-heuristics">
+                    <span class="material-symbols-outlined">policy</span>
+                    <span>Heuristics Rules</span>
+                </a>
+
+                <div class="offline-card">
+                    <div class="offline-header">
+                        <span class="material-symbols-outlined">wifi_off</span>
+                        <span>Offline Ready</span>
+                    </div>
+                    <p>Local database v2.4.1 active. No data leaves this device.</p>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">JS</div>
+                    <div class="user-info">
+                        <span class="user-name">John Smith</span>
+                        <span class="user-role">Security Analyst</span>
+                    </div>
+                    <span class="material-symbols-outlined">expand_more</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <nav class="breadcrumbs">
+                        <span>QR-SHIELD</span>
+                        <span class="separator">/</span>
+                        <span class="current">Dashboard</span>
+                    </nav>
+                </div>
+
+                <div class="header-right">
+                    <div class="engine-status">
+                        <span class="status-dot pulse"></span>
+                        <span>Engine Active</span>
+                    </div>
+                    <div class="header-divider"></div>
+                    <button class="header-btn notification" id="notificationBtn" aria-label="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <button class="header-btn" id="settingsBtn" aria-label="Settings">
+                        <span class="material-symbols-outlined">settings</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content-scroll">
+                <div class="content-container">
+
+                    <!-- Hero Section -->
+                    <div class="hero-section">
+                        <div class="hero-background">
+                            <div class="hero-glow"></div>
+                            <div class="hero-pattern"></div>
+                        </div>
+
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <div class="enterprise-badge">
+                                    <span class="material-symbols-outlined">workspace_premium</span>
+                                    <span>Enterprise Protection Active</span>
+                                </div>
+
+                                <h1 class="hero-title">
+                                    Secure. Offline.<br />
+                                    <span class="gradient-text">Explainable Defence.</span>
+                                </h1>
+
+                                <p class="hero-description">
+                                    QR-SHIELD analyses potential threats directly on your hardware. Experience
+                                    <strong>zero-latency phishing detection</strong>
+                                    without compromising data privacy.
+                                </p>
+
+                                <div class="hero-actions">
+                                    <a href="scanner.html" class="btn-primary" id="startScanBtn">
+                                        <span class="material-symbols-outlined">qr_code_scanner</span>
+                                        Start New Scan
+                                    </a>
+                                    <button class="btn-secondary" id="importBtn">
+                                        <span class="material-symbols-outlined">upload_file</span>
+                                        Import Image
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="system-health-card">
+                                <div class="health-header">
+                                    <span>System Health</span>
+                                    <span class="health-dot"></span>
+                                </div>
+                                <div class="health-content">
+                                    <div class="health-item">
+                                        <div class="health-label">
+                                            <span>Threat Database</span>
+                                            <span class="health-status safe">Current</span>
+                                        </div>
+                                        <div class="health-bar">
+                                            <div class="health-fill safe" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="health-item">
+                                        <div class="health-label">
+                                            <span>Heuristic Engine</span>
+                                            <span class="health-status primary">Active</span>
+                                        </div>
+                                        <div class="health-bar">
+                                            <div class="health-fill primary" style="width: 92%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="health-stats">
+                                        <div class="stat-box">
+                                            <span class="stat-value" id="threatCount">0</span>
+                                            <span class="stat-label">Threats</span>
+                                        </div>
+                                        <div class="stat-box">
+                                            <span class="stat-value" id="safeCount">124</span>
+                                            <span class="stat-label">Safe Scans</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature Cards -->
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-bg">
+                                <span class="material-symbols-outlined">wifi_off</span>
+                            </div>
+                            <div class="feature-icon blue">
+                                <span class="material-symbols-outlined">cloud_off</span>
+                            </div>
+                            <h3>Offline-First Architecture</h3>
+                            <p>Complete analysis is performed locally. Your camera feed and scanned data never touch an
+                                external server, ensuring absolute privacy.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-bg">
+                                <span class="material-symbols-outlined">psychology</span>
+                            </div>
+                            <div class="feature-icon purple">
+                                <span class="material-symbols-outlined">manage_search</span>
+                            </div>
+                            <h3>Explainable Security</h3>
+                            <p>Don't just get a "Block". We provide detailed heuristic breakdowns of URL parameters,
+                                redirects, and javascript payloads.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-bg">
+                                <span class="material-symbols-outlined">bolt</span>
+                            </div>
+                            <div class="feature-icon green">
+                                <span class="material-symbols-outlined">speed</span>
+                            </div>
+                            <h3>High-Performance Engine</h3>
+                            <p>Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin
+                                Multiplatform binaries.</p>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid -->
+                    <div class="dashboard-grid">
+
+                        <!-- Recent Scans Table -->
+                        <div class="scans-card">
+                            <div class="card-header">
+                                <h3>Recent Scans</h3>
+                                <a href="threat.html" class="view-all-btn">View Full History</a>
+                            </div>
+                            <div class="scans-table-container">
+                                <table class="scans-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Source</th>
+                                            <th class="hide-mobile">Details</th>
+                                            <th class="text-right">Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentScansBody">
+                                        <tr>
+                                            <td>
+                                                <span class="status-badge safe">
+                                                    <span class="material-symbols-outlined">check_circle</span>
+                                                    SAFE
+                                                </span>
+                                            </td>
+                                            <td class="source-cell">
+                                                <img src="https://www.google.com/s2/favicons?domain=github.com&sz=32"
+                                                    alt="" class="favicon" />
+                                                github.com/login
+                                            </td>
+                                            <td class="hide-mobile details-cell">Valid TLS cert, Trusted Domain</td>
+                                            <td class="time-cell">10:42 AM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="status-badge danger">
+                                                    <span class="material-symbols-outlined">warning</span>
+                                                    PHISH
+                                                </span>
+                                            </td>
+                                            <td class="source-cell">
+                                                <span class="favicon-placeholder">?</span>
+                                                secure-bank-verify.net
+                                            </td>
+                                            <td class="hide-mobile details-cell">Homograph attack detected</td>
+                                            <td class="time-cell">09:15 AM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="status-badge safe">
+                                                    <span class="material-symbols-outlined">check_circle</span>
+                                                    SAFE
+                                                </span>
+                                            </td>
+                                            <td class="source-cell">
+                                                <img src="https://www.google.com/s2/favicons?domain=atlassian.com&sz=32"
+                                                    alt="" class="favicon" />
+                                                company.atlassian.net
+                                            </td>
+                                            <td class="hide-mobile details-cell">Internal Allowlist Match</td>
+                                            <td class="time-cell">08:55 AM</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="side-cards">
+
+                            <!-- Threat Database Card -->
+                            <div class="db-card">
+                                <div class="db-header">
+                                    <span class="material-symbols-outlined">database</span>
+                                    <h3>Threat Database</h3>
+                                </div>
+                                <div class="db-stats">
+                                    <div class="db-stat">
+                                        <span class="db-label">Version</span>
+                                        <span class="db-value mono">v2.4.1-stable</span>
+                                    </div>
+                                    <div class="db-stat">
+                                        <span class="db-label">Last Update</span>
+                                        <span class="db-value">Today, 04:00 AM</span>
+                                    </div>
+                                    <div class="db-stat">
+                                        <span class="db-label">Signatures</span>
+                                        <span class="db-value">4,281,092</span>
+                                    </div>
+                                </div>
+                                <button class="btn-update" id="updateDbBtn">
+                                    <span class="material-symbols-outlined">refresh</span>
+                                    Check for Updates
+                                </button>
+                            </div>
+
+                            <!-- Training Centre Card -->
+                            <div class="training-card">
+                                <div class="training-icon">
+                                    <span class="material-symbols-outlined">school</span>
+                                </div>
+                                <h4>Training Centre</h4>
+                                <p>Learn how to identify advanced QR homograph attacks.</p>
+                                <a href="#" class="training-link">Start Lesson →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="material-symbols-outlined toast-icon">check_circle</span>
+        <span class="toast-message" id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Kotlin/JS Bundle -->
+    <script src="webApp.js"></script>
+    <!-- Dashboard Logic -->
+    <script src="dashboard.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>
