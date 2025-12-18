@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="dark" lang="en-AU">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>QR-SHIELD - Scan Result</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="QR-SHIELD Threat Analysis - Detailed scan result showing attack breakdown and security recommendations." />
+    <meta name="theme-color" content="#0f1218" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+
+    <!-- PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Threat Analysis Styles -->
+    <link href="threat.css" rel="stylesheet" />
+</head>
+
+<body class="threat-body">
+    <div class="threat-layout">
+
+        <!-- ============================================
+             SIDEBAR NAVIGATION
+             ============================================ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <span class="material-symbols-outlined">shield_lock</span>
+                    </div>
+                    <div class="logo-text">
+                        <h1>QR-SHIELD</h1>
+                        <p>Offline Protection</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a class="nav-link" href="index.html" id="nav-dashboard">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-link active" href="threat.html" id="nav-history">
+                    <span class="material-symbols-outlined filled">history</span>
+                    <span>Scan History</span>
+                </a>
+                <a class="nav-link" href="trust.html" id="nav-threat-db">
+                    <span class="material-symbols-outlined">dns</span>
+                    <span>Threat Database</span>
+                </a>
+                <a class="nav-link" href="onboarding.html" id="nav-settings">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="version-card">
+                    <div class="version-info">
+                        <span class="version-number">v2.4.1</span>
+                        <span class="version-status">
+                            <span class="status-dot"></span>
+                            Online
+                        </span>
+                    </div>
+                    <span class="material-symbols-outlined">info</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <nav class="breadcrumbs">
+                        <span>Home</span>
+                        <span class="separator">/</span>
+                        <span>Scans</span>
+                        <span class="separator">/</span>
+                        <span class="current" id="scanId">Scan #8021-AF</span>
+                    </nav>
+                </div>
+
+                <div class="header-right">
+                    <div class="engine-status">
+                        <span class="status-dot pulse"></span>
+                        <span>Engine Active (Offline)</span>
+                    </div>
+                    <div class="header-divider"></div>
+                    <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <div class="user-avatar">AD</div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content-scroll">
+                <div class="content-container">
+
+                    <!-- Hero Card: Threat Alert -->
+                    <div class="threat-hero" id="threatHero">
+                        <div class="hero-blur"></div>
+                        <div class="hero-content">
+                            <div class="hero-left">
+                                <div class="threat-icon">
+                                    <span class="material-symbols-outlined filled">gpp_maybe</span>
+                                </div>
+                                <div class="threat-info">
+                                    <div class="threat-title-row">
+                                        <h2 id="threatTitle">HIGH RISK DETECTED</h2>
+                                        <span class="threat-badge" id="threatBadge">Dangerous</span>
+                                    </div>
+                                    <p class="threat-description" id="threatDescription">
+                                        The scanned QR code contains malicious indicators associated with phishing and
+                                        credential harvesting. Do not proceed to the target URL.
+                                    </p>
+                                    <div class="threat-tags" id="threatTags">
+                                        <span class="tag">
+                                            <span class="material-symbols-outlined danger">bug_report</span>
+                                            Phishing Attempt
+                                        </span>
+                                        <span class="tag">
+                                            <span class="material-symbols-outlined warning">code_off</span>
+                                            Obfuscated Script
+                                        </span>
+                                        <span class="tag">
+                                            <span class="material-symbols-outlined info">link</span>
+                                            Homograph Attack
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hero-right">
+                                <div class="confidence-score">
+                                    <span class="score-label">Threat Confidence</span>
+                                    <span class="score-value" id="confidenceScore">98.5%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="threat-progress">
+                            <div class="progress-fill" id="progressFill" style="width: 98.5%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid -->
+                    <div class="threat-grid">
+
+                        <!-- Left Column: Attack Breakdown -->
+                        <div class="main-column">
+                            <div class="section-header">
+                                <h3>Attack Breakdown</h3>
+                                <span class="scan-id" id="scanIdLabel">ID: scan_2023_10_24_af92</span>
+                            </div>
+
+                            <!-- Homograph Attack -->
+                            <details class="attack-card blue" open>
+                                <summary class="attack-header">
+                                    <div class="attack-title">
+                                        <span class="attack-icon">
+                                            <span class="material-symbols-outlined">abc</span>
+                                        </span>
+                                        <div class="attack-info">
+                                            <h4>Homograph / IDN Attack</h4>
+                                            <p>Cyrillic characters mimicking Latin alphabet detected.</p>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined expand-icon">expand_more</span>
+                                </summary>
+                                <div class="attack-content">
+                                    <div class="domain-comparison">
+                                        <div class="domain-item">
+                                            <span class="domain-label">Visual Appearance (What user sees)</span>
+                                            <span class="domain-value safe">secure-banking.com</span>
+                                        </div>
+                                        <div class="domain-item">
+                                            <span class="domain-label">Actual Punycode (Where it goes)</span>
+                                            <span class="domain-value danger">xn--secure-bankng-87b.com</span>
+                                        </div>
+                                    </div>
+                                    <p class="attack-explanation">
+                                        The domain uses the Cyrillic 'а' (U+0430) instead of Latin 'a' (U+0061). This
+                                        technique is commonly used to trick users into believing they are visiting a
+                                        legitimate service.
+                                    </p>
+                                </div>
+                            </details>
+
+                            <!-- Redirect Chain -->
+                            <details class="attack-card warning">
+                                <summary class="attack-header">
+                                    <div class="attack-title">
+                                        <span class="attack-icon">
+                                            <span class="material-symbols-outlined">alt_route</span>
+                                        </span>
+                                        <div class="attack-info">
+                                            <h4>Suspicious Redirect Chain</h4>
+                                            <p>3 hops detected involving known URL shorteners.</p>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined expand-icon">expand_more</span>
+                                </summary>
+                                <div class="attack-content">
+                                    <ol class="redirect-timeline">
+                                        <li class="timeline-item start">
+                                            <span class="timeline-dot"></span>
+                                            <div class="timeline-content">
+                                                <h5>QR Code Scan</h5>
+                                                <code>http://bit.ly/3x891</code>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-item warning">
+                                            <span class="timeline-dot"></span>
+                                            <div class="timeline-content">
+                                                <h5>Intermediate Hop</h5>
+                                                <code>http://tracker-service-cloud.net/ref?id=99</code>
+                                            </div>
+                                        </li>
+                                        <li class="timeline-item danger">
+                                            <span class="timeline-dot pulse"></span>
+                                            <div class="timeline-content">
+                                                <h5>Final Destination</h5>
+                                                <code class="danger">http://xn--secure-bankng-87b.com/login</code>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </details>
+
+                            <!-- Obfuscated JavaScript -->
+                            <details class="attack-card primary">
+                                <summary class="attack-header">
+                                    <div class="attack-title">
+                                        <span class="attack-icon">
+                                            <span class="material-symbols-outlined">javascript</span>
+                                        </span>
+                                        <div class="attack-info">
+                                            <h4>Obfuscated JavaScript</h4>
+                                            <p>High entropy string detected in URL parameters.</p>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined expand-icon">expand_more</span>
+                                </summary>
+                                <div class="attack-content">
+                                    <div class="code-block">
+                                        <code>&lt;script&gt;eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)...</code>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Right Column: Actions & Meta -->
+                        <div class="side-column">
+
+                            <!-- Recommended Actions -->
+                            <div class="actions-card">
+                                <h3>
+                                    <span class="material-symbols-outlined">recommend</span>
+                                    Recommended Actions
+                                </h3>
+
+                                <div class="action-buttons">
+                                    <button class="btn-danger" id="blockBtn">
+                                        <span class="material-symbols-outlined">block</span>
+                                        Block & Report
+                                    </button>
+                                    <button class="btn-secondary" id="quarantineBtn">
+                                        <span class="material-symbols-outlined">science</span>
+                                        Quarantine in Sandbox
+                                    </button>
+                                </div>
+
+                                <div class="security-explainer">
+                                    <h4>Explainable Security</h4>
+                                    <ul class="security-reasons">
+                                        <li>
+                                            <span class="material-symbols-outlined">check_circle</span>
+                                            <span>Domain age is less than 24 hours.</span>
+                                        </li>
+                                        <li>
+                                            <span class="material-symbols-outlined">check_circle</span>
+                                            <span>Matched 3 signatures in local phishing DB.</span>
+                                        </li>
+                                        <li>
+                                            <span class="material-symbols-outlined">check_circle</span>
+                                            <span>Target IP is located in a high-risk ASN.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Scan Meta -->
+                            <div class="meta-card">
+                                <h3>Scan Meta</h3>
+
+                                <div class="meta-items">
+                                    <div class="meta-item">
+                                        <span class="meta-label">Scan Time</span>
+                                        <span class="meta-value" id="scanTime">Today, 14:32:05</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">Source</span>
+                                        <span class="meta-value">
+                                            <span class="material-symbols-outlined">image</span>
+                                            qr_investigate.png
+                                        </span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="meta-label">Engine</span>
+                                        <span class="meta-value">Offline Core v2.4</span>
+                                    </div>
+                                </div>
+
+                                <div class="offline-guarantee">
+                                    <p>
+                                        <strong>Offline Guarantee:</strong> This image was analysed locally on your
+                                        device. No data was sent to the cloud for this verdict.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="material-symbols-outlined toast-icon">check_circle</span>
+        <span class="toast-message" id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Kotlin/JS Bundle -->
+    <script src="webApp.js"></script>
+    <!-- Threat Analysis Logic -->
+    <script src="threat.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

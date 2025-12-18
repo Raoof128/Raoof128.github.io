@@ -39,6 +39,9 @@ Both pages feature:
 | `webApp/src/jsMain/resources/trust.html` | ~340 | Trust Centre with sensitivity slider and list management |
 | `webApp/src/jsMain/resources/trust.css` | ~1000 | Trust Centre CSS with slider and toggle styling |
 | `webApp/src/jsMain/resources/trust.js` | ~550 | Trust Centre controller with settings persistence |
+| `webApp/src/jsMain/resources/threat.html` | ~290 | Threat Analysis page with attack breakdown and actions |
+| `webApp/src/jsMain/resources/threat.css` | ~1050 | Threat page CSS with danger glow and timeline styling |
+| `webApp/src/jsMain/resources/threat.js` | ~450 | Threat controller with block/quarantine actions |
 
 ### 📁 Files Modified
 
