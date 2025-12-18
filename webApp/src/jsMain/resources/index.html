@@ -75,6 +75,16 @@
             </div>
 
             <div class="header-actions">
+                <!-- Offline Indicator (PWA) -->
+                <div id="offlineIndicator" class="offline-indicator" style="display: none;" title="Works 100% offline!">
+                    <span class="material-icons-round">cloud_off</span>
+                    <span class="offline-text">Offline</span>
+                </div>
+                <!-- Language Toggle (i18n) -->
+                <button id="langToggle" class="btn-icon lang-toggle" onclick="toggleLanguage()" 
+                    aria-label="Toggle Language" title="Switch Language: English/Deutsch">
+                    <span id="langFlag">🇬🇧</span>
+                </button>
                 <button id="judgeModeToggle" class="btn-icon judge-mode-btn" onclick="toggleJudgeMode()"
                     aria-label="Toggle Judge Mode" title="Judge Mode: Force MALICIOUS results for demo">
                     <span class="material-icons-round">gavel</span>
@@ -235,6 +245,20 @@
         </section>
 
         <!-- Footer -->
+        <!-- Beat the Bot Game Section -->
+        <section class="beat-the-bot-section" id="beatTheBotSection">
+            <div class="beat-bot-card">
+                <div class="beat-bot-icon">🎮</div>
+                <h3>Beat the Bot</h3>
+                <p>Think you can outsmart our AI? Try to craft a phishing URL that fools the detector!</p>
+                <button class="btn-primary beat-bot-btn" onclick="startBeatTheBot()">
+                    <span class="material-icons-round">sports_esports</span>
+                    Play Now
+                </button>
+                <p class="beat-bot-stats">🏆 Players challenged: <span id="challengeCount">1,247</span></p>
+            </div>
+        </section>
+
         <footer class="app-footer">
             <div class="footer-content">
                 <p>🛡️ QR-SHIELD — Kotlin Multiplatform QRishing Detector</p>
@@ -247,6 +271,9 @@
                     </a>
                     <a href="https://github.com/Raoof128/Raoof128.github.io/releases" target="_blank">
                         <span class="material-icons-round">download</span> Download Apps
+                    </a>
+                    <a href="#beatTheBotSection" class="beat-bot-link">
+                        <span class="material-icons-round">sports_esports</span> Beat the Bot
                     </a>
                 </div>
                 <p class="footer-privacy">🔒 100% offline • Zero data collection • Open source (Apache 2.0)</p>

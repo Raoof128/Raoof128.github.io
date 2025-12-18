@@ -1490,3 +1490,234 @@ window.toggleJudgeMode = () => {
         hideDemoModeBanner();
     }
 };
+
+// ==========================================
+// Language Toggle (i18n) - German/English
+// ==========================================
+
+const LANG_KEY = 'qrshield_language';
+let currentLang = localStorage.getItem(LANG_KEY) || 'en';
+
+// German translations
+const translations = {
+    en: {
+        flag: '🇬🇧',
+        scanUrlsSafely: 'Scan URLs Safely',
+        heroSubtitle: 'AI-powered phishing detection running 100% offline in your browser.',
+        analyzeUrl: 'Analyze URL',
+        scanQr: 'Scan QR',
+        upload: 'Upload',
+        tryExamples: '🧪 Try these examples:',
+        recentScans: 'Recent Scans',
+        clearHistory: 'Clear History',
+        noRecentScans: 'No recent scans',
+        safeToVisit: 'Safe to Visit',
+        proceedCaution: 'Proceed with Caution',
+        doNotVisit: 'Do Not Visit This URL',
+        scanAnother: 'Scan Another',
+        share: 'Share',
+        beatTheBot: 'Beat the Bot',
+        playNow: 'Play Now',
+        thinkOutsmart: 'Think you can outsmart our AI? Try to craft a phishing URL that fools the detector!',
+        offlineMode: 'Offline',
+        worksOffline: 'Works 100% offline!'
+    },
+    de: {
+        flag: '🇩🇪',
+        scanUrlsSafely: 'URLs sicher scannen',
+        heroSubtitle: 'KI-gestützte Phishing-Erkennung läuft 100% offline in Ihrem Browser.',
+        analyzeUrl: 'URL analysieren',
+        scanQr: 'QR scannen',
+        upload: 'Hochladen',
+        tryExamples: '🧪 Beispiele ausprobieren:',
+        recentScans: 'Letzte Scans',
+        clearHistory: 'Verlauf löschen',
+        noRecentScans: 'Keine aktuellen Scans',
+        safeToVisit: 'Sicher zu besuchen',
+        proceedCaution: 'Mit Vorsicht fortfahren',
+        doNotVisit: 'Diese URL nicht besuchen',
+        scanAnother: 'Weitere scannen',
+        share: 'Teilen',
+        beatTheBot: 'Schlage den Bot',
+        playNow: 'Jetzt spielen',
+        thinkOutsmart: 'Glaubst du, du kannst unsere KI austricksen? Versuche, eine Phishing-URL zu erstellen!',
+        offlineMode: 'Offline',
+        worksOffline: 'Funktioniert 100% offline!'
+    }
+};
+
+window.toggleLanguage = () => {
+    currentLang = currentLang === 'en' ? 'de' : 'en';
+    localStorage.setItem(LANG_KEY, currentLang);
+    applyTranslations();
+    showToast(currentLang === 'de' ? 'Sprache: Deutsch 🇩🇪' : 'Language: English 🇬🇧', 'info');
+};
+
+function applyTranslations() {
+    const t = translations[currentLang];
+
+    // Update flag
+    const langFlag = document.getElementById('langFlag');
+    if (langFlag) langFlag.textContent = t.flag;
+
+    // Update hero section
+    const heroTitle = document.querySelector('.text-gradient');
+    if (heroTitle) heroTitle.textContent = t.scanUrlsSafely;
+
+    const heroSub = document.querySelector('.hero-subtitle');
+    if (heroSub) heroSub.textContent = t.heroSubtitle;
+
+    // Update buttons
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    if (analyzeBtn) {
+        analyzeBtn.innerHTML = `<span class="material-icons-round">search</span>${t.analyzeUrl}`;
+    }
+
+    const scanQrBtn = document.getElementById('scanQrBtn');
+    if (scanQrBtn) {
+        scanQrBtn.innerHTML = `<span class="material-icons-round">qr_code_scanner</span>${t.scanQr}`;
+    }
+
+    const uploadBtn = document.getElementById('uploadQrBtn');
+    if (uploadBtn) {
+        uploadBtn.innerHTML = `<span class="material-icons-round">image</span>${t.upload}`;
+    }
+
+    // Update try examples label
+    const tryLabel = document.querySelector('.try-now-label');
+    if (tryLabel) tryLabel.textContent = t.tryExamples;
+
+    // Update recent scans
+    const sectionTitle = document.querySelector('.section-title h3');
+    if (sectionTitle) sectionTitle.textContent = t.recentScans;
+
+    const clearBtn = document.getElementById('clearHistoryBtn');
+    if (clearBtn) clearBtn.textContent = t.clearHistory;
+
+    // Update Beat the Bot section
+    const beatBotTitle = document.querySelector('.beat-bot-card h3');
+    if (beatBotTitle) beatBotTitle.textContent = t.beatTheBot;
+
+    const beatBotDesc = document.querySelector('.beat-bot-card p:not(.beat-bot-stats)');
+    if (beatBotDesc) beatBotDesc.textContent = t.thinkOutsmart;
+
+    const playBtn = document.querySelector('.beat-bot-btn');
+    if (playBtn) {
+        playBtn.innerHTML = `<span class="material-icons-round">sports_esports</span>${t.playNow}`;
+    }
+
+    // Update offline indicator
+    const offlineText = document.querySelector('.offline-text');
+    if (offlineText) offlineText.textContent = t.offlineMode;
+
+    const offlineIndicator = document.getElementById('offlineIndicator');
+    if (offlineIndicator) offlineIndicator.title = t.worksOffline;
+}
+
+// Apply translations on load
+document.addEventListener('DOMContentLoaded', () => {
+    applyTranslations();
+});
+
+// ==========================================
+// PWA Offline Indicator
+// ==========================================
+
+function updateOfflineIndicator() {
+    const indicator = document.getElementById('offlineIndicator');
+    if (!indicator) return;
+
+    if (!navigator.onLine) {
+        indicator.style.display = 'flex';
+        indicator.classList.add('active');
+    } else {
+        indicator.style.display = 'none';
+        indicator.classList.remove('active');
+    }
+}
+
+// Listen for online/offline events
+window.addEventListener('online', () => {
+    updateOfflineIndicator();
+    showToast(currentLang === 'de' ? 'Wieder online' : 'Back online', 'success');
+});
+
+window.addEventListener('offline', () => {
+    updateOfflineIndicator();
+    showToast(currentLang === 'de' ? 'Offline-Modus — Analyse funktioniert weiterhin!' : "You're offline — analysis still works!", 'info');
+});
+
+// Check on load
+document.addEventListener('DOMContentLoaded', () => {
+    updateOfflineIndicator();
+});
+
+// ==========================================
+// Beat the Bot Game
+// ==========================================
+
+let beatBotScore = parseInt(localStorage.getItem('qrshield_beat_bot_score') || '0');
+let beatBotAttempts = parseInt(localStorage.getItem('qrshield_beat_bot_attempts') || '0');
+
+window.startBeatTheBot = () => {
+    // Scroll to input and focus
+    const urlInput = document.getElementById('urlInput');
+    urlInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    urlInput.focus();
+    urlInput.placeholder = '🎮 Craft a sneaky phishing URL...';
+
+    // Show game mode toast
+    showToast(currentLang === 'de'
+        ? '🎮 Spielmodus: Versuche eine URL zu erstellen, die als SICHER erkannt wird!'
+        : '🎮 Game Mode: Try to craft a URL that gets detected as SAFE!', 'info');
+
+    // Update UI to show game mode
+    document.body.classList.add('beat-bot-mode');
+
+    // Store that we're in game mode
+    sessionStorage.setItem('beat_bot_active', 'true');
+
+    // Increment challenge count (simulated)
+    const countEl = document.getElementById('challengeCount');
+    if (countEl) {
+        const currentCount = parseInt(countEl.textContent.replace(',', '')) + 1;
+        countEl.textContent = currentCount.toLocaleString();
+    }
+};
+
+// Override displayResult when in Beat the Bot mode
+const originalDisplayResult = window.displayResult;
+window.displayResult = (score, verdict, flags, url) => {
+    // Call original
+    originalDisplayResult(score, verdict, flags, url);
+
+    // Check if in game mode
+    if (sessionStorage.getItem('beat_bot_active') === 'true') {
+        beatBotAttempts++;
+        localStorage.setItem('qrshield_beat_bot_attempts', beatBotAttempts.toString());
+
+        if (verdict === 'SAFE') {
+            // User won! Their URL wasn't detected
+            beatBotScore++;
+            localStorage.setItem('qrshield_beat_bot_score', beatBotScore.toString());
+
+            setTimeout(() => {
+                showToast(currentLang === 'de'
+                    ? `🏆 Du hast gewonnen! Score: ${beatBotScore}/${beatBotAttempts}`
+                    : `🏆 You beat the bot! Score: ${beatBotScore}/${beatBotAttempts}`, 'success');
+            }, 1000);
+        } else {
+            // Bot wins
+            setTimeout(() => {
+                showToast(currentLang === 'de'
+                    ? `🤖 Bot gewinnt! Phishing erkannt. Score: ${beatBotScore}/${beatBotAttempts}`
+                    : `🤖 Bot wins! Phishing detected. Score: ${beatBotScore}/${beatBotAttempts}`, 'warning');
+            }, 1000);
+        }
+
+        // Exit game mode after result
+        sessionStorage.removeItem('beat_bot_active');
+        document.body.classList.remove('beat-bot-mode');
+        document.getElementById('urlInput').placeholder = 'https://example.com/login';
+    }
+};

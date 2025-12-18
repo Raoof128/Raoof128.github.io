@@ -1694,3 +1694,198 @@ body:has(.demo-banner) .app-header {
     color: var(--color-warning);
     border-color: var(--color-warning);
 }
+
+/* ==========================================================================
+   LANGUAGE TOGGLE (i18n)
+   ========================================================================== */
+
+.lang-toggle {
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.lang-toggle:hover {
+    transform: scale(1.1);
+    background: var(--bg-surface);
+}
+
+#langFlag {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+/* ==========================================================================
+   OFFLINE INDICATOR (PWA)
+   ========================================================================== */
+
+.offline-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(255, 170, 0, 0.15);
+    border: 1px solid rgba(255, 170, 0, 0.3);
+    border-radius: var(--radius-full);
+    color: var(--color-warning);
+    font-size: 0.75rem;
+    font-weight: 600;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.offline-indicator .material-icons-round {
+    font-size: 1rem;
+}
+
+.offline-indicator.active {
+    display: flex;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 170, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 170, 0, 0.5);
+    }
+}
+
+/* ==========================================================================
+   BEAT THE BOT GAME SECTION
+   ========================================================================== */
+
+.beat-the-bot-section {
+    margin: 40px 0;
+    padding: 0 20px;
+}
+
+.beat-bot-card {
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(167, 139, 250, 0.1));
+    border: 1px solid rgba(108, 92, 231, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.beat-bot-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 50%);
+    animation: spin 20s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.beat-bot-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.beat-bot-card h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.beat-bot-card p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.beat-bot-btn {
+    position: relative;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border: none;
+    padding: 14px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(108, 92, 231, 0.4);
+}
+
+.beat-bot-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 25px rgba(108, 92, 231, 0.5);
+}
+
+.beat-bot-stats {
+    font-size: 0.85rem;
+    color: var(--text-tertiary);
+    margin-top: 16px;
+    position: relative;
+}
+
+.beat-bot-stats span {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+/* Beat the Bot link in footer */
+.beat-bot-link {
+    color: var(--color-primary) !important;
+    font-weight: 600;
+}
+
+.beat-bot-link:hover {
+    color: var(--color-accent) !important;
+}
+
+/* Beat the Bot game mode */
+body.beat-bot-mode .scanner-card {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+}
+
+body.beat-bot-mode .url-input {
+    border-color: var(--color-primary);
+}
+
+body.beat-bot-mode .url-input::placeholder {
+    color: var(--color-primary);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE ADJUSTMENTS FOR NEW FEATURES
+   ========================================================================== */
+
+@media (max-width: 600px) {
+    .header-actions {
+        gap: 8px;
+    }
+    
+    .offline-indicator {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .offline-indicator .offline-text {
+        display: none;
+    }
+    
+    .beat-bot-card {
+        padding: 24px 16px;
+    }
+    
+    .beat-bot-icon {
+        font-size: 2rem;
+    }
+    
+    .beat-bot-card h3 {
+        font-size: 1.2rem;
+    }
+}
