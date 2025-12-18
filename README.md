@@ -126,6 +126,8 @@
 | `https://google.com` | 🟢 SAFE — No threats detected |
 | `https://gооgle.com` (Cyrillic) | 🔴 MALICIOUS — Homograph attack |
 
+> **📱 Platform Note:** Web demo uses optimized ML weights for smaller bundle size (~200KB vs ~500KB on native). This may result in slightly lower scores (SUSPICIOUS vs MALICIOUS) on web compared to native apps. The detection is still accurate—only the score threshold differs.
+
 ---
 
 ## 🔒 Offline Guarantee (Provable)
