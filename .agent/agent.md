@@ -27,6 +27,9 @@ Both pages feature:
 | `webApp/src/jsMain/resources/dashboard.html` | ~320 | Main dashboard home page with hero section and stats |
 | `webApp/src/jsMain/resources/dashboard.css` | ~1200 | Dashboard CSS with gradient hero and feature cards |
 | `webApp/src/jsMain/resources/dashboard.js` | ~380 | Dashboard controller with stats and history |
+| `webApp/src/jsMain/resources/game.html` | ~350 | Beat the Bot game with phishing challenges |
+| `webApp/src/jsMain/resources/game.css` | ~1100 | Game CSS with floating preview and scoreboard |
+| `webApp/src/jsMain/resources/game.js` | ~550 | Game controller with 10 challenges and scoring |
 | `webApp/src/jsMain/resources/results.html` | ~340 | Dashboard-style results page with sidebar navigation |
 | `webApp/src/jsMain/resources/results.css` | ~1100 | Premium dark theme CSS with glassmorphism effects |
 | `webApp/src/jsMain/resources/results.js` | ~520 | Results page controller with URL parsing and animations |
@@ -54,6 +57,7 @@ Both pages feature:
 | `webApp/src/jsMain/resources/app.js` | Added `openFullResults()` and `viewEnhancedResults()` functions |
 | `webApp/src/jsMain/resources/scanner.html` | Updated Settings link to point to onboarding.html |
 | `webApp/src/jsMain/resources/results.html` | Updated Settings link to point to onboarding.html |
+| `webApp/src/jsMain/resources/dashboard.html` | Updated Training link to point to game.html |
 
 
 
