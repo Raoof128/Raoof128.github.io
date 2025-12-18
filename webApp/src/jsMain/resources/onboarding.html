@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>QR-SHIELD - Offline Privacy Onboarding</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="QR-SHIELD Privacy Settings - 100% offline protection with zero cloud telemetry." />
+    <meta name="theme-color" content="#0f131a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+
+    <!-- PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Onboarding Page Styles -->
+    <link href="onboarding.css" rel="stylesheet" />
+</head>
+
+<body class="onboarding-body">
+    <div class="onboarding-layout">
+
+        <!-- ============================================
+             SIDEBAR NAVIGATION
+             ============================================ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <!-- Logo Section -->
+                <div class="sidebar-header">
+                    <div class="logo-container">
+                        <div class="logo-icon">
+                            <span class="material-symbols-outlined">shield_lock</span>
+                        </div>
+                        <div class="logo-text">
+                            <h1>QR-SHIELD</h1>
+                            <p>Offline Protection</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="sidebar-nav">
+                    <a class="nav-link" href="index.html" id="nav-dashboard">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a class="nav-link" href="scanner.html" id="nav-scanner">
+                        <span class="material-symbols-outlined">qr_code_scanner</span>
+                        <span>Scan Monitor</span>
+                    </a>
+                    <a class="nav-link" href="#history" id="nav-history">
+                        <span class="material-symbols-outlined">history</span>
+                        <span>Scan History</span>
+                    </a>
+                    <a class="nav-link" href="#database" id="nav-database">
+                        <span class="material-symbols-outlined">dns</span>
+                        <span>Threat Database</span>
+                    </a>
+                    <a class="nav-link active" href="onboarding.html" id="nav-settings">
+                        <span class="material-symbols-outlined filled">settings</span>
+                        <span>Settings</span>
+                    </a>
+                </nav>
+
+                <!-- Sidebar Footer -->
+                <div class="sidebar-footer">
+                    <div class="version-badge">
+                        <div class="version-info">
+                            <span class="version-number">v2.4.1</span>
+                            <span class="version-label">Latest Build</span>
+                        </div>
+                        <span class="status-dot"></span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <main class="main-content">
+            <!-- Decorative Background Blurs -->
+            <div class="bg-blur bg-blur-1"></div>
+            <div class="bg-blur bg-blur-2"></div>
+
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <nav class="breadcrumbs">
+                        <span class="breadcrumb-item">Settings</span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-item">Onboarding</span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-current">Offline Privacy</span>
+                    </nav>
+                </div>
+
+                <div class="header-right">
+                    <div class="header-divider"></div>
+                    <button class="header-btn" id="helpBtn" aria-label="Help">
+                        <span class="material-symbols-outlined">help</span>
+                    </button>
+                    <button class="header-btn" id="profileBtn" aria-label="Profile">
+                        <span class="material-symbols-outlined">account_circle</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <div class="content-scroll">
+                <div class="content-container">
+
+                    <!-- Hero Section -->
+                    <div class="privacy-hero">
+                        <div class="hero-icon">
+                            <span class="material-symbols-outlined">shield_locked</span>
+                            <div class="hero-icon-border"></div>
+                        </div>
+
+                        <h1 class="hero-title">
+                            Analysed offline. <br />
+                            <span class="hero-gradient">Your data stays on-device.</span>
+                        </h1>
+
+                        <p class="hero-description">
+                            QR-SHIELD processes every scan within a secure, isolated local sandbox.
+                            We prioritize explainable security with zero cloud telemetry for image analysis.
+                        </p>
+                    </div>
+
+                    <!-- Feature Cards -->
+                    <div class="features-grid">
+                        <!-- Local Sandbox Card -->
+                        <div class="feature-card" data-feature="sandbox">
+                            <div class="feature-bg-icon">
+                                <span class="material-symbols-outlined">science</span>
+                            </div>
+                            <div class="feature-icon blue">
+                                <span class="material-symbols-outlined">science</span>
+                            </div>
+                            <h3 class="feature-title">Local Sandbox</h3>
+                            <p class="feature-description">
+                                Code execution happens in an ephemeral container.
+                                Malicious payloads never touch your OS kernel.
+                            </p>
+                        </div>
+
+                        <!-- No Cloud Logs Card -->
+                        <div class="feature-card" data-feature="cloud">
+                            <div class="feature-bg-icon">
+                                <span class="material-symbols-outlined">cloud_off</span>
+                            </div>
+                            <div class="feature-icon green">
+                                <span class="material-symbols-outlined">cloud_off</span>
+                            </div>
+                            <h3 class="feature-title">No Cloud Logs</h3>
+                            <p class="feature-description">
+                                We strictly disable outgoing telemetry for scans.
+                                Scan results and image hashes remain local.
+                            </p>
+                        </div>
+
+                        <!-- On-Device DB Card -->
+                        <div class="feature-card" data-feature="database">
+                            <div class="feature-bg-icon">
+                                <span class="material-symbols-outlined">storage</span>
+                            </div>
+                            <div class="feature-icon purple">
+                                <span class="material-symbols-outlined">storage</span>
+                            </div>
+                            <h3 class="feature-title">On-Device DB</h3>
+                            <p class="feature-description">
+                                The entire threat signature database is downloaded
+                                to your device for millisecond lookups.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Data Lifecycle Table -->
+                    <div class="data-table-card">
+                        <div class="table-header">
+                            <div class="table-title">
+                                <span class="material-symbols-outlined">verified</span>
+                                <h4>Data Lifecycle Verification</h4>
+                            </div>
+                            <span class="audit-badge">Security Audit: PASS</span>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Data Point</th>
+                                        <th>Processing Env</th>
+                                        <th>External Transmission</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="data-point">Raw Image Buffer</td>
+                                        <td class="processing-env">
+                                            <span class="env-dot green"></span>
+                                            Local Memory (RAM)
+                                        </td>
+                                        <td class="transmission">None</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-point">Decoded URL/Payload</td>
+                                        <td class="processing-env">
+                                            <span class="env-dot blue"></span>
+                                            Isolated Sandbox
+                                        </td>
+                                        <td class="transmission">None</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-point">Threat Verdict</td>
+                                        <td class="processing-env">
+                                            <span class="env-dot purple"></span>
+                                            Local Database
+                                        </td>
+                                        <td class="transmission">None</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Action Footer -->
+                    <div class="action-footer">
+                        <div class="footer-info">
+                            <span class="material-symbols-outlined">info</span>
+                            <span>You can change these settings later in Privacy Preferences.</span>
+                        </div>
+
+                        <div class="footer-actions">
+                            <button class="btn-secondary" id="readPolicyBtn">
+                                Read Policy
+                            </button>
+                            <button class="btn-primary" id="enableOfflineBtn">
+                                <span>Enable Offline Mode</span>
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="material-symbols-outlined toast-icon">check_circle</span>
+        <span class="toast-message" id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Kotlin/JS Bundle -->
+    <script src="webApp.js"></script>
+    <!-- Onboarding Page Logic -->
+    <script src="onboarding.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

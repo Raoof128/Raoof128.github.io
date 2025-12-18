@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Report Export - QR-SHIELD</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="QR-SHIELD Report Export - Generate and download threat analysis reports in PDF or JSON format." />
+    <meta name="theme-color" content="#111621" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+
+    <!-- PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Export Page Styles -->
+    <link href="export.css" rel="stylesheet" />
+</head>
+
+<body class="export-body">
+    <div class="export-layout">
+
+        <!-- ============================================
+             SIDEBAR NAVIGATION
+             ============================================ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <span class="material-symbols-outlined">shield</span>
+                    </div>
+                    <h1 class="logo-text">QR-SHIELD</h1>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Menu</div>
+                <a class="nav-link" href="scanner.html" id="nav-scanner">
+                    <span class="material-symbols-outlined">qr_code_scanner</span>
+                    <span>Scan</span>
+                </a>
+                <a class="nav-link" href="index.html" id="nav-history">
+                    <span class="material-symbols-outlined">history</span>
+                    <span>History</span>
+                </a>
+                <a class="nav-link active" href="export.html" id="nav-export">
+                    <span class="material-symbols-outlined filled">file_upload</span>
+                    <span>Export</span>
+                </a>
+                <a class="nav-link" href="onboarding.html" id="nav-settings">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="enterprise-badge">
+                    <span class="material-symbols-outlined star-icon">star</span>
+                    <div class="badge-content">
+                        <p class="badge-title">Enterprise Edition</p>
+                        <p class="badge-subtitle">License active until Dec 2025.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <span class="breadcrumbs-header">Workspace / Security / Reports</span>
+                </div>
+
+                <div class="header-right">
+                    <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <p class="user-name">Alex Morgan</p>
+                            <p class="user-role">Security Analyst</p>
+                        </div>
+                        <div class="user-avatar" id="userAvatar">AM</div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Scrollable Content -->
+            <div class="content-scroll">
+                <div class="content-container">
+
+                    <!-- Breadcrumbs & Heading -->
+                    <div class="page-header">
+                        <nav class="breadcrumbs">
+                            <a href="index.html" class="breadcrumb-item">Home</a>
+                            <span class="breadcrumb-separator">/</span>
+                            <a href="scanner.html" class="breadcrumb-item">Scan</a>
+                            <span class="breadcrumb-separator">/</span>
+                            <a href="results.html" class="breadcrumb-item">Result</a>
+                            <span class="breadcrumb-separator">/</span>
+                            <span class="breadcrumb-current">Export</span>
+                        </nav>
+
+                        <div class="page-title-section">
+                            <h2 class="page-title">Report Generation</h2>
+                            <p class="page-subtitle">Configure formats and download your threat analysis.</p>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Banner -->
+                    <div class="privacy-banner">
+                        <div class="banner-content">
+                            <div class="banner-icon">
+                                <span class="material-symbols-outlined">verified_user</span>
+                            </div>
+                            <div class="banner-text">
+                                <h3>Offline Security</h3>
+                                <p>Your data never leaves this device. All processing is local. No tracking, no uploads.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="banner-image"></div>
+                    </div>
+
+                    <!-- Main Grid Layout -->
+                    <div class="export-grid">
+
+                        <!-- Left Column: Configuration Controls -->
+                        <div class="config-column">
+
+                            <!-- Format Selection -->
+                            <section class="format-section">
+                                <h3 class="section-title">Choose Format</h3>
+
+                                <!-- Option A: PDF (Active) -->
+                                <label class="format-option">
+                                    <input type="radio" name="format" value="pdf" checked class="format-radio" />
+                                    <div class="format-card">
+                                        <div class="format-icon">
+                                            <span class="material-symbols-outlined">picture_as_pdf</span>
+                                        </div>
+                                        <div class="format-info">
+                                            <span class="format-title">Human-Readable Report</span>
+                                            <span class="format-description">PDF format. Best for sharing with
+                                                stakeholders.</span>
+                                        </div>
+                                        <div class="format-check">
+                                            <span class="material-symbols-outlined">check_circle</span>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <!-- Option B: JSON -->
+                                <label class="format-option">
+                                    <input type="radio" name="format" value="json" class="format-radio" />
+                                    <div class="format-card">
+                                        <div class="format-icon">
+                                            <span class="material-symbols-outlined">data_object</span>
+                                        </div>
+                                        <div class="format-info">
+                                            <span class="format-title">Machine-Readable</span>
+                                            <span class="format-description">JSON format. Best for SIEM
+                                                integration.</span>
+                                        </div>
+                                        <div class="format-check">
+                                            <span class="material-symbols-outlined">check_circle</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </section>
+
+                            <!-- Actions -->
+                            <section class="actions-section">
+                                <button class="btn-export" id="exportBtn">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Export Report
+                                </button>
+
+                                <div class="secondary-actions">
+                                    <button class="btn-secondary" id="copyBtn">
+                                        <span class="material-symbols-outlined">content_copy</span>
+                                        Copy
+                                    </button>
+                                    <button class="btn-secondary" id="shareBtn">
+                                        <span class="material-symbols-outlined">share</span>
+                                        Share
+                                    </button>
+                                </div>
+                            </section>
+
+                            <!-- Help Text -->
+                            <div class="help-card">
+                                <span class="material-symbols-outlined">info</span>
+                                <p>Exports include all identified threat vectors, headers, and the raw payload analysis.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Live Preview -->
+                        <div class="preview-column">
+                            <div class="preview-header">
+                                <h3 class="section-title">Live Preview</h3>
+                                <span class="preview-badge">Read Only</span>
+                            </div>
+
+                            <!-- Report Card Representation -->
+                            <div class="report-preview">
+                                <!-- Document Top Bar -->
+                                <div class="preview-topbar">
+                                    <div class="window-dots">
+                                        <span class="dot red"></span>
+                                        <span class="dot yellow"></span>
+                                        <span class="dot green"></span>
+                                    </div>
+                                    <div class="filename" id="previewFilename">scan_result_id_9924.pdf</div>
+                                </div>
+
+                                <!-- Document Content -->
+                                <div class="preview-content">
+                                    <!-- Header Section -->
+                                    <div class="report-header">
+                                        <div class="report-title-section">
+                                            <h4 class="report-title">Threat Analysis Report</h4>
+                                            <p class="report-date" id="reportDate">Generated on Oct 24, 2023 • 14:32:01
+                                                UTC</p>
+                                        </div>
+                                        <div class="report-qr-icon">
+                                            <span class="material-symbols-outlined">qr_code_2</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Verdict Section -->
+                                    <div class="verdict-grid">
+                                        <div class="verdict-card" id="verdictCard">
+                                            <div class="verdict-label">
+                                                <span class="material-symbols-outlined">warning</span>
+                                                Verdict
+                                            </div>
+                                            <div class="verdict-value" id="verdictValue">Suspicious</div>
+                                        </div>
+                                        <div class="score-card">
+                                            <div class="score-label">Risk Score</div>
+                                            <div class="score-value">
+                                                <span id="riskScore">85</span>
+                                                <span class="score-max">/100</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Details -->
+                                    <div class="report-details">
+                                        <div class="detail-section">
+                                            <p class="detail-label">Target URL</p>
+                                            <div class="detail-url" id="targetUrl">
+                                                http://login-secure-banking-xyz.auth-gateway.net/ref=882
+                                            </div>
+                                        </div>
+
+                                        <div class="detail-section">
+                                            <p class="detail-label">Analysis Summary</p>
+                                            <p class="detail-text" id="analysisSummary">
+                                                The destination URL employs <span class="highlight">homoglyph
+                                                    obfuscation</span> characters often associated with phishing
+                                                campaigns targeting financial institutions.
+                                                The domain age is <span class="danger">&lt; 24 hours</span>.
+                                            </p>
+                                        </div>
+
+                                        <!-- Technical Details -->
+                                        <div class="detail-section">
+                                            <p class="detail-label">Technical Indicators</p>
+                                            <div class="json-preview">
+                                                <pre id="jsonPreview">{
+  <span class="json-key">"threat_type"</span>: <span class="json-string">"Phishing"</span>,
+  <span class="json-key">"ssl_issuer"</span>: <span class="json-string">"Let's Encrypt (R3)"</span>,
+  <span class="json-key">"redirects"</span>: 2,
+  <span class="json-key">"heuristics"</span>: [
+    <span class="json-string">"suspicious_tld"</span>,
+    <span class="json-string">"subdomain_chaining"</span>
+  ]
+}</pre>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Footer Watermark -->
+                                    <div class="report-footer">
+                                        <p>Verified by QR-SHIELD Enterprise</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="material-symbols-outlined toast-icon">check_circle</span>
+        <span class="toast-message" id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Kotlin/JS Bundle -->
+    <script src="webApp.js"></script>
+    <!-- Export Page Logic -->
+    <script src="export.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

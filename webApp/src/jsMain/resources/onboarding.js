@@ -1,0 +1,428 @@
+/**
+ * QR-SHIELD Onboarding Page Controller
+ * 
+ * Handles the offline privacy onboarding flow,
+ * settings management, and navigation.
+ * 
+ * @author QR-SHIELD Team
+ * @version 2.4.1
+ */
+
+// =============================================================================
+// CONFIGURATION
+// =============================================================================
+
+const OnboardingConfig = {
+    version: '2.4.1',
+    settingsKey: 'qrshield_settings',
+    onboardingCompleteKey: 'qrshield_onboarding_complete',
+};
+
+// =============================================================================
+// STATE
+// =============================================================================
+
+const OnboardingState = {
+    settings: {
+        offlineMode: true,
+        localSandbox: true,
+        noCloudLogs: true,
+        onDeviceDb: true,
+    },
+    isSidebarOpen: false,
+};
+
+// =============================================================================
+// DOM ELEMENTS
+// =============================================================================
+
+const elements = {
+    sidebar: null,
+    menuToggle: null,
+    enableOfflineBtn: null,
+    readPolicyBtn: null,
+    helpBtn: null,
+    profileBtn: null,
+    toast: null,
+    toastMessage: null,
+};
+
+// =============================================================================
+// INITIALIZATION
+// =============================================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('[QR-SHIELD Onboarding] Initializing v' + OnboardingConfig.version);
+
+    // Cache DOM elements
+    cacheElements();
+
+    // Load existing settings
+    loadSettings();
+
+    // Setup event listeners
+    setupEventListeners();
+
+    // Add staggered animations
+    animateFeatureCards();
+
+    console.log('[QR-SHIELD Onboarding] Ready');
+});
+
+/**
+ * Cache frequently accessed DOM elements
+ */
+function cacheElements() {
+    elements.sidebar = document.getElementById('sidebar');
+    elements.menuToggle = document.getElementById('menuToggle');
+    elements.enableOfflineBtn = document.getElementById('enableOfflineBtn');
+    elements.readPolicyBtn = document.getElementById('readPolicyBtn');
+    elements.helpBtn = document.getElementById('helpBtn');
+    elements.profileBtn = document.getElementById('profileBtn');
+    elements.toast = document.getElementById('toast');
+    elements.toastMessage = document.getElementById('toastMessage');
+}
+
+/**
+ * Setup all event listeners
+ */
+function setupEventListeners() {
+    // Mobile menu toggle
+    elements.menuToggle?.addEventListener('click', toggleSidebar);
+
+    // Primary action - Enable Offline Mode
+    elements.enableOfflineBtn?.addEventListener('click', enableOfflineMode);
+
+    // Secondary action - Read Policy
+    elements.readPolicyBtn?.addEventListener('click', showPrivacyPolicy);
+
+    // Header buttons
+    elements.helpBtn?.addEventListener('click', showHelp);
+    elements.profileBtn?.addEventListener('click', showProfile);
+
+    // Feature card interactions
+    setupFeatureCardInteractions();
+
+    // Keyboard shortcuts
+    setupKeyboardShortcuts();
+
+    // Click outside sidebar to close (mobile)
+    document.addEventListener('click', (e) => {
+        if (OnboardingState.isSidebarOpen &&
+            !elements.sidebar?.contains(e.target) &&
+            !elements.menuToggle?.contains(e.target)) {
+            closeSidebar();
+        }
+    });
+}
+
+// =============================================================================
+// SETTINGS MANAGEMENT
+// =============================================================================
+
+/**
+ * Load settings from localStorage
+ */
+function loadSettings() {
+    try {
+        const stored = localStorage.getItem(OnboardingConfig.settingsKey);
+        if (stored) {
+            OnboardingState.settings = { ...OnboardingState.settings, ...JSON.parse(stored) };
+        }
+    } catch (e) {
+        console.error('[Onboarding] Failed to load settings:', e);
+    }
+}
+
+/**
+ * Save settings to localStorage
+ */
+function saveSettings() {
+    try {
+        localStorage.setItem(OnboardingConfig.settingsKey, JSON.stringify(OnboardingState.settings));
+    } catch (e) {
+        console.error('[Onboarding] Failed to save settings:', e);
+    }
+}
+
+/**
+ * Mark onboarding as complete
+ */
+function completeOnboarding() {
+    try {
+        localStorage.setItem(OnboardingConfig.onboardingCompleteKey, 'true');
+    } catch (e) {
+        console.error('[Onboarding] Failed to complete onboarding:', e);
+    }
+}
+
+// =============================================================================
+// ACTIONS
+// =============================================================================
+
+/**
+ * Enable offline mode and complete onboarding
+ */
+function enableOfflineMode() {
+    // Update settings
+    OnboardingState.settings.offlineMode = true;
+    OnboardingState.settings.localSandbox = true;
+    OnboardingState.settings.noCloudLogs = true;
+    OnboardingState.settings.onDeviceDb = true;
+
+    // Save settings
+    saveSettings();
+
+    // Mark onboarding complete
+    completeOnboarding();
+
+    // Show success animation
+    showSuccessAnimation();
+
+    // Show toast
+    showToast('Offline mode enabled! Your data stays on-device.', 'success');
+
+    // Navigate to dashboard after delay
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 2000);
+}
+
+/**
+ * Show success animation on button
+ */
+function showSuccessAnimation() {
+    const btn = elements.enableOfflineBtn;
+    if (!btn) return;
+
+    // Change button content
+    btn.innerHTML = `
+        <span class="material-symbols-outlined">check_circle</span>
+        <span>Enabled!</span>
+    `;
+
+    // Add success style
+    btn.style.backgroundColor = '#10b981';
+    btn.style.boxShadow = '0 4px 20px rgba(16, 185, 129, 0.4)';
+    btn.disabled = true;
+}
+
+/**
+ * Show privacy policy
+ */
+function showPrivacyPolicy() {
+    // In a real app, this would open a modal or navigate to policy page
+    // For now, we'll show a toast with info
+    showToast('Privacy policy: 100% offline, zero data collection', 'info');
+
+    // Could also open GitHub privacy doc
+    // window.open('https://github.com/Raoof128/Raoof128.github.io/blob/main/docs/PRIVACY.md', '_blank');
+}
+
+/**
+ * Show help
+ */
+function showHelp() {
+    showToast('Need help? Visit our GitHub for documentation', 'info');
+}
+
+/**
+ * Show profile
+ */
+function showProfile() {
+    showToast('Profile settings coming soon', 'info');
+}
+
+// =============================================================================
+// SIDEBAR CONTROLS
+// =============================================================================
+
+function toggleSidebar() {
+    if (OnboardingState.isSidebarOpen) {
+        closeSidebar();
+    } else {
+        openSidebar();
+    }
+}
+
+function openSidebar() {
+    elements.sidebar?.classList.add('open');
+    OnboardingState.isSidebarOpen = true;
+}
+
+function closeSidebar() {
+    elements.sidebar?.classList.remove('open');
+    OnboardingState.isSidebarOpen = false;
+}
+
+// =============================================================================
+// FEATURE CARD INTERACTIONS
+// =============================================================================
+
+function setupFeatureCardInteractions() {
+    const cards = document.querySelectorAll('.feature-card');
+
+    cards.forEach(card => {
+        // Add click handler for feature details
+        card.addEventListener('click', () => {
+            const feature = card.dataset.feature;
+            showFeatureDetails(feature);
+        });
+
+        // Add hover effect sounds (optional)
+        card.addEventListener('mouseenter', () => {
+            // Could add subtle hover sound
+        });
+    });
+}
+
+/**
+ * Show feature details
+ */
+function showFeatureDetails(feature) {
+    const details = {
+        sandbox: {
+            title: 'Local Sandbox',
+            description: 'All code execution happens in an ephemeral container that is destroyed after each scan. This ensures malicious payloads can never escape to your system.',
+        },
+        cloud: {
+            title: 'No Cloud Logs',
+            description: 'QR-SHIELD strictly disables all outgoing telemetry. Your scan results, URL history, and image hashes never leave your device.',
+        },
+        database: {
+            title: 'On-Device Database',
+            description: 'The entire threat signature database (100,000+ patterns) is stored locally for millisecond lookups without any network requests.',
+        },
+    };
+
+    const info = details[feature];
+    if (info) {
+        showToast(`${info.title}: ${info.description.substring(0, 50)}...`, 'info');
+    }
+}
+
+// =============================================================================
+// ANIMATIONS
+// =============================================================================
+
+/**
+ * Animate feature cards with staggered entrance
+ */
+function animateFeatureCards() {
+    const cards = document.querySelectorAll('.feature-card');
+
+    cards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+
+        setTimeout(() => {
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100 + (index * 100));
+    });
+}
+
+// =============================================================================
+// KEYBOARD SHORTCUTS
+// =============================================================================
+
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Escape - go back / close sidebar
+        if (e.key === 'Escape') {
+            if (OnboardingState.isSidebarOpen) {
+                closeSidebar();
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Enter - enable offline mode
+        if (e.key === 'Enter' && document.activeElement?.tagName !== 'BUTTON') {
+            enableOfflineMode();
+        }
+
+        // P - read policy
+        if (e.key === 'p' && document.activeElement?.tagName !== 'INPUT') {
+            showPrivacyPolicy();
+        }
+    });
+}
+
+// =============================================================================
+// UI HELPERS
+// =============================================================================
+
+/**
+ * Show a toast notification
+ */
+function showToast(message, type = 'success') {
+    if (!elements.toast || !elements.toastMessage) return;
+
+    elements.toastMessage.textContent = message;
+
+    const icon = elements.toast.querySelector('.toast-icon');
+    if (icon) {
+        switch (type) {
+            case 'success':
+                icon.textContent = 'check_circle';
+                icon.style.color = '#10b981';
+                break;
+            case 'warning':
+                icon.textContent = 'warning';
+                icon.style.color = '#f59e0b';
+                break;
+            case 'error':
+                icon.textContent = 'error';
+                icon.style.color = '#ef4444';
+                break;
+            case 'info':
+                icon.textContent = 'info';
+                icon.style.color = '#3b82f6';
+                break;
+        }
+    }
+
+    elements.toast.classList.remove('hidden');
+    elements.toast.classList.add('show');
+
+    setTimeout(() => {
+        elements.toast.classList.remove('show');
+        setTimeout(() => {
+            elements.toast.classList.add('hidden');
+        }, 300);
+    }, 4000);
+}
+
+// =============================================================================
+// ANALYTICS (Privacy-preserving)
+// =============================================================================
+
+/**
+ * Track onboarding completion (local only)
+ */
+function trackOnboardingComplete() {
+    try {
+        const stats = JSON.parse(localStorage.getItem('qrshield_stats') || '{}');
+        stats.onboardingCompletedAt = Date.now();
+        stats.offlineModeEnabled = true;
+        localStorage.setItem('qrshield_stats', JSON.stringify(stats));
+    } catch (e) {
+        // Silently fail - not critical
+    }
+}
+
+// =============================================================================
+// EXPORTS FOR TESTING
+// =============================================================================
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        OnboardingState,
+        OnboardingConfig,
+        enableOfflineMode,
+        loadSettings,
+        saveSettings,
+    };
+}

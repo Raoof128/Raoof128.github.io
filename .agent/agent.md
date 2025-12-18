@@ -30,13 +30,23 @@ Both pages feature:
 | `webApp/src/jsMain/resources/scanner.html` | ~290 | Scanner dashboard with camera viewport and action bar |
 | `webApp/src/jsMain/resources/scanner.css` | ~1050 | Scanner page CSS with animated scan line and corner markers |
 | `webApp/src/jsMain/resources/scanner.js` | ~650 | Scanner controller with camera access, QR scanning, history |
+| `webApp/src/jsMain/resources/onboarding.html` | ~260 | Offline privacy onboarding page with feature cards |
+| `webApp/src/jsMain/resources/onboarding.css` | ~850 | Onboarding page CSS with decorative blurs and table styling |
+| `webApp/src/jsMain/resources/onboarding.js` | ~350 | Onboarding controller with settings management |
+| `webApp/src/jsMain/resources/export.html` | ~280 | Report export page with format selection and live preview |
+| `webApp/src/jsMain/resources/export.css` | ~900 | Export page CSS with document preview and JSON styling |
+| `webApp/src/jsMain/resources/export.js` | ~480 | Export controller with PDF/JSON generation and sharing |
 
 ### 📁 Files Modified
 
 | File | Changes |
 |------|---------|
-| `webApp/src/jsMain/resources/index.html` | Added "View Full Report" button + footer links to dashboards |
+| `webApp/src/jsMain/resources/index.html` | Added "View Full Report" button + footer links to all dashboards |
 | `webApp/src/jsMain/resources/app.js` | Added `openFullResults()` and `viewEnhancedResults()` functions |
+| `webApp/src/jsMain/resources/scanner.html` | Updated Settings link to point to onboarding.html |
+| `webApp/src/jsMain/resources/results.html` | Updated Settings link to point to onboarding.html |
+
+
 
 ---
 
