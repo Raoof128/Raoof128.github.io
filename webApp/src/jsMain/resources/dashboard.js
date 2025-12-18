@@ -357,12 +357,12 @@ function setupKotlinBridge() {
             elements.analyzeBtn.innerHTML = '<span class="material-symbols-outlined">security</span> Analyze';
         }
 
-        // Navigate to results page with data
-        const resultsUrl = new URL('results.html', window.location.origin);
-        resultsUrl.searchParams.set('url', encodeURIComponent(url));
-        resultsUrl.searchParams.set('verdict', verdict);
-        resultsUrl.searchParams.set('score', score);
-        window.location.href = resultsUrl.toString();
+        // Navigate to results page with data (using relative path for file:// compatibility)
+        const params = new URLSearchParams();
+        params.set('url', encodeURIComponent(url));
+        params.set('verdict', verdict);
+        params.set('score', score);
+        window.location.href = `results.html?${params.toString()}`;
 
         // Also call original if exists
         if (originalDisplayResult) {

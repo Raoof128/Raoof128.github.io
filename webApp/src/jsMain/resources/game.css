@@ -188,7 +188,8 @@ html {
     gap: var(--space-1);
 }
 
-.nav-section-title {
+.nav-section-title,
+.nav-section-label {
     padding: var(--space-2) var(--space-3);
     padding-top: var(--space-6);
     font-size: 0.75rem;
@@ -198,7 +199,8 @@ html {
     color: var(--text-muted);
 }
 
-.nav-section-title:first-child {
+.nav-section-title:first-child,
+.nav-section-label:first-child {
     padding-top: var(--space-2);
 }
 

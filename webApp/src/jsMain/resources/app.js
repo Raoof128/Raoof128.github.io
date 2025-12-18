@@ -193,11 +193,11 @@ window.displayResult = (score, verdict, flags, url) => {
  * @param {number} score - The risk score
  */
 window.openFullResults = (url, verdict, score) => {
-    const resultsUrl = new URL('results.html', window.location.origin);
-    resultsUrl.searchParams.set('url', encodeURIComponent(url || currentAnalysis.url));
-    resultsUrl.searchParams.set('verdict', verdict || currentAnalysis.verdict);
-    resultsUrl.searchParams.set('score', score || currentAnalysis.score);
-    window.location.href = resultsUrl.toString();
+    const params = new URLSearchParams();
+    params.set('url', encodeURIComponent(url || currentAnalysis.url));
+    params.set('verdict', verdict || currentAnalysis.verdict);
+    params.set('score', score || currentAnalysis.score);
+    window.location.href = `results.html?${params.toString()}`;
 };
 
 /**

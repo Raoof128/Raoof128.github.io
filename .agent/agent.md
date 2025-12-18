@@ -4,6 +4,50 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-19 (UI Polish & Consistency Pass)
+
+### Summary
+Extensive polish and debug pass on the web application UI:
+
+1. **Standardized Sidebar Navigation** across all 9 pages:
+   - Dashboard, Live Scanner, Scan History (under Overview)
+   - Allow List, Settings (under Security)
+   - Beat the Bot (under Training)
+
+2. **Fixed Navigation Links**:
+   - All pages now link to `dashboard.html` as the main hub
+   - `index.html` now auto-redirects to `dashboard.html`
+   - Fixed `file://` protocol URL redirect bug in `app.js` and `dashboard.js`
+
+3. **CSS Consistency**:
+   - Unified `.nav-section-label` class across all pages
+   - Added styling support in `results.css`, `dashboard.css`, `game.css`
+
+4. **Label Standardization**:
+   - Changed "Heuristics Rules" → "Settings" in dashboard
+   - Changed "Scan Monitor" → "Live Scanner" for consistency
+   - Changed "Safe List" → "Allow List" across all pages
+
+### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `scanner.html` | Updated sidebar with consistent navigation |
+| `results.html` | Updated sidebar with consistent navigation |
+| `threat.html` | Updated sidebar with consistent navigation |
+| `export.html` | Updated sidebar with consistent navigation |
+| `trust.html` | Updated sidebar with consistent navigation |
+| `onboarding.html` | Updated sidebar with consistent navigation |
+| `game.html` | Updated sidebar with consistent navigation |
+| `dashboard.html` | Fixed Settings label, unified nav-section-label class |
+| `index.html` | Added auto-redirect to dashboard.html |
+| `app.js` | Fixed URL redirect to use relative paths for file:// compatibility |
+| `results.css` | Added .nav-section-label styling |
+| `dashboard.css` | Added .nav-section-label alias |
+| `game.css` | Added .nav-section-label alias |
+
+---
+
 ## Session: 2025-12-19 (Enhanced Dashboard UIs - Results & Scanner)
 
 ### Summary
