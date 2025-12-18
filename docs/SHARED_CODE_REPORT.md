@@ -90,7 +90,8 @@
 | jsQR integration | 150 | Web QR library |
 | Service Worker | 200 | PWA offline |
 | HTML/CSS | 750 | Web UI |
-| **Total** | **~1,500** | |
+| app.js (i18n, game) | 1,700+ | Translations, Beat the Bot, offline indicator |
+| **Total** | **~3,200** | |
 
 ---
 

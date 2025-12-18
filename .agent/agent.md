@@ -117,16 +117,20 @@ All polish items identified during live demo testing have been implemented:
 5. Judge Mode feature in web demo
 6. Clean code refactoring (helper class extraction)
 
-**Verified Working:**
+**Verified Working (Final Deployment 2025-12-18):**
 - ✅ Web demo correctly detects phishing URLs
 - ✅ Google.com returns SAFE verdict
 - ✅ Analysis completes in <50ms
 - ✅ Console shows Kotlin/JS initialization
+- ✅ Language toggle (🇬🇧/🇩🇪) working — UI text changes correctly
+- ✅ Beat the Bot section visible and interactive
+- ✅ Offline indicator appears when disconnected
+- ✅ Platform scoring differences documented in README
 
-**Minor Issues Noted:**
-- ⚠️ Web scoring slightly lower than README examples (optimization trade-off for bundle size)
-- ⚠️ i18n exists in code but no UI toggle (German translations ready, surface needed)
-- ⚠️ Beat the Bot in code but not prominently visible in demo
+**All Issues Resolved:**
+- ✅ i18n toggle now visible and functional
+- ✅ Beat the Bot prominently surfaced in web demo
+- ✅ Platform scoring note added to README
 
 ---
 
