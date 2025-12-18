@@ -36,6 +36,9 @@ Both pages feature:
 | `webApp/src/jsMain/resources/export.html` | ~280 | Report export page with format selection and live preview |
 | `webApp/src/jsMain/resources/export.css` | ~900 | Export page CSS with document preview and JSON styling |
 | `webApp/src/jsMain/resources/export.js` | ~480 | Export controller with PDF/JSON generation and sharing |
+| `webApp/src/jsMain/resources/trust.html` | ~340 | Trust Centre with sensitivity slider and list management |
+| `webApp/src/jsMain/resources/trust.css` | ~1000 | Trust Centre CSS with slider and toggle styling |
+| `webApp/src/jsMain/resources/trust.js` | ~550 | Trust Centre controller with settings persistence |
 
 ### 📁 Files Modified
 

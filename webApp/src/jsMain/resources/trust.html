@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>QR-SHIELD - Trust Centre</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="QR-SHIELD Trust Centre - Manage privacy controls, detection sensitivity, and security lists." />
+    <meta name="theme-color" content="#111621" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+
+    <!-- PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Trust Centre Styles -->
+    <link href="trust.css" rel="stylesheet" />
+</head>
+
+<body class="trust-body">
+    <div class="trust-layout">
+
+        <!-- ============================================
+             SIDEBAR NAVIGATION
+             ============================================ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">
+                    <span class="material-symbols-outlined filled">shield_lock</span>
+                    QR-SHIELD
+                </h1>
+                <p class="version-status">v2.4.1 • <span class="status-secure">System Secure</span></p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a class="nav-link" href="index.html" id="nav-dashboard">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a class="nav-link active" href="trust.html" id="nav-trust">
+                    <span class="nav-indicator"></span>
+                    <span class="material-symbols-outlined filled">verified_user</span>
+                    <span>Trust Centre</span>
+                </a>
+                <a class="nav-link" href="scanner.html" id="nav-scanner">
+                    <span class="material-symbols-outlined">qr_code_scanner</span>
+                    <span>Scan Monitor</span>
+                </a>
+                <a class="nav-link" href="#history" id="nav-history">
+                    <span class="material-symbols-outlined">history</span>
+                    <span>Scan History</span>
+                </a>
+                <a class="nav-link" href="#account" id="nav-account">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span>Account</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">JD</div>
+                    <div class="user-info">
+                        <p class="user-name">John Doe</p>
+                        <p class="user-plan">Enterprise Plan</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <div class="header-title">
+                        <h2>Trust Centre</h2>
+                        <p>Manage privacy controls, sensitivity, and security lists.</p>
+                    </div>
+                </div>
+
+                <div class="header-right">
+                    <span class="offline-badge">
+                        <span class="offline-dot"></span>
+                        Offline Mode Active
+                    </span>
+                    <button class="btn-audit" id="auditBtn">
+                        <span class="material-symbols-outlined">description</span>
+                        View Security Audit
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-scroll">
+                <div class="content-container">
+
+                    <!-- Hero Card: Offline Guarantee -->
+                    <div class="hero-card">
+                        <div class="hero-blur"></div>
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <div class="hero-badge">
+                                    <span class="material-symbols-outlined">wifi_off</span>
+                                    <span>Secure Environment</span>
+                                </div>
+                                <h3 class="hero-title">Strict Offline Guarantee</h3>
+                                <p class="hero-description">
+                                    QR-SHIELD uses local heuristic analysis engines. No image data, URL strings, or
+                                    metadata leaves this device during scanning. Your privacy is mathematically
+                                    guaranteed.
+                                </p>
+                                <button class="learn-more-btn">
+                                    Learn about our local architecture
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+                                </button>
+                            </div>
+
+                            <div class="hero-visual">
+                                <div class="visual-pattern"></div>
+                                <span class="material-symbols-outlined visual-icon">lock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Grid -->
+                    <div class="trust-grid">
+
+                        <!-- Left Column: Sensitivity & Lists -->
+                        <div class="main-column">
+
+                            <!-- Sensitivity Slider -->
+                            <div class="settings-card">
+                                <div class="card-header">
+                                    <div class="header-info">
+                                        <div class="header-title-row">
+                                            <span class="material-symbols-outlined">tune</span>
+                                            <h3>Phishing Detection Sensitivity</h3>
+                                        </div>
+                                        <p>Adjust heuristic thresholds. Higher sensitivity may increase false positives.
+                                        </p>
+                                    </div>
+                                    <span class="sensitivity-badge" id="sensitivityBadge">Balanced</span>
+                                </div>
+
+                                <div class="slider-container">
+                                    <input type="range" class="sensitivity-slider" id="sensitivitySlider" min="1"
+                                        max="3" value="2" />
+                                    <div class="slider-labels">
+                                        <span>Low</span>
+                                        <span class="active">Balanced</span>
+                                        <span>Paranoia</span>
+                                    </div>
+                                </div>
+
+                                <div class="sensitivity-info" id="sensitivityInfo">
+                                    <span class="material-symbols-outlined">info</span>
+                                    <div class="info-content">
+                                        <p class="info-title">Balanced Mode (Recommended)</p>
+                                        <p class="info-description">Scans for known malicious patterns and heuristic
+                                            mismatches. Blocks homoglyph attacks and redirect chains. Low false positive
+                                            rate expected.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- List Management Grid -->
+                            <div class="lists-grid">
+
+                                <!-- Allowlist -->
+                                <div class="list-card">
+                                    <div class="list-header">
+                                        <div class="list-title">
+                                            <span class="material-symbols-outlined safe">check_circle</span>
+                                            <h3>Allowlist</h3>
+                                        </div>
+                                        <button class="add-btn" id="addAllowlistBtn">
+                                            <span class="material-symbols-outlined">add</span>
+                                        </button>
+                                    </div>
+                                    <div class="list-content" id="allowlistContent">
+                                        <div class="list-item">
+                                            <div class="item-info">
+                                                <span class="item-domain">internal-corp.net</span>
+                                                <span class="item-date">Added 2 days ago</span>
+                                            </div>
+                                            <button class="delete-btn">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                        <div class="list-item">
+                                            <div class="item-info">
+                                                <span class="item-domain">localhost</span>
+                                                <span class="item-date">Added 1 week ago</span>
+                                            </div>
+                                            <button class="delete-btn">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Blocklist -->
+                                <div class="list-card">
+                                    <div class="list-header">
+                                        <div class="list-title">
+                                            <span class="material-symbols-outlined danger">block</span>
+                                            <h3>Blocklist</h3>
+                                        </div>
+                                        <button class="add-btn" id="addBlocklistBtn">
+                                            <span class="material-symbols-outlined">add</span>
+                                        </button>
+                                    </div>
+                                    <div class="list-content empty" id="blocklistContent">
+                                        <div class="empty-state">
+                                            <span class="material-symbols-outlined">playlist_remove</span>
+                                            <p>No custom domains blocked.</p>
+                                            <button class="add-manual-btn">Add manually</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Toggles & About -->
+                        <div class="side-column">
+
+                            <!-- Privacy Controls -->
+                            <div class="controls-card">
+                                <h3 class="controls-title">Privacy Controls</h3>
+
+                                <div class="toggle-item">
+                                    <div class="toggle-info">
+                                        <p class="toggle-label">Strict Offline Mode</p>
+                                        <p class="toggle-description">Disable all external link previews.</p>
+                                    </div>
+                                    <label class="toggle-switch on">
+                                        <input type="checkbox" id="offlineToggle" checked />
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <hr class="divider" />
+
+                                <div class="toggle-item">
+                                    <div class="toggle-info">
+                                        <p class="toggle-label">Anonymous Telemetry</p>
+                                        <p class="toggle-description">Share detection stats to improve ML.</p>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="telemetryToggle" />
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <hr class="divider" />
+
+                                <div class="toggle-item">
+                                    <div class="toggle-info">
+                                        <p class="toggle-label">Auto-Copy Safe Links</p>
+                                        <p class="toggle-description">Copy trusted URLs to clipboard.</p>
+                                    </div>
+                                    <label class="toggle-switch on">
+                                        <input type="checkbox" id="autoCopyToggle" checked />
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- About Card -->
+                            <div class="about-card">
+                                <div class="about-header">
+                                    <div class="about-icon">
+                                        <span class="material-symbols-outlined">policy</span>
+                                    </div>
+                                    <div class="about-info">
+                                        <h4>About QR-SHIELD</h4>
+                                        <p>Core v2.4.1 • Build 2024.12.19</p>
+                                    </div>
+                                </div>
+
+                                <div class="about-links">
+                                    <a href="#" class="about-link">
+                                        <span>Open Source Licenses</span>
+                                        <span class="material-symbols-outlined">open_in_new</span>
+                                    </a>
+                                    <a href="#" class="about-link">
+                                        <span>Privacy Policy</span>
+                                        <span class="material-symbols-outlined">open_in_new</span>
+                                    </a>
+                                    <a href="#" class="about-link no-border">
+                                        <span>Acknowledgements</span>
+                                        <span class="material-symbols-outlined">arrow_forward_ios</span>
+                                    </a>
+                                </div>
+
+                                <div class="reset-container">
+                                    <button class="reset-btn" id="resetBtn">Reset all settings to default</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <footer class="trust-footer">
+                        <p>© 2024 QR-SHIELD Security Inc. All rights reserved.</p>
+                        <div class="footer-links">
+                            <a href="#">Support</a>
+                            <a href="#">Terms</a>
+                            <span class="status-indicator">
+                                <span class="status-dot"></span>
+                                Systems Operational
+                            </span>
+                        </div>
+                    </footer>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Domain Modal -->
+    <div class="modal-overlay hidden" id="addDomainModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add to Allowlist</h3>
+                <button class="modal-close" id="closeModal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <span class="material-symbols-outlined input-icon">language</span>
+                    <input type="text" id="domainInput" class="domain-input" placeholder="example.com"
+                        autocomplete="off" spellcheck="false" />
+                </div>
+                <button class="btn-add-domain" id="addDomainBtn">
+                    <span class="material-symbols-outlined">add</span>
+                    Add Domain
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="material-symbols-outlined toast-icon">check_circle</span>
+        <span class="toast-message" id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Kotlin/JS Bundle -->
+    <script src="webApp.js"></script>
+    <!-- Trust Centre Logic -->
+    <script src="trust.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>
