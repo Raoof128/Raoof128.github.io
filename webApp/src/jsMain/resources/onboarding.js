@@ -184,7 +184,7 @@ function enableOfflineMode() {
 
     // Navigate to dashboard after delay
     setTimeout(() => {
-        window.location.href = 'index.html';
+        window.location.href = 'dashboard.html';
     }, 2000);
 }
 
@@ -334,7 +334,7 @@ function setupKeyboardShortcuts() {
             if (OnboardingState.isSidebarOpen) {
                 closeSidebar();
             } else {
-                window.location.href = 'index.html';
+                window.location.href = 'dashboard.html';
             }
         }
 

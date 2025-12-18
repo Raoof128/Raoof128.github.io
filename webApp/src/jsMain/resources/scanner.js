@@ -150,7 +150,7 @@ function setupEventListeners() {
 
     // View all history
     elements.viewAllBtn?.addEventListener('click', () => {
-        window.location.href = 'index.html';
+        window.location.href = 'dashboard.html';
     });
 
     // Drag and drop

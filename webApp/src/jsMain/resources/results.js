@@ -128,12 +128,12 @@ function getFactorsForVerdict(verdict) {
 function setupEventListeners() {
     // Scan New QR button
     document.getElementById('scanNewBtn')?.addEventListener('click', () => {
-        window.location.href = 'index.html';
+        window.location.href = 'dashboard.html';
     });
 
     // Back to Dashboard button
     document.getElementById('backBtn')?.addEventListener('click', () => {
-        window.location.href = 'index.html';
+        window.location.href = 'dashboard.html';
     });
 
     // Share Report button
@@ -537,7 +537,7 @@ function showDemoResult() {
 document.addEventListener('keydown', (e) => {
     // Escape: Go back to dashboard
     if (e.key === 'Escape') {
-        window.location.href = 'index.html';
+        window.location.href = 'dashboard.html';
     }
 
     // C: Copy link

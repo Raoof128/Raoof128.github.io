@@ -125,6 +125,19 @@ function setupEventListeners() {
     // Update database button
     elements.updateDbBtn?.addEventListener('click', handleUpdateDb);
 
+    // URL Analysis - cache elements
+    elements.urlInput = document.getElementById('urlInput');
+    elements.analyzeBtn = document.getElementById('analyzeBtn');
+
+    // URL Analysis - event listeners
+    elements.analyzeBtn?.addEventListener('click', analyzeUrl);
+    elements.urlInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') analyzeUrl();
+    });
+
+    // Setup Kotlin engine bridge
+    setupKotlinBridge();
+
     // Keyboard shortcuts
     setupKeyboardShortcuts();
 }
@@ -317,6 +330,104 @@ function handleUpdateDb() {
         btn.disabled = false;
         showToast('Threat database is up to date', 'success');
     }, 2000);
+}
+
+// =============================================================================
+// URL ANALYSIS (Kotlin Engine Integration)
+// =============================================================================
+
+/**
+ * Setup Kotlin/JS engine bridge
+ */
+function setupKotlinBridge() {
+    // Fallback if Kotlin engine hasn't loaded yet
+    if (!window.qrshieldAnalyze) {
+        window.qrshieldAnalyze = (url) => {
+            console.warn('[Dashboard] Kotlin engine not ready');
+            showToast('Engine initializing...', 'warning');
+        };
+    }
+
+    // Override displayResult to handle results on dashboard
+    const originalDisplayResult = window.displayResult;
+    window.displayResult = (score, verdict, flags, url) => {
+        // Reset analyze button
+        if (elements.analyzeBtn) {
+            elements.analyzeBtn.classList.remove('loading');
+            elements.analyzeBtn.innerHTML = '<span class="material-symbols-outlined">security</span> Analyze';
+        }
+
+        // Navigate to results page with data
+        const resultsUrl = new URL('results.html', window.location.origin);
+        resultsUrl.searchParams.set('url', encodeURIComponent(url));
+        resultsUrl.searchParams.set('verdict', verdict);
+        resultsUrl.searchParams.set('score', score);
+        window.location.href = resultsUrl.toString();
+
+        // Also call original if exists
+        if (originalDisplayResult) {
+            originalDisplayResult(score, verdict, flags, url);
+        }
+    };
+}
+
+/**
+ * Analyze URL using Kotlin PhishingEngine
+ */
+function analyzeUrl() {
+    const url = elements.urlInput?.value.trim();
+
+    if (!url) {
+        showToast('Please enter a URL', 'warning');
+        elements.urlInput?.focus();
+        return;
+    }
+
+    // Auto-fix URLs without protocol
+    let fixedUrl = url;
+    if (!url.includes('://')) {
+        fixedUrl = 'https://' + url;
+    }
+
+    // Validate URL
+    if (!isValidUrl(fixedUrl)) {
+        showToast('Invalid URL format', 'error');
+        return;
+    }
+
+    // Show loading state
+    if (elements.analyzeBtn) {
+        elements.analyzeBtn.classList.add('loading');
+        elements.analyzeBtn.innerHTML = '<span class="material-symbols-outlined">hourglass_empty</span> Analyzing...';
+    }
+
+    // Call Kotlin engine
+    console.log('[Dashboard] Analyzing URL:', fixedUrl);
+    if (window.qrshieldAnalyze) {
+        window.qrshieldAnalyze(fixedUrl);
+    } else {
+        // Fallback: Navigate to results with URL
+        showToast('Engine not ready, using demo mode', 'info');
+        setTimeout(() => {
+            const resultsUrl = new URL('results.html', window.location.origin);
+            resultsUrl.searchParams.set('url', encodeURIComponent(fixedUrl));
+            resultsUrl.searchParams.set('verdict', 'SAFE');
+            resultsUrl.searchParams.set('score', '5');
+            window.location.href = resultsUrl.toString();
+        }, 500);
+    }
+}
+
+/**
+ * Check if URL is valid
+ */
+function isValidUrl(string) {
+    try {
+        const url = new URL(string);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+        return false;
+    }
 }
 
 // =============================================================================

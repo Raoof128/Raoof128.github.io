@@ -57,9 +57,29 @@ Both pages feature:
 | `webApp/src/jsMain/resources/app.js` | Added `openFullResults()` and `viewEnhancedResults()` functions |
 | `webApp/src/jsMain/resources/scanner.html` | Updated Settings link to point to onboarding.html |
 | `webApp/src/jsMain/resources/results.html` | Updated Settings link to point to onboarding.html |
-| `webApp/src/jsMain/resources/dashboard.html` | Updated Training link to point to game.html |
+| `webApp/src/jsMain/resources/dashboard.html` | Added URL input, Beat the Bot sidebar link, JetBrains Mono font |
+| `webApp/src/jsMain/resources/dashboard.css` | Added URL input wrapper, analyze button, and responsive styles |
+| `webApp/src/jsMain/resources/dashboard.js` | Added Kotlin PhishingEngine integration: `setupKotlinBridge()`, `analyzeUrl()` |
+| `webApp/src/jsMain/resources/scanner.js` | Updated navigation to point to dashboard.html |
+| `webApp/src/jsMain/resources/results.js` | Updated all navigation links to dashboard.html |
+| `webApp/src/jsMain/resources/onboarding.js` | Updated navigation to dashboard.html after onboarding completes |
+| `webApp/src/jsMain/resources/sw.js` | Updated cache v2.0.0 with all new pages, fallback to dashboard.html |
 
+### 🔗 Navigation Flow (Updated)
 
+```
+dashboard.html (NEW MAIN ENTRY)
+    ├── URL Input → results.html (Kotlin Engine analysis)
+    ├── "Scan QR Code" → scanner.html → results.html
+    ├── "Import Image" → scanner.html
+    ├── Recent Scans → threat.html
+    ├── Allow List → trust.html
+    ├── Heuristics Rules → onboarding.html
+    └── Beat the Bot → game.html
+
+All pages now use dashboard.html as the main hub.
+index.html remains as legacy landing page.
+```
 
 ---
 

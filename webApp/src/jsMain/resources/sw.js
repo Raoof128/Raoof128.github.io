@@ -3,10 +3,34 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v1.1.4';
+const CACHE_NAME = 'qr-shield-v2.0.0';
 const STATIC_ASSETS = [
     './',
     './index.html',
+    './dashboard.html',
+    './dashboard.css',
+    './dashboard.js',
+    './scanner.html',
+    './scanner.css',
+    './scanner.js',
+    './results.html',
+    './results.css',
+    './results.js',
+    './threat.html',
+    './threat.css',
+    './threat.js',
+    './export.html',
+    './export.css',
+    './export.js',
+    './trust.html',
+    './trust.css',
+    './trust.js',
+    './onboarding.html',
+    './onboarding.css',
+    './onboarding.js',
+    './game.html',
+    './game.css',
+    './game.js',
     './styles.css',
     './app.js',
     './webApp.js',
@@ -85,7 +109,7 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => {
                         // Offline fallback for navigation requests
                         if (event.request.mode === 'navigate') {
-                            return caches.match('./index.html');
+                            return caches.match('./dashboard.html');
                         }
                     });
             })

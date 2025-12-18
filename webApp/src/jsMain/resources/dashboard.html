@@ -22,7 +22,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet" />
 
     <!-- Material Symbols -->
@@ -70,6 +71,12 @@
                 <a class="nav-link" href="onboarding.html" id="nav-heuristics">
                     <span class="material-symbols-outlined">policy</span>
                     <span>Heuristics Rules</span>
+                </a>
+
+                <div class="nav-section-title">Training</div>
+                <a class="nav-link" href="game.html" id="nav-game">
+                    <span class="material-symbols-outlined">sports_esports</span>
+                    <span>Beat the Bot</span>
                 </a>
 
                 <div class="offline-card">
@@ -156,10 +163,22 @@
                                     without compromising data privacy.
                                 </p>
 
+                                <!-- Quick URL Input -->
+                                <div class="url-input-wrapper">
+                                    <span class="material-symbols-outlined input-icon">search</span>
+                                    <input type="url" id="urlInput" class="url-input"
+                                        placeholder="Paste URL to analyze (e.g., https://example.com)"
+                                        autocomplete="off" spellcheck="false" aria-label="URL to analyze">
+                                    <button class="analyze-btn" id="analyzeBtn">
+                                        <span class="material-symbols-outlined">security</span>
+                                        Analyze
+                                    </button>
+                                </div>
+
                                 <div class="hero-actions">
                                     <a href="scanner.html" class="btn-primary" id="startScanBtn">
                                         <span class="material-symbols-outlined">qr_code_scanner</span>
-                                        Start New Scan
+                                        Scan QR Code
                                     </a>
                                     <button class="btn-secondary" id="importBtn">
                                         <span class="material-symbols-outlined">upload_file</span>
