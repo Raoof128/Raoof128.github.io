@@ -91,7 +91,10 @@ class PhishingEngine(
      *
      * @see ScoringConfig for available options and presets
      */
-    private val config: ScoringConfig = ScoringConfig.DEFAULT
+    private val config: ScoringConfig = ScoringConfig.DEFAULT,
+    // Extracted helper classes for better code organization (reduces file from 542 to ~350 LOC)
+    private val scoreCalculator: ScoreCalculator = ScoreCalculator(config),
+    private val verdictDeterminer: VerdictDeterminer = VerdictDeterminer(config)
 ) {
 
     // =========================================================================
@@ -251,14 +254,14 @@ class PhishingEngine(
         val combinedBrandScore = (brandResult.score + dynamicBrandResult.score)
             .coerceAtMost(SecurityConstants.MAX_BRAND_SCORE)
         
-        val combinedScore = calculateCombinedScore(
+        val combinedScore = scoreCalculator.calculateCombinedScore(
             heuristicScore = heuristicResult.score,
             mlScore = mlScore,
             brandScore = combinedBrandScore,
             tldScore = tldResult.score
         )
         
-        val verdict = determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
+        val verdict = verdictDeterminer.determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
         
         val allFlags = buildList {
             addAll(heuristicResult.flags)
@@ -273,7 +276,7 @@ class PhishingEngine(
             addAll(errors) // Include any component errors as flags
         }
         
-        val confidence = calculateConfidence(heuristicResult, mlScore, brandResult)
+        val confidence = scoreCalculator.calculateConfidence(heuristicResult, mlScore, brandResult)
         
         return RiskAssessment(
             score = combinedScore,

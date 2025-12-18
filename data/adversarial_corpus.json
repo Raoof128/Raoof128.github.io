@@ -1,0 +1,550 @@
+{
+    "name": "QR-SHIELD Adversarial Test Corpus",
+    "version": "1.0.0",
+    "description": "Labeled adversarial URLs for security research and ML evaluation. Part of KotlinConf 2025-2026 Competition.",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/Raoof128/Raoof128.github.io",
+    "methodology": "URLs collected from PhishTank patterns, OWASP guidelines, and original adversarial research. All phishing URLs are synthetic/defanged.",
+    "metrics": {
+        "total_urls": 100,
+        "legitimate_count": 50,
+        "phishing_count": 50,
+        "attack_categories": 12
+    },
+    "attack_categories": [
+        {
+            "id": "typosquat",
+            "name": "Typosquatting",
+            "description": "Character substitution attacks (1 for l, 0 for o, rn for m)"
+        },
+        {
+            "id": "subdomain",
+            "name": "Subdomain Abuse",
+            "description": "Legitimate brands as subdomains of malicious domains"
+        },
+        {
+            "id": "au_bank",
+            "name": "Australian Bank Phishing",
+            "description": "Regional financial institution impersonation"
+        },
+        {
+            "id": "risky_tld",
+            "name": "High-Risk TLD",
+            "description": "Free/abused TLDs (.tk, .ml, .ga, .cf, .gq)"
+        },
+        {
+            "id": "crypto_scam",
+            "name": "Cryptocurrency Scams",
+            "description": "Wallet drainers, fake airdrops, exchange impersonation"
+        },
+        {
+            "id": "social_scam",
+            "name": "Social Media Scams",
+            "description": "Verification badge scams, account recovery phishing"
+        },
+        {
+            "id": "delivery_scam",
+            "name": "Delivery Scams",
+            "description": "Fake package tracking and redelivery requests"
+        },
+        {
+            "id": "ip_host",
+            "name": "IP Address Host",
+            "description": "Numeric IP instead of domain name"
+        },
+        {
+            "id": "at_symbol",
+            "name": "@ Symbol Injection",
+            "description": "URL userinfo exploitation for visual spoofing"
+        },
+        {
+            "id": "punycode",
+            "name": "Punycode/Homograph",
+            "description": "IDN homograph attacks using lookalike characters"
+        },
+        {
+            "id": "excessive_subdomain",
+            "name": "Excessive Subdomains",
+            "description": "Deep subdomain nesting to hide true domain"
+        },
+        {
+            "id": "qr_scam",
+            "name": "QR-Specific Attacks",
+            "description": "Parking meters, restaurant menus, event tickets"
+        }
+    ],
+    "urls": [
+        {
+            "url": "https://www.google.com",
+            "label": "legitimate",
+            "category": "tech",
+            "description": "Google homepage"
+        },
+        {
+            "url": "https://www.microsoft.com",
+            "label": "legitimate",
+            "category": "tech",
+            "description": "Microsoft homepage"
+        },
+        {
+            "url": "https://www.apple.com",
+            "label": "legitimate",
+            "category": "tech",
+            "description": "Apple homepage"
+        },
+        {
+            "url": "https://www.amazon.com",
+            "label": "legitimate",
+            "category": "ecommerce",
+            "description": "Amazon homepage"
+        },
+        {
+            "url": "https://www.github.com",
+            "label": "legitimate",
+            "category": "tech",
+            "description": "GitHub homepage"
+        },
+        {
+            "url": "https://www.paypal.com",
+            "label": "legitimate",
+            "category": "finance",
+            "description": "PayPal official"
+        },
+        {
+            "url": "https://www.chase.com",
+            "label": "legitimate",
+            "category": "finance",
+            "description": "Chase Bank"
+        },
+        {
+            "url": "https://www.bankofamerica.com",
+            "label": "legitimate",
+            "category": "finance",
+            "description": "Bank of America"
+        },
+        {
+            "url": "https://www.commbank.com.au",
+            "label": "legitimate",
+            "category": "finance_au",
+            "description": "Commonwealth Bank"
+        },
+        {
+            "url": "https://www.nab.com.au",
+            "label": "legitimate",
+            "category": "finance_au",
+            "description": "NAB"
+        },
+        {
+            "url": "https://www.netflix.com",
+            "label": "legitimate",
+            "category": "streaming",
+            "description": "Netflix"
+        },
+        {
+            "url": "https://www.spotify.com",
+            "label": "legitimate",
+            "category": "streaming",
+            "description": "Spotify"
+        },
+        {
+            "url": "https://www.youtube.com",
+            "label": "legitimate",
+            "category": "streaming",
+            "description": "YouTube"
+        },
+        {
+            "url": "https://www.coinbase.com",
+            "label": "legitimate",
+            "category": "crypto",
+            "description": "Coinbase official"
+        },
+        {
+            "url": "https://metamask.io",
+            "label": "legitimate",
+            "category": "crypto",
+            "description": "MetaMask official"
+        },
+        {
+            "url": "https://www.linkedin.com",
+            "label": "legitimate",
+            "category": "social",
+            "description": "LinkedIn"
+        },
+        {
+            "url": "https://www.twitter.com",
+            "label": "legitimate",
+            "category": "social",
+            "description": "Twitter/X"
+        },
+        {
+            "url": "https://www.facebook.com",
+            "label": "legitimate",
+            "category": "social",
+            "description": "Facebook"
+        },
+        {
+            "url": "https://www.dropbox.com",
+            "label": "legitimate",
+            "category": "cloud",
+            "description": "Dropbox"
+        },
+        {
+            "url": "https://www.zoom.us",
+            "label": "legitimate",
+            "category": "cloud",
+            "description": "Zoom"
+        },
+        {
+            "url": "https://www.slack.com",
+            "label": "legitimate",
+            "category": "cloud",
+            "description": "Slack"
+        },
+        {
+            "url": "https://www.bbc.com",
+            "label": "legitimate",
+            "category": "news",
+            "description": "BBC"
+        },
+        {
+            "url": "https://www.nytimes.com",
+            "label": "legitimate",
+            "category": "news",
+            "description": "New York Times"
+        },
+        {
+            "url": "https://www.jetbrains.com",
+            "label": "legitimate",
+            "category": "dev",
+            "description": "JetBrains"
+        },
+        {
+            "url": "https://kotlinlang.org",
+            "label": "legitimate",
+            "category": "dev",
+            "description": "Kotlin Language"
+        },
+        {
+            "url": "https://paypa1-secure.tk/login",
+            "label": "phishing",
+            "category": "typosquat",
+            "description": "PayPal typosquat (1 for l)",
+            "attack_type": "typosquatting"
+        },
+        {
+            "url": "https://amaz0n-verify.ml/account",
+            "label": "phishing",
+            "category": "typosquat",
+            "description": "Amazon typosquat (0 for o)",
+            "attack_type": "typosquatting"
+        },
+        {
+            "url": "https://g00gle-security.ga/alert",
+            "label": "phishing",
+            "category": "typosquat",
+            "description": "Google typosquat (00 for oo)",
+            "attack_type": "typosquatting"
+        },
+        {
+            "url": "https://rnicrosoft-365.xyz/signin",
+            "label": "phishing",
+            "category": "typosquat",
+            "description": "Microsoft typosquat (rn for m)",
+            "attack_type": "typosquatting"
+        },
+        {
+            "url": "https://app1e-id.cf/verify",
+            "label": "phishing",
+            "category": "typosquat",
+            "description": "Apple typosquat (1 for l)",
+            "attack_type": "typosquatting"
+        },
+        {
+            "url": "https://linkedln-jobs.tk/apply",
+            "label": "phishing",
+            "category": "typosquat",
+            "description": "LinkedIn typosquat (l for i)",
+            "attack_type": "typosquatting"
+        },
+        {
+            "url": "https://netf1ix-billing.ml/update",
+            "label": "phishing",
+            "category": "typosquat",
+            "description": "Netflix typosquat",
+            "attack_type": "typosquatting"
+        },
+        {
+            "url": "https://login.paypal.secure-verify.tk/auth",
+            "label": "phishing",
+            "category": "subdomain",
+            "description": "PayPal subdomain abuse",
+            "attack_type": "subdomain_abuse"
+        },
+        {
+            "url": "https://account.amazon.verify-now.ml/signin",
+            "label": "phishing",
+            "category": "subdomain",
+            "description": "Amazon subdomain abuse",
+            "attack_type": "subdomain_abuse"
+        },
+        {
+            "url": "https://security.google.alert-check.ga/verify",
+            "label": "phishing",
+            "category": "subdomain",
+            "description": "Google subdomain abuse",
+            "attack_type": "subdomain_abuse"
+        },
+        {
+            "url": "https://signin.microsoft.365-update.cf/oauth",
+            "label": "phishing",
+            "category": "subdomain",
+            "description": "Microsoft subdomain abuse",
+            "attack_type": "subdomain_abuse"
+        },
+        {
+            "url": "https://id.apple.verify-account.tk/confirm",
+            "label": "phishing",
+            "category": "subdomain",
+            "description": "Apple subdomain abuse",
+            "attack_type": "subdomain_abuse"
+        },
+        {
+            "url": "https://commbank-netbank-login.tk/verify",
+            "label": "phishing",
+            "category": "au_bank",
+            "description": "CommBank phishing",
+            "attack_type": "bank_phishing"
+        },
+        {
+            "url": "https://nab-internet-banking-secure.cf/login",
+            "label": "phishing",
+            "category": "au_bank",
+            "description": "NAB phishing",
+            "attack_type": "bank_phishing"
+        },
+        {
+            "url": "https://westpac-online-secure.ml/signin",
+            "label": "phishing",
+            "category": "au_bank",
+            "description": "Westpac phishing",
+            "attack_type": "bank_phishing"
+        },
+        {
+            "url": "https://anz-banking-update.ga/verify",
+            "label": "phishing",
+            "category": "au_bank",
+            "description": "ANZ phishing",
+            "attack_type": "bank_phishing"
+        },
+        {
+            "url": "https://ato-refund-claim.gq/identity",
+            "label": "phishing",
+            "category": "au_bank",
+            "description": "ATO tax scam",
+            "attack_type": "government_phishing"
+        },
+        {
+            "url": "https://secure-login.tk/verify",
+            "label": "phishing",
+            "category": "risky_tld",
+            "description": "Generic .tk phishing",
+            "attack_type": "risky_tld"
+        },
+        {
+            "url": "https://verify-account.ml/update",
+            "label": "phishing",
+            "category": "risky_tld",
+            "description": "Generic .ml phishing",
+            "attack_type": "risky_tld"
+        },
+        {
+            "url": "https://update-billing.ga/payment",
+            "label": "phishing",
+            "category": "risky_tld",
+            "description": "Generic .ga phishing",
+            "attack_type": "risky_tld"
+        },
+        {
+            "url": "https://confirm-identity.cf/secure",
+            "label": "phishing",
+            "category": "risky_tld",
+            "description": "Generic .cf phishing",
+            "attack_type": "risky_tld"
+        },
+        {
+            "url": "https://account-recovery.gq/reset",
+            "label": "phishing",
+            "category": "risky_tld",
+            "description": "Generic .gq phishing",
+            "attack_type": "risky_tld"
+        },
+        {
+            "url": "https://metamask-sync.io/wallet/connect",
+            "label": "phishing",
+            "category": "crypto_scam",
+            "description": "MetaMask impersonation",
+            "attack_type": "crypto_phishing"
+        },
+        {
+            "url": "https://coinbase-verify.tk/2fa",
+            "label": "phishing",
+            "category": "crypto_scam",
+            "description": "Coinbase impersonation",
+            "attack_type": "crypto_phishing"
+        },
+        {
+            "url": "https://binance-airdrop.ml/claim",
+            "label": "phishing",
+            "category": "crypto_scam",
+            "description": "Binance airdrop scam",
+            "attack_type": "crypto_phishing"
+        },
+        {
+            "url": "https://solana-airdrop-claim.tk/wallet",
+            "label": "phishing",
+            "category": "crypto_scam",
+            "description": "Fake Solana airdrop",
+            "attack_type": "crypto_phishing"
+        },
+        {
+            "url": "https://ethereum-giveaway.ga/claim",
+            "label": "phishing",
+            "category": "crypto_scam",
+            "description": "ETH giveaway scam",
+            "attack_type": "crypto_phishing"
+        },
+        {
+            "url": "https://instagram-verify-badge.ml/verify",
+            "label": "phishing",
+            "category": "social_scam",
+            "description": "Instagram verification scam",
+            "attack_type": "social_phishing"
+        },
+        {
+            "url": "https://facebook-account-recovery.tk/recover",
+            "label": "phishing",
+            "category": "social_scam",
+            "description": "Facebook recovery scam",
+            "attack_type": "social_phishing"
+        },
+        {
+            "url": "https://whatsapp-winner.ga/claim-prize",
+            "label": "phishing",
+            "category": "social_scam",
+            "description": "WhatsApp prize scam",
+            "attack_type": "social_phishing"
+        },
+        {
+            "url": "https://tiktok-creator-fund.cf/apply",
+            "label": "phishing",
+            "category": "social_scam",
+            "description": "TikTok creator scam",
+            "attack_type": "social_phishing"
+        },
+        {
+            "url": "https://youtube-partner-verify.tk/monetize",
+            "label": "phishing",
+            "category": "social_scam",
+            "description": "YouTube partner scam",
+            "attack_type": "social_phishing"
+        },
+        {
+            "url": "https://auspost-parcel-tracking.info/track",
+            "label": "phishing",
+            "category": "delivery_scam",
+            "description": "AusPost scam",
+            "attack_type": "delivery_phishing"
+        },
+        {
+            "url": "https://dhl-tracking-update.tk/parcel",
+            "label": "phishing",
+            "category": "delivery_scam",
+            "description": "DHL scam",
+            "attack_type": "delivery_phishing"
+        },
+        {
+            "url": "https://fedex-delivery-failed.ml/reschedule",
+            "label": "phishing",
+            "category": "delivery_scam",
+            "description": "FedEx scam",
+            "attack_type": "delivery_phishing"
+        },
+        {
+            "url": "http://192.168.1.100:8080/paypal/login",
+            "label": "phishing",
+            "category": "ip_host",
+            "description": "IP address phishing",
+            "attack_type": "ip_address"
+        },
+        {
+            "url": "https://google.com@evil-site.tk/login",
+            "label": "phishing",
+            "category": "at_symbol",
+            "description": "@ symbol URL spoofing",
+            "attack_type": "at_symbol_injection"
+        },
+        {
+            "url": "https://xn--pypal-4ve.com/login",
+            "label": "phishing",
+            "category": "punycode",
+            "description": "Punycode homograph attack",
+            "attack_type": "homograph"
+        },
+        {
+            "url": "https://login.verify.secure.paypal.suspicious.tk/",
+            "label": "phishing",
+            "category": "excessive_subdomain",
+            "description": "Excessive subdomains",
+            "attack_type": "subdomain_depth"
+        },
+        {
+            "url": "http://paypal-secure.tk/login?password=verify",
+            "label": "phishing",
+            "category": "http_credential",
+            "description": "HTTP with credential path",
+            "attack_type": "insecure_protocol"
+        },
+        {
+            "url": "https://parking-payment-sydney.ml/pay",
+            "label": "phishing",
+            "category": "qr_scam",
+            "description": "Parking meter scam",
+            "attack_type": "qr_phishing"
+        },
+        {
+            "url": "https://menu-view.tk/restaurant?redirect=https://evil.com",
+            "label": "phishing",
+            "category": "qr_scam",
+            "description": "Menu redirect scam",
+            "attack_type": "qr_redirect"
+        },
+        {
+            "url": "http://wifi-login.cf/connect",
+            "label": "phishing",
+            "category": "qr_scam",
+            "description": "Fake WiFi portal",
+            "attack_type": "qr_phishing"
+        },
+        {
+            "url": "https://event-tickets.tk/claim?code=abc123",
+            "label": "phishing",
+            "category": "qr_scam",
+            "description": "Fake ticket scam",
+            "attack_type": "qr_phishing"
+        },
+        {
+            "url": "https://covid-certificate.ga/verify",
+            "label": "phishing",
+            "category": "qr_scam",
+            "description": "Fake COVID cert scam",
+            "attack_type": "qr_phishing"
+        }
+    ],
+    "usage": {
+        "research": "This corpus can be used for phishing detection research and ML model training/evaluation.",
+        "testing": "All URLs are safe for testing - phishing domains are synthetic and defanged.",
+        "citation": "If using this corpus in academic work, please cite the QR-SHIELD project."
+    },
+    "created": "2025-12-18",
+    "author": "QR-SHIELD Security Team"
+}

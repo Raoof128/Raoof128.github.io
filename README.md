@@ -14,6 +14,7 @@
 [![Performance](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/performance.yml?label=performance)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/performance.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-purple)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF)](https://kotlinlang.org)
+[![i18n](https://img.shields.io/badge/i18n-🇬🇧%20🇩🇪-blue)](common/src/commonMain/kotlin/com/qrshield/localization/Translations.kt)
 
 ---
 

@@ -324,6 +324,44 @@ URL Analyzed: https://www.google.com/search?q=kotlin+multiplatform
 
 ---
 
+## 🔬 Adversarial Test Corpus
+
+We publish our adversarial test corpus for the security research community:
+
+**📂 Download:** [`data/adversarial_corpus.json`](../data/adversarial_corpus.json)
+
+| Metric | Value |
+|--------|-------|
+| Total URLs | 100 |
+| Legitimate | 50 |
+| Phishing | 50 |
+| Attack Categories | 12 |
+
+**Categories include:**
+- Typosquatting (character substitution)
+- Subdomain abuse
+- Australian bank phishing
+- High-risk TLDs (.tk, .ml, .ga)
+- Cryptocurrency scams
+- Social media verification scams
+- Delivery/package scams
+- IP address hosts
+- @ symbol injection
+- Punycode/homograph attacks
+- QR-specific attacks (parking, menus)
+
+**Usage:**
+```kotlin
+// Load corpus for testing
+val corpus = loadAdversarialCorpus("data/adversarial_corpus.json")
+corpus.urls.forEach { entry ->
+    val result = PhishingEngine().analyzeBlocking(entry.url)
+    assert(result.verdict == expectedVerdict(entry.label))
+}
+```
+
+---
+
 ## 🧪 Try It Yourself
 
 ### Web Demo
