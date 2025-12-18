@@ -1,0 +1,393 @@
+/*
+ * QR-SHIELD Page Transitions
+ * Smooth fade and slide animations for professional page navigation
+ * 
+ * Include this file in all HTML pages for consistent transitions
+ */
+
+/* ==========================================================================
+   PAGE ENTRANCE ANIMATIONS
+   ========================================================================== */
+
+/* Fade-in animation for page load */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Slide-up and fade animation */
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scale-in animation for modals and cards */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Blur-in effect */
+@keyframes blurIn {
+    from {
+        opacity: 0;
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+/* ==========================================================================
+   PAGE-LEVEL TRANSITIONS
+   ========================================================================== */
+
+/* Apply fade-in to the entire page body */
+body {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Main content area entrance */
+.main-content {
+    animation: slideUpFade 0.4s ease-out;
+    animation-delay: 0.1s;
+    animation-fill-mode: backwards;
+}
+
+/* Sidebar entrance (slide from left) */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebar {
+    animation: slideInLeft 0.3s ease-out;
+}
+
+/* ==========================================================================
+   STAGGERED CONTENT ANIMATIONS
+   ========================================================================== */
+
+/* Cards and sections appear with stagger */
+.hero-card,
+.threat-hero,
+.privacy-hero,
+.challenge-card,
+.verdict-card,
+.scoreboard-card,
+.settings-card,
+.controls-card,
+.format-section,
+.preview-column {
+    animation: slideUpFade 0.5s ease-out;
+    animation-fill-mode: backwards;
+}
+
+/* Stagger delays for sequential appearance */
+.hero-card {
+    animation-delay: 0.15s;
+}
+
+.threat-hero {
+    animation-delay: 0.15s;
+}
+
+.privacy-hero {
+    animation-delay: 0.15s;
+}
+
+.sidebar-nav .nav-link {
+    animation: slideUpFade 0.3s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.sidebar-nav .nav-link:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.sidebar-nav .nav-link:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.sidebar-nav .nav-link:nth-child(3) {
+    animation-delay: 0.11s;
+}
+
+.sidebar-nav .nav-link:nth-child(4) {
+    animation-delay: 0.14s;
+}
+
+.sidebar-nav .nav-link:nth-child(5) {
+    animation-delay: 0.17s;
+}
+
+.sidebar-nav .nav-link:nth-child(6) {
+    animation-delay: 0.20s;
+}
+
+.sidebar-nav .nav-link:nth-child(7) {
+    animation-delay: 0.23s;
+}
+
+.sidebar-nav .nav-link:nth-child(8) {
+    animation-delay: 0.26s;
+}
+
+.sidebar-nav .nav-link:nth-child(9) {
+    animation-delay: 0.29s;
+}
+
+.sidebar-nav .nav-link:nth-child(10) {
+    animation-delay: 0.32s;
+}
+
+/* ==========================================================================
+   NAVIGATION LINK TRANSITIONS (Enhanced)
+   ========================================================================== */
+
+.nav-link {
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.nav-link:hover {
+    transform: translateX(4px);
+}
+
+.nav-link:active {
+    transform: translateX(2px) scale(0.98);
+}
+
+/* ==========================================================================
+   BUTTON TRANSITIONS (Premium feel)
+   ========================================================================== */
+
+button,
+.btn-primary,
+.btn-secondary,
+.btn-danger,
+.btn-export,
+.btn-scan-new,
+.decision-btn {
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+button:hover,
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-export:hover,
+.btn-scan-new:hover {
+    transform: translateY(-2px);
+}
+
+button:active,
+.btn-primary:active,
+.btn-secondary:active,
+.btn-export:active,
+.btn-scan-new:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ==========================================================================
+   CARD HOVER TRANSITIONS
+   ========================================================================== */
+
+.feature-card,
+.attack-card,
+.list-card,
+.meta-card,
+.actions-card,
+.about-card,
+.engine-stats-card,
+.risk-meter-card,
+.analysis-card,
+.hint-card,
+.format-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.feature-card:hover,
+.attack-card:hover,
+.list-card:hover,
+.format-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   PAGE EXIT ANIMATION (for JS-based transitions)
+   ========================================================================== */
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideDownFade {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Class to apply when navigating away */
+body.page-exit {
+    animation: fadeOut 0.2s ease-in forwards;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   SKELETON LOADING (for perceived performance)
+   ========================================================================== */
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.02) 0%,
+            rgba(255, 255, 255, 0.08) 50%,
+            rgba(255, 255, 255, 0.02) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION ANIMATIONS
+   ========================================================================== */
+
+.toast {
+    transition:
+        transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
+        opacity 0.3s ease;
+}
+
+.toast.hidden {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    pointer-events: none;
+}
+
+.toast:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* ==========================================================================
+   MODAL ANIMATIONS
+   ========================================================================== */
+
+.modal-overlay {
+    transition:
+        opacity 0.25s ease,
+        backdrop-filter 0.25s ease;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-overlay:not(.hidden) {
+    opacity: 1;
+}
+
+.modal-content {
+    transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.25s ease;
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+}
+
+.modal-overlay:not(.hidden) .modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   REDUCED MOTION SUPPORT (Accessibility)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    body,
+    .main-content,
+    .sidebar,
+    .nav-link,
+    button,
+    .feature-card,
+    .toast,
+    .modal-content,
+    .modal-overlay {
+        animation: none !important;
+        transition: none !important;
+    }
+}
