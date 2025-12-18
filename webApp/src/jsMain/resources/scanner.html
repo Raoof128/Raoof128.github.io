@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>QR-SHIELD - Scan Dashboard</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="QR-SHIELD Active Scanner - Real-time QR code scanning with AI-powered phishing detection." />
+    <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+
+    <!-- PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Scanner Page Styles -->
+    <link href="scanner.css" rel="stylesheet" />
+</head>
+
+<body class="scanner-body">
+    <div class="scanner-layout">
+
+        <!-- ============================================
+             SIDEBAR NAVIGATION
+             ============================================ -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Logo Area -->
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <span class="material-symbols-outlined logo-icon">shield_lock</span>
+                    <span class="logo-text">QR-SHIELD</span>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main Menu</div>
+                <a class="nav-link active" href="scanner.html" id="nav-scanner">
+                    <span class="material-symbols-outlined filled">qr_code_scanner</span>
+                    <span>Scan Monitor</span>
+                </a>
+                <a class="nav-link" href="#history" id="nav-history">
+                    <span class="material-symbols-outlined">history</span>
+                    <span>Scan History</span>
+                </a>
+                <a class="nav-link" href="#safelist" id="nav-safelist">
+                    <span class="material-symbols-outlined">verified_user</span>
+                    <span>Safe List</span>
+                </a>
+
+                <div class="nav-section-label">System</div>
+                <a class="nav-link" href="#settings" id="nav-settings">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Settings</span>
+                </a>
+                <a class="nav-link" href="#support" id="nav-support">
+                    <span class="material-symbols-outlined">help</span>
+                    <span>Support</span>
+                </a>
+            </nav>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar">JS</div>
+                    <div class="user-info">
+                        <span class="user-name">John Smith</span>
+                        <span class="user-plan">Enterprise Plan</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <main class="main-content">
+
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <nav class="breadcrumbs">
+                        <span class="breadcrumb-item">Dashboard</span>
+                        <span class="breadcrumb-separator">/</span>
+                        <span class="breadcrumb-current">Scan Monitor</span>
+                    </nav>
+                </div>
+
+                <div class="header-right">
+                    <div class="engine-status" id="engineStatus">
+                        <span class="status-dot">
+                            <span class="status-ping"></span>
+                            <span class="status-core"></span>
+                        </span>
+                        <span class="status-text">Engine Active</span>
+                    </div>
+                    <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="notification-badge"></span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Body -->
+            <div class="content-body">
+
+                <!-- Top Controls -->
+                <div class="page-header">
+                    <h1 class="page-title">Active Scanner</h1>
+                    <div class="offline-badge">
+                        <span class="material-symbols-outlined">lock</span>
+                        <span>Offline Mode</span>
+                    </div>
+                </div>
+
+                <!-- Main Grid Layout -->
+                <div class="scanner-grid">
+
+                    <!-- Scanner Viewport Column -->
+                    <div class="viewport-column">
+
+                        <!-- Camera Viewport -->
+                        <div class="scanner-viewport" id="scannerViewport">
+                            <!-- Background Pattern -->
+                            <div class="viewport-pattern"></div>
+
+                            <!-- Corner Markers -->
+                            <div class="corner-marker top-left"></div>
+                            <div class="corner-marker top-right"></div>
+                            <div class="corner-marker bottom-left"></div>
+                            <div class="corner-marker bottom-right"></div>
+
+                            <!-- Scan Line Animation -->
+                            <div class="scan-line" id="scanLine"></div>
+
+                            <!-- Live Status Overlay -->
+                            <div class="live-status" id="liveStatus">
+                                <span class="live-dot"></span>
+                                <span class="live-text">LIVE FEED DISCONNECTED</span>
+                            </div>
+
+                            <!-- Video Element (Hidden until camera active) -->
+                            <video id="cameraFeed" class="camera-feed" playsinline autoplay muted></video>
+                            <canvas id="scanCanvas" hidden></canvas>
+
+                            <!-- Empty State Content -->
+                            <div class="empty-state" id="emptyState">
+                                <div class="empty-icon">
+                                    <span class="material-symbols-outlined">videocam_off</span>
+                                </div>
+                                <h3 class="empty-title">Camera Access Required</h3>
+                                <p class="empty-description">Drag & drop a QR code image here or enable camera access to
+                                    start scanning.</p>
+                                <button class="btn-enable-camera" id="enableCameraBtn">
+                                    Enable Camera
+                                </button>
+                            </div>
+
+                            <!-- Scanning State (Hidden until scanning) -->
+                            <div class="scanning-state hidden" id="scanningState">
+                                <div class="scanning-icon">
+                                    <span class="material-symbols-outlined">qr_code_scanner</span>
+                                </div>
+                                <p class="scanning-text">Scanning...</p>
+                            </div>
+                        </div>
+
+                        <!-- Microcopy -->
+                        <p class="viewport-hint">
+                            Hold steady. Analysed offline in &lt;5ms.
+                        </p>
+
+                        <!-- Action Bar -->
+                        <div class="action-bar">
+                            <button class="action-btn" id="torchBtn">
+                                <span class="material-symbols-outlined">flash_on</span>
+                                <span class="action-label">Torch</span>
+                            </button>
+                            <div class="action-divider"></div>
+                            <button class="action-btn" id="galleryBtn">
+                                <span class="material-symbols-outlined">image</span>
+                                <span class="action-label">Gallery</span>
+                            </button>
+                            <div class="action-divider"></div>
+                            <button class="action-btn" id="pasteUrlBtn">
+                                <span class="material-symbols-outlined">link</span>
+                                <span class="action-label">Paste URL</span>
+                            </button>
+                        </div>
+
+                        <!-- Hidden File Input -->
+                        <input type="file" id="imageInput" accept="image/*" hidden />
+                    </div>
+
+                    <!-- Stats Panel Column -->
+                    <div class="stats-column">
+
+                        <!-- System Status Card -->
+                        <div class="stats-card">
+                            <h3 class="stats-title">System Status</h3>
+                            <div class="status-list">
+                                <div class="status-item">
+                                    <div class="status-info">
+                                        <span class="material-symbols-outlined status-icon safe">shield</span>
+                                        <span class="status-name">Phishing Engine</span>
+                                    </div>
+                                    <span class="status-badge ready">READY</span>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-info">
+                                        <span class="material-symbols-outlined status-icon info">database</span>
+                                        <span class="status-name">Local DB</span>
+                                    </div>
+                                    <span class="status-badge version">V.2.4.0</span>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-info">
+                                        <span class="material-symbols-outlined status-icon neutral">speed</span>
+                                        <span class="status-name">Latency</span>
+                                    </div>
+                                    <span class="status-badge latency" id="latencyBadge">4ms</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Scans Card -->
+                        <div class="stats-card recent-scans-card">
+                            <div class="stats-header">
+                                <h3 class="stats-title">Recent Scans</h3>
+                                <button class="view-all-btn" id="viewAllBtn">View All</button>
+                            </div>
+                            <div class="scans-list" id="scansList">
+                                <!-- Scan items will be populated by JS -->
+                                <div class="scan-item">
+                                    <div class="scan-icon safe">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </div>
+                                    <div class="scan-info">
+                                        <span class="scan-url">wikipedia.org</span>
+                                        <span class="scan-meta">2 mins ago • Safe</span>
+                                    </div>
+                                </div>
+                                <div class="scan-item">
+                                    <div class="scan-icon danger">
+                                        <span class="material-symbols-outlined">warning</span>
+                                    </div>
+                                    <div class="scan-info">
+                                        <span class="scan-url">secure-login-bank.com</span>
+                                        <span class="scan-meta">1 hr ago • Phishing</span>
+                                    </div>
+                                </div>
+                                <div class="scan-item">
+                                    <div class="scan-icon safe">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </div>
+                                    <div class="scan-info">
+                                        <span class="scan-url">menu-restaurant.com</span>
+                                        <span class="scan-meta">3 hrs ago • Safe</span>
+                                    </div>
+                                </div>
+                                <div class="scan-item">
+                                    <div class="scan-icon safe">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </div>
+                                    <div class="scan-info">
+                                        <span class="scan-url">google.com</span>
+                                        <span class="scan-meta">5 hrs ago • Safe</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ============================================
+         URL INPUT MODAL
+         ============================================ -->
+    <div class="modal-overlay hidden" id="urlModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Paste URL to Analyze</h3>
+                <button class="modal-close" id="closeUrlModal">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="url-input-group">
+                    <span class="material-symbols-outlined input-icon">link</span>
+                    <input type="url" id="urlInputField" class="url-input" placeholder="https://example.com"
+                        autocomplete="off" spellcheck="false" />
+                </div>
+                <button class="btn-analyze" id="analyzeUrlBtn">
+                    <span class="material-symbols-outlined">search</span>
+                    Analyze URL
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast hidden" id="toast">
+        <span class="material-symbols-outlined toast-icon">check_circle</span>
+        <span class="toast-message" id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Kotlin/JS Bundle -->
+    <script src="webApp.js"></script>
+    <!-- QR Scanning Library -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <!-- Scanner Page Logic -->
+    <script src="scanner.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker failed:', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

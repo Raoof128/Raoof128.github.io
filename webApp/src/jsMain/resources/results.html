@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>QR-SHIELD Results</title>
-    
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="QR-SHIELD scan results - AI-powered phishing detection with detailed security analysis."/>
-    <meta name="theme-color" content="#111621" media="(prefers-color-scheme: dark)"/>
-    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)"/>
-    
+    <meta name="description"
+        content="QR-SHIELD scan results - AI-powered phishing detection with detailed security analysis." />
+    <meta name="theme-color" content="#111621" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)" />
+
     <!-- PWA Support -->
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-    <link rel="manifest" href="manifest.json"/>
-    <link rel="apple-touch-icon" href="assets/logo.svg"/>
-    <link rel="icon" type="image/svg+xml" href="assets/logo.svg"/>
-    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
-    
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+
     <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
     <!-- Results Page Styles -->
-    <link href="results.css" rel="stylesheet"/>
+    <link href="results.css" rel="stylesheet" />
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden">
     <div class="flex h-screen w-full">
-        
+
         <!-- ============================================
              SIDE NAVIGATION BAR
              ============================================ -->
@@ -46,9 +50,13 @@
                         <h1 class="logo-text">QR-SHIELD</h1>
                     </div>
                 </div>
-                
+
                 <!-- Navigation Links -->
                 <nav class="sidebar-nav">
+                    <a class="nav-link" href="scanner.html" id="nav-scanner">
+                        <span class="material-symbols-outlined">qr_code_scanner</span>
+                        <span class="nav-text">Scan Monitor</span>
+                    </a>
                     <a class="nav-link active" href="index.html" id="nav-dashboard">
                         <span class="material-symbols-outlined icon-filled">dashboard</span>
                         <span class="nav-text">Dashboard</span>
@@ -67,7 +75,7 @@
                     </a>
                 </nav>
             </div>
-            
+
             <!-- Sidebar Footer -->
             <div class="sidebar-footer">
                 <a class="nav-link" href="#help">
@@ -79,12 +87,12 @@
                 </div>
             </div>
         </aside>
-        
+
         <!-- ============================================
              MAIN CONTENT AREA
              ============================================ -->
         <main class="main-content">
-            
+
             <!-- Top Navigation Bar -->
             <header class="top-nav">
                 <!-- Mobile Menu Toggle -->
@@ -94,21 +102,21 @@
                     </button>
                     <h2 class="mobile-title">QR-SHIELD</h2>
                 </div>
-                
+
                 <!-- Breadcrumbs (Desktop) -->
                 <div class="breadcrumbs">
                     <span>Scans</span>
                     <span class="material-symbols-outlined breadcrumb-separator">chevron_right</span>
                     <span class="breadcrumb-current" id="scanId">Result #8291-A</span>
                 </div>
-                
+
                 <!-- Header Actions -->
                 <div class="header-actions">
                     <button class="btn-scan-new" id="scanNewBtn">
                         <span class="material-symbols-outlined">qr_code_scanner</span>
                         <span>Scan New QR</span>
                     </button>
-                    
+
                     <div class="user-profile">
                         <div class="user-info">
                             <span class="user-name">Alex Chen</span>
@@ -118,11 +126,11 @@
                     </div>
                 </div>
             </header>
-            
+
             <!-- Scrollable Content Area -->
             <div class="content-scroll">
                 <div class="content-container">
-                    
+
                     <!-- ============================================
                          PAGE HEADING & CONTEXT
                          ============================================ -->
@@ -134,7 +142,8 @@
                             </div>
                             <div class="url-display" id="urlDisplay">
                                 <span class="material-symbols-outlined url-icon">link</span>
-                                <code class="url-text" id="scannedUrl">https://secure-login.example.com/auth?id=8291...</code>
+                                <code class="url-text"
+                                    id="scannedUrl">https://secure-login.example.com/auth?id=8291...</code>
                             </div>
                         </div>
                         <div class="analysis-meta">
@@ -144,17 +153,17 @@
                             <span>No data leaves device</span>
                         </div>
                     </div>
-                    
+
                     <!-- ============================================
                          VERDICT HERO SECTION
                          ============================================ -->
                     <div class="verdict-grid">
-                        
+
                         <!-- Main Verdict Card -->
                         <div class="verdict-card" id="verdictCard">
                             <div class="verdict-background"></div>
                             <div class="verdict-gradient"></div>
-                            
+
                             <div class="verdict-content">
                                 <div class="verdict-top">
                                     <div class="protection-badge">
@@ -165,22 +174,24 @@
                                         <div class="confidence-label">Confidence Score</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="verdict-bottom">
                                     <div class="verdict-main">
-                                        <span class="material-symbols-outlined icon-filled verdict-shield" id="verdictIcon">shield_lock</span>
+                                        <span class="material-symbols-outlined icon-filled verdict-shield"
+                                            id="verdictIcon">shield_lock</span>
                                         <h3 class="verdict-title" id="verdictTitle">SAFE TO VISIT</h3>
                                     </div>
                                     <p class="verdict-description" id="verdictDescription">
-                                        Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or blacklist matches found.
+                                        Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or
+                                        blacklist matches found.
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Risk Meter & Stats Column -->
                         <div class="stats-column">
-                            
+
                             <!-- Risk Meter Card -->
                             <div class="risk-meter-card">
                                 <div class="risk-header">
@@ -202,7 +213,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <!-- Engine Stats Card -->
                             <div class="engine-stats-card">
                                 <div class="stat-item">
@@ -220,10 +231,10 @@
                                     <span class="stat-value">v2.4</span>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
-                    
+
                     <!-- ============================================
                          ANALYSIS FACTORS GRID
                          ============================================ -->
@@ -232,7 +243,7 @@
                             <span class="material-symbols-outlined">analytics</span>
                             Top Analysis Factors
                         </h3>
-                        
+
                         <div class="factors-grid" id="factorsGrid">
                             <!-- Factor Card 1: SSL Certificate -->
                             <div class="factor-card" data-factor="ssl">
@@ -244,9 +255,10 @@
                                     <span class="material-symbols-outlined factor-expand">expand_more</span>
                                 </div>
                                 <h4 class="factor-title">Valid SSL Certificate</h4>
-                                <p class="factor-description">Certificate issued by DigiCert Inc. No anomalies in chain of trust.</p>
+                                <p class="factor-description">Certificate issued by DigiCert Inc. No anomalies in chain
+                                    of trust.</p>
                             </div>
-                            
+
                             <!-- Factor Card 2: Domain Age -->
                             <div class="factor-card" data-factor="domain">
                                 <div class="factor-header">
@@ -257,9 +269,10 @@
                                     <span class="material-symbols-outlined factor-expand">expand_more</span>
                                 </div>
                                 <h4 class="factor-title">Established Domain</h4>
-                                <p class="factor-description">Domain registered &gt; 5 years ago. Low probability of churn-and-burn.</p>
+                                <p class="factor-description">Domain registered &gt; 5 years ago. Low probability of
+                                    churn-and-burn.</p>
                             </div>
-                            
+
                             <!-- Factor Card 3: Blacklist Status -->
                             <div class="factor-card" data-factor="blacklist">
                                 <div class="factor-header">
@@ -274,10 +287,10 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
             <!-- ============================================
                  STICKY ACTION BAR
                  ============================================ -->
@@ -287,7 +300,7 @@
                         <span class="material-symbols-outlined">arrow_back</span>
                         <span>Back to Dashboard</span>
                     </button>
-                    
+
                     <div class="action-buttons">
                         <button class="btn-action" id="shareBtn">
                             <span class="material-symbols-outlined">share</span>
@@ -304,10 +317,10 @@
                     </div>
                 </div>
             </div>
-            
+
         </main>
     </div>
-    
+
     <!-- ============================================
          TOAST NOTIFICATION
          ============================================ -->
@@ -315,12 +328,12 @@
         <span class="material-symbols-outlined toast-icon">check_circle</span>
         <span class="toast-message" id="toastMessage">Link copied to clipboard!</span>
     </div>
-    
+
     <!-- Kotlin/JS Bundle -->
     <script src="webApp.js"></script>
     <!-- Results Page Logic -->
     <script src="results.js"></script>
-    
+
     <!-- Service Worker Registration (PWA) -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -332,4 +345,5 @@
         }
     </script>
 </body>
+
 </html>

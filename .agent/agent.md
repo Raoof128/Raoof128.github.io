@@ -4,73 +4,127 @@ This file tracks significant changes made during development sessions.
 
 ---
 
-## Session: 2025-12-19 (Enhanced Dashboard Results UI)
+## Session: 2025-12-19 (Enhanced Dashboard UIs - Results & Scanner)
 
 ### Summary
-Implemented a new professional dashboard-style results page with:
-- **Sidebar navigation** (Dashboard, History, Whitelist, Settings)
-- **Top navigation bar** with user profile and "Scan New QR" button
-- **Enhanced verdict display** with confidence scores and risk meters
-- **Analysis factors grid** with expandable cards
-- **Sticky action bar** with share, sandbox, and copy actions
+Implemented two new professional dashboard-style pages:
+
+1. **Results Dashboard** (`results.html`) - Detailed scan results view
+2. **Scanner Dashboard** (`scanner.html`) - Active camera scanning interface
+
+Both pages feature:
+- **Sidebar navigation** with consistent branding
+- **Premium dark theme** with glassmorphism effects
+- **Responsive layouts** for mobile and desktop
+- **Animated UI elements** for professional feel
+
+---
 
 ### 📁 Files Created
 
 | File | Lines | Purpose |
 |------|-------|---------|
-| `webApp/src/jsMain/resources/results.html` | ~280 | Dashboard-style results page with sidebar navigation |
+| `webApp/src/jsMain/resources/results.html` | ~340 | Dashboard-style results page with sidebar navigation |
 | `webApp/src/jsMain/resources/results.css` | ~1100 | Premium dark theme CSS with glassmorphism effects |
 | `webApp/src/jsMain/resources/results.js` | ~520 | Results page controller with URL parsing and animations |
+| `webApp/src/jsMain/resources/scanner.html` | ~290 | Scanner dashboard with camera viewport and action bar |
+| `webApp/src/jsMain/resources/scanner.css` | ~1050 | Scanner page CSS with animated scan line and corner markers |
+| `webApp/src/jsMain/resources/scanner.js` | ~650 | Scanner controller with camera access, QR scanning, history |
 
 ### 📁 Files Modified
 
 | File | Changes |
 |------|---------|
-| `webApp/src/jsMain/resources/index.html` | Added "View Full Report" button to result card |
+| `webApp/src/jsMain/resources/index.html` | Added "View Full Report" button + footer links to dashboards |
 | `webApp/src/jsMain/resources/app.js` | Added `openFullResults()` and `viewEnhancedResults()` functions |
 
-### 🎨 New UI Features
+---
+
+### 🎨 Results Dashboard Features
 
 1. **Sidebar Navigation**
-   - Dashboard, History, Whitelist, Settings links
-   - Active state indicator with icon fill
-   - Version info in footer
+   - Scan Monitor, Dashboard, History, Whitelist, Settings links
+   - Active state indicator with filled icons
+   - Version info footer (v2.4.0)
 
 2. **Verdict Hero Section**
    - Gradient background with glassmorphism
-   - Confidence score display (large percentage)
-   - Protection badge ("Active Protection")
+   - Large confidence score (99.8%)
+   - "Active Protection" badge
    - Dynamic verdict icons (shield_lock, warning, gpp_bad)
 
 3. **Risk Assessment Meter**
-   - Segmented bar visualization (5 segments)
+   - 5-segment visual bar with glow effects
    - Dynamic coloring (green → yellow → red)
    - LOW/MEDIUM/HIGH risk badges
 
 4. **Analysis Factors Grid**
-   - PASS/WARN/FAIL/INFO tags
+   - PASS/WARN/FAIL/INFO status tags
    - Category badges (HTTPS, DOMAIN, DB CHECK)
-   - Expandable cards on click
+   - Expandable cards with descriptions
 
 5. **Sticky Action Bar**
-   - Share Report button
-   - Open Safely (Sandbox) button
-   - Copy Link button (primary action)
-   - Back to Dashboard link
+   - Back to Dashboard, Share Report, Open Safely (Sandbox), Copy Link
+
+---
+
+### 🎨 Scanner Dashboard Features
+
+1. **Camera Viewport**
+   - Animated scan line sweeping down screen
+   - Corner markers (blue accent)
+   - Live status indicator ("LIVE FEED ACTIVE" / "DISCONNECTED")
+   - Drag & drop zone for images
+
+2. **Action Bar**
+   - Torch toggle
+   - Gallery/Upload image
+   - Paste URL modal
+
+3. **System Status Panel**
+   - Phishing Engine status (READY)
+   - Local DB version (V.2.4.0)
+   - Analysis latency (4ms)
+
+4. **Recent Scans List**
+   - Scan history with verdict icons
+   - "View All" link
+   - Click to re-analyze
+
+5. **URL Input Modal**
+   - Paste URL for analysis
+   - Auto-fix URLs without protocol
+   - Keyboard shortcut (V to open)
+
+---
+
+### ⌨️ Keyboard Shortcuts
+
+**Results Page:**
+- `Escape` - Return to dashboard
+- `C` - Copy link
+- `S` - Share report
+
+**Scanner Page:**
+- `Escape` - Close modal / stop camera
+- `V` - Open paste URL modal
+- `G` - Open gallery
+- `C` - Toggle camera
+
+---
 
 ### 🔧 Integration Points
 
 ```javascript
-// Navigate to results page
+// Navigate to results page with params
 window.openFullResults(url, verdict, score);
 
 // View current analysis in dashboard
 window.viewEnhancedResults();
 ```
 
-### 🌐 URL Parameters
+### 🌐 URL Parameters (Results Page)
 
-The results page accepts these query parameters:
 - `url` - The analyzed URL (URL-encoded)
 - `verdict` - SAFE, SUSPICIOUS, or MALICIOUS
 - `score` - Confidence score (0-100)
