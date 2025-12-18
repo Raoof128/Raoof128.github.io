@@ -58,12 +58,17 @@ All polish items identified during live demo testing have been implemented:
 | 1 | **Visible Language Toggle** | 🟢 LOW | 🟢 LOW | ✅ DONE |
 | 2 | **Beat the Bot UI Surfacing** | 🟢 LOW | 🟢 LOW | ✅ DONE |
 | 3 | **PWA Offline Indicator** | 🟢 LOW | 🟢 LOW | ✅ DONE |
+| 4 | **Platform Scoring Documentation** | 🟢 LOW | 🟢 LOW | ✅ DONE |
 
 **Implemented in Web Demo:**
 - 🇬🇧/🇩🇪 Language toggle button in header (switches all UI text)
 - Offline indicator badge (appears when disconnected)
 - Beat the Bot game section with animated card and "Play Now" button
 - Full German translations for all UI elements
+
+**Documentation Added:**
+- README.md now includes platform scoring note explaining web vs native differences
+- Committed and pushed: `98da90f docs: Add platform scoring note explaining web vs native differences`
 
 **Note:** Web/Native scoring parity is documented as intentional optimization trade-off for bundle size.
 
