@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>QR-SHIELD Results</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="QR-SHIELD scan results - AI-powered phishing detection with detailed security analysis."/>
+    <meta name="theme-color" content="#111621" media="(prefers-color-scheme: dark)"/>
+    <meta name="theme-color" content="#f6f6f8" media="(prefers-color-scheme: light)"/>
+    
+    <!-- PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="apple-touch-icon" href="assets/logo.svg"/>
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg"/>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+    
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Results Page Styles -->
+    <link href="results.css" rel="stylesheet"/>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden">
+    <div class="flex h-screen w-full">
+        
+        <!-- ============================================
+             SIDE NAVIGATION BAR
+             ============================================ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-content">
+                <!-- Logo Section -->
+                <div class="sidebar-header">
+                    <div class="logo-container">
+                        <div class="logo-icon">
+                            <span class="material-symbols-outlined">security</span>
+                        </div>
+                        <h1 class="logo-text">QR-SHIELD</h1>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <nav class="sidebar-nav">
+                    <a class="nav-link active" href="index.html" id="nav-dashboard">
+                        <span class="material-symbols-outlined icon-filled">dashboard</span>
+                        <span class="nav-text">Dashboard</span>
+                    </a>
+                    <a class="nav-link" href="#history" id="nav-history">
+                        <span class="material-symbols-outlined">history</span>
+                        <span class="nav-text">History</span>
+                    </a>
+                    <a class="nav-link" href="#whitelist" id="nav-whitelist">
+                        <span class="material-symbols-outlined">verified_user</span>
+                        <span class="nav-text">Whitelist</span>
+                    </a>
+                    <a class="nav-link" href="#settings" id="nav-settings">
+                        <span class="material-symbols-outlined">settings</span>
+                        <span class="nav-text">Settings</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <a class="nav-link" href="#help">
+                    <span class="material-symbols-outlined">help</span>
+                    <span class="nav-text">Help & Support</span>
+                </a>
+                <div class="version-info">
+                    <span>v2.4.0 (Build 892)</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- ============================================
+             MAIN CONTENT AREA
+             ============================================ -->
+        <main class="main-content">
+            
+            <!-- Top Navigation Bar -->
+            <header class="top-nav">
+                <!-- Mobile Menu Toggle -->
+                <div class="mobile-header">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <h2 class="mobile-title">QR-SHIELD</h2>
+                </div>
+                
+                <!-- Breadcrumbs (Desktop) -->
+                <div class="breadcrumbs">
+                    <span>Scans</span>
+                    <span class="material-symbols-outlined breadcrumb-separator">chevron_right</span>
+                    <span class="breadcrumb-current" id="scanId">Result #8291-A</span>
+                </div>
+                
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <button class="btn-scan-new" id="scanNewBtn">
+                        <span class="material-symbols-outlined">qr_code_scanner</span>
+                        <span>Scan New QR</span>
+                    </button>
+                    
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <span class="user-name">Alex Chen</span>
+                            <span class="user-role">Security Analyst</span>
+                        </div>
+                        <div class="avatar" id="userAvatar"></div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Scrollable Content Area -->
+            <div class="content-scroll">
+                <div class="content-container">
+                    
+                    <!-- ============================================
+                         PAGE HEADING & CONTEXT
+                         ============================================ -->
+                    <div class="page-header">
+                        <div class="header-info">
+                            <div class="status-badge" id="statusBadge">
+                                <span class="status-icon material-symbols-outlined">check_circle</span>
+                                <h2 class="status-title">Scan Complete</h2>
+                            </div>
+                            <div class="url-display" id="urlDisplay">
+                                <span class="material-symbols-outlined url-icon">link</span>
+                                <code class="url-text" id="scannedUrl">https://secure-login.example.com/auth?id=8291...</code>
+                            </div>
+                        </div>
+                        <div class="analysis-meta">
+                            <span class="material-symbols-outlined">offline_bolt</span>
+                            <span>Analyzed offline in &lt;5ms</span>
+                            <span class="meta-divider"></span>
+                            <span>No data leaves device</span>
+                        </div>
+                    </div>
+                    
+                    <!-- ============================================
+                         VERDICT HERO SECTION
+                         ============================================ -->
+                    <div class="verdict-grid">
+                        
+                        <!-- Main Verdict Card -->
+                        <div class="verdict-card" id="verdictCard">
+                            <div class="verdict-background"></div>
+                            <div class="verdict-gradient"></div>
+                            
+                            <div class="verdict-content">
+                                <div class="verdict-top">
+                                    <div class="protection-badge">
+                                        <span>Active Protection</span>
+                                    </div>
+                                    <div class="confidence-display">
+                                        <div class="confidence-score" id="confidenceScore">99.8%</div>
+                                        <div class="confidence-label">Confidence Score</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="verdict-bottom">
+                                    <div class="verdict-main">
+                                        <span class="material-symbols-outlined icon-filled verdict-shield" id="verdictIcon">shield_lock</span>
+                                        <h3 class="verdict-title" id="verdictTitle">SAFE TO VISIT</h3>
+                                    </div>
+                                    <p class="verdict-description" id="verdictDescription">
+                                        Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or blacklist matches found.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Risk Meter & Stats Column -->
+                        <div class="stats-column">
+                            
+                            <!-- Risk Meter Card -->
+                            <div class="risk-meter-card">
+                                <div class="risk-header">
+                                    <span class="risk-label">Risk Assessment</span>
+                                    <span class="risk-badge" id="riskBadge">LOW RISK</span>
+                                </div>
+                                <div class="risk-bar-container">
+                                    <div class="risk-bar">
+                                        <div class="risk-segment active" id="seg1"></div>
+                                        <div class="risk-segment active" id="seg2"></div>
+                                        <div class="risk-segment" id="seg3"></div>
+                                        <div class="risk-segment" id="seg4"></div>
+                                        <div class="risk-segment" id="seg5"></div>
+                                    </div>
+                                    <div class="risk-labels">
+                                        <span>SAFE</span>
+                                        <span>WARN</span>
+                                        <span>CRITICAL</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Engine Stats Card -->
+                            <div class="engine-stats-card">
+                                <div class="stat-item">
+                                    <span class="stat-label">Analysis Time</span>
+                                    <span class="stat-value" id="analysisTime">4ms</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Heuristics</span>
+                                    <span class="stat-value" id="heuristicsCount">142</span>
+                                </div>
+                                <div class="stat-divider"></div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Engine</span>
+                                    <span class="stat-value">v2.4</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <!-- ============================================
+                         ANALYSIS FACTORS GRID
+                         ============================================ -->
+                    <div class="analysis-section">
+                        <h3 class="section-title">
+                            <span class="material-symbols-outlined">analytics</span>
+                            Top Analysis Factors
+                        </h3>
+                        
+                        <div class="factors-grid" id="factorsGrid">
+                            <!-- Factor Card 1: SSL Certificate -->
+                            <div class="factor-card" data-factor="ssl">
+                                <div class="factor-header">
+                                    <div class="factor-tags">
+                                        <span class="tag tag-pass">PASS</span>
+                                        <span class="tag tag-category">HTTPS</span>
+                                    </div>
+                                    <span class="material-symbols-outlined factor-expand">expand_more</span>
+                                </div>
+                                <h4 class="factor-title">Valid SSL Certificate</h4>
+                                <p class="factor-description">Certificate issued by DigiCert Inc. No anomalies in chain of trust.</p>
+                            </div>
+                            
+                            <!-- Factor Card 2: Domain Age -->
+                            <div class="factor-card" data-factor="domain">
+                                <div class="factor-header">
+                                    <div class="factor-tags">
+                                        <span class="tag tag-info">INFO</span>
+                                        <span class="tag tag-category">DOMAIN</span>
+                                    </div>
+                                    <span class="material-symbols-outlined factor-expand">expand_more</span>
+                                </div>
+                                <h4 class="factor-title">Established Domain</h4>
+                                <p class="factor-description">Domain registered &gt; 5 years ago. Low probability of churn-and-burn.</p>
+                            </div>
+                            
+                            <!-- Factor Card 3: Blacklist Status -->
+                            <div class="factor-card" data-factor="blacklist">
+                                <div class="factor-header">
+                                    <div class="factor-tags">
+                                        <span class="tag tag-clean">CLEAN</span>
+                                        <span class="tag tag-category">DB CHECK</span>
+                                    </div>
+                                    <span class="material-symbols-outlined factor-expand">expand_more</span>
+                                </div>
+                                <h4 class="factor-title">Blacklist Status</h4>
+                                <p class="factor-description">Not found in 52 local offline threat databases.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- ============================================
+                 STICKY ACTION BAR
+                 ============================================ -->
+            <div class="action-bar">
+                <div class="action-bar-content">
+                    <button class="btn-back" id="backBtn">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        <span>Back to Dashboard</span>
+                    </button>
+                    
+                    <div class="action-buttons">
+                        <button class="btn-action" id="shareBtn">
+                            <span class="material-symbols-outlined">share</span>
+                            <span>Share Report</span>
+                        </button>
+                        <button class="btn-action" id="sandboxBtn">
+                            <span class="material-symbols-outlined">rocket_launch</span>
+                            <span>Open Safely (Sandbox)</span>
+                        </button>
+                        <button class="btn-primary-action" id="copyBtn">
+                            <span class="material-symbols-outlined">content_copy</span>
+                            <span>Copy Link</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+    
+    <!-- ============================================
+         TOAST NOTIFICATION
+         ============================================ -->
+    <div class="toast" id="toast">
+        <span class="material-symbols-outlined toast-icon">check_circle</span>
+        <span class="toast-message" id="toastMessage">Link copied to clipboard!</span>
+    </div>
+    
+    <!-- Kotlin/JS Bundle -->
+    <script src="webApp.js"></script>
+    <!-- Results Page Logic -->
+    <script src="results.js"></script>
+    
+    <!-- Service Worker Registration (PWA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
+                    .catch(err => console.warn('[PWA] Service worker registration failed:', err));
+            });
+        }
+    </script>
+</body>
+</html>

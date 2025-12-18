@@ -186,6 +186,31 @@ window.displayResult = (score, verdict, flags, url) => {
     });
 };
 
+/**
+ * Navigate to the enhanced dashboard-style results page
+ * @param {string} url - The analyzed URL
+ * @param {string} verdict - The verdict (SAFE, SUSPICIOUS, MALICIOUS)
+ * @param {number} score - The risk score
+ */
+window.openFullResults = (url, verdict, score) => {
+    const resultsUrl = new URL('results.html', window.location.origin);
+    resultsUrl.searchParams.set('url', encodeURIComponent(url || currentAnalysis.url));
+    resultsUrl.searchParams.set('verdict', verdict || currentAnalysis.verdict);
+    resultsUrl.searchParams.set('score', score || currentAnalysis.score);
+    window.location.href = resultsUrl.toString();
+};
+
+/**
+ * View current result in the enhanced dashboard view
+ */
+window.viewEnhancedResults = () => {
+    if (currentAnalysis.url) {
+        window.openFullResults(currentAnalysis.url, currentAnalysis.verdict, currentAnalysis.score);
+    } else {
+        showToast('No recent analysis to view', 'warning');
+    }
+};
+
 function updateResultCard(score, verdict, flags) {
     // Reset classes
     resultCard.className = 'result-card';

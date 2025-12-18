@@ -81,7 +81,7 @@
                     <span class="offline-text">Offline</span>
                 </div>
                 <!-- Language Toggle (i18n) -->
-                <button id="langToggle" class="btn-icon lang-toggle" onclick="toggleLanguage()" 
+                <button id="langToggle" class="btn-icon lang-toggle" onclick="toggleLanguage()"
                     aria-label="Toggle Language" title="Switch Language: English/Deutsch">
                     <span id="langFlag">🇬🇧</span>
                 </button>
@@ -212,6 +212,10 @@
             </div>
 
             <div class="result-actions">
+                <button class="btn-primary" onclick="viewEnhancedResults()" data-testid="view-full-report-button"
+                    title="View detailed analysis in dashboard">
+                    <span class="material-icons-round">dashboard</span> View Full Report
+                </button>
                 <button class="btn-secondary" onclick="resetScanner()" data-testid="scan-another-button">
                     <span class="material-icons-round">refresh</span> Scan Another
                 </button>
