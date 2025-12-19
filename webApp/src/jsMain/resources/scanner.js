@@ -606,13 +606,22 @@ function saveHistory() {
 }
 
 function addToHistory(item) {
-    // Avoid duplicates at top
-    if (ScannerState.history.length > 0 &&
-        ScannerState.history[0].fullUrl === item.fullUrl) {
-        return;
-    }
+    // Avoid duplicates - check if URL already exists in recent history
+    const existingIndex = ScannerState.history.findIndex(
+        h => h.fullUrl === item.fullUrl
+    );
 
-    ScannerState.history.unshift(item);
+    if (existingIndex !== -1) {
+        // Update existing entry timestamp instead of adding duplicate
+        ScannerState.history[existingIndex].timestamp = item.timestamp;
+        ScannerState.history[existingIndex].verdict = item.verdict;
+        ScannerState.history[existingIndex].score = item.score;
+        // Move to top
+        const updated = ScannerState.history.splice(existingIndex, 1)[0];
+        ScannerState.history.unshift(updated);
+    } else {
+        ScannerState.history.unshift(item);
+    }
 
     // Limit history size
     if (ScannerState.history.length > ScannerConfig.maxHistoryItems) {
@@ -743,12 +752,14 @@ function showToast(message, type = 'success') {
     elements.toast.classList.remove('hidden');
     elements.toast.classList.add('show');
 
+    // Longer duration for info messages to ensure readability
+    const duration = type === 'info' ? 5500 : 4000;
     setTimeout(() => {
         elements.toast.classList.remove('show');
         setTimeout(() => {
             elements.toast.classList.add('hidden');
         }, 300);
-    }, 3000);
+    }, duration);
 }
 
 // =============================================================================

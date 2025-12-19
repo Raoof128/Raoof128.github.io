@@ -98,31 +98,41 @@ body {
    text fallback (showing class names like "shield", "qr_code", etc.)
    ========================================================================== */
 
-/* Initially hide icon content with a very small font size and opacity */
+/* Initially hide icon content completely - prevents raw text flash */
 .material-symbols-outlined {
     font-size: inherit;
     opacity: 0;
-    transition: opacity 0.1s ease;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
 }
 
 /* Show icons once page is fully loaded and fonts are available */
 body.fonts-loaded .material-symbols-outlined {
     opacity: 1;
+    visibility: visible;
 }
 
 /* Fallback: always show after a short delay even if fonts-loaded class not applied */
 @keyframes showIcon {
-    from {
+    0% {
         opacity: 0;
+        visibility: hidden;
     }
 
-    to {
+    100% {
         opacity: 1;
+        visibility: visible;
     }
 }
 
+/* Apply fallback animation with 400ms delay - gives fonts time to load */
 .material-symbols-outlined {
-    animation: showIcon 0.2s ease 0.3s forwards;
+    animation: showIcon 0.2s ease 0.4s forwards;
+}
+
+/* Override animation once fonts are confirmed loaded */
+body.fonts-loaded .material-symbols-outlined {
+    animation: none;
 }
 
 /* ==========================================================================

@@ -1073,3 +1073,164 @@
         align-self: flex-end;
     }
 }
+
+/* ==========================================================================
+   TOOLTIP SYSTEM
+   Accessible, persistent tooltips for help icons and informational elements
+   ========================================================================== */
+
+/* Tooltip trigger element */
+.tooltip-trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+}
+
+/* Tooltip container */
+.tooltip-trigger .tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    color: #e2e8f0;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: nowrap;
+    max-width: 280px;
+    white-space: normal;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(6px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+}
+
+/* Tooltip arrow */
+.tooltip-trigger .tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #334155;
+}
+
+/* Show tooltip on hover - with delay for accessibility */
+.tooltip-trigger:hover .tooltip,
+.tooltip-trigger:focus .tooltip,
+.tooltip-trigger:focus-within .tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* Keep tooltip visible while hovering over it */
+.tooltip-trigger .tooltip:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Help icon button style */
+.help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: rgba(148, 163, 184, 0.1);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 50%;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    cursor: help;
+    transition: all 0.15s ease;
+}
+
+.help-icon:hover,
+.help-icon:focus {
+    background-color: rgba(25, 93, 230, 0.15);
+    border-color: rgba(25, 93, 230, 0.3);
+    color: #548bf7;
+    outline: none;
+}
+
+.help-icon .material-symbols-outlined {
+    font-size: 14px;
+}
+
+/* Tooltip positioned to the right */
+.tooltip-trigger.tooltip-right .tooltip {
+    left: calc(100% + 10px);
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+}
+
+.tooltip-trigger.tooltip-right:hover .tooltip,
+.tooltip-trigger.tooltip-right:focus .tooltip {
+    transform: translateY(-50%) translateX(0);
+}
+
+.tooltip-trigger.tooltip-right .tooltip::after {
+    top: 50%;
+    left: -6px;
+    right: auto;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-right-color: #334155;
+    border-top-color: transparent;
+}
+
+/* Tooltip title */
+.tooltip-title {
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+/* Light mode tooltips */
+[data-theme="light"] .tooltip-trigger .tooltip {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+    color: #334155;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .tooltip-trigger .tooltip::after {
+    border-top-color: #e2e8f0;
+}
+
+[data-theme="light"] .tooltip-trigger.tooltip-right .tooltip::after {
+    border-right-color: #e2e8f0;
+    border-top-color: transparent;
+}
+
+[data-theme="light"] .tooltip-title {
+    color: #0f172a;
+}
+
+[data-theme="light"] .help-icon {
+    background-color: rgba(100, 116, 139, 0.1);
+    border-color: rgba(100, 116, 139, 0.2);
+    color: #64748b;
+}
+
+[data-theme="light"] .help-icon:hover,
+[data-theme="light"] .help-icon:focus {
+    background-color: rgba(37, 99, 235, 0.1);
+    border-color: rgba(37, 99, 235, 0.3);
+    color: #2563eb;
+}

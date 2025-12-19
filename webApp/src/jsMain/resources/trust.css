@@ -110,6 +110,81 @@ body.light {
     }
 }
 
+/* Light mode element-specific overrides */
+[data-theme="light"] .list-card,
+html.light .list-card,
+body.light .list-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .list-card:hover,
+html.light .list-card:hover,
+body.light .list-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: rgba(37, 99, 235, 0.3);
+}
+
+[data-theme="light"] .list-header,
+html.light .list-header,
+body.light .list-header {
+    border-bottom-color: #e2e8f0;
+}
+
+[data-theme="light"] .list-item:hover,
+html.light .list-item:hover,
+body.light .list-item:hover {
+    background-color: #f1f5f9;
+}
+
+[data-theme="light"] .item-domain,
+html.light .item-domain,
+body.light .item-domain {
+    color: #0f172a;
+}
+
+[data-theme="light"] .hero-card,
+html.light .hero-card,
+body.light .hero-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .settings-card,
+html.light .settings-card,
+body.light .settings-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .sensitivity-info,
+html.light .sensitivity-info,
+body.light .sensitivity-info {
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .controls-card,
+html.light .controls-card,
+body.light .controls-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .about-card,
+html.light .about-card,
+body.light .about-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .top-header,
+html.light .top-header,
+body.light .top-header {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
 /* ==========================================================================
    BASE STYLES
    ========================================================================== */
@@ -822,6 +897,32 @@ html {
     flex-direction: column;
     height: 24rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Decorative gradient overlay at top */
+.list-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), rgba(139, 92, 246, 0.6));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.list-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-color: rgba(25, 93, 230, 0.3);
+}
+
+.list-card:hover::before {
+    opacity: 1;
 }
 
 .list-header {
@@ -856,15 +957,24 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
-    border: none;
-    color: var(--text-muted);
+    width: 2rem;
+    height: 2rem;
+    background: rgba(25, 93, 230, 0.1);
+    border: 1px solid rgba(25, 93, 230, 0.2);
+    border-radius: var(--radius-md);
+    color: var(--primary);
     cursor: pointer;
-    transition: color var(--transition-fast);
+    transition: all var(--transition-fast);
 }
 
 .add-btn:hover {
-    color: var(--text-primary);
+    background: rgba(25, 93, 230, 0.2);
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.add-btn:active {
+    transform: scale(0.95);
 }
 
 .list-content {

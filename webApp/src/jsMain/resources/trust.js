@@ -605,12 +605,14 @@ function showToast(message, type = 'success') {
     elements.toast.classList.remove('hidden');
     elements.toast.classList.add('show');
 
+    // Increased duration for better readability (5.5s for help messages)
+    const duration = type === 'info' ? 5500 : 4000;
     setTimeout(() => {
         elements.toast.classList.remove('show');
         setTimeout(() => {
             elements.toast.classList.add('hidden');
         }, 300);
-    }, 3000);
+    }, duration);
 }
 
 // =============================================================================
