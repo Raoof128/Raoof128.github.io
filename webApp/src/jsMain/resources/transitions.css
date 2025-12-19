@@ -93,6 +93,39 @@ body {
 }
 
 /* ==========================================================================
+   FONT LOADING FOUC FIX
+   Hide Material Symbols icons until font is loaded to prevent
+   text fallback (showing class names like "shield", "qr_code", etc.)
+   ========================================================================== */
+
+/* Initially hide icon content with a very small font size and opacity */
+.material-symbols-outlined {
+    font-size: inherit;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+}
+
+/* Show icons once page is fully loaded and fonts are available */
+body.fonts-loaded .material-symbols-outlined {
+    opacity: 1;
+}
+
+/* Fallback: always show after a short delay even if fonts-loaded class not applied */
+@keyframes showIcon {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.material-symbols-outlined {
+    animation: showIcon 0.2s ease 0.3s forwards;
+}
+
+/* ==========================================================================
    STAGGERED CONTENT ANIMATIONS (Quick stagger)
    ========================================================================== */
 

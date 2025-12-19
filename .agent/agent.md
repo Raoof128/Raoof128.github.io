@@ -80,6 +80,56 @@ Fixed multiple issues with scan history persistence, dynamic theming, and naviga
 | `results.js` | Added scan history saving with deduplication |
 | `dashboard.js` | Rewrote history rendering, added click navigation |
 | `dashboard.css` | Added warning badge, clickable row styles |
+| `transitions.css` | Added FOUC fix CSS for icon fonts |
+| `transitions.js` | Added `detectFontLoading()` function |
+
+### 🔤 Font Loading FOUC Fix
+
+**Problem:** When navigating between pages, Material Symbols icons briefly showed as text (e.g., "shield", "qr_code_scanner", "settings") before the icon font loaded. This created a messy flash of unstyled content (FOUC).
+
+**Solution:** Implemented a two-part font loading detection system:
+
+**CSS (`transitions.css`):**
+```css
+/* Initially hide icons */
+.material-symbols-outlined {
+    opacity: 0;
+    transition: opacity 0.1s ease;
+}
+
+/* Show once fonts loaded */
+body.fonts-loaded .material-symbols-outlined {
+    opacity: 1;
+}
+
+/* Fallback animation after 300ms */
+.material-symbols-outlined {
+    animation: showIcon 0.2s ease 0.3s forwards;
+}
+```
+
+**JavaScript (`transitions.js`):**
+```javascript
+function detectFontLoading() {
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            document.body.classList.add('fonts-loaded');
+        });
+    } else {
+        // Fallback for older browsers
+        setTimeout(() => {
+            document.body.classList.add('fonts-loaded');
+        }, 300);
+    }
+}
+```
+
+**How It Works:**
+1. Page loads → Icons hidden (`opacity: 0`)
+2. Font Face API detects fonts ready
+3. `body.fonts-loaded` class added
+4. Icons smoothly fade in (`opacity: 1`)
+5. Fallback: Icons show after 300ms regardless
 
 ### ✅ All Issues Resolved
 
@@ -90,6 +140,7 @@ Fixed multiple issues with scan history persistence, dynamic theming, and naviga
 | Dashboard wrong data | ✅ Reads from live history |
 | Undefined times | ✅ Properly formatted |
 | History items not clickable | ✅ Navigate to results.html |
+| Icons showing as text (FOUC) | ✅ Font loading detection + fade-in |
 
 ---
 

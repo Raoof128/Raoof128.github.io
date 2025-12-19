@@ -30,7 +30,33 @@
         // Mark page as loaded for entrance animations
         document.body.classList.add('page-loaded');
 
+        // Detect font loading to prevent FOUC
+        detectFontLoading();
+
         console.log('[Transitions] Page transitions initialized');
+    }
+
+    /**
+     * Detect when Material Symbols font is loaded
+     * Adds 'fonts-loaded' class to body when ready
+     */
+    function detectFontLoading() {
+        // Use Font Face API if available
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => {
+                document.body.classList.add('fonts-loaded');
+            }).catch(() => {
+                // Fallback timeout if fonts.ready fails
+                setTimeout(() => {
+                    document.body.classList.add('fonts-loaded');
+                }, 300);
+            });
+        } else {
+            // Fallback for older browsers - just wait a bit
+            setTimeout(() => {
+                document.body.classList.add('fonts-loaded');
+            }, 300);
+        }
     }
 
     /**
