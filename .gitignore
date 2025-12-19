@@ -81,3 +81,9 @@ releases/
 
 # iOS Frameworks (built locally)
 iosApp/Frameworks/
+
+# Design reference files
+WebaPP_Light/
+
+# Compiled JS bundle (regenerated from Kotlin source)
+webApp/src/jsMain/resources/webApp.js
