@@ -28,6 +28,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
 
+    <!-- Theme System -->
+    <link href="theme.css" rel="stylesheet" />
     <!-- Onboarding Page Styles -->
     <link href="onboarding.css" rel="stylesheet" />
     <!-- Page Transitions -->
@@ -88,6 +90,12 @@
                         <span class="material-symbols-outlined">sports_esports</span>
                         <span>Beat the Bot</span>
                     </a>
+
+                    <div class="nav-section-label">Reports</div>
+                    <a class="nav-link" href="export.html" id="nav-export">
+                        <span class="material-symbols-outlined">download</span>
+                        <span>Export</span>
+                    </a>
                 </nav>
 
                 <!-- Sidebar Footer -->
@@ -128,6 +136,10 @@
                 </div>
 
                 <div class="header-right">
+                    <button class="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+                        <span class="material-symbols-outlined icon-light">light_mode</span>
+                        <span class="material-symbols-outlined icon-dark">dark_mode</span>
+                    </button>
                     <div class="header-divider"></div>
                     <button class="header-btn" id="helpBtn" aria-label="Help">
                         <span class="material-symbols-outlined">help</span>
@@ -389,6 +401,8 @@
 
     <!-- Kotlin/JS Bundle -->
     <script src="webApp.js"></script>
+    <!-- Theme System -->
+    <script src="theme.js"></script>
     <!-- Page Transitions -->
     <script src="transitions.js"></script>
     <!-- Shared UI Components -->

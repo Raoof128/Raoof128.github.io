@@ -67,6 +67,50 @@
 }
 
 /* ==========================================================================
+   LIGHT MODE OVERRIDES
+   ========================================================================== */
+[data-theme="light"],
+html.light,
+body.light {
+    /* Background Colors */
+    --bg-light: #ffffff;
+    --bg-dark: #f8fafc;
+    --sidebar-bg: #ffffff;
+    --surface-dark: #ffffff;
+    --surface-highlight: #f1f5f9;
+    --surface-hover: #f1f5f9;
+    --border-dark: #e2e8f0;
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --text-dark: #334155;
+
+    /* Status Colors */
+    --success: #059669;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --primary: #2563eb;
+}
+
+/* System preference detection for light mode */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]):not(.dark) {
+        --bg-light: #ffffff;
+        --bg-dark: #f8fafc;
+        --sidebar-bg: #ffffff;
+        --surface-dark: #ffffff;
+        --surface-highlight: #f1f5f9;
+        --surface-hover: #f1f5f9;
+        --border-dark: #e2e8f0;
+        --text-primary: #0f172a;
+        --text-secondary: #64748b;
+        --text-muted: #94a3b8;
+    }
+}
+
+/* ==========================================================================
    BASE STYLES
    ========================================================================== */
 *,

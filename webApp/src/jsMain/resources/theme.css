@@ -1,0 +1,409 @@
+/*
+ * QR-SHIELD Theme System
+ * CSS Custom Properties for Light and Dark Modes
+ * 
+ * Usage: The theme is controlled via the 'data-theme' attribute on <html> or <body>
+ * Default: Uses prefers-color-scheme or saved preference
+ */
+
+/* ==========================================================================
+   BASE THEME VARIABLES (Dark Mode - Default)
+   ========================================================================== */
+:root {
+    /* Brand Colors (Consistent across themes) */
+    --primary: #195de6;
+    --primary-dark: #1040a8;
+    --primary-light: #548bf7;
+    --primary-hover: #2563eb;
+    --primary-glow: rgba(25, 93, 230, 0.2);
+
+    /* Background Colors */
+    --bg-main: #0f1115;
+    --bg-surface: #161b22;
+    --bg-surface-elevated: #1c2129;
+    --bg-surface-hover: #21262d;
+    --bg-input: #0d1118;
+    --bg-sidebar: #111318;
+
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --text-disabled: #475569;
+
+    /* Border Colors */
+    --border-default: #292e38;
+    --border-subtle: rgba(41, 46, 56, 0.5);
+    --border-strong: #3d4451;
+
+    /* Status Colors */
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.1);
+    --success-border: rgba(16, 185, 129, 0.2);
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.1);
+    --danger-border: rgba(239, 68, 68, 0.2);
+    --warning: #f59e0b;
+    --warning-bg: rgba(245, 158, 11, 0.1);
+    --warning-border: rgba(245, 158, 11, 0.2);
+    --info: #3b82f6;
+    --info-bg: rgba(59, 130, 246, 0.1);
+    --info-border: rgba(59, 130, 246, 0.2);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    --shadow-card: 0 4px 20px -5px rgba(0, 0, 0, 0.3);
+    --shadow-glow: 0 0 20px rgba(25, 93, 230, 0.2);
+
+    /* Backdrop */
+    --backdrop-blur: blur(12px);
+    --backdrop-color: rgba(17, 22, 33, 0.5);
+
+    /* Scrollbar */
+    --scrollbar-track: #0f1115;
+    --scrollbar-thumb: #2d3748;
+    --scrollbar-thumb-hover: #4a5568;
+
+    /* Component-specific */
+    --card-bg: var(--bg-surface);
+    --card-border: var(--border-default);
+    --modal-bg: var(--bg-surface);
+    --dropdown-bg: var(--bg-surface);
+    --input-bg: var(--bg-input);
+    --input-border: var(--border-default);
+
+    /* Active/Selected States */
+    --active-bg: rgba(25, 93, 230, 0.1);
+    --active-border: rgba(25, 93, 230, 0.2);
+
+    /* User Profile Gradient */
+    --avatar-gradient: linear-gradient(135deg, #195de6, #a855f7);
+}
+
+/* ==========================================================================
+   LIGHT MODE THEME
+   ========================================================================== */
+[data-theme="light"],
+html.light,
+body.light {
+    /* Background Colors */
+    --bg-main: #f8fafc;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #ffffff;
+    --bg-surface-hover: #f1f5f9;
+    --bg-input: #f8fafc;
+    --bg-sidebar: #ffffff;
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --text-disabled: #cbd5e1;
+
+    /* Border Colors */
+    --border-default: #e2e8f0;
+    --border-subtle: rgba(226, 232, 240, 0.5);
+    --border-strong: #cbd5e1;
+
+    /* Status Colors - slightly adjusted for light mode visibility */
+    --success: #059669;
+    --success-bg: rgba(16, 185, 129, 0.1);
+    --success-border: rgba(16, 185, 129, 0.3);
+    --danger: #dc2626;
+    --danger-bg: rgba(239, 68, 68, 0.1);
+    --danger-border: rgba(239, 68, 68, 0.3);
+    --warning: #d97706;
+    --warning-bg: rgba(245, 158, 11, 0.1);
+    --warning-border: rgba(245, 158, 11, 0.3);
+    --info: #2563eb;
+    --info-bg: rgba(59, 130, 246, 0.1);
+    --info-border: rgba(59, 130, 246, 0.3);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 20px -5px rgba(37, 99, 235, 0.2);
+
+    /* Backdrop */
+    --backdrop-color: rgba(255, 255, 255, 0.8);
+
+    /* Scrollbar */
+    --scrollbar-track: #f8fafc;
+    --scrollbar-thumb: #cbd5e1;
+    --scrollbar-thumb-hover: #94a3b8;
+
+    /* Component-specific */
+    --card-bg: var(--bg-surface);
+    --card-border: var(--border-default);
+    --modal-bg: var(--bg-surface);
+    --dropdown-bg: var(--bg-surface);
+    --input-bg: var(--bg-surface);
+    --input-border: var(--border-default);
+
+    /* Active/Selected States */
+    --active-bg: rgba(25, 93, 230, 0.05);
+    --active-border: rgba(25, 93, 230, 0.15);
+
+    /* Brand remains consistent */
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+}
+
+/* ==========================================================================
+   SYSTEM PREFERENCE DETECTION (Auto Mode)
+   ========================================================================== */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]):not(.dark) {
+        /* Background Colors */
+        --bg-main: #f8fafc;
+        --bg-surface: #ffffff;
+        --bg-surface-elevated: #ffffff;
+        --bg-surface-hover: #f1f5f9;
+        --bg-input: #f8fafc;
+        --bg-sidebar: #ffffff;
+
+        /* Text Colors */
+        --text-primary: #0f172a;
+        --text-secondary: #64748b;
+        --text-muted: #94a3b8;
+        --text-disabled: #cbd5e1;
+
+        /* Border Colors */
+        --border-default: #e2e8f0;
+        --border-subtle: rgba(226, 232, 240, 0.5);
+        --border-strong: #cbd5e1;
+
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+
+        /* Backdrop */
+        --backdrop-color: rgba(255, 255, 255, 0.8);
+
+        /* Scrollbar */
+        --scrollbar-track: #f8fafc;
+        --scrollbar-thumb: #cbd5e1;
+        --scrollbar-thumb-hover: #94a3b8;
+
+        /* Brand */
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+    }
+}
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON
+   ========================================================================== */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border: 1px solid var(--border-default);
+    border-radius: 0.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--bg-surface-hover);
+    color: var(--text-primary);
+    border-color: var(--border-strong);
+}
+
+.theme-toggle .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* Icon visibility based on theme */
+.theme-toggle .icon-dark,
+[data-theme="light"] .theme-toggle .icon-light {
+    display: none;
+}
+
+[data-theme="light"] .theme-toggle .icon-dark,
+.theme-toggle .icon-light {
+    display: block;
+}
+
+/* For system preference auto mode */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) .theme-toggle .icon-light {
+        display: none;
+    }
+
+    :root:not([data-theme="dark"]) .theme-toggle .icon-dark {
+        display: block;
+    }
+}
+
+/* ==========================================================================
+   SCROLLBAR THEMING
+   ========================================================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* ==========================================================================
+   COMMON THEME TRANSITIONS
+   ========================================================================== */
+body,
+.sidebar,
+.main-content,
+.header,
+.card,
+.nav-link,
+.btn,
+input,
+select,
+textarea {
+    transition: background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* ==========================================================================
+   BASE BODY STYLES WITH THEME
+   ========================================================================== */
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   THEME-AWARE COMMON COMPONENTS
+   ========================================================================== */
+
+/* Cards */
+.themed-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-card);
+}
+
+/* Inputs */
+.themed-input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-primary);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.themed-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.themed-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* Buttons */
+.themed-btn-primary {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.themed-btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.themed-btn-secondary {
+    background-color: var(--bg-surface-hover);
+    color: var(--text-primary);
+    border: 1px solid var(--border-default);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.themed-btn-secondary:hover {
+    background-color: var(--bg-surface-elevated);
+    border-color: var(--border-strong);
+}
+
+/* Status Badges */
+.themed-badge-success {
+    background-color: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.themed-badge-danger {
+    background-color: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.themed-badge-warning {
+    background-color: var(--warning-bg);
+    color: var(--warning);
+    border: 1px solid var(--warning-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.themed-badge-info {
+    background-color: var(--info-bg);
+    color: var(--info);
+    border: 1px solid var(--info-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}

@@ -29,6 +29,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
 
+    <!-- Theme System -->
+    <link href="theme.css" rel="stylesheet" />
     <!-- Results Page Styles -->
     <link href="results.css" rel="stylesheet" />
     <!-- Page Transitions -->
@@ -86,6 +88,12 @@
                         <span class="material-symbols-outlined">sports_esports</span>
                         <span class="nav-text">Beat the Bot</span>
                     </a>
+
+                    <div class="nav-section-label">Reports</div>
+                    <a class="nav-link" href="export.html" id="nav-export">
+                        <span class="material-symbols-outlined">download</span>
+                        <span class="nav-text">Export</span>
+                    </a>
                 </nav>
             </div>
 
@@ -126,6 +134,10 @@
 
                 <!-- Header Actions -->
                 <div class="header-actions">
+                    <button class="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+                        <span class="material-symbols-outlined icon-light">light_mode</span>
+                        <span class="material-symbols-outlined icon-dark">dark_mode</span>
+                    </button>
                     <button class="btn-scan-new" id="scanNewBtn">
                         <span class="material-symbols-outlined">qr_code_scanner</span>
                         <span>Scan New QR</span>
@@ -345,6 +357,8 @@
 
     <!-- Kotlin/JS Bundle -->
     <script src="webApp.js"></script>
+    <!-- Theme System -->
+    <script src="theme.js"></script>
     <!-- Page Transitions -->
     <script src="transitions.js"></script>
     <!-- Shared UI Components -->

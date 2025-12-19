@@ -4,6 +4,92 @@
  */
 
 /* ==========================================================================
+   LIGHT MODE OVERRIDES FOR SHARED UI
+   ========================================================================== */
+[data-theme="light"] .profile-dropdown,
+[data-theme="light"] .notification-dropdown,
+[data-theme="light"] .shared-modal {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .profile-dropdown-header {
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(139, 92, 246, 0.02));
+    border-bottom-color: #e2e8f0;
+}
+
+[data-theme="light"] .profile-info h4,
+[data-theme="light"] .notification-header h4,
+[data-theme="light"] .shared-modal-header h3 {
+    color: #0f172a;
+}
+
+[data-theme="light"] .profile-stats,
+[data-theme="light"] .notification-header,
+[data-theme="light"] .shared-modal-header,
+[data-theme="light"] .shared-modal-footer {
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .profile-action:hover,
+[data-theme="light"] .notification-item:hover {
+    background-color: #f1f5f9;
+}
+
+[data-theme="light"] .profile-dropdown-footer {
+    background-color: #f8fafc;
+}
+
+[data-theme="light"] .stat-value,
+[data-theme="light"] .notification-content h5 {
+    color: #0f172a;
+}
+
+[data-theme="light"] .shared-toast {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .shared-toast .toast-message {
+    color: #0f172a;
+}
+
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group select,
+[data-theme="light"] .setting-select {
+    background-color: #f8fafc;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+[data-theme="light"] .toggle-slider {
+    background-color: #e2e8f0;
+}
+
+[data-theme="light"] .toggle-slider::before {
+    background-color: #94a3b8;
+}
+
+[data-theme="light"] .settings-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .setting-row {
+    border-bottom-color: #f1f5f9;
+}
+
+[data-theme="light"] .setting-label {
+    color: #0f172a;
+}
+
+[data-theme="light"] .user-profile .user-name {
+    color: #0f172a;
+}
+
+/* ==========================================================================
    SIDEBAR USER PROFILE (Consistent across all pages)
    ========================================================================== */
 .user-profile {

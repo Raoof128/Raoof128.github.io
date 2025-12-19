@@ -4,6 +4,212 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-19 (Comprehensive Theme System Fixes)
+
+### Summary
+Fixed light mode styling across all pages of the web application. Added element-specific CSS overrides to ensure consistent light mode appearance for components with hardcoded dark colors.
+
+### 🌓 Light Mode Fixes Applied
+
+**Problem:** While the theme toggle button was working and theme.css/theme.js were integrated, many page-specific CSS files had hardcoded dark mode colors that weren't being overridden by CSS variables.
+
+**Solution:** Added comprehensive element-specific light mode overrides to each page's CSS file.
+
+### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `dashboard.css` | +100 lines: Hero section, system health card, engine status, gradient text, buttons, stat cards, scans table |
+| `scanner.css` | +90 lines: Scanner viewport, empty state, scanning state, status cards, recent scans, user card |
+| `threat.css` | +70 lines: Threat hero card, hero blur, top header, version card, history container, tags, engine status |
+| `game.css` | +40 lines: Light mode variable overrides added |
+| `trust.css` | +44 lines: Light mode variable overrides added |
+| `onboarding.css` | +46 lines: Light mode variable overrides added |
+| `results.css` | +45 lines: Light mode variable overrides added |
+
+### 🎨 Element-Specific Overrides Pattern
+
+Used CSS selector pattern for maximum compatibility:
+
+```css
+[data-theme="light"] .hero-section,
+html.light .hero-section,
+body.light .hero-section {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+```
+
+### ✅ Components Fixed for Light Mode
+
+| Component | Before | After |
+|-----------|--------|-------|
+| Dashboard hero section | Dark gradient `#0b0d10` | White `#ffffff` with light gradient |
+| System health card | Dark `rgba(22, 27, 34, 0.5)` | Light `rgba(255, 255, 255, 0.9)` |
+| Scanner viewport | Black `#000` | Light gray `#e2e8f0` |
+| Threat hero card | Dark gradient | Light gradient `#ffffff → #f8fafc` |
+| History containers | Dark backgrounds | White backgrounds with light borders |
+| Engine status badges | Dark surfaces | Light `#f1f5f9` with appropriate text |
+| All sidebar footers | Dark user cards | Light `#f1f5f9` backgrounds |
+
+### 🔗 Export Link Added to All Sidebars
+
+Added consistent "Export" navigation link under a "Reports" section to:
+- `results.html`, `threat.html`, `game.html`, `trust.html`, `onboarding.html`, `scanner.html`
+
+### 🧪 Testing Results
+
+Browser subagent verification confirmed:
+- ✅ Dashboard hero section displays with white background and dark text
+- ✅ Sidebar maintains light theme across all pages  
+- ✅ Scanner page correctly shows light backgrounds for all elements
+- ✅ Theme persists when navigating between pages
+- ✅ All cards, containers, and UI elements are consistent in light mode
+
+---
+
+## Session: 2025-12-19 (Light/Dark Mode Theme System)
+
+### Summary
+Implemented a comprehensive theme system to support both light and dark modes across the web application, enabling seamless theme switching via a toggle button in the header.
+
+### 🌗 Theme System Architecture
+
+**Files Created:**
+
+| File | Lines | Purpose |
+|------|-------|---------|
+| `theme.css` | ~350 | CSS custom properties for light/dark themes, theme toggle button styling |
+| `theme.js` | ~220 | Theme switching logic, localStorage persistence, system preference detection |
+
+### 🎨 CSS Variables for Theming
+
+The theme system uses CSS custom properties that automatically update based on the `data-theme` attribute:
+
+**Dark Mode (Default):**
+```css
+:root {
+    --bg-main: #0f1115;
+    --bg-surface: #161b22;
+    --text-primary: #ffffff;
+    --text-secondary: #94a3b8;
+    --border-default: #292e38;
+}
+```
+
+**Light Mode:**
+```css
+[data-theme="light"] {
+    --bg-main: #f8fafc;
+    --bg-surface: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --border-default: #e2e8f0;
+}
+```
+
+### 🔘 Theme Toggle Button
+
+Added a theme toggle button to the header of all pages:
+- Sun icon (☀️) → Switches to light mode
+- Moon icon (🌙) → Switches to dark mode
+- Shows toast notification on theme change
+- Persists preference in localStorage
+
+**HTML:**
+```html
+<button class="theme-toggle" aria-label="Toggle theme">
+    <span class="material-symbols-outlined icon-light">light_mode</span>
+    <span class="material-symbols-outlined icon-dark">dark_mode</span>
+</button>
+```
+
+### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `export.html` | Added theme.css, theme.js, theme toggle button |
+| `export.css` | Added light mode CSS variable overrides |
+| `dashboard.html` | Added theme.css, theme.js, theme toggle button |
+| `dashboard.css` | Added light mode CSS variable overrides |
+| `scanner.html` | Added theme.css, theme.js, theme toggle button |
+| `shared-ui.css` | Added light mode overrides for dropdowns, modals, toasts |
+
+### ✨ Theme Features
+
+| Feature | Description |
+|---------|-------------|
+| **Automatic Dark Mode** | Default dark theme with blue-tinted surfaces |
+| **Light Mode** | Clean white/slate theme matching WebaPP_Light designs |
+| **Persistence** | Theme preference saved to localStorage |
+| **System Preference** | Respects `prefers-color-scheme` media query |
+| **Smooth Transitions** | 200ms transitions for background, color, border changes |
+| **Accessible** | Toggle button has aria-label and keyboard focusable |
+
+### 🧪 Testing
+
+Used browser subagent to verify:
+- ✅ Theme toggle button visible in header
+- ✅ Clicking toggle switches between light/dark modes
+- ✅ Light mode: White background, dark text, light borders
+- ✅ Dark mode: Dark background, white text, dark borders
+- ✅ Toast notification shows "Switched to Light/Dark mode"
+- ✅ Theme persists across page navigation
+
+### 📦 JavaScript API
+
+The theme system exposes a global API:
+```javascript
+// Toggle between light and dark
+QRShieldTheme.toggle();
+
+// Set specific theme
+QRShieldTheme.set('light'); // or 'dark' or 'auto'
+
+// Get current effective theme
+QRShieldTheme.get(); // Returns 'light' or 'dark'
+```
+
+---
+
+## Session: 2025-12-19 (Export Page Review)
+
+### Summary
+Reviewed export.html against a new design specification. Confirmed the existing implementation already contains all required features and styling.
+
+### ✅ Export Page Status
+
+The existing `export.html` already includes:
+
+| Feature | Status | Implementation |
+|---------|--------|----------------|
+| Sidebar Navigation | ✅ Complete | Dashboard, Scanner, History, Export (active), Allow List, Settings, Beat the Bot |
+| Privacy Banner | ✅ Complete | "Offline Security" with verified_user icon |
+| Format Selection | ✅ Complete | PDF (Human-Readable) and JSON (Machine-Readable) radio options |
+| Export Button | ✅ Complete | Primary blue button with download icon |
+| Secondary Actions | ✅ Complete | Copy and Share buttons |
+| Help Card | ✅ Complete | Info about export contents |
+| Live Preview | ✅ Complete | Document mockup with window dots, filename, verdict, risk score, URL, analysis summary, and technical indicators (JSON preview) |
+
+### 📁 Files Reviewed (No Changes Needed)
+
+| File | Lines | Status |
+|------|-------|--------|
+| `export.html` | 373 | ✅ Already matches design |
+| `export.css` | 1148 | ✅ Complete styling with CSS variables |
+| `export.js` | ~480 | ✅ Functional export logic |
+
+### 🎨 CSS Framework Used
+
+The export page uses the app's unified CSS framework:
+- `export.css` - Page-specific styles (1148 lines)
+- `shared-ui.css` - Shared UI components
+- `transitions.css` - Page transition animations
+
+All styling uses CSS custom properties (e.g., `--primary`, `--bg-dark`, `--surface-dark`) for consistency across the app.
+
+---
+
 ## Session: 2025-12-19 (Comprehensive Scan History & Navigation Fixes)
 
 ### Summary

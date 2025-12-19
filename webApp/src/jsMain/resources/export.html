@@ -29,6 +29,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
 
+    <!-- Theme System -->
+    <link href="theme.css" rel="stylesheet" />
     <!-- Export Page Styles -->
     <link href="export.css" rel="stylesheet" />
     <!-- Page Transitions -->
@@ -118,6 +120,10 @@
                 </div>
 
                 <div class="header-right">
+                    <button class="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+                        <span class="material-symbols-outlined icon-light">light_mode</span>
+                        <span class="material-symbols-outlined icon-dark">dark_mode</span>
+                    </button>
                     <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
                         <span class="material-symbols-outlined">notifications</span>
                     </button>
@@ -351,6 +357,8 @@
 
     <!-- Kotlin/JS Bundle -->
     <script src="webApp.js"></script>
+    <!-- Theme System -->
+    <script src="theme.js"></script>
     <!-- Page Transitions -->
     <script src="transitions.js"></script>
     <!-- Shared UI Components -->

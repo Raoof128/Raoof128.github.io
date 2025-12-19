@@ -30,6 +30,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
 
+    <!-- Theme System -->
+    <link href="theme.css" rel="stylesheet" />
     <!-- Dashboard Styles -->
     <link href="dashboard.css" rel="stylesheet" />
     <!-- Page Transitions -->
@@ -83,6 +85,12 @@
                     <span>Beat the Bot</span>
                 </a>
 
+                <div class="nav-section-label">Reports</div>
+                <a class="nav-link" href="export.html" id="nav-export">
+                    <span class="material-symbols-outlined">download</span>
+                    <span>Export</span>
+                </a>
+
                 <div class="offline-card">
                     <div class="offline-header">
                         <span class="material-symbols-outlined">wifi_off</span>
@@ -128,6 +136,10 @@
                         <span>Engine Active</span>
                     </div>
                     <div class="header-divider"></div>
+                    <button class="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+                        <span class="material-symbols-outlined icon-light">light_mode</span>
+                        <span class="material-symbols-outlined icon-dark">dark_mode</span>
+                    </button>
                     <button class="header-btn notification" id="notificationBtn" aria-label="Notifications">
                         <span class="material-symbols-outlined">notifications</span>
                         <span class="notification-dot"></span>
@@ -392,6 +404,8 @@
 
     <!-- Kotlin/JS Bundle -->
     <script src="webApp.js"></script>
+    <!-- Theme System -->
+    <script src="theme.js"></script>
     <!-- Page Transitions -->
     <script src="transitions.js"></script>
     <!-- Shared UI Components -->

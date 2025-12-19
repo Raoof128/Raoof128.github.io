@@ -66,6 +66,138 @@
 }
 
 /* ==========================================================================
+   LIGHT MODE OVERRIDES
+   ========================================================================== */
+[data-theme="light"],
+html.light,
+body.light {
+    /* Background Colors */
+    --bg-light: #f8fafc;
+    --bg-dark: #f8fafc;
+    --surface-dark: #ffffff;
+    --surface-card: #ffffff;
+    --surface-border: #e2e8f0;
+    --surface-hover: #f1f5f9;
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    /* Status Colors */
+    --success: #059669;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --primary: #2563eb;
+}
+
+/* System preference detection for light mode */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]):not(.dark) {
+        --bg-light: #f8fafc;
+        --bg-dark: #f8fafc;
+        --surface-dark: #ffffff;
+        --surface-card: #ffffff;
+        --surface-border: #e2e8f0;
+        --surface-hover: #f1f5f9;
+        --text-primary: #0f172a;
+        --text-secondary: #64748b;
+        --text-muted: #94a3b8;
+    }
+}
+
+/* Light mode element-specific overrides */
+[data-theme="light"] .scanner-viewport,
+html.light .scanner-viewport,
+body.light .scanner-viewport {
+    background-color: #e2e8f0;
+    border-color: #cbd5e1;
+}
+
+[data-theme="light"] .empty-state,
+html.light .empty-state,
+body.light .empty-state {
+    background-color: rgba(248, 250, 252, 0.9);
+}
+
+[data-theme="light"] .empty-icon,
+html.light .empty-icon,
+body.light .empty-icon {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .empty-title,
+html.light .empty-title,
+body.light .empty-title {
+    color: #0f172a;
+}
+
+[data-theme="light"] .scanning-state,
+html.light .scanning-state,
+body.light .scanning-state {
+    background-color: rgba(248, 250, 252, 0.9);
+}
+
+[data-theme="light"] .scanning-text,
+html.light .scanning-text,
+body.light .scanning-text {
+    color: #0f172a;
+}
+
+[data-theme="light"] .status-card,
+html.light .status-card,
+body.light .status-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .recent-scans,
+html.light .recent-scans,
+body.light .recent-scans {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .scan-item,
+html.light .scan-item,
+body.light .scan-item {
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .scan-item:hover,
+html.light .scan-item:hover,
+body.light .scan-item:hover {
+    background-color: #f1f5f9;
+}
+
+[data-theme="light"] .top-header,
+html.light .top-header,
+body.light .top-header {
+    background-color: #ffffff;
+}
+
+[data-theme="light"] .user-card,
+html.light .user-card,
+body.light .user-card {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .offline-badge,
+html.light .offline-badge,
+body.light .offline-badge {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .viewport-pattern,
+html.light .viewport-pattern,
+body.light .viewport-pattern {
+    background-image: radial-gradient(#94a3b8 1px, transparent 1px);
+}
+
+/* ==========================================================================
    BASE STYLES
    ========================================================================== */
 *,

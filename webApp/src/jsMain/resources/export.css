@@ -74,6 +74,36 @@
 }
 
 /* ==========================================================================
+   LIGHT MODE OVERRIDES
+   ========================================================================== */
+[data-theme="light"],
+html.light,
+body.light {
+    /* Background Colors - Light theme */
+    --bg-light: #f8fafc;
+    --bg-dark: #f8fafc;
+    --sidebar-bg: #ffffff;
+    --surface-dark: #ffffff;
+    --surface-darker: #f1f5f9;
+    --surface-card: #ffffff;
+    --surface-hover: #f1f5f9;
+    --border-dark: #e2e8f0;
+
+    /* Text Colors - Light theme */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    /* Shadows - Lighter for light mode */
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+    /* Brand - slightly adjusted for light mode visibility */
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+}
+
+/* ==========================================================================
    BASE STYLES
    ========================================================================== */
 *,

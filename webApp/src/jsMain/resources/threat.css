@@ -75,6 +75,119 @@
 }
 
 /* ==========================================================================
+   LIGHT MODE OVERRIDES
+   ========================================================================== */
+[data-theme="light"],
+html.light,
+body.light {
+    /* Background Colors */
+    --bg-light: #ffffff;
+    --bg-dark: #f8fafc;
+    --sidebar-bg: #ffffff;
+    --surface-dark: #ffffff;
+    --surface-card: #ffffff;
+    --surface-hover: #f1f5f9;
+    --border-dark: #e2e8f0;
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    /* Status Colors - slightly adjusted for light mode visibility */
+    --success: #059669;
+    --danger: #dc2626;
+    --warning: #d97706;
+    --primary: #2563eb;
+
+    /* Shadows */
+    --shadow-glow-red: 0 0 20px -5px rgba(220, 38, 38, 0.15);
+}
+
+/* System preference detection for light mode */
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]):not(.dark) {
+        --bg-light: #ffffff;
+        --bg-dark: #f8fafc;
+        --sidebar-bg: #ffffff;
+        --surface-dark: #ffffff;
+        --surface-card: #ffffff;
+        --surface-hover: #f1f5f9;
+        --border-dark: #e2e8f0;
+        --text-primary: #0f172a;
+        --text-secondary: #64748b;
+        --text-muted: #94a3b8;
+    }
+}
+
+/* Light mode element-specific overrides */
+[data-theme="light"] .threat-hero,
+html.light .threat-hero,
+body.light .threat-hero {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .hero-blur,
+html.light .hero-blur,
+body.light .hero-blur {
+    background-color: rgba(220, 38, 38, 0.1);
+}
+
+[data-theme="light"] .top-header,
+html.light .top-header,
+body.light .top-header {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .version-card,
+html.light .version-card,
+body.light .version-card {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .history-container,
+html.light .history-container,
+body.light .history-container {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .history-item,
+html.light .history-item,
+body.light .history-item {
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .history-item:hover,
+html.light .history-item:hover,
+body.light .history-item:hover {
+    background-color: #f1f5f9;
+}
+
+[data-theme="light"] .tag,
+html.light .tag,
+body.light .tag {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #334155;
+}
+
+[data-theme="light"] .engine-status,
+html.light .engine-status,
+body.light .engine-status {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .engine-status span:last-child,
+html.light .engine-status span:last-child,
+body.light .engine-status span:last-child {
+    color: #334155;
+}
+
+/* ==========================================================================
    BASE STYLES
    ========================================================================== */
 *,

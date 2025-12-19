@@ -68,6 +68,127 @@
 }
 
 /* ==========================================================================
+   LIGHT MODE OVERRIDES
+   ========================================================================== */
+[data-theme="light"],
+html.light,
+body.light {
+    /* Background Colors */
+    --bg-light: #f8fafc;
+    --bg-dark: #f8fafc;
+    --sidebar-bg: #ffffff;
+    --surface-dark: #ffffff;
+    --surface-border: #e2e8f0;
+    --surface-hover: #f1f5f9;
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+
+    /* Shadows */
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+
+    /* Brand */
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+}
+
+/* Light mode element-specific overrides */
+[data-theme="light"] .hero-section,
+html.light .hero-section,
+body.light .hero-section {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .hero-background::before,
+html.light .hero-background::before,
+body.light .hero-background::before {
+    background: linear-gradient(to right, #f8fafc, #ffffff, rgba(37, 99, 235, 0.1));
+}
+
+[data-theme="light"] .hero-glow,
+html.light .hero-glow,
+body.light .hero-glow {
+    background-color: rgba(37, 99, 235, 0.15);
+}
+
+[data-theme="light"] .system-health-card,
+html.light .system-health-card,
+body.light .system-health-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .top-header,
+html.light .top-header,
+body.light .top-header {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="light"] .main-content,
+html.light .main-content,
+body.light .main-content {
+    background-image: radial-gradient(circle at top right, rgba(37, 99, 235, 0.08), transparent 40%);
+}
+
+[data-theme="light"] .offline-card,
+html.light .offline-card,
+body.light .offline-card {
+    background: linear-gradient(135deg, #ffffff, #f1f5f9);
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .engine-status,
+html.light .engine-status,
+body.light .engine-status {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .engine-status span:last-child,
+html.light .engine-status span:last-child,
+body.light .engine-status span:last-child {
+    color: #334155;
+}
+
+[data-theme="light"] .gradient-text,
+html.light .gradient-text,
+body.light .gradient-text {
+    background: linear-gradient(90deg, #2563eb, #0f172a);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+[data-theme="light"] .btn-secondary,
+html.light .btn-secondary,
+body.light .btn-secondary {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #0f172a;
+}
+
+[data-theme="light"] .stat-card,
+html.light .stat-card,
+body.light .stat-card {
+    background-color: #ffffff;
+    border-color: #e2e8f0;
+}
+
+[data-theme="light"] .scans-table,
+html.light .scans-table,
+body.light .scans-table {
+    background-color: #ffffff;
+}
+
+[data-theme="light"] .table-row:hover,
+html.light .table-row:hover,
+body.light .table-row:hover {
+    background-color: #f1f5f9;
+}
+
+/* ==========================================================================
    BASE STYLES
    ========================================================================== */
 *,
