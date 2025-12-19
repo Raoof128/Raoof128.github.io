@@ -11,16 +11,19 @@
 :root {
     /* Brand Colors */
     --primary: #195de6;
+    --primary-dark: #1040a8;
+    --primary-light: #548bf7;
     --primary-hover: #1550c5;
     --primary-glow: rgba(25, 93, 230, 0.15);
 
-    /* Background Colors */
+    /* Background Colors - Matching dashboard blue-tinted theme */
     --bg-light: #f6f6f8;
-    --bg-dark: #111621;
-    --surface-dark: #1c212c;
-    --surface-highlight: #252b36;
-    --sidebar-bg: #0f1115;
-    --border-dark: #242832;
+    --bg-dark: #0f1115;
+    --sidebar-bg: #111318;
+    --surface-dark: #161b22;
+    --surface-highlight: #1c2129;
+    --surface-hover: #21262d;
+    --border-dark: #292e38;
 
     /* Status Colors */
     --success: #10b981;

@@ -11,15 +11,18 @@
 :root {
     /* Brand Colors */
     --primary: #195de6;
+    --primary-dark: #1040a8;
+    --primary-light: #548bf7;
     --primary-hover: #2563eb;
     --primary-glow: rgba(25, 93, 230, 0.3);
 
-    /* Background Colors */
-    --bg-dark: #0f131a;
-    --surface-dark: #1a1f2b;
-    --surface-card: #1e2430;
-    --surface-hover: #262c3a;
-    --border-dark: #2e3545;
+    /* Background Colors - Matching dashboard blue-tinted theme */
+    --bg-dark: #0f1115;
+    --sidebar-bg: #111318;
+    --surface-dark: #161b22;
+    --surface-card: #1c2129;
+    --surface-hover: #21262d;
+    --border-dark: #292e38;
 
     /* Status Colors */
     --success: #10b981;
@@ -145,7 +148,7 @@ html {
    ========================================================================== */
 .sidebar {
     width: var(--sidebar-width);
-    background-color: var(--surface-dark);
+    background-color: var(--sidebar-bg);
     border-right: 1px solid var(--border-dark);
     display: none;
     flex-direction: column;

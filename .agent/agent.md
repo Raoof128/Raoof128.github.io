@@ -66,6 +66,25 @@ All HTML pages updated to include `transitions.css` and `transitions.js`:
 - export.html, trust.html, onboarding.html, game.html
 - sw.js updated to cache transition files (v2.1.0)
 
+### 🎨 Theme Color Consistency Fix
+
+Fixed the grey vs blue theme inconsistency across pages:
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `threat.css` | Grey-tinted surfaces `#1a1f2b`, `#202634` | Blue-tinted `#161b22`, `#1c2129` |
+| `export.css` | Different grey tones `#111621`, `#1a202c` | Matched to dashboard blue theme |
+| `trust.css` | Mixed grey `#111621`, `#1c212c` | Consistent `#0f1115`, `#161b22` |
+| `onboarding.css` | Dark grey `#0f131a`, `#1a1f2b` | Blue-tinted dashboard colors |
+
+All pages now share the same color palette:
+- `--bg-dark: #0f1115` (main background)
+- `--sidebar-bg: #111318` (sidebar background)  
+- `--surface-dark: #161b22` (primary surfaces)
+- `--surface-card: #1c2129` (card backgrounds)
+- `--border-dark: #292e38` (borders)
+- Logo icons changed from grey gradient to blue `--primary` gradient
+
 ---
 
 ## Session: 2025-12-19 (Enhanced Dashboard UIs - Results & Scanner)

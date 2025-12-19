@@ -11,6 +11,8 @@
 :root {
     /* Brand Colors */
     --primary: #195de6;
+    --primary-dark: #1040a8;
+    --primary-light: #548bf7;
     --primary-glow: rgba(25, 93, 230, 0.15);
     --accent-blue: #3b82f6;
 
@@ -23,13 +25,14 @@
     --success: #10b981;
     --success-bg: rgba(16, 185, 129, 0.1);
 
-    /* Background Colors */
+    /* Background Colors - Matching dashboard blue-tinted theme */
     --bg-light: #f6f6f8;
-    --bg-dark: #0f1218;
-    --surface-dark: #1a1f2b;
-    --surface-card: #202634;
-    --surface-hover: #2a3245;
-    --border-dark: #2e3545;
+    --bg-dark: #0f1115;
+    --sidebar-bg: #111318;
+    --surface-dark: #161b22;
+    --surface-card: #1c2129;
+    --surface-hover: #21262d;
+    --border-dark: #292e38;
 
     /* Text Colors */
     --text-primary: #ffffff;
@@ -143,7 +146,7 @@ html {
    ========================================================================== */
 .sidebar {
     width: var(--sidebar-width);
-    background-color: var(--surface-dark);
+    background-color: var(--sidebar-bg);
     border-right: 1px solid var(--border-dark);
     display: none;
     flex-direction: column;
@@ -173,12 +176,12 @@ html {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--radius-xl);
-    background: linear-gradient(135deg, #475569, #1e293b);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border-dark);
+    box-shadow: 0 4px 12px var(--primary-glow);
+    border: 1px solid rgba(25, 93, 230, 0.3);
 }
 
 .logo-icon .material-symbols-outlined {
@@ -225,13 +228,12 @@ html {
 }
 
 .nav-link.active {
-    background-color: var(--surface-hover);
-    border-left: 2px solid var(--danger);
-    color: var(--text-primary);
+    background-color: rgba(25, 93, 230, 0.1);
+    color: var(--primary);
 }
 
 .nav-link.active .material-symbols-outlined {
-    color: var(--danger);
+    color: var(--primary);
 }
 
 .sidebar-footer {
