@@ -51,6 +51,42 @@ All pages now use consistent `user-profile` class with:
 
 Fixed dropdown positioning - when profile is at bottom of sidebar, dropdown now opens **upward** to stay within viewport.
 
+### ⚙️ Functional Settings Page
+
+Transformed decorative settings into fully functional controls (`onboarding.html`):
+
+| Setting | Type | Persisted |
+|---------|------|-----------|
+| Sensitivity Level | Select (Permissive/Balanced/Strict) | ✅ |
+| Auto-Block Threats | Toggle | ✅ |
+| Real-Time Scanning | Toggle | ✅ |
+| Sound Alerts | Toggle | ✅ |
+| Threat Alerts | Toggle | ✅ |
+| Show Confidence Score | Toggle | ✅ |
+| Compact View | Toggle | ✅ |
+
+All settings:
+- Persist to `localStorage` via `QRShieldUI.saveSettings()`
+- Show toast feedback on change
+- Can be reset to defaults with "Reset Defaults" button
+
+### 📜 Functional Scan History
+
+Implemented scan history tracking across the app:
+
+- **Storage**: Scans stored in `localStorage` via `QRShieldUI.addScanToHistory()`
+- **Display**: History list on `threat.html` with clickable items
+- **Data**: URL, verdict, score, timestamp, blocked status
+- **Limit**: Last 50 scans retained
+- **Actions**: Click to view details, "Clear All" button
+
+API Methods:
+- `getScanHistory()` - Get all scans
+- `addScanToHistory(scan)` - Add new scan
+- `getScanById(id)` - Get specific scan
+- `clearScanHistory()` - Delete all
+- `getHistorySummary()` - Stats (today, week, threats, safe)
+
 ### ✨ Functional UI Elements
 
 1. **User Profile System** (`shared-ui.js`):

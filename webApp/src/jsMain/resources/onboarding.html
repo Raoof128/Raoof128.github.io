@@ -257,20 +257,121 @@
                         </div>
                     </div>
 
+                    <!-- Settings Controls -->
+                    <div class="settings-card" id="settingsCard">
+                        <div class="settings-header">
+                            <span class="material-symbols-outlined">tune</span>
+                            <h4>Security Settings</h4>
+                        </div>
+
+                        <!-- Detection Settings -->
+                        <div class="settings-group">
+                            <h5 class="settings-group-title">Detection</h5>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Sensitivity Level</span>
+                                    <span class="setting-desc">How aggressive should threat detection be?</span>
+                                </div>
+                                <select class="setting-select" id="settingSensitivity">
+                                    <option value="permissive">Permissive</option>
+                                    <option value="balanced" selected>Balanced</option>
+                                    <option value="strict">Strict</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Auto-Block Threats</span>
+                                    <span class="setting-desc">Automatically block high-risk URLs</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settingAutoBlock" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Real-Time Scanning</span>
+                                    <span class="setting-desc">Scan QR codes as they're detected</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settingRealTime" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Notification Settings -->
+                        <div class="settings-group">
+                            <h5 class="settings-group-title">Notifications</h5>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Sound Alerts</span>
+                                    <span class="setting-desc">Play sound when threat detected</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settingSoundEnabled" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Threat Alerts</span>
+                                    <span class="setting-desc">Show visual alerts for threats</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settingThreatAlerts" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Display Settings -->
+                        <div class="settings-group">
+                            <h5 class="settings-group-title">Display</h5>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Show Confidence Score</span>
+                                    <span class="setting-desc">Display threat probability percentage</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settingShowConfidence" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Compact View</span>
+                                    <span class="setting-desc">Use condensed layout for results</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settingCompactView">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Action Footer -->
                     <div class="action-footer">
                         <div class="footer-info">
                             <span class="material-symbols-outlined">info</span>
-                            <span>You can change these settings later in Privacy Preferences.</span>
+                            <span>Settings are saved automatically and sync across sessions.</span>
                         </div>
 
                         <div class="footer-actions">
-                            <button class="btn-secondary" id="readPolicyBtn">
-                                Read Policy
+                            <button class="btn-secondary" id="resetSettingsBtn">
+                                Reset Defaults
                             </button>
                             <button class="btn-primary" id="enableOfflineBtn">
-                                <span>Enable Offline Mode</span>
-                                <span class="material-symbols-outlined">arrow_forward</span>
+                                <span>Save & Continue</span>
+                                <span class="material-symbols-outlined">check</span>
                             </button>
                         </div>
                     </div>

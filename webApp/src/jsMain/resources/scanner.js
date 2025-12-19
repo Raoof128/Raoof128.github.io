@@ -619,6 +619,18 @@ function addToHistory(item) {
 
     saveHistory();
     renderHistory();
+
+    // Also save to shared QRShieldUI scan history
+    if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
+        window.QRShieldUI.addScanToHistory({
+            url: item.fullUrl,
+            verdict: item.verdict === 'MALICIOUS' ? 'HIGH' :
+                item.verdict === 'SUSPICIOUS' ? 'MEDIUM' :
+                    item.verdict === 'SAFE' ? 'SAFE' : 'LOW',
+            score: item.score || 0,
+            signals: item.flags || []
+        });
+    }
 }
 
 function renderHistory() {

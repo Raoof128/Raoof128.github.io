@@ -63,6 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup event listeners
     setupEventListeners();
 
+    // Setup settings controls
+    setupSettingsListeners();
+
     // Add staggered animations
     animateFeatureCards();
 
@@ -117,20 +120,43 @@ function setupEventListeners() {
 }
 
 // =============================================================================
-// SETTINGS MANAGEMENT
+// SETTINGS MANAGEMENT (Using QRShieldUI API)
 // =============================================================================
 
 /**
- * Load settings from localStorage
+ * Load settings from localStorage and update UI
  */
 function loadSettings() {
-    try {
-        const stored = localStorage.getItem(OnboardingConfig.settingsKey);
-        if (stored) {
-            OnboardingState.settings = { ...OnboardingState.settings, ...JSON.parse(stored) };
+    // Wait for QRShieldUI to be available
+    if (!window.QRShieldUI) {
+        setTimeout(loadSettings, 100);
+        return;
+    }
+
+    const settings = window.QRShieldUI.getSettings();
+    OnboardingState.settings = settings;
+
+    // Update sensitivity select
+    const sensitivityEl = document.getElementById('settingSensitivity');
+    if (sensitivityEl) {
+        sensitivityEl.value = settings.sensitivity || 'balanced';
+    }
+
+    // Update toggle switches
+    const toggleMappings = {
+        'settingAutoBlock': 'autoBlock',
+        'settingRealTime': 'realTimeScanning',
+        'settingSoundEnabled': 'soundEnabled',
+        'settingThreatAlerts': 'threatAlerts',
+        'settingShowConfidence': 'showConfidence',
+        'settingCompactView': 'compactView'
+    };
+
+    for (const [elementId, settingKey] of Object.entries(toggleMappings)) {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.checked = settings[settingKey] !== false; // Default to true if not set
         }
-    } catch (e) {
-        console.error('[Onboarding] Failed to load settings:', e);
     }
 }
 
@@ -138,22 +164,83 @@ function loadSettings() {
  * Save settings to localStorage
  */
 function saveSettings() {
-    try {
-        localStorage.setItem(OnboardingConfig.settingsKey, JSON.stringify(OnboardingState.settings));
-    } catch (e) {
-        console.error('[Onboarding] Failed to save settings:', e);
+    if (!window.QRShieldUI) return;
+
+    window.QRShieldUI.saveSettings(OnboardingState.settings);
+}
+
+/**
+ * Setup settings event listeners
+ */
+function setupSettingsListeners() {
+    // Sensitivity select
+    const sensitivityEl = document.getElementById('settingSensitivity');
+    if (sensitivityEl) {
+        sensitivityEl.addEventListener('change', (e) => {
+            OnboardingState.settings.sensitivity = e.target.value;
+            saveSettings();
+            showToast(`Sensitivity set to ${e.target.value}`, 'info');
+        });
+    }
+
+    // Toggle switches
+    const toggleMappings = {
+        'settingAutoBlock': { key: 'autoBlock', label: 'Auto-block' },
+        'settingRealTime': { key: 'realTimeScanning', label: 'Real-time scanning' },
+        'settingSoundEnabled': { key: 'soundEnabled', label: 'Sound alerts' },
+        'settingThreatAlerts': { key: 'threatAlerts', label: 'Threat alerts' },
+        'settingShowConfidence': { key: 'showConfidence', label: 'Confidence score' },
+        'settingCompactView': { key: 'compactView', label: 'Compact view' }
+    };
+
+    for (const [elementId, { key, label }] of Object.entries(toggleMappings)) {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.addEventListener('change', (e) => {
+                OnboardingState.settings[key] = e.target.checked;
+                saveSettings();
+                showToast(`${label} ${e.target.checked ? 'enabled' : 'disabled'}`, 'success');
+            });
+        }
+    }
+
+    // Reset settings button
+    const resetBtn = document.getElementById('resetSettingsBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetSettings);
     }
 }
 
 /**
- * Mark onboarding as complete
+ * Reset settings to defaults
  */
-function completeOnboarding() {
-    try {
-        localStorage.setItem(OnboardingConfig.onboardingCompleteKey, 'true');
-    } catch (e) {
-        console.error('[Onboarding] Failed to complete onboarding:', e);
-    }
+function resetSettings() {
+    if (!window.QRShieldUI) return;
+
+    // Get default settings
+    const defaults = {
+        sensitivity: 'balanced',
+        autoBlock: true,
+        realTimeScanning: true,
+        offlineMode: true,
+        localSandbox: true,
+        noCloudLogs: true,
+        onDeviceDb: true,
+        soundEnabled: true,
+        threatAlerts: true,
+        scanSummary: true,
+        darkMode: true,
+        compactView: false,
+        showConfidence: true
+    };
+
+    OnboardingState.settings = defaults;
+    window.QRShieldUI.saveSettings(defaults);
+
+    // Reload UI
+    loadSettings();
+
+    showToast('Settings reset to defaults', 'success');
 }
 
 // =============================================================================
@@ -164,28 +251,36 @@ function completeOnboarding() {
  * Enable offline mode and complete onboarding
  */
 function enableOfflineMode() {
-    // Update settings
+    // Ensure privacy settings are enabled
     OnboardingState.settings.offlineMode = true;
     OnboardingState.settings.localSandbox = true;
     OnboardingState.settings.noCloudLogs = true;
     OnboardingState.settings.onDeviceDb = true;
 
-    // Save settings
+    // Save all settings
     saveSettings();
 
     // Mark onboarding complete
-    completeOnboarding();
+    try {
+        localStorage.setItem(OnboardingConfig.onboardingCompleteKey, 'true');
+    } catch (e) {
+        console.error('[Onboarding] Failed to complete onboarding:', e);
+    }
 
     // Show success animation
     showSuccessAnimation();
 
     // Show toast
-    showToast('Offline mode enabled! Your data stays on-device.', 'success');
+    if (window.QRShieldUI) {
+        window.QRShieldUI.showToast('Settings saved! Your data stays on-device.', 'success');
+    } else {
+        showToast('Settings saved! Your data stays on-device.', 'success');
+    }
 
     // Navigate to dashboard after delay
     setTimeout(() => {
         window.location.href = 'dashboard.html';
-    }, 2000);
+    }, 1500);
 }
 
 /**

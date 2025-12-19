@@ -136,13 +136,15 @@
 
         document.body.appendChild(dropdown);
 
-        // Position the dropdown - open upward if at bottom of screen
+        // Smart positioning - prevent dropdown from going off-screen
         const rect = anchorElement.getBoundingClientRect();
-        const dropdownHeight = 320; // Approximate height of dropdown
+        const dropdownWidth = 280;
+        const dropdownHeight = 320;
         const spaceBelow = window.innerHeight - rect.bottom;
         const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.left;
 
-        // If not enough space below, open upward
+        // Vertical positioning
         if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
             // Open upward
             dropdown.style.bottom = `${window.innerHeight - rect.top + 8}px`;
@@ -152,7 +154,20 @@
             dropdown.style.top = `${rect.bottom + 8}px`;
             dropdown.style.bottom = 'auto';
         }
-        dropdown.style.left = `${rect.left}px`;
+
+        // Horizontal positioning - ensure it stays on screen
+        if (spaceRight < dropdownWidth) {
+            // Not enough space on right, align to right edge
+            dropdown.style.right = '16px';
+            dropdown.style.left = 'auto';
+        } else if (rect.left < 16) {
+            // Too close to left edge
+            dropdown.style.left = '16px';
+            dropdown.style.right = 'auto';
+        } else {
+            dropdown.style.left = `${rect.left}px`;
+            dropdown.style.right = 'auto';
+        }
 
         // Animate in
         requestAnimationFrame(() => {
@@ -418,10 +433,33 @@
 
         document.body.appendChild(dropdown);
 
-        // Position
+        // Smart positioning - prevent dropdown from going off-screen
         const rect = anchorElement.getBoundingClientRect();
-        dropdown.style.top = `${rect.bottom + 8}px`;
-        dropdown.style.right = `${window.innerWidth - rect.right}px`;
+        const dropdownWidth = 340;
+        const dropdownHeight = 400;
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+        const spaceRight = window.innerWidth - rect.left;
+
+        // Vertical positioning
+        if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+            // Open upward
+            dropdown.style.bottom = `${window.innerHeight - rect.top + 8}px`;
+            dropdown.style.top = 'auto';
+        } else {
+            // Open downward (default)
+            dropdown.style.top = `${rect.bottom + 8}px`;
+            dropdown.style.bottom = 'auto';
+        }
+
+        // Horizontal positioning - ensure it stays on screen
+        if (spaceRight < dropdownWidth) {
+            dropdown.style.right = '16px';
+            dropdown.style.left = 'auto';
+        } else {
+            dropdown.style.left = `${rect.left}px`;
+            dropdown.style.right = 'auto';
+        }
 
         requestAnimationFrame(() => {
             dropdown.classList.add('visible');
@@ -444,6 +482,12 @@
                 item.classList.remove('unread');
                 item.classList.add('read');
             });
+        });
+
+        // View All button - navigate to dashboard notifications section
+        dropdown.querySelector('#viewAllNotifs').addEventListener('click', () => {
+            hideNotificationDropdown();
+            window.location.href = 'dashboard.html';
         });
 
         // Close on outside click - faster
@@ -607,8 +651,8 @@
         updateAllUserUI();
         updateNotificationBadge();
 
-        // Attach profile dropdown to user avatars and profiles
-        document.querySelectorAll('.user-avatar, .user-profile').forEach(el => {
+        // Attach profile dropdown to user avatars, profiles, and header profile buttons
+        document.querySelectorAll('.user-avatar, .user-profile, #profileBtn').forEach(el => {
             el.style.cursor = 'pointer';
             el.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -616,15 +660,161 @@
             });
         });
 
-        // Attach notification dropdown
-        document.querySelectorAll('.notification-btn').forEach(btn => {
+        // Attach notification dropdown - use multiple selectors to catch all notification buttons
+        document.querySelectorAll('.notification-btn, #notificationBtn, .header-btn.notification').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 showNotificationDropdown(btn);
             });
         });
 
+        // Attach settings button to navigate to settings page
+        const settingsBtn = document.getElementById('settingsBtn');
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.location.href = 'onboarding.html';
+            });
+        }
+
         console.log('[SharedUI] Initialized profile and notification systems');
+    }
+
+    // ==========================================================================
+    // SETTINGS MANAGEMENT
+    // ==========================================================================
+
+    const SETTINGS_KEY = 'qrshield_settings';
+
+    const DEFAULT_SETTINGS = {
+        // Detection settings
+        sensitivity: 'balanced', // strict, balanced, permissive
+        autoBlock: true,
+        realTimeScanning: true,
+
+        // Privacy settings
+        offlineMode: true,
+        localSandbox: true,
+        noCloudLogs: true,
+        onDeviceDb: true,
+
+        // Notification settings
+        soundEnabled: true,
+        threatAlerts: true,
+        scanSummary: true,
+
+        // Display settings
+        darkMode: true,
+        compactView: false,
+        showConfidence: true
+    };
+
+    function getSettings() {
+        const stored = localStorage.getItem(SETTINGS_KEY);
+        if (stored) {
+            try {
+                return { ...DEFAULT_SETTINGS, ...JSON.parse(stored) };
+            } catch (e) {
+                return DEFAULT_SETTINGS;
+            }
+        }
+        return DEFAULT_SETTINGS;
+    }
+
+    function saveSettings(settings) {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify({ ...DEFAULT_SETTINGS, ...settings }));
+    }
+
+    function updateSetting(key, value) {
+        const settings = getSettings();
+        settings[key] = value;
+        saveSettings(settings);
+        return settings;
+    }
+
+    // ==========================================================================
+    // SCAN HISTORY MANAGEMENT
+    // ==========================================================================
+
+    const HISTORY_KEY = 'qrshield_scan_history';
+    const MAX_HISTORY_ITEMS = 50;
+
+    function getScanHistory() {
+        const stored = localStorage.getItem(HISTORY_KEY);
+        if (stored) {
+            try {
+                return JSON.parse(stored);
+            } catch (e) {
+                return [];
+            }
+        }
+        return [];
+    }
+
+    function addScanToHistory(scanResult) {
+        const history = getScanHistory();
+
+        const entry = {
+            id: `scan_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
+            timestamp: Date.now(),
+            url: scanResult.url || '',
+            verdict: scanResult.verdict || 'UNKNOWN',
+            score: scanResult.score || 0,
+            signals: scanResult.signals || [],
+            blocked: false,
+            ...scanResult
+        };
+
+        // Add to beginning
+        history.unshift(entry);
+
+        // Keep only last N items
+        const trimmed = history.slice(0, MAX_HISTORY_ITEMS);
+
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
+
+        // Update stats
+        const isThreat = entry.verdict === 'HIGH' || entry.verdict === 'MEDIUM' || entry.score >= 50;
+        incrementScanCount(isThreat);
+
+        return entry;
+    }
+
+    function getScanById(scanId) {
+        const history = getScanHistory();
+        return history.find(s => s.id === scanId);
+    }
+
+    function markScanBlocked(scanId) {
+        const history = getScanHistory();
+        const scan = history.find(s => s.id === scanId);
+        if (scan) {
+            scan.blocked = true;
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        }
+    }
+
+    function clearScanHistory() {
+        localStorage.removeItem(HISTORY_KEY);
+    }
+
+    function getHistorySummary() {
+        const history = getScanHistory();
+        const now = Date.now();
+        const oneDayAgo = now - (24 * 60 * 60 * 1000);
+        const oneWeekAgo = now - (7 * 24 * 60 * 60 * 1000);
+
+        const today = history.filter(s => s.timestamp >= oneDayAgo);
+        const thisWeek = history.filter(s => s.timestamp >= oneWeekAgo);
+
+        return {
+            total: history.length,
+            today: today.length,
+            thisWeek: thisWeek.length,
+            threats: history.filter(s => s.verdict === 'HIGH' || s.verdict === 'MEDIUM').length,
+            safe: history.filter(s => s.verdict === 'SAFE' || s.verdict === 'LOW').length,
+            blocked: history.filter(s => s.blocked).length
+        };
     }
 
     // Initialize when DOM ready
@@ -636,16 +826,38 @@
 
     // Expose public API
     window.QRShieldUI = {
+        // User management
         getUser,
         saveUser,
+
+        // Stats
         getAppStats,
         incrementScanCount,
+
+        // Notifications
         getNotifications,
         addNotification,
         showToast,
+
+        // Data export
         exportUserData,
+
+        // Dropdowns
         showProfileDropdown,
-        showNotificationDropdown
+        showNotificationDropdown,
+
+        // Settings
+        getSettings,
+        saveSettings,
+        updateSetting,
+
+        // Scan History
+        getScanHistory,
+        addScanToHistory,
+        getScanById,
+        markScanBlocked,
+        clearScanHistory,
+        getHistorySummary
     };
 
 })();

@@ -113,6 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render UI
     renderUI();
 
+    // Render scan history list
+    renderScanHistory();
+
     console.log('[QR-SHIELD Threat] Ready');
 });
 
@@ -156,6 +159,18 @@ function setupEventListeners() {
     elements.notificationBtn?.addEventListener('click', () => {
         showToast('No new notifications', 'info');
     });
+
+    // Clear history button
+    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+    if (clearHistoryBtn) {
+        clearHistoryBtn.addEventListener('click', () => {
+            if (window.QRShieldUI) {
+                window.QRShieldUI.clearScanHistory();
+                renderScanHistory();
+                showToast('Scan history cleared', 'success');
+            }
+        });
+    }
 
     // Keyboard shortcuts
     setupKeyboardShortcuts();
@@ -328,6 +343,125 @@ function formatScanTime(timestamp) {
     });
 
     return `${dateStr}, ${timeStr}`;
+}
+
+/**
+ * Render the scan history list
+ */
+function renderScanHistory() {
+    const historyContainer = document.getElementById('historyList');
+    if (!historyContainer) return;
+
+    // Wait for QRShieldUI
+    if (!window.QRShieldUI) {
+        setTimeout(renderScanHistory, 100);
+        return;
+    }
+
+    const history = window.QRShieldUI.getScanHistory();
+
+    if (history.length === 0) {
+        historyContainer.innerHTML = `
+            <div class="history-empty">
+                <span class="material-symbols-outlined">history</span>
+                <p>No scans yet. Scan a QR code to see it here.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Render history items (show last 10)
+    const recentHistory = history.slice(0, 10);
+    historyContainer.innerHTML = recentHistory.map(scan => {
+        const verdictClass = getVerdictClass(scan.verdict);
+        const verdictLabel = getVerdictLabel(scan.verdict);
+        const icon = getVerdictIcon(scan.verdict);
+
+        return `
+            <div class="history-item" data-scan-id="${scan.id}">
+                <div class="history-icon ${verdictClass}">
+                    <span class="material-symbols-outlined">${icon}</span>
+                </div>
+                <div class="history-content">
+                    <div class="history-url">${truncateUrl(scan.url)}</div>
+                    <div class="history-meta">
+                        <span class="history-badge ${verdictClass}">${verdictLabel}</span>
+                        <span>${formatScanTime(scan.timestamp)}</span>
+                        ${scan.score ? `<span class="history-score">${scan.score}%</span>` : ''}
+                    </div>
+                </div>
+                <span class="material-symbols-outlined" style="color: #64748b;">chevron_right</span>
+            </div>
+        `;
+    }).join('');
+
+    // Add click handlers
+    historyContainer.querySelectorAll('.history-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const scanId = item.dataset.scanId;
+            viewScanDetails(scanId);
+        });
+    });
+}
+
+function getVerdictClass(verdict) {
+    switch (verdict) {
+        case 'HIGH': return 'danger';
+        case 'MEDIUM': return 'warning';
+        case 'LOW':
+        case 'SAFE': return 'safe';
+        default: return 'safe';
+    }
+}
+
+function getVerdictLabel(verdict) {
+    switch (verdict) {
+        case 'HIGH': return 'High Risk';
+        case 'MEDIUM': return 'Warning';
+        case 'LOW': return 'Low Risk';
+        case 'SAFE': return 'Safe';
+        default: return 'Unknown';
+    }
+}
+
+function getVerdictIcon(verdict) {
+    switch (verdict) {
+        case 'HIGH': return 'gpp_bad';
+        case 'MEDIUM': return 'warning';
+        case 'LOW':
+        case 'SAFE': return 'verified_user';
+        default: return 'help';
+    }
+}
+
+function truncateUrl(url) {
+    if (!url) return 'Unknown URL';
+    if (url.length > 50) {
+        return url.substring(0, 47) + '...';
+    }
+    return url;
+}
+
+function viewScanDetails(scanId) {
+    if (!window.QRShieldUI) return;
+
+    const scan = window.QRShieldUI.getScanById(scanId);
+    if (!scan) return;
+
+    // Update the current threat display with this scan
+    ThreatState.threatData = {
+        ...scan,
+        attacks: getDemoAttacks() // Use demo attacks for now
+    };
+
+    // Re-render UI with selected scan
+    renderUI();
+
+    // Scroll to threat hero
+    const heroEl = document.getElementById('threatHero');
+    if (heroEl) {
+        heroEl.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 // =============================================================================
