@@ -185,6 +185,182 @@ body.light .top-header {
     background-color: rgba(255, 255, 255, 0.95);
 }
 
+/* Toggle switch light mode styling */
+[data-theme="light"] .toggle-switch,
+html.light .toggle-switch,
+body.light .toggle-switch {
+    background-color: #e2e8f0;
+}
+
+[data-theme="light"] .toggle-switch.on,
+[data-theme="light"] .toggle-switch:has(input:checked),
+html.light .toggle-switch.on,
+html.light .toggle-switch:has(input:checked),
+body.light .toggle-switch.on,
+body.light .toggle-switch:has(input:checked) {
+    background-color: #2563eb;
+}
+
+[data-theme="light"] .toggle-slider,
+html.light .toggle-slider,
+body.light .toggle-slider {
+    background-color: #94a3b8;
+}
+
+[data-theme="light"] .toggle-switch:has(input:checked) .toggle-slider,
+html.light .toggle-switch:has(input:checked) .toggle-slider,
+body.light .toggle-switch:has(input:checked) .toggle-slider {
+    background-color: white;
+}
+
+/* Sensitivity slider light mode */
+[data-theme="light"] .sensitivity-slider,
+html.light .sensitivity-slider,
+body.light .sensitivity-slider {
+    background-color: #cbd5e1;
+}
+
+[data-theme="light"] .sensitivity-slider::-webkit-slider-runnable-track,
+html.light .sensitivity-slider::-webkit-slider-runnable-track,
+body.light .sensitivity-slider::-webkit-slider-runnable-track {
+    background: #cbd5e1;
+}
+
+/* Divider light mode */
+[data-theme="light"] .divider,
+html.light .divider,
+body.light .divider {
+    border-top-color: #e2e8f0;
+}
+
+/* Empty state icon light mode */
+[data-theme="light"] .empty-state .material-symbols-outlined,
+html.light .empty-state .material-symbols-outlined,
+body.light .empty-state .material-symbols-outlined {
+    color: #94a3b8;
+}
+
+/* ============================================
+   ABOUT QR-SHIELD SECTION LIGHT MODE FIXES
+   ============================================ */
+[data-theme="light"] .about-card,
+html.light .about-card,
+body.light .about-card {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .about-header h4,
+html.light .about-header h4,
+body.light .about-header h4 {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .about-header p,
+[data-theme="light"] .about-info p,
+html.light .about-header p,
+html.light .about-info p,
+body.light .about-header p,
+body.light .about-info p {
+    color: #64748b !important;
+}
+
+[data-theme="light"] .about-icon,
+html.light .about-icon,
+body.light .about-icon {
+    background-color: #f1f5f9 !important;
+    border-color: #e2e8f0 !important;
+    color: #334155 !important;
+}
+
+[data-theme="light"] .about-icon .material-symbols-outlined,
+html.light .about-icon .material-symbols-outlined,
+body.light .about-icon .material-symbols-outlined {
+    color: #334155 !important;
+}
+
+[data-theme="light"] .about-link,
+html.light .about-link,
+body.light .about-link {
+    color: #334155 !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .about-link:hover,
+html.light .about-link:hover,
+body.light .about-link:hover {
+    background-color: #f1f5f9 !important;
+}
+
+[data-theme="light"] .reset-btn,
+html.light .reset-btn,
+body.light .reset-btn {
+    color: #dc2626 !important;
+}
+
+/* ============================================
+   TOGGLE SWITCH IMPROVED STYLING
+   ============================================ */
+/* Base toggle switch - OFF state */
+[data-theme="light"] .toggle-switch,
+html.light .toggle-switch,
+body.light .toggle-switch {
+    background-color: #cbd5e1 !important;
+    border: 1px solid #94a3b8;
+}
+
+/* Toggle switch - ON state */
+[data-theme="light"] .toggle-switch.on,
+[data-theme="light"] .toggle-switch:has(input:checked),
+html.light .toggle-switch.on,
+html.light .toggle-switch:has(input:checked),
+body.light .toggle-switch.on,
+body.light .toggle-switch:has(input:checked) {
+    background-color: #2563eb !important;
+    border-color: #2563eb !important;
+}
+
+/* Toggle slider knob - OFF state */
+[data-theme="light"] .toggle-slider,
+html.light .toggle-slider,
+body.light .toggle-slider {
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Toggle slider knob - ON state */
+[data-theme="light"] .toggle-switch:has(input:checked) .toggle-slider,
+html.light .toggle-switch:has(input:checked) .toggle-slider,
+body.light .toggle-switch:has(input:checked) .toggle-slider {
+    background-color: #ffffff !important;
+}
+
+/* Controls card in light mode */
+[data-theme="light"] .controls-card,
+html.light .controls-card,
+body.light .controls-card {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .controls-title,
+html.light .controls-title,
+body.light .controls-title {
+    color: #64748b !important;
+}
+
+[data-theme="light"] .toggle-label,
+html.light .toggle-label,
+body.light .toggle-label {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .toggle-description,
+html.light .toggle-description,
+body.light .toggle-description {
+    color: #64748b !important;
+}
+
 /* ==========================================================================
    BASE STYLES
    ========================================================================== */
@@ -1140,17 +1316,30 @@ html {
 }
 
 .toggle-slider {
-    position: absolute;
-    height: 1rem;
-    width: 1rem;
+    position: absolute !important;
+    height: 1.125rem !important;
+    width: 1.125rem !important;
     border-radius: 50%;
-    background-color: #94a3b8;
+    background-color: white;
     transition: all var(--transition-fast);
-    right: calc(100% - 1.25rem);
+    /* Explicit override of shared-ui inset:0 */
+    inset: auto !important;
+    top: 0.1875rem !important;
+    left: 0.1875rem !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-slider::before,
+.toggle-slider::after {
+    display: none !important;
+    content: none !important;
 }
 
 .toggle-switch:has(input:checked) .toggle-slider {
-    right: 0.25rem;
+    transform: translateX(1.25rem) !important;
     background-color: white;
 }
 
@@ -1164,8 +1353,8 @@ html {
    ========================================================================== */
 .about-card {
     border-radius: var(--radius-xl);
-    background: linear-gradient(to bottom, var(--surface-dark), #161a23);
-    border: 1px solid #1e293b;
+    background-color: var(--surface-dark);
+    border: 1px solid var(--surface-border, #1e293b);
     padding: var(--space-5);
     display: flex;
     flex-direction: column;

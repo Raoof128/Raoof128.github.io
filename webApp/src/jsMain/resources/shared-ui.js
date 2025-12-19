@@ -484,10 +484,10 @@
             });
         });
 
-        // View All button - navigate to dashboard notifications section
+        // View All button - navigate to Scan History (threat.html) which shows all notifications and scan history
         dropdown.querySelector('#viewAllNotifs').addEventListener('click', () => {
             hideNotificationDropdown();
-            window.location.href = 'dashboard.html';
+            window.location.href = 'threat.html';
         });
 
         // Close on outside click - faster
