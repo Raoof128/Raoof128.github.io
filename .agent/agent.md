@@ -4,6 +4,109 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-19 (UI/UX Debugging & Polishing Pass)
+
+### Summary
+Comprehensive UI/UX debugging and polishing pass focusing on stability, transitions, and user feedback clarity across the Allowlist section, transitions, and Live Scanner.
+
+### 🎨 Allowlist Section Enhancements
+
+**Problem:** Allowlist/Blocklist cards had plain styling compared to other sections.
+
+**Solution:** Enhanced list-card styling with decorative elements:
+
+| Enhancement | Before | After |
+|-------------|--------|-------|
+| Card hover | No effect | Lift + shadow + gradient border |
+| Add button | Plain icon | Styled with background, border |
+| Gradient accent | None | 3px gradient top border on hover |
+
+**CSS Added (`trust.css`):**
+```css
+.list-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), rgba(139, 92, 246, 0.6));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.list-card:hover::before {
+    opacity: 1;
+}
+```
+
+### 🌀 Transition & FOUC Fixes
+
+**Problem:** Raw CSS class names briefly appearing during transitions; icons showing as text.
+
+**Solution:** Improved FOUC prevention in `transitions.css`:
+
+| Fix | Implementation |
+|-----|----------------|
+| Initial state | `opacity: 0; visibility: hidden;` |
+| Fallback delay | Increased from 300ms to 400ms |
+| Animation | Added visibility to keyframes |
+| Override | Cancel animation when fonts confirmed loaded |
+
+### 📜 History Deduplication Fix
+
+**Problem:** Scanner "Recent Scans" list contained duplicate entries.
+
+**Solution:** Rewrote `addToHistory()` in `scanner.js`:
+- Check if URL already exists in history
+- Update existing entry instead of creating duplicate
+- Move updated entry to top of list
+- Prevents clutter in scan history
+
+### 🔔 Toast Duration Improvement
+
+**Problem:** Toast notifications disappeared too quickly (3s) to read.
+
+**Solution:**
+- Info messages: 5.5 seconds duration
+- Other messages: 4 seconds duration
+- Applied to both `trust.js` and `scanner.js`
+
+### 💡 Tooltip System
+
+**Problem:** No proper tooltip system for help icons.
+
+**Solution:** Added comprehensive CSS tooltip system to `shared-ui.css`:
+
+| Feature | Implementation |
+|---------|----------------|
+| Trigger | `.tooltip-trigger` with nested `.tooltip` |
+| Position | Above by default, optional `.tooltip-right` |
+| Persistence | Stays visible while hovering tooltip itself |
+| Accessibility | Focus and focus-within support |
+| Light mode | Full light mode styling support |
+
+### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `trust.css` | +100 lines: Enhanced list-card styling, light mode overrides |
+| `transitions.css` | +15 lines: Improved FOUC prevention |
+| `scanner.js` | Fixed history deduplication, toast duration |
+| `trust.js` | Improved toast duration |
+| `shared-ui.css` | +160 lines: Comprehensive tooltip system |
+
+### ✅ Testing Results
+
+Browser verification confirmed:
+- ✅ No FOUC - icons render correctly without text flash
+- ✅ Allowlist cards have enhanced hover effects
+- ✅ Add button has improved visual styling
+- ✅ Scanner page renders smoothly
+- ✅ Toast notifications display longer for readability
+
+---
+
 ## Session: 2025-12-19 (Comprehensive Theme System Fixes)
 
 ### Summary
