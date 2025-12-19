@@ -27,6 +27,30 @@ Updated all page transitions for a snappier, more premium feel:
 
 **Easing curves**: Changed from `ease-out` to `cubic-bezier(0.16, 1, 0.3, 1)` for snappier acceleration.
 
+### 🔧 Sidebar Footer Standardization
+
+Fixed inconsistent sidebar footer content across all 8 pages:
+
+| Page | Before | After |
+|------|--------|-------|
+| dashboard.html | User profile | ✅ User profile (consistent) |
+| scanner.html | User card | ✅ User profile |
+| game.html | User card | ✅ User profile |
+| trust.html | User profile (different markup) | ✅ User profile |
+| threat.html | Version card | ✅ User profile |
+| onboarding.html | Version badge | ✅ User profile |
+| export.html | Enterprise badge | ✅ User profile |
+| results.html | Version info | ✅ User profile |
+
+All pages now use consistent `user-profile` class with:
+- User avatar (initials)
+- User name + role
+- `expand_more` icon for dropdown trigger
+
+### ⬆️ Profile Dropdown Opens Upward
+
+Fixed dropdown positioning - when profile is at bottom of sidebar, dropdown now opens **upward** to stay within viewport.
+
 ### ✨ Functional UI Elements
 
 1. **User Profile System** (`shared-ui.js`):

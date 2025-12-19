@@ -133,12 +133,26 @@
             </div>
         `;
 
+
         document.body.appendChild(dropdown);
 
-        // Position the dropdown
+        // Position the dropdown - open upward if at bottom of screen
         const rect = anchorElement.getBoundingClientRect();
-        dropdown.style.top = `${rect.bottom + 8}px`;
-        dropdown.style.right = `${window.innerWidth - rect.right}px`;
+        const dropdownHeight = 320; // Approximate height of dropdown
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const spaceAbove = rect.top;
+
+        // If not enough space below, open upward
+        if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+            // Open upward
+            dropdown.style.bottom = `${window.innerHeight - rect.top + 8}px`;
+            dropdown.style.top = 'auto';
+        } else {
+            // Open downward (default)
+            dropdown.style.top = `${rect.bottom + 8}px`;
+            dropdown.style.bottom = 'auto';
+        }
+        dropdown.style.left = `${rect.left}px`;
 
         // Animate in
         requestAnimationFrame(() => {
