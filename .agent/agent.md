@@ -4,6 +4,81 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-19 (Scan History & Dashboard Fixes)
+
+### Summary
+Fixed scan history persistence, Clear All button styling, and dropdown notification issues.
+
+### 🔑 Unified History Storage Key
+
+**Problem:** Three different localStorage keys were being used for scan history across different files, causing data inconsistency and "fake data" display issues.
+
+**Solution:** Unified all history keys to `qrshield_scan_history`.
+
+| File | Old Key | New Key |
+|------|---------|---------|
+| `shared-ui.js` | `qrshield_scan_history` | ✅ (unchanged) |
+| `scanner.js` | `qrshield_scanner_history` | `qrshield_scan_history` ✅ |
+| `app.js` | `qrshield_history` | `qrshield_scan_history` ✅ |
+
+This ensures:
+- Scans persist when navigating between pages
+- Dashboard correctly displays scan history
+- Clear All button clears all history across the app
+
+### 🎨 Clear All Button CSS
+
+**Problem:** The "Clear All" button in the scan history section had no styling.
+
+**Solution:** Added `.btn-text` CSS class in `shared-ui.css`:
+
+```css
+.btn-text {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid #292e38;
+    color: #ef4444;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+}
+
+.btn-text:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+}
+```
+
+Also added `.history-section` styling for the container.
+
+### 🔔 Notification Dropdown on Dashboard
+
+**Problem:** Notification button on Dashboard page didn't open the notification dropdown.
+
+**Solution:** Updated `shared-ui.js` initialization to find notification buttons by multiple selectors:
+- `.notification-btn`
+- `#notificationBtn`
+- `.header-btn.notification`
+
+### 📍 Smart Dropdown Positioning (continued from previous session)
+
+**Added:** View All button in notification dropdown now navigates to Dashboard.
+
+**Added:** Settings gear button in Dashboard header now navigates to settings page.
+
+### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `scanner.js` | Changed `HISTORY_KEY` to `qrshield_scan_history` |
+| `app.js` | Changed `HISTORY_KEY` to `qrshield_scan_history` |
+| `shared-ui.css` | Added `.btn-text` and `.history-section` styles |
+| `shared-ui.js` | Updated notification button selector, added View All functionality |
+
+---
+
 ## Session: 2025-12-19 (Functional UI + Polish)
 
 ### Summary

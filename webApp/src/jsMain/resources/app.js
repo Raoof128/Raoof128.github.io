@@ -26,7 +26,8 @@ const canvas = canvasElement.getContext('2d');
 
 // Constants
 const THEME_KEY = 'qrshield_theme';
-const HISTORY_KEY = 'qrshield_history';
+// Use the same key as shared-ui.js for cross-page consistency
+const HISTORY_KEY = 'qrshield_scan_history';
 
 // ==========================================
 // Initialization

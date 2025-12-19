@@ -278,6 +278,29 @@ function renderUI() {
 
     const level = ThreatLevels[data.verdict] || ThreatLevels.HIGH;
 
+    // Update hero section color class
+    if (elements.threatHero) {
+        // Remove all state classes
+        elements.threatHero.classList.remove('safe', 'warning', 'caution', 'danger');
+
+        // Add appropriate class based on verdict
+        switch (data.verdict) {
+            case 'SAFE':
+                elements.threatHero.classList.add('safe');
+                break;
+            case 'MEDIUM':
+                elements.threatHero.classList.add('warning');
+                break;
+            case 'LOW':
+                elements.threatHero.classList.add('caution');
+                break;
+            case 'HIGH':
+            default:
+                // Default styling is danger (red), no class needed
+                break;
+        }
+    }
+
     // Update title
     if (elements.threatTitle) {
         elements.threatTitle.textContent = level.title;

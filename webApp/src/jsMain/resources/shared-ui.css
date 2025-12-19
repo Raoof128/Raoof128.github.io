@@ -905,6 +905,48 @@
     margin: 0;
 }
 
+/* History Section */
+.history-section {
+    background-color: #161b22;
+    border: 1px solid #292e38;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.history-section .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.history-section .section-header h3 {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+/* Text Button (Clear All, etc.) */
+.btn-text {
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid #292e38;
+    color: #ef4444;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+}
+
+.btn-text:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+}
+
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */

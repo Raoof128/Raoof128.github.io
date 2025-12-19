@@ -581,11 +581,13 @@ function analyzeUrlFromModal() {
 // HISTORY MANAGEMENT
 // =============================================================================
 
-const HISTORY_KEY = 'qrshield_scanner_history';
+// Scanner uses its own internal key for the sidebar display
+// QRShieldUI manages the main shared history for threat.html
+const SCANNER_HISTORY_KEY = 'qrshield_scanner_display';
 
 function loadHistory() {
     try {
-        const stored = localStorage.getItem(HISTORY_KEY);
+        const stored = localStorage.getItem(SCANNER_HISTORY_KEY);
         if (stored) {
             ScannerState.history = JSON.parse(stored);
             renderHistory();
@@ -597,7 +599,7 @@ function loadHistory() {
 
 function saveHistory() {
     try {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(ScannerState.history));
+        localStorage.setItem(SCANNER_HISTORY_KEY, JSON.stringify(ScannerState.history));
     } catch (e) {
         console.error('[Scanner] Failed to save history:', e);
     }

@@ -75,6 +75,27 @@ function initializeFromURL() {
             analysisTime: ResultsConfig.defaultAnalysisTime,
             factors: getFactorsForVerdict(ResultsState.verdict),
         };
+
+        // Save to QRShieldUI scan history if not already saved
+        // (Check if this URL was just added to avoid duplicates)
+        if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
+            const recentHistory = window.QRShieldUI.getScanHistory();
+            const justAdded = recentHistory.length > 0 &&
+                recentHistory[0].url === ResultsState.scannedUrl &&
+                (Date.now() - recentHistory[0].timestamp) < 5000; // Within 5 seconds
+
+            if (!justAdded) {
+                window.QRShieldUI.addScanToHistory({
+                    url: ResultsState.scannedUrl,
+                    verdict: ResultsState.verdict === 'MALICIOUS' ? 'HIGH' :
+                        ResultsState.verdict === 'SUSPICIOUS' ? 'MEDIUM' :
+                            ResultsState.verdict === 'SAFE' ? 'SAFE' : 'LOW',
+                    score: ResultsState.confidence || 0,
+                    signals: []
+                });
+                console.log('[Results] Saved scan to history:', ResultsState.scannedUrl);
+            }
+        }
     }
 }
 

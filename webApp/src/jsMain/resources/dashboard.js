@@ -243,12 +243,20 @@ function renderStats() {
 }
 
 /**
- * Render scan history table
+ * Render scan history table from QRShieldUI
  */
 function renderHistory() {
     if (!elements.recentScansBody) return;
 
-    const history = DashboardState.scanHistory.slice(0, 5); // Show max 5 recent
+    // Try to get history from QRShieldUI
+    let history = [];
+    if (window.QRShieldUI && window.QRShieldUI.getScanHistory) {
+        history = window.QRShieldUI.getScanHistory().slice(0, 5);
+    } else {
+        // Fallback: retry after QRShieldUI loads
+        setTimeout(renderHistory, 200);
+        return;
+    }
 
     if (history.length === 0) {
         elements.recentScansBody.innerHTML = `
@@ -261,25 +269,97 @@ function renderHistory() {
         return;
     }
 
-    elements.recentScansBody.innerHTML = history.map(scan => `
+    elements.recentScansBody.innerHTML = history.map(scan => {
+        const isSafe = scan.verdict === 'SAFE' || scan.verdict === 'LOW';
+        const isWarning = scan.verdict === 'MEDIUM';
+        const isDanger = scan.verdict === 'HIGH';
+
+        // Determine status badge class and text
+        let badgeClass = 'safe';
+        let badgeText = 'SAFE';
+        let badgeIcon = 'check_circle';
+
+        if (isDanger) {
+            badgeClass = 'danger';
+            badgeText = 'PHISH';
+            badgeIcon = 'warning';
+        } else if (isWarning) {
+            badgeClass = 'warning';
+            badgeText = 'WARN';
+            badgeIcon = 'warning';
+        }
+
+        // Format time
+        const timeStr = formatHistoryTime(scan.timestamp);
+
+        // Get domain from URL for favicon
+        let domain = '';
+        try {
+            const urlObj = new URL(scan.url);
+            domain = urlObj.hostname;
+        } catch {
+            domain = scan.url.split('/')[0];
+        }
+
+        // Generate details from score and signals
+        let details = '';
+        if (scan.score !== undefined) {
+            details = `Score: ${scan.score}%`;
+        }
+        if (scan.signals && scan.signals.length > 0) {
+            details = scan.signals.slice(0, 2).join(', ');
+        }
+
+        return `
         <tr>
             <td>
-                <span class="status-badge ${scan.status === 'safe' ? 'safe' : 'danger'}">
-                    <span class="material-symbols-outlined">${scan.status === 'safe' ? 'check_circle' : 'warning'}</span>
-                    ${scan.status === 'safe' ? 'SAFE' : 'PHISH'}
+                <span class="status-badge ${badgeClass}">
+                    <span class="material-symbols-outlined">${badgeIcon}</span>
+                    ${badgeText}
                 </span>
             </td>
             <td class="source-cell">
-                ${scan.favicon
-            ? `<img src="${scan.favicon}" alt="" class="favicon"/>`
-            : `<span class="favicon-placeholder">?</span>`
-        }
-                ${escapeHtml(scan.url)}
+                <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" alt="" class="favicon" onerror="this.style.display='none'"/>
+                ${escapeHtml(truncateUrl(scan.url, 40))}
             </td>
-            <td class="hide-mobile details-cell">${escapeHtml(scan.details)}</td>
-            <td class="time-cell">${scan.time}</td>
+            <td class="hide-mobile details-cell">${escapeHtml(details)}</td>
+            <td class="time-cell">${timeStr}</td>
         </tr>
-    `).join('');
+    `;
+    }).join('');
+}
+
+/**
+ * Format timestamp for history display
+ */
+function formatHistoryTime(timestamp) {
+    if (!timestamp) return '';
+    const date = new Date(timestamp);
+    const now = new Date();
+
+    // Check if today
+    if (date.toDateString() === now.toDateString()) {
+        return date.toLocaleTimeString('en-AU', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+
+    // Otherwise show date
+    return date.toLocaleDateString('en-AU', {
+        month: 'short',
+        day: 'numeric'
+    });
+}
+
+/**
+ * Truncate URL for display
+ */
+function truncateUrl(url, maxLen) {
+    if (!url) return '';
+    if (url.length <= maxLen) return url;
+    return url.substring(0, maxLen - 3) + '...';
 }
 
 // =============================================================================
@@ -355,6 +435,19 @@ function setupKotlinBridge() {
         if (elements.analyzeBtn) {
             elements.analyzeBtn.classList.remove('loading');
             elements.analyzeBtn.innerHTML = '<span class="material-symbols-outlined">security</span> Analyze';
+        }
+
+        // Save to QRShieldUI scan history
+        if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
+            window.QRShieldUI.addScanToHistory({
+                url: url,
+                verdict: verdict === 'MALICIOUS' ? 'HIGH' :
+                    verdict === 'SUSPICIOUS' ? 'MEDIUM' :
+                        verdict === 'SAFE' ? 'SAFE' : 'LOW',
+                score: score || 0,
+                signals: flags || []
+            });
+            console.log('[Dashboard] Saved scan to history:', url, verdict);
         }
 
         // Navigate to results page with data (using relative path for file:// compatibility)
