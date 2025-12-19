@@ -4,6 +4,112 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-19 (Decorative Functions → Real Implementations)
+
+### Summary
+Replaced all decorative/placeholder functions in trust.js and onboarding.js with production-ready real implementations that provide actual functionality.
+
+### 🔧 Data Structure Change
+
+**Before:** Allowlist/Blocklist stored as simple string arrays
+```javascript
+allowlist: ['internal-corp.net', 'localhost']
+```
+
+**After:** Objects with domain and timestamp
+```javascript
+allowlist: [
+    { domain: 'internal-corp.net', addedAt: 1734567890123 },
+    { domain: 'localhost', addedAt: 1734567890123 }
+]
+```
+
+### 📅 Real Date Formatting
+
+**Removed:** `getRandomDate()` - returned fake random dates
+```javascript
+// OLD - Decorative
+function getRandomDate() {
+    const options = ['2 days ago', '1 week ago', '3 weeks ago', '1 month ago'];
+    return options[Math.floor(Math.random() * options.length)];
+}
+```
+
+**Added:** `formatAddedDate(timestamp)` - real relative date formatting
+```javascript
+// NEW - Real implementation
+function formatAddedDate(timestamp) {
+    const now = Date.now();
+    const diff = now - timestamp;
+    const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+    
+    if (days < 1) return 'just now';
+    if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
+    // ... full implementation
+}
+```
+
+### 📊 Security Audit Report
+
+**Before:** Placeholder button
+```javascript
+showToast('Security audit report coming soon', 'info');
+```
+
+**After:** Full JSON report generation and download
+- Includes detection settings
+- Privacy controls
+- Allowlist/Blocklist with timestamps
+- Scan statistics from localStorage
+- System info (user agent, platform, etc.)
+
+### 🔄 Data Migration
+
+Added automatic migration from old string format to new object format:
+```javascript
+// Migrate old string format to new object format
+TrustState.allowlist = parsed.map(item => {
+    if (typeof item === 'string') {
+        return { domain: item, addedAt: Date.now() };
+    }
+    return item;
+});
+```
+
+### 👤 Profile Button
+
+**Before:** Placeholder in onboarding.js
+```javascript
+showToast('Profile settings coming soon', 'info');
+```
+
+**After:** Real navigation
+```javascript
+if (window.QRShieldUI && window.QRShieldUI.showProfileDropdown) {
+    window.QRShieldUI.showProfileDropdown();
+} else {
+    window.location.href = 'trust.html';
+}
+```
+
+### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `trust.js` | +155 lines: Data structure, formatAddedDate, generateSecurityAudit |
+| `onboarding.js` | +6 lines: Real profile navigation |
+
+### ✅ Testing Results
+
+Browser verification confirmed:
+- ✅ Domains show real relative timestamps ("just now", "2 days ago")
+- ✅ Timestamps persist across page reloads
+- ✅ Security Audit generates downloadable JSON report
+- ✅ Profile button navigates to Trust Centre
+- ✅ Data migration works for legacy localStorage data
+
+---
+
 ## Session: 2025-12-19 (UI/UX Debugging & Polishing Pass)
 
 ### Summary
