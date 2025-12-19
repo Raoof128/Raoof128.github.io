@@ -4,6 +4,119 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📋 December 19-20, 2025 - Consolidated Improvements Summary
+
+This section provides a quick overview of ALL improvements made during the December 19-20 development sessions.
+
+## 🎯 High-Level Summary
+
+| Category | Key Improvements | Status |
+|----------|-----------------|--------|
+| **Git Cleanup** | Added `WebaPP_Light/` and `webApp.js` to `.gitignore` | ✅ Complete |
+| **Theme System** | Fixed light mode across all 7 pages with element-specific overrides | ✅ Complete |
+| **UI/UX Polish** | Enhanced Allowlist cards, fixed FOUC, improved transitions | ✅ Complete |
+| **Toast Notifications** | Increased duration (5.5s info / 4s others) for readability | ✅ Complete |
+| **History Deduplication** | Scanner no longer creates duplicate scan entries | ✅ Complete |
+| **Tooltip System** | Added CSS-based accessible tooltip system | ✅ Complete |
+| **Real Timestamps** | Replaced fake random dates with real relative timestamps | ✅ Complete |
+| **Security Audit** | Made button functional - downloads JSON report | ✅ Complete |
+| **Data Migration** | Auto-migrate legacy localStorage format | ✅ Complete |
+
+## 📁 Files Modified Summary
+
+### CSS Files
+| File | Lines Added | Key Changes |
+|------|-------------|-------------|
+| `dashboard.css` | +100 | Light mode overrides for hero, cards, tables |
+| `scanner.css` | +90 | Light mode overrides for viewport, status cards |
+| `threat.css` | +70 | Light mode overrides for hero, history section |
+| `trust.css` | +144 | Light mode + enhanced list-card styling |
+| `game.css` | +40 | Light mode variable overrides |
+| `onboarding.css` | +46 | Light mode variable overrides |
+| `results.css` | +45 | Light mode variable overrides |
+| `shared-ui.css` | +160 | Comprehensive tooltip system |
+| `transitions.css` | +15 | Improved FOUC prevention |
+
+### JavaScript Files
+| File | Lines Added | Key Changes |
+|------|-------------|-------------|
+| `trust.js` | +185 | Real timestamps, security audit, data structure upgrade |
+| `scanner.js` | +25 | History deduplication, toast duration |
+| `onboarding.js` | +6 | Real profile navigation |
+
+### Config Files
+| File | Changes |
+|------|---------|
+| `.gitignore` | Added `WebaPP_Light/` and `webApp.js` |
+
+## 🔧 Technical Highlights
+
+### 1. Data Structure Upgrade
+```javascript
+// Before: Simple strings
+allowlist: ['example.com', 'localhost']
+
+// After: Objects with timestamps
+allowlist: [
+    { domain: 'example.com', addedAt: 1734567890123 },
+    { domain: 'localhost', addedAt: 1734567890123 }
+]
+```
+
+### 2. FOUC Prevention
+```css
+/* Icons hidden until fonts load */
+.material-symbols-outlined {
+    opacity: 0;
+    visibility: hidden;
+}
+body.fonts-loaded .material-symbols-outlined {
+    opacity: 1;
+    visibility: visible;
+}
+```
+
+### 3. Security Audit Export
+- Generates JSON report with all settings
+- Includes: detection level, privacy settings, allowlist/blocklist, scan stats
+- Downloads as: `qrshield-security-audit-YYYY-MM-DD.json`
+
+### 4. Tooltip System
+```html
+<!-- Usage -->
+<div class="tooltip-trigger">
+    <span class="help-icon">?</span>
+    <div class="tooltip">
+        <span class="tooltip-title">Help</span>
+        This is helpful information
+    </div>
+</div>
+```
+
+## 📊 Git Commits (Chronological)
+
+1. `24659ba` - **chore:** Add WebaPP_Light and webApp.js to gitignore
+2. `334aebc` - **fix:** UI/UX debugging and polishing pass
+3. `0e16dd8` - **docs:** Add UI/UX debugging session notes
+4. `c227bf6` - **refactor:** Replace decorative functions with real implementations
+5. `02e03ea` - **docs:** Add decorative functions refactor session notes
+
+## ✅ Quality Assurance
+
+All changes verified via browser testing:
+- ✅ Light/dark mode switches correctly on all pages
+- ✅ No FOUC (flash of unstyled content)
+- ✅ Tooltips accessible via hover and keyboard
+- ✅ Toast notifications readable (5.5s duration)
+- ✅ No duplicate history entries
+- ✅ Real timestamps persist across page reloads
+- ✅ Security Audit downloads complete JSON report
+- ✅ Git repository clean - no untracked build artifacts
+
+---
+
+# 📝 Detailed Session Notes
+
 ## Session: 2025-12-19 (Decorative Functions → Real Implementations)
 
 ### Summary
