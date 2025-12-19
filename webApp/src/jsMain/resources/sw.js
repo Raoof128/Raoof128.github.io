@@ -3,7 +3,7 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v2.1.0';
+const CACHE_NAME = 'qr-shield-v2.2.0';
 const STATIC_ASSETS = [
     './',
     './index.html',
@@ -33,6 +33,8 @@ const STATIC_ASSETS = [
     './game.js',
     './transitions.css',
     './transitions.js',
+    './shared-ui.css',
+    './shared-ui.js',
     './styles.css',
     './app.js',
     './webApp.js',
