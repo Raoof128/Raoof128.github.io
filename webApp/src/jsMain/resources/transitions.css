@@ -1,12 +1,12 @@
 /*
  * QR-SHIELD Page Transitions
- * Smooth fade and slide animations for professional page navigation
+ * Ultra-smooth, fast animations for premium page navigation
  * 
  * Include this file in all HTML pages for consistent transitions
  */
 
 /* ==========================================================================
-   PAGE ENTRANCE ANIMATIONS
+   PAGE ENTRANCE ANIMATIONS (Faster & Smoother)
    ========================================================================== */
 
 /* Fade-in animation for page load */
@@ -20,11 +20,11 @@
     }
 }
 
-/* Slide-up and fade animation */
+/* Slide-up and fade animation - faster with subtle movement */
 @keyframes slideUpFade {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(12px);
     }
 
     to {
@@ -37,7 +37,7 @@
 @keyframes scaleIn {
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: scale(0.97);
     }
 
     to {
@@ -46,11 +46,11 @@
     }
 }
 
-/* Blur-in effect */
+/* Blur-in effect - faster */
 @keyframes blurIn {
     from {
         opacity: 0;
-        filter: blur(10px);
+        filter: blur(4px);
     }
 
     to {
@@ -60,26 +60,26 @@
 }
 
 /* ==========================================================================
-   PAGE-LEVEL TRANSITIONS
+   PAGE-LEVEL TRANSITIONS (Snappy & Fast)
    ========================================================================== */
 
-/* Apply fade-in to the entire page body */
+/* Apply fast fade-in to the entire page body */
 body {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.15s ease-out;
 }
 
-/* Main content area entrance */
+/* Main content area entrance - snappy */
 .main-content {
-    animation: slideUpFade 0.4s ease-out;
-    animation-delay: 0.1s;
+    animation: slideUpFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    animation-delay: 0.05s;
     animation-fill-mode: backwards;
 }
 
-/* Sidebar entrance (slide from left) */
+/* Sidebar entrance (slide from left) - fast */
 @keyframes slideInLeft {
     from {
         opacity: 0;
-        transform: translateX(-20px);
+        transform: translateX(-10px);
     }
 
     to {
@@ -89,14 +89,14 @@ body {
 }
 
 .sidebar {
-    animation: slideInLeft 0.3s ease-out;
+    animation: slideInLeft 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================
-   STAGGERED CONTENT ANIMATIONS
+   STAGGERED CONTENT ANIMATIONS (Quick stagger)
    ========================================================================== */
 
-/* Cards and sections appear with stagger */
+/* Cards and sections appear with fast stagger */
 .hero-card,
 .threat-hero,
 .privacy-hero,
@@ -107,90 +107,92 @@ body {
 .controls-card,
 .format-section,
 .preview-column {
-    animation: slideUpFade 0.5s ease-out;
+    animation: slideUpFade 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     animation-fill-mode: backwards;
 }
 
-/* Stagger delays for sequential appearance */
+/* Stagger delays - quick succession */
 .hero-card {
-    animation-delay: 0.15s;
+    animation-delay: 0.08s;
 }
 
 .threat-hero {
-    animation-delay: 0.15s;
+    animation-delay: 0.08s;
 }
 
 .privacy-hero {
-    animation-delay: 0.15s;
+    animation-delay: 0.08s;
 }
 
+/* Nav links - very fast stagger */
 .sidebar-nav .nav-link {
-    animation: slideUpFade 0.3s ease-out;
+    animation: slideUpFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     animation-fill-mode: backwards;
 }
 
 .sidebar-nav .nav-link:nth-child(1) {
-    animation-delay: 0.05s;
+    animation-delay: 0.02s;
 }
 
 .sidebar-nav .nav-link:nth-child(2) {
-    animation-delay: 0.08s;
+    animation-delay: 0.04s;
 }
 
 .sidebar-nav .nav-link:nth-child(3) {
-    animation-delay: 0.11s;
+    animation-delay: 0.06s;
 }
 
 .sidebar-nav .nav-link:nth-child(4) {
-    animation-delay: 0.14s;
+    animation-delay: 0.08s;
 }
 
 .sidebar-nav .nav-link:nth-child(5) {
-    animation-delay: 0.17s;
+    animation-delay: 0.10s;
 }
 
 .sidebar-nav .nav-link:nth-child(6) {
-    animation-delay: 0.20s;
+    animation-delay: 0.12s;
 }
 
 .sidebar-nav .nav-link:nth-child(7) {
-    animation-delay: 0.23s;
+    animation-delay: 0.14s;
 }
 
 .sidebar-nav .nav-link:nth-child(8) {
-    animation-delay: 0.26s;
+    animation-delay: 0.16s;
 }
 
 .sidebar-nav .nav-link:nth-child(9) {
-    animation-delay: 0.29s;
+    animation-delay: 0.18s;
 }
 
 .sidebar-nav .nav-link:nth-child(10) {
-    animation-delay: 0.32s;
+    animation-delay: 0.20s;
 }
 
 /* ==========================================================================
-   NAVIGATION LINK TRANSITIONS (Enhanced)
+   NAVIGATION LINK TRANSITIONS (Ultra-snappy)
    ========================================================================== */
 
 .nav-link {
     transition:
-        background-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease;
+        background-color 0.12s ease,
+        color 0.12s ease,
+        transform 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.12s ease;
 }
 
 .nav-link:hover {
-    transform: translateX(4px);
+    transform: translateX(3px);
 }
 
 .nav-link:active {
-    transform: translateX(2px) scale(0.98);
+    transform: translateX(1px) scale(0.98);
+    transition-duration: 0.05s;
 }
 
 /* ==========================================================================
-   BUTTON TRANSITIONS (Premium feel)
+   BUTTON TRANSITIONS (Instant feedback)
    ========================================================================== */
 
 button,
@@ -201,10 +203,10 @@ button,
 .btn-scan-new,
 .decision-btn {
     transition:
-        background-color 0.2s ease,
-        transform 0.15s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
+        background-color 0.1s ease,
+        transform 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.12s ease,
+        border-color 0.1s ease;
 }
 
 button:hover,
@@ -212,7 +214,7 @@ button:hover,
 .btn-secondary:hover,
 .btn-export:hover,
 .btn-scan-new:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
 button:active,
@@ -221,10 +223,11 @@ button:active,
 .btn-export:active,
 .btn-scan-new:active {
     transform: translateY(0) scale(0.98);
+    transition-duration: 0.03s;
 }
 
 /* ==========================================================================
-   CARD HOVER TRANSITIONS
+   CARD HOVER TRANSITIONS (Responsive & quick)
    ========================================================================== */
 
 .feature-card,
@@ -239,21 +242,21 @@ button:active,
 .hint-card,
 .format-card {
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease,
-        border-color 0.25s ease;
+        transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.15s ease,
+        border-color 0.15s ease;
 }
 
 .feature-card:hover,
 .attack-card:hover,
 .list-card:hover,
 .format-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 
 /* ==========================================================================
-   PAGE EXIT ANIMATION (for JS-based transitions)
+   PAGE EXIT ANIMATION (Instant feel)
    ========================================================================== */
 
 @keyframes fadeOut {
@@ -274,13 +277,13 @@ button:active,
 
     to {
         opacity: 0;
-        transform: translateY(-10px);
+        transform: translateY(-6px);
     }
 }
 
-/* Class to apply when navigating away */
+/* Class to apply when navigating away - very fast */
 body.page-exit {
-    animation: fadeOut 0.2s ease-in forwards;
+    animation: fadeOut 0.1s ease-in forwards;
     pointer-events: none;
 }
 
@@ -304,23 +307,23 @@ body.page-exit {
             rgba(255, 255, 255, 0.08) 50%,
             rgba(255, 255, 255, 0.02) 100%);
     background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 1.2s infinite;
     border-radius: 4px;
 }
 
 /* ==========================================================================
-   TOAST NOTIFICATION ANIMATIONS
+   TOAST NOTIFICATION ANIMATIONS (Snappy spring)
    ========================================================================== */
 
 .toast {
     transition:
-        transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55),
-        opacity 0.3s ease;
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.15s ease;
 }
 
 .toast.hidden {
     opacity: 0;
-    transform: translateY(20px) scale(0.9);
+    transform: translateY(12px) scale(0.95);
     pointer-events: none;
 }
 
@@ -330,13 +333,13 @@ body.page-exit {
 }
 
 /* ==========================================================================
-   MODAL ANIMATIONS
+   MODAL ANIMATIONS (Fast & smooth)
    ========================================================================== */
 
 .modal-overlay {
     transition:
-        opacity 0.25s ease,
-        backdrop-filter 0.25s ease;
+        opacity 0.15s ease,
+        backdrop-filter 0.15s ease;
 }
 
 .modal-overlay.hidden {
@@ -350,18 +353,43 @@ body.page-exit {
 
 .modal-content {
     transition:
-        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-        opacity 0.25s ease;
+        transform 0.2s cubic-bezier(0.34, 1.3, 0.64, 1),
+        opacity 0.15s ease;
 }
 
 .modal-overlay.hidden .modal-content {
-    transform: scale(0.9) translateY(20px);
+    transform: scale(0.95) translateY(12px);
     opacity: 0;
 }
 
 .modal-overlay:not(.hidden) .modal-content {
     transform: scale(1) translateY(0);
     opacity: 1;
+}
+
+/* ==========================================================================
+   DROPDOWN & POPUP ANIMATIONS
+   ========================================================================== */
+
+.profile-dropdown,
+.notification-dropdown {
+    transition:
+        opacity 0.12s ease,
+        transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shared-modal-overlay {
+    transition: opacity 0.12s ease;
+}
+
+.shared-modal {
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shared-toast {
+    transition:
+        transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 0.12s ease;
 }
 
 /* ==========================================================================

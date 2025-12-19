@@ -6,8 +6,8 @@
 (function () {
     'use strict';
 
-    // Configuration
-    const TRANSITION_DURATION = 200; // ms to wait before navigating
+    // Configuration - Fast transitions
+    const TRANSITION_DURATION = 100; // ms - ultra-fast for snappy feel
     const EXCLUDED_LINKS = ['#', 'javascript:', 'mailto:', 'tel:'];
 
     /**

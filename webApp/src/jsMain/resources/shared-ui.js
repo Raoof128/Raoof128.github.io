@@ -161,17 +161,17 @@
             window.location.href = 'onboarding.html';
         });
 
-        // Close on outside click
+        // Close on outside click - faster
         setTimeout(() => {
             document.addEventListener('click', handleOutsideClick);
-        }, 100);
+        }, 50);
     }
 
     function hideProfileDropdown() {
         const existing = document.getElementById('profileDropdown');
         if (existing) {
             existing.classList.remove('visible');
-            setTimeout(() => existing.remove(), 200);
+            setTimeout(() => existing.remove(), 150);
         }
         document.removeEventListener('click', handleOutsideClick);
     }
@@ -274,7 +274,7 @@
 
     function closeModal(modal) {
         modal.classList.remove('visible');
-        setTimeout(() => modal.remove(), 200);
+        setTimeout(() => modal.remove(), 150);
     }
 
     // ==========================================================================
@@ -432,17 +432,17 @@
             });
         });
 
-        // Close on outside click
+        // Close on outside click - faster
         setTimeout(() => {
             document.addEventListener('click', handleNotifOutsideClick);
-        }, 100);
+        }, 50);
     }
 
     function hideNotificationDropdown() {
         const existing = document.getElementById('notificationDropdown');
         if (existing) {
             existing.classList.remove('visible');
-            setTimeout(() => existing.remove(), 200);
+            setTimeout(() => existing.remove(), 150);
         }
         document.removeEventListener('click', handleNotifOutsideClick);
     }
@@ -580,8 +580,8 @@
 
         setTimeout(() => {
             toast.classList.remove('visible');
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
+            setTimeout(() => toast.remove(), 150);
+        }, 2500);
     }
 
     // ==========================================================================
