@@ -258,6 +258,7 @@ function renderHistory() {
         return;
     }
 
+
     if (history.length === 0) {
         elements.recentScansBody.innerHTML = `
             <tr>
@@ -310,8 +311,13 @@ function renderHistory() {
             details = scan.signals.slice(0, 2).join(', ');
         }
 
+        // Map verdict to results.html format
+        let resultVerdict = 'SAFE';
+        if (isDanger) resultVerdict = 'MALICIOUS';
+        else if (isWarning) resultVerdict = 'SUSPICIOUS';
+
         return `
-        <tr>
+        <tr class="clickable-row" data-scan-url="${encodeURIComponent(scan.url)}" data-scan-verdict="${resultVerdict}" data-scan-score="${scan.score || 50}">
             <td>
                 <span class="status-badge ${badgeClass}">
                     <span class="material-symbols-outlined">${badgeIcon}</span>
@@ -327,6 +333,16 @@ function renderHistory() {
         </tr>
     `;
     }).join('');
+
+    // Add click handlers to navigate to results.html
+    elements.recentScansBody.querySelectorAll('.clickable-row').forEach(row => {
+        row.addEventListener('click', () => {
+            const url = row.dataset.scanUrl;
+            const verdict = row.dataset.scanVerdict;
+            const score = row.dataset.scanScore;
+            window.location.href = `results.html?url=${url}&verdict=${verdict}&score=${score}`;
+        });
+    });
 }
 
 /**

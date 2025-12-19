@@ -471,20 +471,31 @@ function viewScanDetails(scanId) {
     const scan = window.QRShieldUI.getScanById(scanId);
     if (!scan) return;
 
-    // Update the current threat display with this scan
-    ThreatState.threatData = {
-        ...scan,
-        attacks: getDemoAttacks() // Use demo attacks for now
-    };
-
-    // Re-render UI with selected scan
-    renderUI();
-
-    // Scroll to threat hero
-    const heroEl = document.getElementById('threatHero');
-    if (heroEl) {
-        heroEl.scrollIntoView({ behavior: 'smooth' });
+    // Map verdict to results.html format
+    let resultVerdict = 'UNKNOWN';
+    switch (scan.verdict) {
+        case 'SAFE':
+            resultVerdict = 'SAFE';
+            break;
+        case 'LOW':
+            resultVerdict = 'SAFE';
+            break;
+        case 'MEDIUM':
+            resultVerdict = 'SUSPICIOUS';
+            break;
+        case 'HIGH':
+            resultVerdict = 'MALICIOUS';
+            break;
     }
+
+    // Navigate to results.html with scan details
+    const params = new URLSearchParams({
+        url: scan.url,
+        verdict: resultVerdict,
+        score: scan.score || 50
+    });
+
+    window.location.href = `results.html?${params.toString()}`;
 }
 
 // =============================================================================

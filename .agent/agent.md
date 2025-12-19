@@ -4,6 +4,95 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## Session: 2025-12-19 (Comprehensive Scan History & Navigation Fixes)
+
+### Summary
+Fixed multiple issues with scan history persistence, dynamic theming, and navigation across the web application.
+
+### 🎨 Dynamic Threat Hero Colors
+
+**Problem:** The threat hero section on `threat.html` always displayed red/danger styling regardless of the actual threat level.
+
+**Solution:** Added CSS modifiers and updated JavaScript to dynamically change colors:
+
+| Verdict | Color | CSS Class |
+|---------|-------|-----------|
+| HIGH (Dangerous) | 🔴 Red | Default (no class) |
+| MEDIUM (Warning) | 🟡 Yellow/Amber | `.threat-hero.warning` |
+| LOW (Caution) | 🔵 Blue | `.threat-hero.caution` |
+| SAFE | 🟢 Green | `.threat-hero.safe` |
+
+**Files Modified:**
+- `threat.css` - Added 100+ lines of CSS for warning/safe/caution states
+- `threat.js` - Updated `renderUI()` to apply correct class based on verdict
+
+### 💾 Results.html Now Saves to History
+
+**Problem:** Scans viewed on `results.html` were not being saved to the shared scan history.
+
+**Solution:** Added `QRShieldUI.addScanToHistory()` call in `initializeFromURL()` with duplicate detection (5-second window).
+
+**Files Modified:**
+- `results.js` - Added history saving logic with deduplication
+
+### 📊 Dashboard "Recent Scans" Fixed
+
+**Problem:** Dashboard's Recent Scans table showed incorrect data:
+- All entries showed "PHISH" regardless of actual verdict
+- Times displayed as "undefined"
+- Wrong favicon icons
+
+**Solution:** Rewrote `renderHistory()` to read from `QRShieldUI.getScanHistory()`:
+
+| Before | After |
+|--------|-------|
+| Hardcoded demo data | Live QRShieldUI data |
+| "PHISH" for all | SAFE/WARN/PHISH based on verdict |
+| "undefined" times | Formatted times (e.g., "04:13 pm") |
+| "?" placeholders | Google Favicons API |
+
+**Files Modified:**
+- `dashboard.js` - Rewrote `renderHistory()`, added `formatHistoryTime()` and `truncateUrl()`
+- `dashboard.css` - Added `.status-badge.warning` class
+
+### 🔗 Clickable History Items → Results Page
+
+**Problem:** Clicking scan history items didn't navigate anywhere useful.
+
+**Solution:** Made history items clickable to navigate to `results.html`:
+
+| Location | Click Action |
+|----------|--------------|
+| Scan History (threat.html) | → Opens `results.html` with URL, verdict, score |
+| Dashboard Recent Scans | → Opens `results.html` with URL, verdict, score |
+
+**Implementation:**
+- `threat.js` - Updated `viewScanDetails()` to navigate instead of updating in-place
+- `dashboard.js` - Added `data-*` attributes and click handlers to table rows
+- `dashboard.css` - Added `.clickable-row` styling with hover effects
+
+### 📁 Files Modified Summary
+
+| File | Changes |
+|------|---------|
+| `threat.css` | +100 lines: warning/safe/caution hero states |
+| `threat.js` | Updated `renderUI()` color logic, `viewScanDetails()` navigation |
+| `results.js` | Added scan history saving with deduplication |
+| `dashboard.js` | Rewrote history rendering, added click navigation |
+| `dashboard.css` | Added warning badge, clickable row styles |
+
+### ✅ All Issues Resolved
+
+| Issue | Status |
+|-------|--------|
+| Hero section always red | ✅ Dynamic colors based on verdict |
+| Results.html not saving | ✅ Saves to QRShieldUI history |
+| Dashboard wrong data | ✅ Reads from live history |
+| Undefined times | ✅ Properly formatted |
+| History items not clickable | ✅ Navigate to results.html |
+
+---
+
 ## Session: 2025-12-19 (Scan History & Dashboard Fixes)
 
 ### Summary

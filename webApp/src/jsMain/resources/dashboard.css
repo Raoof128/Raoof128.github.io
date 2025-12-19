@@ -1071,6 +1071,14 @@ html {
     background-color: rgba(46, 53, 56, 0.3);
 }
 
+.scans-table tbody tr.clickable-row {
+    cursor: pointer;
+}
+
+.scans-table tbody tr.clickable-row:hover {
+    background-color: rgba(25, 93, 230, 0.15);
+}
+
 .status-badge {
     display: inline-flex;
     align-items: center;
