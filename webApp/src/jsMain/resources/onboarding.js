@@ -322,10 +322,16 @@ function showHelp() {
 }
 
 /**
- * Show profile
+ * Show profile - opens the user profile dropdown or navigates to settings
  */
 function showProfile() {
-    showToast('Profile settings coming soon', 'info');
+    // If QRShieldUI's profile dropdown is available, use it
+    if (window.QRShieldUI && window.QRShieldUI.showProfileDropdown) {
+        window.QRShieldUI.showProfileDropdown();
+    } else {
+        // Navigate to Trust Centre for settings management
+        window.location.href = 'trust.html';
+    }
 }
 
 // =============================================================================

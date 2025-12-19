@@ -30,7 +30,11 @@ const TrustState = {
         anonymousTelemetry: false,
         autoCopySafeLinks: true,
     },
-    allowlist: ['internal-corp.net', 'localhost'],
+    // Allowlist/Blocklist now store objects with domain and addedAt timestamp
+    allowlist: [
+        { domain: 'internal-corp.net', addedAt: Date.now() - 2 * 24 * 60 * 60 * 1000 },
+        { domain: 'localhost', addedAt: Date.now() - 7 * 24 * 60 * 60 * 1000 }
+    ],
     blocklist: [],
     modalTarget: null, // 'allowlist' or 'blocklist'
     isSidebarOpen: false,
@@ -194,10 +198,8 @@ function setupEventListeners() {
         showToast(e.target.checked ? 'Auto-Copy Safe Links enabled' : 'Auto-Copy Safe Links disabled', 'success');
     });
 
-    // Audit button
-    elements.auditBtn?.addEventListener('click', () => {
-        showToast('Security audit report coming soon', 'info');
-    });
+    // Audit button - generates and downloads security audit report
+    elements.auditBtn?.addEventListener('click', generateSecurityAudit);
 
     // Reset button
     elements.resetBtn?.addEventListener('click', resetSettings);
@@ -226,16 +228,30 @@ function loadSettings() {
             TrustState.settings = { ...TrustState.settings, ...parsed.settings };
         }
 
-        // Load allowlist
+        // Load allowlist (handle both old string format and new object format)
         const allowlist = localStorage.getItem(TrustConfig.allowlistKey);
         if (allowlist) {
-            TrustState.allowlist = JSON.parse(allowlist);
+            const parsed = JSON.parse(allowlist);
+            // Migrate old string format to new object format
+            TrustState.allowlist = parsed.map(item => {
+                if (typeof item === 'string') {
+                    return { domain: item, addedAt: Date.now() };
+                }
+                return item;
+            });
         }
 
-        // Load blocklist
+        // Load blocklist (handle both old string format and new object format)
         const blocklist = localStorage.getItem(TrustConfig.blocklistKey);
         if (blocklist) {
-            TrustState.blocklist = JSON.parse(blocklist);
+            const parsed = JSON.parse(blocklist);
+            // Migrate old string format to new object format
+            TrustState.blocklist = parsed.map(item => {
+                if (typeof item === 'string') {
+                    return { domain: item, addedAt: Date.now() };
+                }
+                return item;
+            });
         }
     } catch (e) {
         console.error('[Trust Centre] Failed to load settings:', e);
@@ -272,7 +288,10 @@ function resetSettings() {
         anonymousTelemetry: false,
         autoCopySafeLinks: true,
     };
-    TrustState.allowlist = ['internal-corp.net', 'localhost'];
+    TrustState.allowlist = [
+        { domain: 'internal-corp.net', addedAt: Date.now() },
+        { domain: 'localhost', addedAt: Date.now() }
+    ];
     TrustState.blocklist = [];
 
     saveSettings();
@@ -354,11 +373,11 @@ function renderAllowlist() {
         elements.allowlistContent.classList.add('empty');
     } else {
         elements.allowlistContent.classList.remove('empty');
-        elements.allowlistContent.innerHTML = TrustState.allowlist.map((domain, index) => `
+        elements.allowlistContent.innerHTML = TrustState.allowlist.map((item, index) => `
             <div class="list-item">
                 <div class="item-info">
-                    <span class="item-domain">${escapeHtml(domain)}</span>
-                    <span class="item-date">Added ${getRandomDate()}</span>
+                    <span class="item-domain">${escapeHtml(item.domain)}</span>
+                    <span class="item-date">Added ${formatAddedDate(item.addedAt)}</span>
                 </div>
                 <button class="delete-btn" onclick="removeDomain('allowlist', ${index})">
                     <span class="material-symbols-outlined">delete</span>
@@ -385,11 +404,11 @@ function renderBlocklist() {
         elements.blocklistContent.classList.add('empty');
     } else {
         elements.blocklistContent.classList.remove('empty');
-        elements.blocklistContent.innerHTML = TrustState.blocklist.map((domain, index) => `
+        elements.blocklistContent.innerHTML = TrustState.blocklist.map((item, index) => `
             <div class="list-item">
                 <div class="item-info">
-                    <span class="item-domain">${escapeHtml(domain)}</span>
-                    <span class="item-date">Added ${getRandomDate()}</span>
+                    <span class="item-domain">${escapeHtml(item.domain)}</span>
+                    <span class="item-date">Added ${formatAddedDate(item.addedAt)}</span>
                 </div>
                 <button class="delete-btn" onclick="removeDomain('blocklist', ${index})">
                     <span class="material-symbols-outlined">delete</span>
@@ -497,12 +516,18 @@ function addDomain() {
 
     const list = TrustState.modalTarget === 'allowlist' ? TrustState.allowlist : TrustState.blocklist;
 
-    if (list.includes(domain)) {
+    // Check if domain already exists in list
+    const exists = list.some(item => item.domain === domain);
+    if (exists) {
         showToast('Domain already in list', 'warning');
         return;
     }
 
-    list.push(domain);
+    // Add domain with timestamp
+    list.push({
+        domain: domain,
+        addedAt: Date.now()
+    });
     saveSettings();
     renderLists();
     closeModal();
@@ -515,13 +540,14 @@ function addDomain() {
  */
 function removeDomain(listType, index) {
     const list = listType === 'allowlist' ? TrustState.allowlist : TrustState.blocklist;
-    const domain = list[index];
+    const item = list[index];
+    const domainName = item.domain;
 
     list.splice(index, 1);
     saveSettings();
     renderLists();
 
-    showToast(`Removed ${domain} from ${listType}`, 'success');
+    showToast(`Removed ${domainName} from ${listType}`, 'success');
 }
 
 // Expose to global scope for onclick handlers
@@ -631,9 +657,135 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-function getRandomDate() {
-    const options = ['2 days ago', '1 week ago', '3 weeks ago', '1 month ago'];
-    return options[Math.floor(Math.random() * options.length)];
+/**
+ * Format a timestamp into a human-readable relative date
+ * @param {number} timestamp - Unix timestamp in milliseconds
+ * @returns {string} - Relative date string (e.g., "2 days ago")
+ */
+function formatAddedDate(timestamp) {
+    if (!timestamp) return 'unknown';
+
+    const now = Date.now();
+    const diff = now - timestamp;
+
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+
+    if (seconds < 60) return 'just now';
+    if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
+    if (weeks < 4) return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+    return `${months} month${months > 1 ? 's' : ''} ago`;
+}
+
+/**
+ * Generate and download a security audit report
+ * Contains all Trust Centre settings, allowlist, blocklist, and scan history
+ */
+function generateSecurityAudit() {
+    const auditData = {
+        reportType: 'QR-SHIELD Security Audit',
+        generatedAt: new Date().toISOString(),
+        version: TrustConfig.version,
+
+        // Detection Settings
+        detectionSettings: {
+            sensitivityLevel: SensitivityLevels[TrustState.sensitivity].name,
+            sensitivityDescription: SensitivityLevels[TrustState.sensitivity].description,
+        },
+
+        // Privacy Settings
+        privacySettings: {
+            strictOfflineMode: TrustState.settings.strictOffline,
+            anonymousTelemetry: TrustState.settings.anonymousTelemetry,
+            autoCopySafeLinks: TrustState.settings.autoCopySafeLinks,
+        },
+
+        // Allowlist
+        allowlist: {
+            count: TrustState.allowlist.length,
+            domains: TrustState.allowlist.map(item => ({
+                domain: item.domain,
+                addedAt: new Date(item.addedAt).toISOString(),
+            }))
+        },
+
+        // Blocklist
+        blocklist: {
+            count: TrustState.blocklist.length,
+            domains: TrustState.blocklist.map(item => ({
+                domain: item.domain,
+                addedAt: new Date(item.addedAt).toISOString(),
+            }))
+        },
+
+        // Scan Statistics (from QRShieldUI if available)
+        scanStatistics: getScanStatistics(),
+
+        // System Info
+        systemInfo: {
+            userAgent: navigator.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
+            online: navigator.onLine,
+        }
+    };
+
+    // Create and download the report
+    const blob = new Blob([JSON.stringify(auditData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `qrshield-security-audit-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    showToast('Security audit report downloaded', 'success');
+}
+
+/**
+ * Get scan statistics from QRShieldUI or localStorage
+ */
+function getScanStatistics() {
+    try {
+        // Try to get from QRShieldUI
+        if (window.QRShieldUI && window.QRShieldUI.getHistorySummary) {
+            return window.QRShieldUI.getHistorySummary();
+        }
+
+        // Fallback to localStorage
+        const history = localStorage.getItem('qrshield_scan_history');
+        if (history) {
+            const scans = JSON.parse(history);
+            const today = new Date().toDateString();
+            const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+
+            return {
+                totalScans: scans.length,
+                scansToday: scans.filter(s => new Date(s.timestamp).toDateString() === today).length,
+                scansThisWeek: scans.filter(s => s.timestamp > weekAgo).length,
+                threatsDetected: scans.filter(s => s.verdict === 'HIGH' || s.verdict === 'MEDIUM').length,
+                safeScans: scans.filter(s => s.verdict === 'SAFE').length,
+            };
+        }
+    } catch (e) {
+        console.error('Failed to get scan statistics:', e);
+    }
+
+    return {
+        totalScans: 0,
+        scansToday: 0,
+        scansThisWeek: 0,
+        threatsDetected: 0,
+        safeScans: 0,
+    };
 }
 
 // =============================================================================
@@ -648,5 +800,7 @@ if (typeof module !== 'undefined' && module.exports) {
         loadSettings,
         saveSettings,
         resetSettings,
+        formatAddedDate,
+        generateSecurityAudit,
     };
 }
