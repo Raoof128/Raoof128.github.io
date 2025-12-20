@@ -592,40 +592,117 @@ struct DashboardView: View {
         
         // Perform analysis using heuristics
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            // Simple heuristic analysis
             let url = urlInput.lowercased()
-            var score = 20
+            var score = 0
             var flags: [String] = []
             
-            // Check for suspicious patterns
-            if url.contains("login") || url.contains("signin") || url.contains("verify") {
-                score += 15
-                flags.append("Login/Verify Keywords")
-            }
+            // Extract domain for analysis
+            let urlObj = URL(string: url.hasPrefix("http") ? url : "https://\(url)")
+            let host = urlObj?.host?.lowercased() ?? url
             
-            if url.contains("secure") || url.contains("alert") || url.contains("urgent") {
-                score += 20
-                flags.append("Urgency Language")
-            }
+            // TRUSTED DOMAINS - known safe domains
+            let trustedDomains = [
+                "google.com", "www.google.com", "google.com.au",
+                "apple.com", "www.apple.com",
+                "microsoft.com", "www.microsoft.com", "account.microsoft.com",
+                "github.com", "www.github.com",
+                "amazon.com", "www.amazon.com",
+                "paypal.com", "www.paypal.com",
+                "facebook.com", "www.facebook.com",
+                "twitter.com", "www.twitter.com", "x.com",
+                "youtube.com", "www.youtube.com",
+                "netflix.com", "www.netflix.com",
+                "linkedin.com", "www.linkedin.com",
+                "instagram.com", "www.instagram.com",
+                "wikipedia.org", "en.wikipedia.org",
+                "reddit.com", "www.reddit.com",
+                "stackoverflow.com", "www.stackoverflow.com"
+            ]
             
-            // Homograph detection
-            let suspiciousChars = url.filter { "0123456789".contains($0) && "oOiIlL".contains($0) == false }
-            if url.contains("paypa1") || url.contains("amaz0n") || url.contains("g00gle") {
-                score += 35
-                flags.append("Homograph Attack")
-            }
+            // Check if it's a trusted domain
+            let isTrusted = trustedDomains.contains(host) || trustedDomains.contains { host.hasSuffix(".\($0)") }
             
-            // Suspicious TLDs
-            if url.hasSuffix(".tk") || url.hasSuffix(".ml") || url.hasSuffix(".ga") || url.hasSuffix(".cf") {
-                score += 25
-                flags.append("Suspicious TLD")
-            }
-            
-            // Long subdomain chains
-            let components = url.components(separatedBy: ".")
-            if components.count > 4 {
-                score += 15
-                flags.append("Complex Domain Structure")
+            if isTrusted {
+                // Trusted domain - low risk
+                score = 5
+                flags.append("Verified Domain")
+            } else {
+                // Start with base score for unknown domains
+                score = 25
+                
+                // Check for suspicious patterns
+                if url.contains("login") || url.contains("signin") || url.contains("verify") || url.contains("account") {
+                    score += 15
+                    flags.append("Login/Verify Keywords")
+                }
+                
+                if url.contains("secure") || url.contains("alert") || url.contains("urgent") || url.contains("suspended") {
+                    score += 25
+                    flags.append("Urgency Language")
+                }
+                
+                // Homograph detection - numbers replacing letters
+                let homographPatterns = [
+                    "paypa1", "paypal1", "paypai", "paypall",
+                    "amaz0n", "amazom", "arnazon",
+                    "g00gle", "googie", "go0gle",
+                    "faceb00k", "facebok", "facebo0k",
+                    "micros0ft", "mircosoft", "micr0soft",
+                    "app1e", "appie", "apple1",
+                    "netf1ix", "netfiix", "n3tflix",
+                    "bank0f", "bankof-", "bank-of"
+                ]
+                
+                for pattern in homographPatterns {
+                    if url.contains(pattern) {
+                        score += 40
+                        flags.append("Homograph Attack")
+                        break
+                    }
+                }
+                
+                // Suspicious TLDs
+                let suspiciousTLDs = [".tk", ".ml", ".ga", ".cf", ".gq", ".work", ".click", ".xyz"]
+                for tld in suspiciousTLDs {
+                    if host.hasSuffix(tld) {
+                        score += 30
+                        flags.append("Suspicious TLD")
+                        break
+                    }
+                }
+                
+                // Brand name as subdomain (common phishing pattern)
+                let brandNames = ["paypal", "amazon", "google", "apple", "microsoft", "facebook", "netflix", "bank"]
+                for brand in brandNames {
+                    if host.hasPrefix("\(brand).") || host.hasPrefix("\(brand)-") {
+                        // Check if it's not the real domain
+                        if !host.hasSuffix("\(brand).com") && !host.hasSuffix("\(brand).net") {
+                            score += 35
+                            flags.append("Brand Impersonation")
+                            break
+                        }
+                    }
+                }
+                
+                // Long subdomain chains
+                let components = host.components(separatedBy: ".")
+                if components.count > 4 {
+                    score += 20
+                    flags.append("Complex Domain Structure")
+                }
+                
+                // IP address in URL
+                let ipPattern = try? NSRegularExpression(pattern: "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")
+                if let ipPattern = ipPattern, ipPattern.firstMatch(in: url, range: NSRange(url.startIndex..., in: url)) != nil {
+                    score += 30
+                    flags.append("IP Address URL")
+                }
+                
+                // Excessive hyphens in domain
+                if host.filter({ $0 == "-" }).count > 2 {
+                    score += 15
+                    flags.append("Excessive Hyphens")
+                }
             }
             
             // Determine verdict
@@ -658,7 +735,7 @@ struct DashboardView: View {
                     score: result.score,
                     verdict: verdict,
                     scannedAt: Date(),
-                    domain: URL(string: urlInput)?.host ?? urlInput
+                    domain: urlObj?.host ?? urlInput
                 )
                 HistoryStore.shared.addItem(historyItem)
             }

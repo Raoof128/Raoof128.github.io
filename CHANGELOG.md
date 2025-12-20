@@ -5,6 +5,28 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.1] - 2025-12-20
+
+### Fixed - Critical iOS App Bug Fixes
+
+#### 🔍 URL Analysis Engine
+- **Trusted Domain Detection** - Added allowlist for known safe domains (Google, Apple, PayPal, etc.)
+- **Improved Threat Detection** - Expanded homograph patterns, brand impersonation checks
+- **Suspicious TLD Detection** - Now flags .tk, .ml, .ga, .cf, .xyz domains
+- **IP Address Detection** - URLs with IP addresses flagged as suspicious
+
+#### 📄 Export Report
+- **ShareSheet Integration** - Export now opens iOS share sheet properly
+- **Copy Feedback** - Added haptic feedback when copying to clipboard
+
+#### 🎮 Beat the Bot Game
+- **18 Challenges** - Expanded from 5 to 18 diverse phishing/legitimate URL challenges
+- **Timer Fix** - Pause button now properly stops the timer
+- **Crash Fix** - Added guards to prevent async callbacks after view dismissal
+- **Thread Safety** - Timer uses `Task { @MainActor }` for proper main thread access
+
+---
+
 ## [1.8.0] - 2025-12-20
 
 ### Added - iOS App Polish & Functional Wiring

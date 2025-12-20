@@ -163,6 +163,9 @@ struct ReportExportView: View {
             .sheet(isPresented: $showHelp) {
                 ExportHelpSheet()
             }
+            .sheet(isPresented: $showShareSheet) {
+                ShareSheet(items: [generateReportContent()])
+            }
         }
     }
     
@@ -516,6 +519,8 @@ struct ReportExportView: View {
             copiedToClipboard = true
         }
         
+        SettingsManager.shared.triggerHaptic(.success)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             withAnimation {
                 copiedToClipboard = false
@@ -527,13 +532,18 @@ struct ReportExportView: View {
         isExporting = true
         SettingsManager.shared.triggerHaptic(.medium)
         
-        // Simulate export
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        // Generate and copy the report
+        let content = generateReportContent()
+        UIPasteboard.general.string = content
+        
+        // Simulate brief processing then show share sheet
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             isExporting = false
             SettingsManager.shared.triggerHaptic(.success)
             SettingsManager.shared.playSound(.success)
             
-            // In real implementation, save file or show share sheet
+            // Show the share sheet
+            showShareSheet = true
         }
     }
     
@@ -795,6 +805,18 @@ struct ExportHelpSheet: View {
             }
         }
     }
+}
+
+// MARK: - Share Sheet
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 #endif

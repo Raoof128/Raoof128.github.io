@@ -4,6 +4,68 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🐛 December 20, 2025 - Critical Bug Fixes
+
+### Summary
+Fixed 6 critical issues reported after testing the iOS app.
+
+## 1️⃣ Engine Recognizes Every Link as Safe (FIXED)
+
+**Problem:** The URL analysis in `DashboardView` was too lenient, marking most URLs as safe.
+
+**Solution:** Implemented comprehensive heuristics:
+- **Trusted Domain Allowlist** - Known safe domains (Google, Apple, PayPal, etc.) get low scores
+- **Homograph Detection** - Expanded patterns for typosquatting attacks
+- **Brand Impersonation** - Detects brand names as subdomains on suspicious domains
+- **Suspicious TLDs** - Flags .tk, .ml, .ga, .cf, .xyz, etc.
+- **IP Detection** - Flags URLs with IP addresses
+
+## 2️⃣ Export Report Not Working (FIXED)
+
+**Problem:** Export buttons ran code but didn't actually show the share sheet.
+
+**Solution:**
+- Added `ShareSheet` UIViewControllerRepresentable component
+- Connected `showShareSheet` state to actual sheet presentation
+- Export now opens iOS share sheet with report content
+
+## 3️⃣ Beat the Bot - Limited Challenge Variety (FIXED)
+
+**Problem:** Only 5 sample challenges with little variety.
+
+**Solution:** Expanded to **18 diverse challenges**:
+- 10 phishing examples (various attack types)
+- 8 legitimate examples (major brands)
+- Each with unique hints and explanations
+
+## 4️⃣ Beat the Bot - Timer Keeps Going After Stop (FIXED)
+
+**Problem:** Clicking pause/stop didn't properly halt the timer.
+
+**Solution:**
+- Added `isPlaying` guards in all timer callbacks
+- Timer now checks `isPlaying` before each tick
+- `onDisappear` sets `isPlaying = false` before stopping timer
+- Used `Task { @MainActor }` for proper thread safety
+
+## 5️⃣ Beat the Bot - App Crash (FIXED)
+
+**Problem:** App crashed due to timer callbacks continuing after view dismissed.
+
+**Solution:**
+- Added guard checks in `makeDecision`, `handleTimeout`, `loadNextChallenge`
+- All async operations check `isPlaying` before proceeding
+- Prevents accessing deallocated state
+
+## 6️⃣ Font Issues (Partial)
+
+**Problem:** Some text showing as "class" or weird fonts.
+
+**Investigation:** This is likely a system font loading issue. All views use standard system fonts (`.headline`, `.subheadline`, etc.). May be simulator-specific.
+
+---
+
+
 # 📱 December 20, 2025 - iOS App Extensive Debug & Polish
 
 ### Summary

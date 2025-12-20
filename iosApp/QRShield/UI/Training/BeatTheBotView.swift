@@ -93,6 +93,7 @@ struct BeatTheBotView: View {
     @State private var ringProgress: CGFloat = 0.76
     
     private static let sampleChallenges: [PhishingChallenge] = [
+        // PHISHING EXAMPLES
         PhishingChallenge(
             url: "https://account-verify-appleid.support.co.uk",
             isPhishing: true,
@@ -106,22 +107,102 @@ struct BeatTheBotView: View {
             explanation: "The letter 'l' is replaced with '1' (typosquatting attack)."
         ),
         PhishingChallenge(
-            url: "https://github.com/login",
-            isPhishing: false,
-            hint: "Verify the domain matches the official site.",
-            explanation: "This is the legitimate GitHub login page."
-        ),
-        PhishingChallenge(
             url: "https://amazon.customer-service.net",
             isPhishing: true,
             hint: "Check the main domain, not the subdomain.",
             explanation: "The real domain is customer-service.net, not amazon.com."
         ),
         PhishingChallenge(
+            url: "https://netflix-billing-update.tk",
+            isPhishing: true,
+            hint: "Free TLDs like .tk are often used for phishing.",
+            explanation: "Netflix would never use a .tk domain for billing."
+        ),
+        PhishingChallenge(
+            url: "https://login.microsoftonline.com.secure-verify.net",
+            isPhishing: true,
+            hint: "The real domain is at the end, before the path.",
+            explanation: "The actual domain is secure-verify.net, not microsoft.com."
+        ),
+        PhishingChallenge(
+            url: "https://dropbox.com.file-share.ga",
+            isPhishing: true,
+            hint: "Check what comes right before the TLD.",
+            explanation: "The domain is file-share.ga, not dropbox.com."
+        ),
+        PhishingChallenge(
+            url: "https://faceb00k-security.com/verify",
+            isPhishing: true,
+            hint: "Look for letter substitutions in the brand name.",
+            explanation: "The 'o's are replaced with zeros (homograph attack)."
+        ),
+        PhishingChallenge(
+            url: "https://urgent-paypal-verify.ml/secure",
+            isPhishing: true,
+            hint: "Urgency words and free TLDs are red flags.",
+            explanation: "PayPal never uses urgency tactics or .ml domains."
+        ),
+        PhishingChallenge(
+            url: "https://www.bank0famerica.com/signin",
+            isPhishing: true,
+            hint: "Check for number substitutions in the domain.",
+            explanation: "'Bank of America' is spelled with a zero instead of 'o'."
+        ),
+        PhishingChallenge(
+            url: "https://apple-id-suspended.cf/restore",
+            isPhishing: true,
+            hint: "Scare tactics and free TLDs are phishing indicators.",
+            explanation: "Apple would never use a .cf domain or suspension threats."
+        ),
+        
+        // LEGITIMATE EXAMPLES
+        PhishingChallenge(
+            url: "https://github.com/login",
+            isPhishing: false,
+            hint: "Verify the domain matches the official site.",
+            explanation: "This is the legitimate GitHub login page."
+        ),
+        PhishingChallenge(
             url: "https://www.google.com",
             isPhishing: false,
             hint: "Standard domain structure with valid TLD.",
             explanation: "This is the legitimate Google homepage."
+        ),
+        PhishingChallenge(
+            url: "https://www.apple.com/shop",
+            isPhishing: false,
+            hint: "Official domain with standard path.",
+            explanation: "This is Apple's official shopping page."
+        ),
+        PhishingChallenge(
+            url: "https://account.microsoft.com",
+            isPhishing: false,
+            hint: "Subdomain on verified parent domain.",
+            explanation: "This is Microsoft's official account management page."
+        ),
+        PhishingChallenge(
+            url: "https://www.amazon.com/orders",
+            isPhishing: false,
+            hint: "Official domain with standard path structure.",
+            explanation: "This is Amazon's official orders page."
+        ),
+        PhishingChallenge(
+            url: "https://pay.google.com",
+            isPhishing: false,
+            hint: "Subdomain on a trusted parent domain.",
+            explanation: "This is Google Pay's official domain."
+        ),
+        PhishingChallenge(
+            url: "https://www.paypal.com/signin",
+            isPhishing: false,
+            hint: "Correct spelling and official TLD.",
+            explanation: "This is PayPal's legitimate login page."
+        ),
+        PhishingChallenge(
+            url: "https://netflix.com/browse",
+            isPhishing: false,
+            hint: "Simple, correct domain structure.",
+            explanation: "This is Netflix's official browsing page."
         )
     ]
     
@@ -191,6 +272,8 @@ struct BeatTheBotView: View {
             startGame()
         }
         .onDisappear {
+            // Stop everything when leaving
+            isPlaying = false
             stopTimer()
         }
     }
@@ -557,6 +640,8 @@ struct BeatTheBotView: View {
         isPlaying = true
         timeRemaining = 12
         ringProgress = 1.0
+        points = 0
+        streak = 0
         startTimer()
     }
     
@@ -570,15 +655,29 @@ struct BeatTheBotView: View {
     }
     
     private func startTimer() {
+        // Always stop existing timer first
+        stopTimer()
+        
+        // Only start if playing
+        guard isPlaying else { return }
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if timeRemaining > 0 {
-                withAnimation {
-                    timeRemaining -= 1
-                    ringProgress = CGFloat(timeRemaining) / 12.0
+            Task { @MainActor in
+                // Check if we're still playing
+                guard self.isPlaying else {
+                    self.stopTimer()
+                    return
                 }
-            } else {
-                // Time's up - count as wrong
-                handleTimeout()
+                
+                if self.timeRemaining > 0 {
+                    withAnimation {
+                        self.timeRemaining -= 1
+                        self.ringProgress = CGFloat(self.timeRemaining) / 12.0
+                    }
+                } else {
+                    // Time's up - count as wrong
+                    self.handleTimeout()
+                }
             }
         }
     }
@@ -589,6 +688,8 @@ struct BeatTheBotView: View {
     }
     
     private func makeDecision(isPhishing: Bool) {
+        guard isPlaying else { return }
+        
         stopTimer()
         lastAnswer = isPhishing
         
@@ -606,11 +707,12 @@ struct BeatTheBotView: View {
             SettingsManager.shared.playSound(.warning)
         }
         
-        // Update accuracy
-        // In real implementation, track total correct/total attempts
+        // Only continue if still playing
+        guard isPlaying else { return }
         
         // Load next challenge after delay
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [self] in
+            guard isPlaying else { return }
             loadNextChallenge()
         }
     }
@@ -620,15 +722,21 @@ struct BeatTheBotView: View {
         streak = 0
         SettingsManager.shared.triggerHaptic(.warning)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        guard isPlaying else { return }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
+            guard isPlaying else { return }
             loadNextChallenge()
         }
     }
     
     private func loadNextChallenge() {
-        // Get random challenge
-        let challenges = Self.sampleChallenges.filter { $0.id != currentChallenge.id }
-        currentChallenge = challenges.randomElement() ?? Self.sampleChallenges[0]
+        // Ensure we're still playing
+        guard isPlaying else { return }
+        
+        // Get random challenge different from current
+        let otherChallenges = Self.sampleChallenges.filter { $0.id != currentChallenge.id }
+        currentChallenge = otherChallenges.randomElement() ?? Self.sampleChallenges.randomElement()!
         
         // Reset timer
         lastAnswer = nil
@@ -636,7 +744,10 @@ struct BeatTheBotView: View {
         timeRemaining = 12
         ringProgress = 1.0
         
-        startTimer()
+        // Start timer only if playing
+        if isPlaying {
+            startTimer()
+        }
     }
 }
 
