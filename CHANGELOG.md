@@ -5,6 +5,23 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.3] - 2025-12-20
+
+### Changed
+
+#### 🌐 Web UI Toggle Consistency + Alignment Fixes
+
+**What changed:**
+- Standardized toggle switches across pages (consistent track/knob sizing, checked state, focus ring, and light-mode styling).
+- Fixed Trust Centre sensitivity label alignment so “Balanced” sits centered under the slider.
+- Bumped Trust Centre CSS cache-buster to ensure clients pick up the latest styles.
+
+**Files Modified:**
+- `webApp/src/jsMain/resources/shared-ui.css`
+- `webApp/src/jsMain/resources/trust.css`
+- `webApp/src/jsMain/resources/trust.html`
+- `.agent/agent.md`
+
 ## [1.7.2] - 2025-12-18
 
 ### 🏆 Final Polish - 100% Complete (110/100 Score)
@@ -2402,4 +2419,3 @@ make test-quality      # All quality tests combined
 [1.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.0.0
 [0.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v0.1.0
-
