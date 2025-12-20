@@ -28,6 +28,15 @@ This section provides a quick overview of ALL improvements made during the Decem
 | **Allowlist Manager** | MutableStateFlow-based state management with persistence | ✅ Complete |
 | **Sandbox WebView** | Isolated URL preview with JS/cookies/storage disabled | ✅ Complete |
 
+---
+
+# 📋 December 20, 2025 - Web UI Toggle Consistency
+
+### Summary
+- Unified toggle switch styling across pages by standardizing `.toggle-switch` in `webApp/src/jsMain/resources/shared-ui.css` and removing Trust-specific toggle base overrides in `webApp/src/jsMain/resources/trust.css`.
+- Fixed Trust Centre sensitivity label alignment (Balanced centered) by switching `.slider-labels` to a 3-column grid in `webApp/src/jsMain/resources/trust.css`.
+- Bumped Trust Centre CSS cache-buster in `webApp/src/jsMain/resources/trust.html`.
+
 ## 📁 Files Modified Summary
 
 ### CSS Files
@@ -6669,4 +6678,3 @@ Addressed critical visual artifacts and "light mode" visibility issues to ensure
 ## Previous Sessions
 
 *See CHANGELOG.md for full version history.*
-
