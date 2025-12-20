@@ -5,6 +5,31 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2025-12-20
+
+### Added - Light Mode Support 🌤️
+
+Full light mode integration based on HTML design system.
+
+#### 🎨 Color+Theme.swift Updates
+- All colors now use adaptive `UIColor { traitCollection in ... }` pattern
+- **Backgrounds**: Light soft gray (#F2F2F7) / Dark navy (#0B1120)
+- **Text colors**: Properly inverted for each mode
+- **Brand colors**: Updated to Royal Blue (#2563EB) matching HTML designs
+
+#### 🪟 LiquidGlassBackground
+- Light mode: Soft blue-gray gradient (#F0F4F8 → #E5E7EB)
+- Dark mode: Deep navy gradient (#0B1120 → #1E293B)
+- Accent blob opacities adjust per mode
+
+#### ✨ LiquidGlassStyle Modifier
+- Light mode uses `.regularMaterial` (more opaque glass)
+- Dark mode uses `.ultraThinMaterial`
+- Border gradients adapt for visibility
+- Softer shadows in light mode
+
+---
+
 ## [1.8.3] - 2025-12-20
 
 ### Fixed - URL Analysis & Quick Actions

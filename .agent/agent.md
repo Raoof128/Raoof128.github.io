@@ -4,6 +4,50 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌤️ December 20, 2025 - Light Mode Integration
+
+### Summary
+Integrated light mode styling based on the HTML design system, making all colors adaptive.
+
+## Changes Made
+
+### 1️⃣ Color+Theme.swift - Adaptive Colors
+
+Updated all color definitions to use `UIColor { traitCollection in ... }` pattern:
+
+**Backgrounds:**
+- `bgMain`: Light `#F2F2F7` (iOS system gray 6) / Dark `#0B1120`
+- `bgCard`: Light white with 0.7 opacity / Dark slate 800
+- `bgSurface`: Light white 0.9 / Dark slate 700
+- `bgGlass`: Light white 0.6 / Dark white 0.05
+
+**Text Colors:**
+- `textPrimary`: Light `#1C1C1E` / Dark white
+- `textSecondary`: Light `#6B7280` / Dark `#9CA3AF`
+- `textMuted`: Light `#9CA3AF` / Dark `#6B7280`
+
+**Brand Colors Updated:**
+- `brandPrimary`: `#2563EB` (Royal Blue) - matches HTML
+- `brandSecondary`: `#10B981` (Emerald)
+- `verdictSafe/Warning/Danger`: iOS system colors
+
+### 2️⃣ LiquidGlassBackground - Light Mode Gradient
+
+Now uses `@Environment(\.colorScheme)` to render:
+- **Light**: Soft blue-gray gradient (`#F0F4F8` → `#E5E7EB` → `#F3F4F6`)
+- **Dark**: Deep navy gradient (`#0B1120` → `#1E293B`)
+- Accent blobs adjust opacity for each mode
+
+### 3️⃣ LiquidGlassStyle Modifier
+
+- Light mode: Uses `.regularMaterial` (more opaque)
+- Dark mode: Uses `.ultraThinMaterial`
+- Border gradients adjust for visibility in each mode
+- Shadows are softer in light mode
+
+---
+
+
 # 🔧 December 20, 2025 - URL Scoring & Decorative Function Fixes
 
 ### Summary

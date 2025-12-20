@@ -25,36 +25,122 @@
 import SwiftUI
 #if os(iOS)
 
-// MARK: - Brand Colors
+// MARK: - Brand Colors (Adaptive Light/Dark Mode)
 
 extension Color {
-    // Primary brand colors
-    static let brandPrimary = Color(hex: "6C5CE7")       // Purple
-    static let brandSecondary = Color(hex: "00D68F")     // Cyan/Teal
-    static let brandAccent = Color(hex: "A855F7")        // Light purple
+    // Primary brand colors - Royal Blue from HTML designs
+    static let brandPrimary = Color(hex: "2563EB")       // Royal Blue
+    static let brandSecondary = Color(hex: "10B981")     // Emerald/Teal
+    static let brandAccent = Color(hex: "8B5CF6")        // Violet
     
-    // Verdict colors
-    static let verdictSafe = Color(hex: "00D68F")        // Green
-    static let verdictWarning = Color(hex: "F5A623")     // Orange
-    static let verdictDanger = Color(hex: "FF5252")      // Red
-    static let verdictUnknown = Color(hex: "8B93A1")     // Gray
+    // Verdict colors - iOS-style vibrant colors
+    static let verdictSafe = Color(hex: "34C759")        // iOS Green
+    static let verdictWarning = Color(hex: "FF9500")     // iOS Orange
+    static let verdictDanger = Color(hex: "FF3B30")      // iOS Red
+    static let verdictUnknown = Color(hex: "8E8E93")     // iOS Gray
     
-    // Background colors
-    static let bgDark = Color(hex: "0D1117")             // Deep dark
-    static let bgCard = Color(hex: "161B22")             // Card background
-    static let bgSurface = Color(hex: "21262D")          // Surface/elevated
-    static let bgGlass = Color.white.opacity(0.05)       // Glass tint
+    // MARK: - Adaptive Background Colors
     
-    // Text colors
-    static let textPrimary = Color.white
-    static let textSecondary = Color(hex: "8B949E")
-    static let textMuted = Color(hex: "6E7681")
+    /// Main background - Light: soft blue-gray, Dark: deep navy
+    static var bgMain: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color(hex: "0B1120"))  // Deep dark blue
+                : UIColor(Color(hex: "F2F2F7"))  // iOS system gray 6
+        })
+    }
     
-    // Liquid Glass colors
+    /// Card/Panel background - Light: white with opacity, Dark: slate
+    static var bgCard: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color(hex: "1E293B").opacity(0.7))  // Slate 800
+                : UIColor(Color.white.opacity(0.7))           // White glass
+        })
+    }
+    
+    /// Surface background - Light: white, Dark: elevated dark
+    static var bgSurface: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color(hex: "334155"))  // Slate 700
+                : UIColor(Color.white.opacity(0.9))
+        })
+    }
+    
+    /// Glass tint for overlays
+    static var bgGlass: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color.white.opacity(0.05))
+                : UIColor(Color.white.opacity(0.6))
+        })
+    }
+    
+    // Legacy static backgrounds (for compatibility)
+    static let bgDark = Color(hex: "0B1120")
+    static let bgLight = Color(hex: "F2F2F7")
+    
+    // MARK: - Adaptive Text Colors
+    
+    /// Primary text - Light: dark slate, Dark: white
+    static var textPrimary: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor.white
+                : UIColor(Color(hex: "1C1C1E"))  // System label
+        })
+    }
+    
+    /// Secondary text - Light: gray, Dark: light gray
+    static var textSecondary: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color(hex: "9CA3AF"))  // Gray 400
+                : UIColor(Color(hex: "6B7280"))  // Gray 500
+        })
+    }
+    
+    /// Muted text - Light: lighter gray, Dark: dark gray
+    static var textMuted: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color(hex: "6B7280"))  // Gray 500
+                : UIColor(Color(hex: "9CA3AF"))  // Gray 400
+        })
+    }
+    
+    // MARK: - Glass Panel Colors (Adaptive)
+    
+    /// Glass border color
+    static var glassBorder: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color.white.opacity(0.1))
+                : UIColor(Color.white.opacity(0.6))
+        })
+    }
+    
+    /// Glass highlight
+    static var glassHighlight: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color.white.opacity(0.15))
+                : UIColor(Color.white.opacity(0.8))
+        })
+    }
+    
+    /// Glass shadow
+    static var glassShadow: Color {
+        Color(UIColor { traitCollection in
+            traitCollection.userInterfaceStyle == .dark
+                ? UIColor(Color.black.opacity(0.3))
+                : UIColor(Color.black.opacity(0.08))
+        })
+    }
+    
+    // Legacy static values
     static let liquidGlassTint = Color.white.opacity(0.08)
-    static let glassBorder = Color.white.opacity(0.12)
-    static let glassHighlight = Color.white.opacity(0.15)
-    static let glassShadow = Color.black.opacity(0.25)
 }
 
 // MARK: - Hex Color Initializer
@@ -116,41 +202,57 @@ extension LinearGradient {
     )
 }
 
-// MARK: - Liquid Glass Background (iOS 17+ Compatible)
+// MARK: - Liquid Glass Background (iOS 17+ Compatible, Light/Dark Mode)
 
 struct LiquidGlassBackground: View {
     @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         ZStack {
-            // Base dark gradient
-            LinearGradient(
-                colors: [
-                    Color(hex: "0D1117"),
-                    Color(hex: "161B22"),
-                    Color(hex: "0D1117")
-                ],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
+            // Base gradient - adapts to color scheme
+            if colorScheme == .dark {
+                // Dark mode: Deep navy gradient
+                LinearGradient(
+                    colors: [
+                        Color(hex: "0B1120"),
+                        Color(hex: "1E293B"),
+                        Color(hex: "0B1120")
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            } else {
+                // Light mode: Soft blue-gray gradient matching HTML designs
+                LinearGradient(
+                    colors: [
+                        Color(hex: "F0F4F8"),
+                        Color(hex: "E5E7EB"),
+                        Color(hex: "F3F4F6")
+                    ],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            }
             
             // Only show animated effects if not reduced
             if !liquidGlassReduced {
-                // Animated accent overlays
+                // Animated accent overlays - adjust opacity for light mode
                 Circle()
-                    .fill(Color.brandPrimary.opacity(0.15))
+                    .fill(Color.brandPrimary.opacity(colorScheme == .dark ? 0.15 : 0.12))
                     .frame(width: 300, height: 300)
                     .blur(radius: 100)
                     .offset(x: -100, y: -200)
                 
                 Circle()
-                    .fill(Color.brandSecondary.opacity(0.1))
+                    .fill(Color.brandSecondary.opacity(colorScheme == .dark ? 0.1 : 0.08))
                     .frame(width: 250, height: 250)
                     .blur(radius: 80)
                     .offset(x: 150, y: 300)
                 
+                // Light mode: Add soft purple accent like HTML designs
                 Circle()
-                    .fill(Color.brandAccent.opacity(0.08))
+                    .fill(Color(hex: colorScheme == .dark ? "8B5CF6" : "C4B5FD").opacity(colorScheme == .dark ? 0.08 : 0.3))
                     .frame(width: 200, height: 200)
                     .blur(radius: 60)
                     .offset(x: 100, y: -100)
@@ -172,18 +274,19 @@ extension View {
     }
 }
 
-// MARK: - Liquid Glass View Modifier
+// MARK: - Liquid Glass View Modifier (Adaptive Light/Dark)
 
 struct LiquidGlassStyle: ViewModifier {
     var cornerRadius: CGFloat = 16
     var opacity: Double = 1.0
     @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
+    @Environment(\.colorScheme) private var colorScheme
     
     func body(content: Content) -> some View {
         content
             .background {
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(.ultraThinMaterial)
+                    .fill(colorScheme == .dark ? .ultraThinMaterial : .regularMaterial)
                     .opacity(opacity)
             }
             .overlay {
@@ -191,12 +294,19 @@ struct LiquidGlassStyle: ViewModifier {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(
                             LinearGradient(
-                                colors: [
-                                    Color.white.opacity(0.25),
-                                    Color.white.opacity(0.1),
-                                    Color.clear,
-                                    Color.white.opacity(0.05)
-                                ],
+                                colors: colorScheme == .dark
+                                    ? [
+                                        Color.white.opacity(0.25),
+                                        Color.white.opacity(0.1),
+                                        Color.clear,
+                                        Color.white.opacity(0.05)
+                                    ]
+                                    : [
+                                        Color.white.opacity(0.8),
+                                        Color.white.opacity(0.5),
+                                        Color.white.opacity(0.3),
+                                        Color.white.opacity(0.6)
+                                    ],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             ),
@@ -204,14 +314,21 @@ struct LiquidGlassStyle: ViewModifier {
                         )
                 } else {
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 0.5)
+                        .stroke(
+                            colorScheme == .dark 
+                                ? Color.white.opacity(0.1) 
+                                : Color.black.opacity(0.05),
+                            lineWidth: 0.5
+                        )
                 }
             }
             .shadow(
-                color: liquidGlassReduced ? .clear : Color.black.opacity(0.15),
-                radius: liquidGlassReduced ? 0 : 10,
+                color: liquidGlassReduced 
+                    ? .clear 
+                    : (colorScheme == .dark ? Color.black.opacity(0.2) : Color.black.opacity(0.06)),
+                radius: liquidGlassReduced ? 0 : (colorScheme == .dark ? 10 : 8),
                 x: 0,
-                y: liquidGlassReduced ? 0 : 5
+                y: liquidGlassReduced ? 0 : (colorScheme == .dark ? 5 : 3)
             )
     }
 }
