@@ -658,11 +658,21 @@ struct DashboardView: View {
                     }
                 }
                 
-                // Suspicious TLDs
-                let suspiciousTLDs = [".tk", ".ml", ".ga", ".cf", ".gq", ".work", ".click", ".xyz"]
-                for tld in suspiciousTLDs {
+                // Suspicious TLDs - These are almost always phishing!
+                let highRiskTLDs = [".tk", ".ml", ".ga", ".cf", ".gq"]  // Free domains = high risk
+                let mediumRiskTLDs = [".work", ".click", ".xyz", ".top", ".buzz"]
+                
+                for tld in highRiskTLDs {
                     if host.hasSuffix(tld) {
-                        score += 30
+                        score += 50  // High enough to be MALICIOUS
+                        flags.append("High-Risk Free TLD")
+                        break
+                    }
+                }
+                
+                for tld in mediumRiskTLDs {
+                    if host.hasSuffix(tld) {
+                        score += 25
                         flags.append("Suspicious TLD")
                         break
                     }
@@ -674,7 +684,7 @@ struct DashboardView: View {
                     if host.hasPrefix("\(brand).") || host.hasPrefix("\(brand)-") {
                         // Check if it's not the real domain
                         if !host.hasSuffix("\(brand).com") && !host.hasSuffix("\(brand).net") {
-                            score += 35
+                            score += 40
                             flags.append("Brand Impersonation")
                             break
                         }
@@ -688,10 +698,10 @@ struct DashboardView: View {
                     flags.append("Complex Domain Structure")
                 }
                 
-                // IP address in URL
+                // IP address in URL - Very suspicious!
                 let ipPattern = try? NSRegularExpression(pattern: "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")
                 if let ipPattern = ipPattern, ipPattern.firstMatch(in: url, range: NSRange(url.startIndex..., in: url)) != nil {
-                    score += 30
+                    score += 45  // High enough to be MALICIOUS
                     flags.append("IP Address URL")
                 }
                 

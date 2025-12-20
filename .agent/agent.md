@@ -4,6 +4,39 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔧 December 20, 2025 - URL Scoring & Decorative Function Fixes
+
+### Summary
+Fixed URL analysis to be stricter and wired up decorative quick action buttons.
+
+## 1️⃣ URL Analysis Shows .tk/.ml as SUSPICIOUS Instead of MALICIOUS (FIXED)
+
+**Problem:** `www.google.tk` and `192.168.1.1` were showing as SUSPICIOUS (score 55) instead of MALICIOUS.
+
+**Solution:** Increased risk scores in DashboardView:
+- High-risk TLDs (.tk, .ml, .ga, .cf, .gq): **+50 points** (was +30)
+- IP Address URLs: **+45 points** (was +30)
+- Now properly show as MALICIOUS (score ≥60)
+
+## 2️⃣ MainMenuView Quick Actions Were Decorative (FIXED)
+
+**Problem:** "Import" and "Paste URL" quick action buttons had empty closures.
+
+**Solution:**
+- **Import Button**: Now opens `ImagePicker` sheet and analyzes image for QR codes
+- **Paste URL Button**: Reads clipboard and navigates to Dashboard if URL found
+
+## 3️⃣ Audit Completed - All UI Functions Wired
+
+Verified all buttons across 17 UI files have real functionality:
+- HistoryView: Sort by Date/Risk ✅ works
+- TrustCentreView: All settings persist ✅
+- ScanResultView: Sandbox, quarantine ✅ works
+- Export buttons: Share sheet ✅ works
+
+---
+
+
 # 🌐 December 20, 2025 - Localization & UI Text Fixes
 
 ### Summary

@@ -5,6 +5,25 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.3] - 2025-12-20
+
+### Fixed - URL Analysis & Quick Actions
+
+#### 🔍 Stricter URL Analysis
+- **High-Risk TLDs** - `.tk`, `.ml`, `.ga`, `.cf`, `.gq` now add +50 points (was +30)
+- **IP Address URLs** - Now add +45 points (was +30)
+- URLs with these patterns now correctly show as **MALICIOUS** instead of SUSPICIOUS
+
+#### 🎮 MainMenuView Quick Actions
+- **Import Button** - Now opens image picker and analyzes QR codes
+- **Paste URL Button** - Reads clipboard and navigates to Dashboard
+
+#### ✅ UI Audit Complete
+- Verified all 17 UI files have functional buttons
+- No remaining decorative/empty button handlers
+
+---
+
 ## [1.8.2] - 2025-12-20
 
 ### Fixed - Localization & UI Text

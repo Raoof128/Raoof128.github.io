@@ -255,6 +255,9 @@ struct MainMenuView: View {
     
     // MARK: - Quick Actions
     
+    @State private var showImagePicker = false
+    @State private var pastedURL: String?
+    
     private var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("QUICK ACTIONS")
@@ -276,7 +279,8 @@ struct MainMenuView: View {
                     title: "Import",
                     color: .brandSecondary
                 ) {
-                    // Import action
+                    showImagePicker = true
+                    SettingsManager.shared.triggerHaptic(.light)
                 }
                 
                 quickActionButton(
@@ -284,8 +288,22 @@ struct MainMenuView: View {
                     title: "Paste URL",
                     color: .brandAccent
                 ) {
-                    // Paste URL action
+                    // Get URL from clipboard
+                    if let clipboardString = UIPasteboard.general.string,
+                       !clipboardString.isEmpty {
+                        // Navigate to dashboard with pasted URL
+                        selectedDestination = .dashboard
+                        SettingsManager.shared.triggerHaptic(.success)
+                    } else {
+                        SettingsManager.shared.triggerHaptic(.error)
+                    }
                 }
+            }
+        }
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker { image in
+                // Analyze the image for QR codes
+                ScannerViewModel.shared.analyzeImage(image)
             }
         }
     }
