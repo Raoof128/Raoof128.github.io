@@ -4,6 +4,93 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📋 December 20, 2025 - Results Page Score, Color, and Sandbox Fixes
+
+### Summary
+Fixed three critical UI issues on the results page:
+1. **Score Logic** - Inverted display so safe sites show high % (Safety Score)
+2. **Green Color** - Made vibrant in light mode
+3. **Sandbox Redesign** - Replaced broken iframe with URL Analysis view
+
+## 🔢 Score Logic Fix
+
+**Problem:** The raw risk score (e.g., 8%) was displayed as "confidence" which confused users - 8% sounds bad for safe sites.
+
+**Solution:** 
+- For **SAFE** verdicts: Show `100 - risk_score` as **"Safety Score"** (min 92%)
+- For **SUSPICIOUS/MALICIOUS**: Show risk score directly as **"Risk Score"**
+- High % now always means "good" for SAFE, "bad" for dangerous sites
+
+**Files Modified:** `results.js`, `results.html`
+
+```javascript
+// For SAFE: Show SAFETY score (100 - risk), minimum 92%
+const safetyScore = Math.max(100 - riskScore, 92);
+confidenceScore.textContent = `${safetyScore}%`;
+if (confidenceLabel) confidenceLabel.textContent = 'Safety Score';
+```
+
+## 🎨 Green Color Vibrancy Fix
+
+**Problem:** Pale green (#22c55e) in light mode looked washed out on the "LOW RISK" badge and risk meter.
+
+**Solution:** Added inline styles with stronger colors for light mode:
+- **Light mode green:** `#16a34a` (Tailwind green-600)
+- Applied to risk badge AND risk meter bars
+- Light mode detection ensures correct colors in all themes
+
+**Files Modified:** `results.js`, `results.css`
+
+```javascript
+const isLightMode = document.documentElement.classList.contains('light') || ...;
+const safeColor = isLightMode ? '#16a34a' : '#22c55e';
+riskBadge.style.color = safeColor;
+segments[0].style.backgroundColor = safeColor;
+```
+
+## 🔒 Sandbox Redesign (URL Analysis View)
+
+**Problem:** Iframe-based preview showed browser's "refused to connect" error for sites blocking embedding (X-Frame-Options). This was unfixable because we cannot control browser error pages.
+
+**Solution:** Completely replaced iframe with a **URL Analysis view** that:
+- Shows **HTTPS/HTTP security status** with lock icon
+- Provides **URL breakdown** (domain, path, parameters)
+- Displays **full URL** with copy button
+- Has prominent **"Open in New Tab"** button
+- **No more broken iframes!**
+
+**Files Modified:** `results.js`
+
+**Also Fixed:** `window.open()` issue where `noopener` flag caused it to return `null`, preventing navigation. Now passes URL directly to `window.open()`.
+
+```javascript
+// Before (broken):
+const win = window.open('about:blank', '_blank', 'noopener,noreferrer');
+if (win) { win.location.href = url; } // win is null!
+
+// After (working):
+window.open(ResultsState.scannedUrl, '_blank', 'noopener,noreferrer');
+```
+
+## 📁 Files Changed
+
+| File | Lines Changed | Key Changes |
+|------|---------------|-------------|
+| `results.js` | ~200 | Score logic, color vibrancy, sandbox redesign, window.open fix |
+| `results.html` | +1 | Added `id="confidenceLabel"` |
+| `results.css` | ~30 | Light mode green color overrides |
+
+## ✅ Verification
+
+Browser testing confirmed:
+- ✅ Safe URLs (google.com) show 92% Safety Score (not 8%)
+- ✅ Label changes to "Safety Score" for SAFE, "Risk Score" for others
+- ✅ Green color is vibrant in light mode (#16a34a)
+- ✅ Sandbox shows URL Analysis view (no iframe errors)
+- ✅ "Open in New Tab" button works correctly
+
+---
+
 # 📋 December 20, 2025 - Profile Dropdown Toggle & Sandbox Feature
 
 ### Summary

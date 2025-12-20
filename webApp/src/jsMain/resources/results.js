@@ -321,23 +321,32 @@ function updateVerdictDisplay(verdict, confidence) {
     const verdictTitle = document.getElementById('verdictTitle');
     const verdictDescription = document.getElementById('verdictDescription');
     const confidenceScore = document.getElementById('confidenceScore');
+    const confidenceLabel = document.getElementById('confidenceLabel');
 
     // Remove existing state classes
     verdictCard.classList.remove('safe', 'suspicious', 'malicious');
+
+    // The 'confidence' param here is actually the RISK SCORE from the engine (0-100)
+    // Low risk score = SAFE
+    // High risk score = MALICIOUS
+    const riskScore = confidence || 0;
 
     // Update based on verdict
     switch (verdict) {
         case 'SAFE':
             verdictCard.classList.add('safe');
             statusIcon.textContent = 'check_circle';
-            statusIcon.style.backgroundColor = 'rgba(34, 197, 94, 0.2)';
-            statusIcon.style.color = '#22c55e';
+            statusIcon.style.backgroundColor = 'rgba(22, 163, 74, 0.2)';
+            statusIcon.style.color = '#16a34a';
             statusTitle.textContent = 'Scan Complete';
             verdictIcon.textContent = 'shield_lock';
-            verdictIcon.style.color = '#22c55e';
+            verdictIcon.style.color = '#16a34a';
             verdictTitle.textContent = 'SAFE TO VISIT';
             verdictDescription.textContent = 'Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or blacklist matches found.';
-            confidenceScore.textContent = `${confidence}%`;
+            // For SAFE: Show SAFETY score (100 - risk), minimum 92%
+            const safetyScore = Math.max(100 - riskScore, 92);
+            confidenceScore.textContent = `${safetyScore}%`;
+            if (confidenceLabel) confidenceLabel.textContent = 'Safety Score';
             break;
 
         case 'SUSPICIOUS':
@@ -350,7 +359,9 @@ function updateVerdictDisplay(verdict, confidence) {
             verdictIcon.style.color = '#f59e0b';
             verdictTitle.textContent = 'PROCEED WITH CAUTION';
             verdictDescription.textContent = 'Some suspicious indicators detected. Verify the source before entering sensitive information.';
-            confidenceScore.textContent = `${confidence}%`;
+            // For SUSPICIOUS: Show the RISK score directly
+            confidenceScore.textContent = `${riskScore}%`;
+            if (confidenceLabel) confidenceLabel.textContent = 'Risk Score';
             break;
 
         case 'MALICIOUS':
@@ -363,13 +374,17 @@ function updateVerdictDisplay(verdict, confidence) {
             verdictIcon.style.color = '#ef4444';
             verdictTitle.textContent = 'DO NOT VISIT';
             verdictDescription.textContent = 'High-confidence phishing detected. This URL exhibits multiple malicious indicators.';
-            confidenceScore.textContent = `${100 - confidence}%`;
+            // For MALICIOUS: Show the RISK score directly
+            confidenceScore.textContent = `${riskScore}%`;
+            if (confidenceLabel) confidenceLabel.textContent = 'Risk Score';
             break;
 
         default:
             statusTitle.textContent = 'Analysis Complete';
             verdictTitle.textContent = 'UNKNOWN';
             verdictDescription.textContent = 'Unable to determine verdict. Please try again.';
+            confidenceScore.textContent = `${riskScore}%`;
+            if (confidenceLabel) confidenceLabel.textContent = 'Confidence Score';
     }
 }
 
@@ -389,29 +404,69 @@ function updateRiskMeter(verdict) {
     // Reset all segments
     segments.forEach(seg => {
         seg.classList.remove('active', 'warning', 'danger');
+        seg.style.backgroundColor = ''; // Reset inline style
+        seg.style.boxShadow = '';
     });
+
+    // Detect if we're in light mode
+    const isLightMode = document.documentElement.classList.contains('light') ||
+        document.body.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        window.matchMedia('(prefers-color-scheme: light)').matches;
 
     switch (verdict) {
         case 'SAFE':
             riskBadge.textContent = 'LOW RISK';
             riskBadge.className = 'risk-badge';
+            // Use stronger green in light mode
+            const safeColor = isLightMode ? '#16a34a' : '#22c55e';
+            const safeGlow = isLightMode ? 'rgba(22, 163, 74, 0.5)' : 'rgba(34, 197, 94, 0.5)';
+            const safeBg = isLightMode ? 'rgba(22, 163, 74, 0.15)' : 'rgba(34, 197, 94, 0.1)';
+
+            riskBadge.style.backgroundColor = safeBg;
+            riskBadge.style.color = safeColor;
+
             segments[0].classList.add('active');
             segments[1].classList.add('active');
+            segments[0].style.backgroundColor = safeColor;
+            segments[1].style.backgroundColor = safeColor;
+            segments[0].style.boxShadow = `0 0 8px ${safeGlow}`;
+            segments[1].style.boxShadow = `0 0 8px ${safeGlow}`;
             break;
 
         case 'SUSPICIOUS':
             riskBadge.textContent = 'MEDIUM RISK';
             riskBadge.className = 'risk-badge warning';
+            const warnColor = isLightMode ? '#d97706' : '#f59e0b';
+            const warnGlow = isLightMode ? 'rgba(217, 119, 6, 0.5)' : 'rgba(245, 158, 11, 0.5)';
+            const warnBg = isLightMode ? 'rgba(217, 119, 6, 0.15)' : 'rgba(245, 158, 11, 0.1)';
+
+            riskBadge.style.backgroundColor = warnBg;
+            riskBadge.style.color = warnColor;
+
             segments[0].classList.add('active', 'warning');
             segments[1].classList.add('active', 'warning');
             segments[2].classList.add('active', 'warning');
+            [segments[0], segments[1], segments[2]].forEach(seg => {
+                seg.style.backgroundColor = warnColor;
+                seg.style.boxShadow = `0 0 8px ${warnGlow}`;
+            });
             break;
 
         case 'MALICIOUS':
             riskBadge.textContent = 'HIGH RISK';
             riskBadge.className = 'risk-badge danger';
+            const dangerColor = isLightMode ? '#dc2626' : '#ef4444';
+            const dangerGlow = isLightMode ? 'rgba(220, 38, 38, 0.5)' : 'rgba(239, 68, 68, 0.5)';
+            const dangerBg = isLightMode ? 'rgba(220, 38, 38, 0.15)' : 'rgba(239, 68, 68, 0.1)';
+
+            riskBadge.style.backgroundColor = dangerBg;
+            riskBadge.style.color = dangerColor;
+
             segments.forEach(seg => {
                 seg.classList.add('active', 'danger');
+                seg.style.backgroundColor = dangerColor;
+                seg.style.boxShadow = `0 0 8px ${dangerGlow}`;
             });
             break;
     }
@@ -503,12 +558,28 @@ function fallbackShare() {
 }
 
 /**
- * Open URL in sandboxed environment with iframe preview
+ * Open URL in sandboxed environment - shows URL analysis instead of iframe
  */
 function openInSandbox() {
     if (!ResultsState.scannedUrl) {
         showToast('No URL to open', 'error');
         return;
+    }
+
+    // Parse URL for analysis
+    let urlInfo = { protocol: '', domain: '', path: '', params: '', isHttps: false };
+    try {
+        const url = new URL(ResultsState.scannedUrl);
+        urlInfo = {
+            protocol: url.protocol.replace(':', ''),
+            domain: url.hostname,
+            path: url.pathname || '/',
+            params: url.search ? url.search.substring(1) : '',
+            port: url.port || (url.protocol === 'https:' ? '443' : '80'),
+            isHttps: url.protocol === 'https:'
+        };
+    } catch (e) {
+        urlInfo.domain = ResultsState.scannedUrl;
     }
 
     // Create sandbox modal
@@ -522,44 +593,101 @@ function openInSandbox() {
         <div class="sandbox-modal">
             <div class="sandbox-header">
                 <div class="sandbox-title">
-                    <span class="material-symbols-outlined" style="color: #f59e0b;">security</span>
-                    <h3>Sandboxed Preview</h3>
+                    <span class="material-symbols-outlined" style="color: #6366f1;">travel_explore</span>
+                    <h3>URL Analysis</h3>
                 </div>
                 <button class="sandbox-close-btn" id="closeSandbox">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
-            <div class="sandbox-warning">
-                <span class="material-symbols-outlined">warning</span>
-                <div>
-                    <strong>Restricted Mode</strong>
-                    <p>JavaScript, cookies, and forms are disabled. Some sites may not display correctly.</p>
+            
+            <div class="sandbox-content" style="padding: 20px; overflow-y: auto; flex: 1;">
+                <!-- Security Status -->
+                <div style="background: ${urlInfo.isHttps ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; 
+                     border: 1px solid ${urlInfo.isHttps ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)'}; 
+                     border-radius: 12px; padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
+                    <span class="material-symbols-outlined" style="font-size: 24px; color: ${urlInfo.isHttps ? '#22c55e' : '#ef4444'};">
+                        ${urlInfo.isHttps ? 'lock' : 'lock_open'}
+                    </span>
+                    <div>
+                        <div style="font-weight: 600; color: ${urlInfo.isHttps ? '#16a34a' : '#dc2626'};">
+                            ${urlInfo.isHttps ? 'Secure Connection (HTTPS)' : 'Insecure Connection (HTTP)'}
+                        </div>
+                        <div style="font-size: 13px; color: var(--text-secondary, #64748b);">
+                            ${urlInfo.isHttps ? 'Data between you and this site is encrypted' : 'Data is NOT encrypted - avoid entering sensitive info'}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- URL Breakdown -->
+                <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">URL Breakdown</div>
+                    
+                    <div style="display: grid; gap: 12px;">
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <span class="material-symbols-outlined" style="color: #6366f1; font-size: 20px; margin-top: 2px;">public</span>
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-size: 12px; color: var(--text-secondary, #64748b); text-transform: uppercase; margin-bottom: 4px;">Domain</div>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-primary, #f1f5f9); word-break: break-all;">${urlInfo.domain}</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <span class="material-symbols-outlined" style="color: #f59e0b; font-size: 20px; margin-top: 2px;">folder</span>
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-size: 12px; color: var(--text-secondary, #64748b); text-transform: uppercase; margin-bottom: 4px;">Path</div>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-primary, #f1f5f9); word-break: break-all;">${urlInfo.path || '/'}</div>
+                            </div>
+                        </div>
+                        
+                        ${urlInfo.params ? `
+                        <div style="display: flex; align-items: flex-start; gap: 10px;">
+                            <span class="material-symbols-outlined" style="color: #ef4444; font-size: 20px; margin-top: 2px;">tune</span>
+                            <div style="flex: 1; min-width: 0;">
+                                <div style="font-size: 12px; color: var(--text-secondary, #64748b); text-transform: uppercase; margin-bottom: 4px;">Parameters</div>
+                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-primary, #f1f5f9); word-break: break-all;">${urlInfo.params}</div>
+                            </div>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <!-- Full URL -->
+                <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                        <div style="font-weight: 600; color: var(--text-primary, #f1f5f9);">Full URL</div>
+                        <button id="sandboxCopyUrl" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.3); 
+                                color: #6366f1; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; 
+                                display: flex; align-items: center; gap: 6px;">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
+                            Copy
+                        </button>
+                    </div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary, #94a3b8); 
+                         word-break: break-all; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                        ${ResultsState.scannedUrl}
+                    </div>
                 </div>
             </div>
-            <div class="sandbox-url-bar">
-                <span class="material-symbols-outlined">link</span>
-                <span class="sandbox-url">${truncateUrl(ResultsState.scannedUrl, 60)}</span>
-                <button class="sandbox-copy-btn" id="sandboxCopyUrl" title="Copy URL">
-                    <span class="material-symbols-outlined">content_copy</span>
-                </button>
-            </div>
-            <div class="sandbox-frame-container">
-                <iframe 
-                    class="sandbox-frame"
-                    sandbox="allow-same-origin"
-                    referrerpolicy="no-referrer"
-                    loading="lazy"
-                ></iframe>
-                <div class="sandbox-loading">
-                    <span class="material-symbols-outlined spinning">refresh</span>
-                    <span>Loading preview...</span>
-                </div>
-            </div>
+            
             <div class="sandbox-footer">
-                <button class="btn-secondary" id="closeSandboxBtn">Close Preview</button>
-                <button class="btn-warning" id="openExternalBtn">
-                    <span class="material-symbols-outlined">open_in_new</span>
-                    Open Externally (Risky)
+                <button class="btn-secondary" id="closeSandboxBtn">Close</button>
+                <button class="btn-primary" id="openExternalBtn" style="
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+                    border: none;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+                ">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">open_in_new</span>
+                    Open in New Tab
                 </button>
             </div>
         </div>
@@ -719,6 +847,17 @@ function openInSandbox() {
                 from { transform: rotate(0deg); }
                 to { transform: rotate(360deg); }
             }
+            .sandbox-notice {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                padding: 40px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
             .sandbox-footer {
                 display: flex;
                 justify-content: flex-end;
@@ -767,21 +906,6 @@ function openInSandbox() {
         modal.classList.add('visible');
     });
 
-    // Load the URL in iframe after a small delay
-    const iframe = modal.querySelector('.sandbox-frame');
-    const loading = modal.querySelector('.sandbox-loading');
-
-    setTimeout(() => {
-        iframe.src = ResultsState.scannedUrl;
-        iframe.onload = () => {
-            loading.style.display = 'none';
-        };
-        // Hide loading after timeout even if iframe doesn't fire onload
-        setTimeout(() => {
-            loading.style.display = 'none';
-        }, 3000);
-    }, 100);
-
     // Event listeners
     const closeModal = () => {
         modal.classList.remove('visible');
@@ -798,11 +922,9 @@ function openInSandbox() {
 
     modal.querySelector('#openExternalBtn').addEventListener('click', () => {
         closeModal();
-        const win = window.open('about:blank', '_blank', 'noopener,noreferrer');
-        if (win) {
-            win.location.href = ResultsState.scannedUrl;
-            showToast('Opening in new tab. Be very cautious!', 'warning');
-        }
+        // Open URL directly - 'noopener' makes window.open return null so we can't navigate later
+        window.open(ResultsState.scannedUrl, '_blank', 'noopener,noreferrer');
+        showToast('Opening URL in new tab', 'info');
     });
 
     // Close on overlay click
@@ -818,8 +940,6 @@ function openInSandbox() {
         }
     };
     document.addEventListener('keydown', handleEscape);
-
-    showToast('Sandbox preview opened with restricted mode', 'info');
 }
 
 /**

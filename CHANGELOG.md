@@ -5,6 +5,75 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.9] - 2025-12-20
+
+### Fixed
+
+#### 🔢 Score Display Logic Inversion
+
+**Issue:** Raw risk score (e.g., 8%) was displayed as "confidence" which confused users - 8% sounds bad for safe sites.
+
+**Fix:** Inverted display logic based on verdict:
+- **SAFE verdicts:** Show `100 - risk_score` as "Safety Score" (min 92%)
+- **SUSPICIOUS/MALICIOUS:** Show risk score directly as "Risk Score"
+
+**Files Modified:** `results.js`, `results.html`
+
+```javascript
+// For SAFE: Show SAFETY score (100 - risk), minimum 92%
+const safetyScore = Math.max(100 - riskScore, 92);
+confidenceScore.textContent = `${safetyScore}%`;
+confidenceLabel.textContent = 'Safety Score';
+```
+
+**Result:** google.com now shows **92% Safety Score** instead of confusing "8%".
+
+---
+
+#### 🎨 Green Color Vibrancy in Light Mode
+
+**Issue:** Pale green (#22c55e) looked washed out on "LOW RISK" badge and risk meter in light mode.
+
+**Fix:** Added inline styles with stronger colors for light mode:
+- **Dark mode:** `#22c55e` (Tailwind green-500)
+- **Light mode:** `#16a34a` (Tailwind green-600)
+
+**Files Modified:** `results.js`, `results.css`
+
+```javascript
+const isLightMode = document.documentElement.classList.contains('light') || ...;
+const safeColor = isLightMode ? '#16a34a' : '#22c55e';
+riskBadge.style.color = safeColor;
+segments[0].style.backgroundColor = safeColor;
+```
+
+---
+
+#### 🔒 Sandbox Redesigned (URL Analysis View)
+
+**Issue:** Iframe-based preview showed browser's "refused to connect" error for sites blocking embedding (X-Frame-Options). This was unfixable.
+
+**Fix:** Completely replaced iframe with a **URL Analysis view**:
+- **Security Status:** HTTPS/HTTP indicator with lock icon
+- **URL Breakdown:** Domain, path, and parameters separated
+- **Full URL:** Copyable with one click
+- **Open in New Tab:** Primary action button
+
+**Files Modified:** `results.js`
+
+**Also Fixed:** `window.open('about:blank', '_blank', 'noopener')` returned `null` preventing subsequent navigation. Now passes URL directly:
+
+```javascript
+// Before (broken - noopener returns null):
+const win = window.open('about:blank', '_blank', 'noopener,noreferrer');
+if (win) { win.location.href = url; } // win is null!
+
+// After (working):
+window.open(ResultsState.scannedUrl, '_blank', 'noopener,noreferrer');
+```
+
+---
+
 ## [1.7.8] - 2025-12-20
 
 ### Fixed

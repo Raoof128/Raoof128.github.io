@@ -106,6 +106,20 @@ body.light {
     /* Brand */
     --primary: #2563eb;
     --primary-hover: #1d4ed8;
+    
+    /* Verdict Colors - More vibrant for light backgrounds */
+    --color-safe: #16a34a;
+    --color-safe-glow: rgba(22, 163, 74, 0.6);
+    --color-safe-bg: rgba(22, 163, 74, 0.15);
+    --color-safe-border: rgba(22, 163, 74, 0.3);
+    
+    --color-warning: #d97706;
+    --color-warning-bg: rgba(217, 119, 6, 0.15);
+    --color-warning-border: rgba(217, 119, 6, 0.3);
+    
+    --color-danger: #dc2626;
+    --color-danger-bg: rgba(220, 38, 38, 0.15);
+    --color-danger-border: rgba(220, 38, 38, 0.3);
 }
 
 /* System preference detection for light mode */
