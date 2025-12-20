@@ -4,6 +4,21 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📋 December 20, 2025 - Web UI Recent Scans Linking
+
+### Summary
+- Recent scans in the Scanner sidebar now open `results.html` with the correct URL/verdict/score parameters.
+- “View All” actions now jump directly to the Scan History section on `threat.html`.
+- Added a Scan History anchor ID for reliable deep-linking.
+
+## 📁 Files Modified
+- `webApp/src/jsMain/resources/scanner.js`
+- `webApp/src/jsMain/resources/shared-ui.js`
+- `webApp/src/jsMain/resources/threat.html`
+- `webApp/src/jsMain/resources/dashboard.html`
+
+---
+
 # 📋 December 20, 2025 - Web UI Theme + Toggle Polish (Follow-up)
 
 ### Summary

@@ -150,7 +150,7 @@ function setupEventListeners() {
 
     // View all history
     elements.viewAllBtn?.addEventListener('click', () => {
-        window.location.href = 'dashboard.html';
+        window.location.href = 'threat.html#scan-history';
     });
 
     // Drag and drop
@@ -666,6 +666,12 @@ function renderHistory() {
         const div = document.createElement('div');
         div.className = 'scan-item';
         div.onclick = () => {
+            if (window.openFullResults) {
+                window.openFullResults(item.fullUrl, item.verdict, item.score);
+                return;
+            }
+
+            // Fallback: re-run analysis if results page helper isn't available
             if (window.qrshieldAnalyze) {
                 showScanningState();
                 window.qrshieldAnalyze(item.fullUrl);

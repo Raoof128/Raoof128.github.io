@@ -5,6 +5,24 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.5] - 2025-12-20
+
+### Changed
+
+#### 🔗 Recent Scans Deep-Linking
+
+**What changed:**
+- Recent scan items now open `results.html` with the stored URL/verdict/score.
+- “View All” actions now jump directly to the Scan History section on `threat.html`.
+- Added a Scan History anchor ID for reliable deep-linking.
+
+**Files Modified:**
+- `webApp/src/jsMain/resources/scanner.js`
+- `webApp/src/jsMain/resources/shared-ui.js`
+- `webApp/src/jsMain/resources/threat.html`
+- `webApp/src/jsMain/resources/dashboard.html`
+- `.agent/agent.md`
+
 ## [1.7.4] - 2025-12-20
 
 ### Fixed
