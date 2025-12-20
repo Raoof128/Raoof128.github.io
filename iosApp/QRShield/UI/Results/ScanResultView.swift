@@ -162,18 +162,19 @@ struct ScanResultView: View {
     
     private var meshBackground: some View {
         ZStack {
-            Color.bgDark
+            // Use adaptive background
+            LiquidGlassBackground()
             
             // Gradient orbs based on verdict
-            Circle()
-                .fill(Color.brandPrimary.opacity(0.15))
-                .frame(width: 400, height: 400)
-                .blur(radius: 100)
-                .offset(x: -100, y: -200)
-            
             if assessment.verdict == .malicious {
                 Circle()
                     .fill(Color.verdictDanger.opacity(0.15))
+                    .frame(width: 300, height: 300)
+                    .blur(radius: 80)
+                    .offset(x: 150, y: -100)
+            } else if assessment.verdict == .suspicious {
+                Circle()
+                    .fill(Color.verdictWarning.opacity(0.15))
                     .frame(width: 300, height: 300)
                     .blur(radius: 80)
                     .offset(x: 150, y: -100)
@@ -835,7 +836,7 @@ struct SandboxPreviewSheet: View {
                     .textSelection(.enabled)
                     .padding(12)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.bgDark, in: RoundedRectangle(cornerRadius: 8))
+                    .background(Color.bgMain, in: RoundedRectangle(cornerRadius: 8))
             }
         }
         .padding(16)

@@ -603,7 +603,7 @@ struct ExpandedPreviewSheet: View {
                 }
                 .padding(20)
             }
-            .background(Color.bgDark.ignoresSafeArea())
+            .background(Color.bgMain.ignoresSafeArea())
             .navigationTitle("Report Preview")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

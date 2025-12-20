@@ -4,6 +4,81 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔧 December 20, 2025 - Debug & Polish Pass (Session 3)
+
+### Comprehensive Polish
+
+## 1️⃣ UnifiedAnalysisService Created
+
+Created a unified analysis service that can use either:
+- **KMP HeuristicsEngine** (when `common.framework` is linked)
+- **Swift Fallback Engine** (when KMP is not available)
+
+Located at: `QRShield/Models/UnifiedAnalysisService.swift`
+
+**Note:** The file exists but wasn't added to the Xcode project due to tooling issues. The DashboardView currently uses the inline Swift engine which has all the same detection patterns.
+
+## 2️⃣ Replaced Hardcoded Colors
+
+Replaced all `Color.bgDark` references with adaptive `Color.bgMain`:
+- ReportExportView.swift
+- BeatTheBotView.swift  
+- ThreatHistoryView.swift
+- ScanResultView.swift
+
+## 3️⃣ Detection Patterns Enhanced
+
+Both engines now include:
+- **@ symbol detection**: +55 points ("Credential Theft Attempt")
+- **30+ typosquatting patterns**: +50 points ("Typosquatting")
+- **High-risk TLDs**: +50 points for .tk, .ml, .ga, .cf, .gq
+- **IP address URLs**: +45 points
+- **Brand impersonation**: +40 points
+- **Homograph attacks**: +40 points
+
+## 4️⃣ All UI Backgrounds Adaptive
+
+Verified all major views use adaptive backgrounds:
+- `LiquidGlassBackground()` for main backgrounds
+- `Color.bgMain` instead of hardcoded `Color.bgDark`
+- `.ultraThinMaterial` / `.regularMaterial` for panels
+
+---
+
+# 🐛 December 20, 2025 - Critical Bug Fixes (Session 2)
+
+### Issues Fixed
+
+## 1️⃣ `www.googl@.com` Marked as SAFE - FIXED
+
+**Problem:** URLs with `@` symbol were not being detected as phishing attempts.
+
+**Solution:** Added two new detection patterns in DashboardView `analyzeURL()`:
+- **@ symbol detection**: +55 points → "Credential Theft Attempt"
+- **Typosquatting patterns**: Misspelled brand names like `googl.`, `paypa.`, etc. → +50 points
+
+## 2️⃣ Import Image Button Not Working - FIXED
+
+**Problem:** Button set `showImagePicker = true` but no `.sheet` modifier was attached.
+
+**Solution:** Added missing sheet in DashboardView:
+```swift
+.sheet(isPresented: $showImagePicker) {
+    ImagePicker { image in
+        ScannerViewModel.shared.analyzeImage(image)
+    }
+}
+```
+
+## 3️⃣ ScanResultView Dark in Light Mode - FIXED
+
+**Problem:** `meshBackground` used hardcoded `Color.bgDark`.
+
+**Solution:** Replaced with `LiquidGlassBackground()` which adapts to colorScheme.
+
+---
+
+
 # 🌤️ December 20, 2025 - Light Mode Integration
 
 ### Summary

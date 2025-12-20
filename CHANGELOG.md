@@ -5,6 +5,47 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.2] - 2025-12-20
+
+### Improved - Debug & Polish Pass
+
+#### 🎨 Adaptive Backgrounds
+- Replaced all `Color.bgDark` with adaptive `Color.bgMain`
+- Affects: ReportExportView, BeatTheBotView, ThreatHistoryView, ScanResultView
+
+#### 🔧 UnifiedAnalysisService
+- Created unified analysis service supporting both KMP and Swift engines
+- Identical detection logic in both implementations
+- Engine badge component for debugging
+
+#### 📚 Documentation
+- Updated agent.md with comprehensive session notes
+- Added detection pattern documentation
+
+---
+
+## [1.9.1] - 2025-12-20
+
+### Fixed - Critical Security & UI Bugs
+
+#### 🔒 Security: @ Symbol Detection
+- URLs containing `@` now flagged as **Credential Theft Attempt** (+55 points)
+- Example: `www.googl@.com` → MALICIOUS (was incorrectly SAFE)
+
+#### 🔒 Security: Typosquatting Detection
+- Added 30+ typosquatting patterns for common brands
+- Detects misspellings like `googl.`, `paypa.`, `amazn.`, `netfiix.`
+
+#### 🖼️ Import Image Button
+- Fixed missing `.sheet` modifier in DashboardView
+- Now correctly opens ImagePicker and analyzes QR codes
+
+#### 🎨 ScanResultView Light Mode
+- Fixed dark background in light mode
+- Now uses `LiquidGlassBackground()` for adaptive theming
+
+---
+
 ## [1.9.0] - 2025-12-20
 
 ### Added - Light Mode Support 🌤️

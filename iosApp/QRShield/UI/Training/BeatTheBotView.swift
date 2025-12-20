@@ -361,7 +361,7 @@ struct BeatTheBotView: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.bgDark, in: RoundedRectangle(cornerRadius: 8))
+                .background(Color.bgMain, in: RoundedRectangle(cornerRadius: 8))
             }
             .padding(12)
             .background(Color.bgSurface)
@@ -402,7 +402,7 @@ struct BeatTheBotView: View {
             }
             .padding(24)
             .frame(maxWidth: .infinity)
-            .background(Color.bgDark)
+            .background(Color.bgMain)
         }
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(

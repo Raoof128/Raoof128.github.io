@@ -130,6 +130,12 @@ struct DashboardView: View {
                     ScanResultView(assessment: result)
                 }
             }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker { image in
+                    // Analyze the imported image for QR codes
+                    ScannerViewModel.shared.analyzeImage(image)
+                }
+            }
             .onAppear {
                 loadStats()
             }
@@ -709,6 +715,41 @@ struct DashboardView: View {
                 if host.filter({ $0 == "-" }).count > 2 {
                     score += 15
                     flags.append("Excessive Hyphens")
+                }
+                
+                // @ SYMBOL IN URL - Classic phishing technique!
+                // URLs like "www.googl@.com" or "account@paypal.fakesite.com"
+                if url.contains("@") {
+                    score += 55  // Very high - definitely malicious
+                    flags.append("Credential Theft Attempt")
+                }
+                
+                // TYPOSQUATTING - Misspelled brand names
+                let typosquattingPatterns = [
+                    // Google typos
+                    "googl.", "gogle.", "goolge.", "gooogle.", "g00gle.", "googel.",
+                    // Apple typos
+                    "appple.", "aple.", "aplle.", "app1e.",
+                    // Amazon typos
+                    "amazn.", "amzon.", "amazom.", "anazon.",
+                    // PayPal typos
+                    "paypa.", "paypall.", "payypal.", "pyppal.",
+                    // Microsoft typos
+                    "microsof.", "mircosoft.", "microsofl.",
+                    // Facebook typos
+                    "facebok.", "facbook.", "faceboo.",
+                    // Netflix typos
+                    "netfllx.", "netfiix.", "neflix.",
+                    // Bank typos
+                    "bankk.", "bamk."
+                ]
+                
+                for pattern in typosquattingPatterns {
+                    if host.contains(pattern) {
+                        score += 50  // High enough to be MALICIOUS
+                        flags.append("Typosquatting")
+                        break
+                    }
                 }
             }
             

@@ -224,7 +224,7 @@ struct ThreatHistoryView: View {
                         RadialGradient(
                             colors: [
                                 Color.bgCard,
-                                Color.bgDark
+                                Color.bgMain
                             ],
                             center: .center,
                             startRadius: 0,
