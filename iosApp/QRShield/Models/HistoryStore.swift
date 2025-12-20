@@ -112,6 +112,43 @@ final class HistoryStore {
         items.isEmpty
     }
     
+    /// Add a history item directly (convenience method)
+    func addItem(_ item: HistoryItemMock) {
+        guard SettingsManager.shared.saveHistory else {
+            #if DEBUG
+            print("📋 History save disabled - not saving item")
+            #endif
+            return
+        }
+        
+        // Check for duplicates
+        if items.contains(where: { $0.url == item.url && Calendar.current.isDate($0.scannedAt, equalTo: item.scannedAt, toGranularity: .minute) }) {
+            #if DEBUG
+            print("📋 Duplicate item - not saving")
+            #endif
+            return
+        }
+        
+        // Add to beginning (most recent first)
+        items.insert(item, at: 0)
+        
+        // Limit to 100 items
+        if items.count > 100 {
+            items = Array(items.prefix(100))
+        }
+        
+        saveHistory()
+        
+        #if DEBUG
+        print("📋 Added item to history: \(item.url)")
+        #endif
+    }
+    
+    /// Get all history items
+    func getAllItems() -> [HistoryItemMock] {
+        return items
+    }
+    
     // MARK: - Filtering & Sorting
     
     /// Filter history by verdict

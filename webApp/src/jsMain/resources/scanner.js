@@ -590,11 +590,16 @@ function loadHistory() {
         const stored = localStorage.getItem(SCANNER_HISTORY_KEY);
         if (stored) {
             ScannerState.history = JSON.parse(stored);
-            renderHistory();
+        } else {
+            ScannerState.history = [];
         }
     } catch (e) {
         console.error('[Scanner] Failed to load history:', e);
+        ScannerState.history = [];
     }
+
+    syncHistoryWithSharedStore();
+    renderHistory();
 }
 
 function saveHistory() {
@@ -606,6 +611,18 @@ function saveHistory() {
 }
 
 function addToHistory(item) {
+    let sharedEntry = null;
+    if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
+        sharedEntry = window.QRShieldUI.addScanToHistory({
+            url: item.fullUrl,
+            verdict: item.verdict === 'MALICIOUS' ? 'HIGH' :
+                item.verdict === 'SUSPICIOUS' ? 'MEDIUM' :
+                    item.verdict === 'SAFE' ? 'SAFE' : 'LOW',
+            score: item.score || 0,
+            signals: item.flags || []
+        });
+    }
+
     // Avoid duplicates - check if URL already exists in recent history
     const existingIndex = ScannerState.history.findIndex(
         h => h.fullUrl === item.fullUrl
@@ -616,10 +633,16 @@ function addToHistory(item) {
         ScannerState.history[existingIndex].timestamp = item.timestamp;
         ScannerState.history[existingIndex].verdict = item.verdict;
         ScannerState.history[existingIndex].score = item.score;
+        ScannerState.history[existingIndex].url = item.url;
+        ScannerState.history[existingIndex].fullUrl = item.fullUrl;
+        ScannerState.history[existingIndex].scanId = sharedEntry?.id || ScannerState.history[existingIndex].scanId;
         // Move to top
         const updated = ScannerState.history.splice(existingIndex, 1)[0];
         ScannerState.history.unshift(updated);
     } else {
+        if (sharedEntry?.id) {
+            item.scanId = sharedEntry.id;
+        }
         ScannerState.history.unshift(item);
     }
 
@@ -630,10 +653,25 @@ function addToHistory(item) {
 
     saveHistory();
     renderHistory();
+}
 
-    // Also save to shared QRShieldUI scan history
-    if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
-        window.QRShieldUI.addScanToHistory({
+function syncHistoryWithSharedStore() {
+    if (!window.QRShieldUI || !window.QRShieldUI.getScanHistory || !window.QRShieldUI.addScanToHistory) return;
+
+    const sharedHistory = window.QRShieldUI.getScanHistory();
+    let updated = false;
+
+    ScannerState.history.forEach(item => {
+        if (item.scanId) return;
+
+        const match = findSharedScanMatch(item, sharedHistory);
+        if (match) {
+            item.scanId = match.id;
+            updated = true;
+            return;
+        }
+
+        const sharedEntry = window.QRShieldUI.addScanToHistory({
             url: item.fullUrl,
             verdict: item.verdict === 'MALICIOUS' ? 'HIGH' :
                 item.verdict === 'SUSPICIOUS' ? 'MEDIUM' :
@@ -641,6 +679,15 @@ function addToHistory(item) {
             score: item.score || 0,
             signals: item.flags || []
         });
+
+        if (sharedEntry?.id) {
+            item.scanId = sharedEntry.id;
+            updated = true;
+        }
+    });
+
+    if (updated) {
+        saveHistory();
     }
 }
 
@@ -666,16 +713,23 @@ function renderHistory() {
         const div = document.createElement('div');
         div.className = 'scan-item';
         div.onclick = () => {
-            if (window.openFullResults) {
-                window.openFullResults(item.fullUrl, item.verdict, item.score);
+            let scanId = item.scanId;
+            if (!scanId && window.QRShieldUI && window.QRShieldUI.getScanHistory) {
+                const history = window.QRShieldUI.getScanHistory();
+                const match = findSharedScanMatch(item, history);
+                scanId = match?.id || null;
+            }
+
+            if (scanId) {
+                window.location.href = `results.html?scanId=${encodeURIComponent(scanId)}`;
                 return;
             }
 
-            // Fallback: re-run analysis if results page helper isn't available
-            if (window.qrshieldAnalyze) {
-                showScanningState();
-                window.qrshieldAnalyze(item.fullUrl);
-            }
+            const params = new URLSearchParams();
+            params.set('url', item.fullUrl);
+            params.set('verdict', item.verdict);
+            params.set('score', item.score || 0);
+            window.location.href = `results.html?${params.toString()}`;
         };
 
         const iconClass = item.verdict === 'SAFE' ? 'safe' :
@@ -697,6 +751,30 @@ function renderHistory() {
 
         list.appendChild(div);
     });
+}
+
+function findSharedScanMatch(item, history) {
+    if (!item || !history || history.length === 0) return null;
+
+    const exact = history.find(scan => scan.url === item.fullUrl);
+    if (exact) return exact;
+
+    const itemDomain = getDomainFromUrl(item.fullUrl);
+    const candidates = history.filter(scan => getDomainFromUrl(scan.url) === itemDomain);
+    if (candidates.length === 0) return null;
+
+    if (!item.timestamp) return candidates[0];
+
+    let best = candidates[0];
+    let bestDelta = Math.abs((best.timestamp || 0) - item.timestamp);
+    for (let i = 1; i < candidates.length; i++) {
+        const delta = Math.abs((candidates[i].timestamp || 0) - item.timestamp);
+        if (delta < bestDelta) {
+            best = candidates[i];
+            bestDelta = delta;
+        }
+    }
+    return best;
 }
 
 // =============================================================================

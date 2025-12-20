@@ -37,9 +37,102 @@ struct SettingsView: View {
     
     @State private var showClearConfirmation = false
     @State private var showNotificationDeniedAlert = false
+    @State private var showTrustCentre = false
+    @State private var showExport = false
+    @State private var showThreatHistory = false
     
     var body: some View {
         List {
+            // Quick Actions Section
+            Section {
+                NavigationLink {
+                    ThreatHistoryView()
+                } label: {
+                    HStack(spacing: 12) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.verdictDanger.opacity(0.15))
+                                .frame(width: 32, height: 32)
+                            Image(systemName: "shield.slash.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(.verdictDanger)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Threat Monitor")
+                                .foregroundColor(.textPrimary)
+                            Text("View live threats and run security audit")
+                                .font(.caption)
+                                .foregroundColor(.textMuted)
+                        }
+                    }
+                    .padding(.vertical, 4)
+                }
+                
+                Button {
+                    showTrustCentre = true
+                } label: {
+                    HStack(spacing: 12) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.verdictSafe.opacity(0.15))
+                                .frame(width: 32, height: 32)
+                            Image(systemName: "lock.shield.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(.verdictSafe)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Trust Centre")
+                                .foregroundColor(.textPrimary)
+                            Text("Privacy settings and threat sensitivity")
+                                .font(.caption)
+                                .foregroundColor(.textMuted)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.textMuted)
+                    }
+                    .padding(.vertical, 4)
+                }
+                
+                Button {
+                    showExport = true
+                } label: {
+                    HStack(spacing: 12) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.brandPrimary.opacity(0.15))
+                                .frame(width: 32, height: 32)
+                            Image(systemName: "doc.text.fill")
+                                .font(.system(size: 14))
+                                .foregroundColor(.brandPrimary)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Export Report")
+                                .foregroundColor(.textPrimary)
+                            Text("Generate PDF or JSON security report")
+                                .font(.caption)
+                                .foregroundColor(.textMuted)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.textMuted)
+                    }
+                    .padding(.vertical, 4)
+                }
+            } header: {
+                sectionHeader("Quick Actions", icon: "bolt.fill")
+            }
+            .listRowBackground(Color.clear)
+            
             // Scanning Section
             Section {
                 SettingsToggle(
@@ -318,6 +411,12 @@ struct SettingsView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text(NSLocalizedString("settings.clear_history_message", comment: "Clear history message"))
+        }
+        .sheet(isPresented: $showTrustCentre) {
+            TrustCentreView()
+        }
+        .sheet(isPresented: $showExport) {
+            ReportExportView()
         }
     }
     

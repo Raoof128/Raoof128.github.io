@@ -1172,6 +1172,99 @@ body {
 }
 
 /* ==========================================================================
+   LIGHT MODE REFINEMENTS
+   ========================================================================== */
+[data-theme="light"] .top-nav,
+html.light .top-nav,
+body.light .top-nav {
+    background-color: rgba(248, 250, 252, 0.95);
+}
+
+[data-theme="light"] .analysis-meta,
+html.light .analysis-meta,
+body.light .analysis-meta {
+    background-color: rgba(241, 245, 249, 0.9);
+    border-color: rgba(226, 232, 240, 0.9);
+    color: var(--text-secondary);
+}
+
+[data-theme="light"] .verdict-card,
+html.light .verdict-card,
+body.light .verdict-card {
+    box-shadow: 0 20px 30px -20px rgba(15, 23, 42, 0.2);
+}
+
+[data-theme="light"] .verdict-background,
+html.light .verdict-background,
+body.light .verdict-background {
+    opacity: 0.2;
+    mix-blend-mode: normal;
+}
+
+[data-theme="light"] .verdict-gradient,
+html.light .verdict-gradient,
+body.light .verdict-gradient {
+    background: linear-gradient(to right, rgba(37, 99, 235, 0.08), transparent);
+}
+
+[data-theme="light"] .protection-badge,
+html.light .protection-badge,
+body.light .protection-badge {
+    background-color: rgba(37, 99, 235, 0.1);
+    border-color: rgba(37, 99, 235, 0.2);
+    color: var(--primary);
+}
+
+[data-theme="light"] .confidence-label,
+html.light .confidence-label,
+body.light .confidence-label {
+    color: var(--primary);
+}
+
+[data-theme="light"] .verdict-shield,
+html.light .verdict-shield,
+body.light .verdict-shield {
+    color: var(--primary);
+    filter: none;
+}
+
+[data-theme="light"] .risk-segment,
+html.light .risk-segment,
+body.light .risk-segment {
+    background-color: #e2e8f0;
+}
+
+[data-theme="light"] .action-bar,
+html.light .action-bar,
+body.light .action-bar {
+    background-color: rgba(248, 250, 252, 0.95);
+}
+
+[data-theme="light"] .url-display,
+html.light .url-display,
+body.light .url-display {
+    background-color: var(--surface-dark);
+}
+
+[data-theme="light"] .risk-meter-card,
+[data-theme="light"] .engine-stats-card,
+[data-theme="light"] .factor-card,
+[data-theme="light"] .btn-action,
+[data-theme="light"] .toast,
+html.light .risk-meter-card,
+html.light .engine-stats-card,
+html.light .factor-card,
+html.light .btn-action,
+html.light .toast,
+body.light .risk-meter-card,
+body.light .engine-stats-card,
+body.light .factor-card,
+body.light .btn-action,
+body.light .toast {
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================================
    TOAST NOTIFICATION
    ========================================================================== */
 .toast {

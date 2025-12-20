@@ -4,6 +4,196 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📋 December 20, 2025 - Web App History Sync & Light Mode Polish
+
+### Summary
+Enhanced web app with history synchronization between scanner and results pages, plus light mode refinements and service worker improvements.
+
+## 🔄 History Synchronization
+
+### results.js Enhancements
+- Added `scanId` tracking to `ResultsState`
+- `initializeFromURL()` now retrieves full scan data from shared store when `scanId` is provided
+- Added `findExistingScan()` to match scans by URL/verdict/score
+- Added `mapHistoryVerdict()` and `mapResultVerdictToHistory()` for verdict format conversion
+- `applyScanResult()` function to apply scan data consistently
+
+### scanner.js Enhancements  
+- `addToHistory()` now syncs with shared `QRShieldUI.addScanToHistory()`
+- Added `syncHistoryWithSharedStore()` to match local history with global store
+- Added `findSharedScanMatch()` for finding matching scans across stores
+- History items now include `scanId` for cross-page navigation
+- `loadHistory()` now calls `syncHistoryWithSharedStore()` on startup
+
+## 🎨 Light Mode Refinements (results.css)
+
+Added ~95 lines of light mode refinements:
+- `.top-nav` - Light background (#f8fafc)
+- `.analysis-meta` - Lighter card background with subtle borders
+- `.verdict-card` - Reduced shadow intensity
+- `.verdict-background` - Lower opacity for light mode
+- `.protection-badge` - Blue-tinted styling
+- `.confidence-label` - Primary color accent
+- `.verdict-shield` - Proper light mode contrast
+
+## 🔧 Service Worker Updates (sw.js)
+
+- Bumped cache version to `v2.4.2`
+- Added `isDevHost()` helper function
+- Dev hosts (localhost, 127.0.0.1) now bypass caching for easier development
+- `skipWaiting()` called immediately for dev environments
+
+## 📁 Files Modified
+
+| File | Lines Changed | Key Changes |
+|------|---------------|-------------|
+| `results.js` | +88, -7 | History sync, scan matching |
+| `scanner.js` | +100, -8 | Shared store sync, scanId tracking |
+| `results.css` | +95 | Light mode refinements |
+| `sw.js` | +21, -1 | Dev bypass, cache version bump |
+| `trust.html` | +2, -2 | Minor cache-bust update |
+
+---
+
+# 📋 December 20, 2025 - iOS SwiftUI Views (HTML Design Integration)
+
+### Summary
+Created 7 new iOS SwiftUI views to match the HTML web app designs while maintaining the existing Liquid Glass design system. All views are iOS 17+ compatible and use proper SwiftUI patterns including `@Observable`, `@State`, `@AppStorage`, and navigation patterns.
+
+## 🆕 New iOS Views Created
+
+### 1. TrustCentreView (`UI/Trust/TrustCentreView.swift`)
+Matches: `trust.html`
+- Offline Guarantee banner with shield icon
+- Threat Sensitivity slider (Low/Balanced/Paranoia)
+- Privacy Controls section with toggles
+- Trusted/Blocked domains lists with management sheets
+- Reset to defaults functionality
+- **Lines:** ~350
+
+### 2. DashboardView (`UI/Dashboard/DashboardView.swift`)
+Matches: `dashboard.html`
+- Hero section with tagline and enterprise badge
+- URL input field for analysis
+- Scan QR Code / Import Image action buttons
+- Stats grid (Threats Blocked, Safe Scans)
+- Engine Features horizontal carousel
+- Recent Scans list with verdict indicators
+- Threat Database status card
+- **Lines:** ~420
+
+### 3. BeatTheBotView (`UI/Training/BeatTheBotView.swift`)
+Matches: `game.html`
+- Countdown timer with animated ring
+- Level indicator (BEGINNER → NIGHTMARE)
+- Browser preview mockup with URL bar
+- Phishing/Legitimate decision buttons with haptics
+- Live session stats (Points, Streak, Accuracy)
+- Bot confidence indicator
+- Live hints with domain comparison
+- **Lines:** ~470
+
+### 4. ReportExportView (`UI/Export/ReportExportView.swift`)
+Matches: `export.html`
+- Format selection cards (PDF/JSON)
+- Live document preview with mockup
+- Export/Share/Copy action buttons
+- Animated background with gradient orbs
+- Expanded preview sheet
+- **Lines:** ~380
+
+### 5. ScanResultView (`UI/Results/ScanResultView.swift`)
+Matches: `results.html`
+- Verdict hero section with confidence percentage
+- Threat tags (Phishing, Obfuscated, Homograph)
+- Recommended Actions (Block & Report, Quarantine)
+- Attack Breakdown with expandable sections
+- Explainable Security panel
+- Scan metadata (ID, Engine, Latency)
+- FlowLayout for dynamic tag wrapping
+- **Lines:** ~520
+
+### 6. ThreatHistoryView (`UI/History/ThreatHistoryView.swift`)
+Matches: `threat.html`
+- Animated live threat map with pulsing hotspots
+- Stats grid (Threats Today, Active Campaigns, Protected, Detection Rate)
+- Run Security Audit button with progress
+- Filter tabs (All, Live, Recent, Verified)
+- Latest threats list with severity indicators
+- **Lines:** ~450
+
+### 7. MainMenuView (`UI/Navigation/MainMenuView.swift`)
+Central navigation hub
+- Grid-based menu cards for all app sections
+- Quick action buttons (Scan, Import, Paste URL)
+- System status indicator
+- Navigation to all 8 destinations using `navigationDestination`
+- **Lines:** ~280
+
+## 📁 Files Created
+
+| File Path | Description |
+|-----------|-------------|
+| `iosApp/QRShield/UI/Trust/TrustCentreView.swift` | Privacy & security settings |
+| `iosApp/QRShield/UI/Dashboard/DashboardView.swift` | Main dashboard |
+| `iosApp/QRShield/UI/Training/BeatTheBotView.swift` | Phishing training game |
+| `iosApp/QRShield/UI/Export/ReportExportView.swift` | Report generation |
+| `iosApp/QRShield/UI/Results/ScanResultView.swift` | Detailed scan results |
+| `iosApp/QRShield/UI/History/ThreatHistoryView.swift` | Threat monitoring |
+| `iosApp/QRShield/UI/Navigation/MainMenuView.swift` | Navigation menu |
+
+## 🎨 Design System Integration
+
+All views use the existing iOS design system:
+- **Color+Theme.swift** - Brand colors, verdict colors, text colors
+- **LiquidGlassBackground** - Animated gradient backgrounds
+- **`.liquidGlass(cornerRadius:)`** - Glass morphism card styling
+- **SettingsManager** - Haptic feedback, sound effects
+- **VerdictIcon** - Consistent verdict indicators
+- **LinearGradient.brandGradient** - Primary gradient accent
+
+## 🔧 Technical Notes
+
+1. **Navigation Pattern**: Uses `NavigationStack` with `navigationDestination(item:)`
+2. **State Management**: `@State` for local state, `@AppStorage` for persisted settings
+3. **Animations**: `symbolEffect`, `contentTransition`, `withAnimation`
+4. **Accessibility**: Proper labels, sensory feedback
+5. **Layout**: Custom `FlowLayout` for dynamic tag wrapping
+
+## 🔌 Wiring & Functionality Added
+
+### ContentView (QRShieldApp.swift)
+- Added 5 tabs: Dashboard, Scan, History, Training, Settings
+- Integrated `TrustCentreView` and `ReportExportView` as sheets
+- Deep link support redirects to Scanner tab
+
+### DashboardView Functionality
+- **URL Analysis**: Performs heuristic analysis on pasted URLs
+  - Checks for login/verify keywords (+15 score)
+  - Urgency language detection (+20 score)
+  - Homograph attack patterns (+35 score)
+  - Suspicious TLDs (.tk, .ml, .ga, .cf) (+25 score)
+  - Complex domain structures (+15 score)
+- **Real History Data**: Loads recent scans from `HistoryStore`
+- **Dark Mode Toggle**: Works via `@AppStorage("useDarkMode")`
+- **Stats from History**: Calculates threats blocked/safe scans from real data
+
+### HistoryStore Updates
+- Added `addItem(_ item:)` for direct history item insertion
+- Added `getAllItems()` for retrieving all history
+- Duplicate detection by URL and timestamp
+
+### SettingsView Enhancements
+- Added "Quick Actions" section with:
+  - Threat Monitor (NavigationLink to ThreatHistoryView)
+  - Trust Centre (sheet presentation)
+  - Export Report (sheet presentation)
+
+### MockTypes Updates
+- Added `relativeDate` computed property to `HistoryItemMock`
+
+---
+
 # 📋 December 20, 2025 - Web UI Recent Scans Linking
 
 ### Summary

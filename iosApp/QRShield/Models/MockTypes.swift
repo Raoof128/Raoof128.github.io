@@ -141,6 +141,11 @@ struct HistoryItemMock: Identifiable, Sendable, Hashable, Codable {
         return formatter.localizedString(for: scannedAt, relativeTo: Date())
     }
     
+    /// Alias for formattedDate
+    var relativeDate: String {
+        formattedDate
+    }
+    
     // Hashable conformance
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

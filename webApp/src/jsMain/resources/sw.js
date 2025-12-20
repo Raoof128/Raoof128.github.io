@@ -3,7 +3,17 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v2.2.0';
+const CACHE_NAME = 'qr-shield-v2.4.2';
+const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
+
+function isDevHost() {
+    try {
+        const scopeUrl = new URL(self.registration.scope);
+        return DEV_HOSTS.has(scopeUrl.hostname);
+    } catch (e) {
+        return false;
+    }
+}
 const STATIC_ASSETS = [
     './',
     './index.html',
@@ -45,6 +55,10 @@ const STATIC_ASSETS = [
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
     console.log('[SW] Installing QR-SHIELD service worker...');
+    if (isDevHost()) {
+        self.skipWaiting();
+        return;
+    }
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
@@ -79,6 +93,11 @@ self.addEventListener('fetch', (event) => {
 
     // Skip cross-origin requests (like fonts, CDN)
     if (!event.request.url.startsWith(self.location.origin)) {
+        return;
+    }
+
+    if (isDevHost()) {
+        event.respondWith(fetch(event.request));
         return;
     }
 

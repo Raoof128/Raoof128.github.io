@@ -27,6 +27,7 @@ const ResultsState = {
     riskLevel: 0,
     factors: [],
     isSidebarOpen: false,
+    scanId: null,
 };
 
 // =============================================================================
@@ -54,14 +55,35 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initializeFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
+    const scanId = urlParams.get('scanId');
     const url = urlParams.get('url');
     const verdict = urlParams.get('verdict');
     const score = urlParams.get('score');
 
+    if (scanId && window.QRShieldUI && window.QRShieldUI.getScanById) {
+        const scan = window.QRShieldUI.getScanById(scanId);
+        if (scan) {
+            applyScanResult(scan, scanId);
+            return;
+        }
+    }
+
     if (url) {
-        ResultsState.scannedUrl = decodeURIComponent(url);
-        ResultsState.verdict = verdict || 'UNKNOWN';
-        ResultsState.confidence = parseInt(score) || 50;
+        const decodedUrl = decodeURIComponent(url);
+        const scoreValue = parseInt(score) || 50;
+        const verdictValue = verdict || 'UNKNOWN';
+
+        if (window.QRShieldUI && window.QRShieldUI.getScanHistory) {
+            const existing = findExistingScan(decodedUrl, verdictValue, scoreValue);
+            if (existing) {
+                applyScanResult(existing, existing.id);
+                return;
+            }
+        }
+
+        ResultsState.scannedUrl = decodedUrl;
+        ResultsState.verdict = verdictValue;
+        ResultsState.confidence = scoreValue;
 
         // Generate a scan ID
         const scanId = generateScanId();
@@ -140,6 +162,66 @@ function getFactorsForVerdict(verdict) {
         default:
             return safeFactors;
     }
+}
+
+function mapHistoryVerdict(verdict) {
+    switch (verdict) {
+        case 'SAFE':
+        case 'LOW':
+            return 'SAFE';
+        case 'MEDIUM':
+            return 'SUSPICIOUS';
+        case 'HIGH':
+            return 'MALICIOUS';
+        default:
+            return 'UNKNOWN';
+    }
+}
+
+function mapResultVerdictToHistory(verdict) {
+    switch (verdict) {
+        case 'SAFE':
+            return 'SAFE';
+        case 'SUSPICIOUS':
+            return 'MEDIUM';
+        case 'MALICIOUS':
+            return 'HIGH';
+        default:
+            return 'UNKNOWN';
+    }
+}
+
+function formatScanId(scanId) {
+    if (!scanId) return generateScanId();
+    return scanId.slice(-7).toUpperCase();
+}
+
+function applyScanResult(scan, scanId) {
+    const resultVerdict = mapHistoryVerdict(scan.verdict);
+    ResultsState.scanId = scanId;
+    ResultsState.scannedUrl = scan.url;
+    ResultsState.verdict = resultVerdict;
+    ResultsState.confidence = parseInt(scan.score) || 50;
+
+    document.getElementById('scanId').textContent = `Result #${formatScanId(scanId)}`;
+
+    ResultsState.currentResult = {
+        url: scan.url,
+        verdict: resultVerdict,
+        confidence: ResultsState.confidence,
+        analysisTime: ResultsConfig.defaultAnalysisTime,
+        factors: getFactorsForVerdict(resultVerdict),
+    };
+}
+
+function findExistingScan(url, verdict, score) {
+    const history = window.QRShieldUI?.getScanHistory?.() || [];
+    const historyVerdict = mapResultVerdictToHistory(verdict);
+    return history.find(scan => {
+        const scanScore = parseInt(scan.score) || 0;
+        const scoreMatch = score === 0 || Math.abs(scanScore - score) <= 1;
+        return scan.url === url && scan.verdict === historyVerdict && scoreMatch;
+    });
 }
 
 // =============================================================================

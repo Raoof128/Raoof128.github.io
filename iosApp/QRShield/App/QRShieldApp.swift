@@ -164,38 +164,69 @@ struct QRShieldApp: App {
 struct ContentView: View {
     @State private var selectedTab = 0
     @AppStorage("autoScan") private var autoScan = true
+    @State private var showMainMenu = false
+    @State private var showTrustCentre = false
+    @State private var showExport = false
     
     /// Binding to trigger scanner from widget deep link
     @Binding var shouldOpenScanner: Bool
     
     var body: some View {
         TabView(selection: $selectedTab) {
+            // Dashboard Tab
+            NavigationStack {
+                DashboardView()
+            }
+            .tabItem {
+                Label(NSLocalizedString("tab.dashboard", comment: "Dashboard"), systemImage: selectedTab == 0 ? "square.grid.2x2.fill" : "square.grid.2x2")
+            }
+            .tag(0)
+            
             // Scan Tab
             NavigationStack {
                 ScannerView()
             }
             .tabItem {
-                Label(NSLocalizedString("tab.scan", comment: "Scan"), systemImage: selectedTab == 0 ? "qrcode.viewfinder" : "qrcode")
+                Label(NSLocalizedString("tab.scan", comment: "Scan"), systemImage: selectedTab == 1 ? "qrcode.viewfinder" : "qrcode")
             }
-            .tag(0)
+            .tag(1)
             
             // History Tab
             NavigationStack {
                 HistoryView()
             }
             .tabItem {
-                Label(NSLocalizedString("tab.history", comment: "History"), systemImage: selectedTab == 1 ? "clock.fill" : "clock")
+                Label(NSLocalizedString("tab.history", comment: "History"), systemImage: selectedTab == 2 ? "clock.fill" : "clock")
             }
-            .tag(1)
+            .tag(2)
+            
+            // Training Tab (Beat the Bot)
+            NavigationStack {
+                BeatTheBotView()
+            }
+            .tabItem {
+                Label(NSLocalizedString("tab.training", comment: "Training"), systemImage: selectedTab == 3 ? "gamecontroller.fill" : "gamecontroller")
+            }
+            .tag(3)
             
             // Settings Tab
             NavigationStack {
                 SettingsView()
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            Button {
+                                showTrustCentre = true
+                            } label: {
+                                Image(systemName: "lock.shield")
+                                    .foregroundColor(.brandPrimary)
+                            }
+                        }
+                    }
             }
             .tabItem {
-                Label(NSLocalizedString("tab.settings", comment: "Settings"), systemImage: selectedTab == 2 ? "gearshape.fill" : "gearshape")
+                Label(NSLocalizedString("tab.settings", comment: "Settings"), systemImage: selectedTab == 4 ? "gearshape.fill" : "gearshape")
             }
-            .tag(2)
+            .tag(4)
         }
         .tint(.brandPrimary)
         .sensoryFeedback(.selection, trigger: selectedTab)
@@ -207,9 +238,18 @@ struct ContentView: View {
         }
         .onChange(of: shouldOpenScanner) { _, shouldOpen in
             if shouldOpen {
-                selectedTab = 0  // Navigate to Scanner tab
+                selectedTab = 1  // Navigate to Scanner tab
                 shouldOpenScanner = false  // Reset
             }
+        }
+        .sheet(isPresented: $showMainMenu) {
+            MainMenuView()
+        }
+        .sheet(isPresented: $showTrustCentre) {
+            TrustCentreView()
+        }
+        .sheet(isPresented: $showExport) {
+            ReportExportView()
         }
     }
 }

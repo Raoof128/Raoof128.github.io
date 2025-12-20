@@ -5,6 +5,132 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.6] - 2025-12-20
+
+### Added
+
+#### 🌐 Web App History Sync & Light Mode Polish
+
+Enhanced web app with cross-page history synchronization and light mode refinements.
+
+**History Synchronization:**
+- Scanner and Results pages now share scan data via `scanId`
+- `QRShieldUI.addScanToHistory()` called on every scan
+- `syncHistoryWithSharedStore()` matches local/global history on load
+- Verdict format conversion between pages (`SAFE`↔`LOW`, `SUSPICIOUS`↔`MEDIUM`, etc.)
+
+**Light Mode Refinements (results.css):**
+- Top nav, analysis meta, verdict cards with proper light backgrounds
+- Reduced shadow intensity for cards
+- Protection badge and confidence label accent colors
+
+**Service Worker Updates (sw.js):**
+- Cache version bumped to `v2.4.2`
+- Dev hosts (localhost) now bypass caching for easier development
+
+---
+
+#### 📱 iOS SwiftUI Views (HTML Design Integration)
+
+**7 new iOS SwiftUI views** created to match the HTML web app designs with full Liquid Glass styling and functional wiring.
+
+| View | File | Matches HTML | Key Features |
+|------|------|--------------|--------------|
+| **TrustCentreView** | `UI/Trust/TrustCentreView.swift` | `trust.html` | Sensitivity slider, privacy toggles, domain lists |
+| **DashboardView** | `UI/Dashboard/DashboardView.swift` | `dashboard.html` | URL analysis, stats grid, recent scans |
+| **BeatTheBotView** | `UI/Training/BeatTheBotView.swift` | `game.html` | Timer ring, browser mockup, decision buttons |
+| **ReportExportView** | `UI/Export/ReportExportView.swift` | `export.html` | PDF/JSON format, live preview |
+| **ScanResultView** | `UI/Results/ScanResultView.swift` | `results.html` | Verdict hero, attack breakdown |
+| **ThreatHistoryView** | `UI/History/ThreatHistoryView.swift` | `threat.html` | Threat map, security audit |
+| **MainMenuView** | `UI/Navigation/MainMenuView.swift` | Sidebar | Grid navigation |
+
+**DashboardView - Real Functionality:**
+```swift
+// URL analysis with heuristic scoring
+if url.contains("login") || url.contains("signin") { score += 15 }
+if url.contains("secure") || url.contains("alert") { score += 20 }
+if url.contains("paypa1") || url.contains("amaz0n") { score += 35 } // Homograph
+if url.hasSuffix(".tk") || url.hasSuffix(".ml") { score += 25 } // Suspicious TLD
+```
+
+---
+
+### Changed
+
+#### 📱 ContentView Enhanced (5 Tabs)
+
+**File Modified:** `iosApp/QRShield/App/QRShieldApp.swift`
+
+Tab bar now includes:
+1. **Dashboard** (new) - Main overview
+2. **Scan** - QR scanner
+3. **History** - Scan history
+4. **Training** (new) - Beat the Bot game
+5. **Settings** - App settings
+
+Sheet presentations for Trust Centre and Report Export.
+
+---
+
+#### ⚙️ SettingsView Quick Actions
+
+**File Modified:** `iosApp/QRShield/UI/Settings/SettingsView.swift`
+
+Added "Quick Actions" section with navigation to:
+- Threat Monitor (ThreatHistoryView)
+- Trust Centre (sheet)
+- Export Report (sheet)
+
+---
+
+#### 📦 HistoryStore Enhancements
+
+**File Modified:** `iosApp/QRShield/Models/HistoryStore.swift`
+
+New methods:
+```swift
+func addItem(_ item: HistoryItemMock)  // Direct insertion with duplicate check
+func getAllItems() -> [HistoryItemMock]  // Retrieve all history
+```
+
+---
+
+#### 📝 MockTypes Updates
+
+**File Modified:** `iosApp/QRShield/Models/MockTypes.swift`
+
+Added `relativeDate` computed property for time display consistency.
+
+---
+
+### Technical Notes
+
+- **Navigation**: `NavigationStack` with `navigationDestination(item:)`
+- **State Management**: `@State` for local, `@AppStorage` for persisted
+- **Animations**: `symbolEffect`, `contentTransition`, `withAnimation`
+- **Design System**: LiquidGlassBackground, .liquidGlass(), brand colors
+- **Haptics**: SettingsManager.shared.triggerHaptic()
+
+---
+
+### Files Summary
+
+| File | Action | Lines |
+|------|--------|-------|
+| `TrustCentreView.swift` | **Created** | ~350 |
+| `DashboardView.swift` | **Created** | ~420 |
+| `BeatTheBotView.swift` | **Created** | ~470 |
+| `ReportExportView.swift` | **Created** | ~380 |
+| `ScanResultView.swift` | **Created** | ~520 |
+| `ThreatHistoryView.swift` | **Created** | ~450 |
+| `MainMenuView.swift` | **Created** | ~280 |
+| `QRShieldApp.swift` | Modified | +40 |
+| `SettingsView.swift` | Modified | +100 |
+| `HistoryStore.swift` | Modified | +40 |
+| `MockTypes.swift` | Modified | +5 |
+
+---
+
 ## [1.7.5] - 2025-12-20
 
 ### Changed
