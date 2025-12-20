@@ -21,6 +21,37 @@ Completed comprehensive iOS codebase audit following competition-grade requireme
 | `artifacts/ios_surface_area_map.md` | Architecture map, file structure, navigation |
 | `artifacts/ios_audit_report.md` | Complete Phase 0-4 audit with issue table |
 
+## 🔗 Post-Audit Fixes
+
+### 1. Decorative Shield Button → Wired to MainMenu
+**File:** `DashboardView.swift`
+
+The shield button in the top-left toolbar was purely decorative. Now wired to:
+- Open `MainMenuView` as a sheet
+- Provide haptic feedback on tap
+- Has accessibility label: "Open main menu"
+
+```swift
+Button {
+    showMainMenu = true
+    SettingsManager.shared.triggerHaptic(.light)
+} label: {
+    HStack(spacing: 8) {
+        Image(systemName: "shield.fill")
+            .foregroundStyle(LinearGradient.brandGradient)
+        Text("QR-SHIELD")
+    }
+}
+.accessibilityLabel("Open main menu")
+```
+
+### 2. Sidebar Light Mode Fix
+**Files:** `QRShieldApp.swift`, `DashboardView.swift`
+
+Sheets (MainMenuView, TrustCentreView, ReportExportView) weren't inheriting the app's color scheme. Fixed by:
+- Adding `@AppStorage("useDarkMode")` to `ContentView`
+- Adding `.preferredColorScheme(useDarkMode ? .dark : .light)` to all sheet presentations
+
 ## 📊 Phase 0: Surface Area Mapping
 
 - **26 Swift files** analyzed

@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Full competition-grade iOS codebase audit with all 26 Swift files reviewed, critical bugs fixed, and all interactive elements verified wired.
 
+#### 🔗 Post-Audit Fixes (Additional)
+
+| Issue | File | Fix |
+|-------|------|-----|
+| Decorative shield button | `DashboardView.swift` | Wired to open MainMenuView sheet |
+| Sidebar won't change to light mode | `QRShieldApp.swift`, `DashboardView.swift` | Added `.preferredColorScheme()` to all sheet presentations |
+
 #### 📊 Phase 0 - iOS Surface Area Mapping
 - Documented complete project structure (26 Swift files)
 - Mapped navigation architecture (TabView + Sheets + NavigationLinks)

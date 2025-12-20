@@ -164,6 +164,7 @@ struct QRShieldApp: App {
 struct ContentView: View {
     @State private var selectedTab = 0
     @AppStorage("autoScan") private var autoScan = true
+    @AppStorage("useDarkMode") private var useDarkMode = true
     @State private var showMainMenu = false
     @State private var showTrustCentre = false
     @State private var showExport = false
@@ -244,12 +245,15 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showMainMenu) {
             MainMenuView()
+                .preferredColorScheme(useDarkMode ? .dark : .light)
         }
         .sheet(isPresented: $showTrustCentre) {
             TrustCentreView()
+                .preferredColorScheme(useDarkMode ? .dark : .light)
         }
         .sheet(isPresented: $showExport) {
             ReportExportView()
+                .preferredColorScheme(useDarkMode ? .dark : .light)
         }
     }
 }

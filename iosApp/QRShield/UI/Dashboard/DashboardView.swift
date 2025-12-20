@@ -38,6 +38,7 @@ struct DashboardView: View {
     @State private var showResults = false
     @State private var analysisResult: RiskAssessmentMock?
     @State private var showThreatHistory = false
+    @State private var showMainMenu = false
     
     @AppStorage("useDarkMode") private var useDarkMode = true
     
@@ -81,13 +82,19 @@ struct DashboardView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "shield.fill")
-                            .foregroundStyle(LinearGradient.brandGradient)
-                        Text("QR-SHIELD")
-                            .font(.headline)
-                            .foregroundColor(.textPrimary)
+                    Button {
+                        showMainMenu = true
+                        SettingsManager.shared.triggerHaptic(.light)
+                    } label: {
+                        HStack(spacing: 8) {
+                            Image(systemName: "shield.fill")
+                                .foregroundStyle(LinearGradient.brandGradient)
+                            Text("QR-SHIELD")
+                                .font(.headline)
+                                .foregroundColor(.textPrimary)
+                        }
                     }
+                    .accessibilityLabel("Open main menu")
                 }
                 
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -135,6 +142,10 @@ struct DashboardView: View {
                     // Analyze the imported image for QR codes
                     ScannerViewModel.shared.analyzeImage(image)
                 }
+            }
+            .sheet(isPresented: $showMainMenu) {
+                MainMenuView()
+                    .preferredColorScheme(useDarkMode ? .dark : .light)
             }
             .onAppear {
                 loadStats()
