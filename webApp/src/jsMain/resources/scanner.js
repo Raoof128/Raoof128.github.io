@@ -175,6 +175,25 @@ function setupEventListeners() {
 }
 
 /**
+ * Navigate to the results page with scan data
+ * @param {string} url - The analyzed URL
+ * @param {string} verdict - The verdict (SAFE, SUSPICIOUS, MALICIOUS)
+ * @param {number} score - The risk score
+ */
+function navigateToResults(url, verdict, score) {
+    const params = new URLSearchParams();
+    params.set('url', encodeURIComponent(url));
+    params.set('verdict', verdict);
+    params.set('score', score);
+
+    console.log('[Scanner] Navigating to results:', { url, verdict, score });
+    window.location.href = `results.html?${params.toString()}`;
+}
+
+// Also expose as window.openFullResults for compatibility with other pages
+window.openFullResults = navigateToResults;
+
+/**
  * Setup Kotlin/JS bridge
  */
 function setupKotlinBridge() {
@@ -189,6 +208,8 @@ function setupKotlinBridge() {
     // Override displayResult to handle results
     const originalDisplayResult = window.displayResult;
     window.displayResult = (score, verdict, flags, url) => {
+        console.log('[Scanner] Analysis complete:', { url, verdict, score, flags });
+
         // Stop scanning animation
         hideScanningState();
 
@@ -201,8 +222,8 @@ function setupKotlinBridge() {
             timestamp: Date.now(),
         });
 
-        // Navigate to results page
-        window.openFullResults?.(url, verdict, score);
+        // Navigate to results page - this is the critical fix!
+        navigateToResults(url, verdict, score);
 
         // Also call original if exists
         if (originalDisplayResult) {

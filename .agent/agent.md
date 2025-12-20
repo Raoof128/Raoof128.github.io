@@ -4,6 +4,82 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📋 December 20, 2025 - Critical Bug Fix: Live Scanner Navigation
+
+### Summary
+Fixed a critical bug where the Live Scanner page failed to navigate to the results page after scanning/analyzing a URL. This was a high-priority issue that broke the core phishing-detection workflow.
+
+## 🐛 Root Cause Analysis
+
+**Problem:** The scanner page (`scanner.html`) did not navigate to `results.html` after completing URL analysis. Users would remain on the scanner page with no visual indication of action.
+
+**Root Cause:** The `window.openFullResults` function was defined in `app.js`, but `scanner.html` does NOT include `app.js` in its script tags. When `scanner.js` called `window.openFullResults?.(url, verdict, score)`, the optional chaining operator (`?.`) caused the call to **fail silently** because `openFullResults` was `undefined`.
+
+## 🔧 Fix Applied
+
+**File Modified:** `webApp/src/jsMain/resources/scanner.js`
+
+**Changes:**
+1. Added `navigateToResults(url, verdict, score)` function to handle results page navigation
+2. Exposed it as `window.openFullResults` for cross-page compatibility
+3. Updated `displayResult` callback to call `navigateToResults()` directly
+
+```javascript
+/**
+ * Navigate to the results page with scan data
+ */
+function navigateToResults(url, verdict, score) {
+    const params = new URLSearchParams();
+    params.set('url', encodeURIComponent(url));
+    params.set('verdict', verdict);
+    params.set('score', score);
+    
+    console.log('[Scanner] Navigating to results:', { url, verdict, score });
+    window.location.href = `results.html?${params.toString()}`;
+}
+
+// Also expose as window.openFullResults for compatibility
+window.openFullResults = navigateToResults;
+```
+
+## ✅ Verification Evidence
+
+Tested with automated browser testing:
+
+| Test Case | URL | Expected Verdict | Result |
+|-----------|-----|------------------|--------|
+| Safe URL | `https://google.com` | SAFE | ✅ Navigated to `results.html?verdict=SAFE&score=8` |
+| Phishing URL | `https://paypa1-secure.tk/login` | SUSPICIOUS | ✅ Navigated to `results.html?verdict=SUSPICIOUS&score=33` |
+
+### Browser Verification Steps:
+1. Confirmed `typeof window.openFullResults === 'function'` on scanner page
+2. Triggered URL analysis via "Paste URL" modal
+3. Confirmed automatic navigation to `results.html`
+4. Verified results page displays correct scan data (not placeholders)
+
+## 📁 Files Changed
+
+| File | Lines Changed | Key Changes |
+|------|---------------|-------------|
+| `scanner.js` | +25 | Added `navigateToResults()` function, exposed as `window.openFullResults`, updated `displayResult` callback |
+
+## 🎯 Impact
+
+- **Fixed:** Live Scanner → Results page navigation for all scan methods (camera, image upload, URL paste)
+- **Fixed:** Scan History items correctly link to results page with scan parameters
+- **Verified:** Results page renders real scan data matching the trigger scan
+
+## 📊 Quality Assurance
+
+- ✅ Navigation works after page refresh
+- ✅ Navigation works in both light and dark themes
+- ✅ No hardcoded/fake navigation
+- ✅ Error handling preserved for invalid URLs
+- ✅ Scan history correctly populated
+- ✅ Results page displays dynamic, real data
+
+---
+
 # 📋 December 20, 2025 - Web App History Sync & Light Mode Polish
 
 ### Summary

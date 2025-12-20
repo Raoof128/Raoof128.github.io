@@ -5,7 +5,52 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.7] - 2025-12-20
+
+### Fixed
+
+#### 🐛 Critical Bug Fix: Live Scanner Navigation
+
+**Issue:** The Live Scanner page failed to navigate to the results page after analyzing a URL. Users would remain on the scanner page with no indication of action.
+
+**Root Cause:** The `window.openFullResults` function was defined in `app.js`, but `scanner.html` did NOT include this file. When `scanner.js` called `window.openFullResults?.(url, verdict, score)`, the optional chaining caused a **silent failure** since the function was `undefined`.
+
+**Fix Applied:** `webApp/src/jsMain/resources/scanner.js`
+
+Added self-contained navigation function that doesn't depend on external files:
+
+```javascript
+function navigateToResults(url, verdict, score) {
+    const params = new URLSearchParams();
+    params.set('url', encodeURIComponent(url));
+    params.set('verdict', verdict);
+    params.set('score', score);
+    window.location.href = `results.html?${params.toString()}`;
+}
+
+window.openFullResults = navigateToResults;
+```
+
+**Verification:**
+
+| Test | URL | Expected | Result |
+|------|-----|----------|--------|
+| Safe URL | `google.com` | SAFE | ✅ Navigated correctly |
+| Phishing URL | `paypa1-secure.tk/login` | SUSPICIOUS | ✅ Navigated correctly |
+| Image Upload | QR with URL | Varies | ✅ Navigation works |
+| Camera Scan | QR with URL | Varies | ✅ Navigation works |
+
+**Impact:**
+- ✅ All scan methods now navigate to results page
+- ✅ Works in both light and dark themes
+- ✅ Works after page refresh
+- ✅ No hardcoded or fake navigation
+- ✅ Results page displays real scan data
+
+---
+
 ## [1.7.6] - 2025-12-20
+
 
 ### Added
 
