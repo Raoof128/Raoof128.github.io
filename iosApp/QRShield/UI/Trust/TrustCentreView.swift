@@ -71,13 +71,19 @@ struct TrustCentreView: View {
     @AppStorage("anonymousTelemetry") private var anonymousTelemetry = false
     @AppStorage("autoCopySafeLinks") private var autoCopySafeLinks = true
     
-    // Lists
-    @State private var trustedDomains: [String] = ["apple.com", "github.com", "google.com"]
-    @State private var blockedDomains: [String] = ["suspicious-site.com"]
+    // Lists - persisted in UserDefaults
+    @AppStorage("trustedDomains") private var trustedDomainsData: Data = Data()
+    @AppStorage("blockedDomains") private var blockedDomainsData: Data = Data()
+    
+    @State private var trustedDomains: [String] = []
+    @State private var blockedDomains: [String] = []
     
     @State private var showTrustedDomains = false
     @State private var showBlockedDomains = false
     @State private var showResetConfirmation = false
+    @State private var showPrivacyPolicy = false
+    @State private var showLicenses = false
+    @State private var showAcknowledgements = false
     
     private var currentSensitivity: ThreatSensitivity {
         ThreatSensitivity(rawValue: sensitivityLevel) ?? .balanced
@@ -124,8 +130,8 @@ struct TrustCentreView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Image(systemName: "verified.user.fill")
-                        .foregroundColor(.brandPrimary)
+                    Image(systemName: "checkmark.shield.fill")
+                        .foregroundColor(.verdictSafe)
                         .symbolEffect(.pulse)
                 }
             }
@@ -155,6 +161,50 @@ struct TrustCentreView: View {
                 domains: $blockedDomains,
                 accentColor: .verdictDanger
             )
+        }
+        .sheet(isPresented: $showPrivacyPolicy) {
+            InfoSheet(title: "Privacy Policy", content: privacyPolicyText)
+        }
+        .sheet(isPresented: $showLicenses) {
+            InfoSheet(title: "Open Source Licenses", content: licensesText)
+        }
+        .sheet(isPresented: $showAcknowledgements) {
+            InfoSheet(title: "Acknowledgements", content: acknowledgementsText)
+        }
+        .onAppear {
+            loadDomainLists()
+        }
+        .onChange(of: trustedDomains) { _, newValue in
+            saveDomainList(newValue, to: "trustedDomains")
+        }
+        .onChange(of: blockedDomains) { _, newValue in
+            saveDomainList(newValue, to: "blockedDomains")
+        }
+    }
+    
+    // MARK: - Persistence
+    
+    private func loadDomainLists() {
+        if let trusted = try? JSONDecoder().decode([String].self, from: trustedDomainsData), !trusted.isEmpty {
+            trustedDomains = trusted
+        } else {
+            trustedDomains = ["apple.com", "github.com", "google.com"]
+        }
+        
+        if let blocked = try? JSONDecoder().decode([String].self, from: blockedDomainsData), !blocked.isEmpty {
+            blockedDomains = blocked
+        } else {
+            blockedDomains = ["suspicious-site.com"]
+        }
+    }
+    
+    private func saveDomainList(_ list: [String], to key: String) {
+        if let data = try? JSONEncoder().encode(list) {
+            if key == "trustedDomains" {
+                trustedDomainsData = data
+            } else {
+                blockedDomainsData = data
+            }
         }
     }
     
@@ -419,11 +469,17 @@ struct TrustCentreView: View {
             sectionHeader("About QR-SHIELD")
             
             VStack(spacing: 0) {
-                aboutRow(title: "Open Source Licences")
+                aboutRow(title: "Open Source Licenses") {
+                    showLicenses = true
+                }
                 Divider().padding(.leading, 16)
-                aboutRow(title: "Privacy Policy")
+                aboutRow(title: "Privacy Policy") {
+                    showPrivacyPolicy = true
+                }
                 Divider().padding(.leading, 16)
-                aboutRow(title: "Acknowledgements")
+                aboutRow(title: "Acknowledgements") {
+                    showAcknowledgements = true
+                }
                 Divider().padding(.leading, 16)
                 
                 // Reset Button
@@ -449,9 +505,10 @@ struct TrustCentreView: View {
         }
     }
     
-    private func aboutRow(title: String) -> some View {
+    private func aboutRow(title: String, action: @escaping () -> Void) -> some View {
         Button {
             SettingsManager.shared.triggerHaptic(.light)
+            action()
         } label: {
             HStack {
                 Text(title)
@@ -467,6 +524,110 @@ struct TrustCentreView: View {
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
         }
+    }
+    
+    // MARK: - Content Text
+    
+    private var privacyPolicyText: String {
+        """
+        QR-SHIELD Privacy Policy
+        ========================
+        
+        Last Updated: December 2025
+        
+        1. DATA COLLECTION
+        ------------------
+        QR-SHIELD is designed with privacy as a core principle. We do NOT collect, store, or transmit any of your scanned URLs or personal data.
+        
+        All URL analysis happens ENTIRELY on your device using our offline phishing detection engine. No internet connection is required for scanning.
+        
+        2. OFFLINE GUARANTEE
+        -------------------
+        When "Strict Offline Mode" is enabled (default), the app operates completely without network access. This means:
+        • No URLs are ever sent to any server
+        • No analytics or tracking data is transmitted
+        • All threat intelligence is contained within the app
+        
+        3. ANONYMOUS TELEMETRY
+        ---------------------
+        If you opt-in to Anonymous Telemetry, we may collect:
+        • Aggregated detection statistics (no URLs)
+        • Crash reports (no personal information)
+        • Feature usage patterns
+        
+        This data is fully anonymized and used only to improve detection accuracy.
+        
+        4. THIRD-PARTY SERVICES
+        ----------------------
+        QR-SHIELD does not integrate with any third-party analytics, advertising, or tracking services.
+        
+        5. CONTACT
+        ----------
+        For privacy inquiries: privacy@qr-shield.app
+        """
+    }
+    
+    private var licensesText: String {
+        """
+        Open Source Licenses
+        ====================
+        
+        QR-SHIELD uses the following open source components:
+        
+        Swift Standard Library
+        ----------------------
+        Copyright © Apple Inc.
+        Licensed under Apache License 2.0
+        
+        Kotlin Multiplatform
+        --------------------
+        Copyright © JetBrains s.r.o.
+        Licensed under Apache License 2.0
+        
+        QR-SHIELD Core Engine
+        ---------------------
+        Copyright © 2025-2026 QR-SHIELD Contributors
+        Licensed under Apache License 2.0
+        
+        Full license texts are available at:
+        https://opensource.org/licenses/Apache-2.0
+        
+        ---
+        
+        QR-SHIELD is open source software.
+        View the source code at: github.com/Raoof128
+        """
+    }
+    
+    private var acknowledgementsText: String {
+        """
+        Acknowledgements
+        ================
+        
+        QR-SHIELD was created for the KotlinConf '26 Student Coding Competition.
+        
+        SPECIAL THANKS
+        --------------
+        • JetBrains for Kotlin Multiplatform
+        • Apple for SwiftUI and iOS development tools
+        • The open source security research community
+        • APWG for phishing data resources
+        • PhishTank for threat intelligence inspiration
+        
+        DESIGN INSPIRATION
+        ------------------
+        • Liquid Glass UI design system
+        • Modern cybersecurity dashboard aesthetics
+        • iOS Human Interface Guidelines
+        
+        CONTRIBUTORS
+        ------------
+        This project was developed by passionate students dedicated to making the internet safer for everyone.
+        
+        ---
+        
+        QR-SHIELD: Scan. Detect. Protect.
+        """
     }
     
     // MARK: - Helpers
@@ -560,6 +721,42 @@ struct DomainListSheet: View {
                         domains.append(newDomain)
                         newDomain = ""
                     }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Info Sheet
+
+struct InfoSheet: View {
+    let title: String
+    let content: String
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                Text(content)
+                    .font(.system(.body, design: .monospaced))
+                    .foregroundColor(.textSecondary)
+                    .padding(20)
+                    .textSelection(.enabled)
+            }
+            .scrollContentBackground(.hidden)
+            .background {
+                LiquidGlassBackground()
+                    .ignoresSafeArea()
+            }
+            .navigationTitle(title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .foregroundColor(.brandPrimary)
                 }
             }
         }

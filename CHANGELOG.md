@@ -5,6 +5,44 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2025-12-20
+
+### Added - iOS App Polish & Functional Wiring
+
+#### 📱 TrustCentreView Enhancements
+- **Privacy Policy Sheet** - Full privacy policy text accessible via "Privacy Policy" button
+- **Open Source Licenses Sheet** - Complete licensing information for all dependencies
+- **Acknowledgements Sheet** - Credits for contributors and design inspiration
+- **Domain List Persistence** - Trusted/Blocked domains now persist across app launches using JSON-encoded UserDefaults
+
+#### 🔐 SandboxPreviewSheet (New Component)
+- URL analysis view replacing broken iframe approach
+- Security status indicator (HTTPS/HTTP)
+- URL breakdown showing domain, path, and parameters
+- Copy URL to clipboard functionality
+- "Open in Safari" option with security warning
+
+#### 📊 ThreatHistoryView Enhancements
+- **Refresh Function** - Refreshes threat data with animation
+- **Export Report** - Generates and copies comprehensive threat report to clipboard
+
+#### 📄 ReportExportView Enhancements
+- **Help Sheet** - Comprehensive guide to export formats and actions
+- **Format Quick Toggle** - Switch between PDF and JSON directly from menu
+
+### New Components
+- `InfoSheet` - Reusable sheet for text content display
+- `SandboxPreviewSheet` - URL security analysis view
+- `ExportHelpSheet` - Export feature documentation
+
+### Technical
+- All decorative buttons now wired to real functions
+- Haptic feedback on all actions
+- Sound effects for success/warning states
+- JSON persistence for domain lists
+
+---
+
 ## [1.7.9] - 2025-12-20
 
 ### Fixed

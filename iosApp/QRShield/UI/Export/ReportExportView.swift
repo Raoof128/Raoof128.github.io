@@ -76,6 +76,7 @@ struct ReportExportView: View {
     @State private var showShareSheet = false
     @State private var copiedToClipboard = false
     @State private var showPreviewExpanded = false
+    @State private var showHelp = false
     
     init(assessment: RiskAssessmentMock? = nil) {
         self.assessment = assessment
@@ -133,15 +134,19 @@ struct ReportExportView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
-                            // Help action
+                            showHelp = true
                         } label: {
                             Label("Help", systemImage: "questionmark.circle")
                         }
                         
                         Button {
-                            // Settings action
+                            // Switch format as a quick action
+                            withAnimation {
+                                selectedFormat = selectedFormat == .pdf ? .json : .pdf
+                            }
+                            SettingsManager.shared.triggerHaptic(.selection)
                         } label: {
-                            Label("Export Settings", systemImage: "gearshape")
+                            Label("Switch to \(selectedFormat == .pdf ? "JSON" : "PDF")", systemImage: "arrow.triangle.swap")
                         }
                     } label: {
                         Image(systemName: "ellipsis")
@@ -154,6 +159,9 @@ struct ReportExportView: View {
                     assessment: displayAssessment,
                     format: selectedFormat
                 )
+            }
+            .sheet(isPresented: $showHelp) {
+                ExportHelpSheet()
             }
         }
     }
@@ -659,6 +667,132 @@ struct ExpandedPreviewSheet: View {
               }
             }
             """
+        }
+    }
+}
+
+// MARK: - Export Help Sheet
+
+struct ExportHelpSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    // PDF Format
+                    helpSection(
+                        icon: "doc.text.fill",
+                        iconColor: .verdictDanger,
+                        title: "PDF Report",
+                        description: "Exports a human-readable security report suitable for sharing with team members, management, or for your records. Includes verdict, risk factors, and recommendations."
+                    )
+                    
+                    // JSON Format
+                    helpSection(
+                        icon: "curlybraces",
+                        iconColor: .verdictSafe,
+                        title: "JSON Data",
+                        description: "Exports raw analysis data in JSON format. Perfect for integration with security tools, SIEMs, or for further automated processing."
+                    )
+                    
+                    Divider()
+                    
+                    // Actions
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("AVAILABLE ACTIONS")
+                            .font(.caption.weight(.bold))
+                            .foregroundColor(.textMuted)
+                            .tracking(1)
+                        
+                        actionHelp(icon: "square.and.arrow.up", title: "Share", description: "Open the iOS share sheet to send via Messages, Mail, AirDrop, or save to Files.")
+                        
+                        actionHelp(icon: "doc.on.doc", title: "Copy", description: "Copy the report content to your clipboard for pasting into other apps.")
+                        
+                        actionHelp(icon: "arrow.right", title: "Export", description: "Save the report directly to your device.")
+                    }
+                    
+                    Divider()
+                    
+                    // Privacy Note
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: "lock.shield.fill")
+                            .font(.title3)
+                            .foregroundColor(.verdictSafe)
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Privacy Note")
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundColor(.textPrimary)
+                            
+                            Text("All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.")
+                                .font(.caption)
+                                .foregroundColor(.textSecondary)
+                        }
+                    }
+                    .padding(16)
+                    .background(Color.verdictSafe.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
+                }
+                .padding(20)
+            }
+            .scrollContentBackground(.hidden)
+            .background {
+                LiquidGlassBackground()
+                    .ignoresSafeArea()
+            }
+            .navigationTitle("Export Help")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .foregroundColor(.brandPrimary)
+                }
+            }
+        }
+    }
+    
+    private func helpSection(icon: String, iconColor: Color, title: String, description: String) -> some View {
+        HStack(alignment: .top, spacing: 16) {
+            ZStack {
+                Circle()
+                    .fill(iconColor.opacity(0.15))
+                    .frame(width: 44, height: 44)
+                
+                Image(systemName: icon)
+                    .font(.title3)
+                    .foregroundColor(iconColor)
+            }
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.textPrimary)
+                
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(.textSecondary)
+            }
+        }
+    }
+    
+    private func actionHelp(icon: String, title: String, description: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.subheadline)
+                .foregroundColor(.brandPrimary)
+                .frame(width: 24)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.subheadline.weight(.medium))
+                    .foregroundColor(.textPrimary)
+                
+                Text(description)
+                    .font(.caption)
+                    .foregroundColor(.textMuted)
+            }
         }
     }
 }

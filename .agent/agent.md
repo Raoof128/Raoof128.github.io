@@ -4,6 +4,53 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📱 December 20, 2025 - iOS App Extensive Debug & Polish
+
+### Summary
+Performed extensive debugging and polishing of the iOS SwiftUI app, ensuring all functions are wired up and no decorative placeholders remain.
+
+## ✅ Functions Wired Up
+
+### TrustCentreView.swift
+- **Privacy Policy, Open Source Licenses, Acknowledgements** - Now show real content in InfoSheet
+- **Domain Lists Persistence** - Trusted/Blocked domains now persist to UserDefaults via JSON encoding
+- **Reset to Defaults** - Properly resets all settings including domain lists
+
+### ScanResultView.swift
+- **Sandbox Preview** - "Quarantine in Sandbox" button now opens `SandboxPreviewSheet`
+  - Shows URL analysis with protocol, domain, path breakdown
+  - HTTPS/HTTP security status indicator
+  - Copy URL to clipboard functionality
+  - "Open in Safari (Risky)" option with warning
+
+### ThreatHistoryView.swift
+- **Refresh Button** - Now shuffles threats and updates stats with animation
+- **Export Report** - Generates comprehensive threat report and copies to clipboard
+
+### ReportExportView.swift
+- **Help Button** - Opens `ExportHelpSheet` with format explanations
+- **Format Toggle** - Quick switch between PDF and JSON formats in menu
+
+## 🆕 New Components Added
+
+1. **InfoSheet** - Reusable sheet for displaying text content (Privacy Policy, Licenses, etc.)
+2. **SandboxPreviewSheet** - URL analysis view with security breakdown
+3. **ExportHelpSheet** - Comprehensive help for export formats and actions
+
+## 🔧 Technical Improvements
+
+- Added `@AppStorage` persistence for trusted/blocked domains with JSON encoding
+- Implemented proper data flow between views
+- Added haptic feedback and sound effects to all actions
+- Ensured all buttons trigger real functionality
+
+## 📦 Build Status
+- **BUILD SUCCEEDED** with minor warnings only
+- All 7 new SwiftUI views properly compiled
+- Project file updated with all source files
+
+---
+
 # 📋 December 20, 2025 - Results Page Score, Color, and Sandbox Fixes
 
 ### Summary

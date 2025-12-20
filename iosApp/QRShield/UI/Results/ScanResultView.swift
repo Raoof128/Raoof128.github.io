@@ -137,6 +137,9 @@ struct ScanResultView: View {
             .sheet(isPresented: $showExport) {
                 ReportExportView(assessment: assessment)
             }
+            .sheet(isPresented: $showSandbox) {
+                SandboxPreviewSheet(url: assessment.url)
+            }
         }
         // Floating scan button
         .overlay(alignment: .bottomTrailing) {
@@ -667,6 +670,219 @@ struct FlowLayout: Layout {
                 self.size.width = max(self.size.width, x - spacing)
                 self.size.height = y + rowHeight
             }
+        }
+    }
+}
+
+// MARK: - Sandbox Preview Sheet
+
+struct SandboxPreviewSheet: View {
+    let url: String
+    
+    @Environment(\.dismiss) private var dismiss
+    @State private var copiedURL = false
+    
+    private var urlComponents: URLComponents? {
+        URLComponents(string: url)
+    }
+    
+    private var isHTTPS: Bool {
+        urlComponents?.scheme?.lowercased() == "https"
+    }
+    
+    private var domain: String {
+        urlComponents?.host ?? "Unknown"
+    }
+    
+    private var path: String {
+        urlComponents?.path ?? ""
+    }
+    
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Security Warning
+                    securityWarning
+                    
+                    // URL Analysis Card
+                    urlAnalysisCard
+                    
+                    // Actions
+                    actionsSection
+                }
+                .padding(20)
+            }
+            .scrollContentBackground(.hidden)
+            .background {
+                LiquidGlassBackground()
+                    .ignoresSafeArea()
+            }
+            .navigationTitle("URL Analysis")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Close") {
+                        dismiss()
+                    }
+                    .foregroundColor(.brandPrimary)
+                }
+            }
+        }
+    }
+    
+    private var securityWarning: some View {
+        HStack(spacing: 12) {
+            Image(systemName: "exclamationmark.shield.fill")
+                .font(.title2)
+                .foregroundColor(.verdictWarning)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Restricted Mode")
+                    .font(.headline)
+                    .foregroundColor(.textPrimary)
+                
+                Text("This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.")
+                    .font(.caption)
+                    .foregroundColor(.textSecondary)
+            }
+        }
+        .padding(16)
+        .background(Color.verdictWarning.opacity(0.1), in: RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.verdictWarning.opacity(0.3), lineWidth: 1)
+        )
+    }
+    
+    private var urlAnalysisCard: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            // Security Status
+            HStack(spacing: 12) {
+                Image(systemName: isHTTPS ? "lock.fill" : "lock.open.fill")
+                    .font(.title3)
+                    .foregroundColor(isHTTPS ? .verdictSafe : .verdictDanger)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(isHTTPS ? "Encrypted Connection" : "Unencrypted Connection")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundColor(.textPrimary)
+                    
+                    Text(isHTTPS ? "HTTPS" : "HTTP - Not Secure")
+                        .font(.caption)
+                        .foregroundColor(isHTTPS ? .verdictSafe : .verdictDanger)
+                }
+                
+                Spacer()
+            }
+            .padding(12)
+            .background(Color.bgSurface.opacity(0.5), in: RoundedRectangle(cornerRadius: 12))
+            
+            Divider()
+            
+            // URL Breakdown
+            VStack(alignment: .leading, spacing: 12) {
+                Text("URL BREAKDOWN")
+                    .font(.caption.weight(.bold))
+                    .foregroundColor(.textMuted)
+                    .tracking(1)
+                
+                breakdownRow(label: "Domain", value: domain)
+                
+                if !path.isEmpty && path != "/" {
+                    breakdownRow(label: "Path", value: path)
+                }
+                
+                if let query = urlComponents?.query, !query.isEmpty {
+                    breakdownRow(label: "Parameters", value: query)
+                }
+            }
+            
+            Divider()
+            
+            // Full URL
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    Text("FULL URL")
+                        .font(.caption.weight(.bold))
+                        .foregroundColor(.textMuted)
+                        .tracking(1)
+                    
+                    Spacer()
+                    
+                    Button {
+                        UIPasteboard.general.string = url
+                        copiedURL = true
+                        SettingsManager.shared.triggerHaptic(.success)
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            copiedURL = false
+                        }
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: copiedURL ? "checkmark" : "doc.on.doc")
+                            Text(copiedURL ? "Copied!" : "Copy")
+                        }
+                        .font(.caption)
+                        .foregroundColor(.brandPrimary)
+                    }
+                    .contentTransition(.symbolEffect(.replace))
+                }
+                
+                Text(url)
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundColor(.textSecondary)
+                    .textSelection(.enabled)
+                    .padding(12)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color.bgDark, in: RoundedRectangle(cornerRadius: 8))
+            }
+        }
+        .padding(16)
+        .liquidGlass(cornerRadius: 16)
+    }
+    
+    private func breakdownRow(label: String, value: String) -> some View {
+        HStack(alignment: .top) {
+            Text(label)
+                .font(.caption)
+                .foregroundColor(.textMuted)
+                .frame(width: 80, alignment: .leading)
+            
+            Text(value)
+                .font(.system(.caption, design: .monospaced))
+                .foregroundColor(.textPrimary)
+                .textSelection(.enabled)
+        }
+    }
+    
+    private var actionsSection: some View {
+        VStack(spacing: 12) {
+            // Open in Browser (with warning)
+            Button {
+                if let url = URL(string: url) {
+                    UIApplication.shared.open(url)
+                }
+            } label: {
+                HStack {
+                    Image(systemName: "safari")
+                    Text("Open in Safari (Risky)")
+                }
+                .font(.headline)
+                .foregroundColor(.verdictDanger)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(Color.verdictDanger.opacity(0.1), in: RoundedRectangle(cornerRadius: 14))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color.verdictDanger.opacity(0.3), lineWidth: 1)
+                )
+            }
+            
+            Text("Opening this URL in your browser may expose you to security risks.")
+                .font(.caption)
+                .foregroundColor(.textMuted)
+                .multilineTextAlignment(.center)
         }
     }
 }

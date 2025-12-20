@@ -23,6 +23,13 @@
 		A100000E00000000000000E /* MockTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000F00000000000000F /* MockTypes.swift */; };
 		A1000010000000000000010 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000010000000000000010 /* SettingsManager.swift */; };
 		A1000011000000000000011 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000011000000000000011 /* HistoryStore.swift */; };
+		A1000012000000000000012 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000012000000000000012 /* DashboardView.swift */; };
+		A1000013000000000000013 /* TrustCentreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000013000000000000013 /* TrustCentreView.swift */; };
+		A1000014000000000000014 /* BeatTheBotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000014000000000000014 /* BeatTheBotView.swift */; };
+		A1000015000000000000015 /* ReportExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000015000000000000015 /* ReportExportView.swift */; };
+		A1000016000000000000016 /* ScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000016000000000000016 /* ScanResultView.swift */; };
+		A1000017000000000000017 /* ThreatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000017000000000000017 /* ThreatHistoryView.swift */; };
+		A1000018000000000000018 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000018000000000000018 /* MainMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +51,13 @@
 		B100000F00000000000000F /* MockTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTypes.swift; sourceTree = "<group>"; };
 		B1000010000000000000010 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		B1000011000000000000011 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
+		B1000012000000000000012 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		B1000013000000000000013 /* TrustCentreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustCentreView.swift; sourceTree = "<group>"; };
+		B1000014000000000000014 /* BeatTheBotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatTheBotView.swift; sourceTree = "<group>"; };
+		B1000015000000000000015 /* ReportExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportExportView.swift; sourceTree = "<group>"; };
+		B1000016000000000000016 /* ScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResultView.swift; sourceTree = "<group>"; };
+		B1000017000000000000017 /* ThreatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatHistoryView.swift; sourceTree = "<group>"; };
+		B1000018000000000000018 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +125,12 @@
 				E1000009000000000000009 /* History */,
 				E100000A00000000000000A /* Settings */,
 				E100000B00000000000000B /* Onboarding */,
+				E100000D00000000000000D /* Dashboard */,
+				E100000E00000000000000E /* Trust */,
+				E100000F00000000000000F /* Training */,
+				E1000010000000000000010 /* Export */,
+				E1000011000000000000011 /* Results */,
+				E1000012000000000000012 /* Navigation */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -139,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				B100000B00000000000000B /* HistoryView.swift */,
+				B1000017000000000000017 /* ThreatHistoryView.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -167,6 +188,54 @@
 				B1000011000000000000011 /* HistoryStore.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E100000D00000000000000D /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				B1000012000000000000012 /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		E100000E00000000000000E /* Trust */ = {
+			isa = PBXGroup;
+			children = (
+				B1000013000000000000013 /* TrustCentreView.swift */,
+			);
+			path = Trust;
+			sourceTree = "<group>";
+		};
+		E100000F00000000000000F /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				B1000014000000000000014 /* BeatTheBotView.swift */,
+			);
+			path = Training;
+			sourceTree = "<group>";
+		};
+		E1000010000000000000010 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				B1000015000000000000015 /* ReportExportView.swift */,
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
+		E1000011000000000000011 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				B1000016000000000000016 /* ScanResultView.swift */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		E1000012000000000000012 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				B1000018000000000000018 /* MainMenuView.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +322,13 @@
 				A100000E00000000000000E /* MockTypes.swift in Sources */,
 				A1000010000000000000010 /* SettingsManager.swift in Sources */,
 				A1000011000000000000011 /* HistoryStore.swift in Sources */,
+				A1000012000000000000012 /* DashboardView.swift in Sources */,
+				A1000013000000000000013 /* TrustCentreView.swift in Sources */,
+				A1000014000000000000014 /* BeatTheBotView.swift in Sources */,
+				A1000015000000000000015 /* ReportExportView.swift in Sources */,
+				A1000016000000000000016 /* ScanResultView.swift in Sources */,
+				A1000017000000000000017 /* ThreatHistoryView.swift in Sources */,
+				A1000018000000000000018 /* MainMenuView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
