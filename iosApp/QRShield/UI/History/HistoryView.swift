@@ -104,9 +104,16 @@ struct HistoryView: View {
             
             // iOS 17+: Scan count in toolbar
             ToolbarItem(placement: .navigationBarLeading) {
-                Text(String(format: "%d scans", viewModel.filteredHistory.count))
-                    .font(.caption)
-                    .foregroundColor(.textSecondary)
+                HStack(spacing: 4) {
+                    Image(systemName: "doc.text")
+                        .font(.caption2)
+                    Text("\(viewModel.filteredHistory.count)")
+                        .font(.caption.weight(.medium))
+                }
+                .foregroundColor(.textSecondary)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.bgSurface.opacity(0.5), in: Capsule())
             }
         }
         .onChange(of: searchText) { _, newValue in
@@ -151,9 +158,9 @@ struct HistoryView: View {
                 .shadow(color: .black.opacity(0.2), radius: 8, y: 4)
                 .transition(.move(edge: .top).combined(with: .opacity))
                 .padding(.top, 60)
+                .animation(.spring(response: 0.3), value: showExportedToast)
             }
         }
-        .animation(.spring(response: 0.3), value: showExportedToast)
         .accessibilityLabel(Text("Scan History"))
     }
     

@@ -150,15 +150,6 @@ struct ThreatHistoryView: View {
             .navigationTitle("Threat History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.textSecondary)
-                    }
-                }
-                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         Button {
@@ -171,6 +162,14 @@ struct ThreatHistoryView: View {
                             exportThreatReport()
                         } label: {
                             Label("Export Report", systemImage: "square.and.arrow.up")
+                        }
+                        
+                        Divider()
+                        
+                        Button {
+                            dismiss()
+                        } label: {
+                            Label("Close", systemImage: "xmark")
                         }
                     } label: {
                         Image(systemName: "ellipsis")

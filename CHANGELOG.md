@@ -20,6 +20,9 @@ Full competition-grade iOS codebase audit with all 26 Swift files reviewed, crit
 | Hardcoded dark mode nav/tab bar | `QRShieldApp.swift` | Changed to adaptive `UIBlurEffect(style: .systemThinMaterial)` and `UIColor.label` |
 | ThreatHistoryView hardcoded stats | `ThreatHistoryView.swift` | Connected to real HistoryStore data (threats today, safe scans, detection rate) |
 | Sheet color scheme inheritance | 6 files | Added `useDarkMode` and `.preferredColorScheme()` to all sheets |
+| "4 sc..." truncated text | `HistoryView.swift` | Redesigned scan count badge with icon |
+| Duplicate back buttons | `ThreatHistoryView.swift` | Removed custom back button, added Close to menu |
+| Export button "dancing" | `HistoryView.swift` | Scoped animation to toast only |
 
 **Sheet Color Scheme Fix Details:**
 - `DashboardView.swift` - 5 sheets fixed
@@ -28,6 +31,8 @@ Full competition-grade iOS codebase audit with all 26 Swift files reviewed, crit
 - `ScanResultView.swift` - 2 sheets fixed + added `useDarkMode`
 - `MainMenuView.swift` - 1 sheet fixed + added `useDarkMode`
 - `QRShieldApp.swift` - 3 sheets fixed (already had `useDarkMode`)
+
+**Note:** The "Threat Live Map" visualization is intentionally decorative (shows simulated global threat activity). Real geographic threat data would require a threat intelligence API. The **stats cards** (Protected Scans, Detection Rate, etc.) ARE connected to real HistoryStore data.
 
 #### 📊 Phase 0 - iOS Surface Area Mapping
 - Documented complete project structure (26 Swift files)
