@@ -10,6 +10,8 @@
    BASE THEME VARIABLES (Dark Mode - Default)
    ========================================================================== */
 :root {
+    color-scheme: dark;
+
     /* Brand Colors (Consistent across themes) */
     --primary: #195de6;
     --primary-dark: #1040a8;
@@ -89,6 +91,8 @@
 [data-theme="light"],
 html.light,
 body.light {
+    color-scheme: light;
+
     /* Background Colors */
     --bg-main: #f8fafc;
     --bg-surface: #ffffff;
@@ -160,6 +164,8 @@ body.light {
    ========================================================================== */
 @media (prefers-color-scheme: light) {
     :root:not([data-theme="dark"]):not(.dark) {
+        color-scheme: light;
+
         /* Background Colors */
         --bg-main: #f8fafc;
         --bg-surface: #ffffff;

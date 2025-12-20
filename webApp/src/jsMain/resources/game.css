@@ -988,6 +988,20 @@ html {
     color: #6ee7b7;
 }
 
+[data-theme="light"] .decision-btn.phishing .btn-content,
+html.light .decision-btn.phishing .btn-content,
+body.light .decision-btn.phishing .btn-content {
+    background-color: rgba(220, 38, 38, 0.06);
+    color: #7f1d1d;
+}
+
+[data-theme="light"] .decision-btn.legitimate .btn-content,
+html.light .decision-btn.legitimate .btn-content,
+body.light .decision-btn.legitimate .btn-content {
+    background-color: rgba(5, 150, 105, 0.06);
+    color: #064e3b;
+}
+
 .decision-btn:hover .btn-content {
     background-color: transparent;
     color: white;

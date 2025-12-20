@@ -336,6 +336,12 @@ html {
     justify-content: space-between;
 }
 
+[data-theme="light"] .top-header,
+html.light .top-header,
+body.light .top-header {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
 @media (min-width: 1024px) {
     .top-header {
         padding: 0 var(--space-10);

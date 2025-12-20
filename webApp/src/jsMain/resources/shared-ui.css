@@ -64,14 +64,6 @@
     color: #0f172a;
 }
 
-[data-theme="light"] .toggle-slider {
-    background-color: #e2e8f0;
-}
-
-[data-theme="light"] .toggle-slider::before {
-    background-color: #94a3b8;
-}
-
 [data-theme="light"] .settings-card {
     background-color: #ffffff;
     border-color: #e2e8f0;
@@ -811,8 +803,13 @@
 /* Toggle Switch */
 .toggle-switch {
     position: relative;
-    width: 2.75rem;
-    height: 1.5rem;
+    --toggle-width: 2.75rem;
+    --toggle-height: 1.5rem;
+    --toggle-padding: 0.1875rem;
+    --toggle-thumb-size: calc(var(--toggle-height) - (var(--toggle-padding) * 2));
+
+    width: var(--toggle-width);
+    height: var(--toggle-height);
     cursor: pointer;
     flex-shrink: 0;
 }
@@ -836,10 +833,10 @@
 .toggle-slider::before {
     content: '';
     position: absolute;
-    left: 0.1875rem;
-    top: 0.1875rem;
-    width: 1.125rem;
-    height: 1.125rem;
+    left: var(--toggle-padding);
+    top: var(--toggle-padding);
+    width: var(--toggle-thumb-size);
+    height: var(--toggle-thumb-size);
     background-color: #ffffff;
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -859,7 +856,7 @@
 
 .toggle-switch.on .toggle-slider::before,
 .toggle-switch input:checked+.toggle-slider::before {
-    transform: translateX(1.25rem);
+    transform: translateX(calc(var(--toggle-width) - var(--toggle-thumb-size) - (var(--toggle-padding) * 2)));
 }
 
 /* Light mode toggle styling */
@@ -898,7 +895,8 @@ body.light .toggle-switch input:checked+.toggle-slider {
 }
 
 .setting-select option {
-    background-color: #161b22;
+    background-color: var(--dropdown-bg, #161b22);
+    color: var(--text-primary, #ffffff);
 }
 
 /* ==========================================================================

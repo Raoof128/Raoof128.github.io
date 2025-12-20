@@ -387,6 +387,12 @@ html {
     justify-content: space-between;
 }
 
+[data-theme="light"] .top-header,
+html.light .top-header,
+body.light .top-header {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
 .header-left {
     display: flex;
     align-items: center;

@@ -5,6 +5,26 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.4] - 2025-12-20
+
+### Fixed
+
+#### 🌐 Web UI Light Mode Polish (Headers + Game Buttons)
+
+**What changed:**
+- Fixed Export page top header staying dark/grey in light mode.
+- Fixed Beat the Bot “Phishing / Legitimate” decision buttons not adapting in light mode.
+- Improved theme correctness for native-rendered controls by setting `color-scheme` per theme.
+
+**Files Modified:**
+- `webApp/src/jsMain/resources/export.css`
+- `webApp/src/jsMain/resources/game.css`
+- `webApp/src/jsMain/resources/onboarding.css`
+- `webApp/src/jsMain/resources/shared-ui.css`
+- `webApp/src/jsMain/resources/theme.css`
+- `webApp/src/jsMain/resources/trust.css`
+- `.agent/agent.md`
+
 ## [1.7.3] - 2025-12-20
 
 ### Changed

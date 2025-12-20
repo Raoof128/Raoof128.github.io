@@ -270,36 +270,6 @@ body.light .reset-btn {
     color: #dc2626 !important;
 }
 
-/* ============================================
-   TOGGLE SWITCH IMPROVED STYLING
-   ============================================ */
-/* Track (OFF state) */
-[data-theme="light"] .toggle-switch .toggle-slider,
-html.light .toggle-switch .toggle-slider,
-body.light .toggle-switch .toggle-slider {
-    background-color: #cbd5e1 !important;
-    box-shadow: inset 0 0 0 1px #94a3b8 !important;
-}
-
-/* Track (ON state) */
-[data-theme="light"] .toggle-switch.on .toggle-slider,
-[data-theme="light"] .toggle-switch input:checked + .toggle-slider,
-html.light .toggle-switch.on .toggle-slider,
-html.light .toggle-switch input:checked + .toggle-slider,
-body.light .toggle-switch.on .toggle-slider,
-body.light .toggle-switch input:checked + .toggle-slider {
-    background-color: #2563eb !important;
-    box-shadow: inset 0 0 0 1px #2563eb !important;
-}
-
-/* Knob */
-[data-theme="light"] .toggle-slider::before,
-html.light .toggle-slider::before,
-body.light .toggle-slider::before {
-    background-color: #ffffff !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
-}
-
 /* Controls card in light mode */
 [data-theme="light"] .controls-card,
 html.light .controls-card,

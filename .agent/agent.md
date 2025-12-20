@@ -4,6 +4,24 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📋 December 20, 2025 - Web UI Theme + Toggle Polish (Follow-up)
+
+### Summary
+- Fixed the Onboarding page header staying dark in light mode by adding light-theme overrides for `.top-header`.
+- Fixed Export page top header staying dark/grey in light mode by adding light-theme overrides for `.top-header`.
+- Standardized toggle switch thumb sizing/translation so the white knob is consistently centered/aligned across all toggles.
+- Improved native control theming by setting `color-scheme` per theme, reducing “dark UI” artifacts in light mode.
+- Fixed Beat the Bot decision buttons (Phishing/Legitimate) so they adapt correctly in light mode.
+- Made `<select>` option colors theme-aware and removed Trust-only toggle overrides to rely on the shared toggle implementation.
+
+## 📁 Files Modified
+- `webApp/src/jsMain/resources/export.css`
+- `webApp/src/jsMain/resources/game.css`
+- `webApp/src/jsMain/resources/onboarding.css`
+- `webApp/src/jsMain/resources/shared-ui.css`
+- `webApp/src/jsMain/resources/theme.css`
+- `webApp/src/jsMain/resources/trust.css`
+
 # 📋 December 19-20, 2025 - Consolidated Improvements Summary
 
 This section provides a quick overview of ALL improvements made during the December 19-20 development sessions.
