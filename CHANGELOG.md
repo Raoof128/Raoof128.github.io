@@ -25,6 +25,8 @@ Full competition-grade iOS codebase audit with all 26 Swift files reviewed, crit
 | Export button "dancing" | `HistoryView.swift` | Scoped animation to toast only |
 | **Threat list hardcoded** | `ThreatHistoryView.swift` | Now shows REAL threats from HistoryStore with auto-categorization |
 | **Threat map decorative** | `ThreatHistoryView.swift` | Now shows real hotspots based on scanned threats |
+| Trust Centre green checkmark | `TrustCentreView.swift` | Made functional menu showing security status & quick actions |
+| Strict Offline Mode no icon | `TrustCentreView.swift` | Changed to valid SF Symbol `wifi.slash` |
 
 **Sheet Color Scheme Fix Details:**
 - `DashboardView.swift` - 5 sheets fixed

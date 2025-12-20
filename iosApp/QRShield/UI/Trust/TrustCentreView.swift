@@ -322,7 +322,7 @@ struct TrustCentreView: View {
             VStack(spacing: 0) {
                 // Strict Offline Mode
                 privacyToggleRow(
-                    icon: "globe.badge.minus.fill",
+                    icon: "wifi.slash",
                     iconColor: .brandPrimary,
                     title: "Strict Offline Mode",
                     isOn: $strictOfflineMode
