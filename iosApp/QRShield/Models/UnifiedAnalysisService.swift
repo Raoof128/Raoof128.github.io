@@ -98,8 +98,8 @@ class UnifiedAnalysisService: ObservableObject {
         return RiskAssessmentMock(
             score: score,
             verdict: verdict,
-            confidence: Double(100 - abs(50 - score)) / 100.0,
             flags: flags.isEmpty ? ["Analyzed by KMP Engine"] : flags,
+            confidence: Double(100 - abs(50 - score)) / 100.0,
             url: url
         )
     }
@@ -126,8 +126,8 @@ class UnifiedAnalysisService: ObservableObject {
             return RiskAssessmentMock(
                 score: 50,
                 verdict: .suspicious,
-                confidence: 0.7,
                 flags: ["Invalid URL Format"],
+                confidence: 0.7,
                 url: url
             )
         }
@@ -311,8 +311,8 @@ class UnifiedAnalysisService: ObservableObject {
         return RiskAssessmentMock(
             score: min(score, 100),
             verdict: verdict,
-            confidence: calculateConfidence(score: score, flagCount: flags.count),
             flags: flags,
+            confidence: calculateConfidence(score: score, flagCount: flags.count),
             url: url
         )
     }

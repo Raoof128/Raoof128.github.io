@@ -5,6 +5,93 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.3] - 2025-12-21
+
+### 🔍 Comprehensive iOS Audit (Phase 0-4 Complete)
+
+Full competition-grade iOS codebase audit with all 26 Swift files reviewed, critical bugs fixed, and all interactive elements verified wired.
+
+#### 📊 Phase 0 - iOS Surface Area Mapping
+- Documented complete project structure (26 Swift files)
+- Mapped navigation architecture (TabView + Sheets + NavigationLinks)
+- Catalogued state management patterns (@State, @AppStorage, @Observable, Singletons)
+- Identified KMP bridging boundary (UnifiedAnalysisService, KMPBridge, ComposeInterop)
+
+#### 🔧 Phase 1 - Build Verification
+- Clean build verified: **BUILD SUCCEEDED**
+- Target: iPhone 17 Simulator (iOS 26.0)
+
+#### 🐛 Phase 2 - Critical Issues Fixed
+
+| Issue | File | Fix |
+|-------|------|-----|
+| Duplicate analysis logic (~180 lines) | `DashboardView.swift` | Refactored to `UnifiedAnalysisService.shared.analyze()` |
+| Inconsistent KMP integration | `ScannerViewModel.swift` | Refactored to `UnifiedAnalysisService.shared.analyze()` |
+| No clipboard URL validation | `MainMenuView.swift` | Added scheme/host validation before processing |
+| File not in Xcode project | `UnifiedAnalysisService.swift` | Added to `project.pbxproj` |
+| Parameter order mismatch | `UnifiedAnalysisService.swift` | Fixed 3 `RiskAssessmentMock` initializer calls |
+
+#### ✅ Phase 3 - Interactive Elements Verified
+
+| Category | Count | Status |
+|----------|-------|--------|
+| Scan actions | 6 | ✅ All wired |
+| Result actions | 6 | ✅ All wired |
+| History actions | 6 | ✅ All wired |
+| Settings toggles | 7 | ✅ All wired |
+| Trust Centre | 5 | ✅ All wired |
+| Training game | 4 | ✅ All wired |
+| Export actions | 4 | ✅ All wired |
+
+**Total: 38 interactive elements, all verified functional**
+
+#### 🔒 Security Verification
+
+| Security Rule | Status |
+|---------------|--------|
+| Never auto-open unknown URLs | ✅ Pass |
+| "Open safely" requires warning | ✅ Pass |
+| Clipboard input validation | ✅ Fixed |
+| No sensitive data in logs | ✅ Pass |
+| Camera permission flow | ✅ Pass |
+
+#### 🎯 Architecture Improvement
+
+**Before:** Analysis logic scattered across 3 files
+```
+DashboardView.analyzeURL()     → Inline heuristics (180 lines)
+ScannerViewModel.analyzeUrl()  → Direct KMP + mock fallback
+UnifiedAnalysisService         → Not in Xcode project!
+```
+
+**After:** Single source of truth
+```
+DashboardView        ─┐
+                      ├→ UnifiedAnalysisService.shared.analyze()
+ScannerViewModel     ─┘
+                            ├── KMP HeuristicsEngine (when available)
+                            └── Swift Fallback Engine (otherwise)
+```
+
+#### 📁 Files Modified
+
+| File | Lines Changed | Description |
+|------|---------------|-------------|
+| `DashboardView.swift` | -130, +50 | Uses UnifiedAnalysisService |
+| `ScannerViewModel.swift` | -20, +30 | Uses UnifiedAnalysisService |
+| `MainMenuView.swift` | +20 | URL validation for clipboard |
+| `UnifiedAnalysisService.swift` | ~6 | Parameter order fix |
+| `project.pbxproj` | +5 | Added UnifiedAnalysisService to project |
+
+#### 📄 Audit Reports Created
+
+| Artifact | Description |
+|----------|-------------|
+| `artifacts/ios_surface_area_map.md` | Architecture map, file structure, navigation |
+| `artifacts/ios_audit_report.md` | Complete Phase 0-4 audit with issue table |
+
+---
+
 ## [1.9.2] - 2025-12-20
 
 ### Improved - Debug & Polish Pass

@@ -408,22 +408,14 @@ final class ScannerViewModel {
         Task { [weak self] in
             guard let self else { return }
             
-            // Use actual KMP PhishingEngine when available
-            #if canImport(common)
-            let assessment = engine.analyze(url: url)
-            let result = RiskAssessmentMock(
-                score: Int(assessment.score),
-                verdict: VerdictMock.from(assessment.verdict),
-                flags: assessment.flags as? [String] ?? [],
-                confidence: Double(assessment.confidence),
-                url: url,
-                scannedAt: Date()
-            )
-            #else
-            // Fallback to mock for development without KMP framework
-            try? await Task.sleep(for: .milliseconds(500))
-            let result = createMockResult(for: url)
-            #endif
+            // Small delay for UI feedback
+            try? await Task.sleep(for: .milliseconds(400))
+            
+            // Use UnifiedAnalysisService for consistent analysis
+            // This handles both KMP HeuristicsEngine and Swift fallback internally
+            let result = await MainActor.run {
+                UnifiedAnalysisService.shared.analyze(url: url)
+            }
             
             await MainActor.run {
                 withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
@@ -435,6 +427,10 @@ final class ScannerViewModel {
                 HistoryStore.shared.addScan(result)
                 
                 self.triggerVerdictHaptic(for: result.verdict)
+                
+                #if DEBUG
+                print("🔍 [Scanner] Analysis complete via \(UnifiedAnalysisService.shared.lastEngineUsed)")
+                #endif
             }
         }
     }

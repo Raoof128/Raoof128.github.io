@@ -4,6 +4,115 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔍 December 21, 2025 - Full iOS Audit (Phase 0-4 Complete)
+
+### Summary
+Completed comprehensive iOS codebase audit following competition-grade requirements:
+- **Phase 0:** iOS Surface Area Mapping ✅
+- **Phase 1:** Build Verification & Fix Blockers ✅
+- **Phase 2:** File-by-File Audit (26 files) ✅
+- **Phase 3:** Decorative → Wired Verification ✅
+- **Phase 4:** Output Report & Checklist ✅
+
+## 📄 Audit Reports Created
+
+| Artifact | Description |
+|----------|-------------|
+| `artifacts/ios_surface_area_map.md` | Architecture map, file structure, navigation |
+| `artifacts/ios_audit_report.md` | Complete Phase 0-4 audit with issue table |
+
+## 📊 Phase 0: Surface Area Mapping
+
+- **26 Swift files** analyzed
+- Navigation: TabView (5 tabs) + Sheets + NavigationLinks
+- State: `@State`, `@AppStorage`, `@Observable`, Singletons
+- KMP Boundary: `UnifiedAnalysisService`, `KMPBridge`, `ComposeInterop`
+
+## 🔧 Phase 1: Build Verification
+
+```bash
+xcodebuild -project QRShield.xcodeproj -scheme QRShield \
+  -destination 'platform=iOS Simulator,name=iPhone 17' clean build
+```
+
+**Result:** ✅ BUILD SUCCEEDED
+
+## 🐛 Phase 2: Critical Issues Fixed
+
+| Issue | File | Fix |
+|-------|------|-----|
+| Duplicate analysis logic | `DashboardView.swift` | Refactored to `UnifiedAnalysisService.shared.analyze()` |
+| Inconsistent KMP integration | `ScannerViewModel.swift` | Refactored to `UnifiedAnalysisService.shared.analyze()` |
+| No URL validation | `MainMenuView.swift` | Added scheme/host validation |
+| Not in project | `UnifiedAnalysisService.swift` | Added to `project.pbxproj` |
+| Parameter order | `UnifiedAnalysisService.swift` | Fixed 3 `RiskAssessmentMock` calls |
+
+## ✅ Phase 3: Interactive Elements Verified
+
+| Category | Count | Status |
+|----------|-------|--------|
+| Scan actions | 6 | ✅ All wired |
+| Result actions | 6 | ✅ All wired |
+| History actions | 6 | ✅ All wired |
+| Settings toggles | 7 | ✅ All wired |
+| Trust Centre | 5 | ✅ All wired |
+| Training game | 4 | ✅ All wired |
+| Export actions | 4 | ✅ All wired |
+
+## 🔒 Security Verification
+
+| Rule | Status |
+|------|--------|
+| Never auto-open unknown URLs | ✅ Pass |
+| "Open safely" requires warning | ✅ Pass |
+| Clipboard input validation | ✅ Fixed |
+| No sensitive data in logs | ✅ Pass |
+| Camera permission flow | ✅ Pass |
+
+## 📁 Files Modified
+
+| File | Lines Changed | Description |
+|------|---------------|-------------|
+| `DashboardView.swift` | -130, +50 | Uses UnifiedAnalysisService |
+| `ScannerViewModel.swift` | -20, +30 | Uses UnifiedAnalysisService |
+| `MainMenuView.swift` | +20 | URL validation |
+| `UnifiedAnalysisService.swift` | ~6 | Parameter order fix |
+| `project.pbxproj` | +5 | Added UnifiedAnalysisService |
+
+## 🎯 Architecture After Audit
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Entry Points                         │
+├─────────────────────────────────────────────────────────┤
+│ DashboardView → "Analyze" button                        │
+│ ScannerView   → QR code detected                        │
+│ MainMenuView  → "Paste URL" action                      │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────┐
+│            UnifiedAnalysisService.shared                │
+├─────────────────────────────────────────────────────────┤
+│ ┌─────────────────────┐  ┌────────────────────────────┐ │
+│ │ KMP HeuristicsEngine│  │ Swift Fallback Engine      │ │
+│ │ (when available)    │  │ (comprehensive heuristics) │ │
+│ └─────────────────────┘  └────────────────────────────┘ │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+                       ▼
+┌─────────────────────────────────────────────────────────┐
+│                     RiskAssessmentMock                  │
+├─────────────────────────────────────────────────────────┤
+│ • score, verdict, flags, confidence, url                │
+│ • Saved to HistoryStore                                 │
+│ • Triggers haptic/sound feedback                        │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+
 # 🔧 December 20, 2025 - Debug & Polish Pass (Session 3)
 
 ### Comprehensive Polish

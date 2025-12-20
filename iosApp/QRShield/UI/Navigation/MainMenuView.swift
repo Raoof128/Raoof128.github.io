@@ -288,13 +288,35 @@ struct MainMenuView: View {
                     title: "Paste URL",
                     color: .brandAccent
                 ) {
-                    // Get URL from clipboard
+                    // Get URL from clipboard and validate it
                     if let clipboardString = UIPasteboard.general.string,
                        !clipboardString.isEmpty {
-                        // Navigate to dashboard with pasted URL
-                        selectedDestination = .dashboard
-                        SettingsManager.shared.triggerHaptic(.success)
+                        // Validate that it looks like a URL
+                        let trimmed = clipboardString.trimmingCharacters(in: .whitespacesAndNewlines)
+                        var isValidURL = false
+                        
+                        // Check if it has a valid scheme
+                        if let url = URL(string: trimmed),
+                           let scheme = url.scheme?.lowercased(),
+                           (scheme == "http" || scheme == "https"),
+                           url.host != nil {
+                            isValidURL = true
+                        } else if let url = URL(string: "https://\(trimmed)"),
+                                  url.host != nil {
+                            // Accept URLs without scheme (will be normalized)
+                            isValidURL = true
+                        }
+                        
+                        if isValidURL {
+                            // Navigate to dashboard with pasted URL
+                            selectedDestination = .dashboard
+                            SettingsManager.shared.triggerHaptic(.success)
+                        } else {
+                            // Invalid URL format
+                            SettingsManager.shared.triggerHaptic(.error)
+                        }
                     } else {
+                        // Empty clipboard
                         SettingsManager.shared.triggerHaptic(.error)
                     }
                 }
