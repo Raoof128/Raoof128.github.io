@@ -64,7 +64,7 @@ struct ThreatHistoryView: View {
     @State private var selectedFilter: ThreatFilter = .all
     @State private var isAuditRunning = false
     @State private var showAuditResult = false
-    @State private var threats: [ThreatUpdate] = sampleThreats
+    @State private var threats: [ThreatUpdate] = []
     @State private var animateDots = false
     
     // Real stats from HistoryStore
@@ -74,50 +74,15 @@ struct ThreatHistoryView: View {
     @State private var detectionRate = 0.0
     @State private var lastAudit = "Never"
     
+    // Real threat hotspots based on scan data
+    @State private var threatHotspotData: [(x: CGFloat, y: CGFloat, severity: ThreatSeverity)] = []
+    
     enum ThreatFilter: String, CaseIterable {
         case all = "All"
         case live = "Live"
         case recent = "Recent"
         case verified = "Verified"
     }
-    
-    private static let sampleThreats: [ThreatUpdate] = [
-        ThreatUpdate(
-            category: "Phishing Campaign",
-            description: "New credential harvesting campaign targeting financial sector",
-            severity: .critical,
-            timeAgo: "2 mins ago",
-            isLive: true
-        ),
-        ThreatUpdate(
-            category: "QR Code Exploit",
-            description: "Malicious redirect chain detected in parking QR codes",
-            severity: .high,
-            timeAgo: "15 mins ago",
-            isLive: true
-        ),
-        ThreatUpdate(
-            category: "Typosquatting",
-            description: "New domains registered mimicking popular banking apps",
-            severity: .high,
-            timeAgo: "1 hour ago",
-            isLive: false
-        ),
-        ThreatUpdate(
-            category: "Homograph Attack",
-            description: "International domain name abuse detected",
-            severity: .medium,
-            timeAgo: "3 hours ago",
-            isLive: false
-        ),
-        ThreatUpdate(
-            category: "Data Exfiltration",
-            description: "Suspicious form submission patterns identified",
-            severity: .critical,
-            timeAgo: "5 hours ago",
-            isLive: false
-        )
-    ]
     
     var body: some View {
         NavigationStack {
@@ -179,6 +144,7 @@ struct ThreatHistoryView: View {
             }
             .onAppear {
                 loadRealStats()
+                loadRealThreats()
                 withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                     animateDots = true
                 }
@@ -246,16 +212,26 @@ struct ThreatHistoryView: View {
                     }
                 }
                 
-                // Threat hotspots
-                threatHotspot(x: -80, y: -40, size: 60, color: .verdictDanger, opacity: 0.3)
-                threatHotspot(x: 50, y: 20, size: 40, color: .verdictWarning, opacity: 0.25)
-                threatHotspot(x: -20, y: 50, size: 30, color: .brandPrimary, opacity: 0.2)
-                threatHotspot(x: 100, y: -30, size: 35, color: .verdictDanger, opacity: 0.25)
-                
-                // Animated pulse dots
-                pulsingDot(x: -80, y: -40)
-                pulsingDot(x: 50, y: 20)
-                pulsingDot(x: -20, y: 50)
+                // Real threat hotspots from scan history
+                if threatHotspotData.isEmpty {
+                    // No threats - show green indicator
+                    Circle()
+                        .fill(Color.verdictSafe.opacity(0.2))
+                        .frame(width: 80, height: 80)
+                        .blur(radius: 20)
+                    
+                    Image(systemName: "checkmark.shield.fill")
+                        .font(.largeTitle)
+                        .foregroundColor(.verdictSafe.opacity(0.6))
+                } else {
+                    // Show real hotspots based on scanned threats
+                    ForEach(Array(threatHotspotData.enumerated()), id: \.offset) { index, hotspot in
+                        let color: Color = hotspot.severity == .critical ? .verdictDanger : .verdictWarning
+                        let size: CGFloat = hotspot.severity == .critical ? 60 : 40
+                        threatHotspot(x: hotspot.x, y: hotspot.y, size: size, color: color, opacity: 0.3)
+                        pulsingDot(x: hotspot.x, y: hotspot.y)
+                    }
+                }
             }
             .clipShape(RoundedRectangle(cornerRadius: 16))
             
@@ -597,11 +573,9 @@ struct ThreatHistoryView: View {
     private func refreshThreats() {
         SettingsManager.shared.triggerHaptic(.light)
         
-        // Reload real stats from HistoryStore
-        withAnimation {
-            loadRealStats()
-            threats.shuffle() // Shuffle sample threats for visual change
-        }
+        // Reload real stats and threats from HistoryStore
+        loadRealStats()
+        loadRealThreats()
     }
     
     private func loadRealStats() {
@@ -629,12 +603,12 @@ struct ThreatHistoryView: View {
         // Protected scans = total safe scans
         protectedScans = history.filter { $0.verdict == .safe }.count
         
-        // Detection rate = threats / total * 100 (or 100% if no scans yet)
+        // Detection rate = safe scans / total * 100 (or 100% if no scans yet)
         if history.isEmpty {
             detectionRate = 100.0
         } else {
-            let threatCount = history.filter { $0.verdict != .safe }.count
-            detectionRate = history.isEmpty ? 100.0 : (Double(history.count - threatCount) / Double(history.count)) * 100.0
+            let safeCount = history.filter { $0.verdict == .safe }.count
+            detectionRate = (Double(safeCount) / Double(history.count)) * 100.0
         }
         
         // Last audit = last scan time
@@ -644,6 +618,98 @@ struct ThreatHistoryView: View {
             lastAudit = formatter.localizedString(for: lastScan, relativeTo: now)
         } else {
             lastAudit = "Never"
+        }
+        
+        // Generate threat hotspots based on real data
+        generateThreatHotspots(from: history)
+    }
+    
+    private func loadRealThreats() {
+        let history = HistoryStore.shared.getAllItems()
+        let now = Date()
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .abbreviated
+        
+        // Get all non-safe scans and convert to ThreatUpdate
+        let threatItems = history.filter { $0.verdict != .safe }
+        
+        threats = threatItems.prefix(20).map { item in
+            // Determine category based on URL patterns
+            let category = categorizeUrl(item.url)
+            let description = generateDescription(for: item)
+            
+            // Map verdict to severity
+            let severity: ThreatSeverity = item.verdict == .malicious ? .critical : .high
+            
+            // Check if recent (last hour = "live")
+            let isLive = item.scannedAt > now.addingTimeInterval(-3600)
+            
+            return ThreatUpdate(
+                category: category,
+                description: description,
+                severity: severity,
+                timeAgo: formatter.localizedString(for: item.scannedAt, relativeTo: now),
+                isLive: isLive
+            )
+        }
+        
+        // If no real threats, show a "no threats" message
+        if threats.isEmpty {
+            threats = [
+                ThreatUpdate(
+                    category: "All Clear",
+                    description: "No threats detected in your scan history. Keep scanning to stay protected!",
+                    severity: .low,
+                    timeAgo: "Now",
+                    isLive: false
+                )
+            ]
+        }
+    }
+    
+    private func categorizeUrl(_ url: String) -> String {
+        let lowercased = url.lowercased()
+        
+        if lowercased.contains("login") || lowercased.contains("signin") || lowercased.contains("password") {
+            return "Credential Harvesting"
+        } else if lowercased.contains("bank") || lowercased.contains("paypal") || lowercased.contains("payment") {
+            return "Financial Phishing"
+        } else if lowercased.contains("verify") || lowercased.contains("confirm") || lowercased.contains("update") {
+            return "Account Verification Scam"
+        } else if lowercased.contains("bit.ly") || lowercased.contains("tinyurl") || lowercased.contains("t.co") {
+            return "Suspicious Redirect"
+        } else if lowercased.contains("free") || lowercased.contains("winner") || lowercased.contains("prize") {
+            return "Scam/Fraud"
+        } else {
+            return "Suspicious URL"
+        }
+    }
+    
+    private func generateDescription(for item: HistoryItemMock) -> String {
+        let domain = URL(string: item.url)?.host ?? "Unknown domain"
+        
+        switch item.verdict {
+        case .malicious:
+            return "Malicious content detected at \(domain)"
+        case .suspicious:
+            return "Suspicious activity flagged for \(domain)"
+        default:
+            return "Analyzed: \(domain)"
+        }
+    }
+    
+    private func generateThreatHotspots(from history: [HistoryItemMock]) {
+        // Generate visual hotspots based on threat distribution
+        let threats = history.filter { $0.verdict != .safe }
+        
+        // Create hotspots at pseudo-random positions based on hash of URLs
+        threatHotspotData = threats.prefix(5).enumerated().map { index, item in
+            // Use URL hash to generate consistent but varied positions
+            let hash = item.url.hashValue
+            let x = CGFloat((hash % 160) - 80)
+            let y = CGFloat(((hash >> 8) % 100) - 50)
+            let severity: ThreatSeverity = item.verdict == .malicious ? .critical : .high
+            return (x: x, y: y, severity: severity)
         }
     }
     

@@ -33,6 +33,7 @@ struct HistoryView: View {
     @State private var selectedItem: HistoryItemMock?
     @State private var showExportedToast = false
     @State private var showClearConfirmation = false
+    @State private var showStatsPopover = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -102,18 +103,56 @@ struct HistoryView: View {
                 }
             }
             
-            // iOS 17+: Scan count in toolbar
+            // iOS 17+: Scan count badge as functional button
             ToolbarItem(placement: .navigationBarLeading) {
-                HStack(spacing: 4) {
-                    Image(systemName: "doc.text")
-                        .font(.caption2)
-                    Text("\(viewModel.filteredHistory.count)")
-                        .font(.caption.weight(.medium))
+                Button {
+                    showStatsPopover.toggle()
+                    SettingsManager.shared.triggerHaptic(.light)
+                } label: {
+                    HStack(spacing: 4) {
+                        Image(systemName: "doc.text")
+                            .font(.caption2)
+                        Text("\(viewModel.filteredHistory.count)")
+                            .font(.caption.weight(.medium))
+                    }
+                    .foregroundColor(.textSecondary)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.bgSurface.opacity(0.5), in: Capsule())
                 }
-                .foregroundColor(.textSecondary)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(Color.bgSurface.opacity(0.5), in: Capsule())
+                .popover(isPresented: $showStatsPopover) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Scan Statistics")
+                            .font(.headline)
+                        
+                        Divider()
+                        
+                        let safeCount = viewModel.filteredHistory.filter { $0.verdict == .safe }.count
+                        let suspiciousCount = viewModel.filteredHistory.filter { $0.verdict == .suspicious }.count
+                        let maliciousCount = viewModel.filteredHistory.filter { $0.verdict == .malicious }.count
+                        
+                        HStack {
+                            Circle().fill(Color.verdictSafe).frame(width: 10, height: 10)
+                            Text("Safe: \(safeCount)")
+                        }
+                        HStack {
+                            Circle().fill(Color.verdictWarning).frame(width: 10, height: 10)
+                            Text("Suspicious: \(suspiciousCount)")
+                        }
+                        HStack {
+                            Circle().fill(Color.verdictDanger).frame(width: 10, height: 10)
+                            Text("Malicious: \(maliciousCount)")
+                        }
+                        
+                        Divider()
+                        
+                        Text("Total: \(viewModel.filteredHistory.count) scans")
+                            .font(.footnote)
+                            .foregroundColor(.textSecondary)
+                    }
+                    .padding()
+                    .presentationCompactAdaptation(.popover)
+                }
             }
         }
         .onChange(of: searchText) { _, newValue in

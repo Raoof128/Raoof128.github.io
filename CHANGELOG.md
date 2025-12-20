@@ -20,9 +20,11 @@ Full competition-grade iOS codebase audit with all 26 Swift files reviewed, crit
 | Hardcoded dark mode nav/tab bar | `QRShieldApp.swift` | Changed to adaptive `UIBlurEffect(style: .systemThinMaterial)` and `UIColor.label` |
 | ThreatHistoryView hardcoded stats | `ThreatHistoryView.swift` | Connected to real HistoryStore data (threats today, safe scans, detection rate) |
 | Sheet color scheme inheritance | 6 files | Added `useDarkMode` and `.preferredColorScheme()` to all sheets |
-| "4 sc..." truncated text | `HistoryView.swift` | Redesigned scan count badge with icon |
+| "4 sc..." decorative badge | `HistoryView.swift` | Made functional button with popover showing stats breakdown |
 | Duplicate back buttons | `ThreatHistoryView.swift` | Removed custom back button, added Close to menu |
 | Export button "dancing" | `HistoryView.swift` | Scoped animation to toast only |
+| **Threat list hardcoded** | `ThreatHistoryView.swift` | Now shows REAL threats from HistoryStore with auto-categorization |
+| **Threat map decorative** | `ThreatHistoryView.swift` | Now shows real hotspots based on scanned threats |
 
 **Sheet Color Scheme Fix Details:**
 - `DashboardView.swift` - 5 sheets fixed
@@ -32,7 +34,11 @@ Full competition-grade iOS codebase audit with all 26 Swift files reviewed, crit
 - `MainMenuView.swift` - 1 sheet fixed + added `useDarkMode`
 - `QRShieldApp.swift` - 3 sheets fixed (already had `useDarkMode`)
 
-**Note:** The "Threat Live Map" visualization is intentionally decorative (shows simulated global threat activity). Real geographic threat data would require a threat intelligence API. The **stats cards** (Protected Scans, Detection Rate, etc.) ARE connected to real HistoryStore data.
+**Real Threat Intelligence Features:**
+- **Threat List:** Now generates from actual malicious/suspicious scans in HistoryStore
+- **Auto-Categorization:** URLs are categorized based on patterns (Credential Harvesting, Financial Phishing, etc.)
+- **Threat Map:** Shows real hotspots based on scanned threats (positions derived from URL hashes)
+- **Empty State:** Shows "All Clear" with green checkmark when no threats detected
 
 #### 📊 Phase 0 - iOS Surface Area Mapping
 - Documented complete project structure (26 Swift files)
