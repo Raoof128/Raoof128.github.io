@@ -67,6 +67,7 @@ enum MenuDestination {
 struct MainMenuView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var selectedDestination: MenuDestination?
+    @AppStorage("useDarkMode") private var useDarkMode = true
     
     private let menuItems: [MenuItem] = [
         MenuItem(
@@ -327,6 +328,7 @@ struct MainMenuView: View {
                 // Analyze the image for QR codes
                 ScannerViewModel.shared.analyzeImage(image)
             }
+            .preferredColorScheme(useDarkMode ? .dark : .light)
         }
     }
     

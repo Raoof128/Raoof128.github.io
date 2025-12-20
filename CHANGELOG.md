@@ -17,6 +17,17 @@ Full competition-grade iOS codebase audit with all 26 Swift files reviewed, crit
 |-------|------|-----|
 | Decorative shield button | `DashboardView.swift` | Wired to open MainMenuView sheet |
 | Sidebar won't change to light mode | `QRShieldApp.swift`, `DashboardView.swift` | Added `.preferredColorScheme()` to all sheet presentations |
+| Hardcoded dark mode nav/tab bar | `QRShieldApp.swift` | Changed to adaptive `UIBlurEffect(style: .systemThinMaterial)` and `UIColor.label` |
+| ThreatHistoryView hardcoded stats | `ThreatHistoryView.swift` | Connected to real HistoryStore data (threats today, safe scans, detection rate) |
+| Sheet color scheme inheritance | 6 files | Added `useDarkMode` and `.preferredColorScheme()` to all sheets |
+
+**Sheet Color Scheme Fix Details:**
+- `DashboardView.swift` - 5 sheets fixed
+- `SettingsView.swift` - 2 sheets fixed
+- `ScannerView.swift` - 2 sheets fixed + added `useDarkMode`
+- `ScanResultView.swift` - 2 sheets fixed + added `useDarkMode`
+- `MainMenuView.swift` - 1 sheet fixed + added `useDarkMode`
+- `QRShieldApp.swift` - 3 sheets fixed (already had `useDarkMode`)
 
 #### 📊 Phase 0 - iOS Surface Area Mapping
 - Documented complete project structure (26 Swift files)

@@ -128,13 +128,16 @@ struct DashboardView: View {
             }
             .sheet(isPresented: $showScanner) {
                 ScannerView()
+                    .preferredColorScheme(useDarkMode ? .dark : .light)
             }
             .sheet(isPresented: $showThreatHistory) {
                 ThreatHistoryView()
+                    .preferredColorScheme(useDarkMode ? .dark : .light)
             }
             .sheet(isPresented: $showResults) {
                 if let result = analysisResult {
                     ScanResultView(assessment: result)
+                        .preferredColorScheme(useDarkMode ? .dark : .light)
                 }
             }
             .sheet(isPresented: $showImagePicker) {
@@ -142,6 +145,7 @@ struct DashboardView: View {
                     // Analyze the imported image for QR codes
                     ScannerViewModel.shared.analyzeImage(image)
                 }
+                .preferredColorScheme(useDarkMode ? .dark : .light)
             }
             .sheet(isPresented: $showMainMenu) {
                 MainMenuView()

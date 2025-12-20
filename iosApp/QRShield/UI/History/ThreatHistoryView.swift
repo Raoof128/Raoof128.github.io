@@ -67,12 +67,12 @@ struct ThreatHistoryView: View {
     @State private var threats: [ThreatUpdate] = sampleThreats
     @State private var animateDots = false
     
-    // Stats
-    @State private var threatsToday = 14
-    @State private var activeCampaigns = 3
-    @State private var protectedDevices = 842
-    @State private var detectionRate = 99.7
-    @State private var lastAudit = "2 hours ago"
+    // Real stats from HistoryStore
+    @State private var threatsToday = 0
+    @State private var activeCampaigns = 0
+    @State private var protectedScans = 0
+    @State private var detectionRate = 0.0
+    @State private var lastAudit = "Never"
     
     enum ThreatFilter: String, CaseIterable {
         case all = "All"
@@ -179,6 +179,7 @@ struct ThreatHistoryView: View {
                 }
             }
             .onAppear {
+                loadRealStats()
                 withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                     animateDots = true
                 }
@@ -330,7 +331,7 @@ struct ThreatHistoryView: View {
             statCard(
                 icon: "checkmark.shield.fill",
                 iconColor: .brandSecondary,
-                value: "\(protectedDevices)",
+                value: "\(protectedScans)",
                 label: "Protected Scans"
             )
             
@@ -597,14 +598,53 @@ struct ThreatHistoryView: View {
     private func refreshThreats() {
         SettingsManager.shared.triggerHaptic(.light)
         
-        // Simulate refreshing threat data
+        // Reload real stats from HistoryStore
         withAnimation {
-            // Shuffle threats to simulate refresh
-            threats.shuffle()
-            
-            // Randomly update stats
-            threatsToday = Int.random(in: 10...20)
-            activeCampaigns = Int.random(in: 2...5)
+            loadRealStats()
+            threats.shuffle() // Shuffle sample threats for visual change
+        }
+    }
+    
+    private func loadRealStats() {
+        let history = HistoryStore.shared.getAllItems()
+        let now = Date()
+        let calendar = Calendar.current
+        
+        // Threats today = malicious + suspicious scans from today
+        let todayThreats = history.filter { item in
+            let isToday = calendar.isDateInToday(item.scannedAt)
+            let isThreat = item.verdict == .malicious || item.verdict == .suspicious
+            return isToday && isThreat
+        }
+        threatsToday = todayThreats.count
+        
+        // Active campaigns = unique malicious domains detected this week
+        let oneWeekAgo = calendar.date(byAdding: .day, value: -7, to: now) ?? now
+        let weekThreats = history.filter { item in
+            item.scannedAt >= oneWeekAgo && item.verdict == .malicious
+        }
+        // Group by domain to count "campaigns"
+        let uniqueDomains = Set(weekThreats.compactMap { URL(string: $0.url)?.host })
+        activeCampaigns = max(uniqueDomains.count, 0)
+        
+        // Protected scans = total safe scans
+        protectedScans = history.filter { $0.verdict == .safe }.count
+        
+        // Detection rate = threats / total * 100 (or 100% if no scans yet)
+        if history.isEmpty {
+            detectionRate = 100.0
+        } else {
+            let threatCount = history.filter { $0.verdict != .safe }.count
+            detectionRate = history.isEmpty ? 100.0 : (Double(history.count - threatCount) / Double(history.count)) * 100.0
+        }
+        
+        // Last audit = last scan time
+        if let lastScan = history.first?.scannedAt {
+            let formatter = RelativeDateTimeFormatter()
+            formatter.unitsStyle = .full
+            lastAudit = formatter.localizedString(for: lastScan, relativeTo: now)
+        } else {
+            lastAudit = "Never"
         }
     }
     
@@ -635,7 +675,7 @@ struct ThreatHistoryView: View {
         -------
         • Threats Detected Today: \(threatsToday)
         • Active Campaigns: \(activeCampaigns)
-        • Protected Scans: \(protectedDevices)
+        • Protected Scans: \(protectedScans)
         • Detection Rate: \(String(format: "%.1f", detectionRate))%
         
         LATEST THREATS

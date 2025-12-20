@@ -38,6 +38,7 @@ struct ScannerView: View {
     // Settings
     @AppStorage("autoScan") private var autoScan = true
     @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
+    @AppStorage("useDarkMode") private var useDarkMode = true
     
     // Environment
     @Environment(\.scenePhase) private var scenePhase
@@ -97,10 +98,12 @@ struct ScannerView: View {
                     .presentationDragIndicator(.visible)
                     // iOS 17+: Glass background for sheets
                     .presentationBackground(.ultraThinMaterial)
+                    .preferredColorScheme(useDarkMode ? .dark : .light)
             }
         }
         .sheet(isPresented: $showGalleryPicker) {
             ImagePicker(onImagePicked: viewModel.analyzeImage)
+                .preferredColorScheme(useDarkMode ? .dark : .light)
         }
         .onAppear {
             // ViewModel handles auto-start in checkCameraPermission -> autoStartIfNeeded

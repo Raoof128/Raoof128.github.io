@@ -414,9 +414,11 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showTrustCentre) {
             TrustCentreView()
+                .preferredColorScheme(useDarkMode ? .dark : .light)
         }
         .sheet(isPresented: $showExport) {
             ReportExportView()
+                .preferredColorScheme(useDarkMode ? .dark : .light)
         }
     }
     

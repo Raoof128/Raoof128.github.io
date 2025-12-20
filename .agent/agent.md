@@ -52,6 +52,46 @@ Sheets (MainMenuView, TrustCentreView, ReportExportView) weren't inheriting the 
 - Adding `@AppStorage("useDarkMode")` to `ContentView`
 - Adding `.preferredColorScheme(useDarkMode ? .dark : .light)` to all sheet presentations
 
+### 3. Hardcoded Dark Mode Navigation/Tab Bar
+**File:** `QRShieldApp.swift`
+
+The `configureAppearance()` function used hardcoded dark-mode styles:
+- `UIBlurEffect(style: .systemUltraThinMaterialDark)` → always dark
+- `UIColor(Color.bgDark.opacity(0.3))` → always dark
+- `.foregroundColor: UIColor.white` → always white text
+
+Fixed by using adaptive system styles:
+```swift
+// Before (hardcoded dark)
+navAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+navAppearance.backgroundColor = UIColor(Color.bgDark.opacity(0.3))
+navAppearance.titleTextAttributes = [.foregroundColor: UIColor.white, ...]
+
+// After (adaptive)
+navAppearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
+navAppearance.backgroundColor = .clear
+navAppearance.titleTextAttributes = [.foregroundColor: UIColor.label, ...]
+```
+
+### 4. ThreatHistoryView - Real Data Connection
+**File:** `ThreatHistoryView.swift`
+
+Stats were hardcoded:
+```swift
+// Before (hardcoded)
+@State private var threatsToday = 14
+@State private var activeCampaigns = 3
+@State private var protectedDevices = 842
+@State private var detectionRate = 99.7
+```
+
+Now connected to real `HistoryStore` data via `loadRealStats()`:
+- **Threats Today:** Count of malicious/suspicious scans from today
+- **Active Campaigns:** Unique malicious domains this week
+- **Protected Scans:** Total safe scans
+- **Detection Rate:** Calculated from actual scan history
+- **Last Audit:** Relative time since last scan
+
 ## 📊 Phase 0: Surface Area Mapping
 
 - **26 Swift files** analyzed

@@ -99,19 +99,20 @@ struct QRShieldApp: App {
     // MARK: - Appearance Configuration (iOS 17+)
     
     private func configureAppearance() {
-        // iOS 17+: Liquid Glass navigation bar
+        // iOS 17+: Adaptive navigation bar (works in both light and dark mode)
         let navAppearance = UINavigationBarAppearance()
-        navAppearance.configureWithTransparentBackground()
-        navAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-        navAppearance.backgroundColor = UIColor(Color.bgDark.opacity(0.3))
+        navAppearance.configureWithDefaultBackground()
+        // Use adaptive material that auto-adapts to light/dark
+        navAppearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
+        navAppearance.backgroundColor = .clear
         
-        // Title styling
+        // Title styling - use adaptive label colors
         navAppearance.titleTextAttributes = [
-            .foregroundColor: UIColor.white,
+            .foregroundColor: UIColor.label,
             .font: UIFont.systemFont(ofSize: 17, weight: .semibold)
         ]
         navAppearance.largeTitleTextAttributes = [
-            .foregroundColor: UIColor.white,
+            .foregroundColor: UIColor.label,
             .font: UIFont.systemFont(ofSize: 34, weight: .bold)
         ]
         
@@ -124,21 +125,22 @@ struct QRShieldApp: App {
         UINavigationBar.appearance().compactAppearance = navAppearance
         UINavigationBar.appearance().tintColor = UIColor(Color.brandPrimary)
         
-        // iOS 17+: Liquid Glass tab bar
+        // iOS 17+: Adaptive tab bar
         let tabAppearance = UITabBarAppearance()
-        tabAppearance.configureWithTransparentBackground()
-        tabAppearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-        tabAppearance.backgroundColor = UIColor(Color.bgDark.opacity(0.3))
+        tabAppearance.configureWithDefaultBackground()
+        // Use adaptive material
+        tabAppearance.backgroundEffect = UIBlurEffect(style: .systemThinMaterial)
+        tabAppearance.backgroundColor = .clear
         
         // Remove separator line
         tabAppearance.shadowColor = .clear
         tabAppearance.shadowImage = UIImage()
         
-        // Tab bar item styling
+        // Tab bar item styling - use adaptive colors
         let itemAppearance = UITabBarItemAppearance()
-        itemAppearance.normal.iconColor = UIColor(Color.textMuted)
+        itemAppearance.normal.iconColor = UIColor.secondaryLabel
         itemAppearance.normal.titleTextAttributes = [
-            .foregroundColor: UIColor(Color.textMuted),
+            .foregroundColor: UIColor.secondaryLabel,
             .font: UIFont.systemFont(ofSize: 10, weight: .medium)
         ]
         itemAppearance.selected.iconColor = UIColor(Color.brandPrimary)

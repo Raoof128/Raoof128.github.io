@@ -69,6 +69,8 @@ struct ScanResultView: View {
     @State private var showSandbox = false
     @State private var showExport = false
     
+    @AppStorage("useDarkMode") private var useDarkMode = true
+    
     private var themeColor: Color {
         Color.forVerdict(assessment.verdict)
     }
@@ -136,9 +138,11 @@ struct ScanResultView: View {
             }
             .sheet(isPresented: $showExport) {
                 ReportExportView(assessment: assessment)
+                    .preferredColorScheme(useDarkMode ? .dark : .light)
             }
             .sheet(isPresented: $showSandbox) {
                 SandboxPreviewSheet(url: assessment.url)
+                    .preferredColorScheme(useDarkMode ? .dark : .light)
             }
         }
         // Floating scan button
