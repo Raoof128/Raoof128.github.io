@@ -75,6 +75,25 @@
     }
 
     /**
+     * Check if profile dropdown is currently visible
+     */
+    function isProfileDropdownOpen() {
+        const existing = document.getElementById('profileDropdown');
+        return existing && existing.classList.contains('visible');
+    }
+
+    /**
+     * Toggle the profile dropdown - close if open, open if closed
+     */
+    function toggleProfileDropdown(anchorElement) {
+        if (isProfileDropdownOpen()) {
+            hideProfileDropdown();
+        } else {
+            showProfileDropdown(anchorElement);
+        }
+    }
+
+    /**
      * Create and show the profile dropdown
      */
     function showProfileDropdown(anchorElement) {
@@ -396,6 +415,25 @@
         });
     }
 
+    /**
+     * Check if notification dropdown is currently visible
+     */
+    function isNotificationDropdownOpen() {
+        const existing = document.getElementById('notificationDropdown');
+        return existing && existing.classList.contains('visible');
+    }
+
+    /**
+     * Toggle the notification dropdown - close if open, open if closed
+     */
+    function toggleNotificationDropdown(anchorElement) {
+        if (isNotificationDropdownOpen()) {
+            hideNotificationDropdown();
+        } else {
+            showNotificationDropdown(anchorElement);
+        }
+    }
+
     function showNotificationDropdown(anchorElement) {
         hideNotificationDropdown();
 
@@ -652,19 +690,21 @@
         updateNotificationBadge();
 
         // Attach profile dropdown to user avatars, profiles, and header profile buttons
+        // Uses toggle so clicking again closes the dropdown
         document.querySelectorAll('.user-avatar, .user-profile, #profileBtn').forEach(el => {
             el.style.cursor = 'pointer';
             el.addEventListener('click', (e) => {
                 e.stopPropagation();
-                showProfileDropdown(el);
+                toggleProfileDropdown(el);
             });
         });
 
         // Attach notification dropdown - use multiple selectors to catch all notification buttons
+        // Uses toggle so clicking again closes the dropdown
         document.querySelectorAll('.notification-btn, #notificationBtn, .header-btn.notification').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                showNotificationDropdown(btn);
+                toggleNotificationDropdown(btn);
             });
         });
 
@@ -844,7 +884,11 @@
 
         // Dropdowns
         showProfileDropdown,
+        hideProfileDropdown,
+        toggleProfileDropdown,
         showNotificationDropdown,
+        hideNotificationDropdown,
+        toggleNotificationDropdown,
 
         // Settings
         getSettings,

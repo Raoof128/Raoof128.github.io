@@ -4,6 +4,77 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📋 December 20, 2025 - Profile Dropdown Toggle & Sandbox Feature
+
+### Summary
+Fixed two UI interaction issues:
+1. **Profile dropdown toggle** - Now opens with single click and closes with another single click
+2. **Sandbox feature** - Replaced decorative button with functional iframe-based sandboxed preview
+
+## 🔧 Profile Dropdown Toggle
+
+**File Modified:** `webApp/src/jsMain/resources/shared-ui.js`
+
+**Problem:** Profile dropdown only opened on click, but clicking the profile element again did nothing. Users had to click elsewhere to close.
+
+**Solution:** Added toggle functionality:
+- `isProfileDropdownOpen()` - Check if dropdown is visible
+- `toggleProfileDropdown()` - Open if closed, close if open
+- Updated click handlers to use toggle instead of show-only
+
+```javascript
+function toggleProfileDropdown(anchorElement) {
+    if (isProfileDropdownOpen()) {
+        hideProfileDropdown();
+    } else {
+        showProfileDropdown(anchorElement);
+    }
+}
+```
+
+Same fix applied to notification dropdowns.
+
+## 🖼️ Functional Sandbox Preview
+
+**File Modified:** `webApp/src/jsMain/resources/results.js`
+
+**Problem:** "Open Safely (Sandbox)" button was decorative - it just opened the URL in a new tab with basic security.
+
+**Solution:** Implemented a real sandboxed preview modal:
+- Full-screen modal with animated entry
+- Security warning explaining "Restricted Mode"
+- URL bar showing the target URL with copy button
+- **Sandboxed iframe** with `sandbox="allow-same-origin"` attribute (disables JavaScript, forms, cookies)
+- Loading indicator while fetching
+- "Close Preview" button
+- "Open Externally (Risky)" option for users who want to proceed
+- Closes on Escape key or clicking outside
+
+**Security features:**
+- `sandbox="allow-same-origin"` - Blocks scripts, forms, popups
+- `referrerpolicy="no-referrer"` - No referrer header sent
+- iframe isolated from main page DOM
+
+## 📁 Files Changed
+
+| File | Lines Changed | Key Changes |
+|------|---------------|-------------|
+| `shared-ui.js` | +38 | Toggle functions for profile and notification dropdowns |
+| `results.js` | +300 | Complete sandbox modal implementation with iframe |
+
+## ✅ Verification
+
+Browser testing confirmed:
+- ✅ Profile dropdown toggles open/close with single clicks
+- ✅ Notification dropdown toggles open/close with single clicks  
+- ✅ Sandbox button opens modal with iframe preview
+- ✅ Sandbox iframe renders target URL (example.com tested)
+- ✅ Close button works
+- ✅ Escape key closes modal
+- ✅ Clicking outside modal closes it
+
+---
+
 # 📋 December 20, 2025 - Critical Bug Fix: Live Scanner Navigation
 
 ### Summary

@@ -5,6 +5,51 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.8] - 2025-12-20
+
+### Fixed
+
+#### 🔘 Profile/Notification Dropdown Toggle
+
+**Issue:** Profile and notification dropdowns only opened on click but couldn't be closed by clicking the same element again.
+
+**Fix:** Added toggle functions so clicking the trigger element opens the dropdown if closed, or closes it if already open.
+
+**Files Modified:** `webApp/src/jsMain/resources/shared-ui.js`
+
+```javascript
+function toggleProfileDropdown(anchorElement) {
+    if (isProfileDropdownOpen()) {
+        hideProfileDropdown();
+    } else {
+        showProfileDropdown(anchorElement);
+    }
+}
+```
+
+---
+
+#### 🖼️ Functional Sandbox Preview Modal
+
+**Issue:** "Open Safely (Sandbox)" button was decorative - it just opened the URL in a new tab without proper sandboxing.
+
+**Fix:** Implemented a full sandbox preview modal with:
+- Sandboxed iframe (`sandbox="allow-same-origin"`) disabling JavaScript, forms, popups
+- Security warning banner explaining "Restricted Mode"
+- URL bar with copy functionality
+- Loading indicator
+- "Close Preview" and "Open Externally (Risky)" buttons
+- Escape key and click-outside-to-close support
+
+**Files Modified:** `webApp/src/jsMain/resources/results.js` (+300 lines)
+
+**Sandbox Security Features:**
+- `sandbox="allow-same-origin"` - Blocks scripts, forms, popups
+- `referrerpolicy="no-referrer"` - No referrer sent
+- Isolated iframe DOM
+
+---
+
 ## [1.7.7] - 2025-12-20
 
 ### Fixed

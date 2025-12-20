@@ -503,7 +503,7 @@ function fallbackShare() {
 }
 
 /**
- * Open URL in sandboxed environment
+ * Open URL in sandboxed environment with iframe preview
  */
 function openInSandbox() {
     if (!ResultsState.scannedUrl) {
@@ -511,17 +511,315 @@ function openInSandbox() {
         return;
     }
 
-    // Use a sandbox service or open in new tab with security headers
-    const sandboxUrl = `https://urlscan.io/result/${encodeURIComponent(ResultsState.scannedUrl)}`;
+    // Create sandbox modal
+    const existingModal = document.getElementById('sandboxModal');
+    if (existingModal) existingModal.remove();
 
-    // Open in new tab with security precautions
-    const win = window.open('about:blank', '_blank', 'noopener,noreferrer');
-    if (win) {
-        win.location.href = ResultsState.scannedUrl;
-        showToast('Opening in new tab. Be cautious!', 'warning');
-    } else {
-        showToast('Pop-up blocked. Please allow pop-ups.', 'error');
+    const modal = document.createElement('div');
+    modal.id = 'sandboxModal';
+    modal.className = 'sandbox-modal-overlay';
+    modal.innerHTML = `
+        <div class="sandbox-modal">
+            <div class="sandbox-header">
+                <div class="sandbox-title">
+                    <span class="material-symbols-outlined" style="color: #f59e0b;">security</span>
+                    <h3>Sandboxed Preview</h3>
+                </div>
+                <button class="sandbox-close-btn" id="closeSandbox">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="sandbox-warning">
+                <span class="material-symbols-outlined">warning</span>
+                <div>
+                    <strong>Restricted Mode</strong>
+                    <p>JavaScript, cookies, and forms are disabled. Some sites may not display correctly.</p>
+                </div>
+            </div>
+            <div class="sandbox-url-bar">
+                <span class="material-symbols-outlined">link</span>
+                <span class="sandbox-url">${truncateUrl(ResultsState.scannedUrl, 60)}</span>
+                <button class="sandbox-copy-btn" id="sandboxCopyUrl" title="Copy URL">
+                    <span class="material-symbols-outlined">content_copy</span>
+                </button>
+            </div>
+            <div class="sandbox-frame-container">
+                <iframe 
+                    class="sandbox-frame"
+                    sandbox="allow-same-origin"
+                    referrerpolicy="no-referrer"
+                    loading="lazy"
+                ></iframe>
+                <div class="sandbox-loading">
+                    <span class="material-symbols-outlined spinning">refresh</span>
+                    <span>Loading preview...</span>
+                </div>
+            </div>
+            <div class="sandbox-footer">
+                <button class="btn-secondary" id="closeSandboxBtn">Close Preview</button>
+                <button class="btn-warning" id="openExternalBtn">
+                    <span class="material-symbols-outlined">open_in_new</span>
+                    Open Externally (Risky)
+                </button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Add sandbox modal styles if not present
+    if (!document.getElementById('sandboxStyles')) {
+        const styles = document.createElement('style');
+        styles.id = 'sandboxStyles';
+        styles.textContent = `
+            .sandbox-modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            .sandbox-modal-overlay.visible {
+                opacity: 1;
+            }
+            .sandbox-modal {
+                background: var(--bg-primary, #1a1a2e);
+                border-radius: 16px;
+                width: 90%;
+                max-width: 1000px;
+                height: 80vh;
+                max-height: 800px;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+                transform: scale(0.95);
+                transition: transform 0.2s ease;
+            }
+            .sandbox-modal-overlay.visible .sandbox-modal {
+                transform: scale(1);
+            }
+            .sandbox-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .sandbox-title {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .sandbox-title h3 {
+                margin: 0;
+                color: var(--text-primary, #fff);
+                font-size: 18px;
+            }
+            .sandbox-close-btn {
+                background: none;
+                border: none;
+                color: var(--text-secondary, #94a3b8);
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 8px;
+                transition: background 0.2s;
+            }
+            .sandbox-close-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--text-primary, #fff);
+            }
+            .sandbox-warning {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 12px 20px;
+                background: rgba(245, 158, 11, 0.1);
+                border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+            }
+            .sandbox-warning .material-symbols-outlined {
+                color: #f59e0b;
+                font-size: 20px;
+            }
+            .sandbox-warning strong {
+                color: #f59e0b;
+                font-size: 14px;
+            }
+            .sandbox-warning p {
+                margin: 4px 0 0;
+                color: var(--text-secondary, #94a3b8);
+                font-size: 12px;
+            }
+            .sandbox-url-bar {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 20px;
+                background: rgba(0, 0, 0, 0.2);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .sandbox-url-bar .material-symbols-outlined {
+                color: var(--text-secondary, #64748b);
+                font-size: 18px;
+            }
+            .sandbox-url {
+                flex: 1;
+                color: var(--text-secondary, #94a3b8);
+                font-family: monospace;
+                font-size: 13px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .sandbox-copy-btn {
+                background: none;
+                border: none;
+                color: var(--text-secondary, #64748b);
+                cursor: pointer;
+                padding: 6px;
+                border-radius: 6px;
+                transition: all 0.2s;
+            }
+            .sandbox-copy-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--primary, #6366f1);
+            }
+            .sandbox-frame-container {
+                flex: 1;
+                position: relative;
+                background: #fff;
+            }
+            .sandbox-frame {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+            .sandbox-loading {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #64748b;
+                font-size: 14px;
+            }
+            .sandbox-loading .spinning {
+                animation: spin 1s linear infinite;
+            }
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            .sandbox-footer {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+                padding: 16px 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .sandbox-footer .btn-secondary {
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                color: var(--text-primary, #fff);
+                padding: 10px 20px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: background 0.2s;
+            }
+            .sandbox-footer .btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.15);
+            }
+            .sandbox-footer .btn-warning {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: rgba(239, 68, 68, 0.2);
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                color: #ef4444;
+                padding: 10px 20px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: all 0.2s;
+            }
+            .sandbox-footer .btn-warning:hover {
+                background: rgba(239, 68, 68, 0.3);
+            }
+            .sandbox-footer .btn-warning .material-symbols-outlined {
+                font-size: 18px;
+            }
+        `;
+        document.head.appendChild(styles);
     }
+
+    // Animate in
+    requestAnimationFrame(() => {
+        modal.classList.add('visible');
+    });
+
+    // Load the URL in iframe after a small delay
+    const iframe = modal.querySelector('.sandbox-frame');
+    const loading = modal.querySelector('.sandbox-loading');
+
+    setTimeout(() => {
+        iframe.src = ResultsState.scannedUrl;
+        iframe.onload = () => {
+            loading.style.display = 'none';
+        };
+        // Hide loading after timeout even if iframe doesn't fire onload
+        setTimeout(() => {
+            loading.style.display = 'none';
+        }, 3000);
+    }, 100);
+
+    // Event listeners
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.remove(), 200);
+    };
+
+    modal.querySelector('#closeSandbox').addEventListener('click', closeModal);
+    modal.querySelector('#closeSandboxBtn').addEventListener('click', closeModal);
+
+    modal.querySelector('#sandboxCopyUrl').addEventListener('click', () => {
+        copyToClipboard(ResultsState.scannedUrl);
+        showToast('URL copied to clipboard!');
+    });
+
+    modal.querySelector('#openExternalBtn').addEventListener('click', () => {
+        closeModal();
+        const win = window.open('about:blank', '_blank', 'noopener,noreferrer');
+        if (win) {
+            win.location.href = ResultsState.scannedUrl;
+            showToast('Opening in new tab. Be very cautious!', 'warning');
+        }
+    });
+
+    // Close on overlay click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // Close on Escape key
+    const handleEscape = (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+            document.removeEventListener('keydown', handleEscape);
+        }
+    };
+    document.addEventListener('keydown', handleEscape);
+
+    showToast('Sandbox preview opened with restricted mode', 'info');
 }
 
 /**
