@@ -53,23 +53,23 @@ struct HistoryView: View {
             LiquidGlassBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle(NSLocalizedString("history.title", comment: "History title"))
-        .searchable(text: $searchText, prompt: NSLocalizedString("history.search_prompt", comment: "Search prompt"))
+        .navigationTitle("Scan History")
+        .searchable(text: $searchText, prompt: "Search URLs")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     // Sort options
-                    Section(NSLocalizedString("history.sort_menu", comment: "Sort")) {
+                    Section("Sort") {
                         Button {
                             viewModel.sortByDate()
                         } label: {
-                            Label(NSLocalizedString("history.sort.by_date", comment: "By date"), systemImage: "calendar")
+                            Label("By Date", systemImage: "calendar")
                         }
                         
                         Button {
                             viewModel.sortByRisk()
                         } label: {
-                            Label(NSLocalizedString("history.sort.by_risk", comment: "By risk"), systemImage: "shield")
+                            Label("By Risk", systemImage: "shield")
                         }
                     }
                     
@@ -84,7 +84,7 @@ struct HistoryView: View {
                             showExportedToast = false
                         }
                     } label: {
-                        Label(NSLocalizedString("history.export", comment: "Export"), systemImage: "square.and.arrow.up")
+                        Label("Export", systemImage: "square.and.arrow.up")
                     }
                     
                     Divider()
@@ -93,7 +93,7 @@ struct HistoryView: View {
                     Button(role: .destructive) {
                         showClearConfirmation = true
                     } label: {
-                        Label(NSLocalizedString("history.clear_all_action", comment: "Clear all"), systemImage: "trash")
+                        Label("Clear All", systemImage: "trash")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -104,7 +104,7 @@ struct HistoryView: View {
             
             // iOS 17+: Scan count in toolbar
             ToolbarItem(placement: .navigationBarLeading) {
-                Text(String(format: NSLocalizedString("history.scans_counter", comment: "Scans count"), viewModel.filteredHistory.count))
+                Text(String(format: "%d scans", viewModel.filteredHistory.count))
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
@@ -125,23 +125,23 @@ struct HistoryView: View {
             viewModel.refreshHistory()
         }
         .confirmationDialog(
-            NSLocalizedString("history.clear_confirm_title", comment: "Clear history title"),
+            "Clear All History?",
             isPresented: $showClearConfirmation,
             titleVisibility: .visible
         ) {
-            Button(NSLocalizedString("history.clear_all_action", comment: "Clear all"), role: .destructive) {
+            Button("Clear All", role: .destructive) {
                 viewModel.clearAll()
             }
-            Button(NSLocalizedString("settings.cancel", comment: "Cancel"), role: .cancel) {}
+            Button("Cancel", role: .cancel) {}
         } message: {
-            Text(NSLocalizedString("history.clear_confirm_message", comment: "Clear history message"))
+            Text("This action cannot be undone. All scan history will be permanently deleted.")
         }
         .overlay(alignment: .top) {
             if showExportedToast {
                 HStack(spacing: 8) {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.verdictSafe)
-                    Text(NSLocalizedString("history.exported_toast", comment: "Exported to clipboard"))
+                    Text("Exported to clipboard")
                         .font(.subheadline)
                         .foregroundColor(.textPrimary)
                 }
@@ -154,7 +154,7 @@ struct HistoryView: View {
             }
         }
         .animation(.spring(response: 0.3), value: showExportedToast)
-        .accessibilityLabel(Text(NSLocalizedString("history.title", comment: "History title")))
+        .accessibilityLabel(Text("Scan History"))
     }
     
     // MARK: - Filter Bar (Liquid Glass iOS 17+)
@@ -196,11 +196,11 @@ struct HistoryView: View {
                                 UIPasteboard.general.string = item.url
                                 SettingsManager.shared.triggerHaptic(.success)
                             } label: {
-                                Label(NSLocalizedString("result.copy_url", comment: "Copy URL"), systemImage: "doc.on.doc")
+                                Label("Copy URL", systemImage: "doc.on.doc")
                             }
                             
                             ShareLink(item: item.url) {
-                                Label(NSLocalizedString("result.share", comment: "Share"), systemImage: "square.and.arrow.up")
+                                Label("Share", systemImage: "square.and.arrow.up")
                             }
                             
                             Divider()
@@ -210,7 +210,7 @@ struct HistoryView: View {
                                     viewModel.delete(item)
                                 }
                             } label: {
-                                Label(NSLocalizedString("history.delete", comment: "Delete"), systemImage: "trash")
+                                Label("Delete", systemImage: "trash")
                             }
                         }
                         .transition(.move(edge: .trailing).combined(with: .opacity))
@@ -239,14 +239,14 @@ struct HistoryView: View {
             }
             
             Text(searchText.isEmpty ?
-                 NSLocalizedString("history.empty_title", comment: "No scans yet") :
-                 NSLocalizedString("history.no_results", comment: "No results"))
+                 "No Scans Yet" :
+                 "No Results")
                 .font(.title3.weight(.semibold))
                 .foregroundColor(.textPrimary)
             
             Text(searchText.isEmpty ?
-                 NSLocalizedString("history.empty_message", comment: "Empty history message") :
-                 NSLocalizedString("history.no_results_message", comment: "No results message"))
+                 "Scanned QR codes will appear here" :
+                 "Try adjusting your search or filters")
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
                 .multilineTextAlignment(.center)
@@ -256,7 +256,7 @@ struct HistoryView: View {
                 NavigationLink(destination: ScannerView()) {
                     HStack(spacing: 8) {
                         Image(systemName: "qrcode.viewfinder")
-                        Text(NSLocalizedString("history.scan_now", comment: "Scan Now"))
+                        Text("Scan Now")
                     }
                     .font(.headline)
                     .foregroundColor(.white)
@@ -403,7 +403,7 @@ struct HistoryDetailSheet: View {
                     .font(.title2.weight(.bold))
                     .foregroundColor(Color.forVerdict(item.verdict))
                 
-                Text(String(format: NSLocalizedString("result.risk_score", comment: "Risk Score"), item.score))
+                Text(String(format: "Risk Score: %d/100", item.score))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
@@ -411,7 +411,7 @@ struct HistoryDetailSheet: View {
             
             // URL
             VStack(alignment: .leading, spacing: 8) {
-                Text(NSLocalizedString("detail.url_label", comment: "URL"))
+                Text("URL")
                     .font(.caption)
                     .foregroundColor(.textMuted)
                 
@@ -428,7 +428,7 @@ struct HistoryDetailSheet: View {
             HStack {
                 Image(systemName: "clock")
                     .foregroundColor(.textMuted)
-                Text(String(format: NSLocalizedString("detail.scanned_at_time_ago", comment: "Scanned time"), item.formattedDate))
+                Text(String(format: "Scanned %@", item.formattedDate))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
@@ -436,7 +436,7 @@ struct HistoryDetailSheet: View {
             // Actions
             HStack(spacing: 16) {
                 ShareLink(item: item.url) {
-                    Label(NSLocalizedString("result.share", comment: "Share"), systemImage: "square.and.arrow.up")
+                    Label("Share", systemImage: "square.and.arrow.up")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.glass)
@@ -445,7 +445,7 @@ struct HistoryDetailSheet: View {
                     UIPasteboard.general.string = item.url
                     SettingsManager.shared.triggerHaptic(.success)
                 } label: {
-                    Label(NSLocalizedString("result.copy_url", comment: "Copy"), systemImage: "doc.on.doc")
+                    Label("Copy URL", systemImage: "doc.on.doc")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.glass(color: .brandSecondary))

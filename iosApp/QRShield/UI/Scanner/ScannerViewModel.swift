@@ -355,7 +355,7 @@ final class ScannerViewModel {
             isFlashOn.toggle()
             SettingsManager.shared.triggerHaptic(.light)
         } catch {
-            errorMessage = String(format: NSLocalizedString("camera.flash_failed", comment: "Flash toggle failed"), error.localizedDescription)
+            errorMessage = String(format: "Flash toggle failed: %@", error.localizedDescription)
             SettingsManager.shared.triggerHaptic(.warning)
         }
     }
@@ -383,7 +383,7 @@ final class ScannerViewModel {
 
         // Normalize and validate input early to avoid wasted work and UI churn
         guard let sanitized = sanitize(code) else {
-            errorMessage = NSLocalizedString("error.invalid_or_unsupported", comment: "Invalid QR payload")
+            errorMessage = "Invalid or unsupported QR content."
             SettingsManager.shared.triggerHaptic(.warning)
             return
         }
@@ -459,7 +459,7 @@ final class ScannerViewModel {
                         self.handleScannedCode(code)
                     } else {
                         self.isAnalyzing = false
-                        self.errorMessage = NSLocalizedString("error.no_qr_found", comment: "No QR found in image")
+                        self.errorMessage = "No QR code found in the selected image."
                         SettingsManager.shared.triggerHaptic(.warning)
                     }
                 }
@@ -468,7 +468,7 @@ final class ScannerViewModel {
                     guard let self else { return }
                     self.isAnalyzing = false
                     self.errorMessage = String(
-                        format: NSLocalizedString("error.image_scan_failed", comment: "Image scan failed"),
+                        format: "Image scan failed: %@",
                         error.localizedDescription
                     )
                     SettingsManager.shared.triggerHaptic(.error)

@@ -11,8 +11,10 @@
 "app.tagline" = "Kotlin Multiplatform QRishing Detector";
 
 // MARK: - Tab Bar
+"tab.dashboard" = "Dashboard";
 "tab.scan" = "Scan";
 "tab.history" = "History";
+"tab.training" = "Training";
 "tab.settings" = "Settings";
 
 // MARK: - Scanner View

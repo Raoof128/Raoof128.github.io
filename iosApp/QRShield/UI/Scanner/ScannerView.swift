@@ -133,7 +133,7 @@ struct ScannerView: View {
         // iOS 17+: Toolbar with glass styling
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Text(String(format: NSLocalizedString("scanner.scans_count", comment: "Scan count"), viewModel.scanCount))
+                Text(String(format: "Scans: %d", viewModel.scanCount))
                     .font(.caption)
                     .foregroundColor(.textSecondary)
                     .padding(.horizontal, 12)
@@ -164,7 +164,7 @@ struct ScannerView: View {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.textMuted)
                 }
-                .accessibilityLabel(Text(NSLocalizedString("error.dismiss", comment: "Dismiss error")))
+                .accessibilityLabel(Text("Dismiss error"))
             }
             .padding(12)
             .background(.ultraThinMaterial, in: Capsule())
@@ -259,7 +259,7 @@ struct ScannerView: View {
                     .font(.title2)
                     .symbolEffect(.pulse, isActive: viewModel.isScanning)
                 
-                Text(NSLocalizedString("scanner.brand", comment: "App name"))
+                Text("QR-SHIELD")
                     .font(.system(.headline, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -274,7 +274,7 @@ struct ScannerView: View {
                     .frame(width: 8, height: 8)
                     .shadow(color: viewModel.isScanning ? .verdictSafe.opacity(0.5) : .clear, radius: 4)
                 
-                Text(viewModel.isScanning ? NSLocalizedString("scanner.status_scanning", comment: "Scanning") : NSLocalizedString("scanner.status_paused", comment: "Paused"))
+                Text(viewModel.isScanning ? "Scanning" : "Paused")
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
@@ -293,7 +293,7 @@ struct ScannerView: View {
             }
             .frame(width: 44, height: 44)
             .background(.ultraThinMaterial, in: Circle())
-            .accessibilityLabel(Text(viewModel.isFlashOn ? NSLocalizedString("scanner.flash_on", comment: "Flash on") : NSLocalizedString("scanner.flash_off", comment: "Flash off")))
+            .accessibilityLabel(Text(viewModel.isFlashOn ? "Flash on" : "Flash off"))
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -317,7 +317,7 @@ struct ScannerView: View {
                         showDetails = true
                     } label: {
                         Label(
-                            NSLocalizedString("scanner.view_details", comment: "View details"),
+                            "View Details",
                             systemImage: "doc.text.magnifyingglass"
                         )
                     }
@@ -327,14 +327,14 @@ struct ScannerView: View {
                         SettingsManager.shared.triggerHaptic(.success)
                     } label: {
                         Label(
-                            NSLocalizedString("scanner.copy_url", comment: "Copy URL"),
+                            "Copy URL",
                             systemImage: "doc.on.doc"
                         )
                     }
                     
                     ShareLink(item: result.url) {
                         Label(
-                            NSLocalizedString("scanner.share", comment: "Share"),
+                            "Share",
                             systemImage: "square.and.arrow.up"
                         )
                     }
@@ -345,7 +345,7 @@ struct ScannerView: View {
                         viewModel.dismissResult()
                     } label: {
                         Label(
-                            NSLocalizedString("scanner.dismiss", comment: "Dismiss"),
+                            "Dismiss",
                             systemImage: "xmark"
                         )
                     }
@@ -357,7 +357,7 @@ struct ScannerView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: .brandPrimary))
                     .scaleEffect(1.5)
                 
-                Text(NSLocalizedString("scanner.analyzing", comment: "Analyzing"))
+                Text("Analyzing...")
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
@@ -418,8 +418,8 @@ struct ScannerView: View {
                         )
                 }
                 .shadow(color: .brandPrimary.opacity(0.3), radius: 20)
-                .accessibilityLabel(Text(NSLocalizedString("scanner.point_at_qr", comment: "Point at QR")))
-                .accessibilityHint(Text(NSLocalizedString("scanner.scan_toggle", comment: "Toggle scanning")))
+                .accessibilityLabel(Text("Point at QR Code"))
+                .accessibilityHint(Text("Toggle scanning"))
             
             // Corner markers
             RoundedRectangle(cornerRadius: 4)
@@ -440,7 +440,7 @@ struct ScannerView: View {
                 .symbolEffect(.variableColor.iterative, isActive: viewModel.isScanning)
             
             // Scan text
-            Text(NSLocalizedString("scanner.point_at_qr", comment: "Point at QR"))
+            Text("Point at QR Code")
                 .font(.caption)
                 .fontWeight(.medium)
                 .foregroundColor(.textMuted)
@@ -455,11 +455,11 @@ struct ScannerView: View {
             // Gallery Button
             ControlButton(
                 icon: "photo.on.rectangle",
-                label: NSLocalizedString("scanner.gallery", comment: "Gallery")
+                label: "Gallery"
             ) {
                 showGalleryPicker = true
             }
-            .accessibilityLabel(Text(NSLocalizedString("scanner.gallery", comment: "Gallery")))
+            .accessibilityLabel(Text("Gallery"))
             
             // Main Scan Button with Liquid Glass
             Button(action: viewModel.toggleScanning) {
@@ -492,7 +492,7 @@ struct ScannerView: View {
                 }
                 .shadow(color: .brandPrimary.opacity(0.4), radius: 15)
             }
-            .accessibilityLabel(Text(NSLocalizedString("scanner.scan_toggle", comment: "Toggle scanning")))
+            .accessibilityLabel(Text("Toggle scanning"))
     
             
             // History Button
@@ -504,12 +504,12 @@ struct ScannerView: View {
                         .frame(width: 50, height: 50)
                         .background(.ultraThinMaterial, in: Circle())
                     
-                    Text(NSLocalizedString("scanner.history", comment: "History"))
+                    Text("History")
                         .font(.caption2)
                         .foregroundColor(.textSecondary)
                 }
             }
-            .accessibilityLabel(Text(NSLocalizedString("scanner.open_history", comment: "Open history")))
+            .accessibilityLabel(Text("Open history"))
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 20)
@@ -525,17 +525,17 @@ struct ScannerView: View {
                 .foregroundColor(.textMuted)
                 .symbolEffect(.pulse)
             
-            Text(NSLocalizedString("camera.access_required", comment: "Camera Access Required"))
+            Text("Camera Access Required")
                 .font(.title2.weight(.semibold))
                 .foregroundColor(.textPrimary)
             
-            Text(NSLocalizedString("camera.access_message", comment: "Camera access message"))
+            Text("QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.")
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
             
-            InteractiveGlassButton(NSLocalizedString("camera.open_settings", comment: "Open Settings"), icon: "gear") {
+            InteractiveGlassButton("Open Settings", icon: "gear") {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     UIApplication.shared.open(url)
                 }

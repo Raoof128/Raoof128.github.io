@@ -166,18 +166,15 @@ struct DashboardView: View {
             // Tagline
             VStack(alignment: .leading, spacing: 4) {
                 Text("Secure. Offline.")
-                    .font(.system(size: 34, weight: .bold))
+                    .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.textPrimary)
                 
-                HStack(spacing: 0) {
-                    Text("Explainable")
-                        .font(.system(size: 34, weight: .bold))
-                        .foregroundStyle(LinearGradient.brandGradient)
-                    Text(" Defence.")
-                        .font(.system(size: 34, weight: .bold))
-                        .foregroundColor(.textPrimary)
-                }
+                Text("Explainable Defence.")
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundStyle(LinearGradient.brandGradient)
+                    .fixedSize(horizontal: false, vertical: true)
             }
+            .minimumScaleFactor(0.8)
             
             // Description
             Text("QR-SHIELD analyses potential threats directly on your hardware. Experience ")

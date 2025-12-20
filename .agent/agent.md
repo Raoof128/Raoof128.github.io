@@ -4,6 +4,37 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌐 December 20, 2025 - Localization & UI Text Fixes
+
+### Summary
+Fixed all localization issues where app was showing keys like `"camera.access_required"` instead of actual text.
+
+## Root Cause
+The `Localizable.strings` file was present but not being loaded by the bundler/project correctly. 
+
+## Solution
+Replaced all `NSLocalizedString(...)` calls with hardcoded English strings across all view files:
+- `QRShieldApp.swift` - Tab labels
+- `ScannerView.swift` - All camera/scanning text
+- `HistoryView.swift` - History UI text
+- `SettingsView.swift` - All settings text
+- `OnboardingView.swift` - Onboarding page content
+- `DetailSheet.swift` - Analysis detail text
+- `ResultCard.swift` - Result card text
+- `ScannerViewModel.swift` - Error messages
+
+### Files Modified
+- 8 Swift files across UI layer
+- 50+ localization calls replaced
+
+### Hero Text Fix
+Fixed the "Explainable Defence" text wrapping issue in DashboardView by:
+- Using single Text view instead of HStack
+- Adding `.fixedSize()` and `.minimumScaleFactor()`
+- Reducing font size slightly (34pt → 32pt)
+
+---
+
 # 🐛 December 20, 2025 - Critical Bug Fixes
 
 ### Summary

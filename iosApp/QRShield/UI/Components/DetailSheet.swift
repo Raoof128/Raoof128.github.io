@@ -72,7 +72,7 @@ struct DetailSheet: View {
                 LiquidGlassBackground()
                     .ignoresSafeArea()
             }
-            .navigationTitle(NSLocalizedString("detail.analysis_details", comment: "Analysis details"))
+            .navigationTitle("Analysis Details")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -125,12 +125,12 @@ struct DetailSheet: View {
             
             // Score
             HStack(spacing: 20) {
-                scoreItem(title: NSLocalizedString("result.risk_score_label", comment: "Risk score label"), value: "\(assessment.score)/100", color: themeColor)
+                scoreItem(title: "Risk Score", value: "\(assessment.score)/100", color: themeColor)
                 
                 Divider()
                     .frame(height: 40)
                 
-                scoreItem(title: NSLocalizedString("result.confidence", comment: "Confidence"), value: "\(Int(assessment.confidence * 100))%", color: .brandPrimary)
+                scoreItem(title: "Confidence", value: "\(Int(assessment.confidence * 100))%", color: .brandPrimary)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 16)
@@ -155,32 +155,32 @@ struct DetailSheet: View {
     
     private var scoreBreakdownSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle(NSLocalizedString("detail.score_breakdown", comment: "Score breakdown"), icon: "chart.bar.fill")
+            sectionTitle("Score Breakdown", icon: "chart.bar.fill")
             
             VStack(spacing: 12) {
                 breakdownRow(
-                    title: NSLocalizedString("detail.url_details", comment: "URL details"),
+                    title: "URL Details",
                     icon: "link",
                     score: min(assessment.score * 2, 100),
                     color: .brandPrimary,
                     delay: 0
                 )
                 breakdownRow(
-                    title: NSLocalizedString("detail.domain", comment: "Domain"),
+                    title: "Domain",
                     icon: "globe",
                     score: assessment.score,
                     color: .brandSecondary,
                     delay: 0.1
                 )
                 breakdownRow(
-                    title: NSLocalizedString("detail.risk_factors", comment: "Risk factors"),
+                    title: "Risk Factors",
                     icon: "waveform",
                     score: max(0, assessment.score - 10),
                     color: .verdictWarning,
                     delay: 0.2
                 )
                 breakdownRow(
-                    title: NSLocalizedString("result.confidence", comment: "Confidence"),
+                    title: "Confidence",
                     icon: "brain",
                     score: Int(assessment.confidence * 100),
                     color: .verdictSafe,
@@ -233,7 +233,7 @@ struct DetailSheet: View {
     
     private var riskFlagsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle(NSLocalizedString("result.flags_title", comment: "Risk flags"), icon: "exclamationmark.triangle.fill")
+            sectionTitle("Risk Flags", icon: "exclamationmark.triangle.fill")
             
             VStack(spacing: 8) {
                 ForEach(assessment.flags, id: \.self) { flag in
@@ -259,12 +259,12 @@ struct DetailSheet: View {
     
     private var urlDetailsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle(NSLocalizedString("detail.url_details", comment: "URL details"), icon: "link")
+            sectionTitle("URL Details", icon: "link")
             
             VStack(alignment: .leading, spacing: 16) {
                 // Full URL
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(NSLocalizedString("detail.url_label", comment: "URL"))
+                    Text("URL")
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -278,7 +278,7 @@ struct DetailSheet: View {
                 
                 // Domain
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(NSLocalizedString("detail.domain", comment: "Domain"))
+                    Text("Domain")
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -290,7 +290,7 @@ struct DetailSheet: View {
                 // Protocol
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(NSLocalizedString("detail.protocol", comment: "Protocol"))
+                        Text("Protocol")
                             .font(.caption)
                             .foregroundColor(.textMuted)
                         
@@ -298,7 +298,7 @@ struct DetailSheet: View {
                             Image(systemName: assessment.url.hasPrefix("https") ? "lock.fill" : "lock.open")
                                 .foregroundColor(assessment.url.hasPrefix("https") ? .verdictSafe : .verdictWarning)
                             
-                            Text(assessment.url.hasPrefix("https") ? NSLocalizedString("detail.protocol_https", comment: "HTTPS") : NSLocalizedString("detail.protocol_http", comment: "HTTP"))
+                            Text(assessment.url.hasPrefix("https") ? "HTTPS (Secure)" : "HTTP (Not Secure)")
                                 .font(.subheadline)
                                 .foregroundColor(assessment.url.hasPrefix("https") ? .verdictSafe : .verdictWarning)
                         }
@@ -319,7 +319,7 @@ struct DetailSheet: View {
             Image(systemName: "clock")
                 .foregroundColor(.textMuted)
             
-            Text(String(format: NSLocalizedString("detail.scanned_at_time_ago", comment: "Scanned at"), assessment.formattedDate))
+            Text(String(format: "Scanned %@", assessment.formattedDate))
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
             
@@ -336,7 +336,7 @@ struct DetailSheet: View {
             ShareLink(item: shareText) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
-                    Text(NSLocalizedString("detail.share_analysis", comment: "Share analysis"))
+                    Text("Share Analysis")
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -363,7 +363,7 @@ struct DetailSheet: View {
             } label: {
                 HStack {
                     Image(systemName: "globe")
-                    Text(NSLocalizedString("detail.open_url", comment: "Open URL"))
+                    Text("Open URL")
                 }
                 .font(.headline)
                 .foregroundColor(assessment.verdict == .safe ? .verdictSafe : .textPrimary)
@@ -372,16 +372,16 @@ struct DetailSheet: View {
                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
             }
             .confirmationDialog(
-                NSLocalizedString("detail.open_warning_title", comment: "Warning"),
+                "Security Warning",
                 isPresented: $showOpenURLConfirmation,
                 titleVisibility: .visible
             ) {
-                Button(NSLocalizedString("detail.proceed", comment: "Proceed Anyway"), role: .destructive) {
+                Button("Proceed Anyway", role: .destructive) {
                     openURL()
                 }
-                Button(NSLocalizedString("settings.cancel", comment: "Cancel"), role: .cancel) {}
+                Button("Cancel", role: .cancel) {}
             } message: {
-                Text(NSLocalizedString("detail.open_warning", comment: "Opening this URL may be dangerous"))
+                Text("Opening this URL may be dangerous. Are you sure?")
             }
             
             // Copy URL Button
@@ -400,7 +400,7 @@ struct DetailSheet: View {
                 HStack {
                     Image(systemName: copiedURL ? "checkmark" : "doc.on.doc")
                         .contentTransition(.symbolEffect(.replace))
-                    Text(copiedURL ? NSLocalizedString("detail.copied", comment: "Copied") : NSLocalizedString("detail.copy_url", comment: "Copy URL"))
+                    Text(copiedURL ? "Copied!" : "Copy URL")
                 }
                 .font(.headline)
                 .foregroundColor(copiedURL ? .verdictSafe : .textPrimary)
@@ -431,7 +431,7 @@ struct DetailSheet: View {
             } label: {
                 HStack {
                     Image(systemName: "flag")
-                    Text(NSLocalizedString("detail.report_false_positive", comment: "Report FP"))
+                    Text("Report False Positive")
                 }
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)

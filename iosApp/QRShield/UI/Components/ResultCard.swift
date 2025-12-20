@@ -138,13 +138,13 @@ struct ResultCard: View {
                     .foregroundColor(themeColor)
                     .contentTransition(.numericText())
                 
-                Text(String(format: NSLocalizedString("result.risk_score", comment: "Risk score"), assessment.score))
+                Text(String(format: "Risk Score: %d/100", assessment.score))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
             .accessibilityElement(children: .combine)
             .accessibilityLabel(Text(assessment.verdict.rawValue))
-            .accessibilityValue(Text(String(format: NSLocalizedString("result.risk_score_label", comment: "Risk score label"), assessment.score)))
+            .accessibilityValue(Text(String(format: "Risk Score: %d", assessment.score)))
             
             Spacer()
             
@@ -156,7 +156,7 @@ struct ResultCard: View {
                     .foregroundColor(.white)
                     .contentTransition(.numericText())
                 
-                Text(NSLocalizedString("result.confidence", comment: "Confidence"))
+                Text("Confidence")
                     .font(.caption2)
                     .foregroundColor(.textMuted)
             }
@@ -202,7 +202,7 @@ struct ResultCard: View {
         }
         .frame(height: 10)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text(NSLocalizedString("result.risk_score_label", comment: "Risk score label")))
+        .accessibilityLabel(Text("Risk Score"))
         .accessibilityValue(Text("\(assessment.score) / 100"))
     }
     
@@ -232,7 +232,7 @@ struct ResultCard: View {
                     removal: .opacity
                 ))
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(Text(NSLocalizedString("result.flags_title", comment: "Flags")))
+                .accessibilityLabel(Text("Risk Flags"))
                 .accessibilityValue(Text(flag))
             }
             
@@ -244,8 +244,8 @@ struct ResultCard: View {
                 } label: {
                     HStack {
                         Text(showingFullFlags
-                             ? NSLocalizedString("result.show_less", comment: "Show less")
-                             : String(format: NSLocalizedString("result.show_more", comment: "Show more"), assessment.flags.count - 3)
+                             ? "Show less"
+                             : String(format: "Show %d more...", assessment.flags.count - 3)
                         )
                             .font(.caption)
                             .foregroundColor(.brandPrimary)
@@ -290,7 +290,7 @@ struct ResultCard: View {
             HStack(spacing: 8) {
                 Image(systemName: "doc.text.magnifyingglass")
                     .symbolEffect(.bounce, value: isAppearing)
-                Text(NSLocalizedString("result.view_full_analysis", comment: "View full analysis"))
+                Text("View Full Analysis")
             }
             .font(.subheadline.weight(.semibold))
             .foregroundColor(.white)
@@ -315,7 +315,7 @@ struct ResultCard: View {
             .shadow(color: themeColor.opacity(0.4), radius: 8, y: 4)
         }
         .sensoryFeedback(.impact(weight: .light), trigger: isAppearing)
-        .accessibilityLabel(Text(NSLocalizedString("result.view_full_analysis", comment: "View full analysis")))
+        .accessibilityLabel(Text("View Full Analysis"))
     }
 }
 

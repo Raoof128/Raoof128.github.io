@@ -178,7 +178,7 @@ struct ContentView: View {
                 DashboardView()
             }
             .tabItem {
-                Label(NSLocalizedString("tab.dashboard", comment: "Dashboard"), systemImage: selectedTab == 0 ? "square.grid.2x2.fill" : "square.grid.2x2")
+                Label("Dashboard", systemImage: selectedTab == 0 ? "square.grid.2x2.fill" : "square.grid.2x2")
             }
             .tag(0)
             
@@ -187,7 +187,7 @@ struct ContentView: View {
                 ScannerView()
             }
             .tabItem {
-                Label(NSLocalizedString("tab.scan", comment: "Scan"), systemImage: selectedTab == 1 ? "qrcode.viewfinder" : "qrcode")
+                Label("Scan", systemImage: selectedTab == 1 ? "qrcode.viewfinder" : "qrcode")
             }
             .tag(1)
             
@@ -196,7 +196,7 @@ struct ContentView: View {
                 HistoryView()
             }
             .tabItem {
-                Label(NSLocalizedString("tab.history", comment: "History"), systemImage: selectedTab == 2 ? "clock.fill" : "clock")
+                Label("History", systemImage: selectedTab == 2 ? "clock.fill" : "clock")
             }
             .tag(2)
             
@@ -205,7 +205,7 @@ struct ContentView: View {
                 BeatTheBotView()
             }
             .tabItem {
-                Label(NSLocalizedString("tab.training", comment: "Training"), systemImage: selectedTab == 3 ? "gamecontroller.fill" : "gamecontroller")
+                Label("Training", systemImage: selectedTab == 3 ? "gamecontroller.fill" : "gamecontroller")
             }
             .tag(3)
             
@@ -224,7 +224,7 @@ struct ContentView: View {
                     }
             }
             .tabItem {
-                Label(NSLocalizedString("tab.settings", comment: "Settings"), systemImage: selectedTab == 4 ? "gearshape.fill" : "gearshape")
+                Label("Settings", systemImage: selectedTab == 4 ? "gearshape.fill" : "gearshape")
             }
             .tag(4)
         }

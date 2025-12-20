@@ -5,6 +5,22 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.2] - 2025-12-20
+
+### Fixed - Localization & UI Text
+
+#### 🌐 Localization
+- **Text Display Fix** - Replaced all `NSLocalizedString` calls with hardcoded English strings
+- **50+ strings fixed** across all view files (Scanner, History, Settings, Onboarding, etc.)
+- All text now displays correctly instead of localization keys
+
+#### 🎨 Hero Section Layout
+- **"Explainable Defence" Fix** - Prevented word wrapping on smaller screens
+- Reduced font size (34pt → 32pt) for better fit
+- Added `.fixedSize()` to maintain text integrity
+
+---
+
 ## [1.8.1] - 2025-12-20
 
 ### Fixed - Critical iOS App Bug Fixes

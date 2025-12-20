@@ -137,26 +137,26 @@ struct SettingsView: View {
             Section {
                 SettingsToggle(
                     icon: "qrcode.viewfinder",
-                    title: NSLocalizedString("settings.auto_scan", comment: "Auto scan"),
-                    subtitle: NSLocalizedString("settings.auto_scan_description", comment: "Auto scan description"),
+                    title: "Auto-scan on launch",
+                    subtitle: "Start scanning immediately when app opens",
                     isOn: $autoScan
                 )
                 
                 SettingsToggle(
                     icon: "waveform",
-                    title: NSLocalizedString("settings.haptic", comment: "Haptic"),
-                    subtitle: NSLocalizedString("settings.haptic_description", comment: "Haptic description"),
+                    title: "Haptic feedback",
+                    subtitle: "Vibrate on scan results",
                     isOn: $hapticEnabled
                 )
                 
                 SettingsToggle(
                     icon: "speaker.wave.2",
-                    title: NSLocalizedString("settings.sound", comment: "Sound"),
-                    subtitle: NSLocalizedString("settings.sound_description", comment: "Sound description"),
+                    title: "Sound effects",
+                    subtitle: "Play sounds for alerts",
                     isOn: $soundEnabled
                 )
             } header: {
-                sectionHeader(NSLocalizedString("settings.section.scanning", comment: "Scanning section"), icon: "viewfinder")
+                sectionHeader("Scanning", icon: "viewfinder")
             }
             .listRowBackground(Color.clear)
             
@@ -170,10 +170,10 @@ struct SettingsView: View {
                             .symbolEffect(.bounce, value: notificationsEnabled)
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(NSLocalizedString("settings.security_alerts", comment: "Security alerts"))
+                            Text("Security alerts")
                                 .foregroundColor(.textPrimary)
                             
-                            Text(NSLocalizedString("settings.security_alerts_description", comment: "Security alerts description"))
+                            Text("Get notified about security threats")
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -198,33 +198,33 @@ struct SettingsView: View {
                     SettingsManager.shared.triggerHaptic(.selection)
                 }
             } header: {
-                sectionHeader(NSLocalizedString("settings.section.notifications", comment: "Notifications section"), icon: "bell")
+                sectionHeader("Notifications", icon: "bell")
             }
             .listRowBackground(Color.clear)
-            .alert(NSLocalizedString("settings.notifications_denied_title", comment: "Notifications Denied"), isPresented: $showNotificationDeniedAlert) {
-                Button(NSLocalizedString("settings.open_settings", comment: "Open Settings")) {
+            .alert("Notifications Disabled", isPresented: $showNotificationDeniedAlert) {
+                Button("Open Settings") {
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(url)
                     }
                 }
-                Button(NSLocalizedString("settings.cancel", comment: "Cancel"), role: .cancel) {}
+                Button("Cancel", role: .cancel) {}
             } message: {
-                Text(NSLocalizedString("settings.notifications_denied_message", comment: "Notifications denied message"))
+                Text("To receive security alerts, please enable notifications for QR-SHIELD in Settings.")
             }
             
             // Appearance Section (iOS 17+)
             Section {
                 SettingsToggle(
                     icon: "moon.fill",
-                    title: NSLocalizedString("settings.dark_mode", comment: "Dark mode"),
-                    subtitle: NSLocalizedString("settings.dark_mode_description", comment: "Dark mode description"),
+                    title: "Dark Mode",
+                    subtitle: "Enable dark color scheme",
                     isOn: $useDarkMode
                 )
                 
                 SettingsToggle(
                     icon: "sparkles",
-                    title: NSLocalizedString("settings.reduce_effects", comment: "Reduce effects"),
-                    subtitle: NSLocalizedString("settings.reduce_effects_description", comment: "Reduce effects description"),
+                    title: "Reduce Liquid Glass",
+                    subtitle: "Simplify visual effects for performance",
                     isOn: $liquidGlassReduced
                 )
                 
@@ -239,7 +239,7 @@ struct SettingsView: View {
                             .foregroundColor(.brandPrimary)
                             .frame(width: 28)
                         
-                        Text(NSLocalizedString("settings.system_appearance", comment: "System appearance"))
+                        Text("System Appearance")
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
@@ -251,9 +251,9 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader(NSLocalizedString("settings.section.appearance", comment: "Appearance section"), icon: "sparkles")
+                sectionHeader("Appearance", icon: "sparkles")
             } footer: {
-                Text(NSLocalizedString("settings.appearance_footer", comment: "Appearance footer"))
+                Text("iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.")
                     .font(.caption2)
                     .foregroundColor(.textMuted)
             }
@@ -263,8 +263,8 @@ struct SettingsView: View {
             Section {
                 SettingsToggle(
                     icon: "clock.arrow.circlepath",
-                    title: NSLocalizedString("settings.save_history", comment: "Save history"),
-                    subtitle: NSLocalizedString("settings.save_history_description", comment: "Save history description"),
+                    title: "Save scan history",
+                    subtitle: "Keep a record of scanned URLs",
                     isOn: $saveHistory
                 )
                 
@@ -276,7 +276,7 @@ struct SettingsView: View {
                             .foregroundColor(.verdictDanger)
                             .frame(width: 28)
                         
-                        Text(NSLocalizedString("settings.clear_history", comment: "Clear history"))
+                        Text("Clear History")
                             .foregroundColor(.verdictDanger)
                         
                         Spacer()
@@ -291,7 +291,7 @@ struct SettingsView: View {
                             .foregroundColor(.brandPrimary)
                             .frame(width: 28)
                         
-                        Text(NSLocalizedString("settings.privacy_policy", comment: "Privacy policy"))
+                        Text("Privacy Policy")
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
@@ -303,15 +303,15 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader(NSLocalizedString("settings.section.privacy", comment: "Privacy section"), icon: "hand.raised")
+                sectionHeader("Privacy", icon: "hand.raised")
             }
             .listRowBackground(Color.clear)
             
             // About Section
             Section {
-                aboutRow(icon: "info.circle", title: NSLocalizedString("settings.version", comment: "Version"), value: "1.0.0 (1)")
-                aboutRow(icon: "hammer", title: NSLocalizedString("settings.build", comment: "Build"), value: "iOS 17+ • Swift 6")
-                aboutRow(icon: "cpu", title: NSLocalizedString("settings.engine", comment: "Engine"), value: "KMP PhishingEngine")
+                aboutRow(icon: "info.circle", title: "Version", value: "1.0.0 (1)")
+                aboutRow(icon: "hammer", title: "Build", value: "iOS 17+ • Swift 6")
+                aboutRow(icon: "cpu", title: "Engine", value: "KMP PhishingEngine")
                 
                 Link(destination: URL(string: "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")!) {
                     HStack {
@@ -319,7 +319,7 @@ struct SettingsView: View {
                             .foregroundColor(.brandPrimary)
                             .frame(width: 28)
                         
-                        Text(NSLocalizedString("settings.source_code", comment: "Source code"))
+                        Text("Source Code")
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
@@ -331,7 +331,7 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader(NSLocalizedString("settings.section.about", comment: "About section"), icon: "info.circle")
+                sectionHeader("About", icon: "info.circle")
             }
             .listRowBackground(Color.clear)
             
@@ -352,16 +352,16 @@ struct SettingsView: View {
                     }
                     
                     VStack(spacing: 4) {
-                        Text(NSLocalizedString("scanner.brand", comment: "Brand"))
+                        Text("QR-SHIELD")
                             .font(.headline)
                             .foregroundColor(.textPrimary)
                         
-                        Text(NSLocalizedString("app.tagline", comment: "Tagline"))
+                        Text("Kotlin Multiplatform QRishing Detector")
                             .font(.caption)
                             .foregroundColor(.textSecondary)
                     }
                     
-                    Text(NSLocalizedString("settings.credits", comment: "Credits"))
+                    Text("Made with ❤️ for KotlinConf 2026")
                         .font(.caption2)
                         .foregroundColor(.textMuted)
                     
@@ -399,18 +399,18 @@ struct SettingsView: View {
             LiquidGlassBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle(NSLocalizedString("settings.title", comment: "Settings title"))
+        .navigationTitle("Settings")
         .confirmationDialog(
-            NSLocalizedString("settings.clear_history_title", comment: "Clear all history title"),
+            "Clear All History?",
             isPresented: $showClearConfirmation,
             titleVisibility: .visible
         ) {
-            Button(NSLocalizedString("settings.clear_all", comment: "Clear All"), role: .destructive) {
+            Button("Clear All", role: .destructive) {
                 clearHistory()
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text(NSLocalizedString("settings.clear_history_message", comment: "Clear history message"))
+            Text("This action cannot be undone. All scan history will be permanently deleted.")
         }
         .sheet(isPresented: $showTrustCentre) {
             TrustCentreView()

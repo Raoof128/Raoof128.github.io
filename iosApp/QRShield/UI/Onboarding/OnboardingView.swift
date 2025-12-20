@@ -36,29 +36,29 @@ struct OnboardingView: View {
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             icon: "qrcode.viewfinder",
-            title: NSLocalizedString("onboarding.scan.title", comment: "Scan title"),
-            description: NSLocalizedString("onboarding.scan.description", comment: "Scan description"),
+            title: "Scan Any QR Code",
+            description: "Point your camera at any QR code to instantly analyze its contents for potential threats.",
             color: .brandPrimary,
             asset: "OnboardScan"
         ),
         OnboardingPage(
             icon: "shield.lefthalf.filled",
-            title: NSLocalizedString("onboarding.protect.title", comment: "Protect title"),
-            description: NSLocalizedString("onboarding.protect.description", comment: "Protect description"),
+            title: "Real-Time Protection",
+            description: "Our AI-powered engine analyzes URLs using 25+ security heuristics and machine learning algorithms.",
             color: .brandSecondary,
             asset: "OnboardProtect"
         ),
         OnboardingPage(
             icon: "lock.shield",
-            title: NSLocalizedString("onboarding.privacy.title", comment: "Privacy title"),
-            description: NSLocalizedString("onboarding.privacy.description", comment: "Privacy description"),
+            title: "Privacy First",
+            description: "All analysis happens on-device using Kotlin Multiplatform. Your data never leaves your phone.",
             color: .verdictSafe,
             asset: "OnboardPrivacy"
         ),
         OnboardingPage(
             icon: "sparkles",
-            title: NSLocalizedString("onboarding.design.title", comment: "Design title"),
-            description: NSLocalizedString("onboarding.design.description", comment: "Design description"),
+            title: "Beautiful iOS 17+ Design",
+            description: "Experience the stunning Liquid Glass interface with smooth animations and modern aesthetics.",
             color: .brandAccent,
             asset: nil
         )
@@ -74,14 +74,14 @@ struct OnboardingView: View {
                 // Skip button
                 HStack {
                     // Page counter
-                    Text(String(format: NSLocalizedString("onboarding.page_indicator", comment: "Page indicator"), currentPage + 1, pages.count))
+                    Text(String(format: "%d/%d", currentPage + 1, pages.count))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                         .padding()
                     
                     Spacer()
                     
-                    Button(NSLocalizedString("onboarding.skip", comment: "Skip")) {
+                    Button("Skip") {
                         completeOnboarding()
                     }
                     .font(.subheadline.weight(.medium))
@@ -114,7 +114,7 @@ struct OnboardingView: View {
                 
                 // Action Button
                 InteractiveGlassButton(
-                    currentPage == pages.count - 1 ? NSLocalizedString("onboarding.get_started", comment: "Get Started") : NSLocalizedString("onboarding.continue", comment: "Continue"),
+                    currentPage == pages.count - 1 ? "Get Started" : "Continue",
                     icon: currentPage == pages.count - 1 ? "arrow.right.circle.fill" : "arrow.right",
                     color: pages[currentPage].color
                 ) {
@@ -127,17 +127,17 @@ struct OnboardingView: View {
         .onAppear {
             isAnimating = true
         }
-        .alert(NSLocalizedString("onboarding.camera.title", comment: "Camera permission title"), isPresented: $showCameraPermission) {
-            Button(NSLocalizedString("onboarding.camera.allow", comment: "Allow camera")) {
+        .alert("Camera Permission", isPresented: $showCameraPermission) {
+            Button("Allow Camera") {
                 requestCameraPermission()
             }
-            Button(NSLocalizedString("onboarding.camera.later", comment: "Maybe later"), role: .cancel) {
+            Button("Maybe Later", role: .cancel) {
                 withAnimation {
                     isComplete = true
                 }
             }
         } message: {
-            Text(NSLocalizedString("onboarding.camera.message", comment: "Camera permission message"))
+            Text("QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.")
         }
     }
     
