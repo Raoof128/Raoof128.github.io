@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
             QRShieldTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color(0xFF0D1117)
+                    color = androidx.compose.material3.MaterialTheme.colorScheme.background
                 ) {
                     QRShieldApp()
                 }

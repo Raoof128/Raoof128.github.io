@@ -10,6 +10,21 @@
     <string name="nav_history">History</string>
     <string name="nav_settings">Settings</string>
     
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">Welcome back</string>
+    <string name="dashboard_default_user">Security Admin</string>
+    <string name="dashboard_shield_active">SHIELD ACTIVE</string>
+    <string name="dashboard_headline">Secure. Offline.\nExplainable Defence.</string>
+    <string name="dashboard_subtitle">Your enterprise database is up to date and monitoring locally.</string>
+    <string name="dashboard_scan_qr">Scan QR</string>
+    <string name="dashboard_import_image">Import Image</string>
+    <string name="dashboard_system_health">System Health</string>
+    <string name="dashboard_total_scans">Total Scans</string>
+    <string name="dashboard_threats_blocked">Threats Blocked</string>
+    <string name="dashboard_recent_scans">Recent Scans</string>
+    <string name="dashboard_view_all">View All</string>
+    <string name="dashboard_tools">Security Tools</string>
+    
     <!-- Scanner Screen -->
     <string name="start_scanning">Start Scanning</string>
     <string name="scan_from_gallery">Scan from Gallery</string>

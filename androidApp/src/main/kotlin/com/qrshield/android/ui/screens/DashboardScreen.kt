@@ -19,6 +19,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Help
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -28,10 +30,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.model.Verdict
 import com.qrshield.ui.HistoryStatistics
@@ -81,7 +85,7 @@ fun DashboardScreen(
     ) {
         // Top App Bar
         DashboardHeader(
-            userName = "Admin User",
+            userName = stringResource(R.string.dashboard_default_user),
             onSettingsClick = onSettingsClick
         )
 
@@ -544,7 +548,7 @@ private fun RecentScansSection(
                             QRShieldColors.Red600
                         )
                         else -> Quadruple(
-                            Icons.Default.Help,
+                            Icons.AutoMirrored.Filled.Help,
                             QRShieldColors.Gray100,
                             QRShieldColors.Gray600,
                             QRShieldColors.Gray600
@@ -715,7 +719,7 @@ private fun ToolsCarousel(onToolClick: (String) -> Unit) {
             )
 
             ToolCard(
-                icon = Icons.Default.List,
+                icon = Icons.AutoMirrored.Filled.List,
                 title = "Whitelisting",
                 subtitle = "Manage exceptions",
                 iconBgColor = QRShieldColors.Gray100,

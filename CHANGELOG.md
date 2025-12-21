@@ -5,6 +5,37 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.0] - 2025-12-21
+
+### 🔍 Android UI - Comprehensive Audit & Polish
+
+Senior Android Engineer audit with production-ready fixes.
+
+#### 🐛 Bug Fixes
+- **MainActivity.kt** - Replaced hardcoded background with `MaterialTheme.colorScheme.background`
+
+#### 📝 Resource Improvements
+- Added 15 new dashboard string resources to `strings.xml`
+- Replaced hardcoded "Admin User" with `R.string.dashboard_default_user`
+
+#### 🔧 Deprecated API Fixes
+- `Icons.Default.Help` → `Icons.AutoMirrored.Filled.Help`
+- `Icons.Default.List` → `Icons.AutoMirrored.Filled.List`
+
+#### ✅ Navigation Verification
+All 15 routes connected and reachable:
+- Bottom Nav: Dashboard, Scanner, History, Settings
+- Feature: ScanResult, AttackBreakdown, ExportReport
+- Trust: TrustCentre, Allowlist, Blocklist, ThreatDatabase, Heuristics
+- Learning: LearningCentre, BeatTheBot, OfflinePrivacy
+
+```bash
+./gradlew :androidApp:assembleDebug
+BUILD SUCCESSFUL  # Zero warnings!
+```
+
+---
+
 ## [1.15.0] - 2025-12-21
 
 ### 🔧 Android UI - Comprehensive Debug & Polish
