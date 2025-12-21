@@ -4,6 +4,19 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🖥️ December 22, 2025 - Desktop UI Wiring Audit + Engine Integration
+
+### Summary
+- Wired all desktop Compose screens to `AppViewModel` and core engines (PhishingEngine, VerdictEngine, ScanHistoryManager, ShareManager).
+- Fixed desktop navigation targets and added keyboard focus plus info-only placeholders for non-implemented actions.
+- Added desktop tests for history filtering, URL helpers, training progression, and error feedback.
+- Removed unused desktop-only files (HistoryManager, AnalysisResult, WindowPreferences).
+
+### Verification
+```
+./gradlew :desktopApp:desktopTest
+```
+
 # 🔌 December 21, 2025 (Session 2) - Full UI Rewiring + Persistence
 
 ### Summary

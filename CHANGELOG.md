@@ -77,6 +77,23 @@ BUILD SUCCESSFUL in 2s
 
 ---
 
+## [1.13.1] - 2025-12-22
+
+### 🖥️ Desktop UI Wiring Audit + Engine Integration
+- **Desktop wiring:** Connected all Compose desktop screens to `AppViewModel` and core engines (PhishingEngine, VerdictEngine, ScanHistoryManager, ShareManager).
+- **Navigation fixes:** Corrected desktop routes and added keyboard focus handling for clickable UI elements.
+- **Behavior parity:** Implemented loading/error/empty states and info-only placeholders for non-implemented actions.
+- **State cleanup:** Removed unused desktop-only files (HistoryManager, AnalysisResult, WindowPreferences).
+- **Tests:** Added desktop ViewModel tests for filtering, URL helpers, training progression, and error feedback.
+
+#### ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:desktopTest
+```
+
+---
+
 
 ## [1.12.0] - 2025-12-21
 
