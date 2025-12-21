@@ -4,6 +4,108 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📱 December 21, 2025 - Android UI HTML-to-Compose Conversion
+
+### Summary
+Converted all HTML screens from `Androidapp.txt` to Jetpack Compose UI screens for the Android application. Created 12 new screen files, a comprehensive color system, reusable components, and updated navigation to support all screens.
+
+## 🎨 Design System Foundation
+
+### QRShieldColors.kt
+Created a centralized color palette at `ui/theme/QRShieldColors.kt`:
+- **Primary brand colors**: `Primary (#215eed)`, `PrimaryDark`, `PrimaryLight`
+- **Background/Surface colors**: Light and dark theme variants
+- **Risk/Verdict colors**: `RiskSafe (#22c55e)`, `RiskWarning (#f59e0b)`, `RiskDanger (#ef4444)`
+- **Slate scale**: Full range from Slate50 to Slate900
+- **Category colors**: Emerald, Orange, Red, Blue, Purple, Yellow, Gray scales
+- **Spacing utilities**: `dp1` (4dp) through `dp10` (40dp)
+- **Border radius**: `radius_sm`, `radius_md`, `radius_lg`, `radius_full`
+
+### CommonComponents.kt
+Created reusable UI components at `ui/components/CommonComponents.kt`:
+| Component | Purpose |
+|-----------|---------|
+| `QRShieldTopBar` | App bar with back navigation and actions |
+| `QRShieldPrimaryButton` | Primary action button |
+| `QRShieldSecondaryButton` | Outlined button variant |
+| `QRShieldDangerButton` | Red danger button |
+| `QRShieldCard` | Surface card with border |
+| `StatusChip` | Status badge/chip with color |
+| `QRShieldToggle` | iOS-style toggle switch |
+| `IconCircle` | Icon with circular background |
+| `FeatureListItem` | Feature row with icon |
+| `SegmentedButtonRow` | Tab-like segmented control |
+| `InfoBanner` | Information/warning banner |
+| `CircularProgressIndicatorWithPercentage` | Progress with percentage |
+| `UrlDisplayBox` | Monospace URL with copy button |
+| `SectionHeader` | Section title with action |
+
+## 📱 Screens Implemented (12 Total)
+
+| Screen | File | Key Features |
+|--------|------|--------------|
+| **Dashboard** | `DashboardScreen.kt` | User header, shield status, action buttons, system health, recent scans, tools carousel |
+| **Scan Result** | `ScanResultScreen.kt` | Verdict header with gradient, risk score card, tag chips, AI analysis breakdown |
+| **Trust Centre** | `TrustCentreScreen.kt` | Offline guarantee card, sensitivity controls, allowlist/blocklist cards, privacy toggles |
+| **Learning Centre** | `LearningCentreScreen.kt` | Progress tracker, daily tips, module cards (In Progress/Completed/New states) |
+| **Threat Database** | `ThreatDatabaseScreen.kt` | Hero status, version/signatures/sync stats, online/offline update methods |
+| **Beat the Bot** | `BeatTheBotScreen.kt` | Session stats, fake browser preview, SMS context, phishing/legitimate decisions |
+| **Blocklist** | `BlocklistScreen.kt` | Domain list with severity icons, import button, add domain bottom sheet |
+| **Allowlist** | `AllowlistScreen.kt` | Trusted domains with source badges, warning banner, add domain sheet |
+| **Export Report** | `ExportReportScreen.kt` | Report preview, format selection (PDF/CSV/JSON), content toggles |
+| **Attack Breakdown** | `AttackBreakdownScreen.kt` | Threat summary, attack chain timeline, IOC list, remediation steps |
+| **Offline Privacy** | `OfflinePrivacyScreen.kt` | Privacy hero, architecture features, data flow visualization, compliance badges |
+| **Heuristics** | `HeuristicsScreen.kt` | Stats header, category chips, rule list with severity and toggles |
+
+## 🧭 Navigation Updates
+
+Created `NavigationV2.kt` with:
+- **Routes object**: All 15 screen routes defined
+- **Four-tab bottom navigation**: Dashboard, Scanner, History, Settings
+- **Slide animations**: Smooth transitions between screens
+- **Navigation callbacks**: Proper back stack management
+- **Dashboard as start destination**: New home screen
+
+## 📋 Tailwind-to-Compose Mapping Used
+
+| Tailwind | Compose |
+|----------|---------|
+| `px-6`, `py-4` | `Modifier.padding(horizontal = 24.dp, vertical = 16.dp)` |
+| `gap-4` | `Arrangement.spacedBy(16.dp)` |
+| `flex flex-col` | `Column(...)` |
+| `rounded-full` | `CircleShape` or `RoundedCornerShape(9999.dp)` |
+| `rounded-2xl` | `RoundedCornerShape(16.dp)` |
+| `shadow-md` | `shadowElevation = 4.dp` |
+| `font-bold` | `FontWeight.Bold` |
+
+## ✅ Verification
+- **Build**: `./gradlew :androidApp:compileDebugKotlin` succeeded
+- **String resources**: Added `nav_home` to `strings.xml`
+- **All screens compile** without errors
+
+## 📁 Files Created/Modified
+
+| File | Action | Description |
+|------|--------|-------------|
+| `QRShieldColors.kt` | Created | Color palette and spacing utilities |
+| `CommonComponents.kt` | Created | 14 reusable UI components |
+| `DashboardScreen.kt` | Created | Home/Dashboard screen |
+| `ScanResultScreen.kt` | Created | Scan result analysis screen |
+| `TrustCentreScreen.kt` | Created | Trust & security settings |
+| `LearningCentreScreen.kt` | Created | Learning modules screen |
+| `ThreatDatabaseScreen.kt` | Created | Threat database management |
+| `BeatTheBotScreen.kt` | Created | Training game screen |
+| `BlocklistScreen.kt` | Created | Blocked domains management |
+| `AllowlistScreen.kt` | Created | Trusted domains management |
+| `ExportReportScreen.kt` | Created | Report export screen |
+| `AttackBreakdownScreen.kt` | Created | Attack analysis screen |
+| `OfflinePrivacyScreen.kt` | Created | Privacy information screen |
+| `HeuristicsScreen.kt` | Created | Heuristics rules management |
+| `NavigationV2.kt` | Created | Updated navigation with all routes |
+| `strings.xml` | Modified | Added nav_home string |
+
+---
+
 # 🖥️ December 21, 2025 - Stitch Desktop UI Rebuild (Compose Desktop)
 
 ### Summary

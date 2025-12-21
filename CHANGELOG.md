@@ -5,6 +5,56 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0] - 2025-12-21
+
+### 📱 Android UI - HTML-to-Compose Conversion
+
+Complete conversion of all HTML screens from `Androidapp.txt` to Jetpack Compose UI screens for the Android application.
+
+#### 🎨 Design System Created
+
+**QRShieldColors.kt** - Centralized color palette:
+- Primary brand colors matching HTML (#215eed)
+- Risk/verdict colors (Safe/Warning/Danger)
+- Full Slate, Emerald, Orange, Red, Blue, Purple, Gray scales
+- Spacing and border radius utilities
+
+**CommonComponents.kt** - 14 reusable components:
+- `QRShieldTopBar`, `QRShieldPrimaryButton`, `QRShieldSecondaryButton`, `QRShieldDangerButton`
+- `QRShieldCard`, `StatusChip`, `QRShieldToggle`, `IconCircle`
+- `FeatureListItem`, `SegmentedButtonRow`, `InfoBanner`
+- `CircularProgressIndicatorWithPercentage`, `UrlDisplayBox`, `SectionHeader`
+
+#### 📱 12 New Screens Implemented
+
+| Screen | Route | Key Features |
+|--------|-------|--------------|
+| Dashboard | `dashboard` | User header, shield status, system health, recent scans carousel |
+| Scan Result | `scan_result` | Verdict header, risk score, AI analysis breakdown |
+| Trust Centre | `trust_centre` | Offline guarantee, sensitivity controls, privacy toggles |
+| Learning Centre | `learning_centre` | Progress tracker, daily tips, module cards |
+| Threat Database | `threat_database` | Version stats, online/offline update methods |
+| Beat the Bot | `beat_the_bot` | Training game with fake browser preview |
+| Blocklist | `blocklist` | Domain list, import/add domain sheets |
+| Allowlist | `allowlist` | Trusted domains with source badges |
+| Export Report | `export_report` | Format selection (PDF/CSV/JSON), content toggles |
+| Attack Breakdown | `attack_breakdown` | Attack chain timeline, IOC list, remediation |
+| Offline Privacy | `offline_privacy` | Privacy architecture, data flow, compliance badges |
+| Heuristics | `heuristics` | Rule list with severity indicators and toggles |
+
+#### 🧭 Navigation Updates
+
+- Created `NavigationV2.kt` with all 15 routes
+- Four-tab bottom navigation (Dashboard, Scanner, History, Settings)
+- Smooth slide animations between screens
+- Dashboard as new start destination
+
+#### ✅ Build Verification
+- `./gradlew :androidApp:compileDebugKotlin` succeeded
+- Added `nav_home` string resource
+
+---
+
 ## [1.11.0] - 2025-12-21
 
 ### 🖥️ Stitch Desktop UI Rebuild (Compose Desktop)

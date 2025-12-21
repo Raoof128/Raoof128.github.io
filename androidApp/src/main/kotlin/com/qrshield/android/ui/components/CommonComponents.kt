@@ -1,0 +1,714 @@
+/*
+ * Copyright 2025-2026 QR-SHIELD Contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+package com.qrshield.android.ui.components
+
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.qrshield.android.ui.theme.QRShieldColors
+
+/**
+ * QR-SHIELD Top App Bar
+ * Matches the HTML: sticky, backdrop blur effect, centered title
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun QRShieldTopBar(
+    title: String,
+    onBackClick: (() -> Unit)? = null,
+    onActionClick: (() -> Unit)? = null,
+    actionIcon: ImageVector? = Icons.Default.Settings,
+    actionText: String? = null,
+    modifier: Modifier = Modifier
+) {
+    TopAppBar(
+        title = {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                ),
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+            )
+        },
+        navigationIcon = {
+            if (onBackClick != null) {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            } else {
+                Spacer(modifier = Modifier.width(48.dp))
+            }
+        },
+        actions = {
+            if (onActionClick != null && actionText != null) {
+                TextButton(onClick = onActionClick) {
+                    Text(
+                        text = actionText,
+                        color = QRShieldColors.Primary,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            } else if (onActionClick != null && actionIcon != null) {
+                IconButton(onClick = onActionClick) {
+                    Icon(
+                        imageVector = actionIcon,
+                        contentDescription = "Action",
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            } else {
+                Spacer(modifier = Modifier.width(48.dp))
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background.copy(alpha = 0.95f)
+        ),
+        modifier = modifier
+    )
+}
+
+/**
+ * Primary Action Button - Rounded, with shadow
+ * Matches: bg-primary hover:bg-blue-700 rounded-full shadow-lg
+ */
+@Composable
+fun QRShieldPrimaryButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    enabled: Boolean = true
+) {
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        modifier = modifier
+            .height(56.dp)
+            .shadow(
+                elevation = 12.dp,
+                shape = RoundedCornerShape(9999.dp),
+                ambientColor = QRShieldColors.Primary.copy(alpha = 0.3f),
+                spotColor = QRShieldColors.Primary.copy(alpha = 0.3f)
+            ),
+        shape = RoundedCornerShape(9999.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = QRShieldColors.Primary,
+            contentColor = Color.White
+        ),
+        contentPadding = PaddingValues(horizontal = 24.dp)
+    ) {
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+        Text(
+            text = text,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp
+        )
+    }
+}
+
+/**
+ * Secondary/Outline Button
+ * Matches: border-2 border-primary text-primary rounded-full
+ */
+@Composable
+fun QRShieldSecondaryButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier.height(48.dp),
+        shape = RoundedCornerShape(9999.dp),
+        border = ButtonDefaults.outlinedButtonBorder.copy(
+            brush = Brush.linearGradient(listOf(QRShieldColors.Primary, QRShieldColors.Primary))
+        ),
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = QRShieldColors.Primary
+        ),
+        contentPadding = PaddingValues(horizontal = 20.dp)
+    ) {
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+        Text(
+            text = text,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 14.sp
+        )
+    }
+}
+
+/**
+ * Danger Button (Red)
+ * Matches: bg-risk-high hover:bg-red-600 rounded-full
+ */
+@Composable
+fun QRShieldDangerButton(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier
+            .height(56.dp)
+            .shadow(
+                elevation = 12.dp,
+                shape = RoundedCornerShape(9999.dp),
+                ambientColor = QRShieldColors.RiskDanger.copy(alpha = 0.3f),
+                spotColor = QRShieldColors.RiskDanger.copy(alpha = 0.3f)
+            ),
+        shape = RoundedCornerShape(9999.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = QRShieldColors.RiskDanger,
+            contentColor = Color.White
+        ),
+        contentPadding = PaddingValues(horizontal = 24.dp)
+    ) {
+        if (icon != null) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+        Text(
+            text = text,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp
+        )
+    }
+}
+
+/**
+ * Surface Card - Elevated card with border
+ * Matches: bg-surface-light rounded-xl shadow-sm border border-gray-100
+ */
+@Composable
+fun QRShieldCard(
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .then(
+                if (onClick != null) Modifier.clickable(onClick = onClick)
+                else Modifier
+            ),
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = 2.dp,
+        border = ButtonDefaults.outlinedButtonBorder.copy(
+            brush = Brush.linearGradient(
+                listOf(
+                    MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
+                    MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                )
+            )
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            content = content
+        )
+    }
+}
+
+/**
+ * Status Chip/Badge
+ * Matches the verdict badges: bg-emerald-100 text-emerald-700 rounded-full
+ */
+@Composable
+fun StatusChip(
+    text: String,
+    status: ChipStatus,
+    modifier: Modifier = Modifier
+) {
+    val (backgroundColor, textColor) = when (status) {
+        ChipStatus.SAFE -> QRShieldColors.Emerald50 to QRShieldColors.Emerald600
+        ChipStatus.WARNING -> QRShieldColors.Orange50 to QRShieldColors.Orange600
+        ChipStatus.DANGER -> QRShieldColors.Red50 to QRShieldColors.Red600
+        ChipStatus.INFO -> QRShieldColors.Blue50 to QRShieldColors.Blue600
+        ChipStatus.NEUTRAL -> QRShieldColors.Gray100 to QRShieldColors.Gray600
+        ChipStatus.IN_PROGRESS -> QRShieldColors.Orange50 to QRShieldColors.Orange600
+        ChipStatus.NEW -> QRShieldColors.Gray100 to QRShieldColors.Gray600
+    }
+
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(9999.dp),
+        color = backgroundColor
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+            color = textColor,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.5.sp
+        )
+    }
+}
+
+enum class ChipStatus {
+    SAFE, WARNING, DANGER, INFO, NEUTRAL, IN_PROGRESS, NEW
+}
+
+/**
+ * Toggle Switch matching HTML style
+ * Matches: w-12 h-6 bg-primary rounded-full transition
+ */
+@Composable
+fun QRShieldToggle(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
+) {
+    val trackColor by animateColorAsState(
+        targetValue = if (checked) QRShieldColors.Primary else QRShieldColors.Gray200,
+        animationSpec = tween(200),
+        label = "trackColor"
+    )
+
+    val thumbOffset by animateDpAsState(
+        targetValue = if (checked) 24.dp else 2.dp,
+        animationSpec = tween(200),
+        label = "thumbOffset"
+    )
+
+    Box(
+        modifier = modifier
+            .width(51.dp)
+            .height(31.dp)
+            .clip(RoundedCornerShape(9999.dp))
+            .background(trackColor)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                enabled = enabled,
+                role = Role.Switch,
+                onClick = { onCheckedChange(!checked) }
+            )
+    ) {
+        Box(
+            modifier = Modifier
+                .offset(x = thumbOffset)
+                .padding(vertical = 2.dp)
+                .size(27.dp)
+                .clip(CircleShape)
+                .background(Color.White)
+                .shadow(2.dp, CircleShape)
+        )
+    }
+}
+
+/**
+ * Icon with circular background
+ * Matches: flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary
+ */
+@Composable
+fun IconCircle(
+    icon: ImageVector,
+    backgroundColor: Color = QRShieldColors.Primary.copy(alpha = 0.1f),
+    iconColor: Color = QRShieldColors.Primary,
+    size: Dp = 40.dp,
+    iconSize: Dp = 24.dp,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .size(size)
+            .clip(CircleShape)
+            .background(backgroundColor),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = iconColor,
+            modifier = Modifier.size(iconSize)
+        )
+    }
+}
+
+/**
+ * Feature List Item with icon
+ * Matches the Privacy Architecture items in HTML
+ */
+@Composable
+fun FeatureListItem(
+    icon: ImageVector,
+    title: String,
+    description: String,
+    iconBackgroundColor: Color = QRShieldColors.Primary.copy(alpha = 0.1f),
+    iconColor: Color = QRShieldColors.Primary,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        IconCircle(
+            icon = icon,
+            backgroundColor = iconBackgroundColor,
+            iconColor = iconColor
+        )
+        
+        Column(
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = description,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+/**
+ * Segmented Button Control (for format selection, sensitivity, etc.)
+ * Matches: flex h-12 items-center rounded-full bg-gray-200 p-1
+ */
+@Composable
+fun <T> SegmentedButtonRow(
+    options: List<T>,
+    selectedOption: T,
+    onOptionSelected: (T) -> Unit,
+    labelProvider: (T) -> String,
+    modifier: Modifier = Modifier,
+    iconProvider: ((T) -> ImageVector)? = null
+) {
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        shape = RoundedCornerShape(9999.dp),
+        color = QRShieldColors.Gray200
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(4.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            options.forEach { option ->
+                val isSelected = option == selectedOption
+                val backgroundColor by animateColorAsState(
+                    targetValue = if (isSelected) QRShieldColors.Primary else Color.Transparent,
+                    animationSpec = tween(200),
+                    label = "segmentBgColor"
+                )
+                val contentColor by animateColorAsState(
+                    targetValue = if (isSelected) Color.White else QRShieldColors.Gray500,
+                    animationSpec = tween(200),
+                    label = "segmentContentColor"
+                )
+
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .clip(RoundedCornerShape(9999.dp))
+                        .background(backgroundColor)
+                        .clickable { onOptionSelected(option) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        if (iconProvider != null) {
+                            Icon(
+                                imageVector = iconProvider(option),
+                                contentDescription = null,
+                                tint = contentColor,
+                                modifier = Modifier
+                                    .size(18.dp)
+                                    .padding(end = 4.dp)
+                            )
+                        }
+                        Text(
+                            text = labelProvider(option),
+                            color = contentColor,
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 14.sp
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Info Banner/Note
+ * Matches: flex items-start gap-3 rounded-2xl bg-primary/10 border border-primary/20 p-3
+ */
+@Composable
+fun InfoBanner(
+    icon: ImageVector = Icons.Default.Info,
+    text: String,
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = QRShieldColors.Primary.copy(alpha = 0.1f),
+    borderColor: Color = QRShieldColors.Primary.copy(alpha = 0.2f),
+    iconColor: Color = QRShieldColors.Primary,
+    textColor: Color = QRShieldColors.Primary.copy(alpha = 0.8f)
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(backgroundColor)
+            .border(1.dp, borderColor, RoundedCornerShape(16.dp))
+            .padding(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = iconColor,
+            modifier = Modifier.size(20.dp)
+        )
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+            color = textColor
+        )
+    }
+}
+
+/**
+ * Circular Progress with percentage
+ * Matches the SVG circular progress in Learning Centre
+ */
+@Composable
+fun CircularProgressIndicatorWithPercentage(
+    progress: Float, // 0f to 1f
+    modifier: Modifier = Modifier,
+    size: Dp = 80.dp,
+    strokeWidth: Dp = 6.dp,
+    backgroundColor: Color = QRShieldColors.Gray200,
+    progressColor: Color = QRShieldColors.Primary
+) {
+    Box(
+        modifier = modifier.size(size),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            progress = { 1f },
+            modifier = Modifier.fillMaxSize(),
+            color = backgroundColor,
+            strokeWidth = strokeWidth
+        )
+        CircularProgressIndicator(
+            progress = { progress },
+            modifier = Modifier.fillMaxSize(),
+            color = progressColor,
+            strokeWidth = strokeWidth
+        )
+        Text(
+            text = "${(progress * 100).toInt()}%",
+            style = MaterialTheme.typography.titleMedium.copy(
+                fontWeight = FontWeight.Bold
+            )
+        )
+    }
+}
+
+/**
+ * URL Display Box (monospace, with copy button)
+ */
+@Composable
+fun UrlDisplayBox(
+    url: String,
+    onCopyClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.surface)
+            .border(
+                1.dp,
+                MaterialTheme.colorScheme.outlineVariant,
+                RoundedCornerShape(12.dp)
+            )
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = url,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontFamily = FontFamily.Monospace
+            ),
+            color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f)
+        )
+        IconButton(
+            onClick = onCopyClick,
+            modifier = Modifier.size(36.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.ContentCopy,
+                contentDescription = "Copy URL",
+                tint = QRShieldColors.Primary,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+    }
+}
+
+/**
+ * Section Header with optional action
+ */
+@Composable
+fun SectionHeader(
+    title: String,
+    modifier: Modifier = Modifier,
+    actionText: String? = null,
+    onActionClick: (() -> Unit)? = null
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontWeight = FontWeight.Bold
+            ),
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        if (actionText != null && onActionClick != null) {
+            TextButton(onClick = onActionClick) {
+                Text(
+                    text = actionText,
+                    color = QRShieldColors.Primary,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 12.sp
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Bottom Navigation Bar Item
+ * Matches the three-tab navigation in HTML
+ */
+@Composable
+fun QRShieldBottomNavItem(
+    icon: ImageVector,
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val contentColor by animateColorAsState(
+        targetValue = if (selected) QRShieldColors.Primary else QRShieldColors.Gray400,
+        animationSpec = tween(200),
+        label = "navItemColor"
+    )
+
+    Column(
+        modifier = modifier
+            .clickable(onClick = onClick)
+            .padding(vertical = 8.dp, horizontal = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = contentColor,
+            modifier = Modifier.size(24.dp)
+        )
+        Text(
+            text = label,
+            fontSize = 10.sp,
+            fontWeight = if (selected) FontWeight.Medium else FontWeight.Normal,
+            color = contentColor
+        )
+    }
+}
