@@ -275,7 +275,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                         Column(
                             modifier = Modifier
                                 .offset(x = 0.dp, y = 0.dp)
-                                .clickable { viewModel.setHeuristicSensitivity(HeuristicSensitivity.Low) }
+                                .clickable { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Low) }
                                 .focusable(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
@@ -291,7 +291,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                         Column(
                             modifier = Modifier
                                 .offset(x = 240.dp, y = (-4).dp)
-                                .clickable { viewModel.setHeuristicSensitivity(HeuristicSensitivity.Balanced) }
+                                .clickable { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Balanced) }
                                 .focusable(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
@@ -320,7 +320,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                         Column(
                             modifier = Modifier
                                 .offset(x = 480.dp, y = 0.dp)
-                                .clickable { viewModel.setHeuristicSensitivity(HeuristicSensitivity.Paranoia) }
+                                .clickable { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Paranoia) }
                                 .focusable(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {

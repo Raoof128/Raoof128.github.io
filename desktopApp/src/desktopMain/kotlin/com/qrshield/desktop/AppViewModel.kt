@@ -430,7 +430,7 @@ class AppViewModel(
         persistSettings()
     }
 
-    fun setHeuristicSensitivity(value: HeuristicSensitivity) {
+    fun updateHeuristicSensitivity(value: HeuristicSensitivity) {
         heuristicSensitivity = value
         phishingEngine = buildPhishingEngine(value)
         persistSettings()
