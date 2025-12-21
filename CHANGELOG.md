@@ -24,9 +24,12 @@ Complete redesign of the Desktop Compose Multiplatform application to match the 
 - **Navigation:** Seamless screen transitions with shared state (history, settings).
 - **Gamification:** Integrated phishing simulation training directly into the desktop app.
 - **Visuals:** Glassmorphism effects, animated progress bars, and verdict-specific color schemes.
+- **Settings Persistence:** All preferences (Trusted Domains, Privacy Toggles, Sensitivity) are now saved to disk and restored on launch.
+- **Dynamic Protection:** Changing "Heuristic Sensitivity" instantly reconfigures the detection engine.
 
 #### 🔧 Technical Refinements
-- **State Lifting:** Centralized `scanHistory` and `trustedDomains` management in `Main.kt`.
+- **State Lifting:** Centralized `scanHistory` in `Main.kt`.
+- **Settings Manager:** Created `SettingsManager` to handle JSON-free persistence using Java Properties.
 - **Parameter Passing:** Updated navigation graph to pass callbacks and state objects efficiently.
 - **Cleanup:** Removed unused `HeuristicsEngine` imports and legacy layout components.
 

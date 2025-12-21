@@ -134,14 +134,7 @@ private fun SidebarHeader() {
                 modifier = Modifier
                     .size(32.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(
-                                Color(0xFF2563EB),
-                                Color(0xFF3B82F6)
-                            )
-                        )
-                    ),
+                    .background(Color(0xFF2563EB).copy(alpha = 0.1f)),
                 contentAlignment = Alignment.Center
             ) {
                 Text(

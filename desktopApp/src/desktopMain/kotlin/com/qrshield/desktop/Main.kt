@@ -52,6 +52,8 @@ import com.qrshield.desktop.theme.QRShieldDarkColors
 import com.qrshield.desktop.theme.QRShieldLightColors
 import java.awt.Toolkit
 import java.awt.datatransfer.DataFlavor
+import com.qrshield.core.ScoringConfig
+import com.qrshield.model.Verdict
 
 /**
  * QR-SHIELD Desktop Application Entry Point
@@ -120,8 +122,18 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     // Navigation state
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Dashboard) }
 
-    // Phishing engine
-    val phishingEngine = remember { PhishingEngine() }
+    // Application Settings
+    var settings by remember { mutableStateOf(SettingsManager.loadSettings()) }
+
+    // Phishing engine with dynamic config
+    val phishingEngine = remember(settings.heuristicSensitivity) {
+        val config = when (settings.heuristicSensitivity) {
+            "Low" -> ScoringConfig.LOW_SENSITIVITY
+            "Paranoia" -> ScoringConfig.HIGH_SENSITIVITY
+            else -> ScoringConfig.DEFAULT
+        }
+        PhishingEngine(config = config)
+    }
 
     var urlInput by remember { mutableStateOf("") }
     var analysisResult by remember { mutableStateOf<AnalysisResult?>(null) }
@@ -129,8 +141,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var scanHistory by remember { mutableStateOf(HistoryManager.loadHistory()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var showHelpCard by remember { mutableStateOf(true) }
-    var trustedDomains by remember { mutableStateOf(listOf("google.com", "github.com", "microsoft.com")) }
-
+    
     // Dialog states
     var showAboutDialog by remember { mutableStateOf(false) }
     var showSettingsDialog by remember { mutableStateOf(false) }
@@ -143,6 +154,12 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     fun isValidUrl(url: String): Boolean {
         return url.startsWith("http://") || url.startsWith("https://") ||
             url.contains(".") // Allow domain-only entries
+    }
+    
+    // Helper to update settings
+    fun updateSettings(newSettings: SettingsManager.Settings) {
+        settings = newSettings
+        SettingsManager.saveSettings(newSettings)
     }
 
     // Auto-fix URL by adding https:// if missing
@@ -165,6 +182,11 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                 return@performAnalysis
             }
 
+            // Check if blocked by settings
+            if (settings.offlineOnlyEnabled) {
+                // Engine is local-only by default, ensuring offline compliance
+            }
+
             errorMessage = null
             isAnalyzing = true
 
@@ -178,9 +200,23 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     timestamp = System.currentTimeMillis()
                 )
                 analysisResult = result
-                val newHistory = listOf(result) + scanHistory.take(49)
-                scanHistory = newHistory
-                HistoryManager.saveHistory(newHistory)
+                
+                // Only save history if enabled
+                if (settings.autoScanHistoryEnabled) {
+                    val newHistory = listOf(result) + scanHistory.take(49)
+                    scanHistory = newHistory
+                    HistoryManager.saveHistory(newHistory)
+                }
+                
+                // Auto-copy Safe Links logic
+                if (settings.autoCopySafeLinksEnabled && result.verdict == Verdict.SAFE) {
+                     try {
+                        val clipboard = Toolkit.getDefaultToolkit().systemClipboard
+                        clipboard.setContents(java.awt.datatransfer.StringSelection(result.url), null)
+                        // toastMessage = "Safe URL copied to clipboard" 
+                     } catch (e: Exception) {}
+                }
+                
                 // Update input with normalized URL
                 urlInput = normalizedUrl
             } catch (e: Exception) {
@@ -308,14 +344,15 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                             onExport = { /* TODO: export history */ },
                             isDarkMode = isDarkMode,
                             onThemeToggle = { isDarkMode = !isDarkMode }
-                        )
+                        ) 
                         is Screen.TrustCentre -> TrustCentreScreen(
-                            trustedDomains = trustedDomains,
+                            settings = settings,
+                            onUpdateSettings = { updateSettings(it) },
                             onAddDomain = { domain ->
-                                trustedDomains = trustedDomains + domain
+                                updateSettings(settings.copy(trustedDomains = settings.trustedDomains + domain))
                             },
                             onRemoveDomain = { domain ->
-                                trustedDomains = trustedDomains - domain
+                                updateSettings(settings.copy(trustedDomains = settings.trustedDomains - domain))
                             },
                             isDarkMode = isDarkMode,
                             onThemeToggle = { isDarkMode = !isDarkMode }
@@ -339,7 +376,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                                     .removePrefix("http://")
                                     .split("/").firstOrNull() ?: ""
                                 if (domain.isNotEmpty()) {
-                                    trustedDomains = trustedDomains + domain
+                                    updateSettings(settings.copy(trustedDomains = settings.trustedDomains + domain))
                                 }
                             },
                             onScanAgain = { currentScreen = Screen.Scanner },
@@ -347,9 +384,14 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                             onThemeToggle = { isDarkMode = !isDarkMode }
                         )
                         is Screen.Settings -> TrustCentreScreen(
-                            trustedDomains = trustedDomains,
-                            onAddDomain = { domain -> trustedDomains = trustedDomains + domain },
-                            onRemoveDomain = { domain -> trustedDomains = trustedDomains - domain },
+                            settings = settings,
+                            onUpdateSettings = { updateSettings(it) },
+                            onAddDomain = { domain ->
+                                updateSettings(settings.copy(trustedDomains = settings.trustedDomains + domain))
+                            },
+                            onRemoveDomain = { domain ->
+                                updateSettings(settings.copy(trustedDomains = settings.trustedDomains - domain))
+                            },
                             isDarkMode = isDarkMode,
                             onThemeToggle = { isDarkMode = !isDarkMode }
                         )

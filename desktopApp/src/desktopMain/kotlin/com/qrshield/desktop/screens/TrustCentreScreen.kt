@@ -28,9 +28,12 @@ import androidx.compose.ui.unit.sp
  * Trust Centre Screen matching the HTML trust centre design exactly.
  * Features trusted domains management, privacy settings, and security controls.
  */
+import com.qrshield.desktop.SettingsManager
+
 @Composable
 fun TrustCentreScreen(
-    trustedDomains: List<String>,
+    settings: SettingsManager.Settings,
+    onUpdateSettings: (SettingsManager.Settings) -> Unit,
     onAddDomain: (String) -> Unit,
     onRemoveDomain: (String) -> Unit,
     isDarkMode: Boolean,
@@ -40,12 +43,8 @@ fun TrustCentreScreen(
     var newDomain by remember { mutableStateOf("") }
     var searchQuery by remember { mutableStateOf("") }
 
-    // Privacy settings state
-    var offlineOnlyEnabled by remember { mutableStateOf(true) }
-    var blockUnknownEnabled by remember { mutableStateOf(false) }
-    var autoScanHistoryEnabled by remember { mutableStateOf(true) }
-    var telemetryEnabled by remember { mutableStateOf(false) }
-    var biometricLockEnabled by remember { mutableStateOf(false) }
+    // Privacy settings state - Removed in favor of settings object passed in
+
 
     val primaryBlue = Color(0xFF2563EB)
     val successGreen = Color(0xFF10B981)
@@ -211,7 +210,7 @@ fun TrustCentreScreen(
                                     color = primaryBlue.copy(alpha = 0.1f)
                                 ) {
                                     Text(
-                                        text = "${trustedDomains.size} entries",
+                                        text = "${settings.trustedDomains.size} entries",
                                         modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
                                         style = MaterialTheme.typography.labelSmall,
                                         fontWeight = FontWeight.SemiBold,
@@ -239,7 +238,7 @@ fun TrustCentreScreen(
                         HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
 
                         // Domains list
-                        val filteredDomains = trustedDomains.filter {
+                        val filteredDomains = settings.trustedDomains.filter {
                             searchQuery.isEmpty() || it.contains(searchQuery, ignoreCase = true)
                         }
 
@@ -324,26 +323,87 @@ fun TrustCentreScreen(
                             SettingToggle(
                                 title = "Offline-Only Mode",
                                 description = "Never connect to external threat databases",
-                                enabled = offlineOnlyEnabled,
-                                onToggle = { offlineOnlyEnabled = it },
+                                enabled = settings.offlineOnlyEnabled,
+                                onToggle = { onUpdateSettings(settings.copy(offlineOnlyEnabled = it)) },
                                 accentColor = successGreen
                             )
                             HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
                             SettingToggle(
                                 title = "Block Unknown URLs",
                                 description = "Treat unrecognized URLs as suspicious",
-                                enabled = blockUnknownEnabled,
-                                onToggle = { blockUnknownEnabled = it },
+                                enabled = settings.blockUnknownEnabled,
+                                onToggle = { onUpdateSettings(settings.copy(blockUnknownEnabled = it)) },
                                 accentColor = Color(0xFFF59E0B)
                             )
                             HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
                             SettingToggle(
                                 title = "Auto-Save Scan History",
                                 description = "Automatically log all scans locally",
-                                enabled = autoScanHistoryEnabled,
-                                onToggle = { autoScanHistoryEnabled = it },
+                                enabled = settings.autoScanHistoryEnabled,
+                                onToggle = { onUpdateSettings(settings.copy(autoScanHistoryEnabled = it)) },
                                 accentColor = primaryBlue
                             )
+                            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                            
+                            // Auto-copy Safe Links (Added from HTML spec)
+                            SettingToggle(
+                                title = "Auto-copy Safe Links",
+                                description = "Automatically copy URL if verdict is Safe",
+                                enabled = settings.autoCopySafeLinksEnabled,
+                                onToggle = { onUpdateSettings(settings.copy(autoCopySafeLinksEnabled = it)) },
+                                accentColor = successGreen
+                            )
+                            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+
+                            // Heuristic Sensitivity Selector (Added from HTML spec)
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 12.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Column(modifier = Modifier.weight(1f)) {
+                                    Text(
+                                        text = "Heuristic Sensitivity",
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        fontWeight = FontWeight.Medium
+                                    )
+                                    Text(
+                                        text = "Adjust the aggression of the detection engine",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                                Box {
+                                    var expanded by remember { mutableStateOf(false) }
+                                    
+                                    OutlinedButton(
+                                        onClick = { expanded = true },
+                                        shape = RoundedCornerShape(8.dp),
+                                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
+                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                                    ) {
+                                        Text(settings.heuristicSensitivity, style = MaterialTheme.typography.bodySmall)
+                                        Text(" ▼", fontSize = 10.sp)
+                                    }
+                                    DropdownMenu(
+                                        expanded = expanded,
+                                        onDismissRequest = { expanded = false }
+                                    ) {
+                                        listOf("Low (Performance)", "Balanced (Recommended)", "Paranoia (Strict)").forEach { option ->
+                                            DropdownMenuItem(
+                                                text = { Text(option) },
+                                                onClick = { 
+                                                    val value = option.split(" ").first()
+                                                    onUpdateSettings(settings.copy(heuristicSensitivity = value))
+                                                    expanded = false 
+                                                }
+                                            )
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -383,16 +443,16 @@ fun TrustCentreScreen(
                             SettingToggle(
                                 title = "Anonymous Telemetry",
                                 description = "Help improve QR-SHIELD (no personal data)",
-                                enabled = telemetryEnabled,
-                                onToggle = { telemetryEnabled = it },
+                                enabled = settings.telemetryEnabled,
+                                onToggle = { onUpdateSettings(settings.copy(telemetryEnabled = it)) },
                                 accentColor = primaryBlue
                             )
                             HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
                             SettingToggle(
                                 title = "Biometric Lock",
                                 description = "Require fingerprint to access settings",
-                                enabled = biometricLockEnabled,
-                                onToggle = { biometricLockEnabled = it },
+                                enabled = settings.biometricLockEnabled,
+                                onToggle = { onUpdateSettings(settings.copy(biometricLockEnabled = it)) },
                                 accentColor = successGreen
                             )
                         }

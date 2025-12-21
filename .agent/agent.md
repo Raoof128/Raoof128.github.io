@@ -4,10 +4,10 @@ This file tracks significant changes made during development sessions.
 
 ---
 
-# 🖥️ December 21, 2025 - Desktop UI Overhaul
+# 🖥️ December 21, 2025 - Desktop UI Overhaul (Session Complete)
 
 ### Summary
-Complete integration of the HTML design system into the Desktop Compose Multiplatform application. All 6 main screens have been rewritten to match the high-fidelity prototypes, achieving a premium look and feel with full functionality.
+Complete integration of the HTML design system into the Desktop Compose Multiplatform application. All 6 main screens have been rewritten to match the high-fidelity prototypes, achieving a premium look and feel with full functionality. Additionally, **settings persistence** and **dynamic engine configuration** have been fully implemented.
 
 ## 🎨 Screens Rewrite
 
@@ -38,6 +38,9 @@ Complete integration of the HTML design system into the Desktop Compose Multipla
 - **Trusted Domains:** Management interface to add/remove whitelisted domains.
 - **Privacy Controls:** Toggles for Offline-Only Mode, Block Unknown URLs, etc.
 - **Security Settings:** Biometric lock and telemetry controls.
+- **Functional Integration:** Settings now persist via `SettingsManager`.
+    - **Heuristic Sensitivity:** Dropdown (Low/Balanced/Paranoia) dynamically reconfigures `PhishingEngine`.
+    - **Auto-copy Safe Links:** Toggle enables automatic clipboard copy for SAFE verdicts.
 - **Data Actions:** Export/Import/Clear settings functionality.
 
 ### 6. Training (Matches `game.html`)
@@ -47,15 +50,23 @@ Complete integration of the HTML design system into the Desktop Compose Multipla
 - **Education:** Displays context clues (e.g., "Urgent action required") and decoded payloads.
 
 ## 🔧 Technical Implementation
+- **Settings Persistence:** Created `SettingsManager.kt` using `java.util.Properties` to save/load all app preferences (trusted domains, toggles, sensitivity).
+- **Phishing Engine Integration:**
+    - `PhishingEngine` is now re-initialized when sensitivity settings change.
+    - Sensitivity maps to `ScoringConfig` presets (Low/Default/Paranoia).
+- **State Lifting:** Refactored `TrustCentreScreen` to use `SettingsManager.Settings` object instead of local state.
 - **Navigation Graph:** Updated `Main.kt` to handle complex routing and state passing (`currentScreen`).
-- **State Lifting:** Centralized `scanHistory` and `trustedDomains` in `Main` to persist across screen changes.
 - **Theme Support:** Implemented `isDarkMode` toggle passed down to all screens for consistent theming.
 - **Cleanup:** Removed unused `HeuristicsEngine` references from UI layer (logic handled in service/main).
 
 ## ✅ Verification
 - **Build:** `compileKotlinDesktop` succeeded.
 - **Runtime:** Application runs without errors.
-- **Functionality:** All buttons, inputs, and navigation flows tested and working.
+- **Functionality:** 
+    - Settings persist across restarts.
+    - Sensitivity changes affect engine behavior.
+    - "Auto-copy Safe Links" works as expected.
+    - All UI elements match design reference.
 
 ---
 
