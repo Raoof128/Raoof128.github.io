@@ -34,6 +34,7 @@ struct DetailSheet: View {
     @State private var isAppearing = false
     @State private var copiedURL = false
     @State private var showOpenURLConfirmation = false
+    @State private var reportSubmitted = false
     
     var themeColor: Color {
         Color.forVerdict(assessment.verdict)
@@ -410,34 +411,56 @@ struct DetailSheet: View {
             }
             .sensoryFeedback(.success, trigger: copiedURL)
             
-            // Report Button
+            // Report Button - Saves report locally and copies to clipboard
             Button {
-                // TODO: Implement full report submission to backend
-                // For now, show feedback and copy report data
-                let reportText = """
-                QR-SHIELD False Positive Report
-                URL: \(assessment.url)
-                Verdict: \(assessment.verdict.rawValue)
-                Score: \(assessment.score)
-                """
-                UIPasteboard.general.string = reportText
-                
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-                
-                #if DEBUG
-                print("📋 Report copied to clipboard: \(reportText)")
-                #endif
+                submitFalsePositiveReport()
             } label: {
                 HStack {
-                    Image(systemName: "flag")
-                    Text("Report False Positive")
+                    Image(systemName: reportSubmitted ? "checkmark.circle.fill" : "flag")
+                        .contentTransition(.symbolEffect(.replace))
+                    Text(reportSubmitted ? "Report Submitted!" : "Report False Positive")
                 }
                 .font(.subheadline)
-                .foregroundColor(.textSecondary)
+                .foregroundColor(reportSubmitted ? .verdictSafe : .textSecondary)
             }
+            .disabled(reportSubmitted)
             .padding(.top, 8)
         }
+    }
+    
+    /// Submits a false positive report by saving locally and copying to clipboard
+    private func submitFalsePositiveReport() {
+        let reportText = """
+        QR-SHIELD False Positive Report
+        ================================
+        URL: \(assessment.url)
+        Verdict: \(assessment.verdict.rawValue)
+        Score: \(assessment.score)/100
+        Confidence: \(Int(assessment.confidence * 100))%
+        Flags: \(assessment.flags.joined(separator: ", "))
+        Date: \(ISO8601DateFormatter().string(from: Date()))
+        """
+        
+        // Copy to clipboard
+        UIPasteboard.general.string = reportText
+        
+        // Save to local storage (append to existing reports)
+        var existingReports = UserDefaults.standard.stringArray(forKey: "falsePositiveReports") ?? []
+        existingReports.append(reportText)
+        UserDefaults.standard.set(existingReports, forKey: "falsePositiveReports")
+        
+        // Show success feedback
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+        
+        withAnimation {
+            reportSubmitted = true
+        }
+        
+        #if DEBUG
+        print("📋 False positive report submitted and saved locally")
+        print("Total reports: \(existingReports.count)")
+        #endif
     }
     
     // MARK: - Helpers

@@ -686,6 +686,7 @@ struct SandboxPreviewSheet: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var copiedURL = false
+    @State private var showOpenConfirmation = false
     
     private var urlComponents: URLComponents? {
         URLComponents(string: url)
@@ -732,6 +733,20 @@ struct SandboxPreviewSheet: View {
                     }
                     .foregroundColor(.brandPrimary)
                 }
+            }
+            .confirmationDialog(
+                "⚠️ Security Warning",
+                isPresented: $showOpenConfirmation,
+                titleVisibility: .visible
+            ) {
+                Button("Open Anyway", role: .destructive) {
+                    if let url = URL(string: url) {
+                        UIApplication.shared.open(url)
+                    }
+                }
+                Button("Cancel", role: .cancel) {}
+            } message: {
+                Text("This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?")
             }
         }
     }
@@ -863,11 +878,9 @@ struct SandboxPreviewSheet: View {
     
     private var actionsSection: some View {
         VStack(spacing: 12) {
-            // Open in Browser (with warning)
+            // Open in Browser (with warning and confirmation)
             Button {
-                if let url = URL(string: url) {
-                    UIApplication.shared.open(url)
-                }
+                showOpenConfirmation = true
             } label: {
                 HStack {
                     Image(systemName: "safari")

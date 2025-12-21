@@ -27,6 +27,8 @@ Full competition-grade iOS codebase audit with all 26 Swift files reviewed, crit
 | **Threat map decorative** | `ThreatHistoryView.swift` | Now shows real hotspots based on scanned threats |
 | Trust Centre green checkmark | `TrustCentreView.swift` | Made functional menu showing security status & quick actions |
 | Strict Offline Mode no icon | `TrustCentreView.swift` | Changed to valid SF Symbol `wifi.slash` |
+| **🔒 SECURITY: Open URL no confirmation** | `ScanResultView.swift` | Added confirmation dialog for "Open in Safari (Risky)" button |
+| Report False Positive incomplete | `DetailSheet.swift` | Now saves reports locally to UserDefaults + visual feedback |
 
 **Sheet Color Scheme Fix Details:**
 - `DashboardView.swift` - 5 sheets fixed

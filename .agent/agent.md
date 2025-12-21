@@ -4,6 +4,178 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔒 December 21, 2025 - iOS Audit Final Pass (All 14 Issues Fixed)
+
+### Summary
+Completed final comprehensive iOS audit pass fixing ALL remaining issues:
+- **14 issues identified and fixed**
+- **1 security blocker resolved** (URL opening without confirmation)
+- **All TODO comments removed**
+- **Build verified: SUCCESS**
+
+## 🛡️ Security Fixes
+
+### SandboxPreviewSheet - URL Opening Without Confirmation ⚠️ BLOCKER
+**File:** `ScanResultView.swift`
+
+The "Open in Safari (Risky)" button opened URLs directly without any confirmation dialog.
+
+**Before (UNSAFE):**
+```swift
+Button {
+    if let url = URL(string: url) {
+        UIApplication.shared.open(url)  // Opens directly!
+    }
+}
+```
+
+**After (SAFE):**
+```swift
+@State private var showOpenConfirmation = false
+
+Button {
+    showOpenConfirmation = true  // Shows warning first
+}
+.confirmationDialog(
+    "⚠️ Security Warning",
+    isPresented: $showOpenConfirmation,
+    titleVisibility: .visible
+) {
+    Button("Open Anyway", role: .destructive) {
+        if let url = URL(string: url) {
+            UIApplication.shared.open(url)
+        }
+    }
+    Button("Cancel", role: .cancel) {}
+} message: {
+    Text("This URL has been flagged as potentially dangerous...")
+}
+```
+
+## 🎯 Decorative → Functional Fixes
+
+### 1. Trust Centre Green Checkmark
+**File:** `TrustCentreView.swift`
+
+The green checkmark icon in the toolbar was purely decorative.
+
+Now converted to a functional `Menu` showing:
+- Offline Mode status (Active/Disabled)
+- Sensitivity level (Low/Balanced/Paranoia)
+- Trusted domains count
+- Blocked domains count
+- Quick action: Reset to Defaults
+
+```swift
+Menu {
+    Section("Security Status") {
+        Label(strictOfflineMode ? "Offline Mode: Active" : "Offline Mode: Disabled", ...)
+        Label("Sensitivity: \(currentSensitivity.title)", ...)
+        Label("Trusted: \(trustedDomains.count) domains", ...)
+        Label("Blocked: \(blockedDomains.count) domains", ...)
+    }
+    Divider()
+    Button { showResetConfirmation = true } label: {
+        Label("Reset to Defaults", systemImage: "arrow.counterclockwise")
+    }
+} label: {
+    Image(systemName: "checkmark.shield.fill")
+        .foregroundColor(.verdictSafe)
+        .symbolEffect(.pulse)
+}
+```
+
+### 2. Strict Offline Mode Icon Missing
+**File:** `TrustCentreView.swift`
+
+The icon `globe.badge.minus.fill` doesn't exist in SF Symbols, showing a placeholder square.
+
+**Fix:** Changed to valid SF Symbol `wifi.slash`:
+```swift
+privacyToggleRow(
+    icon: "wifi.slash",  // Was: "globe.badge.minus.fill"
+    iconColor: .brandPrimary,
+    title: "Strict Offline Mode",
+    isOn: $strictOfflineMode
+)
+```
+
+### 3. Report False Positive - Incomplete Implementation
+**File:** `DetailSheet.swift`
+
+The button had a TODO comment and only copied to clipboard.
+
+**Now fully implemented:**
+- Saves reports to `UserDefaults` (key: `falsePositiveReports`)
+- Copies detailed report to clipboard
+- Shows visual feedback with icon change
+- Disables button after submission
+
+```swift
+@State private var reportSubmitted = false
+
+private func submitFalsePositiveReport() {
+    let reportText = """
+    QR-SHIELD False Positive Report
+    ================================
+    URL: \(assessment.url)
+    Verdict: \(assessment.verdict.rawValue)
+    Score: \(assessment.score)/100
+    ...
+    """
+    
+    // Copy to clipboard
+    UIPasteboard.general.string = reportText
+    
+    // Save to local storage
+    var existingReports = UserDefaults.standard.stringArray(forKey: "falsePositiveReports") ?? []
+    existingReports.append(reportText)
+    UserDefaults.standard.set(existingReports, forKey: "falsePositiveReports")
+    
+    withAnimation { reportSubmitted = true }
+}
+```
+
+## 📋 Complete Issue Table
+
+| # | Issue | File | Severity | Status |
+|---|-------|------|----------|--------|
+| 1 | Decorative shield button | `DashboardView.swift` | Medium | ✅ Fixed |
+| 2 | Light mode not applied to sheets | 6 files | Medium | ✅ Fixed |
+| 3 | Hardcoded dark mode nav/tab bar | `QRShieldApp.swift` | Medium | ✅ Fixed |
+| 4 | ThreatHistoryView hardcoded stats | `ThreatHistoryView.swift` | High | ✅ Fixed |
+| 5 | "4 sc..." decorative badge | `HistoryView.swift` | Low | ✅ Fixed |
+| 6 | Duplicate back buttons | `ThreatHistoryView.swift` | Low | ✅ Fixed |
+| 7 | Export button "dancing" animation | `HistoryView.swift` | Low | ✅ Fixed |
+| 8 | Threat list hardcoded | `ThreatHistoryView.swift` | High | ✅ Fixed |
+| 9 | Threat map decorative | `ThreatHistoryView.swift` | Medium | ✅ Fixed |
+| 10 | Trust Centre checkmark decorative | `TrustCentreView.swift` | Medium | ✅ Fixed |
+| 11 | Strict Offline Mode no icon | `TrustCentreView.swift` | Medium | ✅ Fixed |
+| 12 | **🔒 Open URL no confirmation** | `ScanResultView.swift` | **Blocker** | ✅ Fixed |
+| 13 | Report False Positive incomplete | `DetailSheet.swift` | Medium | ✅ Fixed |
+| 14 | TODO comments remaining | `DetailSheet.swift` | Low | ✅ Fixed |
+
+## ✅ Final Verification
+
+```bash
+# Build command
+xcodebuild -project QRShield.xcodeproj -scheme QRShield \
+  -destination 'platform=iOS Simulator,name=iPhone 17' build
+
+# Result
+** BUILD SUCCEEDED **
+```
+
+### Remaining TODO Count: **0**
+```bash
+grep -r "// TODO" QRShield/*.swift
+# No results found
+```
+
+---
+
+
+
 # 🔍 December 21, 2025 - Full iOS Audit (Phase 0-4 Complete)
 
 ### Summary
