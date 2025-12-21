@@ -103,7 +103,7 @@ private fun TrustCentreSidebar(
             Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 SidebarLink(label = "Dashboard", icon = "dashboard", onClick = { onNavigate(AppScreen.Dashboard) })
                 SidebarLink(label = "Scan History", icon = "history", onClick = { onNavigate(AppScreen.ScanHistory) })
-                SidebarLink(label = "Trust Centre", icon = "verified_user", isActive = true, onClick = { })
+                SidebarLink(label = "Trust Centre", icon = "verified_user", isActive = true, onClick = { onNavigate(AppScreen.TrustCentre) })
                 SidebarLink(label = "Threat Intel", icon = "public", onClick = onThreatIntel)
                 SidebarLink(label = "Settings", icon = "settings", onClick = { onNavigate(AppScreen.TrustCentreAlt) })
             }
