@@ -40,21 +40,87 @@ import com.qrshield.model.Verdict
 fun ScanHistoryScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.scanHistory()
     StitchTheme(tokens = tokens) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFFF8FAFC))
         ) {
-        ScanHistoryHeader(
-            onNavigate = { viewModel.currentScreen = it },
-            onShowNotifications = { viewModel.showInfo("Notifications are not available yet.") },
-            onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
-        )
-            ScanHistoryContent(
-                viewModel = viewModel,
-                onNavigate = { viewModel.currentScreen = it }
-            )
+            ScanHistorySidebar(onNavigate = { viewModel.currentScreen = it })
+            Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                ScanHistoryHeader(
+                    onNavigate = { viewModel.currentScreen = it },
+                    onShowNotifications = { viewModel.showInfo("Notifications are not available yet.") },
+                    onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                )
+                ScanHistoryContent(
+                    viewModel = viewModel,
+                    onNavigate = { viewModel.currentScreen = it }
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun ScanHistorySidebar(onNavigate: (AppScreen) -> Unit) {
+    Column(
+        modifier = Modifier
+            .width(256.dp)
+            .fillMaxHeight()
+            .background(Color.White)
+            .border(1.dp, Color(0xFFE2E8F0))
+    ) {
+        Row(
+            modifier = Modifier
+                .height(64.dp)
+                .fillMaxWidth()
+                .border(1.dp, Color(0xFFE2E8F0))
+                .padding(horizontal = 24.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            MaterialSymbol(name = "qr_code_scanner", size = 22.sp, color = Color(0xFF135BEC))
+            Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+        }
+
+        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Text("MAIN MENU", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), letterSpacing = 1.sp, modifier = Modifier.padding(start = 12.dp, top = 8.dp))
+            SidebarNavItem("Dashboard", "dashboard", onNavigate, AppScreen.Dashboard)
+            SidebarNavItem("Scan Monitor", "qr_code_scanner", onNavigate, AppScreen.LiveScan)
+            SidebarNavItem("Scan History", "history", onNavigate, AppScreen.ScanHistory, isActive = true)
+            SidebarNavItem("Trust Centre", "verified_user", onNavigate, AppScreen.TrustCentre)
+            Text("SYSTEM", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), letterSpacing = 1.sp, modifier = Modifier.padding(start = 12.dp, top = 16.dp))
+            SidebarNavItem("Reports", "description", onNavigate, AppScreen.ReportsExport)
+            SidebarNavItem("Settings", "settings", onNavigate, AppScreen.TrustCentreAlt)
+            SidebarNavItem("Training", "school", onNavigate, AppScreen.Training)
+        }
+    }
+}
+
+@Composable
+private fun SidebarNavItem(
+    label: String,
+    icon: String,
+    onNavigate: (AppScreen) -> Unit,
+    target: AppScreen,
+    isActive: Boolean = false
+) {
+    val background = if (isActive) Color(0xFF135BEC).copy(alpha = 0.08f) else Color.Transparent
+    val textColor = if (isActive) Color(0xFF135BEC) else Color(0xFF64748B)
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .background(background)
+            .clickable { onNavigate(target) }
+            .focusable()
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        MaterialSymbol(name = icon, size = 18.sp, color = textColor)
+        Text(label, fontSize = 14.sp, fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Medium, color = textColor)
     }
 }
 

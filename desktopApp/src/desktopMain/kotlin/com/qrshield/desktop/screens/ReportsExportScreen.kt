@@ -47,14 +47,20 @@ fun ReportsExportScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF8FAFC))
         ) {
-            ReportsSidebar(onNavigate = { viewModel.currentScreen = it })
+            ReportsSidebar(
+                onNavigate = { viewModel.currentScreen = it },
+                onProfile = { viewModel.showInfo("Profile is not available yet.") }
+            )
             ReportsContent(viewModel = viewModel)
         }
     }
 }
 
 @Composable
-private fun ReportsSidebar(onNavigate: (AppScreen) -> Unit) {
+private fun ReportsSidebar(
+    onNavigate: (AppScreen) -> Unit,
+    onProfile: () -> Unit
+) {
     Column(
         modifier = Modifier
             .width(256.dp)
@@ -83,7 +89,7 @@ private fun ReportsSidebar(onNavigate: (AppScreen) -> Unit) {
             SidebarLink("Scans", "qr_code_scanner", onNavigate, AppScreen.LiveScan)
             SidebarLink("Reports", "description", onNavigate, AppScreen.ReportsExport, isActive = true)
             SidebarLink("Settings", "settings", onNavigate, AppScreen.TrustCentreAlt)
-            SidebarLink("Profile", "account_circle", onNavigate, AppScreen.TrustCentreAlt)
+            SidebarLink("Profile", "account_circle", onClick = onProfile)
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -131,6 +137,23 @@ private fun SidebarLink(label: String, icon: String, onNavigate: (AppScreen) -> 
     ) {
         MaterialSymbol(name = icon, size = 18.sp, color = textColor)
         Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textColor)
+    }
+}
+
+@Composable
+private fun SidebarLink(label: String, icon: String, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .focusable()
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        MaterialSymbol(name = icon, size = 18.sp, color = Color(0xFF64748B))
+        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
     }
 }
 
