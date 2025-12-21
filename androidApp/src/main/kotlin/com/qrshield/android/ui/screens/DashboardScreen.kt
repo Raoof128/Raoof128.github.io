@@ -170,7 +170,7 @@ private fun DashboardHeader(
 
             Column {
                 Text(
-                    text = "Welcome back",
+                    text = stringResource(R.string.dashboard_welcome_back),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -227,7 +227,7 @@ private fun HeroSection() {
                     modifier = Modifier.size(16.dp)
                 )
                 Text(
-                    text = "SHIELD ACTIVE",
+                    text = stringResource(R.string.dashboard_shield_active),
                     color = QRShieldColors.Emerald600,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
@@ -238,7 +238,7 @@ private fun HeroSection() {
 
         // Hero Headline
         Text(
-            text = "Secure. Offline.\nExplainable Defence.",
+            text = stringResource(R.string.dashboard_headline),
             style = MaterialTheme.typography.headlineLarge.copy(
                 fontWeight = FontWeight.Bold,
                 lineHeight = 40.sp
@@ -248,7 +248,7 @@ private fun HeroSection() {
 
         // Subtitle
         Text(
-            text = "Your enterprise database is up to date and monitoring locally.",
+            text = stringResource(R.string.dashboard_subtitle),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -268,7 +268,7 @@ private fun PrimaryActionsRow(
         PrimaryActionButton(
             modifier = Modifier.weight(1f),
             icon = Icons.Default.QrCodeScanner,
-            label = "Scan QR",
+            label = stringResource(R.string.dashboard_scan_qr),
             isPrimary = true,
             onClick = onScanClick
         )
@@ -277,7 +277,7 @@ private fun PrimaryActionsRow(
         PrimaryActionButton(
             modifier = Modifier.weight(1f),
             icon = Icons.Default.AddPhotoAlternate,
-            label = "Import Image",
+            label = stringResource(R.string.dashboard_import_image),
             isPrimary = false,
             onClick = onImportClick
         )
@@ -388,7 +388,7 @@ private fun SystemHealthCard(
             ) {
                 Column {
                     Text(
-                        text = "System Health",
+                        text = stringResource(R.string.dashboard_system_health),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                     Text(
@@ -422,13 +422,13 @@ private fun SystemHealthCard(
                 StatCard(
                     modifier = Modifier.weight(1f),
                     value = totalScans.toString(),
-                    label = "Scans Today",
+                    label = stringResource(R.string.dashboard_total_scans),
                     valueColor = QRShieldColors.Primary
                 )
                 StatCard(
                     modifier = Modifier.weight(1f),
                     value = threatsBlocked.toString(),
-                    label = "Threats Blocked",
+                    label = stringResource(R.string.dashboard_threats_blocked),
                     valueColor = if (threatsBlocked > 0) QRShieldColors.RiskDanger else MaterialTheme.colorScheme.onBackground
                 )
             }
@@ -479,12 +479,12 @@ private fun RecentScansSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Recent Scans",
+                text = stringResource(R.string.dashboard_recent_scans),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
             TextButton(onClick = onViewAllClick) {
                 Text(
-                    text = "View All",
+                    text = stringResource(R.string.dashboard_view_all),
                     color = QRShieldColors.Primary,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 12.sp
@@ -674,7 +674,7 @@ private fun ScanHistoryItem(
 private fun ToolsCarousel(onToolClick: (String) -> Unit) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Tools",
+            text = stringResource(R.string.dashboard_tools),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 

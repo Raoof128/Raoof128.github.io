@@ -4,6 +4,22 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌍 December 22, 2025 - German Language Support
+
+### Summary
+Added German language support to the Android application by creating `values-de/strings.xml` and refactoring `DashboardScreen.kt` to use string resources instead of hardcoded strings.
+
+## 🇩🇪 Localization
+- **Created**: `androidApp/src/main/res/values-de/strings.xml` with full German translations.
+- **Refactored**: `DashboardScreen.kt` to use `stringResource(R.string.*)` for all text elements, enabling dynamic language switching.
+- **Verified**: Keys match `LocalizationKeys` intent where possible.
+
+## 🛠️ Changes
+- Added 100+ string resources for German.
+- Updated Dashboard UI to pull strings from resources.
+
+---
+
 # 🧭 December 22, 2025 - Desktop UI Consistency & Navigation Pass
 
 ### Summary

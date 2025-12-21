@@ -16,6 +16,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.16.2] - 2025-12-22
+
+### 🌍 Application - German Language Support
+- Added comprehensive German localization for the Android application.
+- Created `values-de/strings.xml` with 100+ translated string resources.
+- Refactored `DashboardScreen.kt` to fully support dynamic language switching.
+- Standardized string keys across English and German locales.
+
+---
+
 ## [1.16.0] - 2025-12-21
 
 ### 🔍 Android UI - Comprehensive Audit & Polish
