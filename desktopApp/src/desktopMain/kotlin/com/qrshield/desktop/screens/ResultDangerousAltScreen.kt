@@ -131,7 +131,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
     val textMain = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
     val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
     val scanTimeLabel = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: "Unknown"
-    val sourceLabel = url.substringAfter("://").substringBefore("/").ifBlank { "Unknown" }
+    val sourceLabel = url?.substringAfter("://")?.substringBefore("/")?.ifBlank { "Unknown" } ?: "Unknown"
 
     Column(
         modifier = Modifier

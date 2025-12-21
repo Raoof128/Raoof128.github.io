@@ -730,6 +730,7 @@ private fun EmptyRecentScanItem() {
     }
 }
 
+@Composable
 private fun RecentScanItem(
     item: ScanHistoryItem,
     timeLabel: String,

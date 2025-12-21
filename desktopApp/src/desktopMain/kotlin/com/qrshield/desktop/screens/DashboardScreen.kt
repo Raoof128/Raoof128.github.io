@@ -695,8 +695,8 @@ private fun RecentScanRow(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                MaterialIconRound(name = if (status == "SAFE") "check_circle" else "warning", size = 14.sp, color = statusColor)
-                Text(status, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor)
+                MaterialIconRound(name = if (statusLabel == "SAFE") "check_circle" else "warning", size = 14.sp, color = statusColor)
+                Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor)
             }
         }
         Row(modifier = Modifier.width(200.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
