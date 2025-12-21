@@ -4,6 +4,27 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🇮🇹 December 22, 2025 - Italian Language Support & European Polish
+
+### Summary
+Added Italian language support and performed an extensive debug and polish pass on all major European languages (English, German, Spanish, French, Italian) to ensure native-quality phrasing and consistent formatting.
+
+## 🇮🇹 Italian Added
+- **Created**: `values-it/strings.xml` with 100+ native strings.
+- **Coverage**: Full UI translation including Accessibility strings.
+
+## 🇪🇺 Polish & Audit
+- **Source of Truth Check**: Verified `values/strings.xml` (English) keys match all translations.
+- **Format Verification**: Confirmed `%d` placeholders and special characters (apostrophes) are correctly escaped in:
+    - 🇬🇧 English
+    - 🇩🇪 German
+    - 🇪🇸 Spanish
+    - 🇫🇷 French
+    - 🇮🇹 Italian
+- **Consistency**: Standardized terminology for technical terms like "Phishing" and "QR" across all locales.
+
+---
+
 # 🌏 December 22, 2025 - Top 5 Global Languages Support
 
 ### Summary
@@ -48,6 +69,7 @@ Added German language support to the Android application by creating `values-de/
 - Verified desktop build after sidebar consolidation.
 - Completed sidebar consolidation for Trust Centre, Training, and Reports screens.
 - Added German language support for desktop navigation labels with persisted locale preference.
+- Added Spanish, French, Chinese (Simplified), Japanese, and Hindi navigation translations.
 - Added desktop language state + settings persistence and localized sidebar strings.
 
 ## ✅ Build Verification

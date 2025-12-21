@@ -15,6 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Consolidated Trust Centre, Training, and Reports sidebars into the shared desktop navigation.
 - Added German locale support for desktop navigation labels and persisted language preference.
 - Added desktop language state and settings persistence for locale-aware navigation labels.
+- Added Spanish, French, Chinese (Simplified), Japanese, and Hindi navigation translations.
+
+---
+
+## [1.16.3] - 2025-12-22
+
+### 🌍 Localization - Italian Support & European Polish
+- **New Language**: Added full Italian (`it`) support with `values-it/strings.xml`.
+- **Polish**: Audit of English, German, French, Spanish, and Italian translations.
+- **Fixes**: Verified format specifiers (`%d`) and character escaping across all European locales.
+- **Consistency**: Unified terminology for security concepts across supported languages.
 
 ---
 

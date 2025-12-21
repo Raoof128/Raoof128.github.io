@@ -2,18 +2,34 @@
 <resources>
     <!-- App Identity -->
     <string name="app_name">QR-SHIELD</string>
-    <string name="tagline">Scansiona codici QR. Rileva il phishing.</string>
+    <string name="tagline">Scansiona codici QR. Rileva phishing.</string>
     
     <!-- Navigation -->
+    <string name="nav_home">Home</string>
     <string name="nav_scan">Scansiona</string>
     <string name="nav_history">Cronologia</string>
     <string name="nav_settings">Impostazioni</string>
     
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">Bentornato</string>
+    <string name="dashboard_default_user">Admin Sicurezza</string>
+    <string name="dashboard_shield_active">PROTEZIONE ATTIVA</string>
+    <string name="dashboard_headline">Sicuro. Offline.\nDifesa Spiegabile.</string>
+    <string name="dashboard_subtitle">Il database aziendale è aggiornato e sta monitorando localmente.</string>
+    <string name="dashboard_scan_qr">Scansiona QR</string>
+    <string name="dashboard_import_image">Importa Immagine</string>
+    <string name="dashboard_system_health">Stato del Sistema</string>
+    <string name="dashboard_total_scans">Scansioni Totali</string>
+    <string name="dashboard_threats_blocked">Minacce Bloccate</string>
+    <string name="dashboard_recent_scans">Scansioni Recenti</string>
+    <string name="dashboard_view_all">Vedi Tutto</string>
+    <string name="dashboard_tools">Strumenti di Sicurezza</string>
+    
     <!-- Scanner Screen -->
     <string name="start_scanning">Avvia Scansione</string>
-    <string name="scan_from_gallery">Scansiona dalla Galleria</string>
+    <string name="scan_from_gallery">Scansiona da Galleria</string>
     <string name="scan_instruction">Allinea il codice QR nel riquadro</string>
-    <string name="analyzing_url">Analisi URL…</string>
+    <string name="analyzing_url">Analisi URL in corso…</string>
     <string name="scans_in_history">%d scansioni nella cronologia</string>
     
     <!-- Results -->
@@ -22,37 +38,37 @@
     <string name="copy">Copia</string>
     <string name="risk_factors">Fattori di Rischio</string>
     <string name="done">Fatto</string>
-    <string name="scan_another">Scansiona un Altro</string>
+    <string name="scan_another">Scansiona Altro</string>
     <string name="safe_verdict">SICURO</string>
     <string name="suspicious_verdict">SOSPETTO</string>
-    <string name="malicious_verdict">MALEVOLO</string>
+    <string name="malicious_verdict">PERICOLOSO</string>
     
     <!-- Recommendations -->
-    <string name="recommendation_safe">Questo URL sembra essere sicuro. Puoi procedere con fiducia.</string>
-    <string name="recommendation_suspicious">Fai attenzione con questo URL. Verifica la fonte prima di procedere.</string>
-    <string name="recommendation_malicious">⛔ ATTENZIONE: Questo URL mostra segni di phishing. NON inserire informazioni personali.</string>
+    <string name="recommendation_safe">Questo URL sembra sicuro. Puoi procedere con fiducia.</string>
+    <string name="recommendation_suspicious">Attenzione a questo URL. Verifica la fonte prima di continuare.</string>
+    <string name="recommendation_malicious">⛔ ATTENZIONE: Questo URL mostra segni di phishing. NON inserire dati personali.</string>
     <string name="recommendation_unknown">Impossibile verificare completamente questo URL. Procedi con cautela.</string>
     
     <!-- History Screen -->
     <string name="search_placeholder">Cerca URL…</string>
-    <string name="clear_history_title">Cancellare Tutta la Cronologia?</string>
-    <string name="clear_history_message">Questa azione non può essere annullata. Tutta la cronologia delle scansioni sarà eliminata permanentemente.</string>
+    <string name="clear_history_title">Cancellare tutta la cronologia?</string>
+    <string name="clear_history_message">Questa azione non può essere annullata. Tutta la cronologia delle scansioni verrà eliminata definitivamente.</string>
     <string name="clear_all">Cancella Tutto</string>
     <string name="cancel">Annulla</string>
     <string name="delete">Elimina</string>
-    <string name="delete_item_title">Eliminare Questa Scansione?</string>
-    <string name="delete_item_message">Questo elemento sarà rimosso dalla cronologia.</string>
+    <string name="delete_item_title">Eliminare questa scansione?</string>
+    <string name="delete_item_message">Questo elemento verrà rimosso dalla tua cronologia.</string>
     <string name="copy_url">Copia URL</string>
-    <string name="no_history">Nessuna Cronologia Scansioni</string>
+    <string name="no_history">Nessuna Cronologia</string>
     <string name="scan_to_see_history">I risultati delle scansioni appariranno qui</string>
-    <string name="no_results">Nessun Risultato</string>
+    <string name="no_results">Nessun risultato trovato</string>
     <string name="try_different_filter">Prova un filtro o un termine di ricerca diverso</string>
     
     <!-- Settings Screen -->
     <string name="settings_scanning">Scansione</string>
-    <string name="settings_auto_scan">Scansione automatica all\'avvio</string>
-    <string name="settings_auto_scan_desc">Avvia la scansione immediatamente quando l\'app si apre</string>
-    <string name="settings_haptic">Feedback aptico</string>
+    <string name="settings_auto_scan">Auto-scansione all\'avvio</string>
+    <string name="settings_auto_scan_desc">Inizia a scansionare immediatamente all\'apertura dell\'app</string>
+    <string name="settings_haptic">Feedback tattile</string>
     <string name="settings_haptic_desc">Vibra sui risultati della scansione</string>
     <string name="settings_sound">Effetti sonori</string>
     <string name="settings_sound_desc">Riproduci suoni per gli avvisi</string>
@@ -60,50 +76,61 @@
     <string name="settings_notifications">Notifiche</string>
     <string name="settings_security_alerts">Avvisi di sicurezza</string>
     <string name="settings_security_alerts_desc">Ricevi notifiche sulle minacce alla sicurezza</string>
+    <string name="settings_system_notifications">Notifiche di sistema</string>
+    <string name="settings_system_notifications_desc">Configura le preferenze di notifica</string>
     
     <string name="settings_privacy">Privacy</string>
     <string name="settings_save_history">Salva cronologia scansioni</string>
-    <string name="settings_save_history_desc">Mantieni un registro degli URL scansionati</string>
+    <string name="settings_save_history_desc">Tieni un registro degli URL scansionati</string>
     <string name="settings_privacy_policy">Informativa sulla Privacy</string>
     <string name="settings_privacy_policy_desc">Visualizza le nostre pratiche sulla privacy</string>
     
-    <string name="settings_about">Informazioni</string>
+    <string name="settings_accessibility">Accessibilità</string>
+    <string name="settings_accessibility_settings">Impostazioni di accessibilità</string>
+    <string name="settings_accessibility_settings_desc">Configura TalkBack e altri servizi</string>
+    
+    <string name="settings_about">Info</string>
     <string name="settings_version">Versione</string>
     <string name="settings_build">Build</string>
     <string name="settings_engine">Motore di Rilevamento</string>
     <string name="settings_source_code">Codice Sorgente</string>
     <string name="settings_help">Aiuto e Supporto</string>
-    <string name="settings_help_desc">Segnala problemi o richiedi assistenza</string>
+    <string name="settings_help_desc">Segnala problemi o ottieni aiuto</string>
     
     <!-- Errors -->
     <string name="error_title">Qualcosa è andato storto</string>
     <string name="try_again">Riprova</string>
-    <string name="camera_permission_rationale">L\'accesso alla fotocamera è necessario per scansionare i codici QR</string>
-    <string name="camera_permission_denied">Permesso fotocamera negato. Si prega di abilitare nelle impostazioni.</string>
+    <string name="camera_permission_rationale">È necessario l\'accesso alla fotocamera per scansionare i codici QR</string>
+    <string name="camera_permission_denied">Permesso fotocamera negato. Abilitalo nelle impostazioni.</string>
+    
+    <!-- Widget -->
+    <string name="widget_name">QR-SHIELD Scansione Rapida</string>
+    <string name="widget_description">Scansiona rapidamente i codici QR per minacce di phishing</string>
+    <string name="widget_tap_to_scan">Tocca per Scansionare</string>
     
     <!-- Accessibility (content descriptions) -->
     <string name="cd_app_logo">Logo QR-SHIELD</string>
-    <string name="cd_scanner_preview">Anteprima fotocamera per scansione codici QR</string>
+    <string name="cd_scanner_preview">Anteprima fotocamera per scansione codice QR</string>
     <string name="cd_close_scanner">Chiudi scanner</string>
     <string name="cd_toggle_flash">Attiva/disattiva torcia</string>
     <string name="cd_scan_result">Risultato scansione con verdetto e punteggio di rischio</string>
-    <string name="cd_scan_button">Avvia scansione codici QR</string>
+    <string name="cd_scan_button">Scansiona codici QR</string>
     <string name="cd_gallery_button">Seleziona immagine codice QR dalla galleria</string>
     <string name="cd_copy_button">Copia URL negli appunti</string>
     <string name="cd_share_button">Condividi URL</string>
     <string name="cd_open_url">Apri URL nel browser</string>
     <string name="cd_delete_item">Elimina questa scansione dalla cronologia</string>
-    <string name="cd_clear_history">Cancella tutta la cronologia</string>
-    <string name="cd_search_history">Cerca nella cronologia</string>
+    <string name="cd_clear_history">Cancella tutta la cronologia scansioni</string>
+    <string name="cd_search_history">Cerca nella cronologia scansioni</string>
     <string name="cd_filter_safe">Mostra solo scansioni sicure</string>
     <string name="cd_filter_suspicious">Mostra solo scansioni sospette</string>
-    <string name="cd_filter_malicious">Mostra solo scansioni malevole</string>
-    <string name="cd_history_item">Elemento cronologia scansioni</string>
+    <string name="cd_filter_malicious">Mostra solo scansioni dannose</string>
+    <string name="cd_history_item">Elemento cronologia scansione</string>
     <string name="cd_settings_toggle">Attiva/disattiva impostazione</string>
-    <string name="cd_back_button">Torna indietro</string>
-    <string name="cd_processing">Elaborazione in corso, attendere</string>
-    <string name="cd_safe_verdict">URL sicuro da visitare</string>
-    <string name="cd_suspicious_verdict">URL sospetto, procedere con cautela</string>
-    <string name="cd_malicious_verdict">Attenzione, URL sembra essere un tentativo di phishing</string>
+    <string name="cd_back_button">Indietro</string>
+    <string name="cd_processing">Elaborazione in corso, attendere prego</string>
+    <string name="cd_safe_verdict">L\'URL è sicuro da visitare</string>
+    <string name="cd_suspicious_verdict">L\'URL è sospetto, procedi con cautela</string>
+    <string name="cd_malicious_verdict">Attenzione, l\'URL sembra essere un tentativo di phishing dannoso</string>
     <string name="cd_risk_score">Punteggio di rischio su 100</string>
 </resources>
