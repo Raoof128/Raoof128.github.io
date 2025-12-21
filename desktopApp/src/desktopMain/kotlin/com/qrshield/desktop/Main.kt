@@ -13,6 +13,7 @@ import androidx.compose.ui.window.rememberWindowState
 import androidx.compose.ui.res.painterResource
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.screens.*
+import java.awt.Dimension
 
 fun main() = application {
     val windowState = rememberWindowState(
@@ -24,9 +25,13 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         title = "QR-SHIELD Desktop",
         state = windowState,
-        resizable = false,
+        resizable = true,
         icon = painterResource("assets/app-icon.png")
     ) {
+        DisposableEffect(window) {
+            window.minimumSize = Dimension(1200, 800)
+            onDispose { }
+        }
         val viewModel = remember { AppViewModel() }
         DisposableEffect(Unit) {
             onDispose { viewModel.dispose() }

@@ -29,6 +29,7 @@ import com.qrshield.desktop.ResultViewMode
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
 
@@ -41,7 +42,10 @@ fun ResultSafeScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF9FAFB))
         ) {
-            SafeSidebar(onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(
+                currentScreen = viewModel.currentScreen,
+                onNavigate = { viewModel.currentScreen = it }
+            )
             SafeResultContent(
                 viewModel = viewModel,
                 onNavigate = { viewModel.currentScreen = it }
@@ -51,96 +55,11 @@ fun ResultSafeScreen(viewModel: AppViewModel) {
 }
 
 @Composable
-private fun SafeSidebar(onNavigate: (AppScreen) -> Unit) {
-    Column(
-        modifier = Modifier
-            .width(256.dp)
-            .fillMaxHeight()
-            .background(Color.White)
-            .border(1.dp, Color(0xFFE5E7EB))
-    ) {
-        Row(
-            modifier = Modifier
-                .height(64.dp)
-                .fillMaxWidth()
-                .border(1.dp, Color(0xFFE5E7EB))
-                .padding(horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Color(0xFF10B981)),
-                contentAlignment = Alignment.Center
-            ) {
-                MaterialIconRound(name = "shield", size = 18.sp, color = Color.White)
-            }
-            Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-        }
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("MAIN MENU", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp))
-            SafeSidebarItem("Dashboard", "dashboard", onNavigate, AppScreen.Dashboard)
-            SafeSidebarItem("Active Scan", "qr_code_scanner", onNavigate, AppScreen.LiveScan, isActive = true)
-            SafeSidebarItem("Scan History", "history", onNavigate, AppScreen.ScanHistory)
-            Text("SECURITY", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp, top = 16.dp))
-            SafeSidebarItem("Allow List", "verified_user", onNavigate, AppScreen.TrustCentre)
-            SafeSidebarItem("Heuristics", "rule", onNavigate, AppScreen.TrustCentreAlt)
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color(0xFFE5E7EB))
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFF4F46E5)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("AM", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.White)
-            }
-            Column(modifier = Modifier.weight(1f)) {
-                Text("Alex Morgan", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                Text("Security Analyst", fontSize = 12.sp, color = Color(0xFF6B7280))
-            }
-            MaterialIconRound(name = "settings", size = 18.sp, color = Color(0xFF6B7280))
-        }
-    }
-}
-
-@Composable
-private fun SafeSidebarItem(label: String, icon: String, onNavigate: (AppScreen) -> Unit, target: AppScreen, isActive: Boolean = false) {
-    val bg = if (isActive) Color(0xFFECFDF3) else Color.Transparent
-    val textColor = if (isActive) Color(0xFF10B981) else Color(0xFF6B7280)
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(bg)
-            .clickable { onNavigate(target) }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialIconRound(name = icon, size = 20.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textColor)
-    }
-}
-
-@Composable
 private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
     val assessment = viewModel.currentAssessment
     val url = viewModel.currentUrl
     val verdictDetails = viewModel.currentVerdictDetails
+    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: "LATEST"
     val confidencePercent = ((assessment?.confidence ?: 0f) * 100).coerceIn(0f, 100f)
     val confidenceLabel = "${confidencePercent.toInt()}%"
     val durationLabel = viewModel.lastAnalysisDurationMs?.let { "${it}ms" } ?: "--"
@@ -165,14 +84,14 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                 MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF9CA3AF))
                 Text("Results", fontSize = 14.sp, color = Color(0xFF6B7280))
                 MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF9CA3AF))
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(Color(0xFFF3F4F6))
-                        .padding(horizontal = 6.dp, vertical = 2.dp)
-                ) {
-                    Text("#SCAN-2023-8842", fontSize = 10.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
-                }
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(Color(0xFFF3F4F6))
+                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                    ) {
+                        Text("#SCAN-$scanId", fontSize = 10.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
+                    }
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(

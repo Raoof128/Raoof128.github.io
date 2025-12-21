@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -97,17 +98,32 @@ data class ElevationTokens(
 )
 
 private fun ColorTokens.toMaterialScheme(): ColorScheme {
-    return lightColorScheme(
-        primary = primary,
-        secondary = teal,
-        background = background,
-        surface = surface,
-        surfaceVariant = backgroundAlt,
-        onSurface = textMain,
-        onSurfaceVariant = textSub,
-        outline = border,
-        error = danger
-    )
+    val isDark = background.luminance() < 0.5f
+    return if (isDark) {
+        darkColorScheme(
+            primary = primary,
+            secondary = teal,
+            background = background,
+            surface = surface,
+            surfaceVariant = backgroundAlt,
+            onSurface = textMain,
+            onSurfaceVariant = textSub,
+            outline = border,
+            error = danger
+        )
+    } else {
+        lightColorScheme(
+            primary = primary,
+            secondary = teal,
+            background = background,
+            surface = surface,
+            surfaceVariant = backgroundAlt,
+            onSurface = textMain,
+            onSurfaceVariant = textSub,
+            outline = border,
+            error = danger
+        )
+    }
 }
 
 private fun TypographyTokens.toMaterialTypography(): androidx.compose.material3.Typography {
@@ -399,7 +415,7 @@ object StitchTokens {
                 surface = Color(0xFFFFFFFF),
                 surfaceAlt = Color(0xFFFFFFFF),
                 border = Color(0xFFE2E8F0),
-                borderStrong = Color(0xFFCBD5F9),
+                borderStrong = Color(0xFFCBD5E1),
                 textMain = Color(0xFF0F172A),
                 textSub = Color(0xFF64748B),
                 textMuted = Color(0xFF94A3B8),

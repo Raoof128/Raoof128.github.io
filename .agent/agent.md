@@ -4,6 +4,24 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🧭 December 22, 2025 - Desktop UI Consistency & Navigation Pass
+
+### Summary
+- Unified desktop navigation with `AppSidebar` across all Compose Desktop screens.
+- Updated suspicious/dangerous result cards and empty states to use shared theme colors.
+- Wired report/export actions from scan results to the Reports Export screen.
+- Verified desktop build after sidebar consolidation.
+- Completed sidebar consolidation for Trust Centre, Training, and Reports screens.
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:build
+BUILD SUCCESSFUL in 3s
+```
+
+---
+
 # 🔍 December 21, 2025 (Session 5) - Comprehensive Android Audit
 
 ### Summary

@@ -22,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -35,6 +34,7 @@ import com.qrshield.desktop.ExportFormat
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 
@@ -47,113 +47,9 @@ fun ReportsExportScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF8FAFC))
         ) {
-            ReportsSidebar(
-                onNavigate = { viewModel.currentScreen = it },
-                onProfile = { viewModel.showInfo("Profile is not available yet.") }
-            )
+            AppSidebar(currentScreen = AppScreen.ReportsExport, onNavigate = { viewModel.currentScreen = it })
             ReportsContent(viewModel = viewModel)
         }
-    }
-}
-
-@Composable
-private fun ReportsSidebar(
-    onNavigate: (AppScreen) -> Unit,
-    onProfile: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .width(256.dp)
-            .fillMaxHeight()
-            .background(Color.White)
-            .border(1.dp, Color(0xFFE2E8F0))
-    ) {
-        Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFF135BEC).copy(alpha = 0.1f))
-                        .border(1.dp, Color(0xFF135BEC).copy(alpha = 0.2f), CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MaterialSymbol(name = "shield_lock", size = 20.sp, color = Color(0xFF135BEC))
-                }
-                Column {
-                    Text("QR-SHIELD", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
-                    Text("Offline-First Detection", fontSize = 12.sp, color = Color(0xFF64748B))
-                }
-            }
-            SidebarLink("Dashboard", "dashboard", onNavigate, AppScreen.Dashboard)
-            SidebarLink("Scans", "qr_code_scanner", onNavigate, AppScreen.LiveScan)
-            SidebarLink("Reports", "description", onNavigate, AppScreen.ReportsExport, isActive = true)
-            SidebarLink("Settings", "settings", onNavigate, AppScreen.TrustCentreAlt)
-            SidebarLink("Profile", "account_circle", onClick = onProfile)
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-        Row(
-            modifier = Modifier
-                .padding(24.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFFF8FAFC))
-                .border(1.dp, Color(0xFFE2E8F0))
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(8.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFF10B981))
-            )
-            Column {
-                Text("Engine Online", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF0F172A))
-                Text("v2.4.1 (Stable)", fontSize = 10.sp, color = Color(0xFF64748B))
-            }
-        }
-    }
-}
-
-@Composable
-private fun SidebarLink(label: String, icon: String, onNavigate: (AppScreen) -> Unit, target: AppScreen, isActive: Boolean = false) {
-    val bg = if (isActive) Color(0xFF135BEC).copy(alpha = 0.05f) else Color.Transparent
-    val border = if (isActive) Color(0xFF135BEC).copy(alpha = 0.1f) else Color.Transparent
-    val textColor = if (isActive) Color(0xFF135BEC) else Color(0xFF64748B)
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(bg)
-            .border(1.dp, border, RoundedCornerShape(8.dp))
-            .clickable { onNavigate(target) }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialSymbol(name = icon, size = 18.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textColor)
-    }
-}
-
-@Composable
-private fun SidebarLink(label: String, icon: String, onClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .clickable { onClick() }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialSymbol(name = icon, size = 18.sp, color = Color(0xFF64748B))
-        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
     }
 }
 
@@ -161,6 +57,9 @@ private fun SidebarLink(label: String, icon: String, onClick: () -> Unit) {
 private fun ReportsContent(viewModel: AppViewModel) {
     val extensionLabel = if (viewModel.exportFormat == ExportFormat.Pdf) ".pdf" else ".json"
     val statusMessage = viewModel.statusMessage
+    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: "LATEST"
+    val scanTimestamp = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: "Unknown"
+    val reportUrl = viewModel.currentUrl ?: "No URL captured"
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -184,7 +83,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                 }
                 Text("Export Report", fontSize = 32.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
                 Text(
-                    "Configure output parameters for Scan ID #8821-X",
+                    "Configure output parameters for Scan ID #SCAN-$scanId",
                     fontSize = 14.sp,
                     color = Color(0xFF64748B)
                 )
@@ -415,8 +314,8 @@ private fun ReportsContent(viewModel: AppViewModel) {
                                         Text("GENERATED BY QR-SHIELD ENGINE v2.4", fontSize = 10.sp, color = Color(0xFF64748B))
                                     }
                                     Column(horizontalAlignment = Alignment.End) {
-                                        Text("SCAN #8821-X", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-                                        Text("OCT 24, 2023 • 14:32 UTC", fontSize = 10.sp, color = Color(0xFF64748B))
+                                        Text("SCAN #SCAN-$scanId", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                                        Text(scanTimestamp, fontSize = 10.sp, color = Color(0xFF64748B))
                                     }
                                 }
                                 Surface(
@@ -450,7 +349,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                                                 .background(Color(0xFFF1F5F9))
                                                 .padding(8.dp)
                                         ) {
-                                            Text("http://login-micros0ft.secure-auth.com/verify?id=992", fontSize = 12.sp, color = Color(0xFF2563EB))
+                                            Text(reportUrl, fontSize = 12.sp, color = Color(0xFF2563EB))
                                         }
                                     }
                                     Column(modifier = Modifier.weight(1f)) {

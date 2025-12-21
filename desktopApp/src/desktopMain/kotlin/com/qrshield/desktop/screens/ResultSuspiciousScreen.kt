@@ -38,6 +38,7 @@ import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIcon
 import com.qrshield.desktop.ui.gridPattern
 
@@ -51,7 +52,7 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
                 .background(tokens.colors.background)
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
-                SuspiciousSidebar(isDark = viewModel.isDarkMode, onNavigate = { viewModel.currentScreen = it })
+                AppSidebar(currentScreen = AppScreen.ResultSuspicious, onNavigate = { viewModel.currentScreen = it })
                 SuspiciousContent(
                     viewModel = viewModel,
                     isDark = viewModel.isDarkMode,
@@ -64,92 +65,6 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
 }
 
 @Composable
-private fun SuspiciousSidebar(isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
-    val bg = if (isDark) Color.Black else Color.White
-    val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
-    val textMain = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
-    val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
-
-    Column(
-        modifier = Modifier
-            .width(256.dp)
-            .fillMaxHeight()
-            .background(bg)
-            .border(1.dp, border)
-    ) {
-        Row(
-            modifier = Modifier
-                .height(64.dp)
-                .fillMaxWidth()
-                .border(1.dp, border)
-                .padding(horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            MaterialIcon(name = "security", size = 20.sp, color = if (isDark) Color(0xFF3B82F6) else Color(0xFF2563EB))
-            Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = textMain)
-        }
-
-        Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("MAIN MENU", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp))
-            NavLink("Dashboard", "dashboard", textMuted, onNavigate, AppScreen.Dashboard)
-            NavLink("Scan Monitor", "qr_code_scanner", textMuted, onNavigate, AppScreen.LiveScan, isActive = true)
-            NavLink("Scan History", "history", textMuted, onNavigate, AppScreen.ScanHistory)
-            NavLink("Safe List", "fact_check", textMuted, onNavigate, AppScreen.TrustCentre)
-            Spacer(Modifier.height(16.dp))
-            Text("SYSTEM", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp))
-            NavLink("Settings", "settings", textMuted, onNavigate, AppScreen.TrustCentreAlt)
-            NavLink("Support", "help_outline", textMuted, onNavigate, AppScreen.Training)
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, border)
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .background(if (isDark) Color(0xFF1E3A8A) else Color(0xFFDBEAFE)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("JS", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = if (isDark) Color(0xFF93C5FD) else Color(0xFF1D4ED8))
-            }
-            Column(modifier = Modifier.weight(1f)) {
-                Text("John Smith", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textMain)
-                Text("Security Analyst", fontSize = 12.sp, color = textMuted)
-            }
-        }
-    }
-}
-
-@Composable
-private fun NavLink(label: String, icon: String, textMuted: Color, onNavigate: (AppScreen) -> Unit, target: AppScreen, isActive: Boolean = false) {
-    val bg = if (isActive) Color(0xFFDBEAFE).copy(alpha = 0.4f) else Color.Transparent
-    val textColor = if (isActive) Color(0xFF2563EB) else textMuted
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(bg)
-            .clickable { onNavigate(target) }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialIcon(name = icon, size = 18.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textColor)
-    }
-}
-
-@Composable
 private fun SuspiciousContent(
     viewModel: AppViewModel,
     isDark: Boolean,
@@ -158,6 +73,8 @@ private fun SuspiciousContent(
     val assessment = viewModel.currentAssessment
     val url = viewModel.currentUrl
     val verdictDetails = viewModel.currentVerdictDetails
+    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: "LATEST"
+    val analysisId = assessment?.let { "SCAN-$scanId-H${it.score}" } ?: "SCAN-$scanId"
     val background = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
     val surface = if (isDark) Color(0xFF1F2937) else Color.White
     val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
@@ -210,7 +127,7 @@ private fun SuspiciousContent(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text("Scan Monitor", fontSize = 14.sp, color = textMuted)
                     MaterialIcon(name = "chevron_right", size = 12.sp, color = textMuted)
-                    Text("Result #SCAN-8824", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textMain)
+                    Text("Result #SCAN-$scanId", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textMain)
                 }
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Box(
@@ -438,10 +355,54 @@ private fun SuspiciousContent(
                 }
 
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxWidth()) {
-                    AlertCard("spellcheck", "Homograph Attack", "Detected", Color(0xFFDC2626), Color(0xFFFEE2E2), 0.9f, "Confidence", "90%", modifier = Modifier.weight(1f))
-                    AlertCard("schedule", "Domain Age", "Suspicious", Color(0xFFF59E0B), Color(0xFFFFFBEB), 0.75f, "Age", "< 2 Days", modifier = Modifier.weight(1f))
-                    AlertCard("shuffle", "URL Entropy", "Low Risk", Color(0xFFFBBF24), Color(0xFFF3F4F6), 0.4f, "Score", "4.2", modifier = Modifier.weight(1f))
-                    AlertCard("verified_user", "Global Blocklist", "Clean", Color(0xFF10B981), Color(0xFFECFDF3), 0.05f, "Match", "0/52", modifier = Modifier.weight(1f))
+                    AlertCard(
+                        icon = "spellcheck",
+                        title = "Homograph Attack",
+                        status = "Detected",
+                        color = Color(0xFFDC2626),
+                        badgeBg = Color(0xFFFEE2E2),
+                        progress = 0.9f,
+                        footerLabel = "Confidence",
+                        footerValue = "90%",
+                        body = "Domain uses Cyrillic characters to mimic legitimate Latin letters.",
+                        modifier = Modifier.weight(1f)
+                    )
+                    AlertCard(
+                        icon = "schedule",
+                        title = "Domain Age",
+                        status = "Suspicious",
+                        color = Color(0xFFF59E0B),
+                        badgeBg = Color(0xFFFFFBEB),
+                        progress = 0.75f,
+                        footerLabel = "Age",
+                        footerValue = "< 2 Days",
+                        body = "Registered less than 48 hours ago via cheap registrar.",
+                        modifier = Modifier.weight(1f)
+                    )
+                    AlertCard(
+                        icon = "shuffle",
+                        title = "URL Entropy",
+                        status = "Low Risk",
+                        color = Color(0xFFFBBF24),
+                        badgeBg = Color(0xFFF3F4F6),
+                        progress = 0.4f,
+                        footerLabel = "Score",
+                        footerValue = "4.2",
+                        body = "Subdomain structure appears randomly generated.",
+                        modifier = Modifier.weight(1f)
+                    )
+                    AlertCard(
+                        icon = "verified_user",
+                        title = "Global Blocklist",
+                        status = "Clean",
+                        color = Color(0xFF10B981),
+                        badgeBg = Color(0xFFECFDF3),
+                        progress = 0.05f,
+                        footerLabel = "Match",
+                        footerValue = "0/52",
+                        body = "Domain is not yet listed on major threat intelligence feeds.",
+                        modifier = Modifier.weight(1f)
+                    )
                 }
 
                 Surface(
@@ -478,7 +439,7 @@ private fun SuspiciousContent(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text("Analysis ID: #SCAN-8824-H99", fontSize = 12.sp, color = textMuted)
+                            Text("Analysis ID: #$analysisId", fontSize = 12.sp, color = textMuted)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text(
                                     "View Full JSON Log",
@@ -507,8 +468,8 @@ private fun SuspiciousContent(
 private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = Color.White,
-        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
         Column(
             modifier = Modifier
@@ -517,15 +478,15 @@ private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-            Text("Run a scan to view suspicious results.", fontSize = 13.sp, color = Color(0xFF6B7280))
+            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text("Run a scan to view suspicious results.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF59E0B)),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text("Back to Scan", fontWeight = FontWeight.Medium, color = Color.White)
+                Text("Back to Scan", fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
             }
         }
     }
@@ -575,10 +536,11 @@ private fun IndicatorDot(color: Color, label: String, textMuted: Color) {
 
 @Composable
 private fun RiskGauge(score: Int, color: Color, label: String) {
+    val outline = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
     Box(modifier = Modifier.size(128.dp), contentAlignment = Alignment.Center) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             val stroke = 8.dp.toPx()
-            drawCircle(color = Color(0xFFE5E7EB), style = androidx.compose.ui.graphics.drawscope.Stroke(stroke))
+            drawCircle(color = outline, style = androidx.compose.ui.graphics.drawscope.Stroke(stroke))
             drawArc(
                 color = color,
                 startAngle = -90f,
@@ -588,7 +550,7 @@ private fun RiskGauge(score: Int, color: Color, label: String) {
             )
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(score.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+            Text(score.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Text(label, fontSize = 12.sp, color = color)
         }
     }
@@ -604,6 +566,7 @@ private fun AlertCard(
     progress: Float,
     footerLabel: String,
     footerValue: String,
+    body: String,
     modifier: Modifier = Modifier
 ) {
     Surface(
@@ -633,13 +596,13 @@ private fun AlertCard(
                 }
             }
             Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
-            Text("Domain uses Cyrillic characters to mimic legitimate Latin letters.", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(body, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(6.dp)
                     .clip(RoundedCornerShape(999.dp))
-                    .background(Color(0xFFE5E7EB))
+                    .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
             ) {
                 Box(
                     modifier = Modifier

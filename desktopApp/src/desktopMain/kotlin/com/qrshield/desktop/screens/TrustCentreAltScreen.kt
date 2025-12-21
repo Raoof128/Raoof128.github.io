@@ -26,6 +26,7 @@ import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
 
@@ -38,105 +39,9 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(tokens.colors.background)
         ) {
-            TrustCentreAltSidebar(
-                isDark = viewModel.isDarkMode,
-                onNavigate = { viewModel.currentScreen = it }
-            )
+            AppSidebar(currentScreen = AppScreen.TrustCentreAlt, onNavigate = { viewModel.currentScreen = it })
             TrustCentreAltContent(viewModel = viewModel)
         }
-    }
-}
-
-@Composable
-private fun TrustCentreAltSidebar(isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
-    val bg = if (isDark) Color(0xFF1E293B) else Color.White
-    val border = if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0)
-    val textSub = if (isDark) Color(0xFF94A3B8) else Color(0xFF64748B)
-
-    Column(
-        modifier = Modifier
-            .width(288.dp)
-            .fillMaxHeight()
-            .background(bg)
-            .border(1.dp, border)
-    ) {
-        Row(
-            modifier = Modifier.padding(24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFF2563EB)),
-                contentAlignment = Alignment.Center
-            ) {
-                MaterialIconRound(name = "security", size = 20.sp, color = Color.White)
-            }
-            Column {
-                Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = if (isDark) Color(0xFFF1F5F9) else Color(0xFF0F172A))
-                Text("Offline Protection", fontSize = 12.sp, color = textSub)
-            }
-        }
-        Column(modifier = Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            AltSidebarLink("Dashboard", "dashboard", textSub, onNavigate, AppScreen.Dashboard)
-            AltSidebarLink("Scan History", "history", textSub, onNavigate, AppScreen.ScanHistory)
-            AltSidebarLink("Threat Database", "storage", textSub, onNavigate, AppScreen.ReportsExport)
-            AltSidebarLink("Settings", "settings", textSub, onNavigate, AppScreen.TrustCentreAlt, isActive = true)
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Surface(
-            modifier = Modifier.padding(16.dp),
-            shape = RoundedCornerShape(12.dp),
-            color = if (isDark) Color(0xFF334155) else Color(0xFFF8FAFC),
-            border = BorderStroke(1.dp, border)
-        ) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Column {
-                    Text("v2.4.1", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = if (isDark) Color(0xFFF1F5F9) else Color(0xFF0F172A))
-                    Text("Latest Build", fontSize = 12.sp, color = textSub)
-                }
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFF10B981))
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun AltSidebarLink(
-    label: String,
-    icon: String,
-    textColor: Color,
-    onNavigate: (AppScreen) -> Unit,
-    target: AppScreen,
-    isActive: Boolean = false
-) {
-    val bg = if (isActive) Color(0xFFDBEAFE) else Color.Transparent
-    val activeText = if (isActive) Color(0xFF2563EB) else textColor
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(bg)
-            .clickable { onNavigate(target) }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialIconRound(name = icon, size = 20.sp, color = activeText)
-        Text(label, fontSize = 14.sp, fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Medium, color = activeText)
     }
 }
 

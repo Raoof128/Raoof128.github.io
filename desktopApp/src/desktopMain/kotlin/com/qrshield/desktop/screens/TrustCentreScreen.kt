@@ -3,8 +3,8 @@ package com.qrshield.desktop.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -31,6 +31,7 @@ import com.qrshield.desktop.HeuristicSensitivity
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 
@@ -44,118 +45,12 @@ fun TrustCentreScreen(viewModel: AppViewModel) {
                 .background(Color(0xFFF6F8FA))
                 .gridPattern(spacing = 40.dp, lineColor = Color(0xFFE1E4E8), lineWidth = 1.dp)
         ) {
-            TrustCentreSidebar(
-                onNavigate = { viewModel.currentScreen = it },
-                onThreatIntel = { viewModel.showInfo("Threat intelligence is not available yet.") }
-            )
+            AppSidebar(currentScreen = AppScreen.TrustCentre, onNavigate = { viewModel.currentScreen = it })
             TrustCentreContent(
                 viewModel = viewModel,
                 onNavigate = { viewModel.currentScreen = it }
             )
         }
-    }
-}
-
-@Composable
-private fun TrustCentreSidebar(
-    onNavigate: (AppScreen) -> Unit,
-    onThreatIntel: () -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .width(288.dp)
-            .fillMaxHeight()
-            .background(Color.White)
-            .border(1.dp, Color(0xFFD0D7DE))
-            .padding(16.dp)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(RoundedCornerShape(10.dp))
-                        .border(1.dp, Color(0xFFD0D7DE))
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Image(
-                        painter = painterResource("assets/stitch/logo-shield.png"),
-                        contentDescription = "Shield Logo",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-                Column {
-                    Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Box(
-                            modifier = Modifier
-                                .size(8.dp)
-                                .clip(CircleShape)
-                                .background(Color(0xFF2EA043))
-                        )
-                        Text("v2.4.0 Offline", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF57606A))
-                    }
-                }
-            }
-
-            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                SidebarLink(label = "Dashboard", icon = "dashboard", onClick = { onNavigate(AppScreen.Dashboard) })
-                SidebarLink(label = "Scan History", icon = "history", onClick = { onNavigate(AppScreen.ScanHistory) })
-                SidebarLink(label = "Trust Centre", icon = "verified_user", isActive = true, onClick = { onNavigate(AppScreen.TrustCentre) })
-                SidebarLink(label = "Threat Intel", icon = "public", onClick = onThreatIntel)
-                SidebarLink(label = "Settings", icon = "settings", onClick = { onNavigate(AppScreen.TrustCentreAlt) })
-            }
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color(0xFFD0D7DE))
-                .padding(12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .background(Brush.linearGradient(listOf(Color(0xFF135BEC), Color(0xFF9333EA)))),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("", fontSize = 12.sp)
-            }
-            Column {
-                Text("System Admin", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
-                Text("Licence: Pro", fontSize = 12.sp, color = Color(0xFF57606A))
-            }
-        }
-    }
-}
-
-@Composable
-private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, onClick: () -> Unit) {
-    val bg = if (isActive) Color(0xFF135BEC).copy(alpha = 0.05f) else Color.Transparent
-    val border = if (isActive) Color(0xFF135BEC).copy(alpha = 0.2f) else Color.Transparent
-    val textColor = if (isActive) Color(0xFF135BEC) else Color(0xFF57606A)
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(bg)
-            .border(1.dp, border, RoundedCornerShape(8.dp))
-            .clickable { onClick() }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialSymbol(name = icon, size = 20.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = if (isActive) FontWeight.Medium else FontWeight.Normal, color = textColor)
     }
 }
 

@@ -29,6 +29,7 @@ import com.qrshield.desktop.ResultViewMode
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
 
@@ -42,98 +43,13 @@ fun ResultDangerousScreen(viewModel: AppViewModel) {
                 .background(tokens.colors.background)
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
-                DangerousSidebar(isDark = viewModel.isDarkMode, onNavigate = { viewModel.currentScreen = it })
+                AppSidebar(currentScreen = AppScreen.ResultDangerous, onNavigate = { viewModel.currentScreen = it })
                 DangerousContent(
                     viewModel = viewModel,
                     onNavigate = { viewModel.currentScreen = it }
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun DangerousSidebar(isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
-    val bg = if (isDark) Color(0xFF181B21) else Color.White
-    val border = if (isDark) Color(0xFF2D3139) else Color(0xFFE5E7EB)
-    val text = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
-    val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
-
-    Column(
-        modifier = Modifier
-            .width(256.dp)
-            .fillMaxHeight()
-            .background(bg)
-            .border(1.dp, border)
-    ) {
-        Row(modifier = Modifier.padding(24.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Color(0xFF2563EB)),
-                contentAlignment = Alignment.Center
-            ) {
-                MaterialIconRound(name = "shield", size = 18.sp, color = Color.White)
-            }
-            Text("QR-SHIELD", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = text)
-        }
-        Column(modifier = Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text("MAIN MENU", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp, bottom = 6.dp))
-            SideLink("Dashboard", "dashboard", textMuted, onNavigate, AppScreen.Dashboard)
-            SideLink("Scan Monitor", "qr_code_scanner", textMuted, onNavigate, AppScreen.LiveScan, isActive = true)
-            SideLink("Scan History", "history", textMuted, onNavigate, AppScreen.ScanHistory)
-            Spacer(Modifier.height(16.dp))
-            Text("SECURITY", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp, bottom = 6.dp))
-            SideLink("Safe List", "verified_user", textMuted, onNavigate, AppScreen.TrustCentre)
-            SideLink("Heuristics Rules", "rule", textMuted, onNavigate, AppScreen.TrustCentreAlt)
-            SideLink("Settings", "settings", textMuted, onNavigate, AppScreen.TrustCentreAlt)
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, border)
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(if (isDark) Color(0xFF312E81) else Color(0xFFE0E7FF)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("JS", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = if (isDark) Color(0xFFBFDBFE) else Color(0xFF4F46E5))
-            }
-            Column(modifier = Modifier.weight(1f)) {
-                Text("John Smith", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = text)
-                Text("Security Analyst", fontSize = 12.sp, color = textMuted)
-            }
-            MaterialIconRound(name = "logout", size = 18.sp, color = textMuted)
-        }
-    }
-}
-
-@Composable
-private fun SideLink(label: String, icon: String, textMuted: Color, onNavigate: (AppScreen) -> Unit, target: AppScreen, isActive: Boolean = false) {
-    val bg = if (isActive) Color(0xFFFEE2E2).copy(alpha = 0.6f) else Color.Transparent
-    val textColor = if (isActive) Color(0xFFDC2626) else textMuted
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(bg)
-            .clickable { onNavigate(target) }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialIconRound(name = icon, size = 18.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textColor)
     }
 }
 
@@ -351,12 +267,12 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                                 )
                             }
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                                InfoTile("IDN Homograph", "DETECTED", Color(0xFFDC2626), "Mixed script characters detected in domain name intended to spoof legitimate brands.", modifier = Modifier.weight(1f))
-                                InfoTile("Domain Age", "< 24 HOURS", Color(0xFFDC2626), "Domain was registered today. Highly suspicious for banking services.", modifier = Modifier.weight(1f))
+                                InfoTile("IDN Homograph", "DETECTED", "text_format", Color(0xFFDC2626), "Mixed script characters detected in domain name intended to spoof legitimate brands.", modifier = Modifier.weight(1f))
+                                InfoTile("Domain Age", "< 24 HOURS", "domain", Color(0xFFDC2626), "Domain was registered today. Highly suspicious for banking services.", modifier = Modifier.weight(1f))
                             }
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                                InfoTile("Redirect Chain", "COMPLEX", Color(0xFFF97316), "URL involves 3+ redirects through unrelated shortening services.", modifier = Modifier.weight(1f))
-                                InfoTile("SSL Certificate", "VALID", Color(0xFF10B981), "Let's Encrypt R3. Note: Valid SSL does not guarantee site legitimacy.", modifier = Modifier.weight(1f))
+                                InfoTile("Redirect Chain", "COMPLEX", "shuffle", Color(0xFFF97316), "URL involves 3+ redirects through unrelated shortening services.", modifier = Modifier.weight(1f))
+                                InfoTile("SSL Certificate", "VALID", "lock", Color(0xFF10B981), "Let's Encrypt R3. Note: Valid SSL does not guarantee site legitimacy.", modifier = Modifier.weight(1f))
                             }
                         }
                     }
@@ -433,7 +349,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                                 .fillMaxWidth()
                                 .height(6.dp)
                                 .clip(RoundedCornerShape(999.dp))
-                                .background(Color(0xFFE5E7EB))
+                                .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
                         ) {
                             Box(
                                 modifier = Modifier
@@ -472,13 +388,19 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             "Share Analysis",
                             "Export PDF report",
                             "share",
-                            onClick = { viewModel.shareTextReport() }
+                            onClick = {
+                                viewModel.shareTextReport()
+                                onNavigate(AppScreen.ReportsExport)
+                            }
                         )
                         ActionRow(
                             "View Raw Data",
                             "Inspect JSON payload",
                             "code",
-                            onClick = { viewModel.copyJsonReport() }
+                            onClick = {
+                                viewModel.copyJsonReport()
+                                onNavigate(AppScreen.ReportsExport)
+                            }
                         )
                     }
                 }
@@ -491,8 +413,8 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
 private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = Color.White,
-        border = BorderStroke(1.dp, Color(0xFFFECACA))
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
         Column(
             modifier = Modifier
@@ -501,22 +423,22 @@ private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = Color(0xFF6B7280))
+            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDC2626)),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text("Back to Scan", fontWeight = FontWeight.Medium, color = Color.White)
+                Text("Back to Scan", fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
             }
         }
     }
 }
 
 @Composable
-private fun InfoTile(title: String, badge: String, color: Color, body: String, modifier: Modifier = Modifier) {
+private fun InfoTile(title: String, badge: String, icon: String, color: Color, body: String, modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
@@ -526,8 +448,8 @@ private fun InfoTile(title: String, badge: String, color: Color, body: String, m
         Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    MaterialIconRound(name = "text_format", size = 16.sp, color = color)
-                    Text(title, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
+                    MaterialIconRound(name = icon, size = 16.sp, color = color)
+                    Text(title, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
                 }
                 Box(
                     modifier = Modifier
@@ -538,7 +460,7 @@ private fun InfoTile(title: String, badge: String, color: Color, body: String, m
                     Text(badge, fontSize = 9.sp, fontWeight = FontWeight.Bold, color = color)
                 }
             }
-            Text(body, fontSize = 11.sp, color = Color(0xFF6B7280))
+            Text(body, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }
@@ -560,10 +482,15 @@ private fun FeedRow(label: String, matched: Boolean) {
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))
-                .background(if (matched) Color(0xFFFEE2E2) else Color(0xFFF1F5F9))
+                .background(if (matched) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.surfaceVariant)
                 .padding(horizontal = 8.dp, vertical = 4.dp)
         ) {
-            Text(if (matched) "MATCH" else "NO MATCH", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = if (matched) Color(0xFFEF4444) else Color(0xFF6B7280))
+            Text(
+                if (matched) "MATCH" else "NO MATCH",
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                color = if (matched) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+            )
         }
     }
 }
@@ -582,13 +509,13 @@ private fun ActionRow(title: String, subtitle: String, icon: String, onClick: ()
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            MaterialIconRound(name = icon, size = 18.sp, color = Color(0xFF94A3B8))
+            MaterialIconRound(name = icon, size = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Column {
                 Text(title, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
                 Text(subtitle, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
-        MaterialIconRound(name = "arrow_forward", size = 14.sp, color = Color(0xFF94A3B8))
+        MaterialIconRound(name = "arrow_forward", size = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
@@ -597,7 +524,7 @@ private fun ToggleChip(label: String, selected: Boolean, onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))
-            .background(if (selected) Color.White else Color.Transparent)
+            .background(if (selected) MaterialTheme.colorScheme.surface else Color.Transparent)
             .clickable { onClick() }
             .focusable()
             .padding(horizontal = 10.dp, vertical = 4.dp)
@@ -606,7 +533,7 @@ private fun ToggleChip(label: String, selected: Boolean, onClick: () -> Unit) {
             label,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
-            color = if (selected) Color(0xFF111827) else Color(0xFF9CA3AF)
+            color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

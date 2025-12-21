@@ -19,18 +19,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.res.painterResource
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.TrainingInsightKind
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 
@@ -43,84 +43,9 @@ fun TrainingScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF8FAFC))
         ) {
-            TrainingSidebar(onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(currentScreen = AppScreen.Training, onNavigate = { viewModel.currentScreen = it })
             TrainingContent(viewModel = viewModel)
         }
-    }
-}
-
-@Composable
-private fun TrainingSidebar(onNavigate: (AppScreen) -> Unit) {
-    Column(
-        modifier = Modifier
-            .width(288.dp)
-            .fillMaxHeight()
-            .background(Color.White)
-            .border(1.dp, Color(0xFFE2E8F0))
-    ) {
-        Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                MaterialSymbol(name = "qr_code_scanner", size = 28.sp, color = Color(0xFF135BEC))
-                Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
-            }
-            Text("Offline-First Detection", fontSize = 12.sp, color = Color(0xFF94A3B8), modifier = Modifier.padding(start = 28.dp))
-        }
-
-        Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            TrainingNavLink("Dashboard", "dashboard", onNavigate, AppScreen.Dashboard)
-            TrainingNavLink("Scan", "center_focus_weak", onNavigate, AppScreen.LiveScan)
-            TrainingNavLink("History", "history", onNavigate, AppScreen.ScanHistory)
-            TrainingNavLink("Training", "school", onNavigate, AppScreen.Training, isActive = true)
-            TrainingNavLink("Settings", "settings", onNavigate, AppScreen.TrustCentreAlt)
-        }
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, Color(0xFFF1F5F9))
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(CircleShape)
-                    .background(Brush.linearGradient(listOf(Color(0xFF135BEC), Color(0xFF9333EA)))),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("JD", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.White)
-            }
-            Column {
-                Text("John Doe", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF0F172A))
-                Text("Security Analyst L2", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
-        }
-    }
-}
-
-@Composable
-private fun TrainingNavLink(label: String, icon: String, onNavigate: (AppScreen) -> Unit, target: AppScreen, isActive: Boolean = false) {
-    val bg = if (isActive) Color(0xFFDBEAFE) else Color.Transparent
-    val textColor = if (isActive) Color(0xFF135BEC) else Color(0xFF64748B)
-    val border = if (isActive) Color(0xFFBFDBFE) else Color.Transparent
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(bg)
-            .border(1.dp, border, RoundedCornerShape(12.dp))
-            .clickable { onNavigate(target) }
-            .focusable()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialSymbol(name = icon, size = 20.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = if (isActive) FontWeight.Bold else FontWeight.Medium, color = textColor)
     }
 }
 

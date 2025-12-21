@@ -29,6 +29,7 @@ import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.data.ScanHistoryManager
@@ -45,8 +46,8 @@ fun DashboardScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(tokens.colors.background)
         ) {
-            DashboardSidebar(
-                isDark = viewModel.isDarkMode,
+            AppSidebar(
+                currentScreen = viewModel.currentScreen,
                 onNavigate = { viewModel.currentScreen = it }
             )
             DashboardContent(
@@ -71,181 +72,6 @@ fun DashboardScreen(viewModel: AppViewModel) {
     }
 }
 
-@Composable
-private fun DashboardSidebar(
-    isDark: Boolean,
-    onNavigate: (AppScreen) -> Unit
-) {
-    val tokens = MaterialTheme.colorScheme
-    val bg = if (isDark) Color(0xFF1E293B) else Color(0xFFFFFFFF)
-    val border = if (isDark) Color(0xFF334155) else Color(0xFFE5E7EB)
-
-    Column(
-        modifier = Modifier
-            .width(256.dp)
-            .fillMaxHeight()
-            .background(bg)
-            .border(1.dp, border)
-    ) {
-        Row(
-            modifier = Modifier
-                .height(64.dp)
-                .fillMaxWidth()
-                .border(1.dp, border)
-                .padding(horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            MaterialIconRound(
-                name = "security",
-                size = 20.sp,
-                color = Color(0xFF2563EB)
-            )
-            Text(
-                text = "QR-SHIELD",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = if (isDark) Color.White else Color(0xFF0F172A)
-            )
-        }
-
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 12.dp, vertical = 24.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-            Text(
-                text = "OVERVIEW",
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color(0xFF94A3B8),
-                letterSpacing = 1.sp,
-                modifier = Modifier.padding(horizontal = 12.dp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            SidebarItem(
-                label = "Dashboard",
-                icon = "dashboard",
-                isActive = true,
-                onClick = { onNavigate(AppScreen.Dashboard) }
-            )
-            SidebarItem(
-                label = "Live Scanner",
-                icon = "qr_code_scanner",
-                onClick = { onNavigate(AppScreen.LiveScan) }
-            )
-            SidebarItem(
-                label = "Scan History",
-                icon = "history",
-                onClick = { onNavigate(AppScreen.ScanHistory) }
-            )
-
-            Spacer(modifier = Modifier.height(24.dp))
-            Text(
-                text = "SECURITY",
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color(0xFF94A3B8),
-                letterSpacing = 1.sp,
-                modifier = Modifier.padding(horizontal = 12.dp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            SidebarItem(label = "Allow List", icon = "verified_user", onClick = { onNavigate(AppScreen.TrustCentre) })
-            SidebarItem(label = "Heuristics Rules", icon = "policy", onClick = { onNavigate(AppScreen.TrustCentre) })
-            Spacer(modifier = Modifier.height(24.dp))
-
-            Surface(
-                shape = RoundedCornerShape(12.dp),
-                color = Color(0xFF0F172A)
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        MaterialIconRound(name = "wifi_off", size = 14.sp, color = Color(0xFF10B981))
-                        Text(
-                            text = "OFFLINE READY",
-                            color = Color.White,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 0.6.sp
-                        )
-                    }
-                    Text(
-                        text = "Local database v2.4.1 active. No data leaves this device.",
-                        color = Color.White.copy(alpha = 0.7f),
-                        fontSize = 12.sp,
-                        lineHeight = 16.sp
-                    )
-                }
-            }
-        }
-
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(1.dp, border)
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFF2563EB)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("JS", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 12.sp)
-            }
-            Column(modifier = Modifier.weight(1f)) {
-                Text("John Smith", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = if (isDark) Color.White else Color(0xFF0F172A))
-                Text("Security Analyst", fontSize = 12.sp, color = Color(0xFF94A3B8))
-            }
-            MaterialIconRound(name = "expand_more", size = 20.sp, color = Color(0xFF94A3B8))
-        }
-    }
-}
-
-@Composable
-private fun SidebarItem(
-    label: String,
-    icon: String,
-    isActive: Boolean = false,
-    onClick: () -> Unit
-) {
-    val activeBackground = Color(0xFFDBEAFE)
-    val activeText = Color(0xFF2563EB)
-    val inactiveText = Color(0xFF64748B)
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 2.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(if (isActive) activeBackground else Color.Transparent)
-            .clickable { onClick() }
-            .focusable()
-            .border(
-                width = if (isActive) 0.dp else 0.dp,
-                color = Color.Transparent,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(horizontal = 12.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialIconRound(name = icon, size = 18.sp, color = if (isActive) activeText else inactiveText)
-        Text(
-            text = label,
-            fontSize = 14.sp,
-            fontWeight = if (isActive) FontWeight.Medium else FontWeight.Normal,
-            color = if (isActive) activeText else inactiveText
-        )
-    }
-}
 
 @Composable
 private fun DashboardContent(

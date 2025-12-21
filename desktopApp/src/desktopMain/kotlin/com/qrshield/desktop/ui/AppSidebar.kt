@@ -1,0 +1,237 @@
+package com.qrshield.desktop.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.qrshield.desktop.SampleData
+import com.qrshield.desktop.navigation.AppScreen
+import com.qrshield.desktop.theme.LocalStitchTokens
+
+@Composable
+fun AppSidebar(
+    currentScreen: AppScreen,
+    onNavigate: (AppScreen) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val tokens = LocalStitchTokens.current
+    val colors = tokens.colors
+    val spacing = tokens.spacing
+    val radius = tokens.radius
+    val userProfile = SampleData.userProfile
+    val activeScreen = when (currentScreen) {
+        AppScreen.ResultSafe,
+        AppScreen.ResultSuspicious,
+        AppScreen.ResultDangerous,
+        AppScreen.ResultDangerousAlt -> AppScreen.LiveScan
+        else -> currentScreen
+    }
+
+    Column(
+        modifier = modifier
+            .width(256.dp)
+            .fillMaxHeight()
+            .background(colors.surface)
+            .border(1.dp, colors.border)
+    ) {
+        Row(
+            modifier = Modifier
+                .height(64.dp)
+                .fillMaxWidth()
+                .border(1.dp, colors.border)
+                .padding(horizontal = spacing.lg),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(spacing.sm)
+        ) {
+            MaterialIconRound(
+                name = "security",
+                size = 20.sp,
+                color = colors.primary
+            )
+            Text(
+                text = "QR-SHIELD",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = colors.textMain
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = spacing.md, vertical = spacing.xl),
+            verticalArrangement = Arrangement.spacedBy(spacing.xs)
+        ) {
+            SectionLabel("MAIN MENU", colors.textMuted)
+            SidebarItem(
+                label = "Dashboard",
+                icon = "dashboard",
+                active = activeScreen == AppScreen.Dashboard,
+                colors = colors,
+                radius = radius,
+                onClick = { onNavigate(AppScreen.Dashboard) }
+            )
+            SidebarItem(
+                label = "Scan Monitor",
+                icon = "qr_code_scanner",
+                active = activeScreen == AppScreen.LiveScan,
+                colors = colors,
+                radius = radius,
+                onClick = { onNavigate(AppScreen.LiveScan) }
+            )
+            SidebarItem(
+                label = "Scan History",
+                icon = "history",
+                active = activeScreen == AppScreen.ScanHistory,
+                colors = colors,
+                radius = radius,
+                onClick = { onNavigate(AppScreen.ScanHistory) }
+            )
+
+            Spacer(modifier = Modifier.height(spacing.lg))
+            SectionLabel("SECURITY", colors.textMuted)
+            SidebarItem(
+                label = "Trust Centre",
+                icon = "verified_user",
+                active = activeScreen == AppScreen.TrustCentre,
+                colors = colors,
+                radius = radius,
+                onClick = { onNavigate(AppScreen.TrustCentre) }
+            )
+            SidebarItem(
+                label = "Reports",
+                icon = "description",
+                active = activeScreen == AppScreen.ReportsExport,
+                colors = colors,
+                radius = radius,
+                onClick = { onNavigate(AppScreen.ReportsExport) }
+            )
+
+            Spacer(modifier = Modifier.height(spacing.lg))
+            SectionLabel("SYSTEM", colors.textMuted)
+            SidebarItem(
+                label = "Training",
+                icon = "school",
+                active = activeScreen == AppScreen.Training,
+                colors = colors,
+                radius = radius,
+                onClick = { onNavigate(AppScreen.Training) }
+            )
+            SidebarItem(
+                label = "Settings",
+                icon = "settings",
+                active = activeScreen == AppScreen.TrustCentreAlt,
+                colors = colors,
+                radius = radius,
+                onClick = { onNavigate(AppScreen.TrustCentreAlt) }
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .border(1.dp, colors.border)
+                .padding(spacing.md),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(spacing.sm)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(colors.primary),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = userProfile.initials,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+            }
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = userProfile.name,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = colors.textMain
+                )
+                Text(
+                    text = userProfile.role,
+                    fontSize = 12.sp,
+                    color = colors.textMuted
+                )
+            }
+            MaterialIconRound(name = "expand_more", size = 18.sp, color = colors.textMuted)
+        }
+    }
+}
+
+@Composable
+private fun SectionLabel(text: String, color: Color) {
+    Text(
+        text = text,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.SemiBold,
+        color = color,
+        letterSpacing = 1.sp,
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+    )
+}
+
+@Composable
+private fun SidebarItem(
+    label: String,
+    icon: String,
+    active: Boolean,
+    colors: com.qrshield.desktop.theme.ColorTokens,
+    radius: com.qrshield.desktop.theme.RadiusTokens,
+    onClick: () -> Unit
+) {
+    val bg = if (active) colors.primary.copy(alpha = 0.1f) else Color.Transparent
+    val border = if (active) colors.primary.copy(alpha = 0.2f) else Color.Transparent
+    val textColor = if (active) colors.primary else colors.textSub
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(radius.sm))
+            .background(bg)
+            .border(1.dp, border, RoundedCornerShape(radius.sm))
+            .clickable { onClick() }
+            .focusable()
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        MaterialIconRound(name = icon, size = 18.sp, color = textColor)
+        Text(
+            text = label,
+            fontSize = 14.sp,
+            fontWeight = if (active) FontWeight.SemiBold else FontWeight.Medium,
+            color = textColor
+        )
+    }
+}

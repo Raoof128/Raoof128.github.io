@@ -5,6 +5,17 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.1] - 2025-12-22
+
+### Desktop Application
+- Unified sidebar navigation across all Compose Desktop screens via `AppSidebar`.
+- Connected scan result actions to the Reports Export screen.
+- Standardized suspicious/dangerous result cards and empty states with theme tokens.
+- Removed per-screen sidebar duplicates to keep desktop navigation consistent.
+- Consolidated Trust Centre, Training, and Reports sidebars into the shared desktop navigation.
+
+---
+
 ## [1.16.0] - 2025-12-21
 
 ### 🔍 Android UI - Comprehensive Audit & Polish

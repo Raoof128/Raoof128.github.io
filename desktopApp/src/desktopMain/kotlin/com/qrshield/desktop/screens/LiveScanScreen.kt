@@ -39,6 +39,7 @@ import com.qrshield.desktop.MessageKind
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.model.ScanHistoryItem
@@ -53,101 +54,15 @@ fun LiveScanScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF9FAFB))
         ) {
-            LiveScanSidebar(onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(
+                currentScreen = viewModel.currentScreen,
+                onNavigate = { viewModel.currentScreen = it }
+            )
             LiveScanContent(
                 viewModel = viewModel,
                 onNavigate = { viewModel.currentScreen = it }
             )
         }
-    }
-}
-
-@Composable
-private fun LiveScanSidebar(onNavigate: (AppScreen) -> Unit) {
-    Column(
-        modifier = Modifier
-            .width(256.dp)
-            .fillMaxHeight()
-            .background(Color.White)
-            .border(1.dp, Color(0xFFE5E7EB))
-    ) {
-        Row(
-            modifier = Modifier
-                .height(64.dp)
-                .fillMaxWidth()
-                .border(1.dp, Color(0xFFE5E7EB))
-                .padding(horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            MaterialSymbol(name = "security", size = 28.sp, color = Color(0xFF2563EB))
-            Text("QR-SHIELD", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFF2563EB))
-        }
-
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text("MAIN MENU", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp, modifier = Modifier.padding(start = 12.dp, bottom = 12.dp, top = 8.dp))
-            SidebarLink(
-                label = "Scan Monitor",
-                icon = "qr_code_scanner",
-                isActive = true,
-                onClick = { onNavigate(AppScreen.LiveScan) }
-            )
-            SidebarLink(label = "Scan History", icon = "history", onClick = { onNavigate(AppScreen.ScanHistory) })
-            SidebarLink(label = "Safe List", icon = "verified_user", onClick = { onNavigate(AppScreen.TrustCentre) })
-
-            Text("SYSTEM", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp, modifier = Modifier.padding(start = 12.dp, top = 28.dp, bottom = 12.dp))
-            SidebarLink(label = "Settings", icon = "settings", onClick = { onNavigate(AppScreen.TrustCentreAlt) })
-            SidebarLink(label = "Support", icon = "help_outline", onClick = { onNavigate(AppScreen.Training) })
-        }
-
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(12.dp))
-                .background(Color(0xFFF9FAFB))
-                .padding(12.dp)
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(Color.White)
-                        .border(1.dp, Color(0xFFE5E7EB), CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("JS", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF2563EB))
-                }
-                Column(modifier = Modifier.weight(1f)) {
-                    Text("John Smith", fontWeight = FontWeight.SemiBold, fontSize = 14.sp, color = Color(0xFF111827), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Text("Enterprise Plan", fontSize = 12.sp, color = Color(0xFF6B7280), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                }
-                MaterialSymbol(name = "expand_more", size = 18.sp, color = Color(0xFF9CA3AF))
-            }
-        }
-    }
-}
-
-@Composable
-private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, onClick: () -> Unit) {
-    val background = if (isActive) Color(0xFF2563EB).copy(alpha = 0.05f) else Color.Transparent
-    val border = if (isActive) Color(0xFF2563EB).copy(alpha = 0.1f) else Color.Transparent
-    val textColor = if (isActive) Color(0xFF2563EB) else Color(0xFF6B7280)
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(background)
-            .border(1.dp, border, RoundedCornerShape(10.dp))
-            .clickable { onClick() }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialSymbol(name = icon, size = 20.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Medium, color = textColor)
     }
 }
 

@@ -24,9 +24,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
+import com.qrshield.desktop.SampleData
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 
 @Composable
@@ -38,7 +40,7 @@ fun ResultDangerousAltScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(if (viewModel.isDarkMode) Color(0xFF111827) else Color(0xFFF3F4F6))
         ) {
-            DangerousAltSidebar(isDark = viewModel.isDarkMode, onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(currentScreen = AppScreen.ResultDangerousAlt, onNavigate = { viewModel.currentScreen = it })
             DangerousAltContent(
                 viewModel = viewModel,
                 isDark = viewModel.isDarkMode,
@@ -49,82 +51,11 @@ fun ResultDangerousAltScreen(viewModel: AppViewModel) {
 }
 
 @Composable
-private fun DangerousAltSidebar(isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
-    val bg = if (isDark) Color(0xFF1F2937) else Color.White
-    val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
-    val text = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
-    val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
-
-    Column(
-        modifier = Modifier
-            .width(256.dp)
-            .fillMaxHeight()
-            .background(bg)
-            .border(1.dp, border)
-    ) {
-        Row(modifier = Modifier.padding(24.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Color(0xFF111827)),
-                contentAlignment = Alignment.Center
-            ) {
-                MaterialIconRound(name = "security", size = 18.sp, color = Color.White)
-            }
-            Column {
-                Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = text)
-                Text("Offline Protection", fontSize = 12.sp, color = textMuted)
-            }
-        }
-        Column(modifier = Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            AltItem("Dashboard", "dashboard", textMuted, onNavigate, AppScreen.Dashboard)
-            AltItem("Scan History", "history", textMuted, onNavigate, AppScreen.ScanHistory, isActive = true)
-            AltItem("Threat Database", "dns", textMuted, onNavigate, AppScreen.ReportsExport)
-            AltItem("Settings", "settings", textMuted, onNavigate, AppScreen.TrustCentreAlt)
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        Surface(
-            modifier = Modifier.padding(16.dp),
-            shape = RoundedCornerShape(12.dp),
-            color = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text("v2.4.1", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = text)
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp), modifier = Modifier.padding(top = 6.dp)) {
-                    Box(modifier = Modifier.size(6.dp).clip(CircleShape).background(Color(0xFF10B981)))
-                    Text("Online", fontSize = 11.sp, fontWeight = FontWeight.Medium, color = Color(0xFF10B981))
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun AltItem(label: String, icon: String, textMuted: Color, onNavigate: (AppScreen) -> Unit, target: AppScreen, isActive: Boolean = false) {
-    val bg = if (isActive) Color(0xFFFEE2E2) else Color.Transparent
-    val textColor = if (isActive) Color(0xFFEF4444) else textMuted
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(bg)
-            .clickable { onNavigate(target) }
-            .focusable()
-            .padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        MaterialIconRound(name = icon, size = 18.sp, color = textColor)
-        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textColor)
-    }
-}
-
-@Composable
 private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
     val assessment = viewModel.currentAssessment
     val url = viewModel.currentUrl
     val confidencePercent = ((assessment?.confidence ?: 0f) * 100).coerceIn(0f, 100f)
+    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: "LATEST"
     val bg = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
     val surface = if (isDark) Color(0xFF1F2937) else Color.White
     val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
@@ -132,6 +63,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
     val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
     val scanTimeLabel = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: "Unknown"
     val sourceLabel = url?.substringAfter("://")?.substringBefore("/")?.ifBlank { "Unknown" } ?: "Unknown"
+    val userProfile = SampleData.userProfile
 
     Column(
         modifier = Modifier
@@ -147,7 +79,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                 Text("/", fontSize = 12.sp, color = textMuted)
                 Text("Scans", fontSize = 12.sp, color = textMuted)
                 Text("/", fontSize = 12.sp, color = textMuted)
-                Text("Scan #8021-AF", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = textMain)
+                Text("Scan #SCAN-$scanId", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = textMain)
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
@@ -178,7 +110,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                         .background(Color(0xFF2563EB)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("AD", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
+                    Text(userProfile.initials, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
                 }
             }
         }
@@ -344,8 +276,8 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
 private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = Color.White,
-        border = BorderStroke(1.dp, Color(0xFFFECACA))
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
     ) {
         Column(
             modifier = Modifier
@@ -354,15 +286,15 @@ private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = Color(0xFF6B7280))
+            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text("Back to Scan", fontWeight = FontWeight.Medium, color = Color.White)
+                Text("Back to Scan", fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
             }
         }
     }
