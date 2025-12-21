@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -32,10 +31,14 @@ import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
+import com.qrshield.data.ScanHistoryManager
+import com.qrshield.model.ScanHistoryItem
+import com.qrshield.model.Verdict
 
 @Composable
 fun DashboardScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.dashboard(isDark = viewModel.isDarkMode)
+    val recentScans = viewModel.scanHistory.sortedByDescending { it.scannedAt }.take(2)
     StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
@@ -47,9 +50,22 @@ fun DashboardScreen(viewModel: AppViewModel) {
                 onNavigate = { viewModel.currentScreen = it }
             )
             DashboardContent(
-                onStartScan = { viewModel.currentScreen = AppScreen.LiveScan },
-                onImportImage = { viewModel.currentScreen = AppScreen.LiveScan },
-                onViewHistory = { viewModel.currentScreen = AppScreen.ScanHistory }
+                onStartScan = {
+                    viewModel.currentScreen = AppScreen.LiveScan
+                    viewModel.startCameraScan()
+                },
+                onImportImage = {
+                    viewModel.currentScreen = AppScreen.LiveScan
+                    viewModel.pickImageAndScan()
+                },
+                onViewHistory = { viewModel.currentScreen = AppScreen.ScanHistory },
+                onShowNotifications = { viewModel.showInfo("Notifications are not available yet.") },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onCheckUpdates = { viewModel.showInfo("Update checks are not available in offline mode.") },
+                stats = viewModel.historyStats,
+                recentScans = recentScans,
+                onSelectScan = { viewModel.selectHistoryItem(it) },
+                formatTimestamp = { viewModel.formatTimestamp(it) }
             )
         }
     }
@@ -211,6 +227,7 @@ private fun SidebarItem(
             .clip(RoundedCornerShape(8.dp))
             .background(if (isActive) activeBackground else Color.Transparent)
             .clickable { onClick() }
+            .focusable()
             .border(
                 width = if (isActive) 0.dp else 0.dp,
                 color = Color.Transparent,
@@ -234,7 +251,14 @@ private fun SidebarItem(
 private fun DashboardContent(
     onStartScan: () -> Unit,
     onImportImage: () -> Unit,
-    onViewHistory: () -> Unit
+    onViewHistory: () -> Unit,
+    onShowNotifications: () -> Unit,
+    onOpenSettings: () -> Unit,
+    onCheckUpdates: () -> Unit,
+    stats: ScanHistoryManager.HistoryStatistics,
+    recentScans: List<ScanHistoryItem>,
+    onSelectScan: (ScanHistoryItem) -> Unit,
+    formatTimestamp: (Long) -> String
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -278,7 +302,12 @@ private fun DashboardContent(
                         Text("Engine Active", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF10B981))
                     }
                 }
-                Box(modifier = Modifier.size(32.dp)) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clickable { onShowNotifications() }
+                        .focusable()
+                ) {
                     MaterialIconRound(name = "notifications", size = 20.sp, color = Color(0xFF94A3B8))
                     Box(
                         modifier = Modifier
@@ -290,7 +319,15 @@ private fun DashboardContent(
                             .border(2.dp, colors.surface, CircleShape)
                     )
                 }
-                MaterialIconRound(name = "settings", size = 20.sp, color = Color(0xFF94A3B8))
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clickable { onOpenSettings() }
+                        .focusable(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MaterialIconRound(name = "settings", size = 20.sp, color = Color(0xFF94A3B8))
+                }
             }
         }
 
@@ -395,8 +432,8 @@ private fun DashboardContent(
                                 HealthBar(label = "Threat Database", valueLabel = "Current", color = Color(0xFF10B981), progress = 0.98f)
                                 HealthBar(label = "Heuristic Engine", valueLabel = "Active", color = Color(0xFF2563EB), progress = 1f)
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                                    HealthMetric(label = "Threats", value = "0", modifier = Modifier.weight(1f))
-                                    HealthMetric(label = "Safe Scans", value = "124", modifier = Modifier.weight(1f))
+                                    HealthMetric(label = "Threats", value = stats.maliciousCount.toString(), modifier = Modifier.weight(1f))
+                                    HealthMetric(label = "Safe Scans", value = stats.safeCount.toString(), modifier = Modifier.weight(1f))
                                 }
                             }
                         }
@@ -462,22 +499,17 @@ private fun DashboardContent(
                         }
                         Column {
                             TableHeader()
-                            TableRowItem(
-                                status = "SAFE",
-                                statusColor = Color(0xFF10B981),
-                                statusBg = Color(0xFFD1FAE5),
-                                source = "github.com/login",
-                                details = "Valid TLS cert, Trusted Domain",
-                                time = "10:42 AM"
-                            )
-                            TableRowItem(
-                                status = "PHISHING",
-                                statusColor = Color(0xFFEF4444),
-                                statusBg = Color(0xFFFEE2E2),
-                                source = "secure-login-bank.com",
-                                details = "Homoglyph detected, Blocked",
-                                time = "09:15 AM"
-                            )
+                            if (recentScans.isEmpty()) {
+                                EmptyRecentRow()
+                            } else {
+                                recentScans.forEach { item ->
+                                    RecentScanRow(
+                                        item = item,
+                                        timeLabel = formatTimestamp(item.scannedAt),
+                                        onClick = onSelectScan
+                                    )
+                                }
+                            }
                         }
                     }
                 }
@@ -505,7 +537,7 @@ private fun DashboardContent(
                         KeyValueRow(label = "Last Update", value = "Today, 04:00 AM")
                         KeyValueRow(label = "Signatures", value = "4,281,092")
                         Button(
-                            onClick = {},
+                            onClick = onCheckUpdates,
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFFFFF)),
                             border = BorderStroke(1.dp, Color(0xFFE5E7EB)),
                             shape = RoundedCornerShape(8.dp),
@@ -613,17 +645,42 @@ private fun TableHeader() {
 }
 
 @Composable
-private fun TableRowItem(
-    status: String,
-    statusColor: Color,
-    statusBg: Color,
-    source: String,
-    details: String,
-    time: String
+private fun RecentScanRow(
+    item: ScanHistoryItem,
+    timeLabel: String,
+    onClick: (ScanHistoryItem) -> Unit
 ) {
+    val statusLabel = when (item.verdict) {
+        Verdict.SAFE -> "SAFE"
+        Verdict.SUSPICIOUS -> "SUSPICIOUS"
+        Verdict.MALICIOUS -> "PHISHING"
+        Verdict.UNKNOWN -> "UNKNOWN"
+    }
+    val statusColor = when (item.verdict) {
+        Verdict.SAFE -> Color(0xFF10B981)
+        Verdict.SUSPICIOUS -> Color(0xFFF59E0B)
+        Verdict.MALICIOUS -> Color(0xFFEF4444)
+        Verdict.UNKNOWN -> Color(0xFF94A3B8)
+    }
+    val statusBg = when (item.verdict) {
+        Verdict.SAFE -> Color(0xFFD1FAE5)
+        Verdict.SUSPICIOUS -> Color(0xFFFFFBEB)
+        Verdict.MALICIOUS -> Color(0xFFFEE2E2)
+        Verdict.UNKNOWN -> Color(0xFFF1F5F9)
+    }
+    val details = when (item.verdict) {
+        Verdict.SAFE -> "Trusted Domain"
+        Verdict.SUSPICIOUS -> "Heuristic Anomaly"
+        Verdict.MALICIOUS -> "Phishing Indicators"
+        Verdict.UNKNOWN -> "Unclassified"
+    }
+    val domain = item.url.removePrefix("https://").removePrefix("http://").substringBefore("/")
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick(item) }
+            .focusable()
             .padding(vertical = 12.dp, horizontal = 24.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -650,12 +707,24 @@ private fun TableRowItem(
                     .background(Color(0xFFE2E8F0)),
                 contentAlignment = Alignment.Center
             ) {
-                Text(source.take(2).uppercase(), fontSize = 8.sp, color = Color(0xFF94A3B8))
+                Text(domain.take(2).uppercase(), fontSize = 8.sp, color = Color(0xFF94A3B8))
             }
-            Text(source, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827), maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827), maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
         Text(details, fontSize = 13.sp, color = Color(0xFF6B7280), modifier = Modifier.weight(1f))
-        Text(time, fontSize = 12.sp, color = Color(0xFF94A3B8), modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+        Text(timeLabel, fontSize = 12.sp, color = Color(0xFF94A3B8), modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+    }
+}
+
+@Composable
+private fun EmptyRecentRow() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 16.dp, horizontal = 24.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("No recent scans yet.", fontSize = 13.sp, color = Color(0xFF94A3B8))
     }
 }
 

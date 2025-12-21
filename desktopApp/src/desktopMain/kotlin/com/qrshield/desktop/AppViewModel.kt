@@ -28,6 +28,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.awt.FileDialog
+import java.awt.Frame
 import java.io.File
 import java.io.IOException
 
@@ -46,6 +48,40 @@ data class TrustCentreToggles(
 data class StatusMessage(val text: String, val kind: MessageKind)
 
 enum class MessageKind { Info, Success, Error }
+
+data class TrainingInsight(
+    val icon: String,
+    val title: String,
+    val body: String,
+    val kind: TrainingInsightKind
+)
+
+enum class TrainingInsightKind { Warning, Suspicious, Psychology }
+
+data class TrainingScenario(
+    val payload: String,
+    val contextTitle: String,
+    val contextBody: String,
+    val expectedVerdict: Verdict,
+    val aiConfidence: Float,
+    val insights: List<TrainingInsight>
+)
+
+data class TrainingState(
+    val module: Int,
+    val round: Int,
+    val totalRounds: Int,
+    val score: Int,
+    val streak: Int,
+    val correct: Int,
+    val attempts: Int,
+    val remainingSeconds: Int
+) {
+    val accuracy: Float
+        get() = if (attempts == 0) 0f else correct.toFloat() / attempts.toFloat()
+    val progress: Float
+        get() = if (totalRounds == 0) 0f else round.toFloat() / totalRounds.toFloat()
+}
 
 sealed class DesktopScanState {
     data object Idle : DesktopScanState()
@@ -77,6 +113,7 @@ class AppViewModel(
 
     var scanState by mutableStateOf<DesktopScanState>(DesktopScanState.Idle)
     var statusMessage by mutableStateOf<StatusMessage?>(null)
+    var lastAnalysisDurationMs by mutableStateOf<Long?>(null)
 
     var currentAssessment by mutableStateOf<RiskAssessment?>(null)
     var currentUrl by mutableStateOf<String?>(null)
@@ -109,6 +146,22 @@ class AppViewModel(
     var exportIncludeMetadata by mutableStateOf(true)
     var exportIncludeRawPayload by mutableStateOf(false)
     var exportIncludeDebugLogs by mutableStateOf(false)
+
+    var trainingState by mutableStateOf(
+        TrainingState(
+            module = 3,
+            round = 3,
+            totalRounds = 10,
+            score = 1250,
+            streak = 5,
+            correct = 23,
+            attempts = 25,
+            remainingSeconds = 12 * 60 + 5
+        )
+    )
+    private var trainingScenarioIndex by mutableStateOf(0)
+    val currentTrainingScenario: TrainingScenario
+        get() = trainingScenarios[trainingScenarioIndex]
 
     init {
         applySettings(settingsStore.load())
@@ -144,11 +197,13 @@ class AppViewModel(
             return
         }
         scanState = DesktopScanState.Analyzing(sanitizedUrl)
+        val startedAt = PlatformTime.currentTimeMillis()
 
         scope.launch {
             try {
                 val assessment = phishingEngine.analyze(sanitizedUrl)
-                updateResult(sanitizedUrl, assessment, source, recordHistory)
+                val duration = PlatformTime.currentTimeMillis() - startedAt
+                updateResult(sanitizedUrl, assessment, source, recordHistory, duration)
             } catch (e: Exception) {
                 setError(e.message ?: "Analysis failed")
             }
@@ -177,6 +232,18 @@ class AppViewModel(
                 setError("Failed to read image file")
             }
         }
+    }
+
+    fun pickImageAndScan() {
+        val dialog = FileDialog(null as Frame?, "Select QR Image", FileDialog.LOAD)
+        dialog.isVisible = true
+        val selected = dialog.file
+        val directory = dialog.directory
+        if (selected.isNullOrBlank() || directory.isNullOrBlank()) {
+            setMessage("No file selected", MessageKind.Info)
+            return
+        }
+        scanImageFile(File(directory, selected))
     }
 
     private fun handleScanResult(result: com.qrshield.model.ScanResult, source: ScanSource) {
@@ -373,6 +440,37 @@ class AppViewModel(
         statusMessage = null
     }
 
+    fun showInfo(message: String) {
+        setMessage(message, MessageKind.Info)
+    }
+
+    fun submitTrainingVerdict(isPhishing: Boolean) {
+        val expectedPhishing = isPhishingVerdict(currentTrainingScenario.expectedVerdict)
+        val nextAttempts = trainingState.attempts + 1
+        val isCorrect = expectedPhishing == isPhishing
+        val nextScore = if (isCorrect) trainingState.score + 50 else (trainingState.score - 25).coerceAtLeast(0)
+        val nextStreak = if (isCorrect) trainingState.streak + 1 else 0
+        val nextCorrect = if (isCorrect) trainingState.correct + 1 else trainingState.correct
+
+        trainingState = trainingState.copy(
+            score = nextScore,
+            streak = nextStreak,
+            correct = nextCorrect,
+            attempts = nextAttempts
+        )
+        setMessage(if (isCorrect) "Correct answer" else "Incorrect answer", if (isCorrect) MessageKind.Success else MessageKind.Error)
+        advanceTrainingRound()
+    }
+
+    fun skipTrainingRound() {
+        setMessage("Round skipped", MessageKind.Info)
+        advanceTrainingRound()
+    }
+
+    fun nextTrainingRound() {
+        advanceTrainingRound()
+    }
+
     fun dispose() {
         scope.cancel("AppViewModel disposed")
     }
@@ -405,17 +503,38 @@ class AppViewModel(
 
     fun formatTimestamp(millis: Long): String = PlatformTime.formatTimestamp(millis)
 
+    fun sanitizedUrl(url: String): String {
+        return try {
+            val uri = java.net.URI(url)
+            val sanitized = java.net.URI(uri.scheme, uri.authority, uri.path, null, null)
+            sanitized.toString().ifBlank { url }
+        } catch (e: Exception) {
+            url
+        }
+    }
+
+    fun hostFromUrl(url: String): String? {
+        return try {
+            val uri = java.net.URI(url)
+            uri.host ?: url.substringAfter("://").substringBefore("/")
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     private fun updateResult(
         url: String,
         assessment: RiskAssessment,
         source: ScanSource,
-        recordHistory: Boolean
+        recordHistory: Boolean,
+        durationMs: Long
     ) {
         currentUrl = url
         currentAssessment = assessment
         currentVerdict = assessment.verdict
         currentVerdictDetails = verdictEngine.enrich(assessment)
         lastAnalyzedAt = PlatformTime.currentTimeMillis()
+        lastAnalysisDurationMs = durationMs
         scanState = DesktopScanState.Result(url, assessment)
 
         if (recordHistory) {
@@ -532,4 +651,86 @@ class AppViewModel(
         val downloads = File(home, "Downloads")
         return if (downloads.exists()) downloads else File(home)
     }
+
+    private fun isPhishingVerdict(verdict: Verdict): Boolean {
+        return verdict == Verdict.MALICIOUS || verdict == Verdict.SUSPICIOUS
+    }
+
+    private fun advanceTrainingRound() {
+        val nextRound = if (trainingState.round >= trainingState.totalRounds) 1 else trainingState.round + 1
+        trainingScenarioIndex = (trainingScenarioIndex + 1) % trainingScenarios.size
+        trainingState = trainingState.copy(round = nextRound)
+    }
+
+    private val trainingScenarios = listOf(
+        TrainingScenario(
+            payload = "https://secure-login.micros0ft-support.com/auth?client_id=19283",
+            contextTitle = "Physical Flyer",
+            contextBody = "Found this on a table at Starbeans Coffee. It offered a free coffee coupon if I logged in.",
+            expectedVerdict = Verdict.MALICIOUS,
+            aiConfidence = 0.998f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "warning",
+                    title = "Typosquatting Detected",
+                    body = "The domain micros0ft-support.com uses a zero '0' instead of the letter 'o'.",
+                    kind = TrainingInsightKind.Warning
+                ),
+                TrainingInsight(
+                    icon = "public_off",
+                    title = "Suspicious TLD",
+                    body = "While .com is standard, the hyphenated structure with \"support\" is common in phishing.",
+                    kind = TrainingInsightKind.Suspicious
+                ),
+                TrainingInsight(
+                    icon = "psychology",
+                    title = "Social Engineering",
+                    body = "The \"free coupon\" promise creates urgency and incentive.",
+                    kind = TrainingInsightKind.Psychology
+                )
+            )
+        ),
+        TrainingScenario(
+            payload = "https://accounts.google.com/o/oauth2/v2/auth",
+            contextTitle = "Support Email",
+            contextBody = "Corporate IT sent a reset notice using the official Google auth domain.",
+            expectedVerdict = Verdict.SAFE,
+            aiConfidence = 0.95f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "verified_user",
+                    title = "Verified Domain",
+                    body = "OAuth endpoint uses a trusted, well-known domain.",
+                    kind = TrainingInsightKind.Psychology
+                ),
+                TrainingInsight(
+                    icon = "lock",
+                    title = "TLS Enabled",
+                    body = "HTTPS with valid certificate detected.",
+                    kind = TrainingInsightKind.Suspicious
+                )
+            )
+        ),
+        TrainingScenario(
+            payload = "https://bit.ly/3x89s",
+            contextTitle = "Chat Message",
+            contextBody = "A shortened link shared in a group chat without context.",
+            expectedVerdict = Verdict.SUSPICIOUS,
+            aiConfidence = 0.83f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "link",
+                    title = "Shortened URL",
+                    body = "URL shorteners hide the true destination.",
+                    kind = TrainingInsightKind.Warning
+                ),
+                TrainingInsight(
+                    icon = "visibility_off",
+                    title = "Low Context",
+                    body = "No source attribution or description provided.",
+                    kind = TrainingInsightKind.Suspicious
+                )
+            )
+        )
+    )
 }

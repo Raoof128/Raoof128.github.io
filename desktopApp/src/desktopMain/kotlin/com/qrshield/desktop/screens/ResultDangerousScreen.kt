@@ -2,7 +2,6 @@ package com.qrshield.desktop.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -10,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +22,6 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
@@ -44,7 +43,10 @@ fun ResultDangerousScreen(viewModel: AppViewModel) {
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
                 DangerousSidebar(isDark = viewModel.isDarkMode, onNavigate = { viewModel.currentScreen = it })
-                DangerousContent(viewModel = viewModel)
+                DangerousContent(
+                    viewModel = viewModel,
+                    onNavigate = { viewModel.currentScreen = it }
+                )
             }
         }
     }
@@ -79,7 +81,7 @@ private fun DangerousSidebar(isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
         Column(modifier = Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Text("MAIN MENU", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp, bottom = 6.dp))
             SideLink("Dashboard", "dashboard", textMuted, onNavigate, AppScreen.Dashboard)
-            SideLink("Scan Monitor", "qr_code_scanner", textMuted, onNavigate, AppScreen.ResultDangerous, isActive = true)
+            SideLink("Scan Monitor", "qr_code_scanner", textMuted, onNavigate, AppScreen.LiveScan, isActive = true)
             SideLink("Scan History", "history", textMuted, onNavigate, AppScreen.ScanHistory)
             Spacer(Modifier.height(16.dp))
             Text("SECURITY", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(start = 8.dp, bottom = 6.dp))
@@ -125,6 +127,7 @@ private fun SideLink(label: String, icon: String, textMuted: Color, onNavigate: 
             .clip(RoundedCornerShape(8.dp))
             .background(bg)
             .clickable { onNavigate(target) }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -135,7 +138,12 @@ private fun SideLink(label: String, icon: String, textMuted: Color, onNavigate: 
 }
 
 @Composable
-private fun DangerousContent(viewModel: AppViewModel) {
+private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+    val assessment = viewModel.currentAssessment
+    val url = viewModel.currentUrl
+    val verdictDetails = viewModel.currentVerdictDetails
+    val confidencePercent = ((assessment?.confidence ?: 0f) * 100).coerceIn(0f, 100f)
+    val durationLabel = viewModel.lastAnalysisDurationMs?.let { "${it}ms" } ?: "--"
     val isDark = viewModel.isDarkMode
     val background = if (isDark) Color(0xFF0F1115) else Color(0xFFF3F4F6)
     val surface = if (isDark) Color(0xFF181B21) else Color.White
@@ -185,7 +193,12 @@ private fun DangerousContent(viewModel: AppViewModel) {
                         Text("Engine Active v2.4.4", fontSize = 11.sp, color = textMuted)
                     }
                 }
-                Box(modifier = Modifier.size(32.dp)) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .focusable()
+                ) {
                     MaterialIconRound(name = "notifications", size = 18.sp, color = textMuted)
                     Box(
                         modifier = Modifier
@@ -198,6 +211,11 @@ private fun DangerousContent(viewModel: AppViewModel) {
                     )
                 }
             }
+        }
+
+        if (assessment == null || url.isNullOrBlank()) {
+            EmptyResultState(onNavigate = onNavigate)
+            return@Column
         }
 
         Surface(
@@ -234,11 +252,16 @@ private fun DangerousContent(viewModel: AppViewModel) {
                                 Text("DANGEROUS", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFDC2626))
                             }
                         }
-                        Text("The scanned QR code redirects to a known phishing vector. Heuristic analysis confirms malicious intent with 99.8% confidence.", fontSize = 12.sp, color = textMuted)
+                        Text(
+                            verdictDetails?.summary
+                                ?: assessment.actionRecommendation,
+                            fontSize = 12.sp,
+                            color = textMuted
+                        )
                         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(top = 8.dp)) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 MaterialIconRound(name = "timer", size = 14.sp, color = Color(0xFFDC2626))
-                                Text("2ms latency", fontSize = 12.sp, color = Color(0xFFDC2626))
+                                Text("$durationLabel latency", fontSize = 12.sp, color = Color(0xFFDC2626))
                             }
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 MaterialIconRound(name = "cloud_off", size = 14.sp, color = textMuted)
@@ -249,7 +272,7 @@ private fun DangerousContent(viewModel: AppViewModel) {
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(
-                        onClick = {},
+                        onClick = { viewModel.shareTextReport() },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         border = BorderStroke(1.dp, Color(0xFFFECACA)),
                         shape = RoundedCornerShape(8.dp)
@@ -259,7 +282,7 @@ private fun DangerousContent(viewModel: AppViewModel) {
                         Text("Report", fontSize = 13.sp, color = Color(0xFFDC2626))
                     }
                     Button(
-                        onClick = {},
+                        onClick = { viewModel.addBlocklistDomain(viewModel.hostFromUrl(url) ?: url) },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDC2626)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
@@ -316,11 +339,16 @@ private fun DangerousContent(viewModel: AppViewModel) {
                                     .border(1.dp, border)
                                     .padding(12.dp)
                             ) {
-                                Text("https://secure-login-bank-x.com/auth/v2?redirect=...", fontSize = 12.sp, color = Color(0xFFDC2626))
+                                Text(url, fontSize = 12.sp, color = Color(0xFFDC2626))
                             }
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 MaterialIconRound(name = "warning", size = 14.sp, color = Color(0xFFDC2626))
-                                Text("Warning: Homograph attack detected (Cyrillic 'a' used in 'bank').", fontSize = 12.sp, color = Color(0xFFDC2626))
+                                Text(
+                                    verdictDetails?.riskFactorExplanations?.firstOrNull()
+                                        ?: "Warning: Multiple phishing indicators detected.",
+                                    fontSize = 12.sp,
+                                    color = Color(0xFFDC2626)
+                                )
                             }
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                                 InfoTile("IDN Homograph", "DETECTED", Color(0xFFDC2626), "Mixed script characters detected in domain name intended to spoof legitimate brands.", modifier = Modifier.weight(1f))
@@ -388,12 +416,17 @@ private fun DangerousContent(viewModel: AppViewModel) {
                     Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text("Threat Score", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
                         Box(modifier = Modifier.size(128.dp), contentAlignment = Alignment.Center) {
-                            Text("99", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = textMain)
-                            Text("CRITICAL", fontSize = 10.sp, color = textMuted, modifier = Modifier.align(Alignment.BottomCenter))
+                            Text(assessment.score.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold, color = textMain)
+                            Text(
+                                assessment.scoreDescription.uppercase(),
+                                fontSize = 10.sp,
+                                color = textMuted,
+                                modifier = Modifier.align(Alignment.BottomCenter)
+                            )
                         }
                         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                             Text("AI Confidence", fontSize = 12.sp, color = textMuted)
-                            Text("99.8%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = textMain)
+                            Text("${confidencePercent.toInt()}%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = textMain)
                         }
                         Box(
                             modifier = Modifier
@@ -405,7 +438,7 @@ private fun DangerousContent(viewModel: AppViewModel) {
                             Box(
                                 modifier = Modifier
                                     .fillMaxHeight()
-                                    .fillMaxWidth(0.998f)
+                                    .fillMaxWidth(confidencePercent / 100f)
                                     .clip(RoundedCornerShape(999.dp))
                                     .background(Color(0xFFEF4444))
                             )
@@ -435,10 +468,48 @@ private fun DangerousContent(viewModel: AppViewModel) {
 
                 Surface(shape = RoundedCornerShape(12.dp), color = surface, border = BorderStroke(1.dp, border)) {
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        ActionRow("Share Analysis", "Export PDF report", "share")
-                        ActionRow("View Raw Data", "Inspect JSON payload", "code")
+                        ActionRow(
+                            "Share Analysis",
+                            "Export PDF report",
+                            "share",
+                            onClick = { viewModel.shareTextReport() }
+                        )
+                        ActionRow(
+                            "View Raw Data",
+                            "Inspect JSON payload",
+                            "code",
+                            onClick = { viewModel.copyJsonReport() }
+                        )
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFFECACA))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(32.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = Color(0xFF6B7280))
+            Button(
+                onClick = { onNavigate(AppScreen.LiveScan) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDC2626)),
+                shape = RoundedCornerShape(8.dp),
+                contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
+            ) {
+                Text("Back to Scan", fontWeight = FontWeight.Medium, color = Color.White)
             }
         }
     }
@@ -498,12 +569,14 @@ private fun FeedRow(label: String, matched: Boolean) {
 }
 
 @Composable
-private fun ActionRow(title: String, subtitle: String, icon: String) {
+private fun ActionRow(title: String, subtitle: String, icon: String, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(Color.Transparent)
+            .clickable { onClick() }
+            .focusable()
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -526,6 +599,7 @@ private fun ToggleChip(label: String, selected: Boolean, onClick: () -> Unit) {
             .clip(RoundedCornerShape(6.dp))
             .background(if (selected) Color.White else Color.Transparent)
             .clickable { onClick() }
+            .focusable()
             .padding(horizontal = 10.dp, vertical = 4.dp)
     ) {
         Text(

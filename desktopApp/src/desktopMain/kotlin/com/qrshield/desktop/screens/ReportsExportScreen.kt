@@ -10,9 +10,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,8 +26,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
@@ -123,6 +124,7 @@ private fun SidebarLink(label: String, icon: String, onNavigate: (AppScreen) -> 
             .background(bg)
             .border(1.dp, border, RoundedCornerShape(8.dp))
             .clickable { onNavigate(target) }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -134,6 +136,8 @@ private fun SidebarLink(label: String, icon: String, onNavigate: (AppScreen) -> 
 
 @Composable
 private fun ReportsContent(viewModel: AppViewModel) {
+    val extensionLabel = if (viewModel.exportFormat == ExportFormat.Pdf) ".pdf" else ".json"
+    val statusMessage = viewModel.statusMessage
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -168,7 +172,13 @@ private fun ReportsContent(viewModel: AppViewModel) {
                     color = Color.White,
                     border = BorderStroke(1.dp, Color(0xFFE2E8F0))
                 ) {
-                    Row(modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .clickable { viewModel.showInfo("Recent exports are not available yet.") }
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
                         MaterialSymbol(name = "history", size = 16.sp, color = Color(0xFF64748B))
                         Text("Recent Exports", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A))
                     }
@@ -197,8 +207,20 @@ private fun ReportsContent(viewModel: AppViewModel) {
                         .border(1.dp, Color(0xFFE2E8F0))
                         .padding(4.dp)
                 ) {
-                    FormatOption(label = "Human PDF", icon = "picture_as_pdf", selected = viewModel.exportFormat == ExportFormat.Pdf, modifier = Modifier.weight(1f))
-                    FormatOption(label = "JSON Object", icon = "data_object", selected = viewModel.exportFormat == ExportFormat.Json, modifier = Modifier.weight(1f))
+                    FormatOption(
+                        label = "Human PDF",
+                        icon = "picture_as_pdf",
+                        selected = viewModel.exportFormat == ExportFormat.Pdf,
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.exportFormat = ExportFormat.Pdf }
+                    )
+                    FormatOption(
+                        label = "JSON Object",
+                        icon = "data_object",
+                        selected = viewModel.exportFormat == ExportFormat.Json,
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.exportFormat = ExportFormat.Json }
+                    )
                 }
 
                 Text("FILE SETTINGS", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
@@ -214,8 +236,22 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             .padding(horizontal = 12.dp),
                         contentAlignment = Alignment.CenterStart
                     ) {
-                        Text(viewModel.exportFilename, fontSize = 14.sp, color = Color(0xFF0F172A))
-                        Text(".pdf", fontSize = 14.sp, color = Color(0xFF64748B), modifier = Modifier.align(Alignment.CenterEnd))
+                        BasicTextField(
+                            value = viewModel.exportFilename,
+                            onValueChange = { viewModel.exportFilename = it },
+                            singleLine = true,
+                            textStyle = TextStyle(fontSize = 14.sp, color = Color(0xFF0F172A)),
+                            modifier = Modifier.fillMaxWidth(),
+                            decorationBox = { innerTextField ->
+                                Box(modifier = Modifier.fillMaxWidth()) {
+                                    if (viewModel.exportFilename.isBlank()) {
+                                        Text("scan_report", fontSize = 14.sp, color = Color(0xFF94A3B8))
+                                    }
+                                    innerTextField()
+                                }
+                            }
+                        )
+                        Text(extensionLabel, fontSize = 14.sp, color = Color(0xFF64748B), modifier = Modifier.align(Alignment.CenterEnd))
                     }
                 }
 
@@ -227,14 +263,35 @@ private fun ReportsContent(viewModel: AppViewModel) {
                         .background(Color.White)
                         .border(1.dp, Color(0xFFE2E8F0))
                 ) {
-                    InclusionRow("Threat Verdict Analysis", "Explainable AI breakdown of risk factors", viewModel.exportIncludeVerdict)
-                    InclusionRow("Metadata & Geo-Location", "IP origin, timestamps, and server info", viewModel.exportIncludeMetadata)
-                    InclusionRow("Raw Payload", "Decoded base64/hex content strings", viewModel.exportIncludeRawPayload)
-                    InclusionRow("Engine Debug Logs", "Verbose output for technical auditing", viewModel.exportIncludeDebugLogs, isLast = true)
+                    InclusionRow(
+                        "Threat Verdict Analysis",
+                        "Explainable AI breakdown of risk factors",
+                        viewModel.exportIncludeVerdict,
+                        onToggle = { viewModel.exportIncludeVerdict = !viewModel.exportIncludeVerdict }
+                    )
+                    InclusionRow(
+                        "Metadata & Geo-Location",
+                        "IP origin, timestamps, and server info",
+                        viewModel.exportIncludeMetadata,
+                        onToggle = { viewModel.exportIncludeMetadata = !viewModel.exportIncludeMetadata }
+                    )
+                    InclusionRow(
+                        "Raw Payload",
+                        "Decoded base64/hex content strings",
+                        viewModel.exportIncludeRawPayload,
+                        onToggle = { viewModel.exportIncludeRawPayload = !viewModel.exportIncludeRawPayload }
+                    )
+                    InclusionRow(
+                        "Engine Debug Logs",
+                        "Verbose output for technical auditing",
+                        viewModel.exportIncludeDebugLogs,
+                        isLast = true,
+                        onToggle = { viewModel.exportIncludeDebugLogs = !viewModel.exportIncludeDebugLogs }
+                    )
                 }
 
                 Button(
-                    onClick = {},
+                    onClick = { viewModel.exportReport() },
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF135BEC)),
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier.fillMaxWidth(),
@@ -245,8 +302,25 @@ private fun ReportsContent(viewModel: AppViewModel) {
                     Text("Export Download", fontWeight = FontWeight.SemiBold)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    ActionButton(label = "Copy", icon = "content_copy", modifier = Modifier.weight(1f))
-                    ActionButton(label = "Share", icon = "share", modifier = Modifier.weight(1f))
+                    ActionButton(
+                        label = "Copy",
+                        icon = "content_copy",
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.copyJsonReport() }
+                    )
+                    ActionButton(
+                        label = "Share",
+                        icon = "share",
+                        modifier = Modifier.weight(1f),
+                        onClick = { viewModel.shareTextReport() }
+                    )
+                }
+                if (statusMessage != null) {
+                    Text(
+                        statusMessage.text,
+                        fontSize = 12.sp,
+                        color = if (statusMessage.kind == com.qrshield.desktop.MessageKind.Error) Color(0xFFDC2626) else Color(0xFF64748B)
+                    )
                 }
             }
 
@@ -271,9 +345,25 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             Text("Live Preview", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
                         }
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            MaterialSymbol(name = "zoom_out", size = 16.sp, color = Color(0xFF64748B))
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clickable { viewModel.showInfo("Preview zoom is not available yet.") }
+                                    .focusable(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                MaterialSymbol(name = "zoom_out", size = 16.sp, color = Color(0xFF64748B))
+                            }
                             Text("100%", fontSize = 12.sp, color = Color(0xFF64748B))
-                            MaterialSymbol(name = "zoom_in", size = 16.sp, color = Color(0xFF64748B))
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .clickable { viewModel.showInfo("Preview zoom is not available yet.") }
+                                    .focusable(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                MaterialSymbol(name = "zoom_in", size = 16.sp, color = Color(0xFF64748B))
+                            }
                         }
                     }
                     Box(
@@ -409,7 +499,13 @@ private fun ReportsContent(viewModel: AppViewModel) {
 }
 
 @Composable
-private fun FormatOption(label: String, icon: String, selected: Boolean, modifier: Modifier = Modifier) {
+private fun FormatOption(
+    label: String,
+    icon: String,
+    selected: Boolean,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
     val bg = if (selected) Color.White else Color.Transparent
     val text = if (selected) Color(0xFF135BEC) else Color(0xFF64748B)
 
@@ -417,6 +513,8 @@ private fun FormatOption(label: String, icon: String, selected: Boolean, modifie
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))
             .background(bg)
+            .clickable { onClick() }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -427,11 +525,19 @@ private fun FormatOption(label: String, icon: String, selected: Boolean, modifie
 }
 
 @Composable
-private fun InclusionRow(title: String, subtitle: String, checked: Boolean, isLast: Boolean = false) {
+private fun InclusionRow(
+    title: String,
+    subtitle: String,
+    checked: Boolean,
+    isLast: Boolean = false,
+    onToggle: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .border(1.dp, if (isLast) Color.Transparent else Color(0xFFE2E8F0))
+            .clickable { onToggle() }
+            .focusable()
             .padding(16.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -456,7 +562,7 @@ private fun InclusionRow(title: String, subtitle: String, checked: Boolean, isLa
 }
 
 @Composable
-private fun ActionButton(label: String, icon: String, modifier: Modifier = Modifier) {
+private fun ActionButton(label: String, icon: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
@@ -464,7 +570,10 @@ private fun ActionButton(label: String, icon: String, modifier: Modifier = Modif
         border = BorderStroke(1.dp, Color(0xFFE2E8F0))
     ) {
         Row(
-            modifier = Modifier.padding(vertical = 10.dp),
+            modifier = Modifier
+                .clickable { onClick() }
+                .focusable()
+                .padding(vertical = 10.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {

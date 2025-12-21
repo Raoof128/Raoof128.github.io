@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -20,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
@@ -39,7 +39,11 @@ fun ResultDangerousAltScreen(viewModel: AppViewModel) {
                 .background(if (viewModel.isDarkMode) Color(0xFF111827) else Color(0xFFF3F4F6))
         ) {
             DangerousAltSidebar(isDark = viewModel.isDarkMode, onNavigate = { viewModel.currentScreen = it })
-            DangerousAltContent(isDark = viewModel.isDarkMode)
+            DangerousAltContent(
+                viewModel = viewModel,
+                isDark = viewModel.isDarkMode,
+                onNavigate = { viewModel.currentScreen = it }
+            )
         }
     }
 }
@@ -75,7 +79,7 @@ private fun DangerousAltSidebar(isDark: Boolean, onNavigate: (AppScreen) -> Unit
         }
         Column(modifier = Modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             AltItem("Dashboard", "dashboard", textMuted, onNavigate, AppScreen.Dashboard)
-            AltItem("Scan History", "history", textMuted, onNavigate, AppScreen.ResultDangerousAlt, isActive = true)
+            AltItem("Scan History", "history", textMuted, onNavigate, AppScreen.ScanHistory, isActive = true)
             AltItem("Threat Database", "dns", textMuted, onNavigate, AppScreen.ReportsExport)
             AltItem("Settings", "settings", textMuted, onNavigate, AppScreen.TrustCentreAlt)
         }
@@ -106,6 +110,7 @@ private fun AltItem(label: String, icon: String, textMuted: Color, onNavigate: (
             .clip(RoundedCornerShape(8.dp))
             .background(bg)
             .clickable { onNavigate(target) }
+            .focusable()
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -116,12 +121,17 @@ private fun AltItem(label: String, icon: String, textMuted: Color, onNavigate: (
 }
 
 @Composable
-private fun DangerousAltContent(isDark: Boolean) {
+private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
+    val assessment = viewModel.currentAssessment
+    val url = viewModel.currentUrl
+    val confidencePercent = ((assessment?.confidence ?: 0f) * 100).coerceIn(0f, 100f)
     val bg = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
     val surface = if (isDark) Color(0xFF1F2937) else Color.White
     val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
     val textMain = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
     val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
+    val scanTimeLabel = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: "Unknown"
+    val sourceLabel = url.substringAfter("://").substringBefore("/").ifBlank { "Unknown" }
 
     Column(
         modifier = Modifier
@@ -152,7 +162,15 @@ private fun DangerousAltContent(isDark: Boolean) {
                         Text("Engine Active (Offline)", fontSize = 11.sp, color = textMuted)
                     }
                 }
-                MaterialIconRound(name = "notifications", size = 18.sp, color = textMuted)
+                Box(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .focusable(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MaterialIconRound(name = "notifications", size = 18.sp, color = textMuted)
+                }
                 Box(
                     modifier = Modifier
                         .size(32.dp)
@@ -163,6 +181,11 @@ private fun DangerousAltContent(isDark: Boolean) {
                     Text("AD", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
                 }
             }
+        }
+
+        if (assessment == null || url.isNullOrBlank()) {
+            EmptyAltResultState(onNavigate = onNavigate)
+            return@Column
         }
 
         Surface(
@@ -194,12 +217,12 @@ private fun DangerousAltContent(isDark: Boolean) {
                                     Text("DANGEROUS", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color.White)
                                 }
                             }
-                            Text("The scanned QR code contains malicious indicators associated with phishing and credential harvesting. Do not proceed to the target URL.", fontSize = 12.sp, color = textMuted)
+                            Text(assessment.actionRecommendation, fontSize = 12.sp, color = textMuted)
                         }
                     }
                     Column(horizontalAlignment = Alignment.End) {
                         Text("Threat Confidence", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
-                        Text("98.5%", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color(0xFFEF4444))
+                        Text("${confidencePercent.toInt()}%", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color(0xFFEF4444))
                     }
                 }
                 Row(modifier = Modifier.padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -273,7 +296,10 @@ private fun DangerousAltContent(isDark: Boolean) {
                             Text("Recommended Actions", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textMain)
                         }
                         Button(
-                            onClick = {},
+                            onClick = {
+                                viewModel.addBlocklistDomain(viewModel.hostFromUrl(url) ?: url)
+                                viewModel.shareTextReport()
+                            },
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.fillMaxWidth(),
@@ -284,7 +310,7 @@ private fun DangerousAltContent(isDark: Boolean) {
                             Text("Block & Report", fontWeight = FontWeight.SemiBold)
                         }
                         Button(
-                            onClick = {},
+                            onClick = { viewModel.showInfo("Sandbox quarantine is not available on desktop yet.") },
                             colors = ButtonDefaults.buttonColors(containerColor = surface),
                             border = BorderStroke(1.dp, border),
                             shape = RoundedCornerShape(8.dp),
@@ -304,11 +330,39 @@ private fun DangerousAltContent(isDark: Boolean) {
                 Surface(shape = RoundedCornerShape(12.dp), color = surface, border = BorderStroke(1.dp, border)) {
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text("Scan Meta", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = textMuted, letterSpacing = 1.sp)
-                        MetaRow("Scan Time", "Today, 14:32:05")
-                        MetaRow("Source", "qr_investigate.png")
+                        MetaRow("Scan Time", scanTimeLabel)
+                        MetaRow("Source", sourceLabel)
                         MetaRow("Engine", "Offline Core v2.4")
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFFECACA))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(32.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = Color(0xFF6B7280))
+            Button(
+                onClick = { onNavigate(AppScreen.LiveScan) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444)),
+                shape = RoundedCornerShape(8.dp),
+                contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
+            ) {
+                Text("Back to Scan", fontWeight = FontWeight.Medium, color = Color.White)
             }
         }
     }

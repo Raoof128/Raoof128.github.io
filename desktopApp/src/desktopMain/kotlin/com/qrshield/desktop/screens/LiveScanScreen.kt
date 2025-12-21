@@ -18,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,12 +34,15 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
-import com.qrshield.desktop.ScanMonitorViewMode
+import com.qrshield.desktop.DesktopScanState
+import com.qrshield.desktop.MessageKind
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.model.ScanHistoryItem
+import com.qrshield.model.Verdict
 
 @Composable
 fun LiveScanScreen(viewModel: AppViewModel) {
@@ -139,6 +141,7 @@ private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, 
             .background(background)
             .border(1.dp, border, RoundedCornerShape(10.dp))
             .clickable { onClick() }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -150,6 +153,30 @@ private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, 
 
 @Composable
 private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+    val scanState = viewModel.scanState
+    val statusMessage = viewModel.statusMessage
+    val stateLabel = when (scanState) {
+        DesktopScanState.Idle -> "WAITING FOR INPUT"
+        DesktopScanState.Scanning -> "SCANNING"
+        is DesktopScanState.Analyzing -> "ANALYZING"
+        is DesktopScanState.Error -> "ERROR"
+        is DesktopScanState.Result -> "SCAN COMPLETE"
+    }
+    val stateBody = when (scanState) {
+        DesktopScanState.Idle -> "To scan QR codes directly, please enable camera access on your device or use the manual input options below."
+        DesktopScanState.Scanning -> "Scanning for QR codes. Hold the code steady within the frame."
+        is DesktopScanState.Analyzing -> "Analyzing ${scanState.url} for threats."
+        is DesktopScanState.Error -> scanState.message
+        is DesktopScanState.Result -> "Scan complete. Review the result screen for details."
+    }
+    val stateTitle = when (scanState) {
+        DesktopScanState.Scanning -> "Scanning in Progress"
+        is DesktopScanState.Analyzing -> "Analyzing URL"
+        is DesktopScanState.Error -> "Scan Error"
+        is DesktopScanState.Result -> "Scan Complete"
+        DesktopScanState.Idle -> "Camera Access Required"
+    }
+    val recentScans = viewModel.scanHistory.sortedByDescending { it.scannedAt }.take(5)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -193,7 +220,12 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                         Text("Offline Engine V.2.4 Active", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF047857))
                     }
                 }
-                Box(modifier = Modifier.size(36.dp)) {
+                Box(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .focusable()
+                ) {
                     MaterialSymbol(name = "notifications", size = 20.sp, color = Color(0xFF6B7280))
                     Box(
                         modifier = Modifier
@@ -284,9 +316,15 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                         modifier = Modifier
                                             .size(8.dp)
                                             .clip(CircleShape)
-                                            .background(Color(0xFFF59E0B))
+                                            .background(
+                                                when (scanState) {
+                                                    is DesktopScanState.Error -> Color(0xFFEF4444)
+                                                    is DesktopScanState.Result -> Color(0xFF10B981)
+                                                    else -> Color(0xFFF59E0B)
+                                                }
+                                            )
                                     )
-                                    Text("WAITING FOR INPUT", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF374151), letterSpacing = 1.sp)
+                                    Text(stateLabel, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF374151), letterSpacing = 1.sp)
                                 }
                             }
                             Column(
@@ -308,9 +346,9 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                 ) {
                                     MaterialSymbol(name = "videocam_off", size = 32.sp, color = Color(0xFF9CA3AF))
                                 }
-                                Text("Camera Access Required", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827), modifier = Modifier.padding(top = 12.dp))
+                                Text(stateTitle, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827), modifier = Modifier.padding(top = 12.dp))
                                 Text(
-                                    "To scan QR codes directly, please enable camera access on your device or use the manual input options below.",
+                                    stateBody,
                                     fontSize = 13.sp,
                                     color = Color(0xFF6B7280),
                                     textAlign = TextAlign.Center,
@@ -318,7 +356,7 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                     modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
                                 )
                                 Button(
-                                    onClick = {},
+                                    onClick = { viewModel.startCameraScan() },
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2563EB)),
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 24.dp, vertical = 10.dp)
@@ -338,7 +376,16 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                     ) {
                         MaterialSymbol(name = "bolt", size = 14.sp, color = Color(0xFF10B981))
                         Spacer(Modifier.width(6.dp))
-                        Text("Local analysis engine ready (<5ms latency)", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF6B7280))
+                        Text(
+                            statusMessage?.text ?: "Local analysis engine ready (<5ms latency)",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = when (statusMessage?.kind) {
+                                MessageKind.Error -> Color(0xFFDC2626)
+                                MessageKind.Success -> Color(0xFF059669)
+                                else -> Color(0xFF6B7280)
+                            }
+                        )
                     }
 
                     Surface(
@@ -347,11 +394,26 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                         border = BorderStroke(1.dp, Color(0xFFE5E7EB))
                     ) {
                         Row(modifier = Modifier.fillMaxWidth()) {
-                            ScanActionButton(icon = "flash_on", label = "Torch", modifier = Modifier.weight(1f))
+                            ScanActionButton(
+                                icon = "flash_on",
+                                label = "Torch",
+                                modifier = Modifier.weight(1f),
+                                onClick = { viewModel.showInfo("Torch not available on desktop") }
+                            )
                             DividerVertical()
-                            ScanActionButton(icon = "add_photo_alternate", label = "Upload Image", modifier = Modifier.weight(1f))
+                            ScanActionButton(
+                                icon = "add_photo_alternate",
+                                label = "Upload Image",
+                                modifier = Modifier.weight(1f),
+                                onClick = { viewModel.pickImageAndScan() }
+                            )
                             DividerVertical()
-                            ScanActionButton(icon = "link", label = "Paste URL", modifier = Modifier.weight(1f))
+                            ScanActionButton(
+                                icon = "link",
+                                label = "Paste URL",
+                                modifier = Modifier.weight(1f),
+                                onClick = { viewModel.analyzeClipboardUrl() }
+                            )
                         }
                     }
                 }
@@ -369,7 +431,15 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text("SYSTEM STATUS", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
-                                MaterialSymbol(name = "refresh", size = 18.sp, color = Color(0xFF9CA3AF))
+                                Box(
+                                    modifier = Modifier
+                                        .size(24.dp)
+                                        .clickable { viewModel.showInfo("System status refresh is not available yet.") }
+                                        .focusable(),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    MaterialSymbol(name = "refresh", size = 18.sp, color = Color(0xFF9CA3AF))
+                                }
                             }
                             Spacer(Modifier.height(16.dp))
                             StatusRow(
@@ -457,64 +527,26 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                     .padding(12.dp),
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                RecentScanItem(
-                                    icon = "check_circle",
-                                    iconBg = Color(0xFFECFDF3),
-                                    iconColor = Color(0xFF10B981),
-                                    domain = "wikipedia.org",
-                                    time = "2m ago",
-                                    badge = "SAFE",
-                                    badgeBg = Color(0xFFECFDF3),
-                                    badgeColor = Color(0xFF10B981)
-                                )
-                                RecentScanItem(
-                                    icon = "warning",
-                                    iconBg = Color.White,
-                                    iconColor = Color(0xFFDC2626),
-                                    domain = "secure-login-bank.com",
-                                    time = "1h ago",
-                                    badge = "PHISHING",
-                                    badgeBg = Color(0xFFFEE2E2),
-                                    badgeColor = Color(0xFFDC2626),
-                                    highlight = Color(0xFFFEE2E2)
-                                )
-                                RecentScanItem(
-                                    icon = "check_circle",
-                                    iconBg = Color(0xFFECFDF3),
-                                    iconColor = Color(0xFF10B981),
-                                    domain = "menu-restaurant.com",
-                                    time = "3h ago",
-                                    badge = "SAFE",
-                                    badgeBg = Color(0xFFECFDF3),
-                                    badgeColor = Color(0xFF10B981)
-                                )
-                                RecentScanItem(
-                                    icon = "priority_high",
-                                    iconBg = Color(0xFFFFFBEB),
-                                    iconColor = Color(0xFFF59E0B),
-                                    domain = "bit.ly/xs82...",
-                                    time = "4h ago",
-                                    badge = "SUSPICIOUS",
-                                    badgeBg = Color(0xFFFFFBEB),
-                                    badgeColor = Color(0xFFD97706),
-                                    highlight = Color(0xFFFFFBEB)
-                                )
-                                RecentScanItem(
-                                    icon = "check_circle",
-                                    iconBg = Color(0xFFECFDF3),
-                                    iconColor = Color(0xFF10B981),
-                                    domain = "google.com",
-                                    time = "5h ago",
-                                    badge = "SAFE",
-                                    badgeBg = Color(0xFFECFDF3),
-                                    badgeColor = Color(0xFF10B981)
-                                )
+                                if (recentScans.isEmpty()) {
+                                    EmptyRecentScanItem()
+                                } else {
+                                    recentScans.forEach { item ->
+                                        RecentScanItem(
+                                            item = item,
+                                            timeLabel = viewModel.formatRelativeTime(item.scannedAt),
+                                            onClick = { viewModel.selectHistoryItem(it) }
+                                        )
+                                    }
+                                }
                             }
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .border(1.dp, Color(0xFFE5E7EB))
-                                    .clickable { onNavigate(AppScreen.ReportsExport) }
+                                    .clickable {
+                                        viewModel.exportHistoryCsv()
+                                        onNavigate(AppScreen.ReportsExport)
+                                    }
                                     .focusable()
                                     .padding(12.dp)
                             ) {
@@ -587,9 +619,16 @@ private fun BoxScope.CornerStroke(alignment: Alignment) {
 }
 
 @Composable
-private fun ScanActionButton(icon: String, label: String, modifier: Modifier = Modifier) {
+private fun ScanActionButton(
+    icon: String,
+    label: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
     Column(
         modifier = modifier
+            .clickable { onClick() }
+            .focusable()
             .padding(vertical = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -664,23 +703,13 @@ private fun StatusRow(
 }
 
 @Composable
-private fun RecentScanItem(
-    icon: String,
-    iconBg: Color,
-    iconColor: Color,
-    domain: String,
-    time: String,
-    badge: String,
-    badgeBg: Color,
-    badgeColor: Color,
-    highlight: Color = Color.Transparent
-) {
+private fun EmptyRecentScanItem() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(highlight)
-            .border(1.dp, if (highlight == Color.Transparent) Color.Transparent else badgeColor.copy(alpha = 0.2f), RoundedCornerShape(8.dp))
+            .background(Color(0xFFF9FAFB))
+            .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(8.dp))
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -689,28 +718,127 @@ private fun RecentScanItem(
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
-                .background(iconBg)
-                .border(1.dp, iconColor.copy(alpha = 0.2f), CircleShape),
+                .background(Color(0xFFE5E7EB)),
             contentAlignment = Alignment.Center
         ) {
-            MaterialSymbol(name = icon, size = 18.sp, color = iconColor)
+            MaterialSymbol(name = "history", size = 18.sp, color = Color(0xFF9CA3AF))
         }
         Column(modifier = Modifier.weight(1f)) {
-            Text(domain, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = if (badge == "PHISHING") Color(0xFF7F1D1D) else Color(0xFF111827), maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text("No scans yet", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
+            Text("Run a scan to populate history.", fontSize = 12.sp, color = Color(0xFF6B7280))
+        }
+    }
+}
+
+private fun RecentScanItem(
+    item: ScanHistoryItem,
+    timeLabel: String,
+    onClick: (ScanHistoryItem) -> Unit
+) {
+    val badge = when (item.verdict) {
+        Verdict.SAFE -> "SAFE"
+        Verdict.SUSPICIOUS -> "SUSPICIOUS"
+        Verdict.MALICIOUS -> "PHISHING"
+        Verdict.UNKNOWN -> "UNKNOWN"
+    }
+    val style = when (item.verdict) {
+        Verdict.SAFE -> RecentScanStyle(
+            icon = "check_circle",
+            iconBg = Color(0xFFECFDF3),
+            iconColor = Color(0xFF10B981),
+            badgeBg = Color(0xFFECFDF3),
+            badgeColor = Color(0xFF10B981),
+            highlight = Color.Transparent
+        )
+        Verdict.SUSPICIOUS -> RecentScanStyle(
+            icon = "priority_high",
+            iconBg = Color(0xFFFFFBEB),
+            iconColor = Color(0xFFF59E0B),
+            badgeBg = Color(0xFFFFFBEB),
+            badgeColor = Color(0xFFD97706),
+            highlight = Color(0xFFFFFBEB)
+        )
+        Verdict.MALICIOUS -> RecentScanStyle(
+            icon = "warning",
+            iconBg = Color.White,
+            iconColor = Color(0xFFDC2626),
+            badgeBg = Color(0xFFFEE2E2),
+            badgeColor = Color(0xFFDC2626),
+            highlight = Color(0xFFFEE2E2)
+        )
+        Verdict.UNKNOWN -> RecentScanStyle(
+            icon = "help_outline",
+            iconBg = Color(0xFFF1F5F9),
+            iconColor = Color(0xFF64748B),
+            badgeBg = Color(0xFFF1F5F9),
+            badgeColor = Color(0xFF64748B),
+            highlight = Color.Transparent
+        )
+    }
+    val displayDomain = item.url.removePrefix("https://").removePrefix("http://").substringBefore("/")
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(style.highlight)
+            .border(1.dp, if (style.highlight == Color.Transparent) Color.Transparent else style.badgeColor.copy(alpha = 0.2f), RoundedCornerShape(8.dp))
+            .clickable { onClick(item) }
+            .focusable()
+            .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+                .background(style.iconBg)
+                .border(1.dp, style.iconColor.copy(alpha = 0.2f), CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            MaterialSymbol(name = style.icon, size = 18.sp, color = style.iconColor)
+        }
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                displayDomain,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = if (item.verdict == Verdict.MALICIOUS) Color(0xFF7F1D1D) else Color(0xFF111827),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(time, fontSize = 12.sp, color = if (badge == "PHISHING") Color(0xFFDC2626) else Color(0xFF6B7280))
+                Text(
+                    timeLabel,
+                    fontSize = 12.sp,
+                    color = if (item.verdict == Verdict.MALICIOUS) Color(0xFFDC2626) else Color(0xFF6B7280)
+                )
                 Box(modifier = Modifier.size(4.dp).clip(CircleShape).background(Color(0xFFD1D5DB)))
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(4.dp))
-                        .background(badgeBg)
-                        .border(1.dp, badgeColor.copy(alpha = 0.2f), RoundedCornerShape(4.dp))
+                        .background(style.badgeBg)
+                        .border(1.dp, style.badgeColor.copy(alpha = 0.2f), RoundedCornerShape(4.dp))
                         .padding(horizontal = 6.dp, vertical = 2.dp)
                 ) {
-                    Text(badge, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = badgeColor, letterSpacing = 0.8.sp)
+                    Text(badge, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = style.badgeColor, letterSpacing = 0.8.sp)
                 }
             }
         }
-        MaterialSymbol(name = if (badge == "PHISHING") "arrow_forward" else "chevron_right", size = 18.sp, color = badgeColor.copy(alpha = 0.5f))
+        MaterialSymbol(
+            name = if (item.verdict == Verdict.MALICIOUS) "arrow_forward" else "chevron_right",
+            size = 18.sp,
+            color = style.badgeColor.copy(alpha = 0.5f)
+        )
     }
 }
+
+private data class RecentScanStyle(
+    val icon: String,
+    val iconBg: Color,
+    val iconColor: Color,
+    val badgeBg: Color,
+    val badgeColor: Color,
+    val highlight: Color
+)

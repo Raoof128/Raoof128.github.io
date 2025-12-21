@@ -1,11 +1,9 @@
 package com.qrshield.desktop.screens
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -14,7 +12,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,9 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,14 +36,16 @@ import com.qrshield.desktop.ui.gridPattern
 fun ResultSafeScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.scanResultSafe()
     StitchTheme(tokens = tokens) {
-        val navigateTo = { screen: AppScreen -> viewModel.currentScreen = screen }
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFFF9FAFB))
         ) {
             SafeSidebar(onNavigate = { viewModel.currentScreen = it })
-            SafeResultContent(viewModel = viewModel)
+            SafeResultContent(
+                viewModel = viewModel,
+                onNavigate = { viewModel.currentScreen = it }
+            )
         }
     }
 }
@@ -129,6 +126,7 @@ private fun SafeSidebarItem(label: String, icon: String, onNavigate: (AppScreen)
             .clip(RoundedCornerShape(10.dp))
             .background(bg)
             .clickable { onNavigate(target) }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -139,7 +137,13 @@ private fun SafeSidebarItem(label: String, icon: String, onNavigate: (AppScreen)
 }
 
 @Composable
-private fun SafeResultContent(viewModel: AppViewModel) {
+private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+    val assessment = viewModel.currentAssessment
+    val url = viewModel.currentUrl
+    val verdictDetails = viewModel.currentVerdictDetails
+    val confidencePercent = ((assessment?.confidence ?: 0f) * 100).coerceIn(0f, 100f)
+    val confidenceLabel = "${confidencePercent.toInt()}%"
+    val durationLabel = viewModel.lastAnalysisDurationMs?.let { "${it}ms" } ?: "--"
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -183,7 +187,12 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                         Text("ENGINE ACTIVE", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF10B981), letterSpacing = 1.sp)
                     }
                 }
-                Box(modifier = Modifier.size(32.dp)) {
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .focusable()
+                ) {
                     MaterialIconRound(name = "notifications", size = 20.sp, color = Color(0xFF6B7280))
                     Box(
                         modifier = Modifier
@@ -205,6 +214,9 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                 .padding(32.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
+            if (assessment == null || url.isNullOrBlank()) {
+                EmptyResultState(onNavigate = onNavigate)
+            } else {
             Surface(
                 shape = RoundedCornerShape(16.dp),
                 color = Color.White.copy(alpha = 0.95f),
@@ -226,7 +238,7 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                                 Text("Safe to Visit", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                     MaterialIconRound(name = "link", size = 14.sp, color = Color(0xFF6B7280))
-                                    Text("https://login.microsoftonline.com/common/oauth2/v2.0/authorize", fontSize = 12.sp, color = Color(0xFF6B7280), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                    Text(url, fontSize = 12.sp, color = Color(0xFF6B7280), maxLines = 1, overflow = TextOverflow.Ellipsis)
                                 }
                             }
                         }
@@ -236,9 +248,9 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                             border = BorderStroke(1.dp, Color(0xFFE5E7EB))
                         ) {
                             Row(modifier = Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                                MetricBlock("Confidence", "99.9%", Color(0xFF10B981))
+                                MetricBlock("Confidence", confidenceLabel, Color(0xFF10B981))
                                 VerticalDivider()
-                                MetricBlock("Scan Time", "12ms", Color(0xFF111827))
+                                MetricBlock("Scan Time", durationLabel, Color(0xFF111827))
                                 VerticalDivider()
                                 MetricBlock("Engine", "v2.4.1 Local", Color(0xFF374151))
                             }
@@ -246,7 +258,8 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                         Button(
-                            onClick = {},
+                            onClick = { viewModel.openUrl(url) },
+                            enabled = url.isNotBlank(),
                             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
                             shape = RoundedCornerShape(8.dp),
                             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
@@ -256,7 +269,8 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                             MaterialIconRound(name = "open_in_new", size = 14.sp, color = Color.White)
                         }
                         Button(
-                            onClick = {},
+                            onClick = { viewModel.copyUrl(url, label = "Safe link copied") },
+                            enabled = url.isNotBlank(),
                             colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                             border = BorderStroke(1.dp, Color(0xFFE5E7EB)),
                             shape = RoundedCornerShape(8.dp),
@@ -321,7 +335,7 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                                     fontWeight = FontWeight.SemiBold,
                                     color = Color(0xFF10B981),
                                     modifier = Modifier
-                                        .clickable { navigateTo(AppScreen.ReportsExport) }
+                                        .clickable { onNavigate(AppScreen.ReportsExport) }
                                         .focusable()
                                 )
                             }
@@ -382,13 +396,15 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                                 Text("AI Verdict Logic", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
                             }
                             Text(
-                                "The ML model classified this URL as BENIGN with high certainty. The structure matches known legitimate authentication patterns for Microsoft services.",
+                                verdictDetails?.summary
+                                    ?: "The ML model classified this URL as benign with high certainty. The structure matches known legitimate authentication patterns.",
                                 fontSize = 12.sp,
                                 color = Color(0xFF64748B)
                             )
                             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                                val phishingProbability = (100f - confidencePercent).coerceIn(0f, 100f)
                                 Text("Phishing Probability", fontSize = 12.sp, color = Color(0xFF6B7280))
-                                Text("0.01%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                Text("${phishingProbability.toInt()}%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
                             }
                             Box(
                                 modifier = Modifier
@@ -400,7 +416,7 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxHeight()
-                                        .fillMaxWidth(0.01f)
+                                        .fillMaxWidth((100f - confidencePercent).coerceIn(0f, 100f) / 100f)
                                         .clip(RoundedCornerShape(999.dp))
                                         .background(Color(0xFF10B981))
                                 )
@@ -408,6 +424,35 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                         }
                     }
                 }
+            }
+            }
+        }
+    }
+}
+
+@Composable
+private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(32.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+            Text("Run a scan to see detailed results.", fontSize = 13.sp, color = Color(0xFF6B7280))
+            Button(
+                onClick = { onNavigate(AppScreen.LiveScan) },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                shape = RoundedCornerShape(8.dp),
+                contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
+            ) {
+                Text("Back to Scan", fontWeight = FontWeight.Medium, color = Color.White)
             }
         }
     }
@@ -439,6 +484,7 @@ private fun ViewModeButton(label: String, selected: Boolean, onClick: () -> Unit
             .background(if (selected) Color.White else Color.Transparent)
             .border(1.dp, if (selected) Color(0xFFE5E7EB) else Color.Transparent, RoundedCornerShape(6.dp))
             .clickable { onClick() }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 6.dp)
     ) {
         Text(label, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = if (selected) Color(0xFF111827) else Color(0xFF6B7280))

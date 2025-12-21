@@ -10,7 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.focusable
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,16 +20,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
+import com.qrshield.desktop.HistoryFilter
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.MaterialSymbol
+import com.qrshield.model.ScanHistoryItem
+import com.qrshield.model.ScanSource
+import com.qrshield.model.Verdict
 
 @Composable
 fun ScanHistoryScreen(viewModel: AppViewModel) {
@@ -40,14 +45,25 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF8FAFC))
         ) {
-            ScanHistoryHeader(onNavigate = { viewModel.currentScreen = it })
-            ScanHistoryContent(onNavigate = { viewModel.currentScreen = it })
+        ScanHistoryHeader(
+            onNavigate = { viewModel.currentScreen = it },
+            onShowNotifications = { viewModel.showInfo("Notifications are not available yet.") },
+            onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+        )
+            ScanHistoryContent(
+                viewModel = viewModel,
+                onNavigate = { viewModel.currentScreen = it }
+            )
         }
     }
 }
 
 @Composable
-private fun ScanHistoryHeader(onNavigate: (AppScreen) -> Unit) {
+private fun ScanHistoryHeader(
+    onNavigate: (AppScreen) -> Unit,
+    onShowNotifications: () -> Unit,
+    onOpenSettings: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -88,7 +104,9 @@ private fun ScanHistoryHeader(onNavigate: (AppScreen) -> Unit) {
                     .size(36.dp)
                     .clip(CircleShape)
                     .background(Color(0xFFF8FAFC))
-                    .border(1.dp, Color(0xFFE2E8F0)),
+                    .border(1.dp, Color(0xFFE2E8F0))
+                    .clickable { onShowNotifications() }
+                    .focusable(),
                 contentAlignment = Alignment.Center
             ) {
                 MaterialSymbol(name = "notifications", size = 18.sp, color = Color(0xFF94A3B8))
@@ -98,7 +116,9 @@ private fun ScanHistoryHeader(onNavigate: (AppScreen) -> Unit) {
                     .size(36.dp)
                     .clip(CircleShape)
                     .background(Color(0xFFF8FAFC))
-                    .border(1.dp, Color(0xFFE2E8F0)),
+                    .border(1.dp, Color(0xFFE2E8F0))
+                    .clickable { onOpenSettings() }
+                    .focusable(),
                 contentAlignment = Alignment.Center
             ) {
                 MaterialSymbol(name = "settings", size = 18.sp, color = Color(0xFF94A3B8))
@@ -134,6 +154,7 @@ private fun HeaderNavItem(label: String, isActive: Boolean = false, onClick: () 
             .background(bg)
             .border(if (isActive) 1.dp else 0.dp, Color(0xFFE2E8F0), RoundedCornerShape(8.dp))
             .clickable { onClick() }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -159,7 +180,16 @@ private fun ImageAvatar() {
 }
 
 @Composable
-private fun ScanHistoryContent(onNavigate: (AppScreen) -> Unit) {
+private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+    val stats = viewModel.historyStats
+    val history = viewModel.filteredHistory()
+    val searchQuery = viewModel.historySearchQuery
+    val visibleCount = history.size
+    val countLabel = if (visibleCount == 0) {
+        "Showing 0 of ${stats.totalScans}"
+    } else {
+        "Showing 1-$visibleCount of ${stats.totalScans}"
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -205,7 +235,10 @@ private fun ScanHistoryContent(onNavigate: (AppScreen) -> Unit) {
                 }
                 Surface(
                     modifier = Modifier
-                        .clickable { onNavigate(AppScreen.ReportsExport) }
+                        .clickable {
+                            viewModel.exportHistoryCsv()
+                            onNavigate(AppScreen.ReportsExport)
+                        }
                         .focusable(),
                     shape = RoundedCornerShape(12.dp),
                     color = Color(0xFF135BEC)
@@ -217,13 +250,40 @@ private fun ScanHistoryContent(onNavigate: (AppScreen) -> Unit) {
                 }
             }
         }
-        }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            MetricCard(title = "Total Scans (24h)", value = "1,204", delta = "5%", deltaIcon = "trending_up", deltaColor = Color(0xFF10B981), modifier = Modifier.weight(1f))
-            MetricCard(title = "Threats Blocked", value = "12", delta = "2%", deltaIcon = "trending_down", deltaColor = Color(0xFFE11D48), modifier = Modifier.weight(1f))
-            MetricCard(title = "Suspicious Flags", value = "45", delta = "8", deltaIcon = "trending_up", deltaColor = Color(0xFFD97706), modifier = Modifier.weight(1f))
-            MetricCard(title = "Safe Scans", value = "1,147", delta = "+8%", deltaIcon = "", deltaColor = Color(0xFF10B981), modifier = Modifier.weight(1f))
+            MetricCard(
+                title = "Total Scans (24h)",
+                value = stats.totalScans.toString(),
+                delta = "0%",
+                deltaIcon = "trending_up",
+                deltaColor = Color(0xFF10B981),
+                modifier = Modifier.weight(1f)
+            )
+            MetricCard(
+                title = "Threats Blocked",
+                value = stats.maliciousCount.toString(),
+                delta = "0%",
+                deltaIcon = "trending_down",
+                deltaColor = Color(0xFFE11D48),
+                modifier = Modifier.weight(1f)
+            )
+            MetricCard(
+                title = "Suspicious Flags",
+                value = stats.suspiciousCount.toString(),
+                delta = "0",
+                deltaIcon = "trending_up",
+                deltaColor = Color(0xFFD97706),
+                modifier = Modifier.weight(1f)
+            )
+            MetricCard(
+                title = "Safe Scans",
+                value = stats.safeCount.toString(),
+                delta = "0%",
+                deltaIcon = "",
+                deltaColor = Color(0xFF10B981),
+                modifier = Modifier.weight(1f)
+            )
         }
 
         Surface(
@@ -248,65 +308,80 @@ private fun ScanHistoryContent(onNavigate: (AppScreen) -> Unit) {
                                 .clip(RoundedCornerShape(8.dp))
                                 .background(Color.White)
                                 .border(1.dp, Color(0xFFCBD5E1), RoundedCornerShape(8.dp))
-                                .padding(horizontal = 12.dp),
-                            contentAlignment = Alignment.CenterStart
+                                .padding(horizontal = 12.dp)
                         ) {
-                            MaterialSymbol(name = "search", size = 18.sp, color = Color(0xFF94A3B8))
-                            Spacer(Modifier.width(8.dp))
-                            Text("Search domains, sources, or hashes...", fontSize = 13.sp, color = Color(0xFF94A3B8), modifier = Modifier.padding(start = 24.dp))
+                            BasicTextField(
+                                value = searchQuery,
+                                onValueChange = { viewModel.updateHistorySearch(it) },
+                                singleLine = true,
+                                textStyle = TextStyle(fontSize = 13.sp, color = Color(0xFF0F172A)),
+                                modifier = Modifier.fillMaxWidth(),
+                                decorationBox = { innerTextField ->
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        MaterialSymbol(name = "search", size = 18.sp, color = Color(0xFF94A3B8))
+                                        Spacer(Modifier.width(8.dp))
+                                        Box(modifier = Modifier.weight(1f)) {
+                                            if (searchQuery.isBlank()) {
+                                                Text("Search domains, sources, or hashes...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                                            }
+                                            innerTextField()
+                                        }
+                                    }
+                                }
+                            )
                         }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
-                        FilterChip(label = "All Scans", active = true)
-                        FilterChip(label = "Safe", color = Color(0xFF0D9488), background = Color(0xFFF0FDFA))
-                        FilterChip(label = "Suspicious", color = Color(0xFFD97706), background = Color(0xFFFFFBEB))
-                        FilterChip(label = "Dangerous", color = Color(0xFFE11D48), background = Color(0xFFFFF1F2))
+                        FilterChip(
+                            label = "All Scans",
+                            active = viewModel.historyFilter == HistoryFilter.All,
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.All) }
+                        )
+                        FilterChip(
+                            label = "Safe",
+                            active = viewModel.historyFilter == HistoryFilter.Safe,
+                            color = Color(0xFF0D9488),
+                            background = Color(0xFFF0FDFA),
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Safe) }
+                        )
+                        FilterChip(
+                            label = "Suspicious",
+                            active = viewModel.historyFilter == HistoryFilter.Suspicious,
+                            color = Color(0xFFD97706),
+                            background = Color(0xFFFFFBEB),
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Suspicious) }
+                        )
+                        FilterChip(
+                            label = "Dangerous",
+                            active = viewModel.historyFilter == HistoryFilter.Dangerous,
+                            color = Color(0xFFE11D48),
+                            background = Color(0xFFFFF1F2),
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Dangerous) }
+                        )
                         Box(modifier = Modifier.size(24.dp).background(Color(0xFFCBD5E1)).width(1.dp))
-                        FilterChip(label = "Advanced", icon = "filter_list", background = Color.White, border = Color(0xFFE2E8F0), color = Color(0xFF64748B))
+                        FilterChip(
+                            label = "Advanced",
+                            icon = "filter_list",
+                            background = Color.White,
+                            border = Color(0xFFE2E8F0),
+                            color = Color(0xFF64748B),
+                            onClick = { viewModel.showInfo("Advanced filters are not available yet.") }
+                        )
                     }
                 }
                 Column(modifier = Modifier.fillMaxWidth()) {
                     TableHeaderRow()
-                    HistoryRow(
-                        riskIcon = "gpp_bad",
-                        riskColor = Color(0xFFE11D48),
-                        riskBg = Color(0xFFFFF1F2),
-                        domain = "login.apple-id-verify.com",
-                        detail = "Phishing Heuristic Match",
-                        sourceIcon = "videocam",
-                        source = "Webcam",
-                        time = "2 mins ago",
-                        verdict = "BLOCKED",
-                        verdictColor = Color(0xFFE11D48),
-                        verdictBg = Color(0xFFFFF1F2),
-                        animateDot = true
-                    )
-                    HistoryRow(
-                        riskIcon = "warning",
-                        riskColor = Color(0xFFD97706),
-                        riskBg = Color(0xFFFFFBEB),
-                        domain = "bit.ly/3x89s",
-                        detail = "Shortened URL / Obfuscated",
-                        sourceIcon = "upload_file",
-                        source = "File Upload",
-                        time = "15 mins ago",
-                        verdict = "FLAGGED",
-                        verdictColor = Color(0xFFD97706),
-                        verdictBg = Color(0xFFFFFBEB)
-                    )
-                    HistoryRow(
-                        riskIcon = "shield",
-                        riskColor = Color(0xFF0D9488),
-                        riskBg = Color(0xFFF0FDFA),
-                        domain = "menu.restaurant.com/t/883",
-                        detail = "Known Domain",
-                        sourceIcon = "videocam",
-                        source = "Webcam",
-                        time = "1 hour ago",
-                        verdict = "ALLOWED",
-                        verdictColor = Color(0xFF0D9488),
-                        verdictBg = Color(0xFFF0FDFA)
-                    )
+                    if (history.isEmpty()) {
+                        EmptyHistoryRow()
+                    } else {
+                        history.forEach { item ->
+                            HistoryRow(
+                                item = item,
+                                timeLabel = viewModel.formatRelativeTime(item.scannedAt),
+                                onClick = { viewModel.selectHistoryItem(it) }
+                            )
+                        }
+                    }
                 }
                 Row(
                     modifier = Modifier
@@ -327,7 +402,7 @@ private fun ScanHistoryContent(onNavigate: (AppScreen) -> Unit) {
                         ) {
                             Text("10", fontSize = 12.sp, color = Color(0xFF64748B))
                         }
-                        Text("Showing 1-7 of 1,204", fontSize = 12.sp, color = Color(0xFF94A3B8))
+                        Text(countLabel, fontSize = 12.sp, color = Color(0xFF94A3B8))
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                         PaginationButton("chevron_left", disabled = true)
@@ -382,13 +457,16 @@ private fun FilterChip(
     color: Color = Color(0xFF0F172A),
     background: Color = Color(0xFFF1F5F9),
     border: Color = Color.Transparent,
-    icon: String? = null
+    icon: String? = null,
+    onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
             .background(if (active) Color(0xFF0F172A) else background)
             .border(1.dp, border, RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .focusable()
             .padding(horizontal = 10.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -428,22 +506,60 @@ private fun TableHeaderRow() {
 
 @Composable
 private fun HistoryRow(
-    riskIcon: String,
-    riskColor: Color,
-    riskBg: Color,
-    domain: String,
-    detail: String,
-    sourceIcon: String,
-    source: String,
-    time: String,
-    verdict: String,
-    verdictColor: Color,
-    verdictBg: Color,
-    animateDot: Boolean = false
+    item: ScanHistoryItem,
+    timeLabel: String,
+    onClick: (ScanHistoryItem) -> Unit
 ) {
+    val riskIcon = when (item.verdict) {
+        Verdict.SAFE -> "shield"
+        Verdict.SUSPICIOUS -> "warning"
+        Verdict.MALICIOUS -> "gpp_bad"
+        Verdict.UNKNOWN -> "help"
+    }
+    val riskColor = when (item.verdict) {
+        Verdict.SAFE -> Color(0xFF0D9488)
+        Verdict.SUSPICIOUS -> Color(0xFFD97706)
+        Verdict.MALICIOUS -> Color(0xFFE11D48)
+        Verdict.UNKNOWN -> Color(0xFF94A3B8)
+    }
+    val riskBg = when (item.verdict) {
+        Verdict.SAFE -> Color(0xFFF0FDFA)
+        Verdict.SUSPICIOUS -> Color(0xFFFFFBEB)
+        Verdict.MALICIOUS -> Color(0xFFFFF1F2)
+        Verdict.UNKNOWN -> Color(0xFFF1F5F9)
+    }
+    val detail = when (item.verdict) {
+        Verdict.SAFE -> "Known Domain"
+        Verdict.SUSPICIOUS -> "Heuristic Anomaly"
+        Verdict.MALICIOUS -> "Phishing Heuristic Match"
+        Verdict.UNKNOWN -> "Unclassified"
+    }
+    val sourceIcon = when (item.source) {
+        ScanSource.CAMERA -> "videocam"
+        ScanSource.GALLERY -> "upload_file"
+        ScanSource.CLIPBOARD -> "content_paste"
+    }
+    val sourceLabel = when (item.source) {
+        ScanSource.CAMERA -> "Webcam"
+        ScanSource.GALLERY -> "File Upload"
+        ScanSource.CLIPBOARD -> "Clipboard"
+    }
+    val verdictLabel = when (item.verdict) {
+        Verdict.SAFE -> "ALLOWED"
+        Verdict.SUSPICIOUS -> "FLAGGED"
+        Verdict.MALICIOUS -> "BLOCKED"
+        Verdict.UNKNOWN -> "UNKNOWN"
+    }
+    val verdictBg = riskBg
+    val verdictColor = riskColor
+    val animateDot = item.verdict == Verdict.MALICIOUS
+    val domain = item.url.removePrefix("https://").removePrefix("http://").substringBefore("/")
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable { onClick(item) }
+            .focusable()
             .padding(horizontal = 20.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -464,9 +580,9 @@ private fun HistoryRow(
         }
         Row(modifier = Modifier.width(140.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             MaterialSymbol(name = sourceIcon, size = 14.sp, color = Color(0xFF94A3B8))
-            Text(source, fontSize = 12.sp, color = Color(0xFF475569))
+            Text(sourceLabel, fontSize = 12.sp, color = Color(0xFF475569))
         }
-        Text(time, fontSize = 12.sp, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
+        Text(timeLabel, fontSize = 12.sp, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
         Row(
             modifier = Modifier
                 .width(120.dp)
@@ -480,11 +596,23 @@ private fun HistoryRow(
             if (animateDot) {
                 Box(modifier = Modifier.size(6.dp).clip(CircleShape).background(verdictColor))
             }
-            Text(verdict, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = verdictColor)
+            Text(verdictLabel, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = verdictColor)
         }
         Box(modifier = Modifier.width(80.dp), contentAlignment = Alignment.CenterEnd) {
             MaterialSymbol(name = "more_horiz", size = 18.sp, color = Color(0xFF94A3B8))
         }
+    }
+}
+
+@Composable
+private fun EmptyHistoryRow() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp, vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("No scan history yet. Run a scan to populate results.", fontSize = 12.sp, color = Color(0xFF94A3B8))
     }
 }
 

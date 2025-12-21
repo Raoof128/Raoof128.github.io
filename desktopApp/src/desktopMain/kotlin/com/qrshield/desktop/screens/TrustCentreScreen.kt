@@ -11,7 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.focusable
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,11 +22,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
+import com.qrshield.desktop.HeuristicSensitivity
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -43,7 +44,10 @@ fun TrustCentreScreen(viewModel: AppViewModel) {
                 .background(Color(0xFFF6F8FA))
                 .gridPattern(spacing = 40.dp, lineColor = Color(0xFFE1E4E8), lineWidth = 1.dp)
         ) {
-            TrustCentreSidebar(onNavigate = { viewModel.currentScreen = it })
+            TrustCentreSidebar(
+                onNavigate = { viewModel.currentScreen = it },
+                onThreatIntel = { viewModel.showInfo("Threat intelligence is not available yet.") }
+            )
             TrustCentreContent(
                 viewModel = viewModel,
                 onNavigate = { viewModel.currentScreen = it }
@@ -53,7 +57,10 @@ fun TrustCentreScreen(viewModel: AppViewModel) {
 }
 
 @Composable
-private fun TrustCentreSidebar(onNavigate: (AppScreen) -> Unit) {
+private fun TrustCentreSidebar(
+    onNavigate: (AppScreen) -> Unit,
+    onThreatIntel: () -> Unit
+) {
     Column(
         modifier = Modifier
             .width(288.dp)
@@ -97,7 +104,7 @@ private fun TrustCentreSidebar(onNavigate: (AppScreen) -> Unit) {
                 SidebarLink(label = "Dashboard", icon = "dashboard", onClick = { onNavigate(AppScreen.Dashboard) })
                 SidebarLink(label = "Scan History", icon = "history", onClick = { onNavigate(AppScreen.ScanHistory) })
                 SidebarLink(label = "Trust Centre", icon = "verified_user", isActive = true, onClick = { })
-                SidebarLink(label = "Threat Intel", icon = "public", onClick = { onNavigate(AppScreen.ResultDangerous) })
+                SidebarLink(label = "Threat Intel", icon = "public", onClick = onThreatIntel)
                 SidebarLink(label = "Settings", icon = "settings", onClick = { onNavigate(AppScreen.TrustCentreAlt) })
             }
         }
@@ -142,6 +149,7 @@ private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, 
             .background(bg)
             .border(1.dp, border, RoundedCornerShape(8.dp))
             .clickable { onClick() }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -153,6 +161,15 @@ private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, 
 
 @Composable
 private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+    val sensitivity = viewModel.heuristicSensitivity
+    val lowSelected = sensitivity == HeuristicSensitivity.Low
+    val balancedSelected = sensitivity == HeuristicSensitivity.Balanced
+    val paranoiaSelected = sensitivity == HeuristicSensitivity.Paranoia
+    val modeLabel = when (sensitivity) {
+        HeuristicSensitivity.Low -> "MODE: LOW"
+        HeuristicSensitivity.Balanced -> "MODE: BALANCED"
+        HeuristicSensitivity.Paranoia -> "MODE: PARANOIA"
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -237,7 +254,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                                 .border(1.dp, Color(0xFF135BEC).copy(alpha = 0.2f), RoundedCornerShape(6.dp))
                                 .padding(horizontal = 8.dp, vertical = 4.dp)
                         ) {
-                            Text("MODE: BALANCED", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC))
+                            Text(modeLabel, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC))
                         }
                     }
                     Box(modifier = Modifier.height(48.dp)) {
@@ -257,48 +274,64 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                         )
                         Column(
                             modifier = Modifier
-                                .offset(x = 0.dp, y = 0.dp),
+                                .offset(x = 0.dp, y = 0.dp)
+                                .clickable { viewModel.setHeuristicSensitivity(HeuristicSensitivity.Low) }
+                                .focusable(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Box(
                                 modifier = Modifier
                                     .size(16.dp)
                                     .clip(CircleShape)
-                                    .background(Color(0xFFE5E7EB))
+                                    .background(if (lowSelected) Color(0xFF135BEC) else Color(0xFFE5E7EB))
                                     .border(2.dp, Color.White, CircleShape)
                             )
-                            Text("Low", fontSize = 12.sp, color = Color(0xFF57606A))
+                            Text("Low", fontSize = 12.sp, color = if (lowSelected) Color(0xFF24292F) else Color(0xFF57606A))
                         }
                         Column(
                             modifier = Modifier
-                                .offset(x = 240.dp, y = (-4).dp),
+                                .offset(x = 240.dp, y = (-4).dp)
+                                .clickable { viewModel.setHeuristicSensitivity(HeuristicSensitivity.Balanced) }
+                                .focusable(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Box(
                                 modifier = Modifier
                                     .size(28.dp)
                                     .clip(CircleShape)
-                                    .background(Color(0xFF135BEC))
+                                    .background(if (balancedSelected) Color(0xFF135BEC) else Color(0xFFE5E7EB))
                                     .border(4.dp, Color.White, CircleShape),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color.White))
+                                Box(
+                                    modifier = Modifier
+                                        .size(8.dp)
+                                        .clip(CircleShape)
+                                        .background(Color.White)
+                                )
                             }
-                            Text("Balanced", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
+                            Text(
+                                "Balanced",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = if (balancedSelected) Color(0xFF24292F) else Color(0xFF57606A)
+                            )
                         }
                         Column(
                             modifier = Modifier
-                                .offset(x = 480.dp, y = 0.dp),
+                                .offset(x = 480.dp, y = 0.dp)
+                                .clickable { viewModel.setHeuristicSensitivity(HeuristicSensitivity.Paranoia) }
+                                .focusable(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Box(
                                 modifier = Modifier
                                     .size(16.dp)
                                     .clip(CircleShape)
-                                    .background(Color(0xFFE5E7EB))
+                                    .background(if (paranoiaSelected) Color(0xFF135BEC) else Color(0xFFE5E7EB))
                                     .border(2.dp, Color.White, CircleShape)
                             )
-                            Text("Paranoia", fontSize = 12.sp, color = Color(0xFF57606A))
+                            Text("Paranoia", fontSize = 12.sp, color = if (paranoiaSelected) Color(0xFF24292F) else Color(0xFF57606A))
                         }
                     }
                 }
@@ -328,33 +361,43 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 subtitle = "Force disable all network adapters for app",
                 enabled = viewModel.trustCentreToggles.strictOffline,
                 activeColor = Color(0xFF2EA043),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                onToggle = { viewModel.toggleStrictOffline() }
             )
             ToggleCard(
                 title = "Anonymous Telemetry",
                 subtitle = "Share threat signatures to improve DB",
                 enabled = viewModel.trustCentreToggles.anonymousTelemetry,
                 activeColor = Color(0xFF135BEC),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                onToggle = { viewModel.toggleAnonymousTelemetry() }
             )
             ToggleCard(
                 title = "Auto-copy Safe Links",
                 subtitle = "Copy to clipboard if Verdict is SAFE",
                 enabled = viewModel.trustCentreToggles.autoCopySafe,
                 activeColor = Color(0xFF135BEC),
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
+                onToggle = { viewModel.toggleAutoCopySafe() }
             )
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
-            AllowListCard(modifier = Modifier.weight(1f))
-            BlockListCard(modifier = Modifier.weight(1f))
+            AllowListCard(viewModel = viewModel, modifier = Modifier.weight(1f))
+            BlockListCard(viewModel = viewModel, modifier = Modifier.weight(1f))
         }
     }
 }
 
 @Composable
-private fun ToggleCard(title: String, subtitle: String, enabled: Boolean, activeColor: Color, modifier: Modifier = Modifier) {
+private fun ToggleCard(
+    title: String,
+    subtitle: String,
+    enabled: Boolean,
+    activeColor: Color,
+    modifier: Modifier = Modifier,
+    onToggle: () -> Unit
+) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
@@ -362,7 +405,10 @@ private fun ToggleCard(title: String, subtitle: String, enabled: Boolean, active
         border = BorderStroke(1.dp, Color(0xFFD0D7DE))
     ) {
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .clickable { onToggle() }
+                .focusable()
+                .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -391,7 +437,9 @@ private fun ToggleCard(title: String, subtitle: String, enabled: Boolean, active
 }
 
 @Composable
-private fun AllowListCard(modifier: Modifier = Modifier) {
+private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier) {
+    val allowlist = viewModel.filteredAllowlist()
+    val query = viewModel.allowlistQuery
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
@@ -416,16 +464,34 @@ private fun AllowListCard(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .size(32.dp)
                         .clip(RoundedCornerShape(8.dp))
-                        .background(Color.Transparent),
+                        .background(Color.Transparent)
+                        .clickable {
+                            val trimmed = query.trim()
+                            if (trimmed.isBlank()) {
+                                viewModel.showInfo("Enter a domain to add.")
+                            } else {
+                                viewModel.addAllowlistDomain(trimmed)
+                                viewModel.updateAllowlistQuery("")
+                            }
+                        }
+                        .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialSymbol(name = "add", size = 20.sp, color = Color(0xFF57606A))
                 }
             }
             Column(modifier = Modifier.weight(1f).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                AllowItem("assets/stitch/favicon-google.png", "*.google.com")
-                AllowItem("assets/stitch/favicon-company.png", "company-portal.net")
-                AllowItem("assets/stitch/favicon-slack.png", "*.slack.com")
+                if (allowlist.isEmpty()) {
+                    EmptyListItem("No allowlisted domains yet.")
+                } else {
+                    allowlist.forEach { domain ->
+                        AllowItem(
+                            iconPath = allowlistIconFor(domain),
+                            domain = domain,
+                            onDelete = { viewModel.removeAllowlistDomain(domain) }
+                        )
+                    }
+                }
             }
             Box(
                 modifier = Modifier
@@ -434,17 +500,31 @@ private fun AllowListCard(modifier: Modifier = Modifier) {
                     .border(1.dp, Color(0xFFD0D7DE))
                     .padding(12.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
-                    Text("Search domains...", fontSize = 13.sp, color = Color(0xFF94A3B8))
-                }
+                BasicTextField(
+                    value = query,
+                    onValueChange = { viewModel.updateAllowlistQuery(it) },
+                    singleLine = true,
+                    textStyle = TextStyle(fontSize = 13.sp, color = Color(0xFF24292F)),
+                    modifier = Modifier.fillMaxWidth(),
+                    decorationBox = { innerTextField ->
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
+                            Box(modifier = Modifier.weight(1f)) {
+                                if (query.isBlank()) {
+                                    Text("Search domains...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                                }
+                                innerTextField()
+                            }
+                        }
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-private fun AllowItem(imagePath: String, domain: String) {
+private fun AllowItem(iconPath: String?, domain: String, onDelete: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -458,23 +538,42 @@ private fun AllowItem(imagePath: String, domain: String) {
                 modifier = Modifier
                     .size(24.dp)
                     .clip(CircleShape)
-                    .border(1.dp, Color(0xFFD0D7DE))
+                    .border(1.dp, Color(0xFFD0D7DE)),
+                contentAlignment = Alignment.Center
             ) {
-                Image(
-                    painter = painterResource(imagePath),
-                    contentDescription = domain,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
+                if (iconPath != null) {
+                    Image(
+                        painter = painterResource(iconPath),
+                        contentDescription = domain,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                } else {
+                    Text(
+                        domain.trim().removePrefix("*.").take(1).uppercase(),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF57606A)
+                    )
+                }
             }
             Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
         }
-        MaterialSymbol(name = "delete", size = 18.sp, color = Color(0xFFCF222E))
+        MaterialSymbol(
+            name = "delete",
+            size = 18.sp,
+            color = Color(0xFFCF222E),
+            modifier = Modifier
+                .clickable { onDelete() }
+                .focusable()
+        )
     }
 }
 
 @Composable
-private fun BlockListCard(modifier: Modifier = Modifier) {
+private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier) {
+    val blocklist = viewModel.filteredBlocklist()
+    val query = viewModel.blocklistQuery
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
@@ -498,16 +597,34 @@ private fun BlockListCard(modifier: Modifier = Modifier) {
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clip(RoundedCornerShape(8.dp)),
+                        .clip(RoundedCornerShape(8.dp))
+                        .clickable {
+                            val trimmed = query.trim()
+                            if (trimmed.isBlank()) {
+                                viewModel.showInfo("Enter a domain to block.")
+                            } else {
+                                viewModel.addBlocklistDomain(trimmed)
+                                viewModel.updateBlocklistQuery("")
+                            }
+                        }
+                        .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialSymbol(name = "add", size = 20.sp, color = Color(0xFF57606A))
                 }
             }
             Column(modifier = Modifier.weight(1f).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                BlockItem("bit.ly/*", badge = "WILDCARD")
-                BlockItem("suspicious-domain.xyz")
-                BlockItem("free-crypto-giveaway.net")
+                if (blocklist.isEmpty()) {
+                    EmptyListItem("No blocked domains yet.")
+                } else {
+                    blocklist.forEach { domain ->
+                        BlockItem(
+                            domain = domain,
+                            badge = if (domain.contains("*")) "WILDCARD" else null,
+                            onDelete = { viewModel.removeBlocklistDomain(domain) }
+                        )
+                    }
+                }
             }
             Box(
                 modifier = Modifier
@@ -516,17 +633,31 @@ private fun BlockListCard(modifier: Modifier = Modifier) {
                     .border(1.dp, Color(0xFFD0D7DE))
                     .padding(12.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
-                    Text("Search rules...", fontSize = 13.sp, color = Color(0xFF94A3B8))
-                }
+                BasicTextField(
+                    value = query,
+                    onValueChange = { viewModel.updateBlocklistQuery(it) },
+                    singleLine = true,
+                    textStyle = TextStyle(fontSize = 13.sp, color = Color(0xFF24292F)),
+                    modifier = Modifier.fillMaxWidth(),
+                    decorationBox = { innerTextField ->
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
+                            Box(modifier = Modifier.weight(1f)) {
+                                if (query.isBlank()) {
+                                    Text("Search rules...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                                }
+                                innerTextField()
+                            }
+                        }
+                    }
+                )
             }
         }
     }
 }
 
 @Composable
-private fun BlockItem(domain: String, badge: String? = null) {
+private fun BlockItem(domain: String, badge: String? = null, onDelete: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -549,6 +680,36 @@ private fun BlockItem(domain: String, badge: String? = null) {
                 }
             }
         }
-        MaterialSymbol(name = "delete", size = 18.sp, color = Color(0xFFCF222E))
+        MaterialSymbol(
+            name = "delete",
+            size = 18.sp,
+            color = Color(0xFFCF222E),
+            modifier = Modifier
+                .clickable { onDelete() }
+                .focusable()
+        )
+    }
+}
+
+@Composable
+private fun EmptyListItem(text: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .padding(horizontal = 8.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text, fontSize = 12.sp, color = Color(0xFF94A3B8))
+    }
+}
+
+private fun allowlistIconFor(domain: String): String? {
+    val normalized = domain.removePrefix("*.").lowercase()
+    return when {
+        normalized.contains("google") -> "assets/stitch/favicon-google.png"
+        normalized.contains("slack") -> "assets/stitch/favicon-slack.png"
+        normalized.contains("company") -> "assets/stitch/favicon-company.png"
+        else -> null
     }
 }

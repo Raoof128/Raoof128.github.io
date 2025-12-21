@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -129,6 +130,7 @@ private fun AltSidebarLink(
             .clip(RoundedCornerShape(8.dp))
             .background(bg)
             .clickable { onNavigate(target) }
+            .focusable()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -172,7 +174,9 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0)),
+                        .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
+                        .clickable { viewModel.showInfo("Help is not available yet.") }
+                        .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = "help_outline", size = 18.sp, color = textSub)
@@ -181,7 +185,9 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0)),
+                        .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
+                        .clickable { viewModel.showInfo("Profile settings are not available yet.") }
+                        .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = "person", size = 18.sp, color = textSub)
