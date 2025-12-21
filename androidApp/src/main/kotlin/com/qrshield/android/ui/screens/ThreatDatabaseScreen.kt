@@ -262,7 +262,7 @@ private fun StatCard(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -355,7 +355,7 @@ private fun UpdateMethodCard(
         shape = RoundedCornerShape(24.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -458,7 +458,7 @@ private fun IntegrityFooter() {
         Surface(
             shape = RoundedCornerShape(9999.dp),
             color = MaterialTheme.colorScheme.surfaceVariant,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),

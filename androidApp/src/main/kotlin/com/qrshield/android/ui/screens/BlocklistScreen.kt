@@ -225,7 +225,7 @@ private fun ImportButton(onClick: () -> Unit) {
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant,
@@ -286,7 +286,7 @@ private fun BlockedDomainItem(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     Color.Transparent,

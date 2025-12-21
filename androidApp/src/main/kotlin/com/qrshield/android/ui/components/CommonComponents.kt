@@ -171,7 +171,7 @@ fun QRShieldSecondaryButton(
         onClick = onClick,
         modifier = modifier.height(48.dp),
         shape = RoundedCornerShape(9999.dp),
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(listOf(QRShieldColors.Primary, QRShieldColors.Primary))
         ),
         colors = ButtonDefaults.outlinedButtonColors(
@@ -259,7 +259,7 @@ fun QRShieldCard(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),

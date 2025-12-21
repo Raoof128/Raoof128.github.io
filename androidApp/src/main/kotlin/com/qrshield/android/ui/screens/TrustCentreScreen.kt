@@ -142,7 +142,7 @@ private fun OfflineGuaranteeCard() {
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 4.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -265,7 +265,7 @@ private fun SensitivitySection(
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 2.dp,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -403,7 +403,7 @@ private fun ListCard(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -513,7 +513,7 @@ private fun PrivacyControlsSection(
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 2.dp,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),

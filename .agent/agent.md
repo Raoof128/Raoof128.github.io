@@ -51,6 +51,56 @@ Created `.agent/workflows/documentation.md` with rules:
 
 ---
 
+# 🔧 December 21, 2025 (Session 4) - Comprehensive Debug & Polish
+
+### Summary
+Fixed all deprecation warnings across 13 screen files. Replaced deprecated APIs with their modern equivalents for production-ready code quality.
+
+## 🛠️ Deprecation Fixes
+
+### 1. `ButtonDefaults.outlinedButtonBorder` → `outlinedButtonBorder(enabled = true)`
+Fixed in 11 screen files + CommonComponents.kt:
+- AllowlistScreen.kt
+- AttackBreakdownScreen.kt
+- BeatTheBotScreen.kt
+- BlocklistScreen.kt
+- ExportReportScreen.kt
+- HeuristicsScreen.kt
+- LearningCentreScreen.kt
+- OfflinePrivacyScreen.kt
+- ScanResultScreen.kt
+- ThreatDatabaseScreen.kt
+- TrustCentreScreen.kt
+- CommonComponents.kt
+
+### 2. Deprecated Icon References → AutoMirrored versions
+| Deprecated | Replacement | Files |
+|-----------|-------------|-------|
+| `Icons.Filled.AltRoute` | `Icons.AutoMirrored.Filled.AltRoute` | AttackBreakdownScreen, ScanResultScreen |
+| `Icons.Filled.Send` | `Icons.AutoMirrored.Filled.Send` | AttackBreakdownScreen |
+| `Icons.Filled.Rule` | `Icons.AutoMirrored.Filled.Rule` | HeuristicsScreen |
+| `Icons.Filled.TrendingUp` | `Icons.AutoMirrored.Filled.TrendingUp` | HeuristicsScreen, LearningCentreScreen |
+| `Icons.Filled.MenuBook` | `Icons.AutoMirrored.Filled.MenuBook` | OfflinePrivacyScreen |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :androidApp:clean :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL in 1s
+# Zero warnings!
+
+./gradlew :androidApp:assembleDebug  
+BUILD SUCCESSFUL in 10s
+```
+
+## 📋 Pre-Polish Checks Completed
+- ✅ No TODO/FIXME/HACK comments
+- ✅ No placeholder logic
+- ✅ All deprecation warnings fixed
+- ✅ APK builds successfully
+
+---
+
 
 # 🖥️ December 22, 2025 - Desktop UI Wiring Audit + Engine Integration
 

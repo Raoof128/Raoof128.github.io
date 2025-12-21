@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.AltRoute
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -260,7 +261,7 @@ private fun VerdictHeader(
             Surface(
                 shape = RoundedCornerShape(9999.dp),
                 color = QRShieldColors.RiskDanger.copy(alpha = 0.1f),
-                border = ButtonDefaults.outlinedButtonBorder.copy(
+                border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                     brush = Brush.linearGradient(
                         listOf(
                             QRShieldColors.RiskDanger.copy(alpha = 0.2f),
@@ -298,7 +299,7 @@ private fun RiskScoreCard(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -426,7 +427,7 @@ private fun TagChip(
     Surface(
         shape = RoundedCornerShape(9999.dp),
         color = bgColor,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(listOf(borderColor, borderColor))
         ),
         shadowElevation = if (!isPrimary) 1.dp else 0.dp
@@ -463,7 +464,7 @@ private fun UrlDisplayCard(
         shape = RoundedCornerShape(12.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant,
@@ -518,7 +519,7 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
             Surface(
                 shape = RoundedCornerShape(9999.dp),
                 color = QRShieldColors.Primary.copy(alpha = 0.1f),
-                border = ButtonDefaults.outlinedButtonBorder.copy(
+                border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                     brush = Brush.linearGradient(
                         listOf(
                             QRShieldColors.Primary.copy(alpha = 0.2f),
@@ -553,7 +554,7 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 1.dp,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -717,7 +718,7 @@ private fun BottomActionBar(
                 colors = ButtonDefaults.outlinedButtonColors(
                     contentColor = MaterialTheme.colorScheme.onSurfaceVariant
                 ),
-                border = ButtonDefaults.outlinedButtonBorder.copy(
+                border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                     brush = Brush.linearGradient(
                         listOf(
                             MaterialTheme.colorScheme.outlineVariant,

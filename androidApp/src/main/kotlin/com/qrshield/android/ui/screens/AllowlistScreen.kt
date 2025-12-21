@@ -119,7 +119,7 @@ fun AllowlistScreen(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
                     color = QRShieldColors.Emerald50,
-                    border = ButtonDefaults.outlinedButtonBorder.copy(
+                    border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                         brush = Brush.linearGradient(
                             listOf(
                                 QRShieldColors.Emerald100,
@@ -233,7 +233,7 @@ private fun AllowlistImportButton(onClick: () -> Unit) {
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant,
@@ -407,7 +407,7 @@ private fun AddAllowlistSheet(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(12.dp),
             color = QRShieldColors.Orange50,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(QRShieldColors.Orange100, QRShieldColors.Orange100)
                 )

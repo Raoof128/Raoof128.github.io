@@ -161,7 +161,7 @@ private fun SessionStatsRow(
         Surface(
             shape = RoundedCornerShape(9999.dp),
             color = MaterialTheme.colorScheme.surface,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant,
@@ -194,7 +194,7 @@ private fun SessionStatsRow(
         Surface(
             shape = RoundedCornerShape(9999.dp),
             color = MaterialTheme.colorScheme.surface,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant,
@@ -242,7 +242,7 @@ private fun ScoreboardRow(
             modifier = Modifier.weight(1f),
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant,
@@ -274,7 +274,7 @@ private fun ScoreboardRow(
             modifier = Modifier.weight(1f),
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant,
@@ -364,7 +364,7 @@ private fun ThreatCard(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant,
@@ -412,7 +412,7 @@ private fun ThreatCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(9999.dp),
                     color = MaterialTheme.colorScheme.surface,
-                    border = ButtonDefaults.outlinedButtonBorder.copy(
+                    border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                         brush = Brush.linearGradient(
                             listOf(
                                 MaterialTheme.colorScheme.outline,
@@ -454,7 +454,7 @@ private fun ThreatCard(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(12.dp),
                     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                    border = ButtonDefaults.outlinedButtonBorder.copy(
+                    border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                         brush = Brush.linearGradient(
                             listOf(
                                 MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -595,7 +595,7 @@ private fun DecisionButtons(
                 .height(120.dp),
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         QRShieldColors.RiskDanger.copy(alpha = 0.1f),
@@ -648,7 +648,7 @@ private fun DecisionButtons(
                 .height(120.dp),
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         QRShieldColors.RiskSafe.copy(alpha = 0.1f),
@@ -706,7 +706,7 @@ private fun HintBanner(
         modifier = modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 8.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant,

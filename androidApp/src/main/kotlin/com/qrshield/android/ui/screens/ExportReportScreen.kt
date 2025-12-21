@@ -156,7 +156,7 @@ private fun ReportPreviewCard(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 4.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -338,7 +338,7 @@ private fun ContentOptionsSection(
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 1.dp,
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),

@@ -5,6 +5,43 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.0] - 2025-12-21
+
+### 🔧 Android UI - Comprehensive Debug & Polish
+
+Fixed all deprecation warnings across the Android app for production-ready code quality.
+
+#### 🛠️ Deprecation Fixes
+
+**`ButtonDefaults.outlinedButtonBorder` (12 files):**
+```kotlin
+// Before (deprecated)
+border = ButtonDefaults.outlinedButtonBorder.copy(...)
+
+// After
+border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(...)
+```
+
+**AutoMirrored Icon Updates (5 files):**
+| Deprecated | Replacement |
+|-----------|-------------|
+| `Icons.Filled.AltRoute` | `Icons.AutoMirrored.Filled.AltRoute` |
+| `Icons.Filled.Send` | `Icons.AutoMirrored.Filled.Send` |
+| `Icons.Filled.Rule` | `Icons.AutoMirrored.Filled.Rule` |
+| `Icons.Filled.TrendingUp` | `Icons.AutoMirrored.Filled.TrendingUp` |
+| `Icons.Filled.MenuBook` | `Icons.AutoMirrored.Filled.MenuBook` |
+
+#### ✅ Build Verification
+```bash
+./gradlew :androidApp:clean :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL # Zero warnings!
+
+./gradlew :androidApp:assembleDebug
+BUILD SUCCESSFUL
+```
+
+---
+
 ## [1.14.0] - 2025-12-21
 
 ### 🌙 Android UI - Dark Mode Integration
