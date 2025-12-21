@@ -4,6 +4,24 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🖥️ December 21, 2025 - Stitch Desktop UI Rebuild (Compose Desktop)
+
+### Summary
+Rebuilt the Desktop Compose UI to match the provided Google Stitch HTML/CSS across all major screens and states. Introduced a new design-token theme, centralized state model, and asset pipeline to ensure pixel-perfect, fixed-window layouts with full keyboard/mouse interactions.
+
+#### ✅ What Changed
+- **New screen implementations:** Dashboard, Live Scan, Scan History, Trust Centre (2 variants), Training, Reports Export, Safe/Suspicious/Dangerous Results (2 variants).
+- **State + navigation:** Added `AppViewModel` and `NavigationState` with a single source of truth for screen routing and UI state.
+- **Theme tokens:** Implemented `StitchTheme` with extracted color/typography/spacing/radius/elevation tokens.
+- **UI utilities:** Added icon mapping (`IconText`), pattern backgrounds, and hover/pressed helpers.
+- **Assets + fonts:** Added Stitch-matching PNG assets and font files (Inter, JetBrains Mono, Material Icons/Symbols).
+- **Cleanup:** Removed legacy sidebar/screens/components that no longer match Stitch HTML.
+- **Window control:** Fixed desktop window size to 1440x900 to match non-responsive desktop layouts.
+
+### Verification
+- `:desktopApp:compileKotlinDesktop` succeeded.
+- `:desktopApp:run` launches the updated UI (fixed window size).
+
 # 🖥️ December 21, 2025 - Desktop UI Overhaul (Session Complete)
 
 ### Summary

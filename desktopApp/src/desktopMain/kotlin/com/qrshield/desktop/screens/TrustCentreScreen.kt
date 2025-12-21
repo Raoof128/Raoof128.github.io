@@ -1,754 +1,547 @@
-/*
- * Copyright 2025-2026 QR-SHIELD Contributors
- * Licensed under the Apache License, Version 2.0
- */
-
 package com.qrshield.desktop.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-/**
- * Trust Centre Screen matching the HTML trust centre design exactly.
- * Features trusted domains management, privacy settings, and security controls.
- */
-import com.qrshield.desktop.SettingsManager
+import com.qrshield.desktop.AppViewModel
+import com.qrshield.desktop.navigation.AppScreen
+import com.qrshield.desktop.theme.StitchTheme
+import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.ui.MaterialSymbol
+import com.qrshield.desktop.ui.gridPattern
 
 @Composable
-fun TrustCentreScreen(
-    settings: SettingsManager.Settings,
-    onUpdateSettings: (SettingsManager.Settings) -> Unit,
-    onAddDomain: (String) -> Unit,
-    onRemoveDomain: (String) -> Unit,
-    isDarkMode: Boolean,
-    onThemeToggle: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    var newDomain by remember { mutableStateOf("") }
-    var searchQuery by remember { mutableStateOf("") }
-
-    // Privacy settings state - Removed in favor of settings object passed in
-
-
-    val primaryBlue = Color(0xFF2563EB)
-    val successGreen = Color(0xFF10B981)
-
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-    ) {
-        // Header Bar
-        TrustCentreHeader(isDarkMode = isDarkMode, onThemeToggle = onThemeToggle)
-
-        // Content
+fun TrustCentreScreen(viewModel: AppViewModel) {
+    val tokens = StitchTokens.trustCentre()
+    StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(32.dp),
-            horizontalArrangement = Arrangement.spacedBy(24.dp)
+                .background(Color(0xFFF6F8FA))
+                .gridPattern(spacing = 40.dp, lineColor = Color(0xFFE1E4E8), lineWidth = 1.dp)
         ) {
-            // Left Column - Trusted Domains
-            Column(
-                modifier = Modifier
-                    .weight(2f)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-                // Page Title
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(48.dp)
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(primaryBlue.copy(alpha = 0.1f)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text("🛡️", fontSize = 24.sp)
-                        }
-                        Column {
-                            Text(
-                                text = "Trust Centre",
-                                style = MaterialTheme.typography.headlineLarge,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
-                                text = "Manage trusted domains and privacy settings",
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
-                }
-
-                // Add Domain Card
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
-                    shadowElevation = 1.dp
-                ) {
-                    Column(modifier = Modifier.padding(24.dp)) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(successGreen.copy(alpha = 0.1f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("➕", fontSize = 18.sp)
-                            }
-                            Column {
-                                Text(
-                                    text = "Add Trusted Domain",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Text(
-                                    text = "URLs from trusted domains will skip malware analysis",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            OutlinedTextField(
-                                value = newDomain,
-                                onValueChange = { newDomain = it },
-                                modifier = Modifier.weight(1f),
-                                placeholder = { Text("example.com") },
-                                leadingIcon = { Text("🌐", fontSize = 16.sp) },
-                                singleLine = true,
-                                shape = RoundedCornerShape(12.dp),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = primaryBlue,
-                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
-                                )
-                            )
-                            Button(
-                                onClick = {
-                                    if (newDomain.isNotBlank()) {
-                                        onAddDomain(newDomain.trim())
-                                        newDomain = ""
-                                    }
-                                },
-                                shape = RoundedCornerShape(12.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = primaryBlue),
-                                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp)
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text("✓", fontSize = 14.sp)
-                                    Text("Add Domain", fontWeight = FontWeight.SemiBold)
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Trusted Domains List
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
-                    shadowElevation = 1.dp
-                ) {
-                    Column {
-                        // Header
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 24.dp, vertical = 16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = "Trusted Domains",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Surface(
-                                    shape = RoundedCornerShape(12.dp),
-                                    color = primaryBlue.copy(alpha = 0.1f)
-                                ) {
-                                    Text(
-                                        text = "${settings.trustedDomains.size} entries",
-                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
-                                        style = MaterialTheme.typography.labelSmall,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = primaryBlue
-                                    )
-                                }
-                            }
-
-                            // Search
-                            OutlinedTextField(
-                                value = searchQuery,
-                                onValueChange = { searchQuery = it },
-                                modifier = Modifier.width(240.dp),
-                                placeholder = { Text("Search domains...") },
-                                leadingIcon = { Text("🔍", fontSize = 14.sp) },
-                                singleLine = true,
-                                shape = RoundedCornerShape(10.dp),
-                                colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = primaryBlue,
-                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
-                                )
-                            )
-                        }
-
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-
-                        // Domains list
-                        val filteredDomains = settings.trustedDomains.filter {
-                            searchQuery.isEmpty() || it.contains(searchQuery, ignoreCase = true)
-                        }
-
-                        if (filteredDomains.isEmpty()) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(48.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                                ) {
-                                    Text("🔒", fontSize = 48.sp)
-                                    Text(
-                                        text = "No trusted domains",
-                                        style = MaterialTheme.typography.titleMedium,
-                                        fontWeight = FontWeight.SemiBold
-                                    )
-                                    Text(
-                                        text = "Add domains you trust to skip analysis for their URLs",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                }
-                            }
-                        } else {
-                            Column {
-                                filteredDomains.forEach { domain ->
-                                    DomainRow(
-                                        domain = domain,
-                                        onRemove = { onRemoveDomain(domain) }
-                                    )
-                                    HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.08f))
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Right Column - Privacy & Security Settings
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(24.dp)
-            ) {
-                // Privacy Settings Card
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
-                    shadowElevation = 1.dp
-                ) {
-                    Column(modifier = Modifier.padding(24.dp)) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(Color(0xFF9333EA).copy(alpha = 0.1f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("🔐", fontSize = 18.sp)
-                            }
-                            Text(
-                                text = "Privacy Settings",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            SettingToggle(
-                                title = "Offline-Only Mode",
-                                description = "Never connect to external threat databases",
-                                enabled = settings.offlineOnlyEnabled,
-                                onToggle = { onUpdateSettings(settings.copy(offlineOnlyEnabled = it)) },
-                                accentColor = successGreen
-                            )
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-                            SettingToggle(
-                                title = "Block Unknown URLs",
-                                description = "Treat unrecognized URLs as suspicious",
-                                enabled = settings.blockUnknownEnabled,
-                                onToggle = { onUpdateSettings(settings.copy(blockUnknownEnabled = it)) },
-                                accentColor = Color(0xFFF59E0B)
-                            )
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-                            SettingToggle(
-                                title = "Auto-Save Scan History",
-                                description = "Automatically log all scans locally",
-                                enabled = settings.autoScanHistoryEnabled,
-                                onToggle = { onUpdateSettings(settings.copy(autoScanHistoryEnabled = it)) },
-                                accentColor = primaryBlue
-                            )
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-                            
-                            // Auto-copy Safe Links (Added from HTML spec)
-                            SettingToggle(
-                                title = "Auto-copy Safe Links",
-                                description = "Automatically copy URL if verdict is Safe",
-                                enabled = settings.autoCopySafeLinksEnabled,
-                                onToggle = { onUpdateSettings(settings.copy(autoCopySafeLinksEnabled = it)) },
-                                accentColor = successGreen
-                            )
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-
-                            // Heuristic Sensitivity Selector (Added from HTML spec)
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(vertical = 12.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = "Heuristic Sensitivity",
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        fontWeight = FontWeight.Medium
-                                    )
-                                    Text(
-                                        text = "Adjust the aggression of the detection engine",
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                }
-                                Box {
-                                    var expanded by remember { mutableStateOf(false) }
-                                    
-                                    OutlinedButton(
-                                        onClick = { expanded = true },
-                                        shape = RoundedCornerShape(8.dp),
-                                        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
-                                    ) {
-                                        Text(settings.heuristicSensitivity, style = MaterialTheme.typography.bodySmall)
-                                        Text(" ▼", fontSize = 10.sp)
-                                    }
-                                    DropdownMenu(
-                                        expanded = expanded,
-                                        onDismissRequest = { expanded = false }
-                                    ) {
-                                        listOf("Low (Performance)", "Balanced (Recommended)", "Paranoia (Strict)").forEach { option ->
-                                            DropdownMenuItem(
-                                                text = { Text(option) },
-                                                onClick = { 
-                                                    val value = option.split(" ").first()
-                                                    onUpdateSettings(settings.copy(heuristicSensitivity = value))
-                                                    expanded = false 
-                                                }
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Security Card
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
-                    shadowElevation = 1.dp
-                ) {
-                    Column(modifier = Modifier.padding(24.dp)) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(Color(0xFFEF4444).copy(alpha = 0.1f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("🔒", fontSize = 18.sp)
-                            }
-                            Text(
-                                text = "Security",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            SettingToggle(
-                                title = "Anonymous Telemetry",
-                                description = "Help improve QR-SHIELD (no personal data)",
-                                enabled = settings.telemetryEnabled,
-                                onToggle = { onUpdateSettings(settings.copy(telemetryEnabled = it)) },
-                                accentColor = primaryBlue
-                            )
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-                            SettingToggle(
-                                title = "Biometric Lock",
-                                description = "Require fingerprint to access settings",
-                                enabled = settings.biometricLockEnabled,
-                                onToggle = { onUpdateSettings(settings.copy(biometricLockEnabled = it)) },
-                                accentColor = successGreen
-                            )
-                        }
-                    }
-                }
-
-                // Data Management Card
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surface,
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
-                    shadowElevation = 1.dp
-                ) {
-                    Column(modifier = Modifier.padding(24.dp)) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(12.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(40.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                                    .background(primaryBlue.copy(alpha = 0.1f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text("💾", fontSize = 18.sp)
-                            }
-                            Text(
-                                text = "Data Management",
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.height(20.dp))
-
-                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                            OutlinedButton(
-                                onClick = { },
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(10.dp),
-                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text("📥", fontSize = 14.sp)
-                                    Text("Export Settings")
-                                }
-                            }
-                            OutlinedButton(
-                                onClick = { },
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(10.dp),
-                                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text("📤", fontSize = 14.sp)
-                                    Text("Import Settings")
-                                }
-                            }
-                            OutlinedButton(
-                                onClick = { },
-                                modifier = Modifier.fillMaxWidth(),
-                                shape = RoundedCornerShape(10.dp),
-                                colors = ButtonDefaults.outlinedButtonColors(
-                                    contentColor = Color(0xFFEF4444)
-                                ),
-                                border = BorderStroke(1.dp, Color(0xFFEF4444).copy(alpha = 0.3f))
-                            ) {
-                                Row(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text("🗑️", fontSize = 14.sp)
-                                    Text("Clear All Data")
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Engine Info Card
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-                ) {
-                    Column(modifier = Modifier.padding(20.dp)) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Engine Version",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Surface(
-                                shape = RoundedCornerShape(4.dp),
-                                color = MaterialTheme.colorScheme.surface
-                            ) {
-                                Text(
-                                    text = "v2.4.1-stable",
-                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                                    style = MaterialTheme.typography.labelSmall,
-                                    fontWeight = FontWeight.Medium
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.height(12.dp))
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "Database",
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(8.dp)
-                                        .clip(CircleShape)
-                                        .background(successGreen)
-                                )
-                                Text(
-                                    text = "Up to date",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    fontWeight = FontWeight.Medium,
-                                    color = successGreen
-                                )
-                            }
-                        }
-                    }
-                }
-            }
+            TrustCentreSidebar(onNavigate = { viewModel.currentScreen = it })
+            TrustCentreContent(viewModel = viewModel)
         }
     }
 }
 
 @Composable
-private fun TrustCentreHeader(
-    isDarkMode: Boolean,
-    onThemeToggle: () -> Unit
-) {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surface,
-        shadowElevation = 1.dp
+private fun TrustCentreSidebar(onNavigate: (AppScreen) -> Unit) {
+    Column(
+        modifier = Modifier
+            .width(288.dp)
+            .fillMaxHeight()
+            .background(Color.White)
+            .border(1.dp, Color(0xFFD0D7DE))
+            .padding(16.dp)
     ) {
+        Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .border(1.dp, Color(0xFFD0D7DE))
+                        .background(Color.White),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource("assets/stitch/logo-shield.png"),
+                        contentDescription = "Shield Logo",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
+                Column {
+                    Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFF2EA043))
+                        )
+                        Text("v2.4.0 Offline", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF57606A))
+                    }
+                }
+            }
+
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                SidebarLink(label = "Dashboard", icon = "dashboard", onClick = { onNavigate(AppScreen.Dashboard) })
+                SidebarLink(label = "Scan History", icon = "history", onClick = { onNavigate(AppScreen.ScanHistory) })
+                SidebarLink(label = "Trust Centre", icon = "verified_user", isActive = true, onClick = { })
+                SidebarLink(label = "Threat Intel", icon = "public", onClick = { onNavigate(AppScreen.ResultDangerous) })
+                SidebarLink(label = "Settings", icon = "settings", onClick = { onNavigate(AppScreen.TrustCentreAlt) })
+            }
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(64.dp)
-                .padding(horizontal = 32.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .border(1.dp, Color(0xFFD0D7DE))
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "QR-SHIELD",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text("/", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f))
-                Text(
-                    text = "Trust Centre",
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-
-            IconButton(onClick = onThemeToggle) {
-                Text(if (isDarkMode) "☀️" else "🌙", fontSize = 18.sp)
-            }
-        }
-    }
-}
-
-@Composable
-private fun DomainRow(
-    domain: String,
-    onRemove: () -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 14.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Favicon placeholder
             Box(
                 modifier = Modifier
-                    .size(36.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                    .size(32.dp)
+                    .clip(CircleShape)
+                    .background(Brush.linearGradient(listOf(Color(0xFF135BEC), Color(0xFF9333EA)))),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = domain.take(2).uppercase(),
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Text("", fontSize = 12.sp)
             }
             Column {
-                Text(
-                    text = domain,
-                    style = MaterialTheme.typography.bodyMedium,
-                    fontWeight = FontWeight.Medium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = "Trusted · Always allowed",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = Color(0xFF10B981)
-                )
-            }
-        }
-
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            IconButton(
-                onClick = { },
-                modifier = Modifier.size(32.dp)
-            ) {
-                Text("✏️", fontSize = 14.sp)
-            }
-            IconButton(
-                onClick = onRemove,
-                modifier = Modifier.size(32.dp)
-            ) {
-                Text("🗑️", fontSize = 14.sp)
+                Text("System Admin", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                Text("Licence: Pro", fontSize = 12.sp, color = Color(0xFF57606A))
             }
         }
     }
 }
 
 @Composable
-private fun SettingToggle(
-    title: String,
-    description: String,
-    enabled: Boolean,
-    onToggle: (Boolean) -> Unit,
-    accentColor: Color
-) {
+private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, onClick: () -> Unit) {
+    val bg = if (isActive) Color(0xFF135BEC).copy(alpha = 0.05f) else Color.Transparent
+    val border = if (isActive) Color(0xFF135BEC).copy(alpha = 0.2f) else Color.Transparent
+    val textColor = if (isActive) Color(0xFF135BEC) else Color(0xFF57606A)
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 12.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .clip(RoundedCornerShape(8.dp))
+            .background(bg)
+            .border(1.dp, border, RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .padding(horizontal = 12.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.Medium
+        MaterialSymbol(name = icon, size = 20.sp, color = textColor)
+        Text(label, fontSize = 14.sp, fontWeight = if (isActive) FontWeight.Medium else FontWeight.Normal, color = textColor)
+    }
+}
+
+@Composable
+private fun TrustCentreContent(viewModel: AppViewModel) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 32.dp, vertical = 24.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("Trust Centre & Privacy Controls", fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
+            Text("Manage offline heuristics, data retention policies, and domain allowlists. All changes apply immediately.", fontSize = 16.sp, color = Color(0xFF57606A), modifier = Modifier.widthIn(max = 640.dp))
+        }
+
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(12.dp),
+            color = Color.White,
+            border = BorderStroke(1.dp, Color(0xFF2EA043).copy(alpha = 0.2f))
+        ) {
+            Box(modifier = Modifier.padding(24.dp)) {
+                MaterialSymbol(
+                    name = "shield_lock",
+                    size = 180.sp,
+                    color = Color(0xFF2EA043).copy(alpha = 0.1f),
+                    modifier = Modifier.align(Alignment.TopEnd)
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF2EA043)))
+                            Text("AIR-GAPPED STATUS: ACTIVE", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF2EA043), letterSpacing = 1.2.sp)
+                        }
+                        Text("Strict Offline Guarantee", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
+                        Text(
+                            "QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis.",
+                            fontSize = 16.sp,
+                            color = Color(0xFF57606A),
+                            modifier = Modifier.widthIn(max = 520.dp)
+                        )
+                    }
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = Color.White,
+                        border = BorderStroke(1.dp, Color(0xFFD0D7DE))
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            MaterialSymbol(name = "description", size = 16.sp, color = Color(0xFF24292F))
+                            Text("View Audit Log", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                        }
+                    }
+                }
+            }
+        }
+
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxWidth()) {
+            Surface(
+                modifier = Modifier.weight(2f),
+                shape = RoundedCornerShape(12.dp),
+                color = Color.White,
+                border = BorderStroke(1.dp, Color(0xFFD0D7DE))
+            ) {
+                Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            MaterialSymbol(name = "tune", size = 20.sp, color = Color(0xFF135BEC))
+                            Text("Heuristic Sensitivity", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                        }
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(6.dp))
+                                .background(Color(0xFF135BEC).copy(alpha = 0.1f))
+                                .border(1.dp, Color(0xFF135BEC).copy(alpha = 0.2f), RoundedCornerShape(6.dp))
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
+                        ) {
+                            Text("MODE: BALANCED", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC))
+                        }
+                    }
+                    Box(modifier = Modifier.height(48.dp)) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(8.dp)
+                                .clip(RoundedCornerShape(999.dp))
+                                .background(Color(0xFFE5E7EB))
+                        )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth(0.5f)
+                                .height(8.dp)
+                                .clip(RoundedCornerShape(999.dp))
+                                .background(Brush.horizontalGradient(listOf(Color(0xFF93C5FD), Color(0xFF135BEC))))
+                        )
+                        Column(
+                            modifier = Modifier
+                                .offset(x = 0.dp, y = 0.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(16.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFFE5E7EB))
+                                    .border(2.dp, Color.White, CircleShape)
+                            )
+                            Text("Low", fontSize = 12.sp, color = Color(0xFF57606A))
+                        }
+                        Column(
+                            modifier = Modifier
+                                .offset(x = 240.dp, y = (-4).dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(28.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFF135BEC))
+                                    .border(4.dp, Color.White, CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color.White))
+                            }
+                            Text("Balanced", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
+                        }
+                        Column(
+                            modifier = Modifier
+                                .offset(x = 480.dp, y = 0.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(16.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFFE5E7EB))
+                                    .border(2.dp, Color.White, CircleShape)
+                            )
+                            Text("Paranoia", fontSize = 12.sp, color = Color(0xFF57606A))
+                        }
+                    }
+                }
+            }
+            Surface(
+                modifier = Modifier.weight(1f),
+                shape = RoundedCornerShape(12.dp),
+                color = Color.White,
+                border = BorderStroke(1.dp, Color(0xFFD0D7DE))
+            ) {
+                Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("Verdict Logic Explanation", fontSize = 13.sp, color = Color(0xFF57606A), fontWeight = FontWeight.Medium)
+                    Text(
+                        "Balanced Mode uses standard heuristic signatures. It flags known malicious patterns but allows common URL shorteners unless they redirect to suspicious TLDs.",
+                        fontSize = 14.sp,
+                        color = Color(0xFF24292F)
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Text("Engine v4.1.2 • Sig DB: 2023-10-27", fontSize = 11.sp, color = Color(0xFF57606A))
+                }
+            }
+        }
+
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+            ToggleCard(
+                title = "Strict Offline Mode",
+                subtitle = "Force disable all network adapters for app",
+                enabled = viewModel.trustCentreToggles.strictOffline,
+                activeColor = Color(0xFF2EA043),
+                modifier = Modifier.weight(1f)
             )
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+            ToggleCard(
+                title = "Anonymous Telemetry",
+                subtitle = "Share threat signatures to improve DB",
+                enabled = viewModel.trustCentreToggles.anonymousTelemetry,
+                activeColor = Color(0xFF135BEC),
+                modifier = Modifier.weight(1f)
+            )
+            ToggleCard(
+                title = "Auto-copy Safe Links",
+                subtitle = "Copy to clipboard if Verdict is SAFE",
+                enabled = viewModel.trustCentreToggles.autoCopySafe,
+                activeColor = Color(0xFF135BEC),
+                modifier = Modifier.weight(1f)
             )
         }
-        Switch(
-            checked = enabled,
-            onCheckedChange = onToggle,
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.White,
-                checkedTrackColor = accentColor,
-                uncheckedThumbColor = MaterialTheme.colorScheme.outline,
-                uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant
-            )
-        )
+
+        Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
+            AllowListCard(modifier = Modifier.weight(1f))
+            BlockListCard(modifier = Modifier.weight(1f))
+        }
+    }
+}
+
+@Composable
+private fun ToggleCard(title: String, subtitle: String, enabled: Boolean, activeColor: Color, modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(12.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFD0D7DE))
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(title, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                Text(subtitle, fontSize = 12.sp, color = Color(0xFF57606A))
+            }
+            Box(
+                modifier = Modifier
+                    .width(48.dp)
+                    .height(24.dp)
+                    .clip(RoundedCornerShape(999.dp))
+                    .background(if (enabled) activeColor else Color(0xFFE5E7EB))
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(16.dp)
+                        .align(if (enabled) Alignment.CenterEnd else Alignment.CenterStart)
+                        .offset(x = if (enabled) (-4).dp else 4.dp)
+                        .clip(CircleShape)
+                        .background(Color.White)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun AllowListCard(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(12.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFD0D7DE))
+    ) {
+        Column(modifier = Modifier.height(400.dp)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFFF8FAFC))
+                    .border(1.dp, Color(0xFFD0D7DE))
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    MaterialSymbol(name = "check_circle", size = 20.sp, color = Color(0xFF2EA043))
+                    Text("Domain Allowlist", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                }
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color.Transparent),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MaterialSymbol(name = "add", size = 20.sp, color = Color(0xFF57606A))
+                }
+            }
+            Column(modifier = Modifier.weight(1f).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                AllowItem("assets/stitch/favicon-google.png", "*.google.com")
+                AllowItem("assets/stitch/favicon-company.png", "company-portal.net")
+                AllowItem("assets/stitch/favicon-slack.png", "*.slack.com")
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFFF8FAFC))
+                    .border(1.dp, Color(0xFFD0D7DE))
+                    .padding(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
+                    Text("Search domains...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun AllowItem(imagePath: String, domain: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .padding(horizontal = 8.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Box(
+                modifier = Modifier
+                    .size(24.dp)
+                    .clip(CircleShape)
+                    .border(1.dp, Color(0xFFD0D7DE))
+            ) {
+                Image(
+                    painter = painterResource(imagePath),
+                    contentDescription = domain,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+            Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+        }
+        MaterialSymbol(name = "delete", size = 18.sp, color = Color(0xFFCF222E))
+    }
+}
+
+@Composable
+private fun BlockListCard(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(12.dp),
+        color = Color.White,
+        border = BorderStroke(1.dp, Color(0xFFD0D7DE))
+    ) {
+        Column(modifier = Modifier.height(400.dp)) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFFF8FAFC))
+                    .border(1.dp, Color(0xFFD0D7DE))
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    MaterialSymbol(name = "block", size = 20.sp, color = Color(0xFFCF222E))
+                    Text("Custom Blocklist", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                }
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MaterialSymbol(name = "add", size = 20.sp, color = Color(0xFF57606A))
+                }
+            }
+            Column(modifier = Modifier.weight(1f).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                BlockItem("bit.ly/*", badge = "WILDCARD")
+                BlockItem("suspicious-domain.xyz")
+                BlockItem("free-crypto-giveaway.net")
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFFF8FAFC))
+                    .border(1.dp, Color(0xFFD0D7DE))
+                    .padding(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
+                    Text("Search rules...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun BlockItem(domain: String, badge: String? = null) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .padding(horizontal = 8.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+            if (badge != null) {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(Color(0xFFD29922).copy(alpha = 0.1f))
+                        .border(1.dp, Color(0xFFD29922).copy(alpha = 0.2f), RoundedCornerShape(4.dp))
+                        .padding(horizontal = 6.dp, vertical = 2.dp)
+                ) {
+                    Text(badge, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFD29922))
+                }
+            }
+        }
+        MaterialSymbol(name = "delete", size = 18.sp, color = Color(0xFFCF222E))
     }
 }

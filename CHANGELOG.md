@@ -5,6 +5,17 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2025-12-21
+
+### 🖥️ Stitch Desktop UI Rebuild (Compose Desktop)
+- **Rebuilt screens:** Dashboard, Live Scan, Scan History, Trust Centre (2 variants), Training, Reports Export, Safe/Suspicious/Dangerous Results (2 variants).
+- **Design tokens:** Added `StitchTheme` with extracted colors/typography/spacing/radius/elevation.
+- **State + navigation:** Added `AppViewModel` and `NavigationState` for single-source state and routing.
+- **Assets + fonts:** Added Stitch-aligned PNG assets and font files (Inter, JetBrains Mono, Material Icons/Symbols).
+- **UI utilities:** Added icon mapping, background pattern helpers, and hover/pressed interaction helpers.
+- **Desktop constraints:** Fixed window size to 1440x900 to match non-responsive desktop layouts.
+- **Cleanup:** Removed legacy sidebar/screens/components that no longer matched the Stitch HTML.
+
 ## [1.10.0] - 2025-12-21
 
 ### 🖥️ Desktop UI Overhaul (HTML Design Integration)
