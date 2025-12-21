@@ -4,6 +4,88 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🎨 December 21, 2025 - Icon Integration (QR-SHIELD.iconset)
+
+### Summary
+Integrated the new `QR-SHIELD.iconset` logos across all platforms (iOS, WebApp, PWA).
+
+## 📁 Source Icons
+Located at: `/QR-SHIELD.iconset/`
+
+| File | Size | Usage |
+|------|------|-------|
+| `icon_512x512@2x.png` | 1024px | iOS App Icon |
+| `icon_512x512.png` | 512px | PWA, Splash |
+| `icon_256x256.png` | 256px | Apple Touch Icon |
+| `icon_128x128.png` | 128px | Small icons |
+| `icon_32x32.png` | 32px | Favicon |
+| `icon_16x16.png` | 16px | Favicon small |
+
+## 📱 iOS Integration
+
+**Directory:** `iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/`
+
+Replaced all app icons with the 1024x1024 version:
+```bash
+cp QR-SHIELD.iconset/icon_512x512@2x.png \
+   iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/app-icon-1024.png
+cp QR-SHIELD.iconset/icon_512x512@2x.png \
+   iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/app-icon-1024-dark.png
+cp QR-SHIELD.iconset/icon_512x512@2x.png \
+   iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/app-icon-1024-tinted.png
+```
+
+## 🌐 WebApp Integration
+
+### New Assets Created
+**Directory:** `webApp/src/jsMain/resources/assets/`
+
+| New File | Source |
+|----------|--------|
+| `icon-512.png` | `icon_512x512.png` |
+| `icon-256.png` | `icon_256x256.png` |
+| `icon-128.png` | `icon_128x128.png` |
+| `favicon-32.png` | `icon_32x32.png` |
+| `favicon-16.png` | `icon_16x16.png` |
+
+### manifest.json Updated
+Added PNG icons for better browser compatibility:
+```json
+{
+    "icons": [
+        { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+        { "src": "assets/icon-256.png", "sizes": "256x256", "type": "image/png" },
+        { "src": "assets/icon-128.png", "sizes": "128x128", "type": "image/png" },
+        { "src": "assets/logo.svg", "sizes": "any", "type": "image/svg+xml" }
+    ]
+}
+```
+
+### HTML Files Updated (9 files)
+Updated apple-touch-icon references from SVG to PNG:
+```html
+<!-- Before -->
+<link rel="apple-touch-icon" href="assets/logo.svg">
+
+<!-- After -->
+<link rel="apple-touch-icon" href="assets/icon-256.png">
+```
+
+Files updated:
+- `index.html`
+- `dashboard.html`
+- `scanner.html`
+- `results.html`
+- `threat.html`
+- `trust.html`
+- `game.html`
+- `export.html`
+- `onboarding.html`
+
+---
+
+
+
 # 🔒 December 21, 2025 - iOS Audit Final Pass (All 14 Issues Fixed)
 
 ### Summary

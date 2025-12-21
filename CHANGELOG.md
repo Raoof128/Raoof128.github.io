@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Full competition-grade iOS codebase audit with all 26 Swift files reviewed, critical bugs fixed, and all interactive elements verified wired.
 
+### 🎨 Icon Integration (QR-SHIELD.iconset)
+
+Integrated the new `QR-SHIELD.iconset` across all platforms:
+
+| Platform | Files Updated | Description |
+|----------|--------------|-------------|
+| **iOS** | `AppIcon.appiconset/*.png` | Replaced 1024x1024 app icons (light, dark, tinted) |
+| **WebApp PWA** | `manifest.json`, `index.html` | Added 512, 256, 128px PNG icons |
+| **WebApp HTML** | 8 HTML files | Updated apple-touch-icon links to PNG |
+| **Assets** | `assets/icon-*.png`, `favicon-*.png` | Added all icon sizes from iconset |
+
 #### 🔗 Post-Audit Fixes (Additional)
 
 | Issue | File | Fix |
