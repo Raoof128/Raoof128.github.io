@@ -53,11 +53,11 @@ extension Image {
     
     // MARK: - Branding
     
-    /// Main app logo
-    static let brandingLogo = Image(systemName: "shield.fill")
+    /// Main app logo - uses custom PNG from Assets
+    static let brandingLogo = Image("Logo")
     
-    /// Launch screen logo
-    static let launchLogo = Image(systemName: "shield.fill")
+    /// Launch screen logo - uses custom PNG from Assets
+    static let launchLogo = Image("Logo")
     
     // MARK: - Verdict Icon Helper
     

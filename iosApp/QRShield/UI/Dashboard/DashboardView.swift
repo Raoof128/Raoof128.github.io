@@ -87,8 +87,10 @@ struct DashboardView: View {
                         SettingsManager.shared.triggerHaptic(.light)
                     } label: {
                         HStack(spacing: 8) {
-                            Image(systemName: "shield.fill")
-                                .foregroundStyle(LinearGradient.brandGradient)
+                            Image("Logo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
                             Text("QR-SHIELD")
                                 .font(.headline)
                                 .foregroundColor(.textPrimary)

@@ -236,8 +236,8 @@ html {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--radius-xl);
-    background: linear-gradient(135deg, var(--primary), #2563eb);
-    box-shadow: 0 4px 15px rgba(25, 93, 230, 0.2);
+    background: transparent;
+    box-shadow: none;
 }
 
 .logo-icon .material-symbols-outlined {

@@ -4,6 +4,58 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🎨 December 21, 2025 (Continued) - Logo Transparency & Comprehensive Integration
+
+### Summary
+Extended the icon integration to fix blue background circles on logos and ensure all 9 HTML pages use the new PNG logo.
+
+## 🔧 Fixes Applied
+
+### 1. Sidebar Logo Replacements (9 HTML files)
+All Material Symbol icons in sidebars replaced with PNG logo:
+
+| Page | Old Icon | New Element |
+|------|----------|-------------|
+| `dashboard.html` | `shield_lock` | `<img src="assets/icon-128.png">` |
+| `scanner.html` | `shield_lock` | `<img src="assets/icon-128.png">` |
+| `threat.html` | `shield_lock` | `<img src="assets/icon-128.png">` |
+| `trust.html` | (Material Symbol) | `<img src="assets/icon-128.png">` |
+| `game.html` | `shield_lock` | `<img src="assets/icon-128.png">` |
+| `export.html` | `shield` | `<img src="assets/icon-128.png">` |
+| `onboarding.html` | `shield_lock` | `<img src="assets/icon-128.png">` |
+| `results.html` | `security` | `<img src="assets/icon-128.png">` |
+| `index.html` | `logo.svg` | `<img src="assets/icon-128.png">` |
+
+### 2. Blue Background Removal (6 CSS files)
+The `.logo-icon` class had blue gradient/solid backgrounds that created circles behind the logo. Fixed by changing to transparent:
+
+| CSS File | Original | Fixed |
+|----------|----------|-------|
+| `threat.css` | `background: linear-gradient(135deg, var(--primary), var(--primary-dark))` | `background: transparent` |
+| `onboarding.css` | `background: linear-gradient(135deg, var(--primary), #2563eb)` | `background: transparent` |
+| `export.css` | `background-color: var(--primary)` | `background: transparent` |
+| `results.css` | `background-color: var(--primary)` | `background: transparent` |
+| `scanner.css` | `background-color: var(--primary)` | `background: transparent` |
+
+Also removed `box-shadow` and `border` from logo containers in `threat.css` and `onboarding.css`.
+
+### 3. Icon Refresh from New Iconset
+User updated `qr-shield-iconset/QR-SHIELD.iconset/` with new designs. All icons re-copied to:
+- iOS App Icons (`AppIcon.appiconset/*.png`)
+- iOS UI Logo (`Logo.imageset/*.png`)
+- WebApp Assets (`assets/icon-*.png`, `assets/favicon-*.png`)
+
+## ✅ Verification
+JavaScript execution confirmed all `.logo-icon` containers now have:
+```javascript
+{
+  backgroundColor: "rgba(0, 0, 0, 0)",  // Transparent
+  backgroundImage: "none"
+}
+```
+
+---
+
 # 🎨 December 21, 2025 - Icon Integration (QR-SHIELD.iconset)
 
 ### Summary
@@ -23,16 +75,39 @@ Located at: `/QR-SHIELD.iconset/`
 
 ## 📱 iOS Integration
 
+### App Icon (Home Screen)
 **Directory:** `iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/`
 
 Replaced all app icons with the 1024x1024 version:
 ```bash
 cp QR-SHIELD.iconset/icon_512x512@2x.png \
    iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/app-icon-1024.png
-cp QR-SHIELD.iconset/icon_512x512@2x.png \
-   iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/app-icon-1024-dark.png
-cp QR-SHIELD.iconset/icon_512x512@2x.png \
-   iosApp/QRShield/Assets.xcassets/AppIcon.appiconset/app-icon-1024-tinted.png
+```
+
+### UI Logo (In-App Branding)
+**Directory:** `iosApp/QRShield/Assets.xcassets/Logo.imageset/`
+
+Created new imageset for UI branding:
+| File | Scale | Source |
+|------|-------|--------|
+| `logo.png` | 1x | `icon_128x128.png` |
+| `logo@2x.png` | 2x | `icon_256x256.png` |
+| `logo@3x.png` | 3x | `icon_512x512.png` |
+
+### SwiftUI Code Updated
+**Files:** `Assets+Extension.swift`, `DashboardView.swift`, `MainMenuView.swift`
+
+Changed from SF Symbol to custom image:
+```swift
+// Before
+Image(systemName: "shield.fill")
+    .foregroundStyle(LinearGradient.brandGradient)
+
+// After
+Image("Logo")
+    .resizable()
+    .scaledToFit()
+    .frame(width: 24, height: 24)
 ```
 
 ## 🌐 WebApp Integration
@@ -81,6 +156,26 @@ Files updated:
 - `game.html`
 - `export.html`
 - `onboarding.html`
+
+### Sidebar Logo Updated
+Replaced Material Symbol with PNG logo in all pages:
+```html
+<!-- Before -->
+<span class="material-symbols-outlined filled">shield_lock</span>
+
+<!-- After -->
+<img src="assets/icon-128.png" alt="QR-SHIELD Logo" class="logo-icon" style="width: 28px; height: 28px;">
+```
+
+### Service Worker Updated
+Added new icons to STATIC_ASSETS cache:
+```javascript
+'./assets/icon-512.png',
+'./assets/icon-256.png',
+'./assets/icon-128.png',
+'./assets/favicon-32.png',
+'./assets/favicon-16.png',
+```
 
 ---
 

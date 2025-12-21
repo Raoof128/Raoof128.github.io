@@ -18,9 +18,16 @@ Integrated the new `QR-SHIELD.iconset` across all platforms:
 | Platform | Files Updated | Description |
 |----------|--------------|-------------|
 | **iOS** | `AppIcon.appiconset/*.png` | Replaced 1024x1024 app icons (light, dark, tinted) |
+| **iOS UI** | `Logo.imageset/*.png` + SwiftUI | New branding imageset, updated DashboardView & MainMenuView |
 | **WebApp PWA** | `manifest.json`, `index.html` | Added 512, 256, 128px PNG icons |
-| **WebApp HTML** | 8 HTML files | Updated apple-touch-icon links to PNG |
+| **WebApp Sidebar** | 9 HTML files | Replaced all Material Symbol logos with PNG |
+| **WebApp CSS** | 6 CSS files | Removed blue backgrounds from `.logo-icon` (now transparent) |
+| **WebApp Header** | `index.html` | Updated header logo to PNG |
+| **Service Worker** | `sw.js` | Added all icons to STATIC_ASSETS cache |
 | **Assets** | `assets/icon-*.png`, `favicon-*.png` | Added all icon sizes from iconset |
+
+**CSS Blue Background Fix:**
+- `threat.css`, `onboarding.css`, `export.css`, `results.css`, `scanner.css` - Changed `.logo-icon` background from blue gradients/solid colors to `transparent`
 
 #### 🔗 Post-Audit Fixes (Additional)
 

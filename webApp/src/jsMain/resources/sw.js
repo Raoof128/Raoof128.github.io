@@ -49,6 +49,11 @@ const STATIC_ASSETS = [
     './app.js',
     './webApp.js',
     './assets/logo.svg',
+    './assets/icon-512.png',
+    './assets/icon-256.png',
+    './assets/icon-128.png',
+    './assets/favicon-32.png',
+    './assets/favicon-16.png',
     './manifest.json'
 ];
 

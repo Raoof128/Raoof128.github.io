@@ -264,7 +264,7 @@ body {
     width: 2rem;
     height: 2rem;
     border-radius: var(--radius-md);
-    background-color: var(--primary);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -441,7 +441,7 @@ body {
     gap: var(--space-sm);
     height: 2.25rem;
     padding: 0 var(--space-md);
-    background-color: var(--primary);
+    background: transparent;
     color: white;
     border: none;
     border-radius: var(--radius-lg);
@@ -1163,7 +1163,7 @@ body {
     gap: var(--space-sm);
     padding: var(--space-sm) var(--space-lg);
     height: 2.75rem;
-    background-color: var(--primary);
+    background: transparent;
     border: none;
     border-radius: var(--radius-lg);
     color: white;

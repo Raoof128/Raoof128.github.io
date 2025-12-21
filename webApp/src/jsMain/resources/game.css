@@ -200,7 +200,7 @@ html {
 }
 
 ::selection {
-    background-color: var(--primary);
+    background: transparent;
     color: white;
 }
 
@@ -708,7 +708,7 @@ html {
 
 .progress-fill {
     height: 100%;
-    background-color: var(--primary);
+    background: transparent;
     border-radius: var(--radius-full);
     position: relative;
     overflow: hidden;
@@ -1415,7 +1415,7 @@ body.light .decision-btn.legitimate .btn-content {
     gap: var(--space-2);
     width: 100%;
     padding: var(--space-3) var(--space-6);
-    background-color: var(--primary);
+    background: transparent;
     color: white;
     font-size: 0.875rem;
     font-weight: 600;

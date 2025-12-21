@@ -323,12 +323,12 @@ html {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--radius-xl);
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px var(--primary-glow);
-    border: 1px solid rgba(25, 93, 230, 0.3);
+    box-shadow: none;
+    border: none;
 }
 
 .logo-icon .material-symbols-outlined {

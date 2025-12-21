@@ -322,7 +322,7 @@ html {
 }
 
 ::selection {
-    background-color: var(--primary);
+    background: transparent;
     color: white;
 }
 
@@ -457,7 +457,7 @@ html {
     transform: translateY(-50%);
     width: 4px;
     height: 2rem;
-    background-color: var(--primary);
+    background: transparent;
     border-radius: 0 var(--radius-full) var(--radius-full) 0;
 }
 
@@ -1497,7 +1497,7 @@ html {
     gap: var(--space-2);
     width: 100%;
     padding: var(--space-3);
-    background-color: var(--primary);
+    background: transparent;
     color: white;
     font-size: 0.875rem;
     font-weight: 600;

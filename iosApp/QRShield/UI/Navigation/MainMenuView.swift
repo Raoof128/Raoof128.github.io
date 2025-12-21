@@ -168,9 +168,10 @@ struct MainMenuView: View {
         HStack {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 8) {
-                    Image(systemName: "shield.fill")
-                        .font(.title2)
-                        .foregroundStyle(LinearGradient.brandGradient)
+                    Image("Logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 32, height: 32)
                     
                     Text("QR-SHIELD")
                         .font(.title2.weight(.bold))
