@@ -83,8 +83,15 @@ object SettingsManager {
     }
 
     private fun defaultLanguageCode(): String {
-        val language = Locale.getDefault().language.lowercase()
-        return if (language.startsWith("de")) "de" else "en"
+        return when (Locale.getDefault().language.lowercase()) {
+            "de" -> "de"
+            "es" -> "es"
+            "fr" -> "fr"
+            "zh" -> "zh"
+            "ja" -> "ja"
+            "hi" -> "hi"
+            else -> "en"
+        }
     }
 
     private fun getSettingsFile(): File {

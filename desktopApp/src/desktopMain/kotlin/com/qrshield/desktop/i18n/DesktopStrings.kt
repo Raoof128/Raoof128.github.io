@@ -4,12 +4,22 @@ import java.util.Locale
 
 enum class AppLanguage(val code: String, val displayName: String) {
     English("en", "English"),
-    German("de", "Deutsch");
+    German("de", "Deutsch"),
+    Spanish("es", "Español"),
+    French("fr", "Français"),
+    ChineseSimplified("zh", "中文(简体)"),
+    Japanese("ja", "日本語"),
+    Hindi("hi", "हिन्दी");
 
     companion object {
         fun fromCode(code: String): AppLanguage {
             return when (code.lowercase()) {
                 "de", "de-de", "de_at", "de-ch" -> German
+                "es", "es-es", "es-mx", "es-419" -> Spanish
+                "fr", "fr-fr", "fr-ca" -> French
+                "zh", "zh-cn", "zh-hans", "zh-sg" -> ChineseSimplified
+                "ja", "ja-jp" -> Japanese
+                "hi", "hi-in" -> Hindi
                 else -> English
             }
         }
@@ -36,23 +46,14 @@ enum class DesktopStringKey(val defaultText: String) {
 }
 
 object DesktopStrings {
-    private val german = mapOf(
-        DesktopStringKey.AppName to "QR-SHIELD",
-        DesktopStringKey.MenuMain to "Hauptmenue",
-        DesktopStringKey.MenuSecurity to "Sicherheit",
-        DesktopStringKey.MenuSystem to "System",
-        DesktopStringKey.NavDashboard to "Dashboard",
-        DesktopStringKey.NavScanMonitor to "Scanmonitor",
-        DesktopStringKey.NavScanHistory to "Scanverlauf",
-        DesktopStringKey.NavTrustCentre to "Vertrauenszentrum",
-        DesktopStringKey.NavReports to "Berichte",
-        DesktopStringKey.NavTraining to "Training",
-        DesktopStringKey.NavSettings to "Einstellungen"
-    )
-
     fun text(key: DesktopStringKey, language: AppLanguage): String {
         return when (language) {
-            AppLanguage.German -> german[key] ?: key.defaultText
+            AppLanguage.German -> GermanStrings[key] ?: key.defaultText
+            AppLanguage.Spanish -> SpanishStrings[key] ?: key.defaultText
+            AppLanguage.French -> FrenchStrings[key] ?: key.defaultText
+            AppLanguage.ChineseSimplified -> ChineseSimplifiedStrings[key] ?: key.defaultText
+            AppLanguage.Japanese -> JapaneseStrings[key] ?: key.defaultText
+            AppLanguage.Hindi -> HindiStrings[key] ?: key.defaultText
             AppLanguage.English -> key.defaultText
         }
     }
