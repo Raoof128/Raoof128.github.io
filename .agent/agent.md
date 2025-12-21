@@ -42,6 +42,13 @@ Added legacy color aliases for existing screen code:
 BUILD SUCCESSFUL in 18s
 ```
 
+## 📝 Documentation Workflow Created
+
+Created `.agent/workflows/documentation.md` with rules:
+1. **After EVERY change** → Update `agent.md` and `CHANGELOG.md` in detail
+2. **When committing** → Only commit YOUR files (other agents working)
+3. **Git add** → Use specific files, NEVER `git add .`
+
 ---
 
 
