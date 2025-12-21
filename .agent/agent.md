@@ -72,6 +72,7 @@ Added German language support to the Android application by creating `values-de/
 - Added Spanish, French, Chinese (Simplified), Japanese, and Hindi navigation translations.
 - Added desktop language state + settings persistence and localized sidebar strings.
 - Added per-language desktop translation maps for es/fr/zh/ja/hi/de.
+- Added desktop Settings language selector to switch app navigation labels.
 
 ## ✅ Build Verification
 

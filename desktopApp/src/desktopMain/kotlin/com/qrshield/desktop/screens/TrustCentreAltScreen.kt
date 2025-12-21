@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
+import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -145,6 +146,11 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                 InfoCard(icon = "storage", title = "On-Device DB", body = "The entire threat signature database is downloaded to your device for millisecond lookups.", modifier = Modifier.weight(1f))
             }
 
+            LanguageSection(
+                currentLanguage = viewModel.appLanguage,
+                onSelectLanguage = { viewModel.setLanguage(it) }
+            )
+
             Surface(
                 shape = RoundedCornerShape(16.dp),
                 color = if (isDark) Color(0xFF1E293B) else Color.White,
@@ -206,6 +212,72 @@ private fun InfoCard(icon: String, title: String, body: String, modifier: Modifi
             Text(title, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Text(body, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 18.sp)
         }
+    }
+}
+
+@Composable
+private fun LanguageSection(
+    currentLanguage: AppLanguage,
+    onSelectLanguage: (AppLanguage) -> Unit
+) {
+    val languages = listOf(
+        AppLanguage.English,
+        AppLanguage.German,
+        AppLanguage.Spanish,
+        AppLanguage.French,
+        AppLanguage.ChineseSimplified,
+        AppLanguage.Japanese,
+        AppLanguage.Hindi
+    )
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f))
+    ) {
+        Column(
+            modifier = Modifier.padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text("Language", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                languages.chunked(4).forEach { rowLanguages ->
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        rowLanguages.forEach { language ->
+                            LanguageChip(
+                                label = language.displayName,
+                                selected = language == currentLanguage,
+                                onClick = { onSelectLanguage(language) }
+                            )
+                        }
+                    }
+                }
+            }
+            Text(
+                "Changes apply immediately to navigation labels.",
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+@Composable
+private fun LanguageChip(label: String, selected: Boolean, onClick: () -> Unit) {
+    val background = if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.1f) else Color.Transparent
+    val border = if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.3f) else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
+    val textColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(999.dp))
+            .background(background)
+            .border(1.dp, border, RoundedCornerShape(999.dp))
+            .clickable { onClick() }
+            .focusable()
+            .padding(horizontal = 12.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = textColor)
     }
 }
 

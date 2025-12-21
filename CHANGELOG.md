@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added desktop language state and settings persistence for locale-aware navigation labels.
 - Added Spanish, French, Chinese (Simplified), Japanese, and Hindi navigation translations.
 - Added desktop translation maps for es/fr/zh/ja/hi/de.
+- Added desktop Settings language selector for navigation labels.
 
 ---
 
