@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -40,7 +41,7 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                 .background(Color(0xFFF8FAFC))
         ) {
             ScanHistoryHeader(onNavigate = { viewModel.currentScreen = it })
-            ScanHistoryContent()
+            ScanHistoryContent(onNavigate = { viewModel.currentScreen = it })
         }
     }
 }
@@ -158,7 +159,7 @@ private fun ImageAvatar() {
 }
 
 @Composable
-private fun ScanHistoryContent() {
+private fun ScanHistoryContent(onNavigate: (AppScreen) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -203,6 +204,9 @@ private fun ScanHistoryContent() {
                     }
                 }
                 Surface(
+                    modifier = Modifier
+                        .clickable { onNavigate(AppScreen.ReportsExport) }
+                        .focusable(),
                     shape = RoundedCornerShape(12.dp),
                     color = Color(0xFF135BEC)
                 ) {
@@ -212,6 +216,7 @@ private fun ScanHistoryContent() {
                     }
                 }
             }
+        }
         }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {

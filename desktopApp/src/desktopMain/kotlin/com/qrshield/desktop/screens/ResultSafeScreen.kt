@@ -11,6 +11,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -40,6 +41,7 @@ import com.qrshield.desktop.ui.gridPattern
 fun ResultSafeScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.scanResultSafe()
     StitchTheme(tokens = tokens) {
+        val navigateTo = { screen: AppScreen -> viewModel.currentScreen = screen }
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -313,7 +315,15 @@ private fun SafeResultContent(viewModel: AppViewModel) {
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text("TECHNICAL INDICATORS", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
-                                Text("Export Report", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF10B981))
+                                Text(
+                                    "Export Report",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color(0xFF10B981),
+                                    modifier = Modifier
+                                        .clickable { navigateTo(AppScreen.ReportsExport) }
+                                        .focusable()
+                                )
                             }
                             TechnicalRow("Certificate Issuer", "DigiCert Inc (US)")
                             TechnicalRow("Server Location", "United States (Azure Cloud)")

@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -51,7 +52,10 @@ fun LiveScanScreen(viewModel: AppViewModel) {
                 .background(Color(0xFFF9FAFB))
         ) {
             LiveScanSidebar(onNavigate = { viewModel.currentScreen = it })
-            LiveScanContent(viewModel = viewModel)
+            LiveScanContent(
+                viewModel = viewModel,
+                onNavigate = { viewModel.currentScreen = it }
+            )
         }
     }
 }
@@ -91,7 +95,7 @@ private fun LiveScanSidebar(onNavigate: (AppScreen) -> Unit) {
 
             Text("SYSTEM", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp, modifier = Modifier.padding(start = 12.dp, top = 28.dp, bottom = 12.dp))
             SidebarLink(label = "Settings", icon = "settings", onClick = { onNavigate(AppScreen.TrustCentreAlt) })
-            SidebarLink(label = "Support", icon = "help_outline", onClick = { })
+            SidebarLink(label = "Support", icon = "help_outline", onClick = { onNavigate(AppScreen.Training) })
         }
 
         Column(
@@ -145,7 +149,7 @@ private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, 
 }
 
 @Composable
-private fun LiveScanContent(viewModel: AppViewModel) {
+private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -437,7 +441,15 @@ private fun LiveScanContent(viewModel: AppViewModel) {
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text("RECENT SCANS", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
-                                Text("View All", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF2563EB))
+                                Text(
+                                    "View All",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.SemiBold,
+                                    color = Color(0xFF2563EB),
+                                    modifier = Modifier
+                                        .clickable { onNavigate(AppScreen.ScanHistory) }
+                                        .focusable()
+                                )
                             }
                             Column(
                                 modifier = Modifier
@@ -502,6 +514,8 @@ private fun LiveScanContent(viewModel: AppViewModel) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .border(1.dp, Color(0xFFE5E7EB))
+                                    .clickable { onNavigate(AppScreen.ReportsExport) }
+                                    .focusable()
                                     .padding(12.dp)
                             ) {
                                 Row(

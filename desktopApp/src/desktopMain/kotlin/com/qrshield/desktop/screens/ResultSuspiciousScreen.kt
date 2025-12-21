@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -53,7 +54,11 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
                 SuspiciousSidebar(isDark = viewModel.isDarkMode, onNavigate = { viewModel.currentScreen = it })
-                SuspiciousContent(isDark = viewModel.isDarkMode, onToggleTheme = { viewModel.toggleTheme() })
+                SuspiciousContent(
+                    isDark = viewModel.isDarkMode,
+                    onToggleTheme = { viewModel.toggleTheme() },
+                    onNavigate = { viewModel.currentScreen = it }
+                )
             }
             ThemeToggleButton(isDark = viewModel.isDarkMode, onToggle = { viewModel.toggleTheme() })
         }
@@ -146,7 +151,11 @@ private fun NavLink(label: String, icon: String, textMuted: Color, onNavigate: (
 }
 
 @Composable
-private fun SuspiciousContent(isDark: Boolean, onToggleTheme: () -> Unit) {
+private fun SuspiciousContent(
+    isDark: Boolean,
+    onToggleTheme: () -> Unit,
+    onNavigate: (AppScreen) -> Unit
+) {
     val background = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
     val surface = if (isDark) Color(0xFF1F2937) else Color.White
     val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
@@ -400,7 +409,15 @@ private fun SuspiciousContent(isDark: Boolean, onToggleTheme: () -> Unit) {
                         ) {
                             Text("Analysis ID: #SCAN-8824-H99", fontSize = 12.sp, color = textMuted)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                                Text("View Full JSON Log", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFFF59E0B))
+                                Text(
+                                    "View Full JSON Log",
+                                    fontSize = 12.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    color = Color(0xFFF59E0B),
+                                    modifier = Modifier
+                                        .clickable { onNavigate(AppScreen.ReportsExport) }
+                                        .focusable()
+                                )
                                 MaterialIcon(name = "arrow_forward", size = 14.sp, color = Color(0xFFF59E0B))
                             }
                         }

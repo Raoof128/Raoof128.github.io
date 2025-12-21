@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -43,7 +44,10 @@ fun TrustCentreScreen(viewModel: AppViewModel) {
                 .gridPattern(spacing = 40.dp, lineColor = Color(0xFFE1E4E8), lineWidth = 1.dp)
         ) {
             TrustCentreSidebar(onNavigate = { viewModel.currentScreen = it })
-            TrustCentreContent(viewModel = viewModel)
+            TrustCentreContent(
+                viewModel = viewModel,
+                onNavigate = { viewModel.currentScreen = it }
+            )
         }
     }
 }
@@ -148,7 +152,7 @@ private fun SidebarLink(label: String, icon: String, isActive: Boolean = false, 
 }
 
 @Composable
-private fun TrustCentreContent(viewModel: AppViewModel) {
+private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -195,7 +199,10 @@ private fun TrustCentreContent(viewModel: AppViewModel) {
                     Surface(
                         shape = RoundedCornerShape(8.dp),
                         color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFD0D7DE))
+                        border = BorderStroke(1.dp, Color(0xFFD0D7DE)),
+                        modifier = Modifier
+                            .clickable { onNavigate(AppScreen.ReportsExport) }
+                            .focusable()
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

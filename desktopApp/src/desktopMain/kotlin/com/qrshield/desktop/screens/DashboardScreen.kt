@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -47,7 +48,8 @@ fun DashboardScreen(viewModel: AppViewModel) {
             )
             DashboardContent(
                 onStartScan = { viewModel.currentScreen = AppScreen.LiveScan },
-                onImportImage = { viewModel.currentScreen = AppScreen.LiveScan }
+                onImportImage = { viewModel.currentScreen = AppScreen.LiveScan },
+                onViewHistory = { viewModel.currentScreen = AppScreen.ScanHistory }
             )
         }
     }
@@ -231,7 +233,8 @@ private fun SidebarItem(
 @Composable
 private fun DashboardContent(
     onStartScan: () -> Unit,
-    onImportImage: () -> Unit
+    onImportImage: () -> Unit,
+    onViewHistory: () -> Unit
 ) {
     val colors = MaterialTheme.colorScheme
 
@@ -447,7 +450,15 @@ private fun DashboardContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text("Recent Scans", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color(0xFF111827))
-                            Text("View Full History", fontSize = 14.sp, color = Color(0xFF2563EB), fontWeight = FontWeight.Medium)
+                            Text(
+                                "View Full History",
+                                fontSize = 14.sp,
+                                color = Color(0xFF2563EB),
+                                fontWeight = FontWeight.Medium,
+                                modifier = Modifier
+                                    .clickable { onViewHistory() }
+                                    .focusable()
+                            )
                         }
                         Column {
                             TableHeader()
