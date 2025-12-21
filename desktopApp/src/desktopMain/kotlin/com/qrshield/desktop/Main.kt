@@ -44,6 +44,9 @@ import androidx.compose.ui.res.painterResource
 import com.qrshield.core.PhishingEngine
 import com.qrshield.desktop.components.*
 import com.qrshield.desktop.model.AnalysisResult
+import com.qrshield.desktop.navigation.Screen
+import com.qrshield.desktop.navigation.Sidebar
+import com.qrshield.desktop.screens.*
 import com.qrshield.desktop.theme.DesktopColors
 import com.qrshield.desktop.theme.QRShieldDarkColors
 import com.qrshield.desktop.theme.QRShieldLightColors
@@ -114,6 +117,9 @@ fun main() = application {
 fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var isDarkMode by remember { mutableStateOf(initialDarkMode) }
 
+    // Navigation state
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Dashboard) }
+
     // Phishing engine
     val phishingEngine = remember { PhishingEngine() }
 
@@ -123,6 +129,7 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
     var scanHistory by remember { mutableStateOf(HistoryManager.loadHistory()) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var showHelpCard by remember { mutableStateOf(true) }
+    var trustedDomains by remember { mutableStateOf(listOf("google.com", "github.com", "microsoft.com")) }
 
     // Dialog states
     var showAboutDialog by remember { mutableStateOf(false) }
@@ -239,175 +246,127 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                 },
             color = MaterialTheme.colorScheme.background
         ) {
-            // Subtle gradient overlay for premium feel
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                DesktopColors.BrandPrimary.copy(alpha = 0.03f),
-                                Color.Transparent,
-                                DesktopColors.BrandSecondary.copy(alpha = 0.02f)
+            // Main Layout: Sidebar + Content
+            Row(modifier = Modifier.fillMaxSize()) {
+                // Sidebar Navigation
+                Sidebar(
+                    currentScreen = currentScreen,
+                    onNavigate = { screen -> currentScreen = screen }
+                )
+
+                // Main Content Area
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxHeight()
+                        .background(
+                            Brush.verticalGradient(
+                                colors = listOf(
+                                    DesktopColors.BrandPrimary.copy(alpha = 0.02f),
+                                    Color.Transparent,
+                                    DesktopColors.BrandSecondary.copy(alpha = 0.01f)
+                                )
                             )
                         )
-                    )
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxSize()
                 ) {
-                    // Top App Bar with gradient
-                    EnhancedTopAppBar(
-                        isDarkMode = isDarkMode,
-                        onThemeToggle = { isDarkMode = !isDarkMode },
-                        onSettingsClick = { showSettingsDialog = true },
-                        onAboutClick = { showAboutDialog = true }
-                    )
-
-                    // Main Content
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .verticalScroll(rememberScrollState())
-                            .padding(horizontal = 32.dp, vertical = 28.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(28.dp)
-                    ) {
-                    // Help Card (first-time guidance)
-                    AnimatedVisibility(
-                        visible = showHelpCard,
-                        enter = fadeIn() + slideInVertically { -40 },
-                        exit = fadeOut() + slideOutVertically { -40 }
-                    ) {
-                        HelpCard(
-                            onDismiss = { showHelpCard = false }
-                        )
-                    }
-
-                    // Hero Section with animated shield
-                    AnimatedHeroSection()
-
-                    // Metrics Grid (matching Web)
-                    MetricsGrid()
-
-                    // Sample URLs Section (Try Now for judges)
-                    SampleUrlsSection(
-                        onUrlSelected = { selectedUrl ->
-                            urlInput = selectedUrl
-                            performAnalysis()
-                        }
-                    )
-
-                    // Keyboard Shortcuts Hint
-                    KeyboardShortcutsHint()
-
-                    // Scanner Card
-                    EnhancedScannerCard(
-                        urlInput = urlInput,
-                        onUrlChange = { urlInput = it },
-                        isAnalyzing = isAnalyzing,
-                        onAnalyze = performAnalysis
-                    )
-
-                    // Quick Actions
-                    QuickActionsRow(
-                        onPasteFromClipboard = pasteFromClipboard,
-                        onClearInput = {
-                            urlInput = ""
-                            analysisResult = null
-                            errorMessage = null
-                        }
-                    )
-
-                    // Advanced Actions Row (Upload QR + Judge Mode + Beat the Bot)
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        // Upload QR Image Button
-                        UploadQrButton(
-                            onUrlDecoded = { decodedUrl ->
-                                urlInput = decodedUrl
-                                performAnalysis()
-                            },
-                            onError = { error ->
-                                errorMessage = error
-                            }
-                        )
-
-                        // Judge Mode Toggle
-                        JudgeModeToggle()
-
-                        // Beat the Bot Game Mode (Prominent for judges!)
-                        BeatTheBotButton()
-                    }
-
-                    // Error Message Display
-                    AnimatedVisibility(
-                        visible = errorMessage != null,
-                        enter = fadeIn() + slideInVertically { -20 },
-                        exit = fadeOut() + slideOutVertically { -20 }
-                    ) {
-                        errorMessage?.let { message ->
-                            Surface(
-                                shape = RoundedCornerShape(12.dp),
-                                color = MaterialTheme.colorScheme.errorContainer,
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                Row(
-                                    modifier = Modifier.padding(16.dp),
-                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                    verticalAlignment = Alignment.CenterVertically
-                                ) {
-                                    Text(text = "⚠️", fontSize = 18.sp)
-                                    Text(
-                                        text = message,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onErrorContainer
-                                    )
-                                }
-                            }
-                        }
-                    }
-
-                    // Results
-                    AnimatedVisibility(
-                        visible = analysisResult != null,
-                        enter = fadeIn() + slideInVertically { -40 },
-                        exit = fadeOut() + slideOutVertically { -40 }
-                    ) {
-                        analysisResult?.let { result ->
-                            EnhancedResultCard(result = result, isDarkMode = isDarkMode)
-                        }
-                    }
-
-                    // Features Grid
-                    EnhancedFeaturesGrid()
-
-                    // Recent Scans
-                    if (scanHistory.isNotEmpty()) {
-                        RecentScansSection(
-                            scans = scanHistory,
+                    // Screen Content based on navigation
+                    when (val screen = currentScreen) {
+                        is Screen.Dashboard -> DashboardScreen(
+                            urlInput = urlInput,
+                            onUrlChange = { urlInput = it },
+                            isAnalyzing = isAnalyzing,
+                            onAnalyze = performAnalysis,
+                            onScanQR = { currentScreen = Screen.Scanner },
+                            onImportImage = { /* TODO: implement image import */ },
+                            scanHistory = scanHistory,
                             onScanClick = { result ->
-                                urlInput = result.url
-                                analysisResult = result
+                                currentScreen = Screen.Results(result)
+                            },
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
+                        )
+                        is Screen.Scanner -> ScannerScreen(
+                            onEnableCamera = { /* TODO: camera access */ },
+                            onUploadImage = { /* TODO: upload image */ },
+                            onPasteUrl = {
+                                pasteFromClipboard()
+                                currentScreen = Screen.Dashboard
+                            },
+                            onTorchToggle = { /* TODO: torch toggle */ },
+                            scanHistory = scanHistory,
+                            onScanClick = { result ->
+                                currentScreen = Screen.Results(result)
+                            },
+                            onViewAll = { currentScreen = Screen.History },
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
+                        )
+                        is Screen.History -> HistoryScreen(
+                            scanHistory = scanHistory,
+                            onScanClick = { result ->
+                                currentScreen = Screen.Results(result)
                             },
                             onClearHistory = {
                                 scanHistory = emptyList()
                                 HistoryManager.saveHistory(emptyList())
-                                analysisResult = null
-                                urlInput = ""
-                            }
+                            },
+                            onExport = { /* TODO: export history */ },
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
+                        )
+                        is Screen.TrustCentre -> TrustCentreScreen(
+                            trustedDomains = trustedDomains,
+                            onAddDomain = { domain ->
+                                trustedDomains = trustedDomains + domain
+                            },
+                            onRemoveDomain = { domain ->
+                                trustedDomains = trustedDomains - domain
+                            },
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
+                        )
+                        is Screen.Training -> TrainingScreen(
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
+                        )
+                        is Screen.Results -> ResultsScreen(
+                            result = screen.result,
+                            onBack = { currentScreen = Screen.Dashboard },
+                            onCopyUrl = {
+                                try {
+                                    val clipboard = Toolkit.getDefaultToolkit().systemClipboard
+                                    clipboard.setContents(java.awt.datatransfer.StringSelection(screen.result.url), null)
+                                } catch (_: Exception) {}
+                            },
+                            onAddToTrusted = {
+                                val domain = screen.result.url
+                                    .removePrefix("https://")
+                                    .removePrefix("http://")
+                                    .split("/").firstOrNull() ?: ""
+                                if (domain.isNotEmpty()) {
+                                    trustedDomains = trustedDomains + domain
+                                }
+                            },
+                            onScanAgain = { currentScreen = Screen.Dashboard }
+                        )
+                        is Screen.Settings -> TrustCentreScreen(
+                            trustedDomains = trustedDomains,
+                            onAddDomain = { domain -> trustedDomains = trustedDomains + domain },
+                            onRemoveDomain = { domain -> trustedDomains = trustedDomains - domain },
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
+                        )
+                        is Screen.Export -> HistoryScreen(
+                            scanHistory = scanHistory,
+                            onScanClick = { result -> currentScreen = Screen.Results(result) },
+                            onClearHistory = { scanHistory = emptyList() },
+                            onExport = { /* Export logic */ },
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
                         )
                     }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    // Footer
-                    EnhancedFooter()
                 }
             }
-        }
 
             // Dialogs
             AboutDialog(
