@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">QRコードスキャン。フィッシング検出。</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">ホーム</string>
+    <string name="nav_scan">スキャン</string>
+    <string name="nav_history">履歴</string>
+    <string name="nav_settings">設定</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">お帰りなさい</string>
+    <string name="dashboard_default_user">セキュリティ管理者</string>
+    <string name="dashboard_shield_active">保護が有効</string>
+    <string name="dashboard_headline">安全。オフライン。\n説明可能な防御。</string>
+    <string name="dashboard_subtitle">企業データベースは最新であり、ローカルで監視されています。</string>
+    <string name="dashboard_scan_qr">QRをスキャン</string>
+    <string name="dashboard_import_image">画像をインポート</string>
+    <string name="dashboard_system_health">システムの状態</string>
+    <string name="dashboard_total_scans">総スキャン数</string>
+    <string name="dashboard_threats_blocked">ブロックされた脅威</string>
+    <string name="dashboard_recent_scans">最近のスキャン</string>
+    <string name="dashboard_view_all">すべて表示</string>
+    <string name="dashboard_tools">セキュリティツール</string>
+    
+    <!-- Scanner Screen -->
+    <string name="start_scanning">スキャン開始</string>
+    <string name="scan_from_gallery">ギャラリーからスキャン</string>
+    <string name="scan_instruction">QRコードをフレームに合わせてください</string>
+    <string name="analyzing_url">URLを分析中…</string>
+    <string name="scans_in_history">履歴に%d件のスキャン</string>
+    
+    <!-- Results -->
+    <string name="risk_score">リスクスコア</string>
+    <string name="scanned_url">スキャンされたURL</string>
+    <string name="copy">コピー</string>
+    <string name="risk_factors">リスク要因</string>
+    <string name="done">完了</string>
+    <string name="scan_another">別をスキャン</string>
+    <string name="safe_verdict">安全</string>
+    <string name="suspicious_verdict">疑わしい</string>
+    <string name="malicious_verdict">危険</string>
+    
+    <!-- Recommendations -->
+    <string name="recommendation_safe">このURLは安全そうです。安心して続行できます。</string>
+    <string name="recommendation_suspicious">このURLには注意が必要です。続行する前にソースを確認してください。</string>
+    <string name="recommendation_malicious">⛔ 警告：このURLはフィッシングの兆候を示しています。個人情報を入力しないでください。</string>
+    <string name="recommendation_unknown">このURLを完全に確認できません。注意して進んでください。</string>
+    
+    <!-- History Screen -->
+    <string name="search_placeholder">URLを検索…</string>
+    <string name="clear_history_title">履歴をすべて消去しますか？</string>
+    <string name="clear_history_message">この操作は元に戻せません。すべてのスキャン履歴が完全に削除されます。</string>
+    <string name="clear_all">すべて消去</string>
+    <string name="cancel">キャンセル</string>
+    <string name="delete">削除</string>
+    <string name="delete_item_title">このスキャンを削除しますか？</string>
+    <string name="delete_item_message">このアイテムは履歴から削除されます。</string>
+    <string name="copy_url">URLをコピー</string>
+    <string name="no_history">履歴なし</string>
+    <string name="scan_to_see_history">スキャン結果がここに表示されます</string>
+    <string name="no_results">結果が見つかりません</string>
+    <string name="try_different_filter">別のフィルターや検索語を試してください</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_scanning">スキャン</string>
+    <string name="settings_auto_scan">起動時に自動スキャン</string>
+    <string name="settings_auto_scan_desc">アプリを開くとすぐにスキャンを開始します</string>
+    <string name="settings_haptic">触覚フィードバック</string>
+    <string name="settings_haptic_desc">スキャン結果で振動する</string>
+    <string name="settings_sound">効果音</string>
+    <string name="settings_sound_desc">アラート音を鳴らす</string>
+    
+    <string name="settings_notifications">通知</string>
+    <string name="settings_security_alerts">セキュリティアラート</string>
+    <string name="settings_security_alerts_desc">セキュリティの脅威に関する通知を受け取る</string>
+    <string name="settings_system_notifications">システム通知</string>
+    <string name="settings_system_notifications_desc">通知設定を構成する</string>
+    
+    <string name="settings_privacy">プライバシー</string>
+    <string name="settings_save_history">スキャン履歴を保存</string>
+    <string name="settings_save_history_desc">スキャンされたURLの記録を保持する</string>
+    <string name="settings_privacy_policy">プライバシーポリシー</string>
+    <string name="settings_privacy_policy_desc">プライバシー慣行を確認する</string>
+    
+    <string name="settings_accessibility">アクセシビリティ</string>
+    <string name="settings_accessibility_settings">アクセシビリティ設定</string>
+    <string name="settings_accessibility_settings_desc">TalkBackおよびその他のサービスを構成</string>
+    
+    <string name="settings_about">アプリについて</string>
+    <string name="settings_version">バージョン</string>
+    <string name="settings_build">ビルド</string>
+    <string name="settings_engine">検出エンジン</string>
+    <string name="settings_source_code">ソースコード</string>
+    <string name="settings_help">ヘルプとサポート</string>
+    <string name="settings_help_desc">問題を報告またはヘルプを取得</string>
+    
+    <!-- Errors -->
+    <string name="error_title">エラーが発生しました</string>
+    <string name="try_again">再試行</string>
+    <string name="camera_permission_rationale">QRコードをスキャンするにはカメラへのアクセスが必要です</string>
+    <string name="camera_permission_denied">カメラの権限が拒否されました。設定で有効にしてください。</string>
+    
+    <!-- Widget -->
+    <string name="widget_name">QR-SHIELD クイックスキャン</string>
+    <string name="widget_description">QRコードをすばやくスキャンしてフィッシング脅威を検出</string>
+    <string name="widget_tap_to_scan">タップしてスキャン</string>
+    
+    <!-- Accessibility (content descriptions) -->
+    <string name="cd_app_logo">QR-SHIELD ロゴ</string>
+    <string name="cd_scanner_preview">QRコードスキャン用カメラプレビュー</string>
+    <string name="cd_close_scanner">スキャナーを閉じる</string>
+    <string name="cd_toggle_flash">フラッシュライト切り替え</string>
+    <string name="cd_scan_result">判定とリスクスコアを示すスキャン結果</string>
+    <string name="cd_scan_button">QRコードをスキャン</string>
+    <string name="cd_gallery_button">ギャラリーからQRコード画像を選択</string>
+    <string name="cd_copy_button">URLをクリップボードにコピー</string>
+    <string name="cd_share_button">URLを共有</string>
+    <string name="cd_open_url">ブラウザでURLを開く</string>
+    <string name="cd_delete_item">履歴からこのスキャンを削除</string>
+    <string name="cd_clear_history">スキャン履歴をすべて消去</string>
+    <string name="cd_search_history">スキャン履歴を検索</string>
+    <string name="cd_filter_safe">安全なスキャンのみ表示</string>
+    <string name="cd_filter_suspicious">疑わしいスキャンのみ表示</string>
+    <string name="cd_filter_malicious">悪意のあるスキャンのみ表示</string>
+    <string name="cd_history_item">スキャン履歴アイテム</string>
+    <string name="cd_settings_toggle">設定を切り替え</string>
+    <string name="cd_back_button">戻る</string>
+    <string name="cd_processing">処理中、お待ちください</string>
+    <string name="cd_safe_verdict">このURLは安全にアクセスできます</string>
+    <string name="cd_suspicious_verdict">このURLは疑わしいため、注意して進めてください</string>
+    <string name="cd_malicious_verdict">警告、このURLは悪意のあるフィッシング試行のようです</string>
+    <string name="cd_risk_score">100点満点のリスクスコア</string>
+</resources>

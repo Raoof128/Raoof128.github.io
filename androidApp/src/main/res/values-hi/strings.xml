@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">QR कोड स्कैन करें। फिशिंग का पता लगाएं।</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">होम</string>
+    <string name="nav_scan">स्कैन</string>
+    <string name="nav_history">इतिहास</string>
+    <string name="nav_settings">सेटिंग्स</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">वापसी पर स्वागत है</string>
+    <string name="dashboard_default_user">सुरक्षा व्यवस्थापक</string>
+    <string name="dashboard_shield_active">सुरक्षा सक्रिय</string>
+    <string name="dashboard_headline">सुरक्षित। ऑफलाइन।\nसमझाने योग्य सुरक्षा।</string>
+    <string name="dashboard_subtitle">आपका एंटरप्राइज़ डेटाबेस अप टू डेट है और स्थानीय रूप से निगरानी कर रहा है।</string>
+    <string name="dashboard_scan_qr">QR स्कैन करें</string>
+    <string name="dashboard_import_image">छवि आयात करें</string>
+    <string name="dashboard_system_health">सिस्टम स्वास्थ्य</string>
+    <string name="dashboard_total_scans">कुल स्कैन</string>
+    <string name="dashboard_threats_blocked">खतरे अवरुद्ध</string>
+    <string name="dashboard_recent_scans">हाल के स्कैन</string>
+    <string name="dashboard_view_all">सभी देखें</string>
+    <string name="dashboard_tools">सुरक्षा उपकरण</string>
+    
+    <!-- Scanner Screen -->
+    <string name="start_scanning">स्कैन करना शुरू करें</string>
+    <string name="scan_from_gallery">गैलरी से स्कैन करें</string>
+    <string name="scan_instruction">QR कोड को फ्रेम में संरेखित करें</string>
+    <string name="analyzing_url">URL का विश्लेषण किया जा रहा है…</string>
+    <string name="scans_in_history">इतिहास में %d स्कैन</string>
+    
+    <!-- Results -->
+    <string name="risk_score">जोखिम स्कोर</string>
+    <string name="scanned_url">स्कैन किया गया URL</string>
+    <string name="copy">कॉपी करें</string>
+    <string name="risk_factors">जोखिम के कारक</string>
+    <string name="done">पूर्ण</string>
+    <string name="scan_another">दूसरा स्कैन करें</string>
+    <string name="safe_verdict">सुरक्षित</string>
+    <string name="suspicious_verdict">संदिग्ध</string>
+    <string name="malicious_verdict">खतरनाक</string>
+    
+    <!-- Recommendations -->
+    <string name="recommendation_safe">यह URL सुरक्षित लगता है। आप आत्मविश्वास के साथ जारी रख सकते हैं।</string>
+    <string name="recommendation_suspicious">इस URL के साथ सावधानी बरतें। जारी रखने से पहले स्रोत की पुष्टि करें।</string>
+    <string name="recommendation_malicious">⛔ चेतावनी: यह URL फिशिंग के संकेत दिखाता है। कोई भी व्यक्तिगत जानकारी दर्ज न करें।</string>
+    <string name="recommendation_unknown">इस URL को पूरी तरह से सत्यापित नहीं किया जा सकता है। सावधानी से आगे बढ़ें।</string>
+    
+    <!-- History Screen -->
+    <string name="search_placeholder">URL खोजें…</string>
+    <string name="clear_history_title">क्या पूरा इतिहास साफ़ करें?</string>
+    <string name="clear_history_message">यह कार्रवाई पूर्ववत नहीं की जा सकती। सभी स्कैन इतिहास स्थायी रूप से हटा दिए जाएंगे।</string>
+    <string name="clear_all">सभी साफ़ करें</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="delete">हटाएं</string>
+    <string name="delete_item_title">क्या इस स्कैन को हटाएं?</string>
+    <string name="delete_item_message">यह आइटम आपके इतिहास से हटा दिया जाएगा।</string>
+    <string name="copy_url">URL कॉपी करें</string>
+    <string name="no_history">कोई इतिहास नहीं</string>
+    <string name="scan_to_see_history">आपके स्कैन परिणाम यहां दिखाई देंगे</string>
+    <string name="no_results">कोई परिणाम नहीं मिला</string>
+    <string name="try_different_filter">एक अलग फ़िल्टर या खोज शब्द आज़माएं</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_scanning">स्कैनिंग</string>
+    <string name="settings_auto_scan">स्टार्टअप पर ऑटो-स्कैन</string>
+    <string name="settings_auto_scan_desc">ऐप खोलते ही तुरंत स्कैन करना शुरू करें</string>
+    <string name="settings_haptic">हैप्टिक फीडबैक</string>
+    <string name="settings_haptic_desc">स्कैन परिणामों पर कंपन करें</string>
+    <string name="settings_sound">ध्वनि प्रभाव</string>
+    <string name="settings_sound_desc">अलर्ट के लिए आवाज़ बजाएं</string>
+    
+    <string name="settings_notifications">सूचनाएं</string>
+    <string name="settings_security_alerts">सुरक्षा अलर्ट</string>
+    <string name="settings_security_alerts_desc">सुरक्षा खतरों के बारे में सूचनाएं प्राप्त करें</string>
+    <string name="settings_system_notifications">सिस्टम सूचनाएं</string>
+    <string name="settings_system_notifications_desc">सूचना प्राथमिकताएं कॉन्फ़िगर करें</string>
+    
+    <string name="settings_privacy">गोपनीयता</string>
+    <string name="settings_save_history">स्कैन इतिहास सहेजें</string>
+    <string name="settings_save_history_desc">स्कैन किए गए URL का रिकॉर्ड रखें</string>
+    <string name="settings_privacy_policy">गोपनीयता नीति</string>
+    <string name="settings_privacy_policy_desc">हमारी गोपनीयता प्रथाओं को देखें</string>
+    
+    <string name="settings_accessibility">पहुंच-योग्यता</string>
+    <string name="settings_accessibility_settings">पहुंच-योग्यता सेटिंग्स</string>
+    <string name="settings_accessibility_settings_desc">TalkBack और अन्य सेवाओं को कॉन्फ़िगर करें</string>
+    
+    <string name="settings_about">के बारे में</string>
+    <string name="settings_version">संस्करण</string>
+    <string name="settings_build">बिल्ड</string>
+    <string name="settings_engine">पहचान इंजन</string>
+    <string name="settings_source_code">सोर्स कोड</string>
+    <string name="settings_help">मदद और समर्थन</string>
+    <string name="settings_help_desc">समस्याओं की रिपोर्ट करें या मदद लें</string>
+    
+    <!-- Errors -->
+    <string name="error_title">कुछ गलत हो गया</string>
+    <string name="try_again">पुनः प्रयास करें</string>
+    <string name="camera_permission_rationale">QR कोड स्कैन करने के लिए कैमरा एक्सेस की आवश्यकता है</string>
+    <string name="camera_permission_denied">कैमरा अनुमति अस्वीकृत। कृपया सेटिंग्स में सक्षम करें।</string>
+    
+    <!-- Widget -->
+    <string name="widget_name">QR-SHIELD त्वरित स्कैन</string>
+    <string name="widget_description">फिशिंग खतरों के लिए QR कोड को जल्दी से स्कैन करें</string>
+    <string name="widget_tap_to_scan">स्कैन करने के लिए टैप करें</string>
+    
+    <!-- Accessibility (content descriptions) -->
+    <string name="cd_app_logo">QR-SHIELD लोगो</string>
+    <string name="cd_scanner_preview">QR कोड स्कैन के लिए कैमरा पूर्वावलोकन</string>
+    <string name="cd_close_scanner">स्कैनर बंद करें</string>
+    <string name="cd_toggle_flash">फ्लैशलाइट टॉगल करें</string>
+    <string name="cd_scan_result">फैसला और जोखिम स्कोर दिखाते हुए स्कैन परिणाम</string>
+    <string name="cd_scan_button">QR कोड स्कैन करें</string>
+    <string name="cd_gallery_button">गैलरी से QR कोड छवि चुनें</string>
+    <string name="cd_copy_button">क्लिपबोर्ड पर URL कॉपी करें</string>
+    <string name="cd_share_button">URL साझा करें</string>
+    <string name="cd_open_url">ब्राउज़र में URL खोलें</string>
+    <string name="cd_delete_item">इस स्कैन को इतिहास से हटाएं</string>
+    <string name="cd_clear_history">स्कैन इतिहास साफ़ करें</string>
+    <string name="cd_search_history">स्कैन इतिहास खोजें</string>
+    <string name="cd_filter_safe">केवल सुरक्षित स्कैन दिखाएं</string>
+    <string name="cd_filter_suspicious">केवल संदिग्ध स्कैन दिखाएं</string>
+    <string name="cd_filter_malicious">केवल दुर्भावनापूर्ण स्कैन दिखाएं</string>
+    <string name="cd_history_item">स्कैन इतिहास आइटम</string>
+    <string name="cd_settings_toggle">सेटिंग टॉगल करें</string>
+    <string name="cd_back_button">वापस जाएं</string>
+    <string name="cd_processing">प्रक्रिया जारी है, कृपया प्रतीक्षा करें</string>
+    <string name="cd_safe_verdict">यह URL यात्रा करने के लिए सुरक्षित है</string>
+    <string name="cd_suspicious_verdict">यह URL संदिग्ध है, सावधानी से आगे बढ़ें</string>
+    <string name="cd_malicious_verdict">चेतावनी, यह URL एक दुर्भावनापूर्ण फिशिंग प्रयास प्रतीत होता है</string>
+    <string name="cd_risk_score">100 में से जोखिम स्कोर</string>
+</resources>

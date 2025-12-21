@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">Scanner les codes QR. Détecter le phishing.</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_scan">Scanner</string>
+    <string name="nav_history">Historique</string>
+    <string name="nav_settings">Paramètres</string>
+    
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">Bon retour</string>
+    <string name="dashboard_default_user">Admin sécurité</string>
+    <string name="dashboard_shield_active">PROTECTION ACTIVE</string>
+    <string name="dashboard_headline">Sécurisé. Hors ligne.\nDéfense explicable.</string>
+    <string name="dashboard_subtitle">Votre base de données d'entreprise est à jour et surveille localement.</string>
+    <string name="dashboard_scan_qr">Scanner un QR</string>
+    <string name="dashboard_import_image">Importer une image</string>
+    <string name="dashboard_system_health">Santé du système</string>
+    <string name="dashboard_total_scans">Total des scans</string>
+    <string name="dashboard_threats_blocked">Menaces bloquées</string>
+    <string name="dashboard_recent_scans">Scans récents</string>
+    <string name="dashboard_view_all">Voir tout</string>
+    <string name="dashboard_tools">Outils de sécurité</string>
+    
+    <!-- Scanner Screen -->
+    <string name="start_scanning">Commencer le scan</string>
+    <string name="scan_from_gallery">Scanner depuis galerie</string>
+    <string name="scan_instruction">Alignez le code QR dans le cadre</string>
+    <string name="analyzing_url">Analyse de l'URL…</string>
+    <string name="scans_in_history">%d scans dans l'historique</string>
+    
+    <!-- Results -->
+    <string name="risk_score">Score de risque</string>
+    <string name="scanned_url">URL scannée</string>
+    <string name="copy">Copier</string>
+    <string name="risk_factors">Facteurs de risque</string>
+    <string name="done">Terminé</string>
+    <string name="scan_another">Scanner un autre</string>
+    <string name="safe_verdict">SÛR</string>
+    <string name="suspicious_verdict">SUSPECT</string>
+    <string name="malicious_verdict">DANGEREUX</string>
+    
+    <!-- Recommendations -->
+    <string name="recommendation_safe">Cette URL semble sûre. Vous pouvez continuer en toute confiance.</string>
+    <string name="recommendation_suspicious">Attention avec cette URL. Vérifiez la source avant de continuer.</string>
+    <string name="recommendation_malicious">⛔ AVERTISSEMENT : Cette URL montre des signes de phishing. N'entrez aucune info personnelle.</string>
+    <string name="recommendation_unknown">Impossible de vérifier entièrement cette URL. Procédez avec prudence.</string>
+    
+    <!-- History Screen -->
+    <string name="search_placeholder">Rechercher des URL…</string>
+    <string name="clear_history_title">Effacer tout l'historique ?</string>
+    <string name="clear_history_message">Cette action est irréversible. Tout l'historique de scan sera définitivement supprimé.</string>
+    <string name="clear_all">Tout effacer</string>
+    <string name="cancel">Annuler</string>
+    <string name="delete">Supprimer</string>
+    <string name="delete_item_title">Supprimer ce scan ?</string>
+    <string name="delete_item_message">Cet élément sera supprimé de votre historique.</string>
+    <string name="copy_url">Copier l'URL</string>
+    <string name="no_history">Aucun historique</string>
+    <string name="scan_to_see_history">Vos résultats de scan apparaîtront ici</string>
+    <string name="no_results">Aucun résultat trouvé</string>
+    <string name="try_different_filter">Essayez un filtre ou un terme de recherche différent</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_scanning">Scan</string>
+    <string name="settings_auto_scan">Auto-scan au démarrage</string>
+    <string name="settings_auto_scan_desc">Commencer à scanner immédiatement à l'ouverture de l'app</string>
+    <string name="settings_haptic">Retour haptique</string>
+    <string name="settings_haptic_desc">Vibrer lors des résultats de scan</string>
+    <string name="settings_sound">Effets sonores</string>
+    <string name="settings_sound_desc">Jouer des sons pour les alertes</string>
+    
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_security_alerts">Alertes de sécurité</string>
+    <string name="settings_security_alerts_desc">Recevoir des notifications sur les menaces de sécurité</string>
+    <string name="settings_system_notifications">Notifications système</string>
+    <string name="settings_system_notifications_desc">Configurer les préférences de notification</string>
+    
+    <string name="settings_privacy">Confidentialité</string>
+    <string name="settings_save_history">Enregistrer l'historique des scans</string>
+    <string name="settings_save_history_desc">Conserver un journal des URL scannées</string>
+    <string name="settings_privacy_policy">Politique de confidentialité</string>
+    <string name="settings_privacy_policy_desc">Voir nos pratiques de confidentialité</string>
+    
+    <string name="settings_accessibility">Accessibilité</string>
+    <string name="settings_accessibility_settings">Paramètres d'accessibilité</string>
+    <string name="settings_accessibility_settings_desc">Configurer TalkBack et autres services</string>
+    
+    <string name="settings_about">À propos</string>
+    <string name="settings_version">Version</string>
+    <string name="settings_build">Build</string>
+    <string name="settings_engine">Moteur de détection</string>
+    <string name="settings_source_code">Code source</string>
+    <string name="settings_help">Aide et support</string>
+    <string name="settings_help_desc">Signaler des problèmes ou obtenir de l'aide</string>
+    
+    <!-- Errors -->
+    <string name="error_title">Une erreur est survenue</string>
+    <string name="try_again">Réessayer</string>
+    <string name="camera_permission_rationale">L'accès à la caméra est nécessaire pour scanner les codes QR</string>
+    <string name="camera_permission_denied">Permission de caméra refusée. Veuillez l'activer dans les paramètres.</string>
+    
+    <!-- Widget -->
+    <string name="widget_name">QR-SHIELD Scan Rapide</string>
+    <string name="widget_description">Scanner rapidement des codes QR pour les menaces de phishing</string>
+    <string name="widget_tap_to_scan">Toucher pour scanner</string>
+    
+    <!-- Accessibility (content descriptions) -->
+    <string name="cd_app_logo">Logo de QR-SHIELD</string>
+    <string name="cd_scanner_preview">Aperçu de la caméra pour le scan de code QR</string>
+    <string name="cd_close_scanner">Fermer le scanner</string>
+    <string name="cd_toggle_flash">Basculer la lampe de poche</string>
+    <string name="cd_scan_result">Résultat du scan montrant le verdict et le score de risque</string>
+    <string name="cd_scan_button">Scanner des codes QR</string>
+    <string name="cd_gallery_button">Sélectionner une image de code QR depuis la galerie</string>
+    <string name="cd_copy_button">Copier l'URL dans le presse-papiers</string>
+    <string name="cd_share_button">Partager l'URL</string>
+    <string name="cd_open_url">Ouvrir l'URL dans le navigateur</string>
+    <string name="cd_delete_item">Supprimer ce scan de l'historique</string>
+    <string name="cd_clear_history">Effacer tout l'historique de scan</string>
+    <string name="cd_search_history">Rechercher dans l'historique de scan</string>
+    <string name="cd_filter_safe">Afficher uniquement les scans sûrs</string>
+    <string name="cd_filter_suspicious">Afficher uniquement les scans suspects</string>
+    <string name="cd_filter_malicious">Afficher uniquement les scans malveillants</string>
+    <string name="cd_history_item">Élément de l'historique de scan</string>
+    <string name="cd_settings_toggle">Basculer le paramètre</string>
+    <string name="cd_back_button">Retour</string>
+    <string name="cd_processing">Traitement en cours, veuillez patienter</string>
+    <string name="cd_safe_verdict">L'URL est sûre à visiter</string>
+    <string name="cd_suspicious_verdict">L'URL est suspecte, procédez avec prudence</string>
+    <string name="cd_malicious_verdict">Attention, l'URL semble être une tentative de phishing malveillante</string>
+    <string name="cd_risk_score">Score de risque sur 100</string>
+</resources>

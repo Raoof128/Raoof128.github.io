@@ -4,6 +4,25 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌏 December 22, 2025 - Top 5 Global Languages Support
+
+### Summary
+Expanded Android localization to include the top 5 most spoken global languages, ensuring accessibility for a worldwide audience.
+
+## ➕ Languages Added
+- **Spanish (`es`)**: `values-es/strings.xml`
+- **French (`fr`)**: `values-fr/strings.xml`
+- **Chinese Simplified (`zh`)**: `values-zh/strings.xml`
+- **Japanese (`ja`)**: `values-ja/strings.xml`
+- **Hindi (`hi`)**: `values-hi/strings.xml`
+
+## 🛠️ Changes
+- Created 5 new `strings.xml` files.
+- Translated all 100+ UI strings for each language.
+- Verified generic "Top 5" coverage alongside existing German, Italian, Portuguese, and Russian support.
+
+---
+
 # 🌍 December 22, 2025 - German Language Support
 
 ### Summary
@@ -28,6 +47,7 @@ Added German language support to the Android application by creating `values-de/
 - Wired report/export actions from scan results to the Reports Export screen.
 - Verified desktop build after sidebar consolidation.
 - Completed sidebar consolidation for Trust Centre, Training, and Reports screens.
+- Added German language support for desktop navigation labels with persisted locale preference.
 
 ## ✅ Build Verification
 
