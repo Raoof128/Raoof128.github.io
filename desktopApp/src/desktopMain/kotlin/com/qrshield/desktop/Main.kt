@@ -2,6 +2,7 @@ package com.qrshield.desktop
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -27,6 +28,9 @@ fun main() = application {
         icon = painterResource("assets/app-icon.png")
     ) {
         val viewModel = remember { AppViewModel() }
+        DisposableEffect(Unit) {
+            onDispose { viewModel.dispose() }
+        }
         QRShieldApp(viewModel = viewModel)
     }
 }

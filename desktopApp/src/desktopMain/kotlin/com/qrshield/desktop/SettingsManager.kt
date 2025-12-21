@@ -16,6 +16,7 @@ object SettingsManager {
     
     data class Settings(
         val trustedDomains: List<String> = listOf("google.com", "github.com", "microsoft.com"),
+        val blockedDomains: List<String> = listOf("bit.ly/*", "suspicious-domain.xyz", "free-crypto-giveaway.net"),
         val offlineOnlyEnabled: Boolean = true,
         val blockUnknownEnabled: Boolean = false,
         val autoScanHistoryEnabled: Boolean = true,
@@ -34,9 +35,12 @@ object SettingsManager {
 
                 val trustedDomainsStr = props.getProperty("trustedDomains", "google.com,github.com,microsoft.com")
                 val trustedDomains = trustedDomainsStr.split(",").filter { it.isNotBlank() }
+                val blockedDomainsStr = props.getProperty("blockedDomains", "bit.ly/*,suspicious-domain.xyz,free-crypto-giveaway.net")
+                val blockedDomains = blockedDomainsStr.split(",").filter { it.isNotBlank() }
 
                 return Settings(
                     trustedDomains = trustedDomains,
+                    blockedDomains = blockedDomains,
                     offlineOnlyEnabled = props.getProperty("offlineOnlyEnabled", "true").toBoolean(),
                     blockUnknownEnabled = props.getProperty("blockUnknownEnabled", "false").toBoolean(),
                     autoScanHistoryEnabled = props.getProperty("autoScanHistoryEnabled", "true").toBoolean(),
@@ -59,6 +63,7 @@ object SettingsManager {
 
             val props = Properties()
             props.setProperty("trustedDomains", settings.trustedDomains.joinToString(","))
+            props.setProperty("blockedDomains", settings.blockedDomains.joinToString(","))
             props.setProperty("offlineOnlyEnabled", settings.offlineOnlyEnabled.toString())
             props.setProperty("blockUnknownEnabled", settings.blockUnknownEnabled.toString())
             props.setProperty("autoScanHistoryEnabled", settings.autoScanHistoryEnabled.toString())
