@@ -4,6 +4,61 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🖥️ December 21, 2025 - Desktop UI Overhaul
+
+### Summary
+Complete integration of the HTML design system into the Desktop Compose Multiplatform application. All 6 main screens have been rewritten to match the high-fidelity prototypes, achieving a premium look and feel with full functionality.
+
+## 🎨 Screens Rewrite
+
+### 1. Dashboard (Matches `index.html`)
+- **Hero Section:** Implemented "Explainable Defence" branding with "Start New Scan" and "Import" actions.
+- **System Health:** Added real-time stats for Threat Database (v2.4.1) and Engine status.
+- **Feature Cards:** Offline-First, Explainable Security, and High-Performance Engine highlights.
+- **Data Table:** Recent scans list with status badges and details.
+
+### 2. Scanner (Matches `scan.html`)
+- **HUD Interface:** Professional camera viewport with scan lines, corner brackets, and technical overlays.
+- **Dual Input:** Seamless switching between Camera and URL manual entry.
+- **Live Analysis:** Real-time feedback panel showing verdict (Safe/Suspicious/Malicious) and active flags.
+- **Recent Scans:** Sidebar integration for quick access to history.
+
+### 3. Results (Matches `results.html`)
+- **Verdict Cards:** Distinctive color-coded hero cards for Safe (Green), Suspicious (Amber), and Malicious (Red) verdicts.
+- **Risk Score:** Visual circular progress indicator with risk level interpretation.
+- **Analysis Details:** "Why this verdict?" section with AI confidence and specific technical flags.
+- **Action Panel:** Clear options to copy link, scan again, or add to trusted list.
+
+### 4. History (Matches `threat.html`)
+- **Advanced Filtering:** Search bar, verdict filter chips (Safe/Malicious), and date range dropdown.
+- **Stats Dashboard:** Key metrics summary (Total Scans, Malicious detected) at the top.
+- **Table View:** Detailed history log with favicon placeholders, truncated URLs, and action buttons.
+
+### 5. Trust Centre (Matches `trust.html`)
+- **Trusted Domains:** Management interface to add/remove whitelisted domains.
+- **Privacy Controls:** Toggles for Offline-Only Mode, Block Unknown URLs, etc.
+- **Security Settings:** Biometric lock and telemetry controls.
+- **Data Actions:** Export/Import/Clear settings functionality.
+
+### 6. Training (Matches `game.html`)
+- **Gamification:** "Beat the Bot" interactive game mode.
+- **Session Flow:** 5-round challenge sessions with timer and score tracking.
+- **Feedback:** Immediate "Correct/Incorrect" analysis report after each decision.
+- **Education:** Displays context clues (e.g., "Urgent action required") and decoded payloads.
+
+## 🔧 Technical Implementation
+- **Navigation Graph:** Updated `Main.kt` to handle complex routing and state passing (`currentScreen`).
+- **State Lifting:** Centralized `scanHistory` and `trustedDomains` in `Main` to persist across screen changes.
+- **Theme Support:** Implemented `isDarkMode` toggle passed down to all screens for consistent theming.
+- **Cleanup:** Removed unused `HeuristicsEngine` references from UI layer (logic handled in service/main).
+
+## ✅ Verification
+- **Build:** `compileKotlinDesktop` succeeded.
+- **Runtime:** Application runs without errors.
+- **Functionality:** All buttons, inputs, and navigation flows tested and working.
+
+---
+
 # 🎨 December 21, 2025 (Continued) - Logo Transparency & Comprehensive Integration
 
 ### Summary

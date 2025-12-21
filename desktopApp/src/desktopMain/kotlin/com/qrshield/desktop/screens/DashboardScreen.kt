@@ -1,17 +1,6 @@
 /*
  * Copyright 2025-2026 QR-SHIELD Contributors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed under the Apache License, Version 2.0
  */
 
 package com.qrshield.desktop.screens
@@ -41,39 +30,32 @@ import com.qrshield.desktop.theme.DesktopColors
 import com.qrshield.model.Verdict
 
 /**
- * Dashboard Screen matching the HTML dashboard design.
- * Features:
- * - Hero section with tagline
- * - URL input for quick analysis
- * - System health card
- * - Feature cards grid
- * - Recent scans table
- * - Threat database card
+ * Dashboard Screen matching the HTML dashboard design exactly.
+ * Features hero section, feature cards, recent scans table, and system health.
  */
 @Composable
 fun DashboardScreen(
-    urlInput: String,
-    onUrlChange: (String) -> Unit,
-    isAnalyzing: Boolean,
-    onAnalyze: () -> Unit,
-    onScanQR: () -> Unit,
+    onStartScan: () -> Unit,
     onImportImage: () -> Unit,
     scanHistory: List<AnalysisResult>,
     onScanClick: (AnalysisResult) -> Unit,
+    onViewHistory: () -> Unit,
     isDarkMode: Boolean,
     onThemeToggle: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val primaryBlue = Color(0xFF2563EB)
+    val successGreen = Color(0xFF10B981)
+    val warningAmber = Color(0xFFF59E0B)
+    val dangerRed = Color(0xFFEF4444)
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Top Header
-        DashboardHeader(
-            isDarkMode = isDarkMode,
-            onThemeToggle = onThemeToggle
-        )
+        // Header
+        DashboardHeader(isDarkMode = isDarkMode, onThemeToggle = onThemeToggle)
 
         // Scrollable Content
         Column(
@@ -81,48 +63,41 @@ fun DashboardScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(32.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            verticalArrangement = Arrangement.spacedBy(32.dp)
         ) {
             // Hero Section
             HeroSection(
-                urlInput = urlInput,
-                onUrlChange = onUrlChange,
-                isAnalyzing = isAnalyzing,
-                onAnalyze = onAnalyze,
-                onScanQR = onScanQR,
-                onImportImage = onImportImage
+                onStartScan = onStartScan,
+                onImportImage = onImportImage,
+                scanHistory = scanHistory,
+                primaryBlue = primaryBlue
             )
 
-            // Features Grid
-            FeaturesGrid()
+            // Feature Cards Row
+            FeatureCardsRow(primaryBlue = primaryBlue)
 
-            // Main Grid: Recent Scans + Sidebar Cards
+            // Bottom Grid: Recent Scans + Threat Database
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                // Recent Scans Table
-                RecentScansCard(
+                // Recent Scans Table (2/3 width)
+                RecentScansTable(
                     scans = scanHistory.take(5),
-                    onViewAll = { /* Navigate to history */ },
                     onScanClick = onScanClick,
+                    onViewAll = onViewHistory,
                     modifier = Modifier.weight(2f)
                 )
 
-                // Side Cards Column
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    ThreatDatabaseCard()
-                    TrainingCentreCard()
-                }
+                // Threat Database Card (1/3 width)
+                ThreatDatabaseCard(
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DashboardHeader(
     isDarkMode: Boolean,
@@ -130,14 +105,14 @@ private fun DashboardHeader(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = 1.dp
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 32.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -151,11 +126,7 @@ private fun DashboardHeader(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Text(
-                    text = "/",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-                )
+                Text("/", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f))
                 Text(
                     text = "Dashboard",
                     style = MaterialTheme.typography.bodyMedium,
@@ -169,36 +140,57 @@ private fun DashboardHeader(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Engine Status
-                EngineStatusBadge()
-
-                // Theme Toggle
-                IconButton(onClick = onThemeToggle) {
-                    Text(
-                        text = if (isDarkMode) "☀️" else "🌙",
-                        fontSize = 18.sp
-                    )
+                // Engine Status Badge
+                Surface(
+                    shape = RoundedCornerShape(20.dp),
+                    color = Color(0xFF10B981).copy(alpha = 0.1f),
+                    border = BorderStroke(1.dp, Color(0xFF10B981).copy(alpha = 0.3f))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Animated pulse dot
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .clip(CircleShape)
+                                .background(Color(0xFF10B981))
+                        )
+                        Text(
+                            text = "Engine Active",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Color(0xFF10B981)
+                        )
+                    }
                 }
 
-                // Notifications
+                // Notification Bell
                 Box {
                     IconButton(onClick = { }) {
-                        Text(text = "🔔", fontSize = 18.sp)
+                        Text("🔔", fontSize = 18.sp)
                     }
-                    // Red dot
                     Box(
                         modifier = Modifier
                             .size(8.dp)
                             .align(Alignment.TopEnd)
-                            .offset(x = (-4).dp, y = 4.dp)
+                            .offset(x = (-8).dp, y = 8.dp)
                             .clip(CircleShape)
-                            .background(DesktopColors.VerdictMalicious)
+                            .background(Color(0xFFEF4444))
+                            .border(2.dp, MaterialTheme.colorScheme.surface, CircleShape)
                     )
                 }
 
                 // Settings
                 IconButton(onClick = { }) {
-                    Text(text = "⚙️", fontSize = 18.sp)
+                    Text("⚙️", fontSize = 18.sp)
+                }
+
+                // Theme Toggle
+                IconButton(onClick = onThemeToggle) {
+                    Text(if (isDarkMode) "☀️" else "🌙", fontSize = 18.sp)
                 }
             }
         }
@@ -206,162 +198,129 @@ private fun DashboardHeader(
 }
 
 @Composable
-private fun EngineStatusBadge() {
-    Surface(
-        shape = RoundedCornerShape(20.dp),
-        color = DesktopColors.VerdictSafe.copy(alpha = 0.1f),
-        border = BorderStroke(1.dp, DesktopColors.VerdictSafe.copy(alpha = 0.3f))
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Animated pulse dot
-            val infiniteTransition = rememberInfiniteTransition()
-            val alpha by infiniteTransition.animateFloat(
-                initialValue = 0.3f,
-                targetValue = 1f,
-                animationSpec = infiniteRepeatable(
-                    animation = tween(1000),
-                    repeatMode = RepeatMode.Reverse
-                )
-            )
-            Box(
-                modifier = Modifier
-                    .size(8.dp)
-                    .clip(CircleShape)
-                    .background(DesktopColors.VerdictSafe.copy(alpha = alpha))
-            )
-            Text(
-                text = "Engine Active",
-                style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.SemiBold,
-                color = DesktopColors.VerdictSafe
-            )
-        }
-    }
-}
-
-@Composable
 private fun HeroSection(
-    urlInput: String,
-    onUrlChange: (String) -> Unit,
-    isAnalyzing: Boolean,
-    onAnalyze: () -> Unit,
-    onScanQR: () -> Unit,
-    onImportImage: () -> Unit
+    onStartScan: () -> Unit,
+    onImportImage: () -> Unit,
+    scanHistory: List<AnalysisResult>,
+    primaryBlue: Color
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+        shadowElevation = 2.dp
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(40.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            // Left: Text + Actions
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+        Box {
+            // Dot pattern background
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.radialGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                            ),
+                            radius = 1000f
+                        )
+                    )
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(40.dp),
+                horizontalArrangement = Arrangement.spacedBy(48.dp)
             ) {
-                // Enterprise Badge
-                Surface(
-                    shape = RoundedCornerShape(20.dp),
-                    color = Color(0xFF2563EB).copy(alpha = 0.1f),
-                    border = BorderStroke(1.dp, Color(0xFF2563EB).copy(alpha = 0.3f))
+                // Left Content
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                    // Enterprise badge
+                    Surface(
+                        shape = RoundedCornerShape(20.dp),
+                        color = primaryBlue.copy(alpha = 0.1f),
+                        border = BorderStroke(1.dp, primaryBlue.copy(alpha = 0.2f))
                     ) {
-                        Text(text = "✓", color = Color(0xFF2563EB))
+                        Row(
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("✓", fontSize = 12.sp, color = primaryBlue)
+                            Text(
+                                text = "Enterprise Protection Active",
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.SemiBold,
+                                letterSpacing = 0.5.sp,
+                                color = primaryBlue
+                            )
+                        }
+                    }
+
+                    // Main headline
+                    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                         Text(
-                            text = "Enterprise Protection Active",
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Color(0xFF2563EB)
+                            text = "Secure. Offline.",
+                            style = MaterialTheme.typography.displaySmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Text(
+                            text = "Explainable Defence.",
+                            style = MaterialTheme.typography.displaySmall,
+                            fontWeight = FontWeight.Bold,
+                            color = primaryBlue
                         )
                     }
-                }
 
-                // Hero Title
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    // Description
                     Text(
-                        text = "Secure. Offline.",
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        text = "QR-SHIELD analyses potential threats directly on your hardware. Experience zero-latency phishing detection without compromising data privacy.",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        lineHeight = 26.sp
                     )
-                    Text(
-                        text = "Explainable Defence.",
-                        style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF2563EB)
-                    )
-                }
 
-                // Description
-                Text(
-                    text = "QR-SHIELD analyses potential threats directly on your hardware. " +
-                            "Experience zero-latency phishing detection without compromising data privacy.",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    lineHeight = 26.sp
-                )
-
-                // URL Input
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
-                ) {
+                    // Action Buttons
                     Row(
-                        modifier = Modifier.padding(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.padding(top = 8.dp)
                     ) {
-                        Text(
-                            text = "🔍",
-                            modifier = Modifier.padding(start = 8.dp),
-                            fontSize = 18.sp
-                        )
-                        TextField(
-                            value = urlInput,
-                            onValueChange = onUrlChange,
-                            modifier = Modifier.weight(1f),
-                            placeholder = {
-                                Text("Paste URL to analyze (e.g., https://example.com)")
-                            },
-                            colors = TextFieldDefaults.colors(
-                                focusedContainerColor = Color.Transparent,
-                                unfocusedContainerColor = Color.Transparent,
-                                focusedIndicatorColor = Color.Transparent,
-                                unfocusedIndicatorColor = Color.Transparent
-                            ),
-                            singleLine = true
-                        )
                         Button(
-                            onClick = onAnalyze,
-                            enabled = !isAnalyzing && urlInput.isNotBlank(),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = Color(0xFF2563EB)
-                            ),
-                            shape = RoundedCornerShape(8.dp)
+                            onClick = onStartScan,
+                            colors = ButtonDefaults.buttonColors(containerColor = primaryBlue),
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 14.dp),
+                            elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp)
                         ) {
                             Row(
-                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(text = "🛡️", fontSize = 14.sp)
+                                Text("📷", fontSize = 16.sp)
                                 Text(
-                                    text = if (isAnalyzing) "Analyzing..." else "Analyze",
+                                    text = "Start New Scan",
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+
+                        OutlinedButton(
+                            onClick = onImportImage,
+                            shape = RoundedCornerShape(10.dp),
+                            contentPadding = PaddingValues(horizontal = 24.dp, vertical = 14.dp),
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+                        ) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("📤", fontSize = 16.sp)
+                                Text(
+                                    text = "Import Image",
                                     fontWeight = FontWeight.SemiBold
                                 )
                             }
@@ -369,62 +328,26 @@ private fun HeroSection(
                     }
                 }
 
-                // Action Buttons
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    Button(
-                        onClick = onScanQR,
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF2563EB)
-                        ),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "📷", fontSize = 16.sp)
-                            Text("Scan QR Code", fontWeight = FontWeight.SemiBold)
-                        }
-                    }
-
-                    OutlinedButton(
-                        onClick = onImportImage,
-                        shape = RoundedCornerShape(10.dp),
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(8.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "📁", fontSize = 16.sp)
-                            Text("Import Image")
-                        }
-                    }
-                }
+                // Right - System Health Card
+                SystemHealthCard(scanHistory = scanHistory)
             }
-
-            Spacer(modifier = Modifier.width(40.dp))
-
-            // Right: System Health Card
-            SystemHealthCard()
         }
     }
 }
 
 @Composable
-private fun SystemHealthCard() {
+private fun SystemHealthCard(scanHistory: List<AnalysisResult>) {
+    val safeCount = scanHistory.count { it.verdict == Verdict.SAFE }
+    val threatCount = scanHistory.count { it.verdict == Verdict.MALICIOUS }
+
     Surface(
-        modifier = Modifier.width(280.dp),
+        modifier = Modifier.width(320.dp),
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.15f))
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.15f)),
+        shadowElevation = 8.dp
     ) {
-        Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
+        Column(modifier = Modifier.padding(24.dp)) {
             // Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -433,146 +356,176 @@ private fun SystemHealthCard() {
             ) {
                 Text(
                     text = "System Health",
-                    style = MaterialTheme.typography.labelMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Box(
                     modifier = Modifier
                         .size(10.dp)
                         .clip(CircleShape)
-                        .background(DesktopColors.VerdictSafe)
+                        .background(Color(0xFF10B981))
                 )
             }
 
-            // Threat Database
-            HealthItem(
-                label = "Threat Database",
-                status = "Current",
-                statusColor = DesktopColors.VerdictSafe,
-                progress = 1f
-            )
+            Spacer(modifier = Modifier.height(24.dp))
 
-            // Heuristic Engine
-            HealthItem(
-                label = "Heuristic Engine",
-                status = "Active",
-                statusColor = Color(0xFF2563EB),
-                progress = 0.92f
-            )
+            // Status Bars
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                // Threat Database
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Threat Database",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "Current",
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF10B981)
+                        )
+                    }
+                    LinearProgressIndicator(
+                        progress = { 0.98f },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(6.dp)
+                            .clip(RoundedCornerShape(3.dp)),
+                        color = Color(0xFF10B981),
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                }
 
-            // Stats
+                // Heuristic Engine
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Heuristic Engine",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "Active",
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Medium,
+                            color = Color(0xFF2563EB)
+                        )
+                    }
+                    LinearProgressIndicator(
+                        progress = { 1f },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(6.dp)
+                            .clip(RoundedCornerShape(3.dp)),
+                        color = Color(0xFF2563EB),
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Stats Grid
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                StatBox(
-                    value = "0",
-                    label = "Threats",
-                    modifier = Modifier.weight(1f)
-                )
-                StatBox(
-                    value = "124",
-                    label = "Safe Scans",
-                    modifier = Modifier.weight(1f)
-                )
+                Surface(
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = threatCount.toString(),
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "THREATS",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                Surface(
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = safeCount.toString(),
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            text = "SAFE SCANS",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.SemiBold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
             }
         }
     }
 }
 
 @Composable
-private fun HealthItem(
-    label: String,
-    status: String,
-    statusColor: Color,
-    progress: Float
-) {
-    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = status,
-                style = MaterialTheme.typography.labelSmall,
-                fontWeight = FontWeight.SemiBold,
-                color = statusColor
-            )
-        }
-        LinearProgressIndicator(
-            progress = { progress },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(4.dp)
-                .clip(RoundedCornerShape(2.dp)),
-            color = statusColor,
-            trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
-        )
-    }
-}
-
-@Composable
-private fun StatBox(
-    value: String,
-    label: String,
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-    ) {
-        Column(
-            modifier = Modifier.padding(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = value,
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
-}
-
-@Composable
-private fun FeaturesGrid() {
+private fun FeatureCardsRow(primaryBlue: Color) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         FeatureCard(
-            icon = "☁️",
+            icon = "📶",
+            iconBgColor = Color(0xFF2563EB).copy(alpha = 0.1f),
+            iconColor = Color(0xFF2563EB),
             title = "Offline-First Architecture",
-            description = "Complete analysis is performed locally. Your camera feed and scanned data never touch an external server.",
-            accentColor = Color(0xFF2563EB),
+            description = "Complete analysis is performed locally. Your camera feed and scanned data never touch an external server, ensuring absolute privacy.",
+            bgIcon = "☁️",
             modifier = Modifier.weight(1f)
         )
+
         FeatureCard(
             icon = "🔍",
+            iconBgColor = Color(0xFF9333EA).copy(alpha = 0.1f),
+            iconColor = Color(0xFF9333EA),
             title = "Explainable Security",
-            description = "Don't just get a \"Block\". We provide detailed heuristic breakdowns of URL parameters and redirects.",
-            accentColor = Color(0xFF7C3AED),
+            description = "Don't just get a 'Block'. We provide detailed heuristic breakdowns of URL parameters, redirects, and javascript payloads.",
+            bgIcon = "🧠",
             modifier = Modifier.weight(1f)
         )
+
         FeatureCard(
             icon = "⚡",
+            iconBgColor = Color(0xFF10B981).copy(alpha = 0.1f),
+            iconColor = Color(0xFF10B981),
             title = "High-Performance Engine",
-            description = "Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform.",
-            accentColor = DesktopColors.VerdictSafe,
+            description = "Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries.",
+            bgIcon = "🔋",
             modifier = Modifier.weight(1f)
         )
     }
@@ -581,77 +534,97 @@ private fun FeaturesGrid() {
 @Composable
 private fun FeatureCard(
     icon: String,
+    iconBgColor: Color,
+    iconColor: Color,
     title: String,
     description: String,
-    accentColor: Color,
+    bgIcon: String,
     modifier: Modifier = Modifier
 ) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+        shadowElevation = 1.dp
     ) {
-        Column(
-            modifier = Modifier.padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
+        Box {
+            // Background icon
+            Text(
+                text = bgIcon,
+                fontSize = 48.sp,
                 modifier = Modifier
-                    .size(44.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(accentColor.copy(alpha = 0.1f)),
-                contentAlignment = Alignment.Center
+                    .align(Alignment.TopEnd)
+                    .padding(16.dp)
+                    .offset(x = 8.dp, y = (-8).dp),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f)
+            )
+
+            Column(
+                modifier = Modifier.padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(text = icon, fontSize = 22.sp)
+                // Icon
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(iconBgColor),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(icon, fontSize = 24.sp)
+                }
+
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    lineHeight = 22.sp
+                )
             }
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                lineHeight = 22.sp
-            )
         }
     }
 }
 
 @Composable
-private fun RecentScansCard(
+private fun RecentScansTable(
     scans: List<AnalysisResult>,
-    onViewAll: () -> Unit,
     onScanClick: (AnalysisResult) -> Unit,
+    onViewAll: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+        shadowElevation = 1.dp
     ) {
         Column {
             // Header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
+                    .padding(horizontal = 24.dp, vertical = 16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Recent Scans",
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
+                    fontWeight = FontWeight.Bold
                 )
                 TextButton(onClick = onViewAll) {
                     Text(
                         text = "View Full History",
+                        style = MaterialTheme.typography.labelMedium,
                         color = Color(0xFF2563EB)
                     )
                 }
@@ -662,54 +635,68 @@ private fun RecentScansCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
-                    .padding(horizontal = 20.dp, vertical = 12.dp)
+                    .padding(horizontal = 24.dp, vertical = 12.dp)
             ) {
                 Text(
-                    text = "Status",
-                    modifier = Modifier.width(100.dp),
+                    text = "STATUS",
+                    modifier = Modifier.width(120.dp),
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
+                    letterSpacing = 1.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "Source",
+                    text = "SOURCE",
                     modifier = Modifier.weight(1f),
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
+                    letterSpacing = 1.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "Details",
+                    text = "DETAILS",
                     modifier = Modifier.weight(1f),
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
+                    letterSpacing = 1.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "Time",
+                    text = "TIME",
+                    modifier = Modifier.width(80.dp),
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
+                    letterSpacing = 1.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
-            // Scan Rows
+            // Table Rows
             if (scans.isEmpty()) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(40.dp),
+                        .padding(48.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(
-                        text = "No scans yet. Analyze a URL to get started!",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Text("📋", fontSize = 32.sp)
+                        Text(
+                            text = "No recent scans",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             } else {
-                scans.forEach { scan ->
-                    ScanRow(scan = scan, onClick = { onScanClick(scan) })
+                Column {
+                    scans.forEach { scan ->
+                        ScanRow(scan = scan, onClick = { onScanClick(scan) })
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                    }
                 }
             }
         }
@@ -722,45 +709,49 @@ private fun ScanRow(
     onClick: () -> Unit
 ) {
     val verdictColor = when (scan.verdict) {
-        Verdict.SAFE -> DesktopColors.VerdictSafe
-        Verdict.SUSPICIOUS -> DesktopColors.VerdictSuspicious
-        else -> DesktopColors.VerdictMalicious
+        Verdict.SAFE -> Color(0xFF10B981)
+        Verdict.SUSPICIOUS -> Color(0xFFF59E0B)
+        else -> Color(0xFFEF4444)
+    }
+
+    val verdictIcon = when (scan.verdict) {
+        Verdict.SAFE -> "✓"
+        Verdict.SUSPICIOUS -> "⚠"
+        else -> "⚠"
+    }
+
+    val verdictLabel = when (scan.verdict) {
+        Verdict.SAFE -> "SAFE"
+        Verdict.SUSPICIOUS -> "SUSPICIOUS"
+        else -> "PHISHING"
     }
 
     Surface(
-        modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
+        modifier = Modifier.fillMaxWidth(),
         color = Color.Transparent
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 14.dp),
+                .padding(horizontal = 24.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Status Badge
             Surface(
-                modifier = Modifier.width(100.dp),
+                modifier = Modifier.width(120.dp),
                 shape = RoundedCornerShape(6.dp),
                 color = verdictColor.copy(alpha = 0.1f),
                 border = BorderStroke(1.dp, verdictColor.copy(alpha = 0.3f))
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Text(verdictIcon, fontSize = 12.sp, color = verdictColor)
                     Text(
-                        text = when (scan.verdict) {
-                            Verdict.SAFE -> "✓"
-                            Verdict.SUSPICIOUS -> "⚠"
-                            else -> "✕"
-                        },
-                        fontSize = 12.sp,
-                        color = verdictColor
-                    )
-                    Text(
-                        text = scan.verdict.name,
+                        text = verdictLabel,
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
                         color = verdictColor
@@ -769,20 +760,40 @@ private fun ScanRow(
             }
 
             // Source
-            Text(
-                text = scan.url.removePrefix("https://").removePrefix("http://").take(30),
+            Row(
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 16.dp),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Favicon placeholder
+                Box(
+                    modifier = Modifier
+                        .size(24.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = scan.url.take(2).uppercase(),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontSize = 8.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Text(
+                    text = scan.url.removePrefix("https://").removePrefix("http://").take(30),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
 
             // Details
             Text(
-                text = scan.flags.firstOrNull() ?: "URL analyzed",
+                text = scan.flags.firstOrNull() ?: "No flags",
                 modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -793,8 +804,110 @@ private fun ScanRow(
             // Time
             Text(
                 text = formatTimestamp(scan.timestamp),
-                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.width(80.dp),
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+@Composable
+private fun ThreatDatabaseCard(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+        shadowElevation = 1.dp
+    ) {
+        Column(modifier = Modifier.padding(24.dp)) {
+            // Header
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text("💾", fontSize = 20.sp)
+                }
+                Text(
+                    text = "Threat Database",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Info rows
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                InfoRow(label = "Version", value = "v2.4.1-stable", isCode = true)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                InfoRow(label = "Last Update", value = "Today, 04:00 AM")
+                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                InfoRow(label = "Signatures", value = "4,281,092")
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Check for Updates button
+            OutlinedButton(
+                onClick = { },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("🔄", fontSize = 14.sp)
+                    Text("Check for Updates")
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun InfoRow(
+    label: String,
+    value: String,
+    isCode: Boolean = false
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        if (isCode) {
+            Surface(
+                shape = RoundedCornerShape(4.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            ) {
+                Text(
+                    text = value,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+        } else {
+            Text(
+                text = value,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.Medium
             )
         }
     }
@@ -808,111 +921,5 @@ private fun formatTimestamp(timestamp: Long): String {
         diff < 3600_000 -> "${diff / 60_000}m ago"
         diff < 86400_000 -> "${diff / 3600_000}h ago"
         else -> "${diff / 86400_000}d ago"
-    }
-}
-
-@Composable
-private fun ThreatDatabaseCard() {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
-    ) {
-        Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "💾", fontSize = 20.sp)
-                Text(
-                    text = "Threat Database",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                DbStatRow("Version", "v2.4.1-stable")
-                DbStatRow("Last Update", "Today, 04:00 AM")
-                DbStatRow("Signatures", "4,281,092")
-            }
-
-            OutlinedButton(
-                onClick = { },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
-            ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(text = "🔄", fontSize = 14.sp)
-                    Text("Check for Updates")
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun DbStatRow(label: String, value: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-    }
-}
-
-@Composable
-private fun TrainingCentreCard() {
-    Surface(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = Color(0xFF7C3AED).copy(alpha = 0.1f),
-        border = BorderStroke(1.dp, Color(0xFF7C3AED).copy(alpha = 0.3f))
-    ) {
-        Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "🎓", fontSize = 32.sp)
-            Text(
-                text = "Training Centre",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = "Learn how to identify advanced QR homograph attacks.",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                lineHeight = 18.sp
-            )
-            TextButton(onClick = { }) {
-                Text(
-                    text = "Beat the Bot →",
-                    color = Color(0xFF7C3AED),
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
-        }
     }
 }

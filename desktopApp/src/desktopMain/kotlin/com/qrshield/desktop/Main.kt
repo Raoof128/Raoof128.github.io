@@ -272,32 +272,27 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                     // Screen Content based on navigation
                     when (val screen = currentScreen) {
                         is Screen.Dashboard -> DashboardScreen(
-                            urlInput = urlInput,
-                            onUrlChange = { urlInput = it },
-                            isAnalyzing = isAnalyzing,
-                            onAnalyze = performAnalysis,
-                            onScanQR = { currentScreen = Screen.Scanner },
+                            onStartScan = { currentScreen = Screen.Scanner },
                             onImportImage = { /* TODO: implement image import */ },
                             scanHistory = scanHistory,
                             onScanClick = { result ->
                                 currentScreen = Screen.Results(result)
                             },
+                            onViewHistory = { currentScreen = Screen.History },
                             isDarkMode = isDarkMode,
                             onThemeToggle = { isDarkMode = !isDarkMode }
                         )
                         is Screen.Scanner -> ScannerScreen(
-                            onEnableCamera = { /* TODO: camera access */ },
-                            onUploadImage = { /* TODO: upload image */ },
-                            onPasteUrl = {
-                                pasteFromClipboard()
-                                currentScreen = Screen.Dashboard
-                            },
-                            onTorchToggle = { /* TODO: torch toggle */ },
-                            scanHistory = scanHistory,
+                            urlInput = urlInput,
+                            onUrlInputChange = { urlInput = it },
+                            onAnalyze = performAnalysis,
+                            onImageSelect = { /* TODO: image selection */ },
+                            analysisResult = analysisResult,
+                            isAnalyzing = isAnalyzing,
+                            recentScans = scanHistory.take(5),
                             onScanClick = { result ->
                                 currentScreen = Screen.Results(result)
                             },
-                            onViewAll = { currentScreen = Screen.History },
                             isDarkMode = isDarkMode,
                             onThemeToggle = { isDarkMode = !isDarkMode }
                         )
@@ -347,7 +342,9 @@ fun QRShieldDesktopApp(initialDarkMode: Boolean = true) {
                                     trustedDomains = trustedDomains + domain
                                 }
                             },
-                            onScanAgain = { currentScreen = Screen.Dashboard }
+                            onScanAgain = { currentScreen = Screen.Scanner },
+                            isDarkMode = isDarkMode,
+                            onThemeToggle = { isDarkMode = !isDarkMode }
                         )
                         is Screen.Settings -> TrustCentreScreen(
                             trustedDomains = trustedDomains,

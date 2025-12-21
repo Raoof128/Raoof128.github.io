@@ -5,6 +5,33 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.0] - 2025-12-21
+
+### 🖥️ Desktop UI Overhaul (HTML Design Integration)
+
+Complete redesign of the Desktop Compose Multiplatform application to match the HTML design system 1:1. All 6 main screens have been rewritten to provide a premium, consistent, and "wow" user experience.
+
+#### 🎨 Screens Updated
+- **Dashboard:** Hero section with "Explainable Defence" branding, system health dashboard, and feature cards.
+- **Scanner:** Professional camera viewport with HUD overlay, manual URL input, and real-time analysis feedback.
+- **Results:** High-fidelity verdict cards (Safe/Suspicious/Malicious), risk score visualization, intelligence feed integration, and technical indicators.
+- **History:** Advanced data table with Search/Filter/Export toolbar and detailed status badges.
+- **Trust Centre:** Comprehensive management for Trusted Domains, Privacy Settings, and Security Controls.
+- **Training:** Fully interactive "Beat the Bot" game with scored rounds, feedback reports, and progress tracking.
+
+#### ✨ Key Features
+- **Dark/Light Mode:** Full theme support with toggle across all screens.
+- **Navigation:** Seamless screen transitions with shared state (history, settings).
+- **Gamification:** Integrated phishing simulation training directly into the desktop app.
+- **Visuals:** Glassmorphism effects, animated progress bars, and verdict-specific color schemes.
+
+#### 🔧 Technical Refinements
+- **State Lifting:** Centralized `scanHistory` and `trustedDomains` management in `Main.kt`.
+- **Parameter Passing:** Updated navigation graph to pass callbacks and state objects efficiently.
+- **Cleanup:** Removed unused `HeuristicsEngine` imports and legacy layout components.
+
+---
+
 ## [1.9.3] - 2025-12-21
 
 ### 🔍 Comprehensive iOS Audit (Phase 0-4 Complete)

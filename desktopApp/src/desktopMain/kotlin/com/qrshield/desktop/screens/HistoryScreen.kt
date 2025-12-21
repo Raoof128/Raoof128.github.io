@@ -1,23 +1,13 @@
 /*
  * Copyright 2025-2026 QR-SHIELD Contributors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed under the Apache License, Version 2.0
  */
 
 package com.qrshield.desktop.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -29,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -38,12 +29,8 @@ import com.qrshield.desktop.theme.DesktopColors
 import com.qrshield.model.Verdict
 
 /**
- * History Screen (Scan History) matching the HTML design.
- * Features:
- * - Full scan history table with filtering
- * - Search functionality
- * - Export options
- * - Detailed scan information
+ * History Screen matching the HTML scan history design exactly.
+ * Features search, filters, detailed table, and batch actions.
  */
 @Composable
 fun HistoryScreen(
@@ -57,10 +44,14 @@ fun HistoryScreen(
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var selectedFilter by remember { mutableStateOf("All") }
+    var dateRange by remember { mutableStateOf("All Time") }
+    val filterOptions = listOf("All", "Safe", "Suspicious", "Malicious")
+    val dateOptions = listOf("All Time", "Today", "This Week", "This Month")
 
+    // Filter scans based on search and filter
     val filteredScans = scanHistory.filter { scan ->
-        val matchesSearch = searchQuery.isEmpty() || 
-            scan.url.contains(searchQuery, ignoreCase = true)
+        val matchesSearch = searchQuery.isEmpty() ||
+                scan.url.contains(searchQuery, ignoreCase = true)
         val matchesFilter = when (selectedFilter) {
             "Safe" -> scan.verdict == Verdict.SAFE
             "Suspicious" -> scan.verdict == Verdict.SUSPICIOUS
@@ -70,110 +61,155 @@ fun HistoryScreen(
         matchesSearch && matchesFilter
     }
 
+    // Stats
+    val totalCount = scanHistory.size
+    val safeCount = scanHistory.count { it.verdict == Verdict.SAFE }
+    val suspiciousCount = scanHistory.count { it.verdict == Verdict.SUSPICIOUS }
+    val maliciousCount = scanHistory.count { it.verdict == Verdict.MALICIOUS }
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Header
+        // Header Bar
         HistoryHeader(isDarkMode = isDarkMode, onThemeToggle = onThemeToggle)
 
         // Content
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+                .verticalScroll(rememberScrollState())
+                .padding(32.dp),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Page Title & Stats
+            // Page Title & Actions
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
-                Column {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
                         text = "Scan History",
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "Review and manage your scan records",
+                        text = "Complete log of all QR code and URL analyses",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-
-                // Stats Summary
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    StatBadge(
-                        count = scanHistory.count { it.verdict == Verdict.SAFE },
-                        label = "Safe",
-                        color = DesktopColors.VerdictSafe
-                    )
-                    StatBadge(
-                        count = scanHistory.count { it.verdict == Verdict.SUSPICIOUS },
-                        label = "Suspicious",
-                        color = DesktopColors.VerdictSuspicious
-                    )
-                    StatBadge(
-                        count = scanHistory.count { it.verdict == Verdict.MALICIOUS },
-                        label = "Blocked",
-                        color = DesktopColors.VerdictMalicious
-                    )
+                    OutlinedButton(
+                        onClick = onExport,
+                        shape = RoundedCornerShape(10.dp),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("📥", fontSize = 14.sp)
+                            Text("Export CSV")
+                        }
+                    }
+                    OutlinedButton(
+                        onClick = onClearHistory,
+                        shape = RoundedCornerShape(10.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = Color(0xFFEF4444)
+                        ),
+                        border = BorderStroke(1.dp, Color(0xFFEF4444).copy(alpha = 0.3f))
+                    ) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("🗑️", fontSize = 14.sp)
+                            Text("Clear All")
+                        }
+                    }
                 }
             }
 
-            // Controls Bar
+            // Stats Cards
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                StatCard(
+                    value = totalCount.toString(),
+                    label = "Total Scans",
+                    icon = "📊",
+                    iconBgColor = Color(0xFF2563EB).copy(alpha = 0.1f),
+                    modifier = Modifier.weight(1f)
+                )
+                StatCard(
+                    value = safeCount.toString(),
+                    label = "Safe",
+                    icon = "✓",
+                    iconBgColor = Color(0xFF10B981).copy(alpha = 0.1f),
+                    valueColor = Color(0xFF10B981),
+                    modifier = Modifier.weight(1f)
+                )
+                StatCard(
+                    value = suspiciousCount.toString(),
+                    label = "Suspicious",
+                    icon = "⚠️",
+                    iconBgColor = Color(0xFFF59E0B).copy(alpha = 0.1f),
+                    valueColor = Color(0xFFF59E0B),
+                    modifier = Modifier.weight(1f)
+                )
+                StatCard(
+                    value = maliciousCount.toString(),
+                    label = "Malicious",
+                    icon = "⛔",
+                    iconBgColor = Color(0xFFEF4444).copy(alpha = 0.1f),
+                    valueColor = Color(0xFFEF4444),
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            // Search & Filter Bar
             Surface(
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp),
+                shape = RoundedCornerShape(16.dp),
                 color = MaterialTheme.colorScheme.surface,
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+                shadowElevation = 1.dp
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Search
-                    Surface(
-                        modifier = Modifier.width(300.dp),
-                        shape = RoundedCornerShape(8.dp),
-                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(text = "🔍", fontSize = 14.sp)
-                            TextField(
-                                value = searchQuery,
-                                onValueChange = { searchQuery = it },
-                                placeholder = { Text("Search scans...") },
-                                colors = TextFieldDefaults.colors(
-                                    focusedContainerColor = Color.Transparent,
-                                    unfocusedContainerColor = Color.Transparent,
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent
-                                ),
-                                singleLine = true,
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
-                    }
+                    // Search Input
+                    OutlinedTextField(
+                        value = searchQuery,
+                        onValueChange = { searchQuery = it },
+                        modifier = Modifier.weight(1f),
+                        placeholder = { Text("Search by URL, domain...") },
+                        leadingIcon = { Text("🔍", fontSize = 16.sp) },
+                        singleLine = true,
+                        shape = RoundedCornerShape(12.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedBorderColor = Color(0xFF2563EB),
+                            unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+                        )
+                    )
 
-                    // Filters
+                    // Filter Chips
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        listOf("All", "Safe", "Suspicious", "Malicious").forEach { filter ->
+                        filterOptions.forEach { filter ->
                             FilterChip(
                                 selected = selectedFilter == filter,
                                 onClick = { selectedFilter = filter },
                                 label = { Text(filter) },
+                                shape = RoundedCornerShape(8.dp),
                                 colors = FilterChipDefaults.filterChipColors(
                                     selectedContainerColor = Color(0xFF2563EB).copy(alpha = 0.1f),
                                     selectedLabelColor = Color(0xFF2563EB)
@@ -182,34 +218,43 @@ fun HistoryScreen(
                         }
                     }
 
-                    // Actions
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Vertical Divider
+                    Box(
+                        modifier = Modifier
+                            .width(1.dp)
+                            .height(40.dp)
+                            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+                    )
+
+                    // Date Range Dropdown
+                    var dateDropdownExpanded by remember { mutableStateOf(false) }
+                    Box {
                         OutlinedButton(
-                            onClick = onExport,
-                            shape = RoundedCornerShape(8.dp)
+                            onClick = { dateDropdownExpanded = true },
+                            shape = RoundedCornerShape(10.dp),
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
                         ) {
                             Row(
-                                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(text = "📥", fontSize = 14.sp)
-                                Text("Export")
+                                Text("📅", fontSize = 14.sp)
+                                Text(dateRange)
+                                Text("▼", fontSize = 10.sp)
                             }
                         }
-                        OutlinedButton(
-                            onClick = onClearHistory,
-                            shape = RoundedCornerShape(8.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(
-                                contentColor = DesktopColors.VerdictMalicious
-                            ),
-                            border = BorderStroke(1.dp, DesktopColors.VerdictMalicious.copy(alpha = 0.5f))
+                        DropdownMenu(
+                            expanded = dateDropdownExpanded,
+                            onDismissRequest = { dateDropdownExpanded = false }
                         ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(6.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(text = "🗑️", fontSize = 14.sp)
-                                Text("Clear")
+                            dateOptions.forEach { option ->
+                                DropdownMenuItem(
+                                    text = { Text(option) },
+                                    onClick = {
+                                        dateRange = option
+                                        dateDropdownExpanded = false
+                                    }
+                                )
                             }
                         }
                     }
@@ -217,11 +262,143 @@ fun HistoryScreen(
             }
 
             // History Table
-            HistoryTable(
-                scans = filteredScans,
-                onScanClick = onScanClick,
-                modifier = Modifier.weight(1f)
-            )
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(16.dp),
+                color = MaterialTheme.colorScheme.surface,
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+                shadowElevation = 1.dp
+            ) {
+                Column {
+                    // Table Header
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
+                            .padding(horizontal = 24.dp, vertical = 14.dp)
+                    ) {
+                        Text(
+                            text = "STATUS",
+                            modifier = Modifier.width(130.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "URL / TARGET",
+                            modifier = Modifier.weight(1.5f),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "SCORE",
+                            modifier = Modifier.width(80.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "FLAGS",
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "SCANNED",
+                            modifier = Modifier.width(120.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = "ACTIONS",
+                            modifier = Modifier.width(100.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+
+                    // Table Rows
+                    if (filteredScans.isEmpty()) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(48.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(12.dp)
+                            ) {
+                                Text("📋", fontSize = 48.sp)
+                                Text(
+                                    text = "No scan data found",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                                Text(
+                                    text = if (searchQuery.isNotEmpty() || selectedFilter != "All")
+                                        "Try adjusting your filters or search query"
+                                    else "Start scanning to build your history",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    } else {
+                        Column {
+                            filteredScans.forEach { scan ->
+                                HistoryRow(scan = scan, onClick = { onScanClick(scan) })
+                                HorizontalDivider(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.08f))
+                            }
+                        }
+                    }
+
+                    // Pagination Footer
+                    if (filteredScans.isNotEmpty()) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.2f))
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Showing ${filteredScans.size} of ${scanHistory.size} entries",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                OutlinedButton(
+                                    onClick = { },
+                                    shape = RoundedCornerShape(8.dp),
+                                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                                ) {
+                                    Text("← Previous", style = MaterialTheme.typography.labelMedium)
+                                }
+                                Button(
+                                    onClick = { },
+                                    shape = RoundedCornerShape(8.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2563EB)),
+                                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                                ) {
+                                    Text("Next →", style = MaterialTheme.typography.labelMedium)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -240,7 +417,7 @@ private fun HistoryHeader(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
-                .padding(horizontal = 24.dp),
+                .padding(horizontal = 32.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -250,163 +427,68 @@ private fun HistoryHeader(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Dashboard",
+                    text = "QR-SHIELD",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                Text(text = "›", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f))
-                Surface(
-                    shape = RoundedCornerShape(4.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
-                ) {
-                    Text(
-                        text = "Scan History",
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            }
-
-            // Theme Toggle
-            IconButton(onClick = onThemeToggle) {
+                Text("/", color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f))
                 Text(
-                    text = if (isDarkMode) "☀️" else "🌙",
-                    fontSize = 18.sp
+                    text = "Scan History",
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
+
+            IconButton(onClick = onThemeToggle) {
+                Text(if (isDarkMode) "☀️" else "🌙", fontSize = 18.sp)
+            }
         }
     }
 }
 
 @Composable
-private fun StatBadge(
-    count: Int,
+private fun StatCard(
+    value: String,
     label: String,
-    color: Color
-) {
-    Surface(
-        shape = RoundedCornerShape(8.dp),
-        color = color.copy(alpha = 0.1f),
-        border = BorderStroke(1.dp, color.copy(alpha = 0.3f))
-    ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = count.toString(),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = color
-            )
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = color
-            )
-        }
-    }
-}
-
-@Composable
-private fun HistoryTable(
-    scans: List<AnalysisResult>,
-    onScanClick: (AnalysisResult) -> Unit,
+    icon: String,
+    iconBgColor: Color,
+    valueColor: Color = MaterialTheme.colorScheme.onSurface,
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)),
+        shadowElevation = 1.dp
     ) {
-        Column {
-            // Table Header
-            Row(
+        Row(
+            modifier = Modifier.padding(20.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f))
-                    .padding(horizontal = 20.dp, vertical = 14.dp)
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(iconBgColor),
+                contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "Status",
-                    modifier = Modifier.width(100.dp),
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "URL",
-                    modifier = Modifier.weight(2f),
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "Risk Score",
-                    modifier = Modifier.width(100.dp),
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "Flags",
-                    modifier = Modifier.weight(1f),
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = "Time",
-                    modifier = Modifier.width(120.dp),
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Text(icon, fontSize = 20.sp)
             }
-
-            // Table Body
-            if (scans.isEmpty()) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(60.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        Text(text = "📋", fontSize = 40.sp)
-                        Text(
-                            text = "No scans found",
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Text(
-                            text = "Scanned URLs will appear here",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
-                        )
-                    }
-                }
-            } else {
-                Column(
-                    modifier = Modifier.verticalScroll(rememberScrollState())
-                ) {
-                    scans.forEach { scan ->
-                        HistoryRow(
-                            scan = scan,
-                            onClick = { onScanClick(scan) }
-                        )
-                        HorizontalDivider(
-                            color = MaterialTheme.colorScheme.outline.copy(alpha = 0.1f)
-                        )
-                    }
-                }
+            Column {
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = valueColor
+                )
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     }
@@ -418,9 +500,21 @@ private fun HistoryRow(
     onClick: () -> Unit
 ) {
     val verdictColor = when (scan.verdict) {
-        Verdict.SAFE -> DesktopColors.VerdictSafe
-        Verdict.SUSPICIOUS -> DesktopColors.VerdictSuspicious
-        else -> DesktopColors.VerdictMalicious
+        Verdict.SAFE -> Color(0xFF10B981)
+        Verdict.SUSPICIOUS -> Color(0xFFF59E0B)
+        else -> Color(0xFFEF4444)
+    }
+
+    val verdictLabel = when (scan.verdict) {
+        Verdict.SAFE -> "SAFE"
+        Verdict.SUSPICIOUS -> "SUSPICIOUS"
+        else -> "MALICIOUS"
+    }
+
+    val verdictIcon = when (scan.verdict) {
+        Verdict.SAFE -> "✓"
+        Verdict.SUSPICIOUS -> "⚠"
+        else -> "⛔"
     }
 
     Surface(
@@ -431,29 +525,24 @@ private fun HistoryRow(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 14.dp),
+                .padding(horizontal = 24.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Status Badge
             Surface(
-                modifier = Modifier.width(100.dp),
+                modifier = Modifier.width(130.dp),
                 shape = RoundedCornerShape(6.dp),
                 color = verdictColor.copy(alpha = 0.1f),
                 border = BorderStroke(1.dp, verdictColor.copy(alpha = 0.3f))
             ) {
                 Row(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(6.dp)
-                            .clip(CircleShape)
-                            .background(verdictColor)
-                    )
+                    Text(verdictIcon, fontSize = 12.sp, color = verdictColor)
                     Text(
-                        text = scan.verdict.name,
+                        text = verdictLabel,
                         style = MaterialTheme.typography.labelSmall,
                         fontWeight = FontWeight.Bold,
                         color = verdictColor
@@ -462,43 +551,127 @@ private fun HistoryRow(
             }
 
             // URL
-            Text(
-                text = scan.url,
+            Row(
                 modifier = Modifier
-                    .weight(2f)
+                    .weight(1.5f)
                     .padding(start = 16.dp),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Favicon placeholder
+                Box(
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clip(RoundedCornerShape(6.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = scan.url.removePrefix("https://").removePrefix("http://").take(2).uppercase(),
+                        style = MaterialTheme.typography.labelSmall,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Column {
+                    Text(
+                        text = scan.url.removePrefix("https://").removePrefix("http://").take(35),
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Medium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = scan.url.split("/").firstOrNull()?.removePrefix("https://")?.removePrefix("http://") ?: "",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
 
-            // Risk Score
-            Text(
-                text = "${scan.score}%",
-                modifier = Modifier.width(100.dp),
-                style = MaterialTheme.typography.bodyMedium,
-                fontWeight = FontWeight.SemiBold,
-                color = verdictColor
-            )
+            // Score
+            Box(modifier = Modifier.width(80.dp)) {
+                Surface(
+                    shape = RoundedCornerShape(6.dp),
+                    color = if (scan.score > 0.7) Color(0xFFEF4444).copy(alpha = 0.1f)
+                            else if (scan.score > 0.4) Color(0xFFF59E0B).copy(alpha = 0.1f)
+                            else Color(0xFF10B981).copy(alpha = 0.1f)
+                ) {
+                    Text(
+                        text = "${(scan.score * 100).toInt()}%",
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Monospace,
+                        color = if (scan.score > 0.7) Color(0xFFEF4444)
+                                else if (scan.score > 0.4) Color(0xFFF59E0B)
+                                else Color(0xFF10B981)
+                    )
+                }
+            }
 
             // Flags
-            Text(
-                text = scan.flags.firstOrNull() ?: "-",
-                modifier = Modifier.weight(1f),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                scan.flags.take(2).forEach { flag ->
+                    Surface(
+                        shape = RoundedCornerShape(4.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant
+                    ) {
+                        Text(
+                            text = flag.take(12) + if (flag.length > 12) "…" else "",
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            maxLines = 1
+                        )
+                    }
+                }
+                if (scan.flags.size > 2) {
+                    Text(
+                        text = "+${scan.flags.size - 2}",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
 
-            // Time
+            // Scanned Time
             Text(
                 text = formatTimestamp(scan.timestamp),
                 modifier = Modifier.width(120.dp),
-                style = MaterialTheme.typography.labelMedium,
+                style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+
+            // Actions
+            Row(
+                modifier = Modifier.width(100.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                IconButton(
+                    onClick = onClick,
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Text("👁️", fontSize = 14.sp)
+                }
+                IconButton(
+                    onClick = { },
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Text("📋", fontSize = 14.sp)
+                }
+                IconButton(
+                    onClick = { },
+                    modifier = Modifier.size(32.dp)
+                ) {
+                    Text("🗑️", fontSize = 14.sp)
+                }
+            }
         }
     }
 }
@@ -510,6 +683,7 @@ private fun formatTimestamp(timestamp: Long): String {
         diff < 60_000 -> "Just now"
         diff < 3600_000 -> "${diff / 60_000} min ago"
         diff < 86400_000 -> "${diff / 3600_000} hours ago"
+        diff < 172800_000 -> "Yesterday"
         else -> "${diff / 86400_000} days ago"
     }
 }
