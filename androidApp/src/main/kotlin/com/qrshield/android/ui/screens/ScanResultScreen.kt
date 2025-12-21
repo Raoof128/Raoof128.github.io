@@ -51,19 +51,38 @@ import com.qrshield.android.ui.theme.QRShieldColors
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScanResultScreen(
+    // Navigation params
+    url: String = "https://example.com",
+    verdict: String = "UNKNOWN",
+    score: Int = 0,
+    // Callbacks
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
     onBlockClick: () -> Unit = {},
     onIgnoreClick: () -> Unit = {},
     onCopyUrl: () -> Unit = {},
-    modifier: Modifier = Modifier,
-    // Sample data - in real app this would come from ViewModel
-    verdict: String = "High Risk Detected",
-    threatType: String = "Phishing",
-    confidence: Int = 98,
-    severityScore: Float = 9.2f,
-    url: String = "https://login-microsoft-update.com.xyz..."
+    modifier: Modifier = Modifier
 ) {
+    // Derive display values from navigation params
+    val displayVerdict = when (verdict.uppercase()) {
+        "MALICIOUS" -> "High Risk Detected"
+        "SUSPICIOUS" -> "Suspicious Activity"
+        "SAFE" -> "Safe to Open"
+        else -> "Unknown Risk"
+    }
+    val threatType = when (verdict.uppercase()) {
+        "MALICIOUS" -> "Phishing"
+        "SUSPICIOUS" -> "Suspicious"
+        "SAFE" -> "Verified"
+        else -> "Unknown"
+    }
+    val confidence = when (verdict.uppercase()) {
+        "MALICIOUS" -> 98
+        "SUSPICIOUS" -> 75
+        "SAFE" -> 99
+        else -> 50
+    }
+    val severityScore = score / 10f
     val scrollState = rememberScrollState()
 
     Scaffold(
@@ -103,7 +122,7 @@ fun ScanResultScreen(
             ) {
                 // Verdict Header
                 VerdictHeader(
-                    verdict = verdict,
+                    verdict = displayVerdict,
                     threatType = threatType,
                     confidence = confidence
                 )

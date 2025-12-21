@@ -4,6 +4,175 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔌 December 21, 2025 (Session 2) - Full UI Rewiring + Persistence
+
+### Summary
+Rewired all navigation callbacks and screen interactions with REAL logic. Integrated SharedViewModel data flow, image picker, sharing intents, and game state. Added persistent allowlist/blocklist using DataStore. All screens now have functional callbacks with no placeholders.
+
+## 📦 New Components
+
+### DomainListRepository (`data/DomainListRepository.kt`)
+Persistent storage for allowlist/blocklist using Jetpack DataStore:
+```kotlin
+class DomainListRepository(context: Context) {
+    val allowlist: Flow<List<DomainEntry>>
+    val blocklist: Flow<List<DomainEntry>>
+    
+    suspend fun addToAllowlist(domain: String, source: DomainSource)
+    suspend fun removeFromAllowlist(domain: String)
+    suspend fun addToBlocklist(domain: String, source: DomainSource, type: DomainType)
+    suspend fun removeFromBlocklist(domain: String)
+}
+```
+
+**Features:**
+- Domain normalization (strips protocol, www, paths)
+- Subdomain matching support
+- Source tracking (MANUAL, ENTERPRISE, AUTO_LEARNED, SCANNED)
+- Type tracking for blocklist (MALICIOUS, SUSPICIOUS, PHISHING)
+- Default domains included
+
+## 🗺️ Navigation Changes
+
+### Navigation.kt
+- **Start Destination**: Changed from `scanner` to `dashboard`
+- **Bottom Nav**: 4 tabs (Dashboard, Scanner, History, Settings)
+- **Routes Added**: 15 total routes for all screens
+- **Deleted**: `NavigationV2.kt` (duplicate removed)
+- **Injected**: `DomainListRepository` via Koin for persistence
+
+### Route-Callback Wiring Table
+
+| Route | Callback | Implementation |
+|-------|----------|----------------|
+| `dashboard` | `onScanClick` | Navigate to Scanner |
+| `dashboard` | `onImportClick` | Photo picker → QR scan |
+| `dashboard` | `onToolClick` | Navigate to tool screens |
+| `dashboard` | `onScanItemClick` | Load scan → Navigate to result |
+| `scan_result` | `onShareClick` | Intent.ACTION_SEND with text |
+| `scan_result` | `onBlockClick` | **DomainListRepository.addToBlocklist()** |
+| `export_report` | `onExport(PDF/CSV/JSON)` | Generate report + share intent |
+| `attack_breakdown` | `onReportToIT` | Email intent with JSON report |
+| `trust_centre` | `onDoneClick` | Toast + navigate back |
+| `allowlist` | `onAddClick` | Show bottom sheet |
+| `allowlist` | `onAllowDomain` | **DomainListRepository.addToAllowlist()** |
+| `allowlist` | `onDeleteItem` | **DomainListRepository.removeFromAllowlist()** |
+| `blocklist` | `onAddClick` | Show bottom sheet |
+| `blocklist` | `onBlockDomain` | **DomainListRepository.addToBlocklist()** |
+| `blocklist` | `onDeleteItem` | **DomainListRepository.removeFromBlocklist()** |
+| `threat_database` | `onCheckNow` | Toast + delay + success Toast |
+| `heuristics` | `onToggleRule` | Update rules state + Toast |
+| `learning_centre` | `onViewCertificate` | Check progress, show Toast |
+| `learning_centre` | `onReadTip` | Increment progress + Toast |
+| `beat_the_bot` | `onPhishingClick/onLegitimateClick` | **PhishingEngine.analyze() → Real URL analysis** |
+| `offline_privacy` | `onLearnMoreClick` | Open GitHub URL |
+
+## 🎮 Beat the Bot - REAL PhishingEngine Integration
+
+### Game Architecture
+The Beat the Bot training game now uses real PhishingEngine analysis:
+
+```kotlin
+// Game URL pool - 16 curated URLs (8 phishing, 8 legitimate)
+val gameUrls = listOf(
+    GameUrl("https://paypa1.com/update-security", true, "PayPal Security Alert..."),
+    GameUrl("https://github.com/microsoft/vscode", false, "Visual Studio Code repository."),
+    // ... 14 more URLs
+).shuffled()
+
+// Real analysis with PhishingEngine
+val result = phishingEngine.analyze(gameUrl.url)
+val userCorrect = userSaysPhishing == gameUrl.isPhishing
+```
+
+### Game Features
+- **Real-time Analysis**: Each guess triggers `PhishingEngine.analyze()`
+- **Curated URL Pool**: 8 phishing URLs + 8 legitimate URLs with SMS-style contexts
+- **Timer**: 5-minute countdown with speed bonuses
+- **Scoring**: Base 100 points + streak bonus (10×streak) + speed bonus (20/10/0)
+- **Contextual Hints**: Generated from PhishingEngine flags and details
+- **Game Completion**: 10 rounds with accuracy percentage
+
+### Hint Generation Logic
+```kotlin
+currentHint = when {
+    result.flags.any { it.contains("homograph") } -> "Watch for look-alike characters"
+    result.details.brandMatch != null -> "Impersonating ${result.details.brandMatch}"
+    result.details.tldScore > 5 -> "Suspicious TLD: ${result.details.tld}"
+    result.details.heuristicScore > 20 -> "Multiple heuristic warnings"
+    else -> "Check spelling and structure"
+}
+```
+
+## 📊 Dashboard Real Data Integration
+
+### DashboardScreen.kt Changes
+- **Injected**: `SharedViewModel` via Koin
+- **Real Stats**: `viewModel.getStatistics()` for total scans, threats blocked
+- **Real History**: `viewModel.scanHistory.collectAsState()` for recent scans
+- **Time Formatting**: Relative time display (Just now, 5m ago, 10:42 AM, Yesterday)
+- **Empty State**: Shows "No scans yet" with icon when history is empty
+- **Verdict Colors**: Dynamic icon/color based on `Verdict` enum
+
+## 🎮 State Management
+
+### Navigation-level States (Session Data)
+```kotlin
+var botScore by remember { mutableIntStateOf(0) }
+var botStreak by remember { mutableIntStateOf(0) }
+var botCorrect by remember { mutableIntStateOf(0) }
+var botTotal by remember { mutableIntStateOf(0) }
+var heuristicsRules by remember { mutableStateOf(mapOf(...)) }
+var learningProgress by remember { mutableIntStateOf(67) }
+```
+
+### Persistent State (DataStore)
+```kotlin
+val allowlistEntries by domainListRepository.allowlist.collectAsState(initial = emptyList())
+val blocklistEntries by domainListRepository.blocklist.collectAsState(initial = emptyList())
+```
+
+## 📸 Photo Picker Integration
+
+- **Launcher**: `ActivityResultContracts.PickVisualMedia()`
+- **Scanner**: `AndroidQrScanner.scanFromUri()`
+- **Result Handling**: Success → analyze, NoQrFound → Toast, Error → Toast
+
+## 🔗 Sharing Intents
+
+| Action | Intent Type | Data |
+|--------|-------------|------|
+| Share Analysis | `text/plain` | `viewModel.generateShareText()` |
+| Export CSV | `text/csv` | Statistics CSV |
+| Export JSON | `application/json` | `viewModel.generateJsonExport()` |
+| Report to IT | `message/rfc822` | Email with JSON report |
+| Learn More | `ACTION_VIEW` | GitHub URL |
+
+## ✅ Bug Fixes
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `SandboxWebView.kt` | CookieManager type error | Pass WebView `this` instead of `this@apply` |
+| `ScanResultScreen.kt` | Param mismatch | Use nav args (url, verdict, score as Int) |
+| `Navigation.kt` | ExportFormat comparison | Use `ExportFormat.PDF` instead of `"PDF"` |
+| `Navigation.kt` | onReadTip parameter | Changed from `(String) -> Unit` to `() -> Unit` |
+| `DomainListRepository.kt` | kotlinx.datetime missing | Used `System.currentTimeMillis()` instead |
+
+## 🏗️ Build Verification
+
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL in 14s
+
+# Only deprecation warnings (non-blocking):
+# - Icons.Filled.Help → use AutoMirrored version
+# - Icons.Filled.List → use AutoMirrored version
+# - ButtonDefaults.outlinedButtonBorder → use enabled param version
+```
+
+---
+
+
 # 📱 December 21, 2025 - Android UI HTML-to-Compose Conversion
 
 ### Summary

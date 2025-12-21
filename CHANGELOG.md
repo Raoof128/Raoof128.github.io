@@ -5,6 +5,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2025-12-21
+
+### 🔌 Android UI - Full Rewiring + Persistence
+
+Complete rewiring of all navigation callbacks with real logic - NO PLACEHOLDERS remaining.
+
+#### 📦 New: DomainListRepository
+
+Persistent allowlist/blocklist storage using Jetpack DataStore:
+
+```kotlin
+class DomainListRepository(context: Context) {
+    val allowlist: Flow<List<DomainEntry>>
+    val blocklist: Flow<List<DomainEntry>>
+    
+    suspend fun addToAllowlist(domain: String, source: DomainSource)
+    suspend fun removeFromAllowlist(domain: String)
+    suspend fun addToBlocklist(domain: String, source: DomainSource, type: DomainType)
+    suspend fun removeFromBlocklist(domain: String)
+}
+```
+
+**Features:**
+- Domain normalization (strips protocol, www, paths)
+- Subdomain matching support
+- Source tracking (MANUAL, ENTERPRISE, AUTO_LEARNED, SCANNED)
+- Default domains included
+
+#### 🎮 Beat the Bot - PhishingEngine Integration
+
+Training game now uses **real URL analysis**:
+
+| Feature | Implementation |
+|---------|----------------|
+| URL Pool | 16 curated URLs (8 phishing, 8 legitimate) |
+| Analysis | `PhishingEngine.analyze()` on each guess |
+| Timer | 5-minute countdown with speed bonuses |
+| Scoring | Base 100 + Streak (10×) + Speed (20/10/0) |
+| Hints | Generated from engine flags and details |
+
+**Phishing URLs include:**
+- `paypa1.com` (homograph)
+- `amaz0n-orders.net` (brand impersonation)
+- `secure.bankofamerica.com.xyz` (subdomain spoofing)
+
+#### 📊 Dashboard Real Data
+
+- `SharedViewModel` injection via Koin
+- Real statistics from `getStatistics()`
+- Live scan history from `scanHistory` Flow
+- Relative time formatting (Just now, 5m ago, Yesterday)
+- Dynamic verdict colors
+
+#### 🔗 Navigation Callbacks Wired
+
+| Route | Callback | Real Logic |
+|-------|----------|------------|
+| `scan_result` | `onBlockClick` | `DomainListRepository.addToBlocklist()` |
+| `allowlist` | `onAllowDomain` | `DomainListRepository.addToAllowlist()` |
+| `blocklist` | `onBlockDomain` | `DomainListRepository.addToBlocklist()` |
+| `export_report` | `onExport` | Real CSV/JSON generation + share intent |
+| `beat_the_bot` | Answer clicks | `PhishingEngine.analyze()` |
+
+#### ✅ Build Verification
+
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL in 2s
+```
+
+---
+
+
 ## [1.12.0] - 2025-12-21
 
 ### 📱 Android UI - HTML-to-Compose Conversion

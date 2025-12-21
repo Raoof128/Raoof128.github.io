@@ -12,7 +12,6 @@ package com.qrshield.android.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -34,6 +33,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.model.Verdict
+import com.qrshield.ui.HistoryStatistics
+import com.qrshield.ui.SharedViewModel
+import org.koin.compose.koinInject
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Dashboard / Home Screen
@@ -42,8 +47,8 @@ import com.qrshield.android.ui.theme.QRShieldColors
  * - Shield Active status chip
  * - Hero headline
  * - Primary action buttons (Scan QR, Import Image)
- * - System Health card with stats
- * - Recent Scans list
+ * - System Health card with REAL stats from ViewModel
+ * - Recent Scans list with REAL history data
  * - Tools carousel
  */
 @Composable
@@ -56,6 +61,16 @@ fun DashboardScreen(
     onToolClick: (String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val viewModel: SharedViewModel = koinInject()
+    val scanHistory by viewModel.scanHistory.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+    
+    // Load statistics
+    var stats by remember { mutableStateOf(HistoryStatistics(0, 0, 0, 0, 0.0)) }
+    LaunchedEffect(scanHistory) {
+        stats = viewModel.getStatistics()
+    }
+    
     val scrollState = rememberScrollState()
 
     Column(
@@ -83,11 +98,15 @@ fun DashboardScreen(
                 onImportClick = onImportClick
             )
 
-            // System Health Card
-            SystemHealthCard()
+            // System Health Card with REAL stats
+            SystemHealthCard(
+                totalScans = stats.totalScans,
+                threatsBlocked = stats.maliciousCount + stats.suspiciousCount
+            )
 
-            // Recent Scans Section
+            // Recent Scans Section with REAL data
             RecentScansSection(
+                scanHistory = scanHistory.take(3),
                 onViewAllClick = onViewAllScans,
                 onItemClick = onScanItemClick
             )
@@ -183,7 +202,7 @@ private fun HeroSection() {
         Surface(
             shape = RoundedCornerShape(9999.dp),
             color = QRShieldColors.RiskSafe.copy(alpha = 0.1f),
-            border = ButtonDefaults.outlinedButtonBorder.copy(
+            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = androidx.compose.ui.graphics.Brush.linearGradient(
                     listOf(
                         QRShieldColors.RiskSafe.copy(alpha = 0.2f),
@@ -288,7 +307,7 @@ private fun PrimaryActionButton(
         shape = RoundedCornerShape(16.dp),
         color = backgroundColor,
         border = if (!isPrimary) {
-            ButtonDefaults.outlinedButtonBorder.copy(
+            ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = androidx.compose.ui.graphics.Brush.linearGradient(
                     listOf(
                         MaterialTheme.colorScheme.outlineVariant,
@@ -335,13 +354,16 @@ private fun PrimaryActionButton(
 }
 
 @Composable
-private fun SystemHealthCard() {
+private fun SystemHealthCard(
+    totalScans: Int,
+    threatsBlocked: Int
+) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = androidx.compose.ui.graphics.Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -388,22 +410,22 @@ private fun SystemHealthCard() {
                 }
             }
 
-            // Stats Grid
+            // Stats Grid - REAL DATA
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 StatCard(
                     modifier = Modifier.weight(1f),
-                    value = "12",
+                    value = totalScans.toString(),
                     label = "Scans Today",
                     valueColor = QRShieldColors.Primary
                 )
                 StatCard(
                     modifier = Modifier.weight(1f),
-                    value = "0",
+                    value = threatsBlocked.toString(),
                     label = "Threats Blocked",
-                    valueColor = MaterialTheme.colorScheme.onBackground
+                    valueColor = if (threatsBlocked > 0) QRShieldColors.RiskDanger else MaterialTheme.colorScheme.onBackground
                 )
             }
         }
@@ -441,6 +463,7 @@ private fun StatCard(
 
 @Composable
 private fun RecentScansSection(
+    scanHistory: List<com.qrshield.model.ScanHistoryItem>,
     onViewAllClick: () -> Unit,
     onItemClick: (String) -> Unit
 ) {
@@ -465,47 +488,102 @@ private fun RecentScansSection(
             }
         }
 
-        // Scan Items
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            ScanHistoryItem(
-                domain = "login-microsoft-secure.com",
-                status = "Suspicious",
-                statusColor = QRShieldColors.Orange600,
-                statusBgColor = QRShieldColors.Orange50,
-                statusDetail = "Phishing Heuristic",
-                time = "10:42 AM",
-                icon = Icons.Default.Warning,
-                iconBgColor = QRShieldColors.Orange50,
-                iconColor = QRShieldColors.Orange600,
-                onClick = { onItemClick("1") }
-            )
-
-            ScanHistoryItem(
-                domain = "google.com",
-                status = "Safe",
-                statusColor = QRShieldColors.Emerald600,
-                statusBgColor = QRShieldColors.Emerald50,
-                statusDetail = "Whitelisted",
-                time = "09:15 AM",
-                icon = Icons.Default.VerifiedUser,
-                iconBgColor = QRShieldColors.Emerald50,
-                iconColor = QRShieldColors.Emerald600,
-                onClick = { onItemClick("2") }
-            )
-
-            ScanHistoryItem(
-                domain = "bit.ly/free-prize-99",
-                status = "Malicious",
-                statusColor = QRShieldColors.Red600,
-                statusBgColor = QRShieldColors.Red50,
-                statusDetail = "Known Threat",
-                time = "Yesterday",
-                icon = Icons.Default.Dangerous,
-                iconBgColor = QRShieldColors.Red50,
-                iconColor = QRShieldColors.Red600,
-                onClick = { onItemClick("3") }
-            )
+        // Scan Items - REAL DATA from ViewModel
+        if (scanHistory.isEmpty()) {
+            // Empty state
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surface
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(32.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.QrCodeScanner,
+                        contentDescription = null,
+                        tint = QRShieldColors.Primary.copy(alpha = 0.5f),
+                        modifier = Modifier.size(48.dp)
+                    )
+                    Text(
+                        text = "No scans yet",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = "Scan a QR code to start building your history",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                    )
+                }
+            }
+        } else {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                scanHistory.forEach { item ->
+                    val (icon, iconBgColor, iconColor, statusColor) = when (item.verdict) {
+                        Verdict.SAFE -> Quadruple(
+                            Icons.Default.VerifiedUser,
+                            QRShieldColors.Emerald50,
+                            QRShieldColors.Emerald600,
+                            QRShieldColors.Emerald600
+                        )
+                        Verdict.SUSPICIOUS -> Quadruple(
+                            Icons.Default.Warning,
+                            QRShieldColors.Orange50,
+                            QRShieldColors.Orange600,
+                            QRShieldColors.Orange600
+                        )
+                        Verdict.MALICIOUS -> Quadruple(
+                            Icons.Default.Dangerous,
+                            QRShieldColors.Red50,
+                            QRShieldColors.Red600,
+                            QRShieldColors.Red600
+                        )
+                        else -> Quadruple(
+                            Icons.Default.Help,
+                            QRShieldColors.Gray100,
+                            QRShieldColors.Gray600,
+                            QRShieldColors.Gray600
+                        )
+                    }
+                    
+                    ScanHistoryItem(
+                        domain = item.url.substringAfter("://").substringBefore("/").take(40),
+                        status = item.verdict.name,
+                        statusColor = statusColor,
+                        statusBgColor = iconBgColor,
+                        statusDetail = "Score: ${item.score}",
+                        time = formatTime(item.scannedAt),
+                        icon = icon,
+                        iconBgColor = iconBgColor,
+                        iconColor = iconColor,
+                        onClick = { onItemClick(item.id) }
+                    )
+                }
+            }
         }
+    }
+}
+
+// Helper data class for icon/color assignment
+private data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)
+
+private fun formatTime(epochMillis: Long): String {
+    val now = System.currentTimeMillis()
+    val diff = now - epochMillis
+    
+    return when {
+        diff < 60_000 -> "Just now"
+        diff < 3_600_000 -> "${diff / 60_000}m ago"
+        diff < 86_400_000 -> {
+            SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date(epochMillis))
+        }
+        diff < 172_800_000 -> "Yesterday"
+        else -> SimpleDateFormat("MMM d", Locale.getDefault()).format(Date(epochMillis))
     }
 }
 
@@ -527,7 +605,7 @@ private fun ScanHistoryItem(
         shape = RoundedCornerShape(12.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = androidx.compose.ui.graphics.Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
@@ -601,21 +679,39 @@ private fun ToolsCarousel(onToolClick: (String) -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             ToolCard(
-                icon = Icons.Default.Science,
-                title = "Deep Analysis",
-                subtitle = "Manual inspection",
+                icon = Icons.Default.Shield,
+                title = "Trust Centre",
+                subtitle = "Security settings",
                 iconBgColor = QRShieldColors.Blue50,
                 iconColor = QRShieldColors.Primary,
-                onClick = { onToolClick("deep_analysis") }
+                onClick = { onToolClick("trust_centre") }
+            )
+            
+            ToolCard(
+                icon = Icons.Default.School,
+                title = "Learning",
+                subtitle = "Security training",
+                iconBgColor = QRShieldColors.Emerald50,
+                iconColor = QRShieldColors.Emerald600,
+                onClick = { onToolClick("learning_centre") }
             )
 
             ToolCard(
-                icon = Icons.Default.Report,
-                title = "Report Incident",
-                subtitle = "Flag a URL",
+                icon = Icons.Default.Storage,
+                title = "Threat Database",
+                subtitle = "Manage signatures",
                 iconBgColor = QRShieldColors.Purple50,
                 iconColor = QRShieldColors.Purple600,
-                onClick = { onToolClick("report") }
+                onClick = { onToolClick("threat_database") }
+            )
+
+            ToolCard(
+                icon = Icons.Default.SportsEsports,
+                title = "Beat the Bot",
+                subtitle = "Test your skills",
+                iconBgColor = QRShieldColors.Orange50,
+                iconColor = QRShieldColors.Orange600,
+                onClick = { onToolClick("beat_the_bot") }
             )
 
             ToolCard(
@@ -644,7 +740,7 @@ private fun ToolCard(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder.copy(
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = androidx.compose.ui.graphics.Brush.linearGradient(
                 listOf(
                     MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),

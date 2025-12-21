@@ -309,10 +309,9 @@ private fun IsolatedWebView(
                 }
 
                 // Disable cookies
-                CookieManager.getInstance().apply {
-                    setAcceptCookie(config.cookiesEnabled)
-                    setAcceptThirdPartyCookies(this@apply, false)
-                }
+                val cookieManager = CookieManager.getInstance()
+                cookieManager.setAcceptCookie(config.cookiesEnabled)
+                cookieManager.setAcceptThirdPartyCookies(this, false)
 
                 // Web view client with security controls
                 webViewClient = object : WebViewClient() {

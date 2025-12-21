@@ -74,6 +74,9 @@ val androidModule = module {
         com.qrshield.data.AndroidSettingsDataSource(androidContext())
     }
 
+    // Domain List Repository for allowlist/blocklist persistence
+    single { com.qrshield.android.data.DomainListRepository(androidContext()) }
+
     // ViewModel with injected repository
     factory {
         SharedViewModel(
