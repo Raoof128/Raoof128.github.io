@@ -5,6 +5,17 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.4] - 2025-12-23
+
+### 🌍 Application - Complete Localization
+- **Localized Settings Screen**: Replaced all hardcoded strings in `SettingsScreen.kt` with dynamic resources.
+- **Localized Scanner Screen**: Replaced all hardcoded strings in `ScannerScreen.kt` and `ScanResultScreen.kt`.
+- **New Resources**: Added 50+ new string resources to `strings.xml`.
+- **Fixes**: Fixed XML syntax errors (ampersand escaping) in German string resources.
+- **Verification**: Verified build with zero warnings.
+
+---
+
 ## [1.16.1] - 2025-12-22
 
 ### Desktop Application

@@ -46,6 +46,8 @@ enum class DesktopStringKey(val defaultText: String) {
 }
 
 object DesktopStrings {
+    private val keyByDefaultText = DesktopStringKey.values().associateBy { it.defaultText }
+
     fun text(key: DesktopStringKey, language: AppLanguage): String {
         return when (language) {
             AppLanguage.German -> GermanStrings[key] ?: key.defaultText
@@ -56,5 +58,26 @@ object DesktopStrings {
             AppLanguage.Hindi -> HindiStrings[key] ?: key.defaultText
             AppLanguage.English -> key.defaultText
         }
+    }
+
+    fun translate(text: String, language: AppLanguage): String {
+        val key = keyByDefaultText[text]
+        if (key != null) {
+            return text(key, language)
+        }
+        return when (language) {
+            AppLanguage.German -> GermanCommonStrings[text] ?: text
+            AppLanguage.Spanish -> SpanishCommonStrings[text] ?: text
+            AppLanguage.French -> FrenchCommonStrings[text] ?: text
+            AppLanguage.ChineseSimplified -> ChineseSimplifiedCommonStrings[text] ?: text
+            AppLanguage.Japanese -> JapaneseCommonStrings[text] ?: text
+            AppLanguage.Hindi -> HindiCommonStrings[text] ?: text
+            AppLanguage.English -> text
+        }
+    }
+
+    fun format(text: String, language: AppLanguage, vararg args: Any): String {
+        val template = translate(text, language)
+        return String.format(Locale.forLanguageTag(language.code), template, *args)
     }
 }

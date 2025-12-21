@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.components.QRShieldToggle
 import com.qrshield.android.ui.theme.QRShieldColors
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 
 /**
  * Trust Centre Screen
@@ -66,7 +68,7 @@ fun TrustCentreScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Trust Centre",
+                        text = stringResource(R.string.trust_center_screen_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -80,7 +82,7 @@ fun TrustCentreScreen(
                 actions = {
                     TextButton(onClick = onDoneClick) {
                         Text(
-                            text = "Done",
+                            text = stringResource(R.string.done),
                             color = QRShieldColors.Primary,
                             fontWeight = FontWeight.Bold
                         )
@@ -189,12 +191,12 @@ private fun OfflineGuaranteeCard() {
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "Strict Offline Guarantee",
+                        text = stringResource(R.string.offline_guarantee_title),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "No data leaves this device.",
+                        text = stringResource(R.string.offline_guarantee_desc),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -210,7 +212,7 @@ private fun OfflineGuaranteeCard() {
                             modifier = Modifier.size(14.dp)
                         )
                         Text(
-                            text = "Air-Gapped Mode Active",
+                            text = stringResource(R.string.air_gapped_active),
                             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
                             color = QRShieldColors.Primary
                         )
@@ -221,18 +223,18 @@ private fun OfflineGuaranteeCard() {
     }
 }
 
-enum class Sensitivity(val label: String, val description: String) {
+enum class Sensitivity(val labelRes: Int, val descriptionRes: Int) {
     LOW(
-        "Low",
-        "Minimal checks. Prioritizes speed and fewer interruptions. Use only for trusted environments."
+        R.string.sensitivity_low,
+        R.string.sensitivity_low_desc
     ),
     BALANCED(
-        "Balanced",
-        "Checks for known patterns and homoglyphs without aggressive heuristics. Ideal for daily use."
+        R.string.sensitivity_balanced,
+        R.string.sensitivity_balanced_desc
     ),
     PARANOIA(
-        "Paranoia",
-        "Aggressive heuristics and strict sandboxing. Expect frequent warnings for unknown domains."
+        R.string.sensitivity_paranoia,
+        R.string.sensitivity_paranoia_desc
     )
 }
 
@@ -254,7 +256,7 @@ private fun SensitivitySection(
                 modifier = Modifier.size(20.dp)
             )
             Text(
-                text = "Phishing Sensitivity",
+                text = stringResource(R.string.phishing_sensitivity),
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
         }
@@ -314,7 +316,7 @@ private fun SensitivitySection(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Text(
-                                    text = sensitivity.label,
+                                    text = stringResource(sensitivity.labelRes),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.SemiBold,
                                     color = textColor
@@ -329,7 +331,7 @@ private fun SensitivitySection(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)
                 ) {
                     Text(
-                        text = selectedSensitivity.label + " Mode",
+                        text = stringResource(selectedSensitivity.labelRes) + " " + stringResource(R.string.sensitivity_mode_suffix),
                         style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                         color = if (selectedSensitivity == Sensitivity.PARANOIA) 
                             QRShieldColors.RiskDanger 
@@ -338,7 +340,7 @@ private fun SensitivitySection(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = selectedSensitivity.description,
+                        text = stringResource(selectedSensitivity.descriptionRes),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -364,8 +366,8 @@ private fun ListsGrid(
             iconColor = QRShieldColors.Emerald600,
             decorativeIcon = Icons.Default.CheckCircle,
             decorativeColor = QRShieldColors.Emerald500,
-            title = "Allowlist",
-            subtitle = "Safe domains",
+            title = stringResource(R.string.allowlist_title),
+            subtitle = stringResource(R.string.allowlist_subtitle),
             count = 12,
             onClick = onAllowlistClick
         )
@@ -377,8 +379,8 @@ private fun ListsGrid(
             iconColor = QRShieldColors.Red600,
             decorativeIcon = Icons.Default.Block,
             decorativeColor = QRShieldColors.RiskDanger,
-            title = "Blocklist",
-            subtitle = "Blocked rules",
+            title = stringResource(R.string.blocklist_title),
+            subtitle = stringResource(R.string.blocklist_subtitle),
             count = 45,
             onClick = onBlocklistClick
         )
@@ -502,7 +504,7 @@ private fun PrivacyControlsSection(
                 modifier = Modifier.size(20.dp)
             )
             Text(
-                text = "Privacy & Access",
+                text = stringResource(R.string.privacy_access_title),
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
         }
@@ -524,15 +526,15 @@ private fun PrivacyControlsSection(
         ) {
             Column {
                 PrivacyToggleItem(
-                    title = "Share Threat Signatures",
-                    subtitle = "Anonymous heuristics upload",
+                    title = stringResource(R.string.share_threats_title),
+                    subtitle = stringResource(R.string.share_threats_subtitle),
                     checked = shareThreatSignatures,
                     onCheckedChange = onShareThreatSignaturesChange,
                     showDivider = true
                 )
                 PrivacyToggleItem(
-                    title = "Biometric Unlock",
-                    subtitle = "Require FaceID for settings",
+                    title = stringResource(R.string.biometric_unlock_title),
+                    subtitle = stringResource(R.string.biometric_unlock_subtitle),
                     checked = biometricUnlock,
                     onCheckedChange = onBiometricUnlockChange,
                     showDivider = false
@@ -617,12 +619,12 @@ private fun FooterSection() {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = "QR-SHIELD v2.4.0",
+                text = stringResource(R.string.footer_version, "2.4.0"),
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
-                text = "ENTERPRISE EDITION",
+                text = stringResource(R.string.footer_edition),
                 style = MaterialTheme.typography.labelSmall.copy(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
@@ -637,21 +639,21 @@ private fun FooterSection() {
         ) {
             TextButton(onClick = { }) {
                 Text(
-                    text = "Terms",
+                    text = stringResource(R.string.footer_terms),
                     fontSize = 11.sp,
                     color = QRShieldColors.Primary
                 )
             }
             TextButton(onClick = { }) {
                 Text(
-                    text = "Privacy Policy",
+                    text = stringResource(R.string.footer_privacy),
                     fontSize = 11.sp,
                     color = QRShieldColors.Primary
                 )
             }
             TextButton(onClick = { }) {
                 Text(
-                    text = "Licenses",
+                    text = stringResource(R.string.footer_licenses),
                     fontSize = 11.sp,
                     color = QRShieldColors.Primary
                 )

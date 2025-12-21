@@ -6,6 +6,27 @@ This file tracks significant changes made during development sessions.
 
 # 🇮🇹 December 22, 2025 - Italian Language Support & European Polish
 
+---
+
+# 🌍 December 23, 2025 - Android Localization Complete
+
+### Summary
+Completed the localization of the Android application by refactoring `SettingsScreen.kt`, `ScannerScreen.kt`, and `ScanResultScreen.kt` to use dynamic string resources. Verified the build and fixed XML syntax errors.
+
+## 📱 Screens Localized
+- **Settings Screen**: Full localization of all toggles, section titles, and footer text.
+- **Scanner Screen**: Localized all scanner status messages, error states, and buttons.
+- **Scan Result Screen**: Localized verdict titles, risk descriptions, analysis breakdown, and action buttons.
+
+## 🛠️ Technical Improvements
+- **String Resources**: Added 50+ new string keys to `values/strings.xml`.
+- **Bug Fixes**: Corrected XML entity escaping (`&` -> `&amp;`) in `values-de/strings.xml` and `values/strings.xml`.
+- **Clean Code**: Removed all hardcoded string literals from UI components.
+
+---
+
+# 🇮🇹 December 22, 2025 - Italian Language Support & European Polish
+
 ### Summary
 Added Italian language support and performed an extensive debug and polish pass on all major European languages (English, German, Spanish, French, Italian) to ensure native-quality phrasing and consistent formatting.
 

@@ -149,7 +149,7 @@ fun ScannerScreen() {
                         triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
                         SoundManager.playSound(SoundManager.SoundType.ERROR, settings.isSoundEnabled)
                         // Show error message - no QR found
-                        cameraError = "No QR code found in the selected image"
+                        cameraError = context.getString(R.string.error_no_qr_found)
                     }
                     is ScanResult.Error -> {
                         triggerHapticFeedback(vibrator, HapticType.ERROR, settings.isHapticEnabled)
@@ -344,7 +344,7 @@ private fun ProcessingOverlay() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Scanning image for QR codes...",
+                text = stringResource(R.string.scanning_image_progress),
                 color = Color.White,
                 fontSize = 14.sp
             )
@@ -536,14 +536,14 @@ private fun RedTeamScenariosPanel(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Red Team Scenarios",
+                text = stringResource(R.string.red_team_scenarios_title),
                 color = Color(0xFFFF6B6B),
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = "${scenarios.size} attacks",
+                text = stringResource(R.string.red_team_attacks_fmt, scenarios.size),
                 color = Color(0xFFFF9999),
                 fontSize = 12.sp
             )
@@ -570,7 +570,7 @@ private fun RedTeamScenariosPanel(
 
         // Hint text
         Text(
-            text = "Tap a scenario to test detection without camera",
+            text = stringResource(R.string.red_team_hint),
             color = Color(0xFFAA7777),
             fontSize = 11.sp,
             modifier = Modifier.padding(horizontal = 16.dp)
@@ -829,7 +829,7 @@ private fun ResolvingContent(originalUrl: String) {
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "Resolving Short Link...",
+            text = stringResource(R.string.resolving_short_link_title),
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
             color = Color.White
@@ -838,7 +838,7 @@ private fun ResolvingContent(originalUrl: String) {
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "Revealing hidden destination",
+            text = stringResource(R.string.resolving_short_link_subtitle),
             fontSize = 14.sp,
             color = TextSecondary
         )

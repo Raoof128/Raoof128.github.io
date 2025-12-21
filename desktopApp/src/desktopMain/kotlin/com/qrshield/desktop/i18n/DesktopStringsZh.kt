@@ -13,3 +13,5 @@ internal val ChineseSimplifiedStrings = mapOf(
     DesktopStringKey.NavTraining to "培训",
     DesktopStringKey.NavSettings to "设置"
 )
+
+internal val ChineseSimplifiedCommonStrings = mapOf<String, String>()

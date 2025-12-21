@@ -133,5 +133,143 @@
     <string name="cd_suspicious_verdict">URL is suspicious, proceed with caution</string>
     <string name="cd_malicious_verdict">Warning, URL appears to be malicious phishing attempt</string>
     <string name="cd_risk_score">Risk score out of 100</string>
+    <!-- Trust Centre -->
+    <string name="trust_center_title">Security Status</string>
+    <string name="trust_center_secure">Your device is secure</string>
+    <string name="trust_center_protected_by">Protected by QR-SHIELD Enterprise</string>
+    <string name="trust_center_score">Security Score: %d/100</string>
+    <string name="trust_center_realtime">Real-time Protection</string>
+    <string name="trust_center_malware">Malware Detection</string>
+    <string name="trust_center_scarm_blocker">Scam Blocker</string>
+    <string name="trust_center_active">Active</string>
+    <string name="trust_center_database_status">Database Status</string>
+    <string name="trust_center_last_updated">Last Updated: %s</string>
+    <string name="trust_center_just_now">Just now</string>
+    <string name="trust_center_check_updates">Check for Updates</string>
+    <string name="trust_center_system_activity">System Activity</string>
+    <string name="trust_center_report_24h">24h Protection Report</string>
+    <string name="trust_center_scans">Scans</string>
+    <string name="trust_center_threats">Threats</string>
+    <string name="trust_center_blocked">Blocked</string>
+    <string name="trust_center_safe">Safe</string>
+    <string name="trust_center_modules">Security Modules</string>
+    <string name="trust_center_heuristics">Heuristics Engine</string>
+    <string name="trust_center_heuristics_desc">Advanced AI analysis</string>
+    <string name="trust_center_enabled">Enabled</string>
+    <string name="trust_center_privacy">Privacy Guard</string>
+    <string name="trust_center_privacy_desc">Data leak prevention</string>
+    <string name="trust_center_network">Network Shield</string>
+    <string name="trust_center_network_desc">Firewall active</string>
+    <string name="trust_center_offline">Offline Mode</string>
+    <string name="trust_center_offline_desc">Local database only</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">ENTERPRISE EDITION</string>
+    <string name="footer_terms">Terms</string>
+    <string name="footer_privacy">Privacy Policy</string>
+    <string name="footer_licenses">Licenses</string>
+    <!-- Scanner Screen -->
+    <string name="error_no_qr_found">No QR code found in the selected image</string>
+    <string name="scanning_image_progress">Scanning image for QR codes...</string>
+    <string name="red_team_scenarios_title">Red Team Scenarios</string>
+    <string name="red_team_attacks_fmt">%1$d attacks</string>
+    <string name="red_team_hint">Tap a scenario to test detection without camera</string>
+    <string name="resolving_short_link_title">Resolving Short Link...</string>
+    <string name="resolving_short_link_subtitle">Revealing hidden destination</string>
+
+    <!-- Scan Result Screen -->
+    <string name="scan_result_title">Scan Result</string>
+    <string name="verdict_malicious">High Risk Detected</string>
+    <string name="verdict_suspicious">Suspicious Activity</string>
+    <string name="verdict_safe">Safe to Open</string>
+    <string name="verdict_unknown">Unknown Risk</string>
+    <string name="threat_type_phishing">Phishing</string>
+    <string name="threat_type_suspicious">Suspicious</string>
+    <string name="threat_type_verified">Verified</string>
+    <string name="threat_type_unknown">Unknown</string>
+    <string name="confidence_fmt">%1$d%% Confidence</string>
+    <string name="severity_score_label">SEVERITY SCORE</string>
+    <string name="risk_score_desc">This URL exhibits patterns consistent with known malicious campaigns targeting enterprise credentials.</string>
+    <string name="target_url_label">TARGET URL</string>
+    <string name="analysis_breakdown_title">Analysis Breakdown</string>
+    <string name="ai_explained_label">AI Explained</string>
+    <string name="cd_back">Back</string>
+    <string name="cd_share">Share</string>
+    <string name="cd_copy_url">Copy URL</string>
+    <string name="scan_meta_fmt">Scanned: %1$s • Engine v%2$s • %3$s</string>
+    <string name="scan_mode_offline">Offline</string>
+    <string name="scan_mode_online">Online</string>
+    <string name="action_block_report">Block &amp; Report to IT</string>
+    <string name="action_ignore_warning">Ignore Warning (Admin)</string>
+    
+    <!-- Analysis Items (Demo) -->
+    <string name="analysis_domain_age_title">Domain Age Alert</string>
+    <string name="analysis_domain_age_desc">Domain created less than 24 hours ago. High likelihood of disposable phishing infrastructure.</string>
+    <string name="analysis_redirect_title">Suspicious Redirection</string>
+    <string name="analysis_redirect_desc">URL contains 3 levels of redirection designed to bypass email filters.</string>
+    <string name="analysis_db_match_title">Database Match</string>
+    <string name="analysis_db_match_desc">Pattern matches known threat signature #4421 from global threat intelligence.</string>
+    <string name="tag_credential_harvesting">Credential Harvesting</string>
+    <string name="tag_homograph_attack">Homograph Attack</string>
+    <string name="tag_new_domain">New Domain</string>
+    
+    <!-- Settings Screen Extras -->
+    <string name="url_unshortener_title">Resolve Short Links</string>
+    <string name="url_unshortener_desc">Reveal hidden destinations (Online Only). Requires network access.</string>
+    <string name="dev_mode_section">🕵️ Developer Mode</string>
+    <string name="red_team_mode">Red Team Mode</string>
+    <string name="red_team_mode_desc">Show attack scenarios on scanner screen</string>
+    <string name="dev_mode_disabled_toast">Developer Mode disabled</string>
+    <string name="red_team_warning_text">Red Team Mode bypasses camera and injects test URLs directly into the detection engine.</string>
+    <string name="dev_mode_version_suffix">(DEV)</string>
+    <string name="dev_mode_enabled_toast">🕵️ Developer Mode enabled! Red Team scenarios available.</string>
+    <string name="dev_mode_tap_hint">%1$d more taps to %2$s developer mode</string>
+    <string name="dev_mode_enable">enable</string>
+    <string name="dev_mode_disable">disable</string>
+    <string name="about_app_desc">Kotlin Multiplatform QRishing Detector</string>
+    <string name="about_made_with_love">Made with ❤️ for KotlinConf 2026</string>
+    <string name="platform_android">Android 16</string>
+    <string name="platform_kotlin">Kotlin 1.9.22</string>
+    <string name="verify_integrity_title">Verify System Integrity</string>
+    <string name="verify_integrity_desc_running">Running verification...</string>
+    <string name="verify_integrity_desc_default">Prove 87% accuracy claim on-device</string>
+    <string name="verification_dialog_healthy">System Healthy ✓</string>
+    <string name="verification_dialog_complete">Verification Complete</string>
+    <string name="verification_passed_tests">Passed %1$d/%2$d tests</string>
+    <string name="confusion_matrix">Confusion Matrix</string>
+    <string name="metrics_title">Performance Metrics</string>
+    <string name="metric_accuracy">Accuracy</string>
+    <string name="metric_precision">Precision</string>
+    <string name="metric_recall">Recall</string>
+    <string name="metric_f1_score">F1 Score</string>
+    <string name="execution_time_fmt">Completed in %1$dms</string>
+    <string name="action_close">Close</string>
+    <string name="subtitle_github">GitHub</string>
+    <string name="settings_build_fmt">Android %1$s • API %2$d</string>
+    <string name="settings_engine_desc">KMP PhishingEngine v1.0</string>
+
+    <!-- Trust Centre Screen -->
+    <string name="trust_center_screen_title">Trust Centre</string>
+    <string name="offline_guarantee_title">Strict Offline Guarantee</string>
+    <string name="offline_guarantee_desc">No data leaves this device.</string>
+    <string name="air_gapped_active">Air-Gapped Mode Active</string>
+    <string name="phishing_sensitivity">Phishing Sensitivity</string>
+    <string name="sensitivity_low">Low</string>
+    <string name="sensitivity_balanced">Balanced</string>
+    <string name="sensitivity_paranoia">Paranoia</string>
+    <string name="sensitivity_low_desc">Minimal checks. Prioritizes speed and fewer interruptions. Use only for trusted environments.</string>
+    <string name="sensitivity_balanced_desc">Checks for known patterns and homoglyphs without aggressive heuristics. Ideal for daily use.</string>
+    <string name="sensitivity_paranoia_desc">Aggressive heuristics and strict sandboxing. Expect frequent warnings for unknown domains.</string>
+    <string name="sensitivity_mode_suffix">Mode</string>
+    <string name="allowlist_title">Allowlist</string>
+    <string name="allowlist_subtitle">Safe domains</string>
+    <string name="blocklist_title">Blocklist</string>
+    <string name="blocklist_subtitle">Blocked rules</string>
+    <string name="privacy_access_title">Privacy &amp; Access</string>
+    <string name="share_threats_title">Share Threat Signatures</string>
+    <string name="share_threats_subtitle">Anonymous heuristics upload</string>
+    <string name="biometric_unlock_title">Biometric Unlock</string>
+    <string name="biometric_unlock_subtitle">Require FaceID for settings</string>
 </resources>
 

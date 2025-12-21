@@ -36,6 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
 
 /**
@@ -66,16 +68,16 @@ fun ScanResultScreen(
 ) {
     // Derive display values from navigation params
     val displayVerdict = when (verdict.uppercase()) {
-        "MALICIOUS" -> "High Risk Detected"
-        "SUSPICIOUS" -> "Suspicious Activity"
-        "SAFE" -> "Safe to Open"
-        else -> "Unknown Risk"
+        "MALICIOUS" -> stringResource(R.string.verdict_malicious)
+        "SUSPICIOUS" -> stringResource(R.string.verdict_suspicious)
+        "SAFE" -> stringResource(R.string.verdict_safe)
+        else -> stringResource(R.string.verdict_unknown)
     }
     val threatType = when (verdict.uppercase()) {
-        "MALICIOUS" -> "Phishing"
-        "SUSPICIOUS" -> "Suspicious"
-        "SAFE" -> "Verified"
-        else -> "Unknown"
+        "MALICIOUS" -> stringResource(R.string.threat_type_phishing)
+        "SUSPICIOUS" -> stringResource(R.string.threat_type_suspicious)
+        "SAFE" -> stringResource(R.string.threat_type_verified)
+        else -> stringResource(R.string.threat_type_unknown)
     }
     val confidence = when (verdict.uppercase()) {
         "MALICIOUS" -> 98
@@ -91,18 +93,18 @@ fun ScanResultScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Scan Result",
+                        text = stringResource(R.string.scan_result_title),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
                     IconButton(onClick = onShareClick) {
-                        Icon(Icons.Default.Share, contentDescription = "Share")
+                        Icon(Icons.Default.Share, contentDescription = stringResource(R.string.cd_share))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -147,7 +149,7 @@ fun ScanResultScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = "TARGET URL",
+                        text = stringResource(R.string.target_url_label),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 1.sp
@@ -168,7 +170,7 @@ fun ScanResultScreen(
 
                 // Footer Meta
                 Text(
-                    text = "Scanned: Oct 24, 14:32 • Engine v4.2.0 • Offline",
+                    text = stringResource(R.string.scan_meta_fmt, "Oct 24, 14:32", "4.2.0", stringResource(R.string.scan_mode_offline)),
                     style = MaterialTheme.typography.labelSmall.copy(
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 0.5.sp
@@ -281,7 +283,7 @@ private fun VerdictHeader(
             }
 
             Text(
-                text = "$confidence% Confidence",
+                text = stringResource(R.string.confidence_fmt, confidence),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -319,7 +321,7 @@ private fun RiskScoreCard(
             ) {
                 Column {
                     Text(
-                        text = "SEVERITY SCORE",
+                        text = stringResource(R.string.severity_score_label),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 1.sp
@@ -378,7 +380,7 @@ private fun RiskScoreCard(
             }
 
             Text(
-                text = "This URL exhibits patterns consistent with known malicious campaigns targeting enterprise credentials.",
+                text = stringResource(R.string.risk_score_desc),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -397,17 +399,17 @@ private fun TagsRow() {
     ) {
         TagChip(
             icon = Icons.Default.VpnKey,
-            text = "Credential Harvesting",
+            text = stringResource(R.string.tag_credential_harvesting),
             isPrimary = true
         )
         TagChip(
             icon = Icons.Default.Abc,
-            text = "Homograph Attack",
+            text = stringResource(R.string.tag_homograph_attack),
             isPrimary = false
         )
         TagChip(
             icon = Icons.Default.Public,
-            text = "New Domain",
+            text = stringResource(R.string.tag_new_domain),
             isPrimary = false
         )
     }
@@ -491,7 +493,7 @@ private fun UrlDisplayCard(
             IconButton(onClick = onCopyClick) {
                 Icon(
                     imageVector = Icons.Default.ContentCopy,
-                    contentDescription = "Copy URL",
+                    contentDescription = stringResource(R.string.cd_copy_url),
                     tint = QRShieldColors.Primary,
                     modifier = Modifier.size(20.dp)
                 )
@@ -513,7 +515,7 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Analysis Breakdown",
+                text = stringResource(R.string.analysis_breakdown_title),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
             Surface(
@@ -540,7 +542,7 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
                         modifier = Modifier.size(14.dp)
                     )
                     Text(
-                        text = "AI Explained",
+                        text = stringResource(R.string.ai_explained_label),
                         color = QRShieldColors.Primary,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.SemiBold
@@ -568,17 +570,17 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
                     icon = Icons.Default.History,
                     iconBgColor = QRShieldColors.Red50,
                     iconColor = QRShieldColors.RiskDanger,
-                    title = "Domain Age Alert",
-                    description = "Domain created less than 24 hours ago. High likelihood of disposable phishing infrastructure.",
+                    title = stringResource(R.string.analysis_domain_age_title),
+                    description = stringResource(R.string.analysis_domain_age_desc),
                     highlightText = "24 hours ago",
                     showDivider = true
                 )
                 AnalysisItem(
-                    icon = Icons.Default.AltRoute,
+                    icon = Icons.AutoMirrored.Filled.AltRoute,
                     iconBgColor = QRShieldColors.Orange50,
                     iconColor = QRShieldColors.Orange600,
-                    title = "Suspicious Redirection",
-                    description = "URL contains 3 levels of redirection designed to bypass email filters.",
+                    title = stringResource(R.string.analysis_redirect_title),
+                    description = stringResource(R.string.analysis_redirect_desc),
                     highlightText = "3 levels",
                     showDivider = true
                 )
@@ -586,8 +588,8 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
                     icon = Icons.Default.Storage,
                     iconBgColor = QRShieldColors.Gray100,
                     iconColor = QRShieldColors.Gray600,
-                    title = "Database Match",
-                    description = "Pattern matches known threat signature #4421 from global threat intelligence.",
+                    title = stringResource(R.string.analysis_db_match_title),
+                    description = stringResource(R.string.analysis_db_match_desc),
                     highlightText = "#4421",
                     showDivider = false
                 )
@@ -702,7 +704,7 @@ private fun BottomActionBar(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Block & Report to IT",
+                    text = stringResource(R.string.action_block_report),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
@@ -728,7 +730,7 @@ private fun BottomActionBar(
                 )
             ) {
                 Text(
-                    text = "Ignore Warning (Admin)",
+                    text = stringResource(R.string.action_ignore_warning),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp
                 )

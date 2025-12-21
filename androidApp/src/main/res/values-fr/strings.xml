@@ -133,4 +133,62 @@
     <string name="cd_suspicious_verdict">L\'URL est suspecte, procédez avec prudence</string>
     <string name="cd_malicious_verdict">Attention, l\'URL semble être une tentative de phishing malveillante</string>
     <string name="cd_risk_score">Score de risque sur 100</string>
+    <!-- Trust Centre -->
+    <string name="trust_center_title">Statut de sécurité</string>
+    <string name="trust_center_secure">Votre appareil est sécurisé</string>
+    <string name="trust_center_protected_by">Protégé par QR-SHIELD Enterprise</string>
+    <string name="trust_center_score">Score de sécurité : %d/100</string>
+    <string name="trust_center_realtime">Protection en temps réel</string>
+    <string name="trust_center_malware">Détection de malwares</string>
+    <string name="trust_center_scarm_blocker">Bloqueur d\'arnaques</string>
+    <string name="trust_center_active">Actif</string>
+    <string name="trust_center_database_status">Statut de la base de données</string>
+    <string name="trust_center_last_updated">Dernière mise à jour : %s</string>
+    <string name="trust_center_just_now">À l\'instant</string>
+    <string name="trust_center_check_updates">Vérifier les mises à jour</string>
+    <string name="trust_center_system_activity">Activité système</string>
+    <string name="trust_center_report_24h">Rapport de protection 24h</string>
+    <string name="trust_center_scans">Scans</string>
+    <string name="trust_center_threats">Menaces</string>
+    <string name="trust_center_blocked">Bloqué</string>
+    <string name="trust_center_safe">Sûr</string>
+    <string name="trust_center_modules">Modules de sécurité</string>
+    <string name="trust_center_heuristics">Moteur heuristique</string>
+    <string name="trust_center_heuristics_desc">Analyse IA avancée</string>
+    <string name="trust_center_enabled">Activé</string>
+    <string name="trust_center_privacy">Protection de la vie privée</string>
+    <string name="trust_center_privacy_desc">Prévention des fuites de données</string>
+    <string name="trust_center_network">Bouclier réseau</string>
+    <string name="trust_center_network_desc">Pare-feu actif</string>
+    <string name="trust_center_offline">Mode hors ligne</string>
+    <string name="trust_center_offline_desc">Base de données locale uniquement</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">ÉDITION ENTREPRISE</string>
+    <string name="footer_terms">Conditions</string>
+    <string name="footer_privacy">Confidentialité</string>
+    <string name="footer_licenses">Licences</string>
+    <!-- Trust Centre Screen -->
+    <string name="trust_center_screen_title">Centre de confiance</string>
+    <string name="offline_guarantee_title">Garantie hors ligne stricte</string>
+    <string name="offline_guarantee_desc">Aucune donnée ne quitte cet appareil.</string>
+    <string name="air_gapped_active">Mode Air-Gapped actif</string>
+    <string name="phishing_sensitivity">Sensibilité au phishing</string>
+    <string name="sensitivity_low">Faible</string>
+    <string name="sensitivity_balanced">Équilibré</string>
+    <string name="sensitivity_paranoia">Paranoïa</string>
+    <string name="sensitivity_low_desc">Vérifications minimales. Priorité à la vitesse. Utilisez uniquement pour les environnements de confiance.</string>
+    <string name="sensitivity_balanced_desc">Vérifie les modèles connus sans heuristique agressive. Idéal pour un usage quotidien.</string>
+    <string name="sensitivity_paranoia_desc">Heuristique agressive et sandboxing strict. Attendez-vous à des avertissements fréquents.</string>
+    <string name="sensitivity_mode_suffix">Mode</string>
+    <string name="allowlist_title">Liste autorisée</string>
+    <string name="allowlist_subtitle">Domaines sûrs</string>
+    <string name="blocklist_title">Liste bloquée</string>
+    <string name="blocklist_subtitle">Règles bloquées</string>
+    <string name="privacy_access_title">Confidentialité et accès</string>
+    <string name="share_threats_title">Partager les signatures de menaces</string>
+    <string name="share_threats_subtitle">Upload anonyme d\'heuristiques</string>
+    <string name="biometric_unlock_title">Déverrouillage biométrique</string>
+    <string name="biometric_unlock_subtitle">FaceID requis pour les réglages</string>
 </resources>

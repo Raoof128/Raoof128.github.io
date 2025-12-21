@@ -226,8 +226,8 @@ fun SettingsScreen() {
         item {
             SettingsToggle(
                 icon = Icons.Default.LinkOff,
-                title = "Resolve Short Links",
-                subtitle = "Reveal hidden destinations (Online Only). Requires network access.",
+                title = stringResource(R.string.url_unshortener_title),
+                subtitle = stringResource(R.string.url_unshortener_desc),
                 checked = settings.isAggressiveModeEnabled,
                 onCheckedChange = { newValue ->
                     viewModel.updateSettings(settings.copy(isAggressiveModeEnabled = newValue))
@@ -285,19 +285,19 @@ fun SettingsScreen() {
         // Developer Mode Section (only visible when enabled)
         if (developerModeEnabled) {
             item {
-                SettingsSection(title = "🕵️ Developer Mode")
+                SettingsSection(title = stringResource(R.string.dev_mode_section))
             }
 
             item {
                 SettingsToggle(
                     icon = Icons.Default.BugReport,
-                    title = "Red Team Mode",
-                    subtitle = "Show attack scenarios on scanner screen",
+                    title = stringResource(R.string.red_team_mode),
+                    subtitle = stringResource(R.string.red_team_mode_desc),
                     checked = developerModeEnabled,
                     onCheckedChange = { newValue ->
                         viewModel.updateSettings(settings.copy(isDeveloperModeEnabled = newValue))
                         if (!newValue) {
-                            Toast.makeText(context, "Developer Mode disabled", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.dev_mode_disabled_toast), Toast.LENGTH_SHORT).show()
                         }
                     }
                 )
@@ -324,7 +324,7 @@ fun SettingsScreen() {
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Red Team Mode bypasses camera and injects test URLs directly into the detection engine.",
+                            text = stringResource(R.string.red_team_warning_text),
                             color = Color(0xFFFFAAAA),
                             fontSize = 12.sp
                         )
@@ -344,7 +344,7 @@ fun SettingsScreen() {
                 icon = Icons.Default.Info,
                 title = stringResource(R.string.settings_version),
                 value = if (developerModeEnabled) {
-                    "${BuildConfig.VERSION_NAME} (DEV)"
+                    "${BuildConfig.VERSION_NAME} ${stringResource(R.string.dev_mode_version_suffix)}"
                 } else {
                     "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
                 },
@@ -369,22 +369,23 @@ fun SettingsScreen() {
                             if (newDevMode) {
                                 Toast.makeText(
                                     context,
-                                    "🕵️ Developer Mode enabled! Red Team scenarios available.",
+                                    context.getString(R.string.dev_mode_enabled_toast),
                                     Toast.LENGTH_LONG
                                 ).show()
                             } else {
                                 Toast.makeText(
                                     context,
-                                    "Developer Mode disabled",
+                                    context.getString(R.string.dev_mode_disabled_toast),
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
                         }
                         developerTapCount >= 4 -> {
                             val remaining = 7 - developerTapCount
+                            val action = if (developerModeEnabled) context.getString(R.string.dev_mode_disable) else context.getString(R.string.dev_mode_enable)
                             Toast.makeText(
                                 context,
-                                "$remaining more taps to ${if (developerModeEnabled) "disable" else "enable"} developer mode",
+                                context.getString(R.string.dev_mode_tap_hint, remaining, action),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
@@ -397,7 +398,7 @@ fun SettingsScreen() {
             SettingsInfo(
                 icon = Icons.Default.Build,
                 title = stringResource(R.string.settings_build),
-                value = "Android ${Build.VERSION.RELEASE} • API ${Build.VERSION.SDK_INT}"
+                value = stringResource(R.string.settings_build_fmt, Build.VERSION.RELEASE, Build.VERSION.SDK_INT)
             )
         }
 
@@ -405,7 +406,7 @@ fun SettingsScreen() {
             SettingsInfo(
                 icon = Icons.Default.Memory,
                 title = stringResource(R.string.settings_engine),
-                value = "KMP PhishingEngine v1.0"
+                value = stringResource(R.string.settings_engine_desc)
             )
         }
 
@@ -413,8 +414,8 @@ fun SettingsScreen() {
         item {
             SettingsClickable(
                 icon = Icons.Default.VerifiedUser,
-                title = "Verify System Integrity",
-                subtitle = if (isVerifying) "Running verification..." else "Prove 87% accuracy claim on-device",
+                title = stringResource(R.string.verify_integrity_title),
+                subtitle = if (isVerifying) stringResource(R.string.verify_integrity_desc_running) else stringResource(R.string.verify_integrity_desc_default),
                 onClick = {
                     if (!isVerifying) {
                         isVerifying = true
@@ -451,7 +452,7 @@ fun SettingsScreen() {
             SettingsClickable(
                 icon = Icons.Default.Code,
                 title = stringResource(R.string.settings_source_code),
-                subtitle = "GitHub",
+                subtitle = stringResource(R.string.subtitle_github),
                 onClick = {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse("https://github.com/Raoof128/QDKMP-KotlinConf-2026-")
@@ -525,7 +526,7 @@ fun SettingsScreen() {
                 )
 
                 Text(
-                    text = "Kotlin Multiplatform QRishing Detector",
+                    text = stringResource(R.string.about_app_desc),
                     fontSize = 12.sp,
                     color = TextSecondary
                 )
@@ -533,7 +534,7 @@ fun SettingsScreen() {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
-                    text = "Made with ❤️ for KotlinConf 2026",
+                    text = stringResource(R.string.about_made_with_love),
                     fontSize = 11.sp,
                     color = TextMuted
                 )
@@ -544,8 +545,8 @@ fun SettingsScreen() {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    PlatformBadge("Android 16", BrandPrimary)
-                    PlatformBadge("Kotlin 1.9.22", BrandSecondary)
+                    PlatformBadge(stringResource(R.string.platform_android), BrandPrimary)
+                    PlatformBadge(stringResource(R.string.platform_kotlin), BrandSecondary)
                 }
             }
         }
@@ -569,7 +570,7 @@ fun SettingsScreen() {
             },
             title = {
                 Text(
-                    text = if (result.isHealthy) "System Healthy ✓" else "Verification Complete",
+                    text = if (result.isHealthy) stringResource(R.string.verification_dialog_healthy) else stringResource(R.string.verification_dialog_complete),
                     fontWeight = FontWeight.Bold
                 )
             },
@@ -587,7 +588,7 @@ fun SettingsScreen() {
                         )
                     ) {
                         Text(
-                            text = "Passed ${result.passed}/${result.totalTests} tests",
+                            text = stringResource(R.string.verification_passed_tests, result.passed, result.totalTests),
                             modifier = Modifier.padding(12.dp),
                             fontWeight = FontWeight.SemiBold,
                             fontSize = 16.sp,
@@ -596,7 +597,7 @@ fun SettingsScreen() {
                     }
                     
                     // Confusion Matrix
-                    Text("Confusion Matrix", fontWeight = FontWeight.Medium, color = TextPrimary)
+                    Text(stringResource(R.string.confusion_matrix), fontWeight = FontWeight.Medium, color = TextPrimary)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
@@ -610,28 +611,28 @@ fun SettingsScreen() {
                     HorizontalDivider(color = TextMuted.copy(alpha = 0.3f))
                     
                     // Metrics
-                    Text("Performance Metrics", fontWeight = FontWeight.Medium, color = TextPrimary)
+                    Text(stringResource(R.string.metrics_title), fontWeight = FontWeight.Medium, color = TextPrimary)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Column {
-                            Text("Accuracy", fontSize = 11.sp, color = TextMuted)
+                            Text(stringResource(R.string.metric_accuracy), fontSize = 11.sp, color = TextMuted)
                             Text("${String.format("%.1f", result.accuracy * 100)}%", 
                                 fontWeight = FontWeight.Bold, color = TextPrimary)
                         }
                         Column {
-                            Text("Precision", fontSize = 11.sp, color = TextMuted)
+                            Text(stringResource(R.string.metric_precision), fontSize = 11.sp, color = TextMuted)
                             Text("${String.format("%.1f", result.precision * 100)}%",
                                 fontWeight = FontWeight.Bold, color = TextPrimary)
                         }
                         Column {
-                            Text("Recall", fontSize = 11.sp, color = TextMuted)
+                            Text(stringResource(R.string.metric_recall), fontSize = 11.sp, color = TextMuted)
                             Text("${String.format("%.1f", result.recall * 100)}%",
                                 fontWeight = FontWeight.Bold, color = TextPrimary)
                         }
                         Column {
-                            Text("F1 Score", fontSize = 11.sp, color = TextMuted)
+                            Text(stringResource(R.string.metric_f1_score), fontSize = 11.sp, color = TextMuted)
                             Text("${String.format("%.2f", result.f1Score)}",
                                 fontWeight = FontWeight.Bold, color = TextPrimary)
                         }
@@ -639,7 +640,7 @@ fun SettingsScreen() {
                     
                     // Execution time
                     Text(
-                        text = "Completed in ${result.executionTimeMs}ms",
+                        text = stringResource(R.string.execution_time_fmt, result.executionTimeMs),
                         fontSize = 11.sp,
                         color = TextMuted
                     )
@@ -650,7 +651,7 @@ fun SettingsScreen() {
                     onClick = { showVerificationDialog = false },
                     colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary)
                 ) {
-                    Text("Close")
+                    Text(stringResource(R.string.action_close))
                 }
             }
         )

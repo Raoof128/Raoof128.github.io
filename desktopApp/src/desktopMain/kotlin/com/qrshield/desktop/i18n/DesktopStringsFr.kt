@@ -13,3 +13,5 @@ internal val FrenchStrings = mapOf(
     DesktopStringKey.NavTraining to "Formation",
     DesktopStringKey.NavSettings to "Paramètres"
 )
+
+internal val FrenchCommonStrings = mapOf<String, String>()
