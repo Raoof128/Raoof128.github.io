@@ -48,7 +48,8 @@ fun DashboardScreen(viewModel: AppViewModel) {
         ) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
-                onNavigate = { viewModel.currentScreen = it }
+                onNavigate = { viewModel.currentScreen = it },
+                language = viewModel.appLanguage
             )
             DashboardContent(
                 onStartScan = {

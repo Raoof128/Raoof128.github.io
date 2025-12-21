@@ -45,7 +45,11 @@ fun TrustCentreScreen(viewModel: AppViewModel) {
                 .background(Color(0xFFF6F8FA))
                 .gridPattern(spacing = 40.dp, lineColor = Color(0xFFE1E4E8), lineWidth = 1.dp)
         ) {
-            AppSidebar(currentScreen = AppScreen.TrustCentre, onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(
+                currentScreen = AppScreen.TrustCentre,
+                onNavigate = { viewModel.currentScreen = it },
+                language = viewModel.appLanguage
+            )
             TrustCentreContent(
                 viewModel = viewModel,
                 onNavigate = { viewModel.currentScreen = it }

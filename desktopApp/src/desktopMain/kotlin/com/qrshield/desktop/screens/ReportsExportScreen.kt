@@ -47,7 +47,11 @@ fun ReportsExportScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF8FAFC))
         ) {
-            AppSidebar(currentScreen = AppScreen.ReportsExport, onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(
+                currentScreen = AppScreen.ReportsExport,
+                onNavigate = { viewModel.currentScreen = it },
+                language = viewModel.appLanguage
+            )
             ReportsContent(viewModel = viewModel)
         }
     }

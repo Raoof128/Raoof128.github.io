@@ -6,6 +6,7 @@
 package com.qrshield.desktop
 
 import java.io.File
+import java.util.Locale
 import java.util.Properties
 
 /**
@@ -23,7 +24,8 @@ object SettingsManager {
         val autoCopySafeLinksEnabled: Boolean = false,
         val heuristicSensitivity: String = "Balanced",
         val telemetryEnabled: Boolean = false,
-        val biometricLockEnabled: Boolean = false
+        val biometricLockEnabled: Boolean = false,
+        val languageCode: String = defaultLanguageCode()
     )
 
     fun loadSettings(): Settings {
@@ -47,7 +49,8 @@ object SettingsManager {
                     autoCopySafeLinksEnabled = props.getProperty("autoCopySafeLinksEnabled", "false").toBoolean(),
                     heuristicSensitivity = props.getProperty("heuristicSensitivity", "Balanced"),
                     telemetryEnabled = props.getProperty("telemetryEnabled", "false").toBoolean(),
-                    biometricLockEnabled = props.getProperty("biometricLockEnabled", "false").toBoolean()
+                    biometricLockEnabled = props.getProperty("biometricLockEnabled", "false").toBoolean(),
+                    languageCode = props.getProperty("languageCode", defaultLanguageCode())
                 )
             }
         } catch (e: Exception) {
@@ -71,11 +74,17 @@ object SettingsManager {
             props.setProperty("heuristicSensitivity", settings.heuristicSensitivity)
             props.setProperty("telemetryEnabled", settings.telemetryEnabled.toString())
             props.setProperty("biometricLockEnabled", settings.biometricLockEnabled.toString())
+            props.setProperty("languageCode", settings.languageCode)
 
             file.outputStream().use { props.store(it, "QR-SHIELD Application Settings") }
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun defaultLanguageCode(): String {
+        val language = Locale.getDefault().language.lowercase()
+        return if (language.startsWith("de")) "de" else "en"
     }
 
     private fun getSettingsFile(): File {

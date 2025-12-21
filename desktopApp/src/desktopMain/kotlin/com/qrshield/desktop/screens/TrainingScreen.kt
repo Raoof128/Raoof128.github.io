@@ -43,7 +43,11 @@ fun TrainingScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(Color(0xFFF8FAFC))
         ) {
-            AppSidebar(currentScreen = AppScreen.Training, onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(
+                currentScreen = AppScreen.Training,
+                onNavigate = { viewModel.currentScreen = it },
+                language = viewModel.appLanguage
+            )
             TrainingContent(viewModel = viewModel)
         }
     }

@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Standardized suspicious/dangerous result cards and empty states with theme tokens.
 - Removed per-screen sidebar duplicates to keep desktop navigation consistent.
 - Consolidated Trust Centre, Training, and Reports sidebars into the shared desktop navigation.
+- Added German locale support for desktop navigation labels and persisted language preference.
+- Added desktop language state and settings persistence for locale-aware navigation labels.
 
 ---
 

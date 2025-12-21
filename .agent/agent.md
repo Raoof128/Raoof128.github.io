@@ -48,6 +48,7 @@ Added German language support to the Android application by creating `values-de/
 - Verified desktop build after sidebar consolidation.
 - Completed sidebar consolidation for Trust Centre, Training, and Reports screens.
 - Added German language support for desktop navigation labels with persisted locale preference.
+- Added desktop language state + settings persistence and localized sidebar strings.
 
 ## ✅ Build Verification
 

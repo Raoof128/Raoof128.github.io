@@ -44,7 +44,8 @@ fun ResultSafeScreen(viewModel: AppViewModel) {
         ) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
-                onNavigate = { viewModel.currentScreen = it }
+                onNavigate = { viewModel.currentScreen = it },
+                language = viewModel.appLanguage
             )
             SafeResultContent(
                 viewModel = viewModel,

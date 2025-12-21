@@ -43,7 +43,11 @@ fun ResultDangerousScreen(viewModel: AppViewModel) {
                 .background(tokens.colors.background)
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
-                AppSidebar(currentScreen = AppScreen.ResultDangerous, onNavigate = { viewModel.currentScreen = it })
+                AppSidebar(
+                    currentScreen = AppScreen.ResultDangerous,
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = viewModel.appLanguage
+                )
                 DangerousContent(
                     viewModel = viewModel,
                     onNavigate = { viewModel.currentScreen = it }

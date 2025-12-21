@@ -27,6 +27,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.SampleData
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStringKey
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.LocalStitchTokens
 
@@ -34,6 +37,7 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 fun AppSidebar(
     currentScreen: AppScreen,
     onNavigate: (AppScreen) -> Unit,
+    language: AppLanguage,
     modifier: Modifier = Modifier
 ) {
     val tokens = LocalStitchTokens.current
@@ -71,7 +75,7 @@ fun AppSidebar(
                 color = colors.primary
             )
             Text(
-                text = "QR-SHIELD",
+                text = DesktopStrings.text(DesktopStringKey.AppName, language),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = colors.textMain
@@ -84,9 +88,9 @@ fun AppSidebar(
                 .padding(horizontal = spacing.md, vertical = spacing.xl),
             verticalArrangement = Arrangement.spacedBy(spacing.xs)
         ) {
-            SectionLabel("MAIN MENU", colors.textMuted)
+            SectionLabel(DesktopStrings.text(DesktopStringKey.MenuMain, language), colors.textMuted)
             SidebarItem(
-                label = "Dashboard",
+                label = DesktopStrings.text(DesktopStringKey.NavDashboard, language),
                 icon = "dashboard",
                 active = activeScreen == AppScreen.Dashboard,
                 colors = colors,
@@ -94,7 +98,7 @@ fun AppSidebar(
                 onClick = { onNavigate(AppScreen.Dashboard) }
             )
             SidebarItem(
-                label = "Scan Monitor",
+                label = DesktopStrings.text(DesktopStringKey.NavScanMonitor, language),
                 icon = "qr_code_scanner",
                 active = activeScreen == AppScreen.LiveScan,
                 colors = colors,
@@ -102,7 +106,7 @@ fun AppSidebar(
                 onClick = { onNavigate(AppScreen.LiveScan) }
             )
             SidebarItem(
-                label = "Scan History",
+                label = DesktopStrings.text(DesktopStringKey.NavScanHistory, language),
                 icon = "history",
                 active = activeScreen == AppScreen.ScanHistory,
                 colors = colors,
@@ -111,9 +115,9 @@ fun AppSidebar(
             )
 
             Spacer(modifier = Modifier.height(spacing.lg))
-            SectionLabel("SECURITY", colors.textMuted)
+            SectionLabel(DesktopStrings.text(DesktopStringKey.MenuSecurity, language), colors.textMuted)
             SidebarItem(
-                label = "Trust Centre",
+                label = DesktopStrings.text(DesktopStringKey.NavTrustCentre, language),
                 icon = "verified_user",
                 active = activeScreen == AppScreen.TrustCentre,
                 colors = colors,
@@ -121,7 +125,7 @@ fun AppSidebar(
                 onClick = { onNavigate(AppScreen.TrustCentre) }
             )
             SidebarItem(
-                label = "Reports",
+                label = DesktopStrings.text(DesktopStringKey.NavReports, language),
                 icon = "description",
                 active = activeScreen == AppScreen.ReportsExport,
                 colors = colors,
@@ -130,9 +134,9 @@ fun AppSidebar(
             )
 
             Spacer(modifier = Modifier.height(spacing.lg))
-            SectionLabel("SYSTEM", colors.textMuted)
+            SectionLabel(DesktopStrings.text(DesktopStringKey.MenuSystem, language), colors.textMuted)
             SidebarItem(
-                label = "Training",
+                label = DesktopStrings.text(DesktopStringKey.NavTraining, language),
                 icon = "school",
                 active = activeScreen == AppScreen.Training,
                 colors = colors,
@@ -140,7 +144,7 @@ fun AppSidebar(
                 onClick = { onNavigate(AppScreen.Training) }
             )
             SidebarItem(
-                label = "Settings",
+                label = DesktopStrings.text(DesktopStringKey.NavSettings, language),
                 icon = "settings",
                 active = activeScreen == AppScreen.TrustCentreAlt,
                 colors = colors,

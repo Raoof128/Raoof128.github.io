@@ -40,7 +40,11 @@ fun ResultDangerousAltScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(if (viewModel.isDarkMode) Color(0xFF111827) else Color(0xFFF3F4F6))
         ) {
-            AppSidebar(currentScreen = AppScreen.ResultDangerousAlt, onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(
+                currentScreen = AppScreen.ResultDangerousAlt,
+                onNavigate = { viewModel.currentScreen = it },
+                language = viewModel.appLanguage
+            )
             DangerousAltContent(
                 viewModel = viewModel,
                 isDark = viewModel.isDarkMode,

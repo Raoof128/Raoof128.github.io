@@ -39,7 +39,11 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
                 .fillMaxSize()
                 .background(tokens.colors.background)
         ) {
-            AppSidebar(currentScreen = AppScreen.TrustCentreAlt, onNavigate = { viewModel.currentScreen = it })
+            AppSidebar(
+                currentScreen = AppScreen.TrustCentreAlt,
+                onNavigate = { viewModel.currentScreen = it },
+                language = viewModel.appLanguage
+            )
             TrustCentreAltContent(viewModel = viewModel)
         }
     }

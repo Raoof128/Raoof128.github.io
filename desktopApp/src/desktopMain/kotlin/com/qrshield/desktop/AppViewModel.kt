@@ -16,6 +16,7 @@ import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
 import com.qrshield.desktop.navigation.AppScreen
+import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.platform.PlatformClipboard
 import com.qrshield.platform.PlatformTime
 import com.qrshield.platform.PlatformUrlOpener
@@ -106,6 +107,7 @@ class AppViewModel(
 
     var currentScreen by mutableStateOf<AppScreen>(AppScreen.Dashboard)
     var isDarkMode by mutableStateOf(false)
+    var appLanguage by mutableStateOf(AppLanguage.systemDefault())
 
     var scanMonitorViewMode by mutableStateOf(ScanMonitorViewMode.Visual)
     var resultSafeViewMode by mutableStateOf(ResultViewMode.Simple)
@@ -176,6 +178,13 @@ class AppViewModel(
 
     fun toggleTheme() {
         isDarkMode = !isDarkMode
+    }
+
+    fun setLanguage(language: AppLanguage) {
+        if (appLanguage != language) {
+            appLanguage = language
+            persistSettings()
+        }
     }
 
     fun analyzeClipboardUrl() {
@@ -579,6 +588,7 @@ class AppViewModel(
             "paranoia" -> HeuristicSensitivity.Paranoia
             else -> HeuristicSensitivity.Balanced
         }
+        appLanguage = AppLanguage.fromCode(settings.languageCode)
         phishingEngine = buildPhishingEngine(heuristicSensitivity)
     }
 
@@ -596,7 +606,8 @@ class AppViewModel(
                 HeuristicSensitivity.Paranoia -> "Paranoia"
             },
             telemetryEnabled = trustCentreToggles.anonymousTelemetry,
-            biometricLockEnabled = false
+            biometricLockEnabled = false,
+            languageCode = appLanguage.code
         )
         settingsStore.save(settings)
     }

@@ -52,7 +52,11 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
                 .background(tokens.colors.background)
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
-                AppSidebar(currentScreen = AppScreen.ResultSuspicious, onNavigate = { viewModel.currentScreen = it })
+                AppSidebar(
+                    currentScreen = AppScreen.ResultSuspicious,
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = viewModel.appLanguage
+                )
                 SuspiciousContent(
                     viewModel = viewModel,
                     isDark = viewModel.isDarkMode,
