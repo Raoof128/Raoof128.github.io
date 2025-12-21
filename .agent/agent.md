@@ -4,6 +4,47 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌙 December 21, 2025 (Session 3) - Dark Mode Integration
+
+### Summary
+Integrated dark mode theme matching the HTML TailwindCSS patterns exactly. Updated color schemes in Theme.kt and QRShieldColors.kt to use the same color values as the HTML dark mode.
+
+## 📦 Theme Updates
+
+### Theme.kt - Material 3 Color Schemes
+Updated both light and dark color schemes to match HTML exactly:
+
+| Element | Light Mode | Dark Mode |
+|---------|------------|-----------|
+| Background | #f6f6f8 | #101622 |
+| Surface | #ffffff | #1a2230 |
+| Surface Variant | #f1f5f9 | #1e293b |
+| Primary | #215eed | #215eed |
+| Text Primary | #0f172a | #ffffff |
+| Text Secondary | #64748b | #94a3b8 |
+| Border | #e2e8f0 | #334155 |
+
+### QRShieldColors.kt - Design Tokens
+- Added `SurfaceDarkAlt` for alternative dark surface
+- Added `QRShieldThemeColors` object for theme-aware accessors
+- All colors now match TailwindCSS hex values exactly
+
+### Backwards Compatibility
+Added legacy color aliases for existing screen code:
+- `TextPrimary`, `TextSecondary`, `TextMuted`
+- `BackgroundSurface`, `BackgroundCard`, `BackgroundGlass`
+- `AccentBlue`, `AccentPurple`
+
+## ✅ Build Verification
+
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL in 18s
+```
+
+---
+
+
 # 🖥️ December 22, 2025 - Desktop UI Wiring Audit + Engine Integration
 
 ### Summary

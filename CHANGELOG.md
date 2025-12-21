@@ -5,6 +5,43 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2025-12-21
+
+### 🌙 Android UI - Dark Mode Integration
+
+Integrated dark mode theme matching the HTML TailwindCSS patterns exactly.
+
+#### 📦 Theme Updates
+
+**Theme.kt - Material 3 Color Schemes:**
+- Background: Light `#f6f6f8` / Dark `#101622`
+- Surface: Light `#ffffff` / Dark `#1a2230`
+- Primary: `#215eed` (consistent across modes)
+- Text Primary: Light `#0f172a` / Dark `#ffffff`
+- Text Secondary: Light `#64748b` / Dark `#94a3b8`
+
+**QRShieldColors.kt - Design Tokens:**
+- Added `SurfaceDarkAlt` for alternative dark surface (`#1e293b`)
+- Added `QRShieldThemeColors` object for theme-aware color accessors
+- All colors now match TailwindCSS hex values exactly
+
+**Backwards Compatibility Aliases:**
+```kotlin
+val TextPrimary = Color(0xFFF0F6FC)
+val TextSecondary = Color(0xFF8B949E)
+val TextMuted = Color(0xFF848D97)
+val BackgroundSurface = Color(0xFF161B22)
+val BackgroundCard = Color(0xFF21262D)
+```
+
+#### ✅ Build Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL in 18s
+```
+
+---
+
 ## [1.13.0] - 2025-12-21
 
 ### 🔌 Android UI - Full Rewiring + Persistence

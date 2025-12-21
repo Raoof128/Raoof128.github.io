@@ -34,123 +34,160 @@ import androidx.core.view.WindowCompat
 
 // =============================================================================
 // QR-SHIELD CYBERSECURITY COLOR PALETTE
-// Updated for Android 16 with enhanced contrast and accessibility
+// Updated to match HTML TailwindCSS dark mode patterns exactly
 // =============================================================================
 
-// Primary Brand Colors - Neon Purple Gradient
-val BrandPrimary = Color(0xFF6C5CE7)      // Electric Purple
-val BrandSecondary = Color(0xFF00D68F)    // Neon Teal/Cyan
-val BrandAccent = Color(0xFFA855F7)       // Light Purple
+// Primary Brand Colors - From HTML: #215eed
+val BrandPrimary = Color(0xFF215EED)       // Primary Blue (#215eed)
+val BrandPrimaryDark = Color(0xFF1A4BBD)   // Darker variant
+val BrandSecondary = Color(0xFF00D68F)     // Emerald Green
+val BrandAccent = Color(0xFFA855F7)        // Purple
 
-// Verdict Colors - Security Status (WCAG AA compliant)
-val VerdictSafe = Color(0xFF00D68F)       // Neon Green - SAFE
-val VerdictWarning = Color(0xFFF5A623)    // Amber - SUSPICIOUS
-val VerdictDanger = Color(0xFFFF3D71)     // Threat Red - MALICIOUS
-val VerdictUnknown = Color(0xFF8B93A1)    // Gray - UNKNOWN
+// Verdict Colors - Security Status (matching HTML)
+val VerdictSafe = Color(0xFF22C55E)        // Green - SAFE (green-500)
+val VerdictWarning = Color(0xFFF59E0B)     // Amber - SUSPICIOUS (amber-500)
+val VerdictDanger = Color(0xFFEF4444)      // Red - MALICIOUS (red-500 / risk-high)
+val VerdictUnknown = Color(0xFF8B93A1)     // Gray - UNKNOWN
 
-// Background Colors - Deep Dark Hacker Theme (Android 16 optimized)
-val BackgroundDark = Color(0xFF0D1117)    // Deep Navy (GitHub Dark)
-val BackgroundSurface = Color(0xFF161B22) // Elevated Surface
-val BackgroundCard = Color(0xFF21262D)    // Card Background
-val BackgroundGlass = Color(0x1AFFFFFF)   // Glass Tint (10% white) - Enhanced for Liquid Effect
+// Background Colors - From HTML TailwindCSS config
+val BackgroundLight = Color(0xFFF6F6F8)    // background-light: #f6f6f8
+val BackgroundDark = Color(0xFF101622)     // background-dark: #101622
 
-// Text Colors (Enhanced contrast for Android 16)
-val TextPrimary = Color(0xFFF0F6FC)       // Near White
-val TextSecondary = Color(0xFF8B949E)     // Muted Gray
-val TextMuted = Color(0xFF848D97)         // Slightly Lighter Muted for Glass
+// Surface Colors - From HTML
+val SurfaceLight = Color(0xFFFFFFFF)       // surface-light: white
+val SurfaceDark = Color(0xFF1A2230)        // surface-dark: #1a2230 (also #1e293b in some pages)
+val SurfaceDarkAlt = Color(0xFF1E293B)     // Alternative dark surface (slate-800)
 
-// Accent Colors
-val AccentBlue = Color(0xFF58A6FF)        // Link Blue
-val AccentPurple = Color(0xFFD2A8FF)      // Highlight Purple
+// Text Colors - From HTML
+val TextPrimaryLight = Color(0xFF0F172A)   // slate-900
+val TextPrimaryDark = Color(0xFFFFFFFF)    // white
+val TextSecondaryLight = Color(0xFF64748B) // slate-500
+val TextSecondaryDark = Color(0xFF94A3B8)  // slate-400
+
+// Border Colors - From HTML
+val BorderLight = Color(0xFFE2E8F0)        // slate-200 / gray-200
+val BorderDark = Color(0xFF334155)         // slate-700
 
 // =============================================================================
-// MATERIAL 3 COLOR SCHEMES
-// Android 16: Enhanced with predictive back animation colors
+// BACKWARDS COMPATIBILITY ALIASES
+// These maintain compatibility with existing screen code
+// =============================================================================
+
+// Legacy color aliases (for backwards compatibility with existing screens)
+val TextPrimary = Color(0xFFF0F6FC)         // Near White (dark mode text)
+val TextSecondary = Color(0xFF8B949E)       // Muted Gray
+val TextMuted = Color(0xFF848D97)           // Slightly Lighter Muted
+val BackgroundSurface = Color(0xFF161B22)   // Elevated Surface
+val BackgroundCard = Color(0xFF21262D)      // Card Background
+val BackgroundGlass = Color(0x1AFFFFFF)     // Glass Tint (10% white)
+val AccentBlue = Color(0xFF58A6FF)          // Link Blue
+val AccentPurple = Color(0xFFD2A8FF)        // Highlight Purple
+
+// =============================================================================
+// MATERIAL 3 COLOR SCHEMES - Matching HTML dark mode
 // =============================================================================
 
 private val DarkColorScheme = darkColorScheme(
-    // Primary Brand
+    // Primary Brand - #215eed
     primary = BrandPrimary,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFF2D2060),
-    onPrimaryContainer = Color(0xFFE8E0FF),
+    primaryContainer = Color(0xFF1A3D80),
+    onPrimaryContainer = Color(0xFFDBEAFE),
 
-    // Secondary (Teal)
+    // Secondary (Emerald/Teal)
     secondary = BrandSecondary,
     onSecondary = Color(0xFF003731),
     secondaryContainer = Color(0xFF004D45),
-    onSecondaryContainer = Color(0xFF96F4E5),
+    onSecondaryContainer = Color(0xFFD1FAE5),
 
-    // Tertiary (Accent)
+    // Tertiary (Purple)
     tertiary = BrandAccent,
-    onTertiary = Color(0xFF3B0082),
-    tertiaryContainer = Color(0xFF4E0594),
-    onTertiaryContainer = Color(0xFFF0DBFF),
+    onTertiary = Color.White,
+    tertiaryContainer = Color(0xFF4C1D95),
+    onTertiaryContainer = Color(0xFFF3E8FF),
 
-    // Error/Danger
+    // Error/Danger (risk-high: #ef4444)
     error = VerdictDanger,
     onError = Color.White,
-    errorContainer = Color(0xFF93000A),
-    onErrorContainer = Color(0xFFFFDAD6),
+    errorContainer = Color(0xFF7F1D1D),
+    onErrorContainer = Color(0xFFFEE2E2),
 
-    // Backgrounds - Hacker Dark Theme
+    // Backgrounds - HTML dark mode: bg-background-dark (#101622)
     background = BackgroundDark,
-    onBackground = TextPrimary,
-    surface = BackgroundSurface,
-    onSurface = TextPrimary,
-    surfaceVariant = BackgroundCard,
-    onSurfaceVariant = TextSecondary,
+    onBackground = TextPrimaryDark,
+    
+    // Surfaces - HTML dark mode: bg-surface-dark / bg-slate-800
+    surface = SurfaceDark,
+    onSurface = TextPrimaryDark,
+    surfaceVariant = SurfaceDarkAlt,
+    onSurfaceVariant = TextSecondaryDark,
 
-    // Outlines
-    outline = Color(0xFF30363D),
-    outlineVariant = Color(0xFF21262D),
+    // Container colors for cards
+    surfaceContainer = Color(0xFF1A2230),
+    surfaceContainerHigh = Color(0xFF1E293B),
+    surfaceContainerHighest = Color(0xFF21262D),
+    surfaceContainerLow = Color(0xFF151B26),
+    surfaceContainerLowest = Color(0xFF101622),
 
-    // Special (Android 16 surfaces)
-    inverseSurface = TextPrimary,
+    // Outlines - HTML border-gray-700/800
+    outline = Color(0xFF475569),          // slate-600
+    outlineVariant = Color(0xFF334155),   // slate-700
+
+    // Inverse
+    inverseSurface = TextPrimaryDark,
     inverseOnSurface = BackgroundDark,
-    inversePrimary = Color(0xFF4A3E9E),
+    inversePrimary = Color(0xFF4A7EEF),
 
     // Tonal
     surfaceTint = BrandPrimary,
-    scrim = Color(0x80000000)
+    scrim = Color(0xCC000000)
 )
 
 private val LightColorScheme = lightColorScheme(
-    // Primary Brand
-    primary = Color(0xFF5B4DCF),
+    // Primary Brand - #215eed
+    primary = BrandPrimary,
     onPrimary = Color.White,
-    primaryContainer = Color(0xFFE8E0FF),
-    onPrimaryContainer = Color(0xFF1B0063),
+    primaryContainer = Color(0xFFDBEAFE),
+    onPrimaryContainer = Color(0xFF1E3A5F),
 
-    // Secondary (Teal)
-    secondary = Color(0xFF006B62),
+    // Secondary (Emerald)
+    secondary = Color(0xFF059669),
     onSecondary = Color.White,
-    secondaryContainer = Color(0xFF73F8E5),
-    onSecondaryContainer = Color(0xFF00201D),
+    secondaryContainer = Color(0xFFD1FAE5),
+    onSecondaryContainer = Color(0xFF064E3B),
 
-    // Tertiary
-    tertiary = Color(0xFF7B4397),
+    // Tertiary (Purple)
+    tertiary = Color(0xFF9333EA),
     onTertiary = Color.White,
-    tertiaryContainer = Color(0xFFF9D8FF),
-    onTertiaryContainer = Color(0xFF2F004C),
+    tertiaryContainer = Color(0xFFF3E8FF),
+    onTertiaryContainer = Color(0xFF4C1D95),
 
     // Error
-    error = Color(0xFFBA1A1A),
+    error = VerdictDanger,
     onError = Color.White,
-    errorContainer = Color(0xFFFFDAD6),
-    onErrorContainer = Color(0xFF410002),
+    errorContainer = Color(0xFFFEE2E2),
+    onErrorContainer = Color(0xFF991B1B),
 
-    // Backgrounds
-    background = Color(0xFFF6F8FA),
-    onBackground = Color(0xFF1C1B1F),
-    surface = Color.White,
-    onSurface = Color(0xFF1C1B1F),
-    surfaceVariant = Color(0xFFE7E0EC),
-    onSurfaceVariant = Color(0xFF49454F),
+    // Backgrounds - HTML light mode: bg-background-light (#f6f6f8)
+    background = BackgroundLight,
+    onBackground = TextPrimaryLight,
+    
+    // Surfaces - HTML light mode: bg-white
+    surface = SurfaceLight,
+    onSurface = TextPrimaryLight,
+    surfaceVariant = Color(0xFFF1F5F9),   // slate-100
+    onSurfaceVariant = TextSecondaryLight,
 
-    // Outlines
-    outline = Color(0xFF79747E),
-    outlineVariant = Color(0xFFCAC4D0)
+    // Container colors
+    surfaceContainer = Color(0xFFF8FAFC),
+    surfaceContainerHigh = Color(0xFFF1F5F9),
+    surfaceContainerHighest = Color(0xFFE2E8F0),
+    surfaceContainerLow = Color(0xFFFAFAFA),
+    surfaceContainerLowest = Color.White,
+
+    // Outlines - HTML border-gray-100/200
+    outline = Color(0xFF94A3B8),          // slate-400
+    outlineVariant = Color(0xFFE2E8F0)    // slate-200
 )
 
 // =============================================================================
