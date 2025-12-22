@@ -5,6 +5,21 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.9] - 2025-12-23
+
+### 🌍 Localization Finalization
+
+Completed extensive localization for both Desktop and Web platforms.
+
+#### Desktop App
+- **Language Support**: Added comprehensive translations for German, Spanish, French, Chinese (Simplified), Japanese, and Hindi to `AppViewModel`.
+- **Training Module**: Localized all "Beat the Bot" scenarios, insights, and action labels.
+- **Status Messages**: Localized all toast notifications, error messages, and clipboard status updates.
+
+#### Web App
+- **Dashboard Fixes**: Resolved redundant "System Health" label mapping in `dashboard.html`.
+- **Translation Updates**: Added missing German translations for new dashboard sections (Heuristic Engine, Recent Scans, etc.).
+
 ## [1.16.8] - 2025-12-23
 
 ### 🔧 Android Polish - Final Refinements
