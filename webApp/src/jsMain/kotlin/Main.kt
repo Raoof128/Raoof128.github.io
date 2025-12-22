@@ -91,6 +91,9 @@ fun main() {
         }
     })
 
+    // Initialize Localization
+    initializeLocalization()
+
     // Log ready status
     console.log("🚀 QR-SHIELD Web is ready!")
     console.log("   • Heuristic analysis: ✓")
@@ -98,4 +101,29 @@ fun main() {
     console.log("   • Brand detection: ✓")
     console.log("   • TLD analysis: ✓")
     console.log("   • 100% client-side: ✓")
+}
+
+fun initializeLocalization() {
+    val language = com.qrshield.web.i18n.WebLanguage.current()
+    console.log("🌍 Initializing localization for: ${language.code}")
+
+    val elements = document.querySelectorAll("[data-i18n]")
+    for (i in 0 until elements.length) {
+        val element = elements.item(i) as? org.w3c.dom.HTMLElement ?: continue
+        val key = element.getAttribute("data-i18n") ?: continue
+
+        val translation = try {
+             com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
+        } catch (e: Exception) {
+             com.qrshield.web.i18n.WebStrings.translate(key, language)
+        }
+        
+        // Preserve HTML structure if needed, but for now simple text replacement
+        // Check if we need to preserve children (like icons)?
+        // If the element has children (like <span class="material-icons">), innerText will wipe them.
+        // Strategy: Only update text nodes or assume element contains ONLY text.
+        // OR: Look for a specific <span> inside, or assume the element IS the text container.
+        // For <a class="nav-link"><span>Dashboard</span></a>, we should put data-i18n on the inner span.
+        element.innerText = translation
+    }
 }
