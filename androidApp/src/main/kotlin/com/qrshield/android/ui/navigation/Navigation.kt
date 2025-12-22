@@ -57,7 +57,9 @@ import com.qrshield.ui.SharedViewModel
 import com.qrshield.ui.UiState
 import kotlinx.coroutines.launch
 import com.qrshield.android.ui.viewmodels.BeatTheBotViewModel
+import com.qrshield.android.ui.viewmodels.GameResult
 import com.qrshield.android.util.DateUtils
+import com.qrshield.android.util.SoundManager
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
@@ -71,6 +73,7 @@ object Routes {
     const val SCANNER = "scanner"
     const val HISTORY = "history"
     const val SETTINGS = "settings"
+    const val SETTINGS_FROM_DASHBOARD = "settings_from_dashboard"
     
     // Feature screens
     const val SCAN_RESULT = "scan_result/{url}/{verdict}/{score}"
@@ -326,14 +329,35 @@ fun QRShieldNavHost(
         
         composable(Routes.DASHBOARD) {
             DashboardScreen(
-                onScanClick = { navController.navigate(Routes.SCANNER) },
+                onScanClick = { 
+                    // Use same pattern as bottom nav for proper back stack
+                    navController.navigate(Routes.SCANNER) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
                 onImportClick = {
                     photoPickerLauncher.launch(
                         PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                     )
                 },
-                onSettingsClick = { navController.navigate(Routes.SETTINGS) },
-                onViewAllScans = { navController.navigate(Routes.HISTORY) },
+                onSettingsClick = { 
+                    // Navigate to settings with back button
+                    navController.navigate(Routes.SETTINGS_FROM_DASHBOARD)
+                },
+                onViewAllScans = { 
+                    // Use same pattern as bottom nav for proper back stack
+                    navController.navigate(Routes.HISTORY) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
                 onScanItemClick = { scanId ->
                     // Navigate to result with scan details
                     coroutineScope.launch {
@@ -366,6 +390,13 @@ fun QRShieldNavHost(
 
         composable(Routes.SETTINGS) {
             SettingsScreen()
+        }
+        
+        // Settings accessed from Dashboard header - shows back button
+        composable(Routes.SETTINGS_FROM_DASHBOARD) {
+            SettingsScreen(
+                onBackClick = { navController.popBackStack() }
+            )
         }
 
         // ===== SCAN RESULT SCREENS =====
@@ -660,8 +691,22 @@ fun QRShieldNavHost(
         }
 
         composable(Routes.BEAT_THE_BOT) {
-            val viewModel: BeatTheBotViewModel = koinViewModel()
-            val state by viewModel.uiState.collectAsState()
+            val beatTheBotViewModel: BeatTheBotViewModel = koinViewModel()
+            val state by beatTheBotViewModel.uiState.collectAsState()
+            val settings by viewModel.settings.collectAsState()
+            
+            // Play sounds based on result changes
+            LaunchedEffect(state.lastResult) {
+                when (state.lastResult) {
+                    GameResult.CORRECT -> {
+                        SoundManager.playSound(SoundManager.SoundType.SUCCESS, settings.isSoundEnabled)
+                    }
+                    GameResult.INCORRECT, GameResult.TIMEOUT -> {
+                        SoundManager.playSound(SoundManager.SoundType.WARNING, settings.isSoundEnabled)
+                    }
+                    null -> { /* No action */ }
+                }
+            }
             
             // Format time helper
             val formattedTime = remember(state.timeRemainingSeconds) {
@@ -671,11 +716,11 @@ fun QRShieldNavHost(
             BeatTheBotScreen(
                 onBackClick = { navController.popBackStack() },
                 onEndSession = { 
-                    viewModel.startNewGame() // Reset for next time or just leave
+                    beatTheBotViewModel.startNewGame() // Reset for next time or just leave
                     navController.popBackStack()
                 },
-                onPhishingClick = { viewModel.submitGuess(isPhishingGuess = true) },
-                onLegitimateClick = { viewModel.submitGuess(isPhishingGuess = false) },
+                onPhishingClick = { beatTheBotViewModel.submitGuess(isPhishingGuess = true) },
+                onLegitimateClick = { beatTheBotViewModel.submitGuess(isPhishingGuess = false) },
                 onHintDismiss = { /* Hint auto-dismisses or managed by VM if needed */ },
                 
                 uiState = state

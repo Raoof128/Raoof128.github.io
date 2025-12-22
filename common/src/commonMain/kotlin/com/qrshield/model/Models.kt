@@ -308,6 +308,8 @@ enum class ScanSource {
     /** Scanned from gallery image */
     GALLERY,
     /** Pasted from clipboard */
-    CLIPBOARD
+    CLIPBOARD,
+    /** Manually entered URL */
+    MANUAL
 }
 

@@ -265,6 +265,11 @@ fun ScannerScreen() {
                             PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                         )
                     },
+                    onUrlAnalyze = { url ->
+                        triggerHapticFeedback(vibrator, HapticType.SCAN, settings.isHapticEnabled)
+                        SoundManager.playSound(SoundManager.SoundType.SCAN, settings.isSoundEnabled)
+                        viewModel.analyzeUrl(url, ScanSource.MANUAL)
+                    },
                     onRedTeamScenarioClick = { scenario ->
                         // Bypass camera - feed malicious URL directly to analysis engine
                         triggerHapticFeedback(vibrator, HapticType.WARNING, settings.isHapticEnabled)
@@ -362,6 +367,7 @@ private fun IdleContent(
     isDeveloperModeEnabled: Boolean = false,
     onScanClick: () -> Unit,
     onGalleryClick: () -> Unit,
+    onUrlAnalyze: (String) -> Unit = {},
     onRedTeamScenarioClick: (RedTeamScenarios.Scenario) -> Unit = {}
 ) {
     Column(
@@ -479,6 +485,79 @@ private fun IdleContent(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium
                 )
+            }
+
+            // === URL Manual Input Section ===
+            Spacer(modifier = Modifier.height(32.dp))
+            
+            Text(
+                text = stringResource(R.string.enter_url_manually),
+                fontSize = 14.sp,
+                color = TextMuted,
+                modifier = Modifier.fillMaxWidth()
+            )
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            
+            var urlInput by remember { mutableStateOf("") }
+            
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedTextField(
+                    value = urlInput,
+                    onValueChange = { urlInput = it },
+                    modifier = Modifier
+                        .weight(1f)
+                        .semantics { contentDescription = "Enter URL to analyze" },
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.url_placeholder),
+                            color = TextMuted
+                        )
+                    },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Link,
+                            contentDescription = null,
+                            tint = BrandPrimary
+                        )
+                    },
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = BrandPrimary,
+                        unfocusedBorderColor = TextMuted.copy(alpha = 0.3f),
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        cursorColor = BrandPrimary
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                )
+                
+                Button(
+                    onClick = {
+                        if (urlInput.isNotBlank()) {
+                            val url = if (urlInput.startsWith("http://") || urlInput.startsWith("https://")) {
+                                urlInput
+                            } else {
+                                "https://$urlInput"
+                            }
+                            onUrlAnalyze(url)
+                            urlInput = ""
+                        }
+                    },
+                    enabled = urlInput.isNotBlank(),
+                    modifier = Modifier.height(56.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.analyze_url),
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
             }
 
             if (scanCount > 0) {

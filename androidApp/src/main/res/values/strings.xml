@@ -34,6 +34,10 @@
     <string name="scan_instruction">Align QR code within frame</string>
     <string name="analyzing_url">Analyzing URL…</string>
     <string name="scans_in_history">%d scans in history</string>
+    <string name="enter_url_manually">Or enter URL manually</string>
+    <string name="url_placeholder">https://example.com</string>
+    <string name="analyze_url">Analyze</string>
+    <string name="url_hint">Paste or type any URL to analyze</string>
     
     <!-- Results -->
     <string name="risk_score">Risk Score</string>
