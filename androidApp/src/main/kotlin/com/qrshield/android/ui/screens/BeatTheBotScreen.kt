@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.R
 import androidx.compose.ui.res.stringResource
 
 /**
@@ -80,19 +81,19 @@ fun BeatTheBotScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Training Session",
+                        text = stringResource(R.string.training_session),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
                     TextButton(onClick = onEndSession) {
                         Text(
-                            text = "End Session",
+                            text = stringResource(R.string.end_session),
                             color = QRShieldColors.Primary,
                             fontWeight = FontWeight.Bold
                         )
@@ -269,7 +270,7 @@ private fun ScoreboardRow(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Current Score",
+                    text = stringResource(R.string.current_score),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -301,7 +302,7 @@ private fun ScoreboardRow(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Streak",
+                    text = stringResource(R.string.streak),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -337,12 +338,12 @@ private fun ProgressSection(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "Round $currentRound/$totalRounds",
+                text = stringResource(R.string.round_progress_fmt, currentRound, totalRounds),
                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurface
             )
             Text(
-                text = "Next: Advanced Phishing",
+                text = stringResource(R.string.next_advanced_phishing),
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -498,7 +499,7 @@ private fun ThreatCard(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = "From: $smsFrom",
+                                text = stringResource(R.string.sms_from_fmt, smsFrom),
                                 style = MaterialTheme.typography.labelSmall.copy(
                                     fontWeight = FontWeight.Bold,
                                     letterSpacing = 0.5.sp
@@ -547,7 +548,7 @@ private fun ThreatCard(
                             modifier = Modifier.size(40.dp)
                         )
                         Text(
-                            text = "Login Page Preview",
+                            text = stringResource(R.string.login_page_preview),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                         )
@@ -562,7 +563,7 @@ private fun ThreatCard(
                         color = Color.Black.copy(alpha = 0.6f)
                     ) {
                         Text(
-                            text = "Preview",
+                            text = stringResource(R.string.preview),
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                             style = MaterialTheme.typography.labelSmall,
                             color = Color.White,
@@ -641,12 +642,12 @@ private fun DecisionButtons(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Phishing",
+                    text = stringResource(R.string.phishing),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "Report Threat",
+                    text = stringResource(R.string.report_threat),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -694,12 +695,12 @@ private fun DecisionButtons(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Legitimate",
+                    text = stringResource(R.string.legitimate),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "Mark Safe",
+                    text = stringResource(R.string.mark_safe),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -746,7 +747,7 @@ private fun HintBanner(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "Quick Hint",
+                    text = stringResource(R.string.quick_hint),
                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
@@ -764,7 +765,7 @@ private fun HintBanner(
             ) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Dismiss hint",
+                    contentDescription = stringResource(R.string.cd_dismiss_hint),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(20.dp)
                 )

@@ -245,16 +245,16 @@ function updateResultCard(score, verdict, flags) {
 
     // Update Verdict
     const pill = resultCard.querySelector('.verdict-pill');
-    pill.textContent = verdict;
+    pill.textContent = translateText(verdict);
 
     // Calculate confidence based on signal count and score extremity
     const confidence = calculateConfidence(score, flags?.length || 0);
 
     const title = resultCard.querySelector('h3');
-    if (verdict === 'SAFE') title.textContent = 'Safe to Visit';
-    else if (verdict === 'SUSPICIOUS') title.textContent = 'Proceed with Caution';
-    else if (verdict === 'MALICIOUS') title.textContent = 'Do Not Visit This URL';
-    else title.textContent = 'Unknown Verdict';
+    if (verdict === 'SAFE') title.textContent = translateText('Safe to Visit');
+    else if (verdict === 'SUSPICIOUS') title.textContent = translateText('Proceed with Caution');
+    else if (verdict === 'MALICIOUS') title.textContent = translateText('Do Not Visit This URL');
+    else title.textContent = translateText('Unknown Verdict');
 
     // Update Flags with enhanced explainability
     const riskContainer = document.getElementById('riskFactors');
@@ -270,7 +270,7 @@ function updateResultCard(score, verdict, flags) {
         </div>
         <div class="confidence-badge ${confidence.level}">
             <span class="confidence-dots">${'●'.repeat(confidence.dots)}${'○'.repeat(5 - confidence.dots)}</span>
-            <span class="confidence-label">${confidence.label} Confidence</span>
+            <span class="confidence-label">${formatText('{level} Confidence', { level: translateText(confidence.label) })}</span>
         </div>
     `;
     riskContainer.appendChild(headerDiv);
@@ -316,7 +316,7 @@ function updateResultCard(score, verdict, flags) {
                 <div class="safe-explanation">
                     <span class="material-icons-round" style="font-size: 48px; color: var(--color-safe);">verified_user</span>
                     <p class="safe-title">No threats detected</p>
-                    <p class="safe-subtitle">This URL passed all ${getHeuristicCount()} security checks</p>
+                    <p class="safe-subtitle">${formatText('This URL passed all {count} security checks', { count: getHeuristicCount() })}</p>
                     <div class="safe-checks">
                         <span>✓ No brand impersonation</span>
                         <span>✓ Safe TLD</span>
@@ -327,6 +327,8 @@ function updateResultCard(score, verdict, flags) {
             `;
         }
     }
+
+    window.qrshieldApplyTranslations?.(riskContainer);
 }
 
 // ==========================================
@@ -714,6 +716,7 @@ function renderHistory() {
                 <span>No recent scans</span>
             </div>
         `;
+        window.qrshieldApplyTranslations?.(historyList);
         return;
     }
 
@@ -730,7 +733,8 @@ function renderHistory() {
         if (item.verdict === 'SUSPICIOUS') color = 'var(--color-warning)';
         if (item.verdict === 'MALICIOUS') color = 'var(--color-danger)';
 
-        const date = new Date(item.timestamp).toLocaleTimeString();
+        const locale = window.qrshieldGetLanguageCode ? window.qrshieldGetLanguageCode() : undefined;
+        const date = new Date(item.timestamp).toLocaleTimeString(locale);
 
         // Escape HTML to prevent XSS
         const safeUrl = escapeHtml(item.url);
@@ -742,10 +746,12 @@ function renderHistory() {
         `;
         historyList.appendChild(div);
     });
+
+    window.qrshieldApplyTranslations?.(historyList);
 }
 
 clearHistoryBtn.addEventListener('click', () => {
-    if (confirm('Clear scan history?')) {
+    if (confirm(translateText('Clear scan history?'))) {
         history = [];
         localStorage.removeItem(HISTORY_KEY);
         renderHistory();
@@ -996,18 +1002,20 @@ document.body.addEventListener('drop', (e) => {
 window.shareResult = async () => {
     const { url, score, verdict } = currentAnalysis;
 
-    const shareText = `🛡️ QR-SHIELD Analysis
-URL: ${url}
-Verdict: ${verdict}
-Risk Score: ${score}/100
-
-Scanned with QR-SHIELD - https://raoof128.github.io/`;
+    const shareText = [
+        translateText('🛡️ QR-SHIELD Analysis'),
+        formatText('URL: {url}', { url }),
+        formatText('Verdict: {verdict}', { verdict: translateText(verdict) }),
+        formatText('Risk Score: {score}/100', { score }),
+        '',
+        formatText('Scanned with QR-SHIELD - {url}', { url: 'https://raoof128.github.io/' })
+    ].join('\n');
 
     // Try Web Share API first
     if (navigator.share) {
         try {
             await navigator.share({
-                title: 'QR-SHIELD Scan Result',
+                title: translateText('QR-SHIELD Scan Result'),
                 text: shareText,
                 url: 'https://raoof128.github.io/'
             });
@@ -1034,20 +1042,22 @@ window.reportPhishing = () => {
     const { url, score, verdict } = currentAnalysis;
 
     // Create mailto link for reporting
-    const subject = encodeURIComponent(`Phishing Report: ${url}`);
-    const body = encodeURIComponent(`I am reporting a suspected phishing URL detected by QR-SHIELD:
-
-URL: ${url}
-QR-SHIELD Verdict: ${verdict}
-Risk Score: ${score}/100
-Reported: ${new Date().toISOString()}
-
-This URL was flagged by QR-SHIELD's offline phishing detection engine.
-
----
-Submitted via QR-SHIELD
-https://raoof128.github.io/
-`);
+    const subject = encodeURIComponent(formatText('Phishing Report: {url}', { url }));
+    const bodyLines = [
+        translateText('I am reporting a suspected phishing URL detected by QR-SHIELD:'),
+        '',
+        formatText('URL: {url}', { url }),
+        formatText('QR-SHIELD Verdict: {verdict}', { verdict: translateText(verdict) }),
+        formatText('Risk Score: {score}/100', { score }),
+        formatText('Reported: {timestamp}', { timestamp: new Date().toISOString() }),
+        '',
+        translateText('This URL was flagged by QR-SHIELD\'s offline phishing detection engine.'),
+        '',
+        '---',
+        translateText('Submitted via QR-SHIELD'),
+        'https://raoof128.github.io/'
+    ];
+    const body = encodeURIComponent(bodyLines.join('\n'));
 
     // Open PhishTank submission page for verified reports
     const phishTankUrl = `https://phishtank.org/add_web_phish.php`;

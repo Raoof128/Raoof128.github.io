@@ -192,7 +192,7 @@ private fun DashboardHeader(
         ) {
             Icon(
                 imageVector = Icons.Default.Settings,
-                contentDescription = "Settings",
+                contentDescription = stringResource(R.string.nav_settings),
                 tint = MaterialTheme.colorScheme.onBackground
             )
         }
@@ -514,12 +514,12 @@ private fun RecentScansSection(
                         modifier = Modifier.size(48.dp)
                     )
                     Text(
-                        text = "No scans yet",
+                        text = stringResource(R.string.dashboard_no_scans),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "Scan a QR code to start building your history",
+                        text = stringResource(R.string.dashboard_no_scans_hint),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                     )
@@ -560,7 +560,7 @@ private fun RecentScansSection(
                         status = item.verdict.name,
                         statusColor = statusColor,
                         statusBgColor = iconBgColor,
-                        statusDetail = "Score: ${item.score}",
+                        statusDetail = stringResource(R.string.dashboard_score_fmt, item.score),
                         time = DateUtils.formatRelativeTime(item.scannedAt),
                         icon = icon,
                         iconBgColor = iconBgColor,
@@ -671,8 +671,8 @@ private fun ToolsCarousel(onToolClick: (String) -> Unit) {
         ) {
             ToolCard(
                 icon = Icons.Default.Shield,
-                title = "Trust Centre",
-                subtitle = "Security settings",
+                title = stringResource(R.string.tool_trust_centre),
+                subtitle = stringResource(R.string.tool_trust_centre_subtitle),
                 iconBgColor = QRShieldColors.Blue50,
                 iconColor = QRShieldColors.Primary,
                 onClick = { onToolClick("trust_centre") }
@@ -680,8 +680,8 @@ private fun ToolsCarousel(onToolClick: (String) -> Unit) {
             
             ToolCard(
                 icon = Icons.Default.School,
-                title = "Learning",
-                subtitle = "Security training",
+                title = stringResource(R.string.tool_learning),
+                subtitle = stringResource(R.string.tool_learning_subtitle),
                 iconBgColor = QRShieldColors.Emerald50,
                 iconColor = QRShieldColors.Emerald600,
                 onClick = { onToolClick("learning_centre") }
@@ -689,8 +689,8 @@ private fun ToolsCarousel(onToolClick: (String) -> Unit) {
 
             ToolCard(
                 icon = Icons.Default.Storage,
-                title = "Threat Database",
-                subtitle = "Manage signatures",
+                title = stringResource(R.string.tool_threat_database),
+                subtitle = stringResource(R.string.tool_threat_database_subtitle),
                 iconBgColor = QRShieldColors.Purple50,
                 iconColor = QRShieldColors.Purple600,
                 onClick = { onToolClick("threat_database") }
@@ -698,8 +698,8 @@ private fun ToolsCarousel(onToolClick: (String) -> Unit) {
 
             ToolCard(
                 icon = Icons.Default.SportsEsports,
-                title = "Beat the Bot",
-                subtitle = "Test your skills",
+                title = stringResource(R.string.tool_beat_the_bot),
+                subtitle = stringResource(R.string.tool_beat_the_bot_subtitle),
                 iconBgColor = QRShieldColors.Orange50,
                 iconColor = QRShieldColors.Orange600,
                 onClick = { onToolClick("beat_the_bot") }
@@ -707,8 +707,8 @@ private fun ToolsCarousel(onToolClick: (String) -> Unit) {
 
             ToolCard(
                 icon = Icons.AutoMirrored.Filled.List,
-                title = "Whitelisting",
-                subtitle = "Manage exceptions",
+                title = stringResource(R.string.tool_whitelisting),
+                subtitle = stringResource(R.string.tool_whitelisting_subtitle),
                 iconBgColor = QRShieldColors.Gray100,
                 iconColor = QRShieldColors.Gray600,
                 onClick = { onToolClick("whitelist") }

@@ -276,5 +276,44 @@
     <string name="auto_copy_subtitle">Copy safe URLs automatically</string>
     <string name="biometric_unlock_title">Biometric Unlock</string>
     <string name="biometric_unlock_subtitle">Require FaceID for settings</string>
+    
+    <!-- Dashboard Empty/Tool Cards -->
+    <string name="dashboard_no_scans">No scans yet</string>
+    <string name="dashboard_no_scans_hint">Scan a QR code to start building your history</string>
+    <string name="dashboard_score_fmt">Score: %1$d</string>
+    <string name="tool_trust_centre">Trust Centre</string>
+    <string name="tool_trust_centre_subtitle">Security settings</string>
+    <string name="tool_learning">Learning</string>
+    <string name="tool_learning_subtitle">Security training</string>
+    <string name="tool_threat_database">Threat Database</string>
+    <string name="tool_threat_database_subtitle">Manage signatures</string>
+    <string name="tool_beat_the_bot">Beat the Bot</string>
+    <string name="tool_beat_the_bot_subtitle">Test your skills</string>
+    <string name="tool_whitelisting">Allowlist</string>
+    <string name="tool_whitelisting_subtitle">Manage exceptions</string>
+    
+    <!-- Accessibility Navigation -->
+    <string name="cd_navigation_bar">Main navigation bar with 4 tabs: Home, Scan, History, and Settings</string>
+    <string name="cd_dashboard_screen">Dashboard home screen</string>
+    <string name="cd_scanner_screen">QR code scanner screen</string>
+    <string name="cd_history_screen">Scan history screen</string>
+    <string name="cd_settings_screen">Settings screen</string>
+    
+    <!-- Beat The Bot Screen -->
+    <string name="training_session">Training Session</string>
+    <string name="end_session">End Session</string>
+    <string name="current_score">Current Score</string>
+    <string name="streak">Streak</string>
+    <string name="round_progress_fmt">Round %1$d/%2$d</string>
+    <string name="next_advanced_phishing">Next: Advanced Phishing</string>
+    <string name="sms_from_fmt">From: %1$s</string>
+    <string name="login_page_preview">Login Page Preview</string>
+    <string name="preview">Preview</string>
+    <string name="phishing">Phishing</string>
+    <string name="report_threat">Report Threat</string>
+    <string name="legitimate">Legitimate</string>
+    <string name="mark_safe">Mark Safe</string>
+    <string name="quick_hint">Quick Hint</string>
+    <string name="cd_dismiss_hint">Dismiss hint</string>
 </resources>
 

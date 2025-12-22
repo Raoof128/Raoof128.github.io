@@ -32,6 +32,20 @@ const OnboardingState = {
     isSidebarOpen: false,
 };
 
+function translateText(text) {
+    if (window.qrshieldTranslateText) {
+        return window.qrshieldTranslateText(text);
+    }
+    return text;
+}
+
+function formatText(template, params) {
+    if (window.qrshieldFormatText) {
+        return window.qrshieldFormatText(template, params);
+    }
+    return template;
+}
+
 // =============================================================================
 // DOM ELEMENTS
 // =============================================================================
@@ -179,7 +193,8 @@ function setupSettingsListeners() {
         sensitivityEl.addEventListener('change', (e) => {
             OnboardingState.settings.sensitivity = e.target.value;
             saveSettings();
-            showToast(`Sensitivity set to ${e.target.value}`, 'info');
+            const selectedLabel = e.target.options?.[e.target.selectedIndex]?.textContent || e.target.value;
+            showToast(formatText('Sensitivity set to {level}', { level: translateText(selectedLabel) }), 'info');
         });
     }
 
@@ -199,7 +214,11 @@ function setupSettingsListeners() {
             el.addEventListener('change', (e) => {
                 OnboardingState.settings[key] = e.target.checked;
                 saveSettings();
-                showToast(`${label} ${e.target.checked ? 'enabled' : 'disabled'}`, 'success');
+                const labelText = translateText(label);
+                const message = e.target.checked
+                    ? formatText('{label} enabled', { label: labelText })
+                    : formatText('{label} disabled', { label: labelText });
+                showToast(message, 'success');
             });
         }
     }
@@ -398,7 +417,10 @@ function showFeatureDetails(feature) {
 
     const info = details[feature];
     if (info) {
-        showToast(`${info.title}: ${info.description.substring(0, 50)}...`, 'info');
+        showToast(formatText('{title}: {summary}', {
+            title: translateText(info.title),
+            summary: `${translateText(info.description).substring(0, 50)}...`
+        }), 'info');
     }
 }
 
@@ -461,7 +483,7 @@ function setupKeyboardShortcuts() {
 function showToast(message, type = 'success') {
     if (!elements.toast || !elements.toastMessage) return;
 
-    elements.toastMessage.textContent = message;
+    elements.toastMessage.textContent = translateText(message);
 
     const icon = elements.toast.querySelector('.toast-icon');
     if (icon) {
