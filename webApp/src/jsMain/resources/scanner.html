@@ -50,7 +50,7 @@
             <div class="sidebar-header">
                 <div class="logo-container">
                     <img src="assets/icon-128.png" alt="QR-SHIELD" class="logo-icon" style="width: 28px; height: 28px;">
-                    <span class="logo-text">QR-SHIELD</span>
+                    <span class="logo-text" data-i18n="AppName">QR-SHIELD</span>
                 </div>
             </div>
 
@@ -59,37 +59,37 @@
                 <div class="nav-section-label">Overview</div>
                 <a class="nav-link" href="dashboard.html" id="nav-dashboard">
                     <span class="material-symbols-outlined">dashboard</span>
-                    <span>Dashboard</span>
+                    <span data-i18n="NavDashboard">Dashboard</span>
                 </a>
                 <a class="nav-link active" href="scanner.html" id="nav-scanner">
                     <span class="material-symbols-outlined filled">qr_code_scanner</span>
-                    <span>Live Scanner</span>
+                    <span data-i18n="NavScanMonitor">Live Scanner</span>
                 </a>
                 <a class="nav-link" href="threat.html" id="nav-history">
                     <span class="material-symbols-outlined">history</span>
-                    <span>Scan History</span>
+                    <span data-i18n="NavScanHistory">Scan History</span>
                 </a>
 
                 <div class="nav-section-label">Security</div>
                 <a class="nav-link" href="trust.html" id="nav-allowlist">
                     <span class="material-symbols-outlined">verified_user</span>
-                    <span>Allow List</span>
+                    <span data-i18n="NavTrustCentre">Allow List</span>
                 </a>
                 <a class="nav-link" href="onboarding.html" id="nav-settings">
                     <span class="material-symbols-outlined">settings</span>
-                    <span>Settings</span>
+                    <span data-i18n="NavSettings">Settings</span>
                 </a>
 
                 <div class="nav-section-label">Training</div>
                 <a class="nav-link" href="game.html" id="nav-game">
                     <span class="material-symbols-outlined">sports_esports</span>
-                    <span>Beat the Bot</span>
+                    <span data-i18n="NavTraining">Beat the Bot</span>
                 </a>
 
                 <div class="nav-section-label">Reports</div>
                 <a class="nav-link" href="export.html" id="nav-export">
                     <span class="material-symbols-outlined">download</span>
-                    <span>Export</span>
+                    <span data-i18n="NavReports">Export</span>
                 </a>
             </nav>
 
@@ -118,9 +118,9 @@
                         <span class="material-symbols-outlined">menu</span>
                     </button>
                     <nav class="breadcrumbs">
-                        <span class="breadcrumb-item">Dashboard</span>
+                        <span class="breadcrumb-item" data-i18n="NavDashboard">Dashboard</span>
                         <span class="breadcrumb-separator">/</span>
-                        <span class="breadcrumb-current">Scan Monitor</span>
+                        <span class="breadcrumb-current" data-i18n="NavScanMonitor">Scan Monitor</span>
                     </nav>
                 </div>
 
@@ -130,7 +130,7 @@
                             <span class="status-ping"></span>
                             <span class="status-core"></span>
                         </span>
-                        <span class="status-text">Engine Active</span>
+                        <span class="status-text" data-i18n="EngineActive">Engine Active</span>
                     </div>
                     <button class="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
                         <span class="material-symbols-outlined icon-light">light_mode</span>
@@ -148,10 +148,10 @@
 
                 <!-- Top Controls -->
                 <div class="page-header">
-                    <h1 class="page-title">Active Scanner</h1>
+                    <h1 class="page-title" data-i18n="ActiveScanner">Active Scanner</h1>
                     <div class="offline-badge">
                         <span class="material-symbols-outlined">lock</span>
-                        <span>Offline Mode</span>
+                        <span data-i18n="OfflineMode">Offline Mode</span>
                     </div>
                 </div>
 
@@ -178,7 +178,7 @@
                             <!-- Live Status Overlay -->
                             <div class="live-status" id="liveStatus">
                                 <span class="live-dot"></span>
-                                <span class="live-text">LIVE FEED DISCONNECTED</span>
+                                <span class="live-text" data-i18n="LiveFeedDisconnected">LIVE FEED DISCONNECTED</span>
                             </div>
 
                             <!-- Video Element (Hidden until camera active) -->
@@ -190,11 +190,12 @@
                                 <div class="empty-icon">
                                     <span class="material-symbols-outlined">videocam_off</span>
                                 </div>
-                                <h3 class="empty-title">Camera Access Required</h3>
-                                <p class="empty-description">Drag & drop a QR code image here or enable camera access to
+                                <h3 class="empty-title" data-i18n="CameraAccessRequired">Camera Access Required</h3>
+                                <p class="empty-description" data-i18n="CameraAccessDescription">Drag & drop a QR code
+                                    image here or enable camera access to
                                     start scanning.</p>
                                 <button class="btn-enable-camera" id="enableCameraBtn">
-                                    Enable Camera
+                                    <span data-i18n="EnableCamera">Enable Camera</span>
                                 </button>
                             </div>
 
@@ -203,12 +204,12 @@
                                 <div class="scanning-icon">
                                     <span class="material-symbols-outlined">qr_code_scanner</span>
                                 </div>
-                                <p class="scanning-text">Scanning...</p>
+                                <p class="scanning-text" data-i18n="Scanning">Scanning...</p>
                             </div>
                         </div>
 
                         <!-- Microcopy -->
-                        <p class="viewport-hint">
+                        <p class="viewport-hint" data-i18n="ScanHint">
                             Hold steady. Analysed offline in &lt;5ms.
                         </p>
 
@@ -216,17 +217,17 @@
                         <div class="action-bar">
                             <button class="action-btn" id="torchBtn">
                                 <span class="material-symbols-outlined">flash_on</span>
-                                <span class="action-label">Torch</span>
+                                <span class="action-label" data-i18n="Torch">Torch</span>
                             </button>
                             <div class="action-divider"></div>
                             <button class="action-btn" id="galleryBtn">
                                 <span class="material-symbols-outlined">image</span>
-                                <span class="action-label">Gallery</span>
+                                <span class="action-label" data-i18n="Gallery">Gallery</span>
                             </button>
                             <div class="action-divider"></div>
                             <button class="action-btn" id="pasteUrlBtn">
                                 <span class="material-symbols-outlined">link</span>
-                                <span class="action-label">Paste URL</span>
+                                <span class="action-label" data-i18n="PasteUrl">Paste URL</span>
                             </button>
                         </div>
 
@@ -239,26 +240,26 @@
 
                         <!-- System Status Card -->
                         <div class="stats-card">
-                            <h3 class="stats-title">System Status</h3>
+                            <h3 class="stats-title" data-i18n="SystemStatus">System Status</h3>
                             <div class="status-list">
                                 <div class="status-item">
                                     <div class="status-info">
                                         <span class="material-symbols-outlined status-icon safe">shield</span>
-                                        <span class="status-name">Phishing Engine</span>
+                                        <span class="status-name" data-i18n="PhishingEngine">Phishing Engine</span>
                                     </div>
-                                    <span class="status-badge ready">READY</span>
+                                    <span class="status-badge ready" data-i18n="Ready">READY</span>
                                 </div>
                                 <div class="status-item">
                                     <div class="status-info">
                                         <span class="material-symbols-outlined status-icon info">database</span>
-                                        <span class="status-name">Local DB</span>
+                                        <span class="status-name" data-i18n="LocalDb">Local DB</span>
                                     </div>
                                     <span class="status-badge version">V.2.4.0</span>
                                 </div>
                                 <div class="status-item">
                                     <div class="status-info">
                                         <span class="material-symbols-outlined status-icon neutral">speed</span>
-                                        <span class="status-name">Latency</span>
+                                        <span class="status-name" data-i18n="Latency">Latency</span>
                                     </div>
                                     <span class="status-badge latency" id="latencyBadge">4ms</span>
                                 </div>
@@ -268,8 +269,8 @@
                         <!-- Recent Scans Card -->
                         <div class="stats-card recent-scans-card">
                             <div class="stats-header">
-                                <h3 class="stats-title">Recent Scans</h3>
-                                <button class="view-all-btn" id="viewAllBtn">View All</button>
+                                <h3 class="stats-title" data-i18n="Recent Scans">Recent Scans</h3>
+                                <button class="view-all-btn" id="viewAllBtn" data-i18n="ViewAll">View All</button>
                             </div>
                             <div class="scans-list" id="scansList">
                                 <!-- Scan items will be populated by JS -->
@@ -324,7 +325,7 @@
     <div class="modal-overlay hidden" id="urlModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Paste URL to Analyze</h3>
+                <h3 data-i18n="PasteUrlTitle">Paste URL to Analyze</h3>
                 <button class="modal-close" id="closeUrlModal">
                     <span class="material-symbols-outlined">close</span>
                 </button>
@@ -337,7 +338,7 @@
                 </div>
                 <button class="btn-analyze" id="analyzeUrlBtn">
                     <span class="material-symbols-outlined">search</span>
-                    Analyze URL
+                    <span data-i18n="AnalyzeUrl">Analyze URL</span>
                 </button>
             </div>
         </div>

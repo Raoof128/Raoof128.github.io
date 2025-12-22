@@ -242,6 +242,14 @@ function renderStats() {
     }
 }
 
+// Helper for translation
+function t(key, fallback) {
+    if (window.qrshieldGetTranslation) {
+        return window.qrshieldGetTranslation(key);
+    }
+    return fallback;
+}
+
 /**
  * Render scan history table from QRShieldUI
  */
@@ -263,7 +271,7 @@ function renderHistory() {
         elements.recentScansBody.innerHTML = `
             <tr>
                 <td colspan="4" class="text-center" style="padding: 2rem; color: var(--text-muted);">
-                    No scans yet. Start a new scan to see results here.
+                    ${t('NoScansYet', 'No scans yet. Start a new scan to see results here.')}
                 </td>
             </tr>
         `;
@@ -277,16 +285,16 @@ function renderHistory() {
 
         // Determine status badge class and text
         let badgeClass = 'safe';
-        let badgeText = 'SAFE';
+        let badgeText = t('VerdictSafe', 'SAFE');
         let badgeIcon = 'check_circle';
 
         if (isDanger) {
             badgeClass = 'danger';
-            badgeText = 'PHISH';
+            badgeText = t('VerdictPhish', 'PHISH');
             badgeIcon = 'warning';
         } else if (isWarning) {
             badgeClass = 'warning';
-            badgeText = 'WARN';
+            badgeText = t('VerdictWarn', 'WARN');
             badgeIcon = 'warning';
         }
 
@@ -305,7 +313,7 @@ function renderHistory() {
         // Generate details from score and signals
         let details = '';
         if (scan.score !== undefined) {
-            details = `Score: ${scan.score}%`;
+            details = `${t('ScoreLabel', 'Score:')} ${scan.score}%`;
         }
         if (scan.signals && scan.signals.length > 0) {
             details = scan.signals.slice(0, 2).join(', ');
@@ -353,9 +361,14 @@ function formatHistoryTime(timestamp) {
     const date = new Date(timestamp);
     const now = new Date();
 
+    let locale = 'en-US';
+    if (window.qrshieldGetLanguageCode) {
+        locale = window.qrshieldGetLanguageCode();
+    }
+
     // Check if today
     if (date.toDateString() === now.toDateString()) {
-        return date.toLocaleTimeString('en-AU', {
+        return date.toLocaleTimeString(locale, {
             hour: '2-digit',
             minute: '2-digit',
             hour12: true
@@ -363,7 +376,7 @@ function formatHistoryTime(timestamp) {
     }
 
     // Otherwise show date
-    return date.toLocaleDateString('en-AU', {
+    return date.toLocaleDateString(locale, {
         month: 'short',
         day: 'numeric'
     });

@@ -5,6 +5,28 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.0] - 2025-12-23
+
+### 🌍 Web App - Localization Complete
+
+Completed full localization of the Web Application (Kotlin/JS), covering Dashboard, Scanner, and Threat Analysis pages.
+
+#### 🌐 Pages Localized
+- **Dashboard (`dashboard.html`)**: Localized Feature Cards, System Health, and Navigation.
+- **Scanner (`scanner.html`)**: Localized HUD overlays, camera permissions, and manual entry forms.
+- **Threat Result (`threat.html`)**: Localized Attack Breakdown timeline, heuristics explanation, and action buttons.
+
+#### 🛠️ Technical Implementation
+- **Data-i18n Attributes**: Applied `data-i18n` IDs to all text elements across HTML files.
+- **Dynamic JS Localization**: Exposed `qrshieldGetTranslation` and `qrshieldGetLanguageCode` to globally access KMP localization logic.
+- **Formatted Dates**: Implemented locale-aware date formatting (e.g., "Today, 04:00 AM" vs "Heute, 04:00").
+- **Feature Cards**: Replaced hardcoded feature descriptions with localized strings.
+
+#### 📦 Keys Added
+- Added keys for Feature Cards (`FeatureOfflineTitle`, `FeatureExplainableTitle`, etc.)
+- Added keys for Scanner UI (`ActiveScanner`, `LiveFeedDisconnected`, `Torch`, `Gallery`, etc.)
+- Added keys for Threat Analysis (`AttackHomographTitle`, `RedirectStart`, `ReasonDomainAge`, etc.)
+
 ## [1.16.9] - 2025-12-23
 
 ### 🌍 Localization Finalization

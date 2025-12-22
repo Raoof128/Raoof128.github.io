@@ -51,8 +51,8 @@
                         <img src="assets/icon-128.png" alt="QR-SHIELD" style="width: 32px; height: 32px;">
                     </div>
                     <div class="logo-text">
-                        <h1>QR-SHIELD</h1>
-                        <p>Offline Protection</p>
+                        <h1 data-i18n="AppName">QR-SHIELD</h1>
+                        <p data-i18n="OfflineProtection">Offline Protection</p>
                     </div>
                 </div>
             </div>
@@ -61,37 +61,37 @@
                 <div class="nav-section-label">Overview</div>
                 <a class="nav-link" href="dashboard.html" id="nav-dashboard">
                     <span class="material-symbols-outlined">dashboard</span>
-                    <span>Dashboard</span>
+                    <span data-i18n="NavDashboard">Dashboard</span>
                 </a>
                 <a class="nav-link" href="scanner.html" id="nav-scanner">
                     <span class="material-symbols-outlined">qr_code_scanner</span>
-                    <span>Live Scanner</span>
+                    <span data-i18n="NavScanMonitor">Live Scanner</span>
                 </a>
                 <a class="nav-link active" href="threat.html" id="nav-history">
                     <span class="material-symbols-outlined filled">history</span>
-                    <span>Scan History</span>
+                    <span data-i18n="NavScanHistory">Scan History</span>
                 </a>
 
                 <div class="nav-section-label">Security</div>
                 <a class="nav-link" href="trust.html" id="nav-allowlist">
                     <span class="material-symbols-outlined">verified_user</span>
-                    <span>Allow List</span>
+                    <span data-i18n="NavTrustCentre">Allow List</span>
                 </a>
                 <a class="nav-link" href="onboarding.html" id="nav-settings">
                     <span class="material-symbols-outlined">settings</span>
-                    <span>Settings</span>
+                    <span data-i18n="NavSettings">Settings</span>
                 </a>
 
                 <div class="nav-section-label">Training</div>
                 <a class="nav-link" href="game.html" id="nav-game">
                     <span class="material-symbols-outlined">sports_esports</span>
-                    <span>Beat the Bot</span>
+                    <span data-i18n="NavTraining">Beat the Bot</span>
                 </a>
 
                 <div class="nav-section-label">Reports</div>
                 <a class="nav-link" href="export.html" id="nav-export">
                     <span class="material-symbols-outlined">download</span>
-                    <span>Export</span>
+                    <span data-i18n="NavReports">Export</span>
                 </a>
             </nav>
 
@@ -119,9 +119,9 @@
                         <span class="material-symbols-outlined">menu</span>
                     </button>
                     <nav class="breadcrumbs">
-                        <span>Home</span>
+                        <span data-i18n="BreadcrumbHome">Home</span>
                         <span class="separator">/</span>
-                        <span>Scans</span>
+                        <span data-i18n="BreadcrumbScans">Scans</span>
                         <span class="separator">/</span>
                         <span class="current" id="scanId">Scan #8021-AF</span>
                     </nav>
@@ -134,7 +134,7 @@
                     </button>
                     <div class="engine-status">
                         <span class="status-dot pulse"></span>
-                        <span>Engine Active (Offline)</span>
+                        <span data-i18n="EngineActive">Engine Active (Offline)</span>
                     </div>
                     <div class="header-divider"></div>
                     <button class="notification-btn" id="notificationBtn" aria-label="Notifications">
@@ -158,32 +158,34 @@
                                 </div>
                                 <div class="threat-info">
                                     <div class="threat-title-row">
-                                        <h2 id="threatTitle">HIGH RISK DETECTED</h2>
-                                        <span class="threat-badge" id="threatBadge">Dangerous</span>
+                                        <h2 id="threatTitle" data-i18n="VerdictHighRisk">HIGH RISK DETECTED</h2>
+                                        <span class="threat-badge" id="threatBadge"
+                                            data-i18n="VerdictDangerous">Dangerous</span>
                                     </div>
-                                    <p class="threat-description" id="threatDescription">
+                                    <p class="threat-description" id="threatDescription"
+                                        data-i18n="VerdictDangerousDesc">
                                         The scanned QR code contains malicious indicators associated with phishing and
                                         credential harvesting. Do not proceed to the target URL.
                                     </p>
                                     <div class="threat-tags" id="threatTags">
                                         <span class="tag">
                                             <span class="material-symbols-outlined danger">bug_report</span>
-                                            Phishing Attempt
+                                            <span data-i18n="FlagPhishing">Phishing Attempt</span>
                                         </span>
                                         <span class="tag">
                                             <span class="material-symbols-outlined warning">code_off</span>
-                                            Obfuscated Script
+                                            <span data-i18n="FlagObfuscated">Obfuscated Script</span>
                                         </span>
                                         <span class="tag">
                                             <span class="material-symbols-outlined info">link</span>
-                                            Homograph Attack
+                                            <span data-i18n="FlagHomograph">Homograph Attack</span>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="hero-right">
                                 <div class="confidence-score">
-                                    <span class="score-label">Threat Confidence</span>
+                                    <span class="score-label" data-i18n="ThreatConfidence">Threat Confidence</span>
                                     <span class="score-value" id="confidenceScore">98.5%</span>
                                 </div>
                             </div>
@@ -199,9 +201,9 @@
                             <h3>
                                 <span class="material-symbols-outlined"
                                     style="color: #195de6; margin-right: 0.5rem;">history</span>
-                                Scan History
+                                <span data-i18n="NavScanHistory">Scan History</span>
                             </h3>
-                            <button class="btn-text" id="clearHistoryBtn">Clear All</button>
+                            <button class="btn-text" id="clearHistoryBtn" data-i18n="ClearHistory">Clear All</button>
                         </div>
                         <div class="history-list" id="historyList">
                             <!-- History items will be rendered here by JS -->
@@ -214,7 +216,7 @@
                         <!-- Left Column: Attack Breakdown -->
                         <div class="main-column">
                             <div class="section-header">
-                                <h3>Attack Breakdown</h3>
+                                <h3 data-i18n="SectionAttackBreakdown">Attack Breakdown</h3>
                                 <span class="scan-id" id="scanIdLabel">ID: scan_2023_10_24_af92</span>
                             </div>
 
@@ -226,8 +228,9 @@
                                             <span class="material-symbols-outlined">abc</span>
                                         </span>
                                         <div class="attack-info">
-                                            <h4>Homograph / IDN Attack</h4>
-                                            <p>Cyrillic characters mimicking Latin alphabet detected.</p>
+                                            <h4 data-i18n="AttackHomographTitle">Homograph / IDN Attack</h4>
+                                            <p data-i18n="AttackHomographDesc">Cyrillic characters mimicking Latin
+                                                alphabet detected.</p>
                                         </div>
                                     </div>
                                     <span class="material-symbols-outlined expand-icon">expand_more</span>
@@ -235,15 +238,17 @@
                                 <div class="attack-content">
                                     <div class="domain-comparison">
                                         <div class="domain-item">
-                                            <span class="domain-label">Visual Appearance (What user sees)</span>
+                                            <span class="domain-label" data-i18n="AttackVisualLabel">Visual Appearance
+                                                (What user sees)</span>
                                             <span class="domain-value safe">secure-banking.com</span>
                                         </div>
                                         <div class="domain-item">
-                                            <span class="domain-label">Actual Punycode (Where it goes)</span>
+                                            <span class="domain-label" data-i18n="AttackPunycodeLabel">Actual Punycode
+                                                (Where it goes)</span>
                                             <span class="domain-value danger">xn--secure-bankng-87b.com</span>
                                         </div>
                                     </div>
-                                    <p class="attack-explanation">
+                                    <p class="attack-explanation" data-i18n="AttackHomographExplain">
                                         The domain uses the Cyrillic 'а' (U+0430) instead of Latin 'a' (U+0061). This
                                         technique is commonly used to trick users into believing they are visiting a
                                         legitimate service.
@@ -259,8 +264,9 @@
                                             <span class="material-symbols-outlined">alt_route</span>
                                         </span>
                                         <div class="attack-info">
-                                            <h4>Suspicious Redirect Chain</h4>
-                                            <p>3 hops detected involving known URL shorteners.</p>
+                                            <h4 data-i18n="AttackRedirectTitle">Suspicious Redirect Chain</h4>
+                                            <p data-i18n="AttackRedirectDesc">3 hops detected involving known URL
+                                                shorteners.</p>
                                         </div>
                                     </div>
                                     <span class="material-symbols-outlined expand-icon">expand_more</span>
@@ -270,21 +276,21 @@
                                         <li class="timeline-item start">
                                             <span class="timeline-dot"></span>
                                             <div class="timeline-content">
-                                                <h5>QR Code Scan</h5>
+                                                <h5 data-i18n="RedirectStart">QR Code Scan</h5>
                                                 <code>http://bit.ly/3x891</code>
                                             </div>
                                         </li>
                                         <li class="timeline-item warning">
                                             <span class="timeline-dot"></span>
                                             <div class="timeline-content">
-                                                <h5>Intermediate Hop</h5>
+                                                <h5 data-i18n="RedirectHop">Intermediate Hop</h5>
                                                 <code>http://tracker-service-cloud.net/ref?id=99</code>
                                             </div>
                                         </li>
                                         <li class="timeline-item danger">
                                             <span class="timeline-dot pulse"></span>
                                             <div class="timeline-content">
-                                                <h5>Final Destination</h5>
+                                                <h5 data-i18n="RedirectFinal">Final Destination</h5>
                                                 <code class="danger">http://xn--secure-bankng-87b.com/login</code>
                                             </div>
                                         </li>
@@ -300,8 +306,9 @@
                                             <span class="material-symbols-outlined">javascript</span>
                                         </span>
                                         <div class="attack-info">
-                                            <h4>Obfuscated JavaScript</h4>
-                                            <p>High entropy string detected in URL parameters.</p>
+                                            <h4 data-i18n="AttackJsTitle">Obfuscated JavaScript</h4>
+                                            <p data-i18n="AttackJsDesc">High entropy string detected in URL parameters.
+                                            </p>
                                         </div>
                                     </div>
                                     <span class="material-symbols-outlined expand-icon">expand_more</span>
@@ -321,34 +328,35 @@
                             <div class="actions-card">
                                 <h3>
                                     <span class="material-symbols-outlined">recommend</span>
-                                    Recommended Actions
+                                    <span data-i18n="SectionActions">Recommended Actions</span>
                                 </h3>
 
                                 <div class="action-buttons">
                                     <button class="btn-danger" id="blockBtn">
                                         <span class="material-symbols-outlined">block</span>
-                                        Block & Report
+                                        <span data-i18n="ActionBlock">Block & Report</span>
                                     </button>
                                     <button class="btn-secondary" id="quarantineBtn">
                                         <span class="material-symbols-outlined">science</span>
-                                        Quarantine in Sandbox
+                                        <span data-i18n="ActionQuarantine">Quarantine in Sandbox</span>
                                     </button>
                                 </div>
 
                                 <div class="security-explainer">
-                                    <h4>Explainable Security</h4>
+                                    <h4 data-i18n="Explainable Security">Explainable Security</h4>
                                     <ul class="security-reasons">
                                         <li>
                                             <span class="material-symbols-outlined">check_circle</span>
-                                            <span>Domain age is less than 24 hours.</span>
+                                            <span data-i18n="ReasonDomainAge">Domain age is less than 24 hours.</span>
                                         </li>
                                         <li>
                                             <span class="material-symbols-outlined">check_circle</span>
-                                            <span>Matched 3 signatures in local phishing DB.</span>
+                                            <span data-i18n="ReasonSignatures">Matched 3 signatures in local phishing
+                                                DB.</span>
                                         </li>
                                         <li>
                                             <span class="material-symbols-outlined">check_circle</span>
-                                            <span>Target IP is located in a high-risk ASN.</span>
+                                            <span data-i18n="ReasonAsn">Target IP is located in a high-risk ASN.</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -356,30 +364,31 @@
 
                             <!-- Scan Meta -->
                             <div class="meta-card">
-                                <h3>Scan Meta</h3>
+                                <h3 data-i18n="SectionMeta">Scan Meta</h3>
 
                                 <div class="meta-items">
                                     <div class="meta-item">
-                                        <span class="meta-label">Scan Time</span>
+                                        <span class="meta-label" data-i18n="MetaTime">Scan Time</span>
                                         <span class="meta-value" id="scanTime">Today, 14:32:05</span>
                                     </div>
                                     <div class="meta-item">
-                                        <span class="meta-label">Source</span>
+                                        <span class="meta-label" data-i18n="MetaSource">Source</span>
                                         <span class="meta-value">
                                             <span class="material-symbols-outlined">image</span>
                                             qr_investigate.png
                                         </span>
                                     </div>
                                     <div class="meta-item">
-                                        <span class="meta-label">Engine</span>
+                                        <span class="meta-label" data-i18n="MetaEngine">Engine</span>
                                         <span class="meta-value">Offline Core v2.4</span>
                                     </div>
                                 </div>
 
                                 <div class="offline-guarantee">
                                     <p>
-                                        <strong>Offline Guarantee:</strong> This image was analysed locally on your
-                                        device. No data was sent to the cloud for this verdict.
+                                        <strong data-i18n="MetaOfflineGuaranteeLabel">Offline Guarantee:</strong> <span
+                                            data-i18n="MetaOfflineGuaranteeDesc">This image was analysed locally on your
+                                            device. No data was sent to the cloud for this verdict.</span>
                                     </p>
                                 </div>
                             </div>

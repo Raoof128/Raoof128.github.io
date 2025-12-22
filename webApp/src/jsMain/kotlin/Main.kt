@@ -78,6 +78,30 @@ fun main() {
                 analyzeBtn?.disabled = false
             }
         }, 100)
+
+    }
+
+    // Expose translation function
+    window.asDynamic().qrshieldGetTranslation = { key: String -> 
+        try {
+            val language = com.qrshield.web.i18n.WebLanguage.current()
+            try {
+                com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
+            } catch (e: Exception) {
+                com.qrshield.web.i18n.WebStrings.translate(key, language)
+            }
+        } catch (e: Exception) {
+            key
+        }
+    }
+
+    // Expose language code
+    window.asDynamic().qrshieldGetLanguageCode = {
+        try {
+            com.qrshield.web.i18n.WebLanguage.current().code
+        } catch (e: Exception) {
+            "en-US"
+        }
     }
 
     // Handle enter key in input
