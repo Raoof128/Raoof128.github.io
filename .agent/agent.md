@@ -3,6 +3,45 @@
 This file tracks significant changes made during development sessions.
 
 ---
+---
+
+# 🌍 December 23, 2025 - Refactor Scanner History & Dashboard
+
+### Summary
+Refactored the Scanner and Dashboard implementations to centralize history management via `QRShieldUI`. This ensures that scan history and statistics are consistently managed and displayed across the entire Web Application.
+
+## ✅ Accomplishments
+- **Centralized History Management**:
+    - Refactored `scanner.js` to remove redundant local storage logic and use `QRShieldUI` for all history operations.
+    - Updated `dashboard.js` to fetch statistics and history exclusively from `QRShieldUI`, ensuring a Single Source of Truth.
+- **Dynamic Dashboard Updates**:
+    - Implemented `updateDbStats` in `dashboard.js` to dynamically populate the "Threat Database" card with realistic version (v2.4.1) and update times.
+    - Added IDs to `dashboard.html` statistic elements for dynamic updates.
+- **UI Consistency**:
+    - Unified application version to `v2.4.1` across `dashboard.html` and `scanner.html`.
+    - Restored visual feedback helpers in `scanner.js` (`updateLiveStatus`, `showScanningState`) for a polished user experience.
+- **Shared Logic Enhancements**:
+    - Exported `getAppStats` and `incrementScanCount` from `shared-ui.js` to expose centralized logic to other modules.
+
+## 🛠️ Code Changes
+- **scanner.js**:
+    - Removed `saveHistory`, `loadHistory`.
+    - Integrated `QRShieldUI.addScanToHistory` and `QRShieldUI.getScanHistory`.
+    - Fixed UI helper functions visibility.
+- **dashboard.js**:
+    - Removed local `DashboardState` stats/history management.
+    - Added `updateDbStats` logic.
+    - Updated `renderUI` to await `QRShieldUI` availability.
+- **shared-ui.js**:
+    - Exported missing `getAppStats` and `incrementScanCount` functions.
+- **HTML**:
+    - `dashboard.html`: Added IDs (`dbVersion`, `dbLastUpdate`, `dbSignatures`).
+    - `scanner.html`: Updated version badge to `v2.4.1`.
+
+## ✅ Verification
+- **Build**: `./gradlew :webApp:jsBrowserDevelopmentWebpack` succeeded.
+- **Git**: All changes reviewed and pushed to main.
+
 # 🌍 December 23, 2025 - Web App Localization Complete
 
 ### Summary
