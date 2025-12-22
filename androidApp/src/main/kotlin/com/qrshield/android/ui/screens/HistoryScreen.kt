@@ -524,7 +524,7 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
             text = if (hasFilters)
                 stringResource(R.string.no_results)
             else
-                "No Scans Yet",
+                stringResource(R.string.no_history),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = TextPrimary
@@ -536,7 +536,7 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
             text = if (hasFilters)
                 stringResource(R.string.try_different_filter)
             else
-                "Stay Safe! Scan a QR code to start\nbuilding your security history.",
+                stringResource(R.string.scan_to_see_history),
             fontSize = 15.sp,
             color = TextSecondary,
             textAlign = androidx.compose.ui.text.style.TextAlign.Center,
@@ -563,7 +563,7 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Go to Scanner tab to start",
+                        text = stringResource(R.string.history_go_to_scanner),
                         fontSize = 13.sp,
                         color = TextMuted
                     )

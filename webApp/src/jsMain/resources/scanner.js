@@ -105,6 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Kotlin engine callback
     setupKotlinBridge();
 
+    window.qrshieldApplyTranslations?.(document.body);
+
     console.log('[QR-SHIELD Scanner] Ready');
 });
 

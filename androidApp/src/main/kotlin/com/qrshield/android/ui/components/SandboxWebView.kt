@@ -279,11 +279,11 @@ private fun IsolatedWebView(
 
                     // Disable storage and caching
                     domStorageEnabled = config.localStorageEnabled
-                    databaseEnabled = false
+                    // Note: databaseEnabled is deprecated since API 19, databases use DOM storage
                     cacheMode = WebSettings.LOAD_NO_CACHE
 
-                    // Disable form data saving
-                    saveFormData = config.saveFormDataEnabled
+                    // Note: saveFormData is deprecated since API 26 and no longer functions
+                    // Form data saving is disabled by default on modern WebViews
 
                     // Disable geolocation
                     setGeolocationEnabled(false)

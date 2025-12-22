@@ -17,6 +17,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 // DataStore extension for domain lists
 val Context.domainListsDataStore: DataStore<Preferences> by preferencesDataStore(name = "domain_lists")
@@ -88,15 +89,12 @@ class DomainListRepository(private val context: Context) {
      */
     suspend fun isAllowlisted(domain: String): Boolean {
         val normalized = normalizeDomain(domain)
-        var result = false
-        context.domainListsDataStore.data.collect { prefs ->
-            val domains = prefs[Keys.ALLOWLIST] ?: emptySet()
-            result = domains.any { 
-                val parsed = it.split("|").first()
-                normalized == parsed || normalized.endsWith(".$parsed")
-            }
+        val prefs = context.domainListsDataStore.data.first()
+        val domains = prefs[Keys.ALLOWLIST] ?: emptySet()
+        return domains.any { 
+            val parsed = it.split("|").first()
+            normalized == parsed || normalized.endsWith(".$parsed")
         }
-        return result
     }
     
     // === BLOCKLIST ===
@@ -142,15 +140,12 @@ class DomainListRepository(private val context: Context) {
      */
     suspend fun isBlocklisted(domain: String): Boolean {
         val normalized = normalizeDomain(domain)
-        var result = false
-        context.domainListsDataStore.data.collect { prefs ->
-            val domains = prefs[Keys.BLOCKLIST] ?: emptySet()
-            result = domains.any {
-                val parsed = it.split("|").first()
-                normalized == parsed || normalized.endsWith(".$parsed")
-            }
+        val prefs = context.domainListsDataStore.data.first()
+        val domains = prefs[Keys.BLOCKLIST] ?: emptySet()
+        return domains.any {
+            val parsed = it.split("|").first()
+            normalized == parsed || normalized.endsWith(".$parsed")
         }
-        return result
     }
     
     // === HELPERS ===

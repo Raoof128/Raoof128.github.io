@@ -60,6 +60,11 @@ fun TrustCentreScreen(
     val viewModel: com.qrshield.ui.SharedViewModel = org.koin.compose.koinInject()
     val settings by viewModel.settings.collectAsState()
     
+    // Inject domain list repository to get real counts
+    val domainListRepository: com.qrshield.android.data.DomainListRepository = org.koin.compose.koinInject()
+    val allowlistEntries by domainListRepository.allowlist.collectAsState(initial = emptyList())
+    val blocklistEntries by domainListRepository.blocklist.collectAsState(initial = emptyList())
+    
     // Map settings to local UI state
     val selectedSensitivity = try {
         Sensitivity.valueOf(settings.heuristicSensitivity)
@@ -130,7 +135,9 @@ fun TrustCentreScreen(
             // Lists Section (Allowlist/Blocklist)
             ListsGrid(
                 onAllowlistClick = onAllowlistClick,
-                onBlocklistClick = onBlocklistClick
+                onBlocklistClick = onBlocklistClick,
+                allowlistCount = allowlistEntries.size,
+                blocklistCount = blocklistEntries.size
             )
 
             // Privacy Controls
@@ -367,7 +374,9 @@ private fun SensitivitySection(
 @Composable
 private fun ListsGrid(
     onAllowlistClick: () -> Unit,
-    onBlocklistClick: () -> Unit
+    onBlocklistClick: () -> Unit,
+    allowlistCount: Int = 0,
+    blocklistCount: Int = 0
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -382,7 +391,7 @@ private fun ListsGrid(
             decorativeColor = QRShieldColors.Emerald500,
             title = stringResource(R.string.allowlist_title),
             subtitle = stringResource(R.string.allowlist_subtitle),
-            count = 12,
+            count = allowlistCount,
             onClick = onAllowlistClick
         )
         
@@ -395,7 +404,7 @@ private fun ListsGrid(
             decorativeColor = QRShieldColors.RiskDanger,
             title = stringResource(R.string.blocklist_title),
             subtitle = stringResource(R.string.blocklist_subtitle),
-            count = 45,
+            count = blocklistCount,
             onClick = onBlocklistClick
         )
     }

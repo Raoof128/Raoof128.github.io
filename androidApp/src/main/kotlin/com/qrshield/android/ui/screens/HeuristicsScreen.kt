@@ -34,6 +34,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 
 /**
  * Heuristics Rules Screen
@@ -101,13 +103,13 @@ fun HeuristicsScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Heuristics Engine",
+                        text = stringResource(R.string.heuristics_engine_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
@@ -120,7 +122,7 @@ fun HeuristicsScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = "Add rule",
+                            contentDescription = stringResource(R.string.add_rule),
                             tint = QRShieldColors.Primary
                         )
                     }
@@ -164,7 +166,7 @@ fun HeuristicsScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "DETECTION RULES",
+                        text = stringResource(R.string.detection_rules),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 0.5.sp
@@ -172,7 +174,7 @@ fun HeuristicsScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "${filteredRules.size} Rules",
+                        text = stringResource(R.string.rules_count_fmt, filteredRules.size),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -236,7 +238,7 @@ private fun StatsHeader(
                     color = QRShieldColors.Primary
                 )
                 Text(
-                    text = "Active Rules",
+                    text = stringResource(R.string.active_rules),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -275,7 +277,7 @@ private fun StatsHeader(
                     color = QRShieldColors.Emerald500
                 )
                 Text(
-                    text = "Detection Rate",
+                    text = stringResource(R.string.detection_rate),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

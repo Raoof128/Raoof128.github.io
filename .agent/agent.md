@@ -5,6 +5,38 @@ This file tracks significant changes made during development sessions.
 ---
 ---
 
+# 🌍 December 24, 2025 - Web App Full Localization Coverage
+
+### Summary
+Expanded Web App localization to cover every page, including dynamic JS strings, theme toggles, toasts, and modals. Rebuilt common string maps for all supported languages and ensured translation hooks run on every page load.
+
+## ✅ Accomplishments
+- **Full-page coverage**: Results, Export, Onboarding, Game, Trust Centre, Dashboard, Scanner, and Threat pages now apply translations on load.
+- **Dynamic UI translations**: Added translated strings for modals, toasts, verdict explanations, judge mode banners, and runtime hints.
+- **Language maps**: Regenerated common string maps (872 keys) for German, Spanish, French, Chinese (Simplified), Japanese, and Hindi.
+
+## 📄 Files Modified
+| Path | Description |
+|------|-------------|
+| `webApp/src/jsMain/resources/app.js` | Translated dynamic verdict copy, modals, judge mode UI, and report prompts |
+| `webApp/src/jsMain/resources/game.js` | Translated game UI text, hints, results, and toasts |
+| `webApp/src/jsMain/resources/theme.js` | Localized theme toggle labels and feedback |
+| `webApp/src/jsMain/resources/dashboard.js` | Localized analyze button states and applied page translations |
+| `webApp/src/jsMain/resources/scanner.js` | Applied page translations on load |
+| `webApp/src/jsMain/resources/onboarding.js` | Applied page translations on load |
+| `webApp/src/jsMain/resources/results.js` | Localized share metadata and applied page translations |
+| `webApp/src/jsMain/resources/export.js` | Applied page translations on load |
+| `webApp/src/jsMain/resources/trust.js` | Localized reset confirmation and applied page translations |
+| `webApp/src/jsMain/resources/threat.js` | Applied page translations on load |
+| `webApp/src/jsMain/kotlin/com/qrshield/web/i18n/WebStringsDe.kt` | Rebuilt German common string map |
+| `webApp/src/jsMain/kotlin/com/qrshield/web/i18n/WebStringsEs.kt` | Rebuilt Spanish common string map |
+| `webApp/src/jsMain/kotlin/com/qrshield/web/i18n/WebStringsFr.kt` | Rebuilt French common string map |
+| `webApp/src/jsMain/kotlin/com/qrshield/web/i18n/WebStringsZh.kt` | Rebuilt Chinese common string map |
+| `webApp/src/jsMain/kotlin/com/qrshield/web/i18n/WebStringsJa.kt` | Rebuilt Japanese common string map |
+| `webApp/src/jsMain/kotlin/com/qrshield/web/i18n/WebStringsHi.kt` | Rebuilt Hindi common string map |
+
+---
+
 # 🌍 December 22, 2025 - iOS App Localization Complete
 
 ### Summary

@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render UI (fetches data from Shared UI)
     renderUI();
+    window.qrshieldApplyTranslations?.(document.body);
 
     console.log('[QR-SHIELD Dashboard] Ready');
 });
@@ -434,7 +435,7 @@ function setupKotlinBridge() {
         // Reset analyze button
         if (elements.analyzeBtn) {
             elements.analyzeBtn.classList.remove('loading');
-            elements.analyzeBtn.innerHTML = '<span class="material-symbols-outlined">security</span> Analyze';
+            elements.analyzeBtn.innerHTML = `<span class="material-symbols-outlined">security</span> ${translateText('Analyze')}`;
         }
 
         // Save to QRShieldUI scan history
@@ -491,7 +492,7 @@ function analyzeUrl() {
     // Show loading state
     if (elements.analyzeBtn) {
         elements.analyzeBtn.classList.add('loading');
-        elements.analyzeBtn.innerHTML = '<span class="material-symbols-outlined">hourglass_empty</span> Analyzing...';
+        elements.analyzeBtn.innerHTML = `<span class="material-symbols-outlined">hourglass_empty</span> ${translateText('Analyzing...')}`;
     }
 
     // Call Kotlin engine

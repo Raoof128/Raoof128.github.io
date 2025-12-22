@@ -62,6 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Demo mode: show sample safe result
         showDemoResult();
     }
+
+    window.qrshieldApplyTranslations?.(document.body);
 });
 
 /**
@@ -549,7 +551,7 @@ function getTagClass(type) {
  */
 async function shareReport() {
     const shareData = {
-        title: 'QR-SHIELD Scan Result',
+        title: translateText('QR-SHIELD Scan Result'),
         text: formatText('URL: {url}\nVerdict: {verdict}\nConfidence: {confidence}%', {
             url: ResultsState.scannedUrl,
             verdict: translateText(ResultsState.verdict),

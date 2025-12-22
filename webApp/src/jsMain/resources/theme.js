@@ -12,6 +12,31 @@
         DARK: 'dark',
         AUTO: 'auto'
     };
+    const NORMALIZE_RE = /\s+/g;
+
+    function normalizeKey(text) {
+        return text ? text.replace(NORMALIZE_RE, ' ').trim() : '';
+    }
+
+    function translateText(text) {
+        const normalized = normalizeKey(text);
+        if (!normalized) return text;
+        if (window.qrshieldTranslateText) {
+            return window.qrshieldTranslateText(normalized);
+        }
+        if (window.qrshieldGetTranslation) {
+            return window.qrshieldGetTranslation(normalized);
+        }
+        return normalized;
+    }
+
+    function formatText(template, params = {}) {
+        let translated = translateText(template);
+        Object.keys(params).forEach((key) => {
+            translated = translated.replaceAll(`{${key}}`, params[key]);
+        });
+        return translated;
+    }
 
     /**
      * Get the current system preferred theme
@@ -152,8 +177,9 @@
 
                 // Show toast feedback if available
                 if (window.QRShieldUI && window.QRShieldUI.showToast) {
+                    const modeLabel = translateText(newTheme === THEMES.LIGHT ? 'Light' : 'Dark');
                     window.QRShieldUI.showToast(
-                        `Switched to ${newTheme === THEMES.LIGHT ? 'Light' : 'Dark'} mode`,
+                        formatText('Switched to {mode} mode', { mode: modeLabel }),
                         'info'
                     );
                 }
@@ -171,8 +197,8 @@
         if (headerRight && !headerRight.querySelector('.theme-toggle')) {
             const toggleBtn = document.createElement('button');
             toggleBtn.className = 'theme-toggle';
-            toggleBtn.setAttribute('aria-label', 'Toggle theme');
-            toggleBtn.setAttribute('title', 'Toggle light/dark mode');
+            toggleBtn.setAttribute('aria-label', translateText('Toggle theme'));
+            toggleBtn.setAttribute('title', translateText('Toggle light/dark mode'));
             toggleBtn.innerHTML = `
                 <span class="material-symbols-outlined icon-light">light_mode</span>
                 <span class="material-symbols-outlined icon-dark">dark_mode</span>

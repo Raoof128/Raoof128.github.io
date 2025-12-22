@@ -77,8 +77,8 @@ val androidModule = module {
     // Domain List Repository for allowlist/blocklist persistence
     single { com.qrshield.android.data.DomainListRepository(androidContext()) }
 
-    // ViewModel with injected repository
-    factory {
+    // ViewModel as singleton to share state across all screens
+    single {
         SharedViewModel(
             phishingEngine = get(),
             historyRepository = get(),

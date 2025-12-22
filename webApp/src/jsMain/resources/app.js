@@ -181,7 +181,7 @@ let currentAnalysis = { url: '', score: 0, verdict: '' };
 window.displayResult = (score, verdict, flags, url) => {
     // Reset button state
     analyzeBtn.classList.remove('loading');
-    analyzeBtn.innerHTML = '<span class="material-icons-round">search</span>Analyze URL';
+    analyzeBtn.innerHTML = `<span class="material-icons-round">search</span>${translateText('Analyze URL')}`;
     analyzeBtn.disabled = false;
 
     // Store current analysis
@@ -263,14 +263,16 @@ function updateResultCard(score, verdict, flags) {
     // Add "Why this verdict?" header with confidence
     const headerDiv = document.createElement('div');
     headerDiv.className = 'explainability-header';
+    const verdictHeading = translateText('Why this verdict?');
+    const confidenceText = formatText('{level} Confidence', { level: translateText(confidence.label) });
     headerDiv.innerHTML = `
         <div class="why-verdict">
             <span class="material-icons-round">psychology</span>
-            <span>Why this verdict?</span>
+            <span>${verdictHeading}</span>
         </div>
         <div class="confidence-badge ${confidence.level}">
             <span class="confidence-dots">${'●'.repeat(confidence.dots)}${'○'.repeat(5 - confidence.dots)}</span>
-            <span class="confidence-label">${formatText('{level} Confidence', { level: translateText(confidence.label) })}</span>
+            <span class="confidence-label">${confidenceText}</span>
         </div>
     `;
     riskContainer.appendChild(headerDiv);
@@ -281,29 +283,40 @@ function updateResultCard(score, verdict, flags) {
             const div = document.createElement('div');
             div.className = `risk-item-expanded severity-${signalInfo.severity}`;
 
+            const severityLabel = translateText(signalInfo.severity.toUpperCase());
+            const nameLabel = translateText(signalInfo.name);
+            const whatChecksLabel = translateText('What it checks:');
+            const whyMattersLabel = translateText('Why it matters:');
+            const riskImpactLabel = translateText('Risk impact:');
+            const counterfactualLabel = translateText('💡 What would reduce this?');
+            const whatChecksValue = translateText(signalInfo.whatItChecks);
+            const whyMattersValue = translateText(signalInfo.whyItMatters);
+            const riskImpactValue = translateText(signalInfo.riskImpact);
+            const counterfactualValue = translateText(signalInfo.counterfactual);
+
             div.innerHTML = `
                 <div class="signal-header" onclick="this.parentElement.classList.toggle('expanded')">
                     <span class="material-icons-round signal-icon">${signalInfo.icon}</span>
-                    <span class="signal-name">${signalInfo.name}</span>
-                    <span class="signal-severity ${signalInfo.severity}">${signalInfo.severity.toUpperCase()}</span>
+                    <span class="signal-name">${nameLabel}</span>
+                    <span class="signal-severity ${signalInfo.severity}">${severityLabel}</span>
                     <span class="material-icons-round expand-icon">expand_more</span>
                 </div>
                 <div class="signal-details">
                     <div class="signal-row">
-                        <span class="signal-label">What it checks:</span>
-                        <span class="signal-value">${signalInfo.whatItChecks}</span>
+                        <span class="signal-label">${whatChecksLabel}</span>
+                        <span class="signal-value">${whatChecksValue}</span>
                     </div>
                     <div class="signal-row">
-                        <span class="signal-label">Why it matters:</span>
-                        <span class="signal-value">${signalInfo.whyItMatters}</span>
+                        <span class="signal-label">${whyMattersLabel}</span>
+                        <span class="signal-value">${whyMattersValue}</span>
                     </div>
                     <div class="signal-row">
-                        <span class="signal-label">Risk impact:</span>
-                        <span class="signal-value">${signalInfo.riskImpact}</span>
+                        <span class="signal-label">${riskImpactLabel}</span>
+                        <span class="signal-value">${riskImpactValue}</span>
                     </div>
                     <div class="signal-row counterfactual-row">
-                        <span class="signal-label">💡 What would reduce this?</span>
-                        <span class="signal-value">${signalInfo.counterfactual}</span>
+                        <span class="signal-label">${counterfactualLabel}</span>
+                        <span class="signal-value">${counterfactualValue}</span>
                     </div>
                 </div>
             `;
@@ -312,16 +325,23 @@ function updateResultCard(score, verdict, flags) {
     } else {
         // Empty state for safe URLs
         if (verdict === 'SAFE') {
+            const safeTitle = translateText('No threats detected');
+            const safeSubtitle = formatText('This URL passed all {count} security checks', { count: getHeuristicCount() });
+            const safeCheck1 = translateText('✓ No brand impersonation');
+            const safeCheck2 = translateText('✓ Safe TLD');
+            const safeCheck3 = translateText('✓ No suspicious patterns');
+            const safeCheck4 = translateText('✓ No homograph attacks');
+
             riskContainer.innerHTML += `
                 <div class="safe-explanation">
                     <span class="material-icons-round" style="font-size: 48px; color: var(--color-safe);">verified_user</span>
-                    <p class="safe-title">No threats detected</p>
-                    <p class="safe-subtitle">${formatText('This URL passed all {count} security checks', { count: getHeuristicCount() })}</p>
+                    <p class="safe-title">${safeTitle}</p>
+                    <p class="safe-subtitle">${safeSubtitle}</p>
                     <div class="safe-checks">
-                        <span>✓ No brand impersonation</span>
-                        <span>✓ Safe TLD</span>
-                        <span>✓ No suspicious patterns</span>
-                        <span>✓ No homograph attacks</span>
+                        <span>${safeCheck1}</span>
+                        <span>${safeCheck2}</span>
+                        <span>${safeCheck3}</span>
+                        <span>${safeCheck4}</span>
                     </div>
                 </div>
             `;
@@ -626,13 +646,18 @@ function showModal({ icon, iconColor, title, message, details, primaryAction, se
     const existingModal = document.getElementById('errorModal');
     if (existingModal) existingModal.remove();
 
+    const resolvedDetails = details
+        ? (details.includes('<') ? details : translateText(details))
+        : '';
+    const detailsHtml = resolvedDetails ? resolvedDetails.replace(/\n/g, '<br>') : '';
+
     const modalHtml = `
         <div id="errorModal" class="error-modal active">
             <div class="error-modal-content">
                 <span class="material-icons-round error-modal-icon" style="color: ${iconColor}">${icon}</span>
                 <h3 class="error-modal-title">${translateText(title)}</h3>
                 <p class="error-modal-message">${translateText(message)}</p>
-                ${details ? `<p class="error-modal-details">${details.replace(/\n/g, '<br>')}</p>` : ''}
+                ${detailsHtml ? `<p class="error-modal-details">${detailsHtml}</p>` : ''}
                 <div class="error-modal-actions">
                     <button class="btn-primary" id="modalPrimaryBtn">${translateText(primaryAction.text)}</button>
                     ${secondaryAction ? `<button class="btn-secondary" id="modalSecondaryBtn">${translateText(secondaryAction.text)}</button>` : ''}
@@ -1063,15 +1088,10 @@ window.reportPhishing = () => {
     const phishTankUrl = `https://phishtank.org/add_web_phish.php`;
 
     // Create options for user
-    const reportOptions = `
-Would you like to report this URL?
-
-Options:
-1. PhishTank - Click OK to open submission page
-2. Email - Click Cancel to compose email
-
-URL: ${url}
-`;
+    const reportOptions = formatText(
+        'Would you like to report this URL?\n\nOptions:\n1. PhishTank - Click OK to open submission page\n2. Email - Click Cancel to compose email\n\nURL: {url}',
+        { url }
+    );
 
     if (confirm(reportOptions)) {
         // Open PhishTank
@@ -1127,9 +1147,9 @@ function updateOnboardingSlides() {
     const nextBtn = document.getElementById('nextOnboarding');
     if (nextBtn) {
         if (currentSlide === totalSlides) {
-            nextBtn.textContent = 'Get Started! 🚀';
+            nextBtn.textContent = translateText('Get Started! 🚀');
         } else {
-            nextBtn.textContent = 'Next →';
+            nextBtn.textContent = translateText('Next →');
         }
     }
 }
@@ -1185,9 +1205,11 @@ function updateJudgeModeUI() {
     const toggleBtn = document.getElementById('judgeModeToggle');
     if (toggleBtn) {
         toggleBtn.classList.toggle('active', isJudgeMode);
+        const judgeOnLabel = translateText('Judge Mode: ON');
+        const judgeOffLabel = translateText('Judge Mode');
         toggleBtn.innerHTML = isJudgeMode
-            ? '<span class="material-icons-round">gavel</span> Judge Mode: ON'
-            : '<span class="material-icons-round">gavel</span> Judge Mode';
+            ? `<span class="material-icons-round">gavel</span> ${judgeOnLabel}`
+            : `<span class="material-icons-round">gavel</span> ${judgeOffLabel}`;
     }
 }
 
@@ -1218,12 +1240,13 @@ window.generateTestQR = () => {
     const testUrl = 'https://paypa1-secure.tk/login?redirect=steal';
     const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(testUrl)}`;
 
+    const testQrAlt = translateText('Test QR Code');
     showModal({
         icon: 'qr_code',
         iconColor: 'var(--color-warning)',
         title: 'Test QR Code',
         message: 'Scan this QR code with QR-SHIELD to see malicious URL detection:',
-        details: `<img src="${qrApiUrl}" alt="Test QR Code" style="display:block; margin:16px auto; border-radius:8px;">
+        details: `<img src="${qrApiUrl}" alt="${testQrAlt}" style="display:block; margin:16px auto; border-radius:8px;">
                   <code style="display:block; text-align:center; margin-top:8px; font-size:12px;">${testUrl}</code>`,
         primaryAction: {
             text: 'Analyze This URL',
@@ -1404,7 +1427,7 @@ function checkBrowserCompatibility() {
         if (scanBtn) {
             scanBtn.disabled = true;
             scanBtn.title = 'Camera not supported in this browser';
-            scanBtn.innerHTML = '<span class="material-icons-round">videocam_off</span> Camera N/A';
+            scanBtn.innerHTML = `<span class="material-icons-round">videocam_off</span> ${translateText('Camera N/A')}`;
         }
     }
 
@@ -1524,12 +1547,16 @@ function showDemoModeBanner() {
     const banner = document.createElement('div');
     banner.id = 'demoBanner';
     banner.className = 'demo-banner';
+    const demoTitle = translateText('Judge Mode Active');
+    const demoSubtitle = translateText('All URLs will show as MALICIOUS for demo purposes');
+    const exitLabel = translateText('Exit');
     banner.innerHTML = `
         <span class="material-icons-round">gavel</span>
-        <span><strong>Judge Mode Active</strong> — All URLs will show as MALICIOUS for demo purposes</span>
-        <button onclick="toggleJudgeMode()" class="demo-banner-close">✕ Exit</button>
+        <span><strong>${demoTitle}</strong> — ${demoSubtitle}</span>
+        <button onclick="toggleJudgeMode()" class="demo-banner-close">✕ ${exitLabel}</button>
     `;
     document.body.prepend(banner);
+    window.qrshieldApplyTranslations?.(banner);
 }
 
 function hideDemoModeBanner() {

@@ -104,7 +104,7 @@ fun SettingsScreen() {
                 )
             )
             .semantics {
-                contentDescription = "Settings screen with app preferences"
+                contentDescription = context.getString(R.string.cd_settings_screen)
             },
         contentPadding = PaddingValues(bottom = 100.dp)
     ) {
@@ -197,7 +197,7 @@ fun SettingsScreen() {
                 trailing = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                        contentDescription = "Open system settings",
+                        contentDescription = stringResource(R.string.cd_open_system_settings),
                         tint = BrandPrimary,
                         modifier = Modifier.size(20.dp)
                     )
@@ -249,7 +249,7 @@ fun SettingsScreen() {
                 trailing = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                        contentDescription = "Open privacy policy",
+                        contentDescription = stringResource(R.string.cd_open_privacy_policy),
                         tint = BrandPrimary,
                         modifier = Modifier.size(20.dp)
                     )
@@ -274,7 +274,7 @@ fun SettingsScreen() {
                 trailing = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                        contentDescription = "Open accessibility settings",
+                        contentDescription = stringResource(R.string.cd_open_accessibility),
                         tint = BrandPrimary,
                         modifier = Modifier.size(20.dp)
                     )
@@ -439,7 +439,7 @@ fun SettingsScreen() {
                     } else {
                         Icon(
                             imageVector = Icons.Default.PlayArrow,
-                            contentDescription = "Run verification",
+                            contentDescription = stringResource(R.string.cd_run_verification),
                             tint = BrandSecondary,
                             modifier = Modifier.size(20.dp)
                         )
@@ -462,7 +462,7 @@ fun SettingsScreen() {
                 trailing = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                        contentDescription = "Open GitHub",
+                        contentDescription = stringResource(R.string.cd_open_github),
                         tint = BrandPrimary,
                         modifier = Modifier.size(20.dp)
                     )
@@ -484,7 +484,7 @@ fun SettingsScreen() {
                 trailing = {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                        contentDescription = "Open help",
+                        contentDescription = stringResource(R.string.cd_open_help),
                         tint = BrandPrimary,
                         modifier = Modifier.size(20.dp)
                     )

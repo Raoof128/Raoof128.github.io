@@ -35,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.components.CircularProgressIndicatorWithPercentage
 import com.qrshield.android.ui.theme.QRShieldColors
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 
 /**
  * Learning Centre Screen
@@ -62,7 +64,7 @@ fun LearningCentreScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Learning Centre",
+                        text = stringResource(R.string.learning_centre_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -70,12 +72,12 @@ fun LearningCentreScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
                     IconButton(onClick = onSettingsClick) {
-                        Icon(Icons.Default.Settings, contentDescription = "Settings")
+                        Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.nav_settings))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -137,13 +139,13 @@ private fun ProgressSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Your Progress",
+                text = stringResource(R.string.your_progress),
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colorScheme.onBackground
             )
             TextButton(onClick = onViewCertificate) {
                 Text(
-                    text = "View Certificate",
+                    text = stringResource(R.string.view_certificate),
                     color = QRShieldColors.Primary,
                     fontWeight = FontWeight.Medium,
                     fontSize = 14.sp
@@ -186,12 +188,12 @@ private fun ProgressSection(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "QR-SHIELD Certified",
+                        text = stringResource(R.string.qr_shield_certified),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "$modulesCompleted of $totalModules modules completed",
+                        text = stringResource(R.string.modules_completed_fmt, modulesCompleted, totalModules),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -214,7 +216,7 @@ private fun ProgressSection(
                                 modifier = Modifier.size(16.dp)
                             )
                             Text(
-                                text = "On track",
+                                text = stringResource(R.string.on_track),
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Medium,
                                 color = QRShieldColors.Emerald600
@@ -271,7 +273,7 @@ private fun DailyTipCard(
                         modifier = Modifier.size(18.dp)
                     )
                     Text(
-                        text = "DAILY TIP",
+                        text = stringResource(R.string.daily_tip_label),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp,
@@ -301,7 +303,7 @@ private fun DailyTipCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Read Tip",
+                            text = stringResource(R.string.read_tip),
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp,
                             color = QRShieldColors.Primary
@@ -349,15 +351,15 @@ private fun ModulesSection(onModuleClick: (String) -> Unit) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Modules",
+            text = stringResource(R.string.modules),
             style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             modifier = Modifier.padding(horizontal = 16.dp)
         )
 
         // Module 1: In Progress
         ModuleCard(
-            title = "Spot the Phish",
-            description = "Master the art of visual inspection to detect malicious URLs instantly.",
+            title = stringResource(R.string.module_spot_the_phish),
+            description = stringResource(R.string.module_spot_the_phish_desc),
             status = ModuleStatus.IN_PROGRESS,
             progress = 0.4f,
             hasOfflinePin = true,
@@ -366,8 +368,8 @@ private fun ModulesSection(onModuleClick: (String) -> Unit) {
 
         // Module 2: Completed
         ModuleCard(
-            title = "QR Safety Basics",
-            description = "Introduction to QR technology and recognizing physical tampering.",
+            title = stringResource(R.string.module_qr_basics),
+            description = stringResource(R.string.module_qr_basics_desc),
             status = ModuleStatus.COMPLETED,
             hasOfflinePin = true,
             onClick = { onModuleClick("qr_basics") }
@@ -375,8 +377,8 @@ private fun ModulesSection(onModuleClick: (String) -> Unit) {
 
         // Module 3: New
         ModuleCard(
-            title = "Link Hygiene",
-            description = "Understanding redirects, shorteners, and safe browsing habits.",
+            title = stringResource(R.string.module_link_hygiene),
+            description = stringResource(R.string.module_link_hygiene_desc),
             status = ModuleStatus.NEW,
             onClick = { onModuleClick("link_hygiene") }
         )
@@ -471,7 +473,7 @@ private fun ModuleCard(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.OfflinePin,
-                                    contentDescription = "Available offline",
+                                    contentDescription = stringResource(R.string.available_offline),
                                     tint = QRShieldColors.Primary,
                                     modifier = Modifier.size(16.dp)
                                 )
@@ -559,7 +561,7 @@ private fun ModuleCard(
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Continue", fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(R.string.action_continue), fontWeight = FontWeight.SemiBold)
                     }
                 }
                 ModuleStatus.COMPLETED -> {
@@ -578,7 +580,7 @@ private fun ModuleCard(
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text("Review", fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(R.string.action_review), fontWeight = FontWeight.SemiBold)
                     }
                 }
                 ModuleStatus.NEW -> {
@@ -596,7 +598,7 @@ private fun ModuleCard(
                             contentColor = QRShieldColors.Primary
                         )
                     ) {
-                        Text("Start Module", fontWeight = FontWeight.Bold)
+                        Text(stringResource(R.string.action_start_module), fontWeight = FontWeight.Bold)
                         Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
@@ -620,17 +622,17 @@ private fun StatusBadge(status: ModuleStatus, hasOfflinePin: Boolean = false) {
             ModuleStatus.IN_PROGRESS -> Triple(
                 QRShieldColors.Orange50,
                 QRShieldColors.Orange600,
-                "In Progress"
+                stringResource(R.string.status_in_progress)
             )
             ModuleStatus.COMPLETED -> Triple(
                 QRShieldColors.Emerald50,
                 QRShieldColors.Emerald600,
-                "Completed"
+                stringResource(R.string.status_completed)
             )
             ModuleStatus.NEW -> Triple(
                 QRShieldColors.Gray100,
                 QRShieldColors.Gray600,
-                "New Module"
+                stringResource(R.string.status_new_module)
             )
         }
 
@@ -691,7 +693,7 @@ private fun ReportThreatCard(onClick: () -> Unit) {
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
-                        text = "SECURITY TOOL",
+                        text = stringResource(R.string.security_tool),
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp,
@@ -700,13 +702,13 @@ private fun ReportThreatCard(onClick: () -> Unit) {
                 }
 
                 Text(
-                    text = "Report a Threat",
+                    text = stringResource(R.string.report_a_threat),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = Color.White
                 )
 
                 Text(
-                    text = "Learn how to report suspicious QRs.",
+                    text = stringResource(R.string.report_a_threat_desc),
                     style = MaterialTheme.typography.bodySmall,
                     color = QRShieldColors.Slate300
                 )
@@ -721,7 +723,7 @@ private fun ReportThreatCard(onClick: () -> Unit) {
             ) {
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
-                    contentDescription = "Go to Report Threat",
+                    contentDescription = stringResource(R.string.report_a_threat),
                     tint = Color.White
                 )
             }

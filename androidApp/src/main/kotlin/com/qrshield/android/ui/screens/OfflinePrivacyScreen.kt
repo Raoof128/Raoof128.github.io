@@ -34,6 +34,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 
 /**
  * Offline Privacy Screen
@@ -57,7 +59,7 @@ fun OfflinePrivacyScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Privacy & Offline",
+                        text = stringResource(R.string.privacy_offline_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -65,7 +67,7 @@ fun OfflinePrivacyScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
@@ -119,7 +121,7 @@ fun OfflinePrivacyScreen(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Read Full Privacy Policy",
+                    text = stringResource(R.string.privacy_read_full),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
@@ -156,14 +158,14 @@ private fun PrivacyHeroSection() {
 
         // Title
         Text(
-            text = "Your Data Never Leaves",
+            text = stringResource(R.string.privacy_hero_title),
             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             textAlign = TextAlign.Center
         )
 
         // Description
         Text(
-            text = "QR-SHIELD operates entirely on your device. No cloud. No servers. No data collection. Complete privacy by design.",
+            text = stringResource(R.string.privacy_hero_desc),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -192,7 +194,7 @@ private fun PrivacyHeroSection() {
                     modifier = Modifier.size(18.dp)
                 )
                 Text(
-                    text = "100% Offline Operation",
+                    text = stringResource(R.string.privacy_offline_badge),
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color = QRShieldColors.Emerald600
                 )
@@ -205,7 +207,7 @@ private fun PrivacyHeroSection() {
 private fun PrivacyArchitectureSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Privacy Architecture",
+            text = stringResource(R.string.privacy_architecture),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -214,32 +216,32 @@ private fun PrivacyArchitectureSection() {
                 icon = Icons.Default.Storage,
                 iconBgColor = QRShieldColors.Primary.copy(alpha = 0.1f),
                 iconColor = QRShieldColors.Primary,
-                title = "Local Database",
-                description = "Threat signatures stored encrypted on-device. Updated via secure offline imports."
+                title = stringResource(R.string.privacy_local_db_title),
+                description = stringResource(R.string.privacy_local_db_desc)
             )
 
             PrivacyFeatureCard(
                 icon = Icons.Default.Memory,
                 iconBgColor = QRShieldColors.Purple50,
                 iconColor = QRShieldColors.Purple600,
-                title = "On-Device AI",
-                description = "ML models run locally using optimized inference. Zero cloud dependencies."
+                title = stringResource(R.string.privacy_on_device_ai_title),
+                description = stringResource(R.string.privacy_on_device_ai_desc)
             )
 
             PrivacyFeatureCard(
                 icon = Icons.Default.DeleteForever,
                 iconBgColor = QRShieldColors.Orange50,
                 iconColor = QRShieldColors.Orange600,
-                title = "No Data Retention",
-                description = "Scan history can be wiped instantly. We collect zero telemetry or analytics."
+                title = stringResource(R.string.privacy_no_retention_title),
+                description = stringResource(R.string.privacy_no_retention_desc)
             )
 
             PrivacyFeatureCard(
                 icon = Icons.Default.VpnLock,
                 iconBgColor = QRShieldColors.Emerald50,
                 iconColor = QRShieldColors.Emerald600,
-                title = "Air-Gap Compatible",
-                description = "Works perfectly in isolated networks. Designed for enterprise security."
+                title = stringResource(R.string.privacy_airgap_title),
+                description = stringResource(R.string.privacy_airgap_desc)
             )
         }
     }
@@ -311,7 +313,7 @@ private fun PrivacyFeatureCard(
 private fun DataFlowSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Data Flow",
+            text = stringResource(R.string.privacy_data_flow),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -335,29 +337,29 @@ private fun DataFlowSection() {
             ) {
                 DataFlowStep(
                     step = 1,
-                    title = "QR Code Scanned",
-                    description = "Camera captures and decodes QR locally",
+                    title = stringResource(R.string.privacy_step_1_title),
+                    description = stringResource(R.string.privacy_step_1_desc),
                     isCompleted = true
                 )
                 DataFlowConnector()
                 DataFlowStep(
                     step = 2,
-                    title = "URL Extracted",
-                    description = "Link parsed without external lookups",
+                    title = stringResource(R.string.privacy_step_2_title),
+                    description = stringResource(R.string.privacy_step_2_desc),
                     isCompleted = true
                 )
                 DataFlowConnector()
                 DataFlowStep(
                     step = 3,
-                    title = "AI Analysis",
-                    description = "On-device ML evaluates threat level",
+                    title = stringResource(R.string.privacy_step_3_title),
+                    description = stringResource(R.string.privacy_step_3_desc),
                     isCompleted = true
                 )
                 DataFlowConnector()
                 DataFlowStep(
                     step = 4,
-                    title = "Result Displayed",
-                    description = "Verdict shown, data stays on device",
+                    title = stringResource(R.string.privacy_step_4_title),
+                    description = stringResource(R.string.privacy_step_4_desc),
                     isCompleted = true
                 )
             }
@@ -431,7 +433,7 @@ private fun DataFlowConnector() {
 private fun TrustBadgesSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Compliance & Certifications",
+            text = stringResource(R.string.privacy_compliance),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -441,18 +443,18 @@ private fun TrustBadgesSection() {
         ) {
             TrustBadge(
                 modifier = Modifier.weight(1f),
-                title = "GDPR",
-                subtitle = "Compliant"
+                title = stringResource(R.string.privacy_gdpr),
+                subtitle = stringResource(R.string.privacy_compliant)
             )
             TrustBadge(
                 modifier = Modifier.weight(1f),
-                title = "SOC 2",
-                subtitle = "Type II"
+                title = stringResource(R.string.privacy_soc2),
+                subtitle = stringResource(R.string.privacy_type2)
             )
             TrustBadge(
                 modifier = Modifier.weight(1f),
-                title = "ISO",
-                subtitle = "27001"
+                title = stringResource(R.string.privacy_iso),
+                subtitle = stringResource(R.string.privacy_27001)
             )
         }
     }

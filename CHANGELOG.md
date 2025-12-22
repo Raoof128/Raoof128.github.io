@@ -43,6 +43,14 @@ Added comprehensive multi-language support to the iOS application, achieving pla
 
 ---
 
+## [1.17.2] - 2025-12-24
+
+### 🌍 Web App - Full Localization Coverage
+- Localized all remaining Web App pages (Results, Export, Onboarding, Game, Trust Centre, Dashboard, Scanner, Threat).
+- Translated dynamic JS strings (toasts, modals, tooltips, status lines, and template messages) with language-aware formatting.
+- Generated complete common string maps for German, Spanish, French, Chinese (Simplified), Japanese, and Hindi.
+- Applied translation hooks on DOMContentLoaded across web pages and localized theme toggle copy.
+
 ## [1.17.0] - 2025-12-23
 
 

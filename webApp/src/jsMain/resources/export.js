@@ -93,6 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update preview with data
     updatePreview();
 
+    window.qrshieldApplyTranslations?.(document.body);
+
     console.log('[QR-SHIELD Export] Ready');
 });
 

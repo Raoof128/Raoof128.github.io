@@ -41,6 +41,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 
 /**
  * QR-SHIELD Top App Bar
@@ -74,7 +76,7 @@ fun QRShieldTopBar(
                 IconButton(onClick = onBackClick) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back",
+                        contentDescription = stringResource(R.string.cd_back),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -95,7 +97,7 @@ fun QRShieldTopBar(
                 IconButton(onClick = onActionClick) {
                     Icon(
                         imageVector = actionIcon,
-                        contentDescription = "Action",
+                        contentDescription = stringResource(R.string.cd_action),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -630,7 +632,7 @@ fun UrlDisplayBox(
         ) {
             Icon(
                 imageVector = Icons.Default.ContentCopy,
-                contentDescription = "Copy URL",
+                contentDescription = stringResource(R.string.cd_copy_url),
                 tint = QRShieldColors.Primary,
                 modifier = Modifier.size(20.dp)
             )

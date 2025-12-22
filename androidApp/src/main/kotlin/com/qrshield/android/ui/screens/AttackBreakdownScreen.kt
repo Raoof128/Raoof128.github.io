@@ -35,6 +35,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 
 /**
  * Attack Breakdown Screen
@@ -99,18 +101,18 @@ fun AttackBreakdownScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Attack Analysis",
+                        text = stringResource(R.string.attack_analysis),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
                     IconButton(onClick = onShareClick) {
-                        Icon(Icons.Default.Share, contentDescription = "Share")
+                        Icon(Icons.Default.Share, contentDescription = stringResource(R.string.cd_share))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -235,7 +237,7 @@ private fun ThreatSummaryCard(
 private fun AttackChainSection(attackPhases: List<AttackPhase>) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Attack Chain",
+            text = stringResource(R.string.attack_chain),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -386,7 +388,7 @@ private fun AttackPhaseItem(
 private fun IOCsSection(iocs: List<IndicatorOfCompromise>) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Indicators of Compromise",
+            text = stringResource(R.string.iocs_title),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -475,7 +477,7 @@ private fun IOCItem(
 private fun RemediationSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Recommended Actions",
+            text = stringResource(R.string.recommended_actions),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -495,15 +497,15 @@ private fun RemediationSection() {
             ) {
                 RemediationItem(
                     number = 1,
-                    text = "Do not enter credentials on this page"
+                    text = stringResource(R.string.remediation_1)
                 )
                 RemediationItem(
                     number = 2,
-                    text = "Block the domain in your enterprise firewall"
+                    text = stringResource(R.string.remediation_2)
                 )
                 RemediationItem(
                     number = 3,
-                    text = "If credentials were entered, reset passwords immediately"
+                    text = stringResource(R.string.remediation_3)
                 )
             }
         }
@@ -577,7 +579,7 @@ private fun ActionBottomBar(
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = "Block",
+                    text = stringResource(R.string.action_block),
                     fontWeight = FontWeight.Bold
                 )
             }
@@ -599,7 +601,7 @@ private fun ActionBottomBar(
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = "Report to IT",
+                    text = stringResource(R.string.action_report_it),
                     fontWeight = FontWeight.Bold
                 )
             }

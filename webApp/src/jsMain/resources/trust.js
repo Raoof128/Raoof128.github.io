@@ -135,6 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render initial UI
     renderUI();
 
+    window.qrshieldApplyTranslations?.(document.body);
+
     console.log('[QR-SHIELD Trust Centre] Ready');
 });
 
@@ -292,7 +294,7 @@ function saveSettings() {
  * Reset all settings to default
  */
 function resetSettings() {
-    if (!confirm('Reset all Trust Centre settings to default?')) {
+    if (!confirm(translateText('Reset all Trust Centre settings to default?'))) {
         return;
     }
 

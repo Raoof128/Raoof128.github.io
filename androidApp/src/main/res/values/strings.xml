@@ -66,6 +66,7 @@
     <string name="scan_to_see_history">Your scan results will appear here</string>
     <string name="no_results">No Results Found</string>
     <string name="try_different_filter">Try a different filter or search term</string>
+    <string name="history_go_to_scanner">Go to Scanner tab to start</string>
     
     <!-- Settings Screen -->
     <string name="settings_scanning">Scanning</string>
@@ -200,6 +201,14 @@
     <string name="cd_back">Back</string>
     <string name="cd_share">Share</string>
     <string name="cd_copy_url">Copy URL</string>
+    <string name="cd_action">Action</string>
+    <string name="cd_open_system_settings">Open system settings</string>
+    <string name="cd_open_privacy_policy">Open privacy policy</string>
+    <string name="cd_open_accessibility">Open accessibility settings</string>
+    <string name="cd_run_verification">Run verification</string>
+    <string name="cd_open_github">Open GitHub</string>
+    <string name="cd_open_help">Open help</string>
+    <string name="cd_settings_screen">Settings screen with app preferences</string>
     <string name="scan_meta_fmt">Scanned: %1$s • Engine v%2$s • %3$s</string>
     <string name="scan_mode_offline">Offline</string>
     <string name="scan_mode_online">Online</string>
@@ -297,7 +306,6 @@
     <string name="cd_dashboard_screen">Dashboard home screen</string>
     <string name="cd_scanner_screen">QR code scanner screen</string>
     <string name="cd_history_screen">Scan history screen</string>
-    <string name="cd_settings_screen">Settings screen</string>
     
     <!-- Beat The Bot Screen -->
     <string name="training_session">Training Session</string>
@@ -315,5 +323,105 @@
     <string name="mark_safe">Mark Safe</string>
     <string name="quick_hint">Quick Hint</string>
     <string name="cd_dismiss_hint">Dismiss hint</string>
+    
+    <!-- Learning Centre Screen -->
+    <string name="learning_centre_title">Learning Centre</string>
+    <string name="your_progress">Your Progress</string>
+    <string name="view_certificate">View Certificate</string>
+    <string name="qr_shield_certified">QR-SHIELD Certified</string>
+    <string name="modules_completed_fmt">%1$d of %2$d modules completed</string>
+    <string name="on_track">On track</string>
+    <string name="daily_tip_label">DAILY TIP</string>
+    <string name="daily_tip_url_shorteners">URL Shorteners</string>
+    <string name="daily_tip_url_shorteners_desc">Learn how attackers hide malicious links.</string>
+    <string name="read_tip">Read Tip</string>
+    <string name="modules">Modules</string>
+    <string name="module_spot_the_phish">Spot the Phish</string>
+    <string name="module_spot_the_phish_desc">Master the art of visual inspection to detect malicious URLs instantly.</string>
+    <string name="module_qr_basics">QR Safety Basics</string>
+    <string name="module_qr_basics_desc">Introduction to QR technology and recognizing physical tampering.</string>
+    <string name="module_link_hygiene">Link Hygiene</string>
+    <string name="module_link_hygiene_desc">Understanding redirects, shorteners, and safe browsing habits.</string>
+    <string name="status_in_progress">In Progress</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_new_module">New Module</string>
+    <string name="action_continue">Continue</string>
+    <string name="action_review">Review</string>
+    <string name="action_start_module">Start Module</string>
+    <string name="security_tool">SECURITY TOOL</string>
+    <string name="report_a_threat">Report a Threat</string>
+    <string name="report_a_threat_desc">Learn how to report suspicious QRs.</string>
+    <string name="available_offline">Available offline</string>
+    
+    <!-- Heuristics Screen -->
+    <string name="heuristics_engine_title">Heuristics Engine</string>
+    <string name="active_rules">Active Rules</string>
+    <string name="detection_rate">Detection Rate</string>
+    <string name="detection_rules">DETECTION RULES</string>
+    <string name="rules_count_fmt">%d Rules</string>
+    <string name="add_rule">Add rule</string>
+    <string name="category_all">All</string>
+    <string name="category_url_pattern">URL Pattern</string>
+    <string name="category_domain">Domain</string>
+    <string name="category_redirect">Redirect</string>
+    <string name="category_ssl">SSL/TLS</string>
+    <string name="category_content">Content</string>
+    <string name="severity_critical">Critical</string>
+    <string name="severity_high">High</string>
+    <string name="severity_medium">Medium</string>
+    <string name="severity_low">Low</string>
+    
+    <!-- Sandbox WebView -->
+    <string name="sandbox_exit">Exit Sandbox</string>
+    <string name="sandbox_navigation_blocked">Navigation Blocked</string>
+    <string name="sandbox_cannot_open">Cannot Open URL</string>
+    <string name="sandbox_security">Security</string>
+    <string name="sandbox_close">Close</string>
+    
+    <!-- Attack Breakdown Screen -->
+    <string name="attack_analysis">Attack Analysis</string>
+    <string name="attack_chain">Attack Chain</string>
+    <string name="iocs_title">Indicators of Compromise</string>
+    <string name="recommended_actions">Recommended Actions</string>
+    <string name="phase_executed">Executed</string>
+    <string name="phase_blocked">Blocked</string>
+    <string name="phase_prevented">Prevented</string>
+    <string name="action_block">Block</string>
+    <string name="action_report_it">Report to IT</string>
+    <string name="remediation_1">Do not enter credentials on this page</string>
+    <string name="remediation_2">Block the domain in your enterprise firewall</string>
+    <string name="remediation_3">If credentials were entered, reset passwords immediately</string>
+    
+    <!-- Offline Privacy Screen -->
+    <string name="privacy_offline_title">Privacy &amp; Offline</string>
+    <string name="privacy_hero_title">Your Data Never Leaves</string>
+    <string name="privacy_hero_desc">QR-SHIELD operates entirely on your device. No cloud. No servers. No data collection. Complete privacy by design.</string>
+    <string name="privacy_offline_badge">100% Offline Operation</string>
+    <string name="privacy_architecture">Privacy Architecture</string>
+    <string name="privacy_local_db_title">Local Database</string>
+    <string name="privacy_local_db_desc">Threat signatures stored encrypted on-device. Updated via secure offline imports.</string>
+    <string name="privacy_on_device_ai_title">On-Device AI</string>
+    <string name="privacy_on_device_ai_desc">ML models run locally using optimized inference. Zero cloud dependencies.</string>
+    <string name="privacy_no_retention_title">No Data Retention</string>
+    <string name="privacy_no_retention_desc">Scan history can be wiped instantly. We collect zero telemetry or analytics.</string>
+    <string name="privacy_airgap_title">Air-Gap Compatible</string>
+    <string name="privacy_airgap_desc">Works perfectly in isolated networks. Designed for enterprise security.</string>
+    <string name="privacy_data_flow">Data Flow</string>
+    <string name="privacy_step_1_title">QR Code Scanned</string>
+    <string name="privacy_step_1_desc">Camera captures and decodes QR locally</string>
+    <string name="privacy_step_2_title">URL Extracted</string>
+    <string name="privacy_step_2_desc">Link parsed without external lookups</string>
+    <string name="privacy_step_3_title">AI Analysis</string>
+    <string name="privacy_step_3_desc">On-device ML evaluates threat level</string>
+    <string name="privacy_step_4_title">Result Displayed</string>
+    <string name="privacy_step_4_desc">Verdict shown, data stays on device</string>
+    <string name="privacy_compliance">Compliance &amp; Certifications</string>
+    <string name="privacy_read_full">Read Full Privacy Policy</string>
+    <string name="privacy_gdpr">GDPR</string>
+    <string name="privacy_compliant">Compliant</string>
+    <string name="privacy_soc2">SOC 2</string>
+    <string name="privacy_type2">Type II</string>
+    <string name="privacy_iso">ISO</string>
+    <string name="privacy_27001">27001</string>
 </resources>
 

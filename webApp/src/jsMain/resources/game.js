@@ -262,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cacheElements();
     setupEventListeners();
     initializeGame();
+    window.qrshieldApplyTranslations?.(document.body);
 
     console.log('[QR-SHIELD Game] Ready');
 });
@@ -430,18 +431,18 @@ function endGame() {
     // Update game over modal
     if (elements.gameOverTitle) {
         if (playerWon) {
-            elements.gameOverTitle.textContent = '🎉 You Win!';
+            elements.gameOverTitle.textContent = translateText('🎉 You Win!');
         } else if (tied) {
-            elements.gameOverTitle.textContent = "It's a Tie!";
+            elements.gameOverTitle.textContent = translateText("It's a Tie!");
         } else {
-            elements.gameOverTitle.textContent = 'Game Over!';
+            elements.gameOverTitle.textContent = translateText('Game Over!');
         }
     }
 
     if (elements.gameOverMessage) {
         elements.gameOverMessage.textContent = playerWon
-            ? 'Congratulations! You beat the bot!'
-            : 'The bot was faster this time. Try again!';
+            ? translateText('Congratulations! You beat the bot!')
+            : translateText('The bot was faster this time. Try again!');
     }
 
     if (elements.finalPlayerScore) {
@@ -488,7 +489,7 @@ function resetGame() {
 }
 
 function endSession() {
-    if (confirm('Are you sure you want to end this session? Progress will be lost.')) {
+    if (confirm(translateText('Are you sure you want to end this session? Progress will be lost.'))) {
         window.location.href = 'dashboard.html';
     }
 }
@@ -517,21 +518,21 @@ function updateChallengeDisplay() {
     }
 
     if (elements.challengeMessage) {
-        elements.challengeMessage.textContent = challenge.message;
+        elements.challengeMessage.textContent = translateText(challenge.message);
     }
 
     if (elements.hintText) {
-        elements.hintText.innerHTML = challenge.hint;
+        elements.hintText.innerHTML = translateText(challenge.hint);
     }
 }
 
 function updateScoreDisplay() {
     if (elements.playerScore) {
-        elements.playerScore.textContent = `${GameState.playerScore} pts`;
+        elements.playerScore.textContent = formatText('{points} pts', { points: GameState.playerScore });
     }
 
     if (elements.botScore) {
-        elements.botScore.textContent = `${GameState.botScore} pts`;
+        elements.botScore.textContent = formatText('{points} pts', { points: GameState.botScore });
     }
 
     // Update bars
@@ -574,30 +575,34 @@ function updateAnalysisDisplay(isCorrect) {
     }
 
     if (elements.resultTitle) {
-        elements.resultTitle.textContent = isCorrect ? 'Correct Decision!' : 'Incorrect Decision';
+        elements.resultTitle.textContent = isCorrect
+            ? translateText('Correct Decision!')
+            : translateText('Incorrect Decision');
     }
 
     if (elements.resultDesc) {
+        const verdictLabel = translateText(challenge.isPhishing ? 'phishing' : 'legitimate');
+        const actualLabel = translateText(challenge.isPhishing ? 'a phishing attempt' : 'legitimate');
         elements.resultDesc.textContent = isCorrect
-            ? `You correctly identified this as ${challenge.isPhishing ? 'phishing' : 'legitimate'}.`
-            : `This was actually ${challenge.isPhishing ? 'a phishing attempt' : 'legitimate'}.`;
+            ? formatText('You correctly identified this as {label}.', { label: verdictLabel })
+            : formatText('This was actually {label}.', { label: actualLabel });
     }
 
     if (elements.botDecision) {
-        elements.botDecision.textContent = challenge.isPhishing ? 'Phishing' : 'Safe';
+        elements.botDecision.textContent = translateText(challenge.isPhishing ? 'Phishing' : 'Safe');
     }
 
     if (elements.reasoningList) {
         elements.reasoningList.innerHTML = challenge.reasons.map(reason => `
             <li>
                 <span class="material-symbols-outlined">${challenge.isPhishing ? 'warning' : 'verified'}</span>
-                <span>${reason}</span>
+                <span>${translateText(reason)}</span>
             </li>
         `).join('');
     }
 
     if (elements.educationalNote) {
-        elements.educationalNote.textContent = `"${challenge.educational}"`;
+        elements.educationalNote.textContent = `"${translateText(challenge.educational)}"`;
     }
 }
 
@@ -608,14 +613,18 @@ function showResultModal(isCorrect, points, responseTime) {
     }
 
     if (elements.modalTitle) {
-        elements.modalTitle.textContent = isCorrect ? 'Correct!' : 'Wrong!';
+        elements.modalTitle.textContent = isCorrect
+            ? translateText('Correct!')
+            : translateText('Wrong!');
     }
 
     if (elements.modalMessage) {
         const challenge = GameState.currentChallenge;
+        const verdictLabel = translateText(challenge.isPhishing ? 'phishing' : 'legitimate');
+        const actualLabel = translateText(challenge.isPhishing ? 'a phishing attempt' : 'actually legitimate');
         elements.modalMessage.textContent = isCorrect
-            ? `You spotted it correctly as ${challenge.isPhishing ? 'phishing' : 'legitimate'}!`
-            : `This was ${challenge.isPhishing ? 'a phishing attempt' : 'actually legitimate'}.`;
+            ? formatText('You spotted it correctly as {label}!', { label: verdictLabel })
+            : formatText('This was {label}.', { label: actualLabel });
     }
 
     if (elements.modalPoints) {
@@ -630,8 +639,8 @@ function showResultModal(isCorrect, points, responseTime) {
     // Check if it's the last round
     if (elements.nextRoundBtn) {
         elements.nextRoundBtn.textContent = GameState.currentRound >= GameConfig.totalRounds
-            ? 'See Results'
-            : 'Next Round';
+            ? translateText('See Results')
+            : translateText('Next Round');
     }
 
     elements.resultModal?.classList.remove('hidden');
@@ -669,7 +678,7 @@ function saveGameStats() {
 function showToast(message, type = 'success') {
     if (!elements.toast || !elements.toastMessage) return;
 
-    elements.toastMessage.textContent = message;
+    elements.toastMessage.textContent = translateText(message);
     elements.toast.classList.remove('hidden');
     elements.toast.classList.add('show');
 

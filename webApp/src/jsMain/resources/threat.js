@@ -130,6 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render scan history list
     renderScanHistory();
 
+    window.qrshieldApplyTranslations?.(document.body);
+
     console.log('[QR-SHIELD Threat] Ready');
 });
 

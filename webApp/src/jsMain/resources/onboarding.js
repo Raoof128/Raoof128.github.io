@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add staggered animations
     animateFeatureCards();
 
+    window.qrshieldApplyTranslations?.(document.body);
+
     console.log('[QR-SHIELD Onboarding] Ready');
 });
 

@@ -20,9 +20,11 @@ android {
         versionName = "1.1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        
-        // Resource configurations for localization
-        resourceConfigurations += listOf("en", "es", "fr", "de", "ja", "zh", "ar")
+    }
+    
+    // Resource configurations for localization - moved to androidResources
+    androidResources {
+        localeFilters += listOf("en", "es", "fr", "de", "ja", "zh", "ar")
     }
 
     signingConfigs {
