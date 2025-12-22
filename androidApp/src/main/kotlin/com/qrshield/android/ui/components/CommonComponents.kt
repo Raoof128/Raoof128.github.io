@@ -334,8 +334,10 @@ fun QRShieldToggle(
         label = "trackColor"
     )
 
+    // Track: 51dp wide, Thumb: 27dp, Padding: 2dp each side
+    // OFF: 2dp from left, ON: 51 - 27 - 2 = 22dp from left
     val thumbOffset by animateDpAsState(
-        targetValue = if (checked) 24.dp else 2.dp,
+        targetValue = if (checked) 22.dp else 2.dp,
         animationSpec = tween(200),
         label = "thumbOffset"
     )
@@ -352,12 +354,12 @@ fun QRShieldToggle(
                 enabled = enabled,
                 role = Role.Switch,
                 onClick = { onCheckedChange(!checked) }
-            )
+            ),
+        contentAlignment = Alignment.CenterStart
     ) {
         Box(
             modifier = Modifier
                 .offset(x = thumbOffset)
-                .padding(vertical = 2.dp)
                 .size(27.dp)
                 .clip(CircleShape)
                 .background(Color.White)

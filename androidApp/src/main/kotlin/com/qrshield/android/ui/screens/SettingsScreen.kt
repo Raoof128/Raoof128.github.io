@@ -16,6 +16,8 @@
 
 package com.qrshield.android.ui.screens
 
+import com.qrshield.android.ui.components.QRShieldToggle
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -730,15 +732,9 @@ private fun SettingsToggle(
             )
         }
 
-        Switch(
+        QRShieldToggle(
             checked = checked,
-            onCheckedChange = onCheckedChange,
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.White,
-                checkedTrackColor = BrandPrimary,
-                uncheckedThumbColor = TextMuted,
-                uncheckedTrackColor = BackgroundCard
-            )
+            onCheckedChange = onCheckedChange
         )
     }
 }

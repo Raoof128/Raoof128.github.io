@@ -12,7 +12,7 @@
     
     <!-- Dashboard -->
     <string name="dashboard_welcome_back">Welcome back</string>
-    <string name="dashboard_default_user">Security Admin</string>
+    <string name="dashboard_default_user">QR-SHIELD User</string>
     <string name="dashboard_shield_active">SHIELD ACTIVE</string>
     <string name="dashboard_headline">Secure. Offline.\nExplainable Defence.</string>
     <string name="dashboard_subtitle">Your enterprise database is up to date and monitoring locally.</string>
