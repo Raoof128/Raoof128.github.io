@@ -866,17 +866,19 @@
 
     // Expose public API
     window.QRShieldUI = {
-        // User management
+        // User & Stats
         getUser,
         saveUser,
-
-        // Stats
         getAppStats,
         incrementScanCount,
 
         // Notifications
         getNotifications,
         addNotification,
+        markNotificationRead,
+        markAllNotificationsRead,
+
+        // UI Helpers
         showToast,
 
         // Data export

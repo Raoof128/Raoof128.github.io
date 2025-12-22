@@ -15,7 +15,6 @@
 const ScannerConfig = {
     version: '2.4.0',
     scanInterval: 100, // ms between scan attempts
-    maxHistoryItems: 50,
     defaultLatency: 4,
 };
 
@@ -28,7 +27,6 @@ const ScannerState = {
     isCameraActive: false,
     stream: null,
     scanAnimationFrame: null,
-    history: [],
     isSidebarOpen: false,
     isTorchOn: false,
 };
@@ -88,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
 
     // Load scan history
-    loadHistory();
+    renderHistory();
 
     // Initialize Kotlin engine callback
     setupKotlinBridge();
@@ -213,16 +211,22 @@ function setupKotlinBridge() {
         // Stop scanning animation
         hideScanningState();
 
-        // Add to history
-        addToHistory({
-            url: getDomainFromUrl(url),
-            fullUrl: url,
-            verdict: verdict,
-            score: score,
-            timestamp: Date.now(),
-        });
+        // Add to history via Shared UI
+        if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
+            window.QRShieldUI.addScanToHistory({
+                url: url,
+                verdict: verdict === 'MALICIOUS' ? 'HIGH' :
+                    verdict === 'SUSPICIOUS' ? 'MEDIUM' :
+                        verdict === 'SAFE' ? 'SAFE' : 'LOW',
+                score: score || 0,
+                signals: flags || []
+            });
+        }
 
-        // Navigate to results page - this is the critical fix!
+        // Update local list
+        renderHistory();
+
+        // Navigate to results page
         navigateToResults(url, verdict, score);
 
         // Also call original if exists
@@ -602,161 +606,47 @@ function analyzeUrlFromModal() {
 // HISTORY MANAGEMENT
 // =============================================================================
 
-// Scanner uses its own internal key for the sidebar display
-// QRShieldUI manages the main shared history for threat.html
-const SCANNER_HISTORY_KEY = 'qrshield_scanner_display';
-
-function loadHistory() {
-    try {
-        const stored = localStorage.getItem(SCANNER_HISTORY_KEY);
-        if (stored) {
-            ScannerState.history = JSON.parse(stored);
-        } else {
-            ScannerState.history = [];
-        }
-    } catch (e) {
-        console.error('[Scanner] Failed to load history:', e);
-        ScannerState.history = [];
-    }
-
-    syncHistoryWithSharedStore();
-    renderHistory();
-}
-
-function saveHistory() {
-    try {
-        localStorage.setItem(SCANNER_HISTORY_KEY, JSON.stringify(ScannerState.history));
-    } catch (e) {
-        console.error('[Scanner] Failed to save history:', e);
-    }
-}
-
-function addToHistory(item) {
-    let sharedEntry = null;
-    if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
-        sharedEntry = window.QRShieldUI.addScanToHistory({
-            url: item.fullUrl,
-            verdict: item.verdict === 'MALICIOUS' ? 'HIGH' :
-                item.verdict === 'SUSPICIOUS' ? 'MEDIUM' :
-                    item.verdict === 'SAFE' ? 'SAFE' : 'LOW',
-            score: item.score || 0,
-            signals: item.flags || []
-        });
-    }
-
-    // Avoid duplicates - check if URL already exists in recent history
-    const existingIndex = ScannerState.history.findIndex(
-        h => h.fullUrl === item.fullUrl
-    );
-
-    if (existingIndex !== -1) {
-        // Update existing entry timestamp instead of adding duplicate
-        ScannerState.history[existingIndex].timestamp = item.timestamp;
-        ScannerState.history[existingIndex].verdict = item.verdict;
-        ScannerState.history[existingIndex].score = item.score;
-        ScannerState.history[existingIndex].url = item.url;
-        ScannerState.history[existingIndex].fullUrl = item.fullUrl;
-        ScannerState.history[existingIndex].scanId = sharedEntry?.id || ScannerState.history[existingIndex].scanId;
-        // Move to top
-        const updated = ScannerState.history.splice(existingIndex, 1)[0];
-        ScannerState.history.unshift(updated);
-    } else {
-        if (sharedEntry?.id) {
-            item.scanId = sharedEntry.id;
-        }
-        ScannerState.history.unshift(item);
-    }
-
-    // Limit history size
-    if (ScannerState.history.length > ScannerConfig.maxHistoryItems) {
-        ScannerState.history.pop();
-    }
-
-    saveHistory();
-    renderHistory();
-}
-
-function syncHistoryWithSharedStore() {
-    if (!window.QRShieldUI || !window.QRShieldUI.getScanHistory || !window.QRShieldUI.addScanToHistory) return;
-
-    const sharedHistory = window.QRShieldUI.getScanHistory();
-    let updated = false;
-
-    ScannerState.history.forEach(item => {
-        if (item.scanId) return;
-
-        const match = findSharedScanMatch(item, sharedHistory);
-        if (match) {
-            item.scanId = match.id;
-            updated = true;
-            return;
-        }
-
-        const sharedEntry = window.QRShieldUI.addScanToHistory({
-            url: item.fullUrl,
-            verdict: item.verdict === 'MALICIOUS' ? 'HIGH' :
-                item.verdict === 'SUSPICIOUS' ? 'MEDIUM' :
-                    item.verdict === 'SAFE' ? 'SAFE' : 'LOW',
-            score: item.score || 0,
-            signals: item.flags || []
-        });
-
-        if (sharedEntry?.id) {
-            item.scanId = sharedEntry.id;
-            updated = true;
-        }
-    });
-
-    if (updated) {
-        saveHistory();
-    }
-}
-
 function renderHistory() {
     const list = elements.scansList;
     if (!list) return;
 
     list.innerHTML = '';
 
-    if (ScannerState.history.length === 0) {
+    // Get history from shared UI
+    let history = [];
+    if (window.QRShieldUI && window.QRShieldUI.getScanHistory) {
+        history = window.QRShieldUI.getScanHistory();
+    }
+
+    if (history.length === 0) {
         list.innerHTML = `
             <div class="scan-item" style="justify-content: center; opacity: 0.5;">
-                <span style="color: var(--text-muted);">No recent scans</span>
+                <span style="color: var(--text-muted); font-size: 0.875rem;">No recent scans</span>
             </div>
         `;
         return;
     }
 
     // Show max 4 items in sidebar
-    const displayItems = ScannerState.history.slice(0, 4);
+    const displayItems = history.slice(0, 4);
 
     displayItems.forEach(item => {
         const div = document.createElement('div');
         div.className = 'scan-item';
         div.onclick = () => {
-            let scanId = item.scanId;
-            if (!scanId && window.QRShieldUI && window.QRShieldUI.getScanHistory) {
-                const history = window.QRShieldUI.getScanHistory();
-                const match = findSharedScanMatch(item, history);
-                scanId = match?.id || null;
-            }
-
-            if (scanId) {
-                window.location.href = `results.html?scanId=${encodeURIComponent(scanId)}`;
-                return;
-            }
-
-            const params = new URLSearchParams();
-            params.set('url', item.fullUrl);
-            params.set('verdict', item.verdict);
-            params.set('score', item.score || 0);
-            window.location.href = `results.html?${params.toString()}`;
+            // Navigate to results
+            window.location.href = `results.html?scanId=${encodeURIComponent(item.id)}`;
         };
 
-        const iconClass = item.verdict === 'SAFE' ? 'safe' :
-            item.verdict === 'SUSPICIOUS' ? 'warning' : 'danger';
-        const iconName = item.verdict === 'SAFE' ? 'check_circle' : 'warning';
-        const verdictText = item.verdict === 'MALICIOUS' ? 'Phishing' : item.verdict.charAt(0) + item.verdict.slice(1).toLowerCase();
+        const iconClass = item.verdict === 'SAFE' || item.verdict === 'LOW' ? 'safe' :
+            item.verdict === 'SUSPICIOUS' || item.verdict === 'MEDIUM' ? 'warning' : 'danger';
+
+        const iconName = item.verdict === 'SAFE' || item.verdict === 'LOW' ? 'check_circle' : 'warning';
+
+        let verdictText = item.verdict;
+        if (verdictText === 'HIGH') verdictText = 'Malicious';
+        else if (verdictText === 'MEDIUM') verdictText = 'Suspicious';
+        else verdictText = verdictText.charAt(0) + verdictText.slice(1).toLowerCase();
 
         const timeAgo = getTimeAgo(item.timestamp);
 
@@ -765,37 +655,13 @@ function renderHistory() {
                 <span class="material-symbols-outlined">${iconName}</span>
             </div>
             <div class="scan-info">
-                <span class="scan-url">${escapeHtml(item.url)}</span>
+                <span class="scan-url">${escapeHtml(getDomainFromUrl(item.url))}</span>
                 <span class="scan-meta">${timeAgo} • ${verdictText}</span>
             </div>
         `;
 
         list.appendChild(div);
     });
-}
-
-function findSharedScanMatch(item, history) {
-    if (!item || !history || history.length === 0) return null;
-
-    const exact = history.find(scan => scan.url === item.fullUrl);
-    if (exact) return exact;
-
-    const itemDomain = getDomainFromUrl(item.fullUrl);
-    const candidates = history.filter(scan => getDomainFromUrl(scan.url) === itemDomain);
-    if (candidates.length === 0) return null;
-
-    if (!item.timestamp) return candidates[0];
-
-    let best = candidates[0];
-    let bestDelta = Math.abs((best.timestamp || 0) - item.timestamp);
-    for (let i = 1; i < candidates.length; i++) {
-        const delta = Math.abs((candidates[i].timestamp || 0) - item.timestamp);
-        if (delta < bestDelta) {
-            best = candidates[i];
-            bestDelta = delta;
-        }
-    }
-    return best;
 }
 
 // =============================================================================

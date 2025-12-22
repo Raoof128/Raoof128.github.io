@@ -13,8 +13,6 @@
 
 const DashboardConfig = {
     version: '2.4.1',
-    statsKey: 'qrshield_stats',
-    historyKey: 'qrshield_scan_history',
 };
 
 // =============================================================================
@@ -22,12 +20,6 @@ const DashboardConfig = {
 // =============================================================================
 
 const DashboardState = {
-    stats: {
-        threats: 0,
-        safeScans: 0,
-        totalScans: 0,
-    },
-    scanHistory: [],
     isSidebarOpen: false,
 };
 
@@ -59,6 +51,11 @@ const elements = {
     // Toast
     toast: null,
     toastMessage: null,
+
+    // DB Stats
+    dbVersion: null,
+    dbLastUpdate: null,
+    dbSignatures: null,
 };
 
 // =============================================================================
@@ -71,14 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cache DOM elements
     cacheElements();
 
-    // Load saved data
-    loadStats();
-    loadHistory();
-
     // Setup event listeners
     setupEventListeners();
 
-    // Render UI
+    // Render UI (fetches data from Shared UI)
     renderUI();
 
     console.log('[QR-SHIELD Dashboard] Ready');
@@ -100,6 +93,9 @@ function cacheElements() {
     elements.recentScansBody = document.getElementById('recentScansBody');
     elements.toast = document.getElementById('toast');
     elements.toastMessage = document.getElementById('toastMessage');
+    elements.dbVersion = document.getElementById('dbVersion');
+    elements.dbLastUpdate = document.getElementById('dbLastUpdate');
+    elements.dbSignatures = document.getElementById('dbSignatures');
 }
 
 /**
@@ -143,81 +139,6 @@ function setupEventListeners() {
 }
 
 // =============================================================================
-// DATA MANAGEMENT
-// =============================================================================
-
-/**
- * Load statistics from localStorage
- */
-function loadStats() {
-    try {
-        const stored = localStorage.getItem(DashboardConfig.statsKey);
-        if (stored) {
-            DashboardState.stats = JSON.parse(stored);
-        } else {
-            // Initialize with demo data
-            DashboardState.stats = {
-                threats: 0,
-                safeScans: 124,
-                totalScans: 124,
-            };
-        }
-    } catch (e) {
-        console.error('[Dashboard] Failed to load stats:', e);
-    }
-}
-
-/**
- * Load scan history from localStorage
- */
-function loadHistory() {
-    try {
-        const stored = localStorage.getItem(DashboardConfig.historyKey);
-        if (stored) {
-            DashboardState.scanHistory = JSON.parse(stored);
-        } else {
-            // Initialize with demo data
-            DashboardState.scanHistory = [
-                {
-                    url: 'github.com/login',
-                    status: 'safe',
-                    details: 'Valid TLS cert, Trusted Domain',
-                    time: '10:42 AM',
-                    favicon: 'https://www.google.com/s2/favicons?domain=github.com&sz=32',
-                },
-                {
-                    url: 'secure-bank-verify.net',
-                    status: 'phish',
-                    details: 'Homograph attack detected',
-                    time: '09:15 AM',
-                    favicon: null,
-                },
-                {
-                    url: 'company.atlassian.net',
-                    status: 'safe',
-                    details: 'Internal Allowlist Match',
-                    time: '08:55 AM',
-                    favicon: 'https://www.google.com/s2/favicons?domain=atlassian.com&sz=32',
-                },
-            ];
-        }
-    } catch (e) {
-        console.error('[Dashboard] Failed to load history:', e);
-    }
-}
-
-/**
- * Save statistics to localStorage
- */
-function saveStats() {
-    try {
-        localStorage.setItem(DashboardConfig.statsKey, JSON.stringify(DashboardState.stats));
-    } catch (e) {
-        console.error('[Dashboard] Failed to save stats:', e);
-    }
-}
-
-// =============================================================================
 // UI RENDERING
 // =============================================================================
 
@@ -227,19 +148,52 @@ function saveStats() {
 function renderUI() {
     renderStats();
     renderHistory();
+    updateDbStats();
 }
 
 /**
- * Render statistics
+ * Render statistics using Shared UI
  */
 function renderStats() {
+    // Wait for QRShieldUI to be ready
+    if (!window.QRShieldUI || !window.QRShieldUI.getAppStats) {
+        setTimeout(renderStats, 100);
+        return;
+    }
+
+    const stats = window.QRShieldUI.getAppStats();
+
     if (elements.threatCount) {
-        elements.threatCount.textContent = DashboardState.stats.threats;
+        elements.threatCount.textContent = stats.threatsBlocked || 0;
     }
 
     if (elements.safeCount) {
-        elements.safeCount.textContent = DashboardState.stats.safeScans;
+        elements.safeCount.textContent = stats.safeUrls || 0;
     }
+}
+
+/**
+ * Update database statistics (mocked for now, but dynamic)
+ */
+function updateDbStats() {
+    // Current version
+    if (elements.dbVersion) elements.dbVersion.textContent = 'v2.4.1';
+
+    // Mock "Today at 04:00 AM" or similar logic based on current time
+    const now = new Date();
+    // Round to previous 4-hour block for "stability" illusion
+    const hour = Math.floor(now.getHours() / 4) * 4;
+    const updateTime = new Date(now);
+    updateTime.setHours(hour, 0, 0, 0);
+
+    const timeStr = updateTime.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+
+    if (elements.dbLastUpdate) {
+        elements.dbLastUpdate.textContent = `Today, ${timeStr}`;
+    }
+
+    // Signatures
+    if (elements.dbSignatures) elements.dbSignatures.textContent = '4,281,092';
 }
 
 // Helper for translation
@@ -674,8 +628,5 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         DashboardState,
         DashboardConfig,
-        loadStats,
-        loadHistory,
-        saveStats,
     };
 }
