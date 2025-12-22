@@ -1,0 +1,199 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Hindi (हिन्दी) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Kotlin मल्टीप्लेटफ़ॉर्म QRishing डिटेक्टर";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "डैशबोर्ड";
+"tab.scan" = "स्कैन";
+"tab.history" = "इतिहास";
+"tab.training" = "प्रशिक्षण";
+"tab.settings" = "सेटिंग्स";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "स्कैन हो रहा है";
+"scanner.paused" = "रुका हुआ";
+"scanner.analyzing" = "विश्लेषण हो रहा है...";
+"scanner.point_at_qr" = "QR कोड की ओर करें";
+"scanner.gallery" = "गैलरी";
+"scanner.history" = "इतिहास";
+"scanner.scans_count" = "स्कैन: %d";
+"scanner.error_dismiss" = "त्रुटि खारिज करें";
+
+// MARK: - Camera Permission
+"camera.access_required" = "कैमरा एक्सेस आवश्यक";
+"camera.access_message" = "QR-SHIELD को QR कोड स्कैन करने के लिए कैमरा एक्सेस चाहिए। कृपया सेटिंग्स में सक्षम करें।";
+"camera.open_settings" = "सेटिंग्स खोलें";
+"camera.cancel" = "रद्द करें";
+"camera.no_camera" = "कोई कैमरा उपलब्ध नहीं";
+"camera.setup_failed" = "कैमरा सेटअप विफल: %@";
+"camera.flash_failed" = "फ्लैश टॉगल विफल: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "सुरक्षित";
+"verdict.suspicious" = "संदेहास्पद";
+"verdict.malicious" = "दुर्भावनापूर्ण";
+"verdict.unknown" = "अज्ञात";
+
+// MARK: - Result Card
+"result.risk_score" = "जोखिम स्कोर: %d/100";
+"result.risk_score_label" = "जोखिम स्कोर";
+"result.confidence" = "विश्वास";
+"result.view_details" = "विवरण देखें";
+"result.view_full_analysis" = "पूर्ण विश्लेषण देखें";
+"result.copy_url" = "URL कॉपी करें";
+"result.share" = "शेयर करें";
+"result.dismiss" = "खारिज करें";
+"result.show_more" = "%d और दिखाएं...";
+"result.show_less" = "कम दिखाएं";
+"result.flags_title" = "जोखिम कारक";
+
+// MARK: - History View
+"history.title" = "स्कैन इतिहास";
+"history.empty_title" = "अभी कोई स्कैन नहीं";
+"history.empty_message" = "स्कैन किए गए QR कोड यहां दिखाई देंगे";
+"history.scan_now" = "अभी स्कैन करें";
+"history.clear_all" = "सब साफ करें";
+"history.delete" = "हटाएं";
+"history.open_url" = "URL खोलें";
+"history.search_prompt" = "URLs खोजें";
+"history.sort_menu" = "क्रमबद्ध करें";
+"history.sort.by_date" = "तारीख के अनुसार";
+"history.sort.by_risk" = "जोखिम के अनुसार";
+"history.export" = "निर्यात करें";
+"history.clear_all_action" = "सब साफ करें";
+"history.scans_counter" = "%d स्कैन";
+"history.no_results" = "कोई परिणाम नहीं";
+"history.no_results_message" = "अपनी खोज या फ़िल्टर समायोजित करें";
+"history.clear_confirm_title" = "सारा इतिहास साफ करें?";
+"history.clear_confirm_message" = "यह क्रिया वापस नहीं की जा सकती। सारा स्कैन इतिहास स्थायी रूप से हटा दिया जाएगा।";
+"history.exported_toast" = "क्लिपबोर्ड पर निर्यात किया गया";
+
+// MARK: - Settings View
+"settings.title" = "सेटिंग्स";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "स्कैनिंग";
+"settings.section.notifications" = "सूचनाएं";
+"settings.section.appearance" = "दिखावट";
+"settings.section.privacy" = "गोपनीयता";
+"settings.section.about" = "के बारे में";
+"settings.auto_scan" = "लॉन्च पर ऑटो-स्कैन";
+"settings.auto_scan_description" = "ऐप खुलते ही तुरंत स्कैन शुरू करें";
+"settings.haptic" = "हैप्टिक फीडबैक";
+"settings.haptic_description" = "स्कैन परिणामों पर वाइब्रेट करें";
+"settings.sound" = "ध्वनि प्रभाव";
+"settings.sound_description" = "अलर्ट के लिए ध्वनि बजाएं";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "सुरक्षा अलर्ट";
+"settings.security_alerts_description" = "सुरक्षा खतरों की सूचनाएं प्राप्त करें";
+"settings.notifications_denied_title" = "सूचनाएं अक्षम";
+"settings.notifications_denied_message" = "सुरक्षा अलर्ट प्राप्त करने के लिए, कृपया सेटिंग्स में QR-SHIELD के लिए सूचनाएं सक्षम करें।";
+"settings.open_settings" = "सेटिंग्स खोलें";
+"settings.cancel" = "रद्द करें";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Liquid Glass कम करें";
+"settings.reduce_effects_description" = "प्रदर्शन के लिए दृश्य प्रभाव सरल करें";
+"settings.system_appearance" = "सिस्टम दिखावट";
+"settings.dark_mode" = "डार्क मोड";
+"settings.dark_mode_description" = "गहरी रंग योजना सक्षम करें";
+"settings.appearance_footer" = "iOS 17+ में सुंदर Liquid Glass प्रभाव पेश किए गए हैं। पुराने उपकरणों पर प्रदर्शन समस्याओं का अनुभव होने पर प्रभाव कम करें।";
+
+// Settings: Privacy Section
+"settings.save_history" = "स्कैन इतिहास सहेजें";
+"settings.save_history_description" = "स्कैन किए गए URLs का रिकॉर्ड रखें";
+"settings.clear_history" = "इतिहास साफ करें";
+"settings.clear_history_title" = "सारा इतिहास साफ करें?";
+"settings.clear_history_message" = "यह क्रिया वापस नहीं की जा सकती। सारा स्कैन इतिहास स्थायी रूप से हटा दिया जाएगा।";
+"settings.clear_all" = "सब साफ करें";
+"settings.privacy_policy" = "गोपनीयता नीति";
+"settings.source_code" = "सोर्स कोड";
+"settings.credits" = "KotlinConf 2026 के लिए ❤️ से बनाया";
+
+// Settings: About Section
+"settings.version" = "संस्करण";
+"settings.build" = "बिल्ड";
+"settings.engine" = "इंजन";
+
+// MARK: - Onboarding
+"onboarding.skip" = "छोड़ें";
+"onboarding.continue" = "जारी रखें";
+"onboarding.get_started" = "शुरू करें";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "कोई भी QR कोड स्कैन करें";
+"onboarding.scan.description" = "किसी भी QR कोड पर अपना कैमरा करें और संभावित खतरों के लिए तुरंत उसकी सामग्री का विश्लेषण करें।";
+"onboarding.protect.title" = "रियल-टाइम सुरक्षा";
+"onboarding.protect.description" = "हमारा AI-संचालित इंजन 25+ सुरक्षा ह्युरिस्टिक्स और मशीन लर्निंग एल्गोरिदम का उपयोग करके URLs का विश्लेषण करता है।";
+"onboarding.privacy.title" = "गोपनीयता पहले";
+"onboarding.privacy.description" = "सभी विश्लेषण Kotlin मल्टीप्लेटफ़ॉर्म का उपयोग करके डिवाइस पर होता है। आपका डेटा कभी आपके फोन से बाहर नहीं जाता।";
+"onboarding.design.title" = "सुंदर iOS 17+ डिज़ाइन";
+"onboarding.design.description" = "चिकने एनिमेशन और आधुनिक सौंदर्यशास्त्र के साथ शानदार Liquid Glass इंटरफ़ेस का अनुभव करें।";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "कैमरा अनुमति";
+"onboarding.camera.allow" = "कैमरा की अनुमति दें";
+"onboarding.camera.later" = "शायद बाद में";
+"onboarding.camera.message" = "QR-SHIELD को QR कोड स्कैन करने के लिए कैमरा एक्सेस चाहिए। आप इसे बाद में सेटिंग्स में बदल सकते हैं।";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "विश्लेषण विवरण";
+"detail.scanned_at" = "%@ को स्कैन किया गया";
+"detail.url_information" = "URL जानकारी";
+"detail.risk_factors" = "जोखिम कारक";
+"detail.no_risks" = "कोई जोखिम नहीं मिला";
+"detail.open_url" = "URL खोलें";
+"detail.open_warning" = "यह URL खोलना खतरनाक हो सकता है। क्या आप निश्चित हैं?";
+"detail.open_warning_title" = "सुरक्षा चेतावनी";
+"detail.proceed" = "फिर भी आगे बढ़ें";
+"detail.scanned_at_time_ago" = "%@ पहले स्कैन किया";
+"detail.score_breakdown" = "स्कोर विवरण";
+"detail.url_details" = "URL विवरण";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (सुरक्षित)";
+"detail.protocol_http" = "HTTP (असुरक्षित)";
+"detail.domain" = "डोमेन";
+"detail.protocol" = "प्रोटोकॉल";
+"detail.share_analysis" = "विश्लेषण शेयर करें";
+"detail.copy_url" = "URL कॉपी करें";
+"detail.copied" = "कॉपी हो गया!";
+"detail.report_false_positive" = "गलत पॉजिटिव रिपोर्ट करें";
+
+// MARK: - Errors
+"error.generic" = "एक त्रुटि हुई";
+"error.network" = "नेटवर्क कनेक्शन त्रुटि";
+"error.invalid_url" = "अमान्य URL पाया गया";
+"error.analysis_failed" = "विश्लेषण विफल";
+"error.invalid_or_unsupported" = "अमान्य या असमर्थित QR सामग्री।";
+"error.no_qr_found" = "चयनित छवि में कोई QR कोड नहीं मिला।";
+"error.image_scan_failed" = "छवि स्कैन विफल: %@";
+"error.dismiss" = "त्रुटि खारिज करें";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "स्कैन हो रहा है";
+"scanner.status_paused" = "रुका हुआ";
+"scanner.view_details" = "विवरण देखें";
+"scanner.share" = "शेयर करें";
+"scanner.flash_on" = "फ्लैश चालू";
+"scanner.flash_off" = "फ्लैश बंद";
+"scanner.open_history" = "इतिहास खोलें";
+"scanner.scan_toggle" = "स्कैन टॉगल करें";
+
+// MARK: - History UI
+"history.search_prompt" = "URLs खोजें";
+"history.sort_menu" = "क्रमबद्ध करें";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

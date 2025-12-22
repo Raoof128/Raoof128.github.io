@@ -1,0 +1,199 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Russian (Русский) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Kotlin Мультиплатформенный QRishing детектор";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Главная";
+"tab.scan" = "Сканировать";
+"tab.history" = "История";
+"tab.training" = "Обучение";
+"tab.settings" = "Настройки";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "Сканирование";
+"scanner.paused" = "Пауза";
+"scanner.analyzing" = "Анализ...";
+"scanner.point_at_qr" = "Наведите на QR-код";
+"scanner.gallery" = "Галерея";
+"scanner.history" = "История";
+"scanner.scans_count" = "Сканирований: %d";
+"scanner.error_dismiss" = "Закрыть ошибку";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Требуется доступ к камере";
+"camera.access_message" = "QR-SHIELD нужен доступ к камере для сканирования QR-кодов. Включите в Настройках.";
+"camera.open_settings" = "Открыть Настройки";
+"camera.cancel" = "Отмена";
+"camera.no_camera" = "Камера недоступна";
+"camera.setup_failed" = "Ошибка настройки камеры: %@";
+"camera.flash_failed" = "Ошибка переключения вспышки: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "БЕЗОПАСНО";
+"verdict.suspicious" = "ПОДОЗРИТЕЛЬНО";
+"verdict.malicious" = "ОПАСНО";
+"verdict.unknown" = "НЕИЗВЕСТНО";
+
+// MARK: - Result Card
+"result.risk_score" = "Оценка риска: %d/100";
+"result.risk_score_label" = "Оценка риска";
+"result.confidence" = "Уверенность";
+"result.view_details" = "Подробнее";
+"result.view_full_analysis" = "Полный анализ";
+"result.copy_url" = "Копировать URL";
+"result.share" = "Поделиться";
+"result.dismiss" = "Закрыть";
+"result.show_more" = "Показать ещё %d...";
+"result.show_less" = "Показать меньше";
+"result.flags_title" = "Факторы риска";
+
+// MARK: - History View
+"history.title" = "История сканирований";
+"history.empty_title" = "Сканирований нет";
+"history.empty_message" = "Отсканированные QR-коды появятся здесь";
+"history.scan_now" = "Сканировать";
+"history.clear_all" = "Очистить всё";
+"history.delete" = "Удалить";
+"history.open_url" = "Открыть URL";
+"history.search_prompt" = "Поиск URL";
+"history.sort_menu" = "Сортировка";
+"history.sort.by_date" = "По дате";
+"history.sort.by_risk" = "По риску";
+"history.export" = "Экспорт";
+"history.clear_all_action" = "Очистить всё";
+"history.scans_counter" = "%d сканирований";
+"history.no_results" = "Нет результатов";
+"history.no_results_message" = "Попробуйте изменить поиск или фильтры";
+"history.clear_confirm_title" = "Очистить всю историю?";
+"history.clear_confirm_message" = "Это действие нельзя отменить. Вся история сканирований будет удалена навсегда.";
+"history.exported_toast" = "Экспортировано в буфер обмена";
+
+// MARK: - Settings View
+"settings.title" = "Настройки";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Сканирование";
+"settings.section.notifications" = "Уведомления";
+"settings.section.appearance" = "Внешний вид";
+"settings.section.privacy" = "Конфиденциальность";
+"settings.section.about" = "О приложении";
+"settings.auto_scan" = "Автосканирование при запуске";
+"settings.auto_scan_description" = "Начинать сканирование сразу при открытии";
+"settings.haptic" = "Тактильный отклик";
+"settings.haptic_description" = "Вибрация при результатах сканирования";
+"settings.sound" = "Звуковые эффекты";
+"settings.sound_description" = "Воспроизводить звуки для оповещений";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Оповещения безопасности";
+"settings.security_alerts_description" = "Получать уведомления об угрозах";
+"settings.notifications_denied_title" = "Уведомления отключены";
+"settings.notifications_denied_message" = "Чтобы получать оповещения безопасности, включите уведомления для QR-SHIELD в Настройках.";
+"settings.open_settings" = "Открыть Настройки";
+"settings.cancel" = "Отмена";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Уменьшить Liquid Glass";
+"settings.reduce_effects_description" = "Упростить визуальные эффекты для производительности";
+"settings.system_appearance" = "Системный вид";
+"settings.dark_mode" = "Тёмный режим";
+"settings.dark_mode_description" = "Включить тёмную цветовую схему";
+"settings.appearance_footer" = "iOS 17+ представляет красивые эффекты Liquid Glass. Уменьшите эффекты при проблемах с производительностью на старых устройствах.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Сохранять историю сканирований";
+"settings.save_history_description" = "Вести учёт отсканированных URL";
+"settings.clear_history" = "Очистить историю";
+"settings.clear_history_title" = "Очистить всю историю?";
+"settings.clear_history_message" = "Это действие нельзя отменить. Вся история сканирований будет удалена навсегда.";
+"settings.clear_all" = "Очистить всё";
+"settings.privacy_policy" = "Политика конфиденциальности";
+"settings.source_code" = "Исходный код";
+"settings.credits" = "Сделано с ❤️ для KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "Версия";
+"settings.build" = "Сборка";
+"settings.engine" = "Движок";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Пропустить";
+"onboarding.continue" = "Продолжить";
+"onboarding.get_started" = "Начать";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Сканируйте любой QR-код";
+"onboarding.scan.description" = "Наведите камеру на любой QR-код для мгновенного анализа его содержимого на потенциальные угрозы.";
+"onboarding.protect.title" = "Защита в реальном времени";
+"onboarding.protect.description" = "Наш ИИ-движок анализирует URL с помощью 25+ эвристик безопасности и алгоритмов машинного обучения.";
+"onboarding.privacy.title" = "Конфиденциальность прежде всего";
+"onboarding.privacy.description" = "Весь анализ происходит на устройстве с помощью Kotlin Multiplatform. Ваши данные никогда не покидают телефон.";
+"onboarding.design.title" = "Красивый дизайн iOS 17+";
+"onboarding.design.description" = "Насладитесь потрясающим интерфейсом Liquid Glass с плавными анимациями и современной эстетикой.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Разрешение камеры";
+"onboarding.camera.allow" = "Разрешить камеру";
+"onboarding.camera.later" = "Позже";
+"onboarding.camera.message" = "QR-SHIELD нужен доступ к камере для сканирования QR-кодов. Вы можете изменить это позже в Настройках.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Детали анализа";
+"detail.scanned_at" = "Отсканировано %@";
+"detail.url_information" = "Информация об URL";
+"detail.risk_factors" = "Факторы риска";
+"detail.no_risks" = "Рисков не обнаружено";
+"detail.open_url" = "Открыть URL";
+"detail.open_warning" = "Открытие этого URL может быть опасным. Вы уверены?";
+"detail.open_warning_title" = "Предупреждение безопасности";
+"detail.proceed" = "Всё равно продолжить";
+"detail.scanned_at_time_ago" = "Отсканировано %@ назад";
+"detail.score_breakdown" = "Разбивка оценки";
+"detail.url_details" = "Детали URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (Безопасно)";
+"detail.protocol_http" = "HTTP (Не безопасно)";
+"detail.domain" = "Домен";
+"detail.protocol" = "Протокол";
+"detail.share_analysis" = "Поделиться анализом";
+"detail.copy_url" = "Копировать URL";
+"detail.copied" = "Скопировано!";
+"detail.report_false_positive" = "Сообщить о ложном срабатывании";
+
+// MARK: - Errors
+"error.generic" = "Произошла ошибка";
+"error.network" = "Ошибка сетевого подключения";
+"error.invalid_url" = "Обнаружен неверный URL";
+"error.analysis_failed" = "Анализ не удался";
+"error.invalid_or_unsupported" = "Недопустимое или неподдерживаемое содержимое QR.";
+"error.no_qr_found" = "QR-код не найден в выбранном изображении.";
+"error.image_scan_failed" = "Ошибка сканирования изображения: %@";
+"error.dismiss" = "Закрыть ошибку";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "Сканирование";
+"scanner.status_paused" = "Пауза";
+"scanner.view_details" = "Подробнее";
+"scanner.share" = "Поделиться";
+"scanner.flash_on" = "Вспышка вкл";
+"scanner.flash_off" = "Вспышка выкл";
+"scanner.open_history" = "Открыть историю";
+"scanner.scan_toggle" = "Переключить сканирование";
+
+// MARK: - History UI
+"history.search_prompt" = "Поиск URL";
+"history.sort_menu" = "Сортировка";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

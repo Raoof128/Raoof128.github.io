@@ -5,6 +5,74 @@ This file tracks significant changes made during development sessions.
 ---
 ---
 
+# 🌍 December 22, 2025 - iOS App Localization Complete
+
+### Summary
+Added comprehensive multi-language support to the iOS application, matching the 10+ languages already supported on Android and Desktop platforms.
+
+## ✅ Languages Added
+- **German (de)**: `de.lproj/Localizable.strings`
+- **Spanish (es)**: `es.lproj/Localizable.strings`
+- **French (fr)**: `fr.lproj/Localizable.strings`
+- **Chinese Simplified (zh-Hans)**: `zh-Hans.lproj/Localizable.strings`
+- **Japanese (ja)**: `ja.lproj/Localizable.strings`
+- **Hindi (hi)**: `hi.lproj/Localizable.strings`
+- **Italian (it)**: `it.lproj/Localizable.strings`
+- **Portuguese (pt)**: `pt.lproj/Localizable.strings`
+- **Russian (ru)**: `ru.lproj/Localizable.strings`
+- **Korean (ko)**: `ko.lproj/Localizable.strings`
+
+## 🛠️ Technical Implementation
+- **Localizable.strings**: Created 10 new `.lproj` folders with translated `Localizable.strings` files.
+- **218+ Strings Per Language**: Full translation of all UI text including:
+    - App general (name, tagline)
+    - Tab bar navigation
+    - Scanner view (scanning, analyzing, camera permission)
+    - Verdicts (safe, suspicious, malicious)
+    - Result cards (risk score, confidence, flags)
+    - History view (search, sort, export, clear)
+    - Settings view (all sections)
+    - Onboarding pages
+    - Detail sheet
+    - Error messages
+- **Xcode Project Updated**: Added all 10 languages to `knownRegions` in `project.pbxproj`.
+
+## 📂 Files Created
+| Path | Description |
+|------|-------------|
+| `QRShield/de.lproj/Localizable.strings` | German translations |
+| `QRShield/es.lproj/Localizable.strings` | Spanish translations |
+| `QRShield/fr.lproj/Localizable.strings` | French translations |
+| `QRShield/zh-Hans.lproj/Localizable.strings` | Chinese Simplified translations |
+| `QRShield/ja.lproj/Localizable.strings` | Japanese translations |
+| `QRShield/hi.lproj/Localizable.strings` | Hindi translations |
+| `QRShield/it.lproj/Localizable.strings` | Italian translations |
+| `QRShield/pt.lproj/Localizable.strings` | Portuguese translations |
+| `QRShield/ru.lproj/Localizable.strings` | Russian translations |
+| `QRShield/ko.lproj/Localizable.strings` | Korean translations |
+
+## 📄 Files Modified
+| Path | Description |
+|------|-------------|
+| `QRShield.xcodeproj/project.pbxproj` | Added knownRegions for all 10 new languages |
+
+## ✅ Platform Parity
+iOS app now supports the same 11 languages as the Android app:
+- English (en) - Base
+- German (de)
+- Spanish (es)
+- French (fr)
+- Chinese Simplified (zh-Hans)
+- Japanese (ja)
+- Hindi (hi)
+- Italian (it)
+- Portuguese (pt)
+- Russian (ru)
+- Korean (ko)
+
+---
+
+
 # 🌍 December 23, 2025 - Refactor Scanner History & Dashboard
 
 ### Summary

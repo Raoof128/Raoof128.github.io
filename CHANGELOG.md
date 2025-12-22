@@ -5,7 +5,46 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.1] - 2025-12-22
+
+### 🌍 iOS App - Full Localization (10 Languages)
+
+Added comprehensive multi-language support to the iOS application, achieving platform parity with Android and Desktop.
+
+#### 🌐 Languages Added
+| Language | Locale Code | File |
+|----------|-------------|------|
+| German | de | `de.lproj/Localizable.strings` |
+| Spanish | es | `es.lproj/Localizable.strings` |
+| French | fr | `fr.lproj/Localizable.strings` |
+| Chinese (Simplified) | zh-Hans | `zh-Hans.lproj/Localizable.strings` |
+| Japanese | ja | `ja.lproj/Localizable.strings` |
+| Hindi | hi | `hi.lproj/Localizable.strings` |
+| Italian | it | `it.lproj/Localizable.strings` |
+| Portuguese | pt | `pt.lproj/Localizable.strings` |
+| Russian | ru | `ru.lproj/Localizable.strings` |
+| Korean | ko | `ko.lproj/Localizable.strings` |
+
+#### 📦 Strings Translated (218+ per language)
+- App identity and branding
+- Tab bar navigation labels
+- Scanner UI (scanning status, camera permissions, flash controls)
+- Verdict labels (Safe, Suspicious, Malicious, Unknown)
+- Result cards (risk scores, confidence, flags)
+- History view (search, sort, export, clear actions)
+- Settings sections (Scanning, Notifications, Appearance, Privacy, About)
+- Onboarding flow (4 pages + camera permission)
+- Detail sheet (URL analysis, score breakdown)
+- Error messages
+
+#### 🛠️ Technical
+- Updated `project.pbxproj` to include all 10 new languages in `knownRegions`
+- iOS will now automatically select the user's preferred language from 11 options
+
+---
+
 ## [1.17.0] - 2025-12-23
+
 
 ### 🌍 Web App - Localization Complete
 

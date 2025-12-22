@@ -1,0 +1,199 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  French (Français) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Détecteur de QRishing Kotlin Multiplatform";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Accueil";
+"tab.scan" = "Scanner";
+"tab.history" = "Historique";
+"tab.training" = "Formation";
+"tab.settings" = "Réglages";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "Scan en cours";
+"scanner.paused" = "En pause";
+"scanner.analyzing" = "Analyse...";
+"scanner.point_at_qr" = "Pointez vers le code QR";
+"scanner.gallery" = "Galerie";
+"scanner.history" = "Historique";
+"scanner.scans_count" = "Scans: %d";
+"scanner.error_dismiss" = "Ignorer l'erreur";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Accès caméra requis";
+"camera.access_message" = "QR-SHIELD a besoin de l'accès caméra pour scanner les codes QR. Veuillez l'activer dans les Réglages.";
+"camera.open_settings" = "Ouvrir Réglages";
+"camera.cancel" = "Annuler";
+"camera.no_camera" = "Aucune caméra disponible";
+"camera.setup_failed" = "Échec de configuration caméra: %@";
+"camera.flash_failed" = "Échec du basculement du flash: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "SÛR";
+"verdict.suspicious" = "SUSPECT";
+"verdict.malicious" = "MALVEILLANT";
+"verdict.unknown" = "INCONNU";
+
+// MARK: - Result Card
+"result.risk_score" = "Score de risque: %d/100";
+"result.risk_score_label" = "Score de risque";
+"result.confidence" = "Confiance";
+"result.view_details" = "Voir les détails";
+"result.view_full_analysis" = "Voir l'analyse complète";
+"result.copy_url" = "Copier l'URL";
+"result.share" = "Partager";
+"result.dismiss" = "Ignorer";
+"result.show_more" = "Afficher %d de plus...";
+"result.show_less" = "Afficher moins";
+"result.flags_title" = "Facteurs de risque";
+
+// MARK: - History View
+"history.title" = "Historique des scans";
+"history.empty_title" = "Aucun scan encore";
+"history.empty_message" = "Les codes QR scannés apparaîtront ici";
+"history.scan_now" = "Scanner maintenant";
+"history.clear_all" = "Tout effacer";
+"history.delete" = "Supprimer";
+"history.open_url" = "Ouvrir l'URL";
+"history.search_prompt" = "Rechercher des URLs";
+"history.sort_menu" = "Trier";
+"history.sort.by_date" = "Par date";
+"history.sort.by_risk" = "Par risque";
+"history.export" = "Exporter";
+"history.clear_all_action" = "Tout effacer";
+"history.scans_counter" = "%d scans";
+"history.no_results" = "Aucun résultat";
+"history.no_results_message" = "Essayez d'ajuster votre recherche ou vos filtres";
+"history.clear_confirm_title" = "Effacer tout l'historique?";
+"history.clear_confirm_message" = "Cette action ne peut pas être annulée. Tout l'historique des scans sera définitivement supprimé.";
+"history.exported_toast" = "Exporté dans le presse-papiers";
+
+// MARK: - Settings View
+"settings.title" = "Réglages";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Scan";
+"settings.section.notifications" = "Notifications";
+"settings.section.appearance" = "Apparence";
+"settings.section.privacy" = "Confidentialité";
+"settings.section.about" = "À propos";
+"settings.auto_scan" = "Scan auto au lancement";
+"settings.auto_scan_description" = "Commencer à scanner immédiatement à l'ouverture de l'app";
+"settings.haptic" = "Retour haptique";
+"settings.haptic_description" = "Vibrer sur les résultats de scan";
+"settings.sound" = "Effets sonores";
+"settings.sound_description" = "Jouer des sons pour les alertes";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Alertes de sécurité";
+"settings.security_alerts_description" = "Recevoir des notifications sur les menaces de sécurité";
+"settings.notifications_denied_title" = "Notifications désactivées";
+"settings.notifications_denied_message" = "Pour recevoir les alertes de sécurité, veuillez activer les notifications pour QR-SHIELD dans les Réglages.";
+"settings.open_settings" = "Ouvrir Réglages";
+"settings.cancel" = "Annuler";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Réduire Liquid Glass";
+"settings.reduce_effects_description" = "Simplifier les effets visuels pour les performances";
+"settings.system_appearance" = "Apparence système";
+"settings.dark_mode" = "Mode sombre";
+"settings.dark_mode_description" = "Activer le thème sombre";
+"settings.appearance_footer" = "iOS 17+ introduit de magnifiques effets Liquid Glass. Réduisez les effets si vous rencontrez des problèmes de performances sur les anciens appareils.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Sauvegarder l'historique des scans";
+"settings.save_history_description" = "Conserver un enregistrement des URLs scannées";
+"settings.clear_history" = "Effacer l'historique";
+"settings.clear_history_title" = "Effacer tout l'historique?";
+"settings.clear_history_message" = "Cette action ne peut pas être annulée. Tout l'historique des scans sera définitivement supprimé.";
+"settings.clear_all" = "Tout effacer";
+"settings.privacy_policy" = "Politique de confidentialité";
+"settings.source_code" = "Code source";
+"settings.credits" = "Fait avec ❤️ pour KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "Version";
+"settings.build" = "Build";
+"settings.engine" = "Moteur";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Passer";
+"onboarding.continue" = "Continuer";
+"onboarding.get_started" = "Commencer";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Scannez n'importe quel code QR";
+"onboarding.scan.description" = "Pointez votre caméra vers n'importe quel code QR pour analyser instantanément son contenu à la recherche de menaces.";
+"onboarding.protect.title" = "Protection en temps réel";
+"onboarding.protect.description" = "Notre moteur alimenté par l'IA analyse les URLs avec plus de 25 heuristiques de sécurité et algorithmes d'apprentissage machine.";
+"onboarding.privacy.title" = "Confidentialité d'abord";
+"onboarding.privacy.description" = "Toute l'analyse se fait sur l'appareil avec Kotlin Multiplatform. Vos données ne quittent jamais votre téléphone.";
+"onboarding.design.title" = "Beau design iOS 17+";
+"onboarding.design.description" = "Découvrez la superbe interface Liquid Glass avec des animations fluides et une esthétique moderne.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Permission caméra";
+"onboarding.camera.allow" = "Autoriser la caméra";
+"onboarding.camera.later" = "Peut-être plus tard";
+"onboarding.camera.message" = "QR-SHIELD a besoin de l'accès caméra pour scanner les codes QR. Vous pouvez changer ceci plus tard dans les Réglages.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Détails de l'analyse";
+"detail.scanned_at" = "Scanné le %@";
+"detail.url_information" = "Informations URL";
+"detail.risk_factors" = "Facteurs de risque";
+"detail.no_risks" = "Aucun risque détecté";
+"detail.open_url" = "Ouvrir l'URL";
+"detail.open_warning" = "Ouvrir cette URL pourrait être dangereux. Êtes-vous sûr?";
+"detail.open_warning_title" = "Avertissement de sécurité";
+"detail.proceed" = "Continuer quand même";
+"detail.scanned_at_time_ago" = "Scanné %@";
+"detail.score_breakdown" = "Détail du score";
+"detail.url_details" = "Détails de l'URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (Sécurisé)";
+"detail.protocol_http" = "HTTP (Non sécurisé)";
+"detail.domain" = "Domaine";
+"detail.protocol" = "Protocole";
+"detail.share_analysis" = "Partager l'analyse";
+"detail.copy_url" = "Copier l'URL";
+"detail.copied" = "Copié!";
+"detail.report_false_positive" = "Signaler un faux positif";
+
+// MARK: - Errors
+"error.generic" = "Une erreur s'est produite";
+"error.network" = "Erreur de connexion réseau";
+"error.invalid_url" = "URL invalide détectée";
+"error.analysis_failed" = "Échec de l'analyse";
+"error.invalid_or_unsupported" = "Contenu QR invalide ou non pris en charge.";
+"error.no_qr_found" = "Aucun code QR trouvé dans l'image sélectionnée.";
+"error.image_scan_failed" = "Échec du scan d'image: %@";
+"error.dismiss" = "Ignorer l'erreur";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "Scan en cours";
+"scanner.status_paused" = "En pause";
+"scanner.view_details" = "Voir les détails";
+"scanner.share" = "Partager";
+"scanner.flash_on" = "Flash allumé";
+"scanner.flash_off" = "Flash éteint";
+"scanner.open_history" = "Ouvrir l'historique";
+"scanner.scan_toggle" = "Basculer le scan";
+
+// MARK: - History UI
+"history.search_prompt" = "Rechercher des URLs";
+"history.sort_menu" = "Trier";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

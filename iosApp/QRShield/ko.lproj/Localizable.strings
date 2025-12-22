@@ -1,0 +1,199 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Korean (한국어) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Kotlin 멀티플랫폼 QRishing 탐지기";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "홈";
+"tab.scan" = "스캔";
+"tab.history" = "기록";
+"tab.training" = "훈련";
+"tab.settings" = "설정";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "스캔 중";
+"scanner.paused" = "일시정지";
+"scanner.analyzing" = "분석 중...";
+"scanner.point_at_qr" = "QR 코드에 맞추세요";
+"scanner.gallery" = "갤러리";
+"scanner.history" = "기록";
+"scanner.scans_count" = "스캔: %d";
+"scanner.error_dismiss" = "오류 닫기";
+
+// MARK: - Camera Permission
+"camera.access_required" = "카메라 접근 필요";
+"camera.access_message" = "QR-SHIELD는 QR 코드를 스캔하기 위해 카메라 접근이 필요합니다. 설정에서 활성화해 주세요.";
+"camera.open_settings" = "설정 열기";
+"camera.cancel" = "취소";
+"camera.no_camera" = "사용 가능한 카메라 없음";
+"camera.setup_failed" = "카메라 설정 실패: %@";
+"camera.flash_failed" = "플래시 전환 실패: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "안전";
+"verdict.suspicious" = "의심스러움";
+"verdict.malicious" = "악성";
+"verdict.unknown" = "알 수 없음";
+
+// MARK: - Result Card
+"result.risk_score" = "위험 점수: %d/100";
+"result.risk_score_label" = "위험 점수";
+"result.confidence" = "신뢰도";
+"result.view_details" = "상세 보기";
+"result.view_full_analysis" = "전체 분석 보기";
+"result.copy_url" = "URL 복사";
+"result.share" = "공유";
+"result.dismiss" = "닫기";
+"result.show_more" = "%d개 더 보기...";
+"result.show_less" = "간략히 보기";
+"result.flags_title" = "위험 요소";
+
+// MARK: - History View
+"history.title" = "스캔 기록";
+"history.empty_title" = "스캔 없음";
+"history.empty_message" = "스캔한 QR 코드가 여기에 표시됩니다";
+"history.scan_now" = "지금 스캔";
+"history.clear_all" = "전체 삭제";
+"history.delete" = "삭제";
+"history.open_url" = "URL 열기";
+"history.search_prompt" = "URL 검색";
+"history.sort_menu" = "정렬";
+"history.sort.by_date" = "날짜순";
+"history.sort.by_risk" = "위험순";
+"history.export" = "내보내기";
+"history.clear_all_action" = "전체 삭제";
+"history.scans_counter" = "%d개 스캔";
+"history.no_results" = "결과 없음";
+"history.no_results_message" = "검색어나 필터를 조정해 보세요";
+"history.clear_confirm_title" = "전체 기록을 삭제할까요?";
+"history.clear_confirm_message" = "이 작업은 취소할 수 없습니다. 모든 스캔 기록이 영구적으로 삭제됩니다.";
+"history.exported_toast" = "클립보드에 내보냈습니다";
+
+// MARK: - Settings View
+"settings.title" = "설정";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "스캔";
+"settings.section.notifications" = "알림";
+"settings.section.appearance" = "외관";
+"settings.section.privacy" = "개인정보";
+"settings.section.about" = "정보";
+"settings.auto_scan" = "시작 시 자동 스캔";
+"settings.auto_scan_description" = "앱 열 때 즉시 스캔 시작";
+"settings.haptic" = "햅틱 피드백";
+"settings.haptic_description" = "스캔 결과에 진동";
+"settings.sound" = "효과음";
+"settings.sound_description" = "알림에 소리 재생";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "보안 알림";
+"settings.security_alerts_description" = "보안 위협에 대한 알림 받기";
+"settings.notifications_denied_title" = "알림 비활성화됨";
+"settings.notifications_denied_message" = "보안 알림을 받으려면 설정에서 QR-SHIELD의 알림을 활성화하세요.";
+"settings.open_settings" = "설정 열기";
+"settings.cancel" = "취소";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Liquid Glass 줄이기";
+"settings.reduce_effects_description" = "성능을 위해 시각 효과 단순화";
+"settings.system_appearance" = "시스템 외관";
+"settings.dark_mode" = "다크 모드";
+"settings.dark_mode_description" = "어두운 색상 테마 활성화";
+"settings.appearance_footer" = "iOS 17+에서 아름다운 Liquid Glass 효과가 도입되었습니다. 구형 기기에서 성능 문제가 발생하면 효과를 줄이세요.";
+
+// Settings: Privacy Section
+"settings.save_history" = "스캔 기록 저장";
+"settings.save_history_description" = "스캔한 URL 기록 유지";
+"settings.clear_history" = "기록 삭제";
+"settings.clear_history_title" = "전체 기록을 삭제할까요?";
+"settings.clear_history_message" = "이 작업은 취소할 수 없습니다. 모든 스캔 기록이 영구적으로 삭제됩니다.";
+"settings.clear_all" = "전체 삭제";
+"settings.privacy_policy" = "개인정보 처리방침";
+"settings.source_code" = "소스 코드";
+"settings.credits" = "KotlinConf 2026를 위해 ❤️로 제작";
+
+// Settings: About Section
+"settings.version" = "버전";
+"settings.build" = "빌드";
+"settings.engine" = "엔진";
+
+// MARK: - Onboarding
+"onboarding.skip" = "건너뛰기";
+"onboarding.continue" = "계속";
+"onboarding.get_started" = "시작하기";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "모든 QR 코드 스캔";
+"onboarding.scan.description" = "카메라를 QR 코드에 맞추면 잠재적 위협에 대해 즉시 콘텐츠를 분석합니다.";
+"onboarding.protect.title" = "실시간 보호";
+"onboarding.protect.description" = "AI 기반 엔진이 25개 이상의 보안 휴리스틱과 머신러닝 알고리즘을 사용하여 URL을 분석합니다.";
+"onboarding.privacy.title" = "개인정보 우선";
+"onboarding.privacy.description" = "모든 분석은 Kotlin 멀티플랫폼을 사용하여 기기에서 이루어집니다. 데이터가 휴대폰을 떠나지 않습니다.";
+"onboarding.design.title" = "아름다운 iOS 17+ 디자인";
+"onboarding.design.description" = "부드러운 애니메이션과 현대적인 미학을 갖춘 멋진 Liquid Glass 인터페이스를 경험하세요.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "카메라 권한";
+"onboarding.camera.allow" = "카메라 허용";
+"onboarding.camera.later" = "나중에";
+"onboarding.camera.message" = "QR-SHIELD는 QR 코드를 스캔하기 위해 카메라 접근이 필요합니다. 나중에 설정에서 변경할 수 있습니다.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "분석 상세";
+"detail.scanned_at" = "%@에 스캔됨";
+"detail.url_information" = "URL 정보";
+"detail.risk_factors" = "위험 요소";
+"detail.no_risks" = "감지된 위험 없음";
+"detail.open_url" = "URL 열기";
+"detail.open_warning" = "이 URL을 여는 것은 위험할 수 있습니다. 확실합니까?";
+"detail.open_warning_title" = "보안 경고";
+"detail.proceed" = "그래도 진행";
+"detail.scanned_at_time_ago" = "%@ 전에 스캔됨";
+"detail.score_breakdown" = "점수 세부내역";
+"detail.url_details" = "URL 상세";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (보안)";
+"detail.protocol_http" = "HTTP (비보안)";
+"detail.domain" = "도메인";
+"detail.protocol" = "프로토콜";
+"detail.share_analysis" = "분석 공유";
+"detail.copy_url" = "URL 복사";
+"detail.copied" = "복사됨!";
+"detail.report_false_positive" = "오탐 신고";
+
+// MARK: - Errors
+"error.generic" = "오류가 발생했습니다";
+"error.network" = "네트워크 연결 오류";
+"error.invalid_url" = "잘못된 URL 감지됨";
+"error.analysis_failed" = "분석 실패";
+"error.invalid_or_unsupported" = "잘못되었거나 지원되지 않는 QR 콘텐츠입니다.";
+"error.no_qr_found" = "선택한 이미지에서 QR 코드를 찾을 수 없습니다.";
+"error.image_scan_failed" = "이미지 스캔 실패: %@";
+"error.dismiss" = "오류 닫기";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "스캔 중";
+"scanner.status_paused" = "일시정지";
+"scanner.view_details" = "상세 보기";
+"scanner.share" = "공유";
+"scanner.flash_on" = "플래시 켜짐";
+"scanner.flash_off" = "플래시 꺼짐";
+"scanner.open_history" = "기록 열기";
+"scanner.scan_toggle" = "스캔 전환";
+
+// MARK: - History UI
+"history.search_prompt" = "URL 검색";
+"history.sort_menu" = "정렬";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

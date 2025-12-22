@@ -1,0 +1,199 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Chinese Simplified (简体中文) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Kotlin 多平台二维码钓鱼检测器";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "主页";
+"tab.scan" = "扫描";
+"tab.history" = "历史";
+"tab.training" = "培训";
+"tab.settings" = "设置";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "扫描中";
+"scanner.paused" = "已暂停";
+"scanner.analyzing" = "分析中...";
+"scanner.point_at_qr" = "对准二维码";
+"scanner.gallery" = "相册";
+"scanner.history" = "历史";
+"scanner.scans_count" = "扫描: %d";
+"scanner.error_dismiss" = "关闭错误";
+
+// MARK: - Camera Permission
+"camera.access_required" = "需要相机权限";
+"camera.access_message" = "QR-SHIELD 需要相机权限来扫描二维码。请在设置中启用。";
+"camera.open_settings" = "打开设置";
+"camera.cancel" = "取消";
+"camera.no_camera" = "没有可用的相机";
+"camera.setup_failed" = "相机设置失败: %@";
+"camera.flash_failed" = "闪光灯切换失败: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "安全";
+"verdict.suspicious" = "可疑";
+"verdict.malicious" = "恶意";
+"verdict.unknown" = "未知";
+
+// MARK: - Result Card
+"result.risk_score" = "风险分数: %d/100";
+"result.risk_score_label" = "风险分数";
+"result.confidence" = "置信度";
+"result.view_details" = "查看详情";
+"result.view_full_analysis" = "查看完整分析";
+"result.copy_url" = "复制链接";
+"result.share" = "分享";
+"result.dismiss" = "关闭";
+"result.show_more" = "显示更多 %d 个...";
+"result.show_less" = "显示更少";
+"result.flags_title" = "风险因素";
+
+// MARK: - History View
+"history.title" = "扫描历史";
+"history.empty_title" = "暂无扫描";
+"history.empty_message" = "扫描的二维码将显示在这里";
+"history.scan_now" = "立即扫描";
+"history.clear_all" = "清除全部";
+"history.delete" = "删除";
+"history.open_url" = "打开链接";
+"history.search_prompt" = "搜索链接";
+"history.sort_menu" = "排序";
+"history.sort.by_date" = "按日期";
+"history.sort.by_risk" = "按风险";
+"history.export" = "导出";
+"history.clear_all_action" = "清除全部";
+"history.scans_counter" = "%d 次扫描";
+"history.no_results" = "无结果";
+"history.no_results_message" = "尝试调整您的搜索或筛选条件";
+"history.clear_confirm_title" = "清除所有历史?";
+"history.clear_confirm_message" = "此操作无法撤销。所有扫描历史将被永久删除。";
+"history.exported_toast" = "已导出到剪贴板";
+
+// MARK: - Settings View
+"settings.title" = "设置";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "扫描";
+"settings.section.notifications" = "通知";
+"settings.section.appearance" = "外观";
+"settings.section.privacy" = "隐私";
+"settings.section.about" = "关于";
+"settings.auto_scan" = "启动时自动扫描";
+"settings.auto_scan_description" = "打开应用时立即开始扫描";
+"settings.haptic" = "触觉反馈";
+"settings.haptic_description" = "扫描结果时振动";
+"settings.sound" = "音效";
+"settings.sound_description" = "警报时播放声音";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "安全警报";
+"settings.security_alerts_description" = "接收安全威胁通知";
+"settings.notifications_denied_title" = "通知已禁用";
+"settings.notifications_denied_message" = "要接收安全警报，请在设置中为 QR-SHIELD 启用通知。";
+"settings.open_settings" = "打开设置";
+"settings.cancel" = "取消";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "减少 Liquid Glass 效果";
+"settings.reduce_effects_description" = "简化视觉效果以提高性能";
+"settings.system_appearance" = "系统外观";
+"settings.dark_mode" = "深色模式";
+"settings.dark_mode_description" = "启用深色配色方案";
+"settings.appearance_footer" = "iOS 17+ 引入了漂亮的 Liquid Glass 效果。如果您在旧设备上遇到性能问题，请减少效果。";
+
+// Settings: Privacy Section
+"settings.save_history" = "保存扫描历史";
+"settings.save_history_description" = "保留扫描链接的记录";
+"settings.clear_history" = "清除历史";
+"settings.clear_history_title" = "清除所有历史?";
+"settings.clear_history_message" = "此操作无法撤销。所有扫描历史将被永久删除。";
+"settings.clear_all" = "清除全部";
+"settings.privacy_policy" = "隐私政策";
+"settings.source_code" = "源代码";
+"settings.credits" = "为 KotlinConf 2026 用 ❤️ 制作";
+
+// Settings: About Section
+"settings.version" = "版本";
+"settings.build" = "构建";
+"settings.engine" = "引擎";
+
+// MARK: - Onboarding
+"onboarding.skip" = "跳过";
+"onboarding.continue" = "继续";
+"onboarding.get_started" = "开始使用";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "扫描任意二维码";
+"onboarding.scan.description" = "将相机对准任意二维码，即时分析其内容以检测潜在威胁。";
+"onboarding.protect.title" = "实时保护";
+"onboarding.protect.description" = "我们的 AI 驱动引擎使用 25 多种安全启发式算法和机器学习算法分析链接。";
+"onboarding.privacy.title" = "隐私优先";
+"onboarding.privacy.description" = "所有分析都在设备上使用 Kotlin 多平台进行。您的数据永远不会离开您的手机。";
+"onboarding.design.title" = "精美的 iOS 17+ 设计";
+"onboarding.design.description" = "体验令人惊叹的 Liquid Glass 界面，流畅的动画和现代美学。";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "相机权限";
+"onboarding.camera.allow" = "允许相机";
+"onboarding.camera.later" = "稍后再说";
+"onboarding.camera.message" = "QR-SHIELD 需要相机权限来扫描二维码。您可以稍后在设置中更改。";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "分析详情";
+"detail.scanned_at" = "扫描于 %@";
+"detail.url_information" = "链接信息";
+"detail.risk_factors" = "风险因素";
+"detail.no_risks" = "未检测到风险";
+"detail.open_url" = "打开链接";
+"detail.open_warning" = "打开此链接可能有风险。您确定吗？";
+"detail.open_warning_title" = "安全警告";
+"detail.proceed" = "仍然继续";
+"detail.scanned_at_time_ago" = "扫描于 %@";
+"detail.score_breakdown" = "分数明细";
+"detail.url_details" = "链接详情";
+"detail.url_label" = "链接";
+"detail.protocol_https" = "HTTPS（安全）";
+"detail.protocol_http" = "HTTP（不安全）";
+"detail.domain" = "域名";
+"detail.protocol" = "协议";
+"detail.share_analysis" = "分享分析";
+"detail.copy_url" = "复制链接";
+"detail.copied" = "已复制！";
+"detail.report_false_positive" = "报告误报";
+
+// MARK: - Errors
+"error.generic" = "发生错误";
+"error.network" = "网络连接错误";
+"error.invalid_url" = "检测到无效链接";
+"error.analysis_failed" = "分析失败";
+"error.invalid_or_unsupported" = "无效或不支持的二维码内容。";
+"error.no_qr_found" = "所选图片中未找到二维码。";
+"error.image_scan_failed" = "图片扫描失败: %@";
+"error.dismiss" = "关闭错误";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "扫描中";
+"scanner.status_paused" = "已暂停";
+"scanner.view_details" = "查看详情";
+"scanner.share" = "分享";
+"scanner.flash_on" = "闪光灯开";
+"scanner.flash_off" = "闪光灯关";
+"scanner.open_history" = "打开历史";
+"scanner.scan_toggle" = "切换扫描";
+
+// MARK: - History UI
+"history.search_prompt" = "搜索链接";
+"history.sort_menu" = "排序";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

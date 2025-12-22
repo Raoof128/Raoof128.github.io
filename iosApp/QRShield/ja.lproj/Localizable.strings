@@ -1,0 +1,199 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Japanese (日本語) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Kotlin Multiplatform QRishingディテクター";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "ホーム";
+"tab.scan" = "スキャン";
+"tab.history" = "履歴";
+"tab.training" = "トレーニング";
+"tab.settings" = "設定";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "スキャン中";
+"scanner.paused" = "一時停止";
+"scanner.analyzing" = "分析中...";
+"scanner.point_at_qr" = "QRコードに向けてください";
+"scanner.gallery" = "ギャラリー";
+"scanner.history" = "履歴";
+"scanner.scans_count" = "スキャン: %d";
+"scanner.error_dismiss" = "エラーを閉じる";
+
+// MARK: - Camera Permission
+"camera.access_required" = "カメラへのアクセスが必要です";
+"camera.access_message" = "QR-SHIELDはQRコードをスキャンするためにカメラへのアクセスが必要です。設定で有効にしてください。";
+"camera.open_settings" = "設定を開く";
+"camera.cancel" = "キャンセル";
+"camera.no_camera" = "利用可能なカメラがありません";
+"camera.setup_failed" = "カメラのセットアップに失敗しました: %@";
+"camera.flash_failed" = "フラッシュの切り替えに失敗しました: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "安全";
+"verdict.suspicious" = "疑わしい";
+"verdict.malicious" = "悪意あり";
+"verdict.unknown" = "不明";
+
+// MARK: - Result Card
+"result.risk_score" = "リスクスコア: %d/100";
+"result.risk_score_label" = "リスクスコア";
+"result.confidence" = "信頼度";
+"result.view_details" = "詳細を表示";
+"result.view_full_analysis" = "完全な分析を表示";
+"result.copy_url" = "URLをコピー";
+"result.share" = "共有";
+"result.dismiss" = "閉じる";
+"result.show_more" = "さらに%d件表示...";
+"result.show_less" = "表示を減らす";
+"result.flags_title" = "リスク要因";
+
+// MARK: - History View
+"history.title" = "スキャン履歴";
+"history.empty_title" = "スキャンなし";
+"history.empty_message" = "スキャンしたQRコードはここに表示されます";
+"history.scan_now" = "今すぐスキャン";
+"history.clear_all" = "すべてクリア";
+"history.delete" = "削除";
+"history.open_url" = "URLを開く";
+"history.search_prompt" = "URLを検索";
+"history.sort_menu" = "並べ替え";
+"history.sort.by_date" = "日付順";
+"history.sort.by_risk" = "リスク順";
+"history.export" = "エクスポート";
+"history.clear_all_action" = "すべてクリア";
+"history.scans_counter" = "%d件のスキャン";
+"history.no_results" = "結果なし";
+"history.no_results_message" = "検索条件やフィルターを調整してみてください";
+"history.clear_confirm_title" = "すべての履歴をクリアしますか？";
+"history.clear_confirm_message" = "この操作は取り消せません。すべてのスキャン履歴が完全に削除されます。";
+"history.exported_toast" = "クリップボードにエクスポートしました";
+
+// MARK: - Settings View
+"settings.title" = "設定";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "スキャン";
+"settings.section.notifications" = "通知";
+"settings.section.appearance" = "外観";
+"settings.section.privacy" = "プライバシー";
+"settings.section.about" = "このアプリについて";
+"settings.auto_scan" = "起動時に自動スキャン";
+"settings.auto_scan_description" = "アプリを開いたらすぐにスキャンを開始";
+"settings.haptic" = "触覚フィードバック";
+"settings.haptic_description" = "スキャン結果で振動";
+"settings.sound" = "サウンドエフェクト";
+"settings.sound_description" = "アラート時にサウンドを再生";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "セキュリティアラート";
+"settings.security_alerts_description" = "セキュリティ脅威の通知を受け取る";
+"settings.notifications_denied_title" = "通知が無効です";
+"settings.notifications_denied_message" = "セキュリティアラートを受け取るには、設定でQR-SHIELDの通知を有効にしてください。";
+"settings.open_settings" = "設定を開く";
+"settings.cancel" = "キャンセル";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Liquid Glassを減らす";
+"settings.reduce_effects_description" = "パフォーマンスのために視覚効果を簡素化";
+"settings.system_appearance" = "システム外観";
+"settings.dark_mode" = "ダークモード";
+"settings.dark_mode_description" = "ダークカラースキームを有効にする";
+"settings.appearance_footer" = "iOS 17+では美しいLiquid Glass効果が導入されています。古いデバイスでパフォーマンスの問題が発生した場合は、効果を減らしてください。";
+
+// Settings: Privacy Section
+"settings.save_history" = "スキャン履歴を保存";
+"settings.save_history_description" = "スキャンしたURLの記録を保持";
+"settings.clear_history" = "履歴をクリア";
+"settings.clear_history_title" = "すべての履歴をクリアしますか？";
+"settings.clear_history_message" = "この操作は取り消せません。すべてのスキャン履歴が完全に削除されます。";
+"settings.clear_all" = "すべてクリア";
+"settings.privacy_policy" = "プライバシーポリシー";
+"settings.source_code" = "ソースコード";
+"settings.credits" = "KotlinConf 2026のために❤️で作成";
+
+// Settings: About Section
+"settings.version" = "バージョン";
+"settings.build" = "ビルド";
+"settings.engine" = "エンジン";
+
+// MARK: - Onboarding
+"onboarding.skip" = "スキップ";
+"onboarding.continue" = "続ける";
+"onboarding.get_started" = "始める";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "あらゆるQRコードをスキャン";
+"onboarding.scan.description" = "カメラを任意のQRコードに向けて、潜在的な脅威がないか即座にコンテンツを分析します。";
+"onboarding.protect.title" = "リアルタイム保護";
+"onboarding.protect.description" = "AIを搭載したエンジンが25以上のセキュリティヒューリスティックスと機械学習アルゴリズムを使用してURLを分析します。";
+"onboarding.privacy.title" = "プライバシー優先";
+"onboarding.privacy.description" = "すべての分析はKotlin Multiplatformを使用してデバイス上で行われます。あなたのデータが電話を離れることはありません。";
+"onboarding.design.title" = "美しいiOS 17+デザイン";
+"onboarding.design.description" = "滑らかなアニメーションとモダンな美学を備えた素晴らしいLiquid Glassインターフェースを体験してください。";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "カメラの許可";
+"onboarding.camera.allow" = "カメラを許可";
+"onboarding.camera.later" = "後で";
+"onboarding.camera.message" = "QR-SHIELDはQRコードをスキャンするためにカメラへのアクセスが必要です。後で設定で変更できます。";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "分析の詳細";
+"detail.scanned_at" = "%@にスキャン";
+"detail.url_information" = "URL情報";
+"detail.risk_factors" = "リスク要因";
+"detail.no_risks" = "リスクは検出されませんでした";
+"detail.open_url" = "URLを開く";
+"detail.open_warning" = "このURLを開くのは危険かもしれません。よろしいですか？";
+"detail.open_warning_title" = "セキュリティ警告";
+"detail.proceed" = "続行する";
+"detail.scanned_at_time_ago" = "%@前にスキャン";
+"detail.score_breakdown" = "スコアの内訳";
+"detail.url_details" = "URLの詳細";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS（安全）";
+"detail.protocol_http" = "HTTP（安全でない）";
+"detail.domain" = "ドメイン";
+"detail.protocol" = "プロトコル";
+"detail.share_analysis" = "分析を共有";
+"detail.copy_url" = "URLをコピー";
+"detail.copied" = "コピーしました！";
+"detail.report_false_positive" = "誤検知を報告";
+
+// MARK: - Errors
+"error.generic" = "エラーが発生しました";
+"error.network" = "ネットワーク接続エラー";
+"error.invalid_url" = "無効なURLが検出されました";
+"error.analysis_failed" = "分析に失敗しました";
+"error.invalid_or_unsupported" = "無効またはサポートされていないQRコンテンツです。";
+"error.no_qr_found" = "選択した画像にQRコードが見つかりませんでした。";
+"error.image_scan_failed" = "画像のスキャンに失敗しました: %@";
+"error.dismiss" = "エラーを閉じる";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "スキャン中";
+"scanner.status_paused" = "一時停止";
+"scanner.view_details" = "詳細を表示";
+"scanner.share" = "共有";
+"scanner.flash_on" = "フラッシュオン";
+"scanner.flash_off" = "フラッシュオフ";
+"scanner.open_history" = "履歴を開く";
+"scanner.scan_toggle" = "スキャンを切り替え";
+
+// MARK: - History UI
+"history.search_prompt" = "URLを検索";
+"history.sort_menu" = "並べ替え";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";
