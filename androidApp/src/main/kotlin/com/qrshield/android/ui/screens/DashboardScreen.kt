@@ -19,8 +19,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Help
-import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.automirrored.filled.*
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -101,6 +100,9 @@ fun DashboardScreen(
                 onScanClick = onScanClick,
                 onImportClick = onImportClick
             )
+
+            // Feature Cards (Parity with HTML)
+            FeatureCardsSection()
 
             // System Health Card with REAL stats
             SystemHealthCard(
@@ -252,6 +254,165 @@ private fun HeroSection() {
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Quick URL Input
+        var urlInput by remember { mutableStateOf("") }
+        OutlinedTextField(
+            value = urlInput,
+            onValueChange = { urlInput = it },
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = { 
+                Text(
+                    text = stringResource(R.string.dashboard_url_placeholder),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                ) 
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            },
+            trailingIcon = {
+                Button(
+                    onClick = { /* TODO: Implement Analyze */ },
+                    modifier = Modifier.padding(end = 8.dp),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = QRShieldColors.Primary
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Security,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp),
+                        tint = Color.White
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = stringResource(R.string.analyze_url),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = Color.White
+                    )
+                }
+            },
+            shape = RoundedCornerShape(12.dp),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = QRShieldColors.Primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface
+            ),
+            singleLine = true
+        )
+    }
+}
+
+@Composable
+private fun FeatureCardsSection() {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        FeatureCard(
+            icon = Icons.Default.CloudOff,
+            bgIcon = Icons.Default.WifiOff,
+            title = "Offline-First Architecture",
+            description = "Complete analysis is performed locally. Your camera feed and scanned data never touch an external server.",
+            iconColor = QRShieldColors.Blue500,
+            iconBgColor = QRShieldColors.Blue50
+        )
+        
+        FeatureCard(
+            icon = Icons.AutoMirrored.Filled.ManageSearch,
+            bgIcon = Icons.Default.Psychology,
+            title = "Explainable Security",
+            description = "Don't just get a \"Block\". We provide detailed heuristic breakdowns of URL parameters and redirects.",
+            iconColor = QRShieldColors.Purple500,
+            iconBgColor = QRShieldColors.Purple50
+        )
+        
+        FeatureCard(
+            icon = Icons.Default.Speed,
+            bgIcon = Icons.Default.Bolt,
+            title = "High-Performance Engine",
+            description = "Optimised for mobile environments. Scans are processed in under 5ms using native Kotlin primitives.",
+            iconColor = QRShieldColors.Emerald500,
+            iconBgColor = QRShieldColors.Emerald50
+        )
+    }
+}
+
+@Composable
+private fun FeatureCard(
+    icon: ImageVector,
+    bgIcon: ImageVector,
+    title: String,
+    description: String,
+    iconColor: Color,
+    iconBgColor: Color
+) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.surface,
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
+            brush = androidx.compose.ui.graphics.Brush.linearGradient(
+                listOf(
+                    MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f),
+                    MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)
+                )
+            )
+        ),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
+            // Background Icon
+            Icon(
+                imageVector = bgIcon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f), // Very faint
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .size(120.dp)
+                    .offset(x = 20.dp, y = (-20).dp)
+            )
+            
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(iconBgColor),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = iconColor,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+                
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(
+                        text = title,
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        lineHeight = 20.sp
+                    )
+                }
+            }
+        }
     }
 }
 

@@ -5,6 +5,60 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.6] - 2025-12-23
+
+### 🌍 Android - Complete Localization Pass
+
+Completed comprehensive localization of all Android UI screens, eliminating all remaining hardcoded strings.
+
+#### 📱 Screens Localized
+- **BeatTheBotScreen.kt**: 15+ strings localized (title, scoreboard, player labels, game feedback, bot reasoning)
+- **DashboardScreen.kt**: URL placeholder and Analyze button text
+- **TrustCentreScreen.kt**: Sensitivity subtitle, list card placeholder
+- **ScanResultScreen.kt**: 10+ strings (risk labels, engine stats, action buttons)
+
+#### 🔧 Technical Improvements
+- **Dynamic Versioning**: Replaced hardcoded "2.4.0" with `BuildConfig.VERSION_NAME` in TrustCentreScreen footer
+- **String Resources**: Added 32 new string keys to `values/strings.xml`
+
+#### 📦 New String Resources
+| Category | Keys Added |
+|----------|------------|
+| Beat the Bot | `beat_the_bot_title`, `beat_the_bot_subtitle`, `beat_the_bot_session_fmt`, `beat_the_bot_live_scoreboard`, `beat_the_bot_vs_mode`, `beat_the_bot_you`, `beat_the_bot_bot_name`, `beat_the_bot_pts_fmt`, `beat_the_bot_streak_fmt`, `beat_the_bot_latency_fmt`, `beat_the_bot_preview_hidden`, `beat_the_bot_correct`, `beat_the_bot_correct_desc`, `beat_the_bot_incorrect`, `beat_the_bot_incorrect_phishing`, `beat_the_bot_incorrect_legit`, `beat_the_bot_why_flagged`, `beat_the_bot_suspicious`, `beat_the_bot_safe` |
+| Dashboard | `dashboard_url_placeholder` |
+| Trust Centre | `trust_centre_adjust_thresholds`, `trust_centre_last_added` |
+| Scan Result | `risk_assessment_title`, `risk_level_low`, `risk_level_warning`, `risk_level_critical`, `risk_label_safe`, `risk_label_warn`, `risk_label_critical`, `analysis_time_label`, `heuristics_label`, `engine_label`, `engine_version_fmt`, `action_share`, `action_open_safely` |
+
+#### ✅ Build Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL
+```
+
+## [1.17.5] - 2025-12-24
+
+### 🎨 Android UI - Theme Consistency
+- **Theme Fixes**: Resolved "part dark, part light" UI inconsistencies across `ScannerScreen`, `HistoryScreen`, and `SettingsScreen`.
+- **Dynamic Theming**: Replaced hardcoded dark/white colors with dynamic `MaterialTheme` colors (`background`, `onBackground`, `surfaceVariant`, `onSurfaceVariant`) to fully support both Light and Dark system modes.
+- **Scanner UI**: Updated Idle, Scanning, Resolving, Analyzing, and Error states to adapt to system theme.
+- **Settings UI**: Updated all settings sections, toggles, info cards, and dialogs to adapt to system theme.
+- **History UI**: Updated history list, empty states, and filter chips to adapt to system theme.
+## [1.17.4] - 2025-12-23
+
+### 🎨 Android UI - Learning & Trust Centre Polish
+- **Learning Centre Refactor**: Updated `LearningCentreScreen` to match HTML design with "Your Progress", "Daily Tip", and module cards.
+- **Trust Centre Refactor**: Replaced sensitivity slider with segmented control and aligned privacy toggles with HTML.
+- **Strings**: Added missing string resources for Learning Centre and Trust Centre.
+
+## [1.17.3] - 2025-12-22
+
+### 🎨 Android UI - Visual Parity Refactor
+- **Dashboard Refactor**: Added URL input to Hero section and implemented "Explainable Security" feature cards, matching `dashboard.html`.
+- **Trust Centre Refactor**: Implemented `Slider` for sensitivity control, updated List Cards style, and aligned Privacy Toggles with `trust.html`.
+- **Scan Result Refactor**: Added segmented risk score bar, `EngineStatsCard`, and updated Bottom Action Bar to "Share" and "Open Safely", matching `results.html`.
+- **Clean Up**: Removed unused `ToolsCarousel`, fixed icon deprecations (`ManageSearch`), and optimized imports.
+- **Beat the Bot Refactor**: Refactored `BeatTheBotScreen` for pixel-perfect parity with `game.html`, including "VS Mode" scoreboard and "Browser Preview" card.
+
 ## [1.17.1] - 2025-12-22
 
 ### 🌍 iOS App - Full Localization (10 Languages)

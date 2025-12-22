@@ -97,11 +97,8 @@ fun OfflinePrivacyScreen(
             // Privacy Architecture
             PrivacyArchitectureSection()
 
-            // Data Flow
-            DataFlowSection()
-
-            // Trust Badges
-            TrustBadgesSection()
+            // Data Verification
+            DataVerificationSection()
 
             // Learn More Button
             Button(
@@ -212,36 +209,31 @@ private fun PrivacyArchitectureSection() {
         )
 
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            // Feature 1: Local Sandbox
             PrivacyFeatureCard(
-                icon = Icons.Default.Storage,
+                icon = Icons.Default.ViewModule, // generic for 'dataset'
                 iconBgColor = QRShieldColors.Primary.copy(alpha = 0.1f),
                 iconColor = QRShieldColors.Primary,
-                title = stringResource(R.string.privacy_local_db_title),
-                description = stringResource(R.string.privacy_local_db_desc)
+                title = "Local Sandbox",
+                description = "URLs execute in a virtual container."
             )
 
+            // Feature 2: No Cloud Logs
             PrivacyFeatureCard(
-                icon = Icons.Default.Memory,
-                iconBgColor = QRShieldColors.Purple50,
-                iconColor = QRShieldColors.Purple600,
-                title = stringResource(R.string.privacy_on_device_ai_title),
-                description = stringResource(R.string.privacy_on_device_ai_desc)
+                icon = Icons.Default.CloudOff,
+                iconBgColor = QRShieldColors.Primary.copy(alpha = 0.1f),
+                iconColor = QRShieldColors.Primary,
+                title = "No Cloud Logs",
+                description = "Zero telemetry sent to external servers."
             )
 
+            // Feature 3: On-Device DB
             PrivacyFeatureCard(
-                icon = Icons.Default.DeleteForever,
-                iconBgColor = QRShieldColors.Orange50,
-                iconColor = QRShieldColors.Orange600,
-                title = stringResource(R.string.privacy_no_retention_title),
-                description = stringResource(R.string.privacy_no_retention_desc)
-            )
-
-            PrivacyFeatureCard(
-                icon = Icons.Default.VpnLock,
-                iconBgColor = QRShieldColors.Emerald50,
-                iconColor = QRShieldColors.Emerald600,
-                title = stringResource(R.string.privacy_airgap_title),
-                description = stringResource(R.string.privacy_airgap_desc)
+                icon = Icons.Default.Storage, // for 'database'
+                iconBgColor = QRShieldColors.Primary.copy(alpha = 0.1f),
+                iconColor = QRShieldColors.Primary,
+                title = "On-Device DB",
+                description = "Threat definitions updated locally."
             )
         }
     }
@@ -310,10 +302,10 @@ private fun PrivacyFeatureCard(
 }
 
 @Composable
-private fun DataFlowSection() {
+private fun DataVerificationSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = stringResource(R.string.privacy_data_flow),
+            text = "Data Verification",
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -331,172 +323,100 @@ private fun DataFlowSection() {
                 )
             )
         ) {
-            Column(
-                modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                DataFlowStep(
-                    step = 1,
-                    title = stringResource(R.string.privacy_step_1_title),
-                    description = stringResource(R.string.privacy_step_1_desc),
-                    isCompleted = true
-                )
-                DataFlowConnector()
-                DataFlowStep(
-                    step = 2,
-                    title = stringResource(R.string.privacy_step_2_title),
-                    description = stringResource(R.string.privacy_step_2_desc),
-                    isCompleted = true
-                )
-                DataFlowConnector()
-                DataFlowStep(
-                    step = 3,
-                    title = stringResource(R.string.privacy_step_3_title),
-                    description = stringResource(R.string.privacy_step_3_desc),
-                    isCompleted = true
-                )
-                DataFlowConnector()
-                DataFlowStep(
-                    step = 4,
-                    title = stringResource(R.string.privacy_step_4_title),
-                    description = stringResource(R.string.privacy_step_4_desc),
-                    isCompleted = true
-                )
+            Column(modifier = Modifier.padding(20.dp)) {
+                // Row 1: Image Data & URL Analysis
+                Row(
+                    modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)
+                ) {
+                    // Image Data
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = 16.dp, bottom = 16.dp)
+                            .border(width = 0.dp, color = Color.Transparent) // Placeholder
+                    ) {
+                        Text(
+                            text = "IMAGE DATA",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Memory Only",
+                            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Medium),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+
+                    // Vertical Divider
+                    Box(
+                        modifier = Modifier
+                            .width(1.dp)
+                            .fillMaxHeight()
+                            .padding(bottom = 16.dp)
+                            .background(MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+                    )
+
+                    // URL Analysis
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 16.dp, bottom = 16.dp)
+                    ) {
+                        Text(
+                            text = "URL ANALYSIS",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(
+                                modifier = Modifier
+                                    .size(8.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFF22C55E)) // Green-500
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "Local CPU",
+                                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Bold),
+                                color = QRShieldColors.Primary
+                            )
+                        }
+                    }
+                }
+
+                // Horizontal Divider
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                // Row 2: User History
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column {
+                        Text(
+                            text = "USER HISTORY",
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Encrypted Storage (AES-256)",
+                            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Medium),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                    )
+                }
             }
-        }
-    }
-}
-
-@Composable
-private fun DataFlowStep(
-    step: Int,
-    title: String,
-    description: String,
-    isCompleted: Boolean
-) {
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        verticalAlignment = Alignment.Top
-    ) {
-        Box(
-            modifier = Modifier
-                .size(32.dp)
-                .clip(CircleShape)
-                .background(
-                    if (isCompleted) QRShieldColors.Primary
-                    else MaterialTheme.colorScheme.surfaceVariant
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            if (isCompleted) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(18.dp)
-                )
-            } else {
-                Text(
-                    text = step.toString(),
-                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
-
-        Column {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold)
-            )
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
-}
-
-@Composable
-private fun DataFlowConnector() {
-    Box(
-        modifier = Modifier
-            .padding(start = 15.dp)
-            .width(2.dp)
-            .height(24.dp)
-            .background(MaterialTheme.colorScheme.outlineVariant)
-    )
-}
-
-@Composable
-private fun TrustBadgesSection() {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text(
-            text = stringResource(R.string.privacy_compliance),
-            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
-        )
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            TrustBadge(
-                modifier = Modifier.weight(1f),
-                title = stringResource(R.string.privacy_gdpr),
-                subtitle = stringResource(R.string.privacy_compliant)
-            )
-            TrustBadge(
-                modifier = Modifier.weight(1f),
-                title = stringResource(R.string.privacy_soc2),
-                subtitle = stringResource(R.string.privacy_type2)
-            )
-            TrustBadge(
-                modifier = Modifier.weight(1f),
-                title = stringResource(R.string.privacy_iso),
-                subtitle = stringResource(R.string.privacy_27001)
-            )
-        }
-    }
-}
-
-@Composable
-private fun TrustBadge(
-    title: String,
-    subtitle: String,
-    modifier: Modifier = Modifier
-) {
-    Surface(
-        modifier = modifier,
-        shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surface,
-        shadowElevation = 1.dp,
-        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
-            brush = Brush.linearGradient(
-                listOf(
-                    MaterialTheme.colorScheme.outlineVariant,
-                    MaterialTheme.colorScheme.outlineVariant
-                )
-            )
-        )
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                color = QRShieldColors.Primary
-            )
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
         }
     }
 }

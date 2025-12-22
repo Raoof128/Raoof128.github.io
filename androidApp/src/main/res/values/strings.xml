@@ -38,6 +38,7 @@
     <string name="url_placeholder">https://example.com</string>
     <string name="analyze_url">Analyze</string>
     <string name="url_hint">Paste or type any URL to analyze</string>
+    <string name="dashboard_url_placeholder">Paste URL to analyze (e.g., https://example.com)</string>
     
     <!-- Results -->
     <string name="risk_score">Risk Score</string>
@@ -218,6 +219,19 @@
     <string name="scan_mode_online">Online</string>
     <string name="action_block_report">Block &amp; Report to IT</string>
     <string name="action_ignore_warning">Ignore Warning (Admin)</string>
+    <string name="risk_assessment_title">Risk Assessment</string>
+    <string name="risk_level_low">LOW RISK</string>
+    <string name="risk_level_warning">WARNING</string>
+    <string name="risk_level_critical">CRITICAL</string>
+    <string name="risk_label_safe">SAFE</string>
+    <string name="risk_label_warn">WARN</string>
+    <string name="risk_label_critical">CRITICAL</string>
+    <string name="analysis_time_label">Analysis Time</string>
+    <string name="heuristics_label">Heuristics</string>
+    <string name="engine_label">Engine</string>
+    <string name="engine_version_fmt">v%1$s</string>
+    <string name="action_share">Share</string>
+    <string name="action_open_safely">Open Safely</string>
     
     <!-- Analysis Items (Demo) -->
     <string name="analysis_domain_age_title">Domain Age Alert</string>
@@ -296,6 +310,8 @@
     <string name="dashboard_score_fmt">Score: %1$d</string>
     <string name="tool_trust_centre">Trust Centre</string>
     <string name="tool_trust_centre_subtitle">Security settings</string>
+    <string name="trust_centre_adjust_thresholds">Adjust heuristic thresholds</string>
+    <string name="trust_centre_last_added">Last added 2d ago</string>
     <string name="tool_learning">Learning</string>
     <string name="tool_learning_subtitle">Security training</string>
     <string name="tool_threat_database">Threat Database</string>
@@ -327,6 +343,26 @@
     <string name="mark_safe">Mark Safe</string>
     <string name="quick_hint">Quick Hint</string>
     <string name="cd_dismiss_hint">Dismiss hint</string>
+    <string name="beat_the_bot_next_round">Next Round</string>
+    <string name="beat_the_bot_title">Beat the Bot</string>
+    <string name="beat_the_bot_subtitle">Challenge our offline AI engine</string>
+    <string name="beat_the_bot_session_fmt">Session: #%1$s</string>
+    <string name="beat_the_bot_live_scoreboard">Live Scoreboard</string>
+    <string name="beat_the_bot_vs_mode">VS MODE</string>
+    <string name="beat_the_bot_you">You</string>
+    <string name="beat_the_bot_streak_fmt">Streak: %1$d 🔥</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_latency_fmt">Latency: %1$dms</string>
+    <string name="beat_the_bot_pts_fmt">%1$d pts</string>
+    <string name="beat_the_bot_preview_hidden">Preview Hidden</string>
+    <string name="beat_the_bot_correct">Correct Decision!</string>
+    <string name="beat_the_bot_correct_desc">You identified the threat correctly.</string>
+    <string name="beat_the_bot_incorrect">Incorrect Decision</string>
+    <string name="beat_the_bot_incorrect_phishing">Oops! This was actually a Phishing attack.</string>
+    <string name="beat_the_bot_incorrect_legit">Oops! This was actually Legitimate.</string>
+    <string name="beat_the_bot_why_flagged">Why the bot flagged it %1$s:</string>
+    <string name="beat_the_bot_suspicious">Suspicious</string>
+    <string name="beat_the_bot_safe">Safe</string>
     
     <!-- Learning Centre Screen -->
     <string name="learning_centre_title">Learning Centre</string>

@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.components.QRShieldToggle
 import com.qrshield.android.ui.theme.QRShieldColors
 import androidx.compose.ui.res.stringResource
+import com.qrshield.android.BuildConfig
 import com.qrshield.android.R
 
 /**
@@ -264,106 +265,117 @@ private fun SensitivitySection(
     selectedSensitivity: Sensitivity,
     onSensitivityChange: (Sensitivity) -> Unit
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         // Header
         Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.Tune,
-                contentDescription = null,
-                tint = QRShieldColors.Primary,
-                modifier = Modifier.size(20.dp)
-            )
-            Text(
-                text = stringResource(R.string.phishing_sensitivity),
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-            )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Tune,
+                    contentDescription = null,
+                    tint = QRShieldColors.Primary,
+                    modifier = Modifier.size(20.dp)
+                )
+                Column {
+                    Text(
+                        text = stringResource(R.string.phishing_sensitivity),
+                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                    )
+                    Text(
+                        text = stringResource(R.string.trust_centre_adjust_thresholds),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
         }
 
-        // Segmented Control
+        // Custom Segmented Control
+        Surface(
+            modifier = Modifier.fillMaxWidth().height(48.dp),
+            shape = RoundedCornerShape(50),
+            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        ) {
+            Row(
+                modifier = Modifier.padding(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Sensitivity.entries.forEach { sensitivity ->
+                    val isSelected = sensitivity == selectedSensitivity
+                    val textColor = if (isSelected) {
+                        when (sensitivity) {
+                            Sensitivity.PARANOIA -> QRShieldColors.RiskDanger
+                            Sensitivity.BALANCED -> QRShieldColors.Primary
+                            else -> MaterialTheme.colorScheme.onSurface
+                        }
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    }
+
+                    Surface(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
+                        shape = RoundedCornerShape(50),
+                        color = if (isSelected) MaterialTheme.colorScheme.background else Color.Transparent,
+                        shadowElevation = if (isSelected) 2.dp else 0.dp,
+                        onClick = { onSensitivityChange(sensitivity) }
+                    ) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Text(
+                                text = stringResource(sensitivity.labelRes),
+                                style = MaterialTheme.typography.labelMedium.copy(
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+                                ),
+                                color = textColor
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        // Info Section
         Surface(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
             color = MaterialTheme.colorScheme.surface,
-            shadowElevation = 2.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
                     listOf(
-                        MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                        MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                        MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f),
+                        MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f)
                     )
                 )
             )
         ) {
-            Column(modifier = Modifier.padding(8.dp)) {
-                // Segmented buttons
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp),
-                    shape = RoundedCornerShape(9999.dp),
-                    color = MaterialTheme.colorScheme.surfaceVariant
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(4.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        Sensitivity.entries.forEach { sensitivity ->
-                            val isSelected = sensitivity == selectedSensitivity
-                            val textColor = when {
-                                isSelected && sensitivity == Sensitivity.PARANOIA -> QRShieldColors.RiskDanger
-                                isSelected && sensitivity == Sensitivity.BALANCED -> QRShieldColors.Primary
-                                isSelected -> MaterialTheme.colorScheme.onSurface
-                                else -> MaterialTheme.colorScheme.onSurfaceVariant
-                            }
-
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .fillMaxHeight()
-                                    .clip(RoundedCornerShape(9999.dp))
-                                    .then(
-                                        if (isSelected) {
-                                            Modifier.background(MaterialTheme.colorScheme.surface)
-                                        } else {
-                                            Modifier.background(Color.Transparent)
-                                        }
-                                    )
-                                    .clickable { onSensitivityChange(sensitivity) },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = stringResource(sensitivity.labelRes),
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = textColor
-                                )
-                            }
-                        }
-                    }
-                }
-
-                // Description
-                Column(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)
-                ) {
+            Row(
+                modifier = Modifier.padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(20.dp).padding(top = 2.dp)
+                )
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
-                        text = stringResource(selectedSensitivity.labelRes) + " " + stringResource(R.string.sensitivity_mode_suffix),
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                        color = if (selectedSensitivity == Sensitivity.PARANOIA) 
-                            QRShieldColors.RiskDanger 
-                        else 
-                            MaterialTheme.colorScheme.onSurface
+                        text = stringResource(selectedSensitivity.labelRes) + " (Recommended)",
+                        style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+                        color = MaterialTheme.colorScheme.onSurface
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = stringResource(selectedSensitivity.descriptionRes),
                         style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        lineHeight = 16.sp
                     )
                 }
             }
@@ -424,7 +436,7 @@ private fun ListCard(
     modifier: Modifier = Modifier
 ) {
     Surface(
-        modifier = modifier.height(128.dp),
+        modifier = modifier.height(160.dp),
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
@@ -443,11 +455,11 @@ private fun ListCard(
             Icon(
                 imageVector = decorativeIcon,
                 contentDescription = null,
-                tint = decorativeColor.copy(alpha = 0.1f),
+                tint = decorativeColor.copy(alpha = 0.05f),
                 modifier = Modifier
-                    .size(64.dp)
-                    .align(Alignment.TopEnd)
-                    .offset(x = 8.dp, y = (-4).dp)
+                    .size(80.dp)
+                    .align(Alignment.BottomEnd)
+                    .offset(x = 20.dp, y = 20.dp)
             )
 
             Column(
@@ -456,11 +468,11 @@ private fun ListCard(
                     .padding(16.dp),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                // Top: Icon + Count
+                // Top: Header with Add Button
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.Top
                 ) {
                     Box(
                         modifier = Modifier
@@ -477,28 +489,39 @@ private fun ListCard(
                         )
                     }
 
+                    // Add Button (Visual only for now)
                     Surface(
-                        shape = RoundedCornerShape(9999.dp),
-                        color = MaterialTheme.colorScheme.surfaceVariant
+                        shape = CircleShape,
+                        color = MaterialTheme.colorScheme.surfaceVariant,
+                        modifier = Modifier.size(28.dp).clickable { /* TODO: Add Item */ }
                     ) {
-                        Text(
-                            text = count.toString(),
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
-                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
+                        Box(contentAlignment = Alignment.Center) {
+                            Icon(
+                                imageVector = Icons.Default.Add,
+                                contentDescription = "Add",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
                     }
                 }
 
-                // Bottom: Title + Subtitle
+                // Middle: Count
+                Text(
+                    text = count.toString(),
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+
+                // Bottom: Title
                 Column {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
                     )
                     Text(
-                        text = subtitle,
-                        style = MaterialTheme.typography.bodySmall,
+                        text = stringResource(R.string.trust_centre_last_added), // Placeholder for parity
+                        style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -523,7 +546,7 @@ private fun PrivacyControlsSection(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Default.Security,
+                imageVector = Icons.Default.Lock,
                 contentDescription = null,
                 tint = QRShieldColors.Primary,
                 modifier = Modifier.size(20.dp)
@@ -550,20 +573,25 @@ private fun PrivacyControlsSection(
             )
         ) {
             Column {
+                // Strict Offline Mode (Simulated using existing boolean or new state)
                 PrivacyToggleItem(
-                    title = stringResource(R.string.share_threats_title),
-                    subtitle = stringResource(R.string.share_threats_subtitle),
+                    title = "Strict Offline Mode",
+                    subtitle = "Disable all external link previews.",
+                    checked = true, // Always true for now as per design
+                    onCheckedChange = { }, 
+                    showDivider = true
+                )
+                
+                // Anonymous Telemetry (Mapped from Share Threat Signatures)
+                PrivacyToggleItem(
+                    title = "Anonymous Telemetry",
+                    subtitle = "Share detection stats to improve ML.",
                     checked = shareThreatSignatures,
                     onCheckedChange = onShareThreatSignaturesChange,
                     showDivider = true
                 )
-                PrivacyToggleItem(
-                    title = stringResource(R.string.biometric_unlock_title),
-                    subtitle = stringResource(R.string.biometric_unlock_subtitle),
-                    checked = biometricUnlock,
-                    onCheckedChange = onBiometricUnlockChange,
-                    showDivider = true
-                )
+                
+                // Auto-Copy
                 PrivacyToggleItem(
                     title = stringResource(R.string.auto_copy_title),
                     subtitle = stringResource(R.string.auto_copy_subtitle),
@@ -597,7 +625,8 @@ private fun PrivacyToggleItem(
             ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium)
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
                     text = subtitle,
@@ -614,7 +643,8 @@ private fun PrivacyToggleItem(
 
         if (showDivider) {
             HorizontalDivider(
-                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f),
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
     }
@@ -651,7 +681,7 @@ private fun FooterSection() {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = stringResource(R.string.footer_version, "2.4.0"),
+                text = stringResource(R.string.footer_version, BuildConfig.VERSION_NAME),
                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

@@ -12,6 +12,7 @@ package com.qrshield.android.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -24,6 +25,9 @@ import androidx.compose.material.icons.automirrored.filled.AltRoute
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.animation.core.*
+import androidx.compose.ui.draw.scale
+
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -137,6 +141,13 @@ fun ScanResultScreen(
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
+                
+                // Engine Stats
+                EngineStatsCard(
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
 
                 // Tags/Chips
                 TagsRow()
@@ -183,8 +194,8 @@ fun ScanResultScreen(
 
             // Bottom Action Buttons
             BottomActionBar(
-                onBlockClick = onBlockClick,
-                onIgnoreClick = onIgnoreClick,
+                onShareClick = onShareClick,
+                onOpenClick = { /* TODO: Implement Sandbox */ },
                 modifier = Modifier.align(Alignment.BottomCenter)
             )
         }
@@ -197,39 +208,75 @@ private fun VerdictHeader(
     threatType: String,
     confidence: Int
 ) {
+    val infiniteTransition = rememberInfiniteTransition(label = "pulse")
+    val pulseScale by infiniteTransition.animateFloat(
+        initialValue = 0.95f,
+        targetValue = 1.05f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1500, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "pulseScale"
+    )
+    
+    val pingScale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.4f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearOutSlowInEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "pingScale"
+    )
+    
+    val pingAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.4f,
+        targetValue = 0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2000, easing = LinearOutSlowInEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "pingAlpha"
+    )
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 32.dp),
+            .padding(horizontal = 24.dp, vertical = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // Pulsing Icon Container
         Box(contentAlignment = Alignment.Center) {
-            // Glow effect
+            // Ping effect (outer ring)
             Box(
                 modifier = Modifier
                     .size(120.dp)
+                    .scale(pingScale)
                     .clip(CircleShape)
-                    .background(
-                        Brush.radialGradient(
-                            listOf(
-                                QRShieldColors.RiskDanger.copy(alpha = 0.3f),
-                                Color.Transparent
-                            )
-                        )
-                    )
+                    .background(QRShieldColors.RiskDanger.copy(alpha = pingAlpha))
             )
+            
+            // Pulse effect (inner ring)
+            Box(
+                modifier = Modifier
+                    .size(120.dp)
+                    .scale(pulseScale)
+                    .clip(CircleShape)
+                    .background(QRShieldColors.RiskDanger.copy(alpha = 0.2f))
+            )
+            
             // Icon container
             Surface(
                 modifier = Modifier.padding(4.dp),
                 shape = CircleShape,
                 color = MaterialTheme.colorScheme.surface,
-                shadowElevation = 4.dp
+                shadowElevation = 8.dp,
+                border = BorderStroke(4.dp, MaterialTheme.colorScheme.background)
             ) {
                 Box(
                     modifier = Modifier
-                        .size(96.dp)
+                        .size(100.dp)
                         .clip(CircleShape)
                         .background(
                             Brush.linearGradient(
@@ -251,32 +298,25 @@ private fun VerdictHeader(
         // Verdict text
         Text(
             text = verdict,
-            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold), // Larger text
             color = MaterialTheme.colorScheme.onBackground
         )
 
         // Threat type badge and confidence
         Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Surface(
                 shape = RoundedCornerShape(9999.dp),
                 color = QRShieldColors.RiskDanger.copy(alpha = 0.1f),
-                border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
-                    brush = Brush.linearGradient(
-                        listOf(
-                            QRShieldColors.RiskDanger.copy(alpha = 0.2f),
-                            QRShieldColors.RiskDanger.copy(alpha = 0.2f)
-                        )
-                    )
-                )
+                border = BorderStroke(1.dp, QRShieldColors.RiskDanger.copy(alpha = 0.2f))
             ) {
                 Text(
                     text = threatType.uppercase(),
-                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
                     color = QRShieldColors.RiskDanger,
-                    fontSize = 11.sp,
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.5.sp
                 )
@@ -284,7 +324,7 @@ private fun VerdictHeader(
 
             Text(
                 text = stringResource(R.string.confidence_fmt, confidence),
-                style = MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -312,78 +352,229 @@ private fun RiskScoreCard(
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Bottom
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Column {
-                    Text(
-                        text = stringResource(R.string.severity_score_label),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 1.sp
-                        ),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Row(
-                        verticalAlignment = Alignment.Bottom
-                    ) {
-                        Text(
-                            text = score.toString(),
-                            style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold),
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = "/10",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
-
-                Icon(
-                    imageVector = Icons.Default.ThermostatAuto,
-                    contentDescription = null,
-                    tint = QRShieldColors.RiskDanger,
-                    modifier = Modifier.size(32.dp)
+                Text(
+                    text = stringResource(R.string.risk_assessment_title),
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
                 )
+                
+                Surface(
+                    shape = RoundedCornerShape(4.dp),
+                    color = when {
+                        score < 3 -> QRShieldColors.Emerald50
+                        score < 7 -> QRShieldColors.Orange50
+                        else -> QRShieldColors.Red50
+                    }
+                ) {
+                    Text(
+                        text = when {
+                            score < 3 -> stringResource(R.string.risk_level_low)
+                            score < 7 -> stringResource(R.string.risk_level_warning)
+                            else -> stringResource(R.string.risk_level_critical)
+                        },
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = when {
+                            score < 3 -> QRShieldColors.Emerald600
+                            score < 7 -> QRShieldColors.Orange600
+                            else -> QRShieldColors.Red600
+                        }
+                    )
+                }
             }
 
-            // Progress bar
+            // Segmented Progress Bar
+            Row(
+                modifier = Modifier.fillMaxWidth().height(12.dp),
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                // 5 Segments
+                for (i in 1..5) {
+                    val isActive = (score / 2f) >= i // Map 0-10 score to 1-5 segments roughly
+                    // OR: simpler mapping. If score is 8, 4 segments active.
+                    val activeSegments = (score / 2).toInt().coerceAtLeast(1) 
+                    val isSegmentActive = i <= activeSegments
+                    
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(
+                                if (isSegmentActive) {
+                                    when {
+                                        score < 3 -> QRShieldColors.Emerald500
+                                        score < 7 -> QRShieldColors.Orange500
+                                        else -> QRShieldColors.RiskDanger
+                                    }
+                                } else {
+                                    MaterialTheme.colorScheme.surfaceVariant
+                                }
+                            )
+                    )
+                }
+            }
+
+            // Labels
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(R.string.risk_label_safe),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                    color = QRShieldColors.Emerald600
+                )
+                Text(
+                    text = stringResource(R.string.risk_label_warn),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                    color = QRShieldColors.Orange600
+                )
+                Text(
+                    text = stringResource(R.string.risk_label_critical),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                    color = QRShieldColors.Red600
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EngineStatsCard(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = stringResource(R.string.analysis_time_label),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = "4ms",
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+            
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(12.dp)
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .width(1.dp)
+                    .height(24.dp)
+                    .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f))
+            )
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = stringResource(R.string.heuristics_label),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = "142",
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+            
+            Box(
+                modifier = Modifier
+                            .width(1.dp)
+                            .height(24.dp)
+                            .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.2f))
+            )
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = stringResource(R.string.engine_label),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = stringResource(R.string.engine_version_fmt, "2.4"),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun BottomActionBar(
+    onShareClick: () -> Unit,
+    onOpenClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = 8.dp,
+        tonalElevation = 2.dp
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 12.dp)
+                .navigationBarsPadding(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            // Share (Secondary)
+            OutlinedButton(
+                onClick = onShareClick,
+                modifier = Modifier.weight(1f).height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant)
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth(score / 10f)
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(
-                            Brush.horizontalGradient(
-                                listOf(QRShieldColors.RiskDanger, QRShieldColors.Red600)
-                            )
-                        )
-                        .shadow(
-                            elevation = 8.dp,
-                            shape = RoundedCornerShape(6.dp),
-                            ambientColor = QRShieldColors.RiskDanger.copy(alpha = 0.5f),
-                            spotColor = QRShieldColors.RiskDanger.copy(alpha = 0.5f)
-                        )
+                Icon(
+                    imageVector = Icons.Default.Share,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.action_share),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
 
-            Text(
-                text = stringResource(R.string.risk_score_desc),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            // Sandbox (Primary)
+            Button(
+                onClick = onOpenClick,
+                modifier = Modifier.weight(1.5f).height(48.dp),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = QRShieldColors.Primary
+                )
+            ) {
+                Icon(
+                    imageVector = Icons.Default.RocketLaunch,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = stringResource(R.string.action_open_safely),
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
@@ -656,85 +847,4 @@ private fun AnalysisItem(
     }
 }
 
-@Composable
-private fun BottomActionBar(
-    onBlockClick: () -> Unit,
-    onIgnoreClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(
-                Brush.verticalGradient(
-                    listOf(
-                        Color.Transparent,
-                        MaterialTheme.colorScheme.background,
-                        MaterialTheme.colorScheme.background
-                    )
-                )
-            )
-            .padding(horizontal = 20.dp, vertical = 20.dp)
-    ) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            // Block Button
-            Button(
-                onClick = onBlockClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .shadow(
-                        elevation = 12.dp,
-                        shape = RoundedCornerShape(9999.dp),
-                        ambientColor = QRShieldColors.RiskDanger.copy(alpha = 0.3f),
-                        spotColor = QRShieldColors.RiskDanger.copy(alpha = 0.3f)
-                    ),
-                shape = RoundedCornerShape(9999.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = QRShieldColors.RiskDanger,
-                    contentColor = Color.White
-                )
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Block,
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = stringResource(R.string.action_block_report),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
 
-            // Ignore Button
-            OutlinedButton(
-                onClick = onIgnoreClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(48.dp),
-                shape = RoundedCornerShape(9999.dp),
-                colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                ),
-                border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
-                    brush = Brush.linearGradient(
-                        listOf(
-                            MaterialTheme.colorScheme.outlineVariant,
-                            MaterialTheme.colorScheme.outlineVariant
-                        )
-                    )
-                )
-            ) {
-                Text(
-                    text = stringResource(R.string.action_ignore_warning),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 14.sp
-                )
-            }
-        }
-    }
-}

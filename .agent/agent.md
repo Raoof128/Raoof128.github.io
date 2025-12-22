@@ -3,6 +3,126 @@
 This file tracks significant changes made during development sessions.
 
 ---
+
+# 🌍 December 23, 2025 - Android Localization Completion
+
+### Summary
+Completed comprehensive localization pass across all Android UI screens, replacing all remaining hardcoded strings with `stringResource()` calls. Added 32 new string resources to `strings.xml` and fixed dynamic versioning in TrustCentreScreen.
+
+## ✅ Accomplishments
+
+### BeatTheBotScreen.kt - Full Localization
+- Title and subtitle → `beat_the_bot_title`, `beat_the_bot_subtitle`
+- Session ID formatting → `beat_the_bot_session_fmt`
+- Live Scoreboard labels → `beat_the_bot_live_scoreboard`, `beat_the_bot_vs_mode`
+- Player/Bot labels → `beat_the_bot_you`, `beat_the_bot_bot_name`
+- Score formatting → `beat_the_bot_pts_fmt`, `beat_the_bot_streak_fmt`, `beat_the_bot_latency_fmt`
+- Game feedback → `beat_the_bot_correct`, `beat_the_bot_incorrect`, `beat_the_bot_correct_desc`
+- Bot reasoning → `beat_the_bot_why_flagged`, `beat_the_bot_suspicious`, `beat_the_bot_safe`
+- Preview placeholder → `beat_the_bot_preview_hidden`
+
+### DashboardScreen.kt - Localization Fixes
+- URL input placeholder → `dashboard_url_placeholder`
+- Analyze button text → `analyze_url`
+
+### TrustCentreScreen.kt - Localization & Version Fix
+- Sensitivity subtitle → `trust_centre_adjust_thresholds`
+- List card placeholder → `trust_centre_last_added`
+- **Dynamic versioning**: Replaced hardcoded "2.4.0" with `BuildConfig.VERSION_NAME`
+- Added `BuildConfig` import
+
+### ScanResultScreen.kt - Full Localization
+- Risk Assessment title → `risk_assessment_title`
+- Risk level badges → `risk_level_low`, `risk_level_warning`, `risk_level_critical`
+- Risk scale labels → `risk_label_safe`, `risk_label_warn`, `risk_label_critical`
+- Engine stats → `analysis_time_label`, `heuristics_label`, `engine_label`, `engine_version_fmt`
+- Action buttons → `action_share`, `action_open_safely`
+
+## 📄 Files Modified
+| Path | Description |
+|------|-------------|
+| `androidApp/.../BeatTheBotScreen.kt` | Replaced 15+ hardcoded strings with stringResource() |
+| `androidApp/.../DashboardScreen.kt` | Localized URL placeholder and Analyze button |
+| `androidApp/.../TrustCentreScreen.kt` | Localized strings + dynamic BuildConfig.VERSION_NAME |
+| `androidApp/.../ScanResultScreen.kt` | Localized 10+ hardcoded strings |
+| `androidApp/src/main/res/values/strings.xml` | Added 32 new string resources |
+
+## ✅ Build Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL # Zero errors!
+```
+
+---
+
+# 🎨 December 24, 2025 - Theme Consistency
+
+### Summary
+Addressed user feedback regarding "part dark, part light" UI inconsistencies. Refactored `SettingsScreen`, `ScannerScreen`, and `HistoryScreen` to eliminate hardcoded dark theme colors and utilize dynamic `MaterialTheme` colors, ensuring the app correctly respects both system Light and Dark modes.
+
+## ✅ Accomplishments
+- **Settings Screen**:
+    - Replaced hardcoded `BackgroundDark` and `TextPrimary` with `MaterialTheme.colorScheme.background` and `onBackground`.
+    - Updated "Verification Result" dialog and "About App" sections to use theme-aware surface colors.
+- **Scanner Screen**:
+    - Removed hardcoded dark gradients from the idle and scanning states.
+    - Updated "Resolving", "Analyzing", and "Error" states to use dynamic background and text colors.
+- **History Screen**:
+    - Replaced hardcoded gradient background with system background.
+    - Updated `HistoryItemCard`, `EmptyHistoryState`, and `FilterChip` to use `surfaceContainer` and proper content colors.
+- **Verification**: Confirmed via `grep` that `BackgroundDark`, `TextPrimary`, `BackgroundCard` are no longer rigidly applied in screen files.
+
+## 📄 Files Modified
+| Path | Description |
+|------|-------------|
+| `androidApp/.../SettingsScreen.kt` | Removed hardcoded dark tokens, applied Material 3 color scheme. |
+| `androidApp/.../ScannerScreen.kt` | Removed hardcoded dark tokens, applied Material 3 color scheme. |
+| `androidApp/.../HistoryScreen.kt` | Removed hardcoded dark tokens, applied Material 3 color scheme. |
+| `CHANGELOG.md` | Added release notes for 1.17.5. |
+
+# 🎨 December 23, 2025 - Learning & Trust Centre Refactor
+
+### Summary
+Refactored `LearningCentreScreen` and `TrustCentreScreen` to align with the provided HTML design specifications. Updates include replacing hardcoded strings with resources, using proper UI components (Segmented Control for sensitivity), and polishing visual elements.
+
+## ✅ Accomplishments
+- **Learning Centre**: 
+    - Replaced hardcoded strings with `stringResource` references.
+    - Polished card visuals to match "Learning Centre" HTML.
+- **Trust Centre**:
+    - Implemented a custom Segmented Control for "Phishing Sensitivity" to match the HTML design (replacing the previous Slider).
+    - Aligned privacy toggles with the HTML reference.
+- **Changelog**: Updated CHANGELOG.md with the refactoring details.
+
+## 📄 Files Modified
+| Path | Description |
+|------|-------------|
+| `androidApp/.../LearningCentreScreen.kt` | Added string resources and UI polish. |
+| `androidApp/.../TrustCentreScreen.kt` | Replaced Slider with Segmented Control. |
+| `CHANGELOG.md` | Added release notes for 1.17.4. |
+
+---
+# 🎮 December 22, 2025 - Beat the Bot Refactor
+	
+### Summary
+Refactored `BeatTheBotScreen.kt` to achieve pixel-perfect visual parity with `game.html` and `game.css`. Implemented a "VS Mode" scoreboard, a realistic "Glassy Browser Preview", and a dynamic "Round Analysis" card with simulated AI reasoning.
+
+## ✅ Accomplishments
+- **Visual Parity**: Recreated the exact layout and styling of the web version using Jetpack Compose, including custom gradients, shapes, and shadow effects.
+- **VS Scoreboard**: Implemented a live scoreboard that tracks player vs. bot scores, mimicking the web's competitive feel.
+- **Browser Preview**: Built a detailed browser simulation with traffic lights, URL bar, and SMS context bubble, matching the "glassmorphism" design.
+- **Round Analysis**: Added an analysis card that appears after each decision, providing feedback and simulated bot reasoning (e.g., matching homographs, flagging suspicious TLDs).
+- **String Resources**: Extracted and added all necessary string resources to `strings.xml` for localization support.
+
+## 🛠️ Code Changes
+- **BeatTheBotScreen.kt**: Completely rewritten to use new components (`LiveScoreboardCard`, `BrowserPreviewCard`, `RoundAnalysisCard`).
+- **strings.xml**: Added `beat_the_bot_next_round` and utilized existing game-related strings.
+- **Icons**: Used `Icons.AutoMirrored` where appropriate for RTL support.
+
+## ✅ Verification
+- **Build**: `./gradlew :androidApp:assembleDebug` succeeded.
+- **UI**: Components match the `game.html` reference structure.
+
 ---
 
 # 🌍 December 24, 2025 - Web App Full Localization Coverage
@@ -8819,3 +8939,39 @@ Addressed critical visual artifacts and "light mode" visibility issues to ensure
 ## Previous Sessions
 
 *See CHANGELOG.md for full version history.*
+
+---
+
+## Session: 2025-12-22 (Android UI Refactor & Parity)
+
+### Summary
+Refactored key Android screens (Dashboard, Trust Centre, Scan Result) to achieve high visual and functional parity with the HTML reference design (`dashboard.html`, `trust.html`, `results.html`). Addressed UI inconsistencies, implemented missing controls, and polished visual styles using `QRShieldColors` tokens.
+
+### 🔨 Refactoring Applied
+
+#### 1. 📱 Dashboard Screen (`DashboardScreen.kt`)
+- **Quick URL Input:** Added `OutlinedTextField` with analyze button to Hero section, matching HTML layout.
+- **Feature Cards:** Implemented "Offline-First", "Explainable Security", and "High-Performance" cards, replacing current carousel.
+- **Visuals:** Applied correct background tints and icon colors using design tokens.
+
+#### 2. 🛡️ Trust Centre Screen (`TrustCentreScreen.kt`)
+- **Sensitivity Control:** Replaced segmented buttons with a custom `Slider` (Low/Balanced/Paranoia) matching HTML `input[type=range]`.
+- **List Cards:** Enhanced Allowlist/Blocklist cards with "Add" buttons and centered counts.
+- **Privacy Toggles:** Aligned toggles to "Strict Offline", "Anonymous Telemetry", "Auto-Copy Safe Links" per HTML specs.
+
+#### 3. 🔍 Scan Result Screen (`ScanResultScreen.kt`)
+- **Risk Score Bar:** Implemented 5-segment progress bar for risk visualization instead of contiguous linear indicator.
+- **Engine Stats:** Added `EngineStatsCard` displaying Analysis Time, Heuristics, and Engine Version.
+- **Actions:** Updated Bottom Action Bar to "Share" and "Open Safely" (Sandbox) matching primary HTML actions.
+
+#### 4. 🧹 Technical Cleanup
+- **Deprecations:** Fixed `Icons.Default.ManageSearch` -> `Icons.AutoMirrored.Filled.ManageSearch`.
+- **Imports:** Optimized imports and removed duplicate definitions.
+- **Unused Code:** Removed `ToolsCarousel` and legacy sensitivity controls.
+
+### Build Status
+
+| Task | Result |
+|------|--------|
+| `assembleDebug` | ✅ Success (Zero Warnings) |
+| `compileDebugKotlin` | ✅ Success |

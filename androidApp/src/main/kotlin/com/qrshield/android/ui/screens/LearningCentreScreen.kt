@@ -105,8 +105,8 @@ fun LearningCentreScreen(
 
             // Daily Tip Card
             DailyTipCard(
-                title = "URL Shorteners",
-                description = "Learn how attackers hide malicious links.",
+                title = stringResource(R.string.daily_tip_url_shorteners),
+                description = stringResource(R.string.daily_tip_url_shorteners_desc),
                 onReadTip = onReadTip
             )
 

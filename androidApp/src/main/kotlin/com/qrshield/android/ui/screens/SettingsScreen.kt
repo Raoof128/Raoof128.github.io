@@ -100,14 +100,7 @@ fun SettingsScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        BackgroundDark,
-                        Color(0xFF13171F)
-                    )
-                )
-            )
+            .background(MaterialTheme.colorScheme.background)
             .semantics {
                 contentDescription = context.getString(R.string.cd_settings_screen)
             },
@@ -120,7 +113,7 @@ fun SettingsScreen(
                     Text(
                         text = stringResource(R.string.nav_settings),
                         fontWeight = FontWeight.Bold,
-                        color = TextPrimary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 },
                 navigationIcon = {
@@ -129,13 +122,13 @@ fun SettingsScreen(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = stringResource(R.string.cd_back),
-                                tint = TextPrimary
+                                tint = MaterialTheme.colorScheme.onBackground
                             )
                         }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = BackgroundDark
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             )
         }
@@ -538,13 +531,13 @@ fun SettingsScreen(
                     text = stringResource(R.string.app_name),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = stringResource(R.string.about_app_desc),
                     fontSize = 12.sp,
-                    color = TextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -552,7 +545,7 @@ fun SettingsScreen(
                 Text(
                     text = stringResource(R.string.about_made_with_love),
                     fontSize = 11.sp,
-                    color = TextMuted
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -573,9 +566,9 @@ fun SettingsScreen(
         val result = verificationResult!!
         AlertDialog(
             onDismissRequest = { showVerificationDialog = false },
-            containerColor = BackgroundSurface,
-            titleContentColor = TextPrimary,
-            textContentColor = TextSecondary,
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+            textContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             icon = {
                 Icon(
                     imageVector = if (result.isHealthy) Icons.Default.CheckCircle else Icons.Default.Warning,
@@ -613,7 +606,7 @@ fun SettingsScreen(
                     }
                     
                     // Confusion Matrix
-                    Text(stringResource(R.string.confusion_matrix), fontWeight = FontWeight.Medium, color = TextPrimary)
+                    Text(stringResource(R.string.confusion_matrix), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceEvenly
@@ -627,7 +620,7 @@ fun SettingsScreen(
                     HorizontalDivider(color = TextMuted.copy(alpha = 0.3f))
                     
                     // Metrics
-                    Text(stringResource(R.string.metrics_title), fontWeight = FontWeight.Medium, color = TextPrimary)
+                    Text(stringResource(R.string.metrics_title), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -650,7 +643,7 @@ fun SettingsScreen(
                         Column {
                             Text(stringResource(R.string.metric_f1_score), fontSize = 11.sp, color = TextMuted)
                             Text("${String.format("%.2f", result.f1Score)}",
-                                fontWeight = FontWeight.Bold, color = TextPrimary)
+                                fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                         }
                     }
                     
@@ -658,7 +651,7 @@ fun SettingsScreen(
                     Text(
                         text = stringResource(R.string.execution_time_fmt, result.executionTimeMs),
                         fontSize = 11.sp,
-                        color = TextMuted
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             },
@@ -722,12 +715,12 @@ private fun SettingsToggle(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
-                color = TextPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 15.sp
             )
             Text(
                 text = subtitle,
-                color = TextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
         }
@@ -769,12 +762,12 @@ private fun SettingsClickable(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
-                color = TextPrimary,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 15.sp
             )
             Text(
                 text = subtitle,
-                color = TextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp
             )
         }
@@ -809,14 +802,14 @@ private fun SettingsInfo(
 
         Text(
             text = title,
-            color = TextPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 15.sp,
             modifier = Modifier.weight(1f)
         )
 
         Text(
             text = value,
-            color = TextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 14.sp
         )
     }
@@ -866,14 +859,14 @@ private fun SettingsInfoClickable(
 
         Text(
             text = title,
-            color = TextPrimary,
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 15.sp,
             modifier = Modifier.weight(1f)
         )
 
         Text(
             text = value,
-            color = TextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 14.sp
         )
     }

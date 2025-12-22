@@ -232,16 +232,7 @@ fun ScannerScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color.Black.copy(alpha = 0.3f),
-                        Color.Transparent,
-                        Color.Black.copy(alpha = 0.5f)
-                    )
-                )
-            )
+            .background(MaterialTheme.colorScheme.background)
     ) {
         // Show loading overlay when processing gallery image
         if (isProcessingGalleryImage) {
@@ -373,7 +364,7 @@ private fun IdleContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(MaterialTheme.colorScheme.background)
             .semantics {
                 contentDescription = "QR Shield home screen. Tap Start Scanning to begin, or choose from gallery."
             }
@@ -881,7 +872,7 @@ private fun ResolvingContent(originalUrl: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(MaterialTheme.colorScheme.background)
             .padding(32.dp)
             .semantics {
                 contentDescription = "Resolving shortened URL. Please wait."
@@ -911,7 +902,7 @@ private fun ResolvingContent(originalUrl: String) {
             text = stringResource(R.string.resolving_short_link_title),
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -919,7 +910,7 @@ private fun ResolvingContent(originalUrl: String) {
         Text(
             text = stringResource(R.string.resolving_short_link_subtitle),
             fontSize = 14.sp,
-            color = TextSecondary
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -951,7 +942,7 @@ private fun AnalyzingContent(url: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(MaterialTheme.colorScheme.background)
             .padding(32.dp)
             .semantics {
                 contentDescription = "Analyzing URL for security threats. Please wait."
@@ -970,7 +961,7 @@ private fun AnalyzingContent(url: String) {
         Text(
             text = stringResource(R.string.analyzing_url),
             fontSize = 18.sp,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -978,7 +969,7 @@ private fun AnalyzingContent(url: String) {
         Text(
             text = url.take(50) + if (url.length > 50) "..." else "",
             fontSize = 12.sp,
-            color = TextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
     }
@@ -1019,7 +1010,7 @@ private fun ErrorContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(BackgroundDark)
+            .background(MaterialTheme.colorScheme.background)
             .padding(32.dp)
             .semantics {
                 contentDescription = "Error occurred: $message. Tap Try Again to retry."
@@ -1038,7 +1029,7 @@ private fun ErrorContent(
             text = stringResource(R.string.error_title),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(8.dp))

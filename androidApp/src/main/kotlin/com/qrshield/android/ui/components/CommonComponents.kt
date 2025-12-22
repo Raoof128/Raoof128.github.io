@@ -20,6 +20,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -328,8 +329,11 @@ fun QRShieldToggle(
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
+    val isDark = isSystemInDarkTheme()
+    val uncheckedTrackColor = if (isDark) QRShieldColors.Gray700 else QRShieldColors.Gray200
+    
     val trackColor by animateColorAsState(
-        targetValue = if (checked) QRShieldColors.Primary else QRShieldColors.Gray200,
+        targetValue = if (checked) QRShieldColors.Primary else uncheckedTrackColor,
         animationSpec = tween(200),
         label = "trackColor"
     )

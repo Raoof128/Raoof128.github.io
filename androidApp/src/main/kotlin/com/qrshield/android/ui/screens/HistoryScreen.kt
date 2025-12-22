@@ -92,14 +92,7 @@ fun HistoryScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        BackgroundDark,
-                        Color(0xFF13171F) // Slightly lighter bottom
-                    )
-                )
-            )
+            .background(MaterialTheme.colorScheme.background)
             .semantics {
                 contentDescription = "Scan history screen with ${filteredHistory.size} items"
             }
@@ -110,7 +103,7 @@ fun HistoryScreen() {
                 Text(
                     text = stringResource(R.string.nav_history),
                     fontWeight = FontWeight.Bold,
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             },
             actions = {
@@ -130,7 +123,7 @@ fun HistoryScreen() {
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = BackgroundDark
+                containerColor = MaterialTheme.colorScheme.background
             )
         )
 
@@ -149,7 +142,7 @@ fun HistoryScreen() {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
-                    tint = TextMuted
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             },
             trailingIcon = {
@@ -158,20 +151,20 @@ fun HistoryScreen() {
                         Icon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = "Clear search",
-                            tint = TextMuted
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }
             },
             singleLine = true,
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = BrandPrimary,
-                unfocusedBorderColor = BackgroundCard,
-                focusedContainerColor = BackgroundCard,
-                unfocusedContainerColor = BackgroundCard,
-                cursorColor = BrandPrimary,
-                focusedTextColor = TextPrimary,
-                unfocusedTextColor = TextPrimary
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant,
+                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                cursorColor = MaterialTheme.colorScheme.primary,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface
             ),
             shape = RoundedCornerShape(12.dp)
         )
@@ -193,14 +186,14 @@ fun HistoryScreen() {
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = filter.color.copy(alpha = 0.2f),
                         selectedLabelColor = filter.color,
-                        containerColor = BackgroundCard,
-                        labelColor = TextSecondary
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant,
+                        labelColor = MaterialTheme.colorScheme.onSurfaceVariant
                     ),
                     leadingIcon = {
                         Icon(
                             imageVector = filter.icon,
                             contentDescription = null,
-                            tint = if (selectedFilter == filter) filter.color else TextMuted,
+                            tint = if (selectedFilter == filter) filter.color else MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.size(18.dp)
                         )
                     },
@@ -257,13 +250,13 @@ fun HistoryScreen() {
             title = {
                 Text(
                     text = stringResource(R.string.clear_history_title),
-                    color = TextPrimary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             },
             text = {
                 Text(
                     text = stringResource(R.string.clear_history_message),
-                    color = TextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             },
             confirmButton = {
@@ -287,7 +280,7 @@ fun HistoryScreen() {
                     )
                 }
             },
-            containerColor = BackgroundSurface,
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             shape = RoundedCornerShape(16.dp)
         )
     }
@@ -323,8 +316,8 @@ private fun HistoryItemCard(
             .semantics {
                 contentDescription = "Scan result: $url, verdict ${verdict.name}, score $score"
             },
-        colors = CardDefaults.cardColors(containerColor = BackgroundCard.copy(alpha = 0.7f)),
-        border = BorderStroke(1.dp, Color.White.copy(alpha = 0.05f)), // Glass border
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
         shape = RoundedCornerShape(16.dp)
     ) {
         Row(
@@ -355,7 +348,7 @@ private fun HistoryItemCard(
             ) {
                 Text(
                     text = url,
-                    color = TextPrimary,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     maxLines = 2,
@@ -377,14 +370,14 @@ private fun HistoryItemCard(
 
                     Text(
                         text = " • ",
-                        color = TextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 12.sp
                     )
 
                     // Timestamp
                     Text(
                         text = formatTimestamp(scannedAt),
-                        color = TextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 12.sp
                     )
                 }
@@ -419,7 +412,7 @@ private fun HistoryItemCard(
                     Icon(
                         imageVector = Icons.Default.MoreVert,
                         contentDescription = "More",
-                        tint = TextMuted
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -428,7 +421,7 @@ private fun HistoryItemCard(
                     onDismissRequest = { expanded = false }
                 ) {
                     DropdownMenuItem(
-                        text = { Text(stringResource(R.string.copy_url), color = TextPrimary) },
+                        text = { Text(stringResource(R.string.copy_url), color = MaterialTheme.colorScheme.onSurface) },
                         onClick = {
                             onCopyUrl()
                             expanded = false
@@ -464,8 +457,8 @@ private fun HistoryItemCard(
     if (showDeleteConfirm) {
         AlertDialog(
             onDismissRequest = { showDeleteConfirm = false },
-            title = { Text(stringResource(R.string.delete_item_title), color = TextPrimary) },
-            text = { Text(stringResource(R.string.delete_item_message), color = TextSecondary) },
+            title = { Text(stringResource(R.string.delete_item_title), color = MaterialTheme.colorScheme.onSurface) },
+            text = { Text(stringResource(R.string.delete_item_message), color = MaterialTheme.colorScheme.onSurfaceVariant) },
             confirmButton = {
                 TextButton(onClick = {
                     onDelete()
@@ -479,7 +472,7 @@ private fun HistoryItemCard(
                     Text(stringResource(R.string.cancel), color = BrandPrimary)
                 }
             },
-            containerColor = BackgroundSurface,
+            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             shape = RoundedCornerShape(16.dp)
         )
     }
@@ -527,7 +520,7 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
                 stringResource(R.string.no_history),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
-            color = TextPrimary
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -538,7 +531,7 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
             else
                 stringResource(R.string.scan_to_see_history),
             fontSize = 15.sp,
-            color = TextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = androidx.compose.ui.text.style.TextAlign.Center,
             lineHeight = 22.sp
         )
@@ -548,7 +541,7 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
 
             // Subtle hint
             Surface(
-                color = BackgroundCard,
+                color = MaterialTheme.colorScheme.surfaceContainer,
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Row(
@@ -565,7 +558,7 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
                     Text(
                         text = stringResource(R.string.history_go_to_scanner),
                         fontSize = 13.sp,
-                        color = TextMuted
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
