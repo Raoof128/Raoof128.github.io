@@ -430,26 +430,48 @@ object StitchTokens {
         return DesignTokens(colors, typography(), spacing, radius, elevation)
     }
 
-    fun scanHistory(): DesignTokens {
-        val colors = ColorTokens(
-            primary = Color(0xFF135BEC),
-            primaryHover = Color(0xFF0F4BC4),
-            background = Color(0xFFF8FAFC),
-            backgroundAlt = Color(0xFFF1F5F9),
-            surface = Color(0xFFFFFFFF),
-            surfaceAlt = Color(0xFFFFFFFF),
-            border = Color(0xFFE2E8F0),
-            borderStrong = Color(0xFFCBD5E1),
-            textMain = Color(0xFF0F172A),
-            textSub = Color(0xFF64748B),
-            textMuted = Color(0xFF94A3B8),
-            success = Color(0xFF0D9488),
-            warning = Color(0xFFD97706),
-            danger = Color(0xFFE11D48),
-            teal = Color(0xFF0D9488),
-            amber = Color(0xFFD97706),
-            red = Color(0xFFE11D48)
-        )
+    fun scanHistory(isDark: Boolean = false): DesignTokens {
+        val colors = if (isDark) {
+            ColorTokens(
+                primary = Color(0xFF3B82F6),
+                primaryHover = Color(0xFF2563EB),
+                background = Color(0xFF0F172A),
+                backgroundAlt = Color(0xFF1E293B),
+                surface = Color(0xFF1E293B),
+                surfaceAlt = Color(0xFF1E293B),
+                border = Color(0xFF334155),
+                borderStrong = Color(0xFF475569),
+                textMain = Color(0xFFF1F5F9),
+                textSub = Color(0xFF94A3B8),
+                textMuted = Color(0xFF64748B),
+                success = Color(0xFF10B981),
+                warning = Color(0xFFF59E0B),
+                danger = Color(0xFFEF4444),
+                teal = Color(0xFF10B981),
+                amber = Color(0xFFF59E0B),
+                red = Color(0xFFEF4444)
+            )
+        } else {
+            ColorTokens(
+                primary = Color(0xFF135BEC),
+                primaryHover = Color(0xFF0F4BC4),
+                background = Color(0xFFF8FAFC),
+                backgroundAlt = Color(0xFFF1F5F9),
+                surface = Color(0xFFFFFFFF),
+                surfaceAlt = Color(0xFFFFFFFF),
+                border = Color(0xFFE2E8F0),
+                borderStrong = Color(0xFFCBD5E1),
+                textMain = Color(0xFF0F172A),
+                textSub = Color(0xFF64748B),
+                textMuted = Color(0xFF94A3B8),
+                success = Color(0xFF0D9488),
+                warning = Color(0xFFD97706),
+                danger = Color(0xFFE11D48),
+                teal = Color(0xFF0D9488),
+                amber = Color(0xFFD97706),
+                red = Color(0xFFE11D48)
+            )
+        }
         return DesignTokens(colors, typography(), spacing, radius, elevation)
     }
 

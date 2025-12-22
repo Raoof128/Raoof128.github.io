@@ -37,6 +37,7 @@ import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.data.ScanHistoryManager
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
+import com.qrshield.desktop.theme.LocalStitchTokens
 
 @Composable
 fun DashboardScreen(viewModel: AppViewModel) {
@@ -92,7 +93,8 @@ private fun DashboardContent(
     formatTimestamp: (Long) -> String,
     language: AppLanguage
 ) {
-    val colors = MaterialTheme.colorScheme
+    val tokens = LocalStitchTokens.current
+    val colors = tokens.colors
     val t = { text: String -> DesktopStrings.translate(text, language) }
 
     Column(
@@ -100,26 +102,27 @@ private fun DashboardContent(
             .fillMaxSize()
             .background(colors.background)
     ) {
+        // App Bar / Header
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
                 .background(colors.surface)
-                .border(1.dp, colors.outline.copy(alpha = 0.4f))
+                .border(1.dp, colors.border)
                 .padding(horizontal = 32.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(t("QR-SHIELD"), fontSize = 14.sp, color = Color(0xFF6B7280))
-                Text("/", fontSize = 14.sp, color = Color(0xFF94A3B8))
-                Text(t("Dashboard"), fontSize = 14.sp, color = colors.onSurface, fontWeight = FontWeight.SemiBold)
+                Text(t("QR-SHIELD"), fontSize = 14.sp, color = colors.textSub)
+                Text("/", fontSize = 14.sp, color = colors.textMuted)
+                Text(t("Dashboard"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.SemiBold)
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Surface(
                     shape = RoundedCornerShape(999.dp),
-                    color = Color(0xFF10B981).copy(alpha = 0.1f),
-                    border = BorderStroke(1.dp, Color(0xFF10B981).copy(alpha = 0.3f))
+                    color = colors.success.copy(alpha = 0.1f),
+                    border = BorderStroke(1.dp, colors.success.copy(alpha = 0.3f))
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
@@ -129,10 +132,10 @@ private fun DashboardContent(
                         Box(
                             modifier = Modifier
                                 .size(8.dp)
-                            .clip(CircleShape)
-                            .background(Color(0xFF10B981))
+                                .clip(CircleShape)
+                                .background(colors.success)
                         )
-                        Text(t("Engine Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF10B981))
+                        Text(t("Engine Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.success)
                     }
                 }
                 Box(
@@ -141,14 +144,14 @@ private fun DashboardContent(
                         .clickable { onShowNotifications() }
                         .focusable()
                 ) {
-                    MaterialIconRound(name = "notifications", size = 20.sp, color = Color(0xFF94A3B8))
+                    MaterialIconRound(name = "notifications", size = 20.sp, color = colors.textMuted)
                     Box(
                         modifier = Modifier
                             .size(8.dp)
                             .align(Alignment.TopEnd)
                             .offset(x = (-2).dp, y = 2.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFFEF4444))
+                            .background(colors.danger)
                             .border(2.dp, colors.surface, CircleShape)
                     )
                 }
@@ -159,11 +162,12 @@ private fun DashboardContent(
                         .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
-                    MaterialIconRound(name = "settings", size = 20.sp, color = Color(0xFF94A3B8))
+                    MaterialIconRound(name = "settings", size = 20.sp, color = colors.textMuted)
                 }
             }
         }
 
+        // Content Scrollable Area
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -171,16 +175,17 @@ private fun DashboardContent(
                 .padding(32.dp),
             verticalArrangement = Arrangement.spacedBy(32.dp)
         ) {
+            // Hero / Welcome Section
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
                 color = colors.surface,
-                border = BorderStroke(1.dp, colors.outline.copy(alpha = 0.4f))
+                border = BorderStroke(1.dp, colors.border)
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .dottedPattern(spacing = 24.dp, dotColor = Color(0xFF64748B).copy(alpha = 0.03f), dotRadius = 1.dp)
+                        .dottedPattern(spacing = 24.dp, dotColor = colors.textMuted.copy(alpha = 0.1f), dotRadius = 1.dp)
                         .padding(32.dp)
                 ) {
                     Row(
@@ -190,21 +195,21 @@ private fun DashboardContent(
                         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             Surface(
                                 shape = RoundedCornerShape(999.dp),
-                                color = Color(0xFFDBEAFE),
-                                border = BorderStroke(1.dp, Color(0xFFBFDBFE))
+                                color = colors.primary.copy(alpha = 0.1f),
+                                border = BorderStroke(1.dp, colors.primary.copy(alpha = 0.2f))
                             ) {
                                 Row(
                                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                                 ) {
-                                    MaterialIconRound(name = "verified", size = 14.sp, color = Color(0xFF2563EB))
+                                    MaterialIconRound(name = "verified", size = 14.sp, color = colors.primary)
                                     Text(
                                         text = t("Enterprise Protection Active"),
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.SemiBold,
                                         letterSpacing = 0.8.sp,
-                                        color = Color(0xFF2563EB)
+                                        color = colors.primary
                                     )
                                 }
                             }
@@ -213,19 +218,19 @@ private fun DashboardContent(
                                 fontSize = 40.sp,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = 46.sp,
-                                color = colors.onSurface
+                                color = colors.textMain
                             )
                             Text(
                                 text = t("QR-SHIELD analyses potential threats directly on your hardware. Experience zero-latency phishing detection without compromising data privacy."),
                                 fontSize = 18.sp,
-                                color = Color(0xFF6B7280),
+                                color = colors.textSub,
                                 lineHeight = 26.sp,
                                 modifier = Modifier.widthIn(max = 520.dp)
                             )
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Button(
                                     onClick = onStartScan,
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2563EB)),
+                                    colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                     shape = RoundedCornerShape(8.dp),
                                     contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
                                 ) {
@@ -235,38 +240,40 @@ private fun DashboardContent(
                                 }
                                 Button(
                                     onClick = onImportImage,
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFFFFF)),
+                                    colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
                                     shape = RoundedCornerShape(8.dp),
-                                    border = BorderStroke(1.dp, Color(0xFFE5E7EB)),
+                                    border = BorderStroke(1.dp, colors.borderStrong),
                                     contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
                                 ) {
-                                    MaterialIconRound(name = "upload_file", size = 18.sp, color = Color(0xFF64748B))
+                                    MaterialIconRound(name = "upload_file", size = 18.sp, color = colors.textSub)
                                     Spacer(Modifier.width(8.dp))
-                                    Text(t("Import Image"), color = Color(0xFF64748B), fontWeight = FontWeight.SemiBold)
+                                    Text(t("Import Image"), color = colors.textSub, fontWeight = FontWeight.SemiBold)
                                 }
                             }
                         }
+                        
+                        // System Health Card
                         Surface(
                             modifier = Modifier.width(360.dp),
                             shape = RoundedCornerShape(12.dp),
-                            color = Color(0xFFFFFFFF),
-                            border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                            color = colors.surfaceAlt,
+                            border = BorderStroke(1.dp, colors.border)
                         ) {
                             Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                                 Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-                                    Text(t("System Health"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                                    Text(t("System Health"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textSub, letterSpacing = 1.sp)
                                     Box(
                                         modifier = Modifier
                                             .size(10.dp)
                                             .clip(CircleShape)
-                                            .background(Color(0xFF10B981))
+                                            .background(colors.success)
                                     )
                                 }
-                                HealthBar(label = t("Threat Database"), valueLabel = t("Current"), color = Color(0xFF10B981), progress = 0.98f)
-                                HealthBar(label = t("Heuristic Engine"), valueLabel = t("Active"), color = Color(0xFF2563EB), progress = 1f)
+                                HealthBar(label = t("Threat Database"), valueLabel = t("Current"), color = colors.success, progress = 0.98f, colors = colors)
+                                HealthBar(label = t("Heuristic Engine"), valueLabel = t("Active"), color = colors.primary, progress = 1f, colors = colors)
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                                    HealthMetric(label = t("Threats"), value = stats.maliciousCount.toString(), modifier = Modifier.weight(1f))
-                                    HealthMetric(label = t("Safe Scans"), value = stats.safeCount.toString(), modifier = Modifier.weight(1f))
+                                    HealthMetric(label = t("Threats"), value = stats.maliciousCount.toString(), modifier = Modifier.weight(1f), colors = colors)
+                                    HealthMetric(label = t("Safe Scans"), value = stats.safeCount.toString(), modifier = Modifier.weight(1f), colors = colors)
                                 }
                             }
                         }
@@ -274,42 +281,48 @@ private fun DashboardContent(
                 }
             }
 
+            // Feature Cards
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
                 FeatureCard(
                     icon = "wifi_off",
                     title = t("Offline-First Architecture"),
                     body = t("Complete analysis is performed locally. Your camera feed and scanned data never touch an external server, ensuring absolute privacy."),
-                    iconBg = Color(0xFFDBEAFE),
-                    iconColor = Color(0xFF2563EB),
+                    iconBg = colors.primary.copy(alpha = 0.1f),
+                    iconColor = colors.primary,
                     ghostIcon = "cloud_off",
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    colors = colors
                 )
                 FeatureCard(
                     icon = "manage_search",
                     title = t("Explainable Security"),
                     body = t("Don't just get a \"Block\". We provide detailed heuristic breakdowns of URL parameters, redirects, and javascript payloads."),
-                    iconBg = Color(0xFFEDE9FE),
-                    iconColor = Color(0xFF8B5CF6),
+                    iconBg = colors.warning.copy(alpha = 0.1f),
+                    iconColor = colors.warning,
                     ghostIcon = "psychology",
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    colors = colors
                 )
+
                 FeatureCard(
                     icon = "speed",
                     title = t("High-Performance Engine"),
                     body = t("Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries."),
-                    iconBg = Color(0xFFD1FAE5),
-                    iconColor = Color(0xFF10B981),
+                    iconBg = colors.success.copy(alpha = 0.1f),
+                    iconColor = colors.success,
                     ghostIcon = "bolt",
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    colors = colors
                 )
             }
 
+            // Recent Scans Table
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
                 Surface(
                     modifier = Modifier.weight(2f),
                     shape = RoundedCornerShape(12.dp),
-                    color = Color.White,
-                    border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                    color = colors.surface,
+                    border = BorderStroke(1.dp, colors.border)
                 ) {
                     Column {
                         Row(
@@ -319,11 +332,11 @@ private fun DashboardContent(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(t("Recent Scans"), fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color(0xFF111827))
+                            Text(t("Recent Scans"), fontWeight = FontWeight.Bold, fontSize = 16.sp, color = colors.textMain)
                             Text(
                                 t("View Full History"),
                                 fontSize = 14.sp,
-                                color = Color(0xFF2563EB),
+                                color = colors.primary,
                                 fontWeight = FontWeight.Medium,
                                 modifier = Modifier
                                     .clickable { onViewHistory() }
@@ -335,17 +348,19 @@ private fun DashboardContent(
                                 statusLabel = t("Status"),
                                 sourceLabel = t("Source"),
                                 detailsLabel = t("Details"),
-                                timeLabel = t("Time")
+                                timeLabel = t("Time"),
+                                colors = colors
                             )
                             if (recentScans.isEmpty()) {
-                                EmptyRecentRow(text = t("No recent scans yet."))
+                                EmptyRecentRow(text = t("No recent scans yet."), colors = colors)
                             } else {
                                 recentScans.forEach { item ->
                                     RecentScanRow(
                                         item = item,
                                         timeLabel = formatTimestamp(item.scannedAt),
                                         onClick = onSelectScan,
-                                        language = language
+                                        language = language,
+                                        colors = colors
                                     )
                                 }
                             }
@@ -353,11 +368,12 @@ private fun DashboardContent(
                     }
                 }
 
+                // Database Status Card (Small)
                 Surface(
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(12.dp),
-                    color = Color.White,
-                    border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                    color = colors.surface,
+                    border = BorderStroke(1.dp, colors.border)
                 ) {
                     Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -365,26 +381,26 @@ private fun DashboardContent(
                                 modifier = Modifier
                                     .size(36.dp)
                                     .clip(RoundedCornerShape(8.dp))
-                                    .background(Color(0xFFE2E8F0)),
+                                    .background(colors.backgroundAlt),
                                 contentAlignment = Alignment.Center
                             ) {
-                                MaterialIconRound(name = "storage", size = 18.sp, color = Color(0xFF64748B))
+                                MaterialIconRound(name = "storage", size = 18.sp, color = colors.textSub)
                             }
-                            Text(t("Threat Database"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                            Text(t("Threat Database"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                         }
-                        KeyValueRow(label = t("Version"), value = "v2.4.1-stable")
-                        KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"))
-                        KeyValueRow(label = t("Signatures"), value = "4,281,092")
+                        KeyValueRow(label = t("Version"), value = "v2.4.1-stable", colors = colors)
+                        KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"), colors = colors)
+                        KeyValueRow(label = t("Signatures"), value = "4,281,092", colors = colors)
                         Button(
                             onClick = onCheckUpdates,
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFFFFF)),
-                            border = BorderStroke(1.dp, Color(0xFFE5E7EB)),
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
+                            border = BorderStroke(1.dp, colors.borderStrong),
                             shape = RoundedCornerShape(8.dp),
                             contentPadding = PaddingValues(vertical = 10.dp)
                         ) {
-                            MaterialIconRound(name = "refresh", size = 16.sp, color = Color(0xFF64748B))
+                            MaterialIconRound(name = "refresh", size = 16.sp, color = colors.textSub)
                             Spacer(Modifier.width(6.dp))
-                            Text(t("Check for Updates"), fontSize = 14.sp, color = Color(0xFF64748B))
+                            Text(t("Check for Updates"), fontSize = 14.sp, color = colors.textSub)
                         }
                     }
                 }
@@ -394,10 +410,10 @@ private fun DashboardContent(
 }
 
 @Composable
-private fun HealthBar(label: String, valueLabel: String, color: Color, progress: Float) {
+private fun HealthBar(label: String, valueLabel: String, color: Color, progress: Float, colors: com.qrshield.desktop.theme.ColorTokens) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-            Text(label, fontSize = 14.sp, color = Color(0xFF64748B))
+            Text(label, fontSize = 14.sp, color = colors.textSub)
             Text(valueLabel, fontSize = 14.sp, color = color, fontWeight = FontWeight.Medium)
         }
         Box(
@@ -405,7 +421,7 @@ private fun HealthBar(label: String, valueLabel: String, color: Color, progress:
                 .fillMaxWidth()
                 .height(6.dp)
                 .clip(RoundedCornerShape(999.dp))
-                .background(Color(0xFFE5E7EB))
+                .background(colors.border)
         ) {
             Box(
                 modifier = Modifier
@@ -419,17 +435,17 @@ private fun HealthBar(label: String, valueLabel: String, color: Color, progress:
 }
 
 @Composable
-private fun HealthMetric(label: String, value: String, modifier: Modifier = Modifier) {
+private fun HealthMetric(label: String, value: String, modifier: Modifier = Modifier, colors: com.qrshield.desktop.theme.ColorTokens) {
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(Color(0xFFF8FAFC))
-            .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(8.dp))
+            .background(colors.backgroundAlt)
+            .border(1.dp, colors.border, RoundedCornerShape(8.dp))
             .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(value, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-        Text(label.uppercase(), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), letterSpacing = 0.8.sp)
+        Text(value, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+        Text(label.uppercase(), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = colors.textSub, letterSpacing = 0.8.sp)
     }
 }
 
@@ -441,13 +457,14 @@ private fun FeatureCard(
     iconBg: Color,
     iconColor: Color,
     ghostIcon: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    colors: com.qrshield.desktop.theme.ColorTokens
 ) {
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
-        color = Color.White,
-        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border)
     ) {
         Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
@@ -460,10 +477,10 @@ private fun FeatureCard(
                 ) {
                     MaterialIconRound(name = icon, size = 18.sp, color = iconColor)
                 }
-                MaterialIconRound(name = ghostIcon, size = 36.sp, color = Color(0xFFE2E8F0))
+                MaterialIconRound(name = ghostIcon, size = 36.sp, color = colors.border)
             }
-            Text(title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-            Text(body, fontSize = 13.sp, color = Color(0xFF6B7280), lineHeight = 18.sp)
+            Text(title, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+            Text(body, fontSize = 13.sp, color = colors.textSub, lineHeight = 18.sp)
         }
     }
 }
@@ -473,18 +490,19 @@ private fun TableHeader(
     statusLabel: String,
     sourceLabel: String,
     detailsLabel: String,
-    timeLabel: String
+    timeLabel: String,
+    colors: com.qrshield.desktop.theme.ColorTokens
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFF8FAFC))
+            .background(colors.backgroundAlt)
             .padding(vertical = 12.dp, horizontal = 24.dp)
     ) {
-        Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
-        Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(200.dp))
-        Text(detailsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.weight(1f))
-        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+        Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(120.dp))
+        Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(200.dp))
+        Text(detailsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.weight(1f))
+        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
     }
 }
 
@@ -493,7 +511,8 @@ private fun RecentScanRow(
     item: ScanHistoryItem,
     timeLabel: String,
     onClick: (ScanHistoryItem) -> Unit,
-    language: AppLanguage
+    language: AppLanguage,
+    colors: com.qrshield.desktop.theme.ColorTokens
 ) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
     val statusLabel = when (item.verdict) {
@@ -503,17 +522,13 @@ private fun RecentScanRow(
         Verdict.UNKNOWN -> t("UNKNOWN")
     }
     val statusColor = when (item.verdict) {
-        Verdict.SAFE -> Color(0xFF10B981)
-        Verdict.SUSPICIOUS -> Color(0xFFF59E0B)
-        Verdict.MALICIOUS -> Color(0xFFEF4444)
-        Verdict.UNKNOWN -> Color(0xFF94A3B8)
+        Verdict.SAFE -> colors.success
+        Verdict.SUSPICIOUS -> colors.warning
+        Verdict.MALICIOUS -> colors.danger
+        Verdict.UNKNOWN -> colors.textMuted
     }
-    val statusBg = when (item.verdict) {
-        Verdict.SAFE -> Color(0xFFD1FAE5)
-        Verdict.SUSPICIOUS -> Color(0xFFFFFBEB)
-        Verdict.MALICIOUS -> Color(0xFFFEE2E2)
-        Verdict.UNKNOWN -> Color(0xFFF1F5F9)
-    }
+    val statusBg = statusColor.copy(alpha = 0.1f)
+
     val details = when (item.verdict) {
         Verdict.SAFE -> t("Trusted Domain")
         Verdict.SUSPICIOUS -> t("Heuristic Anomaly")
@@ -550,34 +565,34 @@ private fun RecentScanRow(
                 modifier = Modifier
                     .size(20.dp)
                     .clip(RoundedCornerShape(4.dp))
-                    .background(Color(0xFFE2E8F0)),
+                    .background(colors.border),
                 contentAlignment = Alignment.Center
             ) {
-                Text(domain.take(2).uppercase(), fontSize = 8.sp, color = Color(0xFF94A3B8))
+                Text(domain.take(2).uppercase(), fontSize = 8.sp, color = colors.textMuted)
             }
-            Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827), maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        Text(details, fontSize = 13.sp, color = Color(0xFF6B7280), modifier = Modifier.weight(1f))
-        Text(timeLabel, fontSize = 12.sp, color = Color(0xFF94A3B8), modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+        Text(details, fontSize = 13.sp, color = colors.textSub, modifier = Modifier.weight(1f))
+        Text(timeLabel, fontSize = 12.sp, color = colors.textMuted, modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
     }
 }
 
 @Composable
-private fun EmptyRecentRow(text: String) {
+private fun EmptyRecentRow(text: String, colors: com.qrshield.desktop.theme.ColorTokens) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 16.dp, horizontal = 24.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text, fontSize = 13.sp, color = Color(0xFF94A3B8))
+        Text(text, fontSize = 13.sp, color = colors.textMuted)
     }
 }
 
 @Composable
-private fun KeyValueRow(label: String, value: String) {
+private fun KeyValueRow(label: String, value: String, colors: com.qrshield.desktop.theme.ColorTokens) {
     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-        Text(label, fontSize = 13.sp, color = Color(0xFF6B7280))
-        Text(value, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
+        Text(label, fontSize = 13.sp, color = colors.textSub)
+        Text(value, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
     }
 }

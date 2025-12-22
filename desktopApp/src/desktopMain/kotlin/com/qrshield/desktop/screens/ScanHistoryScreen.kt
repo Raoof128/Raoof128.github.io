@@ -34,6 +34,7 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.model.ScanHistoryItem
@@ -42,13 +43,14 @@ import com.qrshield.model.Verdict
 
 @Composable
 fun ScanHistoryScreen(viewModel: AppViewModel) {
-    val tokens = StitchTokens.scanHistory()
+    val tokens = StitchTokens.scanHistory(isDark = viewModel.isDarkMode)
     val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
+        val colors = LocalStitchTokens.current.colors
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF8FAFC))
+                .background(colors.background)
         ) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
@@ -80,11 +82,12 @@ private fun ScanHistoryHeader(
     language: AppLanguage
 ) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color.White.copy(alpha = 0.9f))
-            .border(1.dp, Color(0xFFE2E8F0))
+            .background(colors.surface.copy(alpha = 0.9f))
+            .border(1.dp, colors.border)
             .padding(horizontal = 24.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -95,18 +98,18 @@ private fun ScanHistoryHeader(
                 modifier = Modifier
                     .size(32.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(Color(0xFFDBEAFE)),
+                    .background(colors.primary.copy(alpha = 0.1f)),
                 contentAlignment = Alignment.Center
             ) {
-                MaterialSymbol(name = "qr_code_scanner", size = 20.sp, color = Color(0xFF135BEC))
+                MaterialSymbol(name = "qr_code_scanner", size = 20.sp, color = colors.primary)
             }
-            Text(t("QR-SHIELD"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+            Text(t("QR-SHIELD"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
         }
         Row(
             modifier = Modifier
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFFF1F5F9))
-                .border(1.dp, Color(0xFFE2E8F0))
+                .background(colors.backgroundAlt)
+                .border(1.dp, colors.border)
                 .padding(4.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
@@ -120,31 +123,31 @@ private fun ScanHistoryHeader(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFF8FAFC))
-                    .border(1.dp, Color(0xFFE2E8F0))
+                    .background(colors.backgroundAlt)
+                    .border(1.dp, colors.border)
                     .clickable { onShowNotifications() }
                     .focusable(),
                 contentAlignment = Alignment.Center
             ) {
-                MaterialSymbol(name = "notifications", size = 18.sp, color = Color(0xFF94A3B8))
+                MaterialSymbol(name = "notifications", size = 18.sp, color = colors.textMuted)
             }
             Box(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFF8FAFC))
-                    .border(1.dp, Color(0xFFE2E8F0))
+                    .background(colors.backgroundAlt)
+                    .border(1.dp, colors.border)
                     .clickable { onOpenSettings() }
                     .focusable(),
                 contentAlignment = Alignment.Center
             ) {
-                MaterialSymbol(name = "settings", size = 18.sp, color = Color(0xFF94A3B8))
+                MaterialSymbol(name = "settings", size = 18.sp, color = colors.textMuted)
             }
             Box(
                 modifier = Modifier
                     .height(24.dp)
                     .width(1.dp)
-                    .background(Color(0xFFE2E8F0))
+                    .background(colors.border)
             )
             Row(
                 modifier = Modifier
@@ -154,8 +157,8 @@ private fun ScanHistoryHeader(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 ImageAvatar(language)
-                Text(t(userProfile.name), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
-                MaterialSymbol(name = "expand_more", size = 16.sp, color = Color(0xFF94A3B8))
+                Text(t(userProfile.name), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
+                MaterialSymbol(name = "expand_more", size = 16.sp, color = colors.textMuted)
             }
         }
     }
@@ -163,13 +166,14 @@ private fun ScanHistoryHeader(
 
 @Composable
 private fun HeaderNavItem(label: String, isActive: Boolean = false, onClick: () -> Unit) {
-    val bg = if (isActive) Color.White else Color.Transparent
-    val text = if (isActive) Color(0xFF135BEC) else Color(0xFF64748B)
+    val colors = LocalStitchTokens.current.colors
+    val bg = if (isActive) colors.surface else Color.Transparent
+    val text = if (isActive) colors.primary else colors.textSub
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
             .background(bg)
-            .border(if (isActive) 1.dp else 0.dp, Color(0xFFE2E8F0), RoundedCornerShape(8.dp))
+            .border(if (isActive) 1.dp else 0.dp, colors.border, RoundedCornerShape(8.dp))
             .clickable { onClick() }
             .focusable()
             .padding(horizontal = 12.dp, vertical = 8.dp),
@@ -184,11 +188,12 @@ private fun ImageAvatar(language: AppLanguage) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
     fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val userProfile = SampleData.userProfile
+    val colors = LocalStitchTokens.current.colors
     Box(
         modifier = Modifier
             .size(32.dp)
             .clip(CircleShape)
-            .border(2.dp, Color(0xFFE2E8F0))
+            .border(2.dp, colors.border)
     ) {
         androidx.compose.foundation.Image(
             painter = painterResource("assets/stitch/avatar-admin.png"),
@@ -207,6 +212,7 @@ private fun ScanHistoryContent(
 ) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
     fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
+    val colors = LocalStitchTokens.current.colors
     val stats = viewModel.historyStats
     val history = viewModel.filteredHistory()
     val searchQuery = viewModel.historySearchQuery
@@ -230,33 +236,33 @@ private fun ScanHistoryContent(
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(t("Scan History"), fontSize = 36.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+                    Text(t("Scan History"), fontSize = 36.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(999.dp))
-                            .background(Color(0xFFDBEAFE))
-                            .border(1.dp, Color(0xFFBFDBFE), RoundedCornerShape(999.dp))
+                            .background(colors.primary.copy(alpha = 0.15f))
+                            .border(1.dp, colors.primary.copy(alpha = 0.25f), RoundedCornerShape(999.dp))
                             .padding(horizontal = 10.dp, vertical = 2.dp)
                     ) {
-                        Text(t("LIVE"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF135BEC), letterSpacing = 1.sp)
+                        Text(t("LIVE"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = colors.primary, letterSpacing = 1.sp)
                     }
                 }
                 Text(
                     t("Real-time audit logs of all QR code captures, including verdicts from the local heuristic engine."),
                     fontSize = 16.sp,
-                    color = Color(0xFF64748B),
+                    color = colors.textSub,
                     modifier = Modifier.widthIn(max = 640.dp)
                 )
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = Color.White,
-                    border = BorderStroke(1.dp, Color(0xFFE2E8F0))
+                    color = colors.surface,
+                    border = BorderStroke(1.dp, colors.border)
                 ) {
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        MaterialSymbol(name = "calendar_today", size = 16.sp, color = Color(0xFF94A3B8))
-                        Text(t("Oct 24 - Oct 25"), fontSize = 14.sp, color = Color(0xFF64748B))
+                        MaterialSymbol(name = "calendar_today", size = 16.sp, color = colors.textMuted)
+                        Text(t("Oct 24 - Oct 25"), fontSize = 14.sp, color = colors.textSub)
                     }
                 }
                 Surface(
@@ -267,7 +273,7 @@ private fun ScanHistoryContent(
                         }
                         .focusable(),
                     shape = RoundedCornerShape(12.dp),
-                    color = Color(0xFF135BEC)
+                    color = colors.primary
                 ) {
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         MaterialSymbol(name = "download", size = 18.sp, color = Color.White)
@@ -283,7 +289,7 @@ private fun ScanHistoryContent(
                 value = stats.totalScans.toString(),
                 delta = "0%",
                 deltaIcon = "trending_up",
-                deltaColor = Color(0xFF10B981),
+                deltaColor = colors.success,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
@@ -291,7 +297,7 @@ private fun ScanHistoryContent(
                 value = stats.maliciousCount.toString(),
                 delta = "0%",
                 deltaIcon = "trending_down",
-                deltaColor = Color(0xFFE11D48),
+                deltaColor = colors.danger,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
@@ -299,7 +305,7 @@ private fun ScanHistoryContent(
                 value = stats.suspiciousCount.toString(),
                 delta = "0",
                 deltaIcon = "trending_up",
-                deltaColor = Color(0xFFD97706),
+                deltaColor = colors.warning,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
@@ -307,21 +313,21 @@ private fun ScanHistoryContent(
                 value = stats.safeCount.toString(),
                 delta = "0%",
                 deltaIcon = "",
-                deltaColor = Color(0xFF10B981),
+                deltaColor = colors.success,
                 modifier = Modifier.weight(1f)
             )
         }
 
         Surface(
             shape = RoundedCornerShape(12.dp),
-            color = Color.White,
-            border = BorderStroke(1.dp, Color(0xFFE2E8F0))
+            color = colors.surface,
+            border = BorderStroke(1.dp, colors.border)
         ) {
             Column {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color(0xFFF8FAFC))
+                        .background(colors.backgroundAlt)
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -332,23 +338,23 @@ private fun ScanHistoryContent(
                                 .height(36.dp)
                                 .width(320.dp)
                                 .clip(RoundedCornerShape(8.dp))
-                                .background(Color.White)
-                                .border(1.dp, Color(0xFFCBD5E1), RoundedCornerShape(8.dp))
+                                .background(colors.surface)
+                                .border(1.dp, colors.border, RoundedCornerShape(8.dp))
                                 .padding(horizontal = 12.dp)
                         ) {
                             BasicTextField(
                                 value = searchQuery,
                                 onValueChange = { viewModel.updateHistorySearch(it) },
                                 singleLine = true,
-                                textStyle = TextStyle(fontSize = 13.sp, color = Color(0xFF0F172A)),
+                                textStyle = TextStyle(fontSize = 13.sp, color = colors.textMain),
                                 modifier = Modifier.fillMaxWidth(),
                                 decorationBox = { innerTextField ->
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        MaterialSymbol(name = "search", size = 18.sp, color = Color(0xFF94A3B8))
+                                        MaterialSymbol(name = "search", size = 18.sp, color = colors.textMuted)
                                         Spacer(Modifier.width(8.dp))
                                         Box(modifier = Modifier.weight(1f)) {
                                             if (searchQuery.isBlank()) {
-                                                Text(t("Search domains, sources, or hashes..."), fontSize = 13.sp, color = Color(0xFF94A3B8))
+                                                Text(t("Search domains, sources, or hashes..."), fontSize = 13.sp, color = colors.textMuted)
                                             }
                                             innerTextField()
                                         }
@@ -361,39 +367,41 @@ private fun ScanHistoryContent(
                         FilterChip(
                             label = t("All Scans"),
                             active = viewModel.historyFilter == HistoryFilter.All,
-                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.All) }
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.All) },
+                            color = colors.textMain,
+                            background = colors.surface
                         )
                         FilterChip(
                             label = t("Safe"),
                             active = viewModel.historyFilter == HistoryFilter.Safe,
-                            color = Color(0xFF0D9488),
-                            background = Color(0xFFF0FDFA),
+                            color = colors.success,
+                            background = colors.success.copy(alpha = 0.1f),
                             onClick = { viewModel.updateHistoryFilter(HistoryFilter.Safe) },
                             showDot = true
                         )
                         FilterChip(
                             label = t("Suspicious"),
                             active = viewModel.historyFilter == HistoryFilter.Suspicious,
-                            color = Color(0xFFD97706),
-                            background = Color(0xFFFFFBEB),
+                            color = colors.warning,
+                            background = colors.warning.copy(alpha = 0.1f),
                             onClick = { viewModel.updateHistoryFilter(HistoryFilter.Suspicious) },
                             showDot = true
                         )
                         FilterChip(
                             label = t("Dangerous"),
                             active = viewModel.historyFilter == HistoryFilter.Dangerous,
-                            color = Color(0xFFE11D48),
-                            background = Color(0xFFFFF1F2),
+                            color = colors.danger,
+                            background = colors.danger.copy(alpha = 0.1f),
                             onClick = { viewModel.updateHistoryFilter(HistoryFilter.Dangerous) },
                             showDot = true
                         )
-                        Box(modifier = Modifier.size(24.dp).background(Color(0xFFCBD5E1)).width(1.dp))
+                        Box(modifier = Modifier.size(24.dp).background(colors.border).width(1.dp))
                         FilterChip(
                             label = t("Advanced"),
                             icon = "filter_list",
-                            background = Color.White,
-                            border = Color(0xFFE2E8F0),
-                            color = Color(0xFF64748B),
+                            background = colors.surface,
+                            border = colors.border,
+                            color = colors.textSub,
                             onClick = { viewModel.showInfo(t("Advanced filters are not available yet.")) }
                         )
                     }
@@ -458,16 +466,17 @@ private fun ScanHistoryContent(
 
 @Composable
 private fun MetricCard(title: String, value: String, delta: String, deltaIcon: String, deltaColor: Color, modifier: Modifier = Modifier) {
+    val colors = LocalStitchTokens.current.colors
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
-        color = Color.White,
-        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border)
     ) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(title, fontSize = 14.sp, color = Color(0xFF64748B), fontWeight = FontWeight.Medium)
+            Text(title, fontSize = 14.sp, color = colors.textSub, fontWeight = FontWeight.Medium)
             Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(value, fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+                Text(value, fontSize = 28.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                 if (deltaIcon.isNotBlank()) {
                     Row(
                         modifier = Modifier
@@ -491,17 +500,21 @@ private fun MetricCard(title: String, value: String, delta: String, deltaIcon: S
 private fun FilterChip(
     label: String,
     active: Boolean = false,
-    color: Color = Color(0xFF0F172A),
-    background: Color = Color(0xFFF1F5F9),
+    color: Color? = null,
+    background: Color? = null,
     border: Color = Color.Transparent,
     icon: String? = null,
     showDot: Boolean = false,
     onClick: () -> Unit
 ) {
+    val tokens = LocalStitchTokens.current
+    val finalColor = color ?: if (active) Color.White else tokens.colors.textMain
+    val finalBackground = background ?: if (active) tokens.colors.primary else tokens.colors.backgroundAlt
+
     Row(
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(if (active) Color(0xFF0F172A) else background)
+            .background(finalBackground)
             .border(1.dp, border, RoundedCornerShape(8.dp))
             .clickable { onClick() }
             .focusable()
@@ -510,17 +523,17 @@ private fun FilterChip(
         horizontalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         if (icon != null) {
-            MaterialSymbol(name = icon, size = 14.sp, color = color)
+            MaterialSymbol(name = icon, size = 14.sp, color = finalColor)
         }
         if (!active && showDot) {
             Box(
                 modifier = Modifier
                     .size(6.dp)
                     .clip(CircleShape)
-                    .background(color)
+                    .background(finalColor)
             )
         }
-        Text(label, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = if (active) Color.White else color)
+        Text(label, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = finalColor)
     }
 }
 
@@ -533,19 +546,20 @@ private fun TableHeaderRow(
     verdictLabel: String,
     actionsLabel: String
 ) {
+    val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFF8FAFC))
+            .background(colors.backgroundAlt)
             .padding(vertical = 12.dp, horizontal = 20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(riskLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(60.dp))
-        Text(domainLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.weight(1f))
-        Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(140.dp))
-        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
-        Text(verdictLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
-        Text(actionsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+        Text(riskLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(60.dp))
+        Text(domainLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.weight(1f))
+        Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(140.dp))
+        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(120.dp))
+        Text(verdictLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(120.dp))
+        Text(actionsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
     }
 }
 
@@ -557,6 +571,7 @@ private fun HistoryRow(
     language: AppLanguage
 ) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
     val riskIcon = when (item.verdict) {
         Verdict.SAFE -> "shield"
         Verdict.SUSPICIOUS -> "warning"
@@ -564,16 +579,16 @@ private fun HistoryRow(
         Verdict.UNKNOWN -> "help"
     }
     val riskColor = when (item.verdict) {
-        Verdict.SAFE -> Color(0xFF0D9488)
-        Verdict.SUSPICIOUS -> Color(0xFFD97706)
-        Verdict.MALICIOUS -> Color(0xFFE11D48)
-        Verdict.UNKNOWN -> Color(0xFF94A3B8)
+        Verdict.SAFE -> colors.success
+        Verdict.SUSPICIOUS -> colors.warning
+        Verdict.MALICIOUS -> colors.danger
+        Verdict.UNKNOWN -> colors.textMuted
     }
     val riskBg = when (item.verdict) {
-        Verdict.SAFE -> Color(0xFFF0FDFA)
-        Verdict.SUSPICIOUS -> Color(0xFFFFFBEB)
-        Verdict.MALICIOUS -> Color(0xFFFFF1F2)
-        Verdict.UNKNOWN -> Color(0xFFF1F5F9)
+        Verdict.SAFE -> colors.success.copy(alpha = 0.1f)
+        Verdict.SUSPICIOUS -> colors.warning.copy(alpha = 0.1f)
+        Verdict.MALICIOUS -> colors.danger.copy(alpha = 0.1f)
+        Verdict.UNKNOWN -> colors.backgroundAlt
     }
     val detail = when (item.verdict) {
         Verdict.SAFE -> t("Known Domain")
@@ -622,14 +637,14 @@ private fun HistoryRow(
         }
         Spacer(Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A), maxLines = 1, overflow = TextOverflow.Ellipsis)
-            Text(detail, fontSize = 12.sp, color = Color(0xFF94A3B8))
+            Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(detail, fontSize = 12.sp, color = colors.textMuted)
         }
         Row(modifier = Modifier.width(140.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            MaterialSymbol(name = sourceIcon, size = 14.sp, color = Color(0xFF94A3B8))
-            Text(sourceLabel, fontSize = 12.sp, color = Color(0xFF475569))
+            MaterialSymbol(name = sourceIcon, size = 14.sp, color = colors.textMuted)
+            Text(sourceLabel, fontSize = 12.sp, color = colors.textSub)
         }
-        Text(timeLabel, fontSize = 12.sp, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
+        Text(timeLabel, fontSize = 12.sp, color = colors.textMuted, modifier = Modifier.width(120.dp))
         Row(
             modifier = Modifier
                 .width(120.dp)
@@ -646,47 +661,50 @@ private fun HistoryRow(
             Text(verdictLabel, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = verdictColor)
         }
         Box(modifier = Modifier.width(80.dp), contentAlignment = Alignment.CenterEnd) {
-            MaterialSymbol(name = "more_horiz", size = 18.sp, color = Color(0xFF94A3B8))
+            MaterialSymbol(name = "more_horiz", size = 18.sp, color = colors.textMuted)
         }
     }
 }
 
 @Composable
 private fun EmptyHistoryRow(text: String) {
+    val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text, fontSize = 12.sp, color = Color(0xFF94A3B8))
+        Text(text, fontSize = 12.sp, color = colors.textMuted)
     }
 }
 
 @Composable
 private fun PaginationButton(icon: String, disabled: Boolean = false) {
+    val colors = LocalStitchTokens.current.colors
     Box(
         modifier = Modifier
             .size(32.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Color.Transparent)
-            .border(1.dp, Color(0xFFE2E8F0), RoundedCornerShape(8.dp)),
+            .border(1.dp, colors.border, RoundedCornerShape(8.dp)),
         contentAlignment = Alignment.Center
     ) {
-        MaterialSymbol(name = icon, size = 16.sp, color = if (disabled) Color(0xFFCBD5E1) else Color(0xFF94A3B8))
+        MaterialSymbol(name = icon, size = 16.sp, color = if (disabled) colors.textMuted.copy(alpha = 0.5f) else colors.textMuted)
     }
 }
 
 @Composable
 private fun PaginationNumber(number: String, active: Boolean = false) {
+    val colors = LocalStitchTokens.current.colors
     Box(
         modifier = Modifier
             .size(32.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(if (active) Color(0xFF135BEC) else Color.Transparent)
-            .border(1.dp, if (active) Color.Transparent else Color(0xFFE2E8F0), RoundedCornerShape(8.dp)),
+            .background(if (active) colors.primary else Color.Transparent)
+            .border(1.dp, if (active) Color.Transparent else colors.border, RoundedCornerShape(8.dp)),
         contentAlignment = Alignment.Center
     ) {
-        Text(number, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = if (active) Color.White else Color(0xFF64748B))
+        Text(number, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = if (active) Color.White else colors.textSub)
     }
 }

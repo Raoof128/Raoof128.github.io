@@ -40,6 +40,7 @@ import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
@@ -55,7 +56,7 @@ fun LiveScanScreen(viewModel: AppViewModel) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF9FAFB))
+                .background(tokens.colors.background)
         ) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
@@ -77,6 +78,8 @@ private fun LiveScanContent(
     onNavigate: (AppScreen) -> Unit,
     language: AppLanguage
 ) {
+    val tokens = LocalStitchTokens.current
+    val colors = tokens.colors
     val scanState = viewModel.scanState
     val statusMessage = viewModel.statusMessage
     val t = { text: String -> DesktopStrings.translate(text, language) }
@@ -106,29 +109,37 @@ private fun LiveScanContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF3F4F6))
+            .background(colors.background)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
-                .background(Color.White)
-                .border(1.dp, Color(0xFFE5E7EB))
+                .background(colors.surface)
+                .border(1.dp, colors.border)
                 .padding(horizontal = 24.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(t("Dashboard"), fontSize = 14.sp, color = Color(0xFF6B7280))
-                MaterialSymbol(name = "chevron_right", size = 16.sp, color = Color(0xFF9CA3AF), modifier = Modifier.padding(horizontal = 8.dp))
-                Text(t("Scan Monitor"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827), modifier = Modifier.background(Color(0xFFF3F4F6), RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 2.dp))
+                Text(t("Dashboard"), fontSize = 14.sp, color = colors.textSub)
+                MaterialSymbol(name = "chevron_right", size = 16.sp, color = colors.textMuted, modifier = Modifier.padding(horizontal = 8.dp))
+                Text(
+                    t("Scan Monitor"),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = colors.textMain,
+                    modifier = Modifier
+                        .background(colors.backgroundAlt, RoundedCornerShape(6.dp))
+                        .padding(horizontal = 8.dp, vertical = 2.dp)
+                )
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Surface(
                     shape = RoundedCornerShape(999.dp),
-                    color = Color(0xFFECFDF3),
-                    border = BorderStroke(1.dp, Color(0xFFD1FAE5)),
-                    shadowElevation = 1.dp
+                    color = colors.success.copy(alpha = 0.1f),
+                    border = BorderStroke(1.dp, colors.success.copy(alpha = 0.2f)),
+                    shadowElevation = 0.dp
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
@@ -140,27 +151,27 @@ private fun LiveScanContent(
                                 modifier = Modifier
                                     .size(8.dp)
                                     .clip(CircleShape)
-                                    .background(Color(0xFF10B981))
+                                    .background(colors.success)
                             )
                         }
-                        Text(t("Offline Engine V.2.4 Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF047857))
+                        Text(t("Offline Engine V.2.4 Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.success)
                     }
                 }
                 Box(
                     modifier = Modifier
                         .size(36.dp)
-                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
                         .focusable()
                 ) {
-                    MaterialSymbol(name = "notifications", size = 20.sp, color = Color(0xFF6B7280))
+                    MaterialSymbol(name = "notifications", size = 20.sp, color = colors.textMuted)
                     Box(
                         modifier = Modifier
                             .size(8.dp)
                             .align(Alignment.TopEnd)
                             .offset(x = (-2).dp, y = 2.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFFEF4444))
-                            .border(2.dp, Color.White, CircleShape)
+                            .background(colors.danger)
+                            .border(2.dp, colors.surface, CircleShape)
                     )
                 }
             }
@@ -186,23 +197,23 @@ private fun LiveScanContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
-                            Text(t("Active Scanner"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-                            Text(t("Real-time QR code analysis and threat detection."), fontSize = 14.sp, color = Color(0xFF6B7280))
+                            Text(t("Active Scanner"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+                            Text(t("Real-time QR code analysis and threat detection."), fontSize = 14.sp, color = colors.textSub)
                         }
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text(t("Mode:"), fontSize = 12.sp, color = Color(0xFF6B7280))
+                            Text(t("Mode:"), fontSize = 12.sp, color = colors.textSub)
                             Surface(
                                 shape = RoundedCornerShape(10.dp),
-                                color = Color.White,
-                                border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                                color = colors.surface,
+                                border = BorderStroke(1.dp, colors.border)
                             ) {
                                 Row(
                                     modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                                 ) {
-                                    MaterialSymbol(name = "wifi_off", size = 18.sp, color = Color(0xFF10B981))
-                                    Text(t("Offline First"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
+                                    MaterialSymbol(name = "wifi_off", size = 18.sp, color = colors.success)
+                                    Text(t("Offline First"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
                                 }
                             }
                         }
@@ -210,31 +221,31 @@ private fun LiveScanContent(
 
                     Surface(
                         shape = RoundedCornerShape(16.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(480.dp)
-                                .gridPattern(spacing = 24.dp, lineColor = Color(0xFF2563EB).copy(alpha = 0.08f), lineWidth = 1.dp)
+                                .gridPattern(spacing = 24.dp, lineColor = colors.primary.copy(alpha = 0.08f), lineWidth = 1.dp)
                         ) {
                             Box(
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .background(
                                         Brush.radialGradient(
-                                            colors = listOf(Color.Transparent, Color.White.copy(alpha = 0.8f))
+                                            colors = listOf(Color.Transparent, colors.surface.copy(alpha = 0.8f))
                                         )
                                     )
                             )
-                            ScanFrame(modifier = Modifier.align(Alignment.Center))
+                            ScanFrame(modifier = Modifier.align(Alignment.Center), colors = colors)
                             Box(
                                 modifier = Modifier
                                     .align(Alignment.TopCenter)
                                     .padding(top = 24.dp)
-                                    .background(Color.White.copy(alpha = 0.9f), RoundedCornerShape(999.dp))
-                                    .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(999.dp))
+                                    .background(colors.surface.copy(alpha = 0.9f), RoundedCornerShape(999.dp))
+                                    .border(1.dp, colors.border, RoundedCornerShape(999.dp))
                                     .padding(horizontal = 16.dp, vertical = 6.dp)
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -244,21 +255,21 @@ private fun LiveScanContent(
                                             .clip(CircleShape)
                                             .background(
                                                 when (scanState) {
-                                                    is DesktopScanState.Error -> Color(0xFFEF4444)
-                                                    is DesktopScanState.Result -> Color(0xFF10B981)
-                                                    else -> Color(0xFFF59E0B)
+                                                    is DesktopScanState.Error -> colors.danger
+                                                    is DesktopScanState.Result -> colors.success
+                                                    else -> colors.warning
                                                 }
                                             )
                                     )
-                                    Text(stateLabel, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF374151), letterSpacing = 1.sp)
+                                    Text(stateLabel, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMain, letterSpacing = 1.sp)
                                 }
                             }
                             Column(
                                 modifier = Modifier
                                     .align(Alignment.Center)
                                     .padding(32.dp)
-                                    .background(Color.White.copy(alpha = 0.8f), RoundedCornerShape(16.dp))
-                                    .border(1.dp, Color.White.copy(alpha = 0.5f), RoundedCornerShape(16.dp))
+                                    .background(colors.surface.copy(alpha = 0.8f), RoundedCornerShape(16.dp))
+                                    .border(1.dp, colors.surface.copy(alpha = 0.5f), RoundedCornerShape(16.dp))
                                     .padding(24.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
@@ -266,24 +277,24 @@ private fun LiveScanContent(
                                     modifier = Modifier
                                         .size(64.dp)
                                         .clip(CircleShape)
-                                        .background(Color(0xFFF3F4F6))
-                                        .border(1.dp, Color(0xFFE5E7EB), CircleShape),
+                                        .background(colors.backgroundAlt)
+                                        .border(1.dp, colors.border, CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    MaterialSymbol(name = "videocam_off", size = 32.sp, color = Color(0xFF9CA3AF))
+                                    MaterialSymbol(name = "videocam_off", size = 32.sp, color = colors.textMuted)
                                 }
-                                Text(stateTitle, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827), modifier = Modifier.padding(top = 12.dp))
+                                Text(stateTitle, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain, modifier = Modifier.padding(top = 12.dp))
                                 Text(
                                     stateBody,
                                     fontSize = 13.sp,
-                                    color = Color(0xFF6B7280),
+                                    color = colors.textSub,
                                     textAlign = TextAlign.Center,
                                     lineHeight = 18.sp,
                                     modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
                                 )
                                 Button(
                                     onClick = { viewModel.startCameraScan() },
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2563EB)),
+                                    colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 24.dp, vertical = 10.dp)
                                 ) {
@@ -300,45 +311,48 @@ private fun LiveScanContent(
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        MaterialSymbol(name = "bolt", size = 14.sp, color = Color(0xFF10B981))
+                        MaterialSymbol(name = "bolt", size = 14.sp, color = colors.success)
                         Spacer(Modifier.width(6.dp))
                         Text(
                             statusMessage?.text ?: t("Local analysis engine ready (<5ms latency)"),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium,
                             color = when (statusMessage?.kind) {
-                                MessageKind.Error -> Color(0xFFDC2626)
-                                MessageKind.Success -> Color(0xFF059669)
-                                else -> Color(0xFF6B7280)
+                                MessageKind.Error -> colors.danger
+                                MessageKind.Success -> colors.success
+                                else -> colors.textSub
                             }
                         )
                     }
 
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ScanActionButton(
                                 icon = "flash_on",
                                 label = t("Torch"),
                                 modifier = Modifier.weight(1f),
-                                onClick = { viewModel.showInfo("Torch not available on desktop") }
+                                onClick = { viewModel.showInfo(t("Torch not available on desktop")) },
+                                colors = colors
                             )
-                            DividerVertical()
+                            DividerVertical(colors = colors)
                             ScanActionButton(
                                 icon = "add_photo_alternate",
                                 label = t("Upload Image"),
                                 modifier = Modifier.weight(1f),
-                                onClick = { viewModel.pickImageAndScan() }
+                                onClick = { viewModel.pickImageAndScan() },
+                                colors = colors
                             )
-                            DividerVertical()
+                            DividerVertical(colors = colors)
                             ScanActionButton(
                                 icon = "link",
                                 label = t("Paste URL"),
                                 modifier = Modifier.weight(1f),
-                                onClick = { viewModel.analyzeClipboardUrl() }
+                                onClick = { viewModel.analyzeClipboardUrl() },
+                                colors = colors
                             )
                         }
                     }
@@ -347,8 +361,8 @@ private fun LiveScanContent(
                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(24.dp)) {
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Column(modifier = Modifier.padding(24.dp)) {
                             Row(
@@ -356,41 +370,43 @@ private fun LiveScanContent(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(t("SYSTEM STATUS"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                                Text(t("SYSTEM STATUS"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textSub, letterSpacing = 1.sp)
                                 Box(
                                     modifier = Modifier
                                         .size(24.dp)
-                                        .clickable { viewModel.showInfo("System status refresh is not available yet.") }
+                                        .clickable { viewModel.showInfo(t("System status refresh is not available yet.")) }
                                         .focusable(),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    MaterialSymbol(name = "refresh", size = 18.sp, color = Color(0xFF9CA3AF))
+                                    MaterialSymbol(name = "refresh", size = 18.sp, color = colors.textMuted)
                                 }
                             }
                             Spacer(Modifier.height(16.dp))
                             StatusRow(
                                 icon = "security",
-                                iconColor = Color(0xFF10B981),
+                                iconColor = colors.success,
                                 title = t("Detection Engine"),
                                 value = t("Phishing Guard"),
                                 badgeText = t("READY"),
-                                badgeColor = Color(0xFF10B981)
+                                badgeColor = colors.success,
+                                colors = colors
                             )
                             Spacer(Modifier.height(12.dp))
                             StatusRow(
                                 icon = "database",
-                                iconColor = Color(0xFF2563EB),
+                                iconColor = colors.primary,
                                 title = t("Database"),
                                 value = t("Local V.2.4.0"),
                                 badgeText = t("LATEST"),
-                                badgeColor = Color(0xFF2563EB)
+                                badgeColor = colors.primary,
+                                colors = colors
                             )
                             Spacer(Modifier.height(12.dp))
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color(0xFFF9FAFB), RoundedCornerShape(8.dp))
-                                    .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(8.dp))
+                                    .background(colors.backgroundAlt, RoundedCornerShape(8.dp))
+                                    .border(1.dp, colors.border, RoundedCornerShape(8.dp))
                                     .padding(12.dp),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.SpaceBetween
@@ -400,22 +416,22 @@ private fun LiveScanContent(
                                         modifier = Modifier
                                             .size(36.dp)
                                             .clip(RoundedCornerShape(8.dp))
-                                            .background(Color.White)
-                                            .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(8.dp)),
+                                            .background(colors.surface)
+                                            .border(1.dp, colors.border, RoundedCornerShape(8.dp)),
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        MaterialSymbol(name = "speed", size = 20.sp, color = Color(0xFF7C3AED))
+                                        MaterialSymbol(name = "speed", size = 20.sp, color = Color(0xFF7C3AED)) // Keep for now or use primary
                                     }
                                     Column {
-                                        Text(t("Latency"), fontSize = 12.sp, color = Color(0xFF6B7280))
-                                        Text(t("4ms Avg"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                        Text(t("Latency"), fontSize = 12.sp, color = colors.textSub)
+                                        Text(t("4ms Avg"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                                     }
                                 }
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.Bottom) {
-                                    Box(modifier = Modifier.size(width = 4.dp, height = 8.dp).background(Color(0xFF34D399), RoundedCornerShape(999.dp)))
-                                    Box(modifier = Modifier.size(width = 4.dp, height = 12.dp).background(Color(0xFF10B981), RoundedCornerShape(999.dp)))
-                                    Box(modifier = Modifier.size(width = 4.dp, height = 8.dp).background(Color(0xFF34D399), RoundedCornerShape(999.dp)))
-                                    Box(modifier = Modifier.size(width = 4.dp, height = 4.dp).background(Color(0xFFA7F3D0), RoundedCornerShape(999.dp)))
+                                    Box(modifier = Modifier.size(width = 4.dp, height = 8.dp).background(colors.success.copy(alpha = 0.6f), RoundedCornerShape(999.dp)))
+                                    Box(modifier = Modifier.size(width = 4.dp, height = 12.dp).background(colors.success, RoundedCornerShape(999.dp)))
+                                    Box(modifier = Modifier.size(width = 4.dp, height = 8.dp).background(colors.success.copy(alpha = 0.6f), RoundedCornerShape(999.dp)))
+                                    Box(modifier = Modifier.size(width = 4.dp, height = 4.dp).background(colors.success.copy(alpha = 0.3f), RoundedCornerShape(999.dp)))
                                 }
                             }
                         }
@@ -424,24 +440,24 @@ private fun LiveScanContent(
                     Surface(
                         modifier = Modifier.fillMaxHeight(),
                         shape = RoundedCornerShape(12.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Column(modifier = Modifier.fillMaxHeight()) {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color(0xFFF8FAFC))
+                                    .background(colors.backgroundAlt)
                                     .padding(20.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(t("RECENT SCANS"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                                Text(t("RECENT SCANS"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textSub, letterSpacing = 1.sp)
                                 Text(
                                     t("View All"),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.SemiBold,
-                                    color = Color(0xFF2563EB),
+                                    color = colors.primary,
                                     modifier = Modifier
                                         .clickable { onNavigate(AppScreen.ScanHistory) }
                                         .focusable()
@@ -456,7 +472,8 @@ private fun LiveScanContent(
                                 if (recentScans.isEmpty()) {
                                     EmptyRecentScanItem(
                                         title = t("No scans yet"),
-                                        body = t("Run a scan to populate history.")
+                                        body = t("Run a scan to populate history."),
+                                        colors = colors
                                     )
                                 } else {
                                     recentScans.forEach { item ->
@@ -464,7 +481,8 @@ private fun LiveScanContent(
                                             item = item,
                                             timeLabel = viewModel.formatRelativeTime(item.scannedAt),
                                             onClick = { viewModel.selectHistoryItem(it) },
-                                            language = language
+                                            language = language,
+                                            colors = colors
                                         )
                                     }
                                 }
@@ -472,7 +490,7 @@ private fun LiveScanContent(
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .border(1.dp, Color(0xFFE5E7EB))
+                                    .border(1.dp, colors.border)
                                     .clickable {
                                         viewModel.exportHistoryCsv()
                                         onNavigate(AppScreen.ReportsExport)
@@ -487,9 +505,9 @@ private fun LiveScanContent(
                                     horizontalArrangement = Arrangement.Center,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    MaterialSymbol(name = "download", size = 18.sp, color = Color(0xFF6B7280))
+                                    MaterialSymbol(name = "download", size = 18.sp, color = colors.textSub)
                                     Spacer(Modifier.width(8.dp))
-                                    Text(t("Export Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF6B7280))
+                                    Text(t("Export Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
                                 }
                             }
                         }
@@ -501,7 +519,7 @@ private fun LiveScanContent(
 }
 
 @Composable
-private fun BoxScope.ScanFrame(modifier: Modifier = Modifier) {
+private fun BoxScope.ScanFrame(modifier: Modifier = Modifier, colors: com.qrshield.desktop.theme.ColorTokens) {
     val transition = rememberInfiniteTransition()
     val scanOffset by transition.animateFloat(
         initialValue = 0f,
@@ -518,12 +536,12 @@ private fun BoxScope.ScanFrame(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .border(2.dp, Color(0xFF2563EB).copy(alpha = 0.3f), RoundedCornerShape(24.dp))
+                .border(2.dp, colors.primary.copy(alpha = 0.3f), RoundedCornerShape(24.dp))
         )
-        CornerStroke(Alignment.TopStart)
-        CornerStroke(Alignment.TopEnd)
-        CornerStroke(Alignment.BottomStart)
-        CornerStroke(Alignment.BottomEnd)
+        CornerStroke(Alignment.TopStart, colors)
+        CornerStroke(Alignment.TopEnd, colors)
+        CornerStroke(Alignment.BottomStart, colors)
+        CornerStroke(Alignment.BottomEnd, colors)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -531,7 +549,7 @@ private fun BoxScope.ScanFrame(modifier: Modifier = Modifier) {
                 .offset(y = (scanOffset * 240f).dp)
                 .background(
                     Brush.horizontalGradient(
-                        listOf(Color.Transparent, Color(0xFF2563EB), Color.Transparent)
+                        listOf(Color.Transparent, colors.primary, Color.Transparent)
                     )
                 )
         )
@@ -539,11 +557,11 @@ private fun BoxScope.ScanFrame(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun BoxScope.CornerStroke(alignment: Alignment) {
+private fun BoxScope.CornerStroke(alignment: Alignment, colors: com.qrshield.desktop.theme.ColorTokens) {
     val shape = RoundedCornerShape(16.dp)
     val modifier = Modifier
         .size(32.dp)
-        .border(3.dp, Color(0xFF2563EB), shape)
+        .border(3.dp, colors.primary, shape)
         .clip(shape)
     Box(modifier = modifier.align(alignment))
 }
@@ -553,7 +571,8 @@ private fun ScanActionButton(
     icon: String,
     label: String,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    colors: com.qrshield.desktop.theme.ColorTokens
 ) {
     Column(
         modifier = modifier
@@ -567,22 +586,22 @@ private fun ScanActionButton(
             modifier = Modifier
                 .size(36.dp)
                 .clip(CircleShape)
-                .background(Color(0xFFF3F4F6)),
+                .background(colors.backgroundAlt),
             contentAlignment = Alignment.Center
         ) {
-            MaterialSymbol(name = icon, size = 20.sp, color = Color(0xFF6B7280))
+            MaterialSymbol(name = icon, size = 20.sp, color = colors.textSub)
         }
-        Text(label, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280))
+        Text(label, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textSub)
     }
 }
 
 @Composable
-private fun DividerVertical() {
+private fun DividerVertical(colors: com.qrshield.desktop.theme.ColorTokens) {
     Box(
         modifier = Modifier
             .width(1.dp)
             .height(60.dp)
-            .background(Color(0xFFF3F4F6))
+            .background(colors.backgroundAlt)
     )
 }
 
@@ -593,13 +612,14 @@ private fun StatusRow(
     title: String,
     value: String,
     badgeText: String,
-    badgeColor: Color
+    badgeColor: Color,
+    colors: com.qrshield.desktop.theme.ColorTokens
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFF9FAFB), RoundedCornerShape(8.dp))
-            .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(8.dp))
+            .background(colors.backgroundAlt, RoundedCornerShape(8.dp))
+            .border(1.dp, colors.border, RoundedCornerShape(8.dp))
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
@@ -609,15 +629,15 @@ private fun StatusRow(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(Color.White)
-                    .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(8.dp)),
+                    .background(colors.surface)
+                    .border(1.dp, colors.border, RoundedCornerShape(8.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 MaterialSymbol(name = icon, size = 20.sp, color = iconColor)
             }
             Column {
-                Text(title, fontSize = 12.sp, color = Color(0xFF6B7280))
-                Text(value, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                Text(title, fontSize = 12.sp, color = colors.textSub)
+                Text(value, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
             }
         }
         Box(
@@ -633,13 +653,13 @@ private fun StatusRow(
 }
 
 @Composable
-private fun EmptyRecentScanItem(title: String, body: String) {
+private fun EmptyRecentScanItem(title: String, body: String, colors: com.qrshield.desktop.theme.ColorTokens) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(Color(0xFFF9FAFB))
-            .border(1.dp, Color(0xFFE5E7EB), RoundedCornerShape(8.dp))
+            .background(colors.backgroundAlt)
+            .border(1.dp, colors.border, RoundedCornerShape(8.dp))
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -648,14 +668,14 @@ private fun EmptyRecentScanItem(title: String, body: String) {
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
-                .background(Color(0xFFE5E7EB)),
+                .background(colors.border),
             contentAlignment = Alignment.Center
         ) {
-            MaterialSymbol(name = "history", size = 18.sp, color = Color(0xFF9CA3AF))
+            MaterialSymbol(name = "history", size = 18.sp, color = colors.textMuted)
         }
         Column(modifier = Modifier.weight(1f)) {
-            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
-            Text(body, fontSize = 12.sp, color = Color(0xFF6B7280))
+            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
+            Text(body, fontSize = 12.sp, color = colors.textSub)
         }
     }
 }
@@ -665,7 +685,8 @@ private fun RecentScanItem(
     item: ScanHistoryItem,
     timeLabel: String,
     onClick: (ScanHistoryItem) -> Unit,
-    language: AppLanguage
+    language: AppLanguage,
+    colors: com.qrshield.desktop.theme.ColorTokens
 ) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
     val badge = when (item.verdict) {
@@ -677,34 +698,34 @@ private fun RecentScanItem(
     val style = when (item.verdict) {
         Verdict.SAFE -> RecentScanStyle(
             icon = "check_circle",
-            iconBg = Color(0xFFECFDF3),
-            iconColor = Color(0xFF10B981),
-            badgeBg = Color(0xFFECFDF3),
-            badgeColor = Color(0xFF10B981),
+            iconBg = colors.success.copy(alpha = 0.1f),
+            iconColor = colors.success,
+            badgeBg = colors.success.copy(alpha = 0.1f),
+            badgeColor = colors.success,
             highlight = Color.Transparent
         )
         Verdict.SUSPICIOUS -> RecentScanStyle(
             icon = "priority_high",
-            iconBg = Color(0xFFFFFBEB),
-            iconColor = Color(0xFFF59E0B),
-            badgeBg = Color(0xFFFFFBEB),
-            badgeColor = Color(0xFFD97706),
-            highlight = Color(0xFFFFFBEB)
+            iconBg = colors.warning.copy(alpha = 0.1f),
+            iconColor = colors.warning,
+            badgeBg = colors.warning.copy(alpha = 0.1f),
+            badgeColor = colors.warning.copy(alpha = 0.8f),
+            highlight = colors.warning.copy(alpha = 0.05f)
         )
         Verdict.MALICIOUS -> RecentScanStyle(
             icon = "warning",
-            iconBg = Color.White,
-            iconColor = Color(0xFFDC2626),
-            badgeBg = Color(0xFFFEE2E2),
-            badgeColor = Color(0xFFDC2626),
-            highlight = Color(0xFFFEE2E2)
+            iconBg = colors.surface,
+            iconColor = colors.danger,
+            badgeBg = colors.danger.copy(alpha = 0.1f),
+            badgeColor = colors.danger,
+            highlight = colors.danger.copy(alpha = 0.05f)
         )
         Verdict.UNKNOWN -> RecentScanStyle(
             icon = "help_outline",
-            iconBg = Color(0xFFF1F5F9),
-            iconColor = Color(0xFF64748B),
-            badgeBg = Color(0xFFF1F5F9),
-            badgeColor = Color(0xFF64748B),
+            iconBg = colors.backgroundAlt,
+            iconColor = colors.textMuted,
+            badgeBg = colors.backgroundAlt,
+            badgeColor = colors.textMuted,
             highlight = Color.Transparent
         )
     }
@@ -737,7 +758,7 @@ private fun RecentScanItem(
                 displayDomain,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold,
-                color = if (item.verdict == Verdict.MALICIOUS) Color(0xFF7F1D1D) else Color(0xFF111827),
+                color = if (item.verdict == Verdict.MALICIOUS) colors.danger else colors.textMain,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -745,9 +766,9 @@ private fun RecentScanItem(
                 Text(
                     timeLabel,
                     fontSize = 12.sp,
-                    color = if (item.verdict == Verdict.MALICIOUS) Color(0xFFDC2626) else Color(0xFF6B7280)
+                    color = if (item.verdict == Verdict.MALICIOUS) colors.danger else colors.textSub
                 )
-                Box(modifier = Modifier.size(4.dp).clip(CircleShape).background(Color(0xFFD1D5DB)))
+                Box(modifier = Modifier.size(4.dp).clip(CircleShape).background(colors.border))
                 Box(
                     modifier = Modifier
                         .clip(RoundedCornerShape(4.dp))

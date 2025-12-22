@@ -11,6 +11,7 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.Alignment
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.screens.*
 import java.awt.Dimension
