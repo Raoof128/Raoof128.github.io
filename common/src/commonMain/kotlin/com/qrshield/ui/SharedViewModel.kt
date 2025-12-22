@@ -310,7 +310,13 @@ data class AppSettings(
     val isSaveHistoryEnabled: Boolean = true,
     val isSecurityAlertsEnabled: Boolean = true,
     val isDeveloperModeEnabled: Boolean = false,
-    val isAggressiveModeEnabled: Boolean = false  // NEW: Resolve short links (online only)
+    val isAggressiveModeEnabled: Boolean = false,  // Resolve short links (online only)
+    
+    // Trust Centre Settings
+    val heuristicSensitivity: String = "BALANCED",
+    val isShareThreatSignaturesEnabled: Boolean = false,
+    val isBiometricUnlockEnabled: Boolean = true,
+    val isAutoCopySafeLinksEnabled: Boolean = false
 )
 
 

@@ -37,6 +37,14 @@ class AndroidSettingsDataSource(context: Context) : SettingsDataSource {
             putBoolean("sound", settings.isSoundEnabled)
             putBoolean("save_history", settings.isSaveHistoryEnabled)
             putBoolean("security_alerts", settings.isSecurityAlertsEnabled)
+            putBoolean("developer_mode", settings.isDeveloperModeEnabled)
+            putBoolean("aggressive_mode", settings.isAggressiveModeEnabled)
+            
+            // Trust Centre
+            putString("heuristic_sensitivity", settings.heuristicSensitivity)
+            putBoolean("share_threats", settings.isShareThreatSignaturesEnabled)
+            putBoolean("biometric_unlock", settings.isBiometricUnlockEnabled)
+            putBoolean("auto_copy", settings.isAutoCopySafeLinksEnabled)
             apply()
         }
     }
@@ -47,7 +55,14 @@ class AndroidSettingsDataSource(context: Context) : SettingsDataSource {
             isHapticEnabled = prefs.getBoolean("haptic", true),
             isSoundEnabled = prefs.getBoolean("sound", true),
             isSaveHistoryEnabled = prefs.getBoolean("save_history", true),
-            isSecurityAlertsEnabled = prefs.getBoolean("security_alerts", true)
+            isSecurityAlertsEnabled = prefs.getBoolean("security_alerts", true),
+            isDeveloperModeEnabled = prefs.getBoolean("developer_mode", false),
+            isAggressiveModeEnabled = prefs.getBoolean("aggressive_mode", false),
+            
+            heuristicSensitivity = prefs.getString("heuristic_sensitivity", "BALANCED") ?: "BALANCED",
+            isShareThreatSignaturesEnabled = prefs.getBoolean("share_threats", false),
+            isBiometricUnlockEnabled = prefs.getBoolean("biometric_unlock", true),
+            isAutoCopySafeLinksEnabled = prefs.getBoolean("auto_copy", false)
         )
     }
 }

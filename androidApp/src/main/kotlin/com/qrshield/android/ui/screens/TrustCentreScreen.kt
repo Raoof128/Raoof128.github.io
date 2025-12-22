@@ -57,9 +57,19 @@ fun TrustCentreScreen(
     onBlocklistClick: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    var selectedSensitivity by remember { mutableStateOf(Sensitivity.BALANCED) }
-    var shareThreatSignatures by remember { mutableStateOf(false) }
-    var biometricUnlock by remember { mutableStateOf(true) }
+    val viewModel: com.qrshield.ui.SharedViewModel = org.koin.compose.koinInject()
+    val settings by viewModel.settings.collectAsState()
+    
+    // Map settings to local UI state
+    val selectedSensitivity = try {
+        Sensitivity.valueOf(settings.heuristicSensitivity)
+    } catch (e: IllegalArgumentException) {
+        Sensitivity.BALANCED
+    }
+    
+    val shareThreatSignatures = settings.isShareThreatSignaturesEnabled
+    val biometricUnlock = settings.isBiometricUnlockEnabled
+    val autoCopySafeLinks = settings.isAutoCopySafeLinksEnabled
 
     val scrollState = rememberScrollState()
 
@@ -112,7 +122,9 @@ fun TrustCentreScreen(
             // Sensitivity Section
             SensitivitySection(
                 selectedSensitivity = selectedSensitivity,
-                onSensitivityChange = { selectedSensitivity = it }
+                onSensitivityChange = { newSensitivity -> 
+                    viewModel.updateSettings(settings.copy(heuristicSensitivity = newSensitivity.name))
+                }
             )
 
             // Lists Section (Allowlist/Blocklist)
@@ -124,9 +136,11 @@ fun TrustCentreScreen(
             // Privacy Controls
             PrivacyControlsSection(
                 shareThreatSignatures = shareThreatSignatures,
-                onShareThreatSignaturesChange = { shareThreatSignatures = it },
+                onShareThreatSignaturesChange = { viewModel.updateSettings(settings.copy(isShareThreatSignaturesEnabled = it)) },
                 biometricUnlock = biometricUnlock,
-                onBiometricUnlockChange = { biometricUnlock = it }
+                onBiometricUnlockChange = { viewModel.updateSettings(settings.copy(isBiometricUnlockEnabled = it)) },
+                autoCopySafeLinks = autoCopySafeLinks,
+                onAutoCopySafeLinksChange = { viewModel.updateSettings(settings.copy(isAutoCopySafeLinksEnabled = it)) }
             )
 
             // Footer
@@ -489,7 +503,9 @@ private fun PrivacyControlsSection(
     shareThreatSignatures: Boolean,
     onShareThreatSignaturesChange: (Boolean) -> Unit,
     biometricUnlock: Boolean,
-    onBiometricUnlockChange: (Boolean) -> Unit
+    onBiometricUnlockChange: (Boolean) -> Unit,
+    autoCopySafeLinks: Boolean,
+    onAutoCopySafeLinksChange: (Boolean) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         // Header
@@ -537,6 +553,13 @@ private fun PrivacyControlsSection(
                     subtitle = stringResource(R.string.biometric_unlock_subtitle),
                     checked = biometricUnlock,
                     onCheckedChange = onBiometricUnlockChange,
+                    showDivider = true
+                )
+                PrivacyToggleItem(
+                    title = stringResource(R.string.auto_copy_title),
+                    subtitle = stringResource(R.string.auto_copy_subtitle),
+                    checked = autoCopySafeLinks,
+                    onCheckedChange = onAutoCopySafeLinksChange,
                     showDivider = false
                 )
             }
