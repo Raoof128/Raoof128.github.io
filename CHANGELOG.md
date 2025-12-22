@@ -5,6 +5,78 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.8] - 2025-12-23
+
+### 🔧 Android Polish - Final Refinements
+
+Senior Android Engineer audit completion.
+
+#### 🪛 Refactoring
+- **Beat the Bot Refactor**: Fully transitioned `BeatTheBotScreen.kt` to MVVM architecture, observing `BeatTheBotViewModel` state directly instead of passing individual parameters.
+- **DateUtils Centralization**: Centralized date formatting logic into `DateUtils.kt`, removing duplication in `DashboardScreen.kt` and `Navigation.kt`.
+- **String Hardcoding Fixes**: Replaced remaining hardcoded strings in `DashboardScreen.kt` system health card and `BeatTheBotScreen.kt` loading/hint states with resources.
+
+#### 🐛 Fixes
+- **ScannerOverlay Deprecation**: Updated deprecated `quadraticBezierTo` to `quadraticTo` in custom drawing logic.
+- **Icon Deprecations**: Fixed remaining deprecated icon usages in `AttackBreakdownScreen.kt`, `HeuristicsScreen.kt`.
+
+#### ✅ Build Verification
+```bash
+./gradlew :androidApp:assembleDebug
+BUILD SUCCESSFUL # Zero warnings!
+```
+
+## [1.16.7] - 2025-12-23
+
+### Desktop Application
+- Localized AppViewModel status/error messaging and file dialog title for language switching.
+- Added German translations for AppViewModel status messages and training scenario copy.
+- Added Spanish translations for AppViewModel status messages and training scenario copy.
+- Added French translations for AppViewModel status messages and training scenario copy.
+- Added Simplified Chinese translations for AppViewModel status messages and training scenario copy.
+- Added Japanese translations for AppViewModel status messages and training scenario copy.
+- Added Hindi translations for AppViewModel status messages and training scenario copy.
+- Normalized invalid URL handling to a localized "Invalid URL format" message.
+- Added German translations for desktop placeholder/help messages.
+- Added Spanish translations for desktop placeholder/help messages.
+- Added French translations for desktop placeholder/help messages.
+- Added Simplified Chinese translations for desktop placeholder/help messages.
+- Added Japanese translations for desktop placeholder/help messages.
+- Added Hindi translations for desktop placeholder/help messages.
+
+## [1.16.6] - 2025-12-23
+
+### Web Application
+- Added localization support for web app dashboard (German, Spanish, French, Chinese, Japanese, Hindi).
+- Implemented `WebStrings` infrastructure in Kotlin/JS with language auto-detection.
+- Updated `Main.kt` to dynamically translate HTML elements via `data-i18n` attributes.
+- Localized Dashboard navigation, status cards, and action buttons.
+
+## [1.16.5] - 2025-12-23
+
+### Desktop Application
+- Added translation lookup helpers (`translate`, `format`) for desktop language switching.
+- Added common translation maps for de/es/fr/zh/ja/hi to support full UI localization.
+- Localized Dashboard screen strings and status labels for all supported desktop languages.
+- Localized Live Scan (Scan Monitor) screen strings, scan state labels, and status panels.
+- Localized Scan History screen, header nav, and table labels with language-aware formatting.
+- Localized sidebar user profile labels (name/role) across supported languages.
+- Localized Safe Scan Result screen, verdict analysis, and empty state messaging.
+- Localized Suspicious Result action messages (notifications, copy, sandbox) for desktop language switching.
+- Fixed Live Scan formatting helper to support localized vararg messages.
+- Fixed Safe Result formatting helper to support localized vararg messages.
+- Fixed Suspicious Result formatting helper to support localized vararg messages.
+- Fixed Scan History formatting helper to support localized vararg messages.
+- Localized Trust Centre Alt (Settings) screen copy and data lifecycle section labels.
+- Localized Dangerous Result screen copy, actions, and status labels for language switching.
+- Localized Dangerous Result (Alt) screen breadcrumb, breakdown, and action copy for language switching.
+- Localized Reports Export screen sections, format options, preview report copy, and actions.
+- Localized Training screen headings, action labels, and scenario text for language switching.
+- Localized Trust Centre screen copy, heuristic controls, and allow/block list labels.
+- Localized Safe Result notification/copy status messages for language switching.
+
+---
+
 ## [1.16.4] - 2025-12-23
 
 ### 🌍 Application - Complete Localization
@@ -3374,3 +3446,4 @@ make test-quality      # All quality tests combined
 [1.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.0.0
 [0.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v0.1.0
+## 

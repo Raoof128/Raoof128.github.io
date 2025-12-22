@@ -41,8 +41,8 @@ import com.qrshield.model.Verdict
 import com.qrshield.ui.HistoryStatistics
 import com.qrshield.ui.SharedViewModel
 import org.koin.compose.koinInject
-import java.text.SimpleDateFormat
-import java.util.*
+
+import com.qrshield.android.util.DateUtils
 
 /**
  * Dashboard / Home Screen
@@ -392,7 +392,7 @@ private fun SystemHealthCard(
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                     Text(
-                        text = "DB v2.4.1 • Updated 2h ago",
+                        text = stringResource(R.string.dashboard_db_status_default),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -561,7 +561,7 @@ private fun RecentScansSection(
                         statusColor = statusColor,
                         statusBgColor = iconBgColor,
                         statusDetail = "Score: ${item.score}",
-                        time = formatTime(item.scannedAt),
+                        time = DateUtils.formatRelativeTime(item.scannedAt),
                         icon = icon,
                         iconBgColor = iconBgColor,
                         iconColor = iconColor,
@@ -576,20 +576,7 @@ private fun RecentScansSection(
 // Helper data class for icon/color assignment
 private data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)
 
-private fun formatTime(epochMillis: Long): String {
-    val now = System.currentTimeMillis()
-    val diff = now - epochMillis
-    
-    return when {
-        diff < 60_000 -> "Just now"
-        diff < 3_600_000 -> "${diff / 60_000}m ago"
-        diff < 86_400_000 -> {
-            SimpleDateFormat("h:mm a", Locale.getDefault()).format(Date(epochMillis))
-        }
-        diff < 172_800_000 -> "Yesterday"
-        else -> SimpleDateFormat("MMM d", Locale.getDefault()).format(Date(epochMillis))
-    }
-}
+
 
 @Composable
 private fun ScanHistoryItem(

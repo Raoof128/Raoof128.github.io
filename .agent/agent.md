@@ -4,6 +4,54 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌍 December 23, 2025 - Desktop & Web Localization Expansion
+
+### Summary
+Expanded localization support to the Web App (Kotlin/JS) and completed Desktop Dashboard translation layers.
+
+## ✅ Web App Localization
+- Created `WebStrings` infrastructure mirroring Desktop's I18n system.
+- Ported translations for German, Spanish, French, Chinese, Japanese, and Hindi to `webApp/../i18n`.
+- Updated `Main.kt` to auto-detect browser language and apply translations to `[data-i18n]` elements.
+- Instrumented `dashboard.html` with `data-i18n` IDs for navigation, buttons, and status labels.
+
+## ✅ Desktop Localization
+- Added `translate` and `format` helpers to `DesktopStrings` for language-aware lookup.
+- Added per-language common translation maps with Dashboard UI strings.
+- Replaced Dashboard hardcoded text with localized strings.
+- Localized Live Scan (Scan Monitor) screen text, status labels, and recent scan sections.
+- Localized Scan History screen UI and header navigation labels.
+- Localized AppSidebar user profile labels (name/role).
+- Localized Safe Scan Result screen (header, metrics, analysis cards, and empty state).
+- Localized Suspicious Result action feedback (notifications, copy, sandbox messages).
+- Fixed Live Scan localization helper to use a vararg-safe formatter function.
+- Fixed Safe Result localization helper to use a vararg-safe formatter function.
+- Fixed Suspicious Result localization helper to use a vararg-safe formatter function.
+- Fixed Scan History localization helper to use a vararg-safe formatter function.
+- Localized Trust Centre Alt (Settings) screen text, help notices, and data lifecycle table labels.
+- Localized Dangerous Result screen copy, actions, and status labels for language switching.
+- Localized Dangerous Result (Alt) screen breadcrumb, breakdown, and action copy for language switching.
+- Localized Reports Export screen sections, format options, preview report copy, and actions.
+- Localized Training screen headings, action labels, and scenario text for language switching.
+- Localized Trust Centre screen copy, heuristic controls, and allow/block list labels.
+- Localized Safe Result notification/copy status messages for language switching.
+- Localized AppViewModel status/error messaging and file dialog title for language switching.
+- Added German translations for AppViewModel status messages and training scenario copy.
+- Added Spanish translations for AppViewModel status messages and training scenario copy.
+- Added French translations for AppViewModel status messages and training scenario copy.
+- Added Simplified Chinese translations for AppViewModel status messages and training scenario copy.
+- Added Japanese translations for AppViewModel status messages and training scenario copy.
+- Added Hindi translations for AppViewModel status messages and training scenario copy.
+- Normalized invalid URL handling to a localized "Invalid URL format" message.
+- Added German translations for desktop placeholder/help messages.
+- Added Spanish translations for desktop placeholder/help messages.
+- Added French translations for desktop placeholder/help messages.
+- Added Simplified Chinese translations for desktop placeholder/help messages.
+- Added Japanese translations for desktop placeholder/help messages.
+- Added Hindi translations for desktop placeholder/help messages.
+
+---
+
 # 🇮🇹 December 22, 2025 - Italian Language Support & European Polish
 
 ---

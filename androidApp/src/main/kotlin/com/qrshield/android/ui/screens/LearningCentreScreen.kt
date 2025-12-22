@@ -208,7 +208,7 @@ private fun ProgressSection(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
-                                imageVector = Icons.Default.TrendingUp,
+                                imageVector = Icons.AutoMirrored.Filled.TrendingUp,
                                 contentDescription = null,
                                 tint = QRShieldColors.Emerald600,
                                 modifier = Modifier.size(16.dp)

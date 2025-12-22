@@ -81,7 +81,7 @@ fun AttackBreakdownScreen(
     confidenceScore: Int = 94,
     attackPhases: List<AttackPhase> = listOf(
         AttackPhase(1, "Initial Access", "QR code scanned from physical document", Icons.Default.QrCodeScanner, PhaseStatus.COMPLETED),
-        AttackPhase(2, "Redirection", "3-hop URL redirect chain detected", Icons.Default.AltRoute, PhaseStatus.COMPLETED),
+        AttackPhase(2, "Redirection", "3-hop URL redirect chain detected", Icons.AutoMirrored.Filled.AltRoute, PhaseStatus.COMPLETED),
         AttackPhase(3, "Spoofed Login", "Fake Microsoft login page rendered", Icons.Default.Web, PhaseStatus.BLOCKED),
         AttackPhase(4, "Data Exfiltration", "Credentials would be sent to attacker server", Icons.Default.CloudUpload, PhaseStatus.PREVENTED)
     ),
@@ -593,7 +593,7 @@ private fun ActionBottomBar(
                 )
             ) {
                 Icon(
-                    imageVector = Icons.Default.Send,
+                    imageVector = Icons.AutoMirrored.Filled.Send,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp)
                 )

@@ -160,7 +160,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left, top + cornerLength)
                 lineTo(left, top + cornerRadius)
-                quadraticBezierTo(left, top, left + cornerRadius, top)
+                quadraticTo(left, top, left + cornerRadius, top)
                 lineTo(left + cornerLength, top)
             },
             color = glowColor,
@@ -172,7 +172,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left, top + cornerLength)
                 lineTo(left, top + cornerRadius)
-                quadraticBezierTo(left, top, left + cornerRadius, top)
+                quadraticTo(left, top, left + cornerRadius, top)
                 lineTo(left + cornerLength, top)
             },
             color = activeColor,
@@ -184,7 +184,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left + scanAreaSize - cornerLength, top)
                 lineTo(left + scanAreaSize - cornerRadius, top)
-                quadraticBezierTo(left + scanAreaSize, top, left + scanAreaSize, top + cornerRadius)
+                quadraticTo(left + scanAreaSize, top, left + scanAreaSize, top + cornerRadius)
                 lineTo(left + scanAreaSize, top + cornerLength)
             },
             color = glowColor,
@@ -196,7 +196,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left + scanAreaSize - cornerLength, top)
                 lineTo(left + scanAreaSize - cornerRadius, top)
-                quadraticBezierTo(left + scanAreaSize, top, left + scanAreaSize, top + cornerRadius)
+                quadraticTo(left + scanAreaSize, top, left + scanAreaSize, top + cornerRadius)
                 lineTo(left + scanAreaSize, top + cornerLength)
             },
             color = activeColor,
@@ -208,7 +208,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left, top + scanAreaSize - cornerLength)
                 lineTo(left, top + scanAreaSize - cornerRadius)
-                quadraticBezierTo(left, top + scanAreaSize, left + cornerRadius, top + scanAreaSize)
+                quadraticTo(left, top + scanAreaSize, left + cornerRadius, top + scanAreaSize)
                 lineTo(left + cornerLength, top + scanAreaSize)
             },
             color = glowColor,
@@ -220,7 +220,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left, top + scanAreaSize - cornerLength)
                 lineTo(left, top + scanAreaSize - cornerRadius)
-                quadraticBezierTo(left, top + scanAreaSize, left + cornerRadius, top + scanAreaSize)
+                quadraticTo(left, top + scanAreaSize, left + cornerRadius, top + scanAreaSize)
                 lineTo(left + cornerLength, top + scanAreaSize)
             },
             color = activeColor,
@@ -232,7 +232,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left + scanAreaSize, top + scanAreaSize - cornerLength)
                 lineTo(left + scanAreaSize, top + scanAreaSize - cornerRadius)
-                quadraticBezierTo(left + scanAreaSize, top + scanAreaSize, left + scanAreaSize - cornerRadius, top + scanAreaSize)
+                quadraticTo(left + scanAreaSize, top + scanAreaSize, left + scanAreaSize - cornerRadius, top + scanAreaSize)
                 lineTo(left + scanAreaSize - cornerLength, top + scanAreaSize)
             },
             color = glowColor,
@@ -244,7 +244,7 @@ fun ScannerOverlay(
             path = Path().apply {
                 moveTo(left + scanAreaSize, top + scanAreaSize - cornerLength)
                 lineTo(left + scanAreaSize, top + scanAreaSize - cornerRadius)
-                quadraticBezierTo(left + scanAreaSize, top + scanAreaSize, left + scanAreaSize - cornerRadius, top + scanAreaSize)
+                quadraticTo(left + scanAreaSize, top + scanAreaSize, left + scanAreaSize - cornerRadius, top + scanAreaSize)
                 lineTo(left + scanAreaSize - cornerLength, top + scanAreaSize)
             },
             color = activeColor,

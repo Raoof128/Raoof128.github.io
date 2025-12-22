@@ -224,7 +224,7 @@ private fun StatsHeader(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    imageVector = Icons.Default.Rule,
+                    imageVector = Icons.AutoMirrored.Filled.Rule,
                     contentDescription = null,
                     tint = QRShieldColors.Primary,
                     modifier = Modifier.size(24.dp)
@@ -263,7 +263,7 @@ private fun StatsHeader(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
-                    imageVector = Icons.Default.TrendingUp,
+                    imageVector = Icons.AutoMirrored.Filled.TrendingUp,
                     contentDescription = null,
                     tint = QRShieldColors.Emerald500,
                     modifier = Modifier.size(24.dp)

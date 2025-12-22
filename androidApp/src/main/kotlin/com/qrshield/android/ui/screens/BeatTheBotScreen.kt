@@ -33,12 +33,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import androidx.compose.ui.res.stringResource
 
 /**
  * Beat the Bot Training Screen
  * Interactive training game where users identify phishing vs legitimate URLs
  * Matches the HTML "Training: Beat the Bot" design
  */
+import com.qrshield.android.ui.viewmodels.GameState
+import com.qrshield.android.ui.viewmodels.GameResult
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BeatTheBotScreen(
@@ -48,19 +52,27 @@ fun BeatTheBotScreen(
     onLegitimateClick: () -> Unit = {},
     onHintDismiss: () -> Unit = {},
     modifier: Modifier = Modifier,
-    // Sample game state - in real app would come from ViewModel
-    sessionId: String = "TR-8821",
-    timeRemaining: String = "04:12",
-    currentScore: Int = 1250,
-    streak: Int = 3,
-    currentRound: Int = 3,
-    totalRounds: Int = 10,
-    currentUrl: String = "https://secure-login-bank-update.com",
-    smsContext: String = "URGENT: Your account has been flagged for suspicious activity. Please verify your identity immediately to prevent lockout.",
-    smsFrom: String = "+1 (555) 012-3456",
-    showHint: Boolean = true,
-    hintText: String = "Look closely at the spelling of the domain. Does \"secure-login-bank-update\" match the official bank domain?"
+    uiState: GameState
 ) {
+    // Extract values from uiState for easier usage
+    val currentScore = uiState.score
+    val streak = uiState.streak
+    val currentRound = uiState.currentRoundIndex + 1
+    val totalRounds = uiState.totalRounds
+    val currentUrl = uiState.currentUrl?.url ?: stringResource(com.qrshield.android.R.string.beat_the_bot_loading)
+    val smsContext = uiState.currentUrl?.context ?: ""
+    val smsFrom = uiState.currentUrl?.sender ?: ""
+    
+    // Derived UI state
+    val timeRemaining = remember(uiState.timeRemainingSeconds) {
+        String.format("%02d:%02d", uiState.timeRemainingSeconds / 60, uiState.timeRemainingSeconds % 60)
+    }
+    val showHint = uiState.lastResult == GameResult.INCORRECT
+    val hintText = if (showHint) stringResource(com.qrshield.android.R.string.beat_the_bot_incorrect_hint) else ""
+    
+    val sessionId = remember { "TR-${(1000..9999).random()}" } // Simple session ID generation
+
+
     val scrollState = rememberScrollState()
 
     Scaffold(

@@ -113,7 +113,7 @@ fun OfflinePrivacyScreen(
                 )
             ) {
                 Icon(
-                    imageVector = Icons.Default.MenuBook,
+                    imageVector = Icons.AutoMirrored.Filled.MenuBook,
                     contentDescription = null,
                     modifier = Modifier.size(20.dp)
                 )

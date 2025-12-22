@@ -56,6 +56,9 @@ import com.qrshield.scanner.AndroidQrScanner
 import com.qrshield.ui.SharedViewModel
 import com.qrshield.ui.UiState
 import kotlinx.coroutines.launch
+import com.qrshield.android.ui.viewmodels.BeatTheBotViewModel
+import com.qrshield.android.util.DateUtils
+import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 /**
@@ -248,12 +251,6 @@ fun QRShieldNavHost(
     // Persistent domain lists from DataStore
     val allowlistEntries by domainListRepository.allowlist.collectAsState(initial = emptyList())
     val blocklistEntries by domainListRepository.blocklist.collectAsState(initial = emptyList())
-    
-    // Beat the Bot game state
-    var botScore by remember { mutableIntStateOf(0) }
-    var botStreak by remember { mutableIntStateOf(0) }
-    var botCorrect by remember { mutableIntStateOf(0) }
-    var botTotal by remember { mutableIntStateOf(0) }
     
     // Heuristics rules state
     var heuristicsRules by remember { 
@@ -508,7 +505,7 @@ fun QRShieldNavHost(
                 AllowedDomain(
                     id = entry.domain,
                     domain = entry.domain,
-                    addedDate = formatDate(entry.addedAt),
+                    addedDate = DateUtils.formatRelativeTime(entry.addedAt),
                     source = when (entry.source) {
                         com.qrshield.android.data.DomainSource.ENTERPRISE -> AllowlistSource.ENTERPRISE
                         com.qrshield.android.data.DomainSource.AUTO_LEARNED -> AllowlistSource.AUTO_LEARNED
@@ -550,7 +547,7 @@ fun QRShieldNavHost(
                 BlockedDomain(
                     id = entry.domain,
                     domain = entry.domain,
-                    addedDate = formatDate(entry.addedAt),
+                    addedDate = DateUtils.formatRelativeTime(entry.addedAt),
                     type = when (entry.type) {
                         com.qrshield.android.data.DomainType.PHISHING -> BlockedType.PHISHING
                         com.qrshield.android.data.DomainType.SUSPICIOUS -> BlockedType.SUSPICIOUS
@@ -663,166 +660,28 @@ fun QRShieldNavHost(
         }
 
         composable(Routes.BEAT_THE_BOT) {
-            // Import PhishingEngine
-            val phishingEngine: com.qrshield.core.PhishingEngine = koinInject()
+            val viewModel: BeatTheBotViewModel = koinViewModel()
+            val state by viewModel.uiState.collectAsState()
             
-            // Game URL pool - mix of phishing and legitimate URLs
-            val gameUrls = remember {
-                listOf(
-                    // Phishing URLs (isPhishing = true)
-                    GameUrl("https://secure-login-bank-update.com/verify", true, "URGENT: Your account has been flagged for suspicious activity. Please verify your identity immediately."),
-                    GameUrl("https://paypa1.com/update-security", true, "PayPal Security Alert: We detected unusual activity. Click to secure your account."),
-                    GameUrl("https://amaz0n-orders.net/track/2847291", true, "Your Amazon order is delayed. Please confirm your details to ensure delivery."),
-                    GameUrl("https://microsofl.com/teams/meeting", true, "You have been invited to a Teams meeting. Click here to join."),
-                    GameUrl("https://secure.bankofamerica.com.login-update.xyz/verify", true, "Bank of America: Unusual login detected. Verify now."),
-                    GameUrl("https://netflix-billing.support/payment", true, "Netflix: Your payment failed. Update your billing info."),
-                    GameUrl("https://dropbox-share.com/files/download", true, "Document shared with you. Click to view in Dropbox."),
-                    GameUrl("https://login-apple.id-verify.com/account", true, "Apple ID: Your account will be disabled. Verify immediately."),
-                    
-                    // Legitimate URLs (isPhishing = false)
-                    GameUrl("https://www.google.com/search?q=weather", false, "Check today's weather forecast."),
-                    GameUrl("https://github.com/microsoft/vscode", false, "Visual Studio Code repository."),
-                    GameUrl("https://stackoverflow.com/questions", false, "Programming Q&A community."),
-                    GameUrl("https://www.wikipedia.org/wiki/Kotlin", false, "Learn about Kotlin programming."),
-                    GameUrl("https://mail.google.com/mail/u/0/", false, "Check your Gmail inbox."),
-                    GameUrl("https://www.linkedin.com/jobs", false, "Browse job opportunities."),
-                    GameUrl("https://docs.google.com/document/d/1abc", false, "Open shared Google Doc."),
-                    GameUrl("https://www.microsoft.com/en-us/microsoft-365", false, "Microsoft 365 official page.")
-                ).shuffled()
+            // Format time helper
+            val formattedTime = remember(state.timeRemainingSeconds) {
+                String.format("%02d:%02d", state.timeRemainingSeconds / 60, state.timeRemainingSeconds % 60)
             }
-            
-            var currentUrlIndex by remember { mutableIntStateOf(0) }
-            var isAnalyzing by remember { mutableStateOf(false) }
-            var currentHint by remember { mutableStateOf<String?>("Look at the domain carefully! Does it match the official website?") }
-            var lastAnalysisResult by remember { mutableStateOf<com.qrshield.model.RiskAssessment?>(null) }
-            
-            // Current game URL
-            val currentGameUrl = gameUrls.getOrNull(currentUrlIndex % gameUrls.size)
-            
-            // Timer state
-            var timeRemaining by remember { mutableIntStateOf(300) } // 5 minutes
-            LaunchedEffect(Unit) {
-                while (timeRemaining > 0) {
-                    kotlinx.coroutines.delay(1000)
-                    timeRemaining--
-                }
-                // Time's up
-                Toast.makeText(context, "Time's up! Final score: $botScore", Toast.LENGTH_LONG).show()
-            }
-            
-            val formattedTime = remember(timeRemaining) {
-                String.format("%02d:%02d", timeRemaining / 60, timeRemaining % 60)
-            }
-            
-            // Function to analyze URL and check answer
-            suspend fun checkAnswer(userSaysPhishing: Boolean) {
-                val gameUrl = currentGameUrl ?: return
-                isAnalyzing = true
-                
-                // Use PhishingEngine to analyze the URL
-                val result = phishingEngine.analyze(gameUrl.url)
-                lastAnalysisResult = result
-                
-                // Determine if user was correct
-                val engineSaysPhishing = result.verdict == com.qrshield.model.Verdict.MALICIOUS || 
-                                         result.verdict == com.qrshield.model.Verdict.SUSPICIOUS
-                val groundTruth = gameUrl.isPhishing
-                val userCorrect = userSaysPhishing == groundTruth
-                
-                botTotal++
-                
-                if (userCorrect) {
-                    botCorrect++
-                    botStreak++
-                    val basePoints = 100
-                    val streakBonus = botStreak * 10
-                    val speedBonus = if (timeRemaining > 240) 20 else if (timeRemaining > 180) 10 else 0
-                    val points = basePoints + streakBonus + speedBonus
-                    botScore += points
-                    
-                    Toast.makeText(context, "✓ Correct! +$points points (Streak: ${botStreak}x)", Toast.LENGTH_SHORT).show()
-                    currentHint = null
-                } else {
-                    botStreak = 0
-                    val flagsText = result.flags.take(2).joinToString(", ")
-                    val explanation = if (groundTruth) {
-                        "This was PHISHING! Flags: $flagsText"
-                    } else {
-                        "This was LEGITIMATE! The domain is verified and safe."
-                    }
-                    Toast.makeText(context, "✗ Incorrect! $explanation", Toast.LENGTH_LONG).show()
-                    
-                    // Generate contextual hint based on analysis flags
-                    currentHint = when {
-                        result.flags.any { it.contains("homograph", ignoreCase = true) } ->
-                            "Hint: Watch for look-alike characters (0 vs o, 1 vs l)"
-                        result.flags.any { it.contains("brand", ignoreCase = true) } || result.details.brandMatch != null ->
-                            "Hint: The domain is impersonating a well-known brand (${result.details.brandMatch ?: "unknown"})"
-                        result.flags.any { it.contains("subdomain", ignoreCase = true) } ->
-                            "Hint: Check the real domain, not just the subdomain"
-                        result.flags.any { it.contains("tld", ignoreCase = true) } || result.details.tldScore > 5 ->
-                            "Hint: Suspicious TLD (top-level domain) detected: ${result.details.tld ?: "unknown"}"
-                        result.details.heuristicScore > 20 ->
-                            "Hint: Multiple heuristic warnings triggered"
-                        else ->
-                            "Hint: Pay close attention to spelling and domain structure"
-                    }
-                }
-                
-                // Advance to next URL
-                currentUrlIndex++
-                isAnalyzing = false
-                
-                // Check if game is complete
-                if (botTotal >= 10) {
-                    val accuracy = (botCorrect * 100) / botTotal
-                    Toast.makeText(context, "🎉 Game Complete! Score: $botScore, Accuracy: $accuracy%", Toast.LENGTH_LONG).show()
-                }
-            }
-            
+
             BeatTheBotScreen(
                 onBackClick = { navController.popBackStack() },
                 onEndSession = { 
-                    val accuracy = if (botTotal > 0) (botCorrect * 100) / botTotal else 0
-                    Toast.makeText(context, "Session ended! Score: $botScore, Accuracy: $accuracy%", Toast.LENGTH_LONG).show()
-                    // Reset game state
-                    botScore = 0
-                    botStreak = 0
-                    botCorrect = 0
-                    botTotal = 0
+                    viewModel.startNewGame() // Reset for next time or just leave
                     navController.popBackStack()
                 },
-                onPhishingClick = {
-                    if (!isAnalyzing) {
-                        coroutineScope.launch {
-                            checkAnswer(userSaysPhishing = true)
-                        }
-                    }
-                },
-                onLegitimateClick = {
-                    if (!isAnalyzing) {
-                        coroutineScope.launch {
-                            checkAnswer(userSaysPhishing = false)
-                        }
-                    }
-                },
-                onHintDismiss = {
-                    currentHint = null
-                },
-                // Real game data
-                sessionId = "TR-${System.currentTimeMillis() % 10000}",
-                timeRemaining = formattedTime,
-                currentScore = botScore,
-                streak = botStreak,
-                currentRound = (botTotal + 1).coerceAtMost(10),
-                totalRounds = 10,
-                currentUrl = currentGameUrl?.url ?: "",
-                smsContext = currentGameUrl?.context ?: "",
-                smsFrom = "+1 (555) ${(100..999).random()}-${(1000..9999).random()}",
-                showHint = currentHint != null,
-                hintText = currentHint ?: ""
+                onPhishingClick = { viewModel.submitGuess(isPhishingGuess = true) },
+                onLegitimateClick = { viewModel.submitGuess(isPhishingGuess = false) },
+                onHintDismiss = { /* Hint auto-dismisses or managed by VM if needed */ },
+                
+                uiState = state
             )
         }
+
 
         // ===== INFO SCREENS =====
         
@@ -840,31 +699,5 @@ fun QRShieldNavHost(
     }
 }
 
-/**
- * Format epoch timestamp to readable date string.
- */
-private fun formatDate(epochMillis: Long): String {
-    if (epochMillis == 0L) return "Default"
-    
-    val now = System.currentTimeMillis()
-    val diff = now - epochMillis
-    
-    return when {
-        diff < 86_400_000 -> "Today"
-        diff < 172_800_000 -> "Yesterday"
-        else -> {
-            val sdf = java.text.SimpleDateFormat("MMM d, yyyy", java.util.Locale.getDefault())
-            sdf.format(java.util.Date(epochMillis))
-        }
-    }
-}
 
-/**
- * Game URL for Beat the Bot training game.
- * Contains the URL, whether it's phishing (ground truth), and an SMS-style context message.
- */
-private data class GameUrl(
-    val url: String,
-    val isPhishing: Boolean,
-    val context: String
-)
+

@@ -86,4 +86,7 @@ val androidModule = module {
             coroutineScope = get()
         )
     }
+
+    // Beat the Bot Game ViewModel
+    factory { com.qrshield.android.ui.viewmodels.BeatTheBotViewModel() }
 }

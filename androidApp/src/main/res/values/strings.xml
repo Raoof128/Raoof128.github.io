@@ -24,6 +24,9 @@
     <string name="dashboard_recent_scans">Recent Scans</string>
     <string name="dashboard_view_all">View All</string>
     <string name="dashboard_tools">Security Tools</string>
+    <string name="dashboard_db_status_default">DB v2.4.1 • Updated 2h ago</string>
+    <string name="beat_the_bot_loading">Loading...</string>
+    <string name="beat_the_bot_incorrect_hint">Incorrect! Try again.</string>
     
     <!-- Scanner Screen -->
     <string name="start_scanning">Start Scanning</string>
@@ -269,6 +272,8 @@
     <string name="privacy_access_title">Privacy &amp; Access</string>
     <string name="share_threats_title">Share Threat Signatures</string>
     <string name="share_threats_subtitle">Anonymous heuristics upload</string>
+    <string name="auto_copy_title">Auto-copy Safe Links</string>
+    <string name="auto_copy_subtitle">Copy safe URLs automatically</string>
     <string name="biometric_unlock_title">Biometric Unlock</string>
     <string name="biometric_unlock_subtitle">Require FaceID for settings</string>
 </resources>
