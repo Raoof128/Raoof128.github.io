@@ -34,5 +34,14 @@ internal val GermanCommonStrings = mapOf(
     "Explainable Security" to "Erklärbare Sicherheit",
     "Don't just get a \"Block\". We provide detailed heuristic breakdowns of URL parameters, redirects, and SSL status to educate users." to "Erhalten Sie nicht einfach nur \"Blockiert\". Wir bieten detaillierte heuristische Aufschlüsselungen von URL-Parametern, Weiterleitungen und dem SSL-Status zur Aufklärung der Benutzer.",
     "Dynamic Brand Discovery" to "Dynamische Markenerkennung",
-    "Automatically detects and protects against brand spoofing (e.g., PayPa1 vs PayPal) using advanced homograph and logo matching." to "Erkennt automatisch Brand-Spoofing (z. B. PayPa1 vs. PayPal) und schützt davor durch fortschrittlichen Homograph- und Logo-Abgleich."
+    "Automatically detects and protects against brand spoofing (e.g., PayPa1 vs PayPal) using advanced homograph and logo matching." to "Erkennt automatisch Brand-Spoofing (z. B. PayPa1 vs. PayPal) und schützt davor durch fortschrittlichen Homograph- und Logo-Abgleich.",
+    "Heuristic Engine" to "Heuristik-Engine",
+    "Recent Scans" to "Letzte Scans",
+    "View Full History" to "Gesamten Verlauf anzeigen",
+    "Status" to "Status",
+    "Source" to "Quelle",
+    "Details" to "Details",
+    "Time" to "Zeit",
+    "Learn how to identify advanced QR homograph attacks." to "Erfahren Sie, wie Sie fortgeschrittene QR-Homograph-Angriffe erkennen.",
+    "Beat the Bot →" to "Schlag den Bot →"
 )
