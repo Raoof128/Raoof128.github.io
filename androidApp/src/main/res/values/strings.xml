@@ -14,6 +14,7 @@
     <string name="dashboard_welcome_back">Welcome back</string>
     <string name="dashboard_default_user">QR-SHIELD User</string>
     <string name="dashboard_shield_active">SHIELD ACTIVE</string>
+    <string name="dashboard_enterprise_protection">ENTERPRISE PROTECTION ACTIVE</string>
     <string name="dashboard_headline">Secure. Offline.\nExplainable Defence.</string>
     <string name="dashboard_subtitle">Your enterprise database is up to date and monitoring locally.</string>
     <string name="dashboard_scan_qr">Scan QR</string>
@@ -73,7 +74,17 @@
     <string name="try_different_filter">Try a different filter or search term</string>
     <string name="history_go_to_scanner">Go to Scanner tab to start</string>
     
-    <!-- Settings Screen -->
+    
+    <!-- Settings Screen - Quick Actions (iOS Parity) -->
+    <string name="settings_quick_actions">Quick Actions</string>
+    <string name="settings_threat_monitor">Threat Monitor</string>
+    <string name="settings_threat_monitor_desc">View live threats and run security audit</string>
+    <string name="settings_trust_centre">Trust Centre</string>
+    <string name="settings_trust_centre_desc">Privacy settings and threat sensitivity</string>
+    <string name="settings_export_report">Export Report</string>
+    <string name="settings_export_report_desc">Generate PDF or JSON security report</string>
+    
+    <!-- Settings Screen - Scanning -->
     <string name="settings_scanning">Scanning</string>
     <string name="settings_auto_scan">Auto-scan on launch</string>
     <string name="settings_auto_scan_desc">Start scanning immediately when app opens</string>
@@ -87,6 +98,15 @@
     <string name="settings_security_alerts_desc">Get notified about security threats</string>
     <string name="settings_system_notifications">System notifications</string>
     <string name="settings_system_notifications_desc">Configure notification preferences</string>
+    
+    <!-- Settings Screen - Appearance (iOS Parity) -->
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_dark_mode_desc">Use dark color scheme</string>
+    <string name="settings_reduced_effects">Reduce Effects</string>
+    <string name="settings_reduced_effects_desc">Reduce glass effects and animations</string>
+    <string name="settings_system_appearance">System Appearance</string>
+    <string name="settings_system_appearance_desc">Configure display settings</string>
     
     <string name="settings_privacy">Privacy</string>
     <string name="settings_save_history">Save scan history</string>
@@ -137,6 +157,7 @@
     <string name="cd_history_item">Scan history item</string>
     <string name="cd_settings_toggle">Toggle setting</string>
     <string name="cd_back_button">Go back</string>
+    <string name="cd_notifications">Notifications</string>
     <string name="cd_processing">Processing, please wait</string>
     <string name="cd_safe_verdict">URL is safe to visit</string>
     <string name="cd_suspicious_verdict">URL is suspicious, proceed with caution</string>

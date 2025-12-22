@@ -37,17 +37,17 @@ import androidx.core.view.WindowCompat
 // Updated to match HTML TailwindCSS dark mode patterns exactly
 // =============================================================================
 
-// Primary Brand Colors - From HTML: #215eed
-val BrandPrimary = Color(0xFF215EED)       // Primary Blue (#215eed)
-val BrandPrimaryDark = Color(0xFF1A4BBD)   // Darker variant
-val BrandSecondary = Color(0xFF00D68F)     // Emerald Green
-val BrandAccent = Color(0xFFA855F7)        // Purple
+// Primary Brand Colors - Matching iOS #2563EB (brandPrimary)
+val BrandPrimary = Color(0xFF2563EB)       // Primary Blue (iOS brandPrimary)
+val BrandPrimaryDark = Color(0xFF1D4ED8)   // Darker variant
+val BrandSecondary = Color(0xFF10B981)     // Emerald Green (iOS brandSecondary)
+val BrandAccent = Color(0xFF8B5CF6)        // Violet (iOS brandAccent)
 
-// Verdict Colors - Security Status (matching HTML)
-val VerdictSafe = Color(0xFF22C55E)        // Green - SAFE (green-500)
-val VerdictWarning = Color(0xFFF59E0B)     // Amber - SUSPICIOUS (amber-500)
-val VerdictDanger = Color(0xFFEF4444)      // Red - MALICIOUS (red-500 / risk-high)
-val VerdictUnknown = Color(0xFF8B93A1)     // Gray - UNKNOWN
+// Verdict Colors - Matching iOS system colors exactly
+val VerdictSafe = Color(0xFF34C759)        // iOS Green - SAFE
+val VerdictWarning = Color(0xFFFF9500)     // iOS Orange - SUSPICIOUS
+val VerdictDanger = Color(0xFFFF3B30)      // iOS Red - MALICIOUS
+val VerdictUnknown = Color(0xFF8E8E93)     // iOS Gray - UNKNOWN
 
 // Background Colors - From HTML TailwindCSS config
 val BackgroundLight = Color(0xFFF6F6F8)    // background-light: #f6f6f8

@@ -23,12 +23,15 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.qrshield.android.ui.QRShieldApp
 import com.qrshield.android.ui.theme.QRShieldTheme
+import com.qrshield.ui.SharedViewModel
+import org.koin.android.ext.android.inject
 
 /**
  * Main entry point for QR-SHIELD Android application.
@@ -36,6 +39,10 @@ import com.qrshield.android.ui.theme.QRShieldTheme
  * Handles deep links and widget actions:
  * - ACTION=SCAN: Opens directly to scanner with camera active
  * - Default: Opens to home screen
+ * 
+ * Theme Mode (iOS Parity):
+ * - Uses isDarkModeEnabled from SharedViewModel settings
+ * - User can toggle via Dashboard toolbar or Settings
  */
 class MainActivity : ComponentActivity() {
 
@@ -49,6 +56,8 @@ class MainActivity : ComponentActivity() {
         /** Observable state for quick scan from widget */
         val shouldStartScan = mutableStateOf(false)
     }
+    
+    private val viewModel: SharedViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Install splash screen BEFORE calling super.onCreate()
@@ -63,7 +72,14 @@ class MainActivity : ComponentActivity() {
         handleIntent(intent)
 
         setContent {
-            QRShieldTheme {
+            // Observe dark mode setting from SharedViewModel (iOS Parity)
+            val settings by viewModel.settings.collectAsState()
+            val isDarkMode = settings.isDarkModeEnabled
+            
+            QRShieldTheme(
+                darkTheme = isDarkMode,
+                dynamicColor = false  // Use our custom colors, not Material You
+            ) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = androidx.compose.material3.MaterialTheme.colorScheme.background

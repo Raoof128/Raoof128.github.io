@@ -30,10 +30,10 @@ import androidx.compose.ui.graphics.Color
  * - Surface Dark: #1a2230
  */
 object QRShieldColors {
-    // Primary Brand - #215eed (from HTML config)
-    val Primary = Color(0xFF215EED)
-    val PrimaryDark = Color(0xFF1A4BBD)
-    val PrimaryLight = Color(0xFF58A6FF)
+    // Primary Brand - #2563EB (matching iOS brandPrimary exactly)
+    val Primary = Color(0xFF2563EB)
+    val PrimaryDark = Color(0xFF1D4ED8)
+    val PrimaryLight = Color(0xFF60A5FA)
     
     // Background Colors (from HTML TailwindCSS)
     val BackgroundLight = Color(0xFFF6F6F8)   // background-light
@@ -62,16 +62,16 @@ object QRShieldColors {
     val Slate800 = Color(0xFF1E293B)
     val Slate900 = Color(0xFF0F172A)
     
-    // Risk/Verdict Colors (matching HTML)
-    val RiskSafe = Color(0xFF22C55E)       // Green - Safe (green-500)
+    // Risk/Verdict Colors - Matching iOS system colors exactly
+    val RiskSafe = Color(0xFF34C759)       // iOS Green - Safe
     val RiskSafeLight = Color(0xFFDCFCE7)  // green-100
     val RiskSafeDark = Color(0xFF14532D)   // green-900
     
-    val RiskWarning = Color(0xFFF59E0B)    // Amber - Suspicious (risk-med / amber-500)
+    val RiskWarning = Color(0xFFFF9500)    // iOS Orange - Suspicious
     val RiskWarningLight = Color(0xFFFEF3C7) // amber-100
     val RiskWarningDark = Color(0xFF92400E)  // amber-900
     
-    val RiskDanger = Color(0xFFEF4444)     // Red - Malicious (risk-high / red-500)
+    val RiskDanger = Color(0xFFFF3B30)     // iOS Red - Malicious
     val RiskDangerLight = Color(0xFFFEE2E2) // red-100
     val RiskDangerDark = Color(0xFF7F1D1D)  // red-900
     

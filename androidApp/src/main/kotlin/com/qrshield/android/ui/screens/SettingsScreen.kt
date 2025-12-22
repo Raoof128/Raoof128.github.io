@@ -133,6 +133,44 @@ fun SettingsScreen(
             )
         }
 
+        // Quick Actions Section - Matches iOS SettingsView
+        item {
+            SettingsSection(title = stringResource(R.string.settings_quick_actions))
+        }
+
+        item {
+            QuickActionRow(
+                icon = Icons.Default.GppBad,
+                iconBackgroundColor = VerdictDanger.copy(alpha = 0.15f),
+                iconColor = VerdictDanger,
+                title = stringResource(R.string.settings_threat_monitor),
+                subtitle = stringResource(R.string.settings_threat_monitor_desc),
+                onClick = { /* Navigate to Threat Monitor */ }
+            )
+        }
+
+        item {
+            QuickActionRow(
+                icon = Icons.Default.VerifiedUser,
+                iconBackgroundColor = VerdictSafe.copy(alpha = 0.15f),
+                iconColor = VerdictSafe,
+                title = stringResource(R.string.settings_trust_centre),
+                subtitle = stringResource(R.string.settings_trust_centre_desc),
+                onClick = { /* Navigate to Trust Centre */ }
+            )
+        }
+
+        item {
+            QuickActionRow(
+                icon = Icons.Default.Description,
+                iconBackgroundColor = BrandPrimary.copy(alpha = 0.15f),
+                iconColor = BrandPrimary,
+                title = stringResource(R.string.settings_export_report),
+                subtitle = stringResource(R.string.settings_export_report_desc),
+                onClick = { /* Navigate to Export Report */ }
+            )
+        }
+
         // Scanning Section
         item {
             SettingsSection(title = stringResource(R.string.settings_scanning))
@@ -201,6 +239,55 @@ fun SettingsScreen(
                         action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
                         putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
                     }
+                    context.startActivity(intent)
+                },
+                trailing = {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                        contentDescription = stringResource(R.string.cd_open_system_settings),
+                        tint = BrandPrimary,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            )
+        }
+
+        // Appearance Section (iOS Parity)
+        item {
+            SettingsSection(title = stringResource(R.string.settings_appearance))
+        }
+
+        item {
+            SettingsToggle(
+                icon = Icons.Default.DarkMode,
+                title = stringResource(R.string.settings_dark_mode),
+                subtitle = stringResource(R.string.settings_dark_mode_desc),
+                checked = settings.isDarkModeEnabled,
+                onCheckedChange = { newValue ->
+                    viewModel.updateSettings(settings.copy(isDarkModeEnabled = newValue))
+                }
+            )
+        }
+
+        item {
+            SettingsToggle(
+                icon = Icons.Default.AutoAwesome,
+                title = stringResource(R.string.settings_reduced_effects),
+                subtitle = stringResource(R.string.settings_reduced_effects_desc),
+                checked = settings.isReducedEffectsEnabled,
+                onCheckedChange = { newValue ->
+                    viewModel.updateSettings(settings.copy(isReducedEffectsEnabled = newValue))
+                }
+            )
+        }
+
+        item {
+            SettingsClickable(
+                icon = Icons.Default.DisplaySettings,
+                title = stringResource(R.string.settings_system_appearance),
+                subtitle = stringResource(R.string.settings_system_appearance_desc),
+                onClick = {
+                    val intent = Intent(Settings.ACTION_DISPLAY_SETTINGS)
                     context.startActivity(intent)
                 },
                 trailing = {
@@ -894,6 +981,69 @@ private fun MetricBox(label: String, value: Int, color: Color) {
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             color = color
+        )
+    }
+}
+
+/**
+ * Quick Action Row - Matches iOS Settings Quick Actions
+ * Features icon with colored background, title, subtitle, and chevron
+ */
+@Composable
+private fun QuickActionRow(
+    icon: ImageVector,
+    iconBackgroundColor: Color,
+    iconColor: Color,
+    title: String,
+    subtitle: String,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 12.dp)
+            .semantics {
+                contentDescription = "$title. $subtitle. Tap to open."
+            },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Icon with colored background (matching iOS)
+        Box(
+            modifier = Modifier
+                .size(32.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .background(iconBackgroundColor),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = iconColor,
+                modifier = Modifier.size(18.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontSize = 15.sp
+            )
+            Text(
+                text = subtitle,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 12.sp
+            )
+        }
+
+        Icon(
+            imageVector = Icons.Default.ChevronRight,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+            modifier = Modifier.size(16.dp)
         )
     }
 }

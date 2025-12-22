@@ -4,6 +4,114 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 📱 December 23, 2025 - iOS-Android Parity Audit (Complete)
+
+### Summary
+Conducted comprehensive iOS-first audit treating iOS app as the "Source of Truth" for design and UX quality. Implemented critical theme fixes, visual polish, and full dark mode support to align Android with iOS premium feel.
+
+## ✅ Phase 0: iOS Deep Scan
+- Generated `ios_ux_spec_for_android.md` documenting:
+  - Color tokens (brandPrimary, brandSecondary, verdict colors)
+  - Typography scale and spacing system
+  - Component catalogue (LiquidGlass, buttons, cards, toggles)
+  - Screen-by-screen behavior notes
+
+## ✅ Phase 1: Android Gap Analysis
+- Identified 15 gaps ranked by user impact
+- Documented in `android_gap_analysis.md`
+
+## ✅ Phase 2: Color Alignment (Critical)
+Updated theme colors to match iOS exactly:
+| Token | Before | After (iOS Match) |
+|-------|--------|-------------------|
+| Primary | #215EED | #2563EB |
+| Secondary | #00D68F | #10B981 |
+| Accent | #A855F7 | #8B5CF6 |
+| VerdictSafe | #22C55E | #34C759 |
+| VerdictWarning | #F59E0B | #FF9500 |
+| VerdictDanger | #EF4444 | #FF3B30 |
+
+## ✅ Phase 3: Visual Polish Fixes
+
+### SectionHeader Enhancement
+- Added optional `icon` parameter
+- Added `uppercase` boolean for iOS-style section labels
+- When uppercase=true: brandPrimary color + letter-spacing
+
+### Dashboard Enterprise Badge
+- Changed green "SHIELD ACTIVE" to blue "ENTERPRISE PROTECTION ACTIVE"
+- Matches iOS `verified.user.fill` icon pattern
+- Uses brandPrimary color at 15% opacity
+
+### Settings Quick Actions Section
+- Added iOS-style Quick Actions section at top of Settings
+- Created `QuickActionRow` composable matching iOS pattern:
+  - Icon with colored background (32dp rounded rect)
+  - Title + subtitle layout
+  - Chevron trailing icon
+- Added 3 quick actions: Threat Monitor, Trust Centre, Export Report
+
+## ✅ Phase 4: Dark Mode Implementation (iOS Parity)
+
+Full dark/light mode support matching iOS implementation:
+
+### SharedViewModel AppSettings
+- Added `isDarkModeEnabled: Boolean = true` (matches iOS default)
+- Added `isReducedEffectsEnabled: Boolean = false` (matches iOS `liquidGlassReduced`)
+
+### MainActivity
+- Reads `isDarkModeEnabled` from SharedViewModel settings
+- Passes to `QRShieldTheme(darkTheme = isDarkMode)`
+- Disabled Material You dynamic colors to use our custom palette
+
+### Dashboard Header (iOS Parity)
+- Added dark mode toggle button (sun/moon icon) matching iOS toolbar
+- Added notification bell with threat count badge
+- Toggle updates settings via `viewModel.updateSettings()`
+
+### Settings Screen - Appearance Section
+- Added new Appearance section matching iOS:
+  - **Dark Mode** toggle
+  - **Reduce Effects** toggle (for glass effects)
+  - **System Appearance** link to Android display settings
+
+## 📄 All Files Modified This Session
+| Path | Description |
+|------|-------------|
+| `common/.../SharedViewModel.kt` | Added `isDarkModeEnabled`, `isReducedEffectsEnabled` to AppSettings |
+| `androidApp/.../theme/QRShieldColors.kt` | Updated Primary, verdict colors to match iOS |
+| `androidApp/.../theme/Theme.kt` | Updated brand colors to match iOS |
+| `androidApp/.../components/CommonComponents.kt` | Enhanced SectionHeader with icon/uppercase |
+| `androidApp/.../MainActivity.kt` | Dark mode preference observation and theme application |
+| `androidApp/.../screens/DashboardScreen.kt` | Enterprise badge + dark mode toggle + notifications |
+| `androidApp/.../screens/SettingsScreen.kt` | Quick Actions section + Appearance section |
+| `androidApp/src/main/res/values/strings.xml` | 16 new string resources |
+
+## 📦 All New String Resources (16 total)
+- `dashboard_enterprise_protection`
+- `settings_quick_actions`
+- `settings_threat_monitor` / `settings_threat_monitor_desc`
+- `settings_trust_centre` / `settings_trust_centre_desc`
+- `settings_export_report` / `settings_export_report_desc`
+- `settings_appearance`
+- `settings_dark_mode` / `settings_dark_mode_desc`
+- `settings_reduced_effects` / `settings_reduced_effects_desc`
+- `settings_system_appearance` / `settings_system_appearance_desc`
+- `cd_notifications`
+
+## 📄 Spec Documents Generated
+- `.agent/artifacts/ios_ux_spec_for_android.md`
+- `.agent/artifacts/android_gap_analysis.md`
+- `.agent/artifacts/ios_parity_implementation_log.md`
+
+## ✅ Build Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL
+```
+
+---
+
 # 🌍 December 23, 2025 - Android Localization Completion
 
 ### Summary

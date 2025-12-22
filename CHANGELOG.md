@@ -5,6 +5,74 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.7] - 2025-12-23
+
+### 📱 Android - iOS Parity Audit (Complete)
+
+Comprehensive iOS-first audit treating iOS app as "Source of Truth" for design and UX quality.
+Implemented full theme alignment, visual polish, and dark mode support.
+
+#### 🎨 Theme Color Alignment (Phase 2)
+All colors now match iOS exactly for brand consistency:
+| Token | Before | After (iOS) |
+|-------|--------|-------------|
+| Primary | `#215EED` | `#2563EB` |
+| Secondary | `#00D68F` | `#10B981` |
+| Accent | `#A855F7` | `#8B5CF6` |
+| VerdictSafe | `#22C55E` | `#34C759` |
+| VerdictWarning | `#F59E0B` | `#FF9500` |
+| VerdictDanger | `#EF4444` | `#FF3B30` |
+
+#### 🧩 Component Enhancements (Phase 3)
+- **SectionHeader**: Added `icon` and `uppercase` parameters for iOS-style section labels
+- **QuickActionRow**: New composable matching iOS Settings quick action pattern
+- **Dashboard Enterprise Badge**: Changed to "ENTERPRISE PROTECTION ACTIVE" with brandPrimary styling
+
+#### 🌙 Dark Mode Implementation (Phase 4)
+Full dark/light mode matching iOS `useDarkMode` pattern:
+
+**Core Changes:**
+- Added `isDarkModeEnabled` and `isReducedEffectsEnabled` to `AppSettings`
+- MainActivity observes dark mode setting and passes to `QRShieldTheme`
+- Disabled Material You dynamic colors for custom iOS-matched palette
+
+**Dashboard Header (iOS Toolbar Parity):**
+- Dark mode toggle button (sun/moon icon)
+- Notification bell with threat count badge
+
+**Settings - Appearance Section (NEW):**
+- Dark Mode toggle
+- Reduce Effects toggle (for glass effects)
+- System Appearance link to Android display settings
+
+#### ⚙️ Settings Screen Updates
+- Added **Quick Actions** section at top:
+  - Threat Monitor (red), Trust Centre (green), Export Report (blue)
+- Added **Appearance** section with dark mode controls
+
+#### 📦 Files Modified
+| File | Changes |
+|------|---------|
+| `common/.../SharedViewModel.kt` | Added dark mode settings to AppSettings |
+| `theme/QRShieldColors.kt` | iOS color alignment |
+| `theme/Theme.kt` | iOS color alignment |
+| `components/CommonComponents.kt` | SectionHeader enhanced |
+| `MainActivity.kt` | Dark mode theme control |
+| `screens/DashboardScreen.kt` | Enterprise badge + dark mode toggle + notifications |
+| `screens/SettingsScreen.kt` | Quick Actions + Appearance sections |
+| `res/values/strings.xml` | 16 new strings |
+
+#### 📄 Spec Documents Generated
+- `.agent/artifacts/ios_ux_spec_for_android.md`
+- `.agent/artifacts/android_gap_analysis.md`
+- `.agent/artifacts/ios_parity_implementation_log.md`
+
+#### ✅ Build Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL
+```
+
 ## [1.17.6] - 2025-12-23
 
 ### 🌍 Android - Complete Localization Pass

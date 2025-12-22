@@ -647,27 +647,50 @@ fun UrlDisplayBox(
 }
 
 /**
- * Section Header with optional action
+ * Section Header with optional icon and action
+ * Matches iOS pattern: Icon + "SECTION TITLE" in uppercase with brandPrimary color
  */
 @Composable
 fun SectionHeader(
     title: String,
     modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
     actionText: String? = null,
-    onActionClick: (() -> Unit)? = null
+    onActionClick: (() -> Unit)? = null,
+    uppercase: Boolean = false
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontWeight = FontWeight.Bold
-            ),
-            color = MaterialTheme.colorScheme.onBackground
-        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = QRShieldColors.Primary,
+                    modifier = Modifier.size(14.dp)
+                )
+            }
+            Text(
+                text = if (uppercase) title.uppercase() else title,
+                style = if (uppercase) {
+                    MaterialTheme.typography.labelMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.sp
+                    )
+                } else {
+                    MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                color = if (uppercase) QRShieldColors.Primary else MaterialTheme.colorScheme.onBackground
+            )
+        }
         if (actionText != null && onActionClick != null) {
             TextButton(onClick = onActionClick) {
                 Text(

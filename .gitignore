@@ -99,3 +99,6 @@ QR-SHIELD.iconset/icon_32x32.png
 QR-SHIELD.iconset/icon_16x16@2x.png
 QR-SHIELD.iconset/icon_16x16.png
 androidApp/Androidapp.txt
+.agent/artifacts/ios_ux_spec_for_android.md
+.agent/artifacts/ios_parity_implementation_log.md
+.agent/artifacts/android_gap_analysis.md

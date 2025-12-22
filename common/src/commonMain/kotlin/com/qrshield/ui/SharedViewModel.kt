@@ -312,6 +312,10 @@ data class AppSettings(
     val isDeveloperModeEnabled: Boolean = false,
     val isAggressiveModeEnabled: Boolean = false,  // Resolve short links (online only)
     
+    // Appearance Settings (iOS Parity)
+    val isDarkModeEnabled: Boolean = true,         // Match iOS useDarkMode default
+    val isReducedEffectsEnabled: Boolean = false,  // Match iOS liquidGlassReduced
+    
     // Trust Centre Settings
     val heuristicSensitivity: String = "BALANCED",
     val isShareThreatSignaturesEnabled: Boolean = false,

@@ -66,6 +66,7 @@ fun DashboardScreen(
 ) {
     val viewModel: SharedViewModel = koinInject()
     val scanHistory by viewModel.scanHistory.collectAsState()
+    val settings by viewModel.settings.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     
     // Load statistics
@@ -82,10 +83,17 @@ fun DashboardScreen(
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(scrollState)
     ) {
-        // Top App Bar
+        // Top App Bar with dark mode toggle (iOS Parity)
         DashboardHeader(
             userName = stringResource(R.string.dashboard_default_user),
-            onSettingsClick = onSettingsClick
+            onSettingsClick = onSettingsClick,
+            onDarkModeToggle = {
+                // Toggle dark mode matching iOS useDarkMode.toggle()
+                viewModel.updateSettings(settings.copy(isDarkModeEnabled = !settings.isDarkModeEnabled))
+            },
+            isDarkMode = settings.isDarkModeEnabled,
+            threatsBlocked = stats.maliciousCount + stats.suspiciousCount,
+            onNotificationsClick = onViewAllScans  // Navigate to history/threats
         )
 
         Column(
@@ -129,7 +137,11 @@ fun DashboardScreen(
 @Composable
 private fun DashboardHeader(
     userName: String,
-    onSettingsClick: () -> Unit
+    onSettingsClick: () -> Unit,
+    onDarkModeToggle: () -> Unit = {},
+    isDarkMode: Boolean = true,
+    threatsBlocked: Int = 0,
+    onNotificationsClick: () -> Unit = {}
 ) {
     Row(
         modifier = Modifier
@@ -184,19 +196,62 @@ private fun DashboardHeader(
             }
         }
 
-        IconButton(
-            onClick = onSettingsClick,
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.surface)
-                .shadow(2.dp, CircleShape)
+        // Trailing icons - matches iOS DashboardView toolbar
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.Default.Settings,
-                contentDescription = stringResource(R.string.nav_settings),
-                tint = MaterialTheme.colorScheme.onBackground
-            )
+            // Dark Mode Toggle (iOS Parity)
+            IconButton(
+                onClick = onDarkModeToggle,
+                modifier = Modifier.size(40.dp)
+            ) {
+                Icon(
+                    imageVector = if (isDarkMode) Icons.Default.DarkMode else Icons.Default.LightMode,
+                    contentDescription = stringResource(R.string.settings_dark_mode),
+                    tint = QRShieldColors.Primary
+                )
+            }
+            
+            // Notification Bell (iOS Parity)
+            IconButton(
+                onClick = onNotificationsClick,
+                modifier = Modifier.size(40.dp)
+            ) {
+                Box {
+                    Icon(
+                        imageVector = Icons.Default.Notifications,
+                        contentDescription = stringResource(R.string.cd_notifications),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    // Badge for threats
+                    if (threatsBlocked > 0) {
+                        Box(
+                            modifier = Modifier
+                                .size(8.dp)
+                                .align(Alignment.TopEnd)
+                                .clip(CircleShape)
+                                .background(QRShieldColors.RiskDanger)
+                        )
+                    }
+                }
+            }
+            
+            // Settings Button
+            IconButton(
+                onClick = onSettingsClick,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.surface)
+                    .shadow(2.dp, CircleShape)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Settings,
+                    contentDescription = stringResource(R.string.nav_settings),
+                    tint = MaterialTheme.colorScheme.onBackground
+                )
+            }
         }
     }
 }
@@ -204,33 +259,25 @@ private fun DashboardHeader(
 @Composable
 private fun HeroSection() {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        // Shield Active Chip
+        // Enterprise Protection Badge - Matches iOS exactly
         Surface(
             shape = RoundedCornerShape(9999.dp),
-            color = QRShieldColors.RiskSafe.copy(alpha = 0.1f),
-            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
-                brush = androidx.compose.ui.graphics.Brush.linearGradient(
-                    listOf(
-                        QRShieldColors.RiskSafe.copy(alpha = 0.2f),
-                        QRShieldColors.RiskSafe.copy(alpha = 0.2f)
-                    )
-                )
-            )
+            color = QRShieldColors.Primary.copy(alpha = 0.15f)
         ) {
             Row(
-                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Default.Shield,
+                    imageVector = Icons.Default.VerifiedUser,
                     contentDescription = null,
-                    tint = QRShieldColors.Emerald600,
-                    modifier = Modifier.size(16.dp)
+                    tint = QRShieldColors.Primary,
+                    modifier = Modifier.size(14.dp)
                 )
                 Text(
-                    text = stringResource(R.string.dashboard_shield_active),
-                    color = QRShieldColors.Emerald600,
+                    text = stringResource(R.string.dashboard_enterprise_protection),
+                    color = QRShieldColors.Primary,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.5.sp
