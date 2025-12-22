@@ -3,6 +3,40 @@
 This file tracks significant changes made during development sessions.
 
 ---
+# 🌍 December 23, 2025 - Localization Refinement & Fixes
+
+### Summary
+Finalized localization for Desktop AppViewModel and fixed Web App visualization issues.
+
+## ✅ Accomplishments
+- **Desktop**: Completed `AppViewModel` localization (Training, Status Messages) for all 6 languages.
+- **Web App**: Fixed `dashboard.html` "System Health" duplicate label bug.
+- **Web App**: Added missing German translations for Dashboard elements.
+
+---
+
+
+# 🔧 December 23, 2025 - Android Polish - Final Refinements
+
+### Summary
+Senior Android Engineer audit completion. Refactored `BeatTheBotScreen` to MVVM, centralized `DateUtils`, fixed all remaining icon deprecations and `ScannerOverlay` deprecations. Polished Dashboard hardcoded strings.
+
+## 🪛 Refactoring
+- **Beat the Bot Refactor**: Fully transitioned `BeatTheBotScreen.kt` to MVVM architecture, observing `BeatTheBotViewModel` state directly instead of passing individual parameters.
+- **DateUtils Centralization**: Centralized date formatting logic into `DateUtils.kt`, removing duplication in `DashboardScreen.kt` and `Navigation.kt`.
+- **String Hardcoding Fixes**: Replaced remaining hardcoded strings in `DashboardScreen.kt` system health card and `BeatTheBotScreen.kt` loading/hint states with resources.
+
+## 🐛 Fixes
+- **ScannerOverlay Deprecation**: Updated deprecated `quadraticBezierTo` to `quadraticTo` in custom drawing logic.
+- **Icon Deprecations**: Fixed remaining deprecated icon usages in `AttackBreakdownScreen.kt`, `HeuristicsScreen.kt`.
+
+## ✅ Build Verification
+```bash
+./gradlew :androidApp:assembleDebug
+BUILD SUCCESSFUL # Zero warnings!
+```
+
+---
 
 # 🌍 December 23, 2025 - Desktop & Web Localization Expansion
 
