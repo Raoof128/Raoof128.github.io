@@ -352,15 +352,15 @@ function updateVerdictDisplay(verdict, confidence) {
             statusIcon.textContent = 'check_circle';
             statusIcon.style.backgroundColor = 'rgba(22, 163, 74, 0.2)';
             statusIcon.style.color = '#16a34a';
-            statusTitle.textContent = 'Scan Complete';
+            statusTitle.textContent = translateText('Scan Complete');
             verdictIcon.textContent = 'shield_lock';
             verdictIcon.style.color = '#16a34a';
-            verdictTitle.textContent = 'SAFE TO VISIT';
-            verdictDescription.textContent = 'Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or blacklist matches found.';
+            verdictTitle.textContent = translateText('SAFE TO VISIT');
+            verdictDescription.textContent = translateText('Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or blacklist matches found.');
             // For SAFE: Show SAFETY score (100 - risk), minimum 92%
             const safetyScore = Math.max(100 - riskScore, 92);
             confidenceScore.textContent = `${safetyScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = 'Safety Score';
+            if (confidenceLabel) confidenceLabel.textContent = translateText('Safety Score');
             break;
 
         case 'SUSPICIOUS':
@@ -368,14 +368,14 @@ function updateVerdictDisplay(verdict, confidence) {
             statusIcon.textContent = 'warning';
             statusIcon.style.backgroundColor = 'rgba(245, 158, 11, 0.2)';
             statusIcon.style.color = '#f59e0b';
-            statusTitle.textContent = 'Caution Advised';
+            statusTitle.textContent = translateText('Caution Advised');
             verdictIcon.textContent = 'shield';
             verdictIcon.style.color = '#f59e0b';
-            verdictTitle.textContent = 'PROCEED WITH CAUTION';
-            verdictDescription.textContent = 'Some suspicious indicators detected. Verify the source before entering sensitive information.';
+            verdictTitle.textContent = translateText('PROCEED WITH CAUTION');
+            verdictDescription.textContent = translateText('Some suspicious indicators detected. Verify the source before entering sensitive information.');
             // For SUSPICIOUS: Show the RISK score directly
             confidenceScore.textContent = `${riskScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = 'Risk Score';
+            if (confidenceLabel) confidenceLabel.textContent = translateText('Risk Score');
             break;
 
         case 'MALICIOUS':
@@ -383,22 +383,22 @@ function updateVerdictDisplay(verdict, confidence) {
             statusIcon.textContent = 'error';
             statusIcon.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
             statusIcon.style.color = '#ef4444';
-            statusTitle.textContent = 'Threat Detected';
+            statusTitle.textContent = translateText('Threat Detected');
             verdictIcon.textContent = 'gpp_bad';
             verdictIcon.style.color = '#ef4444';
-            verdictTitle.textContent = 'DO NOT VISIT';
-            verdictDescription.textContent = 'High-confidence phishing detected. This URL exhibits multiple malicious indicators.';
+            verdictTitle.textContent = translateText('DO NOT VISIT');
+            verdictDescription.textContent = translateText('High-confidence phishing detected. This URL exhibits multiple malicious indicators.');
             // For MALICIOUS: Show the RISK score directly
             confidenceScore.textContent = `${riskScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = 'Risk Score';
+            if (confidenceLabel) confidenceLabel.textContent = translateText('Risk Score');
             break;
 
         default:
-            statusTitle.textContent = 'Analysis Complete';
-            verdictTitle.textContent = 'UNKNOWN';
-            verdictDescription.textContent = 'Unable to determine verdict. Please try again.';
+            statusTitle.textContent = translateText('Analysis Complete');
+            verdictTitle.textContent = translateText('UNKNOWN');
+            verdictDescription.textContent = translateText('Unable to determine verdict. Please try again.');
             confidenceScore.textContent = `${riskScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = 'Confidence Score';
+            if (confidenceLabel) confidenceLabel.textContent = translateText('Confidence Score');
     }
 }
 
@@ -430,7 +430,7 @@ function updateRiskMeter(verdict) {
 
     switch (verdict) {
         case 'SAFE':
-            riskBadge.textContent = 'LOW RISK';
+            riskBadge.textContent = translateText('LOW RISK');
             riskBadge.className = 'risk-badge';
             // Use stronger green in light mode
             const safeColor = isLightMode ? '#16a34a' : '#22c55e';
@@ -449,7 +449,7 @@ function updateRiskMeter(verdict) {
             break;
 
         case 'SUSPICIOUS':
-            riskBadge.textContent = 'MEDIUM RISK';
+            riskBadge.textContent = translateText('MEDIUM RISK');
             riskBadge.className = 'risk-badge warning';
             const warnColor = isLightMode ? '#d97706' : '#f59e0b';
             const warnGlow = isLightMode ? 'rgba(217, 119, 6, 0.5)' : 'rgba(245, 158, 11, 0.5)';
@@ -468,7 +468,7 @@ function updateRiskMeter(verdict) {
             break;
 
         case 'MALICIOUS':
-            riskBadge.textContent = 'HIGH RISK';
+            riskBadge.textContent = translateText('HIGH RISK');
             riskBadge.className = 'risk-badge danger';
             const dangerColor = isLightMode ? '#dc2626' : '#ef4444';
             const dangerGlow = isLightMode ? 'rgba(220, 38, 38, 0.5)' : 'rgba(239, 68, 68, 0.5)';
@@ -499,17 +499,21 @@ function updateFactors(factors) {
         card.dataset.factor = factor.category.toLowerCase();
 
         const tagClass = getTagClass(factor.type);
+        const typeLabel = translateText(factor.type);
+        const categoryLabel = translateText(factor.category);
+        const titleLabel = translateText(factor.title);
+        const descriptionLabel = translateText(factor.description);
 
         card.innerHTML = `
             <div class="factor-header">
                 <div class="factor-tags">
-                    <span class="tag ${tagClass}">${factor.type}</span>
-                    <span class="tag tag-category">${factor.category}</span>
+                    <span class="tag ${tagClass}">${typeLabel}</span>
+                    <span class="tag tag-category">${categoryLabel}</span>
                 </div>
                 <span class="material-symbols-outlined factor-expand">expand_more</span>
             </div>
-            <h4 class="factor-title">${factor.title}</h4>
-            <p class="factor-description">${factor.description}</p>
+            <h4 class="factor-title">${titleLabel}</h4>
+            <p class="factor-description">${descriptionLabel}</p>
         `;
 
         card.addEventListener('click', () => {
@@ -518,6 +522,8 @@ function updateFactors(factors) {
 
         grid.appendChild(card);
     });
+
+    window.qrshieldApplyTranslations?.(grid);
 }
 
 /**
@@ -544,7 +550,11 @@ function getTagClass(type) {
 async function shareReport() {
     const shareData = {
         title: 'QR-SHIELD Scan Result',
-        text: `URL: ${ResultsState.scannedUrl}\nVerdict: ${ResultsState.verdict}\nConfidence: ${ResultsState.confidence}%`,
+        text: formatText('URL: {url}\nVerdict: {verdict}\nConfidence: {confidence}%', {
+            url: ResultsState.scannedUrl,
+            verdict: translateText(ResultsState.verdict),
+            confidence: ResultsState.confidence
+        }),
         url: window.location.href,
     };
 
@@ -708,6 +718,7 @@ function openInSandbox() {
     `;
 
     document.body.appendChild(modal);
+    window.qrshieldApplyTranslations?.(modal);
 
     // Add sandbox modal styles if not present
     if (!document.getElementById('sandboxStyles')) {
@@ -1019,7 +1030,7 @@ function showToast(message, type = 'success') {
     const toastMessage = document.getElementById('toastMessage');
     const toastIcon = toast.querySelector('.toast-icon');
 
-    toastMessage.textContent = message;
+    toastMessage.textContent = translateText(message);
 
     // Update icon based on type
     switch (type) {

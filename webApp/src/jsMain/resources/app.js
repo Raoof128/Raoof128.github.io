@@ -28,6 +28,28 @@ const canvas = canvasElement.getContext('2d');
 const THEME_KEY = 'qrshield_theme';
 // Use the same key as shared-ui.js for cross-page consistency
 const HISTORY_KEY = 'qrshield_scan_history';
+const NORMALIZE_RE = /\s+/g;
+
+function normalizeKey(text) {
+    return text ? text.replace(NORMALIZE_RE, ' ').trim() : '';
+}
+
+function translateText(text) {
+    const normalized = normalizeKey(text);
+    if (!normalized) return text;
+    if (window.qrshieldGetTranslation) {
+        return window.qrshieldGetTranslation(normalized);
+    }
+    return normalized;
+}
+
+function formatText(template, params = {}) {
+    let translated = translateText(template);
+    Object.keys(params).forEach((key) => {
+        translated = translated.replaceAll(`{${key}}`, params[key]);
+    });
+    return translated;
+}
 
 // ==========================================
 // Initialization
@@ -606,18 +628,19 @@ function showModal({ icon, iconColor, title, message, details, primaryAction, se
         <div id="errorModal" class="error-modal active">
             <div class="error-modal-content">
                 <span class="material-icons-round error-modal-icon" style="color: ${iconColor}">${icon}</span>
-                <h3 class="error-modal-title">${title}</h3>
-                <p class="error-modal-message">${message}</p>
+                <h3 class="error-modal-title">${translateText(title)}</h3>
+                <p class="error-modal-message">${translateText(message)}</p>
                 ${details ? `<p class="error-modal-details">${details.replace(/\n/g, '<br>')}</p>` : ''}
                 <div class="error-modal-actions">
-                    <button class="btn-primary" id="modalPrimaryBtn">${primaryAction.text}</button>
-                    ${secondaryAction ? `<button class="btn-secondary" id="modalSecondaryBtn">${secondaryAction.text}</button>` : ''}
+                    <button class="btn-primary" id="modalPrimaryBtn">${translateText(primaryAction.text)}</button>
+                    ${secondaryAction ? `<button class="btn-secondary" id="modalSecondaryBtn">${translateText(secondaryAction.text)}</button>` : ''}
                 </div>
             </div>
         </div>
     `;
 
     document.body.insertAdjacentHTML('beforeend', modalHtml);
+    window.qrshieldApplyTranslations?.(document.getElementById('errorModal'));
 
     document.getElementById('modalPrimaryBtn').addEventListener('click', primaryAction.action);
     if (secondaryAction) {
@@ -632,10 +655,6 @@ function hideModal() {
         setTimeout(() => modal.remove(), 300);
     }
 }
-
-// Listen for online/offline events
-window.addEventListener('online', () => showToast('Back online', 'success'));
-window.addEventListener('offline', () => showToast('You\'re offline — analysis still works!', 'info'));
 
 // Button Click Listener (connects to global Kotlin function)
 analyzeBtn.addEventListener('click', () => {
@@ -846,7 +865,7 @@ window.showToast = (message, type = 'info') => {
     toast.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
     toast.style.zIndex = '2000';
     toast.style.fontWeight = '600';
-    toast.textContent = message;
+    toast.textContent = translateText(message);
 
     document.body.appendChild(toast);
 
@@ -1341,7 +1360,9 @@ window.submitFeedback = (correctVerdict) => {
 
     hideModal();
 
-    showToast(`Thank you! Feedback recorded: Should be ${correctVerdict}`, 'success');
+    showToast(formatText('Thank you! Feedback recorded: Should be {verdict}', {
+        verdict: translateText(correctVerdict)
+    }), 'success');
 
     // Log for demo purposes
     console.log('[QR-SHIELD] Feedback submitted:', feedback);
@@ -1518,129 +1539,52 @@ window.toggleJudgeMode = () => {
 };
 
 // ==========================================
-// Language Toggle (i18n) - German/English
+// Language Toggle (i18n)
 // ==========================================
 
 const LANG_KEY = 'qrshield_language';
-let currentLang = localStorage.getItem(LANG_KEY) || 'en';
+const LANGUAGE_OPTIONS = [
+    { code: 'en', label: 'English', flag: '🇬🇧' },
+    { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+    { code: 'fr', label: 'Français', flag: '🇫🇷' },
+    { code: 'zh', label: '简体中文', flag: '🇨🇳' },
+    { code: 'ja', label: '日本語', flag: '🇯🇵' },
+    { code: 'hi', label: 'हिन्दी', flag: '🇮🇳' },
+];
 
-// German translations
-const translations = {
-    en: {
-        flag: '🇬🇧',
-        scanUrlsSafely: 'Scan URLs Safely',
-        heroSubtitle: 'AI-powered phishing detection running 100% offline in your browser.',
-        analyzeUrl: 'Analyze URL',
-        scanQr: 'Scan QR',
-        upload: 'Upload',
-        tryExamples: '🧪 Try these examples:',
-        recentScans: 'Recent Scans',
-        clearHistory: 'Clear History',
-        noRecentScans: 'No recent scans',
-        safeToVisit: 'Safe to Visit',
-        proceedCaution: 'Proceed with Caution',
-        doNotVisit: 'Do Not Visit This URL',
-        scanAnother: 'Scan Another',
-        share: 'Share',
-        beatTheBot: 'Beat the Bot',
-        playNow: 'Play Now',
-        thinkOutsmart: 'Think you can outsmart our AI? Try to craft a phishing URL that fools the detector!',
-        offlineMode: 'Offline',
-        worksOffline: 'Works 100% offline!'
-    },
-    de: {
-        flag: '🇩🇪',
-        scanUrlsSafely: 'URLs sicher scannen',
-        heroSubtitle: 'KI-gestützte Phishing-Erkennung läuft 100% offline in Ihrem Browser.',
-        analyzeUrl: 'URL analysieren',
-        scanQr: 'QR scannen',
-        upload: 'Hochladen',
-        tryExamples: '🧪 Beispiele ausprobieren:',
-        recentScans: 'Letzte Scans',
-        clearHistory: 'Verlauf löschen',
-        noRecentScans: 'Keine aktuellen Scans',
-        safeToVisit: 'Sicher zu besuchen',
-        proceedCaution: 'Mit Vorsicht fortfahren',
-        doNotVisit: 'Diese URL nicht besuchen',
-        scanAnother: 'Weitere scannen',
-        share: 'Teilen',
-        beatTheBot: 'Schlage den Bot',
-        playNow: 'Jetzt spielen',
-        thinkOutsmart: 'Glaubst du, du kannst unsere KI austricksen? Versuche, eine Phishing-URL zu erstellen!',
-        offlineMode: 'Offline',
-        worksOffline: 'Funktioniert 100% offline!'
-    }
-};
-
-window.toggleLanguage = () => {
-    currentLang = currentLang === 'en' ? 'de' : 'en';
-    localStorage.setItem(LANG_KEY, currentLang);
-    applyTranslations();
-    showToast(currentLang === 'de' ? 'Sprache: Deutsch 🇩🇪' : 'Language: English 🇬🇧', 'info');
-};
-
-function applyTranslations() {
-    const t = translations[currentLang];
-
-    // Update flag
-    const langFlag = document.getElementById('langFlag');
-    if (langFlag) langFlag.textContent = t.flag;
-
-    // Update hero section
-    const heroTitle = document.querySelector('.text-gradient');
-    if (heroTitle) heroTitle.textContent = t.scanUrlsSafely;
-
-    const heroSub = document.querySelector('.hero-subtitle');
-    if (heroSub) heroSub.textContent = t.heroSubtitle;
-
-    // Update buttons
-    const analyzeBtn = document.getElementById('analyzeBtn');
-    if (analyzeBtn) {
-        analyzeBtn.innerHTML = `<span class="material-icons-round">search</span>${t.analyzeUrl}`;
-    }
-
-    const scanQrBtn = document.getElementById('scanQrBtn');
-    if (scanQrBtn) {
-        scanQrBtn.innerHTML = `<span class="material-icons-round">qr_code_scanner</span>${t.scanQr}`;
-    }
-
-    const uploadBtn = document.getElementById('uploadQrBtn');
-    if (uploadBtn) {
-        uploadBtn.innerHTML = `<span class="material-icons-round">image</span>${t.upload}`;
-    }
-
-    // Update try examples label
-    const tryLabel = document.querySelector('.try-now-label');
-    if (tryLabel) tryLabel.textContent = t.tryExamples;
-
-    // Update recent scans
-    const sectionTitle = document.querySelector('.section-title h3');
-    if (sectionTitle) sectionTitle.textContent = t.recentScans;
-
-    const clearBtn = document.getElementById('clearHistoryBtn');
-    if (clearBtn) clearBtn.textContent = t.clearHistory;
-
-    // Update Beat the Bot section
-    const beatBotTitle = document.querySelector('.beat-bot-card h3');
-    if (beatBotTitle) beatBotTitle.textContent = t.beatTheBot;
-
-    const beatBotDesc = document.querySelector('.beat-bot-card p:not(.beat-bot-stats)');
-    if (beatBotDesc) beatBotDesc.textContent = t.thinkOutsmart;
-
-    const playBtn = document.querySelector('.beat-bot-btn');
-    if (playBtn) {
-        playBtn.innerHTML = `<span class="material-icons-round">sports_esports</span>${t.playNow}`;
-    }
-
-    // Update offline indicator
-    const offlineText = document.querySelector('.offline-text');
-    if (offlineText) offlineText.textContent = t.offlineMode;
-
-    const offlineIndicator = document.getElementById('offlineIndicator');
-    if (offlineIndicator) offlineIndicator.title = t.worksOffline;
+function resolveLanguage(code) {
+    if (!code) return 'en';
+    const normalized = code.toLowerCase().split('-')[0];
+    return LANGUAGE_OPTIONS.some(option => option.code === normalized) ? normalized : 'en';
 }
 
-// Apply translations on load
+let currentLang = resolveLanguage(localStorage.getItem(LANG_KEY) || navigator.language);
+
+function updateLanguageFlag() {
+    const option = LANGUAGE_OPTIONS.find(lang => lang.code === currentLang) || LANGUAGE_OPTIONS[0];
+    const langFlag = document.getElementById('langFlag');
+    if (langFlag) langFlag.textContent = option.flag;
+    document.documentElement.lang = currentLang;
+}
+
+function applyTranslations() {
+    updateLanguageFlag();
+    localStorage.setItem(LANG_KEY, currentLang);
+    window.qrshieldApplyTranslations?.(document.body);
+}
+
+window.toggleLanguage = () => {
+    const index = LANGUAGE_OPTIONS.findIndex(lang => lang.code === currentLang);
+    const next = LANGUAGE_OPTIONS[(index + 1) % LANGUAGE_OPTIONS.length];
+    currentLang = next.code;
+    applyTranslations();
+    showToast(formatText('Language: {language} {flag}', {
+        language: next.label,
+        flag: next.flag
+    }), 'info');
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     applyTranslations();
 });
@@ -1665,12 +1609,12 @@ function updateOfflineIndicator() {
 // Listen for online/offline events
 window.addEventListener('online', () => {
     updateOfflineIndicator();
-    showToast(currentLang === 'de' ? 'Wieder online' : 'Back online', 'success');
+    showToast('Back online', 'success');
 });
 
 window.addEventListener('offline', () => {
     updateOfflineIndicator();
-    showToast(currentLang === 'de' ? 'Offline-Modus — Analyse funktioniert weiterhin!' : "You're offline — analysis still works!", 'info');
+    showToast("You're offline — analysis still works!", 'info');
 });
 
 // Check on load
@@ -1690,12 +1634,10 @@ window.startBeatTheBot = () => {
     const urlInput = document.getElementById('urlInput');
     urlInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
     urlInput.focus();
-    urlInput.placeholder = '🎮 Craft a sneaky phishing URL...';
+    urlInput.placeholder = translateText('🎮 Craft a sneaky phishing URL...');
 
     // Show game mode toast
-    showToast(currentLang === 'de'
-        ? '🎮 Spielmodus: Versuche eine URL zu erstellen, die als SICHER erkannt wird!'
-        : '🎮 Game Mode: Try to craft a URL that gets detected as SAFE!', 'info');
+    showToast(translateText('🎮 Game Mode: Try to craft a URL that gets detected as SAFE!'), 'info');
 
     // Update UI to show game mode
     document.body.classList.add('beat-bot-mode');
@@ -1728,16 +1670,18 @@ window.displayResult = (score, verdict, flags, url) => {
             localStorage.setItem('qrshield_beat_bot_score', beatBotScore.toString());
 
             setTimeout(() => {
-                showToast(currentLang === 'de'
-                    ? `🏆 Du hast gewonnen! Score: ${beatBotScore}/${beatBotAttempts}`
-                    : `🏆 You beat the bot! Score: ${beatBotScore}/${beatBotAttempts}`, 'success');
+                showToast(formatText('🏆 You beat the bot! Score: {score}/{attempts}', {
+                    score: beatBotScore,
+                    attempts: beatBotAttempts
+                }), 'success');
             }, 1000);
         } else {
             // Bot wins
             setTimeout(() => {
-                showToast(currentLang === 'de'
-                    ? `🤖 Bot gewinnt! Phishing erkannt. Score: ${beatBotScore}/${beatBotAttempts}`
-                    : `🤖 Bot wins! Phishing detected. Score: ${beatBotScore}/${beatBotAttempts}`, 'warning');
+                showToast(formatText('🤖 Bot wins! Phishing detected. Score: {score}/{attempts}', {
+                    score: beatBotScore,
+                    attempts: beatBotAttempts
+                }), 'warning');
             }, 1000);
         }
 
