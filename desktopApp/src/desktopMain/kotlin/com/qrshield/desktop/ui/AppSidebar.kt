@@ -45,6 +45,7 @@ fun AppSidebar(
     val spacing = tokens.spacing
     val radius = tokens.radius
     val userProfile = SampleData.userProfile
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     val activeScreen = when (currentScreen) {
         AppScreen.ResultSafe,
         AppScreen.ResultSuspicious,
@@ -177,13 +178,13 @@ fun AppSidebar(
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = userProfile.name,
+                    text = t(userProfile.name),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     color = colors.textMain
                 )
                 Text(
-                    text = userProfile.role,
+                    text = t(userProfile.role),
                     fontSize = 12.sp,
                     color = colors.textMuted
                 )

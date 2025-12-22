@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -52,6 +53,8 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
 
 @Composable
 private fun TrustCentreAltContent(viewModel: AppViewModel) {
+    val language = viewModel.appLanguage
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     val isDark = viewModel.isDarkMode
     val background = if (isDark) Color(0xFF0F172A) else Color(0xFFF8FAFC)
     val textMain = if (isDark) Color(0xFFF1F5F9) else Color(0xFF0F172A)
@@ -73,11 +76,11 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Settings", fontSize = 14.sp, color = textSub)
+                Text(t("Settings"), fontSize = 14.sp, color = textSub)
                 MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF94A3B8), modifier = Modifier.padding(horizontal = 8.dp))
-                Text("Onboarding", fontSize = 14.sp, color = textSub)
+                Text(t("Onboarding"), fontSize = 14.sp, color = textSub)
                 MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF94A3B8), modifier = Modifier.padding(horizontal = 8.dp))
-                Text("Offline Privacy", fontSize = 14.sp, color = textMain, fontWeight = FontWeight.Medium)
+                Text(t("Offline Privacy"), fontSize = 14.sp, color = textMain, fontWeight = FontWeight.Medium)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
@@ -85,7 +88,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         .size(32.dp)
                         .clip(CircleShape)
                         .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
-                        .clickable { viewModel.showInfo("Help is not available yet.") }
+                        .clickable { viewModel.showInfo(t("Help is not available yet.")) }
                         .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
@@ -96,7 +99,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         .size(32.dp)
                         .clip(CircleShape)
                         .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
-                        .clickable { viewModel.showInfo("Profile settings are not available yet.") }
+                        .clickable { viewModel.showInfo(t("Profile settings are not available yet.")) }
                         .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
@@ -124,7 +127,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     MaterialIconRound(name = "security_update_good", size = 32.sp, color = Color(0xFF2563EB))
                 }
                 Text(
-                    text = "Analysed offline.\nYour data stays on-device.",
+                    text = t("Analysed offline.\nYour data stays on-device."),
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -132,7 +135,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     modifier = Modifier.padding(top = 16.dp)
                 )
                 Text(
-                    text = "QR-SHIELD processes every scan within a secure, isolated local sandbox. We prioritize explainable security with zero cloud telemetry for image analysis.",
+                    text = t("QR-SHIELD processes every scan within a secure, isolated local sandbox. We prioritize explainable security with zero cloud telemetry for image analysis."),
                     fontSize = 16.sp,
                     color = textSub,
                     textAlign = TextAlign.Center,
@@ -141,14 +144,15 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
             }
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                InfoCard(icon = "science", title = "Local Sandbox", body = "Code execution happens in an ephemeral container. Malicious payloads never touch your OS kernel.", modifier = Modifier.weight(1f))
-                InfoCard(icon = "cloud_off", title = "No Cloud Logs", body = "We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local.", modifier = Modifier.weight(1f))
-                InfoCard(icon = "storage", title = "On-Device DB", body = "The entire threat signature database is downloaded to your device for millisecond lookups.", modifier = Modifier.weight(1f))
+                InfoCard(icon = "science", title = t("Local Sandbox"), body = t("Code execution happens in an ephemeral container. Malicious payloads never touch your OS kernel."), modifier = Modifier.weight(1f))
+                InfoCard(icon = "cloud_off", title = t("No Cloud Logs"), body = t("We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local."), modifier = Modifier.weight(1f))
+                InfoCard(icon = "storage", title = t("On-Device DB"), body = t("The entire threat signature database is downloaded to your device for millisecond lookups."), modifier = Modifier.weight(1f))
             }
 
             LanguageSection(
                 currentLanguage = viewModel.appLanguage,
-                onSelectLanguage = { viewModel.setLanguage(it) }
+                onSelectLanguage = { viewModel.setLanguage(it) },
+                language = language
             )
 
             Surface(
@@ -168,7 +172,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             MaterialIconRound(name = "verified", size = 18.sp, color = Color(0xFF2563EB))
-                            Text("DATA LIFECYCLE VERIFICATION", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = textMain, letterSpacing = 0.8.sp)
+                            Text(t("DATA LIFECYCLE VERIFICATION"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = textMain, letterSpacing = 0.8.sp)
                         }
                         Box(
                             modifier = Modifier
@@ -177,13 +181,13 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                                 .border(1.dp, Color(0xFF10B981).copy(alpha = 0.2f), RoundedCornerShape(999.dp))
                                 .padding(horizontal = 12.dp, vertical = 4.dp)
                         ) {
-                            Text("SECURITY AUDIT: PASS", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF10B981))
+                            Text(t("SECURITY AUDIT: PASS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF10B981))
                         }
                     }
                     Column {
-                        DataRow("Raw Image Buffer", "Local Memory (RAM)")
-                        DataRow("Decoded URL/Payload", "Isolated Sandbox")
-                        DataRow("Threat Verdict", "Local Database")
+                        DataRow(t("Raw Image Buffer"), t("Local Memory (RAM)"), t("None"))
+                        DataRow(t("Decoded URL/Payload"), t("Isolated Sandbox"), t("None"))
+                        DataRow(t("Threat Verdict"), t("Local Database"), t("None"))
                     }
                 }
             }
@@ -218,8 +222,10 @@ private fun InfoCard(icon: String, title: String, body: String, modifier: Modifi
 @Composable
 private fun LanguageSection(
     currentLanguage: AppLanguage,
-    onSelectLanguage: (AppLanguage) -> Unit
+    onSelectLanguage: (AppLanguage) -> Unit,
+    language: AppLanguage
 ) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     val languages = listOf(
         AppLanguage.English,
         AppLanguage.German,
@@ -238,7 +244,7 @@ private fun LanguageSection(
             modifier = Modifier.padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text("Language", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text(t("Language"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 languages.chunked(4).forEach { rowLanguages ->
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -253,7 +259,7 @@ private fun LanguageSection(
                 }
             }
             Text(
-                "Changes apply immediately to navigation labels.",
+                t("Changes apply immediately to navigation labels."),
                 fontSize = 12.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -282,7 +288,7 @@ private fun LanguageChip(label: String, selected: Boolean, onClick: () -> Unit) 
 }
 
 @Composable
-private fun DataRow(label: String, env: String) {
+private fun DataRow(label: String, env: String, noneLabel: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -295,6 +301,6 @@ private fun DataRow(label: String, env: String) {
             Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF10B981)))
             Text(env, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
-        Text("None", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+        Text(noneLabel, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
     }
 }

@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.DesktopScanState
 import com.qrshield.desktop.MessageKind
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -48,6 +50,7 @@ import com.qrshield.model.Verdict
 @Composable
 fun LiveScanScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.scanMonitor()
+    val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
@@ -61,36 +64,43 @@ fun LiveScanScreen(viewModel: AppViewModel) {
             )
             LiveScanContent(
                 viewModel = viewModel,
-                onNavigate = { viewModel.currentScreen = it }
+                onNavigate = { viewModel.currentScreen = it },
+                language = language
             )
         }
     }
 }
 
 @Composable
-private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+private fun LiveScanContent(
+    viewModel: AppViewModel,
+    onNavigate: (AppScreen) -> Unit,
+    language: AppLanguage
+) {
     val scanState = viewModel.scanState
     val statusMessage = viewModel.statusMessage
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val stateLabel = when (scanState) {
-        DesktopScanState.Idle -> "WAITING FOR INPUT"
-        DesktopScanState.Scanning -> "SCANNING"
-        is DesktopScanState.Analyzing -> "ANALYZING"
-        is DesktopScanState.Error -> "ERROR"
-        is DesktopScanState.Result -> "SCAN COMPLETE"
+        DesktopScanState.Idle -> t("WAITING FOR INPUT")
+        DesktopScanState.Scanning -> t("SCANNING")
+        is DesktopScanState.Analyzing -> t("ANALYZING")
+        is DesktopScanState.Error -> t("ERROR")
+        is DesktopScanState.Result -> t("SCAN COMPLETE")
     }
     val stateBody = when (scanState) {
-        DesktopScanState.Idle -> "To scan QR codes directly, please enable camera access on your device or use the manual input options below."
-        DesktopScanState.Scanning -> "Scanning for QR codes. Hold the code steady within the frame."
-        is DesktopScanState.Analyzing -> "Analyzing ${scanState.url} for threats."
+        DesktopScanState.Idle -> t("To scan QR codes directly, please enable camera access on your device or use the manual input options below.")
+        DesktopScanState.Scanning -> t("Scanning for QR codes. Hold the code steady within the frame.")
+        is DesktopScanState.Analyzing -> tf("Analyzing %s for threats.", scanState.url)
         is DesktopScanState.Error -> scanState.message
-        is DesktopScanState.Result -> "Scan complete. Review the result screen for details."
+        is DesktopScanState.Result -> t("Scan complete. Review the result screen for details.")
     }
     val stateTitle = when (scanState) {
-        DesktopScanState.Scanning -> "Scanning in Progress"
-        is DesktopScanState.Analyzing -> "Analyzing URL"
-        is DesktopScanState.Error -> "Scan Error"
-        is DesktopScanState.Result -> "Scan Complete"
-        DesktopScanState.Idle -> "Camera Access Required"
+        DesktopScanState.Scanning -> t("Scanning in Progress")
+        is DesktopScanState.Analyzing -> t("Analyzing URL")
+        is DesktopScanState.Error -> t("Scan Error")
+        is DesktopScanState.Result -> t("Scan Complete")
+        DesktopScanState.Idle -> t("Camera Access Required")
     }
     val recentScans = viewModel.scanHistory.sortedByDescending { it.scannedAt }.take(5)
     Column(
@@ -109,9 +119,9 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("Dashboard", fontSize = 14.sp, color = Color(0xFF6B7280))
+                Text(t("Dashboard"), fontSize = 14.sp, color = Color(0xFF6B7280))
                 MaterialSymbol(name = "chevron_right", size = 16.sp, color = Color(0xFF9CA3AF), modifier = Modifier.padding(horizontal = 8.dp))
-                Text("Scan Monitor", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827), modifier = Modifier.background(Color(0xFFF3F4F6), RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 2.dp))
+                Text(t("Scan Monitor"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827), modifier = Modifier.background(Color(0xFFF3F4F6), RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 2.dp))
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 Surface(
@@ -133,7 +143,7 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                     .background(Color(0xFF10B981))
                             )
                         }
-                        Text("Offline Engine V.2.4 Active", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF047857))
+                        Text(t("Offline Engine V.2.4 Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF047857))
                     }
                 }
                 Box(
@@ -176,11 +186,11 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
-                            Text("Active Scanner", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-                            Text("Real-time QR code analysis and threat detection.", fontSize = 14.sp, color = Color(0xFF6B7280))
+                            Text(t("Active Scanner"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                            Text(t("Real-time QR code analysis and threat detection."), fontSize = 14.sp, color = Color(0xFF6B7280))
                         }
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("Mode:", fontSize = 12.sp, color = Color(0xFF6B7280))
+                            Text(t("Mode:"), fontSize = 12.sp, color = Color(0xFF6B7280))
                             Surface(
                                 shape = RoundedCornerShape(10.dp),
                                 color = Color.White,
@@ -192,7 +202,7 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                                 ) {
                                     MaterialSymbol(name = "wifi_off", size = 18.sp, color = Color(0xFF10B981))
-                                    Text("Offline First", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
+                                    Text(t("Offline First"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
                                 }
                             }
                         }
@@ -279,7 +289,7 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                 ) {
                                     MaterialSymbol(name = "videocam", size = 18.sp, color = Color.White)
                                     Spacer(Modifier.width(8.dp))
-                                    Text("Enable Camera", fontWeight = FontWeight.Medium)
+                                    Text(t("Enable Camera"), fontWeight = FontWeight.Medium)
                                 }
                             }
                         }
@@ -293,7 +303,7 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                         MaterialSymbol(name = "bolt", size = 14.sp, color = Color(0xFF10B981))
                         Spacer(Modifier.width(6.dp))
                         Text(
-                            statusMessage?.text ?: "Local analysis engine ready (<5ms latency)",
+                            statusMessage?.text ?: t("Local analysis engine ready (<5ms latency)"),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Medium,
                             color = when (statusMessage?.kind) {
@@ -312,21 +322,21 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ScanActionButton(
                                 icon = "flash_on",
-                                label = "Torch",
+                                label = t("Torch"),
                                 modifier = Modifier.weight(1f),
                                 onClick = { viewModel.showInfo("Torch not available on desktop") }
                             )
                             DividerVertical()
                             ScanActionButton(
                                 icon = "add_photo_alternate",
-                                label = "Upload Image",
+                                label = t("Upload Image"),
                                 modifier = Modifier.weight(1f),
                                 onClick = { viewModel.pickImageAndScan() }
                             )
                             DividerVertical()
                             ScanActionButton(
                                 icon = "link",
-                                label = "Paste URL",
+                                label = t("Paste URL"),
                                 modifier = Modifier.weight(1f),
                                 onClick = { viewModel.analyzeClipboardUrl() }
                             )
@@ -346,7 +356,7 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("SYSTEM STATUS", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                                Text(t("SYSTEM STATUS"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
                                 Box(
                                     modifier = Modifier
                                         .size(24.dp)
@@ -361,18 +371,18 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                             StatusRow(
                                 icon = "security",
                                 iconColor = Color(0xFF10B981),
-                                title = "Detection Engine",
-                                value = "Phishing Guard",
-                                badgeText = "READY",
+                                title = t("Detection Engine"),
+                                value = t("Phishing Guard"),
+                                badgeText = t("READY"),
                                 badgeColor = Color(0xFF10B981)
                             )
                             Spacer(Modifier.height(12.dp))
                             StatusRow(
                                 icon = "database",
                                 iconColor = Color(0xFF2563EB),
-                                title = "Database",
-                                value = "Local V.2.4.0",
-                                badgeText = "LATEST",
+                                title = t("Database"),
+                                value = t("Local V.2.4.0"),
+                                badgeText = t("LATEST"),
                                 badgeColor = Color(0xFF2563EB)
                             )
                             Spacer(Modifier.height(12.dp))
@@ -397,8 +407,8 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                         MaterialSymbol(name = "speed", size = 20.sp, color = Color(0xFF7C3AED))
                                     }
                                     Column {
-                                        Text("Latency", fontSize = 12.sp, color = Color(0xFF6B7280))
-                                        Text("4ms Avg", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                        Text(t("Latency"), fontSize = 12.sp, color = Color(0xFF6B7280))
+                                        Text(t("4ms Avg"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
                                     }
                                 }
                                 Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.Bottom) {
@@ -426,9 +436,9 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("RECENT SCANS", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                                Text(t("RECENT SCANS"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
                                 Text(
-                                    "View All",
+                                    t("View All"),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.SemiBold,
                                     color = Color(0xFF2563EB),
@@ -444,13 +454,17 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 if (recentScans.isEmpty()) {
-                                    EmptyRecentScanItem()
+                                    EmptyRecentScanItem(
+                                        title = t("No scans yet"),
+                                        body = t("Run a scan to populate history.")
+                                    )
                                 } else {
                                     recentScans.forEach { item ->
                                         RecentScanItem(
                                             item = item,
                                             timeLabel = viewModel.formatRelativeTime(item.scannedAt),
-                                            onClick = { viewModel.selectHistoryItem(it) }
+                                            onClick = { viewModel.selectHistoryItem(it) },
+                                            language = language
                                         )
                                     }
                                 }
@@ -475,7 +489,7 @@ private fun LiveScanContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> 
                                 ) {
                                     MaterialSymbol(name = "download", size = 18.sp, color = Color(0xFF6B7280))
                                     Spacer(Modifier.width(8.dp))
-                                    Text("Export Log", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF6B7280))
+                                    Text(t("Export Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF6B7280))
                                 }
                             }
                         }
@@ -619,7 +633,7 @@ private fun StatusRow(
 }
 
 @Composable
-private fun EmptyRecentScanItem() {
+private fun EmptyRecentScanItem(title: String, body: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -640,8 +654,8 @@ private fun EmptyRecentScanItem() {
             MaterialSymbol(name = "history", size = 18.sp, color = Color(0xFF9CA3AF))
         }
         Column(modifier = Modifier.weight(1f)) {
-            Text("No scans yet", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
-            Text("Run a scan to populate history.", fontSize = 12.sp, color = Color(0xFF6B7280))
+            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
+            Text(body, fontSize = 12.sp, color = Color(0xFF6B7280))
         }
     }
 }
@@ -650,13 +664,15 @@ private fun EmptyRecentScanItem() {
 private fun RecentScanItem(
     item: ScanHistoryItem,
     timeLabel: String,
-    onClick: (ScanHistoryItem) -> Unit
+    onClick: (ScanHistoryItem) -> Unit,
+    language: AppLanguage
 ) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     val badge = when (item.verdict) {
-        Verdict.SAFE -> "SAFE"
-        Verdict.SUSPICIOUS -> "SUSPICIOUS"
-        Verdict.MALICIOUS -> "PHISHING"
-        Verdict.UNKNOWN -> "UNKNOWN"
+        Verdict.SAFE -> t("SAFE")
+        Verdict.SUSPICIOUS -> t("SUSPICIOUS")
+        Verdict.MALICIOUS -> t("PHISHING")
+        Verdict.UNKNOWN -> t("UNKNOWN")
     }
     val style = when (item.verdict) {
         Verdict.SAFE -> RecentScanStyle(

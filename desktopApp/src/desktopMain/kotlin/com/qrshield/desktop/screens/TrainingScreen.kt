@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.TrainingInsightKind
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -55,11 +57,14 @@ fun TrainingScreen(viewModel: AppViewModel) {
 
 @Composable
 private fun TrainingContent(viewModel: AppViewModel) {
+    val language = viewModel.appLanguage
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val training = viewModel.trainingState
     val scenario = viewModel.currentTrainingScenario
     val minutes = training.remainingSeconds / 60
     val seconds = training.remainingSeconds % 60
-    val timeLabel = "%d:%02d remaining".format(minutes, seconds)
+    val timeLabel = tf("%d:%02d remaining", minutes, seconds)
     val accuracyLabel = "${(training.accuracy * 100).toInt()}%"
     Column(
         modifier = Modifier
@@ -87,25 +92,25 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 .border(1.dp, Color(0xFFBFDBFE), RoundedCornerShape(6.dp))
                                 .padding(horizontal = 6.dp, vertical = 2.dp)
                         ) {
-                            Text("MODULE ${training.module}", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC), letterSpacing = 1.sp)
+                            Text(tf("MODULE %d", training.module), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC), letterSpacing = 1.sp)
                         }
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                             MaterialSymbol(name = "timer", size = 14.sp, color = Color(0xFF64748B))
                             Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
                         }
                     }
-                    Text("Beat the Bot", fontSize = 40.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
-                    Text("Phishing Simulation · Round ${training.round} of ${training.totalRounds}", fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
+                    Text(t("Beat the Bot"), fontSize = 40.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
+                    Text(tf("Phishing Simulation · Round %d of %d", training.round, training.totalRounds), fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    StatCard(value = training.score.toString(), label = "Score")
-                    StatCard(value = training.streak.toString(), label = "Streak", highlight = Color(0xFFF59E0B))
-                    StatCard(value = accuracyLabel, label = "Accuracy", color = Color(0xFF10B981))
+                    StatCard(value = training.score.toString(), label = t("Score"))
+                    StatCard(value = training.streak.toString(), label = t("Streak"), highlight = Color(0xFFF59E0B))
+                    StatCard(value = accuracyLabel, label = t("Accuracy"), color = Color(0xFF10B981))
                 }
             }
 
             Column(modifier = Modifier.padding(top = 16.dp)) {
-                Text("Session Progress", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
+                Text(t("Session Progress"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -148,7 +153,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                     MaterialSymbol(name = "visibility", size = 18.sp, color = Color(0xFF94A3B8))
-                                    Text("Analyze the QR Code details", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
+                                    Text(t("Analyze the QR Code details"), fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
                                 }
                                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                     DotIndicator()
@@ -173,25 +178,25 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     ) {
                                         Image(
                                             painter = painterResource("assets/stitch/qr-example.png"),
-                                            contentDescription = "QR Code",
+                                            contentDescription = t("QR Code"),
                                             contentScale = ContentScale.Fit,
                                             modifier = Modifier.fillMaxSize()
                                         )
                                     }
                                     Text(
-                                        "Enlarge",
+                                        t("Enlarge"),
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = Color(0xFF135BEC),
                                         modifier = Modifier
                                             .padding(top = 8.dp)
-                                            .clickable { viewModel.showInfo("Zoom is not available yet.") }
+                                            .clickable { viewModel.showInfo(t("Zoom is not available yet.")) }
                                             .focusable()
                                     )
                                 }
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                        Text("Decoded Payload", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
+                                        Text(t("Decoded Payload"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
                                         Box(
                                             modifier = Modifier
                                                 .fillMaxWidth()
@@ -209,7 +214,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         }
                                     }
                                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                        Text("Context Source", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
+                                        Text(t("Context Source"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
                                         Row(
                                             modifier = Modifier
                                                 .fillMaxWidth()
@@ -230,8 +235,8 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                                 MaterialSymbol(name = "coffee", size = 20.sp, color = Color(0xFF135BEC))
                                             }
                                             Column {
-                                                Text(scenario.contextTitle, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF0F172A))
-                                                Text(scenario.contextBody, fontSize = 12.sp, color = Color(0xFF64748B))
+                                                Text(t(scenario.contextTitle), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF0F172A))
+                                                Text(t(scenario.contextBody), fontSize = 12.sp, color = Color(0xFF64748B))
                                             }
                                         }
                                     }
@@ -246,8 +251,8 @@ private fun TrainingContent(viewModel: AppViewModel) {
                             ) {
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                                     TrainingActionButton(
-                                        label = "Phishing",
-                                        subtitle = "Flag as malicious",
+                                        label = t("Phishing"),
+                                        subtitle = t("Flag as malicious"),
                                         icon = "gpp_bad",
                                         bg = Color(0xFFFEE2E2),
                                         textColor = Color(0xFFDC2626),
@@ -255,8 +260,8 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         onClick = { viewModel.submitTrainingVerdict(isPhishing = true) }
                                     )
                                     TrainingActionButton(
-                                        label = "Legitimate",
-                                        subtitle = "Mark as safe",
+                                        label = t("Legitimate"),
+                                        subtitle = t("Mark as safe"),
                                         icon = "verified_user",
                                         bg = Color(0xFFD1FAE5),
                                         textColor = Color(0xFF059669),
@@ -265,7 +270,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     )
                                 }
                                 Text(
-                                    "Skip this round",
+                                    t("Skip this round"),
                                     fontSize = 12.sp,
                                     color = Color(0xFF94A3B8),
                                     modifier = Modifier
@@ -295,7 +300,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("Analysis Report", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+                                Text(t("Analysis Report"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
                                 Box(
                                     modifier = Modifier
                                         .clip(RoundedCornerShape(6.dp))
@@ -303,7 +308,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         .border(1.dp, badgeBorder, RoundedCornerShape(6.dp))
                                         .padding(horizontal = 8.dp, vertical = 4.dp)
                                 ) {
-                                    Text(if (isSafeScenario) "CLEAN" else "DETECTED", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = badgeTextColor)
+                                    Text(if (isSafeScenario) t("CLEAN") else t("DETECTED"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = badgeTextColor)
                                 }
                             }
                             scenario.insights.forEach { insight ->
@@ -312,7 +317,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     TrainingInsightKind.Suspicious -> Color(0xFFF59E0B)
                                     TrainingInsightKind.Psychology -> Color(0xFF3B82F6)
                                 }
-                                ReportItem(icon = insight.icon, color = color, title = insight.title, body = insight.body)
+                                ReportItem(icon = insight.icon, color = color, title = t(insight.title), body = t(insight.body))
                             }
                             Box(
                                 modifier = Modifier
@@ -322,10 +327,10 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     .padding(12.dp)
                             ) {
                                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    Text("AI Confidence Score", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC))
+                                    Text(t("AI Confidence Score"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC))
                                     Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                         Text("${(scenario.aiConfidence * 100).toInt()}%", fontSize = 28.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
-                                        Text(if (isSafeScenario) "Benign" else "Malicious", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF135BEC))
+                                        Text(if (isSafeScenario) t("Benign") else t("Malicious"), fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF135BEC))
                                     }
                                 }
                             }
@@ -336,7 +341,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 modifier = Modifier.fillMaxWidth(),
                                 contentPadding = PaddingValues(vertical = 12.dp)
                             ) {
-                                Text("Next Round", fontWeight = FontWeight.Bold)
+                                Text(t("Next Round"), fontWeight = FontWeight.Bold)
                                 Spacer(Modifier.width(8.dp))
                                 MaterialSymbol(name = "arrow_forward", size = 18.sp, color = Color.White)
                             }

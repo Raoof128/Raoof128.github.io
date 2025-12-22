@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.HeuristicSensitivity
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -60,14 +62,17 @@ fun TrustCentreScreen(viewModel: AppViewModel) {
 
 @Composable
 private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+    val language = viewModel.appLanguage
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val sensitivity = viewModel.heuristicSensitivity
     val lowSelected = sensitivity == HeuristicSensitivity.Low
     val balancedSelected = sensitivity == HeuristicSensitivity.Balanced
     val paranoiaSelected = sensitivity == HeuristicSensitivity.Paranoia
     val modeLabel = when (sensitivity) {
-        HeuristicSensitivity.Low -> "MODE: LOW"
-        HeuristicSensitivity.Balanced -> "MODE: BALANCED"
-        HeuristicSensitivity.Paranoia -> "MODE: PARANOIA"
+        HeuristicSensitivity.Low -> t("MODE: LOW")
+        HeuristicSensitivity.Balanced -> t("MODE: BALANCED")
+        HeuristicSensitivity.Paranoia -> t("MODE: PARANOIA")
     }
     Column(
         modifier = Modifier
@@ -77,8 +82,8 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text("Trust Centre & Privacy Controls", fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
-            Text("Manage offline heuristics, data retention policies, and domain allowlists. All changes apply immediately.", fontSize = 16.sp, color = Color(0xFF57606A), modifier = Modifier.widthIn(max = 640.dp))
+            Text(t("Trust Centre & Privacy Controls"), fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
+            Text(t("Manage offline heuristics, data retention policies, and domain allowlists. All changes apply immediately."), fontSize = 16.sp, color = Color(0xFF57606A), modifier = Modifier.widthIn(max = 640.dp))
         }
 
         Surface(
@@ -102,11 +107,11 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF2EA043)))
-                            Text("AIR-GAPPED STATUS: ACTIVE", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF2EA043), letterSpacing = 1.2.sp)
+                            Text(t("AIR-GAPPED STATUS: ACTIVE"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF2EA043), letterSpacing = 1.2.sp)
                         }
-                        Text("Strict Offline Guarantee", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
+                        Text(t("Strict Offline Guarantee"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF24292F))
                         Text(
-                            "QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis.",
+                            t("QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis."),
                             fontSize = 16.sp,
                             color = Color(0xFF57606A),
                             modifier = Modifier.widthIn(max = 520.dp)
@@ -126,7 +131,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             MaterialSymbol(name = "description", size = 16.sp, color = Color(0xFF24292F))
-                            Text("View Audit Log", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                            Text(t("View Audit Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
                         }
                     }
                 }
@@ -144,7 +149,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             MaterialSymbol(name = "tune", size = 20.sp, color = Color(0xFF135BEC))
-                            Text("Heuristic Sensitivity", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                            Text(t("Heuristic Sensitivity"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
                         }
                         Box(
                             modifier = Modifier
@@ -185,7 +190,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                                     .background(if (lowSelected) Color(0xFF135BEC) else Color(0xFFE5E7EB))
                                     .border(2.dp, Color.White, CircleShape)
                             )
-                            Text("Low", fontSize = 12.sp, color = if (lowSelected) Color(0xFF24292F) else Color(0xFF57606A))
+                            Text(t("Low"), fontSize = 12.sp, color = if (lowSelected) Color(0xFF24292F) else Color(0xFF57606A))
                         }
                         Column(
                             modifier = Modifier
@@ -210,7 +215,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                                 )
                             }
                             Text(
-                                "Balanced",
+                                t("Balanced"),
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = if (balancedSelected) Color(0xFF24292F) else Color(0xFF57606A)
@@ -230,7 +235,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                                     .background(if (paranoiaSelected) Color(0xFF135BEC) else Color(0xFFE5E7EB))
                                     .border(2.dp, Color.White, CircleShape)
                             )
-                            Text("Paranoia", fontSize = 12.sp, color = if (paranoiaSelected) Color(0xFF24292F) else Color(0xFF57606A))
+                            Text(t("Paranoia"), fontSize = 12.sp, color = if (paranoiaSelected) Color(0xFF24292F) else Color(0xFF57606A))
                         }
                     }
                 }
@@ -242,38 +247,38 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 border = BorderStroke(1.dp, Color(0xFFD0D7DE))
             ) {
                 Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Verdict Logic Explanation", fontSize = 13.sp, color = Color(0xFF57606A), fontWeight = FontWeight.Medium)
+                    Text(t("Verdict Logic Explanation"), fontSize = 13.sp, color = Color(0xFF57606A), fontWeight = FontWeight.Medium)
                     Text(
-                        "Balanced Mode uses standard heuristic signatures. It flags known malicious patterns but allows common URL shorteners unless they redirect to suspicious TLDs.",
+                        t("Balanced Mode uses standard heuristic signatures. It flags known malicious patterns but allows common URL shorteners unless they redirect to suspicious TLDs."),
                         fontSize = 14.sp,
                         color = Color(0xFF24292F)
                     )
                     Spacer(modifier = Modifier.height(12.dp))
-                    Text("Engine v4.1.2 • Sig DB: 2023-10-27", fontSize = 11.sp, color = Color(0xFF57606A))
+                    Text(t("Engine v4.1.2 • Sig DB: 2023-10-27"), fontSize = 11.sp, color = Color(0xFF57606A))
                 }
             }
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
             ToggleCard(
-                title = "Strict Offline Mode",
-                subtitle = "Force disable all network adapters for app",
+                title = t("Strict Offline Mode"),
+                subtitle = t("Force disable all network adapters for app"),
                 enabled = viewModel.trustCentreToggles.strictOffline,
                 activeColor = Color(0xFF2EA043),
                 modifier = Modifier.weight(1f),
                 onToggle = { viewModel.toggleStrictOffline() }
             )
             ToggleCard(
-                title = "Anonymous Telemetry",
-                subtitle = "Share threat signatures to improve DB",
+                title = t("Anonymous Telemetry"),
+                subtitle = t("Share threat signatures to improve DB"),
                 enabled = viewModel.trustCentreToggles.anonymousTelemetry,
                 activeColor = Color(0xFF135BEC),
                 modifier = Modifier.weight(1f),
                 onToggle = { viewModel.toggleAnonymousTelemetry() }
             )
             ToggleCard(
-                title = "Auto-copy Safe Links",
-                subtitle = "Copy to clipboard if Verdict is SAFE",
+                title = t("Auto-copy Safe Links"),
+                subtitle = t("Copy to clipboard if Verdict is SAFE"),
                 enabled = viewModel.trustCentreToggles.autoCopySafe,
                 activeColor = Color(0xFF135BEC),
                 modifier = Modifier.weight(1f),
@@ -282,8 +287,8 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
-            AllowListCard(viewModel = viewModel, modifier = Modifier.weight(1f))
-            BlockListCard(viewModel = viewModel, modifier = Modifier.weight(1f))
+            AllowListCard(viewModel = viewModel, modifier = Modifier.weight(1f), language = language)
+            BlockListCard(viewModel = viewModel, modifier = Modifier.weight(1f), language = language)
         }
     }
 }
@@ -336,7 +341,8 @@ private fun ToggleCard(
 }
 
 @Composable
-private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier) {
+private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier, language: AppLanguage) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     val allowlist = viewModel.filteredAllowlist()
     val query = viewModel.allowlistQuery
     Surface(
@@ -357,7 +363,7 @@ private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     MaterialSymbol(name = "check_circle", size = 20.sp, color = Color(0xFF2EA043))
-                    Text("Domain Allowlist", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                    Text(t("Domain Allowlist"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
                 }
                 Box(
                     modifier = Modifier
@@ -367,7 +373,7 @@ private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
                         .clickable {
                             val trimmed = query.trim()
                             if (trimmed.isBlank()) {
-                                viewModel.showInfo("Enter a domain to add.")
+                                viewModel.showInfo(t("Enter a domain to add."))
                             } else {
                                 viewModel.addAllowlistDomain(trimmed)
                                 viewModel.updateAllowlistQuery("")
@@ -381,7 +387,7 @@ private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
             }
             Column(modifier = Modifier.weight(1f).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (allowlist.isEmpty()) {
-                    EmptyListItem("No allowlisted domains yet.")
+                    EmptyListItem(t("No allowlisted domains yet."))
                 } else {
                     allowlist.forEach { domain ->
                         AllowItem(
@@ -410,7 +416,7 @@ private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
                             MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
                             Box(modifier = Modifier.weight(1f)) {
                                 if (query.isBlank()) {
-                                    Text("Search domains...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                                    Text(t("Search domains..."), fontSize = 13.sp, color = Color(0xFF94A3B8))
                                 }
                                 innerTextField()
                             }
@@ -470,7 +476,8 @@ private fun AllowItem(iconPath: String?, domain: String, onDelete: () -> Unit) {
 }
 
 @Composable
-private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier) {
+private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier, language: AppLanguage) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     val blocklist = viewModel.filteredBlocklist()
     val query = viewModel.blocklistQuery
     Surface(
@@ -491,7 +498,7 @@ private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     MaterialSymbol(name = "block", size = 20.sp, color = Color(0xFFCF222E))
-                    Text("Custom Blocklist", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
+                    Text(t("Custom Blocklist"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF24292F))
                 }
                 Box(
                     modifier = Modifier
@@ -500,7 +507,7 @@ private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
                         .clickable {
                             val trimmed = query.trim()
                             if (trimmed.isBlank()) {
-                                viewModel.showInfo("Enter a domain to block.")
+                                viewModel.showInfo(t("Enter a domain to block."))
                             } else {
                                 viewModel.addBlocklistDomain(trimmed)
                                 viewModel.updateBlocklistQuery("")
@@ -514,12 +521,12 @@ private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
             }
             Column(modifier = Modifier.weight(1f).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (blocklist.isEmpty()) {
-                    EmptyListItem("No blocked domains yet.")
+                    EmptyListItem(t("No blocked domains yet."))
                 } else {
                     blocklist.forEach { domain ->
                         BlockItem(
                             domain = domain,
-                            badge = if (domain.contains("*")) "WILDCARD" else null,
+                            badge = if (domain.contains("*")) t("WILDCARD") else null,
                             onDelete = { viewModel.removeBlocklistDomain(domain) }
                         )
                     }
@@ -543,7 +550,7 @@ private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
                             MaterialSymbol(name = "search", size = 16.sp, color = Color(0xFF57606A))
                             Box(modifier = Modifier.weight(1f)) {
                                 if (query.isBlank()) {
-                                    Text("Search rules...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                                    Text(t("Search rules..."), fontSize = 13.sp, color = Color(0xFF94A3B8))
                                 }
                                 innerTextField()
                             }

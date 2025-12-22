@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.SampleData
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -56,17 +58,20 @@ fun ResultDangerousAltScreen(viewModel: AppViewModel) {
 
 @Composable
 private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavigate: (AppScreen) -> Unit) {
+    val language = viewModel.appLanguage
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val assessment = viewModel.currentAssessment
     val url = viewModel.currentUrl
     val confidencePercent = ((assessment?.confidence ?: 0f) * 100).coerceIn(0f, 100f)
-    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: "LATEST"
+    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: t("LATEST")
     val bg = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
     val surface = if (isDark) Color(0xFF1F2937) else Color.White
     val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
     val textMain = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
     val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
-    val scanTimeLabel = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: "Unknown"
-    val sourceLabel = url?.substringAfter("://")?.substringBefore("/")?.ifBlank { "Unknown" } ?: "Unknown"
+    val scanTimeLabel = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: t("Unknown")
+    val sourceLabel = url?.substringAfter("://")?.substringBefore("/")?.ifBlank { t("Unknown") } ?: t("Unknown")
     val userProfile = SampleData.userProfile
 
     Column(
@@ -79,11 +84,11 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
     ) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Home", fontSize = 12.sp, color = textMuted)
+                Text(t("Home"), fontSize = 12.sp, color = textMuted)
                 Text("/", fontSize = 12.sp, color = textMuted)
-                Text("Scans", fontSize = 12.sp, color = textMuted)
+                Text(t("Scans"), fontSize = 12.sp, color = textMuted)
                 Text("/", fontSize = 12.sp, color = textMuted)
-                Text("Scan #SCAN-$scanId", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = textMain)
+                Text(tf("Scan #SCAN-%s", scanId), fontSize = 12.sp, fontWeight = FontWeight.Medium, color = textMain)
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
@@ -95,13 +100,13 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF10B981)))
-                        Text("Engine Active (Offline)", fontSize = 11.sp, color = textMuted)
+                        Text(t("Engine Active (Offline)"), fontSize = 11.sp, color = textMuted)
                     }
                 }
                 Box(
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
                         .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
@@ -120,7 +125,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
         }
 
         if (assessment == null || url.isNullOrBlank()) {
-            EmptyAltResultState(onNavigate = onNavigate)
+            EmptyAltResultState(onNavigate = onNavigate, language = language)
             return@Column
         }
 
@@ -143,35 +148,35 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                         }
                         Column {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Text("HIGH RISK DETECTED", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = textMain)
+                                Text(t("HIGH RISK DETECTED"), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = textMain)
                                 Box(
                                     modifier = Modifier
                                         .clip(RoundedCornerShape(6.dp))
                                         .background(Color(0xFFEF4444))
                                         .padding(horizontal = 6.dp, vertical = 2.dp)
                                 ) {
-                                    Text("DANGEROUS", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                                    Text(t("DANGEROUS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color.White)
                                 }
                             }
-                            Text(assessment.actionRecommendation, fontSize = 12.sp, color = textMuted)
+                            Text(t(assessment.actionRecommendation), fontSize = 12.sp, color = textMuted)
                         }
                     }
                     Column(horizontalAlignment = Alignment.End) {
-                        Text("Threat Confidence", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
+                        Text(t("Threat Confidence"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
                         Text("${confidencePercent.toInt()}%", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = Color(0xFFEF4444))
                     }
                 }
                 Row(modifier = Modifier.padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Badge("Phishing Attempt", Color(0xFFFEE2E2), Color(0xFFEF4444), "bug_report")
-                    Badge("Obfuscated Script", Color(0xFFFFEDD5), Color(0xFFF97316), "code_off")
-                    Badge("Homograph Attack", Color(0xFFDBEAFE), Color(0xFF2563EB), "link")
+                    Badge(t("Phishing Attempt"), Color(0xFFFEE2E2), Color(0xFFEF4444), "bug_report")
+                    Badge(t("Obfuscated Script"), Color(0xFFFFEDD5), Color(0xFFF97316), "code_off")
+                    Badge(t("Homograph Attack"), Color(0xFFDBEAFE), Color(0xFF2563EB), "link")
                 }
             }
         }
 
         Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
             Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                Text("Attack Breakdown", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = textMain)
+                Text(t("Attack Breakdown"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = textMain)
                 Surface(shape = RoundedCornerShape(12.dp), color = surface, border = BorderStroke(1.dp, Color(0xFFBFDBFE))) {
                     Column {
                         Row(
@@ -192,8 +197,8 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                                     MaterialIconRound(name = "abc", size = 18.sp, color = Color(0xFF2563EB))
                                 }
                                 Column {
-                                    Text("Homograph / IDN Attack", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = textMain)
-                                    Text("Cyrillic characters mimicking Latin alphabet detected.", fontSize = 12.sp, color = textMuted)
+                                    Text(t("Homograph / IDN Attack"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = textMain)
+                                    Text(t("Cyrillic characters mimicking Latin alphabet detected."), fontSize = 12.sp, color = textMuted)
                                 }
                             }
                             MaterialIconRound(name = "expand_less", size = 18.sp, color = Color(0xFF2563EB))
@@ -201,20 +206,20 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                                 Column(modifier = Modifier.weight(1f)) {
-                                    Text("Visual Appearance", fontSize = 10.sp, color = textMuted)
+                                    Text(t("Visual Appearance"), fontSize = 10.sp, color = textMuted)
                                     Text("secure-banking.com", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = textMain)
                                 }
                                 Column(modifier = Modifier.weight(1f)) {
-                                    Text("Actual Punycode", fontSize = 10.sp, color = textMuted)
+                                    Text(t("Actual Punycode"), fontSize = 10.sp, color = textMuted)
                                     Text("xn--secure-bankng-87b.com", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFFEF4444))
                                 }
                             }
-                            Text("The domain uses the Cyrillic 'a' (U+0430) instead of Latin 'a' (U+0061). This technique is commonly used to trick users into believing they are visiting a legitimate service.", fontSize = 12.sp, color = textMuted, modifier = Modifier.padding(top = 8.dp))
+                            Text(t("The domain uses the Cyrillic 'a' (U+0430) instead of Latin 'a' (U+0061). This technique is commonly used to trick users into believing they are visiting a legitimate service."), fontSize = 12.sp, color = textMuted, modifier = Modifier.padding(top = 8.dp))
                         }
                     }
                 }
-                ExpandableRow("Suspicious Redirect Chain", "3 hops detected involving known URL shorteners.", "call_split")
-                ExpandableRow("Obfuscated JavaScript", "High entropy string detected in URL parameters.", "javascript")
+                ExpandableRow(t("Suspicious Redirect Chain"), t("3 hops detected involving known URL shorteners."), "call_split")
+                ExpandableRow(t("Obfuscated JavaScript"), t("High entropy string detected in URL parameters."), "javascript")
             }
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Surface(shape = RoundedCornerShape(12.dp), color = surface, border = BorderStroke(1.dp, border)) {
@@ -229,7 +234,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                             ) {
                                 MaterialIconRound(name = "thumb_up", size = 12.sp, color = Color(0xFF2563EB))
                             }
-                            Text("Recommended Actions", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textMain)
+                            Text(t("Recommended Actions"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textMain)
                         }
                         Button(
                             onClick = {
@@ -243,10 +248,10 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                         ) {
                             MaterialIconRound(name = "block", size = 16.sp, color = Color.White)
                             Spacer(Modifier.width(6.dp))
-                            Text("Block & Report", fontWeight = FontWeight.SemiBold)
+                            Text(t("Block & Report"), fontWeight = FontWeight.SemiBold)
                         }
                         Button(
-                            onClick = { viewModel.showInfo("Sandbox quarantine is not available on desktop yet.") },
+                            onClick = { viewModel.showInfo(t("Sandbox quarantine is not available on desktop yet.")) },
                             colors = ButtonDefaults.buttonColors(containerColor = surface),
                             border = BorderStroke(1.dp, border),
                             shape = RoundedCornerShape(8.dp),
@@ -255,20 +260,20 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                         ) {
                             MaterialIconRound(name = "science", size = 16.sp, color = textMuted)
                             Spacer(Modifier.width(6.dp))
-                            Text("Quarantine in Sandbox", color = textMain)
+                            Text(t("Quarantine in Sandbox"), color = textMain)
                         }
-                        Text("Explainable Security", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(top = 8.dp))
-                        Bullet("Domain age is less than 24 hours.")
-                        Bullet("Matched 3 signatures in local phishing DB.")
-                        Bullet("Target IP is located in a high-risk ASN.")
+                        Text(t("Explainable Security"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.padding(top = 8.dp))
+                        Bullet(t("Domain age is less than 24 hours."))
+                        Bullet(t("Matched 3 signatures in local phishing DB."))
+                        Bullet(t("Target IP is located in a high-risk ASN."))
                     }
                 }
                 Surface(shape = RoundedCornerShape(12.dp), color = surface, border = BorderStroke(1.dp, border)) {
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text("Scan Meta", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = textMuted, letterSpacing = 1.sp)
-                        MetaRow("Scan Time", scanTimeLabel)
-                        MetaRow("Source", sourceLabel)
-                        MetaRow("Engine", "Offline Core v2.4")
+                        Text(t("Scan Meta"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = textMuted, letterSpacing = 1.sp)
+                        MetaRow(t("Scan Time"), scanTimeLabel)
+                        MetaRow(t("Source"), sourceLabel)
+                        MetaRow(t("Engine"), t("Offline Core v2.4"))
                     }
                 }
             }
@@ -277,7 +282,8 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
 }
 
 @Composable
-private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit) {
+private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit, language: AppLanguage) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
@@ -290,15 +296,15 @@ private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text(t("Run a scan to view dangerous results."), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text("Back to Scan", fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
+                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
             }
         }
     }

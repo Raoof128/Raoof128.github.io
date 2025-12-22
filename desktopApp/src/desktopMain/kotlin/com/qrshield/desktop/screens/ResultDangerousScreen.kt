@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.ResultViewMode
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -59,6 +61,9 @@ fun ResultDangerousScreen(viewModel: AppViewModel) {
 
 @Composable
 private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+    val language = viewModel.appLanguage
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val assessment = viewModel.currentAssessment
     val url = viewModel.currentUrl
     val verdictDetails = viewModel.currentVerdictDetails
@@ -94,11 +99,11 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
         ) {
             Column {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text("Scan Monitor", fontSize = 12.sp, color = textMuted)
+                    Text(t("Scan Monitor"), fontSize = 12.sp, color = textMuted)
                     MaterialIconRound(name = "chevron_right", size = 12.sp, color = textMuted)
-                    Text("Result", fontSize = 12.sp, color = textMuted)
+                    Text(t("Result"), fontSize = 12.sp, color = textMuted)
                 }
-                Text("Threat Analysis Report", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = textMain)
+                Text(t("Threat Analysis Report"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = textMain)
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
@@ -110,13 +115,13 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF10B981)))
-                        Text("Engine Active v2.4.4", fontSize = 11.sp, color = textMuted)
+                        Text(t("Engine Active v2.4.4"), fontSize = 11.sp, color = textMuted)
                     }
                 }
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
                         .focusable()
                 ) {
                     MaterialIconRound(name = "notifications", size = 18.sp, color = textMuted)
@@ -134,7 +139,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
         }
 
         if (assessment == null || url.isNullOrBlank()) {
-            EmptyResultState(onNavigate = onNavigate)
+            EmptyResultState(onNavigate = onNavigate, language = language)
             return@Column
         }
 
@@ -161,7 +166,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                     }
                     Column {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("High Risk Detected", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFFDC2626))
+                            Text(t("High Risk Detected"), fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color(0xFFDC2626))
                             Box(
                                 modifier = Modifier
                                     .clip(RoundedCornerShape(6.dp))
@@ -169,23 +174,23 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                                     .border(1.dp, Color(0xFFFECACA), RoundedCornerShape(6.dp))
                                     .padding(horizontal = 6.dp, vertical = 2.dp)
                             ) {
-                                Text("DANGEROUS", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFDC2626))
+                                Text(t("DANGEROUS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFDC2626))
                             }
                         }
                         Text(
-                            verdictDetails?.summary
-                                ?: assessment.actionRecommendation,
+                            verdictDetails?.summary?.let { t(it) }
+                                ?: t(assessment.actionRecommendation),
                             fontSize = 12.sp,
                             color = textMuted
                         )
                         Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(top = 8.dp)) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 MaterialIconRound(name = "timer", size = 14.sp, color = Color(0xFFDC2626))
-                                Text("$durationLabel latency", fontSize = 12.sp, color = Color(0xFFDC2626))
+                                Text(tf("%s latency", durationLabel), fontSize = 12.sp, color = Color(0xFFDC2626))
                             }
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 MaterialIconRound(name = "cloud_off", size = 14.sp, color = textMuted)
-                                Text("Offline Analysis", fontSize = 12.sp, color = textMuted)
+                                Text(t("Offline Analysis"), fontSize = 12.sp, color = textMuted)
                             }
                         }
                     }
@@ -199,7 +204,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                     ) {
                         MaterialIconRound(name = "flag", size = 18.sp, color = Color(0xFFDC2626))
                         Spacer(Modifier.width(6.dp))
-                        Text("Report", fontSize = 13.sp, color = Color(0xFFDC2626))
+                        Text(t("Report"), fontSize = 13.sp, color = Color(0xFFDC2626))
                     }
                     Button(
                         onClick = { viewModel.addBlocklistDomain(viewModel.hostFromUrl(url) ?: url) },
@@ -208,7 +213,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                     ) {
                         MaterialIconRound(name = "block", size = 18.sp, color = Color.White)
                         Spacer(Modifier.width(6.dp))
-                        Text("Block Access", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        Text(t("Block Access"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
                     }
                 }
             }
@@ -229,7 +234,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 MaterialIconRound(name = "analytics", size = 18.sp, color = textMuted)
-                                Text("Target Analysis", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = textMain)
+                                Text(t("Target Analysis"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = textMain)
                             }
                             Row(
                                 modifier = Modifier
@@ -238,19 +243,19 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                                     .padding(4.dp)
                             ) {
                                 ToggleChip(
-                                    label = "Technical",
+                                    label = t("Technical"),
                                     selected = viewModel.resultDangerousViewMode == ResultViewMode.Technical,
                                     onClick = { viewModel.resultDangerousViewMode = ResultViewMode.Technical }
                                 )
                                 ToggleChip(
-                                    label = "Simple",
+                                    label = t("Simple"),
                                     selected = viewModel.resultDangerousViewMode == ResultViewMode.Simple,
                                     onClick = { viewModel.resultDangerousViewMode = ResultViewMode.Simple }
                                 )
                             }
                         }
                         Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                            Text("Decoded Payload", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
+                            Text(t("Decoded Payload"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -264,19 +269,19 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                 MaterialIconRound(name = "warning", size = 14.sp, color = Color(0xFFDC2626))
                                 Text(
-                                    verdictDetails?.riskFactorExplanations?.firstOrNull()
-                                        ?: "Warning: Multiple phishing indicators detected.",
+                                    verdictDetails?.riskFactorExplanations?.firstOrNull()?.let { t(it) }
+                                        ?: t("Warning: Multiple phishing indicators detected."),
                                     fontSize = 12.sp,
                                     color = Color(0xFFDC2626)
                                 )
                             }
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                                InfoTile("IDN Homograph", "DETECTED", "text_format", Color(0xFFDC2626), "Mixed script characters detected in domain name intended to spoof legitimate brands.", modifier = Modifier.weight(1f))
-                                InfoTile("Domain Age", "< 24 HOURS", "domain", Color(0xFFDC2626), "Domain was registered today. Highly suspicious for banking services.", modifier = Modifier.weight(1f))
+                                InfoTile(t("IDN Homograph"), t("DETECTED"), "text_format", Color(0xFFDC2626), t("Mixed script characters detected in domain name intended to spoof legitimate brands."), modifier = Modifier.weight(1f))
+                                InfoTile(t("Domain Age"), t("< 24 HOURS"), "domain", Color(0xFFDC2626), t("Domain was registered today. Highly suspicious for banking services."), modifier = Modifier.weight(1f))
                             }
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                                InfoTile("Redirect Chain", "COMPLEX", "shuffle", Color(0xFFF97316), "URL involves 3+ redirects through unrelated shortening services.", modifier = Modifier.weight(1f))
-                                InfoTile("SSL Certificate", "VALID", "lock", Color(0xFF10B981), "Let's Encrypt R3. Note: Valid SSL does not guarantee site legitimacy.", modifier = Modifier.weight(1f))
+                                InfoTile(t("Redirect Chain"), t("COMPLEX"), "shuffle", Color(0xFFF97316), t("URL involves 3+ redirects through unrelated shortening services."), modifier = Modifier.weight(1f))
+                                InfoTile(t("SSL Certificate"), t("VALID"), "lock", Color(0xFF10B981), t("Let's Encrypt R3. Note: Valid SSL does not guarantee site legitimacy."), modifier = Modifier.weight(1f))
                             }
                         }
                     }
@@ -295,9 +300,9 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 MaterialIconRound(name = "preview", size = 18.sp, color = textMuted)
-                                Text("Visual Sandbox Preview", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = textMain)
+                                Text(t("Visual Sandbox Preview"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = textMain)
                             }
-                            Text("SANDBOX MODE: NO NETWORK", fontSize = 10.sp, color = textMuted)
+                            Text(t("SANDBOX MODE: NO NETWORK"), fontSize = 10.sp, color = textMuted)
                         }
                         Box(
                             modifier = Modifier
@@ -324,7 +329,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             ) {
                                 MaterialIconRound(name = "visibility_off", size = 14.sp, color = Color(0xFFDC2626))
                                 Spacer(Modifier.width(6.dp))
-                                Text("Preview blurred for safety", fontSize = 12.sp, color = textMuted)
+                                Text(t("Preview blurred for safety"), fontSize = 12.sp, color = textMuted)
                             }
                         }
                     }
@@ -334,18 +339,18 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Surface(shape = RoundedCornerShape(12.dp), color = surface, border = BorderStroke(1.dp, border)) {
                     Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text("Threat Score", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
+                        Text(t("Threat Score"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
                         Box(modifier = Modifier.size(128.dp), contentAlignment = Alignment.Center) {
                             Text(assessment.score.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold, color = textMain)
                             Text(
-                                assessment.scoreDescription.uppercase(),
+                                t(assessment.scoreDescription).uppercase(),
                                 fontSize = 10.sp,
                                 color = textMuted,
                                 modifier = Modifier.align(Alignment.BottomCenter)
                             )
                         }
                         Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-                            Text("AI Confidence", fontSize = 12.sp, color = textMuted)
+                            Text(t("AI Confidence"), fontSize = 12.sp, color = textMuted)
                             Text("${confidencePercent.toInt()}%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = textMain)
                         }
                         Box(
@@ -378,19 +383,19 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             MaterialIconRound(name = "public", size = 18.sp, color = textMuted)
-                            Text("Intelligence Feeds", fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = textMain)
+                            Text(t("Intelligence Feeds"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = textMain)
                         }
-                        FeedRow("Google Safe Browsing", true)
-                        FeedRow("PhishTank DB", true)
-                        FeedRow("Local Allowlist", false)
+                        FeedRow(t("Google Safe Browsing"), true, t("MATCH"), t("NO MATCH"))
+                        FeedRow(t("PhishTank DB"), true, t("MATCH"), t("NO MATCH"))
+                        FeedRow(t("Local Allowlist"), false, t("MATCH"), t("NO MATCH"))
                     }
                 }
 
                 Surface(shape = RoundedCornerShape(12.dp), color = surface, border = BorderStroke(1.dp, border)) {
                     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         ActionRow(
-                            "Share Analysis",
-                            "Export PDF report",
+                            t("Share Analysis"),
+                            t("Export PDF report"),
                             "share",
                             onClick = {
                                 viewModel.shareTextReport()
@@ -398,8 +403,8 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             }
                         )
                         ActionRow(
-                            "View Raw Data",
-                            "Inspect JSON payload",
+                            t("View Raw Data"),
+                            t("Inspect JSON payload"),
                             "code",
                             onClick = {
                                 viewModel.copyJsonReport()
@@ -414,7 +419,8 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
 }
 
 @Composable
-private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
+private fun EmptyResultState(onNavigate: (AppScreen) -> Unit, language: AppLanguage) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = MaterialTheme.colorScheme.surface,
@@ -427,15 +433,15 @@ private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-            Text("Run a scan to view dangerous results.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text(t("Run a scan to view dangerous results."), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text("Back to Scan", fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
+                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
             }
         }
     }
@@ -470,7 +476,7 @@ private fun InfoTile(title: String, badge: String, icon: String, color: Color, b
 }
 
 @Composable
-private fun FeedRow(label: String, matched: Boolean) {
+private fun FeedRow(label: String, matched: Boolean, matchedLabel: String, noMatchLabel: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -490,7 +496,7 @@ private fun FeedRow(label: String, matched: Boolean) {
                 .padding(horizontal = 8.dp, vertical = 4.dp)
         ) {
             Text(
-                if (matched) "MATCH" else "NO MATCH",
+                if (matched) matchedLabel else noMatchLabel,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 color = if (matched) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant

@@ -31,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.ExportFormat
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -59,11 +61,14 @@ fun ReportsExportScreen(viewModel: AppViewModel) {
 
 @Composable
 private fun ReportsContent(viewModel: AppViewModel) {
+    val language = viewModel.appLanguage
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val extensionLabel = if (viewModel.exportFormat == ExportFormat.Pdf) ".pdf" else ".json"
     val statusMessage = viewModel.statusMessage
-    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: "LATEST"
-    val scanTimestamp = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: "Unknown"
-    val reportUrl = viewModel.currentUrl ?: "No URL captured"
+    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: t("LATEST")
+    val scanTimestamp = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: t("Unknown")
+    val reportUrl = viewModel.currentUrl ?: t("No URL captured")
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -81,13 +86,13 @@ private fun ReportsContent(viewModel: AppViewModel) {
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text("Reports", fontSize = 14.sp, color = Color(0xFF64748B))
+                    Text(t("Reports"), fontSize = 14.sp, color = Color(0xFF64748B))
                     MaterialSymbol(name = "chevron_right", size = 12.sp, color = Color(0xFF94A3B8))
-                    Text("Export", fontSize = 14.sp, color = Color(0xFF0F172A))
+                    Text(t("Export"), fontSize = 14.sp, color = Color(0xFF0F172A))
                 }
-                Text("Export Report", fontSize = 32.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
+                Text(t("Export Report"), fontSize = 32.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
                 Text(
-                    "Configure output parameters for Scan ID #SCAN-$scanId",
+                    tf("Configure output parameters for Scan ID #SCAN-%s", scanId),
                     fontSize = 14.sp,
                     color = Color(0xFF64748B)
                 )
@@ -100,13 +105,13 @@ private fun ReportsContent(viewModel: AppViewModel) {
                 ) {
                     Row(
                         modifier = Modifier
-                            .clickable { viewModel.showInfo("Recent exports are not available yet.") }
+                            .clickable { viewModel.showInfo(t("Recent exports are not available yet.")) }
                             .padding(horizontal = 12.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         MaterialSymbol(name = "history", size = 16.sp, color = Color(0xFF64748B))
-                        Text("Recent Exports", fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A))
+                        Text(t("Recent Exports"), fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A))
                     }
                 }
             }
@@ -124,7 +129,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text("OUTPUT FORMAT", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
+                Text(t("OUTPUT FORMAT"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -134,14 +139,14 @@ private fun ReportsContent(viewModel: AppViewModel) {
                         .padding(4.dp)
                 ) {
                     FormatOption(
-                        label = "Human PDF",
+                        label = t("Human PDF"),
                         icon = "picture_as_pdf",
                         selected = viewModel.exportFormat == ExportFormat.Pdf,
                         modifier = Modifier.weight(1f),
                         onClick = { viewModel.exportFormat = ExportFormat.Pdf }
                     )
                     FormatOption(
-                        label = "JSON Object",
+                        label = t("JSON Object"),
                         icon = "data_object",
                         selected = viewModel.exportFormat == ExportFormat.Json,
                         modifier = Modifier.weight(1f),
@@ -149,9 +154,9 @@ private fun ReportsContent(viewModel: AppViewModel) {
                     )
                 }
 
-                Text("FILE SETTINGS", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
+                Text(t("FILE SETTINGS"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
                 Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text("Filename", fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A))
+                    Text(t("Filename"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A))
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -171,7 +176,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             decorationBox = { innerTextField ->
                                 Box(modifier = Modifier.fillMaxWidth()) {
                                     if (viewModel.exportFilename.isBlank()) {
-                                        Text("scan_report", fontSize = 14.sp, color = Color(0xFF94A3B8))
+                                        Text(t("scan_report"), fontSize = 14.sp, color = Color(0xFF94A3B8))
                                     }
                                     innerTextField()
                                 }
@@ -181,7 +186,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                     }
                 }
 
-                Text("DATA INCLUSIONS", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
+                Text(t("DATA INCLUSIONS"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -190,26 +195,26 @@ private fun ReportsContent(viewModel: AppViewModel) {
                         .border(1.dp, Color(0xFFE2E8F0))
                 ) {
                     InclusionRow(
-                        "Threat Verdict Analysis",
-                        "Explainable AI breakdown of risk factors",
+                        t("Threat Verdict Analysis"),
+                        t("Explainable AI breakdown of risk factors"),
                         viewModel.exportIncludeVerdict,
                         onToggle = { viewModel.exportIncludeVerdict = !viewModel.exportIncludeVerdict }
                     )
                     InclusionRow(
-                        "Metadata & Geo-Location",
-                        "IP origin, timestamps, and server info",
+                        t("Metadata & Geo-Location"),
+                        t("IP origin, timestamps, and server info"),
                         viewModel.exportIncludeMetadata,
                         onToggle = { viewModel.exportIncludeMetadata = !viewModel.exportIncludeMetadata }
                     )
                     InclusionRow(
-                        "Raw Payload",
-                        "Decoded base64/hex content strings",
+                        t("Raw Payload"),
+                        t("Decoded base64/hex content strings"),
                         viewModel.exportIncludeRawPayload,
                         onToggle = { viewModel.exportIncludeRawPayload = !viewModel.exportIncludeRawPayload }
                     )
                     InclusionRow(
-                        "Engine Debug Logs",
-                        "Verbose output for technical auditing",
+                        t("Engine Debug Logs"),
+                        t("Verbose output for technical auditing"),
                         viewModel.exportIncludeDebugLogs,
                         isLast = true,
                         onToggle = { viewModel.exportIncludeDebugLogs = !viewModel.exportIncludeDebugLogs }
@@ -225,17 +230,17 @@ private fun ReportsContent(viewModel: AppViewModel) {
                 ) {
                     MaterialSymbol(name = "download", size = 18.sp, color = Color.White)
                     Spacer(Modifier.width(8.dp))
-                    Text("Export Download", fontWeight = FontWeight.SemiBold)
+                    Text(t("Export Download"), fontWeight = FontWeight.SemiBold)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     ActionButton(
-                        label = "Copy",
+                        label = t("Copy"),
                         icon = "content_copy",
                         modifier = Modifier.weight(1f),
                         onClick = { viewModel.copyJsonReport() }
                     )
                     ActionButton(
-                        label = "Share",
+                        label = t("Share"),
                         icon = "share",
                         modifier = Modifier.weight(1f),
                         onClick = { viewModel.shareTextReport() }
@@ -268,13 +273,13 @@ private fun ReportsContent(viewModel: AppViewModel) {
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFFEF4444)))
-                            Text("Live Preview", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
+                            Text(t("Live Preview"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF64748B), letterSpacing = 1.sp)
                         }
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Box(
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .clickable { viewModel.showInfo("Preview zoom is not available yet.") }
+                                    .clickable { viewModel.showInfo(t("Preview zoom is not available yet.")) }
                                     .focusable(),
                                 contentAlignment = Alignment.Center
                             ) {
@@ -284,7 +289,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             Box(
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .clickable { viewModel.showInfo("Preview zoom is not available yet.") }
+                                    .clickable { viewModel.showInfo(t("Preview zoom is not available yet.")) }
                                     .focusable(),
                                 contentAlignment = Alignment.Center
                             ) {
@@ -314,11 +319,11 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             ) {
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                     Column {
-                                        Text("THREAT ANALYSIS REPORT", fontSize = 20.sp, fontWeight = FontWeight.Black, color = Color.Black)
-                                        Text("GENERATED BY QR-SHIELD ENGINE v2.4", fontSize = 10.sp, color = Color(0xFF64748B))
+                                        Text(t("THREAT ANALYSIS REPORT"), fontSize = 20.sp, fontWeight = FontWeight.Black, color = Color.Black)
+                                        Text(t("GENERATED BY QR-SHIELD ENGINE v2.4"), fontSize = 10.sp, color = Color(0xFF64748B))
                                     }
                                     Column(horizontalAlignment = Alignment.End) {
-                                        Text("SCAN #SCAN-$scanId", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                                        Text(tf("SCAN #SCAN-%s", scanId), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Black)
                                         Text(scanTimestamp, fontSize = 10.sp, color = Color(0xFF64748B))
                                     }
                                 }
@@ -338,15 +343,15 @@ private fun ReportsContent(viewModel: AppViewModel) {
                                             MaterialSymbol(name = "block", size = 28.sp, color = Color(0xFFDC2626))
                                         }
                                         Column {
-                                            Text("VERDICT", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFDC2626), letterSpacing = 1.sp)
-                                            Text("HIGH RISK DETECTED", fontSize = 24.sp, fontWeight = FontWeight.Black, color = Color.Black)
-                                            Text("The scanned QR code redirects to a known phishing vector designed to harvest credentials.", fontSize = 12.sp, color = Color(0xFF374151))
+                                            Text(t("VERDICT"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFDC2626), letterSpacing = 1.sp)
+                                            Text(t("HIGH RISK DETECTED"), fontSize = 24.sp, fontWeight = FontWeight.Black, color = Color.Black)
+                                            Text(t("The scanned QR code redirects to a known phishing vector designed to harvest credentials."), fontSize = 12.sp, color = Color(0xFF374151))
                                         }
                                     }
                                 }
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                                     Column(modifier = Modifier.weight(1f)) {
-                                        Text("TARGET URL", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8))
+                                        Text(t("TARGET URL"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8))
                                         Box(
                                             modifier = Modifier
                                                 .fillMaxWidth()
@@ -357,7 +362,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                                         }
                                     }
                                     Column(modifier = Modifier.weight(1f)) {
-                                        Text("SERVER LOCATION", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8))
+                                        Text(t("SERVER LOCATION"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8))
                                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                                             Box(
                                                 modifier = Modifier
@@ -365,17 +370,17 @@ private fun ReportsContent(viewModel: AppViewModel) {
                                                     .background(Color(0xFFE2E8F0)),
                                                 contentAlignment = Alignment.Center
                                             ) {
-                                                Text("RU", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF64748B))
+                                                Text(t("RU"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF64748B))
                                             }
                                             Column {
-                                                Text("Moscow, Russia", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-                                                Text("IP: 185.22.10.4", fontSize = 10.sp, color = Color(0xFF64748B))
+                                                Text(t("Moscow, Russia"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+                                                Text(tf("IP: %s", "185.22.10.4"), fontSize = 10.sp, color = Color(0xFF64748B))
                                             }
                                         }
                                     }
                                 }
                                 Column {
-                                    Text("GEOLOCATION TRACE", fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8))
+                                    Text(t("GEOLOCATION TRACE"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8))
                                     Box(
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -385,7 +390,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                                     ) {
                                         Image(
                                             painter = painterResource("assets/stitch/map-moscow.png"),
-                                            contentDescription = "Map",
+                                            contentDescription = t("Map"),
                                             contentScale = ContentScale.Crop,
                                             modifier = Modifier.fillMaxSize()
                                         )
@@ -413,7 +418,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                     MaterialSymbol(name = "check_circle", size = 14.sp, color = Color(0xFF10B981))
-                                    Text("Preview Updated", fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A))
+                                    Text(t("Preview Updated"), fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF0F172A))
                                 }
                             }
                         }

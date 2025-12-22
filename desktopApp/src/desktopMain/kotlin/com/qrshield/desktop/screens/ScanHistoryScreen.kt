@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.HistoryFilter
 import com.qrshield.desktop.SampleData
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -41,6 +43,7 @@ import com.qrshield.model.Verdict
 @Composable
 fun ScanHistoryScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.scanHistory()
+    val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
@@ -55,12 +58,14 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
             Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
                 ScanHistoryHeader(
                     onNavigate = { viewModel.currentScreen = it },
-                    onShowNotifications = { viewModel.showInfo("Notifications are not available yet.") },
-                    onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                    onShowNotifications = { viewModel.showInfo(DesktopStrings.translate("Notifications are not available yet.", language)) },
+                    onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                    language = language
                 )
                 ScanHistoryContent(
                     viewModel = viewModel,
-                    onNavigate = { viewModel.currentScreen = it }
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = language
                 )
             }
         }
@@ -71,8 +76,10 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
 private fun ScanHistoryHeader(
     onNavigate: (AppScreen) -> Unit,
     onShowNotifications: () -> Unit,
-    onOpenSettings: () -> Unit
+    onOpenSettings: () -> Unit,
+    language: AppLanguage
 ) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -93,7 +100,7 @@ private fun ScanHistoryHeader(
             ) {
                 MaterialSymbol(name = "qr_code_scanner", size = 20.sp, color = Color(0xFF135BEC))
             }
-            Text("QR-SHIELD", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+            Text(t("QR-SHIELD"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
         }
         Row(
             modifier = Modifier
@@ -103,10 +110,10 @@ private fun ScanHistoryHeader(
                 .padding(4.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            HeaderNavItem(label = "Dashboard", onClick = { onNavigate(AppScreen.Dashboard) })
-            HeaderNavItem(label = "Scan History", isActive = true, onClick = { onNavigate(AppScreen.ScanHistory) })
-            HeaderNavItem(label = "Engine Config", onClick = { onNavigate(AppScreen.TrustCentreAlt) })
-            HeaderNavItem(label = "Logs", onClick = { onNavigate(AppScreen.ReportsExport) })
+            HeaderNavItem(label = t("Dashboard"), onClick = { onNavigate(AppScreen.Dashboard) })
+            HeaderNavItem(label = t("Scan History"), isActive = true, onClick = { onNavigate(AppScreen.ScanHistory) })
+            HeaderNavItem(label = t("Engine Config"), onClick = { onNavigate(AppScreen.TrustCentreAlt) })
+            HeaderNavItem(label = t("Logs"), onClick = { onNavigate(AppScreen.ReportsExport) })
         }
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Box(
@@ -146,8 +153,8 @@ private fun ScanHistoryHeader(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                ImageAvatar()
-                Text(userProfile.name, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
+                ImageAvatar(language)
+                Text(t(userProfile.name), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
                 MaterialSymbol(name = "expand_more", size = 16.sp, color = Color(0xFF94A3B8))
             }
         }
@@ -173,7 +180,9 @@ private fun HeaderNavItem(label: String, isActive: Boolean = false, onClick: () 
 }
 
 @Composable
-private fun ImageAvatar() {
+private fun ImageAvatar(language: AppLanguage) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val userProfile = SampleData.userProfile
     Box(
         modifier = Modifier
@@ -183,7 +192,7 @@ private fun ImageAvatar() {
     ) {
         androidx.compose.foundation.Image(
             painter = painterResource("assets/stitch/avatar-admin.png"),
-            contentDescription = "${userProfile.name} avatar",
+            contentDescription = tf("%s avatar", t(userProfile.name)),
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
@@ -191,15 +200,21 @@ private fun ImageAvatar() {
 }
 
 @Composable
-private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+private fun ScanHistoryContent(
+    viewModel: AppViewModel,
+    onNavigate: (AppScreen) -> Unit,
+    language: AppLanguage
+) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val stats = viewModel.historyStats
     val history = viewModel.filteredHistory()
     val searchQuery = viewModel.historySearchQuery
     val visibleCount = history.size
     val countLabel = if (visibleCount == 0) {
-        "Showing 0 of ${stats.totalScans}"
+        tf("Showing %d of %d", 0, stats.totalScans)
     } else {
-        "Showing 1-$visibleCount of ${stats.totalScans}"
+        tf("Showing %d-%d of %d", 1, visibleCount, stats.totalScans)
     }
     Column(
         modifier = Modifier
@@ -215,7 +230,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text("Scan History", fontSize = 36.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+                    Text(t("Scan History"), fontSize = 36.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(999.dp))
@@ -223,11 +238,11 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                             .border(1.dp, Color(0xFFBFDBFE), RoundedCornerShape(999.dp))
                             .padding(horizontal = 10.dp, vertical = 2.dp)
                     ) {
-                        Text("LIVE", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF135BEC), letterSpacing = 1.sp)
+                        Text(t("LIVE"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF135BEC), letterSpacing = 1.sp)
                     }
                 }
                 Text(
-                    "Real-time audit logs of all QR code captures, including verdicts from the local heuristic engine.",
+                    t("Real-time audit logs of all QR code captures, including verdicts from the local heuristic engine."),
                     fontSize = 16.sp,
                     color = Color(0xFF64748B),
                     modifier = Modifier.widthIn(max = 640.dp)
@@ -241,7 +256,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 ) {
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         MaterialSymbol(name = "calendar_today", size = 16.sp, color = Color(0xFF94A3B8))
-                        Text("Oct 24 - Oct 25", fontSize = 14.sp, color = Color(0xFF64748B))
+                        Text(t("Oct 24 - Oct 25"), fontSize = 14.sp, color = Color(0xFF64748B))
                     }
                 }
                 Surface(
@@ -256,7 +271,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 ) {
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         MaterialSymbol(name = "download", size = 18.sp, color = Color.White)
-                        Text("Export CSV", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        Text(t("Export CSV"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.White)
                     }
                 }
             }
@@ -264,7 +279,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             MetricCard(
-                title = "Total Scans (24h)",
+                title = t("Total Scans (24h)"),
                 value = stats.totalScans.toString(),
                 delta = "0%",
                 deltaIcon = "trending_up",
@@ -272,7 +287,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                title = "Threats Blocked",
+                title = t("Threats Blocked"),
                 value = stats.maliciousCount.toString(),
                 delta = "0%",
                 deltaIcon = "trending_down",
@@ -280,7 +295,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                title = "Suspicious Flags",
+                title = t("Suspicious Flags"),
                 value = stats.suspiciousCount.toString(),
                 delta = "0",
                 deltaIcon = "trending_up",
@@ -288,7 +303,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                title = "Safe Scans",
+                title = t("Safe Scans"),
                 value = stats.safeCount.toString(),
                 delta = "0%",
                 deltaIcon = "",
@@ -333,7 +348,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                                         Spacer(Modifier.width(8.dp))
                                         Box(modifier = Modifier.weight(1f)) {
                                             if (searchQuery.isBlank()) {
-                                                Text("Search domains, sources, or hashes...", fontSize = 13.sp, color = Color(0xFF94A3B8))
+                                                Text(t("Search domains, sources, or hashes..."), fontSize = 13.sp, color = Color(0xFF94A3B8))
                                             }
                                             innerTextField()
                                         }
@@ -344,52 +359,63 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                         FilterChip(
-                            label = "All Scans",
+                            label = t("All Scans"),
                             active = viewModel.historyFilter == HistoryFilter.All,
                             onClick = { viewModel.updateHistoryFilter(HistoryFilter.All) }
                         )
                         FilterChip(
-                            label = "Safe",
+                            label = t("Safe"),
                             active = viewModel.historyFilter == HistoryFilter.Safe,
                             color = Color(0xFF0D9488),
                             background = Color(0xFFF0FDFA),
-                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Safe) }
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Safe) },
+                            showDot = true
                         )
                         FilterChip(
-                            label = "Suspicious",
+                            label = t("Suspicious"),
                             active = viewModel.historyFilter == HistoryFilter.Suspicious,
                             color = Color(0xFFD97706),
                             background = Color(0xFFFFFBEB),
-                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Suspicious) }
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Suspicious) },
+                            showDot = true
                         )
                         FilterChip(
-                            label = "Dangerous",
+                            label = t("Dangerous"),
                             active = viewModel.historyFilter == HistoryFilter.Dangerous,
                             color = Color(0xFFE11D48),
                             background = Color(0xFFFFF1F2),
-                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Dangerous) }
+                            onClick = { viewModel.updateHistoryFilter(HistoryFilter.Dangerous) },
+                            showDot = true
                         )
                         Box(modifier = Modifier.size(24.dp).background(Color(0xFFCBD5E1)).width(1.dp))
                         FilterChip(
-                            label = "Advanced",
+                            label = t("Advanced"),
                             icon = "filter_list",
                             background = Color.White,
                             border = Color(0xFFE2E8F0),
                             color = Color(0xFF64748B),
-                            onClick = { viewModel.showInfo("Advanced filters are not available yet.") }
+                            onClick = { viewModel.showInfo(t("Advanced filters are not available yet.")) }
                         )
                     }
                 }
                 Column(modifier = Modifier.fillMaxWidth()) {
-                    TableHeaderRow()
+                    TableHeaderRow(
+                        riskLabel = t("Risk"),
+                        domainLabel = t("Domain / Payload"),
+                        sourceLabel = t("Source"),
+                        timeLabel = t("Time"),
+                        verdictLabel = t("Verdict"),
+                        actionsLabel = t("Actions")
+                    )
                     if (history.isEmpty()) {
-                        EmptyHistoryRow()
+                        EmptyHistoryRow(text = t("No scan history yet. Run a scan to populate results."))
                     } else {
                         history.forEach { item ->
                             HistoryRow(
                                 item = item,
                                 timeLabel = viewModel.formatRelativeTime(item.scannedAt),
-                                onClick = { viewModel.selectHistoryItem(it) }
+                                onClick = { viewModel.selectHistoryItem(it) },
+                                language = language
                             )
                         }
                     }
@@ -403,7 +429,7 @@ private fun ScanHistoryContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("Show rows:", fontSize = 12.sp, color = Color(0xFF94A3B8))
+                        Text(t("Show rows:"), fontSize = 12.sp, color = Color(0xFF94A3B8))
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(6.dp))
@@ -469,6 +495,7 @@ private fun FilterChip(
     background: Color = Color(0xFFF1F5F9),
     border: Color = Color.Transparent,
     icon: String? = null,
+    showDot: Boolean = false,
     onClick: () -> Unit
 ) {
     Row(
@@ -485,7 +512,7 @@ private fun FilterChip(
         if (icon != null) {
             MaterialSymbol(name = icon, size = 14.sp, color = color)
         }
-        if (!active && label in listOf("Safe", "Suspicious", "Dangerous")) {
+        if (!active && showDot) {
             Box(
                 modifier = Modifier
                     .size(6.dp)
@@ -498,7 +525,14 @@ private fun FilterChip(
 }
 
 @Composable
-private fun TableHeaderRow() {
+private fun TableHeaderRow(
+    riskLabel: String,
+    domainLabel: String,
+    sourceLabel: String,
+    timeLabel: String,
+    verdictLabel: String,
+    actionsLabel: String
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -506,12 +540,12 @@ private fun TableHeaderRow() {
             .padding(vertical = 12.dp, horizontal = 20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text("Risk", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(60.dp))
-        Text("Domain / Payload", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.weight(1f))
-        Text("Source", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(140.dp))
-        Text("Time", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
-        Text("Verdict", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
-        Text("Actions", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+        Text(riskLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(60.dp))
+        Text(domainLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.weight(1f))
+        Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(140.dp))
+        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
+        Text(verdictLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(120.dp))
+        Text(actionsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF94A3B8), modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
     }
 }
 
@@ -519,8 +553,10 @@ private fun TableHeaderRow() {
 private fun HistoryRow(
     item: ScanHistoryItem,
     timeLabel: String,
-    onClick: (ScanHistoryItem) -> Unit
+    onClick: (ScanHistoryItem) -> Unit,
+    language: AppLanguage
 ) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     val riskIcon = when (item.verdict) {
         Verdict.SAFE -> "shield"
         Verdict.SUSPICIOUS -> "warning"
@@ -540,10 +576,10 @@ private fun HistoryRow(
         Verdict.UNKNOWN -> Color(0xFFF1F5F9)
     }
     val detail = when (item.verdict) {
-        Verdict.SAFE -> "Known Domain"
-        Verdict.SUSPICIOUS -> "Heuristic Anomaly"
-        Verdict.MALICIOUS -> "Phishing Heuristic Match"
-        Verdict.UNKNOWN -> "Unclassified"
+        Verdict.SAFE -> t("Known Domain")
+        Verdict.SUSPICIOUS -> t("Heuristic Anomaly")
+        Verdict.MALICIOUS -> t("Phishing Heuristic Match")
+        Verdict.UNKNOWN -> t("Unclassified")
     }
     val sourceIcon = when (item.source) {
         ScanSource.CAMERA -> "videocam"
@@ -551,15 +587,15 @@ private fun HistoryRow(
         ScanSource.CLIPBOARD -> "content_paste"
     }
     val sourceLabel = when (item.source) {
-        ScanSource.CAMERA -> "Webcam"
-        ScanSource.GALLERY -> "File Upload"
-        ScanSource.CLIPBOARD -> "Clipboard"
+        ScanSource.CAMERA -> t("Webcam")
+        ScanSource.GALLERY -> t("File Upload")
+        ScanSource.CLIPBOARD -> t("Clipboard")
     }
     val verdictLabel = when (item.verdict) {
-        Verdict.SAFE -> "ALLOWED"
-        Verdict.SUSPICIOUS -> "FLAGGED"
-        Verdict.MALICIOUS -> "BLOCKED"
-        Verdict.UNKNOWN -> "UNKNOWN"
+        Verdict.SAFE -> t("ALLOWED")
+        Verdict.SUSPICIOUS -> t("FLAGGED")
+        Verdict.MALICIOUS -> t("BLOCKED")
+        Verdict.UNKNOWN -> t("UNKNOWN")
     }
     val verdictBg = riskBg
     val verdictColor = riskColor
@@ -616,14 +652,14 @@ private fun HistoryRow(
 }
 
 @Composable
-private fun EmptyHistoryRow() {
+private fun EmptyHistoryRow(text: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text("No scan history yet. Run a scan to populate results.", fontSize = 12.sp, color = Color(0xFF94A3B8))
+        Text(text, fontSize = 12.sp, color = Color(0xFF94A3B8))
     }
 }
 

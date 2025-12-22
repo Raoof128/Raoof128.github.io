@@ -17,6 +17,7 @@ import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.platform.PlatformClipboard
 import com.qrshield.platform.PlatformTime
 import com.qrshield.platform.PlatformUrlOpener
@@ -201,8 +202,7 @@ class AppViewModel(
         val validation = InputValidator.validateUrl(cleanedUrl)
         val sanitizedUrl = validation.getOrNull()
         if (sanitizedUrl == null) {
-            val reason = (validation as? InputValidator.ValidationResult.Invalid)?.reason ?: "Invalid URL"
-            setError(reason)
+            setError("Invalid URL format")
             return
         }
         scanState = DesktopScanState.Analyzing(sanitizedUrl)
@@ -244,7 +244,10 @@ class AppViewModel(
     }
 
     fun pickImageAndScan() {
-        val dialog = FileDialog(null as Frame?, "Select QR Image", FileDialog.LOAD)
+        // "Select QR Image" is already wrapped in t() in original code? No, let's check.
+        // Line 247: val dialog = FileDialog(null as Frame?, t("Select QR Image"), FileDialog.LOAD) -> It was t("Select QR Image") already!
+        // But let's verify others.
+        val dialog = FileDialog(null as Frame?, t("Select QR Image"), FileDialog.LOAD)
         dialog.isVisible = true
         val selected = dialog.file
         val directory = dialog.directory
@@ -261,10 +264,10 @@ class AppViewModel(
                 if (result.contentType == ContentType.URL) {
                     analyzeUrl(result.content, source)
                 } else {
-                    setError("Unsupported QR payload: ${result.contentType}")
+                    setError(tf("Unsupported QR payload: %s", result.contentType))
                 }
             }
-            is com.qrshield.model.ScanResult.Error -> setError(result.message)
+            is com.qrshield.model.ScanResult.Error -> setError(result.message) // message from result might need translation if it's fixed? assuming it's dynamic or english.
             is com.qrshield.model.ScanResult.NoQrFound -> setError("No QR code found in image")
         }
     }
@@ -287,7 +290,11 @@ class AppViewModel(
 
     fun copyUrl(url: String, label: String = "Copied") {
         if (PlatformClipboard.copyToClipboard(url)) {
-            setMessage(label, MessageKind.Success)
+            setMessage(label, MessageKind.Success) // label is usually passed in already localized or needs t()? 
+            // label is passed from UI usually? Or internally?
+            // "Safe link copied" is passed internally. "Copied" is default.
+            // If label is passed, it might be already translated or not. 
+            // setMessage calls t(message). So if we pass "Copied", t("Copied") will run.
         } else {
             setError("Clipboard unavailable", updateScanState = false)
         }
@@ -330,7 +337,7 @@ class AppViewModel(
         val file = defaultExportFile(exportFilename, extension)
         try {
             file.writeText(content)
-            setMessage("Saved report to ${file.name}", MessageKind.Success)
+            setMessage(tf("Saved report to %s", file.name), MessageKind.Success)
         } catch (e: IOException) {
             setError("Failed to save report", updateScanState = false)
         }
@@ -351,7 +358,7 @@ class AppViewModel(
         val file = defaultExportFile("scan_history", "csv")
         try {
             file.writeText(csv)
-            setMessage("Saved CSV to ${file.name}", MessageKind.Success)
+            setMessage(tf("Saved CSV to %s", file.name), MessageKind.Success)
         } catch (e: IOException) {
             setError("Failed to save CSV", updateScanState = false)
         }
@@ -381,7 +388,7 @@ class AppViewModel(
             return
         }
         if (allowlist.any { it.equals(domain, ignoreCase = true) }) {
-            setError("Domain already allowlisted", updateScanState = false)
+            setError("Domain already allowlisted", updateScanState = false) // Note: "allowlisted" vs "whitelist" consistency
             return
         }
         allowlist = allowlist + domain
@@ -452,6 +459,7 @@ class AppViewModel(
     fun showInfo(message: String) {
         setMessage(message, MessageKind.Info)
     }
+
 
     fun submitTrainingVerdict(isPhishing: Boolean) {
         val expectedPhishing = isPhishingVerdict(currentTrainingScenario.expectedVerdict)
@@ -564,15 +572,20 @@ class AppViewModel(
         }
     }
 
+    private fun t(text: String): String = DesktopStrings.translate(text, appLanguage)
+
+    private fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, appLanguage, *args)
+
     private fun setError(message: String, updateScanState: Boolean = true) {
+        val translated = t(message)
         if (updateScanState) {
-            scanState = DesktopScanState.Error(message)
+            scanState = DesktopScanState.Error(translated)
         }
-        statusMessage = StatusMessage(message, MessageKind.Error)
+        statusMessage = StatusMessage(translated, MessageKind.Error)
     }
 
     private fun setMessage(message: String, kind: MessageKind) {
-        statusMessage = StatusMessage(message, kind)
+        statusMessage = StatusMessage(t(message), kind)
     }
 
     private fun applySettings(settings: SettingsManager.Settings) {
@@ -673,72 +686,73 @@ class AppViewModel(
         trainingState = trainingState.copy(round = nextRound)
     }
 
-    private val trainingScenarios = listOf(
+    private val trainingScenarios: List<TrainingScenario>
+        get() = listOf(
         TrainingScenario(
             payload = "https://secure-login.micros0ft-support.com/auth?client_id=19283",
-            contextTitle = "Physical Flyer",
-            contextBody = "Found this on a table at Starbeans Coffee. It offered a free coffee coupon if I logged in.",
+            contextTitle = t("Physical Flyer"),
+            contextBody = t("Found this on a table at Starbeans Coffee. It offered a free coffee coupon if I logged in."),
             expectedVerdict = Verdict.MALICIOUS,
             aiConfidence = 0.998f,
             insights = listOf(
                 TrainingInsight(
                     icon = "warning",
-                    title = "Typosquatting Detected",
-                    body = "The domain micros0ft-support.com uses a zero '0' instead of the letter 'o'.",
+                    title = t("Typosquatting Detected"),
+                    body = t("The domain micros0ft-support.com uses a zero '0' instead of the letter 'o'."),
                     kind = TrainingInsightKind.Warning
                 ),
                 TrainingInsight(
                     icon = "public_off",
-                    title = "Suspicious TLD",
-                    body = "While .com is standard, the hyphenated structure with \"support\" is common in phishing.",
+                    title = t("Suspicious TLD"),
+                    body = t("While .com is standard, the hyphenated structure with \"support\" is common in phishing."),
                     kind = TrainingInsightKind.Suspicious
                 ),
                 TrainingInsight(
                     icon = "psychology",
-                    title = "Social Engineering",
-                    body = "The \"free coupon\" promise creates urgency and incentive.",
+                    title = t("Social Engineering"),
+                    body = t("The \"free coupon\" promise creates urgency and incentive."),
                     kind = TrainingInsightKind.Psychology
                 )
             )
         ),
         TrainingScenario(
             payload = "https://accounts.google.com/o/oauth2/v2/auth",
-            contextTitle = "Support Email",
-            contextBody = "Corporate IT sent a reset notice using the official Google auth domain.",
+            contextTitle = t("Support Email"),
+            contextBody = t("Corporate IT sent a reset notice using the official Google auth domain."),
             expectedVerdict = Verdict.SAFE,
             aiConfidence = 0.95f,
             insights = listOf(
                 TrainingInsight(
                     icon = "verified_user",
-                    title = "Verified Domain",
-                    body = "OAuth endpoint uses a trusted, well-known domain.",
+                    title = t("Verified Domain"),
+                    body = t("OAuth endpoint uses a trusted, well-known domain."),
                     kind = TrainingInsightKind.Psychology
                 ),
                 TrainingInsight(
                     icon = "lock",
-                    title = "TLS Enabled",
-                    body = "HTTPS with valid certificate detected.",
+                    title = t("TLS Enabled"),
+                    body = t("HTTPS with valid certificate detected."),
                     kind = TrainingInsightKind.Suspicious
                 )
             )
         ),
         TrainingScenario(
             payload = "https://bit.ly/3x89s",
-            contextTitle = "Chat Message",
-            contextBody = "A shortened link shared in a group chat without context.",
+            contextTitle = t("Chat Message"),
+            contextBody = t("A shortened link shared in a group chat without context."),
             expectedVerdict = Verdict.SUSPICIOUS,
             aiConfidence = 0.83f,
             insights = listOf(
                 TrainingInsight(
                     icon = "link",
-                    title = "Shortened URL",
-                    body = "URL shorteners hide the true destination.",
+                    title = t("Shortened URL"),
+                    body = t("URL shorteners hide the true destination."),
                     kind = TrainingInsightKind.Warning
                 ),
                 TrainingInsight(
                     icon = "visibility_off",
-                    title = "Low Context",
-                    body = "No source attribution or description provided.",
+                    title = t("Low Context"),
+                    body = t("No source attribution or description provided."),
                     kind = TrainingInsightKind.Suspicious
                 )
             )

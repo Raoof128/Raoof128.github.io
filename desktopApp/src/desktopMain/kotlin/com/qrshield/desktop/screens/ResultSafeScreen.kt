@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.ResultViewMode
+import com.qrshield.desktop.i18n.AppLanguage
+import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
@@ -36,6 +38,7 @@ import com.qrshield.desktop.ui.gridPattern
 @Composable
 fun ResultSafeScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.scanResultSafe()
+    val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
@@ -49,18 +52,25 @@ fun ResultSafeScreen(viewModel: AppViewModel) {
             )
             SafeResultContent(
                 viewModel = viewModel,
-                onNavigate = { viewModel.currentScreen = it }
+                onNavigate = { viewModel.currentScreen = it },
+                language = language
             )
         }
     }
 }
 
 @Composable
-private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -> Unit) {
+private fun SafeResultContent(
+    viewModel: AppViewModel,
+    onNavigate: (AppScreen) -> Unit,
+    language: AppLanguage
+) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val assessment = viewModel.currentAssessment
     val url = viewModel.currentUrl
     val verdictDetails = viewModel.currentVerdictDetails
-    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: "LATEST"
+    val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: t("LATEST")
     val confidencePercent = ((assessment?.confidence ?: 0f) * 100).coerceIn(0f, 100f)
     val confidenceLabel = "${confidencePercent.toInt()}%"
     val durationLabel = viewModel.lastAnalysisDurationMs?.let { "${it}ms" } ?: "--"
@@ -81,9 +91,9 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Scan", fontSize = 14.sp, color = Color(0xFF6B7280))
+                Text(t("Scan"), fontSize = 14.sp, color = Color(0xFF6B7280))
                 MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF9CA3AF))
-                Text("Results", fontSize = 14.sp, color = Color(0xFF6B7280))
+                Text(t("Results"), fontSize = 14.sp, color = Color(0xFF6B7280))
                 MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF9CA3AF))
                     Box(
                         modifier = Modifier
@@ -91,7 +101,7 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                             .background(Color(0xFFF3F4F6))
                             .padding(horizontal = 6.dp, vertical = 2.dp)
                     ) {
-                        Text("#SCAN-$scanId", fontSize = 10.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
+                        Text(tf("#SCAN-%s", scanId), fontSize = 10.sp, fontWeight = FontWeight.Medium, color = Color(0xFF111827))
                     }
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -104,13 +114,13 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF10B981)))
-                        Text("ENGINE ACTIVE", fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF10B981), letterSpacing = 1.sp)
+                        Text(t("ENGINE ACTIVE"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF10B981), letterSpacing = 1.sp)
                     }
                 }
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clickable { viewModel.showInfo("Notifications are not available yet.") }
+                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
                         .focusable()
                 ) {
                     MaterialIconRound(name = "notifications", size = 20.sp, color = Color(0xFF6B7280))
@@ -135,7 +145,7 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             if (assessment == null || url.isNullOrBlank()) {
-                EmptyResultState(onNavigate = onNavigate)
+                EmptyResultState(onNavigate = onNavigate, language = language)
             } else {
             Surface(
                 shape = RoundedCornerShape(16.dp),
@@ -155,7 +165,7 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                                 MaterialIconRound(name = "check_circle", size = 36.sp, color = Color.White)
                             }
                             Column {
-                                Text("Safe to Visit", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                Text(t("Safe to Visit"), fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                     MaterialIconRound(name = "link", size = 14.sp, color = Color(0xFF6B7280))
                                     Text(url, fontSize = 12.sp, color = Color(0xFF6B7280), maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -168,11 +178,11 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                             border = BorderStroke(1.dp, Color(0xFFE5E7EB))
                         ) {
                             Row(modifier = Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                                MetricBlock("Confidence", confidenceLabel, Color(0xFF10B981))
+                                MetricBlock(t("Confidence"), confidenceLabel, Color(0xFF10B981))
                                 VerticalDivider()
-                                MetricBlock("Scan Time", durationLabel, Color(0xFF111827))
+                                MetricBlock(t("Scan Time"), durationLabel, Color(0xFF111827))
                                 VerticalDivider()
-                                MetricBlock("Engine", "v2.4.1 Local", Color(0xFF374151))
+                                MetricBlock(t("Engine"), t("v2.4.1 Local"), Color(0xFF374151))
                             }
                         }
                     }
@@ -184,12 +194,12 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                             shape = RoundedCornerShape(8.dp),
                             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
                         ) {
-                            Text("Visit URL", fontWeight = FontWeight.Medium)
+                            Text(t("Visit URL"), fontWeight = FontWeight.Medium)
                             Spacer(Modifier.width(8.dp))
                             MaterialIconRound(name = "open_in_new", size = 14.sp, color = Color.White)
                         }
                         Button(
-                            onClick = { viewModel.copyUrl(url, label = "Safe link copied") },
+                            onClick = { viewModel.copyUrl(url, label = t("Safe link copied")) },
                             enabled = url.isNotBlank(),
                             colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                             border = BorderStroke(1.dp, Color(0xFFE5E7EB)),
@@ -198,7 +208,7 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                         ) {
                             MaterialIconRound(name = "content_copy", size = 14.sp, color = Color(0xFF6B7280))
                             Spacer(Modifier.width(8.dp))
-                            Text("Copy Safe Link", color = Color(0xFF6B7280))
+                            Text(t("Copy Safe Link"), color = Color(0xFF6B7280))
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
@@ -208,12 +218,12 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                                 .padding(4.dp)
                         ) {
                             ViewModeButton(
-                                "Simple View",
+                                t("Simple View"),
                                 selected = viewModel.resultSafeViewMode == ResultViewMode.Simple,
                                 onClick = { viewModel.resultSafeViewMode = ResultViewMode.Simple }
                             )
                             ViewModeButton(
-                                "Technical",
+                                t("Technical"),
                                 selected = viewModel.resultSafeViewMode == ResultViewMode.Technical,
                                 onClick = { viewModel.resultSafeViewMode = ResultViewMode.Technical }
                             )
@@ -224,14 +234,14 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
 
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    Text("Verdict Analysis", fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
+                    Text(t("Verdict Analysis"), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                        AnalysisCard(title = "Domain Identity", badge = "PASSED", icon = "domain_verification", body = "Verified ownership by Microsoft Corporation via EV Certificate.", modifier = Modifier.weight(1f))
-                        AnalysisCard(title = "Homograph Check", badge = "CLEAN", icon = "spellcheck", body = "No mixed-script characters or IDN spoofing detected in domain string.", modifier = Modifier.weight(1f))
+                        AnalysisCard(title = t("Domain Identity"), badge = t("PASSED"), icon = "domain_verification", body = t("Verified ownership by Microsoft Corporation via EV Certificate."), modifier = Modifier.weight(1f))
+                        AnalysisCard(title = t("Homograph Check"), badge = t("CLEAN"), icon = "spellcheck", body = t("No mixed-script characters or IDN spoofing detected in domain string."), modifier = Modifier.weight(1f))
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                        AnalysisCard(title = "Domain Age", badge = "ESTABLISHED", icon = "history_edu", body = "Domain registered > 20 years ago. High reputation score.", modifier = Modifier.weight(1f))
-                        AnalysisCard(title = "Redirect Chain", badge = "DIRECT", icon = "alt_route", body = "Zero intermediate redirects found. Destination is final.", modifier = Modifier.weight(1f))
+                        AnalysisCard(title = t("Domain Age"), badge = t("ESTABLISHED"), icon = "history_edu", body = t("Domain registered > 20 years ago. High reputation score."), modifier = Modifier.weight(1f))
+                        AnalysisCard(title = t("Redirect Chain"), badge = t("DIRECT"), icon = "alt_route", body = t("Zero intermediate redirects found. Destination is final."), modifier = Modifier.weight(1f))
                     }
                     Surface(
                         shape = RoundedCornerShape(12.dp),
@@ -243,14 +253,14 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .background(Color(0xFFF8FAFC))
-                                    .border(1.dp, Color(0xFFE5E7EB))
-                                    .padding(16.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text("TECHNICAL INDICATORS", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                                .border(1.dp, Color(0xFFE5E7EB))
+                                .padding(16.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                                Text(t("TECHNICAL INDICATORS"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
                                 Text(
-                                    "Export Report",
+                                    t("Export Report"),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.SemiBold,
                                     color = Color(0xFF10B981),
@@ -259,10 +269,10 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                                         .focusable()
                                 )
                             }
-                            TechnicalRow("Certificate Issuer", "DigiCert Inc (US)")
-                            TechnicalRow("Server Location", "United States (Azure Cloud)")
-                            TechnicalRow("Shannon Entropy", "3.44 bits (Low)")
-                            TechnicalRow("Top 1k Whitelist", "Match", highlight = Color(0xFF10B981))
+                            TechnicalRow(t("Certificate Issuer"), t("DigiCert Inc (US)"))
+                            TechnicalRow(t("Server Location"), t("United States (Azure Cloud)"))
+                            TechnicalRow(t("Shannon Entropy"), t("3.44 bits (Low)"))
+                            TechnicalRow(t("Top 1k Whitelist"), t("Match"), highlight = Color(0xFF10B981))
                         }
                     }
                 }
@@ -273,7 +283,7 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                         border = BorderStroke(1.dp, Color(0xFFE5E7EB))
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text("Destination Preview", fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                            Text(t("Destination Preview"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -294,7 +304,7 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                                     )
                                 }
                             }
-                            Text("Sandbox rendered. No active scripts executed.", fontSize = 11.sp, color = Color(0xFF6B7280), modifier = Modifier.padding(top = 8.dp).align(Alignment.CenterHorizontally))
+                            Text(t("Sandbox rendered. No active scripts executed."), fontSize = 11.sp, color = Color(0xFF6B7280), modifier = Modifier.padding(top = 8.dp).align(Alignment.CenterHorizontally))
                         }
                     }
                     Surface(
@@ -313,17 +323,17 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
                                 ) {
                                     MaterialIconRound(name = "psychology", size = 16.sp, color = Color(0xFF4F46E5))
                                 }
-                                Text("AI Verdict Logic", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                Text(t("AI Verdict Logic"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
                             }
                             Text(
-                                verdictDetails?.summary
-                                    ?: "The ML model classified this URL as benign with high certainty. The structure matches known legitimate authentication patterns.",
+                                verdictDetails?.summary?.let { t(it) }
+                                    ?: t("The ML model classified this URL as benign with high certainty. The structure matches known legitimate authentication patterns."),
                                 fontSize = 12.sp,
                                 color = Color(0xFF64748B)
                             )
                             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                                 val phishingProbability = (100f - confidencePercent).coerceIn(0f, 100f)
-                                Text("Phishing Probability", fontSize = 12.sp, color = Color(0xFF6B7280))
+                                Text(t("Phishing Probability"), fontSize = 12.sp, color = Color(0xFF6B7280))
                                 Text("${phishingProbability.toInt()}%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
                             }
                             Box(
@@ -351,7 +361,8 @@ private fun SafeResultContent(viewModel: AppViewModel, onNavigate: (AppScreen) -
 }
 
 @Composable
-private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
+private fun EmptyResultState(onNavigate: (AppScreen) -> Unit, language: AppLanguage) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = Color.White,
@@ -364,15 +375,15 @@ private fun EmptyResultState(onNavigate: (AppScreen) -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("No scan data available.", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
-            Text("Run a scan to see detailed results.", fontSize = 13.sp, color = Color(0xFF6B7280))
+            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+            Text(t("Run a scan to see detailed results."), fontSize = 13.sp, color = Color(0xFF6B7280))
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text("Back to Scan", fontWeight = FontWeight.Medium, color = Color.White)
+                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = Color.White)
             }
         }
     }
