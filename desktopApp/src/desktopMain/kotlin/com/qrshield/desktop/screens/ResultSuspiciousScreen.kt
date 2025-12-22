@@ -40,6 +40,7 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIcon
 import com.qrshield.desktop.ui.gridPattern
@@ -478,10 +479,11 @@ private fun SuspiciousContent(
 @Composable
 private fun EmptyResultState(onNavigate: (AppScreen) -> Unit, language: AppLanguage) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border)
     ) {
         Column(
             modifier = Modifier
@@ -490,15 +492,15 @@ private fun EmptyResultState(onNavigate: (AppScreen) -> Unit, language: AppLangu
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-            Text(t("Run a scan to view suspicious results."), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+            Text(t("Run a scan to view suspicious results."), fontSize = 13.sp, color = colors.textSub)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
+                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = Color.White)
             }
         }
     }
@@ -548,7 +550,8 @@ private fun IndicatorDot(color: Color, label: String, textMuted: Color) {
 
 @Composable
 private fun RiskGauge(score: Int, color: Color, label: String) {
-    val outline = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f)
+    val colors = LocalStitchTokens.current.colors
+    val outline = colors.border.copy(alpha = 0.3f)
     Box(modifier = Modifier.size(128.dp), contentAlignment = Alignment.Center) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             val stroke = 8.dp.toPx()
@@ -562,7 +565,7 @@ private fun RiskGauge(score: Int, color: Color, label: String) {
             )
         }
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(score.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text(score.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
             Text(label, fontSize = 12.sp, color = color)
         }
     }
@@ -581,11 +584,12 @@ private fun AlertCard(
     body: String,
     modifier: Modifier = Modifier
 ) {
+    val colors = LocalStitchTokens.current.colors
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f))
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border.copy(alpha = 0.4f))
     ) {
         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
@@ -607,14 +611,14 @@ private fun AlertCard(
                     Text(status, fontSize = 10.sp, fontWeight = FontWeight.Medium, color = color)
                 }
             }
-            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
-            Text(body, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
+            Text(body, fontSize = 12.sp, color = colors.textSub, maxLines = 2, overflow = TextOverflow.Ellipsis)
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(6.dp)
                     .clip(RoundedCornerShape(999.dp))
-                    .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                    .background(colors.border.copy(alpha = 0.3f))
             ) {
                 Box(
                     modifier = Modifier
@@ -625,8 +629,8 @@ private fun AlertCard(
                 )
             }
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-                Text(footerLabel, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                Text(footerValue, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(footerLabel, fontSize = 11.sp, color = colors.textSub)
+                Text(footerValue, fontSize = 11.sp, color = colors.textSub)
             }
         }
     }
@@ -649,15 +653,16 @@ private fun Tag(label: String, active: Boolean = false) {
 
 @Composable
 private fun TableRow(label: String, detail: String, icon: String, color: Color) {
+    val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+            .border(1.dp, colors.border.copy(alpha = 0.2f))
             .padding(horizontal = 24.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(label, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.width(180.dp))
-        Text(detail, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1f))
+        Text(label, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = colors.textSub, modifier = Modifier.width(180.dp))
+        Text(detail, fontSize = 13.sp, color = colors.textMain, modifier = Modifier.weight(1f))
         MaterialIcon(name = icon, size = 16.sp, color = color)
     }
 }

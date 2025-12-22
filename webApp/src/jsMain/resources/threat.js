@@ -26,6 +26,20 @@ const ThreatState = {
     isSidebarOpen: false,
 };
 
+function translateText(text) {
+    if (window.qrshieldTranslateText) {
+        return window.qrshieldTranslateText(text);
+    }
+    return text;
+}
+
+function formatText(template, params) {
+    if (window.qrshieldFormatText) {
+        return window.qrshieldFormatText(template, params);
+    }
+    return template;
+}
+
 // =============================================================================
 // DOM ELEMENTS
 // =============================================================================
@@ -303,17 +317,17 @@ function renderUI() {
 
     // Update title
     if (elements.threatTitle) {
-        elements.threatTitle.textContent = level.title;
+        elements.threatTitle.textContent = translateText(level.title);
     }
 
     // Update badge
     if (elements.threatBadge) {
-        elements.threatBadge.textContent = level.badge;
+        elements.threatBadge.textContent = translateText(level.badge);
     }
 
     // Update description
     if (elements.threatDescription) {
-        elements.threatDescription.textContent = level.description;
+        elements.threatDescription.textContent = translateText(level.description);
     }
 
     // Update score
@@ -328,11 +342,11 @@ function renderUI() {
 
     // Update scan ID
     if (elements.scanId) {
-        elements.scanId.textContent = `Scan #${data.scanId.slice(-7).toUpperCase()}`;
+        elements.scanId.textContent = formatText('Scan # {id}', { id: data.scanId.slice(-7).toUpperCase() });
     }
 
     if (elements.scanIdLabel) {
-        elements.scanIdLabel.textContent = `ID: ${data.scanId}`;
+        elements.scanIdLabel.textContent = formatText('ID: {id}', { id: data.scanId });
     }
 
     // Update scan time
@@ -349,7 +363,12 @@ function formatScanTime(timestamp) {
     const now = new Date();
     const isToday = date.toDateString() === now.toDateString();
 
-    const timeStr = date.toLocaleTimeString('en-AU', {
+    let locale = 'en-AU';
+    if (window.qrshieldGetLanguageCode) {
+        locale = window.qrshieldGetLanguageCode();
+    }
+
+    const timeStr = date.toLocaleTimeString(locale, {
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
@@ -357,15 +376,15 @@ function formatScanTime(timestamp) {
     });
 
     if (isToday) {
-        return `Today, ${timeStr}`;
+        return formatText('Today, {time}', { time: timeStr });
     }
 
-    const dateStr = date.toLocaleDateString('en-AU', {
+    const dateStr = date.toLocaleDateString(locale, {
         month: 'short',
         day: 'numeric'
     });
 
-    return `${dateStr}, ${timeStr}`;
+    return formatText('{date}, {time}', { date: dateStr, time: timeStr });
 }
 
 /**
@@ -390,6 +409,7 @@ function renderScanHistory() {
                 <p>No scans yet. Scan a QR code to see it here.</p>
             </div>
         `;
+        window.qrshieldApplyTranslations?.(historyContainer);
         return;
     }
 
@@ -418,6 +438,8 @@ function renderScanHistory() {
         `;
     }).join('');
 
+    window.qrshieldApplyTranslations?.(historyContainer);
+
     // Add click handlers
     historyContainer.querySelectorAll('.history-item').forEach(item => {
         item.addEventListener('click', () => {
@@ -439,11 +461,11 @@ function getVerdictClass(verdict) {
 
 function getVerdictLabel(verdict) {
     switch (verdict) {
-        case 'HIGH': return 'High Risk';
-        case 'MEDIUM': return 'Warning';
-        case 'LOW': return 'Low Risk';
-        case 'SAFE': return 'Safe';
-        default: return 'Unknown';
+        case 'HIGH': return translateText('High Risk');
+        case 'MEDIUM': return translateText('Warning');
+        case 'LOW': return translateText('Low Risk');
+        case 'SAFE': return translateText('Safe');
+        default: return translateText('Unknown');
     }
 }
 
@@ -458,7 +480,7 @@ function getVerdictIcon(verdict) {
 }
 
 function truncateUrl(url) {
-    if (!url) return 'Unknown URL';
+    if (!url) return translateText('Unknown URL');
     if (url.length > 50) {
         return url.substring(0, 47) + '...';
     }
@@ -615,7 +637,7 @@ function setupKeyboardShortcuts() {
 function showToast(message, type = 'success') {
     if (!elements.toast || !elements.toastMessage) return;
 
-    elements.toastMessage.textContent = message;
+    elements.toastMessage.textContent = translateText(message);
 
     const icon = elements.toast.querySelector('.toast-icon');
     if (icon) {

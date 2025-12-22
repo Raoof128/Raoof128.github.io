@@ -30,6 +30,7 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 
@@ -284,10 +285,11 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
 @Composable
 private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit, language: AppLanguage) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border)
     ) {
         Column(
             modifier = Modifier
@@ -296,15 +298,15 @@ private fun EmptyAltResultState(onNavigate: (AppScreen) -> Unit, language: AppLa
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-            Text(t("Run a scan to view dangerous results."), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+            Text(t("Run a scan to view dangerous results."), fontSize = 13.sp, color = colors.textSub)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
+                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = Color.White)
             }
         }
     }
@@ -328,7 +330,8 @@ private fun Badge(text: String, bg: Color, color: Color, icon: String) {
 
 @Composable
 private fun ExpandableRow(title: String, subtitle: String, icon: String) {
-    Surface(shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.surface, border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f))) {
+    val colors = LocalStitchTokens.current.colors
+    Surface(shape = RoundedCornerShape(12.dp), color = colors.surface, border = BorderStroke(1.dp, colors.border.copy(alpha = 0.4f))) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -347,27 +350,29 @@ private fun ExpandableRow(title: String, subtitle: String, icon: String) {
                     MaterialIconRound(name = icon, size = 18.sp, color = Color(0xFFF97316))
                 }
                 Column {
-                    Text(title, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-                    Text(subtitle, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(title, fontSize = 14.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+                    Text(subtitle, fontSize = 12.sp, color = colors.textSub)
                 }
             }
-            MaterialIconRound(name = "expand_more", size = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            MaterialIconRound(name = "expand_more", size = 18.sp, color = colors.textSub)
         }
     }
 }
 
 @Composable
 private fun Bullet(text: String) {
+    val colors = LocalStitchTokens.current.colors
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        MaterialIconRound(name = "check_circle", size = 16.sp, color = Color(0xFFEF4444))
-        Text(text, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        MaterialIconRound(name = "check_circle", size = 16.sp, color = colors.danger)
+        Text(text, fontSize = 12.sp, color = colors.textSub)
     }
 }
 
 @Composable
 private fun MetaRow(label: String, value: String) {
+    val colors = LocalStitchTokens.current.colors
     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-        Text(label, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Text(value, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+        Text(label, fontSize = 12.sp, color = colors.textSub)
+        Text(value, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
     }
 }

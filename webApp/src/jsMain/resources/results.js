@@ -30,6 +30,20 @@ const ResultsState = {
     scanId: null,
 };
 
+function translateText(text) {
+    if (window.qrshieldTranslateText) {
+        return window.qrshieldTranslateText(text);
+    }
+    return text;
+}
+
+function formatText(template, params) {
+    if (window.qrshieldFormatText) {
+        return window.qrshieldFormatText(template, params);
+    }
+    return template;
+}
+
 // =============================================================================
 // INITIALIZATION
 // =============================================================================
@@ -87,7 +101,7 @@ function initializeFromURL() {
 
         // Generate a scan ID
         const scanId = generateScanId();
-        document.getElementById('scanId').textContent = `Result #${scanId}`;
+        document.getElementById('scanId').textContent = formatText('Result # {id}', { id: scanId });
 
         // Construct result object
         ResultsState.currentResult = {
@@ -203,7 +217,7 @@ function applyScanResult(scan, scanId) {
     ResultsState.verdict = resultVerdict;
     ResultsState.confidence = parseInt(scan.score) || 50;
 
-    document.getElementById('scanId').textContent = `Result #${formatScanId(scanId)}`;
+    document.getElementById('scanId').textContent = formatText('Result # {id}', { id: formatScanId(scanId) });
 
     ResultsState.currentResult = {
         url: scan.url,

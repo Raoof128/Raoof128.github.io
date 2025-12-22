@@ -28,6 +28,20 @@ const ExportState = {
     isSidebarOpen: false,
 };
 
+function translateText(text) {
+    if (window.qrshieldTranslateText) {
+        return window.qrshieldTranslateText(text);
+    }
+    return text;
+}
+
+function formatText(template, params) {
+    if (window.qrshieldFormatText) {
+        return window.qrshieldFormatText(template, params);
+    }
+    return template;
+}
+
 // =============================================================================
 // DOM ELEMENTS
 // =============================================================================
@@ -233,15 +247,18 @@ function updatePreview() {
     // Update date
     if (elements.reportDate) {
         const date = new Date(data.timestamp);
-        elements.reportDate.textContent = `Generated on ${formatDate(date)} • ${formatTime(date)} UTC`;
+        elements.reportDate.textContent = formatText('Generated on {date} • {time} UTC', {
+            date: formatDate(date),
+            time: formatTime(date)
+        });
     }
 
     // Update verdict
     if (elements.verdictValue) {
         const verdictMap = {
-            'SAFE': 'Safe',
-            'SUSPICIOUS': 'Suspicious',
-            'MALICIOUS': 'High Risk',
+            'SAFE': translateText('Safe'),
+            'SUSPICIOUS': translateText('Suspicious'),
+            'MALICIOUS': translateText('High Risk'),
         };
         elements.verdictValue.textContent = verdictMap[data.verdict] || data.verdict;
     }
@@ -267,6 +284,7 @@ function updatePreview() {
     // Update summary
     if (elements.analysisSummary && data.summary) {
         elements.analysisSummary.innerHTML = data.summary;
+        window.qrshieldApplyTranslations?.(elements.analysisSummary);
     }
 
     // Update JSON preview
@@ -283,7 +301,7 @@ function updateJsonPreview(data) {
     if (!elements.jsonPreview) return;
 
     const jsonData = {
-        threat_type: data.threatType || 'Phishing',
+        threat_type: translateText(data.threatType || 'Phishing'),
         ssl_issuer: data.sslIssuer || "Let's Encrypt (R3)",
         redirects: data.redirects || 2,
         heuristics: data.heuristics || ['suspicious_tld', 'subdomain_chaining'],
@@ -315,7 +333,7 @@ function exportReport() {
     const format = ExportState.selectedFormat;
     const data = ExportState.reportData;
 
-    showToast(`Generating ${format.toUpperCase()} report...`, 'info');
+    showToast(formatText('Generating {format} report...', { format: format.toUpperCase() }), 'info');
 
     // Simulate export delay
     setTimeout(() => {
@@ -333,12 +351,30 @@ function exportReport() {
 function exportAsPDF(data) {
     // Create a printable version
     const printWindow = window.open('', '_blank');
+    const date = new Date();
+    const verdictMap = {
+        SAFE: translateText('Safe'),
+        SUSPICIOUS: translateText('Suspicious'),
+        MALICIOUS: translateText('High Risk'),
+    };
+    const verdictLabel = verdictMap[data.verdict] || translateText(data.verdict);
+    const riskScoreLabel = translateText('Risk Score');
+    const generatedOn = formatText('Generated on {date} • {time} UTC', {
+        date: formatDate(date),
+        time: formatTime(date)
+    });
+    const reportTitle = translateText('QR-SHIELD Threat Analysis Report');
+    const targetUrlLabel = translateText('Target URL');
+    const technicalIndicatorsLabel = translateText('Technical Indicators');
+    const verifiedBy = formatText('Verified by QR-SHIELD Enterprise v{version}', {
+        version: ExportConfig.version
+    });
 
     const htmlContent = `
 <!DOCTYPE html>
 <html>
 <head>
-    <title>QR-SHIELD Threat Report</title>
+    <title>${translateText('QR-SHIELD Threat Report')}</title>
     <style>
         body { font-family: 'Inter', sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
         h1 { color: #111; margin-bottom: 10px; }
@@ -353,20 +389,20 @@ function exportAsPDF(data) {
     </style>
 </head>
 <body>
-    <h1>QR-SHIELD Threat Analysis Report</h1>
-    <p class="meta">Generated on ${new Date().toISOString()}</p>
+    <h1>${reportTitle}</h1>
+    <p class="meta">${generatedOn}</p>
     
     <div class="verdict">
-        <h2>${data.verdict} - Risk Score: ${data.score}/100</h2>
+        <h2>${verdictLabel} - ${riskScoreLabel}: ${data.score}/100</h2>
     </div>
     
     <div class="section">
-        <div class="label">Target URL</div>
+        <div class="label">${targetUrlLabel}</div>
         <div class="url">${escapeHtml(data.url)}</div>
     </div>
     
     <div class="section">
-        <div class="label">Technical Indicators</div>
+        <div class="label">${technicalIndicatorsLabel}</div>
         <div class="json">${JSON.stringify({
         threat_type: data.threatType || 'Phishing',
         ssl_issuer: data.sslIssuer || "Let's Encrypt (R3)",
@@ -376,7 +412,7 @@ function exportAsPDF(data) {
     </div>
     
     <div class="footer">
-        Verified by QR-SHIELD Enterprise v${ExportConfig.version}
+        ${verifiedBy}
     </div>
 </body>
 </html>
@@ -435,23 +471,34 @@ function exportAsJSON(data) {
 async function copyReport() {
     const data = ExportState.reportData;
 
-    const reportText = `
-QR-SHIELD Threat Analysis Report
-================================
-Generated: ${new Date().toISOString()}
-
-URL: ${data.url}
-Verdict: ${data.verdict}
-Risk Score: ${data.score}/100
-
-Technical Indicators:
-- Threat Type: ${data.threatType || 'Phishing'}
-- SSL Issuer: ${data.sslIssuer || "Let's Encrypt (R3)"}
-- Redirects: ${data.redirects || 2}
-- Heuristics: ${(data.heuristics || ['suspicious_tld', 'subdomain_chaining']).join(', ')}
-
-Verified by QR-SHIELD Enterprise v${ExportConfig.version}
-    `.trim();
+    const verdictMap = {
+        SAFE: translateText('Safe'),
+        SUSPICIOUS: translateText('Suspicious'),
+        MALICIOUS: translateText('High Risk'),
+    };
+    const verdictLabel = verdictMap[data.verdict] || translateText(data.verdict);
+    const now = new Date();
+    const reportLines = [
+        translateText('QR-SHIELD Threat Analysis Report'),
+        '================================',
+        formatText('Generated on {date} • {time} UTC', {
+            date: formatDate(now),
+            time: formatTime(now)
+        }),
+        '',
+        formatText('URL: {url}', { url: data.url }),
+        formatText('Verdict: {verdict}', { verdict: verdictLabel }),
+        formatText('Risk Score: {score}/100', { score: data.score }),
+        '',
+        translateText('Technical Indicators:'),
+        formatText('- Threat Type: {type}', { type: translateText(data.threatType || 'Phishing') }),
+        formatText('- SSL Issuer: {issuer}', { issuer: data.sslIssuer || "Let's Encrypt (R3)" }),
+        formatText('- Redirects: {count}', { count: data.redirects || 2 }),
+        formatText('- Heuristics: {list}', { list: (data.heuristics || ['suspicious_tld', 'subdomain_chaining']).join(', ') }),
+        '',
+        formatText('Verified by QR-SHIELD Enterprise v{version}', { version: ExportConfig.version })
+    ];
+    const reportText = reportLines.join('\n');
 
     try {
         await navigator.clipboard.writeText(reportText);
@@ -556,7 +603,7 @@ function setupKeyboardShortcuts() {
 function showToast(message, type = 'success') {
     if (!elements.toast || !elements.toastMessage) return;
 
-    elements.toastMessage.textContent = message;
+    elements.toastMessage.textContent = translateText(message);
 
     const icon = elements.toast.querySelector('.toast-icon');
     if (icon) {
@@ -597,12 +644,20 @@ function showToast(message, type = 'success') {
 
 function formatDate(date) {
     const options = { month: 'short', day: 'numeric', year: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
+    let locale = 'en-US';
+    if (window.qrshieldGetLanguageCode) {
+        locale = window.qrshieldGetLanguageCode();
+    }
+    return date.toLocaleDateString(locale, options);
 }
 
 function formatTime(date) {
     const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    return date.toLocaleTimeString('en-US', options);
+    let locale = 'en-US';
+    if (window.qrshieldGetLanguageCode) {
+        locale = window.qrshieldGetLanguageCode();
+    }
+    return date.toLocaleTimeString(locale, options);
 }
 
 function escapeHtml(text) {

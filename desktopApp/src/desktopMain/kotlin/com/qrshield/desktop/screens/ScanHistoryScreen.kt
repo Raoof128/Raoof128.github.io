@@ -431,30 +431,30 @@ private fun ScanHistoryContent(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color(0xFFF8FAFC))
+                        .background(colors.backgroundAlt)
                         .padding(16.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text(t("Show rows:"), fontSize = 12.sp, color = Color(0xFF94A3B8))
+                        Text(t("Show rows:"), fontSize = 12.sp, color = colors.textMuted)
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(6.dp))
-                                .background(Color.White)
-                                .border(1.dp, Color(0xFFCBD5E1), RoundedCornerShape(6.dp))
+                                .background(colors.surface)
+                                .border(1.dp, colors.borderStrong, RoundedCornerShape(6.dp))
                                 .padding(horizontal = 8.dp, vertical = 4.dp)
                         ) {
-                            Text("10", fontSize = 12.sp, color = Color(0xFF64748B))
+                            Text("10", fontSize = 12.sp, color = colors.textSub)
                         }
-                        Text(countLabel, fontSize = 12.sp, color = Color(0xFF94A3B8))
+                        Text(countLabel, fontSize = 12.sp, color = colors.textMuted)
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
                         PaginationButton("chevron_left", disabled = true)
                         PaginationNumber("1", active = true)
                         PaginationNumber("2")
                         PaginationNumber("3")
-                        Text("...", fontSize = 12.sp, color = Color(0xFF94A3B8))
+                        Text("...", fontSize = 12.sp, color = colors.textMuted)
                         PaginationNumber("12")
                         PaginationButton("chevron_right")
                     }

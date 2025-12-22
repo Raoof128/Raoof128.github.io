@@ -189,7 +189,7 @@ function updateDbStats() {
     const timeStr = updateTime.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
 
     if (elements.dbLastUpdate) {
-        elements.dbLastUpdate.textContent = `Today, ${timeStr}`;
+        elements.dbLastUpdate.textContent = formatText('Today, {time}', { time: timeStr });
     }
 
     // Signatures
@@ -202,6 +202,20 @@ function t(key, fallback) {
         return window.qrshieldGetTranslation(key);
     }
     return fallback;
+}
+
+function translateText(text) {
+    if (window.qrshieldTranslateText) {
+        return window.qrshieldTranslateText(text);
+    }
+    return text;
+}
+
+function formatText(template, params) {
+    if (window.qrshieldFormatText) {
+        return window.qrshieldFormatText(template, params);
+    }
+    return template;
 }
 
 /**
@@ -229,6 +243,7 @@ function renderHistory() {
                 </td>
             </tr>
         `;
+        window.qrshieldApplyTranslations?.(elements.recentScansBody);
         return;
     }
 
@@ -296,6 +311,8 @@ function renderHistory() {
     `;
     }).join('');
 
+    window.qrshieldApplyTranslations?.(elements.recentScansBody);
+
     // Add click handlers to navigate to results.html
     elements.recentScansBody.querySelectorAll('.clickable-row').forEach(row => {
         row.addEventListener('click', () => {
@@ -361,7 +378,7 @@ function handleImport() {
     input.onchange = (e) => {
         const file = e.target.files?.[0];
         if (file) {
-            showToast(`Imported: ${file.name}`, 'success');
+            showToast(formatText('Imported: {name}', { name: file.name }), 'success');
             // In real implementation, would process the QR code from image
             setTimeout(() => {
                 window.location.href = 'scanner.html';
@@ -565,7 +582,7 @@ function setupKeyboardShortcuts() {
 function showToast(message, type = 'success') {
     if (!elements.toast || !elements.toastMessage) return;
 
-    elements.toastMessage.textContent = message;
+    elements.toastMessage.textContent = translateText(message);
 
     const icon = elements.toast.querySelector('.toast-icon');
     if (icon) {

@@ -10,6 +10,32 @@
 (function () {
     'use strict';
 
+    const NORMALIZE_RE = /\s+/g;
+
+    function normalizeKey(text) {
+        return text ? text.replace(NORMALIZE_RE, ' ').trim() : '';
+    }
+
+    function translateText(text) {
+        const normalized = normalizeKey(text);
+        if (!normalized) return text;
+        if (window.qrshieldGetTranslation) {
+            return window.qrshieldGetTranslation(normalized);
+        }
+        return normalized;
+    }
+
+    function formatText(template, params = {}) {
+        let translated = translateText(template);
+        Object.keys(params).forEach((key) => {
+            translated = translated.replaceAll(`{${key}}`, params[key]);
+        });
+        return translated;
+    }
+
+    window.qrshieldTranslateText = translateText;
+    window.qrshieldFormatText = formatText;
+
     // ==========================================================================
     // USER PROFILE MANAGEMENT
     // ==========================================================================
@@ -154,6 +180,8 @@
 
 
         document.body.appendChild(dropdown);
+        window.qrshieldApplyTranslations?.(dropdown);
+        window.qrshieldApplyTranslations?.(dropdown);
 
         // Smart positioning - prevent dropdown from going off-screen
         const rect = anchorElement.getBoundingClientRect();
@@ -284,6 +312,7 @@
         `;
 
         document.body.appendChild(modal);
+        window.qrshieldApplyTranslations?.(modal);
 
         // Animate in
         requestAnimationFrame(() => {
@@ -661,11 +690,12 @@
             info: 'info'
         };
 
+        const resolvedMessage = translateText(message);
         const toast = document.createElement('div');
         toast.className = `shared-toast ${type}`;
         toast.innerHTML = `
             <span class="material-symbols-outlined">${icons[type]}</span>
-            <span class="toast-message">${message}</span>
+            <span class="toast-message">${resolvedMessage}</span>
         `;
 
         document.body.appendChild(toast);

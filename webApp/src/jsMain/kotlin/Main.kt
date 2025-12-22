@@ -19,8 +19,10 @@ package com.qrshield.web
 import com.qrshield.core.PhishingEngine
 import kotlinx.browser.document
 import kotlinx.browser.window
+import org.w3c.dom.Element
 import org.w3c.dom.HTMLButtonElement
 import org.w3c.dom.HTMLInputElement
+import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 
 /**
@@ -128,26 +130,120 @@ fun main() {
 }
 
 fun initializeLocalization() {
-    val language = com.qrshield.web.i18n.WebLanguage.current()
-    console.log("🌍 Initializing localization for: ${language.code}")
+    console.log("🌍 Initializing localization")
+    applyLocalization(document.body as? Element)
 
-    val elements = document.querySelectorAll("[data-i18n]")
+    window.asDynamic().qrshieldApplyTranslations = { root: dynamic ->
+        val element = root as? Element ?: (document.body as? Element)
+        if (element != null) {
+            applyLocalization(element)
+        }
+    }
+}
+
+private fun applyLocalization(root: Element) {
+    val language = com.qrshield.web.i18n.WebLanguage.current()
+    translateDataI18nElements(root, language)
+    translateDataI18nAttributes(root, language)
+    translateCommonAttributes(root, language)
+    translateMetaContent(language)
+    translateTextNodes(root, language)
+}
+
+private fun translateDataI18nElements(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+    val elements = root.querySelectorAll("[data-i18n]")
     for (i in 0 until elements.length) {
         val element = elements.item(i) as? org.w3c.dom.HTMLElement ?: continue
         val key = element.getAttribute("data-i18n") ?: continue
 
         val translation = try {
-             com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
+            com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
         } catch (e: Exception) {
-             com.qrshield.web.i18n.WebStrings.translate(key, language)
+            com.qrshield.web.i18n.WebStrings.translate(key, language)
         }
-        
-        // Preserve HTML structure if needed, but for now simple text replacement
-        // Check if we need to preserve children (like icons)?
-        // If the element has children (like <span class="material-icons">), innerText will wipe them.
-        // Strategy: Only update text nodes or assume element contains ONLY text.
-        // OR: Look for a specific <span> inside, or assume the element IS the text container.
-        // For <a class="nav-link"><span>Dashboard</span></a>, we should put data-i18n on the inner span.
+
         element.innerText = translation
+    }
+}
+
+private fun translateDataI18nAttributes(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+    val attributes = listOf("placeholder", "title", "aria-label", "alt")
+    attributes.forEach { attr ->
+        val selector = "[data-i18n-$attr]"
+        val elements = root.querySelectorAll(selector)
+        for (i in 0 until elements.length) {
+            val element = elements.item(i) as? Element ?: continue
+            val key = element.getAttribute("data-i18n-$attr") ?: continue
+            val translation = try {
+                com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
+            } catch (e: Exception) {
+                com.qrshield.web.i18n.WebStrings.translate(key, language)
+            }
+            element.setAttribute(attr, translation)
+        }
+    }
+}
+
+private fun translateCommonAttributes(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+    val attributes = listOf("placeholder", "title", "aria-label", "alt")
+    val elements = root.querySelectorAll("*")
+    for (i in 0 until elements.length) {
+        val element = elements.item(i) as? Element ?: continue
+        attributes.forEach { attr ->
+            val value = element.getAttribute(attr) ?: return@forEach
+            if (value.isBlank()) return@forEach
+            val translation = com.qrshield.web.i18n.WebStrings.translate(value, language)
+            if (translation != value) {
+                element.setAttribute(attr, translation)
+            }
+        }
+    }
+}
+
+private fun translateMetaContent(language: com.qrshield.web.i18n.WebLanguage) {
+    val metaElements = document.querySelectorAll("meta[name]")
+    val translatableMeta = setOf("description", "apple-mobile-web-app-title", "application-name")
+    for (i in 0 until metaElements.length) {
+        val element = metaElements.item(i) as? Element ?: continue
+        val name = element.getAttribute("name") ?: continue
+        if (!translatableMeta.contains(name)) continue
+        val content = element.getAttribute("content") ?: continue
+        if (content.isBlank()) continue
+        val translation = com.qrshield.web.i18n.WebStrings.translate(content, language)
+        if (translation != content) {
+            element.setAttribute("content", translation)
+        }
+    }
+}
+
+private fun translateTextNodes(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+    val elements = root.querySelectorAll("*")
+    for (i in 0 until elements.length) {
+        val element = elements.item(i) as? Element ?: continue
+        if (isIconElement(element)) continue
+        if (element.closest("[data-i18n]") != null) continue
+
+        val children = element.childNodes
+        for (j in 0 until children.length) {
+            val node = children.item(j) ?: continue
+            if (node.nodeType != Node.TEXT_NODE) continue
+            val rawText = node.nodeValue ?: continue
+            val trimmed = rawText.trim()
+            if (trimmed.isBlank()) continue
+            val translation = com.qrshield.web.i18n.WebStrings.translate(trimmed, language)
+            if (translation != trimmed) {
+                val leading = rawText.takeWhile { it.isWhitespace() }
+                val trailing = rawText.takeLastWhile { it.isWhitespace() }
+                node.nodeValue = leading + translation + trailing
+            }
+        }
+    }
+}
+
+private fun isIconElement(element: Element): Boolean {
+    val classAttr = element.getAttribute("class") ?: return false
+    val classes = classAttr.split(" ")
+    return classes.any {
+        it.startsWith("material-icons") || it.startsWith("material-symbols")
     }
 }

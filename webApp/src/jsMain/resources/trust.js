@@ -40,6 +40,20 @@ const TrustState = {
     isSidebarOpen: false,
 };
 
+function translateText(text) {
+    if (window.qrshieldTranslateText) {
+        return window.qrshieldTranslateText(text);
+    }
+    return text;
+}
+
+function formatText(template, params) {
+    if (window.qrshieldFormatText) {
+        return window.qrshieldFormatText(template, params);
+    }
+    return template;
+}
+
 // =============================================================================
 // DOM ELEMENTS
 // =============================================================================
@@ -326,7 +340,7 @@ function renderSensitivity() {
 
     // Update badge
     if (elements.sensitivityBadge) {
-        elements.sensitivityBadge.textContent = info.name;
+        elements.sensitivityBadge.textContent = translateText(info.name);
     }
 
     // Update labels
@@ -341,10 +355,11 @@ function renderSensitivity() {
         elements.sensitivityInfo.innerHTML = `
             <span class="material-symbols-outlined">info</span>
             <div class="info-content">
-                <p class="info-title">${info.title}</p>
-                <p class="info-description">${info.description}</p>
+                <p class="info-title">${translateText(info.title)}</p>
+                <p class="info-description">${translateText(info.description)}</p>
             </div>
         `;
+        window.qrshieldApplyTranslations?.(elements.sensitivityInfo);
     }
 }
 
@@ -371,19 +386,21 @@ function renderAllowlist() {
             </div>
         `;
         elements.allowlistContent.classList.add('empty');
+        window.qrshieldApplyTranslations?.(elements.allowlistContent);
     } else {
         elements.allowlistContent.classList.remove('empty');
         elements.allowlistContent.innerHTML = TrustState.allowlist.map((item, index) => `
             <div class="list-item">
                 <div class="item-info">
                     <span class="item-domain">${escapeHtml(item.domain)}</span>
-                    <span class="item-date">Added ${formatAddedDate(item.addedAt)}</span>
+                    <span class="item-date">${formatText('Added {date}', { date: formatAddedDate(item.addedAt) })}</span>
                 </div>
                 <button class="delete-btn" onclick="removeDomain('allowlist', ${index})">
                     <span class="material-symbols-outlined">delete</span>
                 </button>
             </div>
         `).join('');
+        window.qrshieldApplyTranslations?.(elements.allowlistContent);
     }
 }
 
@@ -402,19 +419,21 @@ function renderBlocklist() {
             </div>
         `;
         elements.blocklistContent.classList.add('empty');
+        window.qrshieldApplyTranslations?.(elements.blocklistContent);
     } else {
         elements.blocklistContent.classList.remove('empty');
         elements.blocklistContent.innerHTML = TrustState.blocklist.map((item, index) => `
             <div class="list-item">
                 <div class="item-info">
                     <span class="item-domain">${escapeHtml(item.domain)}</span>
-                    <span class="item-date">Added ${formatAddedDate(item.addedAt)}</span>
+                    <span class="item-date">${formatText('Added {date}', { date: formatAddedDate(item.addedAt) })}</span>
                 </div>
                 <button class="delete-btn" onclick="removeDomain('blocklist', ${index})">
                     <span class="material-symbols-outlined">delete</span>
                 </button>
             </div>
         `).join('');
+        window.qrshieldApplyTranslations?.(elements.blocklistContent);
     }
 }
 
@@ -461,7 +480,7 @@ function handleSensitivityChange(event) {
     saveSettings();
 
     const level = SensitivityLevels[TrustState.sensitivity];
-    showToast(`Sensitivity set to ${level.name}`, 'success');
+    showToast(formatText('Sensitivity set to {level}', { level: translateText(level.name) }), 'success');
 }
 
 // =============================================================================
@@ -532,7 +551,10 @@ function addDomain() {
     renderLists();
     closeModal();
 
-    showToast(`Added ${domain} to ${TrustState.modalTarget}`, 'success');
+    const listLabel = TrustState.modalTarget === 'allowlist'
+        ? translateText('Allowlist')
+        : translateText('Blocklist');
+    showToast(formatText('Added {domain} to {list}', { domain, list: listLabel }), 'success');
 }
 
 /**
@@ -547,7 +569,10 @@ function removeDomain(listType, index) {
     saveSettings();
     renderLists();
 
-    showToast(`Removed ${domainName} from ${listType}`, 'success');
+    const listLabel = listType === 'allowlist'
+        ? translateText('Allowlist')
+        : translateText('Blocklist');
+    showToast(formatText('Removed {domain} from {list}', { domain: domainName, list: listLabel }), 'success');
 }
 
 // Expose to global scope for onclick handlers
@@ -604,7 +629,7 @@ function setupKeyboardShortcuts() {
 function showToast(message, type = 'success') {
     if (!elements.toast || !elements.toastMessage) return;
 
-    elements.toastMessage.textContent = message;
+    elements.toastMessage.textContent = translateText(message);
 
     const icon = elements.toast.querySelector('.toast-icon');
     if (icon) {
@@ -663,7 +688,7 @@ function escapeHtml(text) {
  * @returns {string} - Relative date string (e.g., "2 days ago")
  */
 function formatAddedDate(timestamp) {
-    if (!timestamp) return 'unknown';
+    if (!timestamp) return translateText('unknown');
 
     const now = Date.now();
     const diff = now - timestamp;
@@ -675,12 +700,30 @@ function formatAddedDate(timestamp) {
     const weeks = Math.floor(days / 7);
     const months = Math.floor(days / 30);
 
-    if (seconds < 60) return 'just now';
-    if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
-    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
-    if (days < 7) return `${days} day${days > 1 ? 's' : ''} ago`;
-    if (weeks < 4) return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-    return `${months} month${months > 1 ? 's' : ''} ago`;
+    if (seconds < 60) return translateText('just now');
+    if (minutes < 60) {
+        return minutes === 1
+            ? formatText('{minutes} minute ago', { minutes })
+            : formatText('{minutes} minutes ago', { minutes });
+    }
+    if (hours < 24) {
+        return hours === 1
+            ? formatText('{hours} hour ago', { hours })
+            : formatText('{hours} hours ago', { hours });
+    }
+    if (days < 7) {
+        return days === 1
+            ? formatText('{days} day ago', { days })
+            : formatText('{days} days ago', { days });
+    }
+    if (weeks < 4) {
+        return weeks === 1
+            ? formatText('{weeks} week ago', { weeks })
+            : formatText('{weeks} weeks ago', { weeks });
+    }
+    return months === 1
+        ? formatText('{months} month ago', { months })
+        : formatText('{months} months ago', { months });
 }
 
 /**

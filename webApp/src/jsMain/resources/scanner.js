@@ -31,6 +31,20 @@ const ScannerState = {
     isTorchOn: false,
 };
 
+function translateText(text) {
+    if (window.qrshieldTranslateText) {
+        return window.qrshieldTranslateText(text);
+    }
+    return text;
+}
+
+function formatText(template, params) {
+    if (window.qrshieldFormatText) {
+        return window.qrshieldFormatText(template, params);
+    }
+    return template;
+}
+
 // =============================================================================
 // DOM ELEMENTS
 // =============================================================================
@@ -305,7 +319,7 @@ async function enableCamera() {
         } else if (error.name === 'NotFoundError') {
             showToast('No camera found', 'error');
         } else {
-            showToast('Camera error: ' + error.message, 'error');
+            showToast(formatText('Camera error: {error}', { error: error.message }), 'error');
         }
     }
 }
@@ -624,6 +638,7 @@ function renderHistory() {
                 <span style="color: var(--text-muted); font-size: 0.875rem;">No recent scans</span>
             </div>
         `;
+        window.qrshieldApplyTranslations?.(list);
         return;
     }
 
@@ -644,9 +659,9 @@ function renderHistory() {
         const iconName = item.verdict === 'SAFE' || item.verdict === 'LOW' ? 'check_circle' : 'warning';
 
         let verdictText = item.verdict;
-        if (verdictText === 'HIGH') verdictText = 'Malicious';
-        else if (verdictText === 'MEDIUM') verdictText = 'Suspicious';
-        else verdictText = verdictText.charAt(0) + verdictText.slice(1).toLowerCase();
+        if (verdictText === 'HIGH') verdictText = translateText('Malicious');
+        else if (verdictText === 'MEDIUM') verdictText = translateText('Suspicious');
+        else verdictText = translateText(verdictText.charAt(0) + verdictText.slice(1).toLowerCase());
 
         const timeAgo = getTimeAgo(item.timestamp);
 
@@ -662,6 +677,8 @@ function renderHistory() {
 
         list.appendChild(div);
     });
+
+    window.qrshieldApplyTranslations?.(list);
 }
 
 // =============================================================================
@@ -673,7 +690,9 @@ function updateLiveStatus(text, state) {
     const liveDot = elements.liveStatus?.querySelector('.live-dot');
 
     if (liveText) {
-        liveText.textContent = state === 'connected' ? 'LIVE FEED ACTIVE' : 'LIVE FEED DISCONNECTED';
+        liveText.textContent = state === 'connected'
+            ? translateText('LIVE FEED ACTIVE')
+            : translateText('LIVE FEED DISCONNECTED');
     }
 
     if (liveDot) {
@@ -693,7 +712,7 @@ function hideScanningState() {
 function showToast(message, type = 'success') {
     if (!elements.toast || !elements.toastMessage) return;
 
-    elements.toastMessage.textContent = message;
+    elements.toastMessage.textContent = translateText(message);
 
     const icon = elements.toast.querySelector('.toast-icon');
     if (icon) {
@@ -794,10 +813,23 @@ function getDomainFromUrl(url) {
 function getTimeAgo(timestamp) {
     const seconds = Math.floor((Date.now() - timestamp) / 1000);
 
-    if (seconds < 60) return 'Just now';
-    if (seconds < 3600) return Math.floor(seconds / 60) + ' mins ago';
-    if (seconds < 86400) return Math.floor(seconds / 3600) + ' hrs ago';
-    return Math.floor(seconds / 86400) + ' days ago';
+    if (seconds < 60) return translateText('Just now');
+    if (seconds < 3600) {
+        const minutes = Math.floor(seconds / 60);
+        return minutes === 1
+            ? formatText('{minutes} minute ago', { minutes })
+            : formatText('{minutes} minutes ago', { minutes });
+    }
+    if (seconds < 86400) {
+        const hours = Math.floor(seconds / 3600);
+        return hours === 1
+            ? formatText('{hours} hour ago', { hours })
+            : formatText('{hours} hours ago', { hours });
+    }
+    const days = Math.floor(seconds / 86400);
+    return days === 1
+        ? formatText('{days} day ago', { days })
+        : formatText('{days} days ago', { days });
 }
 
 function escapeHtml(text) {

@@ -31,6 +31,7 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
@@ -421,10 +422,11 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
 @Composable
 private fun EmptyResultState(onNavigate: (AppScreen) -> Unit, language: AppLanguage) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border)
     ) {
         Column(
             modifier = Modifier
@@ -433,15 +435,15 @@ private fun EmptyResultState(onNavigate: (AppScreen) -> Unit, language: AppLangu
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-            Text(t("Run a scan to view dangerous results."), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(t("No scan data available."), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+            Text(t("Run a scan to view dangerous results."), fontSize = 13.sp, color = colors.textSub)
             Button(
                 onClick = { onNavigate(AppScreen.LiveScan) },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
-                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onPrimary)
+                Text(t("Back to Scan"), fontWeight = FontWeight.Medium, color = Color.White)
             }
         }
     }
@@ -449,6 +451,7 @@ private fun EmptyResultState(onNavigate: (AppScreen) -> Unit, language: AppLangu
 
 @Composable
 private fun InfoTile(title: String, badge: String, icon: String, color: Color, body: String, modifier: Modifier = Modifier) {
+    val colors = LocalStitchTokens.current.colors
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(8.dp),
@@ -459,7 +462,7 @@ private fun InfoTile(title: String, badge: String, icon: String, color: Color, b
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     MaterialIconRound(name = icon, size = 16.sp, color = color)
-                    Text(title, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onSurface)
+                    Text(title, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
                 }
                 Box(
                     modifier = Modifier
@@ -470,36 +473,37 @@ private fun InfoTile(title: String, badge: String, icon: String, color: Color, b
                     Text(badge, fontSize = 9.sp, fontWeight = FontWeight.Bold, color = color)
                 }
             }
-            Text(body, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(body, fontSize = 11.sp, color = colors.textSub)
         }
     }
 }
 
 @Composable
 private fun FeedRow(label: String, matched: Boolean, matchedLabel: String, noMatchLabel: String) {
+    val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+            .border(1.dp, colors.border.copy(alpha = 0.2f))
             .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(if (matched) Color(0xFFEF4444) else Color(0xFF10B981)))
-            Text(label, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface)
+            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(if (matched) colors.danger else colors.success))
+            Text(label, fontSize = 13.sp, color = colors.textMain)
         }
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(6.dp))
-                .background(if (matched) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.surfaceVariant)
+                .background(if (matched) colors.danger.copy(alpha = 0.1f) else colors.backgroundAlt)
                 .padding(horizontal = 8.dp, vertical = 4.dp)
         ) {
             Text(
                 if (matched) matchedLabel else noMatchLabel,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
-                color = if (matched) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+                color = if (matched) colors.danger else colors.textSub
             )
         }
     }
@@ -507,6 +511,7 @@ private fun FeedRow(label: String, matched: Boolean, matchedLabel: String, noMat
 
 @Composable
 private fun ActionRow(title: String, subtitle: String, icon: String, onClick: () -> Unit) {
+    val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -519,22 +524,23 @@ private fun ActionRow(title: String, subtitle: String, icon: String, onClick: ()
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            MaterialIconRound(name = icon, size = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            MaterialIconRound(name = icon, size = 18.sp, color = colors.textSub)
             Column {
-                Text(title, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
-                Text(subtitle, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(title, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
+                Text(subtitle, fontSize = 11.sp, color = colors.textSub)
             }
         }
-        MaterialIconRound(name = "arrow_forward", size = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        MaterialIconRound(name = "arrow_forward", size = 14.sp, color = colors.textSub)
     }
 }
 
 @Composable
 private fun ToggleChip(label: String, selected: Boolean, onClick: () -> Unit) {
+    val colors = LocalStitchTokens.current.colors
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))
-            .background(if (selected) MaterialTheme.colorScheme.surface else Color.Transparent)
+            .background(if (selected) colors.surface else Color.Transparent)
             .clickable { onClick() }
             .focusable()
             .padding(horizontal = 10.dp, vertical = 4.dp)
@@ -543,7 +549,7 @@ private fun ToggleChip(label: String, selected: Boolean, onClick: () -> Unit) {
             label,
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium,
-            color = if (selected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant
+            color = if (selected) colors.textMain else colors.textSub
         )
     }
 }

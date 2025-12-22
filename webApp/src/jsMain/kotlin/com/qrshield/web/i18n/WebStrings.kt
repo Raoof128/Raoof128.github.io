@@ -25,7 +25,18 @@ enum class WebLanguage(val code: String) {
             }
         }
 
-        fun current(): WebLanguage = fromCode(window.navigator.language)
+        fun current(): WebLanguage {
+            val stored = try {
+                window.localStorage.getItem("qrshield_language")
+            } catch (_: Throwable) {
+                null
+            }
+            return if (!stored.isNullOrBlank()) {
+                fromCode(stored)
+            } else {
+                fromCode(window.navigator.language)
+            }
+        }
     }
 }
 
@@ -157,6 +168,10 @@ enum class WebStringKey(val defaultText: String) {
 }
 
 object WebStrings {
+    private fun normalizeKey(text: String): String {
+        return text.trim().replace(Regex("\\s+"), " ")
+    }
+
     fun get(key: WebStringKey, language: WebLanguage = WebLanguage.current()): String {
         return when (language) {
             WebLanguage.German -> GermanStrings[key] ?: key.defaultText
@@ -170,13 +185,14 @@ object WebStrings {
     }
 
     fun translate(text: String, language: WebLanguage = WebLanguage.current()): String {
+        val normalized = normalizeKey(text)
          return when (language) {
-            WebLanguage.German -> GermanCommonStrings[text] ?: text
-            WebLanguage.Spanish -> SpanishCommonStrings[text] ?: text
-            WebLanguage.French -> FrenchCommonStrings[text] ?: text
-            WebLanguage.ChineseSimplified -> ChineseCommonStrings[text] ?: text
-            WebLanguage.Japanese -> JapaneseCommonStrings[text] ?: text
-            WebLanguage.Hindi -> HindiCommonStrings[text] ?: text
+            WebLanguage.German -> GermanCommonStrings[normalized] ?: GermanCommonStrings[text] ?: text
+            WebLanguage.Spanish -> SpanishCommonStrings[normalized] ?: SpanishCommonStrings[text] ?: text
+            WebLanguage.French -> FrenchCommonStrings[normalized] ?: FrenchCommonStrings[text] ?: text
+            WebLanguage.ChineseSimplified -> ChineseCommonStrings[normalized] ?: ChineseCommonStrings[text] ?: text
+            WebLanguage.Japanese -> JapaneseCommonStrings[normalized] ?: JapaneseCommonStrings[text] ?: text
+            WebLanguage.Hindi -> HindiCommonStrings[normalized] ?: HindiCommonStrings[text] ?: text
             WebLanguage.English -> text
         }
     }

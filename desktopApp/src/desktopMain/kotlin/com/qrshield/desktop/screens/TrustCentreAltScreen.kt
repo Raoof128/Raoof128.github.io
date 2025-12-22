@@ -28,6 +28,7 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
@@ -55,55 +56,53 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
 private fun TrustCentreAltContent(viewModel: AppViewModel) {
     val language = viewModel.appLanguage
     val t = { text: String -> DesktopStrings.translate(text, language) }
-    val isDark = viewModel.isDarkMode
-    val background = if (isDark) Color(0xFF0F172A) else Color(0xFFF8FAFC)
-    val textMain = if (isDark) Color(0xFFF1F5F9) else Color(0xFF0F172A)
-    val textSub = if (isDark) Color(0xFF94A3B8) else Color(0xFF64748B)
+    val tokens = LocalStitchTokens.current
+    val colors = tokens.colors
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(background)
+            .background(colors.background)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
-                .background(if (isDark) Color(0xFF1E293B).copy(alpha = 0.8f) else Color.White.copy(alpha = 0.8f))
-                .border(1.dp, if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
+                .background(colors.surface.copy(alpha = 0.8f))
+                .border(1.dp, colors.border)
                 .padding(horizontal = 32.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(t("Settings"), fontSize = 14.sp, color = textSub)
-                MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF94A3B8), modifier = Modifier.padding(horizontal = 8.dp))
-                Text(t("Onboarding"), fontSize = 14.sp, color = textSub)
-                MaterialIconRound(name = "chevron_right", size = 16.sp, color = Color(0xFF94A3B8), modifier = Modifier.padding(horizontal = 8.dp))
-                Text(t("Offline Privacy"), fontSize = 14.sp, color = textMain, fontWeight = FontWeight.Medium)
+                Text(t("Settings"), fontSize = 14.sp, color = colors.textSub)
+                MaterialIconRound(name = "chevron_right", size = 16.sp, color = colors.textMuted, modifier = Modifier.padding(horizontal = 8.dp))
+                Text(t("Onboarding"), fontSize = 14.sp, color = colors.textSub)
+                MaterialIconRound(name = "chevron_right", size = 16.sp, color = colors.textMuted, modifier = Modifier.padding(horizontal = 8.dp))
+                Text(t("Offline Privacy"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.Medium)
             }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
+                        .background(colors.border)
                         .clickable { viewModel.showInfo(t("Help is not available yet.")) }
                         .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
-                    MaterialIconRound(name = "help_outline", size = 18.sp, color = textSub)
+                    MaterialIconRound(name = "help_outline", size = 18.sp, color = colors.textSub)
                 }
                 Box(
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .background(if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
+                        .background(colors.border)
                         .clickable { viewModel.showInfo(t("Profile settings are not available yet.")) }
                         .focusable(),
                     contentAlignment = Alignment.Center
                 ) {
-                    MaterialIconRound(name = "person", size = 18.sp, color = textSub)
+                    MaterialIconRound(name = "person", size = 18.sp, color = colors.textSub)
                 }
             }
         }
@@ -120,31 +119,31 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     modifier = Modifier
                         .size(64.dp)
                         .clip(RoundedCornerShape(16.dp))
-                        .background(if (isDark) Color(0xFF1E293B) else Color.White)
-                        .border(1.dp, if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0)),
+                        .background(colors.surface)
+                        .border(1.dp, colors.border),
                     contentAlignment = Alignment.Center
                 ) {
-                    MaterialIconRound(name = "security_update_good", size = 32.sp, color = Color(0xFF2563EB))
+                    MaterialIconRound(name = "security_update_good", size = 32.sp, color = colors.primary)
                 }
                 Text(
                     text = t("Analysed offline.\nYour data stays on-device."),
                     fontSize = 40.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
-                    color = textMain,
+                    color = colors.textMain,
                     modifier = Modifier.padding(top = 16.dp)
                 )
                 Text(
                     text = t("QR-SHIELD processes every scan within a secure, isolated local sandbox. We prioritize explainable security with zero cloud telemetry for image analysis."),
                     fontSize = 16.sp,
-                    color = textSub,
+                    color = colors.textSub,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 12.dp).widthIn(max = 640.dp)
                 )
             }
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                InfoCard(icon = "science", title = t("Local Sandbox"), body = t("Code execution happens in an ephemeral container. Malicious payloads never touch your OS kernel."), modifier = Modifier.weight(1f))
+                InfoCard(icon = "science", title = t("Local Sandbox"), body = t("Code execution happens in an ephemeral container. Malicious payloads never touch an OS kernel."), modifier = Modifier.weight(1f))
                 InfoCard(icon = "cloud_off", title = t("No Cloud Logs"), body = t("We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local."), modifier = Modifier.weight(1f))
                 InfoCard(icon = "storage", title = t("On-Device DB"), body = t("The entire threat signature database is downloaded to your device for millisecond lookups."), modifier = Modifier.weight(1f))
             }
@@ -157,31 +156,31 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
 
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = if (isDark) Color(0xFF1E293B) else Color.White,
-                border = BorderStroke(1.dp, if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
+                color = colors.surface,
+                border = BorderStroke(1.dp, colors.border)
             ) {
                 Column {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(if (isDark) Color(0xFF1E293B) else Color(0xFFF8FAFC))
-                            .border(1.dp, if (isDark) Color(0xFF334155) else Color(0xFFE2E8F0))
+                            .background(colors.backgroundAlt)
+                            .border(1.dp, colors.border)
                             .padding(16.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            MaterialIconRound(name = "verified", size = 18.sp, color = Color(0xFF2563EB))
-                            Text(t("DATA LIFECYCLE VERIFICATION"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = textMain, letterSpacing = 0.8.sp)
+                            MaterialIconRound(name = "verified", size = 18.sp, color = colors.primary)
+                            Text(t("DATA LIFECYCLE VERIFICATION"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textMain, letterSpacing = 0.8.sp)
                         }
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(999.dp))
-                                .background(Color(0xFF10B981).copy(alpha = 0.1f))
-                                .border(1.dp, Color(0xFF10B981).copy(alpha = 0.2f), RoundedCornerShape(999.dp))
+                                .background(colors.success.copy(alpha = 0.1f))
+                                .border(1.dp, colors.success.copy(alpha = 0.2f), RoundedCornerShape(999.dp))
                                 .padding(horizontal = 12.dp, vertical = 4.dp)
                         ) {
-                            Text(t("SECURITY AUDIT: PASS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF10B981))
+                            Text(t("SECURITY AUDIT: PASS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.success)
                         }
                     }
                     Column {
@@ -197,24 +196,25 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
 
 @Composable
 private fun InfoCard(icon: String, title: String, body: String, modifier: Modifier = Modifier) {
+    val colors = LocalStitchTokens.current.colors
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f))
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border.copy(alpha = 0.4f))
     ) {
         Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Box(
                 modifier = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color(0xFFDBEAFE)),
+                    .background(colors.primary.copy(alpha = 0.15f)), // Adjusted for visibility
                 contentAlignment = Alignment.Center
             ) {
-                MaterialIconRound(name = icon, size = 24.sp, color = Color(0xFF2563EB))
+                MaterialIconRound(name = icon, size = 24.sp, color = colors.primary)
             }
-            Text(title, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-            Text(body, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, lineHeight = 18.sp)
+            Text(title, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+            Text(body, fontSize = 13.sp, color = colors.textSub, lineHeight = 18.sp)
         }
     }
 }
@@ -226,6 +226,7 @@ private fun LanguageSection(
     language: AppLanguage
 ) {
     val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
     val languages = listOf(
         AppLanguage.English,
         AppLanguage.German,
@@ -237,14 +238,14 @@ private fun LanguageSection(
     )
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MaterialTheme.colorScheme.surface,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.4f))
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border.copy(alpha = 0.4f))
     ) {
         Column(
             modifier = Modifier.padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            Text(t("Language"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+            Text(t("Language"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 languages.chunked(4).forEach { rowLanguages ->
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -261,7 +262,7 @@ private fun LanguageSection(
             Text(
                 t("Changes apply immediately to navigation labels."),
                 fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = colors.textSub
             )
         }
     }
@@ -269,9 +270,10 @@ private fun LanguageSection(
 
 @Composable
 private fun LanguageChip(label: String, selected: Boolean, onClick: () -> Unit) {
-    val background = if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.1f) else Color.Transparent
-    val border = if (selected) MaterialTheme.colorScheme.primary.copy(alpha = 0.3f) else MaterialTheme.colorScheme.outline.copy(alpha = 0.2f)
-    val textColor = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+    val colors = LocalStitchTokens.current.colors
+    val background = if (selected) colors.primary.copy(alpha = 0.1f) else Color.Transparent
+    val border = if (selected) colors.primary.copy(alpha = 0.3f) else colors.border.copy(alpha = 0.5f)
+    val textColor = if (selected) colors.primary else colors.textSub
 
     Row(
         modifier = Modifier
@@ -289,18 +291,19 @@ private fun LanguageChip(label: String, selected: Boolean, onClick: () -> Unit) 
 
 @Composable
 private fun DataRow(label: String, env: String, noneLabel: String) {
+    val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .border(1.dp, MaterialTheme.colorScheme.outline.copy(alpha = 0.2f))
+            .border(1.dp, colors.border.copy(alpha = 0.2f))
             .padding(horizontal = 24.dp, vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1f))
+        Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain, modifier = Modifier.weight(1f))
         Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF10B981)))
-            Text(env, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(colors.success))
+            Text(env, fontSize = 13.sp, color = colors.textSub)
         }
-        Text(noneLabel, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.weight(1f))
+        Text(noneLabel, fontSize = 12.sp, color = colors.textSub, modifier = Modifier.weight(1f))
     }
 }

@@ -50,7 +50,7 @@ import com.qrshield.model.Verdict
 
 @Composable
 fun LiveScanScreen(viewModel: AppViewModel) {
-    val tokens = StitchTokens.scanMonitor()
+    val tokens = StitchTokens.scanMonitor(isDark = viewModel.isDarkMode)
     val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
         Row(

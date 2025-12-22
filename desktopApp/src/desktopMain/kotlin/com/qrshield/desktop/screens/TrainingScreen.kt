@@ -32,18 +32,19 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 
 @Composable
 fun TrainingScreen(viewModel: AppViewModel) {
-    val tokens = StitchTokens.training()
+    val tokens = StitchTokens.training(isDark = viewModel.isDarkMode)
     StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF8FAFC))
+                .background(tokens.colors.background)
         ) {
             AppSidebar(
                 currentScreen = AppScreen.Training,
@@ -66,11 +67,12 @@ private fun TrainingContent(viewModel: AppViewModel) {
     val seconds = training.remainingSeconds % 60
     val timeLabel = tf("%d:%02d remaining", minutes, seconds)
     val accuracyLabel = "${(training.accuracy * 100).toInt()}%"
+    val colors = LocalStitchTokens.current.colors
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF8FAFC))
-            .gridPattern(spacing = 40.dp, lineColor = Color(0xFFE2E8F0), lineWidth = 1.dp)
+            .background(colors.background)
+            .gridPattern(spacing = 40.dp, lineColor = colors.border, lineWidth = 1.dp)
     ) {
         Column(
             modifier = Modifier

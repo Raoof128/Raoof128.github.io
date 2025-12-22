@@ -36,18 +36,19 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 
 @Composable
 fun ReportsExportScreen(viewModel: AppViewModel) {
-    val tokens = StitchTokens.reports()
+    val tokens = StitchTokens.reports(isDark = viewModel.isDarkMode)
     StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF8FAFC))
+                .background(tokens.colors.background)
         ) {
             AppSidebar(
                 currentScreen = AppScreen.ReportsExport,
@@ -69,11 +70,12 @@ private fun ReportsContent(viewModel: AppViewModel) {
     val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: t("LATEST")
     val scanTimestamp = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: t("Unknown")
     val reportUrl = viewModel.currentUrl ?: t("No URL captured")
+    val colors = LocalStitchTokens.current.colors
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFF8FAFC))
-            .gridPattern(spacing = 40.dp, lineColor = Color(0xFFCBD5E1).copy(alpha = 0.3f), lineWidth = 1.dp)
+            .background(colors.background)
+            .gridPattern(spacing = 40.dp, lineColor = colors.border.copy(alpha = 0.3f), lineWidth = 1.dp)
     ) {
         Row(
             modifier = Modifier

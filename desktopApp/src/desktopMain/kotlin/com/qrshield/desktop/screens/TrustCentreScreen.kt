@@ -33,19 +33,20 @@ import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
+import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 
 @Composable
 fun TrustCentreScreen(viewModel: AppViewModel) {
-    val tokens = StitchTokens.trustCentre()
+    val tokens = StitchTokens.trustCentre(isDark = viewModel.isDarkMode)
     StitchTheme(tokens = tokens) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFF6F8FA))
-                .gridPattern(spacing = 40.dp, lineColor = Color(0xFFE1E4E8), lineWidth = 1.dp)
+                .background(tokens.colors.background)
+                .gridPattern(spacing = 40.dp, lineColor = tokens.colors.border, lineWidth = 1.dp)
         ) {
             AppSidebar(
                 currentScreen = AppScreen.TrustCentre,
