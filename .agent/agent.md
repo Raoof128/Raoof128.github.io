@@ -26,14 +26,38 @@ Expanded Android app from 10 to 15 languages for global reach:
 - Italian (it), Japanese (ja), Korean (ko), Portuguese (pt), Russian (ru)
 - Chinese (zh), Arabic (ar), Turkish (tr), Vietnamese (vi), Indonesian (in), Thai (th)
 
-## 🌐 Language Picker in Settings
+## 🌐 Language Picker - Full Per-App Language Support
 
-Added a new Language selector in the Settings screen under Appearance:
-- Displays current system language with native name
-- Shows all 15 supported languages in a scrollable dialog
-- Highlights current language with checkmark
-- Links to Android Locale Settings for language change
-- Proper RTL support for Arabic
+Added complete per-app language feature to Settings:
+
+### UI Features
+- Displays "System Default (English)" when using system locale
+- Shows selected language name when custom locale is set
+- Dialog lists all 16 options (System Default + 15 languages)
+- Highlights current selection with blue text + checkmark
+- Scrollable list with max height 400dp
+
+### Technical Implementation (Required for Per-App Language)
+| Component | Purpose |
+|-----------|---------|
+| `MainActivity` extends `AppCompatActivity` | **Required** for `setApplicationLocales()` to work |
+| `locales_config.xml` | Declares all 15 supported locales to Android |
+| `AndroidManifest.xml` → `android:localeConfig` | Points to locales_config for Android 13+ |
+| `AppLocalesMetadataHolderService` | Auto-stores locale for Android 12 and below |
+| `Theme.AppCompat.DayNight.NoActionBar` | AppCompat theme required for compatibility |
+
+### Language Change Flow
+1. User taps a language in dialog
+2. `AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))`
+3. Android recreates the activity with new locale
+4. All UI strings update to selected language
+
+### Files Modified
+- `MainActivity.kt` → Changed from `ComponentActivity` to `AppCompatActivity`
+- `locales_config.xml` → Added all 15 languages
+- `AndroidManifest.xml` → Added `AppLocalesMetadataHolderService`
+- `SettingsScreen.kt` → Language picker row + dialog
+
 
 ## ✅ Bug Fixes Completed
 

@@ -18,9 +18,9 @@ package com.qrshield.android
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
@@ -43,8 +43,11 @@ import org.koin.android.ext.android.inject
  * Theme Mode (iOS Parity):
  * - Uses isDarkModeEnabled from SharedViewModel settings
  * - User can toggle via Dashboard toolbar or Settings
+ * 
+ * IMPORTANT: Extends AppCompatActivity (not ComponentActivity) to support
+ * per-app language preferences with AppCompatDelegate.setApplicationLocales()
  */
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         /** Intent extra key for widget/shortcut actions */

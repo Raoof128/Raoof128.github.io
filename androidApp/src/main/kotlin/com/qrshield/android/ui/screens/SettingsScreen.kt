@@ -39,6 +39,8 @@ import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -306,8 +308,17 @@ fun SettingsScreen(
 
         // Language Selection
         item {
-            val currentLocale = context.resources.configuration.locales[0]
-            val currentLanguageName = when (currentLocale.language) {
+            // Check app-specific locale first, fallback to system locale
+            val appLocales = AppCompatDelegate.getApplicationLocales()
+            val isUsingSystemDefault = appLocales.isEmpty
+            val currentLanguageCode = if (isUsingSystemDefault) {
+                context.resources.configuration.locales[0].language
+            } else {
+                appLocales[0]?.language ?: "en"
+            }
+            
+            // If using system default, show "System Default (Language)"
+            val languageName = when (currentLanguageCode) {
                 "en" -> stringResource(R.string.language_english)
                 "de" -> stringResource(R.string.language_german)
                 "es" -> stringResource(R.string.language_spanish)
@@ -324,7 +335,13 @@ fun SettingsScreen(
                 "vi" -> stringResource(R.string.language_vietnamese)
                 "in", "id" -> stringResource(R.string.language_indonesian)
                 "th" -> stringResource(R.string.language_thai)
-                else -> stringResource(R.string.settings_language_system)
+                else -> currentLanguageCode.uppercase()
+            }
+            
+            val currentLanguageName = if (isUsingSystemDefault) {
+                "${stringResource(R.string.settings_language_system)} ($languageName)"
+            } else {
+                languageName
             }
             
             SettingsClickable(
@@ -815,7 +832,18 @@ fun SettingsScreen(
             "in" to stringResource(R.string.language_indonesian),
             "th" to stringResource(R.string.language_thai)
         )
-        val currentLocale = context.resources.configuration.locales[0].language
+        
+        // Add "System Default" as first option
+        val allLanguages = listOf("" to stringResource(R.string.settings_language_system)) + languages
+        
+        // Get current app locale (not system locale)
+        val appLocales = AppCompatDelegate.getApplicationLocales()
+        val isUsingSystemDefault = appLocales.isEmpty
+        val currentLocale = if (isUsingSystemDefault) {
+            "" // Empty means system default
+        } else {
+            appLocales[0]?.language ?: "en"
+        }
         
         AlertDialog(
             onDismissRequest = { showLanguageDialog = false },
@@ -826,9 +854,11 @@ fun SettingsScreen(
                 )
             },
             text = {
-                LazyColumn {
-                    items(languages.size) { index ->
-                        val (code, name) = languages[index]
+                LazyColumn(
+                    modifier = Modifier.heightIn(max = 400.dp)
+                ) {
+                    items(allLanguages.size) { index ->
+                        val (code, name) = allLanguages[index]
                         val isSelected = code == currentLocale || 
                             (code == "in" && currentLocale == "id")
                         
@@ -836,9 +866,14 @@ fun SettingsScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    // Open Android language settings
-                                    val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-                                    context.startActivity(intent)
+                                    // Change app language directly
+                                    if (code.isEmpty()) {
+                                        // Reset to system default
+                                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
+                                    } else {
+                                        val localeList = LocaleListCompat.forLanguageTags(code)
+                                        AppCompatDelegate.setApplicationLocales(localeList)
+                                    }
                                     showLanguageDialog = false
                                 }
                                 .padding(vertical = 12.dp, horizontal = 8.dp),
@@ -860,7 +895,7 @@ fun SettingsScreen(
                                 )
                             }
                         }
-                        if (index < languages.size - 1) {
+                        if (index < allLanguages.size - 1) {
                             HorizontalDivider(
                                 color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
                             )

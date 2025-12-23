@@ -47,17 +47,30 @@ Expanded Android app from 10 to 15 supported languages:
 - Asian: Chinese (zh), Japanese (ja), Korean (ko), Hindi (hi), Thai (th), Vietnamese (vi), Indonesian (in)
 - Middle Eastern: Arabic (ar), Turkish (tr)
 
-### 🌐 Language Picker UI
+### 🌐 Per-App Language Support (Complete)
 
-Added language selector in Settings screen under Appearance section:
-- Shows current language in native script (e.g., "Español", "日本語", "العربية")
-- Dialog displays all 15 languages with current selection highlighted
-- Links to Android Locale Settings for system-wide change
-- Supports RTL languages (Arabic)
+Full per-app language switching - language changes **directly in the app** without system settings:
+
+**How It Works:**
+1. Tap Language in Settings → Appearance
+2. Select a language (or "System Default")
+3. App immediately restarts in selected language
+
+**Technical Requirements (All Implemented):**
+| Component | File |
+|-----------|------|
+| `AppCompatActivity` | `MainActivity.kt` (was ComponentActivity) |
+| Locale declaration | `res/xml/locales_config.xml` (15 locales) |
+| Manifest config | `android:localeConfig="@xml/locales_config"` |
+| Backward compatibility | `AppLocalesMetadataHolderService` in manifest |
+| Theme | `Theme.AppCompat.DayNight.NoActionBar` |
 
 #### 📦 Files Modified
 | File | Changes |
 |------|---------|
+| `MainActivity.kt` | **Changed to AppCompatActivity** (required for per-app language) |
+| `AndroidManifest.xml` | Added `AppLocalesMetadataHolderService` for Android 12 compatibility |
+| `locales_config.xml` | Updated with all 15 languages |
 | `SecurityConstants.kt` | Increased `PHISHING_ENGINE_SAFE_THRESHOLD` (10→25), `SUSPICIOUS_THRESHOLD` (50→60) |
 | `DashboardScreen.kt` | Fixed settings button, added auto-navigation to result screen |
 | `Navigation.kt` | Theme-aware bottom nav and scaffold colors |
