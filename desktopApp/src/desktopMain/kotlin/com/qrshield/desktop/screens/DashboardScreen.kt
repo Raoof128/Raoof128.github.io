@@ -34,6 +34,8 @@ import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
+import com.qrshield.desktop.ui.iconContainer
+import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.data.ScanHistoryManager
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
@@ -380,8 +382,7 @@ private fun DashboardContent(
                             Box(
                                 modifier = Modifier
                                     .size(36.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(colors.backgroundAlt),
+                                    .iconContainer(colors.backgroundAlt),
                                 contentAlignment = Alignment.Center
                             ) {
                                 MaterialIconRound(name = "storage", size = 18.sp, color = colors.textSub)
@@ -438,9 +439,7 @@ private fun HealthBar(label: String, valueLabel: String, color: Color, progress:
 private fun HealthMetric(label: String, value: String, modifier: Modifier = Modifier, colors: com.qrshield.desktop.theme.ColorTokens) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(colors.backgroundAlt)
-            .border(1.dp, colors.border, RoundedCornerShape(8.dp))
+            .panelSurface(colors.backgroundAlt, colors.border)
             .padding(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -471,8 +470,7 @@ private fun FeatureCard(
                 Box(
                     modifier = Modifier
                         .size(40.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(iconBg),
+                        .iconContainer(iconBg),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = icon, size = 18.sp, color = iconColor)

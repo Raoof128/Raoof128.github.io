@@ -44,6 +44,8 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIcon
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.desktop.ui.iconContainer
+import com.qrshield.desktop.ui.panelSurface
 
 @Composable
 fun ResultSuspiciousScreen(viewModel: AppViewModel) {
@@ -269,8 +271,7 @@ private fun SuspiciousContent(
                                         Text(t("View Mode:"), fontSize = 12.sp, color = colors.textSub)
                                         Row(
                                             modifier = Modifier
-                                                .clip(RoundedCornerShape(8.dp))
-                                                .background(if (isDark) colors.backgroundAlt else colors.backgroundAlt)
+                                                .iconContainer(if (isDark) colors.backgroundAlt else colors.backgroundAlt)
                                                 .padding(4.dp)
                                         ) {
                                             Box(
@@ -592,8 +593,7 @@ private fun AlertCard(
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(colors.warning.copy(alpha = 0.2f)),
+                        .iconContainer(colors.warning.copy(alpha = 0.2f)),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIcon(name = icon, size = 18.sp, color = color)

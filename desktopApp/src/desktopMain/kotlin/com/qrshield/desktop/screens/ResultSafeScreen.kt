@@ -35,6 +35,8 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.desktop.ui.iconContainer
+import com.qrshield.desktop.ui.cardSurface
 
 @Composable
 fun ResultSafeScreen(viewModel: AppViewModel) {
@@ -215,8 +217,7 @@ private fun SafeResultContent(
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(colors.backgroundAlt)
+                                .iconContainer(colors.backgroundAlt)
                                 .padding(4.dp)
                         ) {
                             ViewModeButton(
@@ -300,9 +301,7 @@ private fun SafeResultContent(
                                         modifier = Modifier
                                             .fillMaxWidth(0.8f)
                                             .height(96.dp)
-                                            .clip(RoundedCornerShape(8.dp))
-                                            .background(colors.surface)
-                                            .border(1.dp, colors.border)
+                                            .cardSurface(colors.surface, colors.border, radius = 8.dp)
                                     )
                                 }
                             }
@@ -442,8 +441,7 @@ private fun AnalysisCard(title: String, badge: String, icon: String, body: Strin
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(colors.success.copy(alpha = 0.1f)),
+                        .iconContainer(colors.success.copy(alpha = 0.1f)),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = icon, size = 18.sp, color = colors.success)

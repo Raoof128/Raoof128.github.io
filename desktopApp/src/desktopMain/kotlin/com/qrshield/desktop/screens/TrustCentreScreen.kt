@@ -37,6 +37,7 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.desktop.ui.iconContainer
 
 @Composable
 fun TrustCentreScreen(viewModel: AppViewModel) {
@@ -372,8 +373,7 @@ private fun AllowListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .background(Color.Transparent)
+                        .iconContainer(Color.Transparent)
                         .clickable {
                             val trimmed = query.trim()
                             if (trimmed.isBlank()) {
@@ -509,7 +509,7 @@ private fun BlockListCard(viewModel: AppViewModel, modifier: Modifier = Modifier
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                        .iconContainer(Color.Transparent)
                         .clickable {
                             val trimmed = query.trim()
                             if (trimmed.isBlank()) {

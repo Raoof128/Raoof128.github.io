@@ -40,6 +40,9 @@ import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
+import com.qrshield.desktop.ui.iconContainer
+import com.qrshield.desktop.ui.panelSurface
+import com.qrshield.desktop.ui.surfaceBorder
 
 @Composable
 fun ScanHistoryScreen(viewModel: AppViewModel) {
@@ -97,8 +100,7 @@ private fun ScanHistoryHeader(
             Box(
                 modifier = Modifier
                     .size(32.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(colors.primary.copy(alpha = 0.1f)),
+                    .iconContainer(colors.primary.copy(alpha = 0.1f)),
                 contentAlignment = Alignment.Center
             ) {
                 MaterialSymbol(name = "qr_code_scanner", size = 20.sp, color = colors.primary)
@@ -687,9 +689,7 @@ private fun PaginationButton(icon: String, disabled: Boolean = false) {
     Box(
         modifier = Modifier
             .size(32.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .background(Color.Transparent)
-            .border(1.dp, colors.border, RoundedCornerShape(8.dp)),
+            .surfaceBorder(colors.border, radius = 8.dp),
         contentAlignment = Alignment.Center
     ) {
         MaterialSymbol(name = icon, size = 16.sp, color = if (disabled) colors.textMuted.copy(alpha = 0.5f) else colors.textMuted)

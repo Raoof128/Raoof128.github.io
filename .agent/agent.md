@@ -4,10 +4,58 @@ This file tracks significant changes made during development sessions.
 
 ---
 
-# 🎨 December 23, 2025 (Session 5) - Desktop Hardcoded Colors Elimination
+# 🛠️ December 23, 2025 (Session 6) - Desktop Decorative Functions Audit
 
 ### Summary
-Completed the elimination of all hardcoded `Color(0xFF...)` values from Desktop screen files, replacing them with theme tokens from `LocalStitchTokens.current.colors`. Also aligned the light mode palette with HTML reference designs by migrating from Tailwind's "gray" to "slate" color scale.
+Comprehensive audit of Desktop UI decorative functions following Senior Kotlin Multiplatform Desktop UI Architect protocol. Added new reusable modifier extensions and interaction helpers for consistent styling.
+
+## 📊 Audit Inventory
+
+### Existing Decorative Functions (Before Audit)
+
+| Function | Path | Category | Usage | Status |
+|----------|------|----------|-------|--------|
+| `gridPattern()` | `ui/Patterns.kt` | Background Pattern | 7 screens | ✅ Well used |
+| `dottedPattern()` | `ui/Patterns.kt` | Background Pattern | 1 screen | ⚠️ Under-used |
+| `surfaceBorder()` | `ui/Patterns.kt` | Surface Modifier | 0 screens | ❌ Was unused |
+| `rememberHoverState()` | `ui/Interaction.kt` | Interaction | 0 screens | ❌ Was unused |
+| `rememberPressedState()` | `ui/Interaction.kt` | Interaction | 0 screens | ❌ Was unused |
+
+### New Helpers Added
+
+**In `ui/Patterns.kt`:**
+- `cardSurface(backgroundColor, borderColor, radius, borderWidth)` - Standard card styling
+- `panelSurface(backgroundColor, borderColor, radius)` - Nested section styling
+- `statusPill(backgroundColor, borderColor)` - Status indicator badges
+- `iconContainer(backgroundColor, radius)` - Icon background container
+- `buttonSurface(backgroundColor, radius)` - Button background styling
+
+**In `ui/Interaction.kt`:**
+- `rememberInteractionColors(source, defaultBg, hoverBg, ...)` - Color picker based on state
+- `hoverHighlight(interactionSource, hoverBackground, hoverBorder, radius)` - Hover indication modifier
+
+## 📈 Inline Styling Analysis
+
+| Pattern | Total Count | Notes |
+|---------|-------------|-------|
+| `RoundedCornerShape(8.dp)` | 67 | Should use `radius.sm` |
+| `RoundedCornerShape(12.dp)` | 51 | Should use `radius.md` |
+| `RoundedCornerShape(16.dp)` | 20 | Should use `radius.lg` |
+| `.border()` calls | 103 | Many could use `surfaceBorder()` |
+| `.background()` calls | 175 | Many could use new surface helpers |
+| `.clip()` calls | 106 | Many could use new surface helpers |
+| `.focusable()` calls | 49 | ✅ Good keyboard support |
+
+## 🏗️ Architecture Notes
+
+- Theme tokens are properly defined in `StitchTheme.kt` (RadiusTokens: sm=8dp, md=12dp, lg=16dp, xl=24dp)
+- New helpers use theme-compatible defaults
+- All new modifiers documented with KDoc
+- Build verified successful
+
+---
+
+# 🎨 December 23, 2025 (Session 5) - Desktop Hardcoded Colors Elimination
 
 ## ☀️ Light Mode Palette Alignment
 

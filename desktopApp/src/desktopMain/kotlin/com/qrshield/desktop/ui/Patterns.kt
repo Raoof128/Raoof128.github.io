@@ -1,8 +1,10 @@
 package com.qrshield.desktop.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -87,3 +89,86 @@ fun Modifier.surfaceBorder(
     width: Dp = 1.dp,
     radius: Dp = 12.dp
 ): Modifier = this.border(width, color, RoundedCornerShape(radius))
+
+// ============================================================================
+// Card & Surface Composable Helpers
+// ============================================================================
+
+/**
+ * Standard card surface styling: clip + background + border.
+ * Use this for main content cards throughout the app.
+ * 
+ * @param backgroundColor Card background (recommend: colors.surface)
+ * @param borderColor Border color (recommend: colors.border)
+ * @param radius Corner radius (default: 12.dp - tokens.radius.md)
+ * @param borderWidth Border thickness (default: 1.dp)
+ */
+fun Modifier.cardSurface(
+    backgroundColor: Color,
+    borderColor: Color,
+    radius: Dp = 12.dp,
+    borderWidth: Dp = 1.dp
+): Modifier = this
+    .clip(RoundedCornerShape(radius))
+    .background(backgroundColor, RoundedCornerShape(radius))
+    .border(borderWidth, borderColor, RoundedCornerShape(radius))
+
+/**
+ * Panel/section surface styling with subtle background.
+ * Use for nested sections within cards.
+ * 
+ * @param backgroundColor Panel background (recommend: colors.backgroundAlt)
+ * @param borderColor Border color (recommend: colors.border)
+ * @param radius Corner radius (default: 8.dp - tokens.radius.sm)
+ */
+fun Modifier.panelSurface(
+    backgroundColor: Color,
+    borderColor: Color,
+    radius: Dp = 8.dp
+): Modifier = this
+    .clip(RoundedCornerShape(radius))
+    .background(backgroundColor, RoundedCornerShape(radius))
+    .border(1.dp, borderColor, RoundedCornerShape(radius))
+
+/**
+ * Status pill/badge styling.
+ * Use for status indicators, tags, and small labels.
+ * 
+ * @param backgroundColor Pill background (recommend: colors.success.copy(alpha = 0.1f))
+ * @param borderColor Pill border (recommend: colors.success.copy(alpha = 0.3f))
+ */
+fun Modifier.statusPill(
+    backgroundColor: Color,
+    borderColor: Color
+): Modifier = this
+    .clip(RoundedCornerShape(999.dp))
+    .background(backgroundColor, RoundedCornerShape(999.dp))
+    .border(1.dp, borderColor, RoundedCornerShape(999.dp))
+
+/**
+ * Icon container styling - rounded square for icon backgrounds.
+ * Use for feature icons, action icons in cards.
+ * 
+ * @param backgroundColor Container background (recommend: colors.primary.copy(alpha = 0.1f))
+ * @param radius Corner radius (default: 8.dp - tokens.radius.sm)
+ */
+fun Modifier.iconContainer(
+    backgroundColor: Color,
+    radius: Dp = 8.dp
+): Modifier = this
+    .clip(RoundedCornerShape(radius))
+    .background(backgroundColor, RoundedCornerShape(radius))
+
+/**
+ * Button surface styling.
+ * Use for primary/secondary action buttons.
+ * 
+ * @param backgroundColor Button background
+ * @param radius Corner radius (default: 8.dp - tokens.radius.sm)
+ */
+fun Modifier.buttonSurface(
+    backgroundColor: Color,
+    radius: Dp = 8.dp
+): Modifier = this
+    .clip(RoundedCornerShape(radius))
+    .background(backgroundColor, RoundedCornerShape(radius))

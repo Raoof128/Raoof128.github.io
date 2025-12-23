@@ -36,6 +36,8 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.desktop.ui.panelSurface
+import com.qrshield.desktop.ui.cardSurface
 
 @Composable
 fun TrainingScreen(viewModel: AppViewModel) {
@@ -173,9 +175,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     Box(
                                         modifier = Modifier
                                             .size(192.dp)
-                                            .clip(RoundedCornerShape(8.dp))
-                                            .background(colors.surface)
-                                            .border(1.dp, colors.border)
+                                            .cardSurface(colors.surface, colors.border, radius = 8.dp)
                                             .padding(8.dp)
                                     ) {
                                         Image(
@@ -202,9 +202,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         Box(
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .clip(RoundedCornerShape(8.dp))
-                                                .background(colors.backgroundAlt)
-                                                .border(1.dp, colors.border)
+                                                .panelSurface(colors.backgroundAlt, colors.border)
                                                 .padding(12.dp)
                                         ) {
                                             Text(
@@ -220,9 +218,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         Row(
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .clip(RoundedCornerShape(8.dp))
-                                                .background(colors.surface)
-                                                .border(1.dp, colors.border)
+                                                .cardSurface(colors.surface, colors.border, radius = 8.dp)
                                                 .padding(12.dp),
                                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                                         ) {

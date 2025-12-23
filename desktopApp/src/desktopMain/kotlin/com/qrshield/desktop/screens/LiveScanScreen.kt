@@ -45,6 +45,9 @@ import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.desktop.ui.cardSurface
+import com.qrshield.desktop.ui.panelSurface
+import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
 
@@ -415,9 +418,7 @@ private fun LiveScanContent(
                                     Box(
                                         modifier = Modifier
                                             .size(36.dp)
-                                            .clip(RoundedCornerShape(8.dp))
-                                            .background(colors.surface)
-                                            .border(1.dp, colors.border, RoundedCornerShape(8.dp)),
+                                            .cardSurface(colors.surface, colors.border, radius = 8.dp),
                                         contentAlignment = Alignment.Center
                                     ) {
                                         MaterialSymbol(name = "speed", size = 20.sp, color = colors.primary)
@@ -628,9 +629,7 @@ private fun StatusRow(
             Box(
                 modifier = Modifier
                     .size(36.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(colors.surface)
-                    .border(1.dp, colors.border, RoundedCornerShape(8.dp)),
+                    .cardSurface(colors.surface, colors.border, radius = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 MaterialSymbol(name = icon, size = 20.sp, color = iconColor)
@@ -657,9 +656,7 @@ private fun EmptyRecentScanItem(title: String, body: String, colors: com.qrshiel
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(colors.backgroundAlt)
-            .border(1.dp, colors.border, RoundedCornerShape(8.dp))
+            .panelSurface(colors.backgroundAlt, colors.border)
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)

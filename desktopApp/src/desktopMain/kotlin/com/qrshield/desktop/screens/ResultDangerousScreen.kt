@@ -35,6 +35,7 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.desktop.ui.iconContainer
 
 @Composable
 fun ResultDangerousScreen(viewModel: AppViewModel) {
@@ -235,8 +236,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             }
                             Row(
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(if (isDark) colors.backgroundAlt else colors.border.copy(alpha = 0.5f))
+                                    .iconContainer(if (isDark) colors.backgroundAlt else colors.border.copy(alpha = 0.5f))
                                     .padding(4.dp)
                             ) {
                                 ToggleChip(

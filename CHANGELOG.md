@@ -7,9 +7,53 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.17.12] - 2025-12-23
 
-### 🎨 Desktop - Theme Palette Alignment with HTML Reference
+### 🛠️ Desktop - Decorative Functions Audit & Enhancement
 
-Updated both light and dark mode color palettes in `StitchTheme.kt` to exactly match the HTML/Tailwind reference designs.
+Comprehensive audit of desktop UI decorative functions with new reusable modifiers for consistent styling.
+
+#### 📦 New Modifier Extensions in `Patterns.kt`
+
+| Modifier | Purpose | Parameters |
+|----------|---------|------------|
+| `cardSurface()` | Standard card styling (clip + bg + border) | backgroundColor, borderColor, radius, borderWidth |
+| `panelSurface()` | Nested section styling | backgroundColor, borderColor, radius |
+| `statusPill()` | Status indicator badge | backgroundColor, borderColor |
+| `iconContainer()` | Icon background container | backgroundColor, radius |
+| `buttonSurface()` | Button background styling | backgroundColor, radius |
+
+#### 🖱️ New Interaction Helpers in `Interaction.kt`
+
+| Helper | Purpose |
+|--------|---------|
+| `rememberInteractionColors()` | Returns bg/border colors based on hover/press state |
+| `hoverHighlight()` | Modifier for hover indication with background highlight |
+
+#### 📊 Audit Summary
+
+| Category | Count | Status |
+|----------|-------|--------|
+| Background patterns | 2 | ✅ `gridPattern`, `dottedPattern` in use |
+| Surface modifiers | 6 | ✅ New consolidated helpers |
+| Interaction helpers | 4 | ✅ Enhanced with practical utilities |
+| Theme tokens | 45 colors | ✅ Properly defined in palettes |
+
+#### ✨ Screens Updated with New Helpers
+
+| Screen | Patterns Replaced | Helpers Used |
+|--------|-------------------|--------------|
+| `DashboardScreen.kt` | 4 | `iconContainer`, `panelSurface` |
+| `ScanHistoryScreen.kt` | 3 | `iconContainer`, `surfaceBorder` |
+| `LiveScanScreen.kt` | 3 | `cardSurface`, `panelSurface` |
+| `TrainingScreen.kt` | 4 | `cardSurface`, `panelSurface` |
+| `ResultSafeScreen.kt` | 4 | `iconContainer`, `cardSurface` |
+| `ResultDangerousScreen.kt` | 2 | `iconContainer` |
+| `ResultSuspiciousScreen.kt` | 3 | `iconContainer`, `panelSurface` |
+| `TrustCentreScreen.kt` | 2 | `iconContainer` |
+| **Total** | **25** | - |
+
+---
+
+### 🎨 Desktop - Theme Palette Alignment with HTML Reference
 
 #### ☀️ Light Mode Palette (Updated)
 
