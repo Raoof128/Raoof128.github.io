@@ -16,15 +16,32 @@ android {
         applicationId = "com.qrshield.android"
         minSdk = 26
         targetSdk = 35  // Android 16
-        versionCode = 6  // v1.17.7 release
-        versionName = "1.17.7"
+        versionCode = 7  // v1.17.9 release
+        versionName = "1.17.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     
-    // Resource configurations for localization - moved to androidResources
+    // Resource configurations for localization - all 15 supported languages
     androidResources {
-        localeFilters += listOf("en", "es", "fr", "de", "ja", "zh", "ar")
+        localeFilters += listOf(
+            "en",  // English (default)
+            "de",  // German
+            "es",  // Spanish
+            "fr",  // French
+            "it",  // Italian
+            "pt",  // Portuguese
+            "ru",  // Russian
+            "zh",  // Chinese
+            "ja",  // Japanese
+            "ko",  // Korean
+            "hi",  // Hindi
+            "ar",  // Arabic
+            "tr",  // Turkish
+            "vi",  // Vietnamese
+            "in",  // Indonesian
+            "th"   // Thai
+        )
     }
 
     signingConfigs {

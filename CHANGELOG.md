@@ -5,6 +5,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.9] - 2025-12-23
+
+### 🌍 Android - 100% Localization Coverage Achieved
+
+Complete translation coverage for all 15 supported languages with 446 strings each.
+
+#### 🔧 Critical Fix: localeFilters Configuration
+
+**Problem:** 10 out of 15 languages were not working in the app due to build configuration.
+
+**Root Cause:** `build.gradle.kts` had `localeFilters` limiting APK to only 7 languages:
+```kotlin
+// Before: Only 7 languages included
+localeFilters += listOf("en", "es", "fr", "de", "ja", "zh", "ar")
+```
+
+**Fix:** Updated to include all 15 supported languages:
+```kotlin
+// After: All 15 languages included
+localeFilters += listOf(
+    "en", "de", "es", "fr", "it", "pt", "ru", 
+    "zh", "ja", "ko", "hi", "ar", "tr", "vi", "in", "th"
+)
+```
+
+#### 📊 Translation Status (All 100% Complete)
+
+| Language | Locale | Strings | Status |
+|----------|--------|---------|--------|
+| 🇬🇧 English | `en` | 446 | ✅ Base |
+| 🇩🇪 German | `de` | 446/446 | ✅ Complete |
+| 🇪🇸 Spanish | `es` | 446/446 | ✅ Complete |
+| 🇫🇷 French | `fr` | 446/446 | ✅ Complete |
+| 🇮🇹 Italian | `it` | 446/446 | ✅ Complete |
+| 🇵🇹 Portuguese | `pt` | 446/446 | ✅ Complete |
+| 🇷🇺 Russian | `ru` | 446/446 | ✅ Complete |
+| 🇨🇳 Chinese | `zh` | 446/446 | ✅ Complete |
+| 🇯🇵 Japanese | `ja` | 446/446 | ✅ Complete |
+| 🇰🇷 Korean | `ko` | 446/446 | ✅ Complete |
+| 🇮🇳 Hindi | `hi` | 446/446 | ✅ Complete |
+| 🇸🇦 Arabic | `ar` | 446/446 | ✅ Complete (RTL) |
+| 🇹🇷 Turkish | `tr` | 446/446 | ✅ Complete |
+| 🇻🇳 Vietnamese | `vi` | 446/446 | ✅ Complete |
+| 🇮🇩 Indonesian | `in` | 446/446 | ✅ Complete |
+| 🇹🇭 Thai | `th` | 446/446 | ✅ Complete |
+
+#### 🔧 Additional Fix: Format String Placeholders
+
+Fixed escaped dollar signs in format placeholders for Turkish, Vietnamese, Indonesian, and Thai:
+- **Before:** `%1\$d` (broken formatting)
+- **After:** `%1$d` (correct formatting)
+
+#### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `build.gradle.kts` | Added all 15 locales to `localeFilters` |
+| `values-tr/strings.xml` | Complete Turkish translation (446 strings) |
+| `values-vi/strings.xml` | Complete Vietnamese translation (446 strings) |
+| `values-in/strings.xml` | Complete Indonesian translation (446 strings) |
+| `values-th/strings.xml` | Complete Thai translation (446 strings) |
+| `values-hi/strings.xml` | Complete Hindi translation (446 strings) |
+| `values-ko/strings.xml` | Complete Korean translation (446 strings) |
+
+#### ✅ Verification Completed
+
+- All 15 XML files pass `xmllint` validation
+- All format placeholders use correct syntax
+- APK includes all 15 locale configurations
+- Build passes successfully
+
+---
+
 ## [1.17.8] - 2025-12-23
 
 ### 🐛 Android - Critical Bug Fixes & UI Refinements

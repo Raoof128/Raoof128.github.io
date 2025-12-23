@@ -2,36 +2,53 @@
 <resources>
     <!-- App Identity -->
     <string name="app_name">QR-SHIELD</string>
-    <string name="tagline">Scanner les codes QR. Détecter le phishing.</string>
-    
+    <string name="tagline">Scannez les codes QR. Détectez le phishing.</string>
+
     <!-- Navigation -->
     <string name="nav_home">Accueil</string>
     <string name="nav_scan">Scanner</string>
     <string name="nav_history">Historique</string>
     <string name="nav_settings">Paramètres</string>
-    
+
     <!-- Dashboard -->
-    <string name="dashboard_welcome_back">Bon retour</string>
-    <string name="dashboard_default_user">Admin sécurité</string>
-    <string name="dashboard_shield_active">PROTECTION ACTIVE</string>
+    <string name="dashboard_welcome_back">Bienvenue</string>
+    <string name="dashboard_default_user">Administrateur Sécurité</string>
+    <string name="dashboard_shield_active">BOUCLIER ACTIF</string>
     <string name="dashboard_headline">Sécurisé. Hors ligne.\nDéfense explicable.</string>
-    <string name="dashboard_subtitle">Votre base de données d\'entreprise est à jour et surveille localement.</string>
-    <string name="dashboard_scan_qr">Scanner un QR</string>
+    <string name="dashboard_subtitle">Votre base de données entreprise est à jour et surveille localement.</string>
+    <string name="dashboard_scan_qr">Scanner QR</string>
     <string name="dashboard_import_image">Importer une image</string>
-    <string name="dashboard_system_health">Santé du système</string>
+    <string name="dashboard_system_health">État du système</string>
     <string name="dashboard_total_scans">Total des scans</string>
     <string name="dashboard_threats_blocked">Menaces bloquées</string>
     <string name="dashboard_recent_scans">Scans récents</string>
     <string name="dashboard_view_all">Voir tout</string>
     <string name="dashboard_tools">Outils de sécurité</string>
-    
+    <string name="dashboard_no_scans">Pas encore de scans</string>
+    <string name="dashboard_no_scans_hint">Scannez un code QR pour commencer votre historique</string>
+    <string name="dashboard_score_fmt">Score: %1$d</string>
+    <string name="dashboard_db_status_default">Base de données à jour</string>
+    <string name="dashboard_enterprise_protection">Protection entreprise</string>
+    <string name="dashboard_url_placeholder">Entrez l\'URL ici…</string>
+
     <!-- Scanner Screen -->
-    <string name="start_scanning">Commencer le scan</string>
-    <string name="scan_from_gallery">Scanner depuis galerie</string>
+    <string name="start_scanning">Démarrer le scan</string>
+    <string name="scan_from_gallery">Scanner depuis la galerie</string>
     <string name="scan_instruction">Alignez le code QR dans le cadre</string>
     <string name="analyzing_url">Analyse de l\'URL…</string>
     <string name="scans_in_history">%d scans dans l\'historique</string>
-    
+    <string name="error_no_qr_found">Aucun code QR trouvé dans l\'image sélectionnée</string>
+    <string name="scanning_image_progress">Scan de l\'image pour les codes QR…</string>
+    <string name="red_team_scenarios_title">Scénarios Red Team</string>
+    <string name="red_team_attacks_fmt">%1$d attaques</string>
+    <string name="red_team_hint">Appuyez sur un scénario pour tester la détection sans caméra</string>
+    <string name="resolving_short_link_title">Résolution du lien court…</string>
+    <string name="resolving_short_link_subtitle">Révélation de la destination cachée</string>
+    <string name="enter_url_manually">Entrer l\'URL manuellement</string>
+    <string name="analyze_url">Analyser l\'URL</string>
+    <string name="url_hint">ex. https://exemple.fr</string>
+    <string name="url_placeholder">Entrez l\'adresse URL</string>
+
     <!-- Results -->
     <string name="risk_score">Score de risque</string>
     <string name="scanned_url">URL scannée</string>
@@ -41,54 +58,144 @@
     <string name="scan_another">Scanner un autre</string>
     <string name="safe_verdict">SÛR</string>
     <string name="suspicious_verdict">SUSPECT</string>
-    <string name="malicious_verdict">DANGEREUX</string>
-    
+    <string name="malicious_verdict">MALVEILLANT</string>
+
+    <!-- Scan Result Screen -->
+    <string name="scan_result_title">Résultat du scan</string>
+    <string name="verdict_malicious">Risque élevé détecté</string>
+    <string name="verdict_suspicious">Activité suspecte</string>
+    <string name="verdict_safe">Sûr à ouvrir</string>
+    <string name="verdict_unknown">Risque inconnu</string>
+    <string name="threat_type_phishing">Phishing</string>
+    <string name="threat_type_suspicious">Suspect</string>
+    <string name="threat_type_verified">Vérifié</string>
+    <string name="threat_type_unknown">Inconnu</string>
+    <string name="confidence_fmt">%1$d%% Confiance</string>
+    <string name="severity_score_label">SCORE DE GRAVITÉ</string>
+    <string name="risk_score_desc">Cette URL présente des modèles cohérents avec des campagnes malveillantes connues.</string>
+    <string name="target_url_label">URL CIBLE</string>
+    <string name="analysis_breakdown_title">Détail de l\'analyse</string>
+    <string name="ai_explained_label">IA expliquée</string>
+    <string name="scan_meta_fmt">Scanné: %1$s • Moteur v%2$s • %3$s</string>
+    <string name="scan_mode_offline">Hors ligne</string>
+    <string name="scan_mode_online">En ligne</string>
+    <string name="action_block_report">Bloquer et signaler à IT</string>
+    <string name="action_ignore_warning">Ignorer l\'avertissement (Admin)</string>
+    <string name="risk_assessment_title">Évaluation des risques</string>
+    <string name="risk_level_low">RISQUE FAIBLE</string>
+    <string name="risk_level_warning">AVERTISSEMENT</string>
+    <string name="risk_level_critical">CRITIQUE</string>
+    <string name="risk_label_safe">SÛR</string>
+    <string name="risk_label_warn">ATTENTION</string>
+    <string name="risk_label_critical">CRITIQUE</string>
+    <string name="analysis_time_label">Temps d\'analyse</string>
+    <string name="heuristics_label">Heuristiques</string>
+    <string name="engine_label">Moteur</string>
+    <string name="engine_version_fmt">v%1$s</string>
+    <string name="action_share">Partager</string>
+    <string name="action_open_safely">Ouvrir en sécurité</string>
+    <string name="action_block">Bloquer</string>
+    <string name="action_report_it">Signaler à IT</string>
+    <string name="action_close">Fermer</string>
+    <string name="action_continue">Continuer</string>
+    <string name="action_review">Réviser</string>
+    <string name="action_start_module">Démarrer le module</string>
+
+    <!-- Analysis Items -->
+    <string name="analysis_domain_age_title">Alerte âge du domaine</string>
+    <string name="analysis_domain_age_desc">Domaine créé il y a moins de 24 heures. Forte probabilité d\'infrastructure de phishing jetable.</string>
+    <string name="analysis_redirect_title">Redirection suspecte</string>
+    <string name="analysis_redirect_desc">L\'URL contient 3 niveaux de redirection conçus pour contourner les filtres de messagerie.</string>
+    <string name="analysis_db_match_title">Correspondance base de données</string>
+    <string name="analysis_db_match_desc">Le modèle correspond à la signature de menace connue #4421 de l\'intelligence globale.</string>
+    <string name="tag_credential_harvesting">Vol d\'identifiants</string>
+    <string name="tag_homograph_attack">Attaque homographe</string>
+    <string name="tag_new_domain">Nouveau domaine</string>
+
     <!-- Recommendations -->
-    <string name="recommendation_safe">Cette URL semble sûre. Vous pouvez continuer en toute confiance.</string>
-    <string name="recommendation_suspicious">Attention avec cette URL. Vérifiez la source avant de continuer.</string>
-    <string name="recommendation_malicious">⛔ AVERTISSEMENT : Cette URL montre des signes de phishing. N\'entrez aucune info personnelle.</string>
-    <string name="recommendation_unknown">Impossible de vérifier entièrement cette URL. Procédez avec prudence.</string>
-    
+    <string name="recommendation_safe">Cette URL semble sûre. Vous pouvez continuer.</string>
+    <string name="recommendation_suspicious">Procédez avec prudence avec cette URL. Vérifiez la source.</string>
+    <string name="recommendation_malicious">⛔ ATTENTION: Cette URL montre des signes de phishing. N\'entrez AUCUNE information personnelle.</string>
+    <string name="recommendation_unknown">Impossible de vérifier complètement l\'URL. La prudence est recommandée.</string>
+    <string name="recommended_actions">Actions recommandées</string>
+    <string name="remediation_1">N\'entrez pas d\'identifiants sur cette page</string>
+    <string name="remediation_2">Bloquez le domaine dans votre pare-feu d\'entreprise</string>
+    <string name="remediation_3">Si des identifiants ont été entrés, réinitialisez les mots de passe immédiatement</string>
+
     <!-- History Screen -->
-    <string name="search_placeholder">Rechercher des URL…</string>
-    <string name="clear_history_title">Effacer tout l\'historique ?</string>
-    <string name="clear_history_message">Cette action est irréversible. Tout l\'historique de scan sera définitivement supprimé.</string>
+    <string name="search_placeholder">Rechercher des URLs…</string>
+    <string name="clear_history_title">Effacer l\'historique ?</string>
+    <string name="clear_history_message">Cette action ne peut pas être annulée. Tout l\'historique des scans sera définitivement supprimé.</string>
     <string name="clear_all">Tout effacer</string>
     <string name="cancel">Annuler</string>
     <string name="delete">Supprimer</string>
-    <string name="delete_item_title">Supprimer ce scan ?</string>
+    <string name="delete_item_title">Supprimer le scan ?</string>
     <string name="delete_item_message">Cet élément sera supprimé de votre historique.</string>
     <string name="copy_url">Copier l\'URL</string>
-    <string name="no_history">Aucun historique</string>
+    <string name="no_history">Aucun historique de scan</string>
     <string name="scan_to_see_history">Vos résultats de scan apparaîtront ici</string>
     <string name="no_results">Aucun résultat trouvé</string>
-    <string name="try_different_filter">Essayez un filtre ou un terme de recherche différent</string>
-    
+    <string name="try_different_filter">Essayez un filtre ou terme de recherche différent</string>
+    <string name="history_go_to_scanner">Aller au scanner</string>
+
     <!-- Settings Screen -->
-    <string name="settings_scanning">Scan</string>
-    <string name="settings_auto_scan">Auto-scan au démarrage</string>
-    <string name="settings_auto_scan_desc">Commencer à scanner immédiatement à l\'ouverture de l\'app</string>
+    <string name="settings_scanning">Numérisation</string>
+    <string name="settings_auto_scan">Scan auto au démarrage</string>
+    <string name="settings_auto_scan_desc">Scanner immédiatement à l\'ouverture de l\'app</string>
     <string name="settings_haptic">Retour haptique</string>
-    <string name="settings_haptic_desc">Vibrer lors des résultats de scan</string>
+    <string name="settings_haptic_desc">Vibrer avec les résultats du scan</string>
     <string name="settings_sound">Effets sonores</string>
     <string name="settings_sound_desc">Jouer des sons pour les alertes</string>
-    
     <string name="settings_notifications">Notifications</string>
     <string name="settings_security_alerts">Alertes de sécurité</string>
-    <string name="settings_security_alerts_desc">Recevoir des notifications sur les menaces de sécurité</string>
+    <string name="settings_security_alerts_desc">Recevoir des notifications de menaces de sécurité</string>
     <string name="settings_system_notifications">Notifications système</string>
     <string name="settings_system_notifications_desc">Configurer les préférences de notification</string>
-    
+
+    <!-- Settings - Appearance -->
+    <string name="settings_appearance">Apparence</string>
+    <string name="settings_dark_mode">Mode sombre</string>
+    <string name="settings_dark_mode_desc">Utiliser le schéma de couleurs sombre</string>
+    <string name="settings_reduced_effects">Réduire les effets</string>
+    <string name="settings_reduced_effects_desc">Réduire les effets de verre et les animations</string>
+    <string name="settings_system_appearance">Apparence système</string>
+    <string name="settings_system_appearance_desc">Configurer les paramètres d\'affichage</string>
+
+    <!-- Settings - Language -->
+    <string name="settings_language">Langue</string>
+    <string name="settings_language_desc">Choisissez votre langue préférée</string>
+    <string name="settings_language_system">Par défaut du système</string>
+    <string name="settings_select_language">Sélectionner la langue</string>
+    <string name="language_english">English</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Français</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_arabic">العربية</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_thai">ภาษาไทย</string>
+
+    <!-- Settings - Privacy -->
     <string name="settings_privacy">Confidentialité</string>
-    <string name="settings_save_history">Enregistrer l\'historique des scans</string>
-    <string name="settings_save_history_desc">Conserver un journal des URL scannées</string>
+    <string name="settings_save_history">Sauvegarder l\'historique des scans</string>
+    <string name="settings_save_history_desc">Conserver un enregistrement des URLs scannées</string>
     <string name="settings_privacy_policy">Politique de confidentialité</string>
     <string name="settings_privacy_policy_desc">Voir nos pratiques de confidentialité</string>
-    
+
+    <!-- Settings - Accessibility -->
     <string name="settings_accessibility">Accessibilité</string>
     <string name="settings_accessibility_settings">Paramètres d\'accessibilité</string>
     <string name="settings_accessibility_settings_desc">Configurer TalkBack et autres services</string>
-    
+
+    <!-- Settings - About -->
     <string name="settings_about">À propos</string>
     <string name="settings_version">Version</string>
     <string name="settings_build">Build</string>
@@ -96,62 +203,123 @@
     <string name="settings_source_code">Code source</string>
     <string name="settings_help">Aide et support</string>
     <string name="settings_help_desc">Signaler des problèmes ou obtenir de l\'aide</string>
-    
+    <string name="settings_build_fmt">Android %1$s • API %2$d</string>
+    <string name="settings_engine_desc">KMP PhishingEngine v1.0</string>
+    <string name="settings_quick_actions">Actions rapides</string>
+    <string name="settings_trust_centre">Centre de confiance</string>
+    <string name="settings_trust_centre_desc">Paramètres de sécurité</string>
+    <string name="settings_threat_monitor">Moniteur de menaces</string>
+    <string name="settings_threat_monitor_desc">Alertes en temps réel</string>
+    <string name="settings_export_report">Exporter le rapport</string>
+    <string name="settings_export_report_desc">Rapport de sécurité PDF</string>
+    <string name="about_app_desc">Détecteur QRishing Kotlin Multiplateforme</string>
+    <string name="about_made_with_love">Fait avec ❤️ pour KotlinConf 2026</string>
+    <string name="platform_android">Android 16</string>
+    <string name="platform_kotlin">Kotlin 1.9.22</string>
+    <string name="subtitle_github">GitHub</string>
+
+    <!-- Developer Mode -->
+    <string name="url_unshortener_title">Résoudre les liens courts</string>
+    <string name="url_unshortener_desc">Révéler les destinations cachées (En ligne uniquement). Nécessite un accès réseau.</string>
+    <string name="dev_mode_section">🕵️ Mode développeur</string>
+    <string name="red_team_mode">Mode Red Team</string>
+    <string name="red_team_mode_desc">Afficher les scénarios d\'attaque sur l\'écran du scanner</string>
+    <string name="dev_mode_disabled_toast">Mode développeur désactivé</string>
+    <string name="red_team_warning_text">Le mode Red Team contourne la caméra et injecte des URLs de test directement dans le moteur de détection.</string>
+    <string name="dev_mode_version_suffix">(DEV)</string>
+    <string name="dev_mode_enabled_toast">🕵️ Mode développeur activé! Scénarios Red Team disponibles.</string>
+    <string name="dev_mode_tap_hint">%1$d appuis de plus pour %2$s le mode développeur</string>
+    <string name="dev_mode_enable">activer</string>
+    <string name="dev_mode_disable">désactiver</string>
+
+    <!-- Verification -->
+    <string name="verify_integrity_title">Vérifier l\'intégrité du système</string>
+    <string name="verify_integrity_desc_running">Vérification en cours…</string>
+    <string name="verify_integrity_desc_default">Prouver 87% de précision sur l\'appareil</string>
+    <string name="verification_dialog_healthy">Système sain ✓</string>
+    <string name="verification_dialog_complete">Vérification terminée</string>
+    <string name="verification_passed_tests">Réussi %1$d/%2$d tests</string>
+    <string name="confusion_matrix">Matrice de confusion</string>
+    <string name="metrics_title">Métriques de performance</string>
+    <string name="metric_accuracy">Exactitude</string>
+    <string name="metric_precision">Précision</string>
+    <string name="metric_recall">Rappel</string>
+    <string name="metric_f1_score">Score F1</string>
+    <string name="execution_time_fmt">Terminé en %1$dms</string>
+
     <!-- Errors -->
-    <string name="error_title">Une erreur est survenue</string>
+    <string name="error_title">Une erreur s\'est produite</string>
     <string name="try_again">Réessayer</string>
     <string name="camera_permission_rationale">L\'accès à la caméra est nécessaire pour scanner les codes QR</string>
-    <string name="camera_permission_denied">Permission de caméra refusée. Veuillez l\'activer dans les paramètres.</string>
-    
+    <string name="camera_permission_denied">Permission caméra refusée. Veuillez activer dans les paramètres.</string>
+
     <!-- Widget -->
-    <string name="widget_name">QR-SHIELD Scan Rapide</string>
-    <string name="widget_description">Scanner rapidement des codes QR pour les menaces de phishing</string>
-    <string name="widget_tap_to_scan">Toucher pour scanner</string>
-    
-    <!-- Accessibility (content descriptions) -->
-    <string name="cd_app_logo">Logo de QR-SHIELD</string>
-    <string name="cd_scanner_preview">Aperçu de la caméra pour le scan de code QR</string>
+    <string name="widget_name">QR-SHIELD Scan rapide</string>
+    <string name="widget_description">Scannez rapidement les codes QR pour les menaces de phishing</string>
+    <string name="widget_tap_to_scan">Appuyez pour scanner</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">Logo QR-SHIELD</string>
+    <string name="cd_scanner_preview">Aperçu caméra pour le scan de code QR</string>
     <string name="cd_close_scanner">Fermer le scanner</string>
-    <string name="cd_toggle_flash">Basculer la lampe de poche</string>
+    <string name="cd_toggle_flash">Basculer la lampe torche</string>
     <string name="cd_scan_result">Résultat du scan montrant le verdict et le score de risque</string>
-    <string name="cd_scan_button">Scanner des codes QR</string>
-    <string name="cd_gallery_button">Sélectionner une image de code QR depuis la galerie</string>
+    <string name="cd_scan_button">Commencer à scanner les codes QR</string>
+    <string name="cd_gallery_button">Sélectionner une image de code QR de la galerie photo</string>
     <string name="cd_copy_button">Copier l\'URL dans le presse-papiers</string>
     <string name="cd_share_button">Partager l\'URL</string>
     <string name="cd_open_url">Ouvrir l\'URL dans le navigateur</string>
     <string name="cd_delete_item">Supprimer ce scan de l\'historique</string>
-    <string name="cd_clear_history">Effacer tout l\'historique de scan</string>
-    <string name="cd_search_history">Rechercher dans l\'historique de scan</string>
+    <string name="cd_clear_history">Effacer tout l\'historique des scans</string>
+    <string name="cd_search_history">Rechercher l\'historique des scans</string>
     <string name="cd_filter_safe">Afficher uniquement les scans sûrs</string>
     <string name="cd_filter_suspicious">Afficher uniquement les scans suspects</string>
     <string name="cd_filter_malicious">Afficher uniquement les scans malveillants</string>
-    <string name="cd_history_item">Élément de l\'historique de scan</string>
+    <string name="cd_history_item">Élément de l\'historique des scans</string>
     <string name="cd_settings_toggle">Basculer le paramètre</string>
     <string name="cd_back_button">Retour</string>
     <string name="cd_processing">Traitement en cours, veuillez patienter</string>
-    <string name="cd_safe_verdict">L\'URL est sûre à visiter</string>
-    <string name="cd_suspicious_verdict">L\'URL est suspecte, procédez avec prudence</string>
+    <string name="cd_safe_verdict">URL sûre à visiter</string>
+    <string name="cd_suspicious_verdict">URL suspecte, procédez avec prudence</string>
     <string name="cd_malicious_verdict">Attention, l\'URL semble être une tentative de phishing malveillante</string>
     <string name="cd_risk_score">Score de risque sur 100</string>
+    <string name="cd_back">Retour</string>
+    <string name="cd_share">Partager</string>
+    <string name="cd_copy_url">Copier l\'URL</string>
+    <string name="cd_action">Action</string>
+    <string name="cd_open_system_settings">Ouvrir les paramètres système</string>
+    <string name="cd_open_privacy_policy">Ouvrir la politique de confidentialité</string>
+    <string name="cd_open_accessibility">Ouvrir les paramètres d\'accessibilité</string>
+    <string name="cd_run_verification">Lancer la vérification</string>
+    <string name="cd_open_github">Ouvrir GitHub</string>
+    <string name="cd_open_help">Ouvrir l\'aide</string>
+    <string name="cd_settings_screen">Écran des paramètres avec les préférences de l\'app</string>
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_navigation_bar">Barre de navigation principale avec 4 onglets: Accueil, Scanner, Historique et Paramètres</string>
+    <string name="cd_dashboard_screen">Écran d\'accueil du tableau de bord</string>
+    <string name="cd_scanner_screen">Écran du scanner de codes QR</string>
+    <string name="cd_history_screen">Écran de l\'historique des scans</string>
+    <string name="cd_dismiss_hint">Ignorer l\'indice</string>
+
     <!-- Trust Centre -->
-    <string name="trust_center_title">Statut de sécurité</string>
+    <string name="trust_center_title">État de la sécurité</string>
     <string name="trust_center_secure">Votre appareil est sécurisé</string>
     <string name="trust_center_protected_by">Protégé par QR-SHIELD Enterprise</string>
-    <string name="trust_center_score">Score de sécurité : %d/100</string>
+    <string name="trust_center_score">Score de sécurité: %d/100</string>
     <string name="trust_center_realtime">Protection en temps réel</string>
-    <string name="trust_center_malware">Détection de malwares</string>
+    <string name="trust_center_malware">Détection de malware</string>
     <string name="trust_center_scarm_blocker">Bloqueur d\'arnaques</string>
     <string name="trust_center_active">Actif</string>
-    <string name="trust_center_database_status">Statut de la base de données</string>
-    <string name="trust_center_last_updated">Dernière mise à jour : %s</string>
+    <string name="trust_center_database_status">État de la base de données</string>
+    <string name="trust_center_last_updated">Dernière mise à jour: %s</string>
     <string name="trust_center_just_now">À l\'instant</string>
     <string name="trust_center_check_updates">Vérifier les mises à jour</string>
-    <string name="trust_center_system_activity">Activité système</string>
+    <string name="trust_center_system_activity">Activité du système</string>
     <string name="trust_center_report_24h">Rapport de protection 24h</string>
     <string name="trust_center_scans">Scans</string>
     <string name="trust_center_threats">Menaces</string>
-    <string name="trust_center_blocked">Bloqué</string>
-    <string name="trust_center_safe">Sûr</string>
+    <string name="trust_center_blocked">Bloquées</string>
+    <string name="trust_center_safe">Sûres</string>
     <string name="trust_center_modules">Modules de sécurité</string>
     <string name="trust_center_heuristics">Moteur heuristique</string>
     <string name="trust_center_heuristics_desc">Analyse IA avancée</string>
@@ -162,25 +330,19 @@
     <string name="trust_center_network_desc">Pare-feu actif</string>
     <string name="trust_center_offline">Mode hors ligne</string>
     <string name="trust_center_offline_desc">Base de données locale uniquement</string>
-
-    <!-- Footer -->
-    <string name="footer_version">QR-SHIELD v%s</string>
-    <string name="footer_edition">ÉDITION ENTREPRISE</string>
-    <string name="footer_terms">Conditions</string>
-    <string name="footer_privacy">Confidentialité</string>
-    <string name="footer_licenses">Licences</string>
-    <!-- Trust Centre Screen -->
     <string name="trust_center_screen_title">Centre de confiance</string>
-    <string name="offline_guarantee_title">Garantie hors ligne stricte</string>
+    <string name="trust_centre_adjust_thresholds">Ajuster les seuils heuristiques</string>
+    <string name="trust_centre_last_added">Dernier ajouté il y a 2 jours</string>
+    <string name="offline_guarantee_title">Garantie stricte hors ligne</string>
     <string name="offline_guarantee_desc">Aucune donnée ne quitte cet appareil.</string>
     <string name="air_gapped_active">Mode Air-Gapped actif</string>
     <string name="phishing_sensitivity">Sensibilité au phishing</string>
     <string name="sensitivity_low">Faible</string>
     <string name="sensitivity_balanced">Équilibré</string>
     <string name="sensitivity_paranoia">Paranoïa</string>
-    <string name="sensitivity_low_desc">Vérifications minimales. Priorité à la vitesse. Utilisez uniquement pour les environnements de confiance.</string>
-    <string name="sensitivity_balanced_desc">Vérifie les modèles connus sans heuristique agressive. Idéal pour un usage quotidien.</string>
-    <string name="sensitivity_paranoia_desc">Heuristique agressive et sandboxing strict. Attendez-vous à des avertissements fréquents.</string>
+    <string name="sensitivity_low_desc">Vérifications minimales. Priorise la vitesse. Uniquement pour les environnements de confiance.</string>
+    <string name="sensitivity_balanced_desc">Vérifie les modèles connus sans heuristiques agressives. Idéal pour une utilisation quotidienne.</string>
+    <string name="sensitivity_paranoia_desc">Heuristiques agressives et sandboxing strict. Attendez-vous à des avertissements pour les domaines inconnus.</string>
     <string name="sensitivity_mode_suffix">Mode</string>
     <string name="allowlist_title">Liste autorisée</string>
     <string name="allowlist_subtitle">Domaines sûrs</string>
@@ -188,7 +350,157 @@
     <string name="blocklist_subtitle">Règles bloquées</string>
     <string name="privacy_access_title">Confidentialité et accès</string>
     <string name="share_threats_title">Partager les signatures de menaces</string>
-    <string name="share_threats_subtitle">Upload anonyme d\'heuristiques</string>
+    <string name="share_threats_subtitle">Téléchargement anonyme d\'heuristiques</string>
+    <string name="auto_copy_title">Copie auto des liens sûrs</string>
+    <string name="auto_copy_subtitle">Copier automatiquement les URLs sûres</string>
     <string name="biometric_unlock_title">Déverrouillage biométrique</string>
-    <string name="biometric_unlock_subtitle">FaceID requis pour les réglages</string>
+    <string name="biometric_unlock_subtitle">Exiger FaceID pour les paramètres</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">ÉDITION ENTREPRISE</string>
+    <string name="footer_terms">Conditions</string>
+    <string name="footer_privacy">Politique de confidentialité</string>
+    <string name="footer_licenses">Licences</string>
+
+    <!-- Tool Cards -->
+    <string name="tool_trust_centre">Centre de confiance</string>
+    <string name="tool_trust_centre_subtitle">Paramètres de sécurité</string>
+    <string name="tool_learning">Centre d\'apprentissage</string>
+    <string name="tool_learning_subtitle">Formation à la sécurité</string>
+    <string name="tool_threat_database">Base de données de menaces</string>
+    <string name="tool_threat_database_subtitle">Gérer les signatures</string>
+    <string name="tool_beat_the_bot">Beat the Bot</string>
+    <string name="tool_beat_the_bot_subtitle">Testez vos compétences</string>
+    <string name="tool_whitelisting">Liste autorisée</string>
+    <string name="tool_whitelisting_subtitle">Gérer les exceptions</string>
+
+    <!-- Beat The Bot Screen -->
+    <string name="training_session">Session d\'entraînement</string>
+    <string name="end_session">Terminer la session</string>
+    <string name="current_score">Score actuel</string>
+    <string name="streak">Série</string>
+    <string name="round_progress_fmt">Manche %1$d/%2$d</string>
+    <string name="next_advanced_phishing">Suivant: Phishing avancé</string>
+    <string name="sms_from_fmt">De: %1$s</string>
+    <string name="login_page_preview">Aperçu de la page de connexion</string>
+    <string name="preview">Aperçu</string>
+    <string name="phishing">Phishing</string>
+    <string name="report_threat">Signaler la menace</string>
+    <string name="legitimate">Légitime</string>
+    <string name="mark_safe">Marquer comme sûr</string>
+    <string name="quick_hint">Indice rapide</string>
+    <string name="beat_the_bot_next_round">Manche suivante</string>
+    <string name="beat_the_bot_title">Beat the Bot</string>
+    <string name="beat_the_bot_subtitle">Défiez notre IA hors ligne</string>
+    <string name="beat_the_bot_session_fmt">Session: #%1$s</string>
+    <string name="beat_the_bot_live_scoreboard">Tableau des scores en direct</string>
+    <string name="beat_the_bot_vs_mode">MODE VS</string>
+    <string name="beat_the_bot_you">Vous</string>
+    <string name="beat_the_bot_streak_fmt">Série: %1$d 🔥</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_latency_fmt">Latence: %1$dms</string>
+    <string name="beat_the_bot_pts_fmt">%1$d pts</string>
+    <string name="beat_the_bot_preview_hidden">Aperçu masqué</string>
+    <string name="beat_the_bot_correct">Bonne décision!</string>
+    <string name="beat_the_bot_correct_desc">Vous avez correctement identifié la menace.</string>
+    <string name="beat_the_bot_incorrect">Mauvaise décision</string>
+    <string name="beat_the_bot_incorrect_phishing">Oups! C\'était en fait une attaque de Phishing.</string>
+    <string name="beat_the_bot_incorrect_legit">Oups! C\'était en fait Légitime.</string>
+    <string name="beat_the_bot_why_flagged">Pourquoi le bot l\'a marqué comme %1$s:</string>
+    <string name="beat_the_bot_suspicious">Suspect</string>
+    <string name="beat_the_bot_safe">Sûr</string>
+    <string name="beat_the_bot_loading">Chargement…</string>
+    <string name="beat_the_bot_incorrect_hint">Réessayez</string>
+
+    <!-- Learning Centre Screen -->
+    <string name="learning_centre_title">Centre d\'apprentissage</string>
+    <string name="your_progress">Votre progression</string>
+    <string name="view_certificate">Voir le certificat</string>
+    <string name="qr_shield_certified">Certifié QR-SHIELD</string>
+    <string name="modules_completed_fmt">%1$d sur %2$d modules terminés</string>
+    <string name="on_track">En bonne voie</string>
+    <string name="daily_tip_label">CONSEIL DU JOUR</string>
+    <string name="daily_tip_url_shorteners">Raccourcisseurs d\'URL</string>
+    <string name="daily_tip_url_shorteners_desc">Apprenez comment les attaquants cachent les liens malveillants.</string>
+    <string name="read_tip">Lire le conseil</string>
+    <string name="modules">Modules</string>
+    <string name="module_spot_the_phish">Repérer le phishing</string>
+    <string name="module_spot_the_phish_desc">Maîtrisez l\'art de l\'inspection visuelle pour détecter instantanément les URLs malveillantes.</string>
+    <string name="module_qr_basics">Bases de la sécurité QR</string>
+    <string name="module_qr_basics_desc">Introduction à la technologie QR et reconnaissance de la manipulation physique.</string>
+    <string name="module_link_hygiene">Hygiène des liens</string>
+    <string name="module_link_hygiene_desc">Comprendre les redirections, les raccourcisseurs et les habitudes de navigation sécurisée.</string>
+    <string name="status_in_progress">En cours</string>
+    <string name="status_completed">Terminé</string>
+    <string name="status_new_module">Nouveau module</string>
+    <string name="security_tool">OUTIL DE SÉCURITÉ</string>
+    <string name="report_a_threat">Signaler une menace</string>
+    <string name="report_a_threat_desc">Apprenez comment signaler les QR suspects.</string>
+    <string name="available_offline">Disponible hors ligne</string>
+
+    <!-- Heuristics Screen -->
+    <string name="heuristics_engine_title">Moteur heuristique</string>
+    <string name="active_rules">Règles actives</string>
+    <string name="detection_rate">Taux de détection</string>
+    <string name="detection_rules">RÈGLES DE DÉTECTION</string>
+    <string name="rules_count_fmt">%d règles</string>
+    <string name="add_rule">Ajouter une règle</string>
+    <string name="category_all">Toutes</string>
+    <string name="category_url_pattern">Modèle d\'URL</string>
+    <string name="category_domain">Domaine</string>
+    <string name="category_redirect">Redirection</string>
+    <string name="category_ssl">SSL/TLS</string>
+    <string name="category_content">Contenu</string>
+    <string name="severity_critical">Critique</string>
+    <string name="severity_high">Élevé</string>
+    <string name="severity_medium">Moyen</string>
+    <string name="severity_low">Faible</string>
+
+    <!-- Sandbox WebView -->
+    <string name="sandbox_exit">Quitter le sandbox</string>
+    <string name="sandbox_navigation_blocked">Navigation bloquée</string>
+    <string name="sandbox_cannot_open">Impossible d\'ouvrir l\'URL</string>
+    <string name="sandbox_security">Sécurité</string>
+    <string name="sandbox_close">Fermer</string>
+
+    <!-- Attack Breakdown Screen -->
+    <string name="attack_analysis">Analyse de l\'attaque</string>
+    <string name="attack_chain">Chaîne d\'attaque</string>
+    <string name="iocs_title">Indicateurs de compromission</string>
+    <string name="phase_executed">Exécuté</string>
+    <string name="phase_blocked">Bloqué</string>
+    <string name="phase_prevented">Empêché</string>
+
+    <!-- Offline Privacy Screen -->
+    <string name="privacy_offline_title">Confidentialité et hors ligne</string>
+    <string name="privacy_hero_title">Vos données ne partent jamais</string>
+    <string name="privacy_hero_desc">QR-SHIELD fonctionne entièrement sur votre appareil. Pas de cloud. Pas de serveurs. Pas de collecte de données. Confidentialité totale par conception.</string>
+    <string name="privacy_offline_badge">100% fonctionnement hors ligne</string>
+    <string name="privacy_architecture">Architecture de confidentialité</string>
+    <string name="privacy_local_db_title">Base de données locale</string>
+    <string name="privacy_local_db_desc">Signatures de menaces stockées chiffrées sur l\'appareil. Mises à jour via des imports sécurisés hors ligne.</string>
+    <string name="privacy_on_device_ai_title">IA sur l\'appareil</string>
+    <string name="privacy_on_device_ai_desc">Modèles ML exécutés localement avec inférence optimisée. Zéro dépendance cloud.</string>
+    <string name="privacy_no_retention_title">Aucune rétention de données</string>
+    <string name="privacy_no_retention_desc">L\'historique des scans peut être effacé instantanément. Nous ne collectons aucune télémétrie ni analyse.</string>
+    <string name="privacy_airgap_title">Compatible Air-Gap</string>
+    <string name="privacy_airgap_desc">Fonctionne parfaitement dans les réseaux isolés. Conçu pour la sécurité d\'entreprise.</string>
+    <string name="privacy_data_flow">Flux de données</string>
+    <string name="privacy_step_1_title">Code QR scanné</string>
+    <string name="privacy_step_1_desc">La caméra capture et décode le QR localement</string>
+    <string name="privacy_step_2_title">URL extraite</string>
+    <string name="privacy_step_2_desc">Lien analysé sans requêtes externes</string>
+    <string name="privacy_step_3_title">Analyse IA</string>
+    <string name="privacy_step_3_desc">ML sur l\'appareil évalue le niveau de menace</string>
+    <string name="privacy_step_4_title">Résultat affiché</string>
+    <string name="privacy_step_4_desc">Verdict affiché, les données restent sur l\'appareil</string>
+    <string name="privacy_compliance">Conformité et certifications</string>
+    <string name="privacy_read_full">Lire la politique de confidentialité complète</string>
+    <string name="privacy_gdpr">RGPD</string>
+    <string name="privacy_compliant">Conforme</string>
+    <string name="privacy_soc2">SOC 2</string>
+    <string name="privacy_type2">Type II</string>
+    <string name="privacy_iso">ISO</string>
+    <string name="privacy_27001">27001</string>
 </resources>

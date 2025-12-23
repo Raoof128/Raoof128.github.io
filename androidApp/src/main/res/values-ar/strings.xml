@@ -12,28 +12,45 @@
 
     <!-- Dashboard -->
     <string name="dashboard_welcome_back">مرحباً بعودتك</string>
-    <string name="dashboard_default_user">مستخدم QR-SHIELD</string>
+    <string name="dashboard_default_user">مسؤول الأمان</string>
     <string name="dashboard_shield_active">الحماية نشطة</string>
-    <string name="dashboard_headline">آمن. بدون اتصال.\nدفاع قابل للتفسير.</string>
-    <string name="dashboard_subtitle">قاعدة بيانات المؤسسة محدثة وتراقب محلياً.</string>
+    <string name="dashboard_headline">آمن. بدون إنترنت.\nدفاع قابل للتفسير.</string>
+    <string name="dashboard_subtitle">قاعدة بيانات مؤسستك محدثة وتراقب محلياً.</string>
     <string name="dashboard_scan_qr">مسح QR</string>
     <string name="dashboard_import_image">استيراد صورة</string>
-    <string name="dashboard_system_health">صحة النظام</string>
+    <string name="dashboard_system_health">حالة النظام</string>
     <string name="dashboard_total_scans">إجمالي عمليات المسح</string>
     <string name="dashboard_threats_blocked">التهديدات المحظورة</string>
     <string name="dashboard_recent_scans">عمليات المسح الأخيرة</string>
     <string name="dashboard_view_all">عرض الكل</string>
     <string name="dashboard_tools">أدوات الأمان</string>
+    <string name="dashboard_no_scans">لا توجد عمليات مسح</string>
+    <string name="dashboard_no_scans_hint">امسح رمز QR لبدء سجلك</string>
+    <string name="dashboard_score_fmt">النتيجة: %1$d</string>
+    <string name="dashboard_db_status_default">قاعدة البيانات محدثة</string>
+    <string name="dashboard_enterprise_protection">حماية المؤسسات</string>
+    <string name="dashboard_url_placeholder">أدخل الرابط هنا…</string>
 
     <!-- Scanner Screen -->
     <string name="start_scanning">بدء المسح</string>
     <string name="scan_from_gallery">مسح من المعرض</string>
-    <string name="scan_instruction">محاذاة رمز QR داخل الإطار</string>
+    <string name="scan_instruction">قم بمحاذاة رمز QR في الإطار</string>
     <string name="analyzing_url">جاري تحليل الرابط…</string>
     <string name="scans_in_history">%d عملية مسح في السجل</string>
+    <string name="error_no_qr_found">لم يتم العثور على رمز QR في الصورة المحددة</string>
+    <string name="scanning_image_progress">جاري مسح الصورة بحثاً عن رموز QR…</string>
+    <string name="red_team_scenarios_title">سيناريوهات الفريق الأحمر</string>
+    <string name="red_team_attacks_fmt">%1$d هجمة</string>
+    <string name="red_team_hint">انقر على سيناريو لاختبار الكشف بدون كاميرا</string>
+    <string name="resolving_short_link_title">جاري حل الرابط المختصر…</string>
+    <string name="resolving_short_link_subtitle">كشف الوجهة المخفية</string>
+    <string name="enter_url_manually">إدخال الرابط يدوياً</string>
+    <string name="analyze_url">تحليل الرابط</string>
+    <string name="url_hint">مثال: https://example.com</string>
+    <string name="url_placeholder">أدخل عنوان الرابط</string>
 
     <!-- Results -->
-    <string name="risk_score">درجة المخاطر</string>
+    <string name="risk_score">درجة الخطر</string>
     <string name="scanned_url">الرابط الممسوح</string>
     <string name="copy">نسخ</string>
     <string name="risk_factors">عوامل الخطر</string>
@@ -43,115 +60,407 @@
     <string name="suspicious_verdict">مشبوه</string>
     <string name="malicious_verdict">خبيث</string>
 
+    <!-- Scan Result Screen -->
+    <string name="scan_result_title">نتيجة المسح</string>
+    <string name="verdict_malicious">تم اكتشاف خطر عالٍ</string>
+    <string name="verdict_suspicious">نشاط مشبوه</string>
+    <string name="verdict_safe">آمن للفتح</string>
+    <string name="verdict_unknown">خطر غير معروف</string>
+    <string name="threat_type_phishing">تصيد احتيالي</string>
+    <string name="threat_type_suspicious">مشبوه</string>
+    <string name="threat_type_verified">تم التحقق</string>
+    <string name="threat_type_unknown">غير معروف</string>
+    <string name="confidence_fmt">%1$d%% ثقة</string>
+    <string name="severity_score_label">درجة الخطورة</string>
+    <string name="risk_score_desc">يُظهر هذا الرابط أنماطاً متوافقة مع حملات خبيثة معروفة.</string>
+    <string name="target_url_label">الرابط المستهدف</string>
+    <string name="analysis_breakdown_title">تفصيل التحليل</string>
+    <string name="ai_explained_label">شرح الذكاء الاصطناعي</string>
+    <string name="scan_meta_fmt">تم المسح: %1$s • المحرك v%2$s • %3$s</string>
+    <string name="scan_mode_offline">بدون إنترنت</string>
+    <string name="scan_mode_online">متصل</string>
+    <string name="action_block_report">حظر وإبلاغ تقنية المعلومات</string>
+    <string name="action_ignore_warning">تجاهل التحذير (مسؤول)</string>
+    <string name="risk_assessment_title">تقييم المخاطر</string>
+    <string name="risk_level_low">خطر منخفض</string>
+    <string name="risk_level_warning">تحذير</string>
+    <string name="risk_level_critical">حرج</string>
+    <string name="risk_label_safe">آمن</string>
+    <string name="risk_label_warn">تحذير</string>
+    <string name="risk_label_critical">حرج</string>
+    <string name="analysis_time_label">وقت التحليل</string>
+    <string name="heuristics_label">الاستدلالات</string>
+    <string name="engine_label">المحرك</string>
+    <string name="engine_version_fmt">v%1$s</string>
+    <string name="action_share">مشاركة</string>
+    <string name="action_open_safely">فتح بأمان</string>
+    <string name="action_block">حظر</string>
+    <string name="action_report_it">إبلاغ تقنية المعلومات</string>
+    <string name="action_close">إغلاق</string>
+    <string name="action_continue">متابعة</string>
+    <string name="action_review">مراجعة</string>
+    <string name="action_start_module">بدء الوحدة</string>
+    <string name="analysis_domain_age_title">تنبيه عمر النطاق</string>
+    <string name="analysis_domain_age_desc">تم إنشاء النطاق منذ أقل من 24 ساعة. احتمالية عالية لبنية تصيد مؤقتة.</string>
+    <string name="analysis_redirect_title">إعادة توجيه مشبوهة</string>
+    <string name="analysis_redirect_desc">يحتوي الرابط على 3 مستويات من إعادة التوجيه مصممة لتجاوز فلاتر البريد.</string>
+    <string name="analysis_db_match_title">تطابق في قاعدة البيانات</string>
+    <string name="analysis_db_match_desc">يتطابق النمط مع توقيع التهديد المعروف #4421 من الاستخبارات العالمية.</string>
+    <string name="tag_credential_harvesting">سرقة بيانات الاعتماد</string>
+    <string name="tag_homograph_attack">هجوم الحروف المتشابهة</string>
+    <string name="tag_new_domain">نطاق جديد</string>
+
     <!-- Recommendations -->
-    <string name="recommendation_safe">يبدو أن هذا الرابط آمن. يمكنك المتابعة بثقة.</string>
-    <string name="recommendation_suspicious">توخي الحذر مع هذا الرابط. تحقق من المصدر قبل المتابعة.</string>
-    <string name="recommendation_malicious">⛔ تحذير: يظهر هذا الرابط علامات تصيد احتيالي. لا تدخل أي معلومات شخصية.</string>
-    <string name="recommendation_unknown">تعذر التحقق الكامل من هذا الرابط. تابع بحذر.</string>
+    <string name="recommendation_safe">يبدو هذا الرابط آمناً. يمكنك المتابعة.</string>
+    <string name="recommendation_suspicious">تعامل بحذر مع هذا الرابط. تحقق من المصدر.</string>
+    <string name="recommendation_malicious">⛔ تحذير: يُظهر هذا الرابط علامات تصيد احتيالي. لا تُدخل أي معلومات شخصية.</string>
+    <string name="recommendation_unknown">تعذر التحقق الكامل من الرابط. يُنصح بالحذر.</string>
+    <string name="recommended_actions">الإجراءات الموصى بها</string>
+    <string name="remediation_1">لا تدخل بيانات الاعتماد في هذه الصفحة</string>
+    <string name="remediation_2">احظر النطاق في جدار الحماية الخاص بمؤسستك</string>
+    <string name="remediation_3">إذا تم إدخال بيانات الاعتماد، أعد تعيين كلمات المرور فوراً</string>
 
     <!-- History Screen -->
-    <string name="search_placeholder">بحث في الروابط…</string>
-    <string name="clear_history_title">مسح كل السجل؟</string>
-    <string name="clear_history_message">لا يمكن التراجع عن هذا الإجراء. سيتم حذف سجل المسح بالكامل نهائياً.</string>
+    <string name="search_placeholder">البحث في الروابط…</string>
+    <string name="clear_history_title">مسح السجل؟</string>
+    <string name="clear_history_message">لا يمكن التراجع عن هذا الإجراء. سيتم حذف كل سجل المسح نهائياً.</string>
     <string name="clear_all">مسح الكل</string>
     <string name="cancel">إلغاء</string>
     <string name="delete">حذف</string>
-    <string name="delete_item_title">حذف هذا المسح؟</string>
-    <string name="delete_item_message">سيتم إزالة هذا العنصر من السجل.</string>
+    <string name="delete_item_title">حذف المسح؟</string>
+    <string name="delete_item_message">سيتم إزالة هذا العنصر من سجلك.</string>
     <string name="copy_url">نسخ الرابط</string>
     <string name="no_history">لا يوجد سجل مسح</string>
     <string name="scan_to_see_history">ستظهر نتائج المسح هنا</string>
     <string name="no_results">لم يتم العثور على نتائج</string>
-    <string name="try_different_filter">جرب فلتر أو مصطلح بحث مختلف</string>
+    <string name="try_different_filter">جرب فلتراً أو مصطلح بحث مختلفاً</string>
+    <string name="history_go_to_scanner">الانتقال للماسح</string>
 
     <!-- Settings Screen -->
     <string name="settings_scanning">المسح</string>
-    <string name="settings_auto_scan">مسح تلقائي عند التشغيل</string>
-    <string name="settings_auto_scan_desc">بدء المسح فوراً عند فتح التطبيق</string>
-    <string name="settings_haptic">ردود فعل لمسية</string>
-    <string name="settings_haptic_desc">اهتزاز عند ظهور النتائج</string>
+    <string name="settings_auto_scan">مسح تلقائي عند البدء</string>
+    <string name="settings_auto_scan_desc">المسح فوراً عند فتح التطبيق</string>
+    <string name="settings_haptic">الاستجابة اللمسية</string>
+    <string name="settings_haptic_desc">الاهتزاز مع نتائج المسح</string>
     <string name="settings_sound">المؤثرات الصوتية</string>
-    <string name="settings_sound_desc">تشغيل أصوات للتنبيهات</string>
-
+    <string name="settings_sound_desc">تشغيل الأصوات للتنبيهات</string>
     <string name="settings_notifications">الإشعارات</string>
     <string name="settings_security_alerts">تنبيهات الأمان</string>
-    <string name="settings_security_alerts_desc">الحصول على إشعارات حول التهديدات الأمنية</string>
+    <string name="settings_security_alerts_desc">تلقي إشعارات عن تهديدات الأمان</string>
     <string name="settings_system_notifications">إشعارات النظام</string>
     <string name="settings_system_notifications_desc">تكوين تفضيلات الإشعارات</string>
-
+    <string name="settings_appearance">المظهر</string>
+    <string name="settings_dark_mode">الوضع الداكن</string>
+    <string name="settings_dark_mode_desc">استخدام نظام الألوان الداكن</string>
+    <string name="settings_reduced_effects">تقليل التأثيرات</string>
+    <string name="settings_reduced_effects_desc">تقليل تأثيرات الزجاج والحركات</string>
+    <string name="settings_system_appearance">مظهر النظام</string>
+    <string name="settings_system_appearance_desc">تكوين إعدادات العرض</string>
+    <string name="settings_language">اللغة</string>
+    <string name="settings_language_desc">اختر لغتك المفضلة</string>
+    <string name="settings_language_system">افتراضي النظام</string>
+    <string name="settings_select_language">اختر اللغة</string>
+    <string name="language_english">English</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Français</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_arabic">العربية</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_thai">ภาษาไทย</string>
     <string name="settings_privacy">الخصوصية</string>
     <string name="settings_save_history">حفظ سجل المسح</string>
-    <string name="settings_save_history_desc">الاحتفاظ بسجل الروابط الممسوحة</string>
+    <string name="settings_save_history_desc">الاحتفاظ بسجل للروابط الممسوحة</string>
     <string name="settings_privacy_policy">سياسة الخصوصية</string>
     <string name="settings_privacy_policy_desc">عرض ممارسات الخصوصية لدينا</string>
-
     <string name="settings_accessibility">إمكانية الوصول</string>
     <string name="settings_accessibility_settings">إعدادات إمكانية الوصول</string>
     <string name="settings_accessibility_settings_desc">تكوين TalkBack والخدمات الأخرى</string>
-
     <string name="settings_about">حول</string>
     <string name="settings_version">الإصدار</string>
     <string name="settings_build">البناء</string>
     <string name="settings_engine">محرك الكشف</string>
     <string name="settings_source_code">الكود المصدري</string>
     <string name="settings_help">المساعدة والدعم</string>
-    <string name="settings_help_desc">الإبلاغ عن مشاكل أو الحصول على مساعدة</string>
-
-    <!-- Errors -->
+    <string name="settings_help_desc">الإبلاغ عن مشكلات أو الحصول على مساعدة</string>
+    <string name="settings_build_fmt">Android %1$s • API %2$d</string>
+    <string name="settings_engine_desc">KMP PhishingEngine v1.0</string>
+    <string name="settings_quick_actions">الإجراءات السريعة</string>
+    <string name="settings_trust_centre">مركز الثقة</string>
+    <string name="settings_trust_centre_desc">إعدادات الأمان</string>
+    <string name="settings_threat_monitor">مراقب التهديدات</string>
+    <string name="settings_threat_monitor_desc">تنبيهات فورية</string>
+    <string name="settings_export_report">تصدير التقرير</string>
+    <string name="settings_export_report_desc">تقرير أمان PDF</string>
+    <string name="about_app_desc">كاشف QRishing بـ Kotlin متعدد المنصات</string>
+    <string name="about_made_with_love">صُنع بـ ❤️ لـ KotlinConf 2026</string>
+    <string name="platform_android">Android 16</string>
+    <string name="platform_kotlin">Kotlin 1.9.22</string>
+    <string name="subtitle_github">GitHub</string>
+    <string name="url_unshortener_title">حل الروابط المختصرة</string>
+    <string name="url_unshortener_desc">كشف الوجهات المخفية (متصل فقط). يتطلب اتصالاً بالشبكة.</string>
+    <string name="dev_mode_section">🕵️ وضع المطور</string>
+    <string name="red_team_mode">وضع الفريق الأحمر</string>
+    <string name="red_team_mode_desc">عرض سيناريوهات الهجوم على شاشة الماسح</string>
+    <string name="dev_mode_disabled_toast">تم تعطيل وضع المطور</string>
+    <string name="red_team_warning_text">يتجاوز وضع الفريق الأحمر الكاميرا ويحقن روابط اختبار مباشرة في محرك الكشف.</string>
+    <string name="dev_mode_version_suffix">(DEV)</string>
+    <string name="dev_mode_enabled_toast">🕵️ تم تفعيل وضع المطور! سيناريوهات الفريق الأحمر متاحة.</string>
+    <string name="dev_mode_tap_hint">%1$d نقرات أخرى لـ %2$s وضع المطور</string>
+    <string name="dev_mode_enable">تفعيل</string>
+    <string name="dev_mode_disable">تعطيل</string>
+    <string name="verify_integrity_title">التحقق من سلامة النظام</string>
+    <string name="verify_integrity_desc_running">جاري التحقق…</string>
+    <string name="verify_integrity_desc_default">إثبات دقة 87% على الجهاز</string>
+    <string name="verification_dialog_healthy">النظام سليم ✓</string>
+    <string name="verification_dialog_complete">اكتمل التحقق</string>
+    <string name="verification_passed_tests">نجح %1$d/%2$d اختبار</string>
+    <string name="confusion_matrix">مصفوفة الارتباك</string>
+    <string name="metrics_title">مقاييس الأداء</string>
+    <string name="metric_accuracy">الدقة</string>
+    <string name="metric_precision">الإحكام</string>
+    <string name="metric_recall">الاستدعاء</string>
+    <string name="metric_f1_score">درجة F1</string>
+    <string name="execution_time_fmt">اكتمل في %1$d مللي ثانية</string>
     <string name="error_title">حدث خطأ ما</string>
     <string name="try_again">حاول مرة أخرى</string>
-    <string name="camera_permission_rationale">مطلوب الوصول للكاميرا لمسح رموز QR</string>
-    <string name="camera_permission_denied">تم رفض إذن الكاميرا. يرجى التمكين من الإعدادات.</string>
-
-    <!-- Widget -->
-    <string name="widget_name">مسح سريع QR-SHIELD</string>
-    <string name="widget_description">مسح رموز QR بسرعة للتهديدات الاحتيالية</string>
-    <string name="widget_tap_to_scan">اضغط للمسح</string>
-
-    <!-- Accessibility -->
+    <string name="camera_permission_rationale">يلزم الوصول للكاميرا لمسح رموز QR</string>
+    <string name="camera_permission_denied">تم رفض إذن الكاميرا. يرجى التفعيل في الإعدادات.</string>
+    <string name="widget_name">QR-SHIELD مسح سريع</string>
+    <string name="widget_description">امسح رموز QR بسرعة بحثاً عن تهديدات التصيد</string>
+    <string name="widget_tap_to_scan">انقر للمسح</string>
     <string name="cd_app_logo">شعار QR-SHIELD</string>
     <string name="cd_scanner_preview">معاينة الكاميرا لمسح رمز QR</string>
     <string name="cd_close_scanner">إغلاق الماسح</string>
     <string name="cd_toggle_flash">تبديل الفلاش</string>
-    <string name="cd_scan_result">نتيجة المسح مع الحكم ودرجة المخاطر</string>
-    <string name="cd_scan_button">مسح رموز QR</string>
-    <string name="cd_gallery_button">اختيار صورة رمز QR من المعرض</string>
-    <string name="cd_copy_button">نسخ الرابط إلى الحافظة</string>
+    <string name="cd_scan_result">نتيجة المسح تُظهر الحكم ودرجة الخطر</string>
+    <string name="cd_scan_button">بدء مسح رموز QR</string>
+    <string name="cd_gallery_button">اختيار صورة رمز QR من معرض الصور</string>
+    <string name="cd_copy_button">نسخ الرابط للحافظة</string>
     <string name="cd_share_button">مشاركة الرابط</string>
     <string name="cd_open_url">فتح الرابط في المتصفح</string>
     <string name="cd_delete_item">حذف هذا المسح من السجل</string>
     <string name="cd_clear_history">مسح كل سجل المسح</string>
     <string name="cd_search_history">البحث في سجل المسح</string>
-    <string name="cd_filter_safe">عرض عمليات المسح الآمنة فقط</string>
-    <string name="cd_filter_suspicious">عرض عمليات المسح المشبوهة فقط</string>
-    <string name="cd_filter_malicious">عرض عمليات المسح الخبيثة فقط</string>
+    <string name="cd_filter_safe">إظهار عمليات المسح الآمنة فقط</string>
+    <string name="cd_filter_suspicious">إظهار عمليات المسح المشبوهة فقط</string>
+    <string name="cd_filter_malicious">إظهار عمليات المسح الخبيثة فقط</string>
     <string name="cd_history_item">عنصر سجل المسح</string>
     <string name="cd_settings_toggle">تبديل الإعداد</string>
-    <string name="cd_back_button">الرجوع للخلف</string>
+    <string name="cd_back_button">رجوع</string>
     <string name="cd_processing">جاري المعالجة، يرجى الانتظار</string>
     <string name="cd_safe_verdict">الرابط آمن للزيارة</string>
-    <string name="cd_suspicious_verdict">الرابط مشبوه، توخي الحذر</string>
-    <string name="cd_malicious_verdict">تحذير، يبدو أن الرابط محاولة تصيد خبيثة</string>
-    <string name="cd_risk_score">درجة المخاطر من 100</string>
-
-    <!-- Trust Centre -->
+    <string name="cd_suspicious_verdict">الرابط مشبوه، تعامل بحذر</string>
+    <string name="cd_malicious_verdict">تحذير، يبدو أن الرابط محاولة تصيد احتيالي خبيثة</string>
+    <string name="cd_risk_score">درجة الخطر من 100</string>
+    <string name="cd_back">رجوع</string>
+    <string name="cd_share">مشاركة</string>
+    <string name="cd_copy_url">نسخ الرابط</string>
+    <string name="cd_action">إجراء</string>
+    <string name="cd_open_system_settings">فتح إعدادات النظام</string>
+    <string name="cd_open_privacy_policy">فتح سياسة الخصوصية</string>
+    <string name="cd_open_accessibility">فتح إعدادات إمكانية الوصول</string>
+    <string name="cd_run_verification">تشغيل التحقق</string>
+    <string name="cd_open_github">فتح GitHub</string>
+    <string name="cd_open_help">فتح المساعدة</string>
+    <string name="cd_settings_screen">شاشة الإعدادات مع تفضيلات التطبيق</string>
+    <string name="cd_notifications">الإشعارات</string>
+    <string name="cd_navigation_bar">شريط التنقل الرئيسي بـ 4 علامات تبويب: الرئيسية، المسح، السجل، والإعدادات</string>
+    <string name="cd_dashboard_screen">شاشة لوحة التحكم الرئيسية</string>
+    <string name="cd_scanner_screen">شاشة ماسح رموز QR</string>
+    <string name="cd_history_screen">شاشة سجل المسح</string>
+    <string name="cd_dismiss_hint">تجاهل التلميح</string>
     <string name="trust_center_title">حالة الأمان</string>
     <string name="trust_center_secure">جهازك آمن</string>
     <string name="trust_center_protected_by">محمي بواسطة QR-SHIELD Enterprise</string>
     <string name="trust_center_score">درجة الأمان: %d/100</string>
-    <string name="trust_center_realtime">الحماية في الوقت الفعلي</string>
-    <string name="trust_center_malware">كشف البرمجيات الخبيثة</string>
-    <string name="trust_center_scarm_blocker">حظر الاحتيال</string>
+    <string name="trust_center_realtime">الحماية الفورية</string>
+    <string name="trust_center_malware">اكتشاف البرامج الضارة</string>
+    <string name="trust_center_scarm_blocker">حاجب الاحتيال</string>
     <string name="trust_center_active">نشط</string>
     <string name="trust_center_database_status">حالة قاعدة البيانات</string>
     <string name="trust_center_last_updated">آخر تحديث: %s</string>
     <string name="trust_center_just_now">الآن</string>
-    <string name="trust_center_check_updates">البحث عن تحديثات</string>
-
-    <!-- Footer -->
+    <string name="trust_center_check_updates">التحقق من التحديثات</string>
+    <string name="trust_center_system_activity">نشاط النظام</string>
+    <string name="trust_center_report_24h">تقرير الحماية 24 ساعة</string>
+    <string name="trust_center_scans">عمليات المسح</string>
+    <string name="trust_center_threats">التهديدات</string>
+    <string name="trust_center_blocked">محظورة</string>
+    <string name="trust_center_safe">آمنة</string>
+    <string name="trust_center_modules">وحدات الأمان</string>
+    <string name="trust_center_heuristics">المحرك الاستدلالي</string>
+    <string name="trust_center_heuristics_desc">تحليل ذكاء اصطناعي متقدم</string>
+    <string name="trust_center_enabled">مُفعّل</string>
+    <string name="trust_center_privacy">حماية الخصوصية</string>
+    <string name="trust_center_privacy_desc">منع تسرب البيانات</string>
+    <string name="trust_center_network">درع الشبكة</string>
+    <string name="trust_center_network_desc">جدار الحماية نشط</string>
+    <string name="trust_center_offline">وضع بدون إنترنت</string>
+    <string name="trust_center_offline_desc">قاعدة البيانات المحلية فقط</string>
+    <string name="trust_center_screen_title">مركز الثقة</string>
+    <string name="trust_centre_adjust_thresholds">ضبط عتبات الاستدلال</string>
+    <string name="trust_centre_last_added">آخر إضافة منذ يومين</string>
+    <string name="offline_guarantee_title">ضمان صارم بدون إنترنت</string>
+    <string name="offline_guarantee_desc">لا تغادر أي بيانات هذا الجهاز.</string>
+    <string name="air_gapped_active">وضع الفصل الهوائي نشط</string>
+    <string name="phishing_sensitivity">حساسية التصيد</string>
+    <string name="sensitivity_low">منخفضة</string>
+    <string name="sensitivity_balanced">متوازنة</string>
+    <string name="sensitivity_paranoia">جنون الارتياب</string>
+    <string name="sensitivity_low_desc">فحوصات دنيا. تعطي الأولوية للسرعة. للبيئات الموثوقة فقط.</string>
+    <string name="sensitivity_balanced_desc">تفحص الأنماط المعروفة بدون استدلالات عدوانية. مثالية للاستخدام اليومي.</string>
+    <string name="sensitivity_paranoia_desc">استدلالات عدوانية وعزل صارم. توقع تحذيرات للنطاقات غير المعروفة.</string>
+    <string name="sensitivity_mode_suffix">الوضع</string>
+    <string name="allowlist_title">قائمة المسموح</string>
+    <string name="allowlist_subtitle">النطاقات الآمنة</string>
+    <string name="blocklist_title">قائمة المحظور</string>
+    <string name="blocklist_subtitle">القواعد المحظورة</string>
+    <string name="privacy_access_title">الخصوصية والوصول</string>
+    <string name="share_threats_title">مشاركة توقيعات التهديدات</string>
+    <string name="share_threats_subtitle">رفع مجهول للاستدلالات</string>
+    <string name="auto_copy_title">نسخ الروابط الآمنة تلقائياً</string>
+    <string name="auto_copy_subtitle">نسخ الروابط الآمنة تلقائياً</string>
+    <string name="biometric_unlock_title">فتح القفل البيومتري</string>
+    <string name="biometric_unlock_subtitle">طلب FaceID للإعدادات</string>
     <string name="footer_version">QR-SHIELD v%s</string>
-    <string name="footer_edition">نسخة المؤسسة</string>
+    <string name="footer_edition">إصدار المؤسسات</string>
     <string name="footer_terms">الشروط</string>
-    <string name="footer_privacy">الخصوصية</string>
+    <string name="footer_privacy">سياسة الخصوصية</string>
     <string name="footer_licenses">التراخيص</string>
+    <string name="tool_trust_centre">مركز الثقة</string>
+    <string name="tool_trust_centre_subtitle">إعدادات الأمان</string>
+    <string name="tool_learning">مركز التعلم</string>
+    <string name="tool_learning_subtitle">تدريب الأمان</string>
+    <string name="tool_threat_database">قاعدة بيانات التهديدات</string>
+    <string name="tool_threat_database_subtitle">إدارة التوقيعات</string>
+    <string name="tool_beat_the_bot">تغلب على الروبوت</string>
+    <string name="tool_beat_the_bot_subtitle">اختبر مهاراتك</string>
+    <string name="tool_whitelisting">قائمة المسموح</string>
+    <string name="tool_whitelisting_subtitle">إدارة الاستثناءات</string>
+    <string name="training_session">جلسة تدريبية</string>
+    <string name="end_session">إنهاء الجلسة</string>
+    <string name="current_score">النتيجة الحالية</string>
+    <string name="streak">التتابع</string>
+    <string name="round_progress_fmt">الجولة %1$d/%2$d</string>
+    <string name="next_advanced_phishing">التالي: تصيد متقدم</string>
+    <string name="sms_from_fmt">من: %1$s</string>
+    <string name="login_page_preview">معاينة صفحة تسجيل الدخول</string>
+    <string name="preview">معاينة</string>
+    <string name="phishing">تصيد</string>
+    <string name="report_threat">الإبلاغ عن تهديد</string>
+    <string name="legitimate">شرعي</string>
+    <string name="mark_safe">وضع علامة آمن</string>
+    <string name="quick_hint">تلميح سريع</string>
+    <string name="beat_the_bot_next_round">الجولة التالية</string>
+    <string name="beat_the_bot_title">تغلب على الروبوت</string>
+    <string name="beat_the_bot_subtitle">تحدى ذكاءنا الاصطناعي بدون إنترنت</string>
+    <string name="beat_the_bot_session_fmt">الجلسة: #%1$s</string>
+    <string name="beat_the_bot_live_scoreboard">لوحة النتائج المباشرة</string>
+    <string name="beat_the_bot_vs_mode">وضع المواجهة</string>
+    <string name="beat_the_bot_you">أنت</string>
+    <string name="beat_the_bot_streak_fmt">التتابع: %1$d 🔥</string>
+    <string name="beat_the_bot_bot_name">روبوت QR-Shield</string>
+    <string name="beat_the_bot_latency_fmt">التأخير: %1$d مللي ثانية</string>
+    <string name="beat_the_bot_pts_fmt">%1$d نقطة</string>
+    <string name="beat_the_bot_preview_hidden">المعاينة مخفية</string>
+    <string name="beat_the_bot_correct">قرار صحيح!</string>
+    <string name="beat_the_bot_correct_desc">لقد حددت التهديد بشكل صحيح.</string>
+    <string name="beat_the_bot_incorrect">قرار خاطئ</string>
+    <string name="beat_the_bot_incorrect_phishing">عفواً! كان هذا في الواقع هجوم تصيد.</string>
+    <string name="beat_the_bot_incorrect_legit">عفواً! كان هذا في الواقع شرعياً.</string>
+    <string name="beat_the_bot_why_flagged">لماذا وسمه الروبوت كـ %1$s:</string>
+    <string name="beat_the_bot_suspicious">مشبوه</string>
+    <string name="beat_the_bot_safe">آمن</string>
+    <string name="beat_the_bot_loading">جاري التحميل…</string>
+    <string name="beat_the_bot_incorrect_hint">حاول مرة أخرى</string>
+    <string name="learning_centre_title">مركز التعلم</string>
+    <string name="your_progress">تقدمك</string>
+    <string name="view_certificate">عرض الشهادة</string>
+    <string name="qr_shield_certified">معتمد من QR-SHIELD</string>
+    <string name="modules_completed_fmt">%1$d من %2$d وحدات مكتملة</string>
+    <string name="on_track">في المسار الصحيح</string>
+    <string name="daily_tip_label">نصيحة اليوم</string>
+    <string name="daily_tip_url_shorteners">مختصرات الروابط</string>
+    <string name="daily_tip_url_shorteners_desc">تعلم كيف يخفي المهاجمون الروابط الخبيثة.</string>
+    <string name="read_tip">اقرأ النصيحة</string>
+    <string name="modules">الوحدات</string>
+    <string name="module_spot_the_phish">اكتشف التصيد</string>
+    <string name="module_spot_the_phish_desc">أتقن فن الفحص البصري لاكتشاف الروابط الخبيثة فوراً.</string>
+    <string name="module_qr_basics">أساسيات أمان QR</string>
+    <string name="module_qr_basics_desc">مقدمة في تقنية QR والتعرف على التلاعب الفيزيائي.</string>
+    <string name="module_link_hygiene">نظافة الروابط</string>
+    <string name="module_link_hygiene_desc">افهم إعادة التوجيه والمختصرات وعادات التصفح الآمن.</string>
+    <string name="status_in_progress">قيد التقدم</string>
+    <string name="status_completed">مكتمل</string>
+    <string name="status_new_module">وحدة جديدة</string>
+    <string name="security_tool">أداة أمان</string>
+    <string name="report_a_threat">الإبلاغ عن تهديد</string>
+    <string name="report_a_threat_desc">تعلم كيفية الإبلاغ عن رموز QR المشبوهة.</string>
+    <string name="available_offline">متاح بدون إنترنت</string>
+    <string name="heuristics_engine_title">المحرك الاستدلالي</string>
+    <string name="active_rules">القواعد النشطة</string>
+    <string name="detection_rate">معدل الكشف</string>
+    <string name="detection_rules">قواعد الكشف</string>
+    <string name="rules_count_fmt">%d قاعدة</string>
+    <string name="add_rule">إضافة قاعدة</string>
+    <string name="category_all">الكل</string>
+    <string name="category_url_pattern">نمط الرابط</string>
+    <string name="category_domain">النطاق</string>
+    <string name="category_redirect">إعادة التوجيه</string>
+    <string name="category_ssl">SSL/TLS</string>
+    <string name="category_content">المحتوى</string>
+    <string name="severity_critical">حرج</string>
+    <string name="severity_high">عالي</string>
+    <string name="severity_medium">متوسط</string>
+    <string name="severity_low">منخفض</string>
+    <string name="sandbox_exit">الخروج من الصندوق الرملي</string>
+    <string name="sandbox_navigation_blocked">تم حظر التنقل</string>
+    <string name="sandbox_cannot_open">لا يمكن فتح الرابط</string>
+    <string name="sandbox_security">الأمان</string>
+    <string name="sandbox_close">إغلاق</string>
+    <string name="attack_analysis">تحليل الهجوم</string>
+    <string name="attack_chain">سلسلة الهجوم</string>
+    <string name="iocs_title">مؤشرات الاختراق</string>
+    <string name="phase_executed">تم التنفيذ</string>
+    <string name="phase_blocked">تم الحظر</string>
+    <string name="phase_prevented">تم المنع</string>
+    <string name="privacy_offline_title">الخصوصية وبدون إنترنت</string>
+    <string name="privacy_hero_title">بياناتك لا تغادر أبداً</string>
+    <string name="privacy_hero_desc">يعمل QR-SHIELD بالكامل على جهازك. بدون سحابة. بدون خوادم. بدون جمع بيانات. خصوصية كاملة بالتصميم.</string>
+    <string name="privacy_offline_badge">100% تشغيل بدون إنترنت</string>
+    <string name="privacy_architecture">هندسة الخصوصية</string>
+    <string name="privacy_local_db_title">قاعدة بيانات محلية</string>
+    <string name="privacy_local_db_desc">توقيعات التهديدات مخزنة مشفرة على الجهاز. تُحدث عبر استيرادات آمنة بدون إنترنت.</string>
+    <string name="privacy_on_device_ai_title">ذكاء اصطناعي على الجهاز</string>
+    <string name="privacy_on_device_ai_desc">نماذج التعلم الآلي تعمل محلياً باستدلال محسن. صفر اعتمادات سحابية.</string>
+    <string name="privacy_no_retention_title">بدون احتفاظ بالبيانات</string>
+    <string name="privacy_no_retention_desc">يمكن مسح سجل المسح فوراً. لا نجمع أي قياسات أو تحليلات.</string>
+    <string name="privacy_airgap_title">متوافق مع الفصل الهوائي</string>
+    <string name="privacy_airgap_desc">يعمل بشكل مثالي في الشبكات المعزولة. مصمم لأمان المؤسسات.</string>
+    <string name="privacy_data_flow">تدفق البيانات</string>
+    <string name="privacy_step_1_title">تم مسح رمز QR</string>
+    <string name="privacy_step_1_desc">الكاميرا تلتقط وتفك تشفير QR محلياً</string>
+    <string name="privacy_step_2_title">تم استخراج الرابط</string>
+    <string name="privacy_step_2_desc">تم تحليل الرابط بدون استعلامات خارجية</string>
+    <string name="privacy_step_3_title">تحليل الذكاء الاصطناعي</string>
+    <string name="privacy_step_3_desc">التعلم الآلي على الجهاز يقيم مستوى التهديد</string>
+    <string name="privacy_step_4_title">عرض النتيجة</string>
+    <string name="privacy_step_4_desc">يُعرض الحكم، البيانات تبقى على الجهاز</string>
+    <string name="privacy_compliance">الامتثال والشهادات</string>
+    <string name="privacy_read_full">اقرأ سياسة الخصوصية الكاملة</string>
+    <string name="privacy_gdpr">GDPR</string>
+    <string name="privacy_compliant">متوافق</string>
+    <string name="privacy_soc2">SOC 2</string>
+    <string name="privacy_type2">النوع II</string>
+    <string name="privacy_iso">ISO</string>
+    <string name="privacy_27001">27001</string>
 </resources>
