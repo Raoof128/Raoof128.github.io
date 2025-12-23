@@ -5,6 +5,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.8] - 2025-12-23
+
+### 🐛 Android - Critical Bug Fixes & UI Refinements
+
+Fixed 6 critical bugs reported during user testing, improving analysis accuracy and UI consistency.
+
+#### 🔧 Bug Fixes
+
+| Bug | Root Cause | Fix |
+|-----|------------|-----|
+| **Everything classified as dangerous** | Thresholds too strict (SAFE=10, SUSPICIOUS=50) | Updated to SAFE=25, SUSPICIOUS=60 |
+| **Settings gear has weird background** | IconButton had shadow/background modifiers | Removed shadow and background |
+| **Bottom nav stays dark mode** | Hardcoded `BackgroundDark` color | Changed to `MaterialTheme.colorScheme.surface` |
+| **Result card doesn't auto-display** | No navigation on analysis complete | Added `LaunchedEffect` observer |
+| **Toggle components look off** | Custom implementation not Material 3 | Replaced with `Switch` component |
+| **Verdict icon always red** | Hardcoded `GppBad` icon | Dynamic icon/color based on verdict |
+
+#### 🎨 Verdict Icon Fix (Critical)
+The scan result screen now shows correct icons based on verdict:
+- ✅ **SAFE**: Green shield with checkmark (`GppGood`)
+- ⚠️ **SUSPICIOUS**: Orange shield with warning (`GppMaybe`)
+- ❌ **MALICIOUS**: Red shield with X (`GppBad`)
+- 🛡️ **UNKNOWN**: Blue shield (`Shield`)
+
+### 🌍 Android - Language Expansion (5 New Languages)
+
+Expanded Android app from 10 to 15 supported languages:
+
+| Language | Locale | Native Speakers |
+|----------|--------|-----------------|
+| 🇸🇦 Arabic | `ar` | 400M+ |
+| 🇹🇷 Turkish | `tr` | 80M+ |
+| 🇻🇳 Vietnamese | `vi` | 85M+ |
+| 🇮🇩 Indonesian | `in` | 200M+ |
+| 🇹🇭 Thai | `th` | 60M+ |
+
+**Total Languages Now Supported: 15**
+- Base: English (en)
+- European: German (de), Spanish (es), French (fr), Italian (it), Portuguese (pt), Russian (ru)
+- Asian: Chinese (zh), Japanese (ja), Korean (ko), Hindi (hi), Thai (th), Vietnamese (vi), Indonesian (in)
+- Middle Eastern: Arabic (ar), Turkish (tr)
+
+### 🌐 Language Picker UI
+
+Added language selector in Settings screen under Appearance section:
+- Shows current language in native script (e.g., "Español", "日本語", "العربية")
+- Dialog displays all 15 languages with current selection highlighted
+- Links to Android Locale Settings for system-wide change
+- Supports RTL languages (Arabic)
+
+#### 📦 Files Modified
+| File | Changes |
+|------|---------|
+| `SecurityConstants.kt` | Increased `PHISHING_ENGINE_SAFE_THRESHOLD` (10→25), `SUSPICIOUS_THRESHOLD` (50→60) |
+| `DashboardScreen.kt` | Fixed settings button, added auto-navigation to result screen |
+| `Navigation.kt` | Theme-aware bottom nav and scaffold colors |
+| `CommonComponents.kt` | Material 3 `Switch` with proper theming |
+| `ScanResultScreen.kt` | Dynamic `VerdictHeader` icon and colors |
+| `SettingsScreen.kt` | Added language picker row and dialog |
+| `values/strings.xml` | Added 20 language-related strings |
+| `values-ar/strings.xml` | Arabic translations (NEW) |
+| `values-tr/strings.xml` | Turkish translations (NEW) |
+| `values-vi/strings.xml` | Vietnamese translations (NEW) |
+| `values-in/strings.xml` | Indonesian translations (NEW) |
+| `values-th/strings.xml` | Thai translations (NEW) |
+
+#### ✅ Build Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL
+```
+
+
 ## [1.17.7] - 2025-12-23
 
 ### 📱 Android - iOS Parity Audit (Complete)

@@ -39,6 +39,7 @@ import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.model.Verdict
 import com.qrshield.ui.HistoryStatistics
 import com.qrshield.ui.SharedViewModel
+import com.qrshield.ui.UiState
 import org.koin.compose.koinInject
 
 import com.qrshield.android.util.DateUtils
@@ -62,17 +63,36 @@ fun DashboardScreen(
     onViewAllScans: () -> Unit = {},
     onScanItemClick: (String) -> Unit = {},
     onToolClick: (String) -> Unit = {},
+    onScanResult: (url: String, verdict: String, score: Int) -> Unit = { _, _, _ -> },
     modifier: Modifier = Modifier
 ) {
     val viewModel: SharedViewModel = koinInject()
     val scanHistory by viewModel.scanHistory.collectAsState()
     val settings by viewModel.settings.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
     
     // Load statistics
     var stats by remember { mutableStateOf(HistoryStatistics(0, 0, 0, 0, 0.0)) }
     LaunchedEffect(scanHistory) {
         stats = viewModel.getStatistics()
+    }
+    
+    // Auto-navigate to result screen when analysis completes (iOS Parity)
+    LaunchedEffect(uiState) {
+        when (val state = uiState) {
+            is UiState.Result -> {
+                val assessment = state.assessment
+                onScanResult(
+                    assessment.details.originalUrl,
+                    assessment.verdict.name,
+                    assessment.score
+                )
+                // Reset to idle after navigation
+                viewModel.resetToIdle()
+            }
+            else -> { /* No action */ }
+        }
     }
     
     val scrollState = rememberScrollState()
@@ -100,8 +120,14 @@ fun DashboardScreen(
             modifier = Modifier.padding(horizontal = 24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Hero Section
-            HeroSection()
+            // Hero Section with functional URL analysis
+            HeroSection(
+                onAnalyze = { url ->
+                    if (url.isNotBlank()) {
+                        viewModel.analyzeUrl(url)
+                    }
+                }
+            )
 
             // Primary Actions
             PrimaryActionsRow(
@@ -240,16 +266,12 @@ private fun DashboardHeader(
             // Settings Button
             IconButton(
                 onClick = onSettingsClick,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.surface)
-                    .shadow(2.dp, CircleShape)
+                modifier = Modifier.size(40.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Settings,
                     contentDescription = stringResource(R.string.nav_settings),
-                    tint = MaterialTheme.colorScheme.onBackground
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -257,7 +279,12 @@ private fun DashboardHeader(
 }
 
 @Composable
-private fun HeroSection() {
+private fun HeroSection(
+    onAnalyze: (String) -> Unit = {}
+) {
+    // URL input state
+    var urlInput by remember { mutableStateOf("") }
+    
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         // Enterprise Protection Badge - Matches iOS exactly
         Surface(
@@ -305,7 +332,6 @@ private fun HeroSection() {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Quick URL Input
-        var urlInput by remember { mutableStateOf("") }
         OutlinedTextField(
             value = urlInput,
             onValueChange = { urlInput = it },
@@ -326,7 +352,13 @@ private fun HeroSection() {
             },
             trailingIcon = {
                 Button(
-                    onClick = { /* TODO: Implement Analyze */ },
+                    onClick = { 
+                        if (urlInput.isNotBlank()) {
+                            onAnalyze(urlInput)
+                            urlInput = ""  // Clear after analysis
+                        }
+                    },
+                    enabled = urlInput.isNotBlank(),
                     modifier = Modifier.padding(end = 8.dp),
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
                     shape = RoundedCornerShape(8.dp),

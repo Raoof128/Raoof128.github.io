@@ -89,9 +89,9 @@ object SecurityConstants {
      * ## Tuning Rationale
      * - Global SAFE_THRESHOLD (30) is for single-source scores
      * - PhishingEngine combines 4 weighted sources
-     * - Empirical testing shows ~10 is optimal for this pipeline
+     * - Increased from 10 to 25 to reduce false positives on legitimate URLs
      */
-    const val PHISHING_ENGINE_SAFE_THRESHOLD: Int = 10
+    const val PHISHING_ENGINE_SAFE_THRESHOLD: Int = 25
 
     /**
      * PhishingEngine-specific SUSPICIOUS threshold.
@@ -99,11 +99,11 @@ object SecurityConstants {
      * Marks the boundary between SUSPICIOUS and MALICIOUS verdicts.
      *
      * ## Tuning Rationale
-     * - Set at 50 (mid-range) for balanced sensitivity
-     * - Below 50: SUSPICIOUS (needs user caution)
-     * - At or above 50: MALICIOUS (high confidence phishing)
+     * - Increased from 50 to 60 for more balanced sensitivity
+     * - Below 60: SUSPICIOUS (needs user caution)
+     * - At or above 60: MALICIOUS (high confidence phishing)
      */
-    const val PHISHING_ENGINE_SUSPICIOUS_THRESHOLD: Int = 50
+    const val PHISHING_ENGINE_SUSPICIOUS_THRESHOLD: Int = 60
 
     // ==================== Component Weights ====================
 

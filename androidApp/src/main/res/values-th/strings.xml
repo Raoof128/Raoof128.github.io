@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">สแกน QR โค้ด ตรวจจับฟิชชิ่ง</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">หน้าแรก</string>
+    <string name="nav_scan">สแกน</string>
+    <string name="nav_history">ประวัติ</string>
+    <string name="nav_settings">ตั้งค่า</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">ยินดีต้อนรับกลับมา</string>
+    <string name="dashboard_default_user">ผู้ใช้ QR-SHIELD</string>
+    <string name="dashboard_shield_active">การป้องกันทำงานอยู่</string>
+    <string name="dashboard_headline">ปลอดภัย ออฟไลน์\nการป้องกันที่อธิบายได้</string>
+    <string name="dashboard_subtitle">ฐานข้อมูลองค์กรของคุณได้รับการอัปเดตและเฝ้าระวังภายในเครื่อง</string>
+    <string name="dashboard_scan_qr">สแกน QR</string>
+    <string name="dashboard_import_image">นำเข้ารูปภาพ</string>
+    <string name="dashboard_system_health">สถานะระบบ</string>
+    <string name="dashboard_total_scans">จำนวนการสแกนทั้งหมด</string>
+    <string name="dashboard_threats_blocked">ภัยคุกคามที่ถูกบล็อก</string>
+    <string name="dashboard_recent_scans">การสแกนล่าสุด</string>
+    <string name="dashboard_view_all">ดูทั้งหมด</string>
+    <string name="dashboard_tools">เครื่องมือความปลอดภัย</string>
+
+    <!-- Scanner Screen -->
+    <string name="start_scanning">เริ่มสแกน</string>
+    <string name="scan_from_gallery">สแกนจากแกลเลอรี่</string>
+    <string name="scan_instruction">จัด QR โค้ดให้อยู่ในกรอบ</string>
+    <string name="analyzing_url">กำลังวิเคราะห์ URL…</string>
+    <string name="scans_in_history">%d การสแกนในประวัติ</string>
+
+    <!-- Results -->
+    <string name="risk_score">คะแนนความเสี่ยง</string>
+    <string name="scanned_url">URL ที่สแกน</string>
+    <string name="copy">คัดลอก</string>
+    <string name="risk_factors">ปัจจัยเสี่ยง</string>
+    <string name="done">เสร็จ</string>
+    <string name="scan_another">สแกนอีกครั้ง</string>
+    <string name="safe_verdict">ปลอดภัย</string>
+    <string name="suspicious_verdict">น่าสงสัย</string>
+    <string name="malicious_verdict">อันตราย</string>
+
+    <!-- Recommendations -->
+    <string name="recommendation_safe">URL นี้ดูปลอดภัย คุณสามารถดำเนินการต่อได้อย่างมั่นใจ</string>
+    <string name="recommendation_suspicious">ระวังกับ URL นี้ ตรวจสอบแหล่งที่มาก่อนดำเนินการต่อ</string>
+    <string name="recommendation_malicious">⛔ คำเตือน: URL นี้แสดงสัญญาณของฟิชชิ่ง อย่าป้อนข้อมูลส่วนตัว</string>
+    <string name="recommendation_unknown">ไม่สามารถยืนยัน URL นี้ได้เต็มที่ ดำเนินการต่ออย่างระมัดระวัง</string>
+
+    <!-- History Screen -->
+    <string name="search_placeholder">ค้นหา URL…</string>
+    <string name="clear_history_title">ล้างประวัติทั้งหมด?</string>
+    <string name="clear_history_message">การดำเนินการนี้ไม่สามารถยกเลิกได้ ประวัติการสแกนทั้งหมดจะถูกลบอย่างถาวร</string>
+    <string name="clear_all">ล้างทั้งหมด</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="delete">ลบ</string>
+    <string name="delete_item_title">ลบการสแกนนี้?</string>
+    <string name="delete_item_message">รายการนี้จะถูกลบออกจากประวัติของคุณ</string>
+    <string name="copy_url">คัดลอก URL</string>
+    <string name="no_history">ไม่มีประวัติการสแกน</string>
+    <string name="scan_to_see_history">ผลการสแกนของคุณจะปรากฏที่นี่</string>
+    <string name="no_results">ไม่พบผลลัพธ์</string>
+    <string name="try_different_filter">ลองใช้ตัวกรองหรือคำค้นหาอื่น</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_scanning">การสแกน</string>
+    <string name="settings_auto_scan">สแกนอัตโนมัติเมื่อเปิด</string>
+    <string name="settings_auto_scan_desc">เริ่มสแกนทันทีเมื่อแอปเปิด</string>
+    <string name="settings_haptic">การตอบสนองแบบสัมผัส</string>
+    <string name="settings_haptic_desc">สั่นเมื่อมีผลการสแกน</string>
+    <string name="settings_sound">เอฟเฟกต์เสียง</string>
+    <string name="settings_sound_desc">เล่นเสียงสำหรับการแจ้งเตือน</string>
+
+    <string name="settings_notifications">การแจ้งเตือน</string>
+    <string name="settings_security_alerts">การแจ้งเตือนความปลอดภัย</string>
+    <string name="settings_security_alerts_desc">รับการแจ้งเตือนเกี่ยวกับภัยคุกคามความปลอดภัย</string>
+    <string name="settings_system_notifications">การแจ้งเตือนระบบ</string>
+    <string name="settings_system_notifications_desc">กำหนดค่าการตั้งค่าการแจ้งเตือน</string>
+
+    <string name="settings_privacy">ความเป็นส่วนตัว</string>
+    <string name="settings_save_history">บันทึกประวัติการสแกน</string>
+    <string name="settings_save_history_desc">เก็บบันทึก URL ที่สแกน</string>
+    <string name="settings_privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="settings_privacy_policy_desc">ดูแนวปฏิบัติด้านความเป็นส่วนตัวของเรา</string>
+
+    <string name="settings_accessibility">การเข้าถึง</string>
+    <string name="settings_accessibility_settings">การตั้งค่าการเข้าถึง</string>
+    <string name="settings_accessibility_settings_desc">กำหนดค่า TalkBack และบริการอื่นๆ</string>
+
+    <string name="settings_about">เกี่ยวกับ</string>
+    <string name="settings_version">เวอร์ชัน</string>
+    <string name="settings_build">บิลด์</string>
+    <string name="settings_engine">เอนจินตรวจจับ</string>
+    <string name="settings_source_code">ซอร์สโค้ด</string>
+    <string name="settings_help">ช่วยเหลือและสนับสนุน</string>
+    <string name="settings_help_desc">รายงานปัญหาหรือขอความช่วยเหลือ</string>
+
+    <!-- Errors -->
+    <string name="error_title">เกิดข้อผิดพลาด</string>
+    <string name="try_again">ลองอีกครั้ง</string>
+    <string name="camera_permission_rationale">ต้องการสิทธิ์เข้าถึงกล้องเพื่อสแกน QR โค้ด</string>
+    <string name="camera_permission_denied">สิทธิ์กล้องถูกปฏิเสธ กรุณาเปิดใช้งานจากการตั้งค่า</string>
+
+    <!-- Widget -->
+    <string name="widget_name">สแกนเร็ว QR-SHIELD</string>
+    <string name="widget_description">สแกน QR โค้ดอย่างรวดเร็วเพื่อตรวจหาภัยคุกคามฟิชชิ่ง</string>
+    <string name="widget_tap_to_scan">แตะเพื่อสแกน</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">โลโก้ QR-SHIELD</string>
+    <string name="cd_scanner_preview">ตัวอย่างกล้องสำหรับสแกน QR โค้ด</string>
+    <string name="cd_close_scanner">ปิดเครื่องสแกน</string>
+    <string name="cd_toggle_flash">เปิด/ปิดแฟลช</string>
+    <string name="cd_scan_result">ผลการสแกนพร้อมคำตัดสินและคะแนนความเสี่ยง</string>
+    <string name="cd_scan_button">สแกน QR โค้ด</string>
+    <string name="cd_gallery_button">เลือกรูปภาพ QR โค้ดจากแกลเลอรี่</string>
+    <string name="cd_copy_button">คัดลอก URL ไปยังคลิปบอร์ด</string>
+    <string name="cd_share_button">แชร์ URL</string>
+    <string name="cd_open_url">เปิด URL ในเบราว์เซอร์</string>
+    <string name="cd_delete_item">ลบการสแกนนี้จากประวัติ</string>
+    <string name="cd_clear_history">ล้างประวัติการสแกนทั้งหมด</string>
+    <string name="cd_search_history">ค้นหาประวัติการสแกน</string>
+    <string name="cd_filter_safe">แสดงเฉพาะการสแกนที่ปลอดภัย</string>
+    <string name="cd_filter_suspicious">แสดงเฉพาะการสแกนที่น่าสงสัย</string>
+    <string name="cd_filter_malicious">แสดงเฉพาะการสแกนอันตราย</string>
+    <string name="cd_history_item">รายการประวัติการสแกน</string>
+    <string name="cd_settings_toggle">เปิด/ปิดการตั้งค่า</string>
+    <string name="cd_back_button">กลับ</string>
+    <string name="cd_processing">กำลังประมวลผล กรุณารอ</string>
+    <string name="cd_safe_verdict">URL ปลอดภัยในการเยี่ยมชม</string>
+    <string name="cd_suspicious_verdict">URL น่าสงสัย ควรระมัดระวัง</string>
+    <string name="cd_malicious_verdict">คำเตือน URL ดูเหมือนจะเป็นความพยายามฟิชชิ่งที่เป็นอันตราย</string>
+    <string name="cd_risk_score">คะแนนความเสี่ยงจาก 100</string>
+
+    <!-- Trust Centre -->
+    <string name="trust_center_title">สถานะความปลอดภัย</string>
+    <string name="trust_center_secure">อุปกรณ์ของคุณปลอดภัย</string>
+    <string name="trust_center_protected_by">ได้รับการป้องกันโดย QR-SHIELD Enterprise</string>
+    <string name="trust_center_score">คะแนนความปลอดภัย: %d/100</string>
+    <string name="trust_center_realtime">การป้องกันแบบเรียลไทม์</string>
+    <string name="trust_center_malware">การตรวจจับมัลแวร์</string>
+    <string name="trust_center_scarm_blocker">ตัวบล็อกการหลอกลวง</string>
+    <string name="trust_center_active">ทำงานอยู่</string>
+    <string name="trust_center_database_status">สถานะฐานข้อมูล</string>
+    <string name="trust_center_last_updated">อัปเดตล่าสุด: %s</string>
+    <string name="trust_center_just_now">เมื่อกี้</string>
+    <string name="trust_center_check_updates">ตรวจสอบการอัปเดต</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">รุ่นองค์กร</string>
+    <string name="footer_terms">ข้อกำหนด</string>
+    <string name="footer_privacy">ความเป็นส่วนตัว</string>
+    <string name="footer_licenses">ใบอนุญาต</string>
+</resources>

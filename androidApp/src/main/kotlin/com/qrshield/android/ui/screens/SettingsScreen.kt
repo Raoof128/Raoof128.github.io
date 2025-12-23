@@ -96,6 +96,9 @@ fun SettingsScreen(
     val saveHistory = settings.isSaveHistoryEnabled
     val developerModeEnabled = settings.isDeveloperModeEnabled
     val notificationsEnabled = settings.isSecurityAlertsEnabled
+    
+    // Language picker dialog state
+    var showLanguageDialog by remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -295,6 +298,45 @@ fun SettingsScreen(
                         imageVector = Icons.AutoMirrored.Filled.OpenInNew,
                         contentDescription = stringResource(R.string.cd_open_system_settings),
                         tint = BrandPrimary,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            )
+        }
+
+        // Language Selection
+        item {
+            val currentLocale = context.resources.configuration.locales[0]
+            val currentLanguageName = when (currentLocale.language) {
+                "en" -> stringResource(R.string.language_english)
+                "de" -> stringResource(R.string.language_german)
+                "es" -> stringResource(R.string.language_spanish)
+                "fr" -> stringResource(R.string.language_french)
+                "it" -> stringResource(R.string.language_italian)
+                "pt" -> stringResource(R.string.language_portuguese)
+                "ru" -> stringResource(R.string.language_russian)
+                "zh" -> stringResource(R.string.language_chinese)
+                "ja" -> stringResource(R.string.language_japanese)
+                "ko" -> stringResource(R.string.language_korean)
+                "hi" -> stringResource(R.string.language_hindi)
+                "ar" -> stringResource(R.string.language_arabic)
+                "tr" -> stringResource(R.string.language_turkish)
+                "vi" -> stringResource(R.string.language_vietnamese)
+                "in", "id" -> stringResource(R.string.language_indonesian)
+                "th" -> stringResource(R.string.language_thai)
+                else -> stringResource(R.string.settings_language_system)
+            }
+            
+            SettingsClickable(
+                icon = Icons.Default.Language,
+                title = stringResource(R.string.settings_language),
+                subtitle = currentLanguageName,
+                onClick = { showLanguageDialog = true },
+                trailing = {
+                    Icon(
+                        imageVector = Icons.Default.ChevronRight,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -748,6 +790,87 @@ fun SettingsScreen(
                     colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary)
                 ) {
                     Text(stringResource(R.string.action_close))
+                }
+            }
+        )
+    }
+    
+    // Language Selection Dialog
+    if (showLanguageDialog) {
+        val languages = listOf(
+            "en" to stringResource(R.string.language_english),
+            "de" to stringResource(R.string.language_german),
+            "es" to stringResource(R.string.language_spanish),
+            "fr" to stringResource(R.string.language_french),
+            "it" to stringResource(R.string.language_italian),
+            "pt" to stringResource(R.string.language_portuguese),
+            "ru" to stringResource(R.string.language_russian),
+            "zh" to stringResource(R.string.language_chinese),
+            "ja" to stringResource(R.string.language_japanese),
+            "ko" to stringResource(R.string.language_korean),
+            "hi" to stringResource(R.string.language_hindi),
+            "ar" to stringResource(R.string.language_arabic),
+            "tr" to stringResource(R.string.language_turkish),
+            "vi" to stringResource(R.string.language_vietnamese),
+            "in" to stringResource(R.string.language_indonesian),
+            "th" to stringResource(R.string.language_thai)
+        )
+        val currentLocale = context.resources.configuration.locales[0].language
+        
+        AlertDialog(
+            onDismissRequest = { showLanguageDialog = false },
+            title = {
+                Text(
+                    text = stringResource(R.string.settings_select_language),
+                    style = MaterialTheme.typography.titleLarge
+                )
+            },
+            text = {
+                LazyColumn {
+                    items(languages.size) { index ->
+                        val (code, name) = languages[index]
+                        val isSelected = code == currentLocale || 
+                            (code == "in" && currentLocale == "id")
+                        
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clickable {
+                                    // Open Android language settings
+                                    val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                                    context.startActivity(intent)
+                                    showLanguageDialog = false
+                                }
+                                .padding(vertical = 12.dp, horizontal = 8.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                text = name,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = if (isSelected) BrandPrimary else MaterialTheme.colorScheme.onSurface,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                            )
+                            if (isSelected) {
+                                Icon(
+                                    imageVector = Icons.Default.Check,
+                                    contentDescription = null,
+                                    tint = BrandPrimary,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                        if (index < languages.size - 1) {
+                            HorizontalDivider(
+                                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                            )
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = { showLanguageDialog = false }) {
+                    Text(stringResource(R.string.cancel))
                 }
             }
         )

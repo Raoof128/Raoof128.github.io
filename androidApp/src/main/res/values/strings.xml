@@ -108,6 +108,28 @@
     <string name="settings_system_appearance">System Appearance</string>
     <string name="settings_system_appearance_desc">Configure display settings</string>
     
+    <!-- Settings Screen - Language -->
+    <string name="settings_language">Language</string>
+    <string name="settings_language_desc">Choose your preferred language</string>
+    <string name="settings_language_system">System Default</string>
+    <string name="settings_select_language">Select Language</string>
+    <string name="language_english">English</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Français</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_arabic">العربية</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_thai">ภาษาไทย</string>
+    
     <string name="settings_privacy">Privacy</string>
     <string name="settings_save_history">Save scan history</string>
     <string name="settings_save_history_desc">Keep a record of scanned URLs</string>

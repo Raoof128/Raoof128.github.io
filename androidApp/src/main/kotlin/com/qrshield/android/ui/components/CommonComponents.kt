@@ -319,8 +319,8 @@ enum class ChipStatus {
 }
 
 /**
- * Toggle Switch matching HTML style
- * Matches: w-12 h-6 bg-primary rounded-full transition
+ * Toggle Switch using Material 3 Switch component
+ * Properly themed with QR-SHIELD colors
  */
 @Composable
 fun QRShieldToggle(
@@ -329,47 +329,24 @@ fun QRShieldToggle(
     modifier: Modifier = Modifier,
     enabled: Boolean = true
 ) {
-    val isDark = isSystemInDarkTheme()
-    val uncheckedTrackColor = if (isDark) QRShieldColors.Gray700 else QRShieldColors.Gray200
-    
-    val trackColor by animateColorAsState(
-        targetValue = if (checked) QRShieldColors.Primary else uncheckedTrackColor,
-        animationSpec = tween(200),
-        label = "trackColor"
-    )
-
-    // Track: 51dp wide, Thumb: 27dp, Padding: 2dp each side
-    // OFF: 2dp from left, ON: 51 - 27 - 2 = 22dp from left
-    val thumbOffset by animateDpAsState(
-        targetValue = if (checked) 22.dp else 2.dp,
-        animationSpec = tween(200),
-        label = "thumbOffset"
-    )
-
-    Box(
-        modifier = modifier
-            .width(51.dp)
-            .height(31.dp)
-            .clip(RoundedCornerShape(9999.dp))
-            .background(trackColor)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                enabled = enabled,
-                role = Role.Switch,
-                onClick = { onCheckedChange(!checked) }
-            ),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        Box(
-            modifier = Modifier
-                .offset(x = thumbOffset)
-                .size(27.dp)
-                .clip(CircleShape)
-                .background(Color.White)
-                .shadow(2.dp, CircleShape)
+    Switch(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        enabled = enabled,
+        modifier = modifier,
+        colors = SwitchDefaults.colors(
+            checkedThumbColor = Color.White,
+            checkedTrackColor = QRShieldColors.Primary,
+            checkedBorderColor = QRShieldColors.Primary,
+            uncheckedThumbColor = Color.White,
+            uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+            uncheckedBorderColor = MaterialTheme.colorScheme.outline,
+            disabledCheckedThumbColor = Color.White.copy(alpha = 0.6f),
+            disabledCheckedTrackColor = QRShieldColors.Primary.copy(alpha = 0.4f),
+            disabledUncheckedThumbColor = Color.White.copy(alpha = 0.6f),
+            disabledUncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
         )
-    }
+    )
 }
 
 /**

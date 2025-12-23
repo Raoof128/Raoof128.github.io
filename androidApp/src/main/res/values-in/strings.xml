@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">Pindai kode QR. Deteksi phishing.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Beranda</string>
+    <string name="nav_scan">Pindai</string>
+    <string name="nav_history">Riwayat</string>
+    <string name="nav_settings">Pengaturan</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">Selamat datang kembali</string>
+    <string name="dashboard_default_user">Pengguna QR-SHIELD</string>
+    <string name="dashboard_shield_active">PERLINDUNGAN AKTIF</string>
+    <string name="dashboard_headline">Aman. Offline.\nPertahanan yang Dapat Dijelaskan.</string>
+    <string name="dashboard_subtitle">Database perusahaan Anda sudah diperbarui dan dipantau secara lokal.</string>
+    <string name="dashboard_scan_qr">Pindai QR</string>
+    <string name="dashboard_import_image">Impor Gambar</string>
+    <string name="dashboard_system_health">Kesehatan Sistem</string>
+    <string name="dashboard_total_scans">Total Pemindaian</string>
+    <string name="dashboard_threats_blocked">Ancaman Diblokir</string>
+    <string name="dashboard_recent_scans">Pemindaian Terbaru</string>
+    <string name="dashboard_view_all">Lihat Semua</string>
+    <string name="dashboard_tools">Alat Keamanan</string>
+
+    <!-- Scanner Screen -->
+    <string name="start_scanning">Mulai Memindai</string>
+    <string name="scan_from_gallery">Pindai dari Galeri</string>
+    <string name="scan_instruction">Sejajarkan kode QR dalam bingkai</string>
+    <string name="analyzing_url">Menganalisis URL…</string>
+    <string name="scans_in_history">%d pemindaian dalam riwayat</string>
+
+    <!-- Results -->
+    <string name="risk_score">Skor Risiko</string>
+    <string name="scanned_url">URL yang Dipindai</string>
+    <string name="copy">Salin</string>
+    <string name="risk_factors">Faktor Risiko</string>
+    <string name="done">Selesai</string>
+    <string name="scan_another">Pindai Lainnya</string>
+    <string name="safe_verdict">AMAN</string>
+    <string name="suspicious_verdict">MENCURIGAKAN</string>
+    <string name="malicious_verdict">BERBAHAYA</string>
+
+    <!-- Recommendations -->
+    <string name="recommendation_safe">URL ini tampak aman. Anda dapat melanjutkan dengan yakin.</string>
+    <string name="recommendation_suspicious">Berhati-hatilah dengan URL ini. Verifikasi sumbernya sebelum melanjutkan.</string>
+    <string name="recommendation_malicious">⛔ PERINGATAN: URL ini menunjukkan tanda-tanda phishing. JANGAN memasukkan informasi pribadi.</string>
+    <string name="recommendation_unknown">Tidak dapat memverifikasi sepenuhnya URL ini. Lanjutkan dengan hati-hati.</string>
+
+    <!-- History Screen -->
+    <string name="search_placeholder">Cari URL…</string>
+    <string name="clear_history_title">Hapus Semua Riwayat?</string>
+    <string name="clear_history_message">Tindakan ini tidak dapat dibatalkan. Semua riwayat pemindaian akan dihapus secara permanen.</string>
+    <string name="clear_all">Hapus Semua</string>
+    <string name="cancel">Batal</string>
+    <string name="delete">Hapus</string>
+    <string name="delete_item_title">Hapus Pemindaian Ini?</string>
+    <string name="delete_item_message">Item ini akan dihapus dari riwayat Anda.</string>
+    <string name="copy_url">Salin URL</string>
+    <string name="no_history">Tidak Ada Riwayat Pemindaian</string>
+    <string name="scan_to_see_history">Hasil pemindaian Anda akan muncul di sini</string>
+    <string name="no_results">Tidak Ditemukan Hasil</string>
+    <string name="try_different_filter">Coba filter atau kata kunci pencarian yang berbeda</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_scanning">Pemindaian</string>
+    <string name="settings_auto_scan">Pindai otomatis saat diluncurkan</string>
+    <string name="settings_auto_scan_desc">Mulai memindai segera saat aplikasi dibuka</string>
+    <string name="settings_haptic">Umpan balik haptic</string>
+    <string name="settings_haptic_desc">Getar pada hasil pemindaian</string>
+    <string name="settings_sound">Efek suara</string>
+    <string name="settings_sound_desc">Putar suara untuk peringatan</string>
+
+    <string name="settings_notifications">Notifikasi</string>
+    <string name="settings_security_alerts">Peringatan keamanan</string>
+    <string name="settings_security_alerts_desc">Dapatkan notifikasi tentang ancaman keamanan</string>
+    <string name="settings_system_notifications">Notifikasi sistem</string>
+    <string name="settings_system_notifications_desc">Konfigurasikan preferensi notifikasi</string>
+
+    <string name="settings_privacy">Privasi</string>
+    <string name="settings_save_history">Simpan riwayat pemindaian</string>
+    <string name="settings_save_history_desc">Simpan log URL yang dipindai</string>
+    <string name="settings_privacy_policy">Kebijakan Privasi</string>
+    <string name="settings_privacy_policy_desc">Lihat praktik privasi kami</string>
+
+    <string name="settings_accessibility">Aksesibilitas</string>
+    <string name="settings_accessibility_settings">Pengaturan aksesibilitas</string>
+    <string name="settings_accessibility_settings_desc">Konfigurasikan TalkBack dan layanan lainnya</string>
+
+    <string name="settings_about">Tentang</string>
+    <string name="settings_version">Versi</string>
+    <string name="settings_build">Build</string>
+    <string name="settings_engine">Mesin Deteksi</string>
+    <string name="settings_source_code">Kode Sumber</string>
+    <string name="settings_help">Bantuan &amp; Dukungan</string>
+    <string name="settings_help_desc">Laporkan masalah atau dapatkan bantuan</string>
+
+    <!-- Errors -->
+    <string name="error_title">Terjadi kesalahan</string>
+    <string name="try_again">Coba Lagi</string>
+    <string name="camera_permission_rationale">Akses kamera diperlukan untuk memindai kode QR</string>
+    <string name="camera_permission_denied">Izin kamera ditolak. Silakan aktifkan dari pengaturan.</string>
+
+    <!-- Widget -->
+    <string name="widget_name">Pemindaian Cepat QR-SHIELD</string>
+    <string name="widget_description">Pindai kode QR dengan cepat untuk ancaman phishing</string>
+    <string name="widget_tap_to_scan">Ketuk untuk memindai</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">Logo QR-SHIELD</string>
+    <string name="cd_scanner_preview">Pratinjau kamera untuk pemindaian kode QR</string>
+    <string name="cd_close_scanner">Tutup pemindai</string>
+    <string name="cd_toggle_flash">Aktifkan/nonaktifkan flash</string>
+    <string name="cd_scan_result">Hasil pemindaian dengan putusan dan skor risiko</string>
+    <string name="cd_scan_button">Pindai kode QR</string>
+    <string name="cd_gallery_button">Pilih gambar kode QR dari galeri foto</string>
+    <string name="cd_copy_button">Salin URL ke clipboard</string>
+    <string name="cd_share_button">Bagikan URL</string>
+    <string name="cd_open_url">Buka URL di browser</string>
+    <string name="cd_delete_item">Hapus pemindaian ini dari riwayat</string>
+    <string name="cd_clear_history">Hapus semua riwayat pemindaian</string>
+    <string name="cd_search_history">Cari riwayat pemindaian</string>
+    <string name="cd_filter_safe">Tampilkan hanya pemindaian aman</string>
+    <string name="cd_filter_suspicious">Tampilkan hanya pemindaian mencurigakan</string>
+    <string name="cd_filter_malicious">Tampilkan hanya pemindaian berbahaya</string>
+    <string name="cd_history_item">Item riwayat pemindaian</string>
+    <string name="cd_settings_toggle">Aktifkan/nonaktifkan pengaturan</string>
+    <string name="cd_back_button">Kembali</string>
+    <string name="cd_processing">Memproses, harap tunggu</string>
+    <string name="cd_safe_verdict">URL aman untuk dikunjungi</string>
+    <string name="cd_suspicious_verdict">URL mencurigakan, berhati-hatilah</string>
+    <string name="cd_malicious_verdict">Peringatan, URL tampak sebagai upaya phishing berbahaya</string>
+    <string name="cd_risk_score">Skor risiko dari 100</string>
+
+    <!-- Trust Centre -->
+    <string name="trust_center_title">Status Keamanan</string>
+    <string name="trust_center_secure">Perangkat Anda aman</string>
+    <string name="trust_center_protected_by">Dilindungi oleh QR-SHIELD Enterprise</string>
+    <string name="trust_center_score">Skor Keamanan: %d/100</string>
+    <string name="trust_center_realtime">Perlindungan real-time</string>
+    <string name="trust_center_malware">Deteksi malware</string>
+    <string name="trust_center_scarm_blocker">Pemblokir scam</string>
+    <string name="trust_center_active">Aktif</string>
+    <string name="trust_center_database_status">Status Database</string>
+    <string name="trust_center_last_updated">Terakhir diperbarui: %s</string>
+    <string name="trust_center_just_now">Baru saja</string>
+    <string name="trust_center_check_updates">Periksa pembaruan</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">EDISI PERUSAHAAN</string>
+    <string name="footer_terms">Ketentuan</string>
+    <string name="footer_privacy">Privasi</string>
+    <string name="footer_licenses">Lisensi</string>
+</resources>

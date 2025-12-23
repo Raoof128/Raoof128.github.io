@@ -40,6 +40,10 @@ class AndroidSettingsDataSource(context: Context) : SettingsDataSource {
             putBoolean("developer_mode", settings.isDeveloperModeEnabled)
             putBoolean("aggressive_mode", settings.isAggressiveModeEnabled)
             
+            // Appearance Settings (iOS Parity)
+            putBoolean("dark_mode", settings.isDarkModeEnabled)
+            putBoolean("reduced_effects", settings.isReducedEffectsEnabled)
+            
             // Trust Centre
             putString("heuristic_sensitivity", settings.heuristicSensitivity)
             putBoolean("share_threats", settings.isShareThreatSignaturesEnabled)
@@ -58,6 +62,10 @@ class AndroidSettingsDataSource(context: Context) : SettingsDataSource {
             isSecurityAlertsEnabled = prefs.getBoolean("security_alerts", true),
             isDeveloperModeEnabled = prefs.getBoolean("developer_mode", false),
             isAggressiveModeEnabled = prefs.getBoolean("aggressive_mode", false),
+            
+            // Appearance Settings (iOS Parity) - default dark mode ON
+            isDarkModeEnabled = prefs.getBoolean("dark_mode", true),
+            isReducedEffectsEnabled = prefs.getBoolean("reduced_effects", false),
             
             heuristicSensitivity = prefs.getString("heuristic_sensitivity", "BALANCED") ?: "BALANCED",
             isShareThreatSignaturesEnabled = prefs.getBoolean("share_threats", false),

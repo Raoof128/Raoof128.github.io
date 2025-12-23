@@ -161,7 +161,7 @@ fun QRShieldNavigation() {
         bottomBar = {
             QRShieldBottomNavBar(navController = navController)
         },
-        containerColor = BackgroundDark
+        containerColor = MaterialTheme.colorScheme.background
     ) { innerPadding ->
         QRShieldNavHost(
             navController = navController,
@@ -181,7 +181,7 @@ fun QRShieldBottomNavBar(
     val currentDestination = navBackStackEntry?.destination
 
     NavigationBar(
-        containerColor = BackgroundDark.copy(alpha = 0.95f),
+        containerColor = MaterialTheme.colorScheme.surface,
         contentColor = BrandPrimary,
         modifier = Modifier.semantics {
             contentDescription = "Main navigation bar with 4 tabs: Home, Scan, History, and Settings"
@@ -208,14 +208,14 @@ fun QRShieldBottomNavBar(
                 },
                 selected = selected,
                 onClick = {
-                    if (!selected) {
-                        navController.navigate(screen.route) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
+                    // Always navigate to the screen (even if selected but we might be deep in nav stack)
+                    navController.navigate(screen.route) {
+                        // Pop up to start destination to avoid building up a large stack
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
                         }
+                        launchSingleTop = true
+                        restoreState = true
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
@@ -376,6 +376,10 @@ fun QRShieldNavHost(
                         "report" -> navController.navigate(Routes.EXPORT_REPORT)
                         "whitelist" -> navController.navigate(Routes.ALLOWLIST)
                     }
+                },
+                onScanResult = { url, verdict, score ->
+                    // Auto-navigate to result screen (iOS Parity)
+                    navController.navigate(Routes.scanResult(url, verdict, score))
                 }
             )
         }

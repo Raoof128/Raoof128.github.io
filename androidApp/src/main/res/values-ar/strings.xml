@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">امسح رموز QR. اكتشف التصيد الاحتيالي.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_scan">مسح</string>
+    <string name="nav_history">السجل</string>
+    <string name="nav_settings">الإعدادات</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">مرحباً بعودتك</string>
+    <string name="dashboard_default_user">مستخدم QR-SHIELD</string>
+    <string name="dashboard_shield_active">الحماية نشطة</string>
+    <string name="dashboard_headline">آمن. بدون اتصال.\nدفاع قابل للتفسير.</string>
+    <string name="dashboard_subtitle">قاعدة بيانات المؤسسة محدثة وتراقب محلياً.</string>
+    <string name="dashboard_scan_qr">مسح QR</string>
+    <string name="dashboard_import_image">استيراد صورة</string>
+    <string name="dashboard_system_health">صحة النظام</string>
+    <string name="dashboard_total_scans">إجمالي عمليات المسح</string>
+    <string name="dashboard_threats_blocked">التهديدات المحظورة</string>
+    <string name="dashboard_recent_scans">عمليات المسح الأخيرة</string>
+    <string name="dashboard_view_all">عرض الكل</string>
+    <string name="dashboard_tools">أدوات الأمان</string>
+
+    <!-- Scanner Screen -->
+    <string name="start_scanning">بدء المسح</string>
+    <string name="scan_from_gallery">مسح من المعرض</string>
+    <string name="scan_instruction">محاذاة رمز QR داخل الإطار</string>
+    <string name="analyzing_url">جاري تحليل الرابط…</string>
+    <string name="scans_in_history">%d عملية مسح في السجل</string>
+
+    <!-- Results -->
+    <string name="risk_score">درجة المخاطر</string>
+    <string name="scanned_url">الرابط الممسوح</string>
+    <string name="copy">نسخ</string>
+    <string name="risk_factors">عوامل الخطر</string>
+    <string name="done">تم</string>
+    <string name="scan_another">مسح آخر</string>
+    <string name="safe_verdict">آمن</string>
+    <string name="suspicious_verdict">مشبوه</string>
+    <string name="malicious_verdict">خبيث</string>
+
+    <!-- Recommendations -->
+    <string name="recommendation_safe">يبدو أن هذا الرابط آمن. يمكنك المتابعة بثقة.</string>
+    <string name="recommendation_suspicious">توخي الحذر مع هذا الرابط. تحقق من المصدر قبل المتابعة.</string>
+    <string name="recommendation_malicious">⛔ تحذير: يظهر هذا الرابط علامات تصيد احتيالي. لا تدخل أي معلومات شخصية.</string>
+    <string name="recommendation_unknown">تعذر التحقق الكامل من هذا الرابط. تابع بحذر.</string>
+
+    <!-- History Screen -->
+    <string name="search_placeholder">بحث في الروابط…</string>
+    <string name="clear_history_title">مسح كل السجل؟</string>
+    <string name="clear_history_message">لا يمكن التراجع عن هذا الإجراء. سيتم حذف سجل المسح بالكامل نهائياً.</string>
+    <string name="clear_all">مسح الكل</string>
+    <string name="cancel">إلغاء</string>
+    <string name="delete">حذف</string>
+    <string name="delete_item_title">حذف هذا المسح؟</string>
+    <string name="delete_item_message">سيتم إزالة هذا العنصر من السجل.</string>
+    <string name="copy_url">نسخ الرابط</string>
+    <string name="no_history">لا يوجد سجل مسح</string>
+    <string name="scan_to_see_history">ستظهر نتائج المسح هنا</string>
+    <string name="no_results">لم يتم العثور على نتائج</string>
+    <string name="try_different_filter">جرب فلتر أو مصطلح بحث مختلف</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_scanning">المسح</string>
+    <string name="settings_auto_scan">مسح تلقائي عند التشغيل</string>
+    <string name="settings_auto_scan_desc">بدء المسح فوراً عند فتح التطبيق</string>
+    <string name="settings_haptic">ردود فعل لمسية</string>
+    <string name="settings_haptic_desc">اهتزاز عند ظهور النتائج</string>
+    <string name="settings_sound">المؤثرات الصوتية</string>
+    <string name="settings_sound_desc">تشغيل أصوات للتنبيهات</string>
+
+    <string name="settings_notifications">الإشعارات</string>
+    <string name="settings_security_alerts">تنبيهات الأمان</string>
+    <string name="settings_security_alerts_desc">الحصول على إشعارات حول التهديدات الأمنية</string>
+    <string name="settings_system_notifications">إشعارات النظام</string>
+    <string name="settings_system_notifications_desc">تكوين تفضيلات الإشعارات</string>
+
+    <string name="settings_privacy">الخصوصية</string>
+    <string name="settings_save_history">حفظ سجل المسح</string>
+    <string name="settings_save_history_desc">الاحتفاظ بسجل الروابط الممسوحة</string>
+    <string name="settings_privacy_policy">سياسة الخصوصية</string>
+    <string name="settings_privacy_policy_desc">عرض ممارسات الخصوصية لدينا</string>
+
+    <string name="settings_accessibility">إمكانية الوصول</string>
+    <string name="settings_accessibility_settings">إعدادات إمكانية الوصول</string>
+    <string name="settings_accessibility_settings_desc">تكوين TalkBack والخدمات الأخرى</string>
+
+    <string name="settings_about">حول</string>
+    <string name="settings_version">الإصدار</string>
+    <string name="settings_build">البناء</string>
+    <string name="settings_engine">محرك الكشف</string>
+    <string name="settings_source_code">الكود المصدري</string>
+    <string name="settings_help">المساعدة والدعم</string>
+    <string name="settings_help_desc">الإبلاغ عن مشاكل أو الحصول على مساعدة</string>
+
+    <!-- Errors -->
+    <string name="error_title">حدث خطأ ما</string>
+    <string name="try_again">حاول مرة أخرى</string>
+    <string name="camera_permission_rationale">مطلوب الوصول للكاميرا لمسح رموز QR</string>
+    <string name="camera_permission_denied">تم رفض إذن الكاميرا. يرجى التمكين من الإعدادات.</string>
+
+    <!-- Widget -->
+    <string name="widget_name">مسح سريع QR-SHIELD</string>
+    <string name="widget_description">مسح رموز QR بسرعة للتهديدات الاحتيالية</string>
+    <string name="widget_tap_to_scan">اضغط للمسح</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">شعار QR-SHIELD</string>
+    <string name="cd_scanner_preview">معاينة الكاميرا لمسح رمز QR</string>
+    <string name="cd_close_scanner">إغلاق الماسح</string>
+    <string name="cd_toggle_flash">تبديل الفلاش</string>
+    <string name="cd_scan_result">نتيجة المسح مع الحكم ودرجة المخاطر</string>
+    <string name="cd_scan_button">مسح رموز QR</string>
+    <string name="cd_gallery_button">اختيار صورة رمز QR من المعرض</string>
+    <string name="cd_copy_button">نسخ الرابط إلى الحافظة</string>
+    <string name="cd_share_button">مشاركة الرابط</string>
+    <string name="cd_open_url">فتح الرابط في المتصفح</string>
+    <string name="cd_delete_item">حذف هذا المسح من السجل</string>
+    <string name="cd_clear_history">مسح كل سجل المسح</string>
+    <string name="cd_search_history">البحث في سجل المسح</string>
+    <string name="cd_filter_safe">عرض عمليات المسح الآمنة فقط</string>
+    <string name="cd_filter_suspicious">عرض عمليات المسح المشبوهة فقط</string>
+    <string name="cd_filter_malicious">عرض عمليات المسح الخبيثة فقط</string>
+    <string name="cd_history_item">عنصر سجل المسح</string>
+    <string name="cd_settings_toggle">تبديل الإعداد</string>
+    <string name="cd_back_button">الرجوع للخلف</string>
+    <string name="cd_processing">جاري المعالجة، يرجى الانتظار</string>
+    <string name="cd_safe_verdict">الرابط آمن للزيارة</string>
+    <string name="cd_suspicious_verdict">الرابط مشبوه، توخي الحذر</string>
+    <string name="cd_malicious_verdict">تحذير، يبدو أن الرابط محاولة تصيد خبيثة</string>
+    <string name="cd_risk_score">درجة المخاطر من 100</string>
+
+    <!-- Trust Centre -->
+    <string name="trust_center_title">حالة الأمان</string>
+    <string name="trust_center_secure">جهازك آمن</string>
+    <string name="trust_center_protected_by">محمي بواسطة QR-SHIELD Enterprise</string>
+    <string name="trust_center_score">درجة الأمان: %d/100</string>
+    <string name="trust_center_realtime">الحماية في الوقت الفعلي</string>
+    <string name="trust_center_malware">كشف البرمجيات الخبيثة</string>
+    <string name="trust_center_scarm_blocker">حظر الاحتيال</string>
+    <string name="trust_center_active">نشط</string>
+    <string name="trust_center_database_status">حالة قاعدة البيانات</string>
+    <string name="trust_center_last_updated">آخر تحديث: %s</string>
+    <string name="trust_center_just_now">الآن</string>
+    <string name="trust_center_check_updates">البحث عن تحديثات</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">نسخة المؤسسة</string>
+    <string name="footer_terms">الشروط</string>
+    <string name="footer_privacy">الخصوصية</string>
+    <string name="footer_licenses">التراخيص</string>
+</resources>

@@ -186,17 +186,27 @@ class BeatTheBotViewModel : ViewModel() {
             // Get next URL
             val nextUrl = getNextUrl()
             
+            // Show result briefly, then transition to next round
             _uiState.update { 
                 it.copy(
-                    currentRoundIndex = nextIndex,
-                    currentUrl = nextUrl,
-                    timeRemainingSeconds = 30,
                     lastResult = result
                 ) 
             }
             
-            // Start timer for next round
-            startTimer()
+            // After a brief delay, move to next round and clear result
+            viewModelScope.launch {
+                delay(1500L)  // Show feedback for 1.5 seconds
+                _uiState.update { 
+                    it.copy(
+                        currentRoundIndex = nextIndex,
+                        currentUrl = nextUrl,
+                        timeRemainingSeconds = 30,
+                        lastResult = null  // Clear result to re-enable buttons
+                    ) 
+                }
+                // Start timer for next round
+                startTimer()
+            }
         }
     }
     

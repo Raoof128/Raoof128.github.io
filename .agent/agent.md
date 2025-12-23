@@ -4,6 +4,113 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🐛 December 23, 2025 - Critical Bug Fixes & UI Refinements
+
+### Summary
+Fixed 6 critical bugs reported by user testing, including analysis logic errors, UI inconsistencies, and theme issues. Also refined toggle components to use Material 3 standards and expanded language support.
+
+## 🌍 New Languages Added (5)
+
+Expanded Android app from 10 to 15 languages for global reach:
+
+| Language | Locale | Speakers | File |
+|----------|--------|----------|------|
+| 🇸🇦 Arabic | `ar` | 400M+ | `values-ar/strings.xml` |
+| 🇹🇷 Turkish | `tr` | 80M+ | `values-tr/strings.xml` |
+| 🇻🇳 Vietnamese | `vi` | 85M+ | `values-vi/strings.xml` |
+| 🇮🇩 Indonesian | `in` | 200M+ | `values-in/strings.xml` |
+| 🇹🇭 Thai | `th` | 60M+ | `values-th/strings.xml` |
+
+**Total Languages Supported: 15**
+- English (en), German (de), Spanish (es), French (fr), Hindi (hi)
+- Italian (it), Japanese (ja), Korean (ko), Portuguese (pt), Russian (ru)
+- Chinese (zh), Arabic (ar), Turkish (tr), Vietnamese (vi), Indonesian (in), Thai (th)
+
+## 🌐 Language Picker in Settings
+
+Added a new Language selector in the Settings screen under Appearance:
+- Displays current system language with native name
+- Shows all 15 supported languages in a scrollable dialog
+- Highlights current language with checkmark
+- Links to Android Locale Settings for language change
+- Proper RTL support for Arabic
+
+## ✅ Bug Fixes Completed
+
+### Bug 1: Analysis Logic Error (Everything Classified as Dangerous)
+**Root Cause:** `PHISHING_ENGINE_SAFE_THRESHOLD` was only 10 and `SUSPICIOUS_THRESHOLD` was 50, causing legitimate URLs to be flagged.
+
+**Fix:** Updated `SecurityConstants.kt`:
+- `PHISHING_ENGINE_SAFE_THRESHOLD`: 10 → **25**
+- `PHISHING_ENGINE_SUSPICIOUS_THRESHOLD`: 50 → **60**
+
+### Bug 2: Settings Gear UI (Weird Hexagonal Background)
+**Root Cause:** Settings IconButton had `shadow()` and `background()` modifiers.
+
+**Fix:** Removed shadow and background from settings button in `DashboardScreen.kt`.
+
+### Bug 3: Bottom Navigation Stays Dark Mode
+**Root Cause:** `NavigationBar` used hardcoded `BackgroundDark` color.
+
+**Fix:** Changed to `MaterialTheme.colorScheme.surface` in `Navigation.kt`.
+
+### Bug 4: Result Card Doesn't Auto-Display After Analysis
+**Root Cause:** Dashboard didn't observe `UiState.Result` for navigation.
+
+**Fix:** Added `LaunchedEffect` in `DashboardScreen.kt` to auto-navigate when analysis completes:
+```kotlin
+LaunchedEffect(uiState) {
+    when (val state = uiState) {
+        is UiState.Result -> {
+            onScanResult(assessment.details.originalUrl, assessment.verdict.name, assessment.score)
+            viewModel.resetToIdle()
+        }
+    }
+}
+```
+
+### Bug 5: Toggle Components Need Refinement
+**Root Cause:** Custom toggle implementation didn't use Material 3 standards.
+
+**Fix:** Replaced with Material 3 `Switch` in `CommonComponents.kt`:
+```kotlin
+Switch(
+    colors = SwitchDefaults.colors(
+        checkedThumbColor = Color.White,
+        checkedTrackColor = QRShieldColors.Primary,
+        ...
+    )
+)
+```
+
+### Bug 6: Verdict Icon Always Shows Red Danger Shield (Critical!)
+**Root Cause:** `VerdictHeader` in `ScanResultScreen.kt` was hardcoded to show red `GppBad` icon.
+
+**Fix:** Made icon and colors dynamic based on verdict:
+| Verdict | Icon | Color |
+|---------|------|-------|
+| SAFE | `GppGood` | Green |
+| SUSPICIOUS | `GppMaybe` | Orange |
+| MALICIOUS | `GppBad` | Red |
+| UNKNOWN | `Shield` | Blue |
+
+## 📄 Files Modified
+| File | Changes |
+|------|---------|
+| `SecurityConstants.kt` | Increased analysis thresholds |
+| `DashboardScreen.kt` | Fixed settings button, added auto-navigation |
+| `Navigation.kt` | Theme-aware nav bar colors |
+| `CommonComponents.kt` | Material 3 Switch for toggles |
+| `ScanResultScreen.kt` | Dynamic verdict icon/colors |
+
+## ✅ Build Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+BUILD SUCCESSFUL
+```
+
+---
+
 # 📱 December 23, 2025 - iOS-Android Parity Audit (Complete)
 
 ### Summary

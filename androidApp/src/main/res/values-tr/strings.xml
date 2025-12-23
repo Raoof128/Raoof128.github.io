@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">QR kodları tara. Oltalamayı tespit et.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Ana Sayfa</string>
+    <string name="nav_scan">Tara</string>
+    <string name="nav_history">Geçmiş</string>
+    <string name="nav_settings">Ayarlar</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">Tekrar hoş geldiniz</string>
+    <string name="dashboard_default_user">QR-SHIELD Kullanıcısı</string>
+    <string name="dashboard_shield_active">KORUMA AKTİF</string>
+    <string name="dashboard_headline">Güvenli. Çevrimdışı.\nAçıklanabilir Savunma.</string>
+    <string name="dashboard_subtitle">Kurumsal veritabanınız güncel ve yerel olarak izleniyor.</string>
+    <string name="dashboard_scan_qr">QR Tara</string>
+    <string name="dashboard_import_image">Görsel İçe Aktar</string>
+    <string name="dashboard_system_health">Sistem Durumu</string>
+    <string name="dashboard_total_scans">Toplam Tarama</string>
+    <string name="dashboard_threats_blocked">Engellenen Tehditler</string>
+    <string name="dashboard_recent_scans">Son Taramalar</string>
+    <string name="dashboard_view_all">Tümünü Gör</string>
+    <string name="dashboard_tools">Güvenlik Araçları</string>
+
+    <!-- Scanner Screen -->
+    <string name="start_scanning">Taramayı Başlat</string>
+    <string name="scan_from_gallery">Galeriden Tara</string>
+    <string name="scan_instruction">QR kodu çerçeveye hizalayın</string>
+    <string name="analyzing_url">URL analiz ediliyor…</string>
+    <string name="scans_in_history">Geçmişte %d tarama</string>
+
+    <!-- Results -->
+    <string name="risk_score">Risk Puanı</string>
+    <string name="scanned_url">Taranan URL</string>
+    <string name="copy">Kopyala</string>
+    <string name="risk_factors">Risk Faktörleri</string>
+    <string name="done">Tamam</string>
+    <string name="scan_another">Başka Tara</string>
+    <string name="safe_verdict">GÜVENLİ</string>
+    <string name="suspicious_verdict">ŞÜPHELİ</string>
+    <string name="malicious_verdict">ZARARLI</string>
+
+    <!-- Recommendations -->
+    <string name="recommendation_safe">Bu URL güvenli görünüyor. Güvenle devam edebilirsiniz.</string>
+    <string name="recommendation_suspicious">Bu URL ile dikkatli olun. Devam etmeden önce kaynağı doğrulayın.</string>
+    <string name="recommendation_malicious">⛔ UYARI: Bu URL oltalama belirtileri gösteriyor. Kişisel bilgi GİRMEYİN.</string>
+    <string name="recommendation_unknown">Bu URL tam olarak doğrulanamadı. Dikkatli devam edin.</string>
+
+    <!-- History Screen -->
+    <string name="search_placeholder">URL ara…</string>
+    <string name="clear_history_title">Tüm Geçmiş Silinsin mi?</string>
+    <string name="clear_history_message">Bu işlem geri alınamaz. Tüm tarama geçmişi kalıcı olarak silinecek.</string>
+    <string name="clear_all">Tümünü Temizle</string>
+    <string name="cancel">İptal</string>
+    <string name="delete">Sil</string>
+    <string name="delete_item_title">Bu Tarama Silinsin mi?</string>
+    <string name="delete_item_message">Bu öğe geçmişinizden kaldırılacak.</string>
+    <string name="copy_url">URL Kopyala</string>
+    <string name="no_history">Tarama Geçmişi Yok</string>
+    <string name="scan_to_see_history">Tarama sonuçlarınız burada görünecek</string>
+    <string name="no_results">Sonuç Bulunamadı</string>
+    <string name="try_different_filter">Farklı bir filtre veya arama terimi deneyin</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_scanning">Tarama</string>
+    <string name="settings_auto_scan">Açılışta otomatik tara</string>
+    <string name="settings_auto_scan_desc">Uygulama açıldığında hemen taramayı başlat</string>
+    <string name="settings_haptic">Dokunsal geri bildirim</string>
+    <string name="settings_haptic_desc">Tarama sonuçlarında titreşim</string>
+    <string name="settings_sound">Ses efektleri</string>
+    <string name="settings_sound_desc">Uyarılar için ses çal</string>
+
+    <string name="settings_notifications">Bildirimler</string>
+    <string name="settings_security_alerts">Güvenlik uyarıları</string>
+    <string name="settings_security_alerts_desc">Güvenlik tehditleri hakkında bildirim al</string>
+    <string name="settings_system_notifications">Sistem bildirimleri</string>
+    <string name="settings_system_notifications_desc">Bildirim tercihlerini yapılandır</string>
+
+    <string name="settings_privacy">Gizlilik</string>
+    <string name="settings_save_history">Tarama geçmişini kaydet</string>
+    <string name="settings_save_history_desc">Taranan URL kayıtlarını tut</string>
+    <string name="settings_privacy_policy">Gizlilik Politikası</string>
+    <string name="settings_privacy_policy_desc">Gizlilik uygulamalarımızı görüntüle</string>
+
+    <string name="settings_accessibility">Erişilebilirlik</string>
+    <string name="settings_accessibility_settings">Erişilebilirlik ayarları</string>
+    <string name="settings_accessibility_settings_desc">TalkBack ve diğer hizmetleri yapılandır</string>
+
+    <string name="settings_about">Hakkında</string>
+    <string name="settings_version">Sürüm</string>
+    <string name="settings_build">Yapı</string>
+    <string name="settings_engine">Tespit Motoru</string>
+    <string name="settings_source_code">Kaynak Kodu</string>
+    <string name="settings_help">Yardım ve Destek</string>
+    <string name="settings_help_desc">Sorun bildir veya yardım al</string>
+
+    <!-- Errors -->
+    <string name="error_title">Bir şeyler ters gitti</string>
+    <string name="try_again">Tekrar Dene</string>
+    <string name="camera_permission_rationale">QR kodları taramak için kamera erişimi gerekli</string>
+    <string name="camera_permission_denied">Kamera izni reddedildi. Lütfen ayarlardan etkinleştirin.</string>
+
+    <!-- Widget -->
+    <string name="widget_name">QR-SHIELD Hızlı Tarama</string>
+    <string name="widget_description">QR kodları oltalama tehditleri için hızlıca tara</string>
+    <string name="widget_tap_to_scan">Taramak için dokun</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">QR-SHIELD Logosu</string>
+    <string name="cd_scanner_preview">QR kod tarama için kamera önizlemesi</string>
+    <string name="cd_close_scanner">Tarayıcıyı kapat</string>
+    <string name="cd_toggle_flash">Flaşı aç/kapat</string>
+    <string name="cd_scan_result">Karar ve risk puanı ile tarama sonucu</string>
+    <string name="cd_scan_button">QR kodları tara</string>
+    <string name="cd_gallery_button">Foto galeriden QR kod görseli seç</string>
+    <string name="cd_copy_button">URL\'yi panoya kopyala</string>
+    <string name="cd_share_button">URL\'yi paylaş</string>
+    <string name="cd_open_url">URL\'yi tarayıcıda aç</string>
+    <string name="cd_delete_item">Bu taramayı geçmişten sil</string>
+    <string name="cd_clear_history">Tüm tarama geçmişini temizle</string>
+    <string name="cd_search_history">Tarama geçmişinde ara</string>
+    <string name="cd_filter_safe">Sadece güvenli taramaları göster</string>
+    <string name="cd_filter_suspicious">Sadece şüpheli taramaları göster</string>
+    <string name="cd_filter_malicious">Sadece zararlı taramaları göster</string>
+    <string name="cd_history_item">Tarama geçmişi öğesi</string>
+    <string name="cd_settings_toggle">Ayarı değiştir</string>
+    <string name="cd_back_button">Geri git</string>
+    <string name="cd_processing">İşleniyor, lütfen bekleyin</string>
+    <string name="cd_safe_verdict">URL ziyaret etmek için güvenli</string>
+    <string name="cd_suspicious_verdict">URL şüpheli, dikkatli olun</string>
+    <string name="cd_malicious_verdict">Uyarı, URL zararlı oltalama girişimi gibi görünüyor</string>
+    <string name="cd_risk_score">100 üzerinden risk puanı</string>
+
+    <!-- Trust Centre -->
+    <string name="trust_center_title">Güvenlik Durumu</string>
+    <string name="trust_center_secure">Cihazınız güvende</string>
+    <string name="trust_center_protected_by">QR-SHIELD Enterprise tarafından korunuyor</string>
+    <string name="trust_center_score">Güvenlik Puanı: %d/100</string>
+    <string name="trust_center_realtime">Gerçek zamanlı koruma</string>
+    <string name="trust_center_malware">Zararlı yazılım tespiti</string>
+    <string name="trust_center_scarm_blocker">Dolandırıcılık engelleyici</string>
+    <string name="trust_center_active">Aktif</string>
+    <string name="trust_center_database_status">Veritabanı Durumu</string>
+    <string name="trust_center_last_updated">Son güncelleme: %s</string>
+    <string name="trust_center_just_now">Az önce</string>
+    <string name="trust_center_check_updates">Güncellemeleri kontrol et</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">KURUMSAL SÜRÜM</string>
+    <string name="footer_terms">Şartlar</string>
+    <string name="footer_privacy">Gizlilik</string>
+    <string name="footer_licenses">Lisanslar</string>
+</resources>

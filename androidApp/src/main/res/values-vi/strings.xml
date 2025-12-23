@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">QR-SHIELD</string>
+    <string name="tagline">Quét mã QR. Phát hiện lừa đảo.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_scan">Quét</string>
+    <string name="nav_history">Lịch sử</string>
+    <string name="nav_settings">Cài đặt</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">Chào mừng trở lại</string>
+    <string name="dashboard_default_user">Người dùng QR-SHIELD</string>
+    <string name="dashboard_shield_active">BẢO VỆ ĐANG HOẠT ĐỘNG</string>
+    <string name="dashboard_headline">An toàn. Ngoại tuyến.\nPhòng thủ có thể giải thích.</string>
+    <string name="dashboard_subtitle">Cơ sở dữ liệu doanh nghiệp được cập nhật và giám sát cục bộ.</string>
+    <string name="dashboard_scan_qr">Quét QR</string>
+    <string name="dashboard_import_image">Nhập hình ảnh</string>
+    <string name="dashboard_system_health">Tình trạng hệ thống</string>
+    <string name="dashboard_total_scans">Tổng số lần quét</string>
+    <string name="dashboard_threats_blocked">Mối đe dọa đã chặn</string>
+    <string name="dashboard_recent_scans">Quét gần đây</string>
+    <string name="dashboard_view_all">Xem tất cả</string>
+    <string name="dashboard_tools">Công cụ bảo mật</string>
+
+    <!-- Scanner Screen -->
+    <string name="start_scanning">Bắt đầu quét</string>
+    <string name="scan_from_gallery">Quét từ thư viện</string>
+    <string name="scan_instruction">Căn chỉnh mã QR trong khung</string>
+    <string name="analyzing_url">Đang phân tích URL…</string>
+    <string name="scans_in_history">%d lần quét trong lịch sử</string>
+
+    <!-- Results -->
+    <string name="risk_score">Điểm rủi ro</string>
+    <string name="scanned_url">URL đã quét</string>
+    <string name="copy">Sao chép</string>
+    <string name="risk_factors">Yếu tố rủi ro</string>
+    <string name="done">Xong</string>
+    <string name="scan_another">Quét cái khác</string>
+    <string name="safe_verdict">AN TOÀN</string>
+    <string name="suspicious_verdict">ĐÁNG NGHI</string>
+    <string name="malicious_verdict">ĐỘC HẠI</string>
+
+    <!-- Recommendations -->
+    <string name="recommendation_safe">URL này có vẻ an toàn. Bạn có thể tiếp tục một cách tự tin.</string>
+    <string name="recommendation_suspicious">Hãy thận trọng với URL này. Xác minh nguồn trước khi tiếp tục.</string>
+    <string name="recommendation_malicious">⛔ CẢNH BÁO: URL này có dấu hiệu lừa đảo. KHÔNG nhập thông tin cá nhân.</string>
+    <string name="recommendation_unknown">Không thể xác minh đầy đủ URL này. Hãy tiếp tục cẩn thận.</string>
+
+    <!-- History Screen -->
+    <string name="search_placeholder">Tìm kiếm URL…</string>
+    <string name="clear_history_title">Xóa tất cả lịch sử?</string>
+    <string name="clear_history_message">Hành động này không thể hoàn tác. Tất cả lịch sử quét sẽ bị xóa vĩnh viễn.</string>
+    <string name="clear_all">Xóa tất cả</string>
+    <string name="cancel">Hủy</string>
+    <string name="delete">Xóa</string>
+    <string name="delete_item_title">Xóa lần quét này?</string>
+    <string name="delete_item_message">Mục này sẽ bị xóa khỏi lịch sử.</string>
+    <string name="copy_url">Sao chép URL</string>
+    <string name="no_history">Không có lịch sử quét</string>
+    <string name="scan_to_see_history">Kết quả quét sẽ xuất hiện ở đây</string>
+    <string name="no_results">Không tìm thấy kết quả</string>
+    <string name="try_different_filter">Thử bộ lọc hoặc từ khóa tìm kiếm khác</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_scanning">Quét</string>
+    <string name="settings_auto_scan">Tự động quét khi khởi động</string>
+    <string name="settings_auto_scan_desc">Bắt đầu quét ngay khi mở ứng dụng</string>
+    <string name="settings_haptic">Phản hồi xúc giác</string>
+    <string name="settings_haptic_desc">Rung khi có kết quả quét</string>
+    <string name="settings_sound">Hiệu ứng âm thanh</string>
+    <string name="settings_sound_desc">Phát âm thanh cho cảnh báo</string>
+
+    <string name="settings_notifications">Thông báo</string>
+    <string name="settings_security_alerts">Cảnh báo bảo mật</string>
+    <string name="settings_security_alerts_desc">Nhận thông báo về các mối đe dọa bảo mật</string>
+    <string name="settings_system_notifications">Thông báo hệ thống</string>
+    <string name="settings_system_notifications_desc">Cấu hình tùy chọn thông báo</string>
+
+    <string name="settings_privacy">Quyền riêng tư</string>
+    <string name="settings_save_history">Lưu lịch sử quét</string>
+    <string name="settings_save_history_desc">Giữ nhật ký các URL đã quét</string>
+    <string name="settings_privacy_policy">Chính sách bảo mật</string>
+    <string name="settings_privacy_policy_desc">Xem các thực hành bảo mật của chúng tôi</string>
+
+    <string name="settings_accessibility">Trợ năng</string>
+    <string name="settings_accessibility_settings">Cài đặt trợ năng</string>
+    <string name="settings_accessibility_settings_desc">Cấu hình TalkBack và các dịch vụ khác</string>
+
+    <string name="settings_about">Giới thiệu</string>
+    <string name="settings_version">Phiên bản</string>
+    <string name="settings_build">Bản dựng</string>
+    <string name="settings_engine">Engine phát hiện</string>
+    <string name="settings_source_code">Mã nguồn</string>
+    <string name="settings_help">Trợ giúp &amp; Hỗ trợ</string>
+    <string name="settings_help_desc">Báo cáo sự cố hoặc được hỗ trợ</string>
+
+    <!-- Errors -->
+    <string name="error_title">Đã xảy ra lỗi</string>
+    <string name="try_again">Thử lại</string>
+    <string name="camera_permission_rationale">Cần quyền truy cập camera để quét mã QR</string>
+    <string name="camera_permission_denied">Quyền camera bị từ chối. Vui lòng bật trong cài đặt.</string>
+
+    <!-- Widget -->
+    <string name="widget_name">Quét nhanh QR-SHIELD</string>
+    <string name="widget_description">Quét nhanh mã QR để phát hiện lừa đảo</string>
+    <string name="widget_tap_to_scan">Nhấn để quét</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">Logo QR-SHIELD</string>
+    <string name="cd_scanner_preview">Xem trước camera để quét mã QR</string>
+    <string name="cd_close_scanner">Đóng máy quét</string>
+    <string name="cd_toggle_flash">Bật/tắt đèn flash</string>
+    <string name="cd_scan_result">Kết quả quét với phán quyết và điểm rủi ro</string>
+    <string name="cd_scan_button">Quét mã QR</string>
+    <string name="cd_gallery_button">Chọn hình ảnh mã QR từ thư viện ảnh</string>
+    <string name="cd_copy_button">Sao chép URL vào clipboard</string>
+    <string name="cd_share_button">Chia sẻ URL</string>
+    <string name="cd_open_url">Mở URL trong trình duyệt</string>
+    <string name="cd_delete_item">Xóa lần quét này khỏi lịch sử</string>
+    <string name="cd_clear_history">Xóa tất cả lịch sử quét</string>
+    <string name="cd_search_history">Tìm kiếm lịch sử quét</string>
+    <string name="cd_filter_safe">Chỉ hiển thị các lần quét an toàn</string>
+    <string name="cd_filter_suspicious">Chỉ hiển thị các lần quét đáng nghi</string>
+    <string name="cd_filter_malicious">Chỉ hiển thị các lần quét độc hại</string>
+    <string name="cd_history_item">Mục lịch sử quét</string>
+    <string name="cd_settings_toggle">Bật/tắt cài đặt</string>
+    <string name="cd_back_button">Quay lại</string>
+    <string name="cd_processing">Đang xử lý, vui lòng đợi</string>
+    <string name="cd_safe_verdict">URL an toàn để truy cập</string>
+    <string name="cd_suspicious_verdict">URL đáng nghi, hãy thận trọng</string>
+    <string name="cd_malicious_verdict">Cảnh báo, URL có vẻ là nỗ lực lừa đảo độc hại</string>
+    <string name="cd_risk_score">Điểm rủi ro trên 100</string>
+
+    <!-- Trust Centre -->
+    <string name="trust_center_title">Trạng thái bảo mật</string>
+    <string name="trust_center_secure">Thiết bị của bạn an toàn</string>
+    <string name="trust_center_protected_by">Được bảo vệ bởi QR-SHIELD Enterprise</string>
+    <string name="trust_center_score">Điểm bảo mật: %d/100</string>
+    <string name="trust_center_realtime">Bảo vệ thời gian thực</string>
+    <string name="trust_center_malware">Phát hiện phần mềm độc hại</string>
+    <string name="trust_center_scarm_blocker">Chặn lừa đảo</string>
+    <string name="trust_center_active">Đang hoạt động</string>
+    <string name="trust_center_database_status">Trạng thái cơ sở dữ liệu</string>
+    <string name="trust_center_last_updated">Cập nhật lần cuối: %s</string>
+    <string name="trust_center_just_now">Vừa xong</string>
+    <string name="trust_center_check_updates">Kiểm tra cập nhật</string>
+
+    <!-- Footer -->
+    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_edition">PHIÊN BẢN DOANH NGHIỆP</string>
+    <string name="footer_terms">Điều khoản</string>
+    <string name="footer_privacy">Quyền riêng tư</string>
+    <string name="footer_licenses">Giấy phép</string>
+</resources>

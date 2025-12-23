@@ -208,6 +208,33 @@ private fun VerdictHeader(
     threatType: String,
     confidence: Int
 ) {
+    // Determine colors and icon based on verdict
+    val verdictUpper = verdict.uppercase()
+    val isSafe = verdictUpper.contains("SAFE") || verdictUpper == "SAFE"
+    val isSuspicious = verdictUpper.contains("SUSPICIOUS") || verdictUpper == "SUSPICIOUS"
+    val isMalicious = verdictUpper.contains("MALICIOUS") || verdictUpper == "MALICIOUS"
+    
+    val primaryColor = when {
+        isSafe -> QRShieldColors.RiskSafe
+        isSuspicious -> QRShieldColors.RiskWarning
+        isMalicious -> QRShieldColors.RiskDanger
+        else -> QRShieldColors.Primary
+    }
+    
+    val secondaryColor = when {
+        isSafe -> QRShieldColors.Emerald600
+        isSuspicious -> QRShieldColors.Orange600
+        isMalicious -> QRShieldColors.Red600
+        else -> QRShieldColors.Primary
+    }
+    
+    val verdictIcon = when {
+        isSafe -> Icons.Default.GppGood
+        isSuspicious -> Icons.Default.GppMaybe
+        isMalicious -> Icons.Default.GppBad
+        else -> Icons.Default.Shield
+    }
+    
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val pulseScale by infiniteTransition.animateFloat(
         initialValue = 0.95f,
@@ -254,7 +281,7 @@ private fun VerdictHeader(
                     .size(120.dp)
                     .scale(pingScale)
                     .clip(CircleShape)
-                    .background(QRShieldColors.RiskDanger.copy(alpha = pingAlpha))
+                    .background(primaryColor.copy(alpha = pingAlpha))
             )
             
             // Pulse effect (inner ring)
@@ -263,7 +290,7 @@ private fun VerdictHeader(
                     .size(120.dp)
                     .scale(pulseScale)
                     .clip(CircleShape)
-                    .background(QRShieldColors.RiskDanger.copy(alpha = 0.2f))
+                    .background(primaryColor.copy(alpha = 0.2f))
             )
             
             // Icon container
@@ -280,13 +307,13 @@ private fun VerdictHeader(
                         .clip(CircleShape)
                         .background(
                             Brush.linearGradient(
-                                listOf(QRShieldColors.RiskDanger, QRShieldColors.Red600)
+                                listOf(primaryColor, secondaryColor)
                             )
                         ),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.Default.GppBad,
+                        imageVector = verdictIcon,
                         contentDescription = null,
                         tint = Color.White,
                         modifier = Modifier.size(48.dp)
@@ -309,13 +336,13 @@ private fun VerdictHeader(
         ) {
             Surface(
                 shape = RoundedCornerShape(9999.dp),
-                color = QRShieldColors.RiskDanger.copy(alpha = 0.1f),
-                border = BorderStroke(1.dp, QRShieldColors.RiskDanger.copy(alpha = 0.2f))
+                color = primaryColor.copy(alpha = 0.1f),
+                border = BorderStroke(1.dp, primaryColor.copy(alpha = 0.2f))
             ) {
                 Text(
                     text = threatType.uppercase(),
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
-                    color = QRShieldColors.RiskDanger,
+                    color = primaryColor,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.5.sp
