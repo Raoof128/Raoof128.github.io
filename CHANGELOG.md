@@ -50,6 +50,14 @@ New string keys added:
 - English is highlighted when system default is in use
 - Settings row shows actual language name
 
+#### 📱 App Version
+
+Updated app version for this release:
+- **versionName**: `1.17.10`
+- **versionCode**: `8`
+
+Version displayed via `BuildConfig.VERSION_NAME` in Settings and Trust Centre footer.
+
 #### 📁 Files Modified
 
 | File | Changes |
@@ -59,6 +67,7 @@ New string keys added:
 | `SettingsScreen.kt` | Removed "System Default" from picker |
 | `values/strings.xml` | Added 6 feature card strings |
 | All 15 `values-*/strings.xml` | Added feature card translations |
+| `build.gradle.kts` | Updated versionCode=8, versionName="1.17.10" |
 
 ---
 

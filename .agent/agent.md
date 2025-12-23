@@ -59,6 +59,18 @@ onClick = {
 
 This ensures navigation works from **ANY** screen in the app.
 
+## 📱 App Version Update
+
+Updated app version to match changelog:
+- **versionName**: `1.17.10`
+- **versionCode**: `8`
+
+Version is displayed in:
+- Settings > About > Version: `1.17.10 (8)`
+- Trust Centre Footer: `QR-SHIELD v1.17.10`
+
+Version is sourced from `BuildConfig.VERSION_NAME` (not hardcoded).
+
 ## 📁 Files Modified
 
 | File | Changes |
@@ -68,6 +80,7 @@ This ensures navigation works from **ANY** screen in the app.
 | `SettingsScreen.kt` | Removed "System Default" from language picker |
 | `values/strings.xml` | Added 6 feature card strings |
 | All 15 `values-*/strings.xml` | Added feature card translations |
+| `build.gradle.kts` | Updated versionCode=8, versionName="1.17.10" |
 
 ---
 
