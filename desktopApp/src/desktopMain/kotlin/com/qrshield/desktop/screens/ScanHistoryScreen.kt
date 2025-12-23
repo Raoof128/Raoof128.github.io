@@ -95,30 +95,10 @@ private fun ScanHistoryHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val userProfile = SampleData.userProfile
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Box(
-                modifier = Modifier
-                    .size(32.dp)
-                    .iconContainer(colors.primary.copy(alpha = 0.1f)),
-                contentAlignment = Alignment.Center
-            ) {
-                MaterialSymbol(name = "qr_code_scanner", size = 20.sp, color = colors.primary)
-            }
-            Text(t("QR-SHIELD"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
-        }
-        Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(12.dp))
-                .background(colors.backgroundAlt)
-                .border(1.dp, colors.border)
-                .padding(4.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            HeaderNavItem(label = t("Dashboard"), onClick = { onNavigate(AppScreen.Dashboard) })
-            HeaderNavItem(label = t("Scan History"), isActive = true, onClick = { onNavigate(AppScreen.ScanHistory) })
-            HeaderNavItem(label = t("Engine Config"), onClick = { onNavigate(AppScreen.TrustCentreAlt) })
-            HeaderNavItem(label = t("Logs"), onClick = { onNavigate(AppScreen.ReportsExport) })
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(t("QR-SHIELD"), fontSize = 14.sp, color = colors.textSub)
+            Text("/", fontSize = 14.sp, color = colors.textMuted)
+            Text(t("Scan History"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.SemiBold)
         }
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Box(
@@ -158,30 +138,12 @@ private fun ScanHistoryHeader(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                val userProfile = SampleData.userProfile
                 ImageAvatar(language)
                 Text(t(userProfile.name), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
                 MaterialSymbol(name = "expand_more", size = 16.sp, color = colors.textMuted)
             }
         }
-    }
-}
-
-@Composable
-private fun HeaderNavItem(label: String, isActive: Boolean = false, onClick: () -> Unit) {
-    val colors = LocalStitchTokens.current.colors
-    val bg = if (isActive) colors.surface else Color.Transparent
-    val text = if (isActive) colors.primary else colors.textSub
-    Row(
-        modifier = Modifier
-            .clip(RoundedCornerShape(8.dp))
-            .background(bg)
-            .border(if (isActive) 1.dp else 0.dp, colors.border, RoundedCornerShape(8.dp))
-            .clickable { onClick() }
-            .focusable()
-            .padding(horizontal = 12.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(label, fontSize = 13.sp, fontWeight = if (isActive) FontWeight.SemiBold else FontWeight.Medium, color = text)
     }
 }
 

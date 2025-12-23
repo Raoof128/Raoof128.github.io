@@ -73,9 +73,9 @@ fun DashboardScreen(viewModel: AppViewModel) {
                     viewModel.pickImageAndScan()
                 },
                 onViewHistory = { viewModel.currentScreen = AppScreen.ScanHistory },
-                onShowNotifications = { viewModel.showInfo("Notifications are not available yet.") },
+                onShowNotifications = { viewModel.showInfo(DesktopStrings.translate("Notifications are not available yet.", language)) },
                 onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
-                onCheckUpdates = { viewModel.showInfo("Update checks are not available in offline mode.") },
+                onCheckUpdates = { viewModel.showInfo(DesktopStrings.translate("Update checks are not available in offline mode.", language)) },
                 onAnalyzeUrl = { url -> viewModel.analyzeUrlDirectly(url) },
                 onToggleDarkMode = { viewModel.toggleDarkMode() },
                 onOpenTraining = { viewModel.currentScreen = AppScreen.Training },

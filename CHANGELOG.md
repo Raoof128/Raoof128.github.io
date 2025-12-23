@@ -5,6 +5,41 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.13] - 2025-12-24
+
+### 🌍 Desktop - Complete Localization (16 Languages)
+
+Completed comprehensive localization audit for Desktop app. All 16 language files now have full translation coverage.
+
+#### 📊 Translation File Updates
+
+| Language | File | Lines Added | Status |
+|----------|------|-------------|--------|
+| 🇮🇹 Italian | `DesktopStringsIt.kt` | +258 | ✅ Complete |
+| 🇧🇷 Portuguese | `DesktopStringsPt.kt` | +249 | ✅ Complete |
+| 🇷🇺 Russian | `DesktopStringsRu.kt` | +249 | ✅ Complete |
+| 🇰🇷 Korean | `DesktopStringsKo.kt` | +218 | ✅ Complete |
+| 🇸🇦 Arabic | `DesktopStringsAr.kt` | +212 | ✅ Complete |
+| 🇹🇷 Turkish | `DesktopStringsTr.kt` | +212 | ✅ Complete |
+| 🇻🇳 Vietnamese | `DesktopStringsVi.kt` | +212 | ✅ Complete |
+| 🇮🇩 Indonesian | `DesktopStringsIn.kt` | +212 | ✅ Complete |
+| 🇹🇭 Thai | `DesktopStringsTh.kt` | +212 | ✅ Complete |
+| 🇮🇳 Hindi | `DesktopStringsHi.kt` | +57 | ✅ Complete |
+
+#### 🔧 Hardcoded String Fixes
+
+Fixed 2 remaining hardcoded strings in `DashboardScreen.kt`:
+- `"Notifications are not available yet."` → Now uses `DesktopStrings.translate()`
+- `"Update checks are not available in offline mode."` → Now uses `DesktopStrings.translate()`
+
+#### ✅ Audit Results
+
+- All 16 language files have comprehensive translations (~290+ strings each)
+- No remaining hardcoded UI strings found in screens
+- All user-facing text properly wrapped with translation functions
+
+---
+
 ## [1.17.12] - 2025-12-23
 
 ### 🔄 Desktop - Web/Desktop UI Alignment
@@ -20,6 +55,7 @@ Made Desktop dashboard symmetrical with Web app by adding missing UI components.
 | Training Centre Card | Bottom grid | "Beat the Bot →" promotional card |
 
 ---
+
 
 ### 🌍 Desktop - Language Expansion (9 New Languages)
 

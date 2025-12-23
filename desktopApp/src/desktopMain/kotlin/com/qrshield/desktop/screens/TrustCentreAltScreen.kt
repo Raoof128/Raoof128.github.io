@@ -232,9 +232,18 @@ private fun LanguageSection(
         AppLanguage.German,
         AppLanguage.Spanish,
         AppLanguage.French,
+        AppLanguage.Italian,
+        AppLanguage.Portuguese,
+        AppLanguage.Russian,
         AppLanguage.ChineseSimplified,
         AppLanguage.Japanese,
-        AppLanguage.Hindi
+        AppLanguage.Korean,
+        AppLanguage.Hindi,
+        AppLanguage.Arabic,
+        AppLanguage.Turkish,
+        AppLanguage.Vietnamese,
+        AppLanguage.Indonesian,
+        AppLanguage.Thai
     )
     Surface(
         shape = RoundedCornerShape(16.dp),
