@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.17.12] - 2025-12-23
 
+### 🔄 Desktop - Web/Desktop UI Alignment
+
+Made Desktop dashboard symmetrical with Web app by adding missing UI components.
+
+#### 🆕 New Dashboard Components
+
+| Component | Location | Description |
+|-----------|----------|-------------|
+| URL Input Bar | Hero section | "Paste URL to analyze" field with Analyze button |
+| Dark Mode Toggle | Header | Theme toggle between Engine Status and notifications |
+| Training Centre Card | Bottom grid | "Beat the Bot →" promotional card |
+
+---
+
 ### 🌍 Desktop - Language Expansion (9 New Languages)
 
 Expanded Desktop app from 7 to 16 supported languages to match Android app coverage.

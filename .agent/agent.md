@@ -4,6 +4,41 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔄 December 24, 2025 (Session 8) - Web/Desktop UI Alignment
+
+### Summary
+Made Desktop app dashboard symmetrical with Web app by adding missing UI components: URL Input Bar, Dark Mode Toggle in header, and Training Centre Card.
+
+## 🆕 Components Added to Dashboard
+
+| Component | Location | Description |
+|-----------|----------|-------------|
+| **URL Input Bar** | Hero section | "Paste URL to analyze" with Analyze button, matches web app style |
+| **Dark Mode Toggle** | Header | Light/dark mode toggle button between Engine Status pill and notifications |
+| **Header Divider** | Header | Visual separator between sections |
+| **Training Centre Card** | Bottom grid | "Beat the Bot →" promotional card for training feature |
+
+## 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `DashboardScreen.kt` | Added new UI components, state management for URL input, new callbacks |
+| `AppViewModel.kt` | Added `toggleDarkMode()` and `analyzeUrlDirectly()` wrapper methods |
+
+## 🔧 New Parameters in DashboardContent
+
+- `onAnalyzeUrl: (String) -> Unit` - URL analysis callback
+- `onToggleDarkMode: () -> Unit` - Theme toggle callback
+- `onOpenTraining: () -> Unit` - Training screen navigation callback
+- `isDarkMode: Boolean` - Current theme state
+
+## ✅ Build Status
+```
+BUILD SUCCESSFUL in 11s
+```
+
+---
+
 # 🌍 December 24, 2025 (Session 7) - Desktop Language Expansion
 
 ### Summary

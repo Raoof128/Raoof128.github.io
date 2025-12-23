@@ -181,6 +181,14 @@ class AppViewModel(
         isDarkMode = !isDarkMode
     }
 
+    fun toggleDarkMode() {
+        toggleTheme()
+    }
+
+    fun analyzeUrlDirectly(url: String) {
+        analyzeUrl(url, ScanSource.CLIPBOARD)
+    }
+
     fun setLanguage(language: AppLanguage) {
         if (appLanguage != language) {
             appLanguage = language

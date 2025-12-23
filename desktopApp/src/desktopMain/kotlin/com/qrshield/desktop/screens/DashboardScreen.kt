@@ -13,9 +13,15 @@ import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -70,6 +76,10 @@ fun DashboardScreen(viewModel: AppViewModel) {
                 onShowNotifications = { viewModel.showInfo("Notifications are not available yet.") },
                 onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
                 onCheckUpdates = { viewModel.showInfo("Update checks are not available in offline mode.") },
+                onAnalyzeUrl = { url -> viewModel.analyzeUrlDirectly(url) },
+                onToggleDarkMode = { viewModel.toggleDarkMode() },
+                onOpenTraining = { viewModel.currentScreen = AppScreen.Training },
+                isDarkMode = viewModel.isDarkMode,
                 stats = viewModel.historyStats,
                 recentScans = recentScans,
                 onSelectScan = { viewModel.selectHistoryItem(it) },
@@ -89,6 +99,10 @@ private fun DashboardContent(
     onShowNotifications: () -> Unit,
     onOpenSettings: () -> Unit,
     onCheckUpdates: () -> Unit,
+    onAnalyzeUrl: (String) -> Unit,
+    onToggleDarkMode: () -> Unit,
+    onOpenTraining: () -> Unit,
+    isDarkMode: Boolean,
     stats: ScanHistoryManager.HistoryStatistics,
     recentScans: List<ScanHistoryItem>,
     onSelectScan: (ScanHistoryItem) -> Unit,
@@ -98,6 +112,7 @@ private fun DashboardContent(
     val tokens = LocalStitchTokens.current
     val colors = tokens.colors
     val t = { text: String -> DesktopStrings.translate(text, language) }
+    var urlInput by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -139,6 +154,28 @@ private fun DashboardContent(
                         )
                         Text(t("Engine Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.success)
                     }
+                }
+                // Divider
+                Box(
+                    modifier = Modifier
+                        .width(1.dp)
+                        .height(24.dp)
+                        .background(colors.border)
+                )
+                // Dark Mode Toggle
+                Box(
+                    modifier = Modifier
+                        .size(32.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .clickable { onToggleDarkMode() }
+                        .focusable(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MaterialIconRound(
+                        name = if (isDarkMode) "light_mode" else "dark_mode",
+                        size = 20.sp,
+                        color = colors.textMuted
+                    )
                 }
                 Box(
                     modifier = Modifier
@@ -229,6 +266,60 @@ private fun DashboardContent(
                                 lineHeight = 26.sp,
                                 modifier = Modifier.widthIn(max = 520.dp)
                             )
+                            // URL Input Bar
+                            Surface(
+                                modifier = Modifier.widthIn(max = 520.dp).fillMaxWidth(),
+                                shape = RoundedCornerShape(12.dp),
+                                color = colors.backgroundAlt,
+                                border = BorderStroke(1.dp, colors.border)
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(4.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Box(
+                                        modifier = Modifier.padding(start = 12.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        MaterialIconRound(name = "search", size = 20.sp, color = colors.textMuted)
+                                    }
+                                    OutlinedTextField(
+                                        value = urlInput,
+                                        onValueChange = { urlInput = it },
+                                        placeholder = {
+                                            Text(
+                                                t("Paste URL to analyze (e.g., https://example.com)"),
+                                                color = colors.textMuted,
+                                                fontSize = 14.sp
+                                            )
+                                        },
+                                        modifier = Modifier.weight(1f),
+                                        singleLine = true,
+                                        colors = OutlinedTextFieldDefaults.colors(
+                                            focusedBorderColor = Color.Transparent,
+                                            unfocusedBorderColor = Color.Transparent,
+                                            focusedTextColor = colors.textMain,
+                                            unfocusedTextColor = colors.textMain,
+                                            cursorColor = colors.primary
+                                        )
+                                    )
+                                    Button(
+                                        onClick = {
+                                            if (urlInput.isNotBlank()) {
+                                                onAnalyzeUrl(urlInput)
+                                                urlInput = ""
+                                            }
+                                        },
+                                        colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
+                                        shape = RoundedCornerShape(8.dp),
+                                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp)
+                                    ) {
+                                        MaterialIconRound(name = "security", size = 16.sp, color = Color.White)
+                                        Spacer(Modifier.width(6.dp))
+                                        Text(t("Analyze"), fontWeight = FontWeight.SemiBold)
+                                    }
+                                }
+                            }
                             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Button(
                                     onClick = onStartScan,
@@ -403,6 +494,50 @@ private fun DashboardContent(
                             Spacer(Modifier.width(6.dp))
                             Text(t("Check for Updates"), fontSize = 14.sp, color = colors.textSub)
                         }
+                    }
+                }
+                
+                // Training Centre Card
+                Surface(
+                    modifier = Modifier.weight(1f),
+                    shape = RoundedCornerShape(12.dp),
+                    color = colors.primary.copy(alpha = 0.05f),
+                    border = BorderStroke(1.dp, colors.primary.copy(alpha = 0.2f))
+                ) {
+                    Column(
+                        modifier = Modifier.padding(24.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(colors.primary.copy(alpha = 0.1f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            MaterialIconRound(name = "school", size = 24.sp, color = colors.primary)
+                        }
+                        Text(
+                            t("Training Centre"),
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = colors.textMain
+                        )
+                        Text(
+                            t("Learn how to identify advanced QR homograph attacks."),
+                            fontSize = 14.sp,
+                            color = colors.textSub,
+                            lineHeight = 20.sp
+                        )
+                        Text(
+                            t("Beat the Bot") + " →",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = colors.primary,
+                            modifier = Modifier
+                                .clickable { onOpenTraining() }
+                                .focusable()
+                        )
                     }
                 }
             }
