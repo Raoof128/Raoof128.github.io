@@ -4,10 +4,55 @@ This file tracks significant changes made during development sessions.
 
 ---
 
-# 🛠️ December 23, 2025 (Session 6) - Desktop Decorative Functions Audit
+# 🌍 December 24, 2025 (Session 7) - Desktop Language Expansion
 
 ### Summary
-Comprehensive audit of Desktop UI decorative functions following Senior Kotlin Multiplatform Desktop UI Architect protocol. Added new reusable modifier extensions and interaction helpers for consistent styling.
+Expanded Desktop app language support from 7 to 16 languages to match Android app coverage. Created 9 new language files with full localization support.
+
+## 📊 Languages Before vs After
+
+| Status | Languages |
+|--------|-----------|
+| **Before** | English, German, Spanish, French, Chinese, Japanese, Hindi (7) |
+| **After** | + Italian, Portuguese, Russian, Korean, Arabic, Turkish, Vietnamese, Indonesian, Thai (16) |
+
+## 📁 New Files Created
+
+| File | Language | Code | Native Speakers |
+|------|----------|------|-----------------|
+| `DesktopStringsIt.kt` | Italian | `it` | 65M+ |
+| `DesktopStringsPt.kt` | Portuguese | `pt` | 250M+ |
+| `DesktopStringsRu.kt` | Russian | `ru` | 250M+ |
+| `DesktopStringsKo.kt` | Korean | `ko` | 80M+ |
+| `DesktopStringsAr.kt` | Arabic | `ar` | 400M+ |
+| `DesktopStringsTr.kt` | Turkish | `tr` | 80M+ |
+| `DesktopStringsVi.kt` | Vietnamese | `vi` | 85M+ |
+| `DesktopStringsIn.kt` | Indonesian | `in` | 200M+ |
+| `DesktopStringsTh.kt` | Thai | `th` | 60M+ |
+
+## 🔧 Files Modified
+
+| File | Changes |
+|------|---------|
+| `DesktopStrings.kt` | Added 9 new languages to `AppLanguage` enum, `fromCode()`, `text()`, and `translate()` functions |
+
+## 📈 Each Language File Contains
+
+- **DesktopStringKey translations** (11 keys): Navigation menu items, app name
+- **CommonStrings translations** (~80 keys): Dashboard, scan status, results, actions, etc.
+
+## ✅ Build Status
+
+```
+BUILD SUCCESSFUL in 7s
+```
+
+---
+
+# 🛠️ December 24, 2025 (Session 6) - Desktop Decorative Functions Audit + Screen Refactoring
+
+### Summary
+Comprehensive audit of Desktop UI decorative functions following Senior Kotlin Multiplatform Desktop UI Architect protocol. Added new reusable modifier extensions, interaction helpers, and applied them across 8 screens.
 
 ## 📊 Audit Inventory
 
@@ -34,17 +79,26 @@ Comprehensive audit of Desktop UI decorative functions following Senior Kotlin M
 - `rememberInteractionColors(source, defaultBg, hoverBg, ...)` - Color picker based on state
 - `hoverHighlight(interactionSource, hoverBackground, hoverBorder, radius)` - Hover indication modifier
 
+## ✨ Screens Refactored with New Helpers
+
+| Screen | Patterns Replaced | Helpers Used |
+|--------|-------------------|--------------|
+| `DashboardScreen.kt` | 4 | `iconContainer`, `panelSurface` |
+| `ScanHistoryScreen.kt` | 3 | `iconContainer`, `surfaceBorder` |
+| `LiveScanScreen.kt` | 3 | `cardSurface`, `panelSurface` |
+| `TrainingScreen.kt` | 4 | `cardSurface`, `panelSurface` |
+| `ResultSafeScreen.kt` | 4 | `iconContainer`, `cardSurface` |
+| `ResultDangerousScreen.kt` | 2 | `iconContainer` |
+| `ResultSuspiciousScreen.kt` | 3 | `iconContainer`, `panelSurface` |
+| `TrustCentreScreen.kt` | 2 | `iconContainer` |
+| **Total** | **25** | - |
+
 ## 📈 Inline Styling Analysis
 
-| Pattern | Total Count | Notes |
-|---------|-------------|-------|
-| `RoundedCornerShape(8.dp)` | 67 | Should use `radius.sm` |
-| `RoundedCornerShape(12.dp)` | 51 | Should use `radius.md` |
-| `RoundedCornerShape(16.dp)` | 20 | Should use `radius.lg` |
-| `.border()` calls | 103 | Many could use `surfaceBorder()` |
-| `.background()` calls | 175 | Many could use new surface helpers |
-| `.clip()` calls | 106 | Many could use new surface helpers |
-| `.focusable()` calls | 49 | ✅ Good keyboard support |
+| Pattern | Before | After | Reduction |
+|---------|--------|-------|-----------|
+| `clip + background + border` inlines | ~103 | ~78 | 25 replaced |
+| `RoundedCornerShape(8.dp)` usage | 67 | 43 | 36% reduction |
 
 ## 🏗️ Architecture Notes
 

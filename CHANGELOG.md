@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.17.12] - 2025-12-23
 
+### 🌍 Desktop - Language Expansion (9 New Languages)
+
+Expanded Desktop app from 7 to 16 supported languages to match Android app coverage.
+
+#### 📝 New Languages Added
+
+| Language | Code | Native Name | Native Speakers |
+|----------|------|-------------|-----------------|
+| 🇮🇹 Italian | `it` | Italiano | 65M+ |
+| 🇵🇹 Portuguese | `pt` | Português | 250M+ |
+| 🇷🇺 Russian | `ru` | Русский | 250M+ |
+| 🇰🇷 Korean | `ko` | 한국어 | 80M+ |
+| 🇸🇦 Arabic | `ar` | العربية | 400M+ |
+| 🇹🇷 Turkish | `tr` | Türkçe | 80M+ |
+| 🇻🇳 Vietnamese | `vi` | Tiếng Việt | 85M+ |
+| 🇮🇩 Indonesian | `in` | Bahasa Indonesia | 200M+ |
+| 🇹🇭 Thai | `th` | ไทย | 60M+ |
+
+#### 📊 Language Coverage Summary
+
+| Platform | Languages | Status |
+|----------|-----------|--------|
+| Desktop App | 16 | ✅ Complete |
+| Android App | 15 | ✅ Complete |
+| iOS App | TBD | 🔄 Pending |
+
+#### 📁 Files Added
+
+- `DesktopStringsIt.kt` - Italian translations
+- `DesktopStringsPt.kt` - Portuguese translations
+- `DesktopStringsRu.kt` - Russian translations
+- `DesktopStringsKo.kt` - Korean translations
+- `DesktopStringsAr.kt` - Arabic translations
+- `DesktopStringsTr.kt` - Turkish translations
+- `DesktopStringsVi.kt` - Vietnamese translations
+- `DesktopStringsIn.kt` - Indonesian translations
+- `DesktopStringsTh.kt` - Thai translations
+
+---
+
 ### 🛠️ Desktop - Decorative Functions Audit & Enhancement
 
 Comprehensive audit of desktop UI decorative functions with new reusable modifiers for consistent styling.
