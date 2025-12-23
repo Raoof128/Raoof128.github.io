@@ -4,6 +4,83 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔄 December 24, 2025 (Session 10) - Web/Desktop Parity Implementation
+
+### Summary
+Completed comprehensive parity analysis between WebApp and Desktop application. Identified gaps and implemented UI parity features to ensure consistent user experience across platforms.
+
+## 📊 Parity Matrix Findings
+
+| Feature | Web Status | Desktop Status | Gap? | Action Taken |
+|---------|------------|----------------|------|--------------|
+| Sidebar Navigation | ✅ 7 items | ✅ 7 items | None | Already matching |
+| Dashboard Hero | ✅ | ✅ | None | Already matching |
+| Dashboard URL Input | ✅ | ✅ | None | Added in Session 8 |
+| Trust Centre Hero | ✅ | ✅ | None | Already had "Strict Offline Guarantee" |
+| Training Browser Preview | ✅ | ⚠️ QR only | **Fixed** | Added browser chrome mockup |
+| Onboarding Settings | ✅ | ⚠️ Missing | **Fixed** | Added Security Settings section |
+| Game Scoreboard | ✅ | ✅ | None | Already matching |
+| Export Format Selector | ✅ | ✅ | None | Already matching |
+
+## 🆕 Components Added
+
+### 1. Training Screen - Browser Preview Enhancement
+**File**: `TrainingScreen.kt`
+
+Before: Simple "Decoded Payload" text box
+After: Full browser chrome mockup with:
+- Traffic light dots (red/yellow/green)
+- URL address bar with lock icon (HTTPS indicator)
+- Message context panel
+
+### 2. TrustCentreAlt - Security Settings Section  
+**File**: `TrustCentreAltScreen.kt`
+
+Added new "Security Settings" panel matching Web's `onboarding.html`:
+- **Detection**: Auto-Block Threats, Real-Time Scanning
+- **Notifications**: Sound Alerts, Threat Alerts
+- **Display**: Show Confidence Score
+
+Includes custom toggle switch components.
+
+### 3. AppViewModel - New Settings Properties
+**File**: `AppViewModel.kt`
+
+Added 5 new settings variables:
+- `autoBlockThreats: Boolean`
+- `realTimeScanning: Boolean`
+- `soundAlerts: Boolean`
+- `threatAlerts: Boolean`
+- `showConfidenceScore: Boolean`
+
+## 📁 WebApp Structure Discovery
+
+| Route | File | Description |
+|-------|------|-------------|
+| `/dashboard.html` | dashboard.html | Main dashboard with stats |
+| `/scanner.html` | scanner.html | Live QR scanner |
+| `/results.html` | results.html | Single scan result |
+| `/threat.html` | threat.html | Scan history + threat detail |
+| `/game.html` | game.html | Beat the Bot training |
+| `/export.html` | export.html | Report generation |
+| `/trust.html` | trust.html | Security settings |
+| `/onboarding.html` | onboarding.html | Settings & privacy |
+
+## ✅ Build Status
+```
+BUILD SUCCESSFUL in 18s
+```
+
+## 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `TrainingScreen.kt` | Browser preview with chrome |
+| `TrustCentreAltScreen.kt` | Security Settings section + toggle components |
+| `AppViewModel.kt` | 5 new settings properties |
+
+---
+
 # 🌍 December 24, 2025 (Session 9) - Desktop Localization Completion
 
 ### Summary

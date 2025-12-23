@@ -198,19 +198,73 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 }
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                        Text(t("Decoded Payload"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 1.sp)
-                                        Box(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .panelSurface(colors.backgroundAlt, colors.border)
-                                                .padding(12.dp)
+                                        Text(t("Browser Preview"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 1.sp)
+                                        // Browser chrome wrapper
+                                        Surface(
+                                            shape = RoundedCornerShape(12.dp),
+                                            color = colors.backgroundAlt,
+                                            border = BorderStroke(1.dp, colors.border)
                                         ) {
-                                            Text(
-                                                scenario.payload,
-                                                fontSize = 14.sp,
-                                                fontWeight = FontWeight.Medium,
-                                                color = colors.textMain
-                                            )
+                                            Column {
+                                                // Browser title bar with window dots
+                                                Row(
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .background(colors.surface)
+                                                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                                ) {
+                                                    // Traffic light dots
+                                                    Box(modifier = Modifier.size(10.dp).clip(CircleShape).background(Color(0xFFFF5F56)))
+                                                    Box(modifier = Modifier.size(10.dp).clip(CircleShape).background(Color(0xFFFFBD2E)))
+                                                    Box(modifier = Modifier.size(10.dp).clip(CircleShape).background(Color(0xFF27C93F)))
+                                                    Spacer(Modifier.width(8.dp))
+                                                    Text(t("Browser Preview"), fontSize = 11.sp, color = colors.textMuted)
+                                                }
+                                                // URL address bar
+                                                Row(
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .padding(horizontal = 12.dp, vertical = 8.dp)
+                                                        .clip(RoundedCornerShape(6.dp))
+                                                        .background(colors.surface)
+                                                        .border(1.dp, colors.border, RoundedCornerShape(6.dp))
+                                                        .padding(horizontal = 10.dp, vertical = 8.dp),
+                                                    verticalAlignment = Alignment.CenterVertically,
+                                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                                ) {
+                                                    MaterialSymbol(
+                                                        name = if (scenario.payload.startsWith("https")) "lock" else "lock_open",
+                                                        size = 14.sp,
+                                                        color = if (scenario.payload.startsWith("https")) colors.success else colors.warning
+                                                    )
+                                                    Text(
+                                                        scenario.payload,
+                                                        fontSize = 13.sp,
+                                                        fontWeight = FontWeight.Medium,
+                                                        color = colors.textMain
+                                                    )
+                                                }
+                                                // Message context (simulating page content)
+                                                Box(
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .padding(12.dp)
+                                                        .clip(RoundedCornerShape(6.dp))
+                                                        .background(colors.surface)
+                                                        .border(1.dp, colors.border, RoundedCornerShape(6.dp))
+                                                        .padding(12.dp)
+                                                ) {
+                                                    Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                                                        MaterialSymbol(name = "sms", size = 20.sp, color = colors.textMuted)
+                                                        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                            Text(t("Incoming Message"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 0.5.sp)
+                                                            Text(t(scenario.contextBody), fontSize = 12.sp, color = colors.textSub)
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {

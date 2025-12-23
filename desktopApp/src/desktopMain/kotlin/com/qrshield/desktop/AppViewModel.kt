@@ -150,6 +150,13 @@ class AppViewModel(
     var exportIncludeRawPayload by mutableStateOf(false)
     var exportIncludeDebugLogs by mutableStateOf(false)
 
+    // Security Settings (for parity with Web onboarding.html)
+    var autoBlockThreats by mutableStateOf(true)
+    var realTimeScanning by mutableStateOf(true)
+    var soundAlerts by mutableStateOf(true)
+    var threatAlerts by mutableStateOf(true)
+    var showConfidenceScore by mutableStateOf(true)
+
     var trainingState by mutableStateOf(
         TrainingState(
             module = 3,

@@ -5,6 +5,61 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.14] - 2025-12-24
+
+### 🔄 Desktop - Web/Desktop Parity Implementation
+
+Completed comprehensive parity analysis between WebApp and Desktop app. Implemented UI features to ensure consistent user experience across platforms.
+
+#### 📊 Parity Analysis Summary
+
+| Feature | Web | Desktop | Status |
+|---------|-----|---------|--------|
+| Sidebar Navigation | ✅ | ✅ | Matching |
+| Dashboard Components | ✅ | ✅ | Matching |
+| Trust Centre Hero | ✅ | ✅ | Matching |
+| Training Browser Preview | ✅ | ⚠️ | **Fixed** |
+| Security Settings Section | ✅ | ⚠️ | **Fixed** |
+
+#### 🆕 Training Screen Enhancement (`TrainingScreen.kt`)
+
+Added browser chrome mockup to match Web's game page:
+- Traffic light dots (red/yellow/green window controls)
+- URL address bar with lock icon (HTTPS indicator)
+- Message context panel for scenario context
+
+#### 🆕 Security Settings Section (`TrustCentreAltScreen.kt`)
+
+Added "Security Settings" panel matching Web's `onboarding.html`:
+- **Detection**: Auto-Block Threats, Real-Time Scanning toggles
+- **Notifications**: Sound Alerts, Threat Alerts toggles
+- **Display**: Show Confidence Score toggle
+- Custom toggle switch components
+
+#### 🆕 New Settings Properties (`AppViewModel.kt`)
+
+```kotlin
+var autoBlockThreats by mutableStateOf(true)
+var realTimeScanning by mutableStateOf(true)
+var soundAlerts by mutableStateOf(true)
+var threatAlerts by mutableStateOf(true)
+var showConfidenceScore by mutableStateOf(true)
+```
+
+#### 📁 WebApp Structure Documented
+
+Discovered and documented WebApp file-based routing:
+- `dashboard.html` - Main dashboard
+- `scanner.html` - Live QR scanner
+- `results.html` - Scan results
+- `threat.html` - Scan history
+- `game.html` - Beat the Bot
+- `export.html` - Report generation
+- `trust.html` - Security settings
+- `onboarding.html` - Privacy settings
+
+---
+
 ## [1.17.13] - 2025-12-24
 
 ### 🌍 Desktop - Complete Localization (16 Languages)

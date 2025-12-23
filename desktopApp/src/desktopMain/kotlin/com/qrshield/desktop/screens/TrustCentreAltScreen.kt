@@ -190,6 +190,120 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     }
                 }
             }
+
+            // Security Settings Section (matches Web onboarding.html)
+            SecuritySettingsSection(viewModel = viewModel, language = language)
+        }
+    }
+}
+
+@Composable
+private fun SecuritySettingsSection(viewModel: AppViewModel, language: AppLanguage) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
+    
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.border)
+    ) {
+        Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+            // Header
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                MaterialIconRound(name = "tune", size = 20.sp, color = colors.primary)
+                Text(t("Security Settings"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+            }
+            
+            // Detection Settings Group
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(t("Detection"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 0.8.sp)
+                
+                SettingRow(
+                    label = t("Auto-Block Threats"),
+                    description = t("Automatically block high-risk URLs"),
+                    checked = viewModel.autoBlockThreats,
+                    onCheckedChange = { viewModel.autoBlockThreats = it }
+                )
+                SettingRow(
+                    label = t("Real-Time Scanning"),
+                    description = t("Scan QR codes as they're detected"),
+                    checked = viewModel.realTimeScanning,
+                    onCheckedChange = { viewModel.realTimeScanning = it }
+                )
+            }
+            
+            Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(colors.border.copy(alpha = 0.3f)))
+            
+            // Notifications Group
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(t("Notifications"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 0.8.sp)
+                
+                SettingRow(
+                    label = t("Sound Alerts"),
+                    description = t("Play sound when threat detected"),
+                    checked = viewModel.soundAlerts,
+                    onCheckedChange = { viewModel.soundAlerts = it }
+                )
+                SettingRow(
+                    label = t("Threat Alerts"),
+                    description = t("Show visual alerts for threats"),
+                    checked = viewModel.threatAlerts,
+                    onCheckedChange = { viewModel.threatAlerts = it }
+                )
+            }
+            
+            Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(colors.border.copy(alpha = 0.3f)))
+            
+            // Display Group
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Text(t("Display"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 0.8.sp)
+                
+                SettingRow(
+                    label = t("Show Confidence Score"),
+                    description = t("Display threat probability percentage"),
+                    checked = viewModel.showConfidenceScore,
+                    onCheckedChange = { viewModel.showConfidenceScore = it }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SettingRow(
+    label: String,
+    description: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    val colors = LocalStitchTokens.current.colors
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(label, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
+            Text(description, fontSize = 12.sp, color = colors.textSub)
+        }
+        // Simple toggle switch
+        Box(
+            modifier = Modifier
+                .width(44.dp)
+                .height(24.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(if (checked) colors.primary else colors.border)
+                .clickable { onCheckedChange(!checked) }
+                .focusable(),
+            contentAlignment = if (checked) Alignment.CenterEnd else Alignment.CenterStart
+        ) {
+            Box(
+                modifier = Modifier
+                    .padding(2.dp)
+                    .size(20.dp)
+                    .clip(CircleShape)
+                    .background(Color.White)
+            )
         }
     }
 }
