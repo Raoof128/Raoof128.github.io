@@ -420,7 +420,7 @@ private fun LiveScanContent(
                                             .border(1.dp, colors.border, RoundedCornerShape(8.dp)),
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        MaterialSymbol(name = "speed", size = 20.sp, color = Color(0xFF7C3AED)) // Keep for now or use primary
+                                        MaterialSymbol(name = "speed", size = 20.sp, color = colors.primary)
                                     }
                                     Column {
                                         Text(t("Latency"), fontSize = 12.sp, color = colors.textSub)

@@ -151,8 +151,8 @@ private fun SafeResultContent(
             } else {
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = Color.White.copy(alpha = 0.95f),
-                border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                color = colors.surface,
+                border = BorderStroke(1.dp, colors.border)
             ) {
                 Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
                     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
@@ -161,30 +161,30 @@ private fun SafeResultContent(
                                 modifier = Modifier
                                     .size(80.dp)
                                     .clip(RoundedCornerShape(16.dp))
-                                    .background(Brush.linearGradient(listOf(Color(0xFF34D399), Color(0xFF14B8A6)))),
+                                    .background(colors.success),
                                 contentAlignment = Alignment.Center
                             ) {
                                 MaterialIconRound(name = "check_circle", size = 36.sp, color = Color.White)
                             }
                             Column {
-                                Text(t("Safe to Visit"), fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                Text(t("Safe to Visit"), fontSize = 28.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    MaterialIconRound(name = "link", size = 14.sp, color = Color(0xFF6B7280))
-                                    Text(url, fontSize = 12.sp, color = Color(0xFF6B7280), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                                    MaterialIconRound(name = "link", size = 14.sp, color = colors.textSub)
+                                    Text(url, fontSize = 12.sp, color = colors.textSub, maxLines = 1, overflow = TextOverflow.Ellipsis)
                                 }
                             }
                         }
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = Color(0xFFF8FAFC),
-                            border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                            color = colors.backgroundAlt,
+                            border = BorderStroke(1.dp, colors.border)
                         ) {
                             Row(modifier = Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                                MetricBlock(t("Confidence"), confidenceLabel, Color(0xFF10B981))
+                                MetricBlock(t("Confidence"), confidenceLabel, colors.success)
                                 VerticalDivider()
-                                MetricBlock(t("Scan Time"), durationLabel, Color(0xFF111827))
+                                MetricBlock(t("Scan Time"), durationLabel, colors.textMain)
                                 VerticalDivider()
-                                MetricBlock(t("Engine"), t("v2.4.1 Local"), Color(0xFF374151))
+                                MetricBlock(t("Engine"), t("v2.4.1 Local"), colors.textSub)
                             }
                         }
                     }
@@ -192,7 +192,7 @@ private fun SafeResultContent(
                         Button(
                             onClick = { viewModel.openUrl(url) },
                             enabled = url.isNotBlank(),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF10B981)),
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.success),
                             shape = RoundedCornerShape(8.dp),
                             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
                         ) {
@@ -203,20 +203,20 @@ private fun SafeResultContent(
                         Button(
                             onClick = { viewModel.copyUrl(url, label = t("Safe link copied")) },
                             enabled = url.isNotBlank(),
-                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                            border = BorderStroke(1.dp, Color(0xFFE5E7EB)),
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
+                            border = BorderStroke(1.dp, colors.border),
                             shape = RoundedCornerShape(8.dp),
                             contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
                         ) {
-                            MaterialIconRound(name = "content_copy", size = 14.sp, color = Color(0xFF6B7280))
+                            MaterialIconRound(name = "content_copy", size = 14.sp, color = colors.textSub)
                             Spacer(Modifier.width(8.dp))
-                            Text(t("Copy Safe Link"), color = Color(0xFF6B7280))
+                            Text(t("Copy Safe Link"), color = colors.textSub)
                         }
                         Spacer(modifier = Modifier.weight(1f))
                         Row(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(8.dp))
-                                .background(Color(0xFFF3F4F6))
+                                .background(colors.backgroundAlt)
                                 .padding(4.dp)
                         ) {
                             ViewModeButton(
@@ -236,7 +236,7 @@ private fun SafeResultContent(
 
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    Text(t("Verdict Analysis"), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF111827))
+                    Text(t("Verdict Analysis"), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
                         AnalysisCard(title = t("Domain Identity"), badge = t("PASSED"), icon = "domain_verification", body = t("Verified ownership by Microsoft Corporation via EV Certificate."), modifier = Modifier.weight(1f))
                         AnalysisCard(title = t("Homograph Check"), badge = t("CLEAN"), icon = "spellcheck", body = t("No mixed-script characters or IDN spoofing detected in domain string."), modifier = Modifier.weight(1f))
@@ -247,25 +247,25 @@ private fun SafeResultContent(
                     }
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Column {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color(0xFFF8FAFC))
-                                .border(1.dp, Color(0xFFE5E7EB))
+                                    .background(colors.backgroundAlt)
+                                .border(1.dp, colors.border)
                                 .padding(16.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                                Text(t("TECHNICAL INDICATORS"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                                Text(t("TECHNICAL INDICATORS"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textSub, letterSpacing = 1.sp)
                                 Text(
                                     t("Export Report"),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.SemiBold,
-                                    color = Color(0xFF10B981),
+                                    color = colors.success,
                                     modifier = Modifier
                                         .clickable { onNavigate(AppScreen.ReportsExport) }
                                         .focusable()
@@ -274,25 +274,25 @@ private fun SafeResultContent(
                             TechnicalRow(t("Certificate Issuer"), t("DigiCert Inc (US)"))
                             TechnicalRow(t("Server Location"), t("United States (Azure Cloud)"))
                             TechnicalRow(t("Shannon Entropy"), t("3.44 bits (Low)"))
-                            TechnicalRow(t("Top 1k Whitelist"), t("Match"), highlight = Color(0xFF10B981))
+                            TechnicalRow(t("Top 1k Whitelist"), t("Match"), highlight = colors.success)
                         }
                     }
                 }
                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE5E7EB))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Column(modifier = Modifier.padding(16.dp)) {
-                            Text(t("Destination Preview"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF6B7280), letterSpacing = 1.sp)
+                            Text(t("Destination Preview"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textSub, letterSpacing = 1.sp)
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(180.dp)
                                     .clip(RoundedCornerShape(12.dp))
-                                    .background(Color(0xFFF3F4F6))
-                                    .border(1.dp, Color(0xFFE5E7EB)),
+                                    .background(colors.backgroundAlt)
+                                    .border(1.dp, colors.border),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -301,18 +301,18 @@ private fun SafeResultContent(
                                             .fillMaxWidth(0.8f)
                                             .height(96.dp)
                                             .clip(RoundedCornerShape(8.dp))
-                                            .background(Color.White)
-                                            .border(1.dp, Color(0xFFE5E7EB))
+                                            .background(colors.surface)
+                                            .border(1.dp, colors.border)
                                     )
                                 }
                             }
-                            Text(t("Sandbox rendered. No active scripts executed."), fontSize = 11.sp, color = Color(0xFF6B7280), modifier = Modifier.padding(top = 8.dp).align(Alignment.CenterHorizontally))
+                            Text(t("Sandbox rendered. No active scripts executed."), fontSize = 11.sp, color = colors.textSub, modifier = Modifier.padding(top = 8.dp).align(Alignment.CenterHorizontally))
                         }
                     }
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE0E7FF))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.primary.copy(alpha = 0.2f))
                     ) {
                         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -320,37 +320,37 @@ private fun SafeResultContent(
                                     modifier = Modifier
                                         .size(32.dp)
                                         .clip(CircleShape)
-                                        .background(Color(0xFFE0E7FF)),
+                                        .background(colors.primary.copy(alpha = 0.1f)),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    MaterialIconRound(name = "psychology", size = 16.sp, color = Color(0xFF4F46E5))
+                                    MaterialIconRound(name = "psychology", size = 16.sp, color = colors.primary)
                                 }
-                                Text(t("AI Verdict Logic"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                Text(t("AI Verdict Logic"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                             }
                             Text(
                                 verdictDetails?.summary?.let { t(it) }
                                     ?: t("The ML model classified this URL as benign with high certainty. The structure matches known legitimate authentication patterns."),
                                 fontSize = 12.sp,
-                                color = Color(0xFF64748B)
+                                color = colors.textSub
                             )
                             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                                 val phishingProbability = (100f - confidencePercent).coerceIn(0f, 100f)
-                                Text(t("Phishing Probability"), fontSize = 12.sp, color = Color(0xFF6B7280))
-                                Text("${phishingProbability.toInt()}%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color(0xFF111827))
+                                Text(t("Phishing Probability"), fontSize = 12.sp, color = colors.textSub)
+                                Text("${phishingProbability.toInt()}%", fontSize = 12.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                             }
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(6.dp)
                                     .clip(RoundedCornerShape(999.dp))
-                                    .background(Color(0xFFF1F5F9))
+                                    .background(colors.backgroundAlt)
                             ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxHeight()
                                         .fillMaxWidth((100f - confidencePercent).coerceIn(0f, 100f) / 100f)
                                         .clip(RoundedCornerShape(999.dp))
-                                        .background(Color(0xFF10B981))
+                                        .background(colors.success)
                                 )
                             }
                         }

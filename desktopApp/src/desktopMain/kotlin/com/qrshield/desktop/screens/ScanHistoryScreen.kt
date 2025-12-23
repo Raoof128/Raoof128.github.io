@@ -600,11 +600,13 @@ private fun HistoryRow(
         ScanSource.CAMERA -> "videocam"
         ScanSource.GALLERY -> "upload_file"
         ScanSource.CLIPBOARD -> "content_paste"
+        ScanSource.MANUAL -> "link"
     }
     val sourceLabel = when (item.source) {
         ScanSource.CAMERA -> t("Webcam")
         ScanSource.GALLERY -> t("File Upload")
         ScanSource.CLIPBOARD -> t("Clipboard")
+        ScanSource.MANUAL -> t("Manual")
     }
     val verdictLabel = when (item.verdict) {
         Verdict.SAFE -> t("ALLOWED")

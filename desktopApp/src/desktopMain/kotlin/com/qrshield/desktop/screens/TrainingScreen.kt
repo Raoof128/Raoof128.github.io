@@ -90,43 +90,43 @@ private fun TrainingContent(viewModel: AppViewModel) {
                         Box(
                             modifier = Modifier
                                 .clip(RoundedCornerShape(6.dp))
-                                .background(Color(0xFFDBEAFE))
-                                .border(1.dp, Color(0xFFBFDBFE), RoundedCornerShape(6.dp))
+                                .background(colors.primary.copy(alpha = 0.1f))
+                                .border(1.dp, colors.primary.copy(alpha = 0.2f), RoundedCornerShape(6.dp))
                                 .padding(horizontal = 6.dp, vertical = 2.dp)
                         ) {
-                            Text(tf("MODULE %d", training.module), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC), letterSpacing = 1.sp)
+                            Text(tf("MODULE %d", training.module), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.primary, letterSpacing = 1.sp)
                         }
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            MaterialSymbol(name = "timer", size = 14.sp, color = Color(0xFF64748B))
-                            Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
+                            MaterialSymbol(name = "timer", size = 14.sp, color = colors.textSub)
+                            Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
                         }
                     }
-                    Text(t("Beat the Bot"), fontSize = 40.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
-                    Text(tf("Phishing Simulation · Round %d of %d", training.round, training.totalRounds), fontSize = 16.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
+                    Text(t("Beat the Bot"), fontSize = 40.sp, fontWeight = FontWeight.Black, color = colors.textMain)
+                    Text(tf("Phishing Simulation · Round %d of %d", training.round, training.totalRounds), fontSize = 16.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     StatCard(value = training.score.toString(), label = t("Score"))
-                    StatCard(value = training.streak.toString(), label = t("Streak"), highlight = Color(0xFFF59E0B))
-                    StatCard(value = accuracyLabel, label = t("Accuracy"), color = Color(0xFF10B981))
+                    StatCard(value = training.streak.toString(), label = t("Streak"), highlight = colors.warning)
+                    StatCard(value = accuracyLabel, label = t("Accuracy"), color = colors.success)
                 }
             }
 
             Column(modifier = Modifier.padding(top = 16.dp)) {
-                Text(t("Session Progress"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
+                Text(t("Session Progress"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 1.sp)
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(8.dp)
                         .clip(RoundedCornerShape(999.dp))
-                        .background(Color(0xFFF1F5F9))
-                        .border(1.dp, Color(0xFFE2E8F0), RoundedCornerShape(999.dp))
+                        .background(colors.backgroundAlt)
+                        .border(1.dp, colors.border, RoundedCornerShape(999.dp))
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
                             .fillMaxWidth(training.progress.coerceIn(0f, 1f))
                             .clip(RoundedCornerShape(999.dp))
-                            .background(Color(0xFF135BEC))
+                            .background(colors.primary)
                     )
                 }
             }
@@ -140,22 +140,22 @@ private fun TrainingContent(viewModel: AppViewModel) {
                 Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.spacedBy(24.dp)) {
                     Surface(
                         shape = RoundedCornerShape(16.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Column {
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color(0xFFF8FAFC))
-                                    .border(1.dp, Color(0xFFE2E8F0))
+                                    .background(colors.backgroundAlt)
+                                    .border(1.dp, colors.border)
                                     .padding(16.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    MaterialSymbol(name = "visibility", size = 18.sp, color = Color(0xFF94A3B8))
-                                    Text(t("Analyze the QR Code details"), fontSize = 13.sp, fontWeight = FontWeight.Medium, color = Color(0xFF64748B))
+                                    MaterialSymbol(name = "visibility", size = 18.sp, color = colors.textMuted)
+                                    Text(t("Analyze the QR Code details"), fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
                                 }
                                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                                     DotIndicator()
@@ -174,8 +174,8 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         modifier = Modifier
                                             .size(192.dp)
                                             .clip(RoundedCornerShape(8.dp))
-                                            .background(Color.White)
-                                            .border(1.dp, Color(0xFFE2E8F0))
+                                            .background(colors.surface)
+                                            .border(1.dp, colors.border)
                                             .padding(8.dp)
                                     ) {
                                         Image(
@@ -189,7 +189,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         t("Enlarge"),
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = Color(0xFF135BEC),
+                                        color = colors.primary,
                                         modifier = Modifier
                                             .padding(top = 8.dp)
                                             .clickable { viewModel.showInfo(t("Zoom is not available yet.")) }
@@ -198,31 +198,31 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 }
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                        Text(t("Decoded Payload"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
+                                        Text(t("Decoded Payload"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 1.sp)
                                         Box(
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .clip(RoundedCornerShape(8.dp))
-                                                .background(Color(0xFFF1F5F9))
-                                                .border(1.dp, Color(0xFFE2E8F0))
+                                                .background(colors.backgroundAlt)
+                                                .border(1.dp, colors.border)
                                                 .padding(12.dp)
                                         ) {
                                             Text(
                                                 scenario.payload,
                                                 fontSize = 14.sp,
                                                 fontWeight = FontWeight.Medium,
-                                                color = Color(0xFF0F172A)
+                                                color = colors.textMain
                                             )
                                         }
                                     }
                                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                        Text(t("Context Source"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFF94A3B8), letterSpacing = 1.sp)
+                                        Text(t("Context Source"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 1.sp)
                                         Row(
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .clip(RoundedCornerShape(8.dp))
-                                                .background(Color.White)
-                                                .border(1.dp, Color(0xFFE2E8F0))
+                                                .background(colors.surface)
+                                                .border(1.dp, colors.border)
                                                 .padding(12.dp),
                                             horizontalArrangement = Arrangement.spacedBy(12.dp)
                                         ) {
@@ -230,15 +230,15 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                                 modifier = Modifier
                                                     .size(40.dp)
                                                     .clip(CircleShape)
-                                                    .background(Color(0xFFDBEAFE))
-                                                    .border(1.dp, Color(0xFFBFDBFE), CircleShape),
+                                                    .background(colors.primary.copy(alpha = 0.1f))
+                                                    .border(1.dp, colors.primary.copy(alpha = 0.2f), CircleShape),
                                                 contentAlignment = Alignment.Center
                                             ) {
-                                                MaterialSymbol(name = "coffee", size = 20.sp, color = Color(0xFF135BEC))
+                                                MaterialSymbol(name = "coffee", size = 20.sp, color = colors.primary)
                                             }
                                             Column {
-                                                Text(t(scenario.contextTitle), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF0F172A))
-                                                Text(t(scenario.contextBody), fontSize = 12.sp, color = Color(0xFF64748B))
+                                                Text(t(scenario.contextTitle), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
+                                                Text(t(scenario.contextBody), fontSize = 12.sp, color = colors.textSub)
                                             }
                                         }
                                     }
@@ -247,8 +247,8 @@ private fun TrainingContent(viewModel: AppViewModel) {
                             Column(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color(0xFFF8FAFC))
-                                    .border(1.dp, Color(0xFFE2E8F0))
+                                    .background(colors.backgroundAlt)
+                                    .border(1.dp, colors.border)
                                     .padding(24.dp)
                             ) {
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -256,8 +256,8 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         label = t("Phishing"),
                                         subtitle = t("Flag as malicious"),
                                         icon = "gpp_bad",
-                                        bg = Color(0xFFFEE2E2),
-                                        textColor = Color(0xFFDC2626),
+                                        bg = colors.danger.copy(alpha = 0.1f),
+                                        textColor = colors.danger,
                                         modifier = Modifier.weight(1f),
                                         onClick = { viewModel.submitTrainingVerdict(isPhishing = true) }
                                     )
@@ -265,8 +265,8 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         label = t("Legitimate"),
                                         subtitle = t("Mark as safe"),
                                         icon = "verified_user",
-                                        bg = Color(0xFFD1FAE5),
-                                        textColor = Color(0xFF059669),
+                                        bg = colors.success.copy(alpha = 0.1f),
+                                        textColor = colors.success,
                                         modifier = Modifier.weight(1f),
                                         onClick = { viewModel.submitTrainingVerdict(isPhishing = false) }
                                     )
@@ -274,7 +274,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 Text(
                                     t("Skip this round"),
                                     fontSize = 12.sp,
-                                    color = Color(0xFF94A3B8),
+                                    color = colors.textMuted,
                                     modifier = Modifier
                                         .align(Alignment.CenterHorizontally)
                                         .padding(top = 12.dp)
@@ -289,20 +289,20 @@ private fun TrainingContent(viewModel: AppViewModel) {
                 Column(modifier = Modifier.weight(1f)) {
                     Surface(
                         shape = RoundedCornerShape(16.dp),
-                        color = Color.White,
-                        border = BorderStroke(1.dp, Color(0xFFE2E8F0))
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
                     ) {
                         Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                             val isSafeScenario = scenario.expectedVerdict == com.qrshield.model.Verdict.SAFE
-                            val badgeBg = if (isSafeScenario) Color(0xFFD1FAE5) else Color(0xFFFEE2E2)
-                            val badgeBorder = if (isSafeScenario) Color(0xFFA7F3D0) else Color(0xFFFECACA)
-                            val badgeTextColor = if (isSafeScenario) Color(0xFF059669) else Color(0xFFDC2626)
+                            val badgeBg = if (isSafeScenario) colors.success.copy(alpha = 0.1f) else colors.danger.copy(alpha = 0.1f)
+                            val badgeBorder = if (isSafeScenario) colors.success.copy(alpha = 0.2f) else colors.danger.copy(alpha = 0.2f)
+                            val badgeTextColor = if (isSafeScenario) colors.success else colors.danger
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text(t("Analysis Report"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = Color(0xFF0F172A))
+                                Text(t("Analysis Report"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                                 Box(
                                     modifier = Modifier
                                         .clip(RoundedCornerShape(6.dp))
@@ -315,30 +315,30 @@ private fun TrainingContent(viewModel: AppViewModel) {
                             }
                             scenario.insights.forEach { insight ->
                                 val color = when (insight.kind) {
-                                    TrainingInsightKind.Warning -> Color(0xFFDC2626)
-                                    TrainingInsightKind.Suspicious -> Color(0xFFF59E0B)
-                                    TrainingInsightKind.Psychology -> Color(0xFF3B82F6)
+                                    TrainingInsightKind.Warning -> colors.danger
+                                    TrainingInsightKind.Suspicious -> colors.warning
+                                    TrainingInsightKind.Psychology -> colors.primary
                                 }
                                 ReportItem(icon = insight.icon, color = color, title = t(insight.title), body = t(insight.body))
                             }
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .background(Color(0xFFDBEAFE))
-                                    .border(1.dp, Color(0xFFBFDBFE), RoundedCornerShape(8.dp))
+                                    .background(colors.primary.copy(alpha = 0.1f))
+                                    .border(1.dp, colors.primary.copy(alpha = 0.2f), RoundedCornerShape(8.dp))
                                     .padding(12.dp)
                             ) {
                                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    Text(t("AI Confidence Score"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color(0xFF135BEC))
+                                    Text(t("AI Confidence Score"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = colors.primary)
                                     Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                        Text("${(scenario.aiConfidence * 100).toInt()}%", fontSize = 28.sp, fontWeight = FontWeight.Black, color = Color(0xFF0F172A))
-                                        Text(if (isSafeScenario) t("Benign") else t("Malicious"), fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color(0xFF135BEC))
+                                        Text("${(scenario.aiConfidence * 100).toInt()}%", fontSize = 28.sp, fontWeight = FontWeight.Black, color = colors.textMain)
+                                        Text(if (isSafeScenario) t("Benign") else t("Malicious"), fontSize = 12.sp, fontWeight = FontWeight.Medium, color = colors.primary)
                                     }
                                 }
                             }
                             Button(
                                 onClick = { viewModel.nextTrainingRound() },
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF135BEC)),
+                                colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.fillMaxWidth(),
                                 contentPadding = PaddingValues(vertical = 12.dp)
@@ -356,9 +356,10 @@ private fun TrainingContent(viewModel: AppViewModel) {
 }
 
 @Composable
-private fun StatCard(value: String, label: String, highlight: Color? = null, color: Color = Color(0xFF0F172A)) {
-    val bg = highlight?.copy(alpha = 0.1f) ?: Color.White
-    val border = highlight?.copy(alpha = 0.2f) ?: Color(0xFFE2E8F0)
+private fun StatCard(value: String, label: String, highlight: Color? = null, color: Color = LocalStitchTokens.current.colors.textMain) {
+    val colors = LocalStitchTokens.current.colors
+    val bg = highlight?.copy(alpha = 0.1f) ?: colors.surface
+    val border = highlight?.copy(alpha = 0.2f) ?: colors.border
     Surface(
         shape = RoundedCornerShape(12.dp),
         color = bg,
@@ -371,19 +372,20 @@ private fun StatCard(value: String, label: String, highlight: Color? = null, col
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(value, fontSize = 24.sp, fontWeight = FontWeight.Bold, color = highlight ?: color)
-            Text(label.uppercase(), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = highlight?.copy(alpha = 0.7f) ?: Color(0xFF64748B), letterSpacing = 1.sp)
+            Text(label.uppercase(), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = highlight?.copy(alpha = 0.7f) ?: colors.textSub, letterSpacing = 1.sp)
         }
     }
 }
 
 @Composable
 private fun DotIndicator() {
+    val colors = LocalStitchTokens.current.colors
     Box(
         modifier = Modifier
             .size(8.dp)
             .clip(CircleShape)
-            .background(Color(0xFFE2E8F0))
-            .border(1.dp, Color(0xFFCBD5E1), CircleShape)
+            .background(colors.border)
+            .border(1.dp, colors.border.copy(alpha = 0.5f), CircleShape)
     )
 }
 
@@ -422,11 +424,12 @@ private fun TrainingActionButton(
 
 @Composable
 private fun ReportItem(icon: String, color: Color, title: String, body: String) {
+    val colors = LocalStitchTokens.current.colors
     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         MaterialSymbol(name = icon, size = 20.sp, color = color)
         Column {
-            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = Color(0xFF0F172A))
-            Text(body, fontSize = 12.sp, color = Color(0xFF64748B))
+            Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
+            Text(body, fontSize = 12.sp, color = colors.textSub)
         }
     }
 }

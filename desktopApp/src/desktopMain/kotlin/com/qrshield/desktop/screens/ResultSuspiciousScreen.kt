@@ -87,11 +87,7 @@ private fun SuspiciousContent(
     val verdictDetails = viewModel.currentVerdictDetails
     val scanId = viewModel.lastAnalyzedAt?.toString()?.takeLast(6) ?: t("LATEST")
     val analysisId = assessment?.let { tf("SCAN-%s-H%s", scanId, it.score) } ?: tf("SCAN-%s", scanId)
-    val background = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
-    val surface = if (isDark) Color(0xFF1F2937) else Color.White
-    val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
-    val textMain = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
-    val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
+    val colors = LocalStitchTokens.current.colors
     val resolvedUrl = url.orEmpty()
     val uri = runCatching { java.net.URI(resolvedUrl) }.getOrNull()
     val scheme = uri?.scheme ?: "https"
@@ -106,19 +102,19 @@ private fun SuspiciousContent(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(background)
+            .background(colors.background)
     ) {
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .gridPattern(spacing = 40.dp, lineColor = Color(0xFF374151).copy(alpha = if (isDark) 0.1f else 0.05f), lineWidth = 1.dp)
+                .gridPattern(spacing = 40.dp, lineColor = colors.border.copy(alpha = if (isDark) 0.1f else 0.05f), lineWidth = 1.dp)
         )
         Box(
             modifier = Modifier
                 .size(320.dp)
                 .align(Alignment.TopEnd)
                 .offset(x = (-40).dp, y = (-40).dp)
-                .background(Color(0xFFF59E0B).copy(alpha = 0.05f), CircleShape)
+                .background(colors.warning.copy(alpha = 0.05f), CircleShape)
                 .blur(100.dp)
         )
         Column(
@@ -130,28 +126,28 @@ private fun SuspiciousContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(64.dp)
-                    .background(surface.copy(alpha = 0.8f))
-                    .border(1.dp, border)
+                    .background(colors.surface.copy(alpha = 0.8f))
+                    .border(1.dp, colors.border)
                     .padding(horizontal = 32.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(t("Scan Monitor"), fontSize = 14.sp, color = textMuted)
-                    MaterialIcon(name = "chevron_right", size = 12.sp, color = textMuted)
-                    Text(tf("Result #SCAN-%s", scanId), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = textMain)
+                    Text(t("Scan Monitor"), fontSize = 14.sp, color = colors.textSub)
+                    MaterialIcon(name = "chevron_right", size = 12.sp, color = colors.textSub)
+                    Text(tf("Result #SCAN-%s", scanId), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
                 }
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Box(
                         modifier = Modifier
                             .clip(RoundedCornerShape(999.dp))
-                            .background(Color(0xFFECFDF3).copy(alpha = if (isDark) 0.15f else 1f))
-                            .border(1.dp, Color(0xFFD1FAE5), RoundedCornerShape(999.dp))
+                            .background(colors.success.copy(alpha = if (isDark) 0.15f else 0.1f))
+                            .border(1.dp, colors.success.copy(alpha = 0.2f), RoundedCornerShape(999.dp))
                             .padding(horizontal = 12.dp, vertical = 4.dp)
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                            PulseDot(Color(0xFF10B981))
-                            Text(t("Engine Active V.2.4"), fontSize = 10.sp, fontWeight = FontWeight.Medium, color = Color(0xFF10B981))
+                            PulseDot(colors.success)
+                            Text(t("Engine Active V.2.4"), fontSize = 10.sp, fontWeight = FontWeight.Medium, color = colors.success)
                         }
                     }
                     Box(
@@ -160,15 +156,15 @@ private fun SuspiciousContent(
                             .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
                             .focusable()
                     ) {
-                        MaterialIcon(name = "notifications", size = 18.sp, color = textMuted)
+                        MaterialIcon(name = "notifications", size = 18.sp, color = colors.textSub)
                         Box(
                             modifier = Modifier
                                 .size(8.dp)
                                 .align(Alignment.TopEnd)
                                 .offset(x = (-2).dp, y = 2.dp)
                                 .clip(CircleShape)
-                                .background(Color(0xFFEF4444))
-                                .border(2.dp, surface, CircleShape)
+                                .background(colors.danger)
+                                .border(2.dp, colors.surface, CircleShape)
                         )
                     }
                 }
@@ -185,43 +181,43 @@ private fun SuspiciousContent(
                 } else {
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = surface,
-                    border = BorderStroke(1.dp, border)
+                    color = colors.surface,
+                    border = BorderStroke(1.dp, colors.border)
                 ) {
                     Box(modifier = Modifier.fillMaxWidth()) {
                         Box(
                             modifier = Modifier
                                 .matchParentSize()
-                                .background(Color(0xFFF59E0B).copy(alpha = 0.03f))
+                                .background(colors.warning.copy(alpha = 0.03f))
                         )
                         Row(modifier = Modifier.padding(24.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                             Box(
                                 modifier = Modifier
                                     .size(48.dp)
                                     .clip(CircleShape)
-                                    .background(Color(0xFFFDE68A)),
+                                    .background(colors.warning.copy(alpha = 0.2f)),
                                 contentAlignment = Alignment.Center
                             ) {
-                                MaterialIcon(name = "warning_amber", size = 28.sp, color = Color(0xFFF59E0B))
+                                MaterialIcon(name = "warning_amber", size = 28.sp, color = colors.warning)
                             }
                             Column(modifier = Modifier.weight(1f)) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                    Text(t("Caution Advised: Suspicious Activity Detected"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = textMain)
+                                    Text(t("Caution Advised: Suspicious Activity Detected"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                                     Box(
                                         modifier = Modifier
                                             .clip(RoundedCornerShape(999.dp))
-                                            .background(Color(0xFFFDE68A))
-                                            .border(1.dp, Color(0xFFFDE68A), RoundedCornerShape(999.dp))
+                                            .background(colors.warning.copy(alpha = 0.2f))
+                                            .border(1.dp, colors.warning.copy(alpha = 0.3f), RoundedCornerShape(999.dp))
                                             .padding(horizontal = 8.dp, vertical = 4.dp)
                                     ) {
-                                        Text(t("SUSPICIOUS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = Color(0xFFB45309), letterSpacing = 1.sp)
+                                        Text(t("SUSPICIOUS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.warning, letterSpacing = 1.sp)
                                     }
                                 }
                                 Text(
                                     verdictDetails?.summary?.let { t(it) }
                                         ?: t(assessment.actionRecommendation),
                                     fontSize = 13.sp,
-                                    color = textMuted,
+                                    color = colors.textSub,
                                     lineHeight = 18.sp,
                                     modifier = Modifier.padding(top = 8.dp)
                                 )
@@ -229,23 +225,23 @@ private fun SuspiciousContent(
                                     ActionButton(
                                         "content_copy",
                                         t("Copy URL (Sanitized)"),
-                                        Color.White,
-                                        Color(0xFFE5E7EB),
-                                        textMain,
+                                        colors.surface,
+                                        colors.border,
+                                        colors.textMain,
                                         onClick = { viewModel.copyUrl(viewModel.sanitizedUrl(url), label = t("Sanitized URL copied")) }
                                     )
                                     ActionButton(
                                         "block",
                                         t("Block Domain"),
-                                        Color(0xFFFEE2E2),
-                                        Color(0xFFFECACA),
-                                        Color(0xFFDC2626),
+                                        colors.danger.copy(alpha = 0.1f),
+                                        colors.danger.copy(alpha = 0.2f),
+                                        colors.danger,
                                         onClick = { viewModel.addBlocklistDomain(viewModel.hostFromUrl(url) ?: url) }
                                     )
                                     Spacer(modifier = Modifier.weight(1f))
                                     Button(
                                         onClick = { viewModel.showInfo(t("Sandbox preview is not available on desktop yet.")) },
-                                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF59E0B)),
+                                        colors = ButtonDefaults.buttonColors(containerColor = colors.warning),
                                         shape = RoundedCornerShape(8.dp),
                                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp)
                                     ) {
@@ -263,24 +259,24 @@ private fun SuspiciousContent(
                     Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = surface,
-                            border = BorderStroke(1.dp, border)
+                            color = colors.surface,
+                            border = BorderStroke(1.dp, colors.border)
                         ) {
                             Column(modifier = Modifier.padding(20.dp)) {
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-                                    Text(t("Target Destination"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp)
+                                    Text(t("Target Destination"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, letterSpacing = 1.sp)
                                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                        Text(t("View Mode:"), fontSize = 12.sp, color = textMuted)
+                                        Text(t("View Mode:"), fontSize = 12.sp, color = colors.textSub)
                                         Row(
                                             modifier = Modifier
                                                 .clip(RoundedCornerShape(8.dp))
-                                                .background(if (isDark) Color(0xFF374151) else Color(0xFFF3F4F6))
+                                                .background(if (isDark) colors.backgroundAlt else colors.backgroundAlt)
                                                 .padding(4.dp)
                                         ) {
                                             Box(
                                                 modifier = Modifier
                                                     .clip(RoundedCornerShape(6.dp))
-                                                    .background(if (visualSelected) Color.White else Color.Transparent)
+                                                    .background(if (visualSelected) colors.surface else Color.Transparent)
                                                     .clickable { viewModel.scanMonitorViewMode = com.qrshield.desktop.ScanMonitorViewMode.Visual }
                                                     .focusable()
                                                     .padding(horizontal = 10.dp, vertical = 4.dp)
@@ -289,13 +285,13 @@ private fun SuspiciousContent(
                                                     t("Visual"),
                                                     fontSize = 12.sp,
                                                     fontWeight = FontWeight.Medium,
-                                                    color = if (visualSelected) textMain else textMuted
+                                                    color = if (visualSelected) colors.textMain else colors.textSub
                                                 )
                                             }
                                             Box(
                                                 modifier = Modifier
                                                     .clip(RoundedCornerShape(6.dp))
-                                                    .background(if (rawSelected) Color.White else Color.Transparent)
+                                                    .background(if (rawSelected) colors.surface else Color.Transparent)
                                                     .clickable { viewModel.scanMonitorViewMode = com.qrshield.desktop.ScanMonitorViewMode.Raw }
                                                     .focusable()
                                                     .padding(horizontal = 10.dp, vertical = 4.dp)
@@ -304,7 +300,7 @@ private fun SuspiciousContent(
                                                     t("Raw"),
                                                     fontSize = 12.sp,
                                                     fontWeight = if (rawSelected) FontWeight.Medium else FontWeight.Normal,
-                                                    color = if (rawSelected) textMain else textMuted
+                                                    color = if (rawSelected) colors.textMain else colors.textSub
                                                 )
                                             }
                                         }
@@ -314,22 +310,22 @@ private fun SuspiciousContent(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .clip(RoundedCornerShape(8.dp))
-                                        .background(if (isDark) Color(0xFF111827) else Color(0xFFF8FAFC))
-                                        .border(1.dp, border, RoundedCornerShape(8.dp))
+                                        .background(if (isDark) colors.background else colors.backgroundAlt)
+                                        .border(1.dp, colors.border, RoundedCornerShape(8.dp))
                                         .padding(16.dp)
                                 ) {
                                     if (rawSelected) {
                                         Text(
                                             resolvedUrl.ifBlank { t("No URL captured.") },
                                             fontSize = 13.sp,
-                                            color = textMain
+                                            color = colors.textMain
                                         )
                                     } else {
                                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                                            val domainColor = if (assessment.verdict == com.qrshield.model.Verdict.SUSPICIOUS) Color(0xFFDC2626) else textMain
-                                            val domainBg = if (assessment.verdict == com.qrshield.model.Verdict.SUSPICIOUS) Color(0xFFFEE2E2) else Color.Transparent
-                                            MaterialIcon(name = "lock", size = 16.sp, color = Color(0xFF9CA3AF))
-                                            Text("$scheme://", fontSize = 13.sp, color = Color(0xFF6B7280))
+                                            val domainColor = if (assessment.verdict == com.qrshield.model.Verdict.SUSPICIOUS) colors.danger else colors.textMain
+                                            val domainBg = if (assessment.verdict == com.qrshield.model.Verdict.SUSPICIOUS) colors.danger.copy(alpha = 0.1f) else Color.Transparent
+                                            MaterialIcon(name = "lock", size = 16.sp, color = colors.textMuted)
+                                            Text("$scheme://", fontSize = 13.sp, color = colors.textSub)
                                             Text(
                                                 hostBase.ifBlank { host },
                                                 fontSize = 13.sp,
@@ -338,15 +334,15 @@ private fun SuspiciousContent(
                                                 modifier = if (domainBg == Color.Transparent) Modifier else Modifier.background(domainBg, RoundedCornerShape(4.dp)).padding(horizontal = 4.dp)
                                             )
                                             if (tld.isNotBlank()) {
-                                                Text(".${tld}", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color(0xFFF97316))
+                                                Text(".${tld}", fontSize = 13.sp, fontWeight = FontWeight.Bold, color = colors.warning)
                                             }
-                                            Text(path + query, fontSize = 13.sp, color = Color(0xFF6B7280))
+                                            Text(path + query, fontSize = 13.sp, color = colors.textSub)
                                         }
                                     }
                                 }
                                 Row(modifier = Modifier.padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                                    IndicatorDot(Color(0xFFF97316), t("Redirect Chain: 2 Hops"), textMuted)
-                                    IndicatorDot(Color(0xFFEF4444), t("SSL Issuer: Let's Encrypt (Recent)"), textMuted)
+                                    IndicatorDot(colors.warning, t("Redirect Chain: 2 Hops"), colors.textSub)
+                                    IndicatorDot(colors.danger, t("SSL Issuer: Let's Encrypt (Recent)"), colors.textSub)
                                 }
                             }
                         }
@@ -354,13 +350,13 @@ private fun SuspiciousContent(
                     Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = surface,
-                            border = BorderStroke(1.dp, border)
+                            color = colors.surface,
+                            border = BorderStroke(1.dp, colors.border)
                         ) {
                             Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                                Text(t("Risk Score"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = textMuted, letterSpacing = 1.sp, modifier = Modifier.align(Alignment.Start))
-                                RiskGauge(score = assessment.score, color = Color(0xFFF59E0B), label = assessment.scoreDescription)
-                                Text(t("Score based on heuristic analysis of domain age, entropy, and keyword matching."), fontSize = 11.sp, color = textMuted, textAlign = TextAlign.Center)
+                                Text(t("Risk Score"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, letterSpacing = 1.sp, modifier = Modifier.align(Alignment.Start))
+                                RiskGauge(score = assessment.score, color = colors.warning, label = assessment.scoreDescription)
+                                Text(t("Score based on heuristic analysis of domain age, entropy, and keyword matching."), fontSize = 11.sp, color = colors.textSub, textAlign = TextAlign.Center)
                             }
                         }
                     }
@@ -371,8 +367,8 @@ private fun SuspiciousContent(
                         icon = "spellcheck",
                         title = t("Homograph Attack"),
                         status = t("Detected"),
-                        color = Color(0xFFDC2626),
-                        badgeBg = Color(0xFFFEE2E2),
+                        color = colors.danger,
+                        badgeBg = colors.danger.copy(alpha = 0.1f),
                         progress = 0.9f,
                         footerLabel = t("Confidence"),
                         footerValue = "90%",
@@ -383,8 +379,8 @@ private fun SuspiciousContent(
                         icon = "schedule",
                         title = t("Domain Age"),
                         status = t("Suspicious"),
-                        color = Color(0xFFF59E0B),
-                        badgeBg = Color(0xFFFFFBEB),
+                        color = colors.warning,
+                        badgeBg = colors.warning.copy(alpha = 0.1f),
                         progress = 0.75f,
                         footerLabel = t("Age"),
                         footerValue = t("< 2 Days"),
@@ -395,8 +391,8 @@ private fun SuspiciousContent(
                         icon = "shuffle",
                         title = t("URL Entropy"),
                         status = t("Low Risk"),
-                        color = Color(0xFFFBBF24),
-                        badgeBg = Color(0xFFF3F4F6),
+                        color = colors.warning,
+                        badgeBg = colors.backgroundAlt,
                         progress = 0.4f,
                         footerLabel = t("Score"),
                         footerValue = "4.2",
@@ -407,8 +403,8 @@ private fun SuspiciousContent(
                         icon = "verified_user",
                         title = t("Global Blocklist"),
                         status = t("Clean"),
-                        color = Color(0xFF10B981),
-                        badgeBg = Color(0xFFECFDF3),
+                        color = colors.success,
+                        badgeBg = colors.success.copy(alpha = 0.1f),
                         progress = 0.05f,
                         footerLabel = t("Match"),
                         footerValue = "0/52",
@@ -419,45 +415,45 @@ private fun SuspiciousContent(
 
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = surface,
-                    border = BorderStroke(1.dp, border)
+                    color = colors.surface,
+                    border = BorderStroke(1.dp, colors.border)
                 ) {
                     Column {
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .border(1.dp, border)
+                                .border(1.dp, colors.border)
                                 .padding(horizontal = 24.dp, vertical = 12.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(t("Technical Indicators"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = textMain)
+                            Text(t("Technical Indicators"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 Tag(t("DNS Records"))
                                 Tag(t("WhoIs"))
                                 Tag(t("Heuristics"), active = true)
                             }
                         }
-                        TableRow(t("Visual Similarity"), t("Simulates secure-login.com (Levenshtein Distance: 2)"), "warning", Color(0xFFF59E0B))
-                        TableRow(t("Redirect Method"), t("Javascript-based redirection (obfuscates destination from crawlers)"), "error", Color(0xFFEF4444))
-                        TableRow(t("Logo Detection"), t("Brand logo detected on landing page: Global Bank Ltd"), "warning", Color(0xFFF59E0B))
-                        TableRow(t("Scan Latency"), t("45ms (Local offline analysis)"), "check_circle", Color(0xFF10B981))
+                        TableRow(t("Visual Similarity"), t("Simulates secure-login.com (Levenshtein Distance: 2)"), "warning", colors.warning)
+                        TableRow(t("Redirect Method"), t("Javascript-based redirection (obfuscates destination from crawlers)"), "error", colors.danger)
+                        TableRow(t("Logo Detection"), t("Brand logo detected on landing page: Global Bank Ltd"), "warning", colors.warning)
+                        TableRow(t("Scan Latency"), t("45ms (Local offline analysis)"), "check_circle", colors.success)
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(if (isDark) Color(0xFF0B0B0B).copy(alpha = 0.2f) else Color(0xFFF8FAFC))
-                                .border(1.dp, border)
+                                .background(if (isDark) colors.background.copy(alpha = 0.2f) else colors.backgroundAlt)
+                                .border(1.dp, colors.border)
                                 .padding(horizontal = 24.dp, vertical = 10.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Text(tf("Analysis ID: #%s", analysisId), fontSize = 12.sp, color = textMuted)
+                            Text(tf("Analysis ID: #%s", analysisId), fontSize = 12.sp, color = colors.textSub)
                             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                                 Text(
                                     t("View Full JSON Log"),
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.Medium,
-                                    color = Color(0xFFF59E0B),
+                                    color = colors.warning,
                                     modifier = Modifier
                                         .clickable {
                                             viewModel.copyJsonReport()
@@ -465,7 +461,7 @@ private fun SuspiciousContent(
                                         }
                                         .focusable()
                                 )
-                                MaterialIcon(name = "arrow_forward", size = 14.sp, color = Color(0xFFF59E0B))
+                                MaterialIcon(name = "arrow_forward", size = 14.sp, color = colors.warning)
                             }
                         }
                     }
@@ -597,7 +593,7 @@ private fun AlertCard(
                     modifier = Modifier
                         .size(32.dp)
                         .clip(RoundedCornerShape(8.dp))
-                        .background(Color(0xFFFDE68A).copy(alpha = 0.4f)),
+                        .background(colors.warning.copy(alpha = 0.2f)),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIcon(name = icon, size = 18.sp, color = color)
@@ -638,8 +634,9 @@ private fun AlertCard(
 
 @Composable
 private fun Tag(label: String, active: Boolean = false) {
-    val bg = if (active) Color(0xFFDBEAFE) else Color(0xFFF3F4F6)
-    val text = if (active) Color(0xFF2563EB) else Color(0xFF6B7280)
+    val colors = LocalStitchTokens.current.colors
+    val bg = if (active) colors.primary.copy(alpha = 0.1f) else colors.backgroundAlt
+    val text = if (active) colors.primary else colors.textSub
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(6.dp))
@@ -669,20 +666,21 @@ private fun TableRow(label: String, detail: String, icon: String, color: Color) 
 
 @Composable
 private fun BoxScope.ThemeToggleButton(isDark: Boolean, onToggle: () -> Unit) {
+    val colors = LocalStitchTokens.current.colors
     Box(
         modifier = Modifier
             .size(48.dp)
             .align(Alignment.BottomEnd)
             .offset(x = (-24).dp, y = (-24).dp)
             .clip(CircleShape)
-            .background(if (isDark) Color(0xFF1F2937) else Color.White)
-            .border(1.dp, if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB))
+            .background(colors.surface)
+            .border(1.dp, colors.border)
             .clickable { onToggle() }
     ) {
         MaterialIcon(
             name = if (isDark) "light_mode" else "dark_mode",
             size = 20.sp,
-            color = if (isDark) Color(0xFFFBBF24) else Color(0xFF111827),
+            color = if (isDark) colors.warning else colors.textMain,
             modifier = Modifier.align(Alignment.Center)
         )
     }

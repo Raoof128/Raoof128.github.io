@@ -5,6 +5,89 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.12] - 2025-12-23
+
+### 🎨 Desktop - Hardcoded Colors Elimination
+
+Complete elimination of all hardcoded `Color(0xFF...)` values from Desktop screen files, replacing them with theme tokens from `LocalStitchTokens.current.colors`.
+
+#### 📊 Refactoring Results
+
+| Screen File | Hardcoded Colors Eliminated |
+|-------------|---------------------------|
+| `ResultSuspiciousScreen.kt` | 55 → 0 |
+| `TrustCentreScreen.kt` | 68 → 0 |
+| `TrainingScreen.kt` | 59 → 0 |
+| `ResultSafeScreen.kt` | 37 → 0 |
+| `ResultDangerousAltScreen.kt` | 25 → 0 |
+| `ResultDangerousScreen.kt` | 40 → 0 |
+| `ReportsExportScreen.kt` | 35 → 0 |
+| `LiveScanScreen.kt` | 1 → 0 |
+| **Total** | **320 → 0** |
+
+#### ✨ Key Changes
+
+**Replaced local color variable definitions** with centralized theme access:
+```kotlin
+// Before (hardcoded)
+val background = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
+val surface = if (isDark) Color(0xFF1F2937) else Color.White
+val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
+val textMain = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
+val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
+
+// After (theme tokens)
+val colors = LocalStitchTokens.current.colors
+```
+
+**Color Mappings Applied:**
+| Hardcoded Value | Theme Token |
+|-----------------|-------------|
+| `Color(0xFF0F172A)` / `Color(0xFF111827)` | `colors.textMain` |
+| `Color(0xFF64748B)` / `Color(0xFF6B7280)` | `colors.textSub` |
+| `Color(0xFF94A3B8)` | `colors.textMuted` |
+| `Color(0xFFE2E8F0)` / `Color(0xFFE5E7EB)` | `colors.border` |
+| `Color(0xFFF1F5F9)` / `Color(0xFFF8FAFC)` | `colors.backgroundAlt` |
+| `Color.White` | `colors.surface` |
+| `Color(0xFF135BEC)` / `Color(0xFF2563EB)` | `colors.primary` |
+| `Color(0xFF10B981)` / `Color(0xFF2EA043)` | `colors.success` |
+| `Color(0xFFF59E0B)` / `Color(0xFFD29922)` | `colors.warning` |
+| `Color(0xFFDC2626)` / `Color(0xFFEF4444)` | `colors.danger` |
+
+#### 🌙 Dark Mode Support
+
+All screens now properly support dark mode through theme tokens:
+- Background and surface colors adapt automatically
+- Text colors maintain proper contrast
+- Semantic colors (success, warning, danger) remain consistent
+- Alpha variations use `.copy(alpha = ...)` on theme tokens
+
+#### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `ResultSuspiciousScreen.kt` | Replaced 55 hardcoded colors with theme tokens |
+| `TrustCentreScreen.kt` | Replaced 68 hardcoded colors with theme tokens |
+| `TrainingScreen.kt` | Replaced 59 hardcoded colors with theme tokens |
+| `ResultSafeScreen.kt` | Replaced 37 hardcoded colors with theme tokens |
+| `ResultDangerousAltScreen.kt` | Replaced 25 hardcoded colors with theme tokens |
+| `ResultDangerousScreen.kt` | Replaced 40 hardcoded colors with theme tokens |
+| `ReportsExportScreen.kt` | Replaced 35 hardcoded colors with theme tokens |
+| `LiveScanScreen.kt` | Replaced 1 hardcoded color with theme token |
+
+#### ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+BUILD SUCCESSFUL
+
+# Verify no hardcoded colors remain in screens directory
+rg "Color\(0xFF" desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/screens/ -c
+# No matches found ✅
+```
+
+---
+
 ## [1.17.11] - 2025-12-23
 
 ### 🎨 Android - UI Architecture Audit & Shape Consolidation

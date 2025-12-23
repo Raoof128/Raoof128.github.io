@@ -4,6 +4,103 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🎨 December 23, 2025 (Session 5) - Desktop Hardcoded Colors Elimination
+
+### Summary
+Completed the elimination of all hardcoded `Color(0xFF...)` values from Desktop screen files, replacing them with theme tokens from `LocalStitchTokens.current.colors`. This is part of Phase 3: Wire-Up Refactor for the Desktop UI consistency initiative.
+
+## 📊 Refactoring Summary
+
+### Files Refactored (320 Total Hardcoded Colors Eliminated)
+
+| Screen File | Colors Replaced | Status |
+|-------------|-----------------|--------|
+| `ResultSuspiciousScreen.kt` | 55 | ✅ Complete |
+| `TrustCentreScreen.kt` | 68 | ✅ Complete |
+| `TrainingScreen.kt` | 59 | ✅ Complete |
+| `ResultSafeScreen.kt` | 37 | ✅ Complete |
+| `ResultDangerousAltScreen.kt` | 25 | ✅ Complete |
+| `ResultDangerousScreen.kt` | 40 | ✅ Complete |
+| `ReportsExportScreen.kt` | 35 | ✅ Complete |
+| `LiveScanScreen.kt` | 1 | ✅ Complete |
+
+### Pattern Applied
+
+Replaced local color variable definitions with centralized theme access:
+
+```kotlin
+// Before (hardcoded per-screen)
+val background = if (isDark) Color(0xFF111827) else Color(0xFFF3F4F6)
+val surface = if (isDark) Color(0xFF1F2937) else Color.White
+val border = if (isDark) Color(0xFF374151) else Color(0xFFE5E7EB)
+val textMain = if (isDark) Color(0xFFF9FAFB) else Color(0xFF111827)
+val textMuted = if (isDark) Color(0xFF9CA3AF) else Color(0xFF6B7280)
+
+// After (centralized theme tokens)
+val colors = LocalStitchTokens.current.colors
+// Then use colors.background, colors.surface, colors.border, colors.textMain, etc.
+```
+
+### Color Token Mappings Used
+
+| Hardcoded Color | Theme Token |
+|-----------------|-------------|
+| `Color(0xFF0F172A)`, `Color(0xFF111827)`, `Color(0xFF24292F)` | `colors.textMain` |
+| `Color(0xFF64748B)`, `Color(0xFF57606A)`, `Color(0xFF6B7280)` | `colors.textSub` |
+| `Color(0xFF94A3B8)` | `colors.textMuted` |
+| `Color(0xFFE2E8F0)`, `Color(0xFFD0D7DE)`, `Color(0xFFE5E7EB)` | `colors.border` |
+| `Color(0xFFF1F5F9)`, `Color(0xFFF8FAFC)`, `Color(0xFFF3F4F6)` | `colors.backgroundAlt` |
+| `Color.White` | `colors.surface` |
+| `Color(0xFF135BEC)`, `Color(0xFF2563EB)` | `colors.primary` |
+| `Color(0xFF10B981)`, `Color(0xFF2EA043)` | `colors.success` |
+| `Color(0xFFF59E0B)`, `Color(0xFFD29922)` | `colors.warning` |
+| `Color(0xFFDC2626)`, `Color(0xFFEF4444)`, `Color(0xFFCF222E)` | `colors.danger` |
+
+### Alpha Variations
+
+For lighter background variants, used alpha on theme colors:
+```kotlin
+// Before: Color(0xFFFEE2E2) (light red background)
+// After: colors.danger.copy(alpha = 0.1f)
+
+// Before: Color(0xFFDBEAFE) (light blue background)
+// After: colors.primary.copy(alpha = 0.1f)
+```
+
+## ✅ Verification
+
+```bash
+# Build verification
+./gradlew :desktopApp:compileKotlinDesktop
+BUILD SUCCESSFUL
+
+# Zero hardcoded colors remaining
+rg "Color\(0xFF" desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/screens/ -c
+# No matches found ✅
+```
+
+## 📁 Files Modified
+
+| File | Description |
+|------|-------------|
+| `ResultSuspiciousScreen.kt` | Replaced 55 hardcoded colors in verdict card, action buttons, URL analysis, technical indicators |
+| `TrustCentreScreen.kt` | Replaced 68 hardcoded colors in sensitivity slider, toggle cards, allowlist/blocklist cards |
+| `TrainingScreen.kt` | Replaced 59 hardcoded colors in progress section, QR analysis card, action buttons, AI section |
+| `ResultSafeScreen.kt` | Replaced 37 hardcoded colors in verdict card, action buttons, technical indicators |
+| `ResultDangerousAltScreen.kt` | Replaced 25 hardcoded colors in header, verdict card, attack breakdown, actions |
+| `ResultDangerousScreen.kt` | Replaced 40 hardcoded colors in header, verdict card, target analysis, threat score |
+| `ReportsExportScreen.kt` | Replaced 35 hardcoded colors in form elements, preview panel, helper functions |
+| `LiveScanScreen.kt` | Replaced 1 hardcoded purple icon color |
+
+## 📋 Key Decisions
+
+1. **Used theme tokens directly** instead of defining local color variables
+2. **Maintained visual consistency** by using semantic tokens (success, warning, danger)
+3. **Preserved alpha variations** using `.copy(alpha = ...)` on theme colors
+4. **Dark mode support** is now automatic through the centralized theme system
+
+---
+
 # 🎨 December 23, 2025 (Session 4) - UI Architecture Audit
 
 ### Summary
