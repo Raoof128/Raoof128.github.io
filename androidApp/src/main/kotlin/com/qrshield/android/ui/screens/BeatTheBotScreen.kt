@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 import com.qrshield.android.ui.viewmodels.GameResult
 import com.qrshield.android.ui.viewmodels.GameState
 import kotlin.random.Random
@@ -201,7 +202,7 @@ private fun LiveScoreboardCard(
     timeRemaining: String
 ) {
     Card(
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -359,7 +360,7 @@ private fun BrowserPreviewCard(
     smsFrom: String
 ) {
     Card(
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -538,7 +539,7 @@ private fun GameDecisionButton(
         onClick = onClick,
         enabled = enabled,
         modifier = modifier.height(120.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = containerColor,
         border = BorderStroke(
             1.dp, 
@@ -597,7 +598,7 @@ private fun RoundAnalysisCard(
     val badgeDesc = if (isCorrect) stringResource(R.string.beat_the_bot_correct_desc) else if (isPhishing) stringResource(R.string.beat_the_bot_incorrect_phishing) else stringResource(R.string.beat_the_bot_incorrect_legit)
 
     Card(
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),

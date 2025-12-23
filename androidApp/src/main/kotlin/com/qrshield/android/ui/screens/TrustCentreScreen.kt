@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.components.QRShieldToggle
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 import androidx.compose.ui.res.stringResource
 import com.qrshield.android.BuildConfig
 import com.qrshield.android.R
@@ -163,7 +164,7 @@ fun TrustCentreScreen(
 private fun OfflineGuaranteeCard() {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 4.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -344,7 +345,7 @@ private fun SensitivitySection(
         // Info Section
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(
@@ -437,7 +438,7 @@ private fun ListCard(
 ) {
     Surface(
         modifier = modifier.height(160.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -560,7 +561,7 @@ private fun PrivacyControlsSection(
         // Toggle Items
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 2.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(

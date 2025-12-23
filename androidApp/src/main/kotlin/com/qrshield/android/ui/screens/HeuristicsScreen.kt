@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 import androidx.compose.ui.res.stringResource
 import com.qrshield.android.R
 
@@ -209,7 +210,7 @@ private fun StatsHeader(
         // Active Rules Card
         Surface(
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 2.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -248,7 +249,7 @@ private fun StatsHeader(
         // Detection Rate Card
         Surface(
             modifier = Modifier.weight(1f),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 2.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -346,7 +347,7 @@ private fun RuleItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(

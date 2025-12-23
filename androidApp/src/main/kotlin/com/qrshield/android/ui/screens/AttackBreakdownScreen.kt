@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 import androidx.compose.ui.res.stringResource
 import com.qrshield.android.R
 
@@ -168,7 +169,7 @@ private fun ThreatSummaryCard(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = QRShieldColors.Red50,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
@@ -243,7 +244,7 @@ private fun AttackChainSection(attackPhases: List<AttackPhase>) {
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 2.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -394,7 +395,7 @@ private fun IOCsSection(iocs: List<IndicatorOfCompromise>) {
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 1.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -483,7 +484,7 @@ private fun RemediationSection() {
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = QRShieldColors.Emerald50,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                 brush = Brush.linearGradient(

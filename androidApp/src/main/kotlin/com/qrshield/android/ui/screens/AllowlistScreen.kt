@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 
 /**
  * Allowlist Management Screen
@@ -117,7 +118,7 @@ fun AllowlistScreen(
             item {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(16.dp),
+                    shape = QRShieldShapes.Card,
                     color = QRShieldColors.Emerald50,
                     border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
                         brush = Brush.linearGradient(
@@ -230,7 +231,7 @@ fun AllowlistScreen(
 private fun AllowlistImportButton(onClick: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -291,7 +292,7 @@ private fun AllowedDomainItem(
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp
     ) {
@@ -448,7 +449,7 @@ private fun AddAllowlistSheet(
                 onValueChange = onInputChange,
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text("example.com") },
-                shape = RoundedCornerShape(16.dp),
+                shape = QRShieldShapes.Card,
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = QRShieldColors.Emerald500,

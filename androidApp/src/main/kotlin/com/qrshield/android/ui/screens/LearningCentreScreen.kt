@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.components.CircularProgressIndicatorWithPercentage
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 import androidx.compose.ui.res.stringResource
 import com.qrshield.android.R
 
@@ -158,7 +159,7 @@ private fun ProgressSection(
         // Progress Card
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 2.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -239,7 +240,7 @@ private fun DailyTipCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = QRShieldColors.Primary.copy(alpha = 0.05f),
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = Brush.linearGradient(
@@ -402,7 +403,7 @@ private fun ModuleCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -666,7 +667,7 @@ private fun ReportThreatCard(onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = QRShieldColors.Slate900,
         shadowElevation = 4.dp,
         onClick = onClick

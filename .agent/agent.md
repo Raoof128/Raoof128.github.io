@@ -4,6 +4,95 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🎨 December 23, 2025 (Session 4) - UI Architecture Audit
+
+### Summary
+Conducted comprehensive audit of Android UI decorative functions. Identified 18+ reusable components in `CommonComponents.kt` that are largely unused. Created new `QRShieldShapes` object for centralized shape constants.
+
+## 📊 UI Inventory & Audit Results
+
+### Design System Files Audited
+| File | Purpose |
+|------|---------|
+| `ui/theme/Theme.kt` | Main theme, color schemes, verdict helpers |
+| `ui/theme/QRShieldColors.kt` | Design tokens (colors, spacing, radius) |
+| `ui/theme/Gradients.kt` | Pre-defined gradient brushes |
+| `ui/theme/Typography.kt` | Typography system |
+| `ui/components/CommonComponents.kt` | 18+ reusable UI components |
+
+### Components Status
+
+| Component | Usage | Notes |
+|-----------|-------|-------|
+| `QRShieldToggle` | ✅ 2 screens | SettingsScreen, TrustCentreScreen |
+| `verdictColor()` | ✅ 1 screen | HistoryScreen |
+| `QRShieldCard` | ❌ 0 | Available but not used |
+| `QRShieldPrimaryButton` | ❌ 0 | Available but not used |
+| `QRShieldTopBar` | ❌ 0 | Available but not used |
+| `StatusChip` | ❌ 0 | Available but not used |
+| `InfoBanner` | ❌ 0 | Available but not used |
+| `SectionHeader` | ❌ 0 | Available but not used |
+| `QRShieldGradients.*` | ❌ 0 | Available but not used |
+
+### Pattern Analysis
+
+| Pattern | Files | Instances | Status |
+|---------|-------|-----------|--------|
+| `RoundedCornerShape(16.dp)` | 14 | 42 | ✅ Replaced with `QRShieldShapes.Card` |
+| Inline Surface styling | 11 | 40+ | Future work |
+| Manual toggle styling | 3 | 5+ | Future work |
+
+## ✨ New Addition: QRShieldShapes
+
+Added `QRShieldShapes` object to `QRShieldColors.kt` for centralized shape constants:
+
+```kotlin
+object QRShieldShapes {
+    val Card = RoundedCornerShape(16f)   // Standard card (16dp)
+    val Small = RoundedCornerShape(8f)   // Chips, tags
+    val Medium = RoundedCornerShape(12f) // Input fields
+    val Large = RoundedCornerShape(24f)  // Hero cards, dialogs
+    val Full = RoundedCornerShape(9999f) // Pill buttons
+}
+```
+
+## ✅ Shape Consolidation Complete
+
+Replaced all 42 instances of `RoundedCornerShape(16.dp)` with `QRShieldShapes.Card`:
+
+| Screen | Replacements |
+|--------|--------------|
+| DashboardScreen | 5 |
+| AllowlistScreen | 4 |
+| AttackBreakdownScreen | 4 |
+| BeatTheBotScreen | 4 |
+| LearningCentreScreen | 4 |
+| TrustCentreScreen | 4 |
+| BlocklistScreen | 3 |
+| HeuristicsScreen | 3 |
+| HistoryScreen | 3 |
+| OfflinePrivacyScreen | 2 |
+| ScanResultScreen | 2 |
+| ExportReportScreen | 1 |
+| SettingsScreen | 1 |
+| ThreatDatabaseScreen | 1 |
+| **Total** | **41** |
+
+## 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `QRShieldColors.kt` | Added `QRShieldShapes` object |
+| 14 screens | Replaced `RoundedCornerShape(16.dp)` → `QRShieldShapes.Card` |
+
+## 📋 Remaining Future Work
+
+1. Adopt `QRShieldCard` for consistent card styling
+2. Use `verdictColor()` helper in more screens
+3. Consider removing unused decorative components if unneeded
+
+---
+
 # 🔧 December 23, 2025 (Session 3) - Navigation & UI Fixes
 
 ### Summary

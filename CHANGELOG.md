@@ -5,6 +5,50 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.11] - 2025-12-23
+
+### 🎨 Android - UI Architecture Audit & Shape Consolidation
+
+Comprehensive audit of Android UI decorative functions with full shape consolidation.
+
+#### 📊 Audit Findings
+
+| Category | Count | Status |
+|----------|-------|--------|
+| Reusable components in CommonComponents.kt | 18+ | Most unused |
+| Inline `RoundedCornerShape(16.dp)` instances | 42 | ✅ **Replaced** |
+| Theme helpers defined | 5+ | Underutilized |
+| Gradient presets defined | 6 | Unused |
+
+#### ✨ New: QRShieldShapes Object
+
+Added centralized shape constants to `QRShieldColors.kt`:
+
+```kotlin
+object QRShieldShapes {
+    val Card = RoundedCornerShape(16f)   // Standard card
+    val Small = RoundedCornerShape(8f)   // Chips, tags
+    val Medium = RoundedCornerShape(12f) // Input fields
+    val Large = RoundedCornerShape(24f)  // Hero cards
+    val Full = RoundedCornerShape(9999f) // Pill buttons
+}
+```
+
+#### ✅ Shape Consolidation Complete
+
+Replaced all 42 instances of `RoundedCornerShape(16.dp)` with `QRShieldShapes.Card`:
+
+- **14 screens updated**: DashboardScreen, AllowlistScreen, AttackBreakdownScreen, BeatTheBotScreen, BlocklistScreen, ExportReportScreen, HeuristicsScreen, HistoryScreen, LearningCentreScreen, OfflinePrivacyScreen, ScanResultScreen, SettingsScreen, ThreatDatabaseScreen, TrustCentreScreen
+
+#### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `QRShieldColors.kt` | Added `QRShieldShapes` object |
+| 14 screen files | `RoundedCornerShape(16.dp)` → `QRShieldShapes.Card` |
+
+---
+
 ## [1.17.10] - 2025-12-23
 
 ### 🔧 Android - Navigation & UI Fixes

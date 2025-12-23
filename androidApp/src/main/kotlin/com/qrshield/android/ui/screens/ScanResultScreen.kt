@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 
 /**
  * Scan Result Summary Screen
@@ -365,7 +366,7 @@ private fun RiskScoreCard(
 ) {
     Surface(
         modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -771,7 +772,7 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
 
         // Analysis Items
         Surface(
-            shape = RoundedCornerShape(16.dp),
+            shape = QRShieldShapes.Card,
             color = MaterialTheme.colorScheme.surface,
             shadowElevation = 1.dp,
             border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(

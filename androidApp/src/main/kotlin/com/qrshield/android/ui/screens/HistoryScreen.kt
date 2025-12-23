@@ -281,7 +281,7 @@ fun HistoryScreen() {
                 }
             },
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            shape = RoundedCornerShape(16.dp)
+            shape = QRShieldShapes.Card
         )
     }
 }
@@ -318,7 +318,7 @@ private fun HistoryItemCard(
             },
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
-        shape = RoundedCornerShape(16.dp)
+        shape = QRShieldShapes.Card
     ) {
         Row(
             modifier = Modifier
@@ -473,7 +473,7 @@ private fun HistoryItemCard(
                 }
             },
             containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-            shape = RoundedCornerShape(16.dp)
+            shape = QRShieldShapes.Card
         )
     }
 }

@@ -1051,7 +1051,7 @@ private fun SettingsInfo(
 private fun PlatformBadge(text: String, color: Color) {
     Surface(
         color = color.copy(alpha = 0.15f),
-        shape = RoundedCornerShape(16.dp)
+        shape = QRShieldShapes.Card
     ) {
         Text(
             text = text,

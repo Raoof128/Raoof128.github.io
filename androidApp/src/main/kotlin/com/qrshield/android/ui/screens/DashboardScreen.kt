@@ -36,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 import com.qrshield.model.Verdict
 import com.qrshield.ui.HistoryStatistics
 import com.qrshield.ui.SharedViewModel
@@ -434,7 +435,7 @@ private fun FeatureCard(
     iconBgColor: Color
 ) {
     Surface(
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
             brush = androidx.compose.ui.graphics.Brush.linearGradient(
@@ -542,13 +543,13 @@ private fun PrimaryActionButton(
                 if (isPrimary) {
                     Modifier.shadow(
                         elevation = 16.dp,
-                        shape = RoundedCornerShape(16.dp),
+                        shape = QRShieldShapes.Card,
                         ambientColor = QRShieldColors.Primary.copy(alpha = 0.3f),
                         spotColor = QRShieldColors.Primary.copy(alpha = 0.3f)
                     )
                 } else Modifier
             ),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = backgroundColor,
         border = if (!isPrimary) {
             ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -604,7 +605,7 @@ private fun SystemHealthCard(
 ) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 2.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -968,7 +969,7 @@ private fun ToolCard(
 ) {
     Surface(
         modifier = Modifier.width(140.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(

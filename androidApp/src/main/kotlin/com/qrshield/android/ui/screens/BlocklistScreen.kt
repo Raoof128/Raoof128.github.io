@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.android.ui.theme.QRShieldColors
+import com.qrshield.android.ui.theme.QRShieldShapes
 
 /**
  * Blocklist Management Screen
@@ -222,7 +223,7 @@ fun BlocklistScreen(
 private fun ImportButton(onClick: () -> Unit) {
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -283,7 +284,7 @@ private fun BlockedDomainItem(
 
     Surface(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        shape = QRShieldShapes.Card,
         color = MaterialTheme.colorScheme.surface,
         shadowElevation = 1.dp,
         border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
@@ -404,7 +405,7 @@ private fun AddDomainSheet(
                 onValueChange = onInputChange,
                 modifier = Modifier.fillMaxWidth(),
                 placeholder = { Text("example.com") },
-                shape = RoundedCornerShape(16.dp),
+                shape = QRShieldShapes.Card,
                 singleLine = true,
                 isError = hasError,
                 trailingIcon = {

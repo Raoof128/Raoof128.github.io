@@ -200,3 +200,23 @@ object QRShieldRadius {
     val Full = 9999f    // rounded-full
 }
 
+/**
+ * Pre-built RoundedCornerShape values for consistent styling.
+ * Use these instead of inline RoundedCornerShape(X.dp) calls.
+ */
+object QRShieldShapes {
+    /** Standard card shape (16dp) - most common in app */
+    val Card = androidx.compose.foundation.shape.RoundedCornerShape(16f)
+    
+    /** Small shape (8dp) - chips, tags */
+    val Small = androidx.compose.foundation.shape.RoundedCornerShape(8f)
+    
+    /** Medium shape (12dp) - input fields, smaller cards */
+    val Medium = androidx.compose.foundation.shape.RoundedCornerShape(12f)
+    
+    /** Large shape (24dp) - hero cards, dialogs */
+    val Large = androidx.compose.foundation.shape.RoundedCornerShape(24f)
+    
+    /** Full (pill) shape - buttons, badges */
+    val Full = androidx.compose.foundation.shape.RoundedCornerShape(9999f)
+}
