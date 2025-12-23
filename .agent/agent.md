@@ -7,7 +7,28 @@ This file tracks significant changes made during development sessions.
 # 🎨 December 23, 2025 (Session 5) - Desktop Hardcoded Colors Elimination
 
 ### Summary
-Completed the elimination of all hardcoded `Color(0xFF...)` values from Desktop screen files, replacing them with theme tokens from `LocalStitchTokens.current.colors`. This is part of Phase 3: Wire-Up Refactor for the Desktop UI consistency initiative.
+Completed the elimination of all hardcoded `Color(0xFF...)` values from Desktop screen files, replacing them with theme tokens from `LocalStitchTokens.current.colors`. Also aligned the light mode palette with HTML reference designs by migrating from Tailwind's "gray" to "slate" color scale.
+
+## ☀️ Light Mode Palette Alignment
+
+Updated `LightModePalette` in `StitchTheme.kt` to match HTML references:
+
+| Token | Old (Gray) | New (Slate) | Tailwind Class |
+|-------|-----------|-------------|----------------|
+| `background` | `#F6F6F8` | `#F8FAFC` | slate-50 |
+| `backgroundAlt` | `#F3F4F6` | `#F1F5F9` | slate-100 |
+| `surfaceAlt` | `#F9FAFB` | `#F8FAFC` | slate-50 |
+| `border` | `#E5E7EB` | `#E2E8F0` | slate-200 |
+| `borderStrong` | `#D1D5DB` | `#CBD5E1` | slate-300 |
+| `textMain` | `#111827` | `#0F172A` | slate-900 |
+| `textSub` | `#6B7280` | `#64748B` | slate-500 |
+| `textMuted` | `#9CA3AF` | `#94A3B8` | slate-400 |
+
+**Added new tokens:**
+- `surfaceHover` → `#F1F5F9` (slate-100)
+- `borderSubtle` → `#F1F5F9` (slate-100)
+- `textDim` → `#CBD5E1` (slate-300)
+- `primaryLight` → `#3B82F6` (blue-500)
 
 ## 📊 Refactoring Summary
 

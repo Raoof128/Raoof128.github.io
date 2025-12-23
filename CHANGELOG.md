@@ -7,6 +7,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.17.12] - 2025-12-23
 
+### 🎨 Desktop - Theme Palette Alignment with HTML Reference
+
+Updated both light and dark mode color palettes in `StitchTheme.kt` to exactly match the HTML/Tailwind reference designs.
+
+#### ☀️ Light Mode Palette (Updated)
+
+Migrated from Tailwind's "gray" color scale to "slate" color scale for consistency with HTML references:
+
+| Token | Old Value (Gray) | New Value (Slate) |
+|-------|-----------------|-------------------|
+| `background` | `#F6F6F8` | `#F8FAFC` (slate-50) |
+| `backgroundAlt` | `#F3F4F6` | `#F1F5F9` (slate-100) |
+| `surfaceAlt` | `#F9FAFB` | `#F8FAFC` (slate-50) |
+| `border` | `#E5E7EB` | `#E2E8F0` (slate-200) |
+| `borderStrong` | `#D1D5DB` | `#CBD5E1` (slate-300) |
+| `textMain` | `#111827` (gray-900) | `#0F172A` (slate-900) |
+| `textSub` | `#6B7280` (gray-500) | `#64748B` (slate-500) |
+| `textMuted` | `#9CA3AF` (gray-400) | `#94A3B8` (slate-400) |
+
+#### 🌙 Dark Mode Palette (Verified Matching)
+
+Dark mode palette already matched HTML references - no changes needed:
+
+| Token | Value | Source |
+|-------|-------|--------|
+| `background` | `#0F1115` | HTML `background-dark` |
+| `surface` | `#161B22` | HTML `surface-dark` |
+| `border` | `#292E38` | HTML `surface-border` |
+| `textMain` | `#FFFFFF` | HTML `text-white` |
+| `textSub` | `#94A3B8` | HTML `text-slate-400` |
+| `primary` | `#195DE6` | Consistent across modes |
+
+---
+
 ### 🎨 Desktop - Hardcoded Colors Elimination
 
 Complete elimination of all hardcoded `Color(0xFF...)` values from Desktop screen files, replacing them with theme tokens from `LocalStitchTokens.current.colors`.

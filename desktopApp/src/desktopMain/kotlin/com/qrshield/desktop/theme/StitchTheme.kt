@@ -60,27 +60,38 @@ object DarkModePalette {
 }
 
 /**
- * Light Mode Color Palette (unchanged from original design)
+ * HTML-Derived Light Mode Color Palette
+ * Uses Tailwind "slate" color scale for consistency with HTML reference designs.
+ * These values are the single source of truth for light mode colors.
  */
 object LightModePalette {
-    val background = Color(0xFFF6F6F8)
-    val backgroundAlt = Color(0xFFF3F4F6)
-    val surface = Color(0xFFFFFFFF)
-    val surfaceAlt = Color(0xFFF9FAFB)
+    // Background colors (from HTML: background-light, surface-hover)
+    val background = Color(0xFFF8FAFC)      // Main app background (slate-50)
+    val backgroundAlt = Color(0xFFF1F5F9)   // Alternative background (slate-100)
+    val surface = Color(0xFFFFFFFF)         // Cards, panels (white)
+    val surfaceAlt = Color(0xFFF8FAFC)      // Elevated surfaces (slate-50)
+    val surfaceHover = Color(0xFFF1F5F9)    // Hover states (slate-100)
     
-    val border = Color(0xFFE5E7EB)
-    val borderStrong = Color(0xFFD1D5DB)
+    // Border colors (from HTML: border-color, surface-border)
+    val border = Color(0xFFE2E8F0)          // Standard borders (slate-200)
+    val borderStrong = Color(0xFFCBD5E1)    // Strong/active borders (slate-300)
+    val borderSubtle = Color(0xFFF1F5F9)    // Subtle borders (slate-100)
     
-    val textMain = Color(0xFF111827)
-    val textSub = Color(0xFF6B7280)
-    val textMuted = Color(0xFF9CA3AF)
+    // Text colors (from HTML: text-main, text-muted using slate scale)
+    val textMain = Color(0xFF0F172A)        // Primary text (slate-900)
+    val textSub = Color(0xFF64748B)         // Secondary text (slate-500)
+    val textMuted = Color(0xFF94A3B8)       // Muted text (slate-400)
+    val textDim = Color(0xFFCBD5E1)         // Dimmed text (slate-300)
     
-    val primary = Color(0xFF195DE6)
-    val primaryHover = Color(0xFF1550C5)
+    // Brand/Accent colors (consistent across light/dark)
+    val primary = Color(0xFF195DE6)         // Brand blue (#195de6)
+    val primaryHover = Color(0xFF1550C5)    // Hover state (#1550c5)
+    val primaryLight = Color(0xFF3B82F6)    // Light variant (blue-500)
     
-    val success = Color(0xFF10B981)
-    val warning = Color(0xFFF59E0B)
-    val danger = Color(0xFFEF4444)
+    // Status colors (consistent across light/dark)
+    val success = Color(0xFF10B981)         // Safe/success (emerald-500)
+    val warning = Color(0xFFF59E0B)         // Suspicious/warning (amber-500)
+    val danger = Color(0xFFEF4444)          // Dangerous/error (red-500)
 }
 
 val LocalStitchTokens = staticCompositionLocalOf { StitchTokens.dashboard(isDark = false) }
