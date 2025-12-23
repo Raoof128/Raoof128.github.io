@@ -398,8 +398,8 @@ private fun FeatureCardsSection() {
         FeatureCard(
             icon = Icons.Default.CloudOff,
             bgIcon = Icons.Default.WifiOff,
-            title = "Offline-First Architecture",
-            description = "Complete analysis is performed locally. Your camera feed and scanned data never touch an external server.",
+            title = stringResource(R.string.feature_offline_title),
+            description = stringResource(R.string.feature_offline_desc),
             iconColor = QRShieldColors.Blue500,
             iconBgColor = QRShieldColors.Blue50
         )
@@ -407,8 +407,8 @@ private fun FeatureCardsSection() {
         FeatureCard(
             icon = Icons.AutoMirrored.Filled.ManageSearch,
             bgIcon = Icons.Default.Psychology,
-            title = "Explainable Security",
-            description = "Don't just get a \"Block\". We provide detailed heuristic breakdowns of URL parameters and redirects.",
+            title = stringResource(R.string.feature_explainable_title),
+            description = stringResource(R.string.feature_explainable_desc),
             iconColor = QRShieldColors.Purple500,
             iconBgColor = QRShieldColors.Purple50
         )
@@ -416,8 +416,8 @@ private fun FeatureCardsSection() {
         FeatureCard(
             icon = Icons.Default.Speed,
             bgIcon = Icons.Default.Bolt,
-            title = "High-Performance Engine",
-            description = "Optimised for mobile environments. Scans are processed in under 5ms using native Kotlin primitives.",
+            title = stringResource(R.string.feature_performance_title),
+            description = stringResource(R.string.feature_performance_desc),
             iconColor = QRShieldColors.Emerald500,
             iconBgColor = QRShieldColors.Emerald50
         )

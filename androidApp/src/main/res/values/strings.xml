@@ -29,6 +29,14 @@
     <string name="beat_the_bot_loading">Loading...</string>
     <string name="beat_the_bot_incorrect_hint">Incorrect! Try again.</string>
     
+    <!-- Feature Cards -->
+    <string name="feature_offline_title">Offline-First Architecture</string>
+    <string name="feature_offline_desc">Complete analysis is performed locally. Your camera feed and scanned data never touch an external server.</string>
+    <string name="feature_explainable_title">Explainable Security</string>
+    <string name="feature_explainable_desc">Don\'t just get a "Block". We provide detailed heuristic breakdowns of URL parameters and redirects.</string>
+    <string name="feature_performance_title">High-Performance Engine</string>
+    <string name="feature_performance_desc">Optimised for mobile environments. Scans are processed in under 5ms using native Kotlin primitives.</string>
+    
     <!-- Scanner Screen -->
     <string name="start_scanning">Start Scanning</string>
     <string name="scan_from_gallery">Scan from Gallery</string>

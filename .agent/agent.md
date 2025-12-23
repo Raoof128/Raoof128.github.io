@@ -4,6 +4,73 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔧 December 23, 2025 (Session 3) - Navigation & UI Fixes
+
+### Summary
+Fixed 4 user-reported issues: Home navigation broken from most pages, hardcoded feature card strings, redundant "System Default" in language picker, and simplified navigation logic for robustness.
+
+## 🐛 Bug Fixes
+
+### Fix 1: Home Navigation from Settings
+**Problem:** Clicking "Home" in bottom navigation while on Settings (accessed from Dashboard gear icon) didn't navigate to Dashboard.
+
+**Root Cause:** Navigation was using `restoreState = true` which preserved the Settings state, and the route check didn't account for `SETTINGS_FROM_DASHBOARD`.
+
+**Initial Fix:** Added special handling for `SETTINGS_FROM_DASHBOARD` route.
+
+### Fix 2: Feature Cards Localization
+**Problem:** Dashboard feature cards ("Offline-First Architecture", "Explainable Security", "High-Performance Engine") were hardcoded in English and didn't translate.
+
+**Solution:**
+1. Added 6 new strings to `values/strings.xml`:
+   - `feature_offline_title` / `feature_offline_desc`
+   - `feature_explainable_title` / `feature_explainable_desc`
+   - `feature_performance_title` / `feature_performance_desc`
+2. Updated `DashboardScreen.kt` to use `stringResource()`
+3. Added translations for all 15 languages
+
+### Fix 3: Removed "System Default" from Language Picker
+**Problem:** "System Default" option was redundant since English is already listed as a language option.
+
+**Solution:**
+1. Removed "System Default" from language dialog list
+2. Now shows only the 15 languages directly
+3. English is selected by default when using system default
+4. Settings language row shows actual language name (not "System Default (English)")
+
+### Fix 4: Simplified Navigation Logic (Critical)
+**Problem:** After Fix 1, navigation to Home/Dashboard was still broken from most pages (Trust Centre, Learning Centre, etc.).
+
+**Root Cause:** Complex conditional navigation logic was interfering with normal bottom nav behavior.
+
+**Solution:** Simplified the `onClick` handler to use a single, robust navigation pattern:
+```kotlin
+onClick = {
+    // Simple and robust navigation: always pop back to start and navigate
+    navController.navigate(screen.route) {
+        popUpTo(navController.graph.findStartDestination().id) {
+            saveState = true
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
+}
+```
+
+This ensures navigation works from **ANY** screen in the app.
+
+## 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `Navigation.kt` | Simplified bottom nav onClick handler for robust navigation |
+| `DashboardScreen.kt` | Feature cards now use `stringResource()` |
+| `SettingsScreen.kt` | Removed "System Default" from language picker |
+| `values/strings.xml` | Added 6 feature card strings |
+| All 15 `values-*/strings.xml` | Added feature card translations |
+
+---
+
 # 🌍 December 23, 2025 (Session 2) - 100% Localization Coverage
 
 ### Summary

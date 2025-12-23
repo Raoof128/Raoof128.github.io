@@ -463,4 +463,13 @@
     <string name="privacy_type2">Tipo II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
+
+    <!-- Feature Cards -->
+    <string name="feature_offline_title">Arquitetura Offline-First</string>
+    <string name="feature_offline_desc">A análise completa é realizada localmente. Sua câmera e dados escaneados nunca tocam um servidor externo.</string>
+    <string name="feature_explainable_title">Segurança Explicável</string>
+    <string name="feature_explainable_desc">Não apenas um Bloquear. Fornecemos análises heurísticas detalhadas de parâmetros URL e redirecionamentos.</string>
+    <string name="feature_performance_title">Motor de Alto Desempenho</string>
+    <string name="feature_performance_desc">Otimizado para ambientes móveis. As verificações são processadas em menos de 5ms usando primitivas Kotlin nativas.</string>
+
 </resources>

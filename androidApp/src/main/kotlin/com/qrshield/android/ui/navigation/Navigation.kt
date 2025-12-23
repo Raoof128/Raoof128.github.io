@@ -179,6 +179,11 @@ fun QRShieldBottomNavBar(
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val currentRoute = currentDestination?.route ?: ""
+
+    // Check if we're on a main tab (not a sub-screen)
+    val mainTabRoutes = listOf(Routes.DASHBOARD, Routes.SCANNER, Routes.HISTORY, Routes.SETTINGS)
+    val isOnMainTab = currentRoute in mainTabRoutes
 
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface,
@@ -188,7 +193,15 @@ fun QRShieldBottomNavBar(
         }
     ) {
         Screen.bottomNavItems.forEach { screen ->
-            val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
+            // Determine if this tab is selected
+            val selected = when {
+                // Settings tab is selected when on SETTINGS or SETTINGS_FROM_DASHBOARD
+                screen.route == Routes.SETTINGS && (currentRoute == Routes.SETTINGS || currentRoute == Routes.SETTINGS_FROM_DASHBOARD) -> true
+                // Dashboard is selected when on Dashboard
+                screen.route == Routes.DASHBOARD && currentRoute == Routes.DASHBOARD -> true
+                // Other tabs use hierarchy check
+                else -> currentDestination?.hierarchy?.any { it.route == screen.route } == true
+            }
 
             NavigationBarItem(
                 icon = {
@@ -208,13 +221,16 @@ fun QRShieldBottomNavBar(
                 },
                 selected = selected,
                 onClick = {
-                    // Always navigate to the screen (even if selected but we might be deep in nav stack)
+                    // Simple and robust navigation: always pop back to start and navigate
+                    // This ensures navigation works from ANY screen
                     navController.navigate(screen.route) {
-                        // Pop up to start destination to avoid building up a large stack
+                        // Pop up to start destination, clearing the back stack
                         popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }
+                        // Avoid multiple copies of the same destination
                         launchSingleTop = true
+                        // Restore state when reselecting a previously selected item
                         restoreState = true
                     }
                 },

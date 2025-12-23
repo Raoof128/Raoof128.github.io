@@ -308,17 +308,17 @@ fun SettingsScreen(
 
         // Language Selection
         item {
-            // Check app-specific locale first, fallback to system locale
+            // Get current app locale, default to English if using system default
             val appLocales = AppCompatDelegate.getApplicationLocales()
-            val isUsingSystemDefault = appLocales.isEmpty
-            val currentLanguageCode = if (isUsingSystemDefault) {
-                context.resources.configuration.locales[0].language
+            val currentLanguageCode = if (appLocales.isEmpty) {
+                // System default - treat as English or get actual system language
+                context.resources.configuration.locales[0].language.takeIf { it in listOf("en", "de", "es", "fr", "it", "pt", "ru", "zh", "ja", "ko", "hi", "ar", "tr", "vi", "in", "id", "th") } ?: "en"
             } else {
                 appLocales[0]?.language ?: "en"
             }
             
-            // If using system default, show "System Default (Language)"
-            val languageName = when (currentLanguageCode) {
+            // Show the language name directly (no "System Default" prefix)
+            val currentLanguageName = when (currentLanguageCode) {
                 "en" -> stringResource(R.string.language_english)
                 "de" -> stringResource(R.string.language_german)
                 "es" -> stringResource(R.string.language_spanish)
@@ -335,13 +335,7 @@ fun SettingsScreen(
                 "vi" -> stringResource(R.string.language_vietnamese)
                 "in", "id" -> stringResource(R.string.language_indonesian)
                 "th" -> stringResource(R.string.language_thai)
-                else -> currentLanguageCode.uppercase()
-            }
-            
-            val currentLanguageName = if (isUsingSystemDefault) {
-                "${stringResource(R.string.settings_language_system)} ($languageName)"
-            } else {
-                languageName
+                else -> stringResource(R.string.language_english)
             }
             
             SettingsClickable(
@@ -814,6 +808,7 @@ fun SettingsScreen(
     
     // Language Selection Dialog
     if (showLanguageDialog) {
+        // All 15 supported languages (no "System Default" - English is the default)
         val languages = listOf(
             "en" to stringResource(R.string.language_english),
             "de" to stringResource(R.string.language_german),
@@ -833,14 +828,10 @@ fun SettingsScreen(
             "th" to stringResource(R.string.language_thai)
         )
         
-        // Add "System Default" as first option
-        val allLanguages = listOf("" to stringResource(R.string.settings_language_system)) + languages
-        
-        // Get current app locale (not system locale)
+        // Get current app locale (default to 'en' if system default)
         val appLocales = AppCompatDelegate.getApplicationLocales()
-        val isUsingSystemDefault = appLocales.isEmpty
-        val currentLocale = if (isUsingSystemDefault) {
-            "" // Empty means system default
+        val currentLocale = if (appLocales.isEmpty) {
+            "en" // Treat system default as English
         } else {
             appLocales[0]?.language ?: "en"
         }
@@ -857,23 +848,19 @@ fun SettingsScreen(
                 LazyColumn(
                     modifier = Modifier.heightIn(max = 400.dp)
                 ) {
-                    items(allLanguages.size) { index ->
-                        val (code, name) = allLanguages[index]
+                    items(languages.size) { index ->
+                        val (code, name) = languages[index]
                         val isSelected = code == currentLocale || 
-                            (code == "in" && currentLocale == "id")
+                            (code == "in" && currentLocale == "id") ||
+                            (code == "en" && currentLocale == "en")
                         
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
                                     // Change app language directly
-                                    if (code.isEmpty()) {
-                                        // Reset to system default
-                                        AppCompatDelegate.setApplicationLocales(LocaleListCompat.getEmptyLocaleList())
-                                    } else {
-                                        val localeList = LocaleListCompat.forLanguageTags(code)
-                                        AppCompatDelegate.setApplicationLocales(localeList)
-                                    }
+                                    val localeList = LocaleListCompat.forLanguageTags(code)
+                                    AppCompatDelegate.setApplicationLocales(localeList)
                                     showLanguageDialog = false
                                 }
                                 .padding(vertical = 12.dp, horizontal = 8.dp),
@@ -895,7 +882,7 @@ fun SettingsScreen(
                                 )
                             }
                         }
-                        if (index < allLanguages.size - 1) {
+                        if (index < languages.size - 1) {
                             HorizontalDivider(
                                 color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
                             )

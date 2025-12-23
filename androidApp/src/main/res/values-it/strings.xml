@@ -503,4 +503,13 @@
     <string name="privacy_type2">Tipo II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
+
+    <!-- Feature Cards -->
+    <string name="feature_offline_title">Architettura Offline-First</string>
+    <string name="feature_offline_desc">L\'analisi completa viene eseguita localmente. La tua fotocamera e i dati scansionati non toccano mai un server esterno.</string>
+    <string name="feature_explainable_title">Sicurezza Spiegabile</string>
+    <string name="feature_explainable_desc">Non solo un Blocca. Forniamo analisi euristiche dettagliate di parametri URL e reindirizzamenti.</string>
+    <string name="feature_performance_title">Motore ad Alte Prestazioni</string>
+    <string name="feature_performance_desc">Ottimizzato per ambienti mobili. Le scansioni vengono elaborate in meno di 5ms usando primitive Kotlin native.</string>
+
 </resources>

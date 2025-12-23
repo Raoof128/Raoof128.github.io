@@ -463,4 +463,13 @@
     <string name="privacy_type2">النوع II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
+
+    <!-- Feature Cards -->
+    <string name="feature_offline_title">بنية تعمل بدون إنترنت أولاً</string>
+    <string name="feature_offline_desc">يتم إجراء التحليل الكامل محليًا. كاميرتك والبيانات الممسوحة لا تلمس أبدًا خادمًا خارجيًا.</string>
+    <string name="feature_explainable_title">أمان قابل للتفسير</string>
+    <string name="feature_explainable_desc">ليس مجرد حظر. نقدم تحليلات استدلالية مفصلة لمعلمات URL وعمليات إعادة التوجيه.</string>
+    <string name="feature_performance_title">محرك عالي الأداء</string>
+    <string name="feature_performance_desc">محسّن لبيئات الهاتف المحمول. تتم معالجة عمليات المسح في أقل من 5 مللي ثانية باستخدام عناصر Kotlin الأصلية.</string>
+
 </resources>

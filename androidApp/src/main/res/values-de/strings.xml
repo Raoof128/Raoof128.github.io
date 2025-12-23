@@ -503,4 +503,13 @@
     <string name="privacy_type2">Typ II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
+
+    <!-- Feature Cards -->
+    <string name="feature_offline_title">Offline-First-Architektur</string>
+    <string name="feature_offline_desc">Die vollständige Analyse wird lokal durchgeführt. Ihr Kamerabild und gescannte Daten berühren niemals einen externen Server.</string>
+    <string name="feature_explainable_title">Erklärbare Sicherheit</string>
+    <string name="feature_explainable_desc">Nicht nur ein Blockieren. Wir liefern detaillierte heuristische Aufschlüsselungen von URL-Parametern und Weiterleitungen.</string>
+    <string name="feature_performance_title">Hochleistungs-Engine</string>
+    <string name="feature_performance_desc">Optimiert für mobile Umgebungen. Scans werden in unter 5ms mit nativen Kotlin-Primitiven verarbeitet.</string>
+
 </resources>

@@ -5,6 +5,63 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.10] - 2025-12-23
+
+### 🔧 Android - Navigation & UI Fixes
+
+Fixed 4 user-reported issues for improved navigation and complete localization.
+
+#### 🐛 Bug Fixes
+
+| Issue | Root Cause | Fix |
+|-------|------------|-----|
+| **Home nav from Settings broken** | `SETTINGS_FROM_DASHBOARD` route not handled | Added special route handling |
+| **Home nav from ALL pages broken** | Complex conditional nav logic interfered | Simplified onClick handler |
+| **Feature cards hardcoded** | Dashboard cards used literal strings | Changed to `stringResource()` |
+| **System Default redundant** | English already listed in picker | Removed "System Default" option |
+
+#### 🔧 Critical: Simplified Navigation Logic
+
+The bottom navigation onClick handler was simplified to use a single, robust pattern that works from **ANY** screen:
+```kotlin
+navController.navigate(screen.route) {
+    popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+    launchSingleTop = true
+    restoreState = true
+}
+```
+
+#### 🌐 Feature Cards Now Localized
+
+The following dashboard feature cards now translate with the app:
+- **Offline-First Architecture** → Translated in all 15 languages
+- **Explainable Security** → Translated in all 15 languages
+- **High-Performance Engine** → Translated in all 15 languages
+
+New string keys added:
+- `feature_offline_title` / `feature_offline_desc`
+- `feature_explainable_title` / `feature_explainable_desc`
+- `feature_performance_title` / `feature_performance_desc`
+
+#### 🗣️ Language Picker Simplified
+
+- Removed "System Default" option (English serves as default)
+- Now shows 15 languages directly
+- English is highlighted when system default is in use
+- Settings row shows actual language name
+
+#### 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `Navigation.kt` | Simplified onClick for robust navigation from all pages |
+| `DashboardScreen.kt` | Feature cards use `stringResource()` |
+| `SettingsScreen.kt` | Removed "System Default" from picker |
+| `values/strings.xml` | Added 6 feature card strings |
+| All 15 `values-*/strings.xml` | Added feature card translations |
+
+---
+
 ## [1.17.9] - 2025-12-23
 
 ### 🌍 Android - 100% Localization Coverage Achieved

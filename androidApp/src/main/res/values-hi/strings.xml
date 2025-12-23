@@ -457,4 +457,13 @@
     <string name="privacy_type2">Type II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
+
+    <!-- Feature Cards -->
+    <string name="feature_offline_title">ऑफ़लाइन-फर्स्ट आर्किटेक्चर</string>
+    <string name="feature_offline_desc">पूर्ण विश्लेषण स्थानीय रूप से किया जाता है। आपका कैमरा फीड और स्कैन किया गया डेटा कभी भी बाहरी सर्वर को नहीं छूता।</string>
+    <string name="feature_explainable_title">स्पष्ट सुरक्षा</string>
+    <string name="feature_explainable_desc">सिर्फ ब्लॉक नहीं। हम URL पैरामीटर और रीडायरेक्ट का विस्तृत ह्यूरिस्टिक विश्लेषण प्रदान करते हैं।</string>
+    <string name="feature_performance_title">उच्च-प्रदर्शन इंजन</string>
+    <string name="feature_performance_desc">मोबाइल वातावरण के लिए अनुकूलित। नेटिव Kotlin प्रिमिटिव का उपयोग करके 5ms के भीतर स्कैन संसाधित होते हैं।</string>
+
 </resources>
