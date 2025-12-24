@@ -5,6 +5,83 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.24] - 2025-12-24
+
+### 🎮 Desktop App - UI Functionality Implementation
+
+Comprehensive implementation converting all decorative UI elements in the Desktop application to fully functional components. Completed all three phases of the desktop UI audit task list.
+
+#### ✅ Phase 1: Core Functionality
+
+**Beat the Bot Game Loop** (`AppViewModel.kt`, `TrainingScreen.kt`)
+- Complete game logic with bot scoring (bot always gets 100 points/round)
+- Player scoring with streak bonuses (+25 points for consecutive correct answers)
+- Created `TrainingResultModal` showing correct/wrong, points earned, response time
+- Created `TrainingGameOverModal` with VS comparison, player vs bot scores
+- Added `resetTrainingGame()` and `endTrainingSession()` functions
+- Expanded challenge database from 3 to 10 real-world phishing scenarios
+- Challenge shuffling for randomized order each game
+- Response time tracking per decision
+
+**Notification System Triggers** (`AppViewModel.kt`)
+- Scan results now automatically generate notifications:
+  - SAFE → "Scan Complete" (success)
+  - SUSPICIOUS → "Suspicious Activity" (warning)
+  - MALICIOUS → "Threat Blocked" (error)
+  - UNKNOWN → "Analysis Incomplete" (info)
+
+**Notification Panel Wired to All Screens**
+- Updated 6 screens to use functional notification panel:
+  - `ResultSafeScreen.kt`
+  - `ResultDangerousScreen.kt`
+  - `ResultSuspiciousScreen.kt`
+  - `ResultDangerousAltScreen.kt`
+  - `LiveScanScreen.kt`
+  - `ScanHistoryScreen.kt`
+
+#### ✅ Phase 2: User Experience
+
+**Profile Dropdown Component** (`ui/ProfileDropdown.kt` - NEW FILE)
+- User avatar, name, and role display
+- Quick stats: Total Scans, Safe Count, Threats Blocked
+- Menu items: View Profile, Settings
+- Enterprise Plan badge with icon
+
+**Profile Integration** (`DashboardScreen.kt`)
+- Profile click now shows dropdown popup instead of direct navigation
+- Options to navigate to profile or settings from dropdown
+
+#### ✅ Phase 3: Polish
+
+**Dynamic Result Screen Data** (`ResultSafeScreen.kt`)
+- Replaced hardcoded technical indicator rows with live RiskAssessment data
+- Now displays: Heuristic Score (x/40), ML Score (x/30), Brand Match, TLD
+- Color-coded values based on actual analysis results
+
+**Keyboard Shortcuts** (`TrainingScreen.kt`)
+- `P` = Mark as Phishing
+- `L` = Mark as Legitimate
+- `Enter` = Next Round / Play Again / Close Modal
+- `Escape` = Return to Dashboard (when game over)
+- Added keyboard hint text in the UI
+
+#### 📁 Files Changed
+
+| File | Change Type | Description |
+|------|-------------|-------------|
+| `AppViewModel.kt` | Modified | +200 lines: game logic, notifications, profile dropdown |
+| `TrainingScreen.kt` | Modified | +350 lines: modals, keyboard shortcuts, hints |
+| `ProfileDropdown.kt` | **New** | ~250 lines: full dropdown component |
+| `ResultSafeScreen.kt` | Modified | Dynamic technical rows |
+| `ResultDangerousScreen.kt` | Modified | Notification wiring |
+| `ResultSuspiciousScreen.kt` | Modified | Notification wiring |
+| `ResultDangerousAltScreen.kt` | Modified | Notification wiring |
+| `LiveScanScreen.kt` | Modified | Notification wiring |
+| `ScanHistoryScreen.kt` | Modified | Notification wiring |
+| `DashboardScreen.kt` | Modified | Profile dropdown integration |
+
+---
+
 ## [1.17.23] - 2025-12-24
 
 ### 🔄 All Platforms - Version Sync

@@ -16,10 +16,15 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.*
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,8 +52,56 @@ import com.qrshield.desktop.ui.statusPill
 fun TrainingScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.training(isDark = viewModel.isDarkMode)
     val training = viewModel.trainingState
+    val focusRequester = remember { FocusRequester() }
+    
+    // Request focus when screen loads for keyboard handling
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+    
     StitchTheme(tokens = tokens) {
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .focusRequester(focusRequester)
+                .focusable()
+                .onKeyEvent { event ->
+                    if (event.type == KeyEventType.KeyDown) {
+                        when {
+                            // P key = Mark as Phishing
+                            (event.key == Key.P) && !training.showResultModal && !training.isGameOver -> {
+                                viewModel.submitTrainingVerdict(isPhishing = true)
+                                true
+                            }
+                            // L key = Mark as Legitimate
+                            (event.key == Key.L) && !training.showResultModal && !training.isGameOver -> {
+                                viewModel.submitTrainingVerdict(isPhishing = false)
+                                true
+                            }
+                            // Enter key = Next Round / Play Again / Close Modal
+                            event.key == Key.Enter -> {
+                                when {
+                                    training.showResultModal -> {
+                                        viewModel.dismissTrainingResultModal()
+                                        true
+                                    }
+                                    training.isGameOver -> {
+                                        viewModel.resetTrainingGame()
+                                        true
+                                    }
+                                    else -> false
+                                }
+                            }
+                            // Escape = Return to Dashboard (only when modal is open)
+                            event.key == Key.Escape && training.isGameOver -> {
+                                viewModel.currentScreen = AppScreen.Dashboard
+                                true
+                            }
+                            else -> false
+                        }
+                    } else false
+                }
+        ) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
@@ -335,7 +388,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                                     TrainingActionButton(
                                         label = t("Phishing"),
-                                        subtitle = t("Flag as malicious"),
+                                        subtitle = t("Flag as malicious (P)"),
                                         icon = "gpp_bad",
                                         bg = colors.danger.copy(alpha = 0.1f),
                                         textColor = colors.danger,
@@ -344,7 +397,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     )
                                     TrainingActionButton(
                                         label = t("Legitimate"),
-                                        subtitle = t("Mark as safe"),
+                                        subtitle = t("Mark as safe (L)"),
                                         icon = "verified_user",
                                         bg = colors.success.copy(alpha = 0.1f),
                                         textColor = colors.success,
@@ -352,16 +405,27 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         onClick = { viewModel.submitTrainingVerdict(isPhishing = false) }
                                     )
                                 }
-                                Text(
-                                    t("Skip this round"),
-                                    fontSize = 12.sp,
-                                    color = colors.textMuted,
+                                Row(
                                     modifier = Modifier
-                                        .align(Alignment.CenterHorizontally)
-                                        .padding(top = 12.dp)
-                                        .clickable { viewModel.skipTrainingRound() }
-                                        .focusable()
-                                )
+                                        .fillMaxWidth()
+                                        .padding(top = 12.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        t("Skip this round"),
+                                        fontSize = 12.sp,
+                                        color = colors.textMuted,
+                                        modifier = Modifier
+                                            .clickable { viewModel.skipTrainingRound() }
+                                            .focusable()
+                                    )
+                                    Text(
+                                        t("⌨ Keys: P = Phishing, L = Legitimate, Enter = Next"),
+                                        fontSize = 10.sp,
+                                        color = colors.textMuted.copy(alpha = 0.6f)
+                                    )
+                                }
                             }
                         }
                     }
