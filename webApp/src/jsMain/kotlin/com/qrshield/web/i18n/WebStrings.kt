@@ -9,7 +9,16 @@ enum class WebLanguage(val code: String) {
     French("fr"),
     ChineseSimplified("zh"),
     Japanese("ja"),
-    Hindi("hi");
+    Hindi("hi"),
+    Arabic("ar"),
+    Indonesian("id"),
+    Italian("it"),
+    Korean("ko"),
+    Portuguese("pt"),
+    Russian("ru"),
+    Thai("th"),
+    Turkish("tr"),
+    Vietnamese("vi");
 
     companion object {
         fun fromCode(code: String): WebLanguage {
@@ -21,6 +30,15 @@ enum class WebLanguage(val code: String) {
                 "zh" -> ChineseSimplified
                 "ja" -> Japanese
                 "hi" -> Hindi
+                "ar" -> Arabic
+                "id", "in" -> Indonesian
+                "it" -> Italian
+                "ko" -> Korean
+                "pt" -> Portuguese
+                "ru" -> Russian
+                "th" -> Thai
+                "tr" -> Turkish
+                "vi" -> Vietnamese
                 else -> English
             }
         }
@@ -180,6 +198,15 @@ object WebStrings {
             WebLanguage.ChineseSimplified -> ChineseStrings[key] ?: key.defaultText
             WebLanguage.Japanese -> JapaneseStrings[key] ?: key.defaultText
             WebLanguage.Hindi -> HindiStrings[key] ?: key.defaultText
+            WebLanguage.Arabic -> ArabicStrings[key] ?: key.defaultText
+            WebLanguage.Indonesian -> IndonesianStrings[key] ?: key.defaultText
+            WebLanguage.Italian -> ItalianStrings[key] ?: key.defaultText
+            WebLanguage.Korean -> KoreanStrings[key] ?: key.defaultText
+            WebLanguage.Portuguese -> PortugueseStrings[key] ?: key.defaultText
+            WebLanguage.Russian -> RussianStrings[key] ?: key.defaultText
+            WebLanguage.Thai -> ThaiStrings[key] ?: key.defaultText
+            WebLanguage.Turkish -> TurkishStrings[key] ?: key.defaultText
+            WebLanguage.Vietnamese -> VietnameseStrings[key] ?: key.defaultText
             WebLanguage.English -> key.defaultText
         }
     }
@@ -193,6 +220,15 @@ object WebStrings {
             WebLanguage.ChineseSimplified -> ChineseCommonStrings[normalized] ?: ChineseCommonStrings[text] ?: text
             WebLanguage.Japanese -> JapaneseCommonStrings[normalized] ?: JapaneseCommonStrings[text] ?: text
             WebLanguage.Hindi -> HindiCommonStrings[normalized] ?: HindiCommonStrings[text] ?: text
+            WebLanguage.Arabic -> ArabicCommonStrings[normalized] ?: ArabicCommonStrings[text] ?: text
+            WebLanguage.Indonesian -> IndonesianCommonStrings[normalized] ?: IndonesianCommonStrings[text] ?: text
+            WebLanguage.Italian -> ItalianCommonStrings[normalized] ?: ItalianCommonStrings[text] ?: text
+            WebLanguage.Korean -> KoreanCommonStrings[normalized] ?: KoreanCommonStrings[text] ?: text
+            WebLanguage.Portuguese -> PortugueseCommonStrings[normalized] ?: PortugueseCommonStrings[text] ?: text
+            WebLanguage.Russian -> RussianCommonStrings[normalized] ?: RussianCommonStrings[text] ?: text
+            WebLanguage.Thai -> ThaiCommonStrings[normalized] ?: ThaiCommonStrings[text] ?: text
+            WebLanguage.Turkish -> TurkishCommonStrings[normalized] ?: TurkishCommonStrings[text] ?: text
+            WebLanguage.Vietnamese -> VietnameseCommonStrings[normalized] ?: VietnameseCommonStrings[text] ?: text
             WebLanguage.English -> text
         }
     }

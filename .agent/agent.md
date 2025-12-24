@@ -4,6 +4,129 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌐 December 24, 2025 (Session 10e) - Web App i18n Expansion
+
+### Summary
+Expanded web application internationalization (i18n) support from 7 languages to 16 languages, adding 9 new language translations with full parity to the English base.
+
+## ✅ New Language Files Added
+
+**Directory**: `webApp/src/jsMain/kotlin/com/qrshield/web/i18n/`
+
+| Language | File | Status |
+|----------|------|--------|
+| Arabic | `WebStringsAr.kt` | ✅ New |
+| Indonesian | `WebStringsIn.kt` | ✅ New |
+| Italian | `WebStringsIt.kt` | ✅ New |
+| Korean | `WebStringsKo.kt` | ✅ New |
+| Portuguese | `WebStringsPt.kt` | ✅ New |
+| Russian | `WebStringsRu.kt` | ✅ New |
+| Thai | `WebStringsTh.kt` | ✅ New |
+| Turkish | `WebStringsTr.kt` | ✅ New |
+| Vietnamese | `WebStringsVi.kt` | ✅ New |
+
+## ✅ WebStrings.kt Updates
+
+**File**: `WebStrings.kt`
+
+**Changes**:
+- Added 9 new entries to `WebLanguage` enum: Arabic, Indonesian, Italian, Korean, Portuguese, Russian, Thai, Turkish, Vietnamese
+- Updated `fromCode()` function with new language code mappings
+- Updated `get()` function to return translations for all new languages
+- Updated `translate()` function to support CommonStrings for all new languages
+
+## ✅ Translation Coverage
+
+Each new language file contains:
+- **108 WebStringKey entries** (full parity with English base)
+- **60-80 CommonStrings entries** for the `translate()` function
+
+### WebStringKey Categories Translated:
+- Navigation (MenuMain, NavDashboard, NavScanHistory, etc.)
+- Dashboard (StartScan, ImportImage, SystemHealth, etc.)
+- Scanner (ActiveScanner, EnableCamera, Scanning, etc.)
+- Threat/Results (VerdictSafe, VerdictDangerous, FlagPhishing, etc.)
+- Attack Analysis (AttackHomographTitle, AttackRedirectDesc, etc.)
+- Meta Information (MetaTime, MetaSource, MetaOfflineGuarantee, etc.)
+
+## ✅ Verification Complete
+
+All 16 language files verified to have identical WebStringKey coverage:
+- English (base), German, Spanish, French, Chinese, Japanese, Hindi
+- Arabic, Indonesian, Italian, Korean, Portuguese, Russian, Thai, Turkish, Vietnamese
+
+---
+
+# 🎮 December 24, 2025 (Session 10d) - Desktop UI Functionality Implementation
+
+### Summary
+Comprehensive implementation of all decorative UI elements in the Desktop application to make them fully functional. Completed all three phases of the desktop UI audit task list.
+
+## ✅ Phase 1: Core Functionality
+
+### Beat the Bot Game Loop
+**Files**: `AppViewModel.kt`, `TrainingScreen.kt`
+
+**Changes**:
+- Enhanced `TrainingState` with: botScore, bestStreak, sessionId, roundStartTimeMs, isGameOver, showResultModal, lastRoundCorrect, lastRoundPoints, lastResponseTimeMs
+- Implemented complete game logic with bot scoring (bot always gets 100 points/round)
+- Added streak bonus: +25 points for every correct answer after 2nd consecutive
+- Created `TrainingResultModal` showing correct/wrong, points, response time
+- Created `TrainingGameOverModal` with VS comparison, player vs bot scores
+- Added `resetTrainingGame()` and `endTrainingSession()` functions
+- Expanded challenge database from 3 to 10 challenges (AusPost, GitHub, Commonwealth Bank, Atlassian, Apple, Gmail, PayPal, LinkedIn, bit.ly, Google Docs)
+- Added challenge shuffling for randomized order
+- Response time tracking
+
+### Notification System Triggers
+**File**: `AppViewModel.kt`
+
+**Changes**:
+- Notifications now trigger automatically on scan results
+- SAFE: "Scan Complete" with success type
+- SUSPICIOUS: "Suspicious Activity" with warning type
+- MALICIOUS: "Threat Blocked" with error type
+- UNKNOWN: "Analysis Incomplete" with info type
+
+### Notification Panel Wired to All Screens
+**Files**: `ResultSafeScreen.kt`, `ResultDangerousScreen.kt`, `ResultSuspiciousScreen.kt`, `ResultDangerousAltScreen.kt`, `LiveScanScreen.kt`, `ScanHistoryScreen.kt`
+
+**Changes**:
+- Replaced all `showInfo("Notifications are not available yet.")` with `toggleNotificationPanel()`
+
+## ✅ Phase 2: User Experience
+
+### Profile Dropdown Component
+**File**: `ui/ProfileDropdown.kt` (new)
+
+**Features**:
+- Shows user avatar, name, role
+- Quick stats: Total Scans, Safe Count, Threats Blocked
+- Menu items: View Profile, Settings
+- Enterprise Plan badge display
+- Uses proper `ScanHistoryManager.HistoryStatistics` type
+
+### Profile Dropdown Integration
+**Files**: `AppViewModel.kt`, `DashboardScreen.kt`
+
+**Changes**:
+- Added `showProfileDropdown` state
+- Added `toggleProfileDropdown()` and `dismissProfileDropdown()` functions
+- Profile click now shows dropdown instead of navigating directly
+- Dropdown provides options to View Profile or Settings
+
+## ✅ Phase 3: Polish
+
+### Dynamic Result Screen Data
+**File**: `ResultSafeScreen.kt`
+
+**Changes**:
+- Replaced hardcoded technical indicator rows with dynamic data from RiskAssessment
+- Now displays: Heuristic Score (x/40), ML Score (x/30), Brand Match, TLD
+- Proper color highlighting based on actual analysis values
+
+---
+
 # 🎯 December 24, 2025 (Session 10c) - Desktop UI Polish
 
 ### Summary

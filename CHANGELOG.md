@@ -5,6 +5,92 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.18] - 2025-12-24
+
+### 🌐 Web App - i18n Expansion (7 → 16 Languages)
+
+Expanded web application internationalization support with 9 new fully-translated languages.
+
+#### ✨ New Languages Added
+
+| Language | File | Code |
+|----------|------|------|
+| Arabic | `WebStringsAr.kt` | `ar` |
+| Indonesian | `WebStringsIn.kt` | `id` |
+| Italian | `WebStringsIt.kt` | `it` |
+| Korean | `WebStringsKo.kt` | `ko` |
+| Portuguese | `WebStringsPt.kt` | `pt` |
+| Russian | `WebStringsRu.kt` | `ru` |
+| Thai | `WebStringsTh.kt` | `th` |
+| Turkish | `WebStringsTr.kt` | `tr` |
+| Vietnamese | `WebStringsVi.kt` | `vi` |
+
+#### 📊 Translation Coverage
+
+- **108 WebStringKey entries** per language (full parity with English)
+- **60-80 CommonStrings entries** per language for dynamic UI text
+- All navigation, dashboard, scanner, threat analysis, and meta strings translated
+
+#### 🔧 Core Changes (`WebStrings.kt`)
+
+- Extended `WebLanguage` enum with 9 new language entries
+- Updated `fromCode()` for automatic browser language detection
+- Extended `get()` and `translate()` functions for new language support
+
+#### ✅ Supported Languages (16 Total)
+
+English, German, Spanish, French, Chinese (Simplified), Japanese, Hindi, Arabic, Indonesian, Italian, Korean, Portuguese, Russian, Thai, Turkish, Vietnamese
+
+---
+
+## [1.17.17] - 2025-12-24
+
+### 🎮 Desktop - UI Functionality Implementation
+
+Comprehensive implementation converting all decorative UI elements to fully functional components.
+
+#### ✨ Core Functionality (Phase 1)
+
+**Beat the Bot Game Loop** (`AppViewModel.kt`, `TrainingScreen.kt`)
+- Complete game logic with bot scoring (bot always gets 100 points/round)
+- Player scoring with streak bonuses (+25 points for consecutive correct answers)
+- Round result modal showing correct/wrong, points earned, response time
+- Game over modal with VS comparison, player vs bot scores
+- Reset game and end session functionality
+- Expanded from 3 to 10 challenges covering real-world phishing scenarios
+- Challenge shuffling for randomized order
+- Response time tracking
+
+**Notification Triggers** (`AppViewModel.kt`)
+- Scan results now automatically generate notifications
+- SAFE scans → "Scan Complete" (success)
+- SUSPICIOUS scans → "Suspicious Activity" (warning)
+- MALICIOUS scans → "Threat Blocked" (error)
+
+**Notification Panel on All Screens**
+- Wired notification icon to functional panel on: ResultSafeScreen, ResultDangerousScreen, ResultSuspiciousScreen, ResultDangerousAltScreen, LiveScanScreen, ScanHistoryScreen
+
+#### ✨ User Experience (Phase 2)
+
+**Profile Dropdown** (`ui/ProfileDropdown.kt` - new)
+- User avatar, name, and role display
+- Quick stats: Total Scans, Safe Count, Threats Blocked
+- Menu items: View Profile, Settings
+- Enterprise Plan badge
+
+**Profile Integration** (`DashboardScreen.kt`)
+- Profile click now shows dropdown popup
+- Options to navigate to profile or settings
+
+#### ✨ Polish (Phase 3)
+
+**Dynamic Result Screen Data** (`ResultSafeScreen.kt`)
+- Replaced hardcoded technical indicator rows with live RiskAssessment data
+- Now shows: Heuristic Score, ML Score, Brand Match, TLD
+- Color-coded values based on actual analysis results
+
+---
+
 ## [1.17.16] - 2025-12-24
 
 ### 🎯 Desktop - UI Polish & Alignment Fixes
