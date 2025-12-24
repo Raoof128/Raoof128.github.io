@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
@@ -45,19 +46,48 @@ import com.qrshield.desktop.ui.statusPill
 @Composable
 fun TrainingScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.training(isDark = viewModel.isDarkMode)
+    val training = viewModel.trainingState
     StitchTheme(tokens = tokens) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(tokens.colors.background)
-        ) {
-            AppSidebar(
-                currentScreen = AppScreen.Training,
-                onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage,
-                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
-            )
-            TrainingContent(viewModel = viewModel)
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(tokens.colors.background)
+            ) {
+                AppSidebar(
+                    currentScreen = AppScreen.Training,
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = viewModel.appLanguage,
+                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                )
+                TrainingContent(viewModel = viewModel)
+            }
+            
+            // Result Modal (shown after each round decision)
+            if (training.showResultModal) {
+                TrainingResultModal(
+                    isCorrect = training.lastRoundCorrect ?: false,
+                    points = training.lastRoundPoints,
+                    responseTimeMs = training.lastResponseTimeMs,
+                    isLastRound = training.round >= training.totalRounds,
+                    onNextRound = { viewModel.dismissTrainingResultModal() },
+                    language = viewModel.appLanguage
+                )
+            }
+            
+            // Game Over Modal
+            if (training.isGameOver) {
+                TrainingGameOverModal(
+                    playerScore = training.score,
+                    botScore = training.botScore,
+                    accuracy = training.accuracy,
+                    bestStreak = training.bestStreak,
+                    playerWon = training.playerWon,
+                    onPlayAgain = { viewModel.resetTrainingGame() },
+                    onReturnToDashboard = { viewModel.currentScreen = AppScreen.Dashboard },
+                    language = viewModel.appLanguage
+                )
+            }
         }
     }
 }
@@ -388,7 +418,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                 }
                             }
                             Button(
-                                onClick = { viewModel.nextTrainingRound() },
+                                onClick = { viewModel.dismissTrainingResultModal() },
                                 colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                 shape = RoundedCornerShape(12.dp),
                                 modifier = Modifier.fillMaxWidth(),
@@ -481,6 +511,291 @@ private fun ReportItem(icon: String, color: Color, title: String, body: String) 
         Column {
             Text(title, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
             Text(body, fontSize = 12.sp, color = colors.textSub)
+        }
+    }
+}
+
+/**
+ * Result Modal shown after each round decision
+ */
+@Composable
+private fun TrainingResultModal(
+    isCorrect: Boolean,
+    points: Int,
+    responseTimeMs: Long,
+    isLastRound: Boolean,
+    onNextRound: () -> Unit,
+    language: AppLanguage
+) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
+    
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.6f))
+            .clickable(enabled = false) { },
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            modifier = Modifier.width(400.dp),
+            shape = RoundedCornerShape(20.dp),
+            color = colors.surface,
+            border = BorderStroke(1.dp, colors.border)
+        ) {
+            Column(
+                modifier = Modifier.padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Icon
+                Box(
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(CircleShape)
+                        .background(if (isCorrect) colors.success.copy(alpha = 0.1f) else colors.danger.copy(alpha = 0.1f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MaterialSymbol(
+                        name = if (isCorrect) "check_circle" else "cancel",
+                        size = 48.sp,
+                        color = if (isCorrect) colors.success else colors.danger
+                    )
+                }
+                
+                // Title
+                Text(
+                    text = if (isCorrect) t("Correct!") else t("Wrong!"),
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = colors.textMain
+                )
+                
+                // Description
+                Text(
+                    text = if (isCorrect) t("You spotted it correctly!") else t("Better luck next time!"),
+                    fontSize = 14.sp,
+                    color = colors.textSub
+                )
+                
+                // Stats Row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = if (points >= 0) "+$points" else "$points",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = if (points >= 0) colors.success else colors.danger
+                        )
+                        Text(t("Points"), fontSize = 12.sp, color = colors.textMuted)
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "${responseTimeMs / 1000.0}s",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = colors.textMain
+                        )
+                        Text(t("Response"), fontSize = 12.sp, color = colors.textMuted)
+                    }
+                }
+                
+                Spacer(Modifier.height(8.dp))
+                
+                // Next Round Button
+                Button(
+                    onClick = onNextRound,
+                    colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(vertical = 16.dp)
+                ) {
+                    Text(
+                        text = if (isLastRound) t("See Results") else t("Next Round"),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Game Over Modal shown when all rounds are complete
+ */
+@Composable
+private fun TrainingGameOverModal(
+    playerScore: Int,
+    botScore: Int,
+    accuracy: Float,
+    bestStreak: Int,
+    playerWon: Boolean,
+    onPlayAgain: () -> Unit,
+    onReturnToDashboard: () -> Unit,
+    language: AppLanguage
+) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
+    val tied = playerScore == botScore
+    
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.7f))
+            .clickable(enabled = false) { },
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            modifier = Modifier.width(480.dp),
+            shape = RoundedCornerShape(24.dp),
+            color = colors.surface,
+            border = BorderStroke(1.dp, colors.border)
+        ) {
+            Column(
+                modifier = Modifier.padding(40.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                // Trophy Icon
+                Box(
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
+                        .background(
+                            if (playerWon) colors.warning.copy(alpha = 0.2f)
+                            else colors.primary.copy(alpha = 0.1f)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MaterialSymbol(
+                        name = if (playerWon) "emoji_events" else "smart_toy",
+                        size = 56.sp,
+                        color = if (playerWon) colors.warning else colors.primary
+                    )
+                }
+                
+                // Title
+                Text(
+                    text = when {
+                        playerWon -> t("🎉 You Win!")
+                        tied -> t("It's a Tie!")
+                        else -> t("Game Over!")
+                    },
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Black,
+                    color = colors.textMain
+                )
+                
+                // Subtitle
+                Text(
+                    text = if (playerWon) t("Congratulations! You beat the bot!")
+                           else t("The bot was faster this time. Try again!"),
+                    fontSize = 14.sp,
+                    color = colors.textSub,
+                    textAlign = TextAlign.Center
+                )
+                
+                // Score Comparison
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(colors.backgroundAlt)
+                        .padding(24.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(t("Your Score"), fontSize = 12.sp, color = colors.textMuted)
+                        Text(
+                            text = playerScore.toString(),
+                            fontSize = 36.sp,
+                            fontWeight = FontWeight.Black,
+                            color = if (playerWon) colors.success else colors.textMain
+                        )
+                    }
+                    
+                    Text(
+                        text = "VS",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = colors.textMuted
+                    )
+                    
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            MaterialSymbol(name = "smart_toy", size = 14.sp, color = colors.textMuted)
+                            Text(t("Bot Score"), fontSize = 12.sp, color = colors.textMuted)
+                        }
+                        Text(
+                            text = botScore.toString(),
+                            fontSize = 36.sp,
+                            fontWeight = FontWeight.Black,
+                            color = if (!playerWon && !tied) colors.danger else colors.textMain
+                        )
+                    }
+                }
+                
+                // Stats Row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "${(accuracy * 100).toInt()}%",
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = colors.success
+                        )
+                        Text(t("Accuracy"), fontSize = 12.sp, color = colors.textMuted)
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = bestStreak.toString(),
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = colors.warning
+                        )
+                        Text(t("Best Streak"), fontSize = 12.sp, color = colors.textMuted)
+                    }
+                }
+                
+                Spacer(Modifier.height(8.dp))
+                
+                // Action Buttons
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Button(
+                        onClick = onPlayAgain,
+                        colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(vertical = 16.dp)
+                    ) {
+                        MaterialSymbol(name = "replay", size = 18.sp, color = Color.White)
+                        Spacer(Modifier.width(8.dp))
+                        Text(t("Play Again"), fontWeight = FontWeight.Bold)
+                    }
+                    
+                    Button(
+                        onClick = onReturnToDashboard,
+                        colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
+                        border = BorderStroke(1.dp, colors.border),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(vertical = 16.dp)
+                    ) {
+                        Text(t("Dashboard"), fontWeight = FontWeight.Bold, color = colors.textMain)
+                    }
+                }
+            }
         }
     }
 }

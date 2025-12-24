@@ -66,7 +66,7 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
             Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
                 ScanHistoryHeader(
                     onNavigate = { viewModel.currentScreen = it },
-                    onShowNotifications = { viewModel.showInfo(DesktopStrings.translate("Notifications are not available yet.", language)) },
+                    onShowNotifications = { viewModel.toggleNotificationPanel() },
                     onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
                     language = language
                 )

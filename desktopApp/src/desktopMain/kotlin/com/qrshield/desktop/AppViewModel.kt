@@ -77,14 +77,25 @@ data class TrainingState(
     val totalRounds: Int,
     val score: Int,
     val streak: Int,
+    val bestStreak: Int,
     val correct: Int,
     val attempts: Int,
-    val remainingSeconds: Int
+    val remainingSeconds: Int,
+    val botScore: Int,
+    val sessionId: String,
+    val roundStartTimeMs: Long,
+    val isGameOver: Boolean,
+    val showResultModal: Boolean,
+    val lastRoundCorrect: Boolean?,
+    val lastRoundPoints: Int,
+    val lastResponseTimeMs: Long
 ) {
     val accuracy: Float
         get() = if (attempts == 0) 0f else correct.toFloat() / attempts.toFloat()
     val progress: Float
         get() = if (totalRounds == 0) 0f else round.toFloat() / totalRounds.toFloat()
+    val playerWon: Boolean
+        get() = score > botScore
 }
 
 sealed class DesktopScanState {
@@ -162,22 +173,15 @@ class AppViewModel(
     // Notification System
     var showNotificationPanel by mutableStateOf(false)
     var notifications by mutableStateOf(sampleNotifications())
+    
+    // Profile Dropdown
+    var showProfileDropdown by mutableStateOf(false)
 
-    var trainingState by mutableStateOf(
-        TrainingState(
-            module = 3,
-            round = 3,
-            totalRounds = 10,
-            score = 1250,
-            streak = 5,
-            correct = 23,
-            attempts = 25,
-            remainingSeconds = 12 * 60 + 5
-        )
-    )
+    var trainingState by mutableStateOf(createInitialTrainingState())
     private var trainingScenarioIndex by mutableStateOf(0)
+    private var shuffledChallengeIndices by mutableStateOf(trainingScenarios.indices.shuffled())
     val currentTrainingScenario: TrainingScenario
-        get() = trainingScenarios[trainingScenarioIndex]
+        get() = trainingScenarios[shuffledChallengeIndices.getOrElse(trainingScenarioIndex) { 0 }]
 
     init {
         applySettings(settingsStore.load())
@@ -518,31 +522,83 @@ class AppViewModel(
         notifications = listOf(newNotification) + notifications
     }
 
-    fun submitTrainingVerdict(isPhishing: Boolean) {
-        val expectedPhishing = isPhishingVerdict(currentTrainingScenario.expectedVerdict)
-        val nextAttempts = trainingState.attempts + 1
-        val isCorrect = expectedPhishing == isPhishing
-        val nextScore = if (isCorrect) trainingState.score + 50 else (trainingState.score - 25).coerceAtLeast(0)
-        val nextStreak = if (isCorrect) trainingState.streak + 1 else 0
-        val nextCorrect = if (isCorrect) trainingState.correct + 1 else trainingState.correct
+    // Profile Dropdown Functions
+    fun toggleProfileDropdown() {
+        showProfileDropdown = !showProfileDropdown
+        // Close notification panel if opening profile
+        if (showProfileDropdown) {
+            showNotificationPanel = false
+        }
+    }
 
+    fun dismissProfileDropdown() {
+        showProfileDropdown = false
+    }
+
+    fun submitTrainingVerdict(isPhishing: Boolean) {
+        if (trainingState.isGameOver) return
+        
+        val expectedPhishing = isPhishingVerdict(currentTrainingScenario.expectedVerdict)
+        val isCorrect = expectedPhishing == isPhishing
+        val responseTimeMs = PlatformTime.currentTimeMillis() - trainingState.roundStartTimeMs
+        
+        // Calculate points
+        var points = 0
+        if (isCorrect) {
+            points = 100 // Base points
+            // Streak bonus
+            if (trainingState.streak >= 2) {
+                points += 25 * (trainingState.streak - 1)
+            }
+        } else {
+            points = -25
+        }
+        
+        val nextScore = (trainingState.score + points).coerceAtLeast(0)
+        val nextStreak = if (isCorrect) trainingState.streak + 1 else 0
+        val nextBestStreak = maxOf(trainingState.bestStreak, nextStreak)
+        val nextCorrect = if (isCorrect) trainingState.correct + 1 else trainingState.correct
+        val nextAttempts = trainingState.attempts + 1
+        
+        // Bot always gets 100 points per round
+        val nextBotScore = trainingState.botScore + 100
+        
         trainingState = trainingState.copy(
             score = nextScore,
             streak = nextStreak,
+            bestStreak = nextBestStreak,
             correct = nextCorrect,
-            attempts = nextAttempts
+            attempts = nextAttempts,
+            botScore = nextBotScore,
+            showResultModal = true,
+            lastRoundCorrect = isCorrect,
+            lastRoundPoints = points,
+            lastResponseTimeMs = responseTimeMs
         )
-        setMessage(if (isCorrect) "Correct answer" else "Incorrect answer", if (isCorrect) MessageKind.Success else MessageKind.Error)
+    }
+
+    fun dismissTrainingResultModal() {
+        trainingState = trainingState.copy(showResultModal = false)
         advanceTrainingRound()
     }
 
     fun skipTrainingRound() {
-        setMessage("Round skipped", MessageKind.Info)
+        // Bot gets points, player skips
+        trainingState = trainingState.copy(
+            botScore = trainingState.botScore + 100,
+            streak = 0
+        )
         advanceTrainingRound()
     }
 
-    fun nextTrainingRound() {
-        advanceTrainingRound()
+    fun resetTrainingGame() {
+        shuffledChallengeIndices = trainingScenarios.indices.shuffled()
+        trainingScenarioIndex = 0
+        trainingState = createInitialTrainingState()
+    }
+
+    fun endTrainingSession() {
+        trainingState = trainingState.copy(isGameOver = true)
     }
 
     fun dispose() {
@@ -619,6 +675,31 @@ class AppViewModel(
 
         if (assessment.verdict == Verdict.SAFE && trustCentreToggles.autoCopySafe) {
             copyUrl(url, label = "Safe link copied")
+        }
+
+        // Trigger notifications based on verdict
+        val urlPreview = url.take(40) + if (url.length > 40) "…" else ""
+        when (assessment.verdict) {
+            Verdict.SAFE -> addNotification(
+                title = t("Scan Complete"),
+                message = tf("URL analysis finished: Safe. %s", urlPreview),
+                type = NotificationType.SUCCESS
+            )
+            Verdict.SUSPICIOUS -> addNotification(
+                title = t("Suspicious Activity"),
+                message = tf("Potentially risky URL detected. %s", urlPreview),
+                type = NotificationType.WARNING
+            )
+            Verdict.MALICIOUS -> addNotification(
+                title = t("Threat Blocked"),
+                message = tf("Malicious URL detected! %s", urlPreview),
+                type = NotificationType.ERROR
+            )
+            Verdict.UNKNOWN -> addNotification(
+                title = t("Analysis Incomplete"),
+                message = tf("Could not fully analyze URL. %s", urlPreview),
+                type = NotificationType.INFO
+            )
         }
 
         currentScreen = when (assessment.verdict) {
@@ -738,83 +819,282 @@ class AppViewModel(
     }
 
     private fun advanceTrainingRound() {
-        val nextRound = if (trainingState.round >= trainingState.totalRounds) 1 else trainingState.round + 1
-        trainingScenarioIndex = (trainingScenarioIndex + 1) % trainingScenarios.size
-        trainingState = trainingState.copy(round = nextRound)
+        if (trainingState.round >= trainingState.totalRounds) {
+            // Game over
+            trainingState = trainingState.copy(isGameOver = true)
+            return
+        }
+        
+        val nextRound = trainingState.round + 1
+        trainingScenarioIndex = (trainingScenarioIndex + 1) % shuffledChallengeIndices.size
+        trainingState = trainingState.copy(
+            round = nextRound,
+            roundStartTimeMs = PlatformTime.currentTimeMillis()
+        )
     }
 
     private val trainingScenarios: List<TrainingScenario>
         get() = listOf(
+        // Challenge 1: AusPost Phishing
         TrainingScenario(
-            payload = "https://secure-login.micros0ft-support.com/auth?client_id=19283",
-            contextTitle = t("Physical Flyer"),
-            contextBody = t("Found this on a table at Starbeans Coffee. It offered a free coffee coupon if I logged in."),
+            payload = "https://au-post-tracking.verify-deliveries.net/login",
+            contextTitle = t("SMS Message"),
+            contextBody = t("\"AusPost: Your parcel failed delivery due to incorrect address details. Please update immediately via the link above to avoid return.\""),
+            expectedVerdict = Verdict.MALICIOUS,
+            aiConfidence = 0.97f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "warning",
+                    title = t("Suspicious Domain"),
+                    body = t("Domain uses hyphenated structure (verify-deliveries.net) - common in phishing."),
+                    kind = TrainingInsightKind.Warning
+                ),
+                TrainingInsight(
+                    icon = "sms",
+                    title = t("Unknown Sender"),
+                    body = t("SMS from unknown number impersonating AusPost."),
+                    kind = TrainingInsightKind.Suspicious
+                ),
+                TrainingInsight(
+                    icon = "schedule",
+                    title = t("Recently Registered"),
+                    body = t("Domain age < 30 days (newly registered)."),
+                    kind = TrainingInsightKind.Warning
+                )
+            )
+        ),
+        // Challenge 2: GitHub (Safe)
+        TrainingScenario(
+            payload = "https://www.github.com/login",
+            contextTitle = t("Email Notification"),
+            contextBody = t("Sign in to your GitHub account to access your repositories."),
+            expectedVerdict = Verdict.SAFE,
+            aiConfidence = 0.99f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "verified_user",
+                    title = t("Verified Domain"),
+                    body = t("Certificate Issuer matches domain owner (DigiCert Inc)."),
+                    kind = TrainingInsightKind.Psychology
+                ),
+                TrainingInsight(
+                    icon = "history",
+                    title = t("Established Domain"),
+                    body = t("Domain age > 10 years (High trust)."),
+                    kind = TrainingInsightKind.Psychology
+                )
+            )
+        ),
+        // Challenge 3: Commonwealth Bank Homograph
+        TrainingScenario(
+            payload = "https://secure-banking.c0mmonwealth.net/verify",
+            contextTitle = t("Urgent SMS"),
+            contextBody = t("\"Commonwealth Bank: Your account has been locked due to suspicious activity. Verify your identity immediately.\""),
             expectedVerdict = Verdict.MALICIOUS,
             aiConfidence = 0.998f,
             insights = listOf(
                 TrainingInsight(
                     icon = "warning",
-                    title = t("Typosquatting Detected"),
-                    body = t("The domain micros0ft-support.com uses a zero '0' instead of the letter 'o'."),
+                    title = t("Homograph Attack"),
+                    body = t("\"c0mmonwealth\" uses zero instead of letter O - deceptive spelling."),
                     kind = TrainingInsightKind.Warning
                 ),
                 TrainingInsight(
-                    icon = "public_off",
-                    title = t("Suspicious TLD"),
-                    body = t("While .com is standard, the hyphenated structure with \"support\" is common in phishing."),
-                    kind = TrainingInsightKind.Suspicious
-                ),
-                TrainingInsight(
                     icon = "psychology",
-                    title = t("Social Engineering"),
-                    body = t("The \"free coupon\" promise creates urgency and incentive."),
+                    title = t("Urgency Tactics"),
+                    body = t("Message creates fear with \"locked\" and \"immediately\" - classic phishing."),
                     kind = TrainingInsightKind.Psychology
                 )
             )
         ),
+        // Challenge 4: Atlassian (Safe)
         TrainingScenario(
-            payload = "https://accounts.google.com/o/oauth2/v2/auth",
-            contextTitle = t("Support Email"),
-            contextBody = t("Corporate IT sent a reset notice using the official Google auth domain."),
+            payload = "https://www.atlassian.com/software/jira",
+            contextTitle = t("Work Email"),
+            contextBody = t("Welcome to Jira - project tracking for agile teams."),
             expectedVerdict = Verdict.SAFE,
-            aiConfidence = 0.95f,
+            aiConfidence = 0.98f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "verified",
+                    title = t("Extended Validation"),
+                    body = t("Valid EV certificate from trusted authority."),
+                    kind = TrainingInsightKind.Psychology
+                ),
+                TrainingInsight(
+                    icon = "history_edu",
+                    title = t("Established Company"),
+                    body = t("Domain age > 15 years - Alexa Top 1000 site."),
+                    kind = TrainingInsightKind.Psychology
+                )
+            )
+        ),
+        // Challenge 5: Apple Phishing
+        TrainingScenario(
+            payload = "http://signin.apple-id-verify.com/account",
+            contextTitle = t("Email Alert"),
+            contextBody = t("\"Your Apple ID was used to sign in on a new device. If this was not you, verify immediately.\""),
+            expectedVerdict = Verdict.MALICIOUS,
+            aiConfidence = 0.96f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "warning",
+                    title = t("Fake Domain"),
+                    body = t("Domain \"apple-id-verify.com\" is NOT owned by Apple."),
+                    kind = TrainingInsightKind.Warning
+                ),
+                TrainingInsight(
+                    icon = "lock_open",
+                    title = t("No HTTPS"),
+                    body = t("HTTP instead of HTTPS - no encryption."),
+                    kind = TrainingInsightKind.Warning
+                )
+            )
+        ),
+        // Challenge 6: Gmail (Safe)
+        TrainingScenario(
+            payload = "https://mail.google.com/mail/u/0/",
+            contextTitle = t("Browser Bookmark"),
+            contextBody = t("You have 3 unread emails in your inbox."),
+            expectedVerdict = Verdict.SAFE,
+            aiConfidence = 0.99f,
             insights = listOf(
                 TrainingInsight(
                     icon = "verified_user",
-                    title = t("Verified Domain"),
-                    body = t("OAuth endpoint uses a trusted, well-known domain."),
+                    title = t("Google Subdomain"),
+                    body = t("Subdomain of google.com - trusted infrastructure."),
                     kind = TrainingInsightKind.Psychology
                 ),
                 TrainingInsight(
                     icon = "lock",
-                    title = t("TLS Enabled"),
-                    body = t("HTTPS with valid certificate detected."),
+                    title = t("Valid Certificate"),
+                    body = t("Standard Gmail URL structure with HTTPS."),
+                    kind = TrainingInsightKind.Psychology
+                )
+            )
+        ),
+        // Challenge 7: PayPal Homograph
+        TrainingScenario(
+            payload = "https://www.paypa1-secure.com/login",
+            contextTitle = t("Email Warning"),
+            contextBody = t("\"Your PayPal account has been limited. Please update your information.\""),
+            expectedVerdict = Verdict.MALICIOUS,
+            aiConfidence = 0.995f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "warning",
+                    title = t("Homograph Attack"),
+                    body = t("\"paypa1\" uses number 1 instead of letter L."),
+                    kind = TrainingInsightKind.Warning
+                ),
+                TrainingInsight(
+                    icon = "new_releases",
+                    title = t("Newly Registered"),
+                    body = t("Domain registered in the last 24 hours."),
                     kind = TrainingInsightKind.Suspicious
                 )
             )
         ),
+        // Challenge 8: LinkedIn (Safe)
         TrainingScenario(
-            payload = "https://bit.ly/3x89s",
-            contextTitle = t("Chat Message"),
-            contextBody = t("A shortened link shared in a group chat without context."),
-            expectedVerdict = Verdict.SUSPICIOUS,
-            aiConfidence = 0.83f,
+            payload = "https://linkedin.com/in/john-smith",
+            contextTitle = t("Connection Request"),
+            contextBody = t("View John Smith's professional profile on LinkedIn."),
+            expectedVerdict = Verdict.SAFE,
+            aiConfidence = 0.98f,
             insights = listOf(
                 TrainingInsight(
-                    icon = "link",
+                    icon = "verified",
+                    title = t("Official Domain"),
+                    body = t("Official LinkedIn domain with standard profile URL structure."),
+                    kind = TrainingInsightKind.Psychology
+                ),
+                TrainingInsight(
+                    icon = "business",
+                    title = t("Microsoft Platform"),
+                    body = t("LinkedIn is a Microsoft-owned platform."),
+                    kind = TrainingInsightKind.Psychology
+                )
+            )
+        ),
+        // Challenge 9: Bit.ly Scam
+        TrainingScenario(
+            payload = "https://bit.ly/3x8K9mZ",
+            contextTitle = t("Prize SMS"),
+            contextBody = t("\"You won a \$500 gift card! Click to claim your prize.\""),
+            expectedVerdict = Verdict.MALICIOUS,
+            aiConfidence = 0.92f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "link_off",
                     title = t("Shortened URL"),
                     body = t("URL shorteners hide the true destination."),
                     kind = TrainingInsightKind.Warning
                 ),
                 TrainingInsight(
-                    icon = "visibility_off",
-                    title = t("Low Context"),
-                    body = t("No source attribution or description provided."),
-                    kind = TrainingInsightKind.Suspicious
+                    icon = "money_off",
+                    title = t("Prize Scam"),
+                    body = t("Unsolicited prize notifications are almost always scams."),
+                    kind = TrainingInsightKind.Psychology
+                )
+            )
+        ),
+        // Challenge 10: Google Docs (Safe)
+        TrainingScenario(
+            payload = "https://docs.google.com/document/d/1abc123",
+            contextTitle = t("Share Notification"),
+            contextBody = t("Sarah shared a document with you: Q4 Report.docx"),
+            expectedVerdict = Verdict.SAFE,
+            aiConfidence = 0.97f,
+            insights = listOf(
+                TrainingInsight(
+                    icon = "verified_user",
+                    title = t("Google Subdomain"),
+                    body = t("docs.google.com is the legitimate Google Docs address."),
+                    kind = TrainingInsightKind.Psychology
+                ),
+                TrainingInsight(
+                    icon = "description",
+                    title = t("Standard Format"),
+                    body = t("Standard Google Docs URL format with valid certificate."),
+                    kind = TrainingInsightKind.Psychology
                 )
             )
         )
     )
+}
+
+/**
+ * Creates the initial training game state
+ */
+private fun createInitialTrainingState(): TrainingState {
+    return TrainingState(
+        module = 1,
+        round = 1,
+        totalRounds = 10,
+        score = 0,
+        streak = 0,
+        bestStreak = 0,
+        correct = 0,
+        attempts = 0,
+        remainingSeconds = 15 * 60, // 15 minutes
+        botScore = 0,
+        sessionId = generateSessionId(),
+        roundStartTimeMs = PlatformTime.currentTimeMillis(),
+        isGameOver = false,
+        showResultModal = false,
+        lastRoundCorrect = null,
+        lastRoundPoints = 0,
+        lastResponseTimeMs = 0
+    )
+}
+
+/**
+ * Generates a random session ID for the game
+ */
+private fun generateSessionId(): String {
+    val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    return (1..4).map { chars.random() }.joinToString("")
 }
 
 /**

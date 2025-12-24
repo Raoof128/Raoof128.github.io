@@ -41,6 +41,8 @@ const STATIC_ASSETS = [
     './game.html',
     './game.css',
     './game.js',
+    './theme.css',
+    './theme.js',
     './transitions.css',
     './transitions.js',
     './shared-ui.css',
@@ -54,6 +56,9 @@ const STATIC_ASSETS = [
     './assets/icon-128.png',
     './assets/favicon-32.png',
     './assets/favicon-16.png',
+    './assets/shield-safe.svg',
+    './assets/shield-warning.svg',
+    './assets/shield-danger.svg',
     './manifest.json'
 ];
 

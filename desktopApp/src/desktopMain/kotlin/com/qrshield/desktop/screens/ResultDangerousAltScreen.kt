@@ -103,7 +103,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                 Box(
                     modifier = Modifier
                         .size(24.dp)
-                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
+                        .clickable { viewModel.toggleNotificationPanel() }
                         .focusable(),
                     contentAlignment = Alignment.Center
                 ) {

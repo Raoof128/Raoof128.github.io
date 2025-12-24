@@ -125,7 +125,7 @@ private fun SafeResultContent(
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
+                        .clickable { viewModel.toggleNotificationPanel() }
                         .focusable()
                 ) {
                     MaterialIconRound(name = "notifications", size = 20.sp, color = colors.textSub)
@@ -273,10 +273,10 @@ private fun SafeResultContent(
                                         .focusable()
                                 )
                             }
-                            TechnicalRow(t("Certificate Issuer"), t("DigiCert Inc (US)"))
-                            TechnicalRow(t("Server Location"), t("United States (Azure Cloud)"))
-                            TechnicalRow(t("Shannon Entropy"), t("3.44 bits (Low)"))
-                            TechnicalRow(t("Top 1k Whitelist"), t("Match"), highlight = colors.success)
+                            TechnicalRow(t("Heuristic Score"), tf("%d/40", assessment?.details?.heuristicScore ?: 0))
+                            TechnicalRow(t("ML Score"), tf("%d/30", assessment?.details?.mlScore ?: 0))
+                            TechnicalRow(t("Brand Match"), assessment?.details?.brandMatch?.let { tf("None") } ?: t("None"), highlight = colors.success)
+                            TechnicalRow(t("TLD"), assessment?.details?.tld?.uppercase() ?: "N/A", highlight = if ((assessment?.details?.tldScore ?: 0) == 0) colors.success else colors.warning)
                         }
                     }
                 }

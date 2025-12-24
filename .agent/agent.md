@@ -4,6 +4,55 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🔍 December 24, 2025 (Session 10f) - Web App Comprehensive Audit
+
+### Summary
+Conducted a sequential, comprehensive audit of all web application files to identify bugs, inconsistencies, and ensure code quality. Found and fixed one bug in the service worker.
+
+## 🐛 Bug Fixed
+
+### Service Worker Missing Assets (`sw.js`)
+**Issue**: The `STATIC_ASSETS` array was missing critical files needed for offline functionality:
+- `theme.css` - Theme stylesheet
+- `theme.js` - Theme switching logic
+- `shield-safe.svg` - Safe verdict icon
+- `shield-warning.svg` - Warning verdict icon
+- `shield-danger.svg` - Danger verdict icon
+
+**Impact**: These files would not be cached by the service worker, potentially breaking theme support and visual elements when the user is offline.
+
+**Fix**: Added all missing assets to the `STATIC_ASSETS` array in `sw.js`.
+
+## ✅ Files Audited (No Issues Found)
+
+| Category | Files |
+|----------|-------|
+| **Kotlin Entry Points** | `Main.kt` (jsMain), `Main.kt` (wasmJsMain) |
+| **HTML Pages** | `index.html`, `dashboard.html`, `scanner.html`, `results.html`, `threat.html`, `game.html`, `trust.html`, `export.html`, `onboarding.html` |
+| **JavaScript** | `dashboard.js`, `scanner.js`, `results.js`, `threat.js`, `game.js`, `trust.js`, `export.js`, `onboarding.js`, `shared-ui.js`, `app.js`, `theme.js`, `transitions.js` |
+| **CSS** | `dashboard.css`, `scanner.css`, `results.css`, `threat.css`, `game.css`, `trust.css`, `export.css`, `onboarding.css`, `shared-ui.css`, `theme.css`, `transitions.css`, `styles.css` |
+| **PWA** | `sw.js` (fixed), `manifest.json` |
+| **i18n** | `WebStrings.kt` and all 16 language files |
+
+## ✅ Quality Assessment
+
+### Well-Implemented Patterns Verified:
+1. **Internationalization (i18n)**: 125+ `data-i18n` usages, consistent `translateText`/`formatText` helpers
+2. **Theme System**: Proper dark/light mode with CSS custom properties and localStorage
+3. **PWA Support**: Complete service worker with stale-while-revalidate caching
+4. **Error Handling**: Proper try/catch blocks around localStorage and API calls
+5. **Keyboard Shortcuts**: Accessibility-friendly navigation on all pages
+6. **Modular Architecture**: Clean separation (Config → State → DOM → Init → Events → Actions → Utils)
+7. **Testing Support**: Module exports at end of each JS file for unit testing
+
+### Code Consistency Verified:
+- All pages follow identical structural patterns
+- Consistent navigation sidebar across all pages
+- Uniform toast notification system
+- Proper Material Symbols icon usage throughout
+
+---
+
 # 🌐 December 24, 2025 (Session 10e) - Web App i18n Expansion
 
 ### Summary

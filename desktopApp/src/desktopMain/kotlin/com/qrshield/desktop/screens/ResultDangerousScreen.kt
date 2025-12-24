@@ -120,7 +120,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                 Box(
                     modifier = Modifier
                         .size(32.dp)
-                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
+                        .clickable { viewModel.toggleNotificationPanel() }
                         .focusable()
                 ) {
                     MaterialIconRound(name = "notifications", size = 18.sp, color = colors.textSub)

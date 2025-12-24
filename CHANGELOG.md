@@ -5,6 +5,40 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.19] - 2025-12-24
+
+### 🔍 Web App - Comprehensive Audit & Service Worker Fix
+
+Conducted a comprehensive sequential audit of all web application files.
+
+#### 🐛 Bug Fixed
+
+**Service Worker Missing Assets** (`sw.js`)
+- Added `theme.css` and `theme.js` to cached assets (required for offline theme support)
+- Added shield SVG assets: `shield-safe.svg`, `shield-warning.svg`, `shield-danger.svg`
+- These files were missing from the cache, which could break theming and visual elements offline
+
+#### ✅ Audit Completed
+
+| Category | Status |
+|----------|--------|
+| Kotlin Entry Points | ✅ Clean |
+| 9 HTML Pages | ✅ Clean |
+| 12 JavaScript Files | ✅ Clean |
+| 12 CSS Files | ✅ Clean |
+| PWA (sw.js, manifest.json) | ✅ Fixed |
+| i18n (16 languages) | ✅ Clean |
+
+#### 📊 Quality Metrics Verified
+
+- **125+ i18n attributes** consistently implemented across pages
+- **Consistent code patterns** across all JavaScript files
+- **Proper error handling** for localStorage and API operations
+- **Keyboard accessibility** shortcuts on all pages
+- **Module exports** for testing on all JS files
+
+---
+
 ## [1.17.18] - 2025-12-24
 
 ### 🌐 Web App - i18n Expansion (7 → 16 Languages)

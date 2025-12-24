@@ -40,6 +40,7 @@ import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.NotificationPanel
+import com.qrshield.desktop.ui.ProfileDropdown
 import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
@@ -67,7 +68,7 @@ fun DashboardScreen(viewModel: AppViewModel) {
                     currentScreen = viewModel.currentScreen,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                    onProfileClick = { viewModel.toggleProfileDropdown() }
                 )
                 DashboardContent(
                     onStartScan = {
@@ -105,6 +106,19 @@ fun DashboardScreen(viewModel: AppViewModel) {
                     viewModel.dismissNotificationPanel()
                 },
                 onClearAll = { viewModel.clearAllNotifications() },
+                language = language
+            )
+            
+            // Profile Dropdown Popup
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = com.qrshield.desktop.SampleData.userProfile.name,
+                userRole = com.qrshield.desktop.SampleData.userProfile.role,
+                userInitials = com.qrshield.desktop.SampleData.userProfile.initials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
                 language = language
             )
         }

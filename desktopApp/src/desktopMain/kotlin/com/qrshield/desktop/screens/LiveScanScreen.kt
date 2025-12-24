@@ -165,7 +165,7 @@ private fun LiveScanContent(
                 Box(
                     modifier = Modifier
                         .size(36.dp)
-                        .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
+                        .clickable { viewModel.toggleNotificationPanel() }
                         .focusable()
                 ) {
                     MaterialSymbol(name = "notifications", size = 20.sp, color = colors.textMuted)

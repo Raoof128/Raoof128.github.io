@@ -156,7 +156,7 @@ private fun SuspiciousContent(
                     Box(
                         modifier = Modifier
                             .size(28.dp)
-                            .clickable { viewModel.showInfo(t("Notifications are not available yet.")) }
+                            .clickable { viewModel.toggleNotificationPanel() }
                             .focusable()
                     ) {
                         MaterialIcon(name = "notifications", size = 18.sp, color = colors.textSub)
