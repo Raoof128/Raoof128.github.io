@@ -1,5 +1,5 @@
 ---
-description: Documentation requirements after each code change
+trigger: always_on
 ---
 
 # Documentation Workflow
@@ -47,18 +47,13 @@ Add a new version entry with:
 - Code snippets where helpful
 - Build verification status
 
-### ✅ Step 3: Update Version Numbers
+### ✅ Step 3: Update all Documentaions
 
-If your changes warrant a version bump, update ALL of these:
+### ✅ Step 4: Update Version Numbers
 
-| Platform | File | Field |
-|----------|------|-------|
-| **Android** | `androidApp/build.gradle.kts` | `versionCode` + `versionName` |
-| **iOS** | `iosApp/QRShield.xcodeproj/project.pbxproj` | `MARKETING_VERSION` (2 places) |
-| **Desktop** | `desktopApp/.../screens/DashboardScreen.kt` | Version in KeyValueRow (~line 520) |
-| **agent.md** | `.agent/agent.md` | Header version number |
 
-### ✅ Step 4: Commit Only Your Changes
+
+### ✅ Step 5: Commit Only Your Changes
 
 When committing:
 - Use `git add` to stage ONLY the files you modified
@@ -127,13 +122,8 @@ Explain important implementation details here.
 # Files to update after EVERY change:
 1. .agent/agent.md           # Session documentation
 2. CHANGELOG.md              # Version history
-3. androidApp/build.gradle.kts    # If version bump
-4. iosApp/.../project.pbxproj     # If version bump (2 places!)
-5. desktopApp/.../DashboardScreen.kt  # If version bump
-```
+
 
 ---
 
 **Remember: Documentation is NOT optional. Update agent.md and CHANGELOG after EVERY edit.**
-
-
