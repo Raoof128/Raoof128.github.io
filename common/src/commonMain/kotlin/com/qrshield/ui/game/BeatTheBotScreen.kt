@@ -478,20 +478,18 @@ private fun ResultCard(
                 textAlign = TextAlign.Center
             )
 
-            if (result.detectedSignals.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Signals Detected:",
+                    text = "NEURAL ANALYSIS FEED",
                     color = Color.Gray,
                     style = MaterialTheme.typography.labelMedium
                 )
-                result.detectedSignals.take(3).forEach { signal ->
-                    Text(
-                        text = "• $signal",
-                        color = Color(0xFFFECACA),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
+                Spacer(modifier = Modifier.height(12.dp))
+                
+                AIBrainVisual(
+                    detectedSignals = result.detectedSignals,
+                    modifier = Modifier.wrapContentSize()
+                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -504,7 +502,6 @@ private fun ResultCard(
             }
         }
     }
-}
 
 @Composable
 private fun TutorialHint(difficulty: PhishingChallengeDataset.Difficulty) {

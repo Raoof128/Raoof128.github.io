@@ -43,6 +43,7 @@ import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.android.ui.theme.QRShieldShapes
 import com.qrshield.android.ui.viewmodels.GameResult
 import com.qrshield.android.ui.viewmodels.GameState
+import com.qrshield.android.ui.components.BrainVisualizer
 import kotlin.random.Random
 
 /**
@@ -182,6 +183,7 @@ fun BeatTheBotScreen(
                 RoundAnalysisCard(
                     result = lastResult,
                     isPhishing = uiState.currentUrl?.isPhishing == true,
+                    signals = uiState.currentUrl?.signals ?: emptyList(),
                     onNextRound = onHintDismiss // Reusing dismiss as next round trigger for now
                 )
             }
@@ -587,6 +589,7 @@ private fun GameDecisionButton(
 private fun RoundAnalysisCard(
     result: GameResult?,
     isPhishing: Boolean,
+    signals: List<String>,
     onNextRound: () -> Unit
 ) {
     if (result == null) return
@@ -635,7 +638,7 @@ private fun RoundAnalysisCard(
 
             HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
 
-            // Bot Reasoning (Mocked per Game Design)
+            // Bot Reasoning (Brain Visualizer)
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(
                     text = stringResource(R.string.beat_the_bot_why_flagged, if (isPhishing) stringResource(R.string.beat_the_bot_suspicious) else stringResource(R.string.beat_the_bot_safe)),
@@ -643,35 +646,13 @@ private fun RoundAnalysisCard(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 
-                val reasons = if (isPhishing) {
-                    listOf(
-                        "Typosquatting detected in domain name",
-                        "Suspicious TLD usage (.xyz, .top)",
-                        "Urgency keywords in SMS context"
-                    )
-                } else {
-                    listOf(
-                        "Certificate Issuer matches domain owner",
-                        "Domain age > 5 years (High trust)",
-                        "Top 1k Alexa Rank"
-                    )
-                }
-
-                reasons.forEach { reason ->
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Top) {
-                        Icon(
-                            if(isPhishing) Icons.Default.Warning else Icons.Default.Verified,
-                            null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.size(16.dp).padding(top = 2.dp)
-                        )
-                        Text(
-                            text = reason,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }
+                // Use the new BrainVisualizer component
+                // We pass signals ONLY if it's phishing. If it's safe, we pass empty list for "Calm" brain.
+                val visualSignals = if (isPhishing) signals else emptyList()
+                BrainVisualizer(
+                    detectedSignals = visualSignals,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             Button(

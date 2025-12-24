@@ -14,10 +14,10 @@ android {
 
     defaultConfig {
         applicationId = "com.qrshield.android"
-        minSdk = 26
+        minSdk = 24
         targetSdk = 35  // Android 16
-        versionCode = 12  // v1.17.25 release
-        versionName = "1.17.25"
+        versionCode = 15
+        versionName = "1.17.28"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,14 +87,17 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    // kotlinOptions block removed - jvmTarget handled by compilerOptions in Kotlin 2.3.0+
-
     buildFeatures {
         compose = true
         buildConfig = true
     }
-    // Note: composeOptions block removed - handled by kotlin.compose plugin in Kotlin 2.0+
 }
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}    // Note: composeOptions block removed - handled by kotlin.compose plugin in Kotlin 2.0+
 
 dependencies {
     implementation(project(":common"))

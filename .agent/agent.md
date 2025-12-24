@@ -37,6 +37,15 @@ See the full workflow: `.agent/workflows/documentation.md` or use `/documentatio
 
 ---
 
+## 🚨 MANDATORY: Error Resolution Protocol
+
+> **If you encounter ANY error (build, test, runtime):**
+> 1. **SEARCH THE INTERNET** immediately for the error message + current year. Data freshness is critical.
+> 2. **FOLLOW** the workflow: `.agent/workflows/resolve-error.md` (Use `/resolve-error`)
+> 3. **DOCUMENT** the fix in `agent.md` so the "collective memory" learns.
+
+---
+
 ## 📋 Pre-Commit Checklist
 
 Before finishing your session, ensure you complete ALL steps:
@@ -176,7 +185,51 @@ Any important notes for future agents.
 
 ---
 
-# 🔐 December 24, 2025 (Session 10k+2) - Secure Web Crypto & Escape Hatches
+# 🛠️ December 24, 2025 (Session 10k+4) - Android Test Error Resolution
+
+### Summary
+Resolved a compilation error in `ScanFlowIntegrationTest.kt` caused by type inference issues with `runBlocking` and the `RiskAssessment` type in Android instrumentation tests.
+
+## ✅ Changes Made
+
+### Files Updated
+| File | Change |
+|------|--------|
+| `androidApp/src/androidTest/kotlin/com/qrshield/android/ScanFlowIntegrationTest.kt` | Explicitly imported `RiskAssessment` and added return type to `analyzeSync` helper to ensure correct type inference. |
+| `androidApp/build.gradle.kts` | Replaced deprecated `kotlinOptions` with `kotlin { compilerOptions }` (Session 10k+3 overlap) |
+
+## 📝 Notes
+- Android instrumentation tests running against KMP common modules can sometimes have type inference issues.
+- Explicit imports and explicit return types are recommended when using helper functions wrapping suspend calls in tests.
+- Reference errors like `Unresolved reference 'verdict'` on a result object usually imply the result object was inferred as `Unit` or `Any`.
+
+---
+
+# 🧠 December 24, 2025 (Session 10k+3) - Beat The Bot Brain Visual
+ 
+ ### Summary
+ Implemented "Brain" visualization component for Android "Beat The Bot" mode, featuring signal-driven animations and TalkBack support.
+ 
+ ## ✅ Changes Made
+ 
+ ### Files Updated
+ | File | Change |
+ |------|--------|
+ | `androidApp/.../ui/components/BrainVisualizer.kt` | **New** Canvas-based neural net visualization |
+ | `androidApp/.../ui/screens/BeatTheBotScreen.kt` | Integrated BrainVisualizer into RoundAnalysisCard |
+ | `androidApp/src/main/kotlin/com/qrshield/android/ui/viewmodels/BeatTheBotViewModel.kt` | Added `signals` to `GameUrl` |
+ | `androidApp/src/main/kotlin/com/qrshield/android/data/BeatTheBotGameData.kt` | Added mock signals to levels |
+ | `androidApp/.../ui/components/BrainVisualizerTest.kt` | **New** UI tests for accessibility |
+ | `androidApp/build.gradle.kts` | Bumped to 1.17.27 |
+ | `CHANGELOG.md` | Added 1.17.27 entry |
+ 
+ ## 📝 Notes
+ - The BrainVisualizer uses `rememberInfiniteTransition` for the idle state and explicit red colors for active signals.
+ - Accessibility `contentDescription` changes dynamically based on detected signals.
+ 
+ ---
+ 
+ # 🔐 December 24, 2025 (Session 10k+2) - Secure Web Crypto & Escape Hatches
 
 ### Summary
 Implemented cryptographically secure random number generation for Web (Wasm + JS) targets using the Web Crypto API, replacing insecure `kotlin.random.Random`.

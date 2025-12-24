@@ -136,3 +136,4 @@ Explain important implementation details here.
 
 **Remember: Documentation is NOT optional. Update agent.md and CHANGELOG after EVERY edit.**
 
+

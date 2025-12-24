@@ -5,7 +5,34 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.17.26] - 2025-12-24
+## [1.17.27] - 2025-12-24
+
+### 🎮 Beat The Bot Training - Visual Upgrades
+
+Implemented high-fidelity "Brain" visualization in the Android app for the "Beat The Bot" training game.
+
+#### ✨ Brain Visualizer
+- **Neural Network Visualization:** Created a dynamic `Canvas`-based component that visualizes the AI's "brain" nodes.
+- **Signal-Driven Animations:** Active threat signals (e.g., TLD Abuse, Brand Impersonation) now trigger specific node clusters to pulse red.
+- **Accessibility:** Fully accessible with TalkBack support, providing dynamic descriptions of the neural net state (e.g., "Brain pattern is pulsing red").
+- **Performance:** Optimized using `remember` for node generation and `rememberInfiniteTransition` for efficient animations.
+
+#### 🔧 Architecture Updates
+- **Data Model:** Updated `GameUrl` to include specific `signals` list for granular threat reporting.
+- **Game Data:** Populated Beat The Bot levels with realistic threat signals.
+- **Integration:** Integrated visualizer into `RoundAnalysisCard` for immediate feedback.
+
+## [1.17.28] - 2025-12-24
+
+### 🔧 Android Test Stability
+
+Fixed compilation errors in Android instrumentation tests caused by suspend function inference issues.
+
+#### Fixes
+- **Test Infrastructure:** Explicitly typed `RiskAssessment` returns in `ScanFlowIntegrationTest` to resolve "Unresolved reference" errors during `connectedAndroidTest`.
+- **Build Configuration:** Replaced deprecated `kotlinOptions` block with `kotlin { compilerOptions }` DSL in `androidApp/build.gradle.kts`.
+
+## [1.17.27] - 2025-12-24
 
 ### 🔐 Security & Platform Bridge
 
