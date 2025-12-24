@@ -3,6 +3,7 @@ package com.qrshield.android.ui.components
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.qrshield.ui.components.CommonBrainVisualizer
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,7 +17,7 @@ class BrainVisualizerTest {
     @Test
     fun brainVisualizer_showsIdleState_whenSignalsEmpty() {
         composeTestRule.setContent {
-            BrainVisualizer(detectedSignals = emptyList())
+            CommonBrainVisualizer(detectedSignals = emptyList())
         }
 
         // Check content description for idle state (Blue brain)
@@ -28,7 +29,7 @@ class BrainVisualizerTest {
     fun brainVisualizer_showsBadges_whenSignalsProvided() {
         val signals = listOf("TLD_ABUSE", "BRAND_IMPERSONATION")
         composeTestRule.setContent {
-            BrainVisualizer(detectedSignals = signals)
+            CommonBrainVisualizer(detectedSignals = signals)
         }
 
         // Check content description for active state (Red pulsing brain)

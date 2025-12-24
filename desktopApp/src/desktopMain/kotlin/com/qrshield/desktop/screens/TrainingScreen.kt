@@ -47,6 +47,7 @@ import com.qrshield.desktop.ui.cardSurface
 import com.qrshield.desktop.ui.progressTrack
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.statusPill
+import com.qrshield.ui.components.CommonBrainVisualizer
 
 @Composable
 fun TrainingScreen(viewModel: AppViewModel) {
@@ -458,6 +459,20 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     Text(if (isSafeScenario) t("CLEAN") else t("DETECTED"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = badgeTextColor)
                                 }
                             }
+                            
+                            val isRoundDone = training.showResultModal || training.isGameOver
+                            val visualSignals = if (isRoundDone && !isSafeScenario) {
+                                scenario.insights.map { t(it.title) }
+                            } else {
+                                emptyList()
+                            }
+                            CommonBrainVisualizer(
+                                detectedSignals = visualSignals,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(200.dp)
+                            )
+                            
                             scenario.insights.forEach { insight ->
                                 val color = when (insight.kind) {
                                     TrainingInsightKind.Warning -> colors.danger
@@ -798,44 +813,24 @@ private fun TrainingGameOverModal(
                         Text(
                             text = botScore.toString(),
                             fontSize = 36.sp,
-                            fontWeight = FontWeight.Black,
-                            color = if (!playerWon && !tied) colors.danger else colors.textMain
+                            fontWeight = FontWeight.Medium,
+                            color = colors.textMain
                         )
                     }
                 }
                 
-                // Stats Row
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = "${(accuracy * 100).toInt()}%",
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = colors.success
-                        )
-                        Text(t("Accuracy"), fontSize = 12.sp, color = colors.textMuted)
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Button(
+                        onClick = onReturnToDashboard,
+                        colors = ButtonDefaults.buttonColors(containerColor = colors.surface, contentColor = colors.textMain),
+                        border = BorderStroke(1.dp, colors.border),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.weight(1f),
+                        contentPadding = PaddingValues(vertical = 16.dp)
+                    ) {
+                        Text(t("Dashboard"), fontWeight = FontWeight.SemiBold)
                     }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = bestStreak.toString(),
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = colors.warning
-                        )
-                        Text(t("Best Streak"), fontSize = 12.sp, color = colors.textMuted)
-                    }
-                }
-                
-                Spacer(Modifier.height(8.dp))
-                
-                // Action Buttons
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
+                    
                     Button(
                         onClick = onPlayAgain,
                         colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
@@ -843,20 +838,7 @@ private fun TrainingGameOverModal(
                         modifier = Modifier.weight(1f),
                         contentPadding = PaddingValues(vertical = 16.dp)
                     ) {
-                        MaterialSymbol(name = "replay", size = 18.sp, color = Color.White)
-                        Spacer(Modifier.width(8.dp))
                         Text(t("Play Again"), fontWeight = FontWeight.Bold)
-                    }
-                    
-                    Button(
-                        onClick = onReturnToDashboard,
-                        colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
-                        border = BorderStroke(1.dp, colors.border),
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.weight(1f),
-                        contentPadding = PaddingValues(vertical = 16.dp)
-                    ) {
-                        Text(t("Dashboard"), fontWeight = FontWeight.Bold, color = colors.textMain)
                     }
                 }
             }

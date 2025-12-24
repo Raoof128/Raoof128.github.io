@@ -43,7 +43,7 @@ import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.android.ui.theme.QRShieldShapes
 import com.qrshield.android.ui.viewmodels.GameResult
 import com.qrshield.android.ui.viewmodels.GameState
-import com.qrshield.android.ui.components.BrainVisualizer
+import com.qrshield.ui.components.CommonBrainVisualizer
 import kotlin.random.Random
 
 /**
@@ -649,7 +649,7 @@ private fun RoundAnalysisCard(
                 // Use the new BrainVisualizer component
                 // We pass signals ONLY if it's phishing. If it's safe, we pass empty list for "Calm" brain.
                 val visualSignals = if (isPhishing) signals else emptyList()
-                BrainVisualizer(
+                CommonBrainVisualizer(
                     detectedSignals = visualSignals,
                     modifier = Modifier.fillMaxWidth()
                 )

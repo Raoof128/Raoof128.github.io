@@ -5,6 +5,22 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.29] - 2025-12-24
+
+### 🧠 Cross-Platform Brain Visualizer
+
+Migrated the "Brain" visualizer to a shared KMP component and integrated it into the Desktop application, ensuring identical "Beat The Bot" experience across Android and Desktop.
+
+#### ✨ Features
+- **CommonBrainVisualizer:** Refactored Android-specific implementation into a pure KMP `CommonBrainVisualizer` in `commonMain`.
+- **Desktop Integration:** Enhanced `TrainingScreen.kt` with the brain visualizer in the analysis report section.
+- **Dynamic Signals:** Desktop visualizer now reacts to training scenario insights (Good/Bad signals).
+
+#### 🔧 Technical & Builds
+- **minSdk Update:** Bumped `androidApp` minSdk to 26 to match `common` module requirements.
+- **Test Updates:** Updated `BrainVisualizerTest` to verify the shared component.
+- **Cleanup:** Removed platform-specific `BrainVisualizer.kt` from Android.
+
 ## [1.17.27] - 2025-12-24
 
 ### 🎮 Beat The Bot Training - Visual Upgrades

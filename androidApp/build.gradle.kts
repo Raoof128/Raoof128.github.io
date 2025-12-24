@@ -14,10 +14,10 @@ android {
 
     defaultConfig {
         applicationId = "com.qrshield.android"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35  // Android 16
-        versionCode = 15
-        versionName = "1.17.28"
+        versionCode = 16
+        versionName = "1.17.29"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

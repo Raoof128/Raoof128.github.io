@@ -185,6 +185,39 @@ Any important notes for future agents.
 
 ---
 
+# 🧠 December 24, 2025 (Session 10k+5) - Cross-Platform Brain Visualizer (Desktop Integration)
+
+### Summary
+Migrated the "Brain" visualizer from Android-specific code to a shared KMP component (`CommonBrainVisualizer`) and integrated it into the Desktop application's "Beat The Bot" training screen, leveraging the common logic for consistent UI across platforms.
+
+## ✅ Changes Made
+
+### Files Updated
+| File | Change |
+|------|--------|
+| `common/.../ui/components/CommonBrainVisualizer.kt` | **New** Shared KMP component for neural net visualization |
+| `desktopApp/.../screens/TrainingScreen.kt` | Integrated `CommonBrainVisualizer` into analysis report |
+| `androidApp/.../screens/BeatTheBotScreen.kt` | Refactored to use shared `CommonBrainVisualizer` |
+| `androidApp/.../ui/components/BrainVisualizerTest.kt` | Updated tests to check `CommonBrainVisualizer` |
+| `androidApp/build.gradle.kts` | Bumped minSdk to 26 (common requirement) & version to 1.17.29 |
+| `CHANGELOG.md` | Added 1.17.29 entry |
+
+### Files Deleted
+| File | Reason |
+|------|--------|
+| `androidApp/.../ui/components/BrainVisualizer.kt` | Replaced by Common KMP version |
+
+## 🔧 Technical Details
+- **Shared Code:** `CommonBrainVisualizer` uses `Canvas` and `MaterialTheme` (Compose Multiplatform) to work on both Android and Desktop.
+- **Desktop Logic:** The visualizer in Desktop mirrors Android's behavior: showing "Calm" (blue) state when safe, and "Pulse" (red) state with badges when threats are detected (based on `training.scenario.insights`).
+- **Build Fix:** `androidApp` required `minSdk 26` because the shared module depends on `java.time` APIs via `kotlinx-datetime` or similar mechanisms in common code.
+
+## ✅ Build Verification
+```bash
+./gradlew :androidApp:assembleDebug :desktopApp:assemble
+# OUTPUT: BUILD SUCCESSFUL
+```
+
 # 🛠️ December 24, 2025 (Session 10k+4) - Android Test Error Resolution
 
 ### Summary

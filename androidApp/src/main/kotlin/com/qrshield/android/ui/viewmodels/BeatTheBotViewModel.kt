@@ -27,7 +27,8 @@ data class GameUrl(
     val url: String,
     val isPhishing: Boolean,
     val context: String,
-    val sender: String = "+1 (555) 123-4567"
+    val sender: String = "+1 (555) 123-4567",
+    val signals: List<String> = emptyList()
 )
 
 enum class GameResult {

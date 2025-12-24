@@ -1,23 +1,21 @@
-package com.qrshield.android.ui.components
+package com.qrshield.ui.components
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.qrshield.android.ui.theme.QRShieldColors
-import kotlinx.coroutines.launch
-import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.random.Random
 
@@ -25,11 +23,13 @@ import kotlin.random.Random
  * A "Brain" visualization that lights up specific neural clusters based on detected signals.
  * Designed for immediate visual feedback in the "Beat The Bot" game.
  *
+ * This component is shared between Android and Desktop (KMP).
+ *
  * @param detectedSignals List of signal strings (e.g. "TLD_ABUSE", "BRAND_IMPERSONATION")
  * @param modifier Modifier for layout
  */
 @Composable
-fun BrainVisualizer(
+fun CommonBrainVisualizer(
     detectedSignals: List<String>,
     modifier: Modifier = Modifier
 ) {
@@ -91,9 +91,9 @@ private fun BrainCanvas(
         mapSignalsToNodes(signals, nodes.size)
     }
 
-    // Color definitions
-    val safeColor = QRShieldColors.Primary
-    val dangerColor = QRShieldColors.Red500
+    // Color definitions from Material Theme for KMP compatibility
+    val safeColor = MaterialTheme.colorScheme.primary
+    val dangerColor = MaterialTheme.colorScheme.error
     val inactiveColor = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
 
     Canvas(modifier = modifier) {
@@ -176,6 +176,11 @@ private fun BrainCanvas(
 
 @Composable
 private fun DetectedSignalsBadges(signals: List<String>) {
+    val errorColor = MaterialTheme.colorScheme.error
+    
+    // Use FlowRow if available in newer Compose, but Row is safer for older versions
+    // For now, we'll wrap in a Row with horizontal scrolling if needed, or simple wrapping isn't easy without FlowRow
+    // Let's use a simple Row for MVP centered
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -183,17 +188,17 @@ private fun DetectedSignalsBadges(signals: List<String>) {
         horizontalArrangement = Arrangement.Center
     ) {
         signals.forEach { signal ->
-            androidx.compose.material3.Surface(
-                color = QRShieldColors.Red500.copy(alpha = 0.1f),
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(4.dp),
-                border = androidx.compose.foundation.BorderStroke(1.dp, QRShieldColors.Red500.copy(alpha = 0.3f)),
+            Surface(
+                color = errorColor.copy(alpha = 0.1f),
+                shape = RoundedCornerShape(4.dp),
+                border = androidx.compose.foundation.BorderStroke(1.dp, errorColor.copy(alpha = 0.3f)),
                 modifier = Modifier.padding(4.dp)
             ) {
                 Text(
                     text = signal.replace("_", " "),
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
                     style = MaterialTheme.typography.labelSmall,
-                    color = QRShieldColors.Red500
+                    color = errorColor
                 )
             }
         }
