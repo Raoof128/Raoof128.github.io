@@ -2,6 +2,8 @@ package com.qrshield.desktop.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -172,3 +174,68 @@ fun Modifier.buttonSurface(
 ): Modifier = this
     .clip(RoundedCornerShape(radius))
     .background(backgroundColor, RoundedCornerShape(radius))
+
+// ============================================================================
+// Pill & Progress Helpers
+// ============================================================================
+
+/**
+ * Simple pill shape without border.
+ * Use for progress bar tracks, badges, tag backgrounds.
+ * 
+ * @param backgroundColor The background color
+ */
+fun Modifier.pillShape(
+    backgroundColor: Color
+): Modifier = this
+    .clip(RoundedCornerShape(999.dp))
+    .background(backgroundColor, RoundedCornerShape(999.dp))
+
+/**
+ * Progress bar track styling.
+ * Use for the background of progress bars.
+ * 
+ * @param trackColor Track background color (recommend: colors.border)
+ * @param height Track height (default: 8.dp)
+ */
+fun Modifier.progressTrack(
+    trackColor: Color,
+    height: Dp = 8.dp
+): Modifier = this
+    .height(height)
+    .clip(RoundedCornerShape(999.dp))
+    .background(trackColor, RoundedCornerShape(999.dp))
+
+/**
+ * Progress bar fill styling.
+ * Use for the filled portion of progress bars.
+ * 
+ * @param fillColor Fill color (recommend: colors.primary or semantic color)
+ */
+fun Modifier.progressFill(
+    fillColor: Color
+): Modifier = this
+    .clip(RoundedCornerShape(999.dp))
+    .background(fillColor, RoundedCornerShape(999.dp))
+
+/**
+ * Toggle switch track styling.
+ * Use for toggle/switch backgrounds.
+ * 
+ * @param isEnabled Whether the toggle is enabled
+ * @param enabledColor Color when enabled (recommend: colors.primary)
+ * @param disabledColor Color when disabled (recommend: colors.border)
+ * @param width Track width (default: 48.dp)
+ * @param height Track height (default: 24.dp)
+ */
+fun Modifier.toggleTrack(
+    isEnabled: Boolean,
+    enabledColor: Color,
+    disabledColor: Color,
+    width: Dp = 48.dp,
+    height: Dp = 24.dp
+): Modifier = this
+    .width(width)
+    .height(height)
+    .clip(RoundedCornerShape(999.dp))
+    .background(if (isEnabled) enabledColor else disabledColor)

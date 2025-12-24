@@ -32,6 +32,8 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
+import com.qrshield.desktop.ui.statusPill
+import com.qrshield.desktop.ui.toggleTrack
 
 @Composable
 fun TrustCentreAltScreen(viewModel: AppViewModel) {
@@ -175,9 +177,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         }
                         Box(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(999.dp))
-                                .background(colors.success.copy(alpha = 0.1f))
-                                .border(1.dp, colors.success.copy(alpha = 0.2f), RoundedCornerShape(999.dp))
+                                .statusPill(colors.success.copy(alpha = 0.1f), colors.success.copy(alpha = 0.2f))
                                 .padding(horizontal = 12.dp, vertical = 4.dp)
                         ) {
                             Text(t("SECURITY AUDIT: PASS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.success)
@@ -289,10 +289,7 @@ private fun SettingRow(
         // Simple toggle switch
         Box(
             modifier = Modifier
-                .width(44.dp)
-                .height(24.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(if (checked) colors.primary else colors.border)
+                .toggleTrack(checked, colors.primary, colors.border, width = 44.dp)
                 .clickable { onCheckedChange(!checked) }
                 .focusable(),
             contentAlignment = if (checked) Alignment.CenterEnd else Alignment.CenterStart
@@ -400,9 +397,7 @@ private fun LanguageChip(label: String, selected: Boolean, onClick: () -> Unit) 
 
     Row(
         modifier = Modifier
-            .clip(RoundedCornerShape(999.dp))
-            .background(background)
-            .border(1.dp, border, RoundedCornerShape(999.dp))
+            .statusPill(background, border)
             .clickable { onClick() }
             .focusable()
             .padding(horizontal = 12.dp, vertical = 6.dp),

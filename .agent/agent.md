@@ -81,6 +81,53 @@ BUILD SUCCESSFUL in 18s
 
 ---
 
+# 🎨 December 24, 2025 (Session 10b) - Decorative Functions Refactoring
+
+### Summary
+Audited and consolidated decorative helper functions across all Desktop screens. Added new helpers and replaced 30+ inline styling patterns with canonical decorative functions.
+
+## 🆕 New Decorative Functions Added to `Patterns.kt`
+
+| Function | Purpose | Usage |
+|----------|---------|-------|
+| `pillShape()` | Simple pill background (clip + bg) | Badges, tags |
+| `progressTrack()` | Progress bar track styling | Progress bars |
+| `progressFill()` | Progress bar fill portion | Progress bars |
+| `toggleTrack()` | Toggle switch track styling | Settings toggles |
+
+## 🔧 Screens Refactored (Complete)
+
+| Screen | Decorative Functions Added |
+|--------|---------------------------|
+| **TrustCentreScreen.kt** | `progressTrack`, `progressFill`, `toggleTrack` |
+| **TrustCentreAltScreen.kt** | `toggleTrack`, `statusPill` (3 replacements) |
+| **TrainingScreen.kt** | `progressTrack`, `progressFill`, `statusPill` |
+| **DashboardScreen.kt** | `progressFill` (2 replacements) |
+| **ScanHistoryScreen.kt** | `statusPill` (2), `pillShape` |
+| **ResultSafeScreen.kt** | `statusPill`, `progressFill` |
+| **ResultSuspiciousScreen.kt** | `statusPill` (2), `progressFill` |
+| **ResultDangerousScreen.kt** | `statusPill` (2), `progressFill` |
+| **ResultDangerousAltScreen.kt** | `statusPill` |
+| **ReportsExportScreen.kt** | `statusPill` |
+| **LiveScanScreen.kt** | `statusPill` |
+
+## 📊 Metrics
+
+- **Inline pill patterns removed**: All `RoundedCornerShape(999.dp)` patterns replaced
+- **New helpers added**: 4 (`pillShape`, `progressTrack`, `progressFill`, `toggleTrack`)
+- **Screens updated**: 11
+- **Build status**: ✅ Successful
+
+## 🎯 Benefits
+
+1. **Consistency**: All pills, progress bars, and toggles now use the same styling
+2. **Maintainability**: Easy to update styling across all screens from one place
+3. **Readability**: Cleaner modifier chains with semantic helper names
+4. **Theme-awareness**: All helpers properly integrate with theme tokens
+5. **Zero inline `RoundedCornerShape(999.dp)`**: All pill patterns now use decorative functions
+
+---
+
 # 🌍 December 24, 2025 (Session 9) - Desktop Localization Completion
 
 ### Summary

@@ -40,6 +40,7 @@ import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
+import com.qrshield.desktop.ui.statusPill
 
 @Composable
 fun ReportsExportScreen(viewModel: AppViewModel) {
@@ -413,9 +414,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                                 modifier = Modifier
                                     .align(Alignment.BottomCenter)
                                     .offset(y = (-16).dp)
-                                    .clip(RoundedCornerShape(999.dp))
-                                    .background(colors.surface.copy(alpha = 0.9f))
-                                    .border(1.dp, colors.border, RoundedCornerShape(999.dp))
+                                    .statusPill(colors.surface.copy(alpha = 0.9f), colors.border)
                                     .padding(horizontal = 12.dp, vertical = 6.dp)
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {

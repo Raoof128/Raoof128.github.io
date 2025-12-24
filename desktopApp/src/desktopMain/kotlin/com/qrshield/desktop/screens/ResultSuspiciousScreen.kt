@@ -46,6 +46,8 @@ import com.qrshield.desktop.ui.MaterialIcon
 import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
+import com.qrshield.desktop.ui.statusPill
+import com.qrshield.desktop.ui.progressFill
 
 @Composable
 fun ResultSuspiciousScreen(viewModel: AppViewModel) {
@@ -142,9 +144,7 @@ private fun SuspiciousContent(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Box(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(999.dp))
-                            .background(colors.success.copy(alpha = if (isDark) 0.15f else 0.1f))
-                            .border(1.dp, colors.success.copy(alpha = 0.2f), RoundedCornerShape(999.dp))
+                            .statusPill(colors.success.copy(alpha = if (isDark) 0.15f else 0.1f), colors.success.copy(alpha = 0.2f))
                             .padding(horizontal = 12.dp, vertical = 4.dp)
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -207,9 +207,7 @@ private fun SuspiciousContent(
                                     Text(t("Caution Advised: Suspicious Activity Detected"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                                     Box(
                                         modifier = Modifier
-                                            .clip(RoundedCornerShape(999.dp))
-                                            .background(colors.warning.copy(alpha = 0.2f))
-                                            .border(1.dp, colors.warning.copy(alpha = 0.3f), RoundedCornerShape(999.dp))
+                                            .statusPill(colors.warning.copy(alpha = 0.2f), colors.warning.copy(alpha = 0.3f))
                                             .padding(horizontal = 8.dp, vertical = 4.dp)
                                     ) {
                                         Text(t("SUSPICIOUS"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.warning, letterSpacing = 1.sp)
@@ -613,15 +611,13 @@ private fun AlertCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(6.dp)
-                    .clip(RoundedCornerShape(999.dp))
-                    .background(colors.border.copy(alpha = 0.3f))
+                    .progressFill(colors.border.copy(alpha = 0.3f))
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxHeight()
                         .fillMaxWidth(progress)
-                        .clip(RoundedCornerShape(999.dp))
-                        .background(color)
+                        .progressFill(color)
                 )
             }
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {

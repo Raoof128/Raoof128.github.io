@@ -38,6 +38,9 @@ import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.desktop.ui.cardSurface
+import com.qrshield.desktop.ui.progressTrack
+import com.qrshield.desktop.ui.progressFill
+import com.qrshield.desktop.ui.statusPill
 
 @Composable
 fun TrainingScreen(viewModel: AppViewModel) {
@@ -118,17 +121,14 @@ private fun TrainingContent(viewModel: AppViewModel) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(8.dp)
-                        .clip(RoundedCornerShape(999.dp))
-                        .background(colors.backgroundAlt)
+                        .progressTrack(colors.backgroundAlt)
                         .border(1.dp, colors.border, RoundedCornerShape(999.dp))
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
                             .fillMaxWidth(training.progress.coerceIn(0f, 1f))
-                            .clip(RoundedCornerShape(999.dp))
-                            .background(colors.primary)
+                            .progressFill(colors.primary)
                     )
                 }
             }

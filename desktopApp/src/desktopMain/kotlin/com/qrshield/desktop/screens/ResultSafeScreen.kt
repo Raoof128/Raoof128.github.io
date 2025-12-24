@@ -37,6 +37,8 @@ import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.cardSurface
+import com.qrshield.desktop.ui.statusPill
+import com.qrshield.desktop.ui.progressFill
 
 @Composable
 fun ResultSafeScreen(viewModel: AppViewModel) {
@@ -111,9 +113,7 @@ private fun SafeResultContent(
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(999.dp))
-                        .background(colors.success.copy(alpha = 0.1f))
-                        .border(1.dp, colors.success.copy(alpha = 0.2f), RoundedCornerShape(999.dp))
+                        .statusPill(colors.success.copy(alpha = 0.1f), colors.success.copy(alpha = 0.2f))
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -341,15 +341,13 @@ private fun SafeResultContent(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(6.dp)
-                                    .clip(RoundedCornerShape(999.dp))
-                                    .background(colors.backgroundAlt)
+                                    .progressFill(colors.backgroundAlt)
                             ) {
                                 Box(
                                     modifier = Modifier
                                         .fillMaxHeight()
                                         .fillMaxWidth((100f - confidencePercent).coerceIn(0f, 100f) / 100f)
-                                        .clip(RoundedCornerShape(999.dp))
-                                        .background(colors.success)
+                                        .progressFill(colors.success)
                                 )
                             }
                         }

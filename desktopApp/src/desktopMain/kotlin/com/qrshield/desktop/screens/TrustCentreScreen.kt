@@ -38,6 +38,9 @@ import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.iconContainer
+import com.qrshield.desktop.ui.progressTrack
+import com.qrshield.desktop.ui.progressFill
+import com.qrshield.desktop.ui.toggleTrack
 
 @Composable
 fun TrustCentreScreen(viewModel: AppViewModel) {
@@ -168,16 +171,13 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(8.dp)
-                                .clip(RoundedCornerShape(999.dp))
-                                .background(colors.border)
+                                .progressTrack(colors.border)
                         )
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(0.5f)
                                 .height(8.dp)
-                                .clip(RoundedCornerShape(999.dp))
-                                .background(Brush.horizontalGradient(listOf(colors.primary.copy(alpha = 0.5f), colors.primary)))
+                                .progressFill(colors.primary)
                         )
                         Column(
                             modifier = Modifier
@@ -326,10 +326,7 @@ private fun ToggleCard(
             }
             Box(
                 modifier = Modifier
-                    .width(48.dp)
-                    .height(24.dp)
-                    .clip(RoundedCornerShape(999.dp))
-                    .background(if (enabled) activeColor else colors.border)
+                    .toggleTrack(enabled, activeColor, colors.border)
             ) {
                 Box(
                     modifier = Modifier

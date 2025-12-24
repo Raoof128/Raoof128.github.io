@@ -33,6 +33,7 @@ import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
+import com.qrshield.desktop.ui.statusPill
 
 @Composable
 fun ResultDangerousAltScreen(viewModel: AppViewModel) {
@@ -90,9 +91,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(999.dp))
-                        .background(colors.surface)
-                        .border(1.dp, colors.border, RoundedCornerShape(999.dp))
+                        .statusPill(colors.surface, colors.border)
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {

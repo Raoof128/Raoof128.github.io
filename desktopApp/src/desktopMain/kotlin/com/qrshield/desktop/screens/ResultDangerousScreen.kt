@@ -36,6 +36,8 @@ import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.iconContainer
+import com.qrshield.desktop.ui.statusPill
+import com.qrshield.desktop.ui.progressFill
 
 @Composable
 fun ResultDangerousScreen(viewModel: AppViewModel) {
@@ -106,9 +108,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Box(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(999.dp))
-                        .background(colors.surface)
-                        .border(1.dp, colors.border, RoundedCornerShape(999.dp))
+                        .statusPill(colors.surface, colors.border)
                         .padding(horizontal = 12.dp, vertical = 6.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -319,9 +319,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             )
                             Row(
                                 modifier = Modifier
-                                    .clip(RoundedCornerShape(999.dp))
-                                    .background(colors.surface)
-                                    .border(1.dp, colors.danger.copy(alpha = 0.3f), RoundedCornerShape(999.dp))
+                                    .statusPill(colors.surface, colors.danger.copy(alpha = 0.3f))
                                     .padding(horizontal = 12.dp, vertical = 6.dp)
                             ) {
                                 MaterialIconRound(name = "visibility_off", size = 14.sp, color = colors.danger)
@@ -354,15 +352,13 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(6.dp)
-                                .clip(RoundedCornerShape(999.dp))
-                                .background(colors.border.copy(alpha = 0.3f))
+                                .progressFill(colors.border.copy(alpha = 0.3f))
                         ) {
                             Box(
                                 modifier = Modifier
                                     .fillMaxHeight()
                                     .fillMaxWidth(confidencePercent / 100f)
-                                    .clip(RoundedCornerShape(999.dp))
-                                    .background(colors.danger)
+                                    .progressFill(colors.danger)
                             )
                         }
                     }

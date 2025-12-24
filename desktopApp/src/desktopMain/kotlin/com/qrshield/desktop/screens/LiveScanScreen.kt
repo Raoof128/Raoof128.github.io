@@ -48,6 +48,7 @@ import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.cardSurface
 import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.desktop.ui.iconContainer
+import com.qrshield.desktop.ui.statusPill
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
 
@@ -247,8 +248,7 @@ private fun LiveScanContent(
                                 modifier = Modifier
                                     .align(Alignment.TopCenter)
                                     .padding(top = 24.dp)
-                                    .background(colors.surface.copy(alpha = 0.9f), RoundedCornerShape(999.dp))
-                                    .border(1.dp, colors.border, RoundedCornerShape(999.dp))
+                                    .statusPill(colors.surface.copy(alpha = 0.9f), colors.border)
                                     .padding(horizontal = 16.dp, vertical = 6.dp)
                             ) {
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {

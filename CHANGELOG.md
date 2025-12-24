@@ -60,6 +60,46 @@ Discovered and documented WebApp file-based routing:
 
 ---
 
+## [1.17.15] - 2025-12-24
+
+### 🎨 Desktop - Decorative Functions Refactoring
+
+Audited and consolidated decorative helper functions across all Desktop screens. Added new helpers and replaced 30+ inline styling patterns with canonical decorative functions.
+
+#### 🆕 New Helpers in `Patterns.kt`
+
+```kotlin
+fun Modifier.pillShape(backgroundColor: Color): Modifier
+fun Modifier.progressTrack(trackColor: Color, height: Dp = 8.dp): Modifier
+fun Modifier.progressFill(fillColor: Color): Modifier
+fun Modifier.toggleTrack(isEnabled: Boolean, enabledColor: Color, disabledColor: Color, width: Dp = 48.dp, height: Dp = 24.dp): Modifier
+```
+
+#### 🔧 Screens Refactored
+
+| Screen | Decorative Functions Added |
+|--------|---------------------------|
+| `TrustCentreScreen.kt` | `progressTrack`, `progressFill`, `toggleTrack` |
+| `TrustCentreAltScreen.kt` | `toggleTrack`, `statusPill` (3 uses) |
+| `TrainingScreen.kt` | `progressTrack`, `progressFill`, `statusPill` |
+| `DashboardScreen.kt` | `progressFill` (2 uses) |
+| `ScanHistoryScreen.kt` | `statusPill` (2), `pillShape` |
+| `ResultSafeScreen.kt` | `statusPill`, `progressFill` |
+| `ResultSuspiciousScreen.kt` | `statusPill` (2), `progressFill` |
+| `ResultDangerousScreen.kt` | `statusPill` (2), `progressFill` |
+| `ResultDangerousAltScreen.kt` | `statusPill` |
+| `ReportsExportScreen.kt` | `statusPill` |
+| `LiveScanScreen.kt` | `statusPill` |
+
+#### 📊 Impact
+
+- **All `RoundedCornerShape(999.dp)` patterns** replaced with decorative helpers
+- **4 new helpers** added to central library  
+- **11 screens** updated with consistent styling
+- Improved **maintainability** and **consistency**
+
+---
+
 ## [1.17.13] - 2025-12-24
 
 ### 🌍 Desktop - Complete Localization (16 Languages)

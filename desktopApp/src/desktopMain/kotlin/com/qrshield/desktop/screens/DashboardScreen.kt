@@ -42,6 +42,8 @@ import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
+import com.qrshield.desktop.ui.progressTrack
+import com.qrshield.desktop.ui.progressFill
 import com.qrshield.data.ScanHistoryManager
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
@@ -556,15 +558,13 @@ private fun HealthBar(label: String, valueLabel: String, color: Color, progress:
             modifier = Modifier
                 .fillMaxWidth()
                 .height(6.dp)
-                .clip(RoundedCornerShape(999.dp))
-                .background(colors.border)
+                .progressFill(colors.border)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxHeight()
                     .fillMaxWidth(progress)
-                    .clip(RoundedCornerShape(999.dp))
-                    .background(color)
+                    .progressFill(color)
             )
         }
     }

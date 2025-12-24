@@ -43,6 +43,8 @@ import com.qrshield.model.Verdict
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.desktop.ui.surfaceBorder
+import com.qrshield.desktop.ui.statusPill
+import com.qrshield.desktop.ui.pillShape
 
 @Composable
 fun ScanHistoryScreen(viewModel: AppViewModel) {
@@ -133,7 +135,7 @@ private fun ScanHistoryHeader(
             )
             Row(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(999.dp))
+                    .pillShape(Color.Transparent)
                     .padding(horizontal = 4.dp, vertical = 2.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -203,9 +205,7 @@ private fun ScanHistoryContent(
                     Text(t("Scan History"), fontSize = 36.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                     Box(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(999.dp))
-                            .background(colors.primary.copy(alpha = 0.15f))
-                            .border(1.dp, colors.primary.copy(alpha = 0.25f), RoundedCornerShape(999.dp))
+                            .statusPill(colors.primary.copy(alpha = 0.15f), colors.primary.copy(alpha = 0.25f))
                             .padding(horizontal = 10.dp, vertical = 2.dp)
                     ) {
                         Text(t("LIVE"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = colors.primary, letterSpacing = 1.sp)
@@ -614,9 +614,7 @@ private fun HistoryRow(
         Row(
             modifier = Modifier
                 .width(120.dp)
-                .clip(RoundedCornerShape(999.dp))
-                .background(verdictBg)
-                .border(1.dp, verdictColor.copy(alpha = 0.2f), RoundedCornerShape(999.dp))
+                .statusPill(verdictBg, verdictColor.copy(alpha = 0.2f))
                 .padding(horizontal = 10.dp, vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(6.dp)
