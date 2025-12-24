@@ -17,6 +17,11 @@ Achieved complete visual and behavioral parity for Beat The Bot across all 4 pla
 - **Parity Constants:** Created `BeatTheBotParity.kt` single source of truth
 - **Documentation:** Added comprehensive parity audit in `docs/BEAT_THE_BOT_PARITY_AUDIT.md`
 
+#### 📋 Evidence Pack
+- **`docs/EVIDENCE.md`**: Links every README claim to reproducible artifacts
+- **Artifacts folder**: `docs/artifacts/` with parity & detection test outputs
+- **Claim-to-Evidence matrix**: 8 major claims with verification commands
+
 #### 🔬 Malicious URL Proof Test
 - **140 URLs** across 9 attack categories (homograph, typosquatting, risky TLD, etc.)
 - **85% detection rate** (119/140 threats blocked)

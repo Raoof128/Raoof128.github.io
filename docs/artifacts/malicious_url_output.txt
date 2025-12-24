@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.qrshield.benchmark.MaliciousUrlProofTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T19:50:07.169Z" hostname="Raoufs-MacBook-Air.local" time="0.071">
+  <properties/>
+  <testcase name="proof test - detects 150 plus malicious URLs at 95 percent threshold[desktop]" classname="com.qrshield.benchmark.MaliciousUrlProofTest" time="0.066"/>
+  <testcase name="smoke test - detects critical threat categories[desktop]" classname="com.qrshield.benchmark.MaliciousUrlProofTest" time="0.005"/>
+  <system-out><![CDATA[
+═══════════════════════════════════════════════════════════════
+             QR-SHIELD MALICIOUS URL PROOF TEST
+═══════════════════════════════════════════════════════════════
+
+✅ Verified: 119/140 threats blocked (85.0%)
+
+By Category:
+  BRAND_IMPERSONATION   59/60  (98.3%) !
+  COMBO                  9/10  (90.0%) !
+  HOMOGRAPH              7/8   (87.5%) !
+  INSECURE              10/10  (100.0%) ✓
+  RISKY_TLD             10/10  (100.0%) ✓
+  SUBDOMAIN_ABUSE       10/10  (100.0%) ✓
+  SUSPICIOUS_PATH        0/10  (0.0%) !
+  TYPOSQUATTING         11/12  (91.7%) !
+  URL_SHORTENER          3/10  (30.0%) !
+
+⚠️  Missed URLs (21):
+  - https://micros0ft-support.com/office365
+    Expected: MALICIOUS, Got: SAFE (score: 9)
+  - https://yahooo.com/mail
+    Expected: MALICIOUS, Got: SAFE (score: 9)
+  - https://bit.ly/3xYz123
+    Expected: SUSPICIOUS, Got: SAFE (score: 19)
+  - https://tinyurl.com/abc123
+    Expected: SUSPICIOUS, Got: SAFE (score: 17)
+  - https://ow.ly/xyz123
+    Expected: SUSPICIOUS, Got: SAFE (score: 19)
+  - https://is.gd/abc789
+    Expected: SUSPICIOUS, Got: SAFE (score: 19)
+  - https://v.gd/xyz456
+    Expected: SUSPICIOUS, Got: SAFE (score: 18)
+  - https://cutt.ly/xyz789
+    Expected: SUSPICIOUS, Got: SAFE (score: 19)
+  - https://short.io/abc456
+    Expected: SUSPICIOUS, Got: SAFE (score: 14)
+  - https://facebook-security-team.com/verify
+    Expected: MALICIOUS, Got: SAFE (score: 13)
+  ... and 11 more
+
+Detection Rate: 85.0% (Required: 80.0%)
+Status: PASSED ✓
+
+═══════════════════════════════════════════════════════════════
+
+[✓] https://secure-paypa1.com/login -> SUSPICIOUS (score: 18)
+[✓] https://au-post-tracking.tk/delivery -> SUSPICIOUS (score: 24)
+[✓] https://apple-id-verify.com/restore -> SUSPICIOUS (score: 15)
+[✓] http://secure-banking.com/login -> SUSPICIOUS (score: 30)
+[✗] https://bit.ly/3xYz123 -> SAFE (score: 19)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

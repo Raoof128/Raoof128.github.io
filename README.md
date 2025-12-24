@@ -118,7 +118,7 @@
 | `./judge/verify_accuracy.sh` | 87% F1 score |
 | `./judge/verify_parity.sh` | Identical verdicts on JVM + JS + Native + Wasm |
 
-> 📖 **[Full Evidence Pack →](docs/EVIDENCE_PACK.md)** - Every claim linked to reproducible artifacts
+> 📖 **[Full Evidence Pack →](docs/EVIDENCE.md)** - Every claim linked to reproducible artifacts
 
 **Try these URLs:**
 

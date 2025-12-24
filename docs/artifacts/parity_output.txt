@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.qrshield.benchmark.PlatformParityProofTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T19:50:14.865Z" hostname="Raoufs-MacBook-Air.local" time="0.042">
+  <properties/>
+  <testcase name="parity proof - same verdicts across platforms[desktop]" classname="com.qrshield.benchmark.PlatformParityProofTest" time="0.028"/>
+  <testcase name="benchmark - p50 p95 latency[desktop]" classname="com.qrshield.benchmark.PlatformParityProofTest" time="0.014"/>
+  <system-out><![CDATA[
+═══════════════════════════════════════════════════════════════
+           QR-SHIELD CROSS-PLATFORM PARITY PROOF
+═══════════════════════════════════════════════════════════════
+
+Platform: Kotlin Multiplatform
+URLs tested: 45
+
+VERDICT FINGERPRINT (compare across platforms):
+─────────────────────────────────────────────────────────────────
+  1-10: SSSSSSSSSS
+  11-20: WWWWWWWWWW
+  21-30: WSSMWSSSSS
+  31-40: WWWWWWWWWW
+  41-45: WWWWW
+
+SUMMARY:
+  SAFE:       17
+  SUSPICIOUS: 27
+  MALICIOUS:  1
+
+Total analysis time: 1ms
+Average per URL: 0ms
+
+PARITY HASH: -57427343
+(This hash should be IDENTICAL across all platforms)
+
+═══════════════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════════════
+              QR-SHIELD PERFORMANCE BENCHMARK
+═══════════════════════════════════════════════════════════════
+
+Platform: Kotlin Multiplatform
+
+LATENCY RESULTS (100 iterations):
+─────────────────────────────────────────────────────────────────
+  Min:     0ms
+  P50:     0ms
+  P95:     0ms
+  P99:     0ms
+  Max:     0ms
+  Average: 0.00ms
+
+═══════════════════════════════════════════════════════════════
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
