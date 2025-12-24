@@ -27,15 +27,29 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## 🔴 MANDATORY: Documentation After EVERY Edit
+
+> **After EVERY task and edit, you MUST update `agent.md` and `CHANGELOG.md` accordingly.**
+> 
+> This is NON-NEGOTIABLE. No exceptions. Your task is NOT complete until documentation is updated.
+
+See the full workflow: `.agent/workflows/documentation.md` or use `/documentation`
+
+---
+
 ## 📋 Pre-Commit Checklist
 
-Before finishing your session, ensure you complete these steps:
+Before finishing your session, ensure you complete ALL steps:
 
-- [ ] ✅ Update `CHANGELOG.md` with new version entry describing your changes
-- [ ] ✅ Update ALL platform version files (Android, iOS, Desktop)
-- [ ] ✅ Add session notes to this `agent.md` file
-- [ ] ✅ Run basic tests if applicable
-- [ ] ✅ Commit and push changes
+| # | Required | Task |
+|---|----------|------|
+| 1 | 🔴 **MANDATORY** | Update `agent.md` with session entry |
+| 2 | 🔴 **MANDATORY** | Update `CHANGELOG.md` with changes |
+| 3 | 🟡 If version bump | Update Android `build.gradle.kts` |
+| 4 | 🟡 If version bump | Update iOS `project.pbxproj` (2 places!) |
+| 5 | 🟡 If version bump | Update Desktop version in DashboardScreen |
+| 6 | 🟢 If applicable | Run basic tests |
+| 7 | 🟢 Final step | Commit and push changes |
 
 ---
 
@@ -149,11 +163,12 @@ Any important notes for future agents.
 
 ## ⚡ Quick Tips
 
-1. **Read CHANGELOG.md first** - Understand recent changes before making new ones
-2. **Check for existing patterns** - Don't reinvent; follow existing code style
-3. **Test on all platforms if possible** - Changes to `common/` affect everything
-4. **Keep localization in sync** - If you add a string, add it to ALL 16 languages
-5. **Update docs if you change architecture** - Keep `docs/` folder current
+1. **🔴 Update docs after EVERY edit** - agent.md + CHANGELOG.md are MANDATORY
+2. **Read CHANGELOG.md first** - Understand recent changes before making new ones
+3. **Check for existing patterns** - Don't reinvent; follow existing code style
+4. **Test on all platforms if possible** - Changes to `common/` affect everything
+5. **Keep localization in sync** - If you add a string, add it to ALL 16 languages
+6. **Update docs if you change architecture** - Keep `docs/` folder current
 
 ---
 
