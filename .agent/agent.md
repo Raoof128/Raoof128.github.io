@@ -4,6 +4,32 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+## ⚠️ IMPORTANT: Version Management Reminder for All Agents
+
+**Current App Version: `1.17.23`** (as of December 24, 2025)
+
+### 🔴 After Making Improvements, YOU MUST Update Version Numbers:
+
+| Platform | File | Field |
+|----------|------|-------|
+| **Android** | `androidApp/build.gradle.kts` | `versionCode` (increment) + `versionName` |
+| **iOS** | `iosApp/QRShield.xcodeproj/project.pbxproj` | `MARKETING_VERSION` (2 occurrences) |
+| **Desktop** | `desktopApp/.../screens/DashboardScreen.kt` | `KeyValueRow` version value |
+| **CHANGELOG** | `CHANGELOG.md` | Add new entry at top with version number |
+
+### Version Format
+- Use semantic versioning: `MAJOR.MINOR.PATCH` (e.g., `1.17.24`)
+- Increment PATCH for bug fixes
+- Increment MINOR for new features
+- Increment MAJOR for breaking changes
+
+### Checklist Before Committing:
+- [ ] Update `CHANGELOG.md` with new version entry
+- [ ] Update platform-specific version files
+- [ ] Update this agent.md with session notes
+
+---
+
 # 📱 December 24, 2025 (Session 10j) - Android App Audit & Version Sync
 
 ### Summary
