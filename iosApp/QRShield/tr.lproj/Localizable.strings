@@ -195,3 +195,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Güvenli. Çevrimdışı.";
+"dashboard.hero.tagline2" = "Açıklanabilir Savunma.";
+"dashboard.hero.description" = "QR-SHIELD potansiyel tehditleri doğrudan donanımınızda analiz eder. ";
+"dashboard.hero.zero_latency" = "Sıfır gecikmeli koruma yaşayın.";
+"dashboard.enterprise_badge" = "KURUMSAL KORUMA AKTİF";
+"dashboard.analyze" = "Analiz Et";
+"dashboard.scan_qr" = "QR Kodunu Tara";
+"dashboard.import_image" = "Görüntü İçe Aktar";
+"dashboard.system_optimal" = "Sistem Optimal";
+"dashboard.engine_status" = "Motor v2.4 • 2s önce güncellendi";
+"dashboard.threats_blocked" = "Engellenen Tehditler";
+"dashboard.safe_scans" = "Güvenli Taramalar";
+"dashboard.engine_features" = "MOTOR ÖZELLİKLERİ";
+"dashboard.recent_scans" = "SON TARAMALAR";
+"dashboard.view_all" = "Tümünü Gör";
+"dashboard.no_scans_yet" = "Henüz tarama yok";
+"dashboard.no_scans_message" = "Başlamak için bir QR kodu tarayın veya URL yapıştırın";
+"dashboard.threat_database" = "Tehdit Veritabanı";
+"dashboard.db_updated" = "Yerel veritabanı başarıyla güncellendi.";
+"dashboard.offline_ready" = "ÇEVRİMDIŞI HAZIR";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Hızlı İşlemler";
+"settings.threat_monitor" = "Tehdit İzleyici";
+"settings.threat_monitor_desc" = "Canlı tehditleri görüntüle ve güvenlik denetimi çalıştır";
+"settings.trust_centre" = "Güven Merkezi";
+"settings.trust_centre_desc" = "Gizlilik ayarları ve tehdit hassasiyeti";
+"settings.export_report" = "Rapor Dışa Aktar";
+"settings.export_report_desc" = "PDF veya JSON güvenlik raporu oluştur";
+
+// MARK: - Trust Centre
+"trust.title" = "Güven Merkezi";
+"trust.offline_guarantee" = "Sıkı Çevrimdışı Garantisi";
+"trust.offline_description" = "QR-SHIELD analizi tamamen cihazınızın Neural Engine'inde çalışır. URL verileri asla telefonunuzdan ayrılmaz.";
+"trust.threat_sensitivity" = "Tehdit Hassasiyeti";
+"trust.reset_confirm" = "Bu, tüm Güven Merkezi ayarlarını varsayılanlara sıfırlayacaktır.";
+
+// MARK: - Results Actions
+"result.block_report" = "Engelle ve Bildir";
+"result.block_description" = "Bu, alan adını engelleyecek ve güvenlik ekibinize bildirecektir.";
+"result.block_action" = "Erişimi engelle ve yöneticiyi bilgilendir";
+"result.quarantine" = "Sandbox'ta Karantinaya Al";
+"result.quarantine_action" = "Analiz için güvenli aç";
+"result.expected" = "Beklenen: ";
+"result.detected" = "Tespit Edilen: ";
+"result.explainable_security" = "Açıklanabilir Güvenlik";
+"result.url_breakdown" = "URL DAĞILIMI";
+"result.full_url" = "TAM URL";
+"result.open_safari" = "Safari'de Aç (Riskli)";
+"result.open_warning_full" = "Bu URL'yi tarayıcınızda açmak sizi güvenlik risklerine maruz bırakabilir.";
+"result.restricted_mode" = "Kısıtlı Mod";
+"result.restricted_description" = "Bu URL potansiyel olarak tehlikeli olarak işaretlendi. Devam etmeden önce aşağıdaki analizi inceleyin.";
+"result.dangerous_warning" = "Bu URL potansiyel olarak tehlikeli olarak işaretlendi. Açmak sizi kimlik avı, kötü amaçlı yazılım veya diğer güvenlik tehditlerine maruz bırakabilir.\n\nDevam etmek istediğinizden emin misiniz?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "HIZLI İŞLEMLER";
+"nav.systems_operational" = "Tüm sistemler çalışıyor";
+
+// MARK: - Common
+"common.enabled" = "Etkin";
+"common.disabled" = "Devre Dışı";

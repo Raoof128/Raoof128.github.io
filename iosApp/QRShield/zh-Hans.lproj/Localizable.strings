@@ -197,3 +197,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "安全。离线。";
+"dashboard.hero.tagline2" = "可解释的防御。";
+"dashboard.hero.description" = "QR-SHIELD 直接在您的硬件上分析潜在威胁。体验";
+"dashboard.hero.zero_latency" = "零延迟保护。";
+"dashboard.enterprise_badge" = "企业保护已激活";
+"dashboard.analyze" = "分析";
+"dashboard.scan_qr" = "扫描二维码";
+"dashboard.import_image" = "导入图片";
+"dashboard.system_optimal" = "系统最佳";
+"dashboard.engine_status" = "引擎 v2.4 • 2小时前更新";
+"dashboard.threats_blocked" = "已阻止威胁";
+"dashboard.safe_scans" = "安全扫描";
+"dashboard.engine_features" = "引擎功能";
+"dashboard.recent_scans" = "最近扫描";
+"dashboard.view_all" = "查看全部";
+"dashboard.no_scans_yet" = "暂无扫描";
+"dashboard.no_scans_message" = "扫描二维码或粘贴链接开始使用";
+"dashboard.threat_database" = "威胁数据库";
+"dashboard.db_updated" = "本地数据库更新成功。";
+"dashboard.offline_ready" = "离线就绪";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "快捷操作";
+"settings.threat_monitor" = "威胁监控";
+"settings.threat_monitor_desc" = "查看实时威胁并运行安全审计";
+"settings.trust_centre" = "信任中心";
+"settings.trust_centre_desc" = "隐私设置和威胁敏感度";
+"settings.export_report" = "导出报告";
+"settings.export_report_desc" = "生成 PDF 或 JSON 安全报告";
+
+// MARK: - Trust Centre
+"trust.title" = "信任中心";
+"trust.offline_guarantee" = "严格离线保证";
+"trust.offline_description" = "QR-SHIELD 分析完全在设备的 Neural Engine 上运行。URL 数据永远不会离开您的手机。";
+"trust.threat_sensitivity" = "威胁敏感度";
+"trust.reset_confirm" = "这将把所有信任中心设置重置为默认值。";
+
+// MARK: - Results Actions
+"result.block_report" = "阻止并报告";
+"result.block_description" = "这将阻止该域名并向您的安全团队报告。";
+"result.block_action" = "阻止访问并通知管理员";
+"result.quarantine" = "沙盒隔离";
+"result.quarantine_action" = "安全打开以进行分析";
+"result.expected" = "预期：";
+"result.detected" = "检测到：";
+"result.explainable_security" = "可解释安全";
+"result.url_breakdown" = "URL 分解";
+"result.full_url" = "完整 URL";
+"result.open_safari" = "在 Safari 中打开（有风险）";
+"result.open_warning_full" = "在浏览器中打开此 URL 可能会使您面临安全风险。";
+"result.restricted_mode" = "受限模式";
+"result.restricted_description" = "此 URL 已被标记为潜在危险。继续前请查看下面的分析。";
+"result.dangerous_warning" = "此 URL 已被标记为潜在危险。打开它可能会使您面临网络钓鱼、恶意软件或其他安全威胁。\n\n您确定要继续吗？";
+
+// MARK: - Navigation
+"nav.quick_actions" = "快捷操作";
+"nav.systems_operational" = "所有系统运行正常";
+
+// MARK: - Common
+"common.enabled" = "已启用";
+"common.disabled" = "已禁用";

@@ -5,6 +5,38 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.21] - 2025-12-24
+
+### 🎨 iOS App - UI Localization Implementation
+
+Implemented full UI localization across all major iOS app views, replacing hardcoded strings with localized string keys.
+
+#### ✨ New Localization Keys (50+ per language)
+
+| Category | Keys | Purpose |
+|----------|------|---------|
+| Dashboard | 22 | Hero section, stats, features, empty states |
+| Settings | 7 | Quick actions (threat monitor, trust centre, export) |
+| Trust Centre | 5 | Offline guarantee, sensitivity settings |
+| Results | 15 | Block/report, quarantine, security warnings, URL breakdown |
+| Navigation | 3 | Quick actions header, system status |
+| Common | 2 | Enabled/Disabled accessibility states |
+
+#### 🔧 Swift UI Files Updated
+
+- `SettingsView.swift` - Quick actions, about section
+- `DashboardView.swift` - Hero section, stats grid, recent scans
+- `TrustCentreView.swift` - Offline banner, sensitivity controls
+- `ScanResultView.swift` - Actions, URL analysis, security warnings
+- `DetailSheet.swift` - URL details, share/open actions
+- `MainMenuView.swift` - Header, quick actions
+
+#### 🌍 All 16 Languages Updated
+
+Arabic, Chinese, English, French, German, Hindi, Indonesian, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Thai, Turkish, Vietnamese
+
+---
+
 ## [1.17.20] - 2025-12-24
 
 ### 🌍 iOS App - i18n Expansion (11 → 16 Languages)

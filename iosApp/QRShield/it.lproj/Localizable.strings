@@ -197,3 +197,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Sicuro. Offline.";
+"dashboard.hero.tagline2" = "Difesa Spiegabile.";
+"dashboard.hero.description" = "QR-SHIELD analizza le potenziali minacce direttamente sul tuo hardware. Sperimenta ";
+"dashboard.hero.zero_latency" = "protezione senza latenza.";
+"dashboard.enterprise_badge" = "PROTEZIONE ENTERPRISE ATTIVA";
+"dashboard.analyze" = "Analizza";
+"dashboard.scan_qr" = "Scansiona Codice QR";
+"dashboard.import_image" = "Importa Immagine";
+"dashboard.system_optimal" = "Sistema Ottimale";
+"dashboard.engine_status" = "Motore v2.4 • Aggiornato 2h fa";
+"dashboard.threats_blocked" = "Minacce Bloccate";
+"dashboard.safe_scans" = "Scansioni Sicure";
+"dashboard.engine_features" = "FUNZIONALITÀ DEL MOTORE";
+"dashboard.recent_scans" = "SCANSIONI RECENTI";
+"dashboard.view_all" = "Vedi Tutto";
+"dashboard.no_scans_yet" = "Nessuna scansione ancora";
+"dashboard.no_scans_message" = "Scansiona un codice QR o incolla un URL per iniziare";
+"dashboard.threat_database" = "Database Minacce";
+"dashboard.db_updated" = "Database locale aggiornato con successo.";
+"dashboard.offline_ready" = "PRONTO OFFLINE";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Azioni Rapide";
+"settings.threat_monitor" = "Monitor Minacce";
+"settings.threat_monitor_desc" = "Visualizza minacce in tempo reale ed esegui audit di sicurezza";
+"settings.trust_centre" = "Centro Fiducia";
+"settings.trust_centre_desc" = "Impostazioni privacy e sensibilità minacce";
+"settings.export_report" = "Esporta Report";
+"settings.export_report_desc" = "Genera report di sicurezza PDF o JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Centro Fiducia";
+"trust.offline_guarantee" = "Garanzia Offline Rigorosa";
+"trust.offline_description" = "L'analisi QR-SHIELD viene eseguita interamente sul Neural Engine del tuo dispositivo. I dati URL non lasciano mai il tuo telefono.";
+"trust.threat_sensitivity" = "Sensibilità Minacce";
+"trust.reset_confirm" = "Questo ripristinerà tutte le impostazioni del Centro Fiducia ai valori predefiniti.";
+
+// MARK: - Results Actions
+"result.block_report" = "Blocca e Segnala";
+"result.block_description" = "Questo bloccherà il dominio e lo segnalerà al tuo team di sicurezza.";
+"result.block_action" = "Impedisci accesso e notifica amministratore";
+"result.quarantine" = "Quarantena in Sandbox";
+"result.quarantine_action" = "Apri in sicurezza per analisi";
+"result.expected" = "Previsto: ";
+"result.detected" = "Rilevato: ";
+"result.explainable_security" = "Sicurezza Spiegabile";
+"result.url_breakdown" = "ANALISI URL";
+"result.full_url" = "URL COMPLETO";
+"result.open_safari" = "Apri in Safari (Rischioso)";
+"result.open_warning_full" = "Aprire questo URL nel browser potrebbe esporti a rischi di sicurezza.";
+"result.restricted_mode" = "Modalità Limitata";
+"result.restricted_description" = "Questo URL è stato segnalato come potenzialmente pericoloso. Esamina l'analisi sotto prima di continuare.";
+"result.dangerous_warning" = "Questo URL è stato segnalato come potenzialmente pericoloso. Aprirlo potrebbe esporti a phishing, malware o altre minacce alla sicurezza.\n\nSei sicuro di voler continuare?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "AZIONI RAPIDE";
+"nav.systems_operational" = "Tutti i sistemi operativi";
+
+// MARK: - Common
+"common.enabled" = "Abilitato";
+"common.disabled" = "Disabilitato";

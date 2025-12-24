@@ -195,3 +195,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "آمن. غير متصل.";
+"dashboard.hero.tagline2" = "دفاع قابل للتفسير.";
+"dashboard.hero.description" = "يحلل QR-SHIELD التهديدات المحتملة مباشرة على جهازك. استمتع بـ";
+"dashboard.hero.zero_latency" = "حماية بدون تأخير.";
+"dashboard.enterprise_badge" = "حماية المؤسسات نشطة";
+"dashboard.analyze" = "تحليل";
+"dashboard.scan_qr" = "مسح رمز QR";
+"dashboard.import_image" = "استيراد صورة";
+"dashboard.system_optimal" = "النظام مثالي";
+"dashboard.engine_status" = "المحرك v2.4 • تحديث منذ ساعتين";
+"dashboard.threats_blocked" = "تهديدات محظورة";
+"dashboard.safe_scans" = "مسح آمن";
+"dashboard.engine_features" = "ميزات المحرك";
+"dashboard.recent_scans" = "عمليات المسح الأخيرة";
+"dashboard.view_all" = "عرض الكل";
+"dashboard.no_scans_yet" = "لا توجد عمليات مسح بعد";
+"dashboard.no_scans_message" = "امسح رمز QR أو الصق رابط للبدء";
+"dashboard.threat_database" = "قاعدة بيانات التهديدات";
+"dashboard.db_updated" = "تم تحديث قاعدة البيانات المحلية بنجاح.";
+"dashboard.offline_ready" = "جاهز للعمل دون اتصال";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "إجراءات سريعة";
+"settings.threat_monitor" = "مراقب التهديدات";
+"settings.threat_monitor_desc" = "عرض التهديدات الحية وتشغيل تدقيق الأمان";
+"settings.trust_centre" = "مركز الثقة";
+"settings.trust_centre_desc" = "إعدادات الخصوصية وحساسية التهديدات";
+"settings.export_report" = "تصدير التقرير";
+"settings.export_report_desc" = "إنشاء تقرير أمان PDF أو JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "مركز الثقة";
+"trust.offline_guarantee" = "ضمان صارم للعمل دون اتصال";
+"trust.offline_description" = "يعمل تحليل QR-SHIELD بالكامل على محرك Neural Engine في جهازك. لا تغادر بيانات URL هاتفك أبداً.";
+"trust.threat_sensitivity" = "حساسية التهديدات";
+"trust.reset_confirm" = "سيؤدي هذا إلى إعادة تعيين جميع إعدادات مركز الثقة إلى الإعدادات الافتراضية.";
+
+// MARK: - Results Actions
+"result.block_report" = "حظر وإبلاغ";
+"result.block_description" = "سيؤدي هذا إلى حظر النطاق وإبلاغ فريق الأمان الخاص بك.";
+"result.block_action" = "منع الوصول وإخطار المسؤول";
+"result.quarantine" = "عزل في Sandbox";
+"result.quarantine_action" = "فتح بأمان للتحليل";
+"result.expected" = "المتوقع: ";
+"result.detected" = "المكتشف: ";
+"result.explainable_security" = "أمان قابل للتفسير";
+"result.url_breakdown" = "تفصيل الرابط";
+"result.full_url" = "الرابط الكامل";
+"result.open_safari" = "فتح في Safari (محفوف بالمخاطر)";
+"result.open_warning_full" = "قد يعرضك فتح هذا الرابط في متصفحك لمخاطر أمنية.";
+"result.restricted_mode" = "وضع مقيد";
+"result.restricted_description" = "تم تصنيف هذا الرابط على أنه خطير محتمل. راجع التحليل أدناه قبل المتابعة.";
+"result.dangerous_warning" = "تم تصنيف هذا الرابط على أنه خطير محتمل. قد يعرضك فتحه للتصيد أو البرامج الضارة أو تهديدات أمنية أخرى.\n\nهل أنت متأكد أنك تريد المتابعة؟";
+
+// MARK: - Navigation
+"nav.quick_actions" = "إجراءات سريعة";
+"nav.systems_operational" = "جميع الأنظمة تعمل";
+
+// MARK: - Common
+"common.enabled" = "مفعّل";
+"common.disabled" = "معطّل";

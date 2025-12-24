@@ -195,3 +195,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "ปลอดภัย. ออฟไลน์.";
+"dashboard.hero.tagline2" = "การป้องกันที่อธิบายได้.";
+"dashboard.hero.description" = "QR-SHIELD วิเคราะห์ภัยคุกคามที่อาจเกิดขึ้นโดยตรงบนฮาร์ดแวร์ของคุณ สัมผัส";
+"dashboard.hero.zero_latency" = "การป้องกันแบบไม่มีความหน่วง.";
+"dashboard.enterprise_badge" = "การป้องกันระดับองค์กรทำงานอยู่";
+"dashboard.analyze" = "วิเคราะห์";
+"dashboard.scan_qr" = "สแกนโค้ด QR";
+"dashboard.import_image" = "นำเข้ารูปภาพ";
+"dashboard.system_optimal" = "ระบบทำงานดีที่สุด";
+"dashboard.engine_status" = "เอนจิน v2.4 • อัปเดต 2 ชม. ที่แล้ว";
+"dashboard.threats_blocked" = "ภัยคุกคามที่ถูกบล็อก";
+"dashboard.safe_scans" = "การสแกนที่ปลอดภัย";
+"dashboard.engine_features" = "ฟีเจอร์เอนจิน";
+"dashboard.recent_scans" = "การสแกนล่าสุด";
+"dashboard.view_all" = "ดูทั้งหมด";
+"dashboard.no_scans_yet" = "ยังไม่มีการสแกน";
+"dashboard.no_scans_message" = "สแกนโค้ด QR หรือวาง URL เพื่อเริ่มต้น";
+"dashboard.threat_database" = "ฐานข้อมูลภัยคุกคาม";
+"dashboard.db_updated" = "อัปเดตฐานข้อมูลท้องถิ่นสำเร็จ";
+"dashboard.offline_ready" = "พร้อมใช้งานออฟไลน์";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "การดำเนินการด่วน";
+"settings.threat_monitor" = "ตัวตรวจสอบภัยคุกคาม";
+"settings.threat_monitor_desc" = "ดูภัยคุกคามแบบเรียลไทม์และทำการตรวจสอบความปลอดภัย";
+"settings.trust_centre" = "ศูนย์ความน่าเชื่อถือ";
+"settings.trust_centre_desc" = "การตั้งค่าความเป็นส่วนตัวและความไวของภัยคุกคาม";
+"settings.export_report" = "ส่งออกรายงาน";
+"settings.export_report_desc" = "สร้างรายงานความปลอดภัย PDF หรือ JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "ศูนย์ความน่าเชื่อถือ";
+"trust.offline_guarantee" = "การรับประกันออฟไลน์อย่างเข้มงวด";
+"trust.offline_description" = "การวิเคราะห์ QR-SHIELD ทำงานบน Neural Engine ของอุปกรณ์ทั้งหมด ข้อมูล URL ไม่เคยออกจากโทรศัพท์ของคุณ";
+"trust.threat_sensitivity" = "ความไวของภัยคุกคาม";
+"trust.reset_confirm" = "การดำเนินการนี้จะรีเซ็ตการตั้งค่าศูนย์ความน่าเชื่อถือทั้งหมดเป็นค่าเริ่มต้น";
+
+// MARK: - Results Actions
+"result.block_report" = "บล็อกและรายงาน";
+"result.block_description" = "การดำเนินการนี้จะบล็อกโดเมนและรายงานไปยังทีมความปลอดภัยของคุณ";
+"result.block_action" = "ป้องกันการเข้าถึงและแจ้งผู้ดูแล";
+"result.quarantine" = "กักกันใน Sandbox";
+"result.quarantine_action" = "เปิดอย่างปลอดภัยเพื่อวิเคราะห์";
+"result.expected" = "คาดหวัง: ";
+"result.detected" = "ตรวจพบ: ";
+"result.explainable_security" = "ความปลอดภัยที่อธิบายได้";
+"result.url_breakdown" = "รายละเอียด URL";
+"result.full_url" = "URL เต็ม";
+"result.open_safari" = "เปิดใน Safari (เสี่ยง)";
+"result.open_warning_full" = "การเปิด URL นี้ในเบราว์เซอร์อาจทำให้คุณเสี่ยงต่อความปลอดภัย";
+"result.restricted_mode" = "โหมดจำกัด";
+"result.restricted_description" = "URL นี้ถูกตั้งค่าสถานะว่าอาจเป็นอันตราย ตรวจสอบการวิเคราะห์ด้านล่างก่อนดำเนินการต่อ";
+"result.dangerous_warning" = "URL นี้ถูกตั้งค่าสถานะว่าอาจเป็นอันตราย การเปิดอาจทำให้คุณเสี่ยงต่อฟิชชิ่ง มัลแวร์ หรือภัยคุกคามความปลอดภัยอื่นๆ\n\nคุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "การดำเนินการด่วน";
+"nav.systems_operational" = "ระบบทั้งหมดทำงานปกติ";
+
+// MARK: - Common
+"common.enabled" = "เปิดใช้งาน";
+"common.disabled" = "ปิดใช้งาน";

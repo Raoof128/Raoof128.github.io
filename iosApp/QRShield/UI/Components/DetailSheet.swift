@@ -265,7 +265,7 @@ struct DetailSheet: View {
             VStack(alignment: .leading, spacing: 16) {
                 // Full URL
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("URL")
+                    Text("detail.url_label")
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -279,7 +279,7 @@ struct DetailSheet: View {
                 
                 // Domain
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Domain")
+                    Text("detail.domain")
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -291,7 +291,7 @@ struct DetailSheet: View {
                 // Protocol
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Protocol")
+                        Text("detail.protocol")
                             .font(.caption)
                             .foregroundColor(.textMuted)
                         
@@ -337,7 +337,7 @@ struct DetailSheet: View {
             ShareLink(item: shareText) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
-                    Text("Share Analysis")
+                    Text("detail.share_analysis")
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -364,7 +364,7 @@ struct DetailSheet: View {
             } label: {
                 HStack {
                     Image(systemName: "globe")
-                    Text("Open URL")
+                    Text("detail.open_url")
                 }
                 .font(.headline)
                 .foregroundColor(assessment.verdict == .safe ? .verdictSafe : .textPrimary)
@@ -382,7 +382,7 @@ struct DetailSheet: View {
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("Opening this URL may be dangerous. Are you sure?")
+                Text("detail.open_warning")
             }
             
             // Copy URL Button

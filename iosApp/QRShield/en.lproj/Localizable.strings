@@ -215,3 +215,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Secure. Offline.";
+"dashboard.hero.tagline2" = "Explainable Defence.";
+"dashboard.hero.description" = "QR-SHIELD analyses potential threats directly on your hardware. Experience ";
+"dashboard.hero.zero_latency" = "zero-latency protection.";
+"dashboard.enterprise_badge" = "ENTERPRISE PROTECTION ACTIVE";
+"dashboard.analyze" = "Analyze";
+"dashboard.scan_qr" = "Scan QR Code";
+"dashboard.import_image" = "Import Image";
+"dashboard.system_optimal" = "System Optimal";
+"dashboard.engine_status" = "Engine v2.4 • Updated 2h ago";
+"dashboard.threats_blocked" = "Threats Blocked";
+"dashboard.safe_scans" = "Safe Scans";
+"dashboard.engine_features" = "ENGINE FEATURES";
+"dashboard.recent_scans" = "RECENT SCANS";
+"dashboard.view_all" = "View All";
+"dashboard.no_scans_yet" = "No scans yet";
+"dashboard.no_scans_message" = "Scan a QR code or paste a URL to get started";
+"dashboard.threat_database" = "Threat Database";
+"dashboard.db_updated" = "Local database updated successfully.";
+"dashboard.offline_ready" = "OFFLINE READY";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Quick Actions";
+"settings.threat_monitor" = "Threat Monitor";
+"settings.threat_monitor_desc" = "View live threats and run security audit";
+"settings.trust_centre" = "Trust Centre";
+"settings.trust_centre_desc" = "Privacy settings and threat sensitivity";
+"settings.export_report" = "Export Report";
+"settings.export_report_desc" = "Generate PDF or JSON security report";
+
+// MARK: - Trust Centre
+"trust.title" = "Trust Centre";
+"trust.offline_guarantee" = "Strict Offline Guarantee";
+"trust.offline_description" = "QR-SHIELD analysis runs entirely on your device's Neural Engine. No URL data ever leaves your phone.";
+"trust.threat_sensitivity" = "Threat Sensitivity";
+"trust.reset_confirm" = "This will reset all Trust Centre settings to their defaults.";
+
+// MARK: - Results Actions
+"result.block_report" = "Block & Report";
+"result.block_description" = "This will block the domain and report it to your security team.";
+"result.block_action" = "Prevent access and notify admin";
+"result.quarantine" = "Quarantine in Sandbox";
+"result.quarantine_action" = "Open safely for analysis";
+"result.expected" = "Expected: ";
+"result.detected" = "Detected: ";
+"result.explainable_security" = "Explainable Security";
+"result.url_breakdown" = "URL BREAKDOWN";
+"result.full_url" = "FULL URL";
+"result.open_safari" = "Open in Safari (Risky)";
+"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
+"result.restricted_mode" = "Restricted Mode";
+"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
+"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "QUICK ACTIONS";
+"nav.systems_operational" = "All systems operational";
+
+// MARK: - Common
+"common.enabled" = "Enabled";
+"common.disabled" = "Disabled";

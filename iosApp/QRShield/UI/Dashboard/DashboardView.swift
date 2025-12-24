@@ -91,7 +91,7 @@ struct DashboardView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
-                            Text("QR-SHIELD")
+                            Text("app.name")
                                 .font(.headline)
                                 .foregroundColor(.textPrimary)
                         }
@@ -177,7 +177,7 @@ struct DashboardView: View {
                     .font(.caption)
                     .foregroundColor(.brandPrimary)
                 
-                Text("ENTERPRISE PROTECTION ACTIVE")
+                Text("dashboard.enterprise_badge")
                     .font(.caption2.weight(.bold))
                     .foregroundColor(.brandPrimary)
                     .tracking(0.5)
@@ -188,11 +188,11 @@ struct DashboardView: View {
             
             // Tagline
             VStack(alignment: .leading, spacing: 4) {
-                Text("Secure. Offline.")
+                Text("dashboard.hero.tagline")
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.textPrimary)
                 
-                Text("Explainable Defence.")
+                Text("dashboard.hero.tagline2")
                     .font(.system(size: 32, weight: .bold))
                     .foregroundStyle(LinearGradient.brandGradient)
                     .fixedSize(horizontal: false, vertical: true)
@@ -234,7 +234,7 @@ struct DashboardView: View {
                         } else {
                             Image(systemName: "shield.fill")
                         }
-                        Text("Analyze")
+                        Text("dashboard.analyze")
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -254,7 +254,7 @@ struct DashboardView: View {
                 } label: {
                     HStack(spacing: 8) {
                         Image(systemName: "qrcode.viewfinder")
-                        Text("Scan QR Code")
+                        Text("dashboard.scan_qr")
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -269,7 +269,7 @@ struct DashboardView: View {
                 } label: {
                     HStack(spacing: 8) {
                         Image(systemName: "photo.on.rectangle")
-                        Text("Import Image")
+                        Text("dashboard.import_image")
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -307,11 +307,11 @@ struct DashboardView: View {
                 }
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("System Optimal")
+                    Text("dashboard.system_optimal")
                         .font(.subheadline.weight(.semibold))
                         .foregroundColor(.textPrimary)
                     
-                    Text("Engine v2.4 • Updated 2h ago")
+                    Text("dashboard.engine_status")
                         .font(.caption)
                         .foregroundColor(.textSecondary)
                 }
@@ -360,7 +360,7 @@ struct DashboardView: View {
                         .font(.title.weight(.bold))
                         .foregroundColor(.textPrimary)
                     
-                    Text("Threats Blocked")
+                    Text("dashboard.threats_blocked")
                         .font(.caption)
                         .foregroundColor(.textMuted)
                 }
@@ -394,7 +394,7 @@ struct DashboardView: View {
                         .font(.title.weight(.bold))
                         .foregroundColor(.textPrimary)
                     
-                    Text("Safe Scans")
+                    Text("dashboard.safe_scans")
                         .font(.caption)
                         .foregroundColor(.textMuted)
                 }
@@ -417,7 +417,7 @@ struct DashboardView: View {
     
     private var engineFeaturesSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("ENGINE FEATURES")
+            Text("dashboard.engine_features")
                 .font(.caption.weight(.bold))
                 .foregroundColor(.textMuted)
                 .tracking(1)
@@ -476,7 +476,7 @@ struct DashboardView: View {
     private var recentScansSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("RECENT SCANS")
+                Text("dashboard.recent_scans")
                     .font(.caption.weight(.bold))
                     .foregroundColor(.textMuted)
                     .tracking(1)
@@ -486,7 +486,7 @@ struct DashboardView: View {
                 NavigationLink {
                     HistoryView()
                 } label: {
-                    Text("View All")
+                    Text("dashboard.view_all")
                         .font(.caption.weight(.semibold))
                         .foregroundColor(.brandPrimary)
                 }
@@ -499,11 +499,11 @@ struct DashboardView: View {
                         .font(.title)
                         .foregroundColor(.textMuted)
                     
-                    Text("No scans yet")
+                    Text("dashboard.no_scans_yet")
                         .font(.subheadline)
                         .foregroundColor(.textSecondary)
                     
-                    Text("Scan a QR code or paste a URL to get started")
+                    Text("dashboard.no_scans_message")
                         .font(.caption)
                         .foregroundColor(.textMuted)
                         .multilineTextAlignment(.center)
@@ -570,11 +570,11 @@ struct DashboardView: View {
     
     private var threatDatabaseCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Threat Database")
+            Text("dashboard.threat_database")
                 .font(.headline)
                 .foregroundColor(.white)
             
-            Text("Local database updated successfully.")
+            Text("dashboard.db_updated")
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
             

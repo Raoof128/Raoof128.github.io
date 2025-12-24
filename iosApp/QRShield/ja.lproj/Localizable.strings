@@ -197,3 +197,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "安全。オフライン。";
+"dashboard.hero.tagline2" = "説明可能な防御。";
+"dashboard.hero.description" = "QR-SHIELDはハードウェア上で直接潜在的な脅威を分析します。";
+"dashboard.hero.zero_latency" = "ゼロレイテンシー保護を体験してください。";
+"dashboard.enterprise_badge" = "エンタープライズ保護アクティブ";
+"dashboard.analyze" = "分析";
+"dashboard.scan_qr" = "QRコードをスキャン";
+"dashboard.import_image" = "画像をインポート";
+"dashboard.system_optimal" = "システム最適";
+"dashboard.engine_status" = "エンジン v2.4 • 2時間前に更新";
+"dashboard.threats_blocked" = "ブロックされた脅威";
+"dashboard.safe_scans" = "安全なスキャン";
+"dashboard.engine_features" = "エンジン機能";
+"dashboard.recent_scans" = "最近のスキャン";
+"dashboard.view_all" = "すべて表示";
+"dashboard.no_scans_yet" = "スキャンはまだありません";
+"dashboard.no_scans_message" = "QRコードをスキャンするかURLを貼り付けて開始";
+"dashboard.threat_database" = "脅威データベース";
+"dashboard.db_updated" = "ローカルデータベースが正常に更新されました。";
+"dashboard.offline_ready" = "オフライン準備完了";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "クイックアクション";
+"settings.threat_monitor" = "脅威モニター";
+"settings.threat_monitor_desc" = "ライブ脅威を表示しセキュリティ監査を実行";
+"settings.trust_centre" = "トラストセンター";
+"settings.trust_centre_desc" = "プライバシー設定と脅威感度";
+"settings.export_report" = "レポートをエクスポート";
+"settings.export_report_desc" = "PDFまたはJSONセキュリティレポートを生成";
+
+// MARK: - Trust Centre
+"trust.title" = "トラストセンター";
+"trust.offline_guarantee" = "厳格なオフライン保証";
+"trust.offline_description" = "QR-SHIELD分析はデバイスのNeural Engine上で完全に実行されます。URLデータは電話から離れることはありません。";
+"trust.threat_sensitivity" = "脅威感度";
+"trust.reset_confirm" = "これにより、すべてのトラストセンター設定がデフォルトにリセットされます。";
+
+// MARK: - Results Actions
+"result.block_report" = "ブロック＆報告";
+"result.block_description" = "これによりドメインがブロックされ、セキュリティチームに報告されます。";
+"result.block_action" = "アクセスを防止し管理者に通知";
+"result.quarantine" = "サンドボックスで隔離";
+"result.quarantine_action" = "分析のために安全に開く";
+"result.expected" = "期待値：";
+"result.detected" = "検出：";
+"result.explainable_security" = "説明可能なセキュリティ";
+"result.url_breakdown" = "URL分解";
+"result.full_url" = "完全なURL";
+"result.open_safari" = "Safariで開く（リスクあり）";
+"result.open_warning_full" = "ブラウザでこのURLを開くとセキュリティリスクにさらされる可能性があります。";
+"result.restricted_mode" = "制限モード";
+"result.restricted_description" = "このURLは潜在的に危険としてフラグが立てられています。続行する前に以下の分析を確認してください。";
+"result.dangerous_warning" = "このURLは潜在的に危険としてフラグが立てられています。開くとフィッシング、マルウェア、その他のセキュリティ脅威にさらされる可能性があります。\n\n続行してもよろしいですか？";
+
+// MARK: - Navigation
+"nav.quick_actions" = "クイックアクション";
+"nav.systems_operational" = "全システム稼働中";
+
+// MARK: - Common
+"common.enabled" = "有効";
+"common.disabled" = "無効";

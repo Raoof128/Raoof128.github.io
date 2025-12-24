@@ -197,3 +197,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "सुरक्षित। ऑफ़लाइन।";
+"dashboard.hero.tagline2" = "समझाने योग्य रक्षा।";
+"dashboard.hero.description" = "QR-SHIELD सीधे आपके हार्डवेयर पर संभावित खतरों का विश्लेषण करता है। अनुभव करें ";
+"dashboard.hero.zero_latency" = "शून्य-विलंबता सुरक्षा।";
+"dashboard.enterprise_badge" = "एंटरप्राइज सुरक्षा सक्रिय";
+"dashboard.analyze" = "विश्लेषण करें";
+"dashboard.scan_qr" = "QR कोड स्कैन करें";
+"dashboard.import_image" = "छवि आयात करें";
+"dashboard.system_optimal" = "सिस्टम इष्टतम";
+"dashboard.engine_status" = "इंजन v2.4 • 2 घंटे पहले अपडेट किया";
+"dashboard.threats_blocked" = "अवरुद्ध खतरे";
+"dashboard.safe_scans" = "सुरक्षित स्कैन";
+"dashboard.engine_features" = "इंजन सुविधाएं";
+"dashboard.recent_scans" = "हाल के स्कैन";
+"dashboard.view_all" = "सभी देखें";
+"dashboard.no_scans_yet" = "अभी तक कोई स्कैन नहीं";
+"dashboard.no_scans_message" = "शुरू करने के लिए QR कोड स्कैन करें या URL पेस्ट करें";
+"dashboard.threat_database" = "खतरा डेटाबेस";
+"dashboard.db_updated" = "स्थानीय डेटाबेस सफलतापूर्वक अपडेट किया गया।";
+"dashboard.offline_ready" = "ऑफ़लाइन तैयार";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "त्वरित क्रियाएं";
+"settings.threat_monitor" = "खतरा मॉनिटर";
+"settings.threat_monitor_desc" = "लाइव खतरे देखें और सुरक्षा ऑडिट चलाएं";
+"settings.trust_centre" = "ट्रस्ट सेंटर";
+"settings.trust_centre_desc" = "गोपनीयता सेटिंग्स और खतरा संवेदनशीलता";
+"settings.export_report" = "रिपोर्ट निर्यात करें";
+"settings.export_report_desc" = "PDF या JSON सुरक्षा रिपोर्ट बनाएं";
+
+// MARK: - Trust Centre
+"trust.title" = "ट्रस्ट सेंटर";
+"trust.offline_guarantee" = "सख्त ऑफ़लाइन गारंटी";
+"trust.offline_description" = "QR-SHIELD विश्लेषण पूरी तरह से आपके डिवाइस के Neural Engine पर चलता है। URL डेटा कभी आपके फोन से बाहर नहीं जाता।";
+"trust.threat_sensitivity" = "खतरा संवेदनशीलता";
+"trust.reset_confirm" = "यह सभी ट्रस्ट सेंटर सेटिंग्स को डिफ़ॉल्ट पर रीसेट कर देगा।";
+
+// MARK: - Results Actions
+"result.block_report" = "ब्लॉक और रिपोर्ट करें";
+"result.block_description" = "यह डोमेन को ब्लॉक करेगा और आपकी सुरक्षा टीम को रिपोर्ट करेगा।";
+"result.block_action" = "पहुंच रोकें और व्यवस्थापक को सूचित करें";
+"result.quarantine" = "सैंडबॉक्स में क्वारंटीन करें";
+"result.quarantine_action" = "विश्लेषण के लिए सुरक्षित रूप से खोलें";
+"result.expected" = "अपेक्षित: ";
+"result.detected" = "पता चला: ";
+"result.explainable_security" = "समझाने योग्य सुरक्षा";
+"result.url_breakdown" = "URL विश्लेषण";
+"result.full_url" = "पूर्ण URL";
+"result.open_safari" = "Safari में खोलें (जोखिमपूर्ण)";
+"result.open_warning_full" = "इस URL को अपने ब्राउज़र में खोलने से आप सुरक्षा जोखिमों के संपर्क में आ सकते हैं।";
+"result.restricted_mode" = "प्रतिबंधित मोड";
+"result.restricted_description" = "इस URL को संभावित खतरनाक के रूप में चिह्नित किया गया है। जारी रखने से पहले नीचे विश्लेषण की समीक्षा करें।";
+"result.dangerous_warning" = "इस URL को संभावित खतरनाक के रूप में चिह्नित किया गया है। इसे खोलने से आप फ़िशिंग, मैलवेयर या अन्य सुरक्षा खतरों के संपर्क में आ सकते हैं।\n\nक्या आप वाकई जारी रखना चाहते हैं?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "त्वरित क्रियाएं";
+"nav.systems_operational" = "सभी सिस्टम चालू हैं";
+
+// MARK: - Common
+"common.enabled" = "सक्षम";
+"common.disabled" = "अक्षम";

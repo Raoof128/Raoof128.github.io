@@ -173,12 +173,12 @@ struct MainMenuView: View {
                         .scaledToFit()
                         .frame(width: 32, height: 32)
                     
-                    Text("QR-SHIELD")
+                    Text("app.name")
                         .font(.title2.weight(.bold))
                         .foregroundColor(.textPrimary)
                 }
                 
-                Text("Secure. Offline. Explainable.")
+                Text("dashboard.hero.tagline")
                     .font(.caption)
                     .foregroundColor(.textMuted)
             }
@@ -262,7 +262,7 @@ struct MainMenuView: View {
     
     private var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("QUICK ACTIONS")
+            Text("nav.quick_actions")
                 .font(.caption.weight(.bold))
                 .foregroundColor(.textMuted)
                 .tracking(1)

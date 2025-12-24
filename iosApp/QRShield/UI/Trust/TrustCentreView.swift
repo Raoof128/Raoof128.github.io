@@ -117,7 +117,7 @@ struct TrustCentreView: View {
                 LiquidGlassBackground()
                     .ignoresSafeArea()
             }
-            .navigationTitle("Trust Centre")
+            .navigationTitle(NSLocalizedString("trust.title", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -146,7 +146,7 @@ struct TrustCentreView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("This will reset all Trust Centre settings to their defaults.")
+            Text("trust.reset_confirm")
         }
         .sheet(isPresented: $showTrustedDomains) {
             DomainListSheet(
@@ -225,11 +225,11 @@ struct TrustCentreView: View {
             
             // Content
             VStack(alignment: .leading, spacing: 4) {
-                Text("Strict Offline Guarantee")
+                Text("trust.offline_guarantee")
                     .font(.headline)
                     .foregroundColor(.textPrimary)
                 
-                Text("QR-SHIELD analysis runs entirely on your device's Neural Engine. No URL data ever leaves your phone.")
+                Text("trust.offline_description")
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -253,7 +253,7 @@ struct TrustCentreView: View {
         VStack(alignment: .leading, spacing: 16) {
             // Header
             HStack {
-                Text("Threat Sensitivity")
+                Text("trust.threat_sensitivity")
                     .font(.headline)
                     .foregroundColor(.textPrimary)
                 

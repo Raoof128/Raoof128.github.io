@@ -4,6 +4,53 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🎨 December 24, 2025 (Session 10h) - iOS App UI Localization Implementation
+
+### Summary
+Implemented UI localization across all major iOS app views, replacing hardcoded strings with localized string keys. Added 50+ new localization keys across all 16 language files.
+
+## ✅ New Localization Keys Added
+
+**Files Updated**: All `*.lproj/Localizable.strings` (16 languages)
+
+### New Key Categories Added:
+
+| Category | Keys Added | Description |
+|----------|------------|-------------|
+| Dashboard | 22 | Hero section, stats, features, empty states |
+| Settings Quick Actions | 7 | Threat monitor, trust centre, export |
+| Trust Centre | 5 | Offline guarantee, sensitivity |
+| Results Actions | 15 | Block, quarantine, security warnings |
+| Navigation | 3 | Quick actions, system status |
+| Common | 2 | Enabled/Disabled states |
+
+## ✅ Swift UI Files Updated
+
+| File | Changes |
+|------|---------|
+| `SettingsView.swift` | Quick actions section, about section |
+| `DashboardView.swift` | Hero, stats grid, recent scans, database |
+| `TrustCentreView.swift` | Offline banner, sensitivity section |
+| `ScanResultView.swift` | Block/report, quarantine, URL breakdown |
+| `DetailSheet.swift` | URL details, share, open actions |
+| `MainMenuView.swift` | Header, quick actions section |
+
+## ✅ Languages Updated (16 Total)
+
+All languages received the new keys with proper translations:
+- English (en), German (de), Spanish (es), French (fr)
+- Chinese (zh-Hans), Japanese (ja), Hindi (hi)
+- Italian (it), Portuguese (pt), Russian (ru), Korean (ko)
+- Arabic (ar), Indonesian (id), Thai (th), Turkish (tr), Vietnamese (vi)
+
+## 🔑 Key Implementation Notes
+
+- Used `Text("key")` pattern for SwiftUI localization (automatic NSLocalizedString lookup)
+- Used `NSLocalizedString("key", comment: "")` for dynamic/computed strings
+- Maintained RTL support considerations for Arabic
+
+---
+
 # 🌍 December 24, 2025 (Session 10g) - iOS App i18n Expansion (11 → 16 Languages)
 
 ### Summary

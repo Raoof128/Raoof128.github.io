@@ -59,9 +59,9 @@ struct SettingsView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Threat Monitor")
+                            Text("settings.threat_monitor")
                                 .foregroundColor(.textPrimary)
-                            Text("View live threats and run security audit")
+                            Text("settings.threat_monitor_desc")
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -83,9 +83,9 @@ struct SettingsView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Trust Centre")
+                            Text("settings.trust_centre")
                                 .foregroundColor(.textPrimary)
-                            Text("Privacy settings and threat sensitivity")
+                            Text("settings.trust_centre_desc")
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -113,9 +113,9 @@ struct SettingsView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Export Report")
+                            Text("settings.export_report")
                                 .foregroundColor(.textPrimary)
-                            Text("Generate PDF or JSON security report")
+                            Text("settings.export_report_desc")
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -129,7 +129,7 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader("Quick Actions", icon: "bolt.fill")
+                sectionHeader(NSLocalizedString("settings.quick_actions", comment: ""), icon: "bolt.fill")
             }
             .listRowBackground(Color.clear)
             
@@ -352,16 +352,16 @@ struct SettingsView: View {
                     }
                     
                     VStack(spacing: 4) {
-                        Text("QR-SHIELD")
+                        Text("app.name")
                             .font(.headline)
                             .foregroundColor(.textPrimary)
                         
-                        Text("Kotlin Multiplatform QRishing Detector")
+                        Text("app.tagline")
                             .font(.caption)
                             .foregroundColor(.textSecondary)
                     }
                     
-                    Text("Made with ❤️ for KotlinConf 2026")
+                    Text("settings.credits")
                         .font(.caption2)
                         .foregroundColor(.textMuted)
                     
@@ -502,7 +502,7 @@ struct SettingsToggle: View {
         }
         .accessibilityElement(children: .combine)
         .accessibilityLabel(title)
-        .accessibilityValue(isOn ? "Enabled" : "Disabled")
+        .accessibilityValue(isOn ? NSLocalizedString("common.enabled", comment: "") : NSLocalizedString("common.disabled", comment: ""))
         .accessibilityHint(subtitle ?? "")
     }
 }

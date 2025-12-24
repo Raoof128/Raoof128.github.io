@@ -197,3 +197,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Seguro. Sin conexión.";
+"dashboard.hero.tagline2" = "Defensa Explicable.";
+"dashboard.hero.description" = "QR-SHIELD analiza amenazas potenciales directamente en su hardware. Experimente ";
+"dashboard.hero.zero_latency" = "protección sin latencia.";
+"dashboard.enterprise_badge" = "PROTECCIÓN EMPRESARIAL ACTIVA";
+"dashboard.analyze" = "Analizar";
+"dashboard.scan_qr" = "Escanear Código QR";
+"dashboard.import_image" = "Importar Imagen";
+"dashboard.system_optimal" = "Sistema Óptimo";
+"dashboard.engine_status" = "Motor v2.4 • Actualizado hace 2h";
+"dashboard.threats_blocked" = "Amenazas Bloqueadas";
+"dashboard.safe_scans" = "Escaneos Seguros";
+"dashboard.engine_features" = "FUNCIONES DEL MOTOR";
+"dashboard.recent_scans" = "ESCANEOS RECIENTES";
+"dashboard.view_all" = "Ver Todo";
+"dashboard.no_scans_yet" = "Sin escaneos aún";
+"dashboard.no_scans_message" = "Escanee un código QR o pegue una URL para comenzar";
+"dashboard.threat_database" = "Base de Datos de Amenazas";
+"dashboard.db_updated" = "Base de datos local actualizada exitosamente.";
+"dashboard.offline_ready" = "LISTO SIN CONEXIÓN";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Acciones Rápidas";
+"settings.threat_monitor" = "Monitor de Amenazas";
+"settings.threat_monitor_desc" = "Ver amenazas en vivo y ejecutar auditoría de seguridad";
+"settings.trust_centre" = "Centro de Confianza";
+"settings.trust_centre_desc" = "Configuración de privacidad y sensibilidad de amenazas";
+"settings.export_report" = "Exportar Informe";
+"settings.export_report_desc" = "Generar informe de seguridad PDF o JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Centro de Confianza";
+"trust.offline_guarantee" = "Garantía Estricta Sin Conexión";
+"trust.offline_description" = "El análisis de QR-SHIELD se ejecuta completamente en el Neural Engine de su dispositivo. Los datos de URL nunca salen de su teléfono.";
+"trust.threat_sensitivity" = "Sensibilidad de Amenazas";
+"trust.reset_confirm" = "Esto restablecerá todas las configuraciones del Centro de Confianza a los valores predeterminados.";
+
+// MARK: - Results Actions
+"result.block_report" = "Bloquear e Informar";
+"result.block_description" = "Esto bloqueará el dominio y lo informará a su equipo de seguridad.";
+"result.block_action" = "Prevenir acceso y notificar al administrador";
+"result.quarantine" = "Cuarentena en Sandbox";
+"result.quarantine_action" = "Abrir de forma segura para análisis";
+"result.expected" = "Esperado: ";
+"result.detected" = "Detectado: ";
+"result.explainable_security" = "Seguridad Explicable";
+"result.url_breakdown" = "DESGLOSE DE URL";
+"result.full_url" = "URL COMPLETA";
+"result.open_safari" = "Abrir en Safari (Riesgoso)";
+"result.open_warning_full" = "Abrir esta URL en su navegador puede exponerlo a riesgos de seguridad.";
+"result.restricted_mode" = "Modo Restringido";
+"result.restricted_description" = "Esta URL ha sido marcada como potencialmente peligrosa. Revise el análisis a continuación antes de continuar.";
+"result.dangerous_warning" = "Esta URL ha sido marcada como potencialmente peligrosa. Abrirla puede exponerlo a phishing, malware u otras amenazas de seguridad.\n\n¿Está seguro de que desea continuar?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "ACCIONES RÁPIDAS";
+"nav.systems_operational" = "Todos los sistemas operativos";
+
+// MARK: - Common
+"common.enabled" = "Habilitado";
+"common.disabled" = "Deshabilitado";

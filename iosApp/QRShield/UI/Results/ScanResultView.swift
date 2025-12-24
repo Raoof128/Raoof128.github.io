@@ -314,11 +314,11 @@ struct ScanResultView: View {
                             }
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("Block & Report")
+                                Text("result.block_report")
                                     .font(.headline)
                                     .foregroundColor(.white)
                                 
-                                Text("Prevent access and notify admin")
+                                Text("result.block_action")
                                     .font(.caption)
                                     .foregroundColor(.white.opacity(0.7))
                             }
@@ -351,11 +351,11 @@ struct ScanResultView: View {
                             }
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("Quarantine in Sandbox")
+                                Text("result.quarantine")
                                     .font(.headline)
                                     .foregroundColor(.textPrimary)
                                 
-                                Text("Open safely for analysis")
+                                Text("result.quarantine_action")
                                     .font(.caption)
                                     .foregroundColor(.textMuted)
                             }
@@ -437,7 +437,7 @@ struct ScanResultView: View {
                     
                     if let detail = breakdown.wrappedValue.technicalDetail {
                         HStack(spacing: 0) {
-                            Text("Expected: ")
+                            Text("result.expected")
                                 .foregroundColor(.verdictSafe)
                             Text("paypal.com")
                                 .foregroundColor(.verdictSafe)
@@ -448,7 +448,7 @@ struct ScanResultView: View {
                         .background(Color.bgSurface, in: RoundedRectangle(cornerRadius: 8))
                         
                         HStack(spacing: 0) {
-                            Text("Detected: ")
+                            Text("result.detected")
                                 .foregroundColor(.verdictDanger)
                             Text("p")
                                 .foregroundColor(.verdictDanger)
@@ -479,7 +479,7 @@ struct ScanResultView: View {
             HStack(spacing: 8) {
                 Image(systemName: "shield.fill")
                     .foregroundColor(.brandPrimary)
-                Text("Explainable Security")
+                Text("result.explainable_security")
                     .font(.subheadline.weight(.bold))
                     .foregroundColor(.brandPrimary)
             }
@@ -758,11 +758,11 @@ struct SandboxPreviewSheet: View {
                 .foregroundColor(.verdictWarning)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("Restricted Mode")
+                Text("result.restricted_mode")
                     .font(.headline)
                     .foregroundColor(.textPrimary)
                 
-                Text("This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.")
+                Text("result.restricted_description")
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
@@ -802,7 +802,7 @@ struct SandboxPreviewSheet: View {
             
             // URL Breakdown
             VStack(alignment: .leading, spacing: 12) {
-                Text("URL BREAKDOWN")
+                Text("result.url_breakdown")
                     .font(.caption.weight(.bold))
                     .foregroundColor(.textMuted)
                     .tracking(1)
@@ -823,7 +823,7 @@ struct SandboxPreviewSheet: View {
             // Full URL
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("FULL URL")
+                    Text("result.full_url")
                         .font(.caption.weight(.bold))
                         .foregroundColor(.textMuted)
                         .tracking(1)

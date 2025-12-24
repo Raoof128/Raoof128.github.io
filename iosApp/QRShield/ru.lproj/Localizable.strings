@@ -197,3 +197,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Безопасно. Офлайн.";
+"dashboard.hero.tagline2" = "Объяснимая защита.";
+"dashboard.hero.description" = "QR-SHIELD анализирует потенциальные угрозы прямо на вашем устройстве. Испытайте ";
+"dashboard.hero.zero_latency" = "защиту без задержек.";
+"dashboard.enterprise_badge" = "КОРПОРАТИВНАЯ ЗАЩИТА АКТИВНА";
+"dashboard.analyze" = "Анализировать";
+"dashboard.scan_qr" = "Сканировать QR-код";
+"dashboard.import_image" = "Импорт изображения";
+"dashboard.system_optimal" = "Система оптимальна";
+"dashboard.engine_status" = "Движок v2.4 • Обновлён 2ч назад";
+"dashboard.threats_blocked" = "Заблокированные угрозы";
+"dashboard.safe_scans" = "Безопасные сканирования";
+"dashboard.engine_features" = "ВОЗМОЖНОСТИ ДВИЖКА";
+"dashboard.recent_scans" = "НЕДАВНИЕ СКАНИРОВАНИЯ";
+"dashboard.view_all" = "Показать все";
+"dashboard.no_scans_yet" = "Пока нет сканирований";
+"dashboard.no_scans_message" = "Отсканируйте QR-код или вставьте URL для начала";
+"dashboard.threat_database" = "База данных угроз";
+"dashboard.db_updated" = "Локальная база данных успешно обновлена.";
+"dashboard.offline_ready" = "ГОТОВ К РАБОТЕ ОФЛАЙН";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Быстрые действия";
+"settings.threat_monitor" = "Монитор угроз";
+"settings.threat_monitor_desc" = "Просмотр угроз в реальном времени и аудит безопасности";
+"settings.trust_centre" = "Центр доверия";
+"settings.trust_centre_desc" = "Настройки конфиденциальности и чувствительности угроз";
+"settings.export_report" = "Экспорт отчёта";
+"settings.export_report_desc" = "Создать отчёт безопасности в PDF или JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Центр доверия";
+"trust.offline_guarantee" = "Строгая гарантия офлайн-работы";
+"trust.offline_description" = "Анализ QR-SHIELD выполняется полностью на Neural Engine вашего устройства. Данные URL никогда не покидают ваш телефон.";
+"trust.threat_sensitivity" = "Чувствительность к угрозам";
+"trust.reset_confirm" = "Это сбросит все настройки Центра доверия к значениям по умолчанию.";
+
+// MARK: - Results Actions
+"result.block_report" = "Заблокировать и сообщить";
+"result.block_description" = "Это заблокирует домен и сообщит об этом вашей команде безопасности.";
+"result.block_action" = "Запретить доступ и уведомить администратора";
+"result.quarantine" = "Карантин в песочнице";
+"result.quarantine_action" = "Безопасно открыть для анализа";
+"result.expected" = "Ожидается: ";
+"result.detected" = "Обнаружено: ";
+"result.explainable_security" = "Объяснимая безопасность";
+"result.url_breakdown" = "РАЗБОР URL";
+"result.full_url" = "ПОЛНЫЙ URL";
+"result.open_safari" = "Открыть в Safari (Рискованно)";
+"result.open_warning_full" = "Открытие этого URL в браузере может подвергнуть вас рискам безопасности.";
+"result.restricted_mode" = "Ограниченный режим";
+"result.restricted_description" = "Этот URL помечен как потенциально опасный. Ознакомьтесь с анализом ниже перед продолжением.";
+"result.dangerous_warning" = "Этот URL помечен как потенциально опасный. Его открытие может подвергнуть вас фишингу, вредоносному ПО или другим угрозам безопасности.\n\nВы уверены, что хотите продолжить?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "БЫСТРЫЕ ДЕЙСТВИЯ";
+"nav.systems_operational" = "Все системы работают";
+
+// MARK: - Common
+"common.enabled" = "Включено";
+"common.disabled" = "Отключено";

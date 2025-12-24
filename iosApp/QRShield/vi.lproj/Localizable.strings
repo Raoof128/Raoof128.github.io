@@ -195,3 +195,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "An toàn. Ngoại tuyến.";
+"dashboard.hero.tagline2" = "Phòng thủ Có thể Giải thích.";
+"dashboard.hero.description" = "QR-SHIELD phân tích các mối đe dọa tiềm ẩn trực tiếp trên phần cứng của bạn. Trải nghiệm ";
+"dashboard.hero.zero_latency" = "bảo vệ không độ trễ.";
+"dashboard.enterprise_badge" = "BẢO VỆ DOANH NGHIỆP ĐANG HOẠT ĐỘNG";
+"dashboard.analyze" = "Phân tích";
+"dashboard.scan_qr" = "Quét Mã QR";
+"dashboard.import_image" = "Nhập Hình ảnh";
+"dashboard.system_optimal" = "Hệ thống Tối ưu";
+"dashboard.engine_status" = "Engine v2.4 • Cập nhật 2 giờ trước";
+"dashboard.threats_blocked" = "Mối đe dọa Đã chặn";
+"dashboard.safe_scans" = "Lần quét An toàn";
+"dashboard.engine_features" = "TÍNH NĂNG ENGINE";
+"dashboard.recent_scans" = "QUÉT GẦN ĐÂY";
+"dashboard.view_all" = "Xem Tất cả";
+"dashboard.no_scans_yet" = "Chưa có lần quét nào";
+"dashboard.no_scans_message" = "Quét mã QR hoặc dán URL để bắt đầu";
+"dashboard.threat_database" = "Cơ sở dữ liệu Mối đe dọa";
+"dashboard.db_updated" = "Cập nhật cơ sở dữ liệu cục bộ thành công.";
+"dashboard.offline_ready" = "SẴN SÀNG NGOẠI TUYẾN";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Thao tác Nhanh";
+"settings.threat_monitor" = "Giám sát Mối đe dọa";
+"settings.threat_monitor_desc" = "Xem các mối đe dọa trực tiếp và chạy kiểm tra bảo mật";
+"settings.trust_centre" = "Trung tâm Tin cậy";
+"settings.trust_centre_desc" = "Cài đặt quyền riêng tư và độ nhạy mối đe dọa";
+"settings.export_report" = "Xuất Báo cáo";
+"settings.export_report_desc" = "Tạo báo cáo bảo mật PDF hoặc JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Trung tâm Tin cậy";
+"trust.offline_guarantee" = "Đảm bảo Ngoại tuyến Nghiêm ngặt";
+"trust.offline_description" = "Phân tích QR-SHIELD chạy hoàn toàn trên Neural Engine của thiết bị. Dữ liệu URL không bao giờ rời khỏi điện thoại của bạn.";
+"trust.threat_sensitivity" = "Độ nhạy Mối đe dọa";
+"trust.reset_confirm" = "Điều này sẽ đặt lại tất cả cài đặt Trung tâm Tin cậy về mặc định.";
+
+// MARK: - Results Actions
+"result.block_report" = "Chặn & Báo cáo";
+"result.block_description" = "Điều này sẽ chặn tên miền và báo cáo cho đội bảo mật của bạn.";
+"result.block_action" = "Ngăn truy cập và thông báo quản trị viên";
+"result.quarantine" = "Cách ly trong Sandbox";
+"result.quarantine_action" = "Mở an toàn để phân tích";
+"result.expected" = "Dự kiến: ";
+"result.detected" = "Phát hiện: ";
+"result.explainable_security" = "Bảo mật Có thể Giải thích";
+"result.url_breakdown" = "PHÂN TÍCH URL";
+"result.full_url" = "URL ĐẦY ĐỦ";
+"result.open_safari" = "Mở trong Safari (Rủi ro)";
+"result.open_warning_full" = "Mở URL này trong trình duyệt có thể khiến bạn gặp rủi ro bảo mật.";
+"result.restricted_mode" = "Chế độ Hạn chế";
+"result.restricted_description" = "URL này đã được đánh dấu là có thể nguy hiểm. Xem xét phân tích bên dưới trước khi tiếp tục.";
+"result.dangerous_warning" = "URL này đã được đánh dấu là có thể nguy hiểm. Mở nó có thể khiến bạn gặp phải lừa đảo, phần mềm độc hại hoặc các mối đe dọa bảo mật khác.\n\nBạn có chắc chắn muốn tiếp tục không?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "THAO TÁC NHANH";
+"nav.systems_operational" = "Tất cả hệ thống hoạt động bình thường";
+
+// MARK: - Common
+"common.enabled" = "Đã bật";
+"common.disabled" = "Đã tắt";

@@ -195,3 +195,66 @@
 
 // MARK: - Onboarding UI
 "onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Aman. Offline.";
+"dashboard.hero.tagline2" = "Pertahanan Transparan.";
+"dashboard.hero.description" = "QR-SHIELD menganalisis ancaman potensial langsung di perangkat keras Anda. Nikmati ";
+"dashboard.hero.zero_latency" = "perlindungan tanpa latensi.";
+"dashboard.enterprise_badge" = "PERLINDUNGAN ENTERPRISE AKTIF";
+"dashboard.analyze" = "Analisis";
+"dashboard.scan_qr" = "Pindai Kode QR";
+"dashboard.import_image" = "Impor Gambar";
+"dashboard.system_optimal" = "Sistem Optimal";
+"dashboard.engine_status" = "Engine v2.4 • Diperbarui 2j lalu";
+"dashboard.threats_blocked" = "Ancaman Diblokir";
+"dashboard.safe_scans" = "Pemindaian Aman";
+"dashboard.engine_features" = "FITUR ENGINE";
+"dashboard.recent_scans" = "PEMINDAIAN TERBARU";
+"dashboard.view_all" = "Lihat Semua";
+"dashboard.no_scans_yet" = "Belum ada pemindaian";
+"dashboard.no_scans_message" = "Pindai kode QR atau tempel URL untuk memulai";
+"dashboard.threat_database" = "Database Ancaman";
+"dashboard.db_updated" = "Database lokal berhasil diperbarui.";
+"dashboard.offline_ready" = "SIAP OFFLINE";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Aksi Cepat";
+"settings.threat_monitor" = "Monitor Ancaman";
+"settings.threat_monitor_desc" = "Lihat ancaman langsung dan jalankan audit keamanan";
+"settings.trust_centre" = "Pusat Kepercayaan";
+"settings.trust_centre_desc" = "Pengaturan privasi dan sensitivitas ancaman";
+"settings.export_report" = "Ekspor Laporan";
+"settings.export_report_desc" = "Buat laporan keamanan PDF atau JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Pusat Kepercayaan";
+"trust.offline_guarantee" = "Jaminan Offline Ketat";
+"trust.offline_description" = "Analisis QR-SHIELD berjalan sepenuhnya di Neural Engine perangkat Anda. Data URL tidak pernah meninggalkan ponsel Anda.";
+"trust.threat_sensitivity" = "Sensitivitas Ancaman";
+"trust.reset_confirm" = "Ini akan mengatur ulang semua pengaturan Pusat Kepercayaan ke default.";
+
+// MARK: - Results Actions
+"result.block_report" = "Blokir & Laporkan";
+"result.block_description" = "Ini akan memblokir domain dan melaporkannya ke tim keamanan Anda.";
+"result.block_action" = "Cegah akses dan beri tahu admin";
+"result.quarantine" = "Karantina di Sandbox";
+"result.quarantine_action" = "Buka dengan aman untuk analisis";
+"result.expected" = "Diharapkan: ";
+"result.detected" = "Terdeteksi: ";
+"result.explainable_security" = "Keamanan Transparan";
+"result.url_breakdown" = "RINCIAN URL";
+"result.full_url" = "URL LENGKAP";
+"result.open_safari" = "Buka di Safari (Berisiko)";
+"result.open_warning_full" = "Membuka URL ini di browser Anda dapat membuat Anda terpapar risiko keamanan.";
+"result.restricted_mode" = "Mode Terbatas";
+"result.restricted_description" = "URL ini telah ditandai sebagai berpotensi berbahaya. Tinjau analisis di bawah sebelum melanjutkan.";
+"result.dangerous_warning" = "URL ini telah ditandai sebagai berpotensi berbahaya. Membukanya dapat membuat Anda terpapar phishing, malware, atau ancaman keamanan lainnya.\n\nApakah Anda yakin ingin melanjutkan?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "AKSI CEPAT";
+"nav.systems_operational" = "Semua sistem beroperasi";
+
+// MARK: - Common
+"common.enabled" = "Diaktifkan";
+"common.disabled" = "Dinonaktifkan";
