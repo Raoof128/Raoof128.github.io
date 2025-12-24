@@ -185,6 +185,9 @@
 "scanner.status_scanning" = "Taranıyor";
 "scanner.status_paused" = "Duraklatıldı";
 "scanner.view_details" = "Detayları Gör";
+"scanner.copy_url" = "URL'yi Kopyala";
+"scanner.share" = "Paylaş";
+"scanner.dismiss" = "Kapat";
 "scanner.flash_on" = "Flaş açık";
 "scanner.flash_off" = "Flaş kapalı";
 "scanner.open_history" = "Geçmişi aç";

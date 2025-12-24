@@ -185,6 +185,9 @@
 "scanner.status_scanning" = "جاري المسح";
 "scanner.status_paused" = "متوقف مؤقتاً";
 "scanner.view_details" = "عرض التفاصيل";
+"scanner.copy_url" = "نسخ الرابط";
+"scanner.share" = "مشاركة";
+"scanner.dismiss" = "إغلاق";
 "scanner.flash_on" = "الفلاش مفعّل";
 "scanner.flash_off" = "الفلاش مطفأ";
 "scanner.open_history" = "فتح السجل";

@@ -185,6 +185,8 @@
 "scanner.status_scanning" = "스캔 중";
 "scanner.status_paused" = "일시정지";
 "scanner.view_details" = "상세 보기";
+"scanner.copy_url" = "URL 복사";
+"scanner.dismiss" = "닫기";
 "scanner.share" = "공유";
 "scanner.flash_on" = "플래시 켜짐";
 "scanner.flash_off" = "플래시 꺼짐";

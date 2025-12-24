@@ -185,6 +185,8 @@
 "scanner.status_scanning" = "Сканирование";
 "scanner.status_paused" = "Пауза";
 "scanner.view_details" = "Подробнее";
+"scanner.copy_url" = "Копировать URL";
+"scanner.dismiss" = "Закрыть";
 "scanner.share" = "Поделиться";
 "scanner.flash_on" = "Вспышка вкл";
 "scanner.flash_off" = "Вспышка выкл";

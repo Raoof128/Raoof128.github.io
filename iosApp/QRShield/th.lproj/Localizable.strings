@@ -185,6 +185,9 @@
 "scanner.status_scanning" = "กำลังสแกน";
 "scanner.status_paused" = "หยุดชั่วคราว";
 "scanner.view_details" = "ดูรายละเอียด";
+"scanner.copy_url" = "คัดลอก URL";
+"scanner.share" = "แชร์";
+"scanner.dismiss" = "ปิด";
 "scanner.flash_on" = "แฟลชเปิด";
 "scanner.flash_off" = "แฟลชปิด";
 "scanner.open_history" = "เปิดประวัติ";

@@ -185,6 +185,9 @@
 "scanner.status_scanning" = "Memindai";
 "scanner.status_paused" = "Dijeda";
 "scanner.view_details" = "Lihat Detail";
+"scanner.copy_url" = "Salin URL";
+"scanner.share" = "Bagikan";
+"scanner.dismiss" = "Tutup";
 "scanner.flash_on" = "Flash menyala";
 "scanner.flash_off" = "Flash mati";
 "scanner.open_history" = "Buka riwayat";

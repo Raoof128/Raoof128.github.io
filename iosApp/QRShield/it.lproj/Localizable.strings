@@ -185,6 +185,8 @@
 "scanner.status_scanning" = "Scansione in corso";
 "scanner.status_paused" = "In pausa";
 "scanner.view_details" = "Vedi dettagli";
+"scanner.copy_url" = "Copia URL";
+"scanner.dismiss" = "Chiudi";
 "scanner.share" = "Condividi";
 "scanner.flash_on" = "Flash acceso";
 "scanner.flash_off" = "Flash spento";

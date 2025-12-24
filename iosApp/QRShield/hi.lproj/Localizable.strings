@@ -185,6 +185,8 @@
 "scanner.status_scanning" = "स्कैन हो रहा है";
 "scanner.status_paused" = "रुका हुआ";
 "scanner.view_details" = "विवरण देखें";
+"scanner.copy_url" = "URL कॉपी करें";
+"scanner.dismiss" = "खारिज करें";
 "scanner.share" = "शेयर करें";
 "scanner.flash_on" = "फ्लैश चालू";
 "scanner.flash_off" = "फ्लैश बंद";

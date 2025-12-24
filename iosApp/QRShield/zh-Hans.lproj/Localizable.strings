@@ -185,6 +185,8 @@
 "scanner.status_scanning" = "扫描中";
 "scanner.status_paused" = "已暂停";
 "scanner.view_details" = "查看详情";
+"scanner.copy_url" = "复制链接";
+"scanner.dismiss" = "关闭";
 "scanner.share" = "分享";
 "scanner.flash_on" = "闪光灯开";
 "scanner.flash_off" = "闪光灯关";

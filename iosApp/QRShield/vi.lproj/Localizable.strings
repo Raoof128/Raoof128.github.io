@@ -185,6 +185,9 @@
 "scanner.status_scanning" = "Đang Quét";
 "scanner.status_paused" = "Đã Tạm Dừng";
 "scanner.view_details" = "Xem Chi Tiết";
+"scanner.copy_url" = "Sao chép URL";
+"scanner.share" = "Chia sẻ";
+"scanner.dismiss" = "Đóng";
 "scanner.flash_on" = "Đèn flash bật";
 "scanner.flash_off" = "Đèn flash tắt";
 "scanner.open_history" = "Mở lịch sử";

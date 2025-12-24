@@ -185,6 +185,8 @@
 "scanner.status_scanning" = "スキャン中";
 "scanner.status_paused" = "一時停止";
 "scanner.view_details" = "詳細を表示";
+"scanner.copy_url" = "URLをコピー";
+"scanner.dismiss" = "閉じる";
 "scanner.share" = "共有";
 "scanner.flash_on" = "フラッシュオン";
 "scanner.flash_off" = "フラッシュオフ";
