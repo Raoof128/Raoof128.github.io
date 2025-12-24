@@ -10,7 +10,7 @@ internal val VietnameseStrings = mapOf(
     DesktopStringKey.NavScanHistory to "Lịch Sử Quét",
     DesktopStringKey.NavTrustCentre to "Trung Tâm Tin Cậy",
     DesktopStringKey.NavReports to "Báo Cáo",
-    DesktopStringKey.NavTraining to "Đào Tạo",
+    DesktopStringKey.NavTraining to "Đánh Bại Bot",
     DesktopStringKey.NavSettings to "Cài Đặt"
 )
 

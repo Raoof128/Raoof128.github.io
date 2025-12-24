@@ -10,7 +10,7 @@ internal val TurkishStrings = mapOf(
     DesktopStringKey.NavScanHistory to "Tarama Geçmişi",
     DesktopStringKey.NavTrustCentre to "Güven Merkezi",
     DesktopStringKey.NavReports to "Raporlar",
-    DesktopStringKey.NavTraining to "Eğitim",
+    DesktopStringKey.NavTraining to "Botu Yen",
     DesktopStringKey.NavSettings to "Ayarlar"
 )
 

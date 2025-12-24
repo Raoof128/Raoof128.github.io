@@ -10,7 +10,7 @@ internal val GermanStrings = mapOf(
     DesktopStringKey.NavScanHistory to "Scanverlauf",
     DesktopStringKey.NavTrustCentre to "Vertrauenszentrum",
     DesktopStringKey.NavReports to "Berichte",
-    DesktopStringKey.NavTraining to "Training",
+    DesktopStringKey.NavTraining to "Beat the Bot",
     DesktopStringKey.NavSettings to "Einstellungen"
 )
 

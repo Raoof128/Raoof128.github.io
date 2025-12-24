@@ -10,7 +10,7 @@ internal val KoreanStrings = mapOf(
     DesktopStringKey.NavScanHistory to "스캔 기록",
     DesktopStringKey.NavTrustCentre to "신뢰 센터",
     DesktopStringKey.NavReports to "보고서",
-    DesktopStringKey.NavTraining to "교육",
+    DesktopStringKey.NavTraining to "봇 이기기",
     DesktopStringKey.NavSettings to "설정"
 )
 

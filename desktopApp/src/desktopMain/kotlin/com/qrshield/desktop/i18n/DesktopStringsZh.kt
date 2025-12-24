@@ -10,7 +10,7 @@ internal val ChineseSimplifiedStrings = mapOf(
     DesktopStringKey.NavScanHistory to "扫描历史",
     DesktopStringKey.NavTrustCentre to "信任中心",
     DesktopStringKey.NavReports to "报告",
-    DesktopStringKey.NavTraining to "培训",
+    DesktopStringKey.NavTraining to "挑战机器人",
     DesktopStringKey.NavSettings to "设置"
 )
 

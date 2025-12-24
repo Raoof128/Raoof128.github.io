@@ -10,7 +10,7 @@ internal val RussianStrings = mapOf(
     DesktopStringKey.NavScanHistory to "История сканирований",
     DesktopStringKey.NavTrustCentre to "Центр доверия",
     DesktopStringKey.NavReports to "Отчёты",
-    DesktopStringKey.NavTraining to "Обучение",
+    DesktopStringKey.NavTraining to "Победи бота",
     DesktopStringKey.NavSettings to "Настройки"
 )
 

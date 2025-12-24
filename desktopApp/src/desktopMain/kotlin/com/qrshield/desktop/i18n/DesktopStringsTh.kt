@@ -10,7 +10,7 @@ internal val ThaiStrings = mapOf(
     DesktopStringKey.NavScanHistory to "ประวัติการสแกน",
     DesktopStringKey.NavTrustCentre to "ศูนย์ความน่าเชื่อถือ",
     DesktopStringKey.NavReports to "รายงาน",
-    DesktopStringKey.NavTraining to "การฝึกอบรม",
+    DesktopStringKey.NavTraining to "เอาชนะบอท",
     DesktopStringKey.NavSettings to "การตั้งค่า"
 )
 

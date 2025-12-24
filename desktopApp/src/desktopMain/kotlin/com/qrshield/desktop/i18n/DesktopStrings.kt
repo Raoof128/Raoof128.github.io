@@ -59,7 +59,7 @@ enum class DesktopStringKey(val defaultText: String) {
     NavScanHistory("Scan History"),
     NavTrustCentre("Trust Centre"),
     NavReports("Reports"),
-    NavTraining("Training"),
+    NavTraining("Beat the Bot"),
     NavSettings("Settings")
 }
 

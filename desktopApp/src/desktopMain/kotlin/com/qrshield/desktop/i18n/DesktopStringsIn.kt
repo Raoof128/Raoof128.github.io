@@ -10,7 +10,7 @@ internal val IndonesianStrings = mapOf(
     DesktopStringKey.NavScanHistory to "Riwayat Pemindaian",
     DesktopStringKey.NavTrustCentre to "Pusat Kepercayaan",
     DesktopStringKey.NavReports to "Laporan",
-    DesktopStringKey.NavTraining to "Pelatihan",
+    DesktopStringKey.NavTraining to "Kalahkan Bot",
     DesktopStringKey.NavSettings to "Pengaturan"
 )
 

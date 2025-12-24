@@ -250,6 +250,11 @@ const elements = {
     // Toast
     toast: null,
     toastMessage: null,
+
+    // Brain Visualizer
+    brainCanvas: null,
+    signalBadges: null,
+    brainDescription: null,
 };
 
 // =============================================================================
@@ -308,6 +313,20 @@ function cacheElements() {
     elements.playAgainBtn = document.getElementById('playAgainBtn');
     elements.toast = document.getElementById('toast');
     elements.toastMessage = document.getElementById('toastMessage');
+
+    // Brain Visualizer
+    elements.brainCanvas = document.getElementById('brainCanvas');
+    elements.signalBadges = document.getElementById('signalBadges');
+    elements.brainDescription = document.getElementById('brainDescription');
+
+    // Start brain animation if canvas exists
+    if (elements.brainCanvas && window.BrainVisualizer) {
+        window.BrainVisualizer.start(elements.brainCanvas, () => {
+            const challenge = GameState.currentChallenge;
+            if (!challenge || !challenge.isPhishing) return [];
+            return window.BrainVisualizer.reasonsToSignals(challenge.reasons || []);
+        });
+    }
 }
 
 function setupEventListeners() {
@@ -603,6 +622,16 @@ function updateAnalysisDisplay(isCorrect) {
 
     if (elements.educationalNote) {
         elements.educationalNote.textContent = `"${translateText(challenge.educational)}"`;
+    }
+
+    // Update Brain Visualizer
+    if (window.BrainVisualizer) {
+        const signals = challenge.isPhishing
+            ? window.BrainVisualizer.reasonsToSignals(challenge.reasons || [])
+            : [];
+
+        window.BrainVisualizer.renderBadges(elements.signalBadges, signals);
+        window.BrainVisualizer.updateDescription(elements.brainDescription, signals);
     }
 }
 

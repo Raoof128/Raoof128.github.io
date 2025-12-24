@@ -10,7 +10,7 @@ internal val JapaneseStrings = mapOf(
     DesktopStringKey.NavScanHistory to "スキャン履歴",
     DesktopStringKey.NavTrustCentre to "トラストセンター",
     DesktopStringKey.NavReports to "レポート",
-    DesktopStringKey.NavTraining to "トレーニング",
+    DesktopStringKey.NavTraining to "ボットに勝て",
     DesktopStringKey.NavSettings to "設定"
 )
 

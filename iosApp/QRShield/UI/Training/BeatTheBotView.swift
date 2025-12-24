@@ -92,6 +92,9 @@ struct BeatTheBotView: View {
     // Progress animation
     @State private var ringProgress: CGFloat = 0.76
     
+    // Detected signals for brain visualizer
+    @State private var detectedSignals: [String] = []
+    
     private static let sampleChallenges: [PhishingChallenge] = [
         // PHISHING EXAMPLES
         PhishingChallenge(
@@ -220,6 +223,9 @@ struct BeatTheBotView: View {
                 
                 // Live Session Stats
                 liveSessionCard
+                
+                // Brain Visualizer
+                brainVisualizerSection
                 
                 Spacer()
                 
@@ -563,6 +569,31 @@ struct BeatTheBotView: View {
         .background(Color.bgSurface.opacity(0.5), in: RoundedRectangle(cornerRadius: 12))
     }
     
+    // MARK: - Brain Visualizer Section
+    
+    private var brainVisualizerSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("AI NEURAL ANALYSIS")
+                    .font(.caption.weight(.bold))
+                    .foregroundColor(.textMuted)
+                    .tracking(1)
+                
+                Spacer()
+                
+                if !detectedSignals.isEmpty {
+                    Text("\(detectedSignals.count) signals detected")
+                        .font(.caption2)
+                        .foregroundColor(.verdictDanger)
+                }
+            }
+            
+            BrainVisualizer(detectedSignals: detectedSignals)
+        }
+        .padding(16)
+        .liquidGlass(cornerRadius: 16)
+    }
+    
     // MARK: - Hint Card
     
     private var hintCard: some View {
@@ -696,6 +727,13 @@ struct BeatTheBotView: View {
         let correct = currentChallenge.isPhishing == isPhishing
         isCorrect = correct
         
+        // Update brain visualizer with detected signals
+        if currentChallenge.isPhishing {
+            detectedSignals = generateSignalsFromChallenge(currentChallenge)
+        } else {
+            detectedSignals = []
+        }
+        
         if correct {
             points += 100 + (streak * 10)
             streak += 1
@@ -738,9 +776,10 @@ struct BeatTheBotView: View {
         let otherChallenges = Self.sampleChallenges.filter { $0.id != currentChallenge.id }
         currentChallenge = otherChallenges.randomElement() ?? Self.sampleChallenges.randomElement()!
         
-        // Reset timer
+        // Reset timer and brain visualizer
         lastAnswer = nil
         isCorrect = nil
+        detectedSignals = []
         timeRemaining = 12
         ringProgress = 1.0
         
@@ -748,6 +787,53 @@ struct BeatTheBotView: View {
         if isPlaying {
             startTimer()
         }
+    }
+    
+    // MARK: - Signal Generation
+    
+    /// Generates signal strings from a challenge based on keywords in URL and explanation.
+    /// This maps challenge content to the signal format used by CommonBrainVisualizer.
+    private func generateSignalsFromChallenge(_ challenge: PhishingChallenge) -> [String] {
+        var signals: [String] = []
+        let url = challenge.url.lowercased()
+        let explanation = challenge.explanation.lowercased()
+        let hint = challenge.hint.lowercased()
+        
+        // Check for various signal patterns
+        if url.contains("-") || explanation.contains("hyphen") {
+            signals.append("SUSPICIOUS_DOMAIN")
+        }
+        if explanation.contains("typo") || hint.contains("typo") {
+            signals.append("TYPOSQUATTING")
+        }
+        if explanation.contains("homograph") || explanation.contains("zero") || explanation.contains("number") {
+            signals.append("HOMOGRAPH_ATTACK")
+        }
+        if url.contains(".tk") || url.contains(".ml") || url.contains(".ga") || url.contains(".net") || hint.contains("tld") {
+            signals.append("RISKY_TLD")
+        }
+        if url.contains("http://") && !url.contains("https://") {
+            signals.append("INSECURE_PROTOCOL")
+        }
+        if explanation.contains("subdomain") || hint.contains("subdomain") {
+            signals.append("SUBDOMAIN_ABUSE")
+        }
+        if url.contains("bit.ly") || url.contains("shortened") {
+            signals.append("URL_SHORTENER")
+        }
+        if explanation.contains("urgency") || hint.contains("urgency") {
+            signals.append("URGENCY_TACTIC")
+        }
+        if explanation.contains("brand") || explanation.contains("impersonat") {
+            signals.append("BRAND_IMPERSONATION")
+        }
+        
+        // Ensure at least one signal for phishing challenges
+        if signals.isEmpty && challenge.isPhishing {
+            signals.append("SUSPICIOUS_DOMAIN")
+        }
+        
+        return signals
     }
 }
 

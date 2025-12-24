@@ -139,7 +139,7 @@ fun AppSidebar(
             SectionLabel(DesktopStrings.text(DesktopStringKey.MenuSystem, language), colors.textMuted)
             SidebarItem(
                 label = DesktopStrings.text(DesktopStringKey.NavTraining, language),
-                icon = "school",
+                icon = "sports_esports",
                 active = activeScreen == AppScreen.Training,
                 colors = colors,
                 radius = radius,

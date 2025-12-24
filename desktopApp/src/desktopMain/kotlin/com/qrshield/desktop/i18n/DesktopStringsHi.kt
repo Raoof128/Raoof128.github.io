@@ -10,7 +10,7 @@ internal val HindiStrings = mapOf(
     DesktopStringKey.NavScanHistory to "स्कैन इतिहास",
     DesktopStringKey.NavTrustCentre to "विश्वास केंद्र",
     DesktopStringKey.NavReports to "रिपोर्ट",
-    DesktopStringKey.NavTraining to "प्रशिक्षण",
+    DesktopStringKey.NavTraining to "बॉट को हराओ",
     DesktopStringKey.NavSettings to "सेटिंग्स"
 )
 

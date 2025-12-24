@@ -10,7 +10,7 @@ internal val ArabicStrings = mapOf(
     DesktopStringKey.NavScanHistory to "سجل المسح",
     DesktopStringKey.NavTrustCentre to "مركز الثقة",
     DesktopStringKey.NavReports to "التقارير",
-    DesktopStringKey.NavTraining to "التدريب",
+    DesktopStringKey.NavTraining to "تحدي الروبوت",
     DesktopStringKey.NavSettings to "الإعدادات"
 )
 

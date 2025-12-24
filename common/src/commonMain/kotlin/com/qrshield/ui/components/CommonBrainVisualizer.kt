@@ -17,6 +17,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import kotlin.math.sin
+import kotlin.math.PI
 import kotlin.random.Random
 
 /**
@@ -75,7 +76,7 @@ private fun BrainCanvas(
     val infiniteTransition = rememberInfiniteTransition(label = "brain_pulse")
     val pulsePhase by infiniteTransition.animateFloat(
         initialValue = 0f,
-        targetValue = 2f * Math.PI.toFloat(),
+        targetValue = 2f * PI.toFloat(),
         animationSpec = infiniteRepeatable(
             animation = tween(2000, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
@@ -228,7 +229,7 @@ private fun generateBrainNodes(count: Int): List<BrainNode> {
         BrainNode(
             x = x,
             y = y,
-            phaseOffset = random.nextFloat() * 2 * Math.PI.toFloat()
+            phaseOffset = random.nextFloat() * 2 * PI.toFloat()
         )
     }
 }
