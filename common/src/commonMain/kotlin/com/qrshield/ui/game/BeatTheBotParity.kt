@@ -129,15 +129,15 @@ object BeatTheBotParity {
     /** Idle state accessibility description template */
     const val A11Y_IDLE = "AI Neural Net: No threats detected. Brain pattern is calm and blue."
     
-    /** Active state accessibility description template (use String.format) */
-    const val A11Y_ACTIVE_TEMPLATE = "AI Neural Net: Active alert. Detected signals: %s. Brain pattern is pulsing red."
+    /** Active state accessibility description template */
+    const val A11Y_ACTIVE_TEMPLATE = "AI Neural Net: Active alert. Detected signals: {signals}. Brain pattern is pulsing red."
     
     /** Generate accessibility description */
     fun getAccessibilityDescription(signals: List<String>): String {
         return if (signals.isEmpty()) {
             A11Y_IDLE
         } else {
-            A11Y_ACTIVE_TEMPLATE.format(signals.joinToString(", "))
+            A11Y_ACTIVE_TEMPLATE.replace("{signals}", signals.joinToString(", "))
         }
     }
     

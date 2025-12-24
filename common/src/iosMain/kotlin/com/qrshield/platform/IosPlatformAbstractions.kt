@@ -21,7 +21,6 @@ package com.qrshield.platform
 import platform.Foundation.NSDate
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSDateFormatterMediumStyle
-import platform.Foundation.NSLog
 import platform.Foundation.NSProcessInfo
 import platform.Foundation.NSURL
 import platform.Foundation.NSUUID
@@ -127,23 +126,27 @@ actual object PlatformHaptics {
 // ==================== Logging ====================
 
 actual object PlatformLogger {
+    // Note: Using println instead of NSLog to avoid variadic function issues
+    // in Kotlin/Native test environment. NSLog variadic calls can cause segfaults.
+    // In production iOS app, use os_log via Swift interop for full logging.
+    
     actual fun debug(tag: String, message: String) {
-        NSLog("[%@] DEBUG: %@", tag, message)
+        println("[$tag] DEBUG: $message")
     }
 
     actual fun info(tag: String, message: String) {
-        NSLog("[%@] INFO: %@", tag, message)
+        println("[$tag] INFO: $message")
     }
 
     actual fun warn(tag: String, message: String) {
-        NSLog("[%@] WARN: %@", tag, message)
+        println("[$tag] WARN: $message")
     }
 
     actual fun error(tag: String, message: String, throwable: Throwable?) {
         if (throwable != null) {
-            NSLog("[%@] ERROR: %@ - %@", tag, message, throwable.message ?: "")
+            println("[$tag] ERROR: $message - ${throwable.message ?: ""}")
         } else {
-            NSLog("[%@] ERROR: %@", tag, message)
+            println("[$tag] ERROR: $message")
         }
     }
 }

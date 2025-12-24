@@ -319,7 +319,7 @@ class PerformanceRegressionTest {
         
         assertTrue(
             throughput >= 100,
-            "Throughput (${"%.1f".format(throughput)} URLs/s) below minimum (100 URLs/s)"
+            "Throughput (${FormatUtils.formatDouble(throughput, 1)} URLs/s) below minimum (100 URLs/s)"
         )
     }
 
@@ -361,15 +361,5 @@ class PerformanceRegressionTest {
 
     private fun currentTimeMillis(): Long {
         return kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
-    }
-
-    private fun String.format(value: Double): String {
-        val parts = this.split(".")
-        if (parts.size != 2 || !parts[1].endsWith("f")) return value.toString()
-        val decimals = parts[1].dropLast(1).toIntOrNull() ?: return value.toString()
-        var factor = 1.0
-        repeat(decimals) { factor *= 10 }
-        val rounded = kotlin.math.round(value * factor) / factor
-        return rounded.toString()
     }
 }

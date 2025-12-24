@@ -264,7 +264,7 @@ https://skype-video-call.gq/answer,SUSPICIOUS,BRAND_IMPERSONATION,Skype scam
      * ```
      */
     @Test
-    fun `proof test - detects 150+ malicious URLs at 95% threshold`() {
+    fun `proof test - detects 150 plus malicious URLs at 95 percent threshold`() {
         println()
         println("═══════════════════════════════════════════════════════════════")
         println("             QR-SHIELD MALICIOUS URL PROOF TEST")
@@ -298,17 +298,19 @@ https://skype-video-call.gq/answer,SUSPICIOUS,BRAND_IMPERSONATION,Skype scam
             }
             
             // Update category stats
-            val (catBlocked, catTotal) = categoryStats.getOrDefault(testCase.category, Pair(0, 0))
+            val existingStats = categoryStats[testCase.category]
+            val currentBlocked = existingStats?.first ?: 0
+            val currentTotal = existingStats?.second ?: 0
             categoryStats[testCase.category] = Pair(
-                catBlocked + if (isBlocked) 1 else 0,
-                catTotal + 1
+                currentBlocked + if (isBlocked) 1 else 0,
+                currentTotal + 1
             )
         }
         
         // Calculate detection rate
         val detectionRate = blocked.toDouble() / total.toDouble()
-        val detectionPercent = (detectionRate * 100).let { "%.1f".format(it) }
-        val requiredPercent = (REQUIRED_DETECTION_RATE * 100).let { "%.1f".format(it) }
+        val detectionPercent = FormatUtils.formatDouble(detectionRate * 100, 1)
+        val requiredPercent = FormatUtils.formatDouble(REQUIRED_DETECTION_RATE * 100, 1)
         
         // Print summary
         println("✅ Verified: $blocked/$total threats blocked ($detectionPercent%)")
@@ -316,7 +318,7 @@ https://skype-video-call.gq/answer,SUSPICIOUS,BRAND_IMPERSONATION,Skype scam
         println("By Category:")
         categoryStats.entries.sortedBy { it.key }.forEach { (category, stats) ->
             val (catBlocked, catTotal) = stats
-            val catPercent = ((catBlocked.toDouble() / catTotal.toDouble()) * 100).let { "%.1f".format(it) }
+            val catPercent = FormatUtils.formatDouble((catBlocked.toDouble() / catTotal.toDouble()) * 100, 1)
             val status = if (catBlocked == catTotal) "✓" else "!"
             println("  ${category.padEnd(20)} ${catBlocked.toString().padStart(3)}/${catTotal.toString().padEnd(3)} ($catPercent%) $status")
         }
