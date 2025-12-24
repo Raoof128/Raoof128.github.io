@@ -208,10 +208,21 @@ Comprehensive repo-wide audit to ensure all documentation matches the actual cod
 | `androidApp/build.gradle.kts` | versionName 1.17.30→1.17.33 |
 | `CHANGELOG.md` | Added v1.17.34 entry |
 
+### Additional Files Fixed (Cross-check)
+
+| File | Change |
+|------|--------|
+| `ESSAY_SUBMISSION.md` | Kotlin 2.0.21→2.3.0, 1000+→1,248+ tests, 4→5 platforms |
+| `README_FULL.md` | Kotlin badge 2.0.21→2.3.0, 1000+→1,248+ tests |
+| `PRODUCTION_READINESS.md` | 11→16 languages, 900+→1,248+ tests |
+| `SUBMISSION_CHECKLIST.md` | 1000+→1,248+ tests |
+| `docs/JUDGE_SUMMARY.md` | 1000+→1,248+ tests |
+| `docs/EVALUATION.md` | 1000+→1,248+ tests |
+
 ## 📋 Audit Summary
 
 - **114 markdown files** scanned
-- **13 outdated references** fixed
+- **19 outdated references** fixed
 - **Consistency established** for:
   - Test count: 1,248+
   - Platform count: 5 KMP targets
@@ -222,8 +233,8 @@ Comprehensive repo-wide audit to ensure all documentation matches the actual cod
 ## Notes for Future Agents
 
 1. **Always use 5 platforms** when referring to KMP targets (Android, iOS, Desktop, JS, Wasm)
-2. **Current test count is 1,248+** not 849
-3. **16 languages supported** not 5
+2. **Current test count is 1,248+** not 849 or 1000+
+3. **16 languages supported** not 5 or 11
 4. **Kotlin 2.3.0** is the current version
 
 ---

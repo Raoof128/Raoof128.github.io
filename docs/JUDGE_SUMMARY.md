@@ -11,7 +11,7 @@
 | **Privacy-First** | 100% offline, zero data collection, no cloud API calls |
 | **True KMP Usage** | ~80% shared business logic (9,500+ LOC), not just data classes |
 | **Real Problem** | QRishing is a growing threat (+587% since 2023) with limited cross-platform tools |
-| **Production Quality** | 89% test coverage, 1000+ tests, Detekt CI enforcement |
+| **Production Quality** | 89% test coverage, 1,248+ tests, Detekt CI enforcement |
 | **Advanced ML** | Ensemble architecture: Logistic Regression + Gradient Boosting + Decision Rules |
 | **Explainable AI** | 25+ heuristic signals with weighted scores and explanations |
 

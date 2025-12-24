@@ -39,7 +39,7 @@ Cloud scanners like Google Safe Browsing require network access and log every UR
 | **Ensemble ML** | 3-model architecture (Logistic Regression + Gradient Boosting + Decision Rules) |
 | **Dynamic Brand Discovery** | Pattern-based detection for unknown brands beyond 500+ static entries |
 | **25+ Heuristics** | Homograph attacks, suspicious TLDs, typosquatting, redirect patterns |
-| **4 Platforms** | Android, iOS, Desktop, Web with 80%+ shared code |
+| **4 Platforms** | Android, iOS, Desktop, Web (JS + Wasm) with 80%+ shared code |
 | **Adversarial Defense** | RTL override, double encoding, zero-width character detection |
 
 ---
@@ -65,12 +65,12 @@ The ML model failed 3 times before working. The ComBank false positive crisis le
 
 ## Technologies Used
 
-- **Kotlin 2.0.21** with Coroutines/Flow
+- **Kotlin 2.3.0** with Coroutines/Flow
 - **Compose Multiplatform** (Android, Desktop, iOS hybrid)
 - **SwiftUI** (native iOS camera/UI)
 - **Kotlin/JS** (Web target)
 - **Detekt + Ktlint** (zero-tolerance lint policy)
-- **89% test coverage**, 1000+ tests, property-based testing
+- **89% test coverage**, 1,248+ tests, property-based testing
 
 ---
 
@@ -86,7 +86,7 @@ The ML model failed 3 times before working. The ComBank false positive crisis le
 
 ## Why I Should Win
 
-I didn't just build an app—I built something that protects people like my grandmother from attacks they can't see coming. The privacy-first architecture is a deliberate ethical choice. The ensemble ML demonstrates technical depth. The 4-platform KMP deployment proves engineering excellence.
+I didn't just build an app—I built something that protects people like my grandmother from attacks they can't see coming. The privacy-first architecture is a deliberate ethical choice. The ensemble ML demonstrates technical depth. The 5-platform KMP deployment proves engineering excellence.
 
 **What Munich means to me:** A chance to share this work, learn from the best Kotlin developers worldwide, and bring that knowledge back to mentor the next generation.
 

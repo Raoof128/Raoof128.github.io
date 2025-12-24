@@ -6,7 +6,7 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Performance](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/performance.yml?label=performance&logo=speedtest&logoColor=white)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/performance.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-purple)](LICENSE)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0-7F52FF)](https://kotlinlang.org)
 [![KMP](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Desktop%20%7C%20Web-orange)](https://kotlinlang.org/docs/multiplatform.html)
 
 ---
@@ -45,7 +45,7 @@
 | ✅ **Real Impact** | Protects users from $12B+ annual QRishing losses |
 | ✅ **Privacy Architecture** | No cloud API = no data collection = no privacy violation |
 | ✅ **Technical Depth** | Ensemble ML, adversarial robustness, ECDH secure aggregation |
-| ✅ **Production Quality** | 89% test coverage, 1000+ tests, zero-tolerance Detekt CI |
+| ✅ **Production Quality** | 89% test coverage, 1,248+ tests, zero-tolerance Detekt CI |
 | ✅ **Kotlin Showcase** | Coroutines, sealed classes, null safety, expect/actual pattern |
 
 ---
@@ -285,7 +285,7 @@ cd qrshield
 | **Payload Types** | 15+ (URLs, WiFi, SMS, vCard, Crypto, UPI, etc.) |
 | **Obfuscation Attacks** | 13 attack types detected |
 | **Test Coverage** | 89% |
-| **Unit Tests** | 1000+ |
+| **Unit Tests** | 1,248+ |
 
 ### ⚡ Performance Benchmarks
 
@@ -375,7 +375,7 @@ cd qrshield
 
 ### Badges
 
-![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF?logo=kotlin&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0-7F52FF?logo=kotlin&logoColor=white)
 ![KMP](https://img.shields.io/badge/KMP-Enabled-7F52FF?logo=kotlin&logoColor=white)
 ![Maven Central](https://img.shields.io/badge/Maven_Central-1.4.0-C71A36?logo=apachemaven&logoColor=white)
 ![GitHub Packages](https://img.shields.io/badge/GitHub_Packages-Available-181717?logo=github&logoColor=white)

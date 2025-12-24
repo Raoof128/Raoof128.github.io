@@ -215,7 +215,7 @@ fun `any URL produces valid verdict`() {
 ```bash
 ./gradlew :common:desktopTest --tests "*"
 
-# 1000+ tests, ~30 seconds
+# 1,248+ tests, ~30 seconds
 ```
 
 ---

@@ -52,7 +52,7 @@
 | **Idiomatic Kotlin** | sealed classes, data classes, coroutines | +5 |
 | **Detekt Zero-Tolerance** | CI fails on any violation | +5 |
 | **KDoc Documentation** | All public APIs documented | +3 |
-| **Test Coverage** | 89% coverage, 1000+ tests | +3 |
+| **Test Coverage** | 89% coverage, 1,248+ tests | +3 |
 | **Property-Based Tests** | [PropertyBasedTest.kt](common/src/commonTest/kotlin/com/qrshield/core/PropertyBasedTest.kt) | +2 |
 | **Architecture Tests** | [KonsistTest.kt](common/src/desktopTest/kotlin/com/qrshield/architecture/KonsistTest.kt) | +2 |
 | **TOTAL** | | **20/20** |
