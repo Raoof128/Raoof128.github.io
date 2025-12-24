@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Per-app language preferences (Android 13+) -->
+<!-- Per-app language preferences (Android 13+) - 16 supported languages -->
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Default language -->
     <locale android:name="en" />

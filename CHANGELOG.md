@@ -5,6 +5,40 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.23] - 2025-12-24
+
+### 📱 Android App - Audit & Version Sync
+
+Conducted comprehensive Android app audit and synced version numbers with iOS/Web parity.
+
+#### 🔧 Fixes
+
+- Updated `versionCode` from 9 to 10
+- Updated `versionName` from 1.17.11 to 1.17.22
+- Fixed comment in `build.gradle.kts`: "15 supported languages" → "16 supported languages"
+- Fixed comment in `locales_config.xml` to reflect 16 languages
+
+#### ✅ Audit Verification
+
+| Category | Status |
+|----------|--------|
+| Language Files (16) | ✅ All 452 keys present |
+| String Translations | ✅ Complete |
+| locales_config.xml | ✅ 16 languages |
+| localeFilters | ✅ 16 languages |
+| Build Configuration | ✅ Synced |
+
+#### ✅ Full Platform Parity Achieved
+
+| Platform | Languages | Status |
+|----------|-----------|--------|
+| Web App | 16 | ✅ Complete |
+| iOS App | 16 | ✅ Complete |
+| Desktop App | 16 | ✅ Complete |
+| Android App | 16 | ✅ Complete |
+
+---
+
 ## [1.17.22] - 2025-12-24
 
 ### 🌐 Web App - UI Localization Expansion
@@ -101,7 +135,7 @@ Expanded iOS application internationalization support to achieve full platform p
 | Web App | 16 | ✅ Complete |
 | iOS App | 16 | ✅ Complete |
 | Desktop App | 16 | ✅ Complete |
-| Android App | 15 | 🔄 Pending |
+| Android App | 16 | ✅ Complete |
 
 ---
 

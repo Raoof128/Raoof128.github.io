@@ -16,13 +16,13 @@ android {
         applicationId = "com.qrshield.android"
         minSdk = 26
         targetSdk = 35  // Android 16
-        versionCode = 9  // v1.17.11 release
-        versionName = "1.17.11"
+        versionCode = 10  // v1.17.22 release
+        versionName = "1.17.22"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     
-    // Resource configurations for localization - all 15 supported languages
+    // Resource configurations for localization - all 16 supported languages
     androidResources {
         localeFilters += listOf(
             "en",  // English (default)
