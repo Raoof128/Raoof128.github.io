@@ -5,6 +5,28 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.26] - 2025-12-24
+
+### 🔐 Security & Platform Bridge
+
+Implemented a robust **"Escape Hatch"** pattern for the Web (Wasm/JS) targets, ensuring cryptographic security by bridging to native browser APIs.
+
+#### ✅ Critical Security Fix
+- **Web Crypto API Integration:** Replaced the insecure `kotlin.random.Random` implementation in `PlatformSecureRandom` (web target) with `window.crypto.getRandomValues()`.
+  - This ensures cryptographically secure random number generation (CSPRNG) for key exchange and UUID generation.
+  - Matches the security level of JVM `SecureRandom` and iOS `SecRandomCopyBytes`.
+
+#### 🌉 Platform Bridge (`platform-bridge.js`)
+- Created a unified JavaScript bridge file loaded by all web pages.
+- Provides native implementations for:
+  - `getSecureRandomBytes` (Crypto)
+  - `copyTextToClipboard` (Clipboard API)
+  - `getCurrentTimeMillis` / `getPerformanceNow` (High-precision timing)
+
+#### ⚡ Improvements
+- **Offline Reliability:** Added `platform-bridge.js` to the Service Worker cache (`v2.4.3`).
+- **Wasm Compatibility:** Enables complex crypto operations in Wasm by offloading entropy generation to the browser.
+
 ## [1.17.25] - 2025-12-24
 
 ### 🌐 WebAssembly (Wasm) Target - ENABLED!

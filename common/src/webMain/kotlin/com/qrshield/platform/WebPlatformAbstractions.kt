@@ -16,17 +16,26 @@
 
 package com.qrshield.platform
 
-import kotlin.random.Random
-
 /**
  * Web (JS + Wasm) implementations of platform abstractions.
  *
  * Shared implementation for both Kotlin/JS and Kotlin/Wasm targets
  * using the webMain source set introduced in Kotlin 2.2.20.
  *
- * Note: Uses pure Kotlin implementations to avoid js() calls that
- * are incompatible with Wasm. Browser APIs are accessed via external
- * declarations when needed.
+ * ## Expect/Actual "Escape Hatch" Pattern (KMP Best Practice)
+ *
+ * This file implements the platform-specific capabilities that require native APIs:
+ *
+ * | Abstraction          | Web Implementation                  |
+ * |----------------------|-------------------------------------|
+ * | PlatformTime         | Date.now(), performance.now()       |
+ * | PlatformClipboard    | navigator.clipboard API             |
+ * | PlatformSecureRandom | crypto.getRandomValues() (Web Crypto)|
+ * | PlatformLogger       | console.log/warn/error              |
+ * | PlatformUrlOpener    | window.open()                       |
+ *
+ * Note: Uses external declarations for JS interop to ensure compatibility
+ * with both Kotlin/JS and Kotlin/Wasm targets.
  *
  * @author QR-SHIELD Security Team
  * @since 1.17.25
@@ -130,17 +139,56 @@ actual object PlatformShare {
 
 // ==================== Secure Random ====================
 
+/**
+ * Web Crypto API-backed secure random implementation.
+ *
+ * Uses crypto.getRandomValues() which is cryptographically secure
+ * and available in all modern browsers and Web Workers.
+ *
+ * ## Security Note
+ * This implementation uses the Web Crypto API which is:
+ * - Cryptographically secure (CSPRNG)
+ * - Available in all modern browsers
+ * - Hardware-backed where available (via OS APIs)
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues
+ */
 actual object PlatformSecureRandom {
+    /**
+     * Generate cryptographically secure random bytes using Web Crypto API.
+     *
+     * @param size Number of bytes to generate (max 65536 per call per spec)
+     * @return Secure random bytes
+     */
     actual fun nextBytes(size: Int): ByteArray {
-        val array = ByteArray(size)
-        for (i in 0 until size) {
-            array[i] = (Random.nextInt(256) - 128).toByte()
+        require(size >= 0) { "Size must be non-negative" }
+        if (size == 0) return ByteArray(0)
+        
+        // Web Crypto API has a max of 65536 bytes per call
+        val result = ByteArray(size)
+        var offset = 0
+        
+        while (offset < size) {
+            val chunkSize = minOf(65536, size - offset)
+            val chunk = getSecureRandomBytes(chunkSize)
+            chunk.copyInto(result, offset)
+            offset += chunkSize
         }
-        return array
+        
+        return result
     }
 
+    /**
+     * Generate a cryptographically secure UUID v4.
+     */
     actual fun randomUUID(): String {
         val bytes = nextBytes(16)
+        
+        // Set version to 4 (random UUID)
+        bytes[6] = ((bytes[6].toInt() and 0x0F) or 0x40).toByte()
+        // Set variant to RFC 4122
+        bytes[8] = ((bytes[8].toInt() and 0x3F) or 0x80).toByte()
+        
         return buildString {
             bytes.forEachIndexed { index, byte ->
                 append(byte.toUByte().toString(16).padStart(2, '0'))
@@ -149,6 +197,10 @@ actual object PlatformSecureRandom {
         }
     }
 }
+
+// External declaration for Web Crypto API
+// Maps to: crypto.getRandomValues(new Uint8Array(size))
+private external fun getSecureRandomBytes(size: Int): ByteArray
 
 // ==================== URL Opener ====================
 

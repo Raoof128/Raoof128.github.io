@@ -3,7 +3,7 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v2.4.2';
+const CACHE_NAME = 'qr-shield-v2.4.3';
 const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
 
 function isDevHost() {
@@ -49,6 +49,7 @@ const STATIC_ASSETS = [
     './shared-ui.js',
     './styles.css',
     './app.js',
+    './platform-bridge.js',
     './webApp.js',
     './assets/logo.svg',
     './assets/icon-512.png',

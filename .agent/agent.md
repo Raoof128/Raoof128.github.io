@@ -176,6 +176,33 @@ Any important notes for future agents.
 
 ---
 
+# 🔐 December 24, 2025 (Session 10k+2) - Secure Web Crypto & Escape Hatches
+
+### Summary
+Implemented cryptographically secure random number generation for Web (Wasm + JS) targets using the Web Crypto API, replacing insecure `kotlin.random.Random`.
+
+## ✅ Changes Made
+
+### 1. Web Crypto API Integration
+- **Critical Security Fix**: `PlatformSecureRandom` in `webMain` now uses `window.crypto.getRandomValues()` instead of `kotlin.random.Random`.
+- **Created `platform-bridge.js`**: A new JavaScript bridge file that implements the external functions required by Kotlin/Wasm and Kotlin/JS to access browser APIs.
+  - `getSecureRandomBytes(size)` -> `crypto.getRandomValues()`
+  - `copyTextToClipboard(text)` -> `navigator.clipboard.writeText()`
+  - Time and logging utilities
+
+### 2. Files Updated
+| File | Change |
+|------|--------|
+| `common/.../webMain/WebPlatformAbstractions.kt` | Updated `PlatformSecureRandom` to use external `getSecureRandomBytes` |
+| `webApp/.../resources/platform-bridge.js` | Created JS implementation of platform capabilities |
+| `webApp/.../resources/*.html` | Added `<script src="platform-bridge.js">` to ALL HTML files |
+| `webApp/.../resources/sw.js` | Added `platform-bridge.js` to offline cache |
+
+## 🛡️ Security Note
+This implementation fulfills the **"Escape Hatch"** pattern required by the competition judges. Instead of relying on non-standard or insecure Kotlin implementations for crypto, we "escape" to the browser's native, hardware-backed Web Crypto API.
+
+---
+
 # 🌐 December 24, 2025 (Session 10k+1) - PHASE 0 COMPLETE! Competition Critical
 
 ### Summary
