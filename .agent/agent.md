@@ -4,29 +4,145 @@ This file tracks significant changes made during development sessions.
 
 ---
 
-## ⚠️ IMPORTANT: Version Management Reminder for All Agents
+# 🤖 MESSAGES FOR ALL AGENTS - READ FIRST!
+
+## ⚠️ CRITICAL: Version Management
 
 **Current App Version: `1.17.23`** (as of December 24, 2025)
 
-### 🔴 After Making Improvements, YOU MUST Update Version Numbers:
+### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
 | Platform | File | Field |
 |----------|------|-------|
-| **Android** | `androidApp/build.gradle.kts` | `versionCode` (increment) + `versionName` |
-| **iOS** | `iosApp/QRShield.xcodeproj/project.pbxproj` | `MARKETING_VERSION` (2 occurrences) |
-| **Desktop** | `desktopApp/.../screens/DashboardScreen.kt` | `KeyValueRow` version value |
-| **CHANGELOG** | `CHANGELOG.md` | Add new entry at top with version number |
+| **Android** | `androidApp/build.gradle.kts` | `versionCode` (increment by 1) + `versionName` |
+| **iOS** | `iosApp/QRShield.xcodeproj/project.pbxproj` | `MARKETING_VERSION` (appears 2 times - update BOTH!) |
+| **Desktop** | `desktopApp/.../screens/DashboardScreen.kt` | `KeyValueRow` version value (line ~520) |
+| **CHANGELOG** | `CHANGELOG.md` | Add new entry at TOP with version number |
 
 ### Version Format
 - Use semantic versioning: `MAJOR.MINOR.PATCH` (e.g., `1.17.24`)
 - Increment PATCH for bug fixes
-- Increment MINOR for new features
+- Increment MINOR for new features  
 - Increment MAJOR for breaking changes
 
-### Checklist Before Committing:
-- [ ] Update `CHANGELOG.md` with new version entry
-- [ ] Update platform-specific version files
-- [ ] Update this agent.md with session notes
+---
+
+## 📋 Pre-Commit Checklist
+
+Before finishing your session, ensure you complete these steps:
+
+- [ ] ✅ Update `CHANGELOG.md` with new version entry describing your changes
+- [ ] ✅ Update ALL platform version files (Android, iOS, Desktop)
+- [ ] ✅ Add session notes to this `agent.md` file
+- [ ] ✅ Run basic tests if applicable
+- [ ] ✅ Commit and push changes
+
+---
+
+## 🌍 Internationalization (i18n) Guidelines
+
+This app supports **16 languages**. When adding new UI strings:
+
+| Platform | How to Add Strings |
+|----------|-------------------|
+| **Android** | Add to `androidApp/src/main/res/values/strings.xml` AND all `values-<lang>/strings.xml` files |
+| **iOS** | Add to `iosApp/QRShield/en.lproj/Localizable.strings` AND all other `.lproj` folders |
+| **Desktop** | Add to `desktopApp/.../i18n/DesktopStrings.kt` AND all language-specific files |
+| **Web** | Add to `webApp/.../i18n/WebStrings.kt` AND all language-specific files |
+
+### Supported Languages
+`en, ar, de, es, fr, hi, id, it, ja, ko, pt, ru, th, tr, vi, zh`
+
+**⚠️ NEVER add hardcoded strings to UI - always use localization keys!**
+
+---
+
+## 🏗️ Project Architecture Quick Reference
+
+```
+qrshield/
+├── androidApp/     # Android (Jetpack Compose)
+├── iosApp/         # iOS (SwiftUI)
+├── desktopApp/     # Desktop (Compose Desktop)
+├── webApp/         # Web (Kotlin/JS + Kotlin/Wasm)
+├── common/         # Shared KMP code (PhishingEngine, etc.)
+├── models/         # ML models and brand database
+├── data/           # Test data and update files
+└── docs/           # Documentation
+```
+
+### Key Shared Components (in `common/`)
+- `PhishingEngine` - Core threat detection logic
+- `HeuristicAnalyzer` - URL analysis heuristics
+- `BrandDatabase` - Known brand patterns
+- All platforms share the same detection logic!
+
+---
+
+## 🔧 Common Tasks Quick Reference
+
+### Building
+```bash
+# Android
+./gradlew :androidApp:assembleDebug
+
+# iOS - use Xcode
+
+# Desktop
+./gradlew :desktopApp:run
+
+# Web
+./gradlew :webApp:jsBrowserDevelopmentRun
+```
+
+### Testing
+```bash
+# Run all tests
+./gradlew test
+
+# Run specific module tests
+./gradlew :common:test
+./gradlew :androidApp:testDebugUnitTest
+```
+
+---
+
+## 📝 How to Document Your Session
+
+Add a new section at the top of the session history below with:
+
+```markdown
+# 📱 [Date] (Session XX) - Brief Title
+
+### Summary
+One-line summary of what you did.
+
+## ✅ Changes Made
+
+### Files Updated
+| File | Change |
+|------|--------|
+| `path/to/file` | Description of change |
+
+## Notes
+Any important notes for future agents.
+
+---
+```
+
+---
+
+## ⚡ Quick Tips
+
+1. **Read CHANGELOG.md first** - Understand recent changes before making new ones
+2. **Check for existing patterns** - Don't reinvent; follow existing code style
+3. **Test on all platforms if possible** - Changes to `common/` affect everything
+4. **Keep localization in sync** - If you add a string, add it to ALL 16 languages
+5. **Update docs if you change architecture** - Keep `docs/` folder current
+
+---
+
+# SESSION HISTORY
 
 ---
 
