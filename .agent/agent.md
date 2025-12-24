@@ -161,10 +161,13 @@ Any important notes for future agents.
 
 ---
 
-# 🌐 December 24, 2025 (Session 10k+1) - WASM TARGET FIXED! Competition Critical
+# 🌐 December 24, 2025 (Session 10k+1) - PHASE 0 COMPLETE! Competition Critical
 
 ### Summary
-**Major milestone achieved:** Enabled and fixed the Kotlin/Wasm target for the web application, upgraded Kotlin to 2.3.0 (latest stable), fixed SDK documentation contradiction in README, and ensured all 5 platform targets build successfully.
+**All Phase 0 "Don't Lose on a Technicality" items completed:**
+1. ✅ Fixed Kotlin/Wasm target (upgraded to Kotlin 2.3.0, SQLDelight 2.2.1)
+2. ✅ Resolved SDK documentation contradiction (removed false Maven coordinates)
+3. ✅ Created comprehensive Evidence Pack linking all claims to reproducible artifacts
 
 ## 🎯 Problem Statement
 
@@ -321,6 +324,44 @@ SQLDelight 2.2.1 adds these new artifacts for wasmJs:
 4. **Test both targets** - Changes to webMain affect both `:webApp:jsBrowserDevelopmentWebpack` and `:webApp:wasmJsBrowserDevelopmentWebpack`
 5. **Kotlin 2.3.0 deprecations** - Many old DSLs are now deprecated, use the new patterns
 
+## 📦 Phase 0 Item #3: Evidence Pack Created
+
+### The Problem
+README made claims (100% offline, <5ms, 25+ heuristics, etc.) without linking to reproducible evidence.
+
+### The Solution
+Created comprehensive `docs/EVIDENCE_PACK.md` that links every major claim to:
+- Verification scripts (`judge/verify_*.sh`)
+- Code locations (file paths)
+- Build commands (reproducible)
+- Metrics and outputs
+
+### Evidence Pack Contents
+
+| Claim | Evidence |
+|-------|----------|
+| 100% Offline | `judge/verify_offline.sh` |
+| <5ms Analysis | `judge/verify_performance.sh` |
+| 25+ Heuristics | `docs/HEURISTICS.md` + code grep |
+| 5-Platform KMP | Build commands for all 5 targets |
+| Ensemble ML | `docs/ML_MODEL.md` |
+| 16 Languages | Resource folder counts |
+| 89% Coverage | Kover workflow |
+| Kotlin 2.3.0 | `libs.versions.toml` |
+
+### Updated Verification Script
+
+`judge/verify_parity.sh` now verifies **4 platforms**:
+1. JVM (Desktop)
+2. JavaScript (Web)
+3. Native (iOS)
+4. **WebAssembly (Wasm)** - NEW!
+
+### README Updates
+
+- Added link to Evidence Pack: `> 📖 **[Full Evidence Pack →](docs/EVIDENCE_PACK.md)**`
+- Updated parity description to include Wasm
+
 ## 🏆 Competition Impact
 
 This fix is **critical for the competition** as it:
@@ -328,6 +369,15 @@ This fix is **critical for the competition** as it:
 - Shows cutting-edge use of Kotlin 2.3.0 features
 - Proves the code works with the latest stable Kotlin release
 - Fixes the SDK documentation contradiction (no false claims)
+- **Provides reproducible evidence** for every claim (judge-confidence boost)
+
+## ✅ Phase 0 Completion Summary
+
+| # | Task | Status |
+|---|------|--------|
+| 1 | Fix Web target (Wasm) | ✅ DONE - 13.5 MB .wasm builds |
+| 2 | Resolve SDK contradiction | ✅ DONE - Local module docs |
+| 3 | Evidence pack for claims | ✅ DONE - `docs/EVIDENCE_PACK.md` |
 
 ---
 

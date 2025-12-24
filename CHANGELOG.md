@@ -120,6 +120,36 @@ commonMain
 | `@JsFun` annotation | — | ✅ Primary method |
 | `JsString` type | — | ✅ Required |
 
+#### 📦 Evidence Pack for Claims
+
+Created `docs/EVIDENCE_PACK.md` linking every README claim to reproducible evidence:
+
+| Claim | Evidence |
+|-------|----------|
+| 100% Offline | `judge/verify_offline.sh` |
+| <5ms Analysis | `judge/verify_performance.sh` |
+| 25+ Heuristics | `docs/HEURISTICS.md` + code |
+| 5-Platform KMP | Build commands for all targets |
+| Ensemble ML | `docs/ML_MODEL.md` |
+| 16 Languages | Resource folder counts |
+| 89% Coverage | Kover workflow |
+| Kotlin 2.3.0 | `libs.versions.toml` |
+
+**Updated Scripts:**
+- `judge/verify_parity.sh` now includes Wasm verification (4/4 platforms)
+- README links to Evidence Pack
+
+#### 📁 Files Created
+
+| File | Purpose |
+|------|---------|
+| `docs/EVIDENCE_PACK.md` | **NEW** - Claim-to-evidence matrix |
+| `common/src/webMain/kotlin/com/qrshield/platform/Platform.web.kt` | Shared web Platform |
+| `common/src/webMain/kotlin/com/qrshield/platform/WebPlatformAbstractions.kt` | Shared abstractions |
+| `common/src/webMain/kotlin/com/qrshield/data/DatabaseDriverFactory.kt` | Shared DB driver |
+| `common/src/webMain/kotlin/com/qrshield/scanner/WebQrScanner.kt` | Shared QR scanner |
+| `webApp/webpack.config.d/skiko.js` | Webpack Skiko config |
+
 #### 📁 Files Modified
 
 | File | Change |
@@ -131,7 +161,16 @@ commonMain
 | `webApp/src/jsMain/kotlin/Main.kt` | Fixed null safety issue |
 | `androidApp/build.gradle.kts` | Removed deprecated kotlinOptions |
 | `common/src/iosMain/.../BeatTheBotViewController.kt` | Fixed viewModel parameter |
-| `README.md` | SDK documentation, Kotlin badge |
+| `README.md` | SDK docs, Kotlin badge, Evidence Pack link |
+| `judge/verify_parity.sh` | Added Wasm verification (4 platforms) |
+
+#### ✅ Phase 0 Completion
+
+| # | Task | Status |
+|---|------|--------|
+| 1 | Fix Web target (Wasm) | ✅ DONE |
+| 2 | Resolve SDK contradiction | ✅ DONE |
+| 3 | Evidence pack for claims | ✅ DONE |
 
 ## [1.17.24] - 2025-12-24
 

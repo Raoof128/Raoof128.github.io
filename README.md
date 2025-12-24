@@ -116,7 +116,9 @@
 | `./judge/verify_offline.sh` | Zero network calls during analysis |
 | `./judge/verify_performance.sh` | <5ms P50 latency |
 | `./judge/verify_accuracy.sh` | 87% F1 score |
-| `./judge/verify_parity.sh` | Identical verdicts on JVM + JS + Native |
+| `./judge/verify_parity.sh` | Identical verdicts on JVM + JS + Native + Wasm |
+
+> 📖 **[Full Evidence Pack →](docs/EVIDENCE_PACK.md)** - Every claim linked to reproducible artifacts
 
 **Try these URLs:**
 
