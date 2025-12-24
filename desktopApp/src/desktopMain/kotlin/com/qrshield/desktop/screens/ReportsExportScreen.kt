@@ -54,7 +54,8 @@ fun ReportsExportScreen(viewModel: AppViewModel) {
             AppSidebar(
                 currentScreen = AppScreen.ReportsExport,
                 onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage
+                language = viewModel.appLanguage,
+                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
             )
             ReportsContent(viewModel = viewModel)
         }

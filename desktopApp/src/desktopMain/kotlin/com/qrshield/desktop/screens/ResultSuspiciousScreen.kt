@@ -63,7 +63,8 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
                 AppSidebar(
                     currentScreen = AppScreen.ResultSuspicious,
                     onNavigate = { viewModel.currentScreen = it },
-                    language = viewModel.appLanguage
+                    language = viewModel.appLanguage,
+                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
                 )
                 SuspiciousContent(
                     viewModel = viewModel,

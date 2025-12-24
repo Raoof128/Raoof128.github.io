@@ -38,6 +38,7 @@ fun AppSidebar(
     currentScreen: AppScreen,
     onNavigate: (AppScreen) -> Unit,
     language: AppLanguage,
+    onProfileClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val tokens = LocalStitchTokens.current
@@ -157,7 +158,11 @@ fun AppSidebar(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .border(1.dp, colors.border)
+                .clip(RoundedCornerShape(radius.md))
+                .background(colors.primary.copy(alpha = 0.05f))
+                .border(1.dp, colors.border, RoundedCornerShape(radius.md))
+                .clickable(enabled = onProfileClick != null) { onProfileClick?.invoke() }
+                .focusable()
                 .padding(spacing.md),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(spacing.sm)

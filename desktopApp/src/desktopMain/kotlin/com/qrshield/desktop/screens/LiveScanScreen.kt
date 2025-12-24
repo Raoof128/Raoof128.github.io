@@ -65,7 +65,8 @@ fun LiveScanScreen(viewModel: AppViewModel) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
                 onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage
+                language = viewModel.appLanguage,
+                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
             )
             LiveScanContent(
                 viewModel = viewModel,

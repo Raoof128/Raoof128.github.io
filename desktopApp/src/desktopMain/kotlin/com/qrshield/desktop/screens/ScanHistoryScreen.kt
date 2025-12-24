@@ -60,7 +60,8 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
                 onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage
+                language = viewModel.appLanguage,
+                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
             )
             Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
                 ScanHistoryHeader(

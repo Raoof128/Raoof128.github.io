@@ -47,7 +47,8 @@ fun ResultDangerousAltScreen(viewModel: AppViewModel) {
             AppSidebar(
                 currentScreen = AppScreen.ResultDangerousAlt,
                 onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage
+                language = viewModel.appLanguage,
+                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
             )
             DangerousAltContent(
                 viewModel = viewModel,

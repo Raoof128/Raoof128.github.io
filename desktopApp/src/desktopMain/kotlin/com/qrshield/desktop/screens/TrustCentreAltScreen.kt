@@ -47,7 +47,8 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
             AppSidebar(
                 currentScreen = AppScreen.TrustCentreAlt,
                 onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage
+                language = viewModel.appLanguage,
+                onProfileClick = { /* Already on settings */ }
             )
             TrustCentreAltContent(viewModel = viewModel)
         }

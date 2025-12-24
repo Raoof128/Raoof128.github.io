@@ -5,6 +5,48 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.16] - 2025-12-24
+
+### 🎯 Desktop - UI Polish & Alignment Fixes
+
+Addressed UI inconsistencies and alignment issues in the Desktop application to improve visual polish and match web application standards.
+
+#### 🐛 Bug Fixes
+
+**Notification Icon Alignment** (`DashboardScreen.kt`)
+- Fixed vertical misalignment of notification icon in header
+- Added `contentAlignment = Alignment.Center` to icon container
+
+**Analyze Button Alignment** (`DashboardScreen.kt`)
+- Fixed misaligned "Analyze" button in hero section URL input bar
+- Adjusted `Row` layout with proper height constraints
+
+**Recent Scans Table - Details Column** (`DashboardScreen.kt`)
+- Fixed vertical text stacking in "Details" column
+- Applied fixed width (`160.dp`) to Details header and content
+- Added `maxLines = 1` and `overflow = TextOverflow.Ellipsis` for text truncation
+
+#### ✨ Enhancements
+
+**Profile Section Interactivity** (`AppSidebar.kt` + 11 screens)
+- Made sidebar profile section clickable with hover effects
+- Added `onProfileClick` callback parameter to `AppSidebar`
+- Wired up profile click across all screens to navigate to Settings
+- Screens updated:
+  - `DashboardScreen.kt`
+  - `LiveScanScreen.kt`
+  - `ScanHistoryScreen.kt`
+  - `TrustCentreScreen.kt`
+  - `TrustCentreAltScreen.kt`
+  - `TrainingScreen.kt`
+  - `ReportsExportScreen.kt`
+  - `ResultSafeScreen.kt`
+  - `ResultDangerousScreen.kt`
+  - `ResultDangerousAltScreen.kt`
+  - `ResultSuspiciousScreen.kt`
+
+---
+
 ## [1.17.14] - 2025-12-24
 
 ### 🔄 Desktop - Web/Desktop Parity Implementation

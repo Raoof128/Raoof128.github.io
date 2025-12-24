@@ -53,7 +53,8 @@ fun ResultSafeScreen(viewModel: AppViewModel) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
                 onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage
+                language = viewModel.appLanguage,
+                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
             )
             SafeResultContent(
                 viewModel = viewModel,

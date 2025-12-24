@@ -64,7 +64,8 @@ fun DashboardScreen(viewModel: AppViewModel) {
             AppSidebar(
                 currentScreen = viewModel.currentScreen,
                 onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage
+                language = viewModel.appLanguage,
+                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
             )
             DashboardContent(
                 onStartScan = {
@@ -183,14 +184,15 @@ private fun DashboardContent(
                     modifier = Modifier
                         .size(32.dp)
                         .clickable { onShowNotifications() }
-                        .focusable()
+                        .focusable(),
+                    contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = "notifications", size = 20.sp, color = colors.textMuted)
                     Box(
                         modifier = Modifier
                             .size(8.dp)
                             .align(Alignment.TopEnd)
-                            .offset(x = (-2).dp, y = 2.dp)
+                            .offset(x = 2.dp, y = 2.dp)
                             .clip(CircleShape)
                             .background(colors.danger)
                             .border(2.dp, colors.surface, CircleShape)
@@ -275,15 +277,13 @@ private fun DashboardContent(
                                 border = BorderStroke(1.dp, colors.border)
                             ) {
                                 Row(
-                                    modifier = Modifier.padding(4.dp),
-                                    verticalAlignment = Alignment.CenterVertically
+                                    modifier = Modifier
+                                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                                        .height(48.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Box(
-                                        modifier = Modifier.padding(start = 12.dp),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        MaterialIconRound(name = "search", size = 20.sp, color = colors.textMuted)
-                                    }
+                                    MaterialIconRound(name = "search", size = 20.sp, color = colors.textMuted)
                                     OutlinedTextField(
                                         value = urlInput,
                                         onValueChange = { urlInput = it },
@@ -313,11 +313,16 @@ private fun DashboardContent(
                                         },
                                         colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                         shape = RoundedCornerShape(8.dp),
-                                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp)
+                                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
+                                        modifier = Modifier.height(40.dp)
                                     ) {
-                                        MaterialIconRound(name = "security", size = 16.sp, color = Color.White)
-                                        Spacer(Modifier.width(6.dp))
-                                        Text(t("Analyze"), fontWeight = FontWeight.SemiBold)
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                        ) {
+                                            MaterialIconRound(name = "security", size = 16.sp, color = Color.White)
+                                            Text(t("Analyze"), fontWeight = FontWeight.SemiBold)
+                                        }
                                     }
                                 }
                             }
@@ -629,12 +634,13 @@ private fun TableHeader(
         modifier = Modifier
             .fillMaxWidth()
             .background(colors.backgroundAlt)
-            .padding(vertical = 12.dp, horizontal = 24.dp)
+            .padding(vertical = 12.dp, horizontal = 24.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(120.dp))
         Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(200.dp))
-        Text(detailsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.weight(1f))
-        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+        Text(detailsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(160.dp))
+        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.weight(1f), textAlign = TextAlign.End)
     }
 }
 
@@ -704,8 +710,8 @@ private fun RecentScanRow(
             }
             Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        Text(details, fontSize = 13.sp, color = colors.textSub, modifier = Modifier.weight(1f))
-        Text(timeLabel, fontSize = 12.sp, color = colors.textMuted, modifier = Modifier.width(80.dp), textAlign = TextAlign.End)
+        Text(details, fontSize = 13.sp, color = colors.textSub, modifier = Modifier.width(160.dp), maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(timeLabel, fontSize = 12.sp, color = colors.textMuted, modifier = Modifier.weight(1f), textAlign = TextAlign.End)
     }
 }
 

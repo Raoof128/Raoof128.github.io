@@ -4,6 +4,70 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🎯 December 24, 2025 (Session 10c) - Desktop UI Polish
+
+### Summary
+Addressed UI inconsistencies and alignment issues in the Desktop application based on visual inspection. Fixed notification icon alignment, analyze button positioning, recent scans table Details column, and made the sidebar profile section interactive.
+
+## 🐛 Issues Fixed
+
+### 1. Notification Icon Alignment
+**File**: `DashboardScreen.kt`
+
+**Problem**: The notification icon in the header was misaligned vertically.
+
+**Fix**: Added `contentAlignment = Alignment.Center` to the notification icon's `Box` container.
+
+### 2. Analyze Button Alignment  
+**File**: `DashboardScreen.kt`
+
+**Problem**: The "Analyze" button in the hero section's URL input bar was misaligned.
+
+**Fix**: Adjusted the `Row` layout containing the URL input and button with proper `Row` height constraints and button modifiers.
+
+### 3. Recent Scans Table - Details Column
+**File**: `DashboardScreen.kt`
+
+**Problem**: The "Details" column text was displaying vertically (stacked) instead of horizontal.
+
+**Fix**: 
+- Applied `Modifier.width(160.dp)` to the Details header in `TableHeader`
+- Applied `Modifier.width(160.dp)`, `maxLines = 1`, `overflow = TextOverflow.Ellipsis` to Details text in `RecentScanRow`
+
+### 4. Profile Section Interactivity
+**File**: `AppSidebar.kt` + 11 screen files
+
+**Problem**: The user profile section in the sidebar was decorative/non-functional.
+
+**Fix**:
+- Added `onProfileClick: () -> Unit = {}` parameter to `AppSidebar` composable
+- Made the profile row clickable with hover background effects
+- Wired up the callback across all 11 screens to navigate to Settings (TrustCentreAlt)
+
+## 📁 Files Modified
+
+| File | Changes |
+|------|---------|
+| `DashboardScreen.kt` | Notification icon alignment, Analyze button, Details column fix, profile click |
+| `AppSidebar.kt` | Added `onProfileClick` callback, hover effects on profile row |
+| `LiveScanScreen.kt` | Added profile click callback |
+| `ScanHistoryScreen.kt` | Added profile click callback |
+| `TrustCentreScreen.kt` | Added profile click callback |
+| `TrustCentreAltScreen.kt` | Added profile click callback (no-op) |
+| `TrainingScreen.kt` | Added profile click callback |
+| `ReportsExportScreen.kt` | Added profile click callback |
+| `ResultSafeScreen.kt` | Added profile click callback |
+| `ResultDangerousScreen.kt` | Added profile click callback |
+| `ResultDangerousAltScreen.kt` | Added profile click callback |
+| `ResultSuspiciousScreen.kt` | Added profile click callback |
+
+## ✅ Build Status
+```
+BUILD SUCCESSFUL in 1m 19s
+```
+
+---
+
 # 🔄 December 24, 2025 (Session 10) - Web/Desktop Parity Implementation
 
 ### Summary
