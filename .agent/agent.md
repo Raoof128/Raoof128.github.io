@@ -128,6 +128,47 @@ Audited and consolidated decorative helper functions across all Desktop screens.
 
 ---
 
+# 🔍 December 24, 2025 (Session 10c) - WebApp Parity Analysis & UI Polish
+
+### Summary
+Conducted extensive analysis of WebApp CSS/JS to identify design patterns, then applied polish fixes to Desktop app for visual consistency.
+
+## 📊 WebApp Design System Analysis
+
+### Theme Variables Compared
+| Token | WebApp Dark | Desktop Dark | Match? |
+|-------|-------------|--------------|--------|
+| `--primary` | #195de6 | 0xFF195DE6 | ✅ |
+| `--bg-dark` | #0f1115 | 0xFF0F1115 | ✅ |
+| `--bg-surface` | #161b22 | 0xFF161B22 | ✅ |
+| `--text-primary` | #ffffff | 0xFFFFFFFF | ✅ |
+| `--text-secondary` | #94a3b8 | 0xFF94A3B8 | ✅ |
+| `--success` | #10b981 | 0xFF10B981 | ✅ |
+| `--warning` | #f59e0b | 0xFFF59E0B | ✅ |
+| `--danger` | #ef4444 | 0xFFEF4444 | ✅ |
+
+### Design Patterns Identified
+- Pill badges with `border-radius: 9999px`
+- Status indicators with pulse animation
+- Cards with subtle borders and shadows
+- Hover/focus states for interactive elements
+- Backdrop blur for headers
+
+## 🔧 Polish Applied to Desktop
+
+### DashboardScreen.kt
+- Replaced remaining `Surface(shape = RoundedCornerShape(999.dp))` with `statusPill()` modifier
+- Converted engine status badge to use decorative functions
+- Converted enterprise badge to use decorative functions
+
+## ✅ Build Status
+```
+BUILD SUCCESSFUL in 19s
+16 actionable tasks: 5 executed, 11 up-to-date
+```
+
+---
+
 # 🌍 December 24, 2025 (Session 9) - Desktop Localization Completion
 
 ### Summary

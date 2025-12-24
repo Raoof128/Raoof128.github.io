@@ -100,6 +100,37 @@ fun Modifier.toggleTrack(isEnabled: Boolean, enabledColor: Color, disabledColor:
 
 ---
 
+## [1.17.16] - 2025-12-24
+
+### 🔍 Desktop - WebApp Parity Analysis & UI Polish
+
+Conducted extensive analysis of WebApp CSS/JavaScript design patterns and applied visual consistency fixes to the Desktop app.
+
+#### 📊 WebApp vs Desktop Theme Comparison
+
+| Token | WebApp (CSS) | Desktop (Kotlin) | Match |
+|-------|--------------|------------------|-------|
+| Primary | `#195de6` | `0xFF195DE6` | ✅ |
+| Background | `#0f1115` | `0xFF0F1115` | ✅ |
+| Surface | `#161b22` | `0xFF161B22` | ✅ |
+| Text Primary | `#ffffff` | `0xFFFFFFFF` | ✅ |
+| Text Secondary | `#94a3b8` | `0xFF94A3B8` | ✅ |
+| Success | `#10b981` | `0xFF10B981` | ✅ |
+| Warning | `#f59e0b` | `0xFFF59E0B` | ✅ |
+| Danger | `#ef4444` | `0xFFEF4444` | ✅ |
+
+#### 🔧 Additional Polish Applied
+
+**DashboardScreen.kt:**
+- Replaced `Surface(shape = RoundedCornerShape(999.dp))` patterns with `statusPill()` helper
+- Engine status badge now uses decorative functions
+- Enterprise protection badge now uses decorative functions
+
+#### ✅ Build Status
+All tests passing, build successful.
+
+---
+
 ## [1.17.13] - 2025-12-24
 
 ### 🌍 Desktop - Complete Localization (16 Languages)

@@ -44,6 +44,7 @@ import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.desktop.ui.progressTrack
 import com.qrshield.desktop.ui.progressFill
+import com.qrshield.desktop.ui.statusPill
 import com.qrshield.data.ScanHistoryManager
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
@@ -138,13 +139,12 @@ private fun DashboardContent(
                 Text(t("Dashboard"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.SemiBold)
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                Surface(
-                    shape = RoundedCornerShape(999.dp),
-                    color = colors.success.copy(alpha = 0.1f),
-                    border = BorderStroke(1.dp, colors.success.copy(alpha = 0.3f))
+                Box(
+                    modifier = Modifier
+                        .statusPill(colors.success.copy(alpha = 0.1f), colors.success.copy(alpha = 0.3f))
+                        .padding(horizontal = 12.dp, vertical = 6.dp)
                 ) {
                     Row(
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
@@ -234,13 +234,12 @@ private fun DashboardContent(
                         horizontalArrangement = Arrangement.spacedBy(40.dp)
                     ) {
                         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                            Surface(
-                                shape = RoundedCornerShape(999.dp),
-                                color = colors.primary.copy(alpha = 0.1f),
-                                border = BorderStroke(1.dp, colors.primary.copy(alpha = 0.2f))
+                            Box(
+                                modifier = Modifier
+                                    .statusPill(colors.primary.copy(alpha = 0.1f), colors.primary.copy(alpha = 0.2f))
+                                    .padding(horizontal = 12.dp, vertical = 6.dp)
                             ) {
                                 Row(
-                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(6.dp)
                                 ) {
