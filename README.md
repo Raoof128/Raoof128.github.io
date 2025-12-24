@@ -13,7 +13,7 @@
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
 [![Performance](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/performance.yml?label=performance)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/performance.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-purple)](LICENSE)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-7F52FF)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0-7F52FF)](https://kotlinlang.org)
 [![i18n](https://img.shields.io/badge/i18n-🇬🇧%20🇩🇪-blue)](common/src/commonMain/kotlin/com/qrshield/localization/Translations.kt)
 
 ---
@@ -233,12 +233,24 @@ val result = PhishingEngine().analyzeBlocking("https://paypa1-secure.tk/login")
 
 For developers who want to integrate QR-SHIELD detection into their own apps:
 
-```kotlin
-// Add to build.gradle.kts
-dependencies {
-    implementation("io.github.raoof128:qrshield:1.6.3")
-}
+### Local Module Integration
 
+The `common` module contains the complete detection engine and can be included as a local dependency:
+
+```kotlin
+// In your settings.gradle.kts, include the common module
+include(":common")
+project(":common").projectDir = file("path/to/qrshield/common")
+
+// In your build.gradle.kts
+dependencies {
+    implementation(project(":common"))
+}
+```
+
+### Usage
+
+```kotlin
 // Use in your app
 val engine = PhishingEngine()
 val result = engine.analyzeBlocking(url)
@@ -249,6 +261,9 @@ when (result.verdict) {
     Verdict.MALICIOUS -> blockAndAlert()
 }
 ```
+
+> **Note:** The SDK is designed for local module integration rather than Maven Central publishing.
+> This ensures you always have the latest detection rules and allows customization.
 
 > 📖 **[SDK Documentation →](docs/API.md)**
 

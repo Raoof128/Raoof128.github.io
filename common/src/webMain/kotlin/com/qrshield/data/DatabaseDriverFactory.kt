@@ -24,35 +24,35 @@ import org.w3c.dom.Worker
 /**
  * Web SqlDriver Factory for SQLDelight.
  *
+ * Shared implementation for both Kotlin/JS and Kotlin/Wasm targets
+ * using the webMain source set introduced in Kotlin 2.2.20.
+ *
  * Creates a Web Worker-based SQLite driver using sql.js.
  * Data is stored in browser IndexedDB for persistence.
  *
- * NOTE: Requires sql.js worker script to be available.
- *
  * @author QR-SHIELD Security Team
- * @since 1.0.0
+ * @since 1.17.25
  */
 actual class DatabaseDriverFactory {
 
     /**
-     * Create SqlDriver for Web/JS.
+     * Create SqlDriver for Web (JS + Wasm).
      *
      * Uses WebWorkerDriver for non-blocking database operations.
-     * Falls back to in-memory if worker is not available.
      *
      * @return SqlDriver instance
      */
     actual fun createDriver(): SqlDriver {
-        // WebWorkerDriver requires the sql.js worker script
-        // For production, the worker URL should be configurable
         return WebWorkerDriver(
-            Worker(
-                js("""(function() {
-                    return new URL('@aspect-build/aspect-sql.js/worker.js', import.meta.url).href;
-                })()""") as String
-            )
+            Worker(getSqlWorkerUrl())
         ).also { driver ->
             QRShieldDatabase.Schema.create(driver)
         }
     }
 }
+
+/**
+ * External declaration for worker URL.
+ * Implementation provided in JavaScript/Wasm interop layer.
+ */
+private external fun getSqlWorkerUrl(): String

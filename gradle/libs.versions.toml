@@ -1,11 +1,11 @@
 [versions]
 # Updated December 2025 - Latest stable versions
-kotlin = "2.0.21"
+kotlin = "2.3.0"
 compose = "1.7.1"
 agp = "8.13.2"
 ktor = "3.0.2"
 coroutines = "1.9.0"
-sqldelight = "2.0.2"
+sqldelight = "2.2.1"
 koin = "4.0.0"
 datetime = "0.6.1"
 kover = "0.8.3"
@@ -47,6 +47,7 @@ sqldelight-android = { module = "app.cash.sqldelight:android-driver", version.re
 sqldelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight-web = { module = "app.cash.sqldelight:web-worker-driver", version.ref = "sqldelight" }
+sqldelight-wasm = { module = "app.cash.sqldelight:web-worker-driver-wasm-js", version.ref = "sqldelight" }
 sqldelight-coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
 # Koin

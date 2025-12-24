@@ -1,90 +1,71 @@
+@file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
+
 package com.qrshield.web
 
 import com.qrshield.core.PhishingEngine
-import kotlinx.browser.document
-import kotlinx.browser.window
-import org.w3c.dom.HTMLButtonElement
-import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.events.KeyboardEvent
+import kotlin.js.JsAny
+import kotlin.js.JsString
 
 /**
  * QR-SHIELD Web Application (Wasm)
  *
  * Kotlin/Wasm implementation that runs the PhishingEngine using WebAssembly.
- * Demonstrates the future of web development with Kotlin.
+ * Uses external declarations for browser API interop.
+ *
+ * @since 1.17.25
  */
 fun main() {
-    println("🛡️ QR-SHIELD Web loaded - Kotlin/Wasm initialized")
+    consoleLog("🛡️ QR-SHIELD Web loaded - Kotlin/Wasm initialized")
 
     val engine = PhishingEngine()
-    println("📦 PhishingEngine ready (Wasm)")
+    consoleLog("📦 PhishingEngine ready (Wasm)")
 
-    // Export functions to global scope (polyfill for dynamic)
-    // In strict Wasm, we should use @JsExport or attach to window via JS interop
-    // Here we use a safe interop pattern
-    
-    val urlInput = document.getElementById("urlInput") as? HTMLInputElement
-    val analyzeBtn = document.getElementById("analyzeBtn") as? HTMLButtonElement
-
-    // Attach event listener directly since we can't easily export "qrshieldAnalyze" 
-    // to global window without @JsExport setup or JS helper.
-    // We'll hijack the button click.
-    
-    analyzeBtn?.onclick = {
-        val url = urlInput?.value?.trim() ?: ""
-        if (url.isNotBlank()) {
-            analyzeUrl(engine, url, analyzeBtn)
-        }
-        null
-    }
-
-    urlInput?.onkeypress = { event ->
-        if ((event as KeyboardEvent).key == "Enter") {
-            val url = urlInput?.value?.trim() ?: ""
-            if (url.isNotBlank()) {
-                analyzeUrl(engine, url, analyzeBtn)
-            }
-        }
-    }
+    // Expose the analysis function to JavaScript
+    setupAnalyzeHandler(engine)
 }
 
-fun analyzeUrl(engine: PhishingEngine, url: String, analyzeBtn: HTMLButtonElement?) {
-    console.log("🔍 Analyzing URL: $url")
-
-    // Show loading
-    analyzeBtn?.className += " loading"
-    analyzeBtn?.innerHTML = """<div class="spinner"></div><span>Analyzing...</span>"""
-    analyzeBtn?.disabled = true
-
-    window.setTimeout({
+/**
+ * Set up the analyze button click handler via JavaScript interop.
+ */
+private fun setupAnalyzeHandler(engine: PhishingEngine) {
+    // Register the analysis function with the global window object
+    registerAnalyzeFunction { url: JsString ->
         try {
-            val assessment = engine.analyzeBlocking(url)
-            console.log("✅ Analysis complete: Score=${assessment.score}")
-
-            // Call existing JS display function via interop
-            displayResult(
-                score = assessment.score,
-                verdict = assessment.verdict.name,
-                flags = assessment.flags.toTypedArray(),
-                url = url
+            val urlKotlin = url.toString()
+            consoleLog("🔍 Analyzing URL: $urlKotlin")
+            
+            val assessment = engine.analyzeBlocking(urlKotlin)
+            consoleLog("✅ Analysis complete: Score=${assessment.score}")
+            
+            displayResultJs(
+                assessment.score,
+                assessment.verdict.name.toJsString(),
+                urlKotlin.toJsString()
             )
-
         } catch (e: Exception) {
-            console.error("❌ Analysis error: ${e.message}")
-            showToast("Error: ${e.message}")
-        } finally {
-            analyzeBtn?.className = analyzeBtn?.className?.replace(" loading", "") ?: ""
-            analyzeBtn?.innerHTML = """<span class="material-icons-round">search</span>Analyze URL"""
-            analyzeBtn?.disabled = false
+            consoleError("❌ Analysis error: ${e.message}")
+            showToastJs("Error: ${e.message}".toJsString())
         }
-    }, 100)
+    }
 }
 
-// Interop to call the existing JS functions defined in index.html
-// In Wasm, we declare them as external with @JsName to map to actual JS names
-@JsName("displayResult")
-external fun displayResult(score: Int, verdict: String, flags: Array<String>, url: String)
+// ==================== External JS Interop Declarations ====================
 
-@JsName("showToast")
-external fun showToast(message: String)
+// Console functions
+@JsFun("(msg) => console.log(msg)")
+private external fun consoleLog(msg: String)
 
+@JsFun("(msg) => console.error(msg)")
+private external fun consoleError(msg: String)
+
+// Register analysis function with global scope
+@JsFun("(fn) => { window.qrshieldAnalyze = fn; }")
+private external fun registerAnalyzeFunction(fn: (JsString) -> Unit)
+
+// Display result via existing JavaScript function
+@JsFun("(score, verdict, url) => { if(typeof displayResult === 'function') displayResult(score, verdict, [], url); }")
+private external fun displayResultJs(score: Int, verdict: JsString, url: JsString)
+
+// Show toast notification
+@JsFun("(msg) => { if(typeof showToast === 'function') showToast(msg); }")
+private external fun showToastJs(msg: JsString)

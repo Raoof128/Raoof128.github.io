@@ -131,7 +131,10 @@ fun main() {
 
 fun initializeLocalization() {
     console.log("🌍 Initializing localization")
-    applyLocalization(document.body as? Element)
+    val body = document.body as? Element
+    if (body != null) {
+        applyLocalization(body)
+    }
 
     window.asDynamic().qrshieldApplyTranslations = { root: dynamic ->
         val element = root as? Element ?: (document.body as? Element)

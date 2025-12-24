@@ -95,6 +95,10 @@ sqldelight {
 }
 
 kotlin {
+    // Enable default hierarchy template for webMain shared source set (Kotlin 2.2.20+)
+    // This creates a shared webMain source set for js and wasmJs targets
+    applyDefaultHierarchyTemplate()
+    
     // Suppress expect/actual class warnings (required for KMP, in Beta)
     // See: https://youtrack.jetbrains.com/issue/KT-61573
     targets.all {
@@ -107,17 +111,15 @@ kotlin {
     
     // Android target
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "17"
-            }
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
     
     // Desktop JVM target
     jvm("desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "17"
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
     
@@ -144,15 +146,15 @@ kotlin {
         }
     }
     
-    // Wasm/Web target - DISABLED: SQLDelight/kotlinx-coroutines don't fully support wasmJs yet
-    // The webApp module still uses JS target successfully. Wasm support is experimental.
-    // @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
-    // wasmJs {
-    //     browser {
-    //         testTask { enabled = false }
-    //     }
-    //     binaries.executable()
-    // }
+    // Wasm/Web target - Enabled with SQLDelight 2.2.1 which adds wasmJs support
+    @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
+    wasmJs {
+        browser {
+            testTask { enabled = false }
+        }
+        binaries.executable()
+    }
+
     
     sourceSets {
         val commonMain by getting {
@@ -208,14 +210,8 @@ kotlin {
             }
         }
         
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
+        // iosMain is automatically created by applyDefaultHierarchyTemplate()
+        val iosMain by getting {
             dependencies {
                 // SQLDelight Native driver
                 implementation(libs.sqldelight.native)
@@ -224,13 +220,25 @@ kotlin {
         
         val jsMain by getting {
             dependencies {
-                // SQLDelight Web driver
+                // SQLDelight Web driver (also used by wasmJs via webMain)
                 implementation(libs.sqldelight.web)
             }
         }
 
-        // wasmJsMain configured by wasmJs target
-        // Note: SQLDelight web driver doesn't support Wasm yet
+        val wasmJsMain by getting {
+            dependencies {
+                // SQLDelight Wasm Web driver (added in SQLDelight 2.2.1)
+                implementation(libs.sqldelight.wasm)
+            }
+        }
+        
+        // webMain is automatically created by applyDefaultHierarchyTemplate()
+        // and serves as shared source set for jsMain and wasmJsMain
+        val webMain by getting {
+            dependencies {
+                // Shared web dependencies
+            }
+        }
     }
 }
 

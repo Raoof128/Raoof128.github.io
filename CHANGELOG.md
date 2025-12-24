@@ -5,6 +5,134 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.25] - 2025-12-24
+
+### 🌐 WebAssembly (Wasm) Target - ENABLED!
+
+**Major milestone achieved:** The Kotlin/Wasm target is now fully functional, enabling next-generation web performance with near-native execution speeds in modern browsers.
+
+#### 🎯 Why This Matters
+
+- **5-Platform KMP:** QR-SHIELD now compiles to Android, iOS, Desktop, Web/JS, AND Web/Wasm
+- **Competition Differentiator:** Demonstrates cutting-edge Kotlin 2.3.0 features
+- **Future-Proof:** Wasm is the future of high-performance web apps
+- **Truthful Documentation:** SDK section now accurately reflects local module integration
+
+#### ✅ Dependency Upgrades
+
+| Dependency | Before | After | Impact |
+|------------|--------|-------|--------|
+| **Kotlin** | 2.0.21 | 2.3.0 | Latest stable (Dec 16, 2025), `webMain` source set |
+| **SQLDelight** | 2.0.2 | 2.2.1 | Full wasmJs support |
+
+#### ✅ Build Configuration Updates
+
+**`common/build.gradle.kts`**
+- Added `applyDefaultHierarchyTemplate()` for automatic source set hierarchy
+- Created `webMain` shared source set for js + wasmJs
+- Changed `iosMain` from `by creating` to `by getting` (now auto-created)
+- Updated `ExperimentalWasmDsl` annotation to new import location
+- Fixed deprecated `kotlinOptions` → `compilerOptions` DSL
+
+**`webApp/build.gradle.kts`**
+- Enabled wasmJs target block with browser config
+- Added webpack config for Skiko module handling
+
+**`androidApp/build.gradle.kts`**
+- Removed deprecated `kotlinOptions` block
+
+#### ✅ New webMain Source Set Files
+
+Platform implementations shared between `jsMain` and `wasmJsMain`:
+
+| File | Purpose |
+|------|---------|
+| `common/src/webMain/kotlin/com/qrshield/platform/Platform.web.kt` | Platform detection for web |
+| `common/src/webMain/kotlin/com/qrshield/platform/WebPlatformAbstractions.kt` | Clipboard, Haptics, Logging, Time, Share, SecureRandom, URLOpener |
+| `common/src/webMain/kotlin/com/qrshield/data/DatabaseDriverFactory.kt` | SQLDelight WebWorkerDriver factory |
+| `common/src/webMain/kotlin/com/qrshield/scanner/WebQrScanner.kt` | QR Scanner (delegates to JS layer) |
+
+#### ✅ Wasm-Compatible Interop
+
+Rewrote `webApp/src/wasmJsMain/kotlin/Main.kt` using Kotlin/Wasm-compatible patterns:
+
+```kotlin
+@file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
+
+// @JsFun annotations for inline JavaScript
+@JsFun("(msg) => console.log(msg)")
+private external fun consoleLog(msg: String)
+
+@JsFun("(fn) => { window.qrshieldAnalyze = fn; }")
+private external fun registerAnalyzeFunction(fn: (JsString) -> Unit)
+```
+
+#### ✅ Webpack Configuration
+
+Created `webApp/webpack.config.d/skiko.js` to handle Compose Multiplatform's Skiko dependency:
+
+```javascript
+// Externalize skiko since webApp uses HTML/CSS, not Compose UI
+config.externals.push({
+    './skiko.mjs': 'commonjs ./skiko.mjs'
+});
+```
+
+#### ✅ SDK Documentation Fixed
+
+**README.md Changes:**
+- ❌ Removed false Maven Central coordinates (`io.github.raoof128:qrshield:1.6.3`)
+- ✅ Documented truthful local module integration approach
+- Updated Kotlin badge from 2.0.21 to 2.3.0
+
+#### 📊 Build Verification Results
+
+| Target | Gradle Task | Status | Output |
+|--------|-------------|--------|--------|
+| **wasmJs** | `:webApp:wasmJsBrowserDevelopmentWebpack` | ✅ SUCCESS | 13.5 MB `.wasm` file |
+| **js** | `:webApp:jsBrowserDevelopmentWebpack` | ✅ SUCCESS | 5.84 MB bundle |
+| **desktop** | `:desktopApp:compileKotlinDesktop` | ✅ SUCCESS | — |
+| **android** | `:common:compileDebugKotlinAndroid` | ✅ SUCCESS | — |
+| **iosArm64** | `:common:compileKotlinIosArm64` | ✅ SUCCESS | — |
+
+#### 🔧 Technical Architecture
+
+**New Source Set Hierarchy (Kotlin 2.3.0):**
+```
+commonMain
+├── webMain       ← NEW! Shared between js and wasmJs
+│   ├── jsMain
+│   └── wasmJsMain
+├── androidMain
+├── desktopMain
+└── iosMain
+    ├── iosX64Main
+    ├── iosArm64Main
+    └── iosSimulatorArm64Main
+```
+
+**Kotlin/Wasm vs Kotlin/JS Interop:**
+
+| Feature | Kotlin/JS | Kotlin/Wasm |
+|---------|-----------|-------------|
+| `js()` inline | ✅ Works anywhere | ❌ Top-level only |
+| `kotlinx.browser` | ✅ Available | ❌ Not available |
+| `@JsFun` annotation | — | ✅ Primary method |
+| `JsString` type | — | ✅ Required |
+
+#### 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `gradle/libs.versions.toml` | Kotlin 2.3.0, SQLDelight 2.2.1 |
+| `common/build.gradle.kts` | applyDefaultHierarchyTemplate, webMain, compilerOptions |
+| `webApp/build.gradle.kts` | Enabled wasmJs target |
+| `webApp/src/wasmJsMain/kotlin/Main.kt` | Complete rewrite for Wasm |
+| `webApp/src/jsMain/kotlin/Main.kt` | Fixed null safety issue |
+| `androidApp/build.gradle.kts` | Removed deprecated kotlinOptions |
+| `common/src/iosMain/.../BeatTheBotViewController.kt` | Fixed viewModel parameter |
+| `README.md` | SDK documentation, Kotlin badge |
+
 ## [1.17.24] - 2025-12-24
 
 ### 🎮 Desktop App - UI Functionality Implementation

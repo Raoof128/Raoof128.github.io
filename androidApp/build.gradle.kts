@@ -16,8 +16,8 @@ android {
         applicationId = "com.qrshield.android"
         minSdk = 26
         targetSdk = 35  // Android 16
-        versionCode = 11  // v1.17.23 release
-        versionName = "1.17.23"
+        versionCode = 12  // v1.17.25 release
+        versionName = "1.17.25"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,9 +87,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
-    }
+    // kotlinOptions block removed - jvmTarget handled by compilerOptions in Kotlin 2.3.0+
 
     buildFeatures {
         compose = true
