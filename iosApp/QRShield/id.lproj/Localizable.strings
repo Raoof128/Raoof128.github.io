@@ -1,0 +1,197 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Indonesian (Bahasa Indonesia) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Detektor Phishing QR Kotlin Multiplatform";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Dasbor";
+"tab.scan" = "Pindai";
+"tab.history" = "Riwayat";
+"tab.training" = "Pelatihan";
+"tab.settings" = "Pengaturan";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "Memindai";
+"scanner.paused" = "Dijeda";
+"scanner.analyzing" = "Menganalisis...";
+"scanner.point_at_qr" = "Arahkan ke Kode QR";
+"scanner.gallery" = "Galeri";
+"scanner.history" = "Riwayat";
+"scanner.scans_count" = "Pemindaian: %d";
+"scanner.error_dismiss" = "Tutup kesalahan";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Akses Kamera Diperlukan";
+"camera.access_message" = "QR-SHIELD memerlukan akses kamera untuk memindai kode QR. Silakan aktifkan di Pengaturan.";
+"camera.open_settings" = "Buka Pengaturan";
+"camera.cancel" = "Batal";
+"camera.no_camera" = "Kamera tidak tersedia";
+"camera.setup_failed" = "Pengaturan kamera gagal: %@";
+"camera.flash_failed" = "Pengalihan flash gagal: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "AMAN";
+"verdict.suspicious" = "MENCURIGAKAN";
+"verdict.malicious" = "BERBAHAYA";
+"verdict.unknown" = "TIDAK DIKETAHUI";
+
+// MARK: - Result Card
+"result.risk_score" = "Skor Risiko: %d/100";
+"result.risk_score_label" = "Skor Risiko";
+"result.confidence" = "Kepercayaan";
+"result.view_details" = "Lihat Detail";
+"result.view_full_analysis" = "Lihat Analisis Lengkap";
+"result.copy_url" = "Salin URL";
+"result.share" = "Bagikan";
+"result.dismiss" = "Tutup";
+"result.show_more" = "Tampilkan %d lagi...";
+"result.show_less" = "Tampilkan lebih sedikit";
+"result.flags_title" = "Tanda Risiko";
+
+// MARK: - History View
+"history.title" = "Riwayat Pemindaian";
+"history.empty_title" = "Belum Ada Pemindaian";
+"history.empty_message" = "Kode QR yang dipindai akan muncul di sini";
+"history.scan_now" = "Pindai Sekarang";
+"history.clear_all" = "Hapus Semua";
+"history.delete" = "Hapus";
+"history.open_url" = "Buka URL";
+"history.search_prompt" = "Cari URL";
+"history.sort_menu" = "Urutkan";
+"history.sort.by_date" = "Berdasarkan Tanggal";
+"history.sort.by_risk" = "Berdasarkan Risiko";
+"history.export" = "Ekspor";
+"history.clear_all_action" = "Hapus Semua";
+"history.scans_counter" = "%d pemindaian";
+"history.no_results" = "Tidak Ada Hasil";
+"history.no_results_message" = "Coba sesuaikan pencarian atau filter Anda";
+"history.clear_confirm_title" = "Hapus Semua Riwayat?";
+"history.clear_confirm_message" = "Tindakan ini tidak dapat dibatalkan. Semua riwayat pemindaian akan dihapus secara permanen.";
+"history.exported_toast" = "Diekspor ke clipboard";
+
+// MARK: - Settings View
+"settings.title" = "Pengaturan";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Pemindaian";
+"settings.section.notifications" = "Notifikasi";
+"settings.section.appearance" = "Tampilan";
+"settings.section.privacy" = "Privasi";
+"settings.section.about" = "Tentang";
+"settings.auto_scan" = "Pindai otomatis saat membuka";
+"settings.auto_scan_description" = "Mulai memindai segera saat aplikasi dibuka";
+"settings.haptic" = "Umpan balik haptic";
+"settings.haptic_description" = "Bergetar saat hasil pemindaian";
+"settings.sound" = "Efek suara";
+"settings.sound_description" = "Putar suara untuk peringatan";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Peringatan keamanan";
+"settings.security_alerts_description" = "Dapatkan notifikasi tentang ancaman keamanan";
+"settings.notifications_denied_title" = "Notifikasi Dinonaktifkan";
+"settings.notifications_denied_message" = "Untuk menerima peringatan keamanan, silakan aktifkan notifikasi untuk QR-SHIELD di Pengaturan.";
+"settings.open_settings" = "Buka Pengaturan";
+"settings.cancel" = "Batal";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Kurangi Liquid Glass";
+"settings.reduce_effects_description" = "Sederhanakan efek visual untuk performa";
+"settings.system_appearance" = "Tampilan Sistem";
+"settings.dark_mode" = "Mode Gelap";
+"settings.dark_mode_description" = "Aktifkan skema warna gelap";
+"settings.appearance_footer" = "iOS 17+ memperkenalkan efek Liquid Glass yang indah. Kurangi efek jika Anda mengalami masalah performa pada perangkat lama.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Simpan riwayat pemindaian";
+"settings.save_history_description" = "Simpan catatan URL yang dipindai";
+"settings.clear_history" = "Hapus Riwayat";
+"settings.clear_history_title" = "Hapus Semua Riwayat?";
+"settings.clear_history_message" = "Tindakan ini tidak dapat dibatalkan. Semua riwayat pemindaian akan dihapus secara permanen.";
+"settings.clear_all" = "Hapus Semua";
+"settings.privacy_policy" = "Kebijakan Privasi";
+"settings.source_code" = "Kode Sumber";
+"settings.credits" = "Dibuat dengan ❤️ untuk KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "Versi";
+"settings.build" = "Build";
+"settings.engine" = "Mesin";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Lewati";
+"onboarding.continue" = "Lanjutkan";
+"onboarding.get_started" = "Mulai";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Pindai Kode QR Apapun";
+"onboarding.scan.description" = "Arahkan kamera Anda ke kode QR manapun untuk langsung menganalisis kontennya terhadap potensi ancaman.";
+"onboarding.protect.title" = "Perlindungan Real-Time";
+"onboarding.protect.description" = "Mesin kami yang didukung AI menganalisis URL menggunakan 25+ heuristik keamanan dan algoritma pembelajaran mesin.";
+"onboarding.privacy.title" = "Privasi Utama";
+"onboarding.privacy.description" = "Semua analisis terjadi di perangkat menggunakan Kotlin Multiplatform. Data Anda tidak pernah meninggalkan ponsel Anda.";
+"onboarding.design.title" = "Desain iOS 17+ yang Indah";
+"onboarding.design.description" = "Nikmati antarmuka Liquid Glass yang menakjubkan dengan animasi halus dan estetika modern.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Izin Kamera";
+"onboarding.camera.allow" = "Izinkan Kamera";
+"onboarding.camera.later" = "Nanti Saja";
+"onboarding.camera.message" = "QR-SHIELD memerlukan akses kamera untuk memindai kode QR. Anda dapat mengubah ini nanti di Pengaturan.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Detail Analisis";
+"detail.scanned_at" = "Dipindai pada %@";
+"detail.url_information" = "Informasi URL";
+"detail.risk_factors" = "Faktor Risiko";
+"detail.no_risks" = "Tidak ada risiko terdeteksi";
+"detail.open_url" = "Buka URL";
+"detail.open_warning" = "Membuka URL ini mungkin berbahaya. Apakah Anda yakin?";
+"detail.open_warning_title" = "Peringatan Keamanan";
+"detail.proceed" = "Lanjutkan Saja";
+"detail.scanned_at_time_ago" = "Dipindai %@";
+"detail.score_breakdown" = "Rincian Skor";
+"detail.url_details" = "Detail URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (Aman)";
+"detail.protocol_http" = "HTTP (Tidak Aman)";
+"detail.domain" = "Domain";
+"detail.protocol" = "Protokol";
+"detail.share_analysis" = "Bagikan Analisis";
+"detail.copy_url" = "Salin URL";
+"detail.copied" = "Disalin!";
+"detail.report_false_positive" = "Laporkan Positif Palsu";
+
+// MARK: - Errors
+"error.generic" = "Terjadi kesalahan";
+"error.network" = "Kesalahan koneksi jaringan";
+"error.invalid_url" = "URL tidak valid terdeteksi";
+"error.analysis_failed" = "Analisis gagal";
+"error.invalid_or_unsupported" = "Konten QR tidak valid atau tidak didukung.";
+"error.no_qr_found" = "Tidak ada kode QR ditemukan di gambar yang dipilih.";
+"error.image_scan_failed" = "Pemindaian gambar gagal: %@";
+"error.dismiss" = "Tutup kesalahan";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "Memindai";
+"scanner.status_paused" = "Dijeda";
+"scanner.view_details" = "Lihat Detail";
+"scanner.flash_on" = "Flash menyala";
+"scanner.flash_off" = "Flash mati";
+"scanner.open_history" = "Buka riwayat";
+"scanner.scan_toggle" = "Alihkan pemindaian";
+
+// MARK: - History UI
+"history.no_results" = "Tidak Ada Hasil";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

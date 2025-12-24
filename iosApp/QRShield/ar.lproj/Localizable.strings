@@ -1,0 +1,197 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Arabic (العربية) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "كاشف التصيد عبر QR متعدد المنصات";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "لوحة التحكم";
+"tab.scan" = "مسح";
+"tab.history" = "السجل";
+"tab.training" = "التدريب";
+"tab.settings" = "الإعدادات";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "جاري المسح";
+"scanner.paused" = "متوقف مؤقتاً";
+"scanner.analyzing" = "جاري التحليل...";
+"scanner.point_at_qr" = "وجّه الكاميرا نحو رمز QR";
+"scanner.gallery" = "المعرض";
+"scanner.history" = "السجل";
+"scanner.scans_count" = "عمليات المسح: %d";
+"scanner.error_dismiss" = "إغلاق الخطأ";
+
+// MARK: - Camera Permission
+"camera.access_required" = "مطلوب إذن الكاميرا";
+"camera.access_message" = "يحتاج QR-SHIELD إلى إذن الكاميرا لمسح رموز QR. يرجى تفعيله من الإعدادات.";
+"camera.open_settings" = "فتح الإعدادات";
+"camera.cancel" = "إلغاء";
+"camera.no_camera" = "لا توجد كاميرا متاحة";
+"camera.setup_failed" = "فشل إعداد الكاميرا: %@";
+"camera.flash_failed" = "فشل تبديل الفلاش: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "آمن";
+"verdict.suspicious" = "مشبوه";
+"verdict.malicious" = "خبيث";
+"verdict.unknown" = "غير معروف";
+
+// MARK: - Result Card
+"result.risk_score" = "درجة المخاطر: %d/100";
+"result.risk_score_label" = "درجة المخاطر";
+"result.confidence" = "الثقة";
+"result.view_details" = "عرض التفاصيل";
+"result.view_full_analysis" = "عرض التحليل الكامل";
+"result.copy_url" = "نسخ الرابط";
+"result.share" = "مشاركة";
+"result.dismiss" = "إغلاق";
+"result.show_more" = "عرض %d المزيد...";
+"result.show_less" = "عرض أقل";
+"result.flags_title" = "علامات المخاطر";
+
+// MARK: - History View
+"history.title" = "سجل المسح";
+"history.empty_title" = "لا توجد عمليات مسح";
+"history.empty_message" = "ستظهر رموز QR الممسوحة هنا";
+"history.scan_now" = "امسح الآن";
+"history.clear_all" = "مسح الكل";
+"history.delete" = "حذف";
+"history.open_url" = "فتح الرابط";
+"history.search_prompt" = "البحث في الروابط";
+"history.sort_menu" = "ترتيب";
+"history.sort.by_date" = "حسب التاريخ";
+"history.sort.by_risk" = "حسب المخاطر";
+"history.export" = "تصدير";
+"history.clear_all_action" = "مسح الكل";
+"history.scans_counter" = "%d عملية مسح";
+"history.no_results" = "لا توجد نتائج";
+"history.no_results_message" = "حاول تعديل البحث أو الفلاتر";
+"history.clear_confirm_title" = "مسح كل السجل؟";
+"history.clear_confirm_message" = "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع سجلات المسح نهائياً.";
+"history.exported_toast" = "تم التصدير إلى الحافظة";
+
+// MARK: - Settings View
+"settings.title" = "الإعدادات";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "المسح";
+"settings.section.notifications" = "الإشعارات";
+"settings.section.appearance" = "المظهر";
+"settings.section.privacy" = "الخصوصية";
+"settings.section.about" = "حول";
+"settings.auto_scan" = "المسح التلقائي عند الفتح";
+"settings.auto_scan_description" = "بدء المسح فوراً عند فتح التطبيق";
+"settings.haptic" = "الاهتزاز";
+"settings.haptic_description" = "اهتزاز عند نتائج المسح";
+"settings.sound" = "المؤثرات الصوتية";
+"settings.sound_description" = "تشغيل أصوات للتنبيهات";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "تنبيهات الأمان";
+"settings.security_alerts_description" = "الحصول على إشعارات حول التهديدات الأمنية";
+"settings.notifications_denied_title" = "الإشعارات معطلة";
+"settings.notifications_denied_message" = "لتلقي تنبيهات الأمان، يرجى تفعيل الإشعارات لـ QR-SHIELD من الإعدادات.";
+"settings.open_settings" = "فتح الإعدادات";
+"settings.cancel" = "إلغاء";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "تقليل تأثيرات الزجاج السائل";
+"settings.reduce_effects_description" = "تبسيط التأثيرات البصرية لتحسين الأداء";
+"settings.system_appearance" = "مظهر النظام";
+"settings.dark_mode" = "الوضع الداكن";
+"settings.dark_mode_description" = "تفعيل نظام الألوان الداكنة";
+"settings.appearance_footer" = "يقدم iOS 17+ تأثيرات الزجاج السائل الجميلة. قلل التأثيرات إذا واجهت مشاكل في الأداء على الأجهزة القديمة.";
+
+// Settings: Privacy Section
+"settings.save_history" = "حفظ سجل المسح";
+"settings.save_history_description" = "الاحتفاظ بسجل الروابط الممسوحة";
+"settings.clear_history" = "مسح السجل";
+"settings.clear_history_title" = "مسح كل السجل؟";
+"settings.clear_history_message" = "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع سجلات المسح نهائياً.";
+"settings.clear_all" = "مسح الكل";
+"settings.privacy_policy" = "سياسة الخصوصية";
+"settings.source_code" = "الكود المصدري";
+"settings.credits" = "صُنع بـ ❤️ لـ KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "الإصدار";
+"settings.build" = "البناء";
+"settings.engine" = "المحرك";
+
+// MARK: - Onboarding
+"onboarding.skip" = "تخطي";
+"onboarding.continue" = "متابعة";
+"onboarding.get_started" = "ابدأ الآن";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "امسح أي رمز QR";
+"onboarding.scan.description" = "وجّه الكاميرا نحو أي رمز QR لتحليل محتواه فوراً بحثاً عن التهديدات المحتملة.";
+"onboarding.protect.title" = "حماية في الوقت الحقيقي";
+"onboarding.protect.description" = "يحلل محركنا المدعوم بالذكاء الاصطناعي الروابط باستخدام أكثر من 25 قاعدة أمنية وخوارزميات تعلم آلي.";
+"onboarding.privacy.title" = "الخصوصية أولاً";
+"onboarding.privacy.description" = "يتم كل التحليل على الجهاز باستخدام Kotlin Multiplatform. بياناتك لا تغادر هاتفك أبداً.";
+"onboarding.design.title" = "تصميم iOS 17+ الجميل";
+"onboarding.design.description" = "استمتع بواجهة الزجاج السائل المذهلة مع حركات سلسة وجماليات حديثة.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "إذن الكاميرا";
+"onboarding.camera.allow" = "السماح بالكاميرا";
+"onboarding.camera.later" = "لاحقاً";
+"onboarding.camera.message" = "يحتاج QR-SHIELD إلى إذن الكاميرا لمسح رموز QR. يمكنك تغيير هذا لاحقاً من الإعدادات.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "تفاصيل التحليل";
+"detail.scanned_at" = "تم المسح في %@";
+"detail.url_information" = "معلومات الرابط";
+"detail.risk_factors" = "عوامل الخطر";
+"detail.no_risks" = "لم يتم اكتشاف مخاطر";
+"detail.open_url" = "فتح الرابط";
+"detail.open_warning" = "قد يكون فتح هذا الرابط خطيراً. هل أنت متأكد؟";
+"detail.open_warning_title" = "تحذير أمني";
+"detail.proceed" = "المتابعة على أي حال";
+"detail.scanned_at_time_ago" = "تم المسح %@";
+"detail.score_breakdown" = "تفصيل النتيجة";
+"detail.url_details" = "تفاصيل الرابط";
+"detail.url_label" = "الرابط";
+"detail.protocol_https" = "HTTPS (آمن)";
+"detail.protocol_http" = "HTTP (غير آمن)";
+"detail.domain" = "النطاق";
+"detail.protocol" = "البروتوكول";
+"detail.share_analysis" = "مشاركة التحليل";
+"detail.copy_url" = "نسخ الرابط";
+"detail.copied" = "تم النسخ!";
+"detail.report_false_positive" = "الإبلاغ عن خطأ إيجابي";
+
+// MARK: - Errors
+"error.generic" = "حدث خطأ";
+"error.network" = "خطأ في الاتصال بالشبكة";
+"error.invalid_url" = "تم اكتشاف رابط غير صالح";
+"error.analysis_failed" = "فشل التحليل";
+"error.invalid_or_unsupported" = "محتوى QR غير صالح أو غير مدعوم.";
+"error.no_qr_found" = "لم يتم العثور على رمز QR في الصورة المحددة.";
+"error.image_scan_failed" = "فشل مسح الصورة: %@";
+"error.dismiss" = "إغلاق الخطأ";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "جاري المسح";
+"scanner.status_paused" = "متوقف مؤقتاً";
+"scanner.view_details" = "عرض التفاصيل";
+"scanner.flash_on" = "الفلاش مفعّل";
+"scanner.flash_off" = "الفلاش مطفأ";
+"scanner.open_history" = "فتح السجل";
+"scanner.scan_toggle" = "تبديل المسح";
+
+// MARK: - History UI
+"history.no_results" = "لا توجد نتائج";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

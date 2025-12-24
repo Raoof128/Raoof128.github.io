@@ -1,0 +1,197 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Turkish (Türkçe) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Kotlin Multiplatform QR Kimlik Avı Dedektörü";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Kontrol Paneli";
+"tab.scan" = "Tara";
+"tab.history" = "Geçmiş";
+"tab.training" = "Eğitim";
+"tab.settings" = "Ayarlar";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "Taranıyor";
+"scanner.paused" = "Duraklatıldı";
+"scanner.analyzing" = "Analiz ediliyor...";
+"scanner.point_at_qr" = "QR Koduna Doğrultun";
+"scanner.gallery" = "Galeri";
+"scanner.history" = "Geçmiş";
+"scanner.scans_count" = "Tarama: %d";
+"scanner.error_dismiss" = "Hatayı kapat";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Kamera Erişimi Gerekli";
+"camera.access_message" = "QR-SHIELD, QR kodlarını taramak için kamera erişimine ihtiyaç duyar. Lütfen Ayarlar'dan etkinleştirin.";
+"camera.open_settings" = "Ayarları Aç";
+"camera.cancel" = "İptal";
+"camera.no_camera" = "Kamera mevcut değil";
+"camera.setup_failed" = "Kamera kurulumu başarısız: %@";
+"camera.flash_failed" = "Flaş değiştirme başarısız: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "GÜVENLİ";
+"verdict.suspicious" = "ŞÜPHELİ";
+"verdict.malicious" = "TEHLİKELİ";
+"verdict.unknown" = "BİLİNMİYOR";
+
+// MARK: - Result Card
+"result.risk_score" = "Risk Puanı: %d/100";
+"result.risk_score_label" = "Risk Puanı";
+"result.confidence" = "Güven";
+"result.view_details" = "Detayları Gör";
+"result.view_full_analysis" = "Tam Analizi Gör";
+"result.copy_url" = "URL'yi Kopyala";
+"result.share" = "Paylaş";
+"result.dismiss" = "Kapat";
+"result.show_more" = "%d tane daha göster...";
+"result.show_less" = "Daha az göster";
+"result.flags_title" = "Risk İşaretleri";
+
+// MARK: - History View
+"history.title" = "Tarama Geçmişi";
+"history.empty_title" = "Henüz Tarama Yok";
+"history.empty_message" = "Taranan QR kodları burada görünecek";
+"history.scan_now" = "Şimdi Tara";
+"history.clear_all" = "Tümünü Temizle";
+"history.delete" = "Sil";
+"history.open_url" = "URL'yi Aç";
+"history.search_prompt" = "URL Ara";
+"history.sort_menu" = "Sırala";
+"history.sort.by_date" = "Tarihe Göre";
+"history.sort.by_risk" = "Riske Göre";
+"history.export" = "Dışa Aktar";
+"history.clear_all_action" = "Tümünü Temizle";
+"history.scans_counter" = "%d tarama";
+"history.no_results" = "Sonuç Yok";
+"history.no_results_message" = "Aramanızı veya filtrelerinizi ayarlamayı deneyin";
+"history.clear_confirm_title" = "Tüm Geçmişi Temizle?";
+"history.clear_confirm_message" = "Bu işlem geri alınamaz. Tüm tarama geçmişi kalıcı olarak silinecek.";
+"history.exported_toast" = "Panoya aktarıldı";
+
+// MARK: - Settings View
+"settings.title" = "Ayarlar";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Tarama";
+"settings.section.notifications" = "Bildirimler";
+"settings.section.appearance" = "Görünüm";
+"settings.section.privacy" = "Gizlilik";
+"settings.section.about" = "Hakkında";
+"settings.auto_scan" = "Açılışta otomatik tara";
+"settings.auto_scan_description" = "Uygulama açıldığında hemen taramaya başla";
+"settings.haptic" = "Dokunsal geri bildirim";
+"settings.haptic_description" = "Tarama sonuçlarında titret";
+"settings.sound" = "Ses efektleri";
+"settings.sound_description" = "Uyarılar için ses çal";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Güvenlik uyarıları";
+"settings.security_alerts_description" = "Güvenlik tehditleri hakkında bildirim al";
+"settings.notifications_denied_title" = "Bildirimler Devre Dışı";
+"settings.notifications_denied_message" = "Güvenlik uyarıları almak için lütfen Ayarlar'dan QR-SHIELD bildirimlerin etkinleştirin.";
+"settings.open_settings" = "Ayarları Aç";
+"settings.cancel" = "İptal";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Liquid Glass Azalt";
+"settings.reduce_effects_description" = "Performans için görsel efektleri basitleştir";
+"settings.system_appearance" = "Sistem Görünümü";
+"settings.dark_mode" = "Karanlık Mod";
+"settings.dark_mode_description" = "Karanlık renk şemasını etkinleştir";
+"settings.appearance_footer" = "iOS 17+ güzel Liquid Glass efektleri sunar. Eski cihazlarda performans sorunları yaşıyorsanız efektleri azaltın.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Tarama geçmişini kaydet";
+"settings.save_history_description" = "Taranan URL'lerin kaydını tut";
+"settings.clear_history" = "Geçmişi Temizle";
+"settings.clear_history_title" = "Tüm Geçmişi Temizle?";
+"settings.clear_history_message" = "Bu işlem geri alınamaz. Tüm tarama geçmişi kalıcı olarak silinecek.";
+"settings.clear_all" = "Tümünü Temizle";
+"settings.privacy_policy" = "Gizlilik Politikası";
+"settings.source_code" = "Kaynak Kodu";
+"settings.credits" = "KotlinConf 2026 için ❤️ ile yapıldı";
+
+// Settings: About Section
+"settings.version" = "Sürüm";
+"settings.build" = "Yapı";
+"settings.engine" = "Motor";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Atla";
+"onboarding.continue" = "Devam Et";
+"onboarding.get_started" = "Başla";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Herhangi Bir QR Kodunu Tara";
+"onboarding.scan.description" = "Potansiyel tehditlere karşı içeriğini anında analiz etmek için kameranızı herhangi bir QR koduna doğrultun.";
+"onboarding.protect.title" = "Gerçek Zamanlı Koruma";
+"onboarding.protect.description" = "Yapay zeka destekli motorumuz, 25+ güvenlik sezgisel yöntemi ve makine öğrenimi algoritmaları kullanarak URL'leri analiz eder.";
+"onboarding.privacy.title" = "Önce Gizlilik";
+"onboarding.privacy.description" = "Tüm analizler Kotlin Multiplatform kullanılarak cihaz üzerinde gerçekleşir. Verileriniz asla telefonunuzdan çıkmaz.";
+"onboarding.design.title" = "Güzel iOS 17+ Tasarımı";
+"onboarding.design.description" = "Pürüzsüz animasyonlar ve modern estetikle çarpıcı Liquid Glass arayüzünü deneyimleyin.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Kamera İzni";
+"onboarding.camera.allow" = "Kameraya İzin Ver";
+"onboarding.camera.later" = "Belki Sonra";
+"onboarding.camera.message" = "QR-SHIELD, QR kodlarını taramak için kamera erişimine ihtiyaç duyar. Bunu daha sonra Ayarlar'dan değiştirebilirsiniz.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Analiz Detayları";
+"detail.scanned_at" = "%@ tarihinde tarandı";
+"detail.url_information" = "URL Bilgisi";
+"detail.risk_factors" = "Risk Faktörleri";
+"detail.no_risks" = "Risk tespit edilmedi";
+"detail.open_url" = "URL'yi Aç";
+"detail.open_warning" = "Bu URL'yi açmak tehlikeli olabilir. Emin misiniz?";
+"detail.open_warning_title" = "Güvenlik Uyarısı";
+"detail.proceed" = "Yine de Devam Et";
+"detail.scanned_at_time_ago" = "%@ önce tarandı";
+"detail.score_breakdown" = "Puan Dağılımı";
+"detail.url_details" = "URL Detayları";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (Güvenli)";
+"detail.protocol_http" = "HTTP (Güvenli Değil)";
+"detail.domain" = "Alan Adı";
+"detail.protocol" = "Protokol";
+"detail.share_analysis" = "Analizi Paylaş";
+"detail.copy_url" = "URL'yi Kopyala";
+"detail.copied" = "Kopyalandı!";
+"detail.report_false_positive" = "Yanlış Pozitif Bildir";
+
+// MARK: - Errors
+"error.generic" = "Bir hata oluştu";
+"error.network" = "Ağ bağlantı hatası";
+"error.invalid_url" = "Geçersiz URL tespit edildi";
+"error.analysis_failed" = "Analiz başarısız";
+"error.invalid_or_unsupported" = "Geçersiz veya desteklenmeyen QR içeriği.";
+"error.no_qr_found" = "Seçilen resimde QR kodu bulunamadı.";
+"error.image_scan_failed" = "Resim tarama başarısız: %@";
+"error.dismiss" = "Hatayı kapat";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "Taranıyor";
+"scanner.status_paused" = "Duraklatıldı";
+"scanner.view_details" = "Detayları Gör";
+"scanner.flash_on" = "Flaş açık";
+"scanner.flash_off" = "Flaş kapalı";
+"scanner.open_history" = "Geçmişi aç";
+"scanner.scan_toggle" = "Taramayı değiştir";
+
+// MARK: - History UI
+"history.no_results" = "Sonuç Yok";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

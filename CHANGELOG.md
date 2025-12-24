@@ -5,6 +5,44 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.20] - 2025-12-24
+
+### 🌍 iOS App - i18n Expansion (11 → 16 Languages)
+
+Expanded iOS application internationalization support to achieve full platform parity with the web app.
+
+#### ✨ New Languages Added
+
+| Language | File | Code |
+|----------|------|------|
+| Arabic | `ar.lproj/Localizable.strings` | `ar` |
+| Indonesian | `id.lproj/Localizable.strings` | `id` |
+| Thai | `th.lproj/Localizable.strings` | `th` |
+| Turkish | `tr.lproj/Localizable.strings` | `tr` |
+| Vietnamese | `vi.lproj/Localizable.strings` | `vi` |
+
+#### 📊 Translation Coverage
+
+- **~150 localized strings** per language (full parity with English)
+- All app sections translated: Scanner, Results, History, Settings, Onboarding
+- Proper RTL support consideration for Arabic
+
+#### 🔧 Xcode Project Updates
+
+- Updated `knownRegions` in `project.pbxproj` with 5 new language codes
+- iOS now automatically selects from 16 language options
+
+#### ✅ Platform Parity
+
+| Platform | Languages | Status |
+|----------|-----------|--------|
+| Web App | 16 | ✅ Complete |
+| iOS App | 16 | ✅ Complete |
+| Desktop App | 16 | ✅ Complete |
+| Android App | 15 | 🔄 Pending |
+
+---
+
 ## [1.17.19] - 2025-12-24
 
 ### 🔍 Web App - Comprehensive Audit & Service Worker Fix

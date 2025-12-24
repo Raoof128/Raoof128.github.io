@@ -4,6 +4,64 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌍 December 24, 2025 (Session 10g) - iOS App i18n Expansion (11 → 16 Languages)
+
+### Summary
+Expanded iOS application internationalization support with 5 new languages to achieve full platform parity with the web app (16 languages total).
+
+## ✅ New Language Files Added
+
+**Directory**: `iosApp/QRShield/`
+
+| Language | File | Code | Status |
+|----------|------|------|--------|
+| Arabic | `ar.lproj/Localizable.strings` | ar | ✅ New |
+| Indonesian | `id.lproj/Localizable.strings` | id | ✅ New |
+| Thai | `th.lproj/Localizable.strings` | th | ✅ New |
+| Turkish | `tr.lproj/Localizable.strings` | tr | ✅ New |
+| Vietnamese | `vi.lproj/Localizable.strings` | vi | ✅ New |
+
+## ✅ Xcode Project Updates
+
+**File**: `QRShield.xcodeproj/project.pbxproj`
+
+**Changes**:
+- Added 5 new entries to `knownRegions`: ar, id, th, tr, vi
+- iOS will now automatically select the user's preferred language from 16 options
+
+## ✅ Translation Coverage
+
+Each new language file contains:
+- **~150 localized strings** covering all app features
+- Full parity with English base localization
+
+### String Categories Translated:
+- App General (name, tagline)
+- Tab Bar Navigation (5 tabs)
+- Scanner View (scanning states, controls)
+- Camera Permissions (alerts, messages)
+- Verdicts (safe, suspicious, malicious, unknown)
+- Result Card (scores, actions)
+- History View (lists, sorting, export)
+- Settings (all sections: scanning, notifications, appearance, privacy, about)
+- Onboarding (4 pages + camera permission)
+- Detail Sheet (analysis, URL info, risk factors)
+- Error Messages (all error states)
+
+## ✅ Platform Parity Achieved
+
+| Platform | Languages | Status |
+|----------|-----------|--------|
+| Web App | 16 | ✅ Complete |
+| iOS App | 16 | ✅ Complete |
+| Desktop App | 16 | ✅ Complete |
+| Android App | 15 | 🔄 1 behind |
+
+### All 16 Supported Languages:
+English (en), German (de), Spanish (es), French (fr), Chinese Simplified (zh-Hans), Japanese (ja), Hindi (hi), Italian (it), Portuguese (pt), Russian (ru), Korean (ko), Arabic (ar), Indonesian (id), Thai (th), Turkish (tr), Vietnamese (vi)
+
+---
+
 # 🔍 December 24, 2025 (Session 10f) - Web App Comprehensive Audit
 
 ### Summary

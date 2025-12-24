@@ -1,0 +1,197 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Thai (ไทย) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "ตัวตรวจจับฟิชชิ่ง QR แบบ Kotlin Multiplatform";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "แดชบอร์ด";
+"tab.scan" = "สแกน";
+"tab.history" = "ประวัติ";
+"tab.training" = "การฝึกอบรม";
+"tab.settings" = "การตั้งค่า";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "กำลังสแกน";
+"scanner.paused" = "หยุดชั่วคราว";
+"scanner.analyzing" = "กำลังวิเคราะห์...";
+"scanner.point_at_qr" = "ชี้ไปที่โค้ด QR";
+"scanner.gallery" = "แกลเลอรี";
+"scanner.history" = "ประวัติ";
+"scanner.scans_count" = "การสแกน: %d";
+"scanner.error_dismiss" = "ปิดข้อผิดพลาด";
+
+// MARK: - Camera Permission
+"camera.access_required" = "ต้องการการเข้าถึงกล้อง";
+"camera.access_message" = "QR-SHIELD ต้องการการเข้าถึงกล้องเพื่อสแกนโค้ด QR กรุณาเปิดใช้งานในการตั้งค่า";
+"camera.open_settings" = "เปิดการตั้งค่า";
+"camera.cancel" = "ยกเลิก";
+"camera.no_camera" = "ไม่มีกล้องที่ใช้ได้";
+"camera.setup_failed" = "การตั้งค่ากล้องล้มเหลว: %@";
+"camera.flash_failed" = "การสลับแฟลชล้มเหลว: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "ปลอดภัย";
+"verdict.suspicious" = "น่าสงสัย";
+"verdict.malicious" = "อันตราย";
+"verdict.unknown" = "ไม่ทราบ";
+
+// MARK: - Result Card
+"result.risk_score" = "คะแนนความเสี่ยง: %d/100";
+"result.risk_score_label" = "คะแนนความเสี่ยง";
+"result.confidence" = "ความเชื่อมั่น";
+"result.view_details" = "ดูรายละเอียด";
+"result.view_full_analysis" = "ดูการวิเคราะห์ทั้งหมด";
+"result.copy_url" = "คัดลอก URL";
+"result.share" = "แชร์";
+"result.dismiss" = "ปิด";
+"result.show_more" = "แสดงอีก %d รายการ...";
+"result.show_less" = "แสดงน้อยลง";
+"result.flags_title" = "สัญญาณความเสี่ยง";
+
+// MARK: - History View
+"history.title" = "ประวัติการสแกน";
+"history.empty_title" = "ยังไม่มีการสแกน";
+"history.empty_message" = "โค้ด QR ที่สแกนจะปรากฏที่นี่";
+"history.scan_now" = "สแกนเลย";
+"history.clear_all" = "ล้างทั้งหมด";
+"history.delete" = "ลบ";
+"history.open_url" = "เปิด URL";
+"history.search_prompt" = "ค้นหา URL";
+"history.sort_menu" = "เรียงลำดับ";
+"history.sort.by_date" = "ตามวันที่";
+"history.sort.by_risk" = "ตามความเสี่ยง";
+"history.export" = "ส่งออก";
+"history.clear_all_action" = "ล้างทั้งหมด";
+"history.scans_counter" = "%d การสแกน";
+"history.no_results" = "ไม่มีผลลัพธ์";
+"history.no_results_message" = "ลองปรับการค้นหาหรือตัวกรองของคุณ";
+"history.clear_confirm_title" = "ล้างประวัติทั้งหมด?";
+"history.clear_confirm_message" = "การดำเนินการนี้ไม่สามารถยกเลิกได้ ประวัติการสแกนทั้งหมดจะถูกลบอย่างถาวร";
+"history.exported_toast" = "ส่งออกไปยังคลิปบอร์ดแล้ว";
+
+// MARK: - Settings View
+"settings.title" = "การตั้งค่า";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "การสแกน";
+"settings.section.notifications" = "การแจ้งเตือน";
+"settings.section.appearance" = "ลักษณะ";
+"settings.section.privacy" = "ความเป็นส่วนตัว";
+"settings.section.about" = "เกี่ยวกับ";
+"settings.auto_scan" = "สแกนอัตโนมัติเมื่อเปิดแอป";
+"settings.auto_scan_description" = "เริ่มสแกนทันทีเมื่อเปิดแอป";
+"settings.haptic" = "การตอบสนองแบบสั่น";
+"settings.haptic_description" = "สั่นเมื่อมีผลการสแกน";
+"settings.sound" = "เอฟเฟกต์เสียง";
+"settings.sound_description" = "เล่นเสียงสำหรับการแจ้งเตือน";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "การแจ้งเตือนความปลอดภัย";
+"settings.security_alerts_description" = "รับการแจ้งเตือนเกี่ยวกับภัยคุกคามความปลอดภัย";
+"settings.notifications_denied_title" = "การแจ้งเตือนถูกปิด";
+"settings.notifications_denied_message" = "เพื่อรับการแจ้งเตือนความปลอดภัย กรุณาเปิดใช้งานการแจ้งเตือนสำหรับ QR-SHIELD ในการตั้งค่า";
+"settings.open_settings" = "เปิดการตั้งค่า";
+"settings.cancel" = "ยกเลิก";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "ลดเอฟเฟกต์ Liquid Glass";
+"settings.reduce_effects_description" = "ลดความซับซ้อนของเอฟเฟกต์ภาพเพื่อประสิทธิภาพ";
+"settings.system_appearance" = "ลักษณะของระบบ";
+"settings.dark_mode" = "โหมดมืด";
+"settings.dark_mode_description" = "เปิดใช้งานโทนสีมืด";
+"settings.appearance_footer" = "iOS 17+ นำเสนอเอฟเฟกต์ Liquid Glass ที่สวยงาม ลดเอฟเฟกต์หากคุณพบปัญหาประสิทธิภาพบนอุปกรณ์รุ่นเก่า";
+
+// Settings: Privacy Section
+"settings.save_history" = "บันทึกประวัติการสแกน";
+"settings.save_history_description" = "เก็บบันทึก URL ที่สแกน";
+"settings.clear_history" = "ล้างประวัติ";
+"settings.clear_history_title" = "ล้างประวัติทั้งหมด?";
+"settings.clear_history_message" = "การดำเนินการนี้ไม่สามารถยกเลิกได้ ประวัติการสแกนทั้งหมดจะถูกลบอย่างถาวร";
+"settings.clear_all" = "ล้างทั้งหมด";
+"settings.privacy_policy" = "นโยบายความเป็นส่วนตัว";
+"settings.source_code" = "ซอร์สโค้ด";
+"settings.credits" = "สร้างด้วย ❤️ สำหรับ KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "เวอร์ชัน";
+"settings.build" = "บิลด์";
+"settings.engine" = "เอนจิน";
+
+// MARK: - Onboarding
+"onboarding.skip" = "ข้าม";
+"onboarding.continue" = "ดำเนินการต่อ";
+"onboarding.get_started" = "เริ่มต้นใช้งาน";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "สแกนโค้ด QR ใดก็ได้";
+"onboarding.scan.description" = "ชี้กล้องของคุณไปที่โค้ด QR ใดก็ได้เพื่อวิเคราะห์เนื้อหาทันทีสำหรับภัยคุกคามที่อาจเกิดขึ้น";
+"onboarding.protect.title" = "การป้องกันแบบเรียลไทม์";
+"onboarding.protect.description" = "เอนจินที่ขับเคลื่อนด้วย AI ของเราวิเคราะห์ URL โดยใช้ฮิวริสติกความปลอดภัย 25+ รายการและอัลกอริทึมการเรียนรู้ของเครื่อง";
+"onboarding.privacy.title" = "ความเป็นส่วนตัวมาก่อน";
+"onboarding.privacy.description" = "การวิเคราะห์ทั้งหมดเกิดขึ้นบนอุปกรณ์โดยใช้ Kotlin Multiplatform ข้อมูลของคุณไม่เคยออกจากโทรศัพท์";
+"onboarding.design.title" = "ดีไซน์ iOS 17+ ที่สวยงาม";
+"onboarding.design.description" = "สัมผัสประสบการณ์อินเทอร์เฟซ Liquid Glass ที่น่าทึ่งพร้อมแอนิเมชันที่ลื่นไหลและความสวยงามแบบทันสมัย";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "การอนุญาตกล้อง";
+"onboarding.camera.allow" = "อนุญาตกล้อง";
+"onboarding.camera.later" = "ไว้ทีหลัง";
+"onboarding.camera.message" = "QR-SHIELD ต้องการการเข้าถึงกล้องเพื่อสแกนโค้ด QR คุณสามารถเปลี่ยนแปลงได้ภายหลังในการตั้งค่า";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "รายละเอียดการวิเคราะห์";
+"detail.scanned_at" = "สแกนเมื่อ %@";
+"detail.url_information" = "ข้อมูล URL";
+"detail.risk_factors" = "ปัจจัยความเสี่ยง";
+"detail.no_risks" = "ไม่พบความเสี่ยง";
+"detail.open_url" = "เปิด URL";
+"detail.open_warning" = "การเปิด URL นี้อาจเป็นอันตราย คุณแน่ใจหรือไม่?";
+"detail.open_warning_title" = "คำเตือนความปลอดภัย";
+"detail.proceed" = "ดำเนินการต่อ";
+"detail.scanned_at_time_ago" = "สแกนเมื่อ %@";
+"detail.score_breakdown" = "รายละเอียดคะแนน";
+"detail.url_details" = "รายละเอียด URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (ปลอดภัย)";
+"detail.protocol_http" = "HTTP (ไม่ปลอดภัย)";
+"detail.domain" = "โดเมน";
+"detail.protocol" = "โปรโตคอล";
+"detail.share_analysis" = "แชร์การวิเคราะห์";
+"detail.copy_url" = "คัดลอก URL";
+"detail.copied" = "คัดลอกแล้ว!";
+"detail.report_false_positive" = "รายงานผลบวกเท็จ";
+
+// MARK: - Errors
+"error.generic" = "เกิดข้อผิดพลาด";
+"error.network" = "ข้อผิดพลาดการเชื่อมต่อเครือข่าย";
+"error.invalid_url" = "ตรวจพบ URL ที่ไม่ถูกต้อง";
+"error.analysis_failed" = "การวิเคราะห์ล้มเหลว";
+"error.invalid_or_unsupported" = "เนื้อหา QR ไม่ถูกต้องหรือไม่รองรับ";
+"error.no_qr_found" = "ไม่พบโค้ด QR ในรูปภาพที่เลือก";
+"error.image_scan_failed" = "การสแกนรูปภาพล้มเหลว: %@";
+"error.dismiss" = "ปิดข้อผิดพลาด";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "กำลังสแกน";
+"scanner.status_paused" = "หยุดชั่วคราว";
+"scanner.view_details" = "ดูรายละเอียด";
+"scanner.flash_on" = "แฟลชเปิด";
+"scanner.flash_off" = "แฟลชปิด";
+"scanner.open_history" = "เปิดประวัติ";
+"scanner.scan_toggle" = "สลับการสแกน";
+
+// MARK: - History UI
+"history.no_results" = "ไม่มีผลลัพธ์";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";

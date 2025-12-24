@@ -1,0 +1,197 @@
+/* 
+  Localizable.strings
+  QR-SHIELD iOS App
+  
+  Vietnamese (Tiếng Việt) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "QR-SHIELD";
+"app.tagline" = "Trình Phát Hiện Lừa Đảo QR Kotlin Multiplatform";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Bảng Điều Khiển";
+"tab.scan" = "Quét";
+"tab.history" = "Lịch Sử";
+"tab.training" = "Huấn Luyện";
+"tab.settings" = "Cài Đặt";
+
+// MARK: - Scanner View
+"scanner.title" = "QR-SHIELD";
+"scanner.scanning" = "Đang Quét";
+"scanner.paused" = "Đã Tạm Dừng";
+"scanner.analyzing" = "Đang phân tích...";
+"scanner.point_at_qr" = "Hướng về Mã QR";
+"scanner.gallery" = "Thư Viện";
+"scanner.history" = "Lịch Sử";
+"scanner.scans_count" = "Lần quét: %d";
+"scanner.error_dismiss" = "Đóng lỗi";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Cần Quyền Truy Cập Camera";
+"camera.access_message" = "QR-SHIELD cần quyền truy cập camera để quét mã QR. Vui lòng bật trong Cài Đặt.";
+"camera.open_settings" = "Mở Cài Đặt";
+"camera.cancel" = "Hủy";
+"camera.no_camera" = "Không có camera";
+"camera.setup_failed" = "Thiết lập camera thất bại: %@";
+"camera.flash_failed" = "Chuyển đổi đèn flash thất bại: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "AN TOÀN";
+"verdict.suspicious" = "ĐÁNG NGỜ";
+"verdict.malicious" = "NGUY HIỂM";
+"verdict.unknown" = "KHÔNG RÕ";
+
+// MARK: - Result Card
+"result.risk_score" = "Điểm Rủi Ro: %d/100";
+"result.risk_score_label" = "Điểm Rủi Ro";
+"result.confidence" = "Độ Tin Cậy";
+"result.view_details" = "Xem Chi Tiết";
+"result.view_full_analysis" = "Xem Phân Tích Đầy Đủ";
+"result.copy_url" = "Sao Chép URL";
+"result.share" = "Chia Sẻ";
+"result.dismiss" = "Đóng";
+"result.show_more" = "Hiển thị thêm %d...";
+"result.show_less" = "Hiển thị ít hơn";
+"result.flags_title" = "Cờ Rủi Ro";
+
+// MARK: - History View
+"history.title" = "Lịch Sử Quét";
+"history.empty_title" = "Chưa Có Lần Quét Nào";
+"history.empty_message" = "Mã QR đã quét sẽ xuất hiện ở đây";
+"history.scan_now" = "Quét Ngay";
+"history.clear_all" = "Xóa Tất Cả";
+"history.delete" = "Xóa";
+"history.open_url" = "Mở URL";
+"history.search_prompt" = "Tìm kiếm URL";
+"history.sort_menu" = "Sắp Xếp";
+"history.sort.by_date" = "Theo Ngày";
+"history.sort.by_risk" = "Theo Rủi Ro";
+"history.export" = "Xuất";
+"history.clear_all_action" = "Xóa Tất Cả";
+"history.scans_counter" = "%d lần quét";
+"history.no_results" = "Không Có Kết Quả";
+"history.no_results_message" = "Thử điều chỉnh tìm kiếm hoặc bộ lọc của bạn";
+"history.clear_confirm_title" = "Xóa Tất Cả Lịch Sử?";
+"history.clear_confirm_message" = "Hành động này không thể hoàn tác. Tất cả lịch sử quét sẽ bị xóa vĩnh viễn.";
+"history.exported_toast" = "Đã xuất vào clipboard";
+
+// MARK: - Settings View
+"settings.title" = "Cài Đặt";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Quét";
+"settings.section.notifications" = "Thông Báo";
+"settings.section.appearance" = "Giao Diện";
+"settings.section.privacy" = "Quyền Riêng Tư";
+"settings.section.about" = "Giới Thiệu";
+"settings.auto_scan" = "Tự động quét khi mở";
+"settings.auto_scan_description" = "Bắt đầu quét ngay khi mở ứng dụng";
+"settings.haptic" = "Phản hồi rung";
+"settings.haptic_description" = "Rung khi có kết quả quét";
+"settings.sound" = "Hiệu ứng âm thanh";
+"settings.sound_description" = "Phát âm thanh cho cảnh báo";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Cảnh báo bảo mật";
+"settings.security_alerts_description" = "Nhận thông báo về các mối đe dọa bảo mật";
+"settings.notifications_denied_title" = "Thông Báo Bị Tắt";
+"settings.notifications_denied_message" = "Để nhận cảnh báo bảo mật, vui lòng bật thông báo cho QR-SHIELD trong Cài Đặt.";
+"settings.open_settings" = "Mở Cài Đặt";
+"settings.cancel" = "Hủy";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Giảm Hiệu Ứng Liquid Glass";
+"settings.reduce_effects_description" = "Đơn giản hóa hiệu ứng hình ảnh để tăng hiệu suất";
+"settings.system_appearance" = "Giao Diện Hệ Thống";
+"settings.dark_mode" = "Chế Độ Tối";
+"settings.dark_mode_description" = "Bật giao diện màu tối";
+"settings.appearance_footer" = "iOS 17+ giới thiệu hiệu ứng Liquid Glass đẹp mắt. Giảm hiệu ứng nếu bạn gặp vấn đề hiệu suất trên thiết bị cũ.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Lưu lịch sử quét";
+"settings.save_history_description" = "Giữ bản ghi các URL đã quét";
+"settings.clear_history" = "Xóa Lịch Sử";
+"settings.clear_history_title" = "Xóa Tất Cả Lịch Sử?";
+"settings.clear_history_message" = "Hành động này không thể hoàn tác. Tất cả lịch sử quét sẽ bị xóa vĩnh viễn.";
+"settings.clear_all" = "Xóa Tất Cả";
+"settings.privacy_policy" = "Chính Sách Quyền Riêng Tư";
+"settings.source_code" = "Mã Nguồn";
+"settings.credits" = "Được tạo với ❤️ cho KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "Phiên Bản";
+"settings.build" = "Bản Dựng";
+"settings.engine" = "Engine";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Bỏ Qua";
+"onboarding.continue" = "Tiếp Tục";
+"onboarding.get_started" = "Bắt Đầu";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Quét Bất Kỳ Mã QR Nào";
+"onboarding.scan.description" = "Hướng camera của bạn vào bất kỳ mã QR nào để phân tích ngay nội dung của nó đối với các mối đe dọa tiềm ẩn.";
+"onboarding.protect.title" = "Bảo Vệ Thời Gian Thực";
+"onboarding.protect.description" = "Engine hỗ trợ AI của chúng tôi phân tích URL bằng hơn 25 phương pháp heuristic bảo mật và thuật toán học máy.";
+"onboarding.privacy.title" = "Quyền Riêng Tư Trước Tiên";
+"onboarding.privacy.description" = "Tất cả phân tích diễn ra trên thiết bị sử dụng Kotlin Multiplatform. Dữ liệu của bạn không bao giờ rời khỏi điện thoại.";
+"onboarding.design.title" = "Thiết Kế iOS 17+ Đẹp Mắt";
+"onboarding.design.description" = "Trải nghiệm giao diện Liquid Glass tuyệt đẹp với hoạt ảnh mượt mà và thẩm mỹ hiện đại.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Quyền Camera";
+"onboarding.camera.allow" = "Cho Phép Camera";
+"onboarding.camera.later" = "Để Sau";
+"onboarding.camera.message" = "QR-SHIELD cần quyền truy cập camera để quét mã QR. Bạn có thể thay đổi sau trong Cài Đặt.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Chi Tiết Phân Tích";
+"detail.scanned_at" = "Đã quét lúc %@";
+"detail.url_information" = "Thông Tin URL";
+"detail.risk_factors" = "Yếu Tố Rủi Ro";
+"detail.no_risks" = "Không phát hiện rủi ro";
+"detail.open_url" = "Mở URL";
+"detail.open_warning" = "Mở URL này có thể nguy hiểm. Bạn có chắc không?";
+"detail.open_warning_title" = "Cảnh Báo Bảo Mật";
+"detail.proceed" = "Vẫn Tiếp Tục";
+"detail.scanned_at_time_ago" = "Đã quét %@";
+"detail.score_breakdown" = "Phân Tích Điểm";
+"detail.url_details" = "Chi Tiết URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (An Toàn)";
+"detail.protocol_http" = "HTTP (Không An Toàn)";
+"detail.domain" = "Tên Miền";
+"detail.protocol" = "Giao Thức";
+"detail.share_analysis" = "Chia Sẻ Phân Tích";
+"detail.copy_url" = "Sao Chép URL";
+"detail.copied" = "Đã sao chép!";
+"detail.report_false_positive" = "Báo Cáo Dương Tính Giả";
+
+// MARK: - Errors
+"error.generic" = "Đã xảy ra lỗi";
+"error.network" = "Lỗi kết nối mạng";
+"error.invalid_url" = "Phát hiện URL không hợp lệ";
+"error.analysis_failed" = "Phân tích thất bại";
+"error.invalid_or_unsupported" = "Nội dung QR không hợp lệ hoặc không được hỗ trợ.";
+"error.no_qr_found" = "Không tìm thấy mã QR trong hình ảnh đã chọn.";
+"error.image_scan_failed" = "Quét hình ảnh thất bại: %@";
+"error.dismiss" = "Đóng lỗi";
+
+// MARK: - Scanner UI
+"scanner.brand" = "QR-SHIELD";
+"scanner.status_scanning" = "Đang Quét";
+"scanner.status_paused" = "Đã Tạm Dừng";
+"scanner.view_details" = "Xem Chi Tiết";
+"scanner.flash_on" = "Đèn flash bật";
+"scanner.flash_off" = "Đèn flash tắt";
+"scanner.open_history" = "Mở lịch sử";
+"scanner.scan_toggle" = "Chuyển đổi quét";
+
+// MARK: - History UI
+"history.no_results" = "Không Có Kết Quả";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";
