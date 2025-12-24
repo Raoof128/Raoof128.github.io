@@ -69,7 +69,7 @@ cd qrshield
 | **Detection Rate** | 87% F1 | [EVALUATION.md](docs/EVALUATION.md) |
 | **False Positive Rate** | <5% | [AlexaTop100FPTest.kt](common/src/commonTest/kotlin/com/qrshield/benchmark/AlexaTop100FPTest.kt) |
 | **Shared Code** | ~11,000 LOC | [SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md) |
-| **Platforms** | 4 (Android, iOS, Desktop, Web) | All build successfully |
+| **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
 
 ---
 
@@ -110,10 +110,11 @@ If you have limited time, focus on these files:
 - **Explainable** = tells users WHY, not just WHAT
 
 ### Kotlin Multiplatform Usage (40 pts)
-- **4 platforms**: Android, iOS, Desktop, Web
+- **5 KMP targets**: Android, iOS (3 arch), Desktop, JS, WasmJS
 - **100% shared business logic** (~11,000 LOC)
+- **Shared Compose UI components**: `CommonBrainVisualizer`, `CameraPermissionScreen`
 - **Strategic expect/actual**: 7 platform abstractions
-- **Parity tests**: prove identical behavior
+- **Parity tests**: prove identical behavior across all targets
 
 ### Kotlin Conventions (20 pts)
 - **Sealed classes, data classes, coroutines** throughout

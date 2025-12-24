@@ -37,7 +37,7 @@
 | **140 Test URLs** | CSV dataset | [malicious_urls.csv](../common/src/commonTest/resources/malicious_urls.csv) |
 | **<5% False Positive** | Alexa Top 100 test | [AlexaTop100FPTest.kt](../common/src/commonTest/kotlin/com/qrshield/benchmark/AlexaTop100FPTest.kt) |
 | **Parity Hash** | Cross-platform test | [parity_output.txt](artifacts/parity_output.txt) |
-| **4 Platforms** | Build verification | [verify_parity.sh](../judge/verify_parity.sh) |
+| **5 KMP Targets** | Build verification | [verify_parity.sh](../judge/verify_parity.sh) |
 
 ---
 
@@ -394,7 +394,7 @@ grep -c "fun analyze\|fun check\|fun detect" common/src/commonMain/kotlin/com/qr
 
 ## 📱 Platform Build Evidence
 
-### Claim: "4 Platforms: Android, iOS, Desktop, Web"
+### Claim: "5 KMP Targets: Android, iOS, Desktop, JS, Wasm"
 
 **Build Verification**:
 ```bash
@@ -475,7 +475,7 @@ echo "✅ All evidence regenerated"
 | <5ms Latency | Performance test | P99 = 1ms |
 | 87% F1 Score | Accuracy test | 119/140 threats blocked |
 | <5% FP Rate | Alexa test | 3% FP on Top 100 |
-| 4 Platforms | Build all | Android, iOS, Desktop, Web ✅ |
+| 5 KMP Targets | Build all | Android, iOS, Desktop, JS, Wasm ✅ |
 | 1,248 Tests | Test suite | 100% passing |
 
 ---

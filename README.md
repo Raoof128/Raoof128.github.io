@@ -8,13 +8,14 @@
 
 <!-- Competition Badges -->
 [![Contest](https://img.shields.io/badge/KotlinConf-2025--2026-7F52FF?logo=kotlin&logoColor=white)](CONTEST_START.md)
-[![Platforms](https://img.shields.io/badge/Platforms-Android%20%7C%20iOS%20%7C%20Desktop%20%7C%20Web-orange)](docs/SHARED_CODE_REPORT.md)
+[![Platforms](https://img.shields.io/badge/KMP_Targets-5_(Android%2C_iOS%2C_Desktop%2C_JS%2C_Wasm)-orange)](docs/SHARED_CODE_REPORT.md)
 [![Offline](https://img.shields.io/badge/Network-100%25%20Offline-brightgreen)](judge/verify_offline.sh)
 [![No Network](https://img.shields.io/badge/Privacy-Zero%20Data%20Collection-blue)](PRIVACY.md)
 
 <!-- Quality Badges -->
 [![Test Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
+[![Detekt](https://img.shields.io/badge/Detekt-Zero_Tolerance-brightgreen)](detekt.yml)
 [![Performance](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/performance.yml?label=performance)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/performance.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-purple)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0-7F52FF)](https://kotlinlang.org)
@@ -46,14 +47,15 @@
 
 ---
 
-## 🚀 Get the App
+## 🚀 Get the App — 5 KMP Targets
 
-| Platform | Status | Download |
-|----------|--------|----------|
-| **Android** | ✅ Full App | [Download APK](releases/QRShield-1.1.0-release.apk) |
-| **iOS** | ✅ Full App | [Simulator Guide](#ios-one-command-simulator) |
-| **Desktop** | ✅ Full App | `./gradlew :desktopApp:run` |
-| **Web** | ✅ PWA | [raoof128.github.io](https://raoof128.github.io) |
+| Platform | KMP Target | Status | Download |
+|----------|------------|--------|----------|
+| **Android** | `androidTarget()` | ✅ Full App | [Download APK](releases/QRShield-1.1.0-release.apk) |
+| **iOS** | `iosArm64/iosX64/iosSimulatorArm64` | ✅ Full App | [Simulator Guide](#ios-one-command-simulator) |
+| **Desktop** | `jvm("desktop")` | ✅ Full App | `./gradlew :desktopApp:run` |
+| **Web (JS)** | `js(IR) { browser {} }` | ✅ PWA | [raoof128.github.io](https://raoof128.github.io) |
+| **Web (Wasm)** | `wasmJs { browser {} }` | ✅ PWA | `./gradlew :webApp:wasmJsBrowserRun` |
 
 ### iOS One-Command Simulator
 
@@ -77,6 +79,17 @@
 | 🔍 **25+ Heuristics** | Homograph detection, typosquatting, suspicious TLDs, IP obfuscation |
 | ⚡ **<5ms Analysis** | Real-time feedback during QR scanning |
 | 📊 **Explainable** | Tells you *why* a URL is risky, not just that it is |
+
+### 🌟 Why This Is Novel (Competition Criteria)
+
+| Innovation | What Makes It Unique |
+|------------|---------------------|
+| **First offline-only QR phisher detector** | No prior solution combines offline detection, explainability, and true cross-platform delivery |
+| **Privacy as architecture, not feature** | Cannot leak data because it never transmits—fundamentally different from cloud solutions |
+| **Ensemble ML in pure Kotlin** | 3-model ML system implemented entirely in Kotlin, compiles to all 5 targets |
+| **Explainable verdicts** | Users see *why* (homograph, typosquat, risky TLD), not just "blocked" |
+| **Educational gamification** | "Beat the Bot" trains users to spot phishing; security through education |
+| **5 KMP targets with shared UI** | Same Compose UI components run on Android, Desktop, and Web |
 
 ---
 
@@ -171,6 +184,8 @@
 
 ## 📊 Shared Code Proof (KMP is Real)
 
+### Business Logic — 100% Shared
+
 | Module | Lines | Shared? |
 |--------|-------|---------|
 | `core/` (PhishingEngine) | 1,800 | ✅ 100% |
@@ -180,49 +195,61 @@
 | `security/` (InputValidator) | 800 | ✅ 100% |
 | **Total Business Logic** | **~11,000** | **100%** |
 
-Platform-specific code (UI, camera, haptics): ~12,500 LOC
+### Shared Compose UI Components — commonMain
 
-**Key insight:** Business logic is 100% shared. Only UI and hardware access is platform-specific.
+| Component | Location | Used By |
+|-----------|----------|---------|
+| `CommonBrainVisualizer` | `common/src/commonMain/kotlin/com/qrshield/ui/components/` | Android, Desktop, Web |
+| `CameraPermissionScreen` | `common/src/commonMain/kotlin/com/qrshield/ui/components/` | All platforms |
+| `SharedViewModel` | `common/src/commonMain/kotlin/com/qrshield/ui/` | Android, Desktop |
+| `SharedTextGenerator` | `common/src/commonMain/kotlin/com/qrshield/ui/` | All platforms |
+| **Theme system** | `common/src/commonMain/kotlin/com/qrshield/ui/theme/` | Android, Desktop, Web |
+
+Platform-specific code (native camera, platform UI): ~12,500 LOC
+
+**Key insight:** Business logic **AND** UI components are shared. Only hardware access (camera, haptics) is platform-specific.
 
 📖 Full breakdown: [docs/SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md)
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Architecture — 5 KMP Targets
 
-> **~80% shared code** via Kotlin Multiplatform. One detection engine compiles to JVM, Native, and JavaScript.
+> **~80% shared code** via Kotlin Multiplatform. One detection engine compiles to **5 targets**: JVM, Native (iOS), JS, and WasmJS.
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                     Platform Apps                            │
-├──────────────┬──────────────┬─────────────┬─────────────────┤
-│  androidApp  │    iosApp    │ desktopApp  │     webApp      │
-│  Compose UI  │   SwiftUI    │  Compose    │   Kotlin/JS     │
-│   CameraX    │ AVFoundation │    ZXing    │     jsQR        │
-└──────┬───────┴──────┬───────┴──────┬──────┴────────┬────────┘
-       │              │              │               │
-       └──────────────┴──────────────┴───────────────┘
-                              │
-                              ▼
-       ┌─────────────────────────────────────────────────────┐
-       │              common (Shared Kotlin)                  │
-       ├─────────────────────────────────────────────────────┤
-       │  PhishingEngine — Main orchestrator                  │
-       │  HeuristicsEngine — 25+ detection rules              │
-       │  EnsembleModel — 3-model ML architecture             │
-       │  BrandDetector — 500+ brands + dynamic discovery     │
-       │  SecureECDH — Curve25519 key exchange                │
-       └─────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                           Platform Apps (5 Targets)                           │
+├───────────────┬──────────────┬─────────────┬──────────────┬──────────────────┤
+│   androidApp  │    iosApp    │  desktopApp │  webApp (JS) │  webApp (Wasm)   │
+│   Compose UI  │   SwiftUI    │   Compose   │  Kotlin/JS   │  Kotlin/WasmJS   │
+│    CameraX    │ AVFoundation │    ZXing    │    jsQR      │    jsQR          │
+└───────┬───────┴──────┬───────┴──────┬──────┴───────┬──────┴────────┬─────────┘
+        │              │              │              │               │
+        └──────────────┴──────────────┴──────────────┴───────────────┘
+                                      │
+                                      ▼
+        ┌─────────────────────────────────────────────────────────────┐
+        │                common (Shared Kotlin — 100%)                 │
+        ├─────────────────────────────────────────────────────────────┤
+        │  PhishingEngine — Main orchestrator                          │
+        │  HeuristicsEngine — 25+ detection rules                      │
+        │  EnsembleModel — 3-model ML architecture                     │
+        │  BrandDetector — 500+ brands + dynamic discovery             │
+        │  SharedViewModel — Cross-platform state management           │
+        │  CommonBrainVisualizer — Shared Compose UI component         │
+        └─────────────────────────────────────────────────────────────┘
 ```
 
-### Platform Support
+### Platform Support — 5 KMP Targets
 
-| Platform | Status | Implementation | LOC |
-|----------|--------|----------------|-----|
-| **Android** | ✅ **Full** | CameraX + ML Kit + Compose UI | ~4,500 |
-| **iOS** | ✅ **Full** | AVFoundation + SwiftUI + KMP engine | ~6,500 |
-| **Desktop** | ✅ **Full** | Compose Desktop + ZXing | ~2,000 |
-| **Web** | ✅ **PWA** | Kotlin/JS + Service Worker | ~1,500 |
+| Platform | KMP Target | Status | Implementation | LOC |
+|----------|-----------|--------|----------------|-----|
+| **Android** | `androidTarget()` | ✅ **Full** | CameraX + ML Kit + Compose UI | ~4,500 |
+| **iOS** | `iosArm64()` `iosX64()` `iosSimulatorArm64()` | ✅ **Full** | AVFoundation + SwiftUI + KMP | ~6,500 |
+| **Desktop** | `jvm("desktop")` | ✅ **Full** | Compose Desktop + ZXing | ~2,000 |
+| **Web (JS)** | `js(IR) { browser {} }` | ✅ **PWA** | Kotlin/JS + Service Worker | ~1,200 |
+| **Web (Wasm)** | `wasmJs { browser {} }` | ✅ **PWA** | Kotlin/WasmJS + SQLDelight | ~300 |
 
 ---
 
@@ -329,12 +356,14 @@ when (result.verdict) {
 
 | Criterion | Status |
 |-----------|--------|
-| ✅ Original work | 100% written for this competition |
+| ✅ Original work | 100% written during contest period (Dec 5-25, 2025) |
 | ✅ Apache 2.0 license | [LICENSE](LICENSE) |
 | ✅ Public repository | github.com/Raoof128/Raoof128.github.io |
-| ✅ Kotlin Multiplatform | 4 targets from shared codebase |
-| ✅ README documentation | This file |
-| ✅ Competition essay | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) |
+| ✅ Kotlin Multiplatform | **5 targets** from shared codebase |
+| ✅ README documentation | This file + [JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md) |
+| ✅ Competition essay | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) (~550 words) |
+| ✅ Static analysis | Detekt zero-tolerance (no baseline) |
+| ✅ Test coverage | 89% with 1,248+ tests |
 
 ---
 
