@@ -45,6 +45,23 @@ Addressed UI inconsistencies and alignment issues in the Desktop application to 
   - `ResultDangerousAltScreen.kt`
   - `ResultSuspiciousScreen.kt`
 
+**Notification Panel Implementation** (`NotificationPanel.kt`, `AppViewModel.kt`, `DashboardScreen.kt`)
+- Added new `NotificationPanel.kt` component matching web app's notification dropdown
+- Features:
+  - `AppNotification` data class with id, title, message, type, timestamp, isRead
+  - `NotificationType` enum: SUCCESS, INFO, WARNING, ERROR
+  - Popup panel with header showing unread count badge
+  - Notification list with color-coded icons based on type
+  - Read/unread visual states with blue indicator dot
+  - "Mark all read" and "Clear all notifications" actions
+  - Relative time formatting
+- State management in `AppViewModel`:
+  - `showNotificationPanel` and `notifications` state
+  - `toggleNotificationPanel()`, `dismissNotificationPanel()` functions
+  - `markAllNotificationsRead()`, `markNotificationRead()` functions
+  - `clearAllNotifications()`, `addNotification()` functions
+  - Preloaded sample notifications for demonstration
+
 ---
 
 ## [1.17.14] - 2025-12-24

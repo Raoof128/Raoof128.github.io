@@ -24,6 +24,8 @@ import com.qrshield.platform.PlatformUrlOpener
 import com.qrshield.scanner.DesktopQrScanner
 import com.qrshield.security.InputValidator
 import com.qrshield.share.ShareManager
+import com.qrshield.desktop.ui.AppNotification
+import com.qrshield.desktop.ui.NotificationType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -156,6 +158,10 @@ class AppViewModel(
     var soundAlerts by mutableStateOf(true)
     var threatAlerts by mutableStateOf(true)
     var showConfidenceScore by mutableStateOf(true)
+
+    // Notification System
+    var showNotificationPanel by mutableStateOf(false)
+    var notifications by mutableStateOf(sampleNotifications())
 
     var trainingState by mutableStateOf(
         TrainingState(
@@ -475,6 +481,42 @@ class AppViewModel(
         setMessage(message, MessageKind.Info)
     }
 
+    // Notification Panel Functions
+    fun toggleNotificationPanel() {
+        showNotificationPanel = !showNotificationPanel
+    }
+
+    fun dismissNotificationPanel() {
+        showNotificationPanel = false
+    }
+
+    fun markAllNotificationsRead() {
+        notifications = notifications.map { it.copy(isRead = true) }
+    }
+
+    fun markNotificationRead(notification: AppNotification) {
+        notifications = notifications.map { 
+            if (it.id == notification.id) it.copy(isRead = true) else it 
+        }
+    }
+
+    fun clearAllNotifications() {
+        notifications = emptyList()
+        showNotificationPanel = false
+    }
+
+    fun addNotification(title: String, message: String, type: NotificationType) {
+        val now = PlatformTime.currentTimeMillis()
+        val newNotification = AppNotification(
+            id = "notif_$now",
+            title = title,
+            message = message,
+            type = type,
+            timestamp = now,
+            isRead = false
+        )
+        notifications = listOf(newNotification) + notifications
+    }
 
     fun submitTrainingVerdict(isPhishing: Boolean) {
         val expectedPhishing = isPhishingVerdict(currentTrainingScenario.expectedVerdict)
@@ -771,6 +813,49 @@ class AppViewModel(
                     kind = TrainingInsightKind.Suspicious
                 )
             )
+        )
+    )
+}
+
+/**
+ * Provides sample notifications for demonstration purposes
+ */
+private fun sampleNotifications(): List<AppNotification> {
+    val now = PlatformTime.currentTimeMillis()
+    val minute = 60_000L
+    val hour = 60 * minute
+    return listOf(
+        AppNotification(
+            id = "notif_1",
+            title = "Threat Blocked",
+            message = "Malicious URL detected and blocked automatically.",
+            type = NotificationType.ERROR,
+            timestamp = now - 5 * minute,
+            isRead = false
+        ),
+        AppNotification(
+            id = "notif_2",
+            title = "Scan Complete",
+            message = "URL analysis finished. Result: Safe.",
+            type = NotificationType.SUCCESS,
+            timestamp = now - 30 * minute,
+            isRead = false
+        ),
+        AppNotification(
+            id = "notif_3",
+            title = "Database Updated",
+            message = "Threat signatures updated to latest version.",
+            type = NotificationType.INFO,
+            timestamp = now - 2 * hour,
+            isRead = true
+        ),
+        AppNotification(
+            id = "notif_4",
+            title = "Suspicious Activity",
+            message = "A domain on your blocklist was accessed.",
+            type = NotificationType.WARNING,
+            timestamp = now - 4 * hour,
+            isRead = true
         )
     )
 }

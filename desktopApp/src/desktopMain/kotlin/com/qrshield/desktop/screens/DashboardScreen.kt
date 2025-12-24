@@ -39,6 +39,7 @@ import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
+import com.qrshield.desktop.ui.NotificationPanel
 import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
@@ -56,38 +57,54 @@ fun DashboardScreen(viewModel: AppViewModel) {
     val recentScans = viewModel.scanHistory.sortedByDescending { it.scannedAt }.take(2)
     val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(tokens.colors.background)
-        ) {
-            AppSidebar(
-                currentScreen = viewModel.currentScreen,
-                onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage,
-                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
-            )
-            DashboardContent(
-                onStartScan = {
-                    viewModel.currentScreen = AppScreen.LiveScan
-                    viewModel.startCameraScan()
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(tokens.colors.background)
+            ) {
+                AppSidebar(
+                    currentScreen = viewModel.currentScreen,
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = viewModel.appLanguage,
+                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                )
+                DashboardContent(
+                    onStartScan = {
+                        viewModel.currentScreen = AppScreen.LiveScan
+                        viewModel.startCameraScan()
+                    },
+                    onImportImage = {
+                        viewModel.currentScreen = AppScreen.LiveScan
+                        viewModel.pickImageAndScan()
+                    },
+                    onViewHistory = { viewModel.currentScreen = AppScreen.ScanHistory },
+                    onShowNotifications = { viewModel.toggleNotificationPanel() },
+                    onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                    onCheckUpdates = { viewModel.showInfo(DesktopStrings.translate("Update checks are not available in offline mode.", language)) },
+                    onAnalyzeUrl = { url -> viewModel.analyzeUrlDirectly(url) },
+                    onToggleDarkMode = { viewModel.toggleDarkMode() },
+                    onOpenTraining = { viewModel.currentScreen = AppScreen.Training },
+                    isDarkMode = viewModel.isDarkMode,
+                    stats = viewModel.historyStats,
+                    recentScans = recentScans,
+                    onSelectScan = { viewModel.selectHistoryItem(it) },
+                    formatTimestamp = { viewModel.formatTimestamp(it) },
+                    language = language
+                )
+            }
+
+            // Notification Panel Popup
+            NotificationPanel(
+                visible = viewModel.showNotificationPanel,
+                notifications = viewModel.notifications,
+                onDismiss = { viewModel.dismissNotificationPanel() },
+                onMarkAllRead = { viewModel.markAllNotificationsRead() },
+                onNotificationClick = { notification ->
+                    viewModel.markNotificationRead(notification)
+                    viewModel.dismissNotificationPanel()
                 },
-                onImportImage = {
-                    viewModel.currentScreen = AppScreen.LiveScan
-                    viewModel.pickImageAndScan()
-                },
-                onViewHistory = { viewModel.currentScreen = AppScreen.ScanHistory },
-                onShowNotifications = { viewModel.showInfo(DesktopStrings.translate("Notifications are not available yet.", language)) },
-                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
-                onCheckUpdates = { viewModel.showInfo(DesktopStrings.translate("Update checks are not available in offline mode.", language)) },
-                onAnalyzeUrl = { url -> viewModel.analyzeUrlDirectly(url) },
-                onToggleDarkMode = { viewModel.toggleDarkMode() },
-                onOpenTraining = { viewModel.currentScreen = AppScreen.Training },
-                isDarkMode = viewModel.isDarkMode,
-                stats = viewModel.historyStats,
-                recentScans = recentScans,
-                onSelectScan = { viewModel.selectHistoryItem(it) },
-                formatTimestamp = { viewModel.formatTimestamp(it) },
+                onClearAll = { viewModel.clearAllNotifications() },
                 language = language
             )
         }

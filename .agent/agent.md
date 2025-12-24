@@ -7,7 +7,7 @@ This file tracks significant changes made during development sessions.
 # 🎯 December 24, 2025 (Session 10c) - Desktop UI Polish
 
 ### Summary
-Addressed UI inconsistencies and alignment issues in the Desktop application based on visual inspection. Fixed notification icon alignment, analyze button positioning, recent scans table Details column, and made the sidebar profile section interactive.
+Addressed UI inconsistencies and alignment issues in the Desktop application based on visual inspection. Fixed notification icon alignment, analyze button positioning, recent scans table Details column, made the sidebar profile section interactive, and implemented a fully functional notification panel.
 
 ## 🐛 Issues Fixed
 
@@ -44,12 +44,36 @@ Addressed UI inconsistencies and alignment issues in the Desktop application bas
 - Made the profile row clickable with hover background effects
 - Wired up the callback across all 11 screens to navigate to Settings (TrustCentreAlt)
 
+### 5. Notification Panel Implementation
+**Files**: `NotificationPanel.kt` (new), `AppViewModel.kt`, `DashboardScreen.kt`
+
+**Problem**: The notification bell icon was decorative, showing only an info message "Notifications are not available yet."
+
+**Fix**:
+- Created new `NotificationPanel.kt` component with:
+  - `AppNotification` data class with id, title, message, type, timestamp, isRead
+  - `NotificationType` enum: SUCCESS, INFO, WARNING, ERROR
+  - Popup panel with header, notification list, mark all read, clear all buttons
+  - Color-coded notification icons based on type
+  - Read/unread visual states with blue indicator dot
+  - Relative time formatting ("5 min ago", "2 hours ago")
+- Added notification state management to `AppViewModel`:
+  - `showNotificationPanel: Boolean` state
+  - `notifications: List<AppNotification>` state
+  - `toggleNotificationPanel()`, `dismissNotificationPanel()` functions
+  - `markAllNotificationsRead()`, `markNotificationRead()` functions
+  - `clearAllNotifications()`, `addNotification()` functions
+  - Sample notifications for demonstration
+- Updated `DashboardScreen` to display the notification panel popup
+
 ## 📁 Files Modified
 
 | File | Changes |
 |------|---------|
-| `DashboardScreen.kt` | Notification icon alignment, Analyze button, Details column fix, profile click |
+| `DashboardScreen.kt` | Notification icon alignment, Analyze button, Details column fix, profile click, NotificationPanel integration |
 | `AppSidebar.kt` | Added `onProfileClick` callback, hover effects on profile row |
+| `AppViewModel.kt` | Added notification state and management functions |
+| `NotificationPanel.kt` | **NEW** - Complete notification panel component |
 | `LiveScanScreen.kt` | Added profile click callback |
 | `ScanHistoryScreen.kt` | Added profile click callback |
 | `TrustCentreScreen.kt` | Added profile click callback |
@@ -63,7 +87,7 @@ Addressed UI inconsistencies and alignment issues in the Desktop application bas
 
 ## ✅ Build Status
 ```
-BUILD SUCCESSFUL in 1m 19s
+BUILD SUCCESSFUL in 23s
 ```
 
 ---
