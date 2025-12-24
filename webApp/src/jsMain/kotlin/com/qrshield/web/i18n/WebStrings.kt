@@ -60,6 +60,7 @@ enum class WebLanguage(val code: String) {
 
 enum class WebStringKey(val defaultText: String) {
     AppName("QR-SHIELD"),
+    AppTagline("Kotlin Multiplatform QRishing Detector"),
     
     // Navigation
     MenuMain("Main Menu"),
@@ -72,10 +73,17 @@ enum class WebStringKey(val defaultText: String) {
     NavReports("Reports"),
     NavTraining("Training"),
     NavSettings("Settings"),
+    QuickActions("Quick Actions"),
 
+    // Hero Section
+    HeroTagline("Secure. Offline."),
+    HeroTagline2("Explainable Defence."),
+    HeroDescription("QR-SHIELD analyses potential threats directly on your hardware. Experience zero-latency protection."),
+    
     // Dashboard Actions
     StartScan("Start New Scan"),
     ImportImage("Import Image"),
+    ScanQrCode("Scan QR Code"),
     
     // Dashboard Metrics
     SystemHealth("System Health"),
@@ -88,6 +96,10 @@ enum class WebStringKey(val defaultText: String) {
     // Footer / Status
     EngineActive("Engine Active"),
     EnterpriseProtection("Enterprise Protection Active"),
+    SystemOptimal("System Optimal"),
+    EngineStatus("Engine v2.4 • Updated 2h ago"),
+    ThreatsBlocked("Threats Blocked"),
+    AllSystemsOperational("All systems operational"),
 
     // Dashboard Sections
     SectionOverview("Overview"),
@@ -96,6 +108,20 @@ enum class WebStringKey(val defaultText: String) {
     SectionReports("Reports"),
     OfflineReady("Offline Ready"),
     OfflineDescription("Local database v2.4.1 active. No data leaves this device."),
+    
+    // Trust Centre
+    TrustCentreTitle("Trust Centre"),
+    OfflineGuarantee("Strict Offline Guarantee"),
+    OfflineGuaranteeDesc("QR-SHIELD analysis runs entirely on your device's Neural Engine. No URL data ever leaves your phone."),
+    ThreatSensitivity("Threat Sensitivity"),
+    ResetConfirm("This will reset all Trust Centre settings to their defaults."),
+    
+    // Settings Quick Actions
+    ThreatMonitor("Threat Monitor"),
+    ThreatMonitorDesc("View live threats and run security audit"),
+    TrustCentreDesc("Privacy settings and threat sensitivity"),
+    ExportReport("Export Report"),
+    ExportReportDesc("Generate PDF or JSON security report"),
 
     // Dashboard Content
     Analyze("Analyze"),
@@ -173,7 +199,22 @@ enum class WebStringKey(val defaultText: String) {
     AttackJsDesc("High entropy string detected in URL parameters."),
     SectionActions("Recommended Actions"),
     ActionBlock("Block & Report"),
+    ActionBlockDesc("Prevent access and notify admin"),
     ActionQuarantine("Quarantine in Sandbox"),
+    ActionQuarantineDesc("Open safely for analysis"),
+    Expected("Expected: "),
+    Detected("Detected: "),
+    ExplainableSecurity("Explainable Security"),
+    UrlBreakdown("URL BREAKDOWN"),
+    FullUrl("FULL URL"),
+    OpenInBrowser("Open in Browser (Risky)"),
+    OpenWarning("Opening this URL in your browser may expose you to security risks."),
+    RestrictedMode("Restricted Mode"),
+    RestrictedDesc("This URL has been flagged as potentially dangerous. Review the analysis below before proceeding."),
+    DangerousWarning("This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats. Are you sure you want to proceed?"),
+    CopyUrl("Copy URL"),
+    Share("Share"),
+    Dismiss("Dismiss"),
     ReasonDomainAge("Domain age is less than 24 hours."),
     ReasonSignatures("Matched 3 signatures in local phishing DB."),
     ReasonAsn("Target IP is located in a high-risk ASN."),

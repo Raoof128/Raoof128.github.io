@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val ArabicStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "كاشف التصيد عبر QR متعدد المنصات",
     WebStringKey.MenuMain to "القائمة الرئيسية",
     WebStringKey.MenuSecurity to "الأمان",
     WebStringKey.MenuSystem to "النظام",
@@ -12,10 +13,17 @@ internal val ArabicStrings = mapOf(
     WebStringKey.NavReports to "التقارير",
     WebStringKey.NavTraining to "التدريب",
     WebStringKey.NavSettings to "الإعدادات",
+    WebStringKey.QuickActions to "إجراءات سريعة",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "آمن. غير متصل.",
+    WebStringKey.HeroTagline2 to "دفاع قابل للتفسير.",
+    WebStringKey.HeroDescription to "يحلل QR-SHIELD التهديدات المحتملة مباشرة على جهازك. استمتع بحماية بدون تأخير.",
 
     // Dashboard
     WebStringKey.StartScan to "بدء مسح جديد",
     WebStringKey.ImportImage to "استيراد صورة",
+    WebStringKey.ScanQrCode to "مسح رمز QR",
     WebStringKey.SystemHealth to "صحة النظام",
     WebStringKey.ThreatDatabase to "قاعدة بيانات التهديدات",
     WebStringKey.Current to "الحالي",
@@ -24,6 +32,10 @@ internal val ArabicStrings = mapOf(
     WebStringKey.SafeScans to "المسوحات الآمنة",
     WebStringKey.EngineActive to "المحرك نشط",
     WebStringKey.EnterpriseProtection to "حماية المؤسسة نشطة",
+    WebStringKey.SystemOptimal to "النظام مثالي",
+    WebStringKey.EngineStatus to "المحرك v2.4 • تحديث منذ ساعتين",
+    WebStringKey.ThreatsBlocked to "تهديدات محظورة",
+    WebStringKey.AllSystemsOperational to "جميع الأنظمة تعمل",
 
     // Dashboard Sections
     WebStringKey.SectionOverview to "نظرة عامة",
@@ -32,6 +44,20 @@ internal val ArabicStrings = mapOf(
     WebStringKey.SectionReports to "التقارير",
     WebStringKey.OfflineReady to "جاهز للعمل بدون اتصال",
     WebStringKey.OfflineDescription to "قاعدة البيانات المحلية v2.4.1 نشطة. لا تغادر أي بيانات هذا الجهاز.",
+    
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "مركز الثقة",
+    WebStringKey.OfflineGuarantee to "ضمان صارم للعمل دون اتصال",
+    WebStringKey.OfflineGuaranteeDesc to "يعمل تحليل QR-SHIELD بالكامل على محرك Neural Engine في جهازك. لا تغادر بيانات URL هاتفك أبداً.",
+    WebStringKey.ThreatSensitivity to "حساسية التهديدات",
+    WebStringKey.ResetConfirm to "سيؤدي هذا إلى إعادة تعيين جميع إعدادات مركز الثقة إلى الإعدادات الافتراضية.",
+    
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "مراقب التهديدات",
+    WebStringKey.ThreatMonitorDesc to "عرض التهديدات الحية وتشغيل تدقيق الأمان",
+    WebStringKey.TrustCentreDesc to "إعدادات الخصوصية وحساسية التهديدات",
+    WebStringKey.ExportReport to "تصدير التقرير",
+    WebStringKey.ExportReportDesc to "إنشاء تقرير أمان PDF أو JSON",
 
     // Dashboard Content
     WebStringKey.Analyze to "تحليل",
@@ -109,7 +135,22 @@ internal val ArabicStrings = mapOf(
     WebStringKey.AttackJsDesc to "تم اكتشاف سلسلة عالية الإنتروبيا في معلمات URL.",
     WebStringKey.SectionActions to "الإجراءات الموصى بها",
     WebStringKey.ActionBlock to "حظر والإبلاغ",
+    WebStringKey.ActionBlockDesc to "منع الوصول وإخطار المسؤول",
     WebStringKey.ActionQuarantine to "عزل في Sandbox",
+    WebStringKey.ActionQuarantineDesc to "فتح بأمان للتحليل",
+    WebStringKey.Expected to "المتوقع: ",
+    WebStringKey.Detected to "المكتشف: ",
+    WebStringKey.ExplainableSecurity to "أمان قابل للتفسير",
+    WebStringKey.UrlBreakdown to "تفصيل الرابط",
+    WebStringKey.FullUrl to "الرابط الكامل",
+    WebStringKey.OpenInBrowser to "فتح في المتصفح (محفوف بالمخاطر)",
+    WebStringKey.OpenWarning to "قد يعرضك فتح هذا الرابط في متصفحك لمخاطر أمنية.",
+    WebStringKey.RestrictedMode to "وضع مقيد",
+    WebStringKey.RestrictedDesc to "تم تصنيف هذا الرابط على أنه خطير محتمل. راجع التحليل أدناه قبل المتابعة.",
+    WebStringKey.DangerousWarning to "تم تصنيف هذا الرابط على أنه خطير محتمل. قد يعرضك فتحه للتصيد أو البرامج الضارة أو تهديدات أمنية أخرى. هل أنت متأكد أنك تريد المتابعة؟",
+    WebStringKey.CopyUrl to "نسخ الرابط",
+    WebStringKey.Share to "مشاركة",
+    WebStringKey.Dismiss to "إغلاق",
     WebStringKey.ReasonDomainAge to "عمر النطاق أقل من 24 ساعة.",
     WebStringKey.ReasonSignatures to "تطابق مع 3 توقيعات في قاعدة بيانات التصيد المحلية.",
     WebStringKey.ReasonAsn to "عنوان IP الهدف موجود في ASN عالي الخطورة.",

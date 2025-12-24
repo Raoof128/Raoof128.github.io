@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val IndonesianStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Detektor QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "Menu Utama",
     WebStringKey.MenuSecurity to "Keamanan",
     WebStringKey.MenuSystem to "Sistem",
@@ -12,10 +13,17 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.NavReports to "Laporan",
     WebStringKey.NavTraining to "Pelatihan",
     WebStringKey.NavSettings to "Pengaturan",
+    WebStringKey.QuickActions to "Aksi Cepat",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "Aman. Offline.",
+    WebStringKey.HeroTagline2 to "Pertahanan Transparan.",
+    WebStringKey.HeroDescription to "QR-SHIELD menganalisis ancaman potensial langsung di perangkat keras Anda. Nikmati perlindungan tanpa latensi.",
 
     // Dashboard
     WebStringKey.StartScan to "Mulai Pemindaian Baru",
     WebStringKey.ImportImage to "Impor Gambar",
+    WebStringKey.ScanQrCode to "Pindai Kode QR",
     WebStringKey.SystemHealth to "Kesehatan Sistem",
     WebStringKey.ThreatDatabase to "Database Ancaman",
     WebStringKey.Current to "Saat Ini",
@@ -24,6 +32,10 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.SafeScans to "Pemindaian Aman",
     WebStringKey.EngineActive to "Mesin Aktif",
     WebStringKey.EnterpriseProtection to "Perlindungan Enterprise Aktif",
+    WebStringKey.SystemOptimal to "Sistem Optimal",
+    WebStringKey.EngineStatus to "Mesin v2.4 • Diperbarui 2j lalu",
+    WebStringKey.ThreatsBlocked to "Ancaman Diblokir",
+    WebStringKey.AllSystemsOperational to "Semua sistem beroperasi",
 
     // Dashboard Sections
     WebStringKey.SectionOverview to "Ikhtisar",
@@ -32,6 +44,20 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.SectionReports to "Laporan",
     WebStringKey.OfflineReady to "Siap Offline",
     WebStringKey.OfflineDescription to "Database lokal v2.4.1 aktif. Tidak ada data yang meninggalkan perangkat ini.",
+    
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "Pusat Kepercayaan",
+    WebStringKey.OfflineGuarantee to "Jaminan Offline Ketat",
+    WebStringKey.OfflineGuaranteeDesc to "Analisis QR-SHIELD berjalan sepenuhnya di Neural Engine perangkat Anda. Data URL tidak pernah meninggalkan ponsel Anda.",
+    WebStringKey.ThreatSensitivity to "Sensitivitas Ancaman",
+    WebStringKey.ResetConfirm to "Ini akan mengatur ulang semua pengaturan Pusat Kepercayaan ke default.",
+    
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "Monitor Ancaman",
+    WebStringKey.ThreatMonitorDesc to "Lihat ancaman langsung dan jalankan audit keamanan",
+    WebStringKey.TrustCentreDesc to "Pengaturan privasi dan sensitivitas ancaman",
+    WebStringKey.ExportReport to "Ekspor Laporan",
+    WebStringKey.ExportReportDesc to "Buat laporan keamanan PDF atau JSON",
 
     // Dashboard Content
     WebStringKey.Analyze to "Analisis",
@@ -109,7 +135,22 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.AttackJsDesc to "String entropi tinggi terdeteksi dalam parameter URL.",
     WebStringKey.SectionActions to "Tindakan yang Disarankan",
     WebStringKey.ActionBlock to "Blokir & Laporkan",
+    WebStringKey.ActionBlockDesc to "Cegah akses dan beri tahu admin",
     WebStringKey.ActionQuarantine to "Karantina di Sandbox",
+    WebStringKey.ActionQuarantineDesc to "Buka dengan aman untuk analisis",
+    WebStringKey.Expected to "Diharapkan: ",
+    WebStringKey.Detected to "Terdeteksi: ",
+    WebStringKey.ExplainableSecurity to "Keamanan Transparan",
+    WebStringKey.UrlBreakdown to "RINCIAN URL",
+    WebStringKey.FullUrl to "URL LENGKAP",
+    WebStringKey.OpenInBrowser to "Buka di Browser (Berisiko)",
+    WebStringKey.OpenWarning to "Membuka URL ini di browser Anda dapat membuat Anda terpapar risiko keamanan.",
+    WebStringKey.RestrictedMode to "Mode Terbatas",
+    WebStringKey.RestrictedDesc to "URL ini telah ditandai sebagai berpotensi berbahaya. Tinjau analisis di bawah sebelum melanjutkan.",
+    WebStringKey.DangerousWarning to "URL ini telah ditandai sebagai berpotensi berbahaya. Membukanya dapat membuat Anda terpapar phishing, malware, atau ancaman keamanan lainnya. Apakah Anda yakin ingin melanjutkan?",
+    WebStringKey.CopyUrl to "Salin URL",
+    WebStringKey.Share to "Bagikan",
+    WebStringKey.Dismiss to "Tutup",
     WebStringKey.ReasonDomainAge to "Usia domain kurang dari 24 jam.",
     WebStringKey.ReasonSignatures to "Cocok dengan 3 tanda tangan di DB phishing lokal.",
     WebStringKey.ReasonAsn to "IP target berlokasi di ASN berisiko tinggi.",

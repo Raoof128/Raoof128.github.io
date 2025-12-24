@@ -5,6 +5,36 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.22] - 2025-12-24
+
+### 🌐 Web App - UI Localization Expansion
+
+Added 30 new localization keys to the web app for parity with iOS UI strings.
+
+#### ✨ New WebStringKey Entries
+
+| Category | Keys | Purpose |
+|----------|------|---------|
+| App & Hero | 4 | AppTagline, HeroTagline, HeroTagline2, HeroDescription |
+| Navigation | 2 | QuickActions, ScanQrCode |
+| Status | 4 | SystemOptimal, EngineStatus, ThreatsBlocked, AllSystemsOperational |
+| Trust Centre | 5 | TrustCentreTitle, OfflineGuarantee, OfflineGuaranteeDesc, ThreatSensitivity, ResetConfirm |
+| Settings | 5 | ThreatMonitor, ThreatMonitorDesc, TrustCentreDesc, ExportReport, ExportReportDesc |
+| Results | 10 | ActionBlockDesc, ActionQuarantineDesc, Expected, Detected, ExplainableSecurity, UrlBreakdown, FullUrl, OpenInBrowser, OpenWarning, RestrictedMode, RestrictedDesc, DangerousWarning, CopyUrl, Share, Dismiss |
+
+#### 🔧 Language Files Updated
+
+- `WebStrings.kt` - Base definitions (30 new keys)
+- `WebStringsAr.kt` - Arabic (complete)
+- `WebStringsDe.kt` - German (complete)
+- `WebStringsEs.kt` - Spanish (complete)
+- `WebStringsFr.kt` - French (complete)
+- `WebStringsIn.kt` - Indonesian (complete)
+
+*Other languages use English fallback for new keys*
+
+---
+
 ## [1.17.21] - 2025-12-24
 
 ### 🎨 iOS App - UI Localization Implementation

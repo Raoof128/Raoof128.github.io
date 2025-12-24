@@ -4,6 +4,38 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🌐 December 24, 2025 (Session 10i) - Web App UI Localization Expansion
+
+### Summary
+Added 30 new localization keys to the web app to achieve UI parity with iOS. Updated WebStrings.kt base definitions and translated keys for Arabic, German, Spanish, French, and Indonesian.
+
+## ✅ New Keys Added to WebStrings.kt
+
+| Category | Count | Keys |
+|----------|-------|------|
+| App & Hero | 4 | AppTagline, HeroTagline, HeroTagline2, HeroDescription |
+| Navigation | 2 | QuickActions, ScanQrCode |
+| Status | 4 | SystemOptimal, EngineStatus, ThreatsBlocked, AllSystemsOperational |
+| Trust Centre | 5 | TrustCentreTitle, OfflineGuarantee, OfflineGuaranteeDesc, ThreatSensitivity, ResetConfirm |
+| Settings | 5 | ThreatMonitor, ThreatMonitorDesc, TrustCentreDesc, ExportReport, ExportReportDesc |
+| Results | 10+ | ActionBlockDesc, ActionQuarantineDesc, Expected, Detected, ExplainableSecurity, UrlBreakdown, FullUrl, OpenInBrowser, OpenWarning, RestrictedMode, RestrictedDesc, DangerousWarning, CopyUrl, Share, Dismiss |
+
+## ✅ Language Files Fully Updated
+
+| Language | File | Status |
+|----------|------|--------|
+| Arabic | WebStringsAr.kt | ✅ Complete |
+| German | WebStringsDe.kt | ✅ Complete |
+| Spanish | WebStringsEs.kt | ✅ Complete |
+| French | WebStringsFr.kt | ✅ Complete |
+| Indonesian | WebStringsIn.kt | ✅ Complete |
+
+## 🔄 Languages Using Fallback
+
+Hi, It, Ja, Ko, Pt, Ru, Th, Tr, Vi, Zh - Use English defaults for new keys (graceful fallback)
+
+---
+
 # 🎨 December 24, 2025 (Session 10h) - iOS App UI Localization Implementation
 
 ### Summary
