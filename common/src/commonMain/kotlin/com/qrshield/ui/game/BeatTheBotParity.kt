@@ -19,7 +19,7 @@ package com.qrshield.ui.game
 /**
  * Cross-Platform Parity Constants for Beat The Bot
  * 
- * These values MUST be identical across all 4 platforms:
+ * These values MUST be identical across all 5 platforms:
  * - Android (KMP Compose)
  * - iOS (SwiftUI)
  * - Desktop (KMP Compose)

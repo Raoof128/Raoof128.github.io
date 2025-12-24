@@ -126,7 +126,7 @@ echo "  └───────────────────────
 echo ""
 
 echo -e "${GREEN}🎯 Shared Code Percentage: ${SHARED_PERCENTAGE}%${NC}"
-echo "   (Business logic shared across all 4 platforms)"
+echo "   (Business logic shared across all 5 platforms)"
 echo ""
 
 echo -e "${YELLOW}📊 Code Distribution:${NC}"

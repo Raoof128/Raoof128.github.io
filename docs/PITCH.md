@@ -26,7 +26,7 @@ Attackers exploit this trust through **QRishing** (QR phishing):
 ### Our Technical Innovation
 
 1. **Kotlin Multiplatform Architecture**
-   - ~80% code sharing across 4 platforms
+   - ~80% code sharing across 5 platforms
    - Native performance, not web wrappers
    - Single security engine, universal protection
    - Hybrid iOS: SwiftUI + shared Compose components
@@ -59,7 +59,7 @@ Attackers exploit this trust through **QRishing** (QR phishing):
 |---------------------|-----------|
 | Just decode QR | Decode + Analyze |
 | No security | 25+ risk signals |
-| Single platform | 4 platforms |
+| Single platform | 5 platforms |
 | Cloud-dependent | Offline-capable |
 
 ---

@@ -32,7 +32,7 @@
 | `crypto/` | 400 | SecureECDH (Curve25519) | 100% |
 | `gamification/` | 700 | BeatTheBot, GameSession, LeaderboardManager | 100% |
 | `ui/shared/` | 800 | SharedResultCard, ThreatRadar, SharedTextGenerator | 100% |
-| `localization/` | 500 | LocalizationKeys, Translations (5 languages) | 100% |
+| `localization/` | 500 | LocalizationKeys, Translations (16 languages) | 100% |
 | **Total commonMain** | **~11,000** | | **100%** |
 
 ### Shared Tests (commonTest)
@@ -171,7 +171,7 @@ All expect/actual boundaries have contract tests in `PlatformContractTest.kt`:
 | Claim | Evidence |
 |-------|----------|
 | **"Real KMP, not checkbox"** | 100% of business logic is shared |
-| **"4 platforms from one codebase"** | Same PhishingEngine compiles to JVM, Native, JS |
+| **"5 platforms from one codebase"** | Same PhishingEngine compiles to JVM, Native, JS, WasmJS |
 | **"Strategic expect/actual"** | 7 platform abstractions, all with contract tests |
 | **"Proper dependency inversion"** | common defines interfaces, platforms implement |
 | **"Hybrid Compose works"** | iOS embeds Compose components in SwiftUI |

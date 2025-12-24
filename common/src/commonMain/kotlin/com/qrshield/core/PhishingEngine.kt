@@ -52,7 +52,7 @@ import kotlinx.coroutines.withContext
  *    - Native binaries (iOS via Kotlin/Native)
  *    - JavaScript (Web via Kotlin/JS)
  *
- *    One security implementation, consistent behavior across all 4 platforms.
+ *    One security implementation, consistent behavior across all 5 platforms.
  *
  * 4. **Data Classes**: `RiskAssessment`, `UrlAnalysisResult`, and `Verdict` are
  *    immutable data classes with `copy()`, `equals()`, and `hashCode()` for free.

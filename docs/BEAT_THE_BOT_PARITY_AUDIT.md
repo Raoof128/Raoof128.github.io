@@ -8,7 +8,7 @@
 
 ## Overview
 
-Beat The Bot now achieves **100% parity** across all 4 platforms (Android, iOS, Desktop, Web). All visual, behavioral, and accessibility aspects are identical. A new `BeatTheBotParity.kt` constants file ensures future changes stay synchronized.
+Beat The Bot now achieves **100% parity** across all 5 platforms (Android, iOS, Desktop, Web/JS, Web/Wasm). All visual, behavioral, and accessibility aspects are identical. A new `BeatTheBotParity.kt` constants file ensures future changes stay synchronized.
 
 ---
 
@@ -55,15 +55,15 @@ Beat The Bot now achieves **100% parity** across all 4 platforms (Android, iOS, 
 | Brain Visualizer (iOS) | ✅ BrainVisualizer.swift |
 | Brain Visualizer (Desktop) | ✅ CommonBrainVisualizer.kt |
 | Brain Visualizer (Web) | ✅ visualizer.js |
-| Signal Badges | ✅ All 4 platforms |
-| Pulse Animation | ✅ All 4 platforms |
-| Ripple Effects | ✅ All 4 platforms |
-| Accessible Description | ✅ All 4 platforms |
-| Browser Preview | ✅ All 4 platforms |
-| Decision Buttons | ✅ All 4 platforms |
-| Score/Streak Tracking | ✅ All 4 platforms |
-| Timer | ✅ All 4 platforms |
-| Result Feedback | ✅ All 4 platforms |
+| Signal Badges | ✅ All 5 platforms |
+| Pulse Animation | ✅ All 5 platforms |
+| Ripple Effects | ✅ All 5 platforms |
+| Accessible Description | ✅ All 5 platforms |
+| Browser Preview | ✅ All 5 platforms |
+| Decision Buttons | ✅ All 5 platforms |
+| Score/Streak Tracking | ✅ All 5 platforms |
+| Timer | ✅ All 5 platforms |
+| Result Feedback | ✅ All 5 platforms |
 
 ### Parity Fixes Applied This Session
 

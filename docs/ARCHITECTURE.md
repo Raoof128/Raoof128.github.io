@@ -188,7 +188,7 @@ expect fun getCurrentTimeMillis(): Long
 ## 📊 Code Distribution
 
 ```
-Total Codebase: ~12,000 LOC
+Total Codebase: ~26,000 LOC
 
 ┌────────────────────────────────────────────────────────┐
 │ SHARED (commonMain)                                    │
@@ -219,7 +219,7 @@ Run `./scripts/loc_report.sh` for exact counts.
 1. **Single Source of Truth**: Detection logic written once, tested once
 2. **Consistent Security**: Same analysis on all platforms
 3. **Faster Updates**: Fix a bug in common → fixed everywhere
-4. **Shared Tests**: 849 tests run on all targets
+4. **Shared Tests**: 1,248+ tests run on all targets
 
 ### iOS Decision: SwiftUI vs Compose Multiplatform
 
