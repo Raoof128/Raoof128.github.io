@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.31`** (as of December 25, 2025)
+**Current App Version: `1.17.32`** (as of December 25, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,72 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🐛 December 25, 2025 (Session 10k+8) - Web App "Old UI Loads First" Bug Fix
+
+### Summary
+Fixed the critical web app bug where users would see a flash of the old UI when visiting the root URL before being redirected to the new dashboard.
+
+## ✅ Changes Made
+
+### Root Cause Analysis
+The `index.html` file (served at `/`) contained the **complete old UI HTML** (422 lines including hero, metrics, scanner, modals). Even though it had a redirect to `dashboard.html`, browsers render HTML before executing JavaScript, causing the old UI to flash briefly.
+
+### Fix Strategy
+1. **Replace old UI HTML** - Rewrote `index.html` as 80-line minimal redirect-only page
+2. **Update PWA manifest** - Changed `start_url` to `dashboard.html`
+3. **Bump SW cache version** - Force users to get new cached assets
+
+### Files Updated
+
+| File | Change |
+|------|--------|
+| `webApp/src/jsMain/resources/index.html` | Complete rewrite: 422 → 80 lines (no old UI content) |
+| `webApp/src/jsMain/resources/manifest.json` | `start_url` + shortcuts → `dashboard.html` |
+| `webApp/src/jsMain/resources/sw.js` | Cache version `v2.4.3` → `v2.5.0` |
+| `CHANGELOG.md` | Added v1.17.32 entry |
+
+## 🔧 Technical Details
+
+**Old `index.html` Problem:**
+```html
+<!-- In <head> - redirect logic -->
+<meta http-equiv="refresh" content="0; url=dashboard.html">
+<script>window.location.replace('dashboard.html');</script>
+
+<!-- In <body> - COMPLETE OLD UI (this gets rendered before redirect!) -->
+<section class="hero-section">...</section>
+<div class="metrics-grid">...</div>
+<main class="scanner-card">...</main>
+<!-- 400+ more lines of old UI -->
+```
+
+**New `index.html` Solution:**
+```html
+<!-- Minimal page - redirect in <head>, minimal loader in <body> -->
+<meta http-equiv="refresh" content="0; url=dashboard.html">
+<script>window.location.replace('dashboard.html');</script>
+
+<body>
+  <!-- Only a tiny loading spinner - invisible due to fast redirect -->
+  <div class="loader"><div class="spinner"></div></div>
+</body>
+```
+
+## ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserDistribution
+# BUILD SUCCESSFUL
+```
+
+## 📝 Notes for Future Agents
+
+1. **No old UI in index.html** - If adding content to index.html, remember it's just a redirect page
+2. **PWA users go directly to dashboard** - manifest.json points to dashboard.html
+3. **Service worker cache version** - Bump version when making significant changes
 
 ---
 

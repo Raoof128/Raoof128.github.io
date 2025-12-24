@@ -2,7 +2,7 @@
     "name": "QR-SHIELD - QRishing Detector",
     "short_name": "QR-SHIELD",
     "description": "Detect phishing attacks in QR codes. 100% offline, AI-powered security scanning running entirely in your browser. Built with Kotlin Multiplatform.",
-    "start_url": "./index.html?source=pwa",
+    "start_url": "./dashboard.html?source=pwa",
     "scope": "./",
     "display": "standalone",
     "display_override": [
@@ -86,7 +86,7 @@
             "name": "Quick Scan",
             "short_name": "Scan",
             "description": "Quickly analyze a URL for phishing threats",
-            "url": "./index.html?autofocus=true",
+            "url": "./dashboard.html?autofocus=true",
             "icons": [
                 {
                     "src": "assets/logo.svg",
@@ -99,7 +99,7 @@
             "name": "Demo Mode",
             "short_name": "Demo",
             "description": "Try sample URLs to see detection in action",
-            "url": "./index.html?demo=true",
+            "url": "./dashboard.html?demo=true",
             "icons": [
                 {
                     "src": "assets/logo.svg",

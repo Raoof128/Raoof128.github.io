@@ -5,6 +5,51 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.32] - 2025-12-25
+
+### 🐛 Web App - "Old UI Loads First" Bug Fix
+
+Fixed the issue where users would see a brief flash of the old UI when visiting the root URL before being redirected to the new dashboard.
+
+#### 🔧 Root Cause
+
+The `index.html` file contained the complete old UI (hero section, metrics grid, scanner, modals) with a JavaScript redirect at the top. Browsers render HTML before executing the redirect script, causing a visual flash.
+
+#### ✅ Fixes Applied
+
+**`index.html` - Complete Rewrite**
+- Replaced 422-line old UI file with 80-line minimal redirect page
+- No UI content to render before redirect executes
+- Inline loading spinner shown only if redirect fails (edge case)
+- Faster page load: ~80KB → ~3KB
+
+**`manifest.json` - PWA Start URL Updated**
+- Changed `start_url` from `index.html` to `dashboard.html`
+- PWA users now land directly on new dashboard
+- Updated shortcuts to use `dashboard.html`
+
+**`sw.js` - Cache Version Bump**
+- Bumped `CACHE_NAME` from `v2.4.3` → `v2.5.0`
+- Forces existing users to get new cached assets
+- Old cached `index.html` will be replaced
+
+#### 📁 Files Changed
+
+| File | Change |
+|------|--------|
+| `webApp/src/jsMain/resources/index.html` | Complete rewrite (422 → 80 lines) |
+| `webApp/src/jsMain/resources/manifest.json` | Updated `start_url` and shortcuts |
+| `webApp/src/jsMain/resources/sw.js` | Cache version bump |
+
+#### ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserDistribution
+# BUILD SUCCESSFUL
+```
+
+---
+
 ## [1.17.31] - 2025-12-25
 
 ### 🏆 Competition Judge Improvements

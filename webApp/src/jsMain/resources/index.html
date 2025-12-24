@@ -1,422 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <!-- Accessibility: Allow text scaling, maintain zoom capabilities -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description"
-        content="QR-SHIELD Web - AI-powered phishing detection running entirely in your browser. Scan and analyze URLs for security threats.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR-SHIELD - Redirecting...</title>
 
-    <meta name="theme-color" content="#6C5CE7" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#0D1117" media="(prefers-color-scheme: dark)">
-    <meta name="color-scheme" content="dark light">
-
-    <!-- Auto-redirect to new dashboard UI -->
+    <!-- Instant redirect to new dashboard - NO UI content to prevent flash -->
     <meta http-equiv="refresh" content="0; url=dashboard.html">
-    <script>window.location.replace('dashboard.html');</script>
+    <script>
+        // Immediate redirect - executes before any rendering
+        window.location.replace('dashboard.html');
+    </script>
 
-    <title>QR-SHIELD | Premium Web Scanner</title>
+    <!-- SEO -->
+    <meta name="description" content="QR-SHIELD - AI-powered phishing detection running 100% offline.">
+    <meta name="theme-color" content="#0D1117">
 
-    <!-- ==========================================================================
-         iOS / Apple PWA Meta Tags (for standalone experience)
-         ========================================================================== -->
-    <!-- Apple Touch Icon (iOS Home Screen) - Using PNG from iconset -->
-    <link rel="apple-touch-icon" href="assets/icon-256.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-256.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="assets/icon-256.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/icon-128.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/icon-128.png">
-
-    <!-- iOS Standalone Mode -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="QR-SHIELD">
-
-    <!-- iOS Startup Screen Placeholder (uses theme color) -->
-    <meta name="apple-touch-startup-image" href="assets/icon-512.png">
-
-    <!-- Disable iOS telephone number detection -->
-    <meta name="format-detection" content="telephone=no">
-
-    <!-- Mobile-specific meta tags -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="QR-SHIELD">
-    <meta name="msapplication-TileColor" content="#6C5CE7">
-    <meta name="msapplication-config" content="none">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
-
-    <!-- Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-
-    <!-- Favicon & PWA -->
+    <!-- Favicon (in case redirect is slow) -->
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
-    <link rel="manifest" href="manifest.json">
 
-    <link rel="stylesheet" href="styles.css">
+    <!-- Minimal inline styles for loading state -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0D1117;
+            color: #e6edf3;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
 
-    <!-- Core JS QR library for camera scanning -->
-    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+        .loader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(108, 92, 231, 0.2);
+            border-top-color: #6C5CE7;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .text {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Hide content - redirect should happen instantly */
+        .loader {
+            opacity: 0;
+            animation: fadeIn 0.3s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="app-container">
+    <!-- Minimal fallback content - only shown if JS/meta refresh fails -->
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=dashboard.html">
+    </noscript>
 
-        <!-- Header -->
-        <header class="app-header">
-            <div class="brand">
-                <div class="logo-shield" id="logo" data-testid="logo">
-                    <img src="assets/icon-128.png" alt="QR-SHIELD Logo" class="logo" style="width: 28px; height: 28px;">
-                </div>
-                <div class="app-title">QR-SHIELD</div>
-            </div>
-
-            <div class="header-actions">
-                <!-- Offline Indicator (PWA) -->
-                <div id="offlineIndicator" class="offline-indicator" style="display: none;" title="Works 100% offline!">
-                    <span class="material-icons-round">cloud_off</span>
-                    <span class="offline-text">Offline</span>
-                </div>
-                <!-- Language Toggle (i18n) -->
-                <button id="langToggle" class="btn-icon lang-toggle" onclick="toggleLanguage()"
-                    aria-label="Toggle Language" title="Switch Language: English/Deutsch">
-                    <span id="langFlag">🇬🇧</span>
-                </button>
-                <button id="judgeModeToggle" class="btn-icon judge-mode-btn" onclick="toggleJudgeMode()"
-                    aria-label="Toggle Judge Mode" title="Judge Mode: Force MALICIOUS results for demo">
-                    <span class="material-icons-round">gavel</span>
-                </button>
-                <button id="generateTestQR" class="btn-icon" onclick="generateTestQR()" aria-label="Generate Test QR"
-                    title="Generate a test malicious QR code">
-                    <span class="material-icons-round">qr_code_2</span>
-                </button>
-                <a href="https://github.com/Raoof128/Raoof128.github.io" target="_blank" class="btn-icon"
-                    aria-label="GitHub">
-                    <span class="material-icons-round">code</span>
-                </a>
-                <button id="themeToggle" class="btn-icon" aria-label="Toggle Theme">
-                    <span class="material-icons-round">light_mode</span>
-                </button>
-            </div>
-        </header>
-
-        <!-- Hero -->
-        <section class="hero-section">
-            <div class="kmp-badge">
-                <img src="https://img.shields.io/badge/Kotlin_Multiplatform-Powered-7F52FF?style=flat&logo=kotlin&logoColor=white"
-                    alt="Kotlin Multiplatform">
-                <img src="https://img.shields.io/badge/Kotlin%2FWasm-Experimental-FF6F00?style=flat&logo=webassembly&logoColor=white"
-                    alt="Kotlin/Wasm">
-            </div>
-            <h1 class="text-gradient">Scan URLs Safely</h1>
-            <p class="hero-subtitle">AI-powered phishing detection running 100% offline in your browser.</p>
-            <p class="hero-trust">🔒 Zero data collection • 🚀 Same engine as Android & iOS • 🧠 Ensemble ML (25+
-                heuristics)</p>
-        </section>
-
-        <!-- Metrics -->
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <span class="metric-value">25+</span>
-                <span class="metric-label">Security Heuristics</span>
-            </div>
-            <div class="metric-card">
-                <span class="metric-value">500+</span>
-                <span class="metric-label">Brands Detected</span>
-            </div>
-            <div class="metric-card">
-                <span class="metric-value">&lt;50ms</span>
-                <span class="metric-label">Analysis Time</span>
-            </div>
-            <div class="metric-card">
-                <span class="metric-value">100%</span>
-                <span class="metric-label">Local Privacy</span>
-            </div>
-        </div>
-
-        <!-- Scanner Input -->
-        <main class="scanner-card">
-            <div class="input-group">
-                <span class="material-icons-round input-icon">link</span>
-                <label for="urlInput" class="sr-only">URL to analyze</label>
-                <input type="url" id="urlInput" class="url-input" placeholder="https://example.com/login"
-                    autocomplete="off" spellcheck="false" aria-label="URL to analyze" data-testid="url-input">
-            </div>
-
-            <div class="action-row">
-                <button id="analyzeBtn" class="btn-primary" data-testid="analyze-button" aria-label="Analyze URL">
-                    <span class="material-icons-round">search</span>
-                    Analyze URL
-                </button>
-                <button id="scanQrBtn" class="btn-secondary">
-                    <span class="material-icons-round">qr_code_scanner</span>
-                    Scan QR
-                </button>
-                <button id="uploadQrBtn" class="btn-secondary">
-                    <span class="material-icons-round">image</span>
-                    Upload
-                </button>
-            </div>
-
-            <!-- Drag & Drop Zone -->
-            <div id="dropZone" class="drop-zone">
-                <span class="material-icons-round drop-icon">cloud_upload</span>
-                <p class="drop-text">Drag & Drop QR code image here</p>
-                <p class="drop-hint">or click "Upload" to select a file</p>
-            </div>
-            <input type="file" id="fileInput" accept="image/*" hidden>
-
-            <!-- Try Now: Sample URLs for Judges -->
-            <div class="try-now-section">
-                <p class="try-now-label">🧪 Try these examples:</p>
-                <div class="sample-urls">
-                    <button class="sample-url safe" onclick="tryUrl('https://google.com')">
-                        <span class="sample-icon">✅</span>
-                        <span class="sample-text">google.com</span>
-                    </button>
-                    <button class="sample-url malicious" onclick="tryUrl('https://paypa1-secure.tk/login')">
-                        <span class="sample-icon">❌</span>
-                        <span class="sample-text">paypa1-secure.tk</span>
-                    </button>
-                    <button class="sample-url malicious" onclick="tryUrl('https://commbank.secure-verify.ml/account')">
-                        <span class="sample-icon">❌</span>
-                        <span class="sample-text">commbank.ml</span>
-                    </button>
-                    <button class="sample-url suspicious" onclick="tryUrl('https://bit.ly/3xYz123')">
-                        <span class="sample-icon">⚠️</span>
-                        <span class="sample-text">bit.ly shortener</span>
-                    </button>
-                </div>
-                <p class="keyboard-hint">⌨️ Tip: Press <kbd>/</kbd> to focus, <kbd>Enter</kbd> to analyze,
-                    <kbd>Esc</kbd> to reset
-                </p>
-            </div>
-        </main>
-
-        <!-- Result Card -->
-        <section id="resultCard" class="result-card result hidden" data-testid="result-card" role="region"
-            aria-live="polite">
-            <div class="result-header">
-                <div class="score-ring" data-testid="score-ring">0</div>
-                <div class="verdict-info">
-                    <span class="verdict-pill" data-testid="verdict-pill">UNKNOWN</span>
-                    <h3 data-testid="result-message">Verifying...</h3>
-                </div>
-            </div>
-
-            <div id="riskFactors" class="risk-factors" data-testid="risk-factors" role="list">
-                <!-- Populated by JS -->
-            </div>
-
-            <div class="result-actions">
-                <button class="btn-primary" onclick="viewEnhancedResults()" data-testid="view-full-report-button"
-                    title="View detailed analysis in dashboard">
-                    <span class="material-icons-round">dashboard</span> View Full Report
-                </button>
-                <button class="btn-secondary" onclick="resetScanner()" data-testid="scan-another-button">
-                    <span class="material-icons-round">refresh</span> Scan Another
-                </button>
-                <button class="btn-secondary" onclick="shareResult()" data-testid="share-button">
-                    <span class="material-icons-round">share</span> Share
-                </button>
-                <button id="reportBtn" class="btn-danger" onclick="reportPhishing()" style="display: none;"
-                    data-testid="report-button">
-                    <span class="material-icons-round">report</span> Report Phishing
-                </button>
-                <button class="btn-text" onclick="reportIncorrectVerdict()" data-testid="feedback-button"
-                    title="Report if this verdict is wrong">
-                    <span class="material-icons-round">feedback</span> Wrong Verdict?
-                </button>
-            </div>
-        </section>
-
-        <!-- Recent Scans -->
-        <section class="recent-scans">
-            <div class="section-title">
-                <h3>Recent Scans</h3>
-                <button id="clearHistoryBtn" class="btn-text">Clear History</button>
-            </div>
-
-            <div id="historyList" class="scan-list">
-                <!-- Populated by JS -->
-                <div class="scan-item" style="justify-content: center; opacity: 0.5;">
-                    <span>No recent scans</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <!-- Beat the Bot Game Section -->
-        <section class="beat-the-bot-section" id="beatTheBotSection">
-            <div class="beat-bot-card">
-                <div class="beat-bot-icon">🎮</div>
-                <h3>Beat the Bot</h3>
-                <p>Think you can outsmart our AI? Try to craft a phishing URL that fools the detector!</p>
-                <button class="btn-primary beat-bot-btn" onclick="startBeatTheBot()">
-                    <span class="material-icons-round">sports_esports</span>
-                    Play Now
-                </button>
-                <p class="beat-bot-stats">🏆 Players challenged: <span id="challengeCount">1,247</span></p>
-            </div>
-        </section>
-
-        <footer class="app-footer">
-            <div class="footer-content">
-                <p>🛡️ QR-SHIELD — Kotlin Multiplatform QRishing Detector</p>
-                <p class="footer-meta">
-                    Built for <strong>KotlinConf Student Competition 2025-2026</strong>
-                </p>
-                <div class="footer-links">
-                    <a href="scanner.html" class="dashboard-link">
-                        <span class="material-icons-round">qr_code_scanner</span> Scanner Dashboard
-                    </a>
-                    <a href="results.html" class="dashboard-link">
-                        <span class="material-icons-round">dashboard</span> Results Dashboard
-                    </a>
-                    <a href="threat.html" class="dashboard-link">
-                        <span class="material-icons-round">gpp_maybe</span> Threat Analysis
-                    </a>
-                    <a href="export.html" class="dashboard-link">
-                        <span class="material-icons-round">file_upload</span> Export Reports
-                    </a>
-                    <a href="trust.html" class="dashboard-link">
-                        <span class="material-icons-round">verified_user</span> Trust Centre
-                    </a>
-                    <a href="onboarding.html" class="dashboard-link">
-                        <span class="material-icons-round">settings</span> Privacy Settings
-                    </a>
-                    <a href="https://github.com/Raoof128/Raoof128.github.io" target="_blank">
-                        <span class="material-icons-round">code</span> GitHub
-                    </a>
-                    <a href="https://github.com/Raoof128/Raoof128.github.io/releases" target="_blank">
-                        <span class="material-icons-round">download</span> Download Apps
-                    </a>
-                    <a href="#beatTheBotSection" class="beat-bot-link">
-                        <span class="material-icons-round">sports_esports</span> Beat the Bot
-                    </a>
-                </div>
-                <p class="footer-privacy">🔒 100% offline • Zero data collection • Open source (Apache 2.0)</p>
-            </div>
-        </footer>
-
+    <div class="loader">
+        <div class="spinner"></div>
+        <p class="text">Loading QR-SHIELD...</p>
+        <a href="dashboard.html" style="color: #6C5CE7; margin-top: 8px;">Click here if not redirected</a>
     </div>
-
-    <!-- QR Scan Modal -->
-    <div id="qrModal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>Scan QR Code</h2>
-            <p>Point your camera at a QR code to detect</p>
-
-            <div class="qr-viewport">
-                <video id="qr-video" style="width: 100%; height: 100%; object-fit: cover;"></video>
-                <canvas id="qr-canvas" hidden></canvas>
-                <div class="qr-scanner-overlay"></div>
-            </div>
-
-            <button id="closeModalBtn" class="btn-secondary" style="width: 100%">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Onboarding Modal (15-second intro with safe vs risky examples) -->
-    <div id="onboardingModal" class="modal-overlay">
-        <div class="modal-content onboarding-modal">
-            <div class="onboarding-slide active" id="slide1">
-                <div class="onboarding-icon">🛡️</div>
-                <h2>Welcome to QR-SHIELD</h2>
-                <p>AI-powered phishing detection that runs <strong>100% offline</strong> in your browser.</p>
-                <div class="onboarding-features">
-                    <div class="feature-item">✅ No data leaves your device</div>
-                    <div class="feature-item">✅ Works without internet</div>
-                    <div class="feature-item">✅ Same engine as mobile apps</div>
-                </div>
-            </div>
-
-            <div class="onboarding-slide" id="slide2">
-                <div class="onboarding-icon">⚔️</div>
-                <h2>Safe vs Risky QR Codes</h2>
-                <p>See the difference instantly:</p>
-                <div style="display: flex; gap: 16px; justify-content: center; margin-top: 16px;">
-                    <div
-                        style="background: rgba(0,200,83,0.15); padding: 12px; border-radius: 12px; text-align: center; flex: 1;">
-                        <div style="font-size: 24px; margin-bottom: 8px;">🟢</div>
-                        <code style="font-size: 11px;">google.com</code>
-                        <div style="font-size: 12px; color: var(--color-safe); font-weight: 600;">SAFE</div>
-                    </div>
-                    <div
-                        style="background: rgba(255,56,96,0.15); padding: 12px; border-radius: 12px; text-align: center; flex: 1;">
-                        <div style="font-size: 24px; margin-bottom: 8px;">🔴</div>
-                        <code style="font-size: 11px;">paypa1.tk</code>
-                        <div style="font-size: 12px; color: var(--color-danger); font-weight: 600;">PHISHING</div>
-                    </div>
-                </div>
-                <p style="font-size: 12px; margin-top: 12px; opacity: 0.7;">QR-SHIELD explains <em>why</em> URLs are
-                    risky!</p>
-            </div>
-
-            <div class="onboarding-slide" id="slide3">
-                <div class="onboarding-icon">🧠</div>
-                <h2>25+ AI Heuristics</h2>
-                <p>We detect multiple attack types:</p>
-                <div class="onboarding-features">
-                    <div class="feature-item">🔤 Typosquatting (paypa1 → paypal)</div>
-                    <div class="feature-item">🌐 Homograph attacks (Cyrillic chars)</div>
-                    <div class="feature-item">🔗 URL shortener obfuscation</div>
-                </div>
-            </div>
-
-            <div class="onboarding-slide" id="slide4">
-                <div class="onboarding-icon">🚀</div>
-                <h2>Try It Now!</h2>
-                <p>Click a sample below or paste any URL:</p>
-                <div style="display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap;">
-                    <button onclick="hideOnboarding(); tryUrl('https://google.com')"
-                        style="padding: 8px 16px; border-radius: 20px; background: var(--color-safe); color: white; border: none; cursor: pointer; font-weight: 600;">
-                        ✓ Try Safe URL
-                    </button>
-                    <button onclick="hideOnboarding(); tryUrl('https://paypa1-secure.tk/login')"
-                        style="padding: 8px 16px; border-radius: 20px; background: var(--color-danger); color: white; border: none; cursor: pointer; font-weight: 600;">
-                        ⚠ Try Phishing URL
-                    </button>
-                </div>
-            </div>
-
-            <div class="onboarding-dots">
-                <span class="dot active" onclick="goToSlide(1)"></span>
-                <span class="dot" onclick="goToSlide(2)"></span>
-                <span class="dot" onclick="goToSlide(3)"></span>
-                <span class="dot" onclick="goToSlide(4)"></span>
-            </div>
-
-            <div class="onboarding-actions">
-                <button id="skipOnboarding" class="btn-text">Skip</button>
-                <button id="nextOnboarding" class="btn-primary">Next →</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Platform Bridge (Crypto, Clipboard, etc.) -->
-    <script src="platform-bridge.js"></script>
-    <!-- Kotlin/JS Bundle -->
-    <script src="webApp.js"></script>
-    <!-- UI Logic -->
-    <script src="app.js"></script>
-
-    <!-- Service Worker Registration (PWA) -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('[PWA] Service worker registered:', reg.scope))
-                    .catch(err => console.warn('[PWA] Service worker registration failed:', err));
-            });
-        }
-    </script>
 </body>
 
 </html>
