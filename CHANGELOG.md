@@ -5,6 +5,31 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.39] - 2025-12-25
+
+### 🎨 Icon Integration Across All 5 Platforms
+
+Integrated new QR-SHIELD icons from `qr-shield-iconset/` to all platforms.
+
+#### Icons Generated
+
+| Platform | Location | Count |
+|----------|----------|-------|
+| **Android** | `mipmap-*/ic_launcher.png` | 10 icons (5 sizes × 2 variants) |
+| **iOS** | `AppIcon.appiconset/app-icon-1024.png` | Updated |
+| **Desktop** | `resources/icon.icns`, `icon.png` | 2 icons |
+| **Web** | `assets/favicon-*.png`, `icon-*.png` | 5 icons |
+
+#### Documentation
+
+Created `docs/ICON_INTEGRATION.md` with:
+- Complete guide for icon integration on all platforms
+- Required sizes and formats for each platform
+- Configuration examples (AndroidManifest, build.gradle.kts, manifest.json)
+- Icon generation script
+
+---
+
 ## [1.17.38] - 2025-12-25
 
 ### 🎨 VerdictHeader Icon Color Fix
