@@ -269,3 +269,18 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Cần khởi động lại";
+"settings.restart_subtitle" = "Để hiển thị QR-SHIELD bằng %@, vui lòng khởi động lại ứng dụng.";
+"settings.restart_step1" = "Nhấn 'Đóng ứng dụng' bên dưới";
+"settings.restart_step2" = "Vuốt lên để đóng hoàn toàn";
+"settings.restart_step3" = "Mở lại QR-SHIELD để xem ngôn ngữ mới";
+"settings.close_app" = "Đóng ứng dụng";
+"settings.restart_error_title" = "Lỗi khởi động lại";
+"settings.restart_error_message" = "Không thể tự động đóng ứng dụng. Vui lòng đóng và mở lại thủ công.";
+"common.ok" = "OK";
+"settings.language_changed" = "Đã thay đổi ngôn ngữ";
+"settings.restart_now" = "Khởi động lại ngay";
+"settings.language_restart_message" = "Ứng dụng cần khởi động lại để áp dụng ngôn ngữ mới.";
+"settings.restart_later" = "Để sau";

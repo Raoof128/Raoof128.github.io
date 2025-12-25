@@ -270,3 +270,18 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "재시작 필요";
+"settings.restart_subtitle" = "QR-SHIELD를 %@(으)로 표시하려면 앱을 재시작하세요.";
+"settings.restart_step1" = "아래 '앱 닫기'를 탭하세요";
+"settings.restart_step2" = "위로 스와이프하여 완전히 닫기";
+"settings.restart_step3" = "새 언어를 보려면 QR-SHIELD 다시 열기";
+"settings.close_app" = "앱 닫기";
+"settings.restart_error_title" = "재시작 오류";
+"settings.restart_error_message" = "앱을 자동으로 닫을 수 없습니다. 수동으로 닫고 다시 열어주세요.";
+"common.ok" = "확인";
+"settings.language_changed" = "언어가 변경됨";
+"settings.restart_now" = "지금 재시작";
+"settings.language_restart_message" = "새 언어를 적용하려면 앱을 재시작해야 합니다.";
+"settings.restart_later" = "나중에";

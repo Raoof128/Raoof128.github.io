@@ -269,3 +269,18 @@
 "settings.language_search" = "البحث عن اللغات";
 "settings.language_footer" = "حدد لغتك المفضلة. سيستخدم التطبيق اللغة المحددة لجميع النصوص والمحتوى.";
 "common.done" = "تم";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "يتطلب إعادة التشغيل";
+"settings.restart_subtitle" = "لعرض QR-SHIELD بـ %@، يرجى إعادة تشغيل التطبيق.";
+"settings.restart_step1" = "اضغط على 'إغلاق التطبيق' أدناه";
+"settings.restart_step2" = "اسحب لأعلى للإغلاق بالكامل";
+"settings.restart_step3" = "أعد فتح QR-SHIELD لرؤية اللغة الجديدة";
+"settings.close_app" = "إغلاق التطبيق";
+"settings.restart_error_title" = "خطأ في إعادة التشغيل";
+"settings.restart_error_message" = "تعذر إغلاق التطبيق تلقائياً. يرجى إغلاقه وإعادة فتحه يدوياً.";
+"common.ok" = "حسناً";
+"settings.language_changed" = "تم تغيير اللغة";
+"settings.restart_now" = "إعادة التشغيل الآن";
+"settings.language_restart_message" = "يجب إعادة تشغيل التطبيق لتطبيق اللغة الجديدة.";
+"settings.restart_later" = "لاحقاً";

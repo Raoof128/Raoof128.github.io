@@ -270,3 +270,18 @@
 "settings.language_search" = "言語を検索";
 "settings.language_footer" = "お好みの言語を選択してください。アプリはすべてのテキストとコンテンツに選択した言語を使用します。";
 "common.done" = "完了";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "再起動が必要です";
+"settings.restart_subtitle" = "QR-SHIELDを%@で表示するには、アプリを再起動してください。";
+"settings.restart_step1" = "下の「アプリを閉じる」をタップ";
+"settings.restart_step2" = "上にスワイプして完全に閉じる";
+"settings.restart_step3" = "QR-SHIELDを再度開いて新しい言語を確認";
+"settings.close_app" = "アプリを閉じる";
+"settings.restart_error_title" = "再起動エラー";
+"settings.restart_error_message" = "アプリを自動的に閉じることができません。手動で閉じて再度開いてください。";
+"common.ok" = "OK";
+"settings.language_changed" = "言語が変更されました";
+"settings.restart_now" = "今すぐ再起動";
+"settings.language_restart_message" = "新しい言語を適用するにはアプリの再起動が必要です。";
+"settings.restart_later" = "後で";

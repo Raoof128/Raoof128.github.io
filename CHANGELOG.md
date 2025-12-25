@@ -5,6 +5,60 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.46] - 2025-12-26
+
+### 🌐 Complete iOS Localization Sync
+
+Synchronized all 15 non-English language files with English (220 unique keys each).
+
+#### Missing Translations Added
+
+Added 13 missing restart screen keys to all languages:
+- `settings.restart_title`
+- `settings.restart_subtitle` 
+- `settings.restart_step1`, `step2`, `step3`
+- `settings.close_app`
+- `settings.restart_error_title`
+- `settings.restart_error_message`
+- `settings.restart_later`
+- `settings.restart_now`
+- `settings.language_changed`
+- `settings.language_restart_message`
+- `common.ok`
+
+#### Languages Updated (15)
+
+| Language | Code | Status |
+|----------|------|--------|
+| 🇸🇦 Arabic | ar | ✅ 220/220 |
+| 🇩🇪 German | de | ✅ 220/220 |
+| 🇪🇸 Spanish | es | ✅ 220/220 |
+| 🇫🇷 French | fr | ✅ 220/220 |
+| 🇮🇳 Hindi | hi | ✅ 220/220 |
+| 🇮🇩 Indonesian | id | ✅ 220/220 |
+| 🇮🇹 Italian | it | ✅ 220/220 |
+| 🇯🇵 Japanese | ja | ✅ 220/220 |
+| 🇰🇷 Korean | ko | ✅ 220/220 |
+| 🇧🇷 Portuguese | pt | ✅ 220/220 |
+| 🇷🇺 Russian | ru | ✅ 220/220 |
+| 🇹🇭 Thai | th | ✅ 220/220 |
+| 🇹🇷 Turkish | tr | ✅ 220/220 |
+| 🇻🇳 Vietnamese | vi | ✅ 220/220 |
+| 🇨🇳 Chinese | zh-Hans | ✅ 220/220 |
+
+#### Bug Fix
+
+Fixed Chinese (zh-Hans) syntax error - unescaped quotes in `settings.restart_step1`.
+
+#### Build Verification
+
+```bash
+plutil -lint *.lproj/Localizable.strings  # All 16 files OK
+xcodebuild -scheme QRShield build  # BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.45] - 2025-12-25
 
 ### 🔄 iOS Language Restart Screen (Apple HIG Compliant)

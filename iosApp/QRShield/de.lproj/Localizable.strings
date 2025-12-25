@@ -270,3 +270,18 @@
 "settings.language_search" = "Sprachen durchsuchen";
 "settings.language_footer" = "Wählen Sie Ihre bevorzugte Sprache. Die App verwendet die ausgewählte Sprache für alle Texte und Inhalte.";
 "common.done" = "Fertig";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Neustart erforderlich";
+"settings.restart_subtitle" = "Um QR-SHIELD auf %@ anzuzeigen, starten Sie die App bitte neu.";
+"settings.restart_step1" = "Tippen Sie unten auf 'App schließen'";
+"settings.restart_step2" = "Wischen Sie die App im App-Umschalter nach oben";
+"settings.restart_step3" = "Öffnen Sie QR-SHIELD erneut für die neue Sprache";
+"settings.close_app" = "App schließen";
+"settings.restart_error_title" = "Neustartfehler";
+"settings.restart_error_message" = "Die App konnte nicht automatisch geschlossen werden. Bitte schließen und öffnen Sie die App manuell.";
+"common.ok" = "OK";
+"settings.language_changed" = "Sprache geändert";
+"settings.restart_now" = "Jetzt neu starten";
+"settings.language_restart_message" = "Die App muss neu gestartet werden, um die neue Sprache anzuwenden.";
+"settings.restart_later" = "Später";

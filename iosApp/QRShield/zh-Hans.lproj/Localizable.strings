@@ -270,3 +270,18 @@
 "settings.language_search" = "搜索语言";
 "settings.language_footer" = "选择您的首选语言。应用程序将使用所选语言显示所有文本和内容。";
 "common.done" = "完成";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "需要重启";
+"settings.restart_subtitle" = "要以%@显示 QR-SHIELD，请重启应用程序。";
+"settings.restart_step1" = "点击下方的'关闭应用'";
+"settings.restart_step2" = "向上滑动完全关闭";
+"settings.restart_step3" = "重新打开 QR-SHIELD 查看新语言";
+"settings.close_app" = "关闭应用";
+"settings.restart_error_title" = "重启错误";
+"settings.restart_error_message" = "无法自动关闭应用。请手动关闭并重新打开。";
+"common.ok" = "好的";
+"settings.language_changed" = "语言已更改";
+"settings.restart_now" = "立即重启";
+"settings.language_restart_message" = "应用需要重启以应用新语言。";
+"settings.restart_later" = "稍后";

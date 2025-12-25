@@ -269,3 +269,18 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Yeniden Başlatma Gerekli";
+"settings.restart_subtitle" = "QR-SHIELD'ı %@ dilinde görüntülemek için uygulamayı yeniden başlatın.";
+"settings.restart_step1" = "Aşağıdaki 'Uygulamayı Kapat'a dokunun";
+"settings.restart_step2" = "Tamamen kapatmak için yukarı kaydırın";
+"settings.restart_step3" = "Yeni dili görmek için QR-SHIELD'ı yeniden açın";
+"settings.close_app" = "Uygulamayı Kapat";
+"settings.restart_error_title" = "Yeniden Başlatma Hatası";
+"settings.restart_error_message" = "Uygulama otomatik olarak kapatılamadı. Lütfen manuel olarak kapatıp yeniden açın.";
+"common.ok" = "Tamam";
+"settings.language_changed" = "Dil Değiştirildi";
+"settings.restart_now" = "Şimdi Yeniden Başlat";
+"settings.language_restart_message" = "Yeni dili uygulamak için uygulamanın yeniden başlatılması gerekiyor.";
+"settings.restart_later" = "Sonra";

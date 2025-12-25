@@ -269,3 +269,18 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Perlu Dimulai Ulang";
+"settings.restart_subtitle" = "Untuk menampilkan QR-SHIELD dalam %@, silakan mulai ulang aplikasi.";
+"settings.restart_step1" = "Ketuk 'Tutup Aplikasi' di bawah";
+"settings.restart_step2" = "Geser ke atas untuk menutup sepenuhnya";
+"settings.restart_step3" = "Buka kembali QR-SHIELD untuk melihat bahasa baru";
+"settings.close_app" = "Tutup Aplikasi";
+"settings.restart_error_title" = "Kesalahan Mulai Ulang";
+"settings.restart_error_message" = "Tidak dapat menutup aplikasi secara otomatis. Silakan tutup dan buka kembali secara manual.";
+"common.ok" = "OK";
+"settings.language_changed" = "Bahasa Diubah";
+"settings.restart_now" = "Mulai Ulang Sekarang";
+"settings.language_restart_message" = "Aplikasi perlu dimulai ulang untuk menerapkan bahasa baru.";
+"settings.restart_later" = "Nanti";

@@ -270,3 +270,18 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "पुनः आरंभ आवश्यक";
+"settings.restart_subtitle" = "QR-SHIELD को %@ में प्रदर्शित करने के लिए, कृपया ऐप पुनः आरंभ करें।";
+"settings.restart_step1" = "नीचे 'ऐप बंद करें' पर टैप करें";
+"settings.restart_step2" = "पूरी तरह बंद करने के लिए ऊपर स्वाइप करें";
+"settings.restart_step3" = "नई भाषा देखने के लिए QR-SHIELD फिर से खोलें";
+"settings.close_app" = "ऐप बंद करें";
+"settings.restart_error_title" = "पुनः आरंभ त्रुटि";
+"settings.restart_error_message" = "ऐप स्वचालित रूप से बंद नहीं हो सका। कृपया मैन्युअल रूप से बंद करें और फिर से खोलें।";
+"common.ok" = "ठीक है";
+"settings.language_changed" = "भाषा बदली गई";
+"settings.restart_now" = "अभी पुनः आरंभ करें";
+"settings.language_restart_message" = "नई भाषा लागू करने के लिए ऐप को पुनः आरंभ करना होगा।";
+"settings.restart_later" = "बाद में";

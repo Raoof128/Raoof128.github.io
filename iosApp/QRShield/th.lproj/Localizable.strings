@@ -269,3 +269,18 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "ต้องรีสตาร์ท";
+"settings.restart_subtitle" = "หากต้องการแสดง QR-SHIELD เป็น%@ กรุณารีสตาร์ทแอป";
+"settings.restart_step1" = "แตะ 'ปิดแอป' ด้านล่าง";
+"settings.restart_step2" = "ปัดขึ้นเพื่อปิดให้สมบูรณ์";
+"settings.restart_step3" = "เปิด QR-SHIELD อีกครั้งเพื่อดูภาษาใหม่";
+"settings.close_app" = "ปิดแอป";
+"settings.restart_error_title" = "ข้อผิดพลาดในการรีสตาร์ท";
+"settings.restart_error_message" = "ไม่สามารถปิดแอปโดยอัตโนมัติ กรุณาปิดและเปิดใหม่ด้วยตนเอง";
+"common.ok" = "ตกลง";
+"settings.language_changed" = "เปลี่ยนภาษาแล้ว";
+"settings.restart_now" = "รีสตาร์ทเดี๋ยวนี้";
+"settings.language_restart_message" = "แอปต้องรีสตาร์ทเพื่อใช้ภาษาใหม่";
+"settings.restart_later" = "ภายหลัง";

@@ -270,3 +270,18 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Требуется перезапуск";
+"settings.restart_subtitle" = "Чтобы отобразить QR-SHIELD на %@, перезапустите приложение.";
+"settings.restart_step1" = "Нажмите «Закрыть приложение» ниже";
+"settings.restart_step2" = "Смахните вверх, чтобы полностью закрыть";
+"settings.restart_step3" = "Откройте QR-SHIELD снова для нового языка";
+"settings.close_app" = "Закрыть приложение";
+"settings.restart_error_title" = "Ошибка перезапуска";
+"settings.restart_error_message" = "Не удалось автоматически закрыть приложение. Закройте и откройте его вручную.";
+"common.ok" = "OK";
+"settings.language_changed" = "Язык изменён";
+"settings.restart_now" = "Перезапустить сейчас";
+"settings.language_restart_message" = "Приложение должно быть перезапущено для применения нового языка.";
+"settings.restart_later" = "Позже";
