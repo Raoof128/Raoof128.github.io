@@ -359,6 +359,7 @@ private fun IsolatedWebView(
                         return false // Allow within sandbox
                     }
 
+                    @Deprecated("Deprecated in API level 23", ReplaceWith("onReceivedError(WebView, WebResourceRequest, WebResourceError)"))
                     override fun onReceivedError(
                         view: WebView?,
                         errorCode: Int,
