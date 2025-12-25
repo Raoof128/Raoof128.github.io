@@ -29,7 +29,7 @@
 | 🏢 **500+ Brand Database** | Plus dynamic pattern discovery for unknown brands |
 | ⚡ **<5ms Analysis** | Real-time feedback during QR scanning |
 
-**80% code sharing across 4 platforms:**
+**80% code sharing across 5 platforms:**
 
 | Platform | Implementation | Status |
 |----------|----------------|--------|
@@ -280,7 +280,7 @@ cd qrshield
 | Metric | Value |
 |--------|-------|
 | **Shared Code** | ~80% (detection engine, ML, models, policy, adversarial) |
-| **Platform Targets** | 4 (Android, iOS, Desktop, Web) |
+| **Platform Targets** | 5 (Android, iOS, Desktop, Web JS, Web Wasm) |
 | **Security Heuristics** | 25+ |
 | **Payload Types** | 15+ (URLs, WiFi, SMS, vCard, Crypto, UPI, etc.) |
 | **Obfuscation Attacks** | 13 attack types detected |
@@ -719,7 +719,7 @@ KMP Approach (1 codebase):
 └── Web: ✓ Uses common               ← Auto-synced
 ```
 
-**Security benefit**: When a new phishing pattern is discovered, update `HeuristicsEngine.kt` once and all 4 platforms are protected immediately.
+**Security benefit**: When a new phishing pattern is discovered, update `HeuristicsEngine.kt` once and all 5 platforms are protected immediately.
 
 ---
 
@@ -1004,7 +1004,7 @@ actual class QrScanner {
 }
 ```
 
-> **Key Insight:** The `PhishingEngine.analyze(url)` function is called identically on all 4 platforms. Only the QR scanning and UI are platform-specific.
+> **Key Insight:** The `PhishingEngine.analyze(url)` function is called identically on all 5 platforms. Only the QR scanning and UI are platform-specific.
 
 ---
 
@@ -1830,7 +1830,7 @@ This killer sentence defines our philosophy: **transparency over trust**. Users 
 
 | Problem | KMP Solution |
 |---------|--------------|
-| Security shouldn't depend on device choice | One engine, 4 platforms |
+| Security shouldn't depend on device choice | One engine, 5 platforms |
 | Bugs must be fixed everywhere | Fix once, deploy everywhere |
 | Consistent protection required | Guaranteed feature parity |
 | Maintenance burden grows with platforms | 70-80% shared code |
@@ -1847,8 +1847,8 @@ Before submitting, we asked ourselves the hardest questions:
 |----------|------------|----------|
 | **Can a judge understand why a QR is dangerous in 5 seconds?** | ✅ YES | Explainability Panel with visual signal breakdown, not just a score |
 | **Is there one screen they'll remember tomorrow?** | ✅ YES | Signature Result Screen with risk meter, verdict card, signal cards |
-| **Does this feel like a real product, not a demo?** | ✅ YES | Edge states, error handling, 11 languages, production CI/CD |
-| **Is KMP usage undeniable?** | ✅ YES | `expect`/`actual` patterns, 70-80% shared code, 4 platforms from 1 codebase |
+| **Does this feel like a real product, not a demo?** | ✅ YES | Edge states, error handling, 16 languages, production CI/CD |
+| **Is KMP usage undeniable?** | ✅ YES | `expect`/`actual` patterns, 70-80% shared code, 5 platforms from 1 codebase |
 
 ### Top-3 Readiness Checklist
 
@@ -2238,8 +2238,8 @@ Our GitHub Actions workflow includes:
 | **Shared Business Logic** | 85% | True KMP architecture |
 | **Custom Algorithms** | 6 | No copy-paste libraries |
 | **Test Files** | 35+ | Quality assurance |
-| **Supported Languages** | 11 | i18n investment |
-| **Platform Targets** | 4 | Android, iOS, Desktop, Web |
+| **Supported Languages** | 16 | i18n investment |
+| **Platform Targets** | 5 | Android, iOS, Desktop, Web JS, Web Wasm |
 
 > **Bottom line:** This project represents 100+ hours of original development, not 10 minutes of template scaffolding.
 
@@ -3705,7 +3705,7 @@ v1.1.0  # Created: 2025-12-12
 
 [![QR-SHIELD Demo](https://img.shields.io/badge/▶️_Watch_Full_Demo-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
 
-*Coming Soon: Full walkthrough video showing QR-SHIELD in action across all 4 platforms*
+*Coming Soon: Full walkthrough video showing QR-SHIELD in action across all 5 platforms*
 
 </div>
 

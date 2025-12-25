@@ -35,7 +35,7 @@
 
 | Criterion | Evidence | Score Target |
 |-----------|----------|--------------|
-| **4 Platform Targets** | Android, iOS, Desktop, Web | +10 |
+| **5 Platform Targets** | Android, iOS, Desktop, Web (JS + Wasm) | +10 |
 | **~80% Shared Code** | [SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md) | +10 |
 | **Strategic expect/actual** | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/qrshield/platform/PlatformAbstractions.kt) | +8 |
 | **Compose Multiplatform** | Shared UI components on iOS ([ComposeInterop.swift](iosApp/QRShield/ComposeInterop.swift)) | +5 |

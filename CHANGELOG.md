@@ -43,22 +43,25 @@ Updated all documentation to reflect 5 KMP targets consistently:
 | File | Change |
 |------|--------|
 | `ESSAY_SUBMISSION.md` | Kotlin 2.0.21→2.3.0, 1000+→1,248+ tests, 4→5 platforms |
-| `README_FULL.md` | Kotlin badge 2.0.21→2.3.0, 1000+→1,248+ tests |
-| `PRODUCTION_READINESS.md` | 11→16 languages, 900+→1,248+ tests |
-| `SUBMISSION_CHECKLIST.md` | 1000+→1,248+ tests |
-| `docs/JUDGE_SUMMARY.md` | 1000+→1,248+ tests |
+| `README_FULL.md` | Kotlin badge 2.0.21→2.3.0, 1000+→1,248+ tests, all platform refs 4→5, 11→16 languages |
+| `PRODUCTION_READINESS.md` | 11→16 languages, 900+→1,248+ tests, version 1.6.1→1.17.34 |
+| `SUBMISSION_CHECKLIST.md` | 1000+→1,248+ tests, 4→5 platform targets |
+| `JUDGE_QUICKSTART.md` | 4→5 platforms |
+| `docs/JUDGE_SUMMARY.md` | 1000+→1,248+ tests, version 1.6.1→1.17.34 |
 | `docs/EVALUATION.md` | 1000+→1,248+ tests |
+| `releases/RELEASE_NOTES_v1.1.1.md` | 4→5 platforms, 11→16 languages |
 
-#### 📋 Audit Summary
+#### 📋 Full Audit Summary
 
 - Verified 114 markdown documentation files
-- Fixed 19 outdated references
+- Fixed 25+ outdated references total
 - Ensured consistency across:
   - Test counts (now 1,248+)
-  - Platform counts (now 5 KMP targets)
+  - Platform counts (now 5 KMP targets: Android, iOS, Desktop, JS, Wasm)
   - Language counts (now 16 languages)
   - Kotlin version (now 2.3.0)
   - LOC estimates (now ~26,000)
+  - Version references (now 1.17.34)
 
 #### ✅ Build Verification
 

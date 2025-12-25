@@ -208,27 +208,30 @@ Comprehensive repo-wide audit to ensure all documentation matches the actual cod
 | `androidApp/build.gradle.kts` | versionName 1.17.30→1.17.33 |
 | `CHANGELOG.md` | Added v1.17.34 entry |
 
-### Additional Files Fixed (Cross-check)
+### Additional Files Fixed (Cross-check & Final Pass)
 
 | File | Change |
 |------|--------|
 | `ESSAY_SUBMISSION.md` | Kotlin 2.0.21→2.3.0, 1000+→1,248+ tests, 4→5 platforms |
-| `README_FULL.md` | Kotlin badge 2.0.21→2.3.0, 1000+→1,248+ tests |
-| `PRODUCTION_READINESS.md` | 11→16 languages, 900+→1,248+ tests |
-| `SUBMISSION_CHECKLIST.md` | 1000+→1,248+ tests |
-| `docs/JUDGE_SUMMARY.md` | 1000+→1,248+ tests |
+| `README_FULL.md` | Kotlin badge 2.0.21→2.3.0, 1000+→1,248+ tests, all platform refs 4→5, 11→16 languages |
+| `PRODUCTION_READINESS.md` | 11→16 languages, 900+→1,248+ tests, version 1.6.1→1.17.34 |
+| `SUBMISSION_CHECKLIST.md` | 1000+→1,248+ tests, 4→5 platform targets |
+| `JUDGE_QUICKSTART.md` | 4→5 platforms |
+| `docs/JUDGE_SUMMARY.md` | 1000+→1,248+ tests, version 1.6.1→1.17.34 |
 | `docs/EVALUATION.md` | 1000+→1,248+ tests |
+| `releases/RELEASE_NOTES_v1.1.1.md` | 4→5 platforms, 11→16 languages |
 
-## 📋 Audit Summary
+## 📋 Full Audit Summary
 
 - **114 markdown files** scanned
-- **19 outdated references** fixed
+- **25+ outdated references** fixed
 - **Consistency established** for:
   - Test count: 1,248+
-  - Platform count: 5 KMP targets
+  - Platform count: 5 KMP targets (Android, iOS, Desktop, JS, Wasm)
   - Language count: 16 languages
   - Kotlin version: 2.3.0
   - LOC estimate: ~26,000
+  - Version references: 1.17.34
 
 ## Notes for Future Agents
 
@@ -236,6 +239,7 @@ Comprehensive repo-wide audit to ensure all documentation matches the actual cod
 2. **Current test count is 1,248+** not 849 or 1000+
 3. **16 languages supported** not 5 or 11
 4. **Kotlin 2.3.0** is the current version
+5. **Current app version is 1.17.34**
 
 ---
 

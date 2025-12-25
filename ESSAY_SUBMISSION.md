@@ -39,7 +39,7 @@ Cloud scanners like Google Safe Browsing require network access and log every UR
 | **Ensemble ML** | 3-model architecture (Logistic Regression + Gradient Boosting + Decision Rules) |
 | **Dynamic Brand Discovery** | Pattern-based detection for unknown brands beyond 500+ static entries |
 | **25+ Heuristics** | Homograph attacks, suspicious TLDs, typosquatting, redirect patterns |
-| **4 Platforms** | Android, iOS, Desktop, Web (JS + Wasm) with 80%+ shared code |
+| **5 Platforms** | Android, iOS, Desktop, Web (JS + Wasm) with 80%+ shared code |
 | **Adversarial Defense** | RTL override, double encoding, zero-width character detection |
 
 ---
