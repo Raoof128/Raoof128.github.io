@@ -48,11 +48,11 @@ struct ImagePicker: View {
                         .foregroundStyle(LinearGradient.brandGradient)
                         .symbolEffect(.pulse)
                     
-                    Text("Select an Image")
+                    Text(NSLocalizedString("component.select_image", comment: ""))
                         .font(.title2.weight(.semibold))
                         .foregroundColor(.textPrimary)
                     
-                    Text("Choose a photo containing a QR code")
+                    Text(NSLocalizedString("component.select_image_desc", comment: ""))
                         .font(.subheadline)
                         .foregroundColor(.textSecondary)
                 }

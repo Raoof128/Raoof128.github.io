@@ -71,7 +71,7 @@ struct KMPDemoView: View {
                 .font(.largeTitle.bold())
                 .foregroundColor(.white)
             
-            Text("Kotlin Multiplatform Integration")
+            Text(NSLocalizedString("kmp.integration", comment: ""))
                 .font(.subheadline)
                 .foregroundColor(.gray)
         }
@@ -92,7 +92,7 @@ struct KMPDemoView: View {
                     } else {
                         Image(systemName: "magnifyingglass")
                     }
-                    Text("Analyze with KMP Engine")
+                    Text(NSLocalizedString("kmp.analyze_button", comment: ""))
                 }
                 .frame(maxWidth: .infinity)
                 .padding()
@@ -106,7 +106,7 @@ struct KMPDemoView: View {
     
     private var sampleURLsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Quick Test:")
+            Text(NSLocalizedString("kmp.quick_test", comment: ""))
                 .font(.caption)
                 .foregroundColor(.gray)
             
@@ -129,7 +129,7 @@ struct KMPDemoView: View {
     
     private func resultSection(_ result: KMPAnalyzer.AnalysisResult) -> some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Analysis Result")
+            Text(NSLocalizedString("kmp.analysis_result", comment: ""))
                 .font(.headline)
                 .foregroundColor(.white)
             
@@ -156,7 +156,7 @@ struct KMPDemoView: View {
                 // Flags
                 if !result.flags.isEmpty {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Risk Flags:")
+                        Text(NSLocalizedString("kmp.risk_flags", comment: ""))
                             .font(.caption.bold())
                             .foregroundColor(.orange)
                         
@@ -187,7 +187,7 @@ struct KMPDemoView: View {
             HStack {
                 Image(systemName: "cpu")
                     .foregroundColor(.purple)
-                Text("Powered by Kotlin/Native")
+                Text(NSLocalizedString("kmp.powered_by", comment: ""))
                     .font(.caption)
                     .foregroundColor(.gray)
             }

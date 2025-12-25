@@ -365,12 +365,12 @@ struct MainMenuView: View {
                     .frame(width: 8, height: 8)
                     .shadow(color: .green, radius: 3)
                 
-                Text("All systems operational")
+                Text(NSLocalizedString("nav.systems_operational", comment: ""))
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
             
-            Text("v2.4.0 • Offline Mode")
+            Text(NSLocalizedString("nav.version_offline", comment: ""))
                 .font(.caption2)
                 .foregroundColor(.textMuted)
         }

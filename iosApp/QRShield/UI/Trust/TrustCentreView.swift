@@ -277,19 +277,19 @@ struct TrustCentreView: View {
                 
                 // Labels
                 HStack {
-                    Text("Low")
+                    Text(NSLocalizedString("trust.low", comment: ""))
                         .font(.caption)
                         .foregroundColor(sensitivityLevel == 1 ? .brandPrimary : .textMuted)
                     
                     Spacer()
                     
-                    Text("Balanced")
+                    Text(NSLocalizedString("trust.balanced", comment: ""))
                         .font(.caption)
                         .foregroundColor(sensitivityLevel == 2 ? .brandPrimary : .textMuted)
                     
                     Spacer()
                     
-                    Text("Paranoia")
+                    Text(NSLocalizedString("trust.paranoia", comment: ""))
                         .font(.caption)
                         .foregroundColor(sensitivityLevel == 3 ? .brandPrimary : .textMuted)
                 }
@@ -486,7 +486,7 @@ struct TrustCentreView: View {
                 Button {
                     showResetConfirmation = true
                 } label: {
-                    Text("Reset to Defaults")
+                    Text(NSLocalizedString("trust.reset_defaults", comment: ""))
                         .font(.subheadline)
                         .foregroundColor(.verdictDanger)
                         .frame(maxWidth: .infinity)
@@ -497,7 +497,7 @@ struct TrustCentreView: View {
             .liquidGlass(cornerRadius: 16)
             
             // Version
-            Text("QR-SHIELD v2.4.0 (Build 892)")
+            Text(NSLocalizedString("trust.version_info", comment: ""))
                 .font(.caption2)
                 .foregroundColor(.textMuted)
                 .frame(maxWidth: .infinity)

@@ -256,13 +256,13 @@ struct BrainVisualizer_Previews: PreviewProvider {
         VStack(spacing: 32) {
             // Idle state
             VStack {
-                Text("Idle State").font(.caption).foregroundColor(.secondary)
+                Text(NSLocalizedString("component.idle_state", comment: "")).font(.caption).foregroundColor(.secondary)
                 BrainVisualizer(detectedSignals: [])
             }
             
             // Active state
             VStack {
-                Text("Active State").font(.caption).foregroundColor(.secondary)
+                Text(NSLocalizedString("component.active_state", comment: "")).font(.caption).foregroundColor(.secondary)
                 BrainVisualizer(detectedSignals: [
                     "SUSPICIOUS_DOMAIN",
                     "TYPOSQUATTING",

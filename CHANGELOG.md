@@ -5,6 +5,56 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.47] - 2025-12-26
+
+### 🌐 iOS Hardcoded Strings Localization
+
+Converted 97 hardcoded English strings to use NSLocalizedString for proper localization.
+
+#### Key String Counts
+
+| Metric | Before | After |
+|--------|--------|-------|
+| English keys | 220 | 317 |
+| Languages synced | 16 | 16 |
+| Hardcoded strings fixed | 0 | 97 |
+
+#### Files Updated (Localization Applied)
+
+| File | Strings Fixed |
+|------|---------------|
+| `BeatTheBotView.swift` | 13 strings |
+| `SettingsView.swift` | 11 strings |
+| `DashboardView.swift` | 4 strings |
+| `ScannerView.swift` | 12 strings |
+| `TrustCentreView.swift` | 5 strings |
+| `ReportExportView.swift` | 10 strings |
+| `HistoryView.swift` | 6 strings |
+| `ThreatHistoryView.swift` | 5 strings |
+| `ResultCard.swift` | 4 strings |
+| `ImagePicker.swift` | 2 strings |
+| `KMPDemoView.swift` | 7 strings |
+| Accessibility labels | 7 strings |
+
+#### Categories of Localized Strings
+
+- **Training Mode**: Beat the Bot game strings
+- **Settings**: Security alerts, appearance, privacy
+- **Dashboard**: Hero section, offline badge
+- **Scanner**: Camera access, analyzing, point prompts
+- **Export**: Export panel labels and privacy notes
+- **History**: Statistics, audit info
+- **Accessibility**: Screen reader labels
+
+#### Build Verification
+
+```bash
+plutil -lint *.lproj/Localizable.strings  # All 16 files OK
+xcodebuild -scheme QRShield build  # BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.46] - 2025-12-26
 
 ### 🌐 Complete iOS Localization Sync

@@ -200,9 +200,9 @@ struct DashboardView: View {
             .minimumScaleFactor(0.8)
             
             // Description
-            Text("QR-SHIELD analyses potential threats directly on your hardware. Experience ")
+            Text(NSLocalizedString("dashboard.hero.description_full", comment: ""))
                 .foregroundColor(.textSecondary) +
-            Text("zero-latency phishing detection")
+            Text(NSLocalizedString("dashboard.zero_latency", comment: ""))
                 .foregroundColor(.textPrimary)
                 .fontWeight(.semibold) +
             Text(" without compromising data privacy.")
@@ -583,7 +583,7 @@ struct DashboardView: View {
                     .fill(.green)
                     .frame(width: 8, height: 8)
                 
-                Text("Version 2023.10.24")
+                Text(NSLocalizedString("dashboard.version_date", comment: ""))
                     .font(.caption.monospaced())
                     .foregroundColor(.white.opacity(0.6))
             }
@@ -673,7 +673,7 @@ struct OfflineBadge: View {
                 .font(.caption)
                 .foregroundColor(.verdictSafe)
             
-            Text("OFFLINE READY")
+            Text(NSLocalizedString("dashboard.offline_badge", comment: ""))
                 .font(.caption2.weight(.bold))
                 .foregroundColor(.white)
                 .tracking(0.5)

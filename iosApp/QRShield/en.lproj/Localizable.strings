@@ -301,3 +301,131 @@
 "settings.restart_error_title" = "Restart Error";
 "settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
 "common.ok" = "OK";
+
+// MARK: - Beat The Bot (Training)
+"training.mode" = "TRAINING MODE";
+"training.beat_the_bot" = "Beat the Bot";
+"training.seconds" = "Seconds";
+"training.level" = "LEVEL %d";
+"training.unusual_signin" = "Unusual Sign-in Attempt";
+"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
+"training.verify_identity" = "Verify Identity";
+"training.phishing" = "Phishing";
+"training.legitimate" = "Legitimate";
+"training.live_session" = "LIVE SESSION";
+"training.online" = "ONLINE";
+"training.bot_confidence" = "Bot Confidence:";
+"training.ai_analysis" = "AI NEURAL ANALYSIS";
+"training.live_hint" = "Live Hint";
+"training.tip" = "Tip:";
+"training.beginner" = "BEGINNER";
+"training.intermediate" = "INTERMEDIATE";
+"training.advanced" = "ADVANCED";
+"training.nightmare" = "NIGHTMARE";
+
+// MARK: - Settings Additional
+"settings.security_alerts_title" = "Security alerts";
+"settings.security_alerts_desc" = "Get notified about security threats";
+"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
+"settings.system_appearance_label" = "System Appearance";
+"settings.clear_history_button" = "Clear History";
+"settings.privacy_policy_link" = "Privacy Policy";
+"settings.source_code_link" = "Source Code";
+"settings.engine_swift" = "Swift 6";
+"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.ios_version" = "iOS 17+";
+"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+
+// MARK: - Dashboard Additional
+"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
+"dashboard.zero_latency" = "zero-latency phishing detection";
+"dashboard.version_date" = "Version 2023.10.24";
+"dashboard.offline_badge" = "OFFLINE READY";
+
+// MARK: - Navigation
+"nav.version_offline" = "v2.4.0 • Offline Mode";
+
+// MARK: - Results Additional
+"result.block_warning" = "This will block the domain and report it to your security team.";
+"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
+"result.open_safari_risky" = "Open in Safari (Risky)";
+"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+
+// MARK: - Components
+"component.confidence" = "Confidence";
+"component.risk_score" = "Risk Score";
+"component.risk_flags" = "Risk Flags";
+"component.view_full_analysis" = "View Full Analysis";
+"component.select_image" = "Select an Image";
+"component.select_image_desc" = "Choose a photo containing a QR code";
+"component.idle_state" = "Idle State";
+"component.active_state" = "Active State";
+
+// MARK: - Threat History
+"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
+"threat.live_map" = "LIVE THREAT MAP";
+"threat.global_view" = "Global View";
+"threat.last_audit" = "Last audit: %@";
+"threat.latest_updates" = "LATEST UPDATES";
+"threat.live" = "LIVE";
+
+// MARK: - History Additional
+"history.scan_statistics" = "Scan Statistics";
+"history.safe_count" = "Safe: %d";
+"history.suspicious_count" = "Suspicious: %d";
+"history.malicious_count" = "Malicious: %d";
+"history.total_scans" = "Total: %d scans";
+
+// MARK: - KMP Demo
+"kmp.integration" = "Kotlin Multiplatform Integration";
+"kmp.analyze_button" = "Analyze with KMP Engine";
+"kmp.quick_test" = "Quick Test:";
+"kmp.analysis_result" = "Analysis Result";
+"kmp.score_format" = "Score: %d/100";
+"kmp.risk_flags" = "Risk Flags:";
+"kmp.powered_by" = "Powered by Kotlin/Native";
+
+// MARK: - Scanner Additional
+"scanner.camera_required_title" = "Camera Access Required";
+"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
+"scanner.analyzing_dots" = "Analyzing...";
+"scanner.point_qr" = "Point at QR Code";
+"scanner.toggle_scan" = "Toggle scanning";
+"scanner.dismiss_error" = "Dismiss error";
+"scanner.camera_preview" = "Camera Preview";
+
+// MARK: - Trust Centre Additional
+"trust.low" = "Low";
+"trust.balanced" = "Balanced";
+"trust.paranoia" = "Paranoia";
+"trust.reset_defaults" = "Reset to Defaults";
+"trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
+
+// MARK: - Export View
+"export.title" = "Export Threat Analysis";
+"export.subtitle" = "Choose a format to export your secure offline analysis.";
+"export.select_format" = "SELECT FORMAT";
+"export.live_preview" = "LIVE PREVIEW";
+"export.expand" = "Expand";
+"export.share" = "Share";
+"export.export_button" = "Export Report";
+"export.available_actions" = "AVAILABLE ACTIONS";
+"export.privacy_note" = "Privacy Note";
+"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+
+// MARK: - Onboarding Additional
+"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
+"onboarding.page_of" = "Page %d of %d";
+
+// MARK: - History Additional
+"history.exported_clipboard" = "Exported to clipboard";
+"history.url_label" = "URL";
+
+// MARK: - Accessibility Labels
+"accessibility.risk_score" = "Risk Score";
+"accessibility.risk_flags" = "Risk Flags";
+"accessibility.scan_history" = "Scan History";
+"accessibility.dismiss_error" = "Dismiss error";
+"accessibility.toggle_scanning" = "Toggle scanning";
+"accessibility.gallery" = "Gallery";
+"accessibility.open_history" = "Open history";

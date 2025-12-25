@@ -156,7 +156,7 @@ struct ResultCard: View {
                     .foregroundColor(.white)
                     .contentTransition(.numericText())
                 
-                Text("Confidence")
+                Text(NSLocalizedString("component.confidence", comment: ""))
                     .font(.caption2)
                     .foregroundColor(.textMuted)
             }
@@ -202,7 +202,7 @@ struct ResultCard: View {
         }
         .frame(height: 10)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(Text("Risk Score"))
+        .accessibilityLabel(Text(NSLocalizedString("accessibility.risk_score", comment: "")))
         .accessibilityValue(Text("\(assessment.score) / 100"))
     }
     
@@ -232,7 +232,7 @@ struct ResultCard: View {
                     removal: .opacity
                 ))
                 .accessibilityElement(children: .combine)
-                .accessibilityLabel(Text("Risk Flags"))
+                .accessibilityLabel(Text(NSLocalizedString("accessibility.risk_flags", comment: "")))
                 .accessibilityValue(Text(flag))
             }
             
@@ -290,7 +290,7 @@ struct ResultCard: View {
             HStack(spacing: 8) {
                 Image(systemName: "doc.text.magnifyingglass")
                     .symbolEffect(.bounce, value: isAppearing)
-                Text("View Full Analysis")
+                Text(NSLocalizedString("component.view_full_analysis", comment: ""))
             }
             .font(.subheadline.weight(.semibold))
             .foregroundColor(.white)
@@ -315,7 +315,7 @@ struct ResultCard: View {
             .shadow(color: themeColor.opacity(0.4), radius: 8, y: 4)
         }
         .sensoryFeedback(.impact(weight: .light), trigger: isAppearing)
-        .accessibilityLabel(Text("View Full Analysis"))
+        .accessibilityLabel(Text(NSLocalizedString("component.view_full_analysis", comment: "")))
     }
 }
 

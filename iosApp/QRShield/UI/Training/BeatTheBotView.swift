@@ -253,12 +253,12 @@ struct BeatTheBotView: View {
                 
                 ToolbarItem(placement: .principal) {
                     VStack(spacing: 2) {
-                        Text("TRAINING MODE")
+                        Text(NSLocalizedString("training.mode", comment: ""))
                             .font(.caption2.weight(.semibold))
                             .foregroundColor(.textMuted)
                             .tracking(1)
                         
-                        Text("Beat the Bot")
+                        Text(NSLocalizedString("training.beat_the_bot", comment: ""))
                             .font(.headline)
                             .foregroundColor(.textPrimary)
                     }
@@ -313,7 +313,7 @@ struct BeatTheBotView: View {
                         .foregroundColor(.textPrimary)
                         .contentTransition(.numericText())
                     
-                    Text("Seconds")
+                    Text(NSLocalizedString("training.seconds", comment: ""))
                         .font(.caption2)
                         .foregroundColor(.textMuted)
                         .textCase(.uppercase)
@@ -385,11 +385,11 @@ struct BeatTheBotView: View {
                 }
                 
                 VStack(spacing: 8) {
-                    Text("Unusual Sign-in Attempt")
+                    Text(NSLocalizedString("training.unusual_signin", comment: ""))
                         .font(.headline)
                         .foregroundColor(.textPrimary)
                     
-                    Text("We detected a login from a new device. Please verify your identity immediately to prevent account suspension.")
+                    Text(NSLocalizedString("training.unusual_signin_message", comment: ""))
                         .font(.caption)
                         .foregroundColor(.textSecondary)
                         .multilineTextAlignment(.center)
@@ -397,7 +397,7 @@ struct BeatTheBotView: View {
                 }
                 
                 Button {} label: {
-                    Text("Verify Identity")
+                    Text(NSLocalizedString("training.verify_identity", comment: ""))
                         .font(.subheadline.weight(.medium))
                         .foregroundColor(.white)
                         .padding(.horizontal, 24)
@@ -432,7 +432,7 @@ struct BeatTheBotView: View {
                         .foregroundColor(.verdictDanger)
                         .symbolEffect(.bounce, value: lastAnswer == true)
                     
-                    Text("Phishing")
+                    Text(NSLocalizedString("training.phishing", comment: ""))
                         .font(.headline)
                         .foregroundColor(.verdictDanger)
                 }
@@ -456,7 +456,7 @@ struct BeatTheBotView: View {
                         .foregroundColor(.verdictSafe)
                         .symbolEffect(.bounce, value: lastAnswer == false)
                     
-                    Text("Legitimate")
+                    Text(NSLocalizedString("training.legitimate", comment: ""))
                         .font(.headline)
                         .foregroundColor(.verdictSafe)
                 }
@@ -478,7 +478,7 @@ struct BeatTheBotView: View {
         VStack(spacing: 16) {
             // Header
             HStack {
-                Text("LIVE SESSION")
+                Text(NSLocalizedString("training.live_session", comment: ""))
                     .font(.caption.weight(.bold))
                     .foregroundColor(.textMuted)
                     .tracking(1)
@@ -491,7 +491,7 @@ struct BeatTheBotView: View {
                         .frame(width: 6, height: 6)
                         .shadow(color: .green, radius: 3)
                     
-                    Text("ONLINE")
+                    Text(NSLocalizedString("training.online", comment: ""))
                         .font(.caption2.weight(.bold))
                         .foregroundColor(.verdictSafe)
                 }
@@ -511,7 +511,7 @@ struct BeatTheBotView: View {
             
             // Bot Confidence
             HStack(spacing: 12) {
-                Text("Bot Confidence:")
+                Text(NSLocalizedString("training.bot_confidence", comment: ""))
                     .font(.caption)
                     .foregroundColor(.textMuted)
                 
@@ -574,7 +574,7 @@ struct BeatTheBotView: View {
     private var brainVisualizerSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("AI NEURAL ANALYSIS")
+                Text(NSLocalizedString("training.ai_analysis", comment: ""))
                     .font(.caption.weight(.bold))
                     .foregroundColor(.textMuted)
                     .tracking(1)
@@ -609,7 +609,7 @@ struct BeatTheBotView: View {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("Live Hint")
+                Text(NSLocalizedString("training.live_hint", comment: ""))
                     .font(.subheadline.weight(.semibold))
                     .foregroundColor(.textPrimary)
                 
@@ -618,7 +618,7 @@ struct BeatTheBotView: View {
                     .foregroundColor(.textSecondary)
                 
                 HStack(spacing: 4) {
-                    Text("Tip:")
+                    Text(NSLocalizedString("training.tip", comment: ""))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     

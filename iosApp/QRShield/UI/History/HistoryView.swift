@@ -122,7 +122,7 @@ struct HistoryView: View {
                 }
                 .popover(isPresented: $showStatsPopover) {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Scan Statistics")
+                        Text(NSLocalizedString("history.scan_statistics", comment: ""))
                             .font(.headline)
                         
                         Divider()
@@ -180,14 +180,14 @@ struct HistoryView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("This action cannot be undone. All scan history will be permanently deleted.")
+            Text(NSLocalizedString("settings.clear_confirm_message", comment: ""))
         }
         .overlay(alignment: .top) {
             if showExportedToast {
                 HStack(spacing: 8) {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.verdictSafe)
-                    Text("Exported to clipboard")
+                    Text(NSLocalizedString("history.exported_clipboard", comment: ""))
                         .font(.subheadline)
                         .foregroundColor(.textPrimary)
                 }
@@ -200,7 +200,7 @@ struct HistoryView: View {
                 .animation(.spring(response: 0.3), value: showExportedToast)
             }
         }
-        .accessibilityLabel(Text("Scan History"))
+        .accessibilityLabel(Text(NSLocalizedString("accessibility.scan_history", comment: "")))
     }
     
     // MARK: - Filter Bar (Liquid Glass iOS 17+)
@@ -302,7 +302,7 @@ struct HistoryView: View {
                 NavigationLink(destination: ScannerView()) {
                     HStack(spacing: 8) {
                         Image(systemName: "qrcode.viewfinder")
-                        Text("Scan Now")
+                        Text(NSLocalizedString("history.scan_now", comment: ""))
                     }
                     .font(.headline)
                     .foregroundColor(.white)
@@ -457,7 +457,7 @@ struct HistoryDetailSheet: View {
             
             // URL
             VStack(alignment: .leading, spacing: 8) {
-                Text("URL")
+                Text(NSLocalizedString("history.url_label", comment: ""))
                     .font(.caption)
                     .foregroundColor(.textMuted)
                 

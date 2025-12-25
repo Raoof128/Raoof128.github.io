@@ -134,7 +134,7 @@ struct ScanResultView: View {
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("This will block the domain and report it to your security team.")
+                Text(NSLocalizedString("result.block_warning", comment: ""))
             }
             .sheet(isPresented: $showExport) {
                 ReportExportView(assessment: assessment)
@@ -746,7 +746,7 @@ struct SandboxPreviewSheet: View {
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?")
+                Text(NSLocalizedString("result.dangerous_full_warning", comment: ""))
             }
         }
     }
@@ -884,7 +884,7 @@ struct SandboxPreviewSheet: View {
             } label: {
                 HStack {
                     Image(systemName: "safari")
-                    Text("Open in Safari (Risky)")
+                    Text(NSLocalizedString("result.open_safari_risky", comment: ""))
                 }
                 .font(.headline)
                 .foregroundColor(.verdictDanger)
@@ -897,7 +897,7 @@ struct SandboxPreviewSheet: View {
                 )
             }
             
-            Text("Opening this URL in your browser may expose you to security risks.")
+            Text(NSLocalizedString("result.open_warning_browser", comment: ""))
                 .font(.caption)
                 .foregroundColor(.textMuted)
                 .multilineTextAlignment(.center)

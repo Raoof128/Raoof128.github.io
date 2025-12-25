@@ -195,11 +195,11 @@ struct ReportExportView: View {
     
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Export Threat Analysis")
+            Text(NSLocalizedString("export.title", comment: ""))
                 .font(.title.weight(.bold))
                 .foregroundColor(.textPrimary)
             
-            Text("Choose a format to export your secure offline analysis.")
+            Text(NSLocalizedString("export.subtitle", comment: ""))
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
         }
@@ -210,7 +210,7 @@ struct ReportExportView: View {
     
     private var formatSelectionSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("SELECT FORMAT")
+            Text(NSLocalizedString("export.select_format", comment: ""))
                 .font(.caption.weight(.semibold))
                 .foregroundColor(.textMuted)
                 .tracking(1)
@@ -282,7 +282,7 @@ struct ReportExportView: View {
     private var livePreviewSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("LIVE PREVIEW")
+                Text(NSLocalizedString("export.live_preview", comment: ""))
                     .font(.caption.weight(.semibold))
                     .foregroundColor(.textMuted)
                     .tracking(1)
@@ -293,7 +293,7 @@ struct ReportExportView: View {
                     showPreviewExpanded = true
                 } label: {
                     HStack(spacing: 4) {
-                        Text("Expand")
+                        Text(NSLocalizedString("export.expand", comment: ""))
                             .font(.caption)
                         Image(systemName: "arrow.up.left.and.arrow.down.right")
                             .font(.caption2)
@@ -447,7 +447,7 @@ struct ReportExportView: View {
                                 .foregroundColor(.textSecondary)
                         }
                         
-                        Text("Share")
+                        Text(NSLocalizedString("export.share", comment: ""))
                             .font(.caption2)
                             .foregroundColor(.textMuted)
                     }
@@ -484,7 +484,7 @@ struct ReportExportView: View {
                             ProgressView()
                                 .tint(.white)
                         } else {
-                            Text("Export Report")
+                            Text(NSLocalizedString("export.export_button", comment: ""))
                                 .font(.headline)
                             
                             Image(systemName: "arrow.right")
@@ -710,7 +710,7 @@ struct ExportHelpSheet: View {
                     
                     // Actions
                     VStack(alignment: .leading, spacing: 16) {
-                        Text("AVAILABLE ACTIONS")
+                        Text(NSLocalizedString("export.available_actions", comment: ""))
                             .font(.caption.weight(.bold))
                             .foregroundColor(.textMuted)
                             .tracking(1)
@@ -731,11 +731,11 @@ struct ExportHelpSheet: View {
                             .foregroundColor(.verdictSafe)
                         
                         VStack(alignment: .leading, spacing: 4) {
-                            Text("Privacy Note")
+                            Text(NSLocalizedString("export.privacy_note", comment: ""))
                                 .font(.subheadline.weight(.semibold))
                                 .foregroundColor(.textPrimary)
                             
-                            Text("All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.")
+                            Text(NSLocalizedString("export.privacy_message", comment: ""))
                                 .font(.caption)
                                 .foregroundColor(.textSecondary)
                         }

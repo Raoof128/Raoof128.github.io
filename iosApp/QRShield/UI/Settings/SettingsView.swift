@@ -175,10 +175,10 @@ struct SettingsView: View {
                             .symbolEffect(.bounce, value: notificationsEnabled)
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("Security alerts")
+                            Text(NSLocalizedString("settings.security_alerts_title", comment: ""))
                                 .foregroundColor(.textPrimary)
                             
-                            Text("Get notified about security threats")
+                            Text(NSLocalizedString("settings.security_alerts_desc", comment: ""))
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -214,7 +214,7 @@ struct SettingsView: View {
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("To receive security alerts, please enable notifications for QR-SHIELD in Settings.")
+                Text(NSLocalizedString("settings.notifications_denied_message", comment: ""))
             }
             
             // Appearance Section (iOS 17+)
@@ -244,7 +244,7 @@ struct SettingsView: View {
                             .foregroundColor(.brandPrimary)
                             .frame(width: 28)
                         
-                        Text("System Appearance")
+                        Text(NSLocalizedString("settings.system_appearance_label", comment: ""))
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
@@ -258,7 +258,7 @@ struct SettingsView: View {
             } header: {
                 sectionHeader("Appearance", icon: "sparkles")
             } footer: {
-                Text("iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.")
+                Text(NSLocalizedString("settings.liquid_glass_footer", comment: ""))
                     .font(.caption2)
                     .foregroundColor(.textMuted)
             }
@@ -321,7 +321,7 @@ struct SettingsView: View {
                             .foregroundColor(.verdictDanger)
                             .frame(width: 28)
                         
-                        Text("Clear History")
+                        Text(NSLocalizedString("settings.clear_history_button", comment: ""))
                             .foregroundColor(.verdictDanger)
                         
                         Spacer()
@@ -336,7 +336,7 @@ struct SettingsView: View {
                             .foregroundColor(.brandPrimary)
                             .frame(width: 28)
                         
-                        Text("Privacy Policy")
+                        Text(NSLocalizedString("settings.privacy_policy_link", comment: ""))
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
@@ -364,7 +364,7 @@ struct SettingsView: View {
                             .foregroundColor(.brandPrimary)
                             .frame(width: 28)
                         
-                        Text("Source Code")
+                        Text(NSLocalizedString("settings.source_code_link", comment: ""))
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
@@ -414,7 +414,7 @@ struct SettingsView: View {
                     HStack(spacing: 12) {
                         HStack(spacing: 6) {
                             Image(systemName: "apple.logo")
-                            Text("iOS 17+")
+                            Text(NSLocalizedString("settings.ios_version", comment: ""))
                         }
                         .font(.caption2)
                         .foregroundColor(.brandPrimary)
@@ -424,7 +424,7 @@ struct SettingsView: View {
                         
                         HStack(spacing: 6) {
                             Image(systemName: "swift")
-                            Text("Swift 6")
+                            Text(NSLocalizedString("settings.engine_swift", comment: ""))
                         }
                         .font(.caption2)
                         .foregroundColor(.brandSecondary)
@@ -455,7 +455,7 @@ struct SettingsView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("This action cannot be undone. All scan history will be permanently deleted.")
+            Text(NSLocalizedString("settings.clear_confirm_message", comment: ""))
         }
         .sheet(isPresented: $showTrustCentre) {
             TrustCentreView()

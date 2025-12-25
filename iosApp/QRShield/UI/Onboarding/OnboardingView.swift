@@ -137,7 +137,7 @@ struct OnboardingView: View {
                 }
             }
         } message: {
-            Text("QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.")
+            Text(NSLocalizedString("onboarding.camera_permission_message", comment: ""))
         }
     }
     

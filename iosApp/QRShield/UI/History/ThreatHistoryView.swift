@@ -152,7 +152,7 @@ struct ThreatHistoryView: View {
             .alert("Security Audit Complete", isPresented: $showAuditResult) {
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("No vulnerabilities detected. Your device is secure.")
+                Text(NSLocalizedString("threat.no_vulnerabilities", comment: ""))
             }
         }
     }
@@ -169,7 +169,7 @@ struct ThreatHistoryView: View {
                         .shadow(color: .red, radius: 4)
                         .opacity(animateDots ? 1 : 0.5)
                     
-                    Text("LIVE THREAT MAP")
+                    Text(NSLocalizedString("threat.live_map", comment: ""))
                         .font(.caption.weight(.bold))
                         .foregroundColor(.textPrimary)
                         .tracking(1)
@@ -177,7 +177,7 @@ struct ThreatHistoryView: View {
                 
                 Spacer()
                 
-                Text("Global View")
+                Text(NSLocalizedString("threat.global_view", comment: ""))
                     .font(.caption)
                     .foregroundColor(.brandPrimary)
             }
@@ -448,7 +448,7 @@ struct ThreatHistoryView: View {
     
     private var latestThreatsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("LATEST UPDATES")
+            Text(NSLocalizedString("threat.latest_updates", comment: ""))
                 .font(.caption.weight(.bold))
                 .foregroundColor(.textMuted)
                 .tracking(1)
@@ -506,7 +506,7 @@ struct ThreatHistoryView: View {
                                 .fill(.red)
                                 .frame(width: 4, height: 4)
                             
-                            Text("LIVE")
+                            Text(NSLocalizedString("threat.live", comment: ""))
                                 .font(.caption2.weight(.bold))
                         }
                         .foregroundColor(.verdictDanger)

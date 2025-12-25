@@ -334,7 +334,7 @@ struct MockCameraPreview: View {
                         .symbolEffect(.pulse)
                 }
                 
-                Text("Camera Preview")
+                Text(NSLocalizedString("scanner.camera_preview", comment: ""))
                     .font(.caption)
                     .foregroundColor(.gray)
                 

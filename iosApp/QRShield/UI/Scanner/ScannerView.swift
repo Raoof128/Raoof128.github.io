@@ -167,7 +167,7 @@ struct ScannerView: View {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.textMuted)
                 }
-                .accessibilityLabel(Text("Dismiss error"))
+                .accessibilityLabel(Text(NSLocalizedString("accessibility.dismiss_error", comment: "")))
             }
             .padding(12)
             .background(.ultraThinMaterial, in: Capsule())
@@ -262,7 +262,7 @@ struct ScannerView: View {
                     .font(.title2)
                     .symbolEffect(.pulse, isActive: viewModel.isScanning)
                 
-                Text("QR-SHIELD")
+                Text(NSLocalizedString("app.name", comment: ""))
                     .font(.system(.headline, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(.white)
@@ -360,7 +360,7 @@ struct ScannerView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: .brandPrimary))
                     .scaleEffect(1.5)
                 
-                Text("Analyzing...")
+                Text(NSLocalizedString("scanner.analyzing_dots", comment: ""))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }
@@ -421,8 +421,8 @@ struct ScannerView: View {
                         )
                 }
                 .shadow(color: .brandPrimary.opacity(0.3), radius: 20)
-                .accessibilityLabel(Text("Point at QR Code"))
-                .accessibilityHint(Text("Toggle scanning"))
+                .accessibilityLabel(Text(NSLocalizedString("scanner.point_qr", comment: "")))
+                .accessibilityHint(Text(NSLocalizedString("accessibility.toggle_scanning", comment: "")))
             
             // Corner markers
             RoundedRectangle(cornerRadius: 4)
@@ -443,7 +443,7 @@ struct ScannerView: View {
                 .symbolEffect(.variableColor.iterative, isActive: viewModel.isScanning)
             
             // Scan text
-            Text("Point at QR Code")
+            Text(NSLocalizedString("scanner.point_qr", comment: ""))
                 .font(.caption)
                 .fontWeight(.medium)
                 .foregroundColor(.textMuted)
@@ -462,7 +462,7 @@ struct ScannerView: View {
             ) {
                 showGalleryPicker = true
             }
-            .accessibilityLabel(Text("Gallery"))
+            .accessibilityLabel(Text(NSLocalizedString("accessibility.gallery", comment: "")))
             
             // Main Scan Button with Liquid Glass
             Button(action: viewModel.toggleScanning) {
@@ -495,7 +495,7 @@ struct ScannerView: View {
                 }
                 .shadow(color: .brandPrimary.opacity(0.4), radius: 15)
             }
-            .accessibilityLabel(Text("Toggle scanning"))
+            .accessibilityLabel(Text(NSLocalizedString("accessibility.toggle_scanning", comment: "")))
     
             
             // History Button
@@ -507,12 +507,12 @@ struct ScannerView: View {
                         .frame(width: 50, height: 50)
                         .background(.ultraThinMaterial, in: Circle())
                     
-                    Text("History")
+                    Text(NSLocalizedString("tab.history", comment: ""))
                         .font(.caption2)
                         .foregroundColor(.textSecondary)
                 }
             }
-            .accessibilityLabel(Text("Open history"))
+            .accessibilityLabel(Text(NSLocalizedString("accessibility.open_history", comment: "")))
         }
         .padding(.horizontal, 40)
         .padding(.vertical, 20)
@@ -528,11 +528,11 @@ struct ScannerView: View {
                 .foregroundColor(.textMuted)
                 .symbolEffect(.pulse)
             
-            Text("Camera Access Required")
+            Text(NSLocalizedString("scanner.camera_required_title", comment: ""))
                 .font(.title2.weight(.semibold))
                 .foregroundColor(.textPrimary)
             
-            Text("QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.")
+            Text(NSLocalizedString("scanner.camera_required_message", comment: ""))
                 .font(.subheadline)
                 .foregroundColor(.textSecondary)
                 .multilineTextAlignment(.center)
