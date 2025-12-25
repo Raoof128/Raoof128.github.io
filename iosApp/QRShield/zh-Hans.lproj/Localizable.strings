@@ -286,170 +286,129 @@
 "settings.language_restart_message" = "应用需要重启以应用新语言。";
 "settings.restart_later" = "稍后";
 
-// MARK: - New Keys (English placeholder - translate)
-"result.url_breakdown" = "URL BREAKDOWN";
-"result.full_url" = "FULL URL";
-"result.open_safari" = "Open in Safari (Risky)";
-"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
-"result.restricted_mode" = "Restricted Mode";
-"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
-"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 
-// MARK: - Navigation
-"nav.quick_actions" = "QUICK ACTIONS";
-"nav.systems_operational" = "All systems operational";
-
-// MARK: - Common
-"common.enabled" = "Enabled";
-"common.disabled" = "Disabled";
-
-// MARK: - Language Settings
-"settings.language" = "Language";
-"settings.language_section" = "Language";
-"settings.language_system" = "System Default";
-"settings.language_search" = "Search languages";
-"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
-"common.done" = "Done";
-"settings.language_changed" = "Language Changed";
-"settings.restart_later" = "Later";
-"settings.restart_now" = "Restart Now";
-"settings.language_restart_message" = "To fully apply the new language, please restart the app.";
-
-// MARK: - Restart Required Screen
-"settings.restart_title" = "Restart Required";
-"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
-"settings.restart_step1" = "Tap 'Close App' below";
-"settings.restart_step2" = "Swipe up from the app switcher to fully close";
-"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
-"settings.close_app" = "Close App";
-"settings.restart_error_title" = "Restart Error";
-"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
-"common.ok" = "OK";
-
-// MARK: - Beat The Bot (Training)
-"training.mode" = "TRAINING MODE";
-"training.beat_the_bot" = "Beat the Bot";
-"training.seconds" = "Seconds";
-"training.level" = "LEVEL %d";
-"training.unusual_signin" = "Unusual Sign-in Attempt";
-"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
-"training.verify_identity" = "Verify Identity";
-"training.phishing" = "Phishing";
-"training.legitimate" = "Legitimate";
-"training.live_session" = "LIVE SESSION";
-"training.online" = "ONLINE";
-"training.bot_confidence" = "Bot Confidence:";
-"training.ai_analysis" = "AI NEURAL ANALYSIS";
-"training.live_hint" = "Live Hint";
-"training.tip" = "Tip:";
-"training.beginner" = "BEGINNER";
-"training.intermediate" = "INTERMEDIATE";
-"training.advanced" = "ADVANCED";
-"training.nightmare" = "NIGHTMARE";
+// MARK: - Training (Beat The Bot)
+"training.mode" = "训练模式";
+"training.beat_the_bot" = "击败机器人";
+"training.seconds" = "秒";
+"training.level" = "等级 %d";
+"training.unusual_signin" = "异常登录";
+"training.unusual_signin_message" = "我们检测到来自新设备的登录。请立即验证您的身份。";
+"training.verify_identity" = "验证身份";
+"training.phishing" = "钓鱼";
+"training.legitimate" = "合法";
+"training.live_session" = "实时会话";
+"training.online" = "在线";
+"training.bot_confidence" = "机器人置信度:";
+"training.ai_analysis" = "AI神经分析";
+"training.live_hint" = "实时提示";
+"training.tip" = "提示:";
+"training.beginner" = "初级";
+"training.intermediate" = "中级";
+"training.advanced" = "高级";
+"training.nightmare" = "噩梦";
 
 // MARK: - Settings Additional
-"settings.security_alerts_title" = "Security alerts";
-"settings.security_alerts_desc" = "Get notified about security threats";
-"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
-"settings.system_appearance_label" = "System Appearance";
-"settings.clear_history_button" = "Clear History";
-"settings.privacy_policy_link" = "Privacy Policy";
-"settings.source_code_link" = "Source Code";
+"settings.security_alerts_title" = "安全警报";
+"settings.security_alerts_desc" = "接收安全威胁通知";
+"settings.notifications_denied_message" = "要接收警报，请在设置中启用 QR-SHIELD 的通知。";
+"settings.system_appearance_label" = "系统外观";
+"settings.clear_history_button" = "清除历史";
+"settings.privacy_policy_link" = "隐私政策";
+"settings.source_code_link" = "源代码";
 "settings.engine_swift" = "Swift 6";
-"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_confirm_message" = "此操作无法撤销。所有扫描历史将被永久删除。";
 "settings.ios_version" = "iOS 17+";
-"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+"settings.liquid_glass_footer" = "iOS 17+ 引入了漂亮的 Liquid Glass 效果。如果遇到性能问题，请减少效果。";
 
 // MARK: - Dashboard Additional
-"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
-"dashboard.zero_latency" = "zero-latency phishing detection";
-"dashboard.version_date" = "Version 2023.10.24";
-"dashboard.offline_badge" = "OFFLINE READY";
+"dashboard.hero.description_full" = "QR-SHIELD 直接在您的硬件上分析潜在威胁。体验";
+"dashboard.zero_latency" = "零延迟钓鱼检测";
+"dashboard.version_date" = "版本 2023.10.24";
+"dashboard.offline_badge" = "离线就绪";
 
 // MARK: - Navigation
-"nav.version_offline" = "v2.4.0 • Offline Mode";
+"nav.version_offline" = "v2.4.0 • 离线模式";
 
 // MARK: - Results Additional
-"result.block_warning" = "This will block the domain and report it to your security team.";
-"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
-"result.open_safari_risky" = "Open in Safari (Risky)";
-"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.block_warning" = "这将阻止该域名并向您的安全团队报告。";
+"result.dangerous_full_warning" = "此 URL 已被标记为潜在危险。打开它可能会使您面临钓鱼或恶意软件风险。\n\n您确定要继续吗？";
+"result.open_safari_risky" = "在 Safari 中打开（有风险）";
+"result.open_warning_browser" = "在浏览器中打开此 URL 可能会使您面临安全风险。";
 
 // MARK: - Components
-"component.confidence" = "Confidence";
-"component.risk_score" = "Risk Score";
-"component.risk_flags" = "Risk Flags";
-"component.view_full_analysis" = "View Full Analysis";
-"component.select_image" = "Select an Image";
-"component.select_image_desc" = "Choose a photo containing a QR code";
-"component.idle_state" = "Idle State";
-"component.active_state" = "Active State";
+"component.confidence" = "置信度";
+"component.risk_score" = "风险分数";
+"component.risk_flags" = "风险标志";
+"component.view_full_analysis" = "查看完整分析";
+"component.select_image" = "选择图片";
+"component.select_image_desc" = "选择包含二维码的照片";
+"component.idle_state" = "空闲状态";
+"component.active_state" = "活动状态";
 
 // MARK: - Threat History
-"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
-"threat.live_map" = "LIVE THREAT MAP";
-"threat.global_view" = "Global View";
-"threat.last_audit" = "Last audit: %@";
-"threat.latest_updates" = "LATEST UPDATES";
-"threat.live" = "LIVE";
+"threat.no_vulnerabilities" = "未检测到漏洞。您的设备是安全的。";
+"threat.live_map" = "实时威胁地图";
+"threat.global_view" = "全球视图";
+"threat.last_audit" = "上次审计: %@";
+"threat.latest_updates" = "最新更新";
+"threat.live" = "实时";
 
 // MARK: - History Additional
-"history.scan_statistics" = "Scan Statistics";
-"history.safe_count" = "Safe: %d";
-"history.suspicious_count" = "Suspicious: %d";
-"history.malicious_count" = "Malicious: %d";
-"history.total_scans" = "Total: %d scans";
+"history.scan_statistics" = "扫描统计";
+"history.safe_count" = "安全: %d";
+"history.suspicious_count" = "可疑: %d";
+"history.malicious_count" = "恶意: %d";
+"history.total_scans" = "总计: %d 次扫描";
+"history.exported_clipboard" = "已导出到剪贴板";
+"history.url_label" = "网址";
 
 // MARK: - KMP Demo
-"kmp.integration" = "Kotlin Multiplatform Integration";
-"kmp.analyze_button" = "Analyze with KMP Engine";
-"kmp.quick_test" = "Quick Test:";
-"kmp.analysis_result" = "Analysis Result";
-"kmp.score_format" = "Score: %d/100";
-"kmp.risk_flags" = "Risk Flags:";
-"kmp.powered_by" = "Powered by Kotlin/Native";
+"kmp.integration" = "Kotlin 多平台集成";
+"kmp.analyze_button" = "使用 KMP 引擎分析";
+"kmp.quick_test" = "快速测试:";
+"kmp.analysis_result" = "分析结果";
+"kmp.score_format" = "分数: %d/100";
+"kmp.risk_flags" = "风险标志:";
+"kmp.powered_by" = "由 Kotlin/Native 驱动";
 
 // MARK: - Scanner Additional
-"scanner.camera_required_title" = "Camera Access Required";
-"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
-"scanner.analyzing_dots" = "Analyzing...";
-"scanner.point_qr" = "Point at QR Code";
-"scanner.toggle_scan" = "Toggle scanning";
-"scanner.dismiss_error" = "Dismiss error";
-"scanner.camera_preview" = "Camera Preview";
+"scanner.camera_required_title" = "需要相机权限";
+"scanner.camera_required_message" = "QR-SHIELD 需要相机权限来扫描二维码。请在设置中启用。";
+"scanner.analyzing_dots" = "分析中...";
+"scanner.point_qr" = "对准二维码";
+"scanner.toggle_scan" = "切换扫描";
+"scanner.dismiss_error" = "关闭错误";
+"scanner.camera_preview" = "相机预览";
 
 // MARK: - Trust Centre Additional
-"trust.low" = "Low";
-"trust.balanced" = "Balanced";
-"trust.paranoia" = "Paranoia";
-"trust.reset_defaults" = "Reset to Defaults";
+"trust.low" = "低";
+"trust.balanced" = "平衡";
+"trust.paranoia" = "偏执";
+"trust.reset_defaults" = "重置为默认";
 "trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
 
 // MARK: - Export View
-"export.title" = "Export Threat Analysis";
-"export.subtitle" = "Choose a format to export your secure offline analysis.";
-"export.select_format" = "SELECT FORMAT";
-"export.live_preview" = "LIVE PREVIEW";
-"export.expand" = "Expand";
-"export.share" = "Share";
-"export.export_button" = "Export Report";
-"export.available_actions" = "AVAILABLE ACTIONS";
-"export.privacy_note" = "Privacy Note";
-"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+"export.title" = "导出威胁分析";
+"export.subtitle" = "选择格式导出您的安全离线分析。";
+"export.select_format" = "选择格式";
+"export.live_preview" = "实时预览";
+"export.expand" = "展开";
+"export.share" = "分享";
+"export.export_button" = "导出报告";
+"export.available_actions" = "可用操作";
+"export.privacy_note" = "隐私说明";
+"export.privacy_message" = "所有分析完全在您的设备上进行。导出的报告不包含任何个人信息。";
 
 // MARK: - Onboarding Additional
-"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
-"onboarding.page_of" = "Page %d of %d";
-
-// MARK: - History Additional
-"history.exported_clipboard" = "Exported to clipboard";
-"history.url_label" = "URL";
+"onboarding.camera_permission_message" = "QR-SHIELD 需要相机权限来扫描二维码。您可以稍后在设置中更改。";
+"onboarding.page_of" = "第 %d 页，共 %d 页";
 
 // MARK: - Accessibility Labels
-"accessibility.risk_score" = "Risk Score";
-"accessibility.risk_flags" = "Risk Flags";
-"accessibility.scan_history" = "Scan History";
-"accessibility.dismiss_error" = "Dismiss error";
-"accessibility.toggle_scanning" = "Toggle scanning";
-"accessibility.gallery" = "Gallery";
-"accessibility.open_history" = "Open history";
+"accessibility.risk_score" = "风险分数";
+"accessibility.risk_flags" = "风险标志";
+"accessibility.scan_history" = "扫描历史";
+"accessibility.dismiss_error" = "关闭错误";
+"accessibility.toggle_scanning" = "切换扫描";
+"accessibility.gallery" = "相册";
+"accessibility.open_history" = "打开历史";

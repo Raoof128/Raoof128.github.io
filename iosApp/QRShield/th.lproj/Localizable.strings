@@ -285,170 +285,129 @@
 "settings.language_restart_message" = "แอปต้องรีสตาร์ทเพื่อใช้ภาษาใหม่";
 "settings.restart_later" = "ภายหลัง";
 
-// MARK: - New Keys (English placeholder - translate)
-"result.url_breakdown" = "URL BREAKDOWN";
-"result.full_url" = "FULL URL";
-"result.open_safari" = "Open in Safari (Risky)";
-"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
-"result.restricted_mode" = "Restricted Mode";
-"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
-"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 
-// MARK: - Navigation
-"nav.quick_actions" = "QUICK ACTIONS";
-"nav.systems_operational" = "All systems operational";
-
-// MARK: - Common
-"common.enabled" = "Enabled";
-"common.disabled" = "Disabled";
-
-// MARK: - Language Settings
-"settings.language" = "Language";
-"settings.language_section" = "Language";
-"settings.language_system" = "System Default";
-"settings.language_search" = "Search languages";
-"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
-"common.done" = "Done";
-"settings.language_changed" = "Language Changed";
-"settings.restart_later" = "Later";
-"settings.restart_now" = "Restart Now";
-"settings.language_restart_message" = "To fully apply the new language, please restart the app.";
-
-// MARK: - Restart Required Screen
-"settings.restart_title" = "Restart Required";
-"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
-"settings.restart_step1" = "Tap 'Close App' below";
-"settings.restart_step2" = "Swipe up from the app switcher to fully close";
-"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
-"settings.close_app" = "Close App";
-"settings.restart_error_title" = "Restart Error";
-"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
-"common.ok" = "OK";
-
-// MARK: - Beat The Bot (Training)
-"training.mode" = "TRAINING MODE";
-"training.beat_the_bot" = "Beat the Bot";
-"training.seconds" = "Seconds";
-"training.level" = "LEVEL %d";
-"training.unusual_signin" = "Unusual Sign-in Attempt";
-"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
-"training.verify_identity" = "Verify Identity";
-"training.phishing" = "Phishing";
-"training.legitimate" = "Legitimate";
-"training.live_session" = "LIVE SESSION";
-"training.online" = "ONLINE";
-"training.bot_confidence" = "Bot Confidence:";
-"training.ai_analysis" = "AI NEURAL ANALYSIS";
-"training.live_hint" = "Live Hint";
-"training.tip" = "Tip:";
-"training.beginner" = "BEGINNER";
-"training.intermediate" = "INTERMEDIATE";
-"training.advanced" = "ADVANCED";
-"training.nightmare" = "NIGHTMARE";
+// MARK: - Training (Beat The Bot)
+"training.mode" = "โหมดฝึกซ้อม";
+"training.beat_the_bot" = "เอาชนะบอท";
+"training.seconds" = "วินาที";
+"training.level" = "ระดับ %d";
+"training.unusual_signin" = "การเข้าสู่ระบบที่ผิดปกติ";
+"training.unusual_signin_message" = "เราตรวจพบการเข้าสู่ระบบจากอุปกรณ์ใหม่ กรุณายืนยันตัวตนทันที";
+"training.verify_identity" = "ยืนยันตัวตน";
+"training.phishing" = "ฟิชชิ่ง";
+"training.legitimate" = "ถูกต้อง";
+"training.live_session" = "เซสชันสด";
+"training.online" = "ออนไลน์";
+"training.bot_confidence" = "ความมั่นใจของบอท:";
+"training.ai_analysis" = "การวิเคราะห์ AI";
+"training.live_hint" = "คำใบ้สด";
+"training.tip" = "เคล็ดลับ:";
+"training.beginner" = "ระดับเริ่มต้น";
+"training.intermediate" = "ระดับกลาง";
+"training.advanced" = "ระดับสูง";
+"training.nightmare" = "ฝันร้าย";
 
 // MARK: - Settings Additional
-"settings.security_alerts_title" = "Security alerts";
-"settings.security_alerts_desc" = "Get notified about security threats";
-"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
-"settings.system_appearance_label" = "System Appearance";
-"settings.clear_history_button" = "Clear History";
-"settings.privacy_policy_link" = "Privacy Policy";
-"settings.source_code_link" = "Source Code";
+"settings.security_alerts_title" = "การแจ้งเตือนความปลอดภัย";
+"settings.security_alerts_desc" = "รับการแจ้งเตือนเกี่ยวกับภัยคุกคาม";
+"settings.notifications_denied_message" = "หากต้องการรับการแจ้งเตือน กรุณาเปิดการแจ้งเตือนสำหรับ QR-SHIELD ในการตั้งค่า";
+"settings.system_appearance_label" = "รูปลักษณ์ระบบ";
+"settings.clear_history_button" = "ล้างประวัติ";
+"settings.privacy_policy_link" = "นโยบายความเป็นส่วนตัว";
+"settings.source_code_link" = "ซอร์สโค้ด";
 "settings.engine_swift" = "Swift 6";
-"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_confirm_message" = "การดำเนินการนี้ไม่สามารถย้อนกลับได้ ประวัติทั้งหมดจะถูกลบอย่างถาวร";
 "settings.ios_version" = "iOS 17+";
-"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+"settings.liquid_glass_footer" = "iOS 17+ มีเอฟเฟกต์ Liquid Glass ที่สวยงาม ลดเอฟเฟกต์หากมีปัญหาด้านประสิทธิภาพ";
 
 // MARK: - Dashboard Additional
-"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
-"dashboard.zero_latency" = "zero-latency phishing detection";
-"dashboard.version_date" = "Version 2023.10.24";
-"dashboard.offline_badge" = "OFFLINE READY";
+"dashboard.hero.description_full" = "QR-SHIELD วิเคราะห์ภัยคุกคามบนอุปกรณ์ของคุณโดยตรง สัมผัส";
+"dashboard.zero_latency" = "การตรวจจับฟิชชิ่งแบบไม่มีความหน่วง";
+"dashboard.version_date" = "เวอร์ชัน 2023.10.24";
+"dashboard.offline_badge" = "พร้อมใช้งานออฟไลน์";
 
 // MARK: - Navigation
-"nav.version_offline" = "v2.4.0 • Offline Mode";
+"nav.version_offline" = "v2.4.0 • โหมดออฟไลน์";
 
 // MARK: - Results Additional
-"result.block_warning" = "This will block the domain and report it to your security team.";
-"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
-"result.open_safari_risky" = "Open in Safari (Risky)";
-"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.block_warning" = "จะบล็อกโดเมนนี้และรายงานไปยังทีมรักษาความปลอดภัย";
+"result.dangerous_full_warning" = "URL นี้ถูกทำเครื่องหมายว่าอาจเป็นอันตราย การเปิดอาจทำให้คุณเสี่ยงต่อฟิชชิ่งหรือมัลแวร์\n\nคุณแน่ใจหรือไม่?";
+"result.open_safari_risky" = "เปิดใน Safari (เสี่ยง)";
+"result.open_warning_browser" = "การเปิด URL นี้ในเบราว์เซอร์อาจทำให้คุณเสี่ยงต่อความปลอดภัย";
 
 // MARK: - Components
-"component.confidence" = "Confidence";
-"component.risk_score" = "Risk Score";
-"component.risk_flags" = "Risk Flags";
-"component.view_full_analysis" = "View Full Analysis";
-"component.select_image" = "Select an Image";
-"component.select_image_desc" = "Choose a photo containing a QR code";
-"component.idle_state" = "Idle State";
-"component.active_state" = "Active State";
+"component.confidence" = "ความมั่นใจ";
+"component.risk_score" = "คะแนนความเสี่ยง";
+"component.risk_flags" = "แฟล็กความเสี่ยง";
+"component.view_full_analysis" = "ดูการวิเคราะห์ทั้งหมด";
+"component.select_image" = "เลือกรูปภาพ";
+"component.select_image_desc" = "เลือกรูปภาพที่มี QR โค้ด";
+"component.idle_state" = "สถานะพัก";
+"component.active_state" = "สถานะใช้งาน";
 
 // MARK: - Threat History
-"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
-"threat.live_map" = "LIVE THREAT MAP";
-"threat.global_view" = "Global View";
-"threat.last_audit" = "Last audit: %@";
-"threat.latest_updates" = "LATEST UPDATES";
-"threat.live" = "LIVE";
+"threat.no_vulnerabilities" = "ไม่พบช่องโหว่ อุปกรณ์ของคุณปลอดภัย";
+"threat.live_map" = "แผนที่ภัยคุกคามสด";
+"threat.global_view" = "มุมมองทั่วโลก";
+"threat.last_audit" = "ตรวจสอบล่าสุด: %@";
+"threat.latest_updates" = "อัปเดตล่าสุด";
+"threat.live" = "สด";
 
 // MARK: - History Additional
-"history.scan_statistics" = "Scan Statistics";
-"history.safe_count" = "Safe: %d";
-"history.suspicious_count" = "Suspicious: %d";
-"history.malicious_count" = "Malicious: %d";
-"history.total_scans" = "Total: %d scans";
+"history.scan_statistics" = "สถิติการสแกน";
+"history.safe_count" = "ปลอดภัย: %d";
+"history.suspicious_count" = "น่าสงสัย: %d";
+"history.malicious_count" = "เป็นอันตราย: %d";
+"history.total_scans" = "ทั้งหมด: %d การสแกน";
+"history.exported_clipboard" = "ส่งออกไปยังคลิปบอร์ด";
+"history.url_label" = "URL";
 
 // MARK: - KMP Demo
-"kmp.integration" = "Kotlin Multiplatform Integration";
-"kmp.analyze_button" = "Analyze with KMP Engine";
-"kmp.quick_test" = "Quick Test:";
-"kmp.analysis_result" = "Analysis Result";
-"kmp.score_format" = "Score: %d/100";
-"kmp.risk_flags" = "Risk Flags:";
-"kmp.powered_by" = "Powered by Kotlin/Native";
+"kmp.integration" = "การรวม Kotlin Multiplatform";
+"kmp.analyze_button" = "วิเคราะห์ด้วย KMP Engine";
+"kmp.quick_test" = "ทดสอบด่วน:";
+"kmp.analysis_result" = "ผลการวิเคราะห์";
+"kmp.score_format" = "คะแนน: %d/100";
+"kmp.risk_flags" = "แฟล็กความเสี่ยง:";
+"kmp.powered_by" = "ขับเคลื่อนโดย Kotlin/Native";
 
 // MARK: - Scanner Additional
-"scanner.camera_required_title" = "Camera Access Required";
-"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
-"scanner.analyzing_dots" = "Analyzing...";
-"scanner.point_qr" = "Point at QR Code";
-"scanner.toggle_scan" = "Toggle scanning";
-"scanner.dismiss_error" = "Dismiss error";
-"scanner.camera_preview" = "Camera Preview";
+"scanner.camera_required_title" = "ต้องการการเข้าถึงกล้อง";
+"scanner.camera_required_message" = "QR-SHIELD ต้องการการเข้าถึงกล้องเพื่อสแกน QR โค้ด กรุณาเปิดในการตั้งค่า";
+"scanner.analyzing_dots" = "กำลังวิเคราะห์...";
+"scanner.point_qr" = "ชี้ไปที่ QR โค้ด";
+"scanner.toggle_scan" = "สลับการสแกน";
+"scanner.dismiss_error" = "ปิดข้อผิดพลาด";
+"scanner.camera_preview" = "ตัวอย่างกล้อง";
 
 // MARK: - Trust Centre Additional
-"trust.low" = "Low";
-"trust.balanced" = "Balanced";
-"trust.paranoia" = "Paranoia";
-"trust.reset_defaults" = "Reset to Defaults";
+"trust.low" = "ต่ำ";
+"trust.balanced" = "สมดุล";
+"trust.paranoia" = "หวาดระแวง";
+"trust.reset_defaults" = "รีเซ็ตเป็นค่าเริ่มต้น";
 "trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
 
 // MARK: - Export View
-"export.title" = "Export Threat Analysis";
-"export.subtitle" = "Choose a format to export your secure offline analysis.";
-"export.select_format" = "SELECT FORMAT";
-"export.live_preview" = "LIVE PREVIEW";
-"export.expand" = "Expand";
-"export.share" = "Share";
-"export.export_button" = "Export Report";
-"export.available_actions" = "AVAILABLE ACTIONS";
-"export.privacy_note" = "Privacy Note";
-"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+"export.title" = "ส่งออกการวิเคราะห์ภัยคุกคาม";
+"export.subtitle" = "เลือกรูปแบบเพื่อส่งออกการวิเคราะห์ออฟไลน์ที่ปลอดภัย";
+"export.select_format" = "เลือกรูปแบบ";
+"export.live_preview" = "ตัวอย่างสด";
+"export.expand" = "ขยาย";
+"export.share" = "แชร์";
+"export.export_button" = "ส่งออกรายงาน";
+"export.available_actions" = "การดำเนินการที่พร้อมใช้งาน";
+"export.privacy_note" = "หมายเหตุความเป็นส่วนตัว";
+"export.privacy_message" = "การวิเคราะห์ทั้งหมดทำบนอุปกรณ์ของคุณ รายงานที่ส่งออกไม่มีข้อมูลส่วนบุคคล";
 
 // MARK: - Onboarding Additional
-"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
-"onboarding.page_of" = "Page %d of %d";
-
-// MARK: - History Additional
-"history.exported_clipboard" = "Exported to clipboard";
-"history.url_label" = "URL";
+"onboarding.camera_permission_message" = "QR-SHIELD ต้องการการเข้าถึงกล้องเพื่อสแกน QR โค้ด คุณสามารถเปลี่ยนได้ในการตั้งค่า";
+"onboarding.page_of" = "หน้า %d จาก %d";
 
 // MARK: - Accessibility Labels
-"accessibility.risk_score" = "Risk Score";
-"accessibility.risk_flags" = "Risk Flags";
-"accessibility.scan_history" = "Scan History";
-"accessibility.dismiss_error" = "Dismiss error";
-"accessibility.toggle_scanning" = "Toggle scanning";
-"accessibility.gallery" = "Gallery";
-"accessibility.open_history" = "Open history";
+"accessibility.risk_score" = "คะแนนความเสี่ยง";
+"accessibility.risk_flags" = "แฟล็กความเสี่ยง";
+"accessibility.scan_history" = "ประวัติการสแกน";
+"accessibility.dismiss_error" = "ปิดข้อผิดพลาด";
+"accessibility.toggle_scanning" = "สลับการสแกน";
+"accessibility.gallery" = "แกลเลอรี";
+"accessibility.open_history" = "เปิดประวัติ";

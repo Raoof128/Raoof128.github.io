@@ -286,170 +286,129 @@
 "settings.language_restart_message" = "새 언어를 적용하려면 앱을 재시작해야 합니다.";
 "settings.restart_later" = "나중에";
 
-// MARK: - New Keys (English placeholder - translate)
-"result.url_breakdown" = "URL BREAKDOWN";
-"result.full_url" = "FULL URL";
-"result.open_safari" = "Open in Safari (Risky)";
-"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
-"result.restricted_mode" = "Restricted Mode";
-"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
-"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 
-// MARK: - Navigation
-"nav.quick_actions" = "QUICK ACTIONS";
-"nav.systems_operational" = "All systems operational";
-
-// MARK: - Common
-"common.enabled" = "Enabled";
-"common.disabled" = "Disabled";
-
-// MARK: - Language Settings
-"settings.language" = "Language";
-"settings.language_section" = "Language";
-"settings.language_system" = "System Default";
-"settings.language_search" = "Search languages";
-"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
-"common.done" = "Done";
-"settings.language_changed" = "Language Changed";
-"settings.restart_later" = "Later";
-"settings.restart_now" = "Restart Now";
-"settings.language_restart_message" = "To fully apply the new language, please restart the app.";
-
-// MARK: - Restart Required Screen
-"settings.restart_title" = "Restart Required";
-"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
-"settings.restart_step1" = "Tap 'Close App' below";
-"settings.restart_step2" = "Swipe up from the app switcher to fully close";
-"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
-"settings.close_app" = "Close App";
-"settings.restart_error_title" = "Restart Error";
-"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
-"common.ok" = "OK";
-
-// MARK: - Beat The Bot (Training)
-"training.mode" = "TRAINING MODE";
-"training.beat_the_bot" = "Beat the Bot";
-"training.seconds" = "Seconds";
-"training.level" = "LEVEL %d";
-"training.unusual_signin" = "Unusual Sign-in Attempt";
-"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
-"training.verify_identity" = "Verify Identity";
-"training.phishing" = "Phishing";
-"training.legitimate" = "Legitimate";
-"training.live_session" = "LIVE SESSION";
-"training.online" = "ONLINE";
-"training.bot_confidence" = "Bot Confidence:";
-"training.ai_analysis" = "AI NEURAL ANALYSIS";
-"training.live_hint" = "Live Hint";
-"training.tip" = "Tip:";
-"training.beginner" = "BEGINNER";
-"training.intermediate" = "INTERMEDIATE";
-"training.advanced" = "ADVANCED";
-"training.nightmare" = "NIGHTMARE";
+// MARK: - Training (Beat The Bot)
+"training.mode" = "훈련 모드";
+"training.beat_the_bot" = "봇을 이겨라";
+"training.seconds" = "초";
+"training.level" = "레벨 %d";
+"training.unusual_signin" = "비정상적인 로그인";
+"training.unusual_signin_message" = "새 기기에서 로그인이 감지되었습니다. 즉시 본인 확인을 해주세요.";
+"training.verify_identity" = "본인 확인";
+"training.phishing" = "피싱";
+"training.legitimate" = "정상";
+"training.live_session" = "실시간 세션";
+"training.online" = "온라인";
+"training.bot_confidence" = "봇 신뢰도:";
+"training.ai_analysis" = "AI 신경망 분석";
+"training.live_hint" = "실시간 힌트";
+"training.tip" = "팁:";
+"training.beginner" = "초급";
+"training.intermediate" = "중급";
+"training.advanced" = "고급";
+"training.nightmare" = "악몽";
 
 // MARK: - Settings Additional
-"settings.security_alerts_title" = "Security alerts";
-"settings.security_alerts_desc" = "Get notified about security threats";
-"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
-"settings.system_appearance_label" = "System Appearance";
-"settings.clear_history_button" = "Clear History";
-"settings.privacy_policy_link" = "Privacy Policy";
-"settings.source_code_link" = "Source Code";
+"settings.security_alerts_title" = "보안 알림";
+"settings.security_alerts_desc" = "보안 위협 알림 받기";
+"settings.notifications_denied_message" = "알림을 받으려면 설정에서 QR-SHIELD 알림을 활성화하세요.";
+"settings.system_appearance_label" = "시스템 외관";
+"settings.clear_history_button" = "기록 삭제";
+"settings.privacy_policy_link" = "개인정보 보호정책";
+"settings.source_code_link" = "소스 코드";
 "settings.engine_swift" = "Swift 6";
-"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_confirm_message" = "이 작업은 되돌릴 수 없습니다. 모든 스캔 기록이 영구적으로 삭제됩니다.";
 "settings.ios_version" = "iOS 17+";
-"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+"settings.liquid_glass_footer" = "iOS 17+는 아름다운 Liquid Glass 효과를 도입합니다. 성능 문제가 있으면 효과를 줄이세요.";
 
 // MARK: - Dashboard Additional
-"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
-"dashboard.zero_latency" = "zero-latency phishing detection";
-"dashboard.version_date" = "Version 2023.10.24";
-"dashboard.offline_badge" = "OFFLINE READY";
+"dashboard.hero.description_full" = "QR-SHIELD는 하드웨어에서 직접 위협을 분석합니다. 경험하세요";
+"dashboard.zero_latency" = "제로 지연 피싱 탐지";
+"dashboard.version_date" = "버전 2023.10.24";
+"dashboard.offline_badge" = "오프라인 준비";
 
 // MARK: - Navigation
-"nav.version_offline" = "v2.4.0 • Offline Mode";
+"nav.version_offline" = "v2.4.0 • 오프라인 모드";
 
 // MARK: - Results Additional
-"result.block_warning" = "This will block the domain and report it to your security team.";
-"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
-"result.open_safari_risky" = "Open in Safari (Risky)";
-"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.block_warning" = "도메인을 차단하고 보안팀에 보고합니다.";
+"result.dangerous_full_warning" = "이 URL은 잠재적으로 위험한 것으로 표시되었습니다. 열면 피싱이나 악성코드에 노출될 수 있습니다.\n\n계속하시겠습니까?";
+"result.open_safari_risky" = "Safari에서 열기 (위험)";
+"result.open_warning_browser" = "브라우저에서 이 URL을 열면 보안 위험에 노출될 수 있습니다.";
 
 // MARK: - Components
-"component.confidence" = "Confidence";
-"component.risk_score" = "Risk Score";
-"component.risk_flags" = "Risk Flags";
-"component.view_full_analysis" = "View Full Analysis";
-"component.select_image" = "Select an Image";
-"component.select_image_desc" = "Choose a photo containing a QR code";
-"component.idle_state" = "Idle State";
-"component.active_state" = "Active State";
+"component.confidence" = "신뢰도";
+"component.risk_score" = "위험 점수";
+"component.risk_flags" = "위험 플래그";
+"component.view_full_analysis" = "전체 분석 보기";
+"component.select_image" = "이미지 선택";
+"component.select_image_desc" = "QR 코드가 포함된 사진 선택";
+"component.idle_state" = "유휴 상태";
+"component.active_state" = "활성 상태";
 
 // MARK: - Threat History
-"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
-"threat.live_map" = "LIVE THREAT MAP";
-"threat.global_view" = "Global View";
-"threat.last_audit" = "Last audit: %@";
-"threat.latest_updates" = "LATEST UPDATES";
-"threat.live" = "LIVE";
+"threat.no_vulnerabilities" = "취약점이 발견되지 않았습니다. 기기가 안전합니다.";
+"threat.live_map" = "실시간 위협 지도";
+"threat.global_view" = "글로벌 뷰";
+"threat.last_audit" = "마지막 감사: %@";
+"threat.latest_updates" = "최신 업데이트";
+"threat.live" = "실시간";
 
 // MARK: - History Additional
-"history.scan_statistics" = "Scan Statistics";
-"history.safe_count" = "Safe: %d";
-"history.suspicious_count" = "Suspicious: %d";
-"history.malicious_count" = "Malicious: %d";
-"history.total_scans" = "Total: %d scans";
+"history.scan_statistics" = "스캔 통계";
+"history.safe_count" = "안전: %d";
+"history.suspicious_count" = "의심: %d";
+"history.malicious_count" = "악성: %d";
+"history.total_scans" = "총: %d 스캔";
+"history.exported_clipboard" = "클립보드로 내보냄";
+"history.url_label" = "URL";
 
 // MARK: - KMP Demo
-"kmp.integration" = "Kotlin Multiplatform Integration";
-"kmp.analyze_button" = "Analyze with KMP Engine";
-"kmp.quick_test" = "Quick Test:";
-"kmp.analysis_result" = "Analysis Result";
-"kmp.score_format" = "Score: %d/100";
-"kmp.risk_flags" = "Risk Flags:";
-"kmp.powered_by" = "Powered by Kotlin/Native";
+"kmp.integration" = "Kotlin 멀티플랫폼 통합";
+"kmp.analyze_button" = "KMP 엔진으로 분석";
+"kmp.quick_test" = "빠른 테스트:";
+"kmp.analysis_result" = "분석 결과";
+"kmp.score_format" = "점수: %d/100";
+"kmp.risk_flags" = "위험 플래그:";
+"kmp.powered_by" = "Kotlin/Native 기반";
 
 // MARK: - Scanner Additional
-"scanner.camera_required_title" = "Camera Access Required";
-"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
-"scanner.analyzing_dots" = "Analyzing...";
-"scanner.point_qr" = "Point at QR Code";
-"scanner.toggle_scan" = "Toggle scanning";
-"scanner.dismiss_error" = "Dismiss error";
-"scanner.camera_preview" = "Camera Preview";
+"scanner.camera_required_title" = "카메라 접근 필요";
+"scanner.camera_required_message" = "QR-SHIELD는 QR 코드 스캔을 위해 카메라 접근이 필요합니다. 설정에서 활성화하세요.";
+"scanner.analyzing_dots" = "분석 중...";
+"scanner.point_qr" = "QR 코드를 향해";
+"scanner.toggle_scan" = "스캔 전환";
+"scanner.dismiss_error" = "오류 닫기";
+"scanner.camera_preview" = "카메라 미리보기";
 
 // MARK: - Trust Centre Additional
-"trust.low" = "Low";
-"trust.balanced" = "Balanced";
-"trust.paranoia" = "Paranoia";
-"trust.reset_defaults" = "Reset to Defaults";
+"trust.low" = "낮음";
+"trust.balanced" = "균형";
+"trust.paranoia" = "편집증";
+"trust.reset_defaults" = "기본값으로 재설정";
 "trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
 
 // MARK: - Export View
-"export.title" = "Export Threat Analysis";
-"export.subtitle" = "Choose a format to export your secure offline analysis.";
-"export.select_format" = "SELECT FORMAT";
-"export.live_preview" = "LIVE PREVIEW";
-"export.expand" = "Expand";
-"export.share" = "Share";
-"export.export_button" = "Export Report";
-"export.available_actions" = "AVAILABLE ACTIONS";
-"export.privacy_note" = "Privacy Note";
-"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+"export.title" = "위협 분석 내보내기";
+"export.subtitle" = "안전한 오프라인 분석을 내보낼 형식을 선택하세요.";
+"export.select_format" = "형식 선택";
+"export.live_preview" = "실시간 미리보기";
+"export.expand" = "확장";
+"export.share" = "공유";
+"export.export_button" = "보고서 내보내기";
+"export.available_actions" = "사용 가능한 작업";
+"export.privacy_note" = "개인정보 알림";
+"export.privacy_message" = "모든 분석은 기기에서 완전히 수행됩니다. 내보낸 보고서에는 개인 정보가 포함되지 않습니다.";
 
 // MARK: - Onboarding Additional
-"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
-"onboarding.page_of" = "Page %d of %d";
-
-// MARK: - History Additional
-"history.exported_clipboard" = "Exported to clipboard";
-"history.url_label" = "URL";
+"onboarding.camera_permission_message" = "QR-SHIELD는 QR 코드 스캔을 위해 카메라 접근이 필요합니다. 나중에 설정에서 변경할 수 있습니다.";
+"onboarding.page_of" = "페이지 %d/%d";
 
 // MARK: - Accessibility Labels
-"accessibility.risk_score" = "Risk Score";
-"accessibility.risk_flags" = "Risk Flags";
-"accessibility.scan_history" = "Scan History";
-"accessibility.dismiss_error" = "Dismiss error";
-"accessibility.toggle_scanning" = "Toggle scanning";
-"accessibility.gallery" = "Gallery";
-"accessibility.open_history" = "Open history";
+"accessibility.risk_score" = "위험 점수";
+"accessibility.risk_flags" = "위험 플래그";
+"accessibility.scan_history" = "스캔 기록";
+"accessibility.dismiss_error" = "오류 닫기";
+"accessibility.toggle_scanning" = "스캔 전환";
+"accessibility.gallery" = "갤러리";
+"accessibility.open_history" = "기록 열기";

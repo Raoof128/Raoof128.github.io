@@ -286,170 +286,129 @@
 "settings.language_restart_message" = "L'app deve essere riavviata per applicare la nuova lingua.";
 "settings.restart_later" = "Più tardi";
 
-// MARK: - New Keys (English placeholder - translate)
-"result.url_breakdown" = "URL BREAKDOWN";
-"result.full_url" = "FULL URL";
-"result.open_safari" = "Open in Safari (Risky)";
-"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
-"result.restricted_mode" = "Restricted Mode";
-"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
-"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 
-// MARK: - Navigation
-"nav.quick_actions" = "QUICK ACTIONS";
-"nav.systems_operational" = "All systems operational";
-
-// MARK: - Common
-"common.enabled" = "Enabled";
-"common.disabled" = "Disabled";
-
-// MARK: - Language Settings
-"settings.language" = "Language";
-"settings.language_section" = "Language";
-"settings.language_system" = "System Default";
-"settings.language_search" = "Search languages";
-"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
-"common.done" = "Done";
-"settings.language_changed" = "Language Changed";
-"settings.restart_later" = "Later";
-"settings.restart_now" = "Restart Now";
-"settings.language_restart_message" = "To fully apply the new language, please restart the app.";
-
-// MARK: - Restart Required Screen
-"settings.restart_title" = "Restart Required";
-"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
-"settings.restart_step1" = "Tap 'Close App' below";
-"settings.restart_step2" = "Swipe up from the app switcher to fully close";
-"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
-"settings.close_app" = "Close App";
-"settings.restart_error_title" = "Restart Error";
-"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
-"common.ok" = "OK";
-
-// MARK: - Beat The Bot (Training)
-"training.mode" = "TRAINING MODE";
-"training.beat_the_bot" = "Beat the Bot";
-"training.seconds" = "Seconds";
-"training.level" = "LEVEL %d";
-"training.unusual_signin" = "Unusual Sign-in Attempt";
-"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
-"training.verify_identity" = "Verify Identity";
+// MARK: - Training (Beat The Bot)
+"training.mode" = "MODALITÀ ALLENAMENTO";
+"training.beat_the_bot" = "Batti il Bot";
+"training.seconds" = "Secondi";
+"training.level" = "LIVELLO %d";
+"training.unusual_signin" = "Accesso insolito";
+"training.unusual_signin_message" = "Rilevato accesso da nuovo dispositivo. Verifica subito la tua identità.";
+"training.verify_identity" = "Verifica identità";
 "training.phishing" = "Phishing";
-"training.legitimate" = "Legitimate";
-"training.live_session" = "LIVE SESSION";
+"training.legitimate" = "Legittimo";
+"training.live_session" = "SESSIONE LIVE";
 "training.online" = "ONLINE";
-"training.bot_confidence" = "Bot Confidence:";
-"training.ai_analysis" = "AI NEURAL ANALYSIS";
-"training.live_hint" = "Live Hint";
-"training.tip" = "Tip:";
-"training.beginner" = "BEGINNER";
-"training.intermediate" = "INTERMEDIATE";
-"training.advanced" = "ADVANCED";
-"training.nightmare" = "NIGHTMARE";
+"training.bot_confidence" = "Confidenza Bot:";
+"training.ai_analysis" = "ANALISI NEURALE IA";
+"training.live_hint" = "Suggerimento live";
+"training.tip" = "Consiglio:";
+"training.beginner" = "PRINCIPIANTE";
+"training.intermediate" = "INTERMEDIO";
+"training.advanced" = "AVANZATO";
+"training.nightmare" = "INCUBO";
 
 // MARK: - Settings Additional
-"settings.security_alerts_title" = "Security alerts";
-"settings.security_alerts_desc" = "Get notified about security threats";
-"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
-"settings.system_appearance_label" = "System Appearance";
-"settings.clear_history_button" = "Clear History";
-"settings.privacy_policy_link" = "Privacy Policy";
-"settings.source_code_link" = "Source Code";
+"settings.security_alerts_title" = "Avvisi di sicurezza";
+"settings.security_alerts_desc" = "Ricevi notifiche sulle minacce";
+"settings.notifications_denied_message" = "Per ricevere avvisi, abilita le notifiche per QR-SHIELD nelle Impostazioni.";
+"settings.system_appearance_label" = "Aspetto del sistema";
+"settings.clear_history_button" = "Cancella cronologia";
+"settings.privacy_policy_link" = "Informativa sulla privacy";
+"settings.source_code_link" = "Codice sorgente";
 "settings.engine_swift" = "Swift 6";
-"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_confirm_message" = "Questa azione non può essere annullata. Tutta la cronologia verrà eliminata.";
 "settings.ios_version" = "iOS 17+";
-"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+"settings.liquid_glass_footer" = "iOS 17+ introduce bellissimi effetti Liquid Glass. Riducili in caso di problemi di prestazioni.";
 
 // MARK: - Dashboard Additional
-"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
-"dashboard.zero_latency" = "zero-latency phishing detection";
-"dashboard.version_date" = "Version 2023.10.24";
-"dashboard.offline_badge" = "OFFLINE READY";
+"dashboard.hero.description_full" = "QR-SHIELD analizza le minacce direttamente sul tuo dispositivo. Prova";
+"dashboard.zero_latency" = "rilevamento phishing a latenza zero";
+"dashboard.version_date" = "Versione 2023.10.24";
+"dashboard.offline_badge" = "PRONTO OFFLINE";
 
 // MARK: - Navigation
-"nav.version_offline" = "v2.4.0 • Offline Mode";
+"nav.version_offline" = "v2.4.0 • Modalità offline";
 
 // MARK: - Results Additional
-"result.block_warning" = "This will block the domain and report it to your security team.";
-"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
-"result.open_safari_risky" = "Open in Safari (Risky)";
-"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.block_warning" = "Questo bloccherà il dominio e lo segnalerà al team di sicurezza.";
+"result.dangerous_full_warning" = "Questo URL è stato segnalato come potenzialmente pericoloso. Aprirlo può esporti a phishing o malware.\n\nSei sicuro di voler continuare?";
+"result.open_safari_risky" = "Apri in Safari (rischioso)";
+"result.open_warning_browser" = "Aprire questo URL nel browser può esporti a rischi di sicurezza.";
 
 // MARK: - Components
-"component.confidence" = "Confidence";
-"component.risk_score" = "Risk Score";
-"component.risk_flags" = "Risk Flags";
-"component.view_full_analysis" = "View Full Analysis";
-"component.select_image" = "Select an Image";
-"component.select_image_desc" = "Choose a photo containing a QR code";
-"component.idle_state" = "Idle State";
-"component.active_state" = "Active State";
+"component.confidence" = "Confidenza";
+"component.risk_score" = "Punteggio rischio";
+"component.risk_flags" = "Indicatori rischio";
+"component.view_full_analysis" = "Visualizza analisi completa";
+"component.select_image" = "Seleziona immagine";
+"component.select_image_desc" = "Scegli una foto con un codice QR";
+"component.idle_state" = "Stato inattivo";
+"component.active_state" = "Stato attivo";
 
 // MARK: - Threat History
-"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
-"threat.live_map" = "LIVE THREAT MAP";
-"threat.global_view" = "Global View";
-"threat.last_audit" = "Last audit: %@";
-"threat.latest_updates" = "LATEST UPDATES";
+"threat.no_vulnerabilities" = "Nessuna vulnerabilità rilevata. Il dispositivo è sicuro.";
+"threat.live_map" = "MAPPA MINACCE LIVE";
+"threat.global_view" = "Vista globale";
+"threat.last_audit" = "Ultimo audit: %@";
+"threat.latest_updates" = "ULTIMI AGGIORNAMENTI";
 "threat.live" = "LIVE";
 
 // MARK: - History Additional
-"history.scan_statistics" = "Scan Statistics";
-"history.safe_count" = "Safe: %d";
-"history.suspicious_count" = "Suspicious: %d";
-"history.malicious_count" = "Malicious: %d";
-"history.total_scans" = "Total: %d scans";
+"history.scan_statistics" = "Statistiche scansione";
+"history.safe_count" = "Sicuri: %d";
+"history.suspicious_count" = "Sospetti: %d";
+"history.malicious_count" = "Malevoli: %d";
+"history.total_scans" = "Totale: %d scansioni";
+"history.exported_clipboard" = "Esportato negli appunti";
+"history.url_label" = "URL";
 
 // MARK: - KMP Demo
-"kmp.integration" = "Kotlin Multiplatform Integration";
-"kmp.analyze_button" = "Analyze with KMP Engine";
-"kmp.quick_test" = "Quick Test:";
-"kmp.analysis_result" = "Analysis Result";
-"kmp.score_format" = "Score: %d/100";
-"kmp.risk_flags" = "Risk Flags:";
-"kmp.powered_by" = "Powered by Kotlin/Native";
+"kmp.integration" = "Integrazione Kotlin Multiplatform";
+"kmp.analyze_button" = "Analizza con motore KMP";
+"kmp.quick_test" = "Test rapido:";
+"kmp.analysis_result" = "Risultato analisi";
+"kmp.score_format" = "Punteggio: %d/100";
+"kmp.risk_flags" = "Indicatori rischio:";
+"kmp.powered_by" = "Sviluppato con Kotlin/Native";
 
 // MARK: - Scanner Additional
-"scanner.camera_required_title" = "Camera Access Required";
-"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
-"scanner.analyzing_dots" = "Analyzing...";
-"scanner.point_qr" = "Point at QR Code";
-"scanner.toggle_scan" = "Toggle scanning";
-"scanner.dismiss_error" = "Dismiss error";
-"scanner.camera_preview" = "Camera Preview";
+"scanner.camera_required_title" = "Accesso fotocamera richiesto";
+"scanner.camera_required_message" = "QR-SHIELD necessita dell'accesso alla fotocamera per scansionare i codici QR. Abilitalo nelle Impostazioni.";
+"scanner.analyzing_dots" = "Analisi...";
+"scanner.point_qr" = "Punta verso il codice QR";
+"scanner.toggle_scan" = "Attiva/disattiva scansione";
+"scanner.dismiss_error" = "Chiudi errore";
+"scanner.camera_preview" = "Anteprima fotocamera";
 
 // MARK: - Trust Centre Additional
-"trust.low" = "Low";
-"trust.balanced" = "Balanced";
-"trust.paranoia" = "Paranoia";
-"trust.reset_defaults" = "Reset to Defaults";
+"trust.low" = "Basso";
+"trust.balanced" = "Bilanciato";
+"trust.paranoia" = "Paranoico";
+"trust.reset_defaults" = "Ripristina predefiniti";
 "trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
 
 // MARK: - Export View
-"export.title" = "Export Threat Analysis";
-"export.subtitle" = "Choose a format to export your secure offline analysis.";
-"export.select_format" = "SELECT FORMAT";
-"export.live_preview" = "LIVE PREVIEW";
-"export.expand" = "Expand";
-"export.share" = "Share";
-"export.export_button" = "Export Report";
-"export.available_actions" = "AVAILABLE ACTIONS";
-"export.privacy_note" = "Privacy Note";
-"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+"export.title" = "Esporta analisi minacce";
+"export.subtitle" = "Scegli un formato per esportare la tua analisi sicura offline.";
+"export.select_format" = "SELEZIONA FORMATO";
+"export.live_preview" = "ANTEPRIMA LIVE";
+"export.expand" = "Espandi";
+"export.share" = "Condividi";
+"export.export_button" = "Esporta report";
+"export.available_actions" = "AZIONI DISPONIBILI";
+"export.privacy_note" = "Nota sulla privacy";
+"export.privacy_message" = "Tutte le analisi vengono eseguite sul dispositivo. I report esportati non contengono informazioni personali.";
 
 // MARK: - Onboarding Additional
-"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
-"onboarding.page_of" = "Page %d of %d";
-
-// MARK: - History Additional
-"history.exported_clipboard" = "Exported to clipboard";
-"history.url_label" = "URL";
+"onboarding.camera_permission_message" = "QR-SHIELD necessita dell'accesso alla fotocamera per scansionare i codici QR. Puoi modificarlo nelle Impostazioni.";
+"onboarding.page_of" = "Pagina %d di %d";
 
 // MARK: - Accessibility Labels
-"accessibility.risk_score" = "Risk Score";
-"accessibility.risk_flags" = "Risk Flags";
-"accessibility.scan_history" = "Scan History";
-"accessibility.dismiss_error" = "Dismiss error";
-"accessibility.toggle_scanning" = "Toggle scanning";
-"accessibility.gallery" = "Gallery";
-"accessibility.open_history" = "Open history";
+"accessibility.risk_score" = "Punteggio rischio";
+"accessibility.risk_flags" = "Indicatori rischio";
+"accessibility.scan_history" = "Cronologia scansioni";
+"accessibility.dismiss_error" = "Chiudi errore";
+"accessibility.toggle_scanning" = "Attiva/disattiva scansione";
+"accessibility.gallery" = "Galleria";
+"accessibility.open_history" = "Apri cronologia";

@@ -285,170 +285,129 @@
 "settings.language_restart_message" = "Ứng dụng cần khởi động lại để áp dụng ngôn ngữ mới.";
 "settings.restart_later" = "Để sau";
 
-// MARK: - New Keys (English placeholder - translate)
-"result.url_breakdown" = "URL BREAKDOWN";
-"result.full_url" = "FULL URL";
-"result.open_safari" = "Open in Safari (Risky)";
-"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
-"result.restricted_mode" = "Restricted Mode";
-"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
-"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 
-// MARK: - Navigation
-"nav.quick_actions" = "QUICK ACTIONS";
-"nav.systems_operational" = "All systems operational";
-
-// MARK: - Common
-"common.enabled" = "Enabled";
-"common.disabled" = "Disabled";
-
-// MARK: - Language Settings
-"settings.language" = "Language";
-"settings.language_section" = "Language";
-"settings.language_system" = "System Default";
-"settings.language_search" = "Search languages";
-"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
-"common.done" = "Done";
-"settings.language_changed" = "Language Changed";
-"settings.restart_later" = "Later";
-"settings.restart_now" = "Restart Now";
-"settings.language_restart_message" = "To fully apply the new language, please restart the app.";
-
-// MARK: - Restart Required Screen
-"settings.restart_title" = "Restart Required";
-"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
-"settings.restart_step1" = "Tap 'Close App' below";
-"settings.restart_step2" = "Swipe up from the app switcher to fully close";
-"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
-"settings.close_app" = "Close App";
-"settings.restart_error_title" = "Restart Error";
-"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
-"common.ok" = "OK";
-
-// MARK: - Beat The Bot (Training)
-"training.mode" = "TRAINING MODE";
-"training.beat_the_bot" = "Beat the Bot";
-"training.seconds" = "Seconds";
-"training.level" = "LEVEL %d";
-"training.unusual_signin" = "Unusual Sign-in Attempt";
-"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
-"training.verify_identity" = "Verify Identity";
-"training.phishing" = "Phishing";
-"training.legitimate" = "Legitimate";
-"training.live_session" = "LIVE SESSION";
-"training.online" = "ONLINE";
-"training.bot_confidence" = "Bot Confidence:";
-"training.ai_analysis" = "AI NEURAL ANALYSIS";
-"training.live_hint" = "Live Hint";
-"training.tip" = "Tip:";
-"training.beginner" = "BEGINNER";
-"training.intermediate" = "INTERMEDIATE";
-"training.advanced" = "ADVANCED";
-"training.nightmare" = "NIGHTMARE";
+// MARK: - Training (Beat The Bot)
+"training.mode" = "CHẾ ĐỘ ĐÀO TẠO";
+"training.beat_the_bot" = "Đánh bại Bot";
+"training.seconds" = "Giây";
+"training.level" = "CẤP ĐỘ %d";
+"training.unusual_signin" = "Đăng nhập bất thường";
+"training.unusual_signin_message" = "Chúng tôi phát hiện đăng nhập từ thiết bị mới. Vui lòng xác minh danh tính ngay.";
+"training.verify_identity" = "Xác minh danh tính";
+"training.phishing" = "Lừa đảo";
+"training.legitimate" = "Hợp pháp";
+"training.live_session" = "PHIÊN TRỰC TIẾP";
+"training.online" = "TRỰC TUYẾN";
+"training.bot_confidence" = "Độ tin cậy Bot:";
+"training.ai_analysis" = "PHÂN TÍCH AI";
+"training.live_hint" = "Gợi ý trực tiếp";
+"training.tip" = "Mẹo:";
+"training.beginner" = "MỚI BẮT ĐẦU";
+"training.intermediate" = "TRUNG CẤP";
+"training.advanced" = "NÂNG CAO";
+"training.nightmare" = "ÁC MỘNG";
 
 // MARK: - Settings Additional
-"settings.security_alerts_title" = "Security alerts";
-"settings.security_alerts_desc" = "Get notified about security threats";
-"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
-"settings.system_appearance_label" = "System Appearance";
-"settings.clear_history_button" = "Clear History";
-"settings.privacy_policy_link" = "Privacy Policy";
-"settings.source_code_link" = "Source Code";
+"settings.security_alerts_title" = "Cảnh báo bảo mật";
+"settings.security_alerts_desc" = "Nhận thông báo về mối đe dọa";
+"settings.notifications_denied_message" = "Để nhận cảnh báo, bật thông báo cho QR-SHIELD trong Cài đặt.";
+"settings.system_appearance_label" = "Giao diện hệ thống";
+"settings.clear_history_button" = "Xóa lịch sử";
+"settings.privacy_policy_link" = "Chính sách bảo mật";
+"settings.source_code_link" = "Mã nguồn";
 "settings.engine_swift" = "Swift 6";
-"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_confirm_message" = "Hành động này không thể hoàn tác. Toàn bộ lịch sử sẽ bị xóa vĩnh viễn.";
 "settings.ios_version" = "iOS 17+";
-"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+"settings.liquid_glass_footer" = "iOS 17+ giới thiệu hiệu ứng Liquid Glass đẹp mắt. Giảm hiệu ứng nếu gặp vấn đề về hiệu suất.";
 
 // MARK: - Dashboard Additional
-"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
-"dashboard.zero_latency" = "zero-latency phishing detection";
-"dashboard.version_date" = "Version 2023.10.24";
-"dashboard.offline_badge" = "OFFLINE READY";
+"dashboard.hero.description_full" = "QR-SHIELD phân tích mối đe dọa trực tiếp trên thiết bị của bạn. Trải nghiệm";
+"dashboard.zero_latency" = "phát hiện lừa đảo không độ trễ";
+"dashboard.version_date" = "Phiên bản 2023.10.24";
+"dashboard.offline_badge" = "SẴN SÀNG NGOẠI TUYẾN";
 
 // MARK: - Navigation
-"nav.version_offline" = "v2.4.0 • Offline Mode";
+"nav.version_offline" = "v2.4.0 • Chế độ ngoại tuyến";
 
 // MARK: - Results Additional
-"result.block_warning" = "This will block the domain and report it to your security team.";
-"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
-"result.open_safari_risky" = "Open in Safari (Risky)";
-"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.block_warning" = "Điều này sẽ chặn tên miền và báo cáo cho nhóm bảo mật của bạn.";
+"result.dangerous_full_warning" = "URL này đã được đánh dấu là có thể nguy hiểm. Mở nó có thể khiến bạn tiếp xúc với lừa đảo hoặc phần mềm độc hại.\n\nBạn có chắc muốn tiếp tục?";
+"result.open_safari_risky" = "Mở trong Safari (rủi ro)";
+"result.open_warning_browser" = "Mở URL này trong trình duyệt có thể khiến bạn gặp rủi ro bảo mật.";
 
 // MARK: - Components
-"component.confidence" = "Confidence";
-"component.risk_score" = "Risk Score";
-"component.risk_flags" = "Risk Flags";
-"component.view_full_analysis" = "View Full Analysis";
-"component.select_image" = "Select an Image";
-"component.select_image_desc" = "Choose a photo containing a QR code";
-"component.idle_state" = "Idle State";
-"component.active_state" = "Active State";
+"component.confidence" = "Độ tin cậy";
+"component.risk_score" = "Điểm rủi ro";
+"component.risk_flags" = "Cờ rủi ro";
+"component.view_full_analysis" = "Xem phân tích đầy đủ";
+"component.select_image" = "Chọn hình ảnh";
+"component.select_image_desc" = "Chọn ảnh chứa mã QR";
+"component.idle_state" = "Trạng thái nghỉ";
+"component.active_state" = "Trạng thái hoạt động";
 
 // MARK: - Threat History
-"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
-"threat.live_map" = "LIVE THREAT MAP";
-"threat.global_view" = "Global View";
-"threat.last_audit" = "Last audit: %@";
-"threat.latest_updates" = "LATEST UPDATES";
-"threat.live" = "LIVE";
+"threat.no_vulnerabilities" = "Không phát hiện lỗ hổng. Thiết bị của bạn an toàn.";
+"threat.live_map" = "BẢN ĐỒ MỐI ĐE DỌA TRỰC TIẾP";
+"threat.global_view" = "Góc nhìn toàn cầu";
+"threat.last_audit" = "Kiểm tra cuối: %@";
+"threat.latest_updates" = "CẬP NHẬT MỚI NHẤT";
+"threat.live" = "TRỰC TIẾP";
 
 // MARK: - History Additional
-"history.scan_statistics" = "Scan Statistics";
-"history.safe_count" = "Safe: %d";
-"history.suspicious_count" = "Suspicious: %d";
-"history.malicious_count" = "Malicious: %d";
-"history.total_scans" = "Total: %d scans";
+"history.scan_statistics" = "Thống kê quét";
+"history.safe_count" = "An toàn: %d";
+"history.suspicious_count" = "Đáng ngờ: %d";
+"history.malicious_count" = "Độc hại: %d";
+"history.total_scans" = "Tổng: %d lần quét";
+"history.exported_clipboard" = "Đã xuất vào bộ nhớ tạm";
+"history.url_label" = "URL";
 
 // MARK: - KMP Demo
-"kmp.integration" = "Kotlin Multiplatform Integration";
-"kmp.analyze_button" = "Analyze with KMP Engine";
-"kmp.quick_test" = "Quick Test:";
-"kmp.analysis_result" = "Analysis Result";
-"kmp.score_format" = "Score: %d/100";
-"kmp.risk_flags" = "Risk Flags:";
-"kmp.powered_by" = "Powered by Kotlin/Native";
+"kmp.integration" = "Tích hợp Kotlin Multiplatform";
+"kmp.analyze_button" = "Phân tích với KMP Engine";
+"kmp.quick_test" = "Kiểm tra nhanh:";
+"kmp.analysis_result" = "Kết quả phân tích";
+"kmp.score_format" = "Điểm: %d/100";
+"kmp.risk_flags" = "Cờ rủi ro:";
+"kmp.powered_by" = "Được phát triển bởi Kotlin/Native";
 
 // MARK: - Scanner Additional
-"scanner.camera_required_title" = "Camera Access Required";
-"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
-"scanner.analyzing_dots" = "Analyzing...";
-"scanner.point_qr" = "Point at QR Code";
-"scanner.toggle_scan" = "Toggle scanning";
-"scanner.dismiss_error" = "Dismiss error";
-"scanner.camera_preview" = "Camera Preview";
+"scanner.camera_required_title" = "Yêu cầu truy cập Camera";
+"scanner.camera_required_message" = "QR-SHIELD cần truy cập camera để quét mã QR. Vui lòng bật trong Cài đặt.";
+"scanner.analyzing_dots" = "Đang phân tích...";
+"scanner.point_qr" = "Hướng vào mã QR";
+"scanner.toggle_scan" = "Chuyển đổi quét";
+"scanner.dismiss_error" = "Đóng lỗi";
+"scanner.camera_preview" = "Xem trước camera";
 
 // MARK: - Trust Centre Additional
-"trust.low" = "Low";
-"trust.balanced" = "Balanced";
-"trust.paranoia" = "Paranoia";
-"trust.reset_defaults" = "Reset to Defaults";
+"trust.low" = "Thấp";
+"trust.balanced" = "Cân bằng";
+"trust.paranoia" = "Hoang tưởng";
+"trust.reset_defaults" = "Đặt lại mặc định";
 "trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
 
 // MARK: - Export View
-"export.title" = "Export Threat Analysis";
-"export.subtitle" = "Choose a format to export your secure offline analysis.";
-"export.select_format" = "SELECT FORMAT";
-"export.live_preview" = "LIVE PREVIEW";
-"export.expand" = "Expand";
-"export.share" = "Share";
-"export.export_button" = "Export Report";
-"export.available_actions" = "AVAILABLE ACTIONS";
-"export.privacy_note" = "Privacy Note";
-"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+"export.title" = "Xuất phân tích mối đe dọa";
+"export.subtitle" = "Chọn định dạng để xuất phân tích ngoại tuyến an toàn.";
+"export.select_format" = "CHỌN ĐỊNH DẠNG";
+"export.live_preview" = "XEM TRƯỚC TRỰC TIẾP";
+"export.expand" = "Mở rộng";
+"export.share" = "Chia sẻ";
+"export.export_button" = "Xuất báo cáo";
+"export.available_actions" = "HÀNH ĐỘNG CÓ SẴN";
+"export.privacy_note" = "Ghi chú bảo mật";
+"export.privacy_message" = "Tất cả phân tích được thực hiện trên thiết bị của bạn. Báo cáo xuất không chứa thông tin cá nhân.";
 
 // MARK: - Onboarding Additional
-"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
-"onboarding.page_of" = "Page %d of %d";
-
-// MARK: - History Additional
-"history.exported_clipboard" = "Exported to clipboard";
-"history.url_label" = "URL";
+"onboarding.camera_permission_message" = "QR-SHIELD cần truy cập camera để quét mã QR. Bạn có thể thay đổi sau trong Cài đặt.";
+"onboarding.page_of" = "Trang %d / %d";
 
 // MARK: - Accessibility Labels
-"accessibility.risk_score" = "Risk Score";
-"accessibility.risk_flags" = "Risk Flags";
-"accessibility.scan_history" = "Scan History";
-"accessibility.dismiss_error" = "Dismiss error";
-"accessibility.toggle_scanning" = "Toggle scanning";
-"accessibility.gallery" = "Gallery";
-"accessibility.open_history" = "Open history";
+"accessibility.risk_score" = "Điểm rủi ro";
+"accessibility.risk_flags" = "Cờ rủi ro";
+"accessibility.scan_history" = "Lịch sử quét";
+"accessibility.dismiss_error" = "Đóng lỗi";
+"accessibility.toggle_scanning" = "Chuyển đổi quét";
+"accessibility.gallery" = "Thư viện";
+"accessibility.open_history" = "Mở lịch sử";

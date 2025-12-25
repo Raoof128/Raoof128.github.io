@@ -285,170 +285,129 @@
 "settings.language_restart_message" = "يجب إعادة تشغيل التطبيق لتطبيق اللغة الجديدة.";
 "settings.restart_later" = "لاحقاً";
 
-// MARK: - New Keys (English placeholder - translate)
-"result.url_breakdown" = "URL BREAKDOWN";
-"result.full_url" = "FULL URL";
-"result.open_safari" = "Open in Safari (Risky)";
-"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
-"result.restricted_mode" = "Restricted Mode";
-"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
-"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 
-// MARK: - Navigation
-"nav.quick_actions" = "QUICK ACTIONS";
-"nav.systems_operational" = "All systems operational";
-
-// MARK: - Common
-"common.enabled" = "Enabled";
-"common.disabled" = "Disabled";
-
-// MARK: - Language Settings
-"settings.language" = "Language";
-"settings.language_section" = "Language";
-"settings.language_system" = "System Default";
-"settings.language_search" = "Search languages";
-"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
-"common.done" = "Done";
-"settings.language_changed" = "Language Changed";
-"settings.restart_later" = "Later";
-"settings.restart_now" = "Restart Now";
-"settings.language_restart_message" = "To fully apply the new language, please restart the app.";
-
-// MARK: - Restart Required Screen
-"settings.restart_title" = "Restart Required";
-"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
-"settings.restart_step1" = "Tap 'Close App' below";
-"settings.restart_step2" = "Swipe up from the app switcher to fully close";
-"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
-"settings.close_app" = "Close App";
-"settings.restart_error_title" = "Restart Error";
-"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
-"common.ok" = "OK";
-
-// MARK: - Beat The Bot (Training)
-"training.mode" = "TRAINING MODE";
-"training.beat_the_bot" = "Beat the Bot";
-"training.seconds" = "Seconds";
-"training.level" = "LEVEL %d";
-"training.unusual_signin" = "Unusual Sign-in Attempt";
-"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
-"training.verify_identity" = "Verify Identity";
-"training.phishing" = "Phishing";
-"training.legitimate" = "Legitimate";
-"training.live_session" = "LIVE SESSION";
-"training.online" = "ONLINE";
-"training.bot_confidence" = "Bot Confidence:";
-"training.ai_analysis" = "AI NEURAL ANALYSIS";
-"training.live_hint" = "Live Hint";
-"training.tip" = "Tip:";
-"training.beginner" = "BEGINNER";
-"training.intermediate" = "INTERMEDIATE";
-"training.advanced" = "ADVANCED";
-"training.nightmare" = "NIGHTMARE";
+// MARK: - Training (Beat The Bot)
+"training.mode" = "وضع التدريب";
+"training.beat_the_bot" = "تغلب على الروبوت";
+"training.seconds" = "ثواني";
+"training.level" = "المستوى %d";
+"training.unusual_signin" = "محاولة تسجيل دخول غير عادية";
+"training.unusual_signin_message" = "اكتشفنا تسجيل دخول من جهاز جديد. يرجى التحقق من هويتك فوراً.";
+"training.verify_identity" = "التحقق من الهوية";
+"training.phishing" = "تصيد";
+"training.legitimate" = "شرعي";
+"training.live_session" = "جلسة مباشرة";
+"training.online" = "متصل";
+"training.bot_confidence" = "ثقة الروبوت:";
+"training.ai_analysis" = "تحليل الذكاء الاصطناعي";
+"training.live_hint" = "تلميح مباشر";
+"training.tip" = "نصيحة:";
+"training.beginner" = "مبتدئ";
+"training.intermediate" = "متوسط";
+"training.advanced" = "متقدم";
+"training.nightmare" = "كابوس";
 
 // MARK: - Settings Additional
-"settings.security_alerts_title" = "Security alerts";
-"settings.security_alerts_desc" = "Get notified about security threats";
-"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
-"settings.system_appearance_label" = "System Appearance";
-"settings.clear_history_button" = "Clear History";
-"settings.privacy_policy_link" = "Privacy Policy";
-"settings.source_code_link" = "Source Code";
+"settings.security_alerts_title" = "تنبيهات الأمان";
+"settings.security_alerts_desc" = "تلقي إشعارات حول التهديدات الأمنية";
+"settings.notifications_denied_message" = "لتلقي التنبيهات، يرجى تمكين الإشعارات لـ QR-SHIELD في الإعدادات.";
+"settings.system_appearance_label" = "مظهر النظام";
+"settings.clear_history_button" = "مسح السجل";
+"settings.privacy_policy_link" = "سياسة الخصوصية";
+"settings.source_code_link" = "الكود المصدري";
 "settings.engine_swift" = "Swift 6";
-"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_confirm_message" = "لا يمكن التراجع عن هذا الإجراء. سيتم حذف جميع سجلات المسح نهائياً.";
 "settings.ios_version" = "iOS 17+";
-"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+"settings.liquid_glass_footer" = "iOS 17+ يقدم تأثيرات Liquid Glass الجميلة. قلل التأثيرات إذا واجهت مشاكل في الأداء.";
 
 // MARK: - Dashboard Additional
-"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
-"dashboard.zero_latency" = "zero-latency phishing detection";
-"dashboard.version_date" = "Version 2023.10.24";
-"dashboard.offline_badge" = "OFFLINE READY";
+"dashboard.hero.description_full" = "QR-SHIELD يحلل التهديدات مباشرة على جهازك. جرب";
+"dashboard.zero_latency" = "كشف التصيد بدون تأخير";
+"dashboard.version_date" = "الإصدار 2023.10.24";
+"dashboard.offline_badge" = "جاهز للعمل بدون اتصال";
 
 // MARK: - Navigation
-"nav.version_offline" = "v2.4.0 • Offline Mode";
+"nav.version_offline" = "v2.4.0 • وضع بدون اتصال";
 
 // MARK: - Results Additional
-"result.block_warning" = "This will block the domain and report it to your security team.";
-"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
-"result.open_safari_risky" = "Open in Safari (Risky)";
-"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.block_warning" = "سيتم حظر النطاق والإبلاغ عنه لفريق الأمان.";
+"result.dangerous_full_warning" = "تم تصنيف هذا الرابط كخطر محتمل. فتحه قد يعرضك للتصيد أو البرمجيات الخبيثة.\n\nهل أنت متأكد أنك تريد المتابعة؟";
+"result.open_safari_risky" = "فتح في Safari (خطر)";
+"result.open_warning_browser" = "فتح هذا الرابط في متصفحك قد يعرضك لمخاطر أمنية.";
 
 // MARK: - Components
-"component.confidence" = "Confidence";
-"component.risk_score" = "Risk Score";
-"component.risk_flags" = "Risk Flags";
-"component.view_full_analysis" = "View Full Analysis";
-"component.select_image" = "Select an Image";
-"component.select_image_desc" = "Choose a photo containing a QR code";
-"component.idle_state" = "Idle State";
-"component.active_state" = "Active State";
+"component.confidence" = "الثقة";
+"component.risk_score" = "درجة المخاطر";
+"component.risk_flags" = "علامات المخاطر";
+"component.view_full_analysis" = "عرض التحليل الكامل";
+"component.select_image" = "اختيار صورة";
+"component.select_image_desc" = "اختر صورة تحتوي على رمز QR";
+"component.idle_state" = "حالة الخمول";
+"component.active_state" = "حالة النشاط";
 
 // MARK: - Threat History
-"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
-"threat.live_map" = "LIVE THREAT MAP";
-"threat.global_view" = "Global View";
-"threat.last_audit" = "Last audit: %@";
-"threat.latest_updates" = "LATEST UPDATES";
-"threat.live" = "LIVE";
+"threat.no_vulnerabilities" = "لم يتم اكتشاف ثغرات. جهازك آمن.";
+"threat.live_map" = "خريطة التهديدات المباشرة";
+"threat.global_view" = "عرض عالمي";
+"threat.last_audit" = "آخر تدقيق: %@";
+"threat.latest_updates" = "أحدث التحديثات";
+"threat.live" = "مباشر";
 
 // MARK: - History Additional
-"history.scan_statistics" = "Scan Statistics";
-"history.safe_count" = "Safe: %d";
-"history.suspicious_count" = "Suspicious: %d";
-"history.malicious_count" = "Malicious: %d";
-"history.total_scans" = "Total: %d scans";
+"history.scan_statistics" = "إحصائيات المسح";
+"history.safe_count" = "آمن: %d";
+"history.suspicious_count" = "مشبوه: %d";
+"history.malicious_count" = "خبيث: %d";
+"history.total_scans" = "الإجمالي: %d عملية مسح";
+"history.exported_clipboard" = "تم التصدير إلى الحافظة";
+"history.url_label" = "الرابط";
 
 // MARK: - KMP Demo
-"kmp.integration" = "Kotlin Multiplatform Integration";
-"kmp.analyze_button" = "Analyze with KMP Engine";
-"kmp.quick_test" = "Quick Test:";
-"kmp.analysis_result" = "Analysis Result";
-"kmp.score_format" = "Score: %d/100";
-"kmp.risk_flags" = "Risk Flags:";
-"kmp.powered_by" = "Powered by Kotlin/Native";
+"kmp.integration" = "تكامل Kotlin Multiplatform";
+"kmp.analyze_button" = "تحليل بمحرك KMP";
+"kmp.quick_test" = "اختبار سريع:";
+"kmp.analysis_result" = "نتيجة التحليل";
+"kmp.score_format" = "الدرجة: %d/100";
+"kmp.risk_flags" = "علامات المخاطر:";
+"kmp.powered_by" = "مدعوم بـ Kotlin/Native";
 
 // MARK: - Scanner Additional
-"scanner.camera_required_title" = "Camera Access Required";
-"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
-"scanner.analyzing_dots" = "Analyzing...";
-"scanner.point_qr" = "Point at QR Code";
-"scanner.toggle_scan" = "Toggle scanning";
-"scanner.dismiss_error" = "Dismiss error";
-"scanner.camera_preview" = "Camera Preview";
+"scanner.camera_required_title" = "مطلوب الوصول للكاميرا";
+"scanner.camera_required_message" = "QR-SHIELD يحتاج الوصول للكاميرا لمسح رموز QR. يرجى تمكينه في الإعدادات.";
+"scanner.analyzing_dots" = "جاري التحليل...";
+"scanner.point_qr" = "وجه نحو رمز QR";
+"scanner.toggle_scan" = "تبديل المسح";
+"scanner.dismiss_error" = "إغلاق الخطأ";
+"scanner.camera_preview" = "معاينة الكاميرا";
 
 // MARK: - Trust Centre Additional
-"trust.low" = "Low";
-"trust.balanced" = "Balanced";
-"trust.paranoia" = "Paranoia";
-"trust.reset_defaults" = "Reset to Defaults";
+"trust.low" = "منخفض";
+"trust.balanced" = "متوازن";
+"trust.paranoia" = "بارانويا";
+"trust.reset_defaults" = "إعادة تعيين الافتراضيات";
 "trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
 
 // MARK: - Export View
-"export.title" = "Export Threat Analysis";
-"export.subtitle" = "Choose a format to export your secure offline analysis.";
-"export.select_format" = "SELECT FORMAT";
-"export.live_preview" = "LIVE PREVIEW";
-"export.expand" = "Expand";
-"export.share" = "Share";
-"export.export_button" = "Export Report";
-"export.available_actions" = "AVAILABLE ACTIONS";
-"export.privacy_note" = "Privacy Note";
-"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+"export.title" = "تصدير تحليل التهديدات";
+"export.subtitle" = "اختر تنسيقاً لتصدير تحليلك الآمن بدون اتصال.";
+"export.select_format" = "اختيار التنسيق";
+"export.live_preview" = "معاينة مباشرة";
+"export.expand" = "توسيع";
+"export.share" = "مشاركة";
+"export.export_button" = "تصدير التقرير";
+"export.available_actions" = "الإجراءات المتاحة";
+"export.privacy_note" = "ملاحظة الخصوصية";
+"export.privacy_message" = "يتم إجراء جميع التحليلات بالكامل على جهازك. التقارير المصدرة لا تحتوي على معلومات شخصية.";
 
 // MARK: - Onboarding Additional
-"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
-"onboarding.page_of" = "Page %d of %d";
-
-// MARK: - History Additional
-"history.exported_clipboard" = "Exported to clipboard";
-"history.url_label" = "URL";
+"onboarding.camera_permission_message" = "QR-SHIELD يحتاج الوصول للكاميرا لمسح رموز QR. يمكنك تغيير هذا لاحقاً في الإعدادات.";
+"onboarding.page_of" = "صفحة %d من %d";
 
 // MARK: - Accessibility Labels
-"accessibility.risk_score" = "Risk Score";
-"accessibility.risk_flags" = "Risk Flags";
-"accessibility.scan_history" = "Scan History";
-"accessibility.dismiss_error" = "Dismiss error";
-"accessibility.toggle_scanning" = "Toggle scanning";
-"accessibility.gallery" = "Gallery";
-"accessibility.open_history" = "Open history";
+"accessibility.risk_score" = "درجة المخاطر";
+"accessibility.risk_flags" = "علامات المخاطر";
+"accessibility.scan_history" = "سجل المسح";
+"accessibility.dismiss_error" = "إغلاق الخطأ";
+"accessibility.toggle_scanning" = "تبديل المسح";
+"accessibility.gallery" = "المعرض";
+"accessibility.open_history" = "فتح السجل";

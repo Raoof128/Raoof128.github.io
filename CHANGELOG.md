@@ -5,6 +5,52 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.48] - 2025-12-26
+
+### 🌐 Complete Native Translations for All 16 Languages
+
+Replaced English placeholders with proper native translations for all 97 new localization keys.
+
+#### Languages Fully Translated (15 non-English)
+
+| Language | Native Examples |
+|----------|-----------------|
+| 🇩🇪 German | "Schlage den Bot", "Sicherheitswarnungen" |
+| 🇪🇸 Spanish | "Vence al Bot", "Alertas de seguridad" |
+| 🇫🇷 French | "Battez le Bot", "Alertes de sécurité" |
+| 🇮🇹 Italian | "Batti il Bot", "Avvisi di sicurezza" |
+| 🇵🇹 Portuguese | "Vença o Bot", "Alertas de segurança" |
+| 🇷🇺 Russian | "Победи бота", "Уведомления безопасности" |
+| 🇯🇵 Japanese | "ボットに勝つ", "セキュリティアラート" |
+| 🇰🇷 Korean | "봇을 이겨라", "보안 알림" |
+| 🇨🇳 Chinese | "击败机器人", "安全警报" |
+| 🇸🇦 Arabic | "تغلب على الروبوت", "تنبيهات الأمان" |
+| 🇮🇳 Hindi | "बॉट को हराएं", "सुरक्षा अलर्ट" |
+| 🇮🇩 Indonesian | "Kalahkan Bot", "Peringatan keamanan" |
+| 🇹🇭 Thai | "เอาชนะบอท", "การแจ้งเตือนความปลอดภัย" |
+| 🇹🇷 Turkish | "Botu Yen", "Güvenlik uyarıları" |
+| 🇻🇳 Vietnamese | "Đánh bại Bot", "Cảnh báo bảo mật" |
+
+#### Categories Translated
+
+- **Training Mode**: All game UI strings
+- **Settings**: Security alerts, appearance, privacy
+- **Dashboard**: Hero section, offline badge
+- **Scanner**: Camera access, analyzing prompts
+- **Export**: Panel labels and privacy notes
+- **History**: Statistics and audit info
+- **Trust Centre**: Sensitivity levels
+- **Accessibility**: VoiceOver labels
+
+#### Build Verification
+
+```bash
+plutil -lint *.lproj/Localizable.strings  # All 16 files OK
+xcodebuild -scheme QRShield build  # BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.47] - 2025-12-26
 
 ### 🌐 iOS Hardcoded Strings Localization

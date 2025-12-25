@@ -286,170 +286,129 @@
 "settings.language_restart_message" = "新しい言語を適用するにはアプリの再起動が必要です。";
 "settings.restart_later" = "後で";
 
-// MARK: - New Keys (English placeholder - translate)
-"result.url_breakdown" = "URL BREAKDOWN";
-"result.full_url" = "FULL URL";
-"result.open_safari" = "Open in Safari (Risky)";
-"result.open_warning_full" = "Opening this URL in your browser may expose you to security risks.";
-"result.restricted_mode" = "Restricted Mode";
-"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
-"result.dangerous_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 
-// MARK: - Navigation
-"nav.quick_actions" = "QUICK ACTIONS";
-"nav.systems_operational" = "All systems operational";
-
-// MARK: - Common
-"common.enabled" = "Enabled";
-"common.disabled" = "Disabled";
-
-// MARK: - Language Settings
-"settings.language" = "Language";
-"settings.language_section" = "Language";
-"settings.language_system" = "System Default";
-"settings.language_search" = "Search languages";
-"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
-"common.done" = "Done";
-"settings.language_changed" = "Language Changed";
-"settings.restart_later" = "Later";
-"settings.restart_now" = "Restart Now";
-"settings.language_restart_message" = "To fully apply the new language, please restart the app.";
-
-// MARK: - Restart Required Screen
-"settings.restart_title" = "Restart Required";
-"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
-"settings.restart_step1" = "Tap 'Close App' below";
-"settings.restart_step2" = "Swipe up from the app switcher to fully close";
-"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
-"settings.close_app" = "Close App";
-"settings.restart_error_title" = "Restart Error";
-"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
-"common.ok" = "OK";
-
-// MARK: - Beat The Bot (Training)
-"training.mode" = "TRAINING MODE";
-"training.beat_the_bot" = "Beat the Bot";
-"training.seconds" = "Seconds";
-"training.level" = "LEVEL %d";
-"training.unusual_signin" = "Unusual Sign-in Attempt";
-"training.unusual_signin_message" = "We detected a login from a new device. Please verify your identity immediately to prevent account suspension.";
-"training.verify_identity" = "Verify Identity";
-"training.phishing" = "Phishing";
-"training.legitimate" = "Legitimate";
-"training.live_session" = "LIVE SESSION";
-"training.online" = "ONLINE";
-"training.bot_confidence" = "Bot Confidence:";
-"training.ai_analysis" = "AI NEURAL ANALYSIS";
-"training.live_hint" = "Live Hint";
-"training.tip" = "Tip:";
-"training.beginner" = "BEGINNER";
-"training.intermediate" = "INTERMEDIATE";
-"training.advanced" = "ADVANCED";
-"training.nightmare" = "NIGHTMARE";
+// MARK: - Training (Beat The Bot)
+"training.mode" = "トレーニングモード";
+"training.beat_the_bot" = "ボットに勝つ";
+"training.seconds" = "秒";
+"training.level" = "レベル %d";
+"training.unusual_signin" = "異常なサインイン";
+"training.unusual_signin_message" = "新しいデバイスからのログインを検出しました。すぐに本人確認を行ってください。";
+"training.verify_identity" = "本人確認";
+"training.phishing" = "フィッシング";
+"training.legitimate" = "正規";
+"training.live_session" = "ライブセッション";
+"training.online" = "オンライン";
+"training.bot_confidence" = "ボット確信度:";
+"training.ai_analysis" = "AIニューラル分析";
+"training.live_hint" = "ライブヒント";
+"training.tip" = "ヒント:";
+"training.beginner" = "初級";
+"training.intermediate" = "中級";
+"training.advanced" = "上級";
+"training.nightmare" = "悪夢";
 
 // MARK: - Settings Additional
-"settings.security_alerts_title" = "Security alerts";
-"settings.security_alerts_desc" = "Get notified about security threats";
-"settings.notifications_denied_message" = "To receive security alerts, please enable notifications for QR-SHIELD in Settings.";
-"settings.system_appearance_label" = "System Appearance";
-"settings.clear_history_button" = "Clear History";
-"settings.privacy_policy_link" = "Privacy Policy";
-"settings.source_code_link" = "Source Code";
+"settings.security_alerts_title" = "セキュリティアラート";
+"settings.security_alerts_desc" = "セキュリティ脅威の通知を受け取る";
+"settings.notifications_denied_message" = "アラートを受け取るには、設定でQR-SHIELDの通知を有効にしてください。";
+"settings.system_appearance_label" = "システム外観";
+"settings.clear_history_button" = "履歴を消去";
+"settings.privacy_policy_link" = "プライバシーポリシー";
+"settings.source_code_link" = "ソースコード";
 "settings.engine_swift" = "Swift 6";
-"settings.clear_confirm_message" = "This action cannot be undone. All scan history will be permanently deleted.";
+"settings.clear_confirm_message" = "この操作は元に戻せません。すべてのスキャン履歴が完全に削除されます。";
 "settings.ios_version" = "iOS 17+";
-"settings.liquid_glass_footer" = "iOS 17+ introduces beautiful Liquid Glass effects. Reduce effects if you experience performance issues.";
+"settings.liquid_glass_footer" = "iOS 17+は美しいLiquid Glassエフェクトを導入しています。パフォーマンスの問題がある場合はエフェクトを減らしてください。";
 
 // MARK: - Dashboard Additional
-"dashboard.hero.description_full" = "QR-SHIELD analyses potential threats directly on your hardware. Experience";
-"dashboard.zero_latency" = "zero-latency phishing detection";
-"dashboard.version_date" = "Version 2023.10.24";
-"dashboard.offline_badge" = "OFFLINE READY";
+"dashboard.hero.description_full" = "QR-SHIELDはあなたのハードウェア上で直接脅威を分析します。体験してください";
+"dashboard.zero_latency" = "ゼロレイテンシーのフィッシング検出";
+"dashboard.version_date" = "バージョン 2023.10.24";
+"dashboard.offline_badge" = "オフライン対応";
 
 // MARK: - Navigation
-"nav.version_offline" = "v2.4.0 • Offline Mode";
+"nav.version_offline" = "v2.4.0 • オフラインモード";
 
 // MARK: - Results Additional
-"result.block_warning" = "This will block the domain and report it to your security team.";
-"result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
-"result.open_safari_risky" = "Open in Safari (Risky)";
-"result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.block_warning" = "ドメインをブロックし、セキュリティチームに報告します。";
+"result.dangerous_full_warning" = "このURLは潜在的に危険とマークされています。開くとフィッシングやマルウェアにさらされる可能性があります。\n\n続行しますか？";
+"result.open_safari_risky" = "Safariで開く（リスクあり）";
+"result.open_warning_browser" = "このURLをブラウザで開くとセキュリティリスクにさらされる可能性があります。";
 
 // MARK: - Components
-"component.confidence" = "Confidence";
-"component.risk_score" = "Risk Score";
-"component.risk_flags" = "Risk Flags";
-"component.view_full_analysis" = "View Full Analysis";
-"component.select_image" = "Select an Image";
-"component.select_image_desc" = "Choose a photo containing a QR code";
-"component.idle_state" = "Idle State";
-"component.active_state" = "Active State";
+"component.confidence" = "確信度";
+"component.risk_score" = "リスクスコア";
+"component.risk_flags" = "リスクフラグ";
+"component.view_full_analysis" = "完全な分析を見る";
+"component.select_image" = "画像を選択";
+"component.select_image_desc" = "QRコードを含む写真を選択";
+"component.idle_state" = "待機状態";
+"component.active_state" = "アクティブ状態";
 
 // MARK: - Threat History
-"threat.no_vulnerabilities" = "No vulnerabilities detected. Your device is secure.";
-"threat.live_map" = "LIVE THREAT MAP";
-"threat.global_view" = "Global View";
-"threat.last_audit" = "Last audit: %@";
-"threat.latest_updates" = "LATEST UPDATES";
-"threat.live" = "LIVE";
+"threat.no_vulnerabilities" = "脆弱性は検出されませんでした。デバイスは安全です。";
+"threat.live_map" = "ライブ脅威マップ";
+"threat.global_view" = "グローバルビュー";
+"threat.last_audit" = "最終監査: %@";
+"threat.latest_updates" = "最新の更新";
+"threat.live" = "ライブ";
 
 // MARK: - History Additional
-"history.scan_statistics" = "Scan Statistics";
-"history.safe_count" = "Safe: %d";
-"history.suspicious_count" = "Suspicious: %d";
-"history.malicious_count" = "Malicious: %d";
-"history.total_scans" = "Total: %d scans";
+"history.scan_statistics" = "スキャン統計";
+"history.safe_count" = "安全: %d";
+"history.suspicious_count" = "疑わしい: %d";
+"history.malicious_count" = "悪意あり: %d";
+"history.total_scans" = "合計: %d スキャン";
+"history.exported_clipboard" = "クリップボードにエクスポート";
+"history.url_label" = "URL";
 
 // MARK: - KMP Demo
-"kmp.integration" = "Kotlin Multiplatform Integration";
-"kmp.analyze_button" = "Analyze with KMP Engine";
-"kmp.quick_test" = "Quick Test:";
-"kmp.analysis_result" = "Analysis Result";
-"kmp.score_format" = "Score: %d/100";
-"kmp.risk_flags" = "Risk Flags:";
-"kmp.powered_by" = "Powered by Kotlin/Native";
+"kmp.integration" = "Kotlin Multiplatform統合";
+"kmp.analyze_button" = "KMPエンジンで分析";
+"kmp.quick_test" = "クイックテスト:";
+"kmp.analysis_result" = "分析結果";
+"kmp.score_format" = "スコア: %d/100";
+"kmp.risk_flags" = "リスクフラグ:";
+"kmp.powered_by" = "Kotlin/Nativeで動作";
 
 // MARK: - Scanner Additional
-"scanner.camera_required_title" = "Camera Access Required";
-"scanner.camera_required_message" = "QR-SHIELD needs camera access to scan QR codes. Please enable it in Settings.";
-"scanner.analyzing_dots" = "Analyzing...";
-"scanner.point_qr" = "Point at QR Code";
-"scanner.toggle_scan" = "Toggle scanning";
-"scanner.dismiss_error" = "Dismiss error";
-"scanner.camera_preview" = "Camera Preview";
+"scanner.camera_required_title" = "カメラアクセスが必要";
+"scanner.camera_required_message" = "QR-SHIELDはQRコードをスキャンするためにカメラアクセスが必要です。設定で有効にしてください。";
+"scanner.analyzing_dots" = "分析中...";
+"scanner.point_qr" = "QRコードに向ける";
+"scanner.toggle_scan" = "スキャン切替";
+"scanner.dismiss_error" = "エラーを閉じる";
+"scanner.camera_preview" = "カメラプレビュー";
 
 // MARK: - Trust Centre Additional
-"trust.low" = "Low";
-"trust.balanced" = "Balanced";
-"trust.paranoia" = "Paranoia";
-"trust.reset_defaults" = "Reset to Defaults";
+"trust.low" = "低";
+"trust.balanced" = "バランス";
+"trust.paranoia" = "パラノイア";
+"trust.reset_defaults" = "デフォルトに戻す";
 "trust.version_info" = "QR-SHIELD v2.4.0 (Build 892)";
 
 // MARK: - Export View
-"export.title" = "Export Threat Analysis";
-"export.subtitle" = "Choose a format to export your secure offline analysis.";
-"export.select_format" = "SELECT FORMAT";
-"export.live_preview" = "LIVE PREVIEW";
-"export.expand" = "Expand";
-"export.share" = "Share";
-"export.export_button" = "Export Report";
-"export.available_actions" = "AVAILABLE ACTIONS";
-"export.privacy_note" = "Privacy Note";
-"export.privacy_message" = "All analysis is performed entirely on your device. Exported reports do not contain any personal information beyond the URL you scanned.";
+"export.title" = "脅威分析をエクスポート";
+"export.subtitle" = "セキュアなオフライン分析をエクスポートするフォーマットを選択。";
+"export.select_format" = "フォーマットを選択";
+"export.live_preview" = "ライブプレビュー";
+"export.expand" = "展開";
+"export.share" = "共有";
+"export.export_button" = "レポートをエクスポート";
+"export.available_actions" = "利用可能なアクション";
+"export.privacy_note" = "プライバシーノート";
+"export.privacy_message" = "すべての分析はデバイス上で完全に実行されます。エクスポートされたレポートには個人情報は含まれません。";
 
 // MARK: - Onboarding Additional
-"onboarding.camera_permission_message" = "QR-SHIELD needs camera access to scan QR codes. You can change this later in Settings.";
-"onboarding.page_of" = "Page %d of %d";
-
-// MARK: - History Additional
-"history.exported_clipboard" = "Exported to clipboard";
-"history.url_label" = "URL";
+"onboarding.camera_permission_message" = "QR-SHIELDはQRコードをスキャンするためにカメラアクセスが必要です。後で設定から変更できます。";
+"onboarding.page_of" = "ページ %d / %d";
 
 // MARK: - Accessibility Labels
-"accessibility.risk_score" = "Risk Score";
-"accessibility.risk_flags" = "Risk Flags";
-"accessibility.scan_history" = "Scan History";
-"accessibility.dismiss_error" = "Dismiss error";
-"accessibility.toggle_scanning" = "Toggle scanning";
-"accessibility.gallery" = "Gallery";
-"accessibility.open_history" = "Open history";
+"accessibility.risk_score" = "リスクスコア";
+"accessibility.risk_flags" = "リスクフラグ";
+"accessibility.scan_history" = "スキャン履歴";
+"accessibility.dismiss_error" = "エラーを閉じる";
+"accessibility.toggle_scanning" = "スキャン切替";
+"accessibility.gallery" = "ギャラリー";
+"accessibility.open_history" = "履歴を開く";
