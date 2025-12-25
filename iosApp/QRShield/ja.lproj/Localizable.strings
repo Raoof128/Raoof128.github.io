@@ -475,3 +475,10 @@
 "result.open_anyway" = "それでも開く";
 "common.cancel" = "キャンセル";
 "common.close" = "閉じる";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "ダッシュボード";
+"tab.scan" = "スキャン";
+"tab.history" = "履歴";
+"tab.training" = "トレーニング";
+"tab.settings" = "設定";

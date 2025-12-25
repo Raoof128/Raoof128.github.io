@@ -474,3 +474,10 @@
 "result.open_anyway" = "فتح على أي حال";
 "common.cancel" = "إلغاء";
 "common.close" = "إغلاق";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "لوحة التحكم";
+"tab.scan" = "مسح";
+"tab.history" = "السجل";
+"tab.training" = "التدريب";
+"tab.settings" = "الإعدادات";

@@ -475,3 +475,10 @@
 "result.open_anyway" = "Apri comunque";
 "common.cancel" = "Annulla";
 "common.close" = "Chiudi";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Dashboard";
+"tab.scan" = "Scansiona";
+"tab.history" = "Cronologia";
+"tab.training" = "Allenamento";
+"tab.settings" = "Impostazioni";

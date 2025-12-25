@@ -475,3 +475,10 @@
 "result.open_anyway" = "फिर भी खोलें";
 "common.cancel" = "रद्द करें";
 "common.close" = "बंद करें";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "डैशबोर्ड";
+"tab.scan" = "स्कैन";
+"tab.history" = "इतिहास";
+"tab.training" = "प्रशिक्षण";
+"tab.settings" = "सेटिंग्स";

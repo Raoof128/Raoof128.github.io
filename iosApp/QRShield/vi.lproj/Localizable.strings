@@ -474,3 +474,10 @@
 "result.open_anyway" = "Vẫn mở";
 "common.cancel" = "Hủy";
 "common.close" = "Đóng";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Bảng điều khiển";
+"tab.scan" = "Quét";
+"tab.history" = "Lịch sử";
+"tab.training" = "Huấn luyện";
+"tab.settings" = "Cài đặt";

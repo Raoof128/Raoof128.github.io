@@ -474,3 +474,10 @@
 "result.open_anyway" = "Yine de aç";
 "common.cancel" = "İptal";
 "common.close" = "Kapat";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Panel";
+"tab.scan" = "Tara";
+"tab.history" = "Geçmiş";
+"tab.training" = "Eğitim";
+"tab.settings" = "Ayarlar";

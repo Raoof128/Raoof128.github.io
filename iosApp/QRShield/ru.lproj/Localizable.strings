@@ -475,3 +475,10 @@
 "result.open_anyway" = "Всё равно открыть";
 "common.cancel" = "Отмена";
 "common.close" = "Закрыть";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Панель";
+"tab.scan" = "Сканировать";
+"tab.history" = "История";
+"tab.training" = "Тренировка";
+"tab.settings" = "Настройки";

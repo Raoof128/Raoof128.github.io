@@ -5,6 +5,45 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.51] - 2025-12-26
+
+### 🔧 Tab Bar Localization + Training Back Button Fix
+
+Fixed two critical bugs reported by user:
+
+#### 1. Tab Bar Labels Now Localized
+
+| Tab | English | 🇩🇪 German | 🇯🇵 Japanese | 🇸🇦 Arabic |
+|-----|---------|------------|---------------|------------|
+| Dashboard | Dashboard | Dashboard | ダッシュボード | لوحة التحكم |
+| Scan | Scan | Scannen | スキャン | مسح |
+| History | History | Verlauf | 履歴 | السجل |
+| Training | Training | Training | トレーニング | التدريب |
+| Settings | Settings | Einstellungen | 設定 | الإعدادات |
+
+#### 2. Training Back Button Fixed
+
+**Root Cause**: Double-wrapped NavigationStack
+- `QRShieldApp.swift` wrapped `BeatTheBotView` in `NavigationStack`
+- `BeatTheBotView` already had its own internal `NavigationStack`
+- This caused the back button toolbar item to not work
+
+**Fix**: Removed the outer `NavigationStack` wrapper from the Training tab in `QRShieldApp.swift`. The view now uses only its internal navigation.
+
+#### Files Updated
+
+- `QRShieldApp.swift` - Tab labels localized, removed duplicate NavigationStack
+- All 16 `.lproj/Localizable.strings` files - Added 5 tab bar keys
+
+#### Build Verification
+
+```bash
+plutil -lint *.lproj/Localizable.strings  # All 16 files OK
+xcodebuild -scheme QRShield build  # BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.50] - 2025-12-26
 
 ### 🌐 Navigation Sidebar & Result Page Localization + Training Scrolling

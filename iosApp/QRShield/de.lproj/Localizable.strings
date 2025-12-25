@@ -477,3 +477,10 @@
 "result.open_anyway" = "Trotzdem öffnen";
 "common.cancel" = "Abbrechen";
 "common.close" = "Schließen";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Dashboard";
+"tab.scan" = "Scannen";
+"tab.history" = "Verlauf";
+"tab.training" = "Training";
+"tab.settings" = "Einstellungen";

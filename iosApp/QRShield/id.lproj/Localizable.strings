@@ -474,3 +474,10 @@
 "result.open_anyway" = "Buka saja";
 "common.cancel" = "Batal";
 "common.close" = "Tutup";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Dasbor";
+"tab.scan" = "Pindai";
+"tab.history" = "Riwayat";
+"tab.training" = "Latihan";
+"tab.settings" = "Pengaturan";

@@ -506,3 +506,10 @@
 "result.open_anyway" = "Open Anyway";
 "common.cancel" = "Cancel";
 "common.close" = "Close";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Dashboard";
+"tab.scan" = "Scan";
+"tab.history" = "History";
+"tab.training" = "Training";
+"tab.settings" = "Settings";

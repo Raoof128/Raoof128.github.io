@@ -475,3 +475,10 @@
 "result.open_anyway" = "그래도 열기";
 "common.cancel" = "취소";
 "common.close" = "닫기";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "대시보드";
+"tab.scan" = "스캔";
+"tab.history" = "기록";
+"tab.training" = "훈련";
+"tab.settings" = "설정";

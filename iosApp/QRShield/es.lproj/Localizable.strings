@@ -475,3 +475,10 @@
 "result.open_anyway" = "Abrir de todos modos";
 "common.cancel" = "Cancelar";
 "common.close" = "Cerrar";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Panel";
+"tab.scan" = "Escanear";
+"tab.history" = "Historial";
+"tab.training" = "Entrenamiento";
+"tab.settings" = "Ajustes";

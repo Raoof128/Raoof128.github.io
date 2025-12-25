@@ -474,3 +474,10 @@
 "result.open_anyway" = "เปิดต่อไป";
 "common.cancel" = "ยกเลิก";
 "common.close" = "ปิด";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "แดชบอร์ด";
+"tab.scan" = "สแกน";
+"tab.history" = "ประวัติ";
+"tab.training" = "ฝึกซ้อม";
+"tab.settings" = "การตั้งค่า";

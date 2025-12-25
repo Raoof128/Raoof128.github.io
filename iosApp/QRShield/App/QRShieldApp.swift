@@ -181,7 +181,7 @@ struct ContentView: View {
                 DashboardView()
             }
             .tabItem {
-                Label("Dashboard", systemImage: selectedTab == 0 ? "square.grid.2x2.fill" : "square.grid.2x2")
+                Label(NSLocalizedString("tab.dashboard", comment: ""), systemImage: selectedTab == 0 ? "square.grid.2x2.fill" : "square.grid.2x2")
             }
             .tag(0)
             
@@ -190,7 +190,7 @@ struct ContentView: View {
                 ScannerView()
             }
             .tabItem {
-                Label("Scan", systemImage: selectedTab == 1 ? "qrcode.viewfinder" : "qrcode")
+                Label(NSLocalizedString("tab.scan", comment: ""), systemImage: selectedTab == 1 ? "qrcode.viewfinder" : "qrcode")
             }
             .tag(1)
             
@@ -199,16 +199,14 @@ struct ContentView: View {
                 HistoryView()
             }
             .tabItem {
-                Label("History", systemImage: selectedTab == 2 ? "clock.fill" : "clock")
+                Label(NSLocalizedString("tab.history", comment: ""), systemImage: selectedTab == 2 ? "clock.fill" : "clock")
             }
             .tag(2)
             
-            // Training Tab (Beat the Bot)
-            NavigationStack {
-                BeatTheBotView()
-            }
+            // Training Tab (Beat the Bot) - BeatTheBotView has its own NavigationStack
+            BeatTheBotView()
             .tabItem {
-                Label("Training", systemImage: selectedTab == 3 ? "gamecontroller.fill" : "gamecontroller")
+                Label(NSLocalizedString("tab.training", comment: ""), systemImage: selectedTab == 3 ? "gamecontroller.fill" : "gamecontroller")
             }
             .tag(3)
             
@@ -227,7 +225,7 @@ struct ContentView: View {
                     }
             }
             .tabItem {
-                Label("Settings", systemImage: selectedTab == 4 ? "gearshape.fill" : "gearshape")
+                Label(NSLocalizedString("tab.settings", comment: ""), systemImage: selectedTab == 4 ? "gearshape.fill" : "gearshape")
             }
             .tag(4)
         }

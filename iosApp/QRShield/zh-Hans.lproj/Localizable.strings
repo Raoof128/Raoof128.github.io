@@ -475,3 +475,10 @@
 "result.open_anyway" = "仍然打开";
 "common.cancel" = "取消";
 "common.close" = "关闭";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "仪表板";
+"tab.scan" = "扫描";
+"tab.history" = "历史";
+"tab.training" = "训练";
+"tab.settings" = "设置";
