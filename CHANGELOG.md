@@ -5,6 +5,27 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.58] - 2025-12-26
+
+### 🎨 Learning Centre UI Light Mode Fix + Module Icons
+
+#### Light Mode Adaptation
+- Fixed `ReportThreatCard` hardcoded dark colors that didn't adapt to light mode
+- Now uses `MaterialTheme.colorScheme.inverseSurface` / `inverseOnSurface` for proper theme adaptation
+- Card automatically inverts colors based on current theme (dark in light mode, light in dark mode)
+
+#### New Module Icons
+- Added `ic_module_qr_basics.xml` - QR code pattern icon
+- Added `ic_module_link_hygiene.xml` - Chain link icon  
+- Added `ic_module_spot_phish.xml` - Eye with warning icon
+- Updated `ModuleCard` to accept custom `iconPainter` parameter
+- Module cards now display themed icons with proper tints
+
+#### Updated Components
+- `LearningCentreScreen.kt` - Theme-aware colors, custom module icons
+
+---
+
 ## [1.17.57] - 2025-12-26
 
 ### 🔧 Production Polish & Android Checklist Verification

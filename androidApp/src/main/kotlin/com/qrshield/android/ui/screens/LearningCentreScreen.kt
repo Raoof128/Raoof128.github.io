@@ -37,6 +37,8 @@ import com.qrshield.android.ui.components.CircularProgressIndicatorWithPercentag
 import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.android.ui.theme.QRShieldShapes
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.painter.Painter
 import com.qrshield.android.R
 
 /**
@@ -357,30 +359,33 @@ private fun ModulesSection(onModuleClick: (String) -> Unit) {
             modifier = Modifier.padding(horizontal = 16.dp)
         )
 
-        // Module 1: In Progress
+        // Module 1: In Progress - Spot the Phish
         ModuleCard(
             title = stringResource(R.string.module_spot_the_phish),
             description = stringResource(R.string.module_spot_the_phish_desc),
             status = ModuleStatus.IN_PROGRESS,
             progress = 0.4f,
             hasOfflinePin = true,
+            iconPainter = painterResource(R.drawable.ic_module_spot_phish),
             onClick = { onModuleClick("spot_the_phish") }
         )
 
-        // Module 2: Completed
+        // Module 2: Completed - QR Basics
         ModuleCard(
             title = stringResource(R.string.module_qr_basics),
             description = stringResource(R.string.module_qr_basics_desc),
             status = ModuleStatus.COMPLETED,
             hasOfflinePin = true,
+            iconPainter = painterResource(R.drawable.ic_module_qr_basics),
             onClick = { onModuleClick("qr_basics") }
         )
 
-        // Module 3: New
+        // Module 3: New - Link Hygiene
         ModuleCard(
             title = stringResource(R.string.module_link_hygiene),
             description = stringResource(R.string.module_link_hygiene_desc),
             status = ModuleStatus.NEW,
+            iconPainter = painterResource(R.drawable.ic_module_link_hygiene),
             onClick = { onModuleClick("link_hygiene") }
         )
     }
@@ -397,6 +402,7 @@ private fun ModuleCard(
     status: ModuleStatus,
     progress: Float = 0f,
     hasOfflinePin: Boolean = false,
+    iconPainter: Painter? = null,
     onClick: () -> Unit
 ) {
     Surface(
@@ -423,7 +429,7 @@ private fun ModuleCard(
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Module Image/Icon Placeholder
+                // Module Image/Icon
                 Box(
                     modifier = Modifier
                         .size(96.dp)
@@ -437,55 +443,65 @@ private fun ModuleCard(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (status == ModuleStatus.COMPLETED) {
-                        // Checkmark overlay for completed
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(QRShieldColors.Primary.copy(alpha = 0.2f)),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(32.dp)
-                                    .clip(CircleShape)
-                                    .background(Color.White.copy(alpha = 0.9f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Check,
-                                    contentDescription = null,
-                                    tint = QRShieldColors.Primary,
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            }
-                        }
+                    // Module icon
+                    if (iconPainter != null) {
+                        Icon(
+                            painter = iconPainter,
+                            contentDescription = null,
+                            tint = if (status == ModuleStatus.COMPLETED) {
+                                QRShieldColors.Primary
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                            },
+                            modifier = Modifier.size(48.dp)
+                        )
                     } else {
-                        // Offline pin for non-completed
-                        if (hasOfflinePin) {
-                            Box(
-                                modifier = Modifier
-                                    .align(Alignment.TopStart)
-                                    .padding(8.dp)
-                                    .size(24.dp)
-                                    .clip(CircleShape)
-                                    .background(Color.White.copy(alpha = 0.9f)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.OfflinePin,
-                                    contentDescription = stringResource(R.string.available_offline),
-                                    tint = QRShieldColors.Primary,
-                                    modifier = Modifier.size(16.dp)
-                                )
-                            }
-                        }
                         Icon(
                             imageVector = Icons.Default.School,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
                             modifier = Modifier.size(40.dp)
                         )
+                    }
+                    
+                    // Checkmark overlay for completed
+                    if (status == ModuleStatus.COMPLETED) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(4.dp)
+                                .size(28.dp)
+                                .clip(CircleShape)
+                                .background(MaterialTheme.colorScheme.surface),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CheckCircle,
+                                contentDescription = null,
+                                tint = QRShieldColors.Primary,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    }
+                    
+                    // Offline pin badge
+                    if (hasOfflinePin && status != ModuleStatus.COMPLETED) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(4.dp)
+                                .size(22.dp)
+                                .clip(CircleShape)
+                                .background(MaterialTheme.colorScheme.surface),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.OfflinePin,
+                                contentDescription = stringResource(R.string.available_offline),
+                                tint = QRShieldColors.Primary,
+                                modifier = Modifier.size(18.dp)
+                            )
+                        }
                     }
                 }
 
@@ -663,12 +679,17 @@ private fun StatusBadge(status: ModuleStatus, hasOfflinePin: Boolean = false) {
 
 @Composable
 private fun ReportThreatCard(onClick: () -> Unit) {
+    // Use inverseSurface for a card that stands out in both light and dark modes
+    val cardBackground = MaterialTheme.colorScheme.inverseSurface
+    val cardContentColor = MaterialTheme.colorScheme.inverseOnSurface
+    val accentColor = QRShieldColors.Yellow400
+    
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
         shape = QRShieldShapes.Card,
-        color = QRShieldColors.Slate900,
+        color = cardBackground,
         shadowElevation = 4.dp,
         onClick = onClick
     ) {
@@ -690,7 +711,7 @@ private fun ReportThreatCard(onClick: () -> Unit) {
                     Icon(
                         imageVector = Icons.Default.Shield,
                         contentDescription = null,
-                        tint = QRShieldColors.Yellow400,
+                        tint = accentColor,
                         modifier = Modifier.size(20.dp)
                     )
                     Text(
@@ -698,20 +719,20 @@ private fun ReportThreatCard(onClick: () -> Unit) {
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp,
-                        color = QRShieldColors.Yellow400
+                        color = accentColor
                     )
                 }
 
                 Text(
                     text = stringResource(R.string.report_a_threat),
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                    color = Color.White
+                    color = cardContentColor
                 )
 
                 Text(
                     text = stringResource(R.string.report_a_threat_desc),
                     style = MaterialTheme.typography.bodySmall,
-                    color = QRShieldColors.Slate300
+                    color = cardContentColor.copy(alpha = 0.7f)
                 )
             }
 
@@ -720,12 +741,12 @@ private fun ReportThreatCard(onClick: () -> Unit) {
                 modifier = Modifier
                     .size(40.dp)
                     .clip(CircleShape)
-                    .background(Color.White.copy(alpha = 0.1f))
+                    .background(cardContentColor.copy(alpha = 0.1f))
             ) {
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
                     contentDescription = stringResource(R.string.report_a_threat),
-                    tint = Color.White
+                    tint = cardContentColor
                 )
             }
         }

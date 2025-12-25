@@ -122,11 +122,12 @@ After making changes:
 
 ## Current Stats
 
-- **Version**: 1.17.57
-- **String Keys**: 554 (+25 from polish pass)
+- **Version**: 1.17.58
+- **String Keys**: 554
 - **Languages**: 16 (1 base + 15 localized)
-- **Content Descriptions**: 184 across 15 screens (+25 new accessibility labels)
-- **Design System Usages**: 303 (QRShieldColors/Shapes)
+- **Content Descriptions**: 197 across 20 files
+- **Design System Usages**: 374 (QRShieldColors/Shapes)
+- **Drawable Icons**: 15 (including 3 new module icons)
 - **Last Updated**: 2025-12-26
 
 ## Related Documentation
