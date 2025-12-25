@@ -502,3 +502,17 @@
 "export.copied" = "Copiato!";
 "export.copy" = "Copia";
 "export.report_generation" = "Generazione report";
+
+// MARK: - Additional Accessibility
+"accessibility.flash_on" = "Flash on";
+"accessibility.flash_off" = "Flash off";
+"accessibility.main_menu" = "Open main menu";
+"accessibility.close_menu" = "Close menu";
+"accessibility.scan_result" = "Scan result";
+"accessibility.view_details" = "View details";
+"accessibility.copy_url" = "Copy URL";
+"accessibility.share" = "Share";
+"accessibility.dismiss" = "Dismiss";
+"accessibility.back" = "Back";
+"accessibility.settings" = "Settings";
+"accessibility.trust_centre" = "Trust Centre";
