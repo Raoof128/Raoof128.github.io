@@ -481,3 +481,23 @@
 "tab.history" = "Geçmiş";
 "tab.training" = "Eğitim";
 "tab.settings" = "Ayarlar";
+
+// MARK: - Common Buttons
+"common.done" = "Bitti";
+"common.add" = "Ekle";
+"common.open_settings" = "Ayarları Aç";
+"common.clear_all" = "Tümünü temizle";
+"common.reset_all_settings" = "Tüm ayarları sıfırla";
+
+// MARK: - Export View
+"export.report_preview" = "Rapor önizlemesi";
+"export.help_title" = "Dışa aktarma yardımı";
+"export.format.pdf_title" = "PDF Raporu";
+"export.format.pdf_subtitle" = "Okunabilir özet";
+"export.format.json_title" = "JSON Verileri";
+"export.format.json_subtitle" = "Makine tarafından okunabilir ham veri";
+"export.help" = "Yardım";
+"export.switch_to" = "%@ olarak değiştir";
+"export.copied" = "Kopyalandı!";
+"export.copy" = "Kopyala";
+"export.report_generation" = "Rapor oluşturma";

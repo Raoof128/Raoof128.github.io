@@ -36,15 +36,15 @@ enum ExportFormat: String, CaseIterable {
     
     var title: String {
         switch self {
-        case .pdf: return "PDF Report"
-        case .json: return "JSON Data"
+        case .pdf: return NSLocalizedString("export.format.pdf_title", comment: "")
+        case .json: return NSLocalizedString("export.format.json_title", comment: "")
         }
     }
     
     var subtitle: String {
         switch self {
-        case .pdf: return "Human-readable summary"
-        case .json: return "Machine-readable raw data"
+        case .pdf: return NSLocalizedString("export.format.pdf_subtitle", comment: "")
+        case .json: return NSLocalizedString("export.format.json_subtitle", comment: "")
         }
     }
     
@@ -119,7 +119,7 @@ struct ReportExportView: View {
             .background {
                 animatedBackground
             }
-            .navigationTitle("Report Generation")
+            .navigationTitle(NSLocalizedString("export.report_generation", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -136,7 +136,7 @@ struct ReportExportView: View {
                         Button {
                             showHelp = true
                         } label: {
-                            Label("Help", systemImage: "questionmark.circle")
+                            Label(NSLocalizedString("export.help", comment: ""), systemImage: "questionmark.circle")
                         }
                         
                         Button {
@@ -146,7 +146,7 @@ struct ReportExportView: View {
                             }
                             SettingsManager.shared.triggerHaptic(.selection)
                         } label: {
-                            Label("Switch to \(selectedFormat == .pdf ? "JSON" : "PDF")", systemImage: "arrow.triangle.swap")
+                            Label(String(format: NSLocalizedString("export.switch_to", comment: ""), selectedFormat == .pdf ? "JSON" : "PDF"), systemImage: "arrow.triangle.swap")
                         }
                     } label: {
                         Image(systemName: "ellipsis")
@@ -468,7 +468,7 @@ struct ReportExportView: View {
                                 .contentTransition(.symbolEffect(.replace))
                         }
                         
-                        Text(copiedToClipboard ? "Copied!" : "Copy")
+                        Text(copiedToClipboard ? NSLocalizedString("export.copied", comment: "") : NSLocalizedString("export.copy", comment: ""))
                             .font(.caption2)
                             .foregroundColor(.textMuted)
                     }
@@ -604,11 +604,11 @@ struct ExpandedPreviewSheet: View {
                 .padding(20)
             }
             .background(Color.bgMain.ignoresSafeArea())
-            .navigationTitle("Report Preview")
+            .navigationTitle(NSLocalizedString("export.report_preview", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button(NSLocalizedString("common.done", comment: "")) {
                         dismiss()
                     }
                     .foregroundColor(.brandPrimary)
@@ -750,11 +750,11 @@ struct ExportHelpSheet: View {
                 LiquidGlassBackground()
                     .ignoresSafeArea()
             }
-            .navigationTitle("Export Help")
+            .navigationTitle(NSLocalizedString("export.help_title", comment: ""))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button(NSLocalizedString("common.done", comment: "")) {
                         dismiss()
                     }
                     .foregroundColor(.brandPrimary)

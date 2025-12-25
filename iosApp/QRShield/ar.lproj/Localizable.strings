@@ -481,3 +481,23 @@
 "tab.history" = "السجل";
 "tab.training" = "التدريب";
 "tab.settings" = "الإعدادات";
+
+// MARK: - Common Buttons
+"common.done" = "تم";
+"common.add" = "إضافة";
+"common.open_settings" = "فتح الإعدادات";
+"common.clear_all" = "مسح الكل";
+"common.reset_all_settings" = "إعادة تعيين جميع الإعدادات";
+
+// MARK: - Export View
+"export.report_preview" = "معاينة التقرير";
+"export.help_title" = "مساعدة التصدير";
+"export.format.pdf_title" = "تقرير PDF";
+"export.format.pdf_subtitle" = "ملخص قابل للقراءة";
+"export.format.json_title" = "بيانات JSON";
+"export.format.json_subtitle" = "بيانات خام قابلة للقراءة الآلية";
+"export.help" = "مساعدة";
+"export.switch_to" = "التبديل إلى %@";
+"export.copied" = "تم النسخ!";
+"export.copy" = "نسخ";
+"export.report_generation" = "إنشاء التقرير";

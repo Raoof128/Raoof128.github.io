@@ -482,3 +482,23 @@
 "tab.history" = "历史";
 "tab.training" = "训练";
 "tab.settings" = "设置";
+
+// MARK: - Common Buttons
+"common.done" = "完成";
+"common.add" = "添加";
+"common.open_settings" = "打开设置";
+"common.clear_all" = "全部清除";
+"common.reset_all_settings" = "重置所有设置";
+
+// MARK: - Export View
+"export.report_preview" = "报告预览";
+"export.help_title" = "导出帮助";
+"export.format.pdf_title" = "PDF报告";
+"export.format.pdf_subtitle" = "可读的摘要";
+"export.format.json_title" = "JSON数据";
+"export.format.json_subtitle" = "可机器读取的原始数据";
+"export.help" = "帮助";
+"export.switch_to" = "切换到 %@";
+"export.copied" = "已复制！";
+"export.copy" = "复制";
+"export.report_generation" = "生成报告";

@@ -481,3 +481,23 @@
 "tab.history" = "ประวัติ";
 "tab.training" = "ฝึกซ้อม";
 "tab.settings" = "การตั้งค่า";
+
+// MARK: - Common Buttons
+"common.done" = "เสร็จสิ้น";
+"common.add" = "เพิ่ม";
+"common.open_settings" = "เปิดการตั้งค่า";
+"common.clear_all" = "ล้างทั้งหมด";
+"common.reset_all_settings" = "รีเซ็ตการตั้งค่าทั้งหมด";
+
+// MARK: - Export View
+"export.report_preview" = "ดูตัวอย่างรายงาน";
+"export.help_title" = "ความช่วยเหลือการส่งออก";
+"export.format.pdf_title" = "รายงาน PDF";
+"export.format.pdf_subtitle" = "สรุปที่อ่านง่าย";
+"export.format.json_title" = "ข้อมูล JSON";
+"export.format.json_subtitle" = "ข้อมูลดิบที่เครื่องอ่านได้";
+"export.help" = "ช่วยเหลือ";
+"export.switch_to" = "สลับเป็น %@";
+"export.copied" = "คัดลอกแล้ว!";
+"export.copy" = "คัดลอก";
+"export.report_generation" = "สร้างรายงาน";

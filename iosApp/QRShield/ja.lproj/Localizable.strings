@@ -482,3 +482,23 @@
 "tab.history" = "履歴";
 "tab.training" = "トレーニング";
 "tab.settings" = "設定";
+
+// MARK: - Common Buttons
+"common.done" = "完了";
+"common.add" = "追加";
+"common.open_settings" = "設定を開く";
+"common.clear_all" = "すべて消去";
+"common.reset_all_settings" = "すべての設定をリセット";
+
+// MARK: - Export View
+"export.report_preview" = "レポートプレビュー";
+"export.help_title" = "エクスポートヘルプ";
+"export.format.pdf_title" = "PDFレポート";
+"export.format.pdf_subtitle" = "人間向けの要約";
+"export.format.json_title" = "JSONデータ";
+"export.format.json_subtitle" = "機械読み取り可能な生データ";
+"export.help" = "ヘルプ";
+"export.switch_to" = "%@に切り替え";
+"export.copied" = "コピー済み!";
+"export.copy" = "コピー";
+"export.report_generation" = "レポート生成";

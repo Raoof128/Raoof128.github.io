@@ -481,3 +481,23 @@
 "tab.history" = "Lịch sử";
 "tab.training" = "Huấn luyện";
 "tab.settings" = "Cài đặt";
+
+// MARK: - Common Buttons
+"common.done" = "Xong";
+"common.add" = "Thêm";
+"common.open_settings" = "Mở Cài đặt";
+"common.clear_all" = "Xóa tất cả";
+"common.reset_all_settings" = "Đặt lại tất cả cài đặt";
+
+// MARK: - Export View
+"export.report_preview" = "Xem trước báo cáo";
+"export.help_title" = "Trợ giúp xuất";
+"export.format.pdf_title" = "Báo cáo PDF";
+"export.format.pdf_subtitle" = "Tóm tắt dễ đọc";
+"export.format.json_title" = "Dữ liệu JSON";
+"export.format.json_subtitle" = "Dữ liệu thô máy đọc được";
+"export.help" = "Trợ giúp";
+"export.switch_to" = "Chuyển sang %@";
+"export.copied" = "Đã sao chép!";
+"export.copy" = "Sao chép";
+"export.report_generation" = "Tạo báo cáo";

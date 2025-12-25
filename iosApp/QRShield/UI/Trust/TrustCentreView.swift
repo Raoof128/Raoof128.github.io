@@ -141,10 +141,10 @@ struct TrustCentreView: View {
             isPresented: $showResetConfirmation,
             titleVisibility: .visible
         ) {
-            Button("Reset All Settings", role: .destructive) {
+            Button(NSLocalizedString("common.reset_all_settings", comment: ""), role: .destructive) {
                 resetToDefaults()
             }
-            Button("Cancel", role: .cancel) {}
+            Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
         } message: {
             Text(NSLocalizedString("trust.reset_confirm", comment: ""))
         }
@@ -692,7 +692,7 @@ struct DomainListSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Done") {
+                    Button(NSLocalizedString("common.done", comment: "")) {
                         dismiss()
                     }
                     .foregroundColor(.brandPrimary)
@@ -712,11 +712,11 @@ struct DomainListSheet: View {
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                 
-                Button("Cancel", role: .cancel) {
+                Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {
                     newDomain = ""
                 }
                 
-                Button("Add") {
+                Button(NSLocalizedString("common.add", comment: "")) {
                     if !newDomain.isEmpty && !domains.contains(newDomain) {
                         domains.append(newDomain)
                         newDomain = ""
@@ -753,7 +753,7 @@ struct InfoSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button(NSLocalizedString("common.done", comment: "")) {
                         dismiss()
                     }
                     .foregroundColor(.brandPrimary)

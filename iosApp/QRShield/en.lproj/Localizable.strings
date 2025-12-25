@@ -513,3 +513,29 @@
 "tab.history" = "History";
 "tab.training" = "Training";
 "tab.settings" = "Settings";
+
+// MARK: - Common Button Labels
+"common.done" = "Done";
+"common.add" = "Add";
+"common.open_settings" = "Open Settings";
+"common.clear_all" = "Clear All";
+"common.reset_all_settings" = "Reset All Settings";
+
+// MARK: - Export View Additional
+"export.report_preview" = "Report Preview";
+"export.help_title" = "Export Help";
+"export.format.pdf_title" = "PDF Report";
+"export.format.pdf_subtitle" = "Human-readable summary";
+"export.format.json_title" = "JSON Data";
+"export.format.json_subtitle" = "Machine-readable raw data";
+"export.help" = "Help";
+"export.switch_to" = "Switch to %@";
+"export.copied" = "Copied!";
+"export.copy" = "Copy";
+"export.pdf_description" = "Exports a human-readable security report suitable for sharing with team members, management, or for your records. Includes verdict, risk factors, and recommendations.";
+"export.json_description" = "Exports raw analysis data in JSON format. Perfect for integration with security tools, SIEMs, or for further automated processing.";
+"export.action_share" = "Share";
+"export.action_share_desc" = "Open the iOS share sheet to send via Messages, Mail, AirDrop, or save to Files.";
+"export.action_copy_desc" = "Copy the report content to your clipboard for pasting into other apps.";
+"export.action_export_desc" = "Save the report directly to your device.";
+"export.report_generation" = "Report Generation";

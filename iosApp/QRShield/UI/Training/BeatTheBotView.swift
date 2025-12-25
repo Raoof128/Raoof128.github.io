@@ -243,14 +243,6 @@ struct BeatTheBotView: View {
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.textSecondary)
-                    }
-                }
                 
                 ToolbarItem(placement: .principal) {
                     VStack(spacing: 2) {

@@ -5,6 +5,51 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.52] - 2025-12-26
+
+### 🌐 Comprehensive Localization: Settings, Trust Centre, Export + Training Polish
+
+Extensive localization update covering all remaining hardcoded strings.
+
+#### Training Section Polish
+- ✅ **Removed back button** (Training is now a tab, not a pushed view)
+- Content already scrollable from previous update
+
+#### New Localized Keys Added
+
+| Category | Keys Added |
+|----------|------------|
+| Common Buttons | 5 keys (Done, Add, Open Settings, Clear All, Reset All Settings) |
+| Tab Bar | 5 keys (Dashboard, Scan, History, Training, Settings) |
+| Export View | 12 keys (titles, formats, buttons, preview) |
+
+#### Files Updated
+
+| File | Changes |
+|------|---------|
+| `BeatTheBotView.swift` | Removed back button toolbar item |
+| `SettingsView.swift` | Localized button labels |
+| `TrustCentreView.swift` | Localized button labels |
+| `ReportExportView.swift` | Localized format titles, subtitles, navigation, buttons |
+| All 16 `.lproj/Localizable.strings` | Added ~20 new keys each |
+
+#### Sample New Translations
+
+| Key | 🇺🇸 English | 🇩🇪 German | 🇯🇵 Japanese |
+|-----|-------------|------------|---------------|
+| `common.done` | Done | Fertig | 完了 |
+| `export.copied` | Copied! | Kopiert! | コピー済み! |
+| `export.format.pdf_title` | PDF Report | PDF-Bericht | PDFレポート |
+
+#### Build Verification
+
+```bash
+plutil -lint *.lproj/Localizable.strings  # All 16 files OK
+xcodebuild -scheme QRShield build  # BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.51] - 2025-12-26
 
 ### 🔧 Tab Bar Localization + Training Back Button Fix

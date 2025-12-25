@@ -482,3 +482,23 @@
 "tab.history" = "इतिहास";
 "tab.training" = "प्रशिक्षण";
 "tab.settings" = "सेटिंग्स";
+
+// MARK: - Common Buttons
+"common.done" = "हो गया";
+"common.add" = "जोड़ें";
+"common.open_settings" = "सेटिंग्स खोलें";
+"common.clear_all" = "सब हटाएं";
+"common.reset_all_settings" = "सभी सेटिंग्स रीसेट करें";
+
+// MARK: - Export View
+"export.report_preview" = "रिपोर्ट पूर्वावलोकन";
+"export.help_title" = "निर्यात सहायता";
+"export.format.pdf_title" = "PDF रिपोर्ट";
+"export.format.pdf_subtitle" = "पठनीय सारांश";
+"export.format.json_title" = "JSON डेटा";
+"export.format.json_subtitle" = "मशीन पठनीय कच्चा डेटा";
+"export.help" = "सहायता";
+"export.switch_to" = "%@ पर स्विच करें";
+"export.copied" = "कॉपी हो गया!";
+"export.copy" = "कॉपी";
+"export.report_generation" = "रिपोर्ट जेनरेशन";

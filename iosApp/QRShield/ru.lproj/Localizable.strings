@@ -482,3 +482,23 @@
 "tab.history" = "История";
 "tab.training" = "Тренировка";
 "tab.settings" = "Настройки";
+
+// MARK: - Common Buttons
+"common.done" = "Готово";
+"common.add" = "Добавить";
+"common.open_settings" = "Открыть настройки";
+"common.clear_all" = "Очистить всё";
+"common.reset_all_settings" = "Сбросить все настройки";
+
+// MARK: - Export View
+"export.report_preview" = "Предпросмотр отчёта";
+"export.help_title" = "Справка по экспорту";
+"export.format.pdf_title" = "Отчёт PDF";
+"export.format.pdf_subtitle" = "Читаемое резюме";
+"export.format.json_title" = "Данные JSON";
+"export.format.json_subtitle" = "Машиночитаемые сырые данные";
+"export.help" = "Справка";
+"export.switch_to" = "Переключить на %@";
+"export.copied" = "Скопировано!";
+"export.copy" = "Копировать";
+"export.report_generation" = "Создание отчёта";

@@ -481,3 +481,23 @@
 "tab.history" = "Riwayat";
 "tab.training" = "Latihan";
 "tab.settings" = "Pengaturan";
+
+// MARK: - Common Buttons
+"common.done" = "Selesai";
+"common.add" = "Tambah";
+"common.open_settings" = "Buka Pengaturan";
+"common.clear_all" = "Hapus semua";
+"common.reset_all_settings" = "Reset semua pengaturan";
+
+// MARK: - Export View
+"export.report_preview" = "Pratinjau laporan";
+"export.help_title" = "Bantuan ekspor";
+"export.format.pdf_title" = "Laporan PDF";
+"export.format.pdf_subtitle" = "Ringkasan yang dapat dibaca";
+"export.format.json_title" = "Data JSON";
+"export.format.json_subtitle" = "Data mentah yang dapat dibaca mesin";
+"export.help" = "Bantuan";
+"export.switch_to" = "Beralih ke %@";
+"export.copied" = "Disalin!";
+"export.copy" = "Salin";
+"export.report_generation" = "Pembuatan laporan";

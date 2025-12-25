@@ -482,3 +482,23 @@
 "tab.history" = "기록";
 "tab.training" = "훈련";
 "tab.settings" = "설정";
+
+// MARK: - Common Buttons
+"common.done" = "완료";
+"common.add" = "추가";
+"common.open_settings" = "설정 열기";
+"common.clear_all" = "모두 지우기";
+"common.reset_all_settings" = "모든 설정 초기화";
+
+// MARK: - Export View
+"export.report_preview" = "보고서 미리보기";
+"export.help_title" = "내보내기 도움말";
+"export.format.pdf_title" = "PDF 보고서";
+"export.format.pdf_subtitle" = "읽기 쉬운 요약";
+"export.format.json_title" = "JSON 데이터";
+"export.format.json_subtitle" = "기계 판독 가능한 원시 데이터";
+"export.help" = "도움말";
+"export.switch_to" = "%@(으)로 전환";
+"export.copied" = "복사됨!";
+"export.copy" = "복사";
+"export.report_generation" = "보고서 생성";

@@ -482,3 +482,23 @@
 "tab.history" = "Historique";
 "tab.training" = "Entraînement";
 "tab.settings" = "Paramètres";
+
+// MARK: - Common Buttons
+"common.done" = "OK";
+"common.add" = "Ajouter";
+"common.open_settings" = "Ouvrir les paramètres";
+"common.clear_all" = "Tout effacer";
+"common.reset_all_settings" = "Réinitialiser tous les paramètres";
+
+// MARK: - Export View
+"export.report_preview" = "Aperçu du rapport";
+"export.help_title" = "Aide à l'exportation";
+"export.format.pdf_title" = "Rapport PDF";
+"export.format.pdf_subtitle" = "Résumé lisible";
+"export.format.json_title" = "Données JSON";
+"export.format.json_subtitle" = "Données brutes lisibles par machine";
+"export.help" = "Aide";
+"export.switch_to" = "Passer à %@";
+"export.copied" = "Copié !";
+"export.copy" = "Copier";
+"export.report_generation" = "Génération de rapport";

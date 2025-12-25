@@ -207,12 +207,12 @@ struct SettingsView: View {
             }
             .listRowBackground(Color.clear)
             .alert("Notifications Disabled", isPresented: $showNotificationDeniedAlert) {
-                Button("Open Settings") {
+                Button(NSLocalizedString("common.open_settings", comment: "")) {
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(url)
                     }
                 }
-                Button("Cancel", role: .cancel) {}
+                Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
             } message: {
                 Text(NSLocalizedString("settings.notifications_denied_message", comment: ""))
             }
@@ -450,10 +450,10 @@ struct SettingsView: View {
             isPresented: $showClearConfirmation,
             titleVisibility: .visible
         ) {
-            Button("Clear All", role: .destructive) {
+            Button(NSLocalizedString("common.clear_all", comment: ""), role: .destructive) {
                 clearHistory()
             }
-            Button("Cancel", role: .cancel) {}
+            Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
         } message: {
             Text(NSLocalizedString("settings.clear_confirm_message", comment: ""))
         }

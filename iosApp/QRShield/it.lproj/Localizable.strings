@@ -482,3 +482,23 @@
 "tab.history" = "Cronologia";
 "tab.training" = "Allenamento";
 "tab.settings" = "Impostazioni";
+
+// MARK: - Common Buttons
+"common.done" = "Fatto";
+"common.add" = "Aggiungi";
+"common.open_settings" = "Apri Impostazioni";
+"common.clear_all" = "Cancella tutto";
+"common.reset_all_settings" = "Ripristina tutte le impostazioni";
+
+// MARK: - Export View
+"export.report_preview" = "Anteprima report";
+"export.help_title" = "Guida esportazione";
+"export.format.pdf_title" = "Report PDF";
+"export.format.pdf_subtitle" = "Riepilogo leggibile";
+"export.format.json_title" = "Dati JSON";
+"export.format.json_subtitle" = "Dati grezzi leggibili dalla macchina";
+"export.help" = "Guida";
+"export.switch_to" = "Passa a %@";
+"export.copied" = "Copiato!";
+"export.copy" = "Copia";
+"export.report_generation" = "Generazione report";
