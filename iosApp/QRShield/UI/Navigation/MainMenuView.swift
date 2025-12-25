@@ -33,21 +33,24 @@ import SwiftUI
 
 struct MenuItem: Identifiable {
     let id = UUID()
-    let title: String
-    let subtitle: String
+    let titleKey: String
+    let subtitleKey: String
     let icon: String
     let iconColor: Color
     let destination: MenuDestination
     let badge: String?
     
-    init(title: String, subtitle: String, icon: String, iconColor: Color, destination: MenuDestination, badge: String? = nil) {
-        self.title = title
-        self.subtitle = subtitle
+    init(titleKey: String, subtitleKey: String, icon: String, iconColor: Color, destination: MenuDestination, badge: String? = nil) {
+        self.titleKey = titleKey
+        self.subtitleKey = subtitleKey
         self.icon = icon
         self.iconColor = iconColor
         self.destination = destination
         self.badge = badge
     }
+    
+    var title: String { NSLocalizedString(titleKey, comment: "") }
+    var subtitle: String { NSLocalizedString(subtitleKey, comment: "") }
 }
 
 enum MenuDestination {
@@ -71,58 +74,58 @@ struct MainMenuView: View {
     
     private let menuItems: [MenuItem] = [
         MenuItem(
-            title: "Dashboard",
-            subtitle: "Overview & stats",
+            titleKey: "nav.menu.dashboard",
+            subtitleKey: "nav.menu.dashboard_desc",
             icon: "square.grid.2x2.fill",
             iconColor: .brandPrimary,
             destination: .dashboard
         ),
         MenuItem(
-            title: "Scan QR",
-            subtitle: "Camera scanner",
+            titleKey: "nav.menu.scan_qr",
+            subtitleKey: "nav.menu.scan_qr_desc",
             icon: "qrcode.viewfinder",
             iconColor: .brandSecondary,
             destination: .scanner
         ),
         MenuItem(
-            title: "Scan History",
-            subtitle: "Previous scans",
+            titleKey: "nav.menu.scan_history",
+            subtitleKey: "nav.menu.scan_history_desc",
             icon: "clock.fill",
             iconColor: .brandAccent,
             destination: .history
         ),
         MenuItem(
-            title: "Threat Monitor",
-            subtitle: "Live threats",
+            titleKey: "nav.menu.threat_monitor",
+            subtitleKey: "nav.menu.threat_monitor_desc",
             icon: "shield.slash.fill",
             iconColor: .verdictDanger,
             destination: .threatHistory,
             badge: "3"
         ),
         MenuItem(
-            title: "Trust Centre",
-            subtitle: "Privacy & security",
+            titleKey: "nav.menu.trust_centre",
+            subtitleKey: "nav.menu.trust_centre_desc",
             icon: "lock.shield.fill",
             iconColor: .verdictSafe,
             destination: .trustCentre
         ),
         MenuItem(
-            title: "Beat the Bot",
-            subtitle: "Training game",
+            titleKey: "nav.menu.beat_the_bot",
+            subtitleKey: "nav.menu.beat_the_bot_desc",
             icon: "gamecontroller.fill",
             iconColor: .verdictWarning,
             destination: .training
         ),
         MenuItem(
-            title: "Export Report",
-            subtitle: "Generate report",
+            titleKey: "nav.menu.export_report",
+            subtitleKey: "nav.menu.export_report_desc",
             icon: "doc.text.fill",
             iconColor: .textSecondary,
             destination: .export
         ),
         MenuItem(
-            title: "Settings",
-            subtitle: "Preferences",
+            titleKey: "nav.menu.settings",
+            subtitleKey: "nav.menu.settings_desc",
             icon: "gearshape.fill",
             iconColor: .textMuted,
             destination: .settings
@@ -270,7 +273,7 @@ struct MainMenuView: View {
             HStack(spacing: 12) {
                 quickActionButton(
                     icon: "qrcode.viewfinder",
-                    title: "Scan",
+                    title: NSLocalizedString("nav.quick.scan", comment: ""),
                     color: .brandPrimary
                 ) {
                     selectedDestination = .scanner
@@ -278,7 +281,7 @@ struct MainMenuView: View {
                 
                 quickActionButton(
                     icon: "photo.on.rectangle",
-                    title: "Import",
+                    title: NSLocalizedString("nav.quick.import", comment: ""),
                     color: .brandSecondary
                 ) {
                     showImagePicker = true
@@ -287,7 +290,7 @@ struct MainMenuView: View {
                 
                 quickActionButton(
                     icon: "doc.text.viewfinder",
-                    title: "Paste URL",
+                    title: NSLocalizedString("nav.quick.paste_url", comment: ""),
                     color: .brandAccent
                 ) {
                     // Get URL from clipboard and validate it

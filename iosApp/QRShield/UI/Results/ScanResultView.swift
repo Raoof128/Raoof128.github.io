@@ -129,10 +129,10 @@ struct ScanResultView: View {
                 isPresented: $showBlockConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("Block & Add to Blocklist", role: .destructive) {
+                Button(NSLocalizedString("result.block_button", comment: ""), role: .destructive) {
                     blockAndReport()
                 }
-                Button("Cancel", role: .cancel) {}
+                Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
             } message: {
                 Text(NSLocalizedString("result.block_warning", comment: ""))
             }
@@ -728,7 +728,7 @@ struct SandboxPreviewSheet: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Close") {
+                    Button(NSLocalizedString("common.close", comment: "")) {
                         dismiss()
                     }
                     .foregroundColor(.brandPrimary)
@@ -739,12 +739,12 @@ struct SandboxPreviewSheet: View {
                 isPresented: $showOpenConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("Open Anyway", role: .destructive) {
+                Button(NSLocalizedString("result.open_anyway", comment: ""), role: .destructive) {
                     if let url = URL(string: url) {
                         UIApplication.shared.open(url)
                     }
                 }
-                Button("Cancel", role: .cancel) {}
+                Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
             } message: {
                 Text(NSLocalizedString("result.dangerous_full_warning", comment: ""))
             }

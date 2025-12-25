@@ -450,3 +450,28 @@
 "kmp.using_mock" = "⚠️ Mock使用中 (common.frameworkをリンク)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "ダッシュボード";
+"nav.menu.dashboard_desc" = "概要と統計";
+"nav.menu.scan_qr" = "QRスキャン";
+"nav.menu.scan_qr_desc" = "カメラスキャナー";
+"nav.menu.scan_history" = "スキャン履歴";
+"nav.menu.scan_history_desc" = "過去のスキャン";
+"nav.menu.threat_monitor" = "脅威モニター";
+"nav.menu.threat_monitor_desc" = "リアルタイム脅威";
+"nav.menu.trust_centre" = "トラストセンター";
+"nav.menu.trust_centre_desc" = "プライバシーとセキュリティ";
+"nav.menu.beat_the_bot" = "ボットに勝つ";
+"nav.menu.beat_the_bot_desc" = "トレーニングゲーム";
+"nav.menu.export_report" = "レポート出力";
+"nav.menu.export_report_desc" = "レポート作成";
+"nav.menu.settings" = "設定";
+"nav.menu.settings_desc" = "環境設定";
+"nav.quick.scan" = "スキャン";
+"nav.quick.import" = "インポート";
+"nav.quick.paste_url" = "URLを貼り付け";
+"result.block_button" = "ブロックしてブラックリストに追加";
+"result.open_anyway" = "それでも開く";
+"common.cancel" = "キャンセル";
+"common.close" = "閉じる";

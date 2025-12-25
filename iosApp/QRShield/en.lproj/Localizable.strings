@@ -477,3 +477,32 @@
 "format.latency" = "%dms";
 "format.percent" = "%d%%";
 "format.status_date" = "%@ • %@";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Dashboard";
+"nav.menu.dashboard_desc" = "Overview & stats";
+"nav.menu.scan_qr" = "Scan QR";
+"nav.menu.scan_qr_desc" = "Camera scanner";
+"nav.menu.scan_history" = "Scan History";
+"nav.menu.scan_history_desc" = "Previous scans";
+"nav.menu.threat_monitor" = "Threat Monitor";
+"nav.menu.threat_monitor_desc" = "Live threats";
+"nav.menu.trust_centre" = "Trust Centre";
+"nav.menu.trust_centre_desc" = "Privacy & security";
+"nav.menu.beat_the_bot" = "Beat the Bot";
+"nav.menu.beat_the_bot_desc" = "Training game";
+"nav.menu.export_report" = "Export Report";
+"nav.menu.export_report_desc" = "Generate report";
+"nav.menu.settings" = "Settings";
+"nav.menu.settings_desc" = "Preferences";
+
+// MARK: - Quick Actions
+"nav.quick.scan" = "Scan";
+"nav.quick.import" = "Import";
+"nav.quick.paste_url" = "Paste URL";
+
+// MARK: - Result Page Buttons
+"result.block_button" = "Block & Add to Blocklist";
+"result.open_anyway" = "Open Anyway";
+"common.cancel" = "Cancel";
+"common.close" = "Close";

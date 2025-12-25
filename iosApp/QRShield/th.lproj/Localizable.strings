@@ -449,3 +449,28 @@
 "kmp.using_mock" = "⚠️ ใช้ Mock (เชื่อมต่อ common.framework)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "แดชบอร์ด";
+"nav.menu.dashboard_desc" = "ภาพรวมและสถิติ";
+"nav.menu.scan_qr" = "สแกน QR";
+"nav.menu.scan_qr_desc" = "สแกนเนอร์กล้อง";
+"nav.menu.scan_history" = "ประวัติการสแกน";
+"nav.menu.scan_history_desc" = "การสแกนก่อนหน้า";
+"nav.menu.threat_monitor" = "ตัวตรวจสอบภัยคุกคาม";
+"nav.menu.threat_monitor_desc" = "ภัยคุกคามสด";
+"nav.menu.trust_centre" = "ศูนย์ความไว้วางใจ";
+"nav.menu.trust_centre_desc" = "ความเป็นส่วนตัวและความปลอดภัย";
+"nav.menu.beat_the_bot" = "เอาชนะบอท";
+"nav.menu.beat_the_bot_desc" = "เกมฝึกซ้อม";
+"nav.menu.export_report" = "ส่งออกรายงาน";
+"nav.menu.export_report_desc" = "สร้างรายงาน";
+"nav.menu.settings" = "การตั้งค่า";
+"nav.menu.settings_desc" = "การตั้งค่า";
+"nav.quick.scan" = "สแกน";
+"nav.quick.import" = "นำเข้า";
+"nav.quick.paste_url" = "วาง URL";
+"result.block_button" = "บล็อกและเพิ่มในรายการดำ";
+"result.open_anyway" = "เปิดต่อไป";
+"common.cancel" = "ยกเลิก";
+"common.close" = "ปิด";

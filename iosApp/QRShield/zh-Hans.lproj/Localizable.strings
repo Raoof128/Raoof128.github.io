@@ -450,3 +450,28 @@
 "kmp.using_mock" = "⚠️ 使用Mock（链接common.framework）";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "仪表板";
+"nav.menu.dashboard_desc" = "概览和统计";
+"nav.menu.scan_qr" = "扫描二维码";
+"nav.menu.scan_qr_desc" = "相机扫描";
+"nav.menu.scan_history" = "扫描历史";
+"nav.menu.scan_history_desc" = "过往扫描";
+"nav.menu.threat_monitor" = "威胁监控";
+"nav.menu.threat_monitor_desc" = "实时威胁";
+"nav.menu.trust_centre" = "信任中心";
+"nav.menu.trust_centre_desc" = "隐私与安全";
+"nav.menu.beat_the_bot" = "击败机器人";
+"nav.menu.beat_the_bot_desc" = "训练游戏";
+"nav.menu.export_report" = "导出报告";
+"nav.menu.export_report_desc" = "生成报告";
+"nav.menu.settings" = "设置";
+"nav.menu.settings_desc" = "偏好设置";
+"nav.quick.scan" = "扫描";
+"nav.quick.import" = "导入";
+"nav.quick.paste_url" = "粘贴网址";
+"result.block_button" = "阻止并加入黑名单";
+"result.open_anyway" = "仍然打开";
+"common.cancel" = "取消";
+"common.close" = "关闭";

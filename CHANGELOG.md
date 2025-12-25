@@ -5,6 +5,55 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.50] - 2025-12-26
+
+### 🌐 Navigation Sidebar & Result Page Localization + Training Scrolling
+
+**364 unique keys** now fully translated across all 16 languages.
+
+#### Navigation Sidebar - Fully Localized
+
+| Item | Keys Added |
+|------|------------|
+| Menu Items | 16 keys (8 titles + 8 descriptions) |
+| Quick Actions | 3 keys (Scan, Import, Paste URL) |
+
+Menu items now use key-based model for dynamic localization:
+- Dashboard, Scan QR, Scan History, Threat Monitor
+- Trust Centre, Beat the Bot, Export Report, Settings
+
+#### Result Page - Buttons Localized
+
+| Button | Key |
+|--------|-----|
+| Block & Add to Blocklist | `result.block_button` |
+| Open Anyway | `result.open_anyway` |
+| Cancel | `common.cancel` |
+| Close | `common.close` |
+
+#### Training Section - Scrolling Added
+
+Wrapped BeatTheBotView content in ScrollView for better usability on smaller screens:
+- Timer, Browser Preview, Decision Buttons
+- Live Session Stats, Brain Visualizer, Hint Card
+- Now properly scrollable with `.scrollIndicators(.hidden)`
+
+#### Files Updated
+
+- `MainMenuView.swift` - MenuItem refactored to key-based model
+- `ScanResultView.swift` - Button labels localized
+- `BeatTheBotView.swift` - Added ScrollView wrapper
+- All 16 `.lproj/Localizable.strings` files
+
+#### Build Verification
+
+```bash
+plutil -lint *.lproj/Localizable.strings  # All 16 files: 364 keys each
+xcodebuild -scheme QRShield build  # BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.49] - 2025-12-26
 
 ### 🌐 Complete iOS Localization - All Screens Including Onboarding

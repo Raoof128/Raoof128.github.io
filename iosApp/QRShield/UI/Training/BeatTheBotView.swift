@@ -211,30 +211,31 @@ struct BeatTheBotView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
-                // Header with Timer
-                headerSection
-                
-                // Browser Preview
-                browserPreview
-                
-                // Decision Buttons
-                decisionButtons
-                
-                // Live Session Stats
-                liveSessionCard
-                
-                // Brain Visualizer
-                brainVisualizerSection
-                
-                Spacer()
-                
-                // Hint Card
-                hintCard
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Header with Timer
+                    headerSection
+                    
+                    // Browser Preview
+                    browserPreview
+                    
+                    // Decision Buttons
+                    decisionButtons
+                    
+                    // Live Session Stats
+                    liveSessionCard
+                    
+                    // Brain Visualizer
+                    brainVisualizerSection
+                    
+                    // Hint Card
+                    hintCard
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 12)
+                .padding(.bottom, 40)
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 12)
-            .padding(.bottom, 20)
+            .scrollIndicators(.hidden)
             .background {
                 LiquidGlassBackground()
                     .ignoresSafeArea()

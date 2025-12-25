@@ -450,3 +450,28 @@
 "kmp.using_mock" = "⚠️ Mock 사용 중 (common.framework 연결)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "대시보드";
+"nav.menu.dashboard_desc" = "개요 및 통계";
+"nav.menu.scan_qr" = "QR 스캔";
+"nav.menu.scan_qr_desc" = "카메라 스캐너";
+"nav.menu.scan_history" = "스캔 기록";
+"nav.menu.scan_history_desc" = "이전 스캔";
+"nav.menu.threat_monitor" = "위협 모니터";
+"nav.menu.threat_monitor_desc" = "실시간 위협";
+"nav.menu.trust_centre" = "트러스트 센터";
+"nav.menu.trust_centre_desc" = "개인정보 및 보안";
+"nav.menu.beat_the_bot" = "봇을 이겨라";
+"nav.menu.beat_the_bot_desc" = "훈련 게임";
+"nav.menu.export_report" = "보고서 내보내기";
+"nav.menu.export_report_desc" = "보고서 생성";
+"nav.menu.settings" = "설정";
+"nav.menu.settings_desc" = "환경설정";
+"nav.quick.scan" = "스캔";
+"nav.quick.import" = "가져오기";
+"nav.quick.paste_url" = "URL 붙여넣기";
+"result.block_button" = "차단 및 블랙리스트에 추가";
+"result.open_anyway" = "그래도 열기";
+"common.cancel" = "취소";
+"common.close" = "닫기";

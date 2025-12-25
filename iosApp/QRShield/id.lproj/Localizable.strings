@@ -449,3 +449,28 @@
 "kmp.using_mock" = "⚠️ Menggunakan Mock (hubungkan common.framework)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Dasbor";
+"nav.menu.dashboard_desc" = "Ikhtisar dan statistik";
+"nav.menu.scan_qr" = "Pindai QR";
+"nav.menu.scan_qr_desc" = "Pemindai kamera";
+"nav.menu.scan_history" = "Riwayat pindai";
+"nav.menu.scan_history_desc" = "Pemindaian sebelumnya";
+"nav.menu.threat_monitor" = "Monitor ancaman";
+"nav.menu.threat_monitor_desc" = "Ancaman langsung";
+"nav.menu.trust_centre" = "Pusat kepercayaan";
+"nav.menu.trust_centre_desc" = "Privasi dan keamanan";
+"nav.menu.beat_the_bot" = "Kalahkan Bot";
+"nav.menu.beat_the_bot_desc" = "Permainan latihan";
+"nav.menu.export_report" = "Ekspor laporan";
+"nav.menu.export_report_desc" = "Buat laporan";
+"nav.menu.settings" = "Pengaturan";
+"nav.menu.settings_desc" = "Preferensi";
+"nav.quick.scan" = "Pindai";
+"nav.quick.import" = "Impor";
+"nav.quick.paste_url" = "Tempel URL";
+"result.block_button" = "Blokir dan tambahkan ke daftar hitam";
+"result.open_anyway" = "Buka saja";
+"common.cancel" = "Batal";
+"common.close" = "Tutup";

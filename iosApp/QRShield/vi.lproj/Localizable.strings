@@ -449,3 +449,28 @@
 "kmp.using_mock" = "⚠️ Đang dùng Mock (liên kết common.framework)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Bảng điều khiển";
+"nav.menu.dashboard_desc" = "Tổng quan và thống kê";
+"nav.menu.scan_qr" = "Quét QR";
+"nav.menu.scan_qr_desc" = "Máy quét camera";
+"nav.menu.scan_history" = "Lịch sử quét";
+"nav.menu.scan_history_desc" = "Các lần quét trước";
+"nav.menu.threat_monitor" = "Giám sát mối đe dọa";
+"nav.menu.threat_monitor_desc" = "Mối đe dọa trực tiếp";
+"nav.menu.trust_centre" = "Trung tâm tin cậy";
+"nav.menu.trust_centre_desc" = "Quyền riêng tư và bảo mật";
+"nav.menu.beat_the_bot" = "Đánh bại Bot";
+"nav.menu.beat_the_bot_desc" = "Trò chơi huấn luyện";
+"nav.menu.export_report" = "Xuất báo cáo";
+"nav.menu.export_report_desc" = "Tạo báo cáo";
+"nav.menu.settings" = "Cài đặt";
+"nav.menu.settings_desc" = "Tùy chọn";
+"nav.quick.scan" = "Quét";
+"nav.quick.import" = "Nhập";
+"nav.quick.paste_url" = "Dán URL";
+"result.block_button" = "Chặn và thêm vào danh sách đen";
+"result.open_anyway" = "Vẫn mở";
+"common.cancel" = "Hủy";
+"common.close" = "Đóng";

@@ -450,3 +450,28 @@
 "kmp.using_mock" = "⚠️ Mock उपयोग में (common.framework लिंक करें)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "डैशबोर्ड";
+"nav.menu.dashboard_desc" = "अवलोकन और आंकड़े";
+"nav.menu.scan_qr" = "QR स्कैन";
+"nav.menu.scan_qr_desc" = "कैमरा स्कैनर";
+"nav.menu.scan_history" = "स्कैन इतिहास";
+"nav.menu.scan_history_desc" = "पिछले स्कैन";
+"nav.menu.threat_monitor" = "खतरा मॉनिटर";
+"nav.menu.threat_monitor_desc" = "लाइव खतरे";
+"nav.menu.trust_centre" = "ट्रस्ट सेंटर";
+"nav.menu.trust_centre_desc" = "गोपनीयता और सुरक्षा";
+"nav.menu.beat_the_bot" = "बॉट को हराएं";
+"nav.menu.beat_the_bot_desc" = "प्रशिक्षण खेल";
+"nav.menu.export_report" = "रिपोर्ट निर्यात करें";
+"nav.menu.export_report_desc" = "रिपोर्ट बनाएं";
+"nav.menu.settings" = "सेटिंग्स";
+"nav.menu.settings_desc" = "प्राथमिकताएं";
+"nav.quick.scan" = "स्कैन";
+"nav.quick.import" = "आयात";
+"nav.quick.paste_url" = "URL पेस्ट करें";
+"result.block_button" = "ब्लॉक करें और ब्लैकलिस्ट में जोड़ें";
+"result.open_anyway" = "फिर भी खोलें";
+"common.cancel" = "रद्द करें";
+"common.close" = "बंद करें";

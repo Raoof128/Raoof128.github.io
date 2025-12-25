@@ -449,3 +449,28 @@
 "kmp.using_mock" = "⚠️ Mock kullanılıyor (common.framework bağlayın)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Gösterge Paneli";
+"nav.menu.dashboard_desc" = "Genel bakış ve istatistikler";
+"nav.menu.scan_qr" = "QR Tara";
+"nav.menu.scan_qr_desc" = "Kamera tarayıcı";
+"nav.menu.scan_history" = "Tarama geçmişi";
+"nav.menu.scan_history_desc" = "Önceki taramalar";
+"nav.menu.threat_monitor" = "Tehdit monitörü";
+"nav.menu.threat_monitor_desc" = "Canlı tehditler";
+"nav.menu.trust_centre" = "Güven merkezi";
+"nav.menu.trust_centre_desc" = "Gizlilik ve güvenlik";
+"nav.menu.beat_the_bot" = "Botu Yen";
+"nav.menu.beat_the_bot_desc" = "Eğitim oyunu";
+"nav.menu.export_report" = "Raporu dışa aktar";
+"nav.menu.export_report_desc" = "Rapor oluştur";
+"nav.menu.settings" = "Ayarlar";
+"nav.menu.settings_desc" = "Tercihler";
+"nav.quick.scan" = "Tara";
+"nav.quick.import" = "İçe aktar";
+"nav.quick.paste_url" = "URL yapıştır";
+"result.block_button" = "Engelle ve kara listeye ekle";
+"result.open_anyway" = "Yine de aç";
+"common.cancel" = "İptal";
+"common.close" = "Kapat";

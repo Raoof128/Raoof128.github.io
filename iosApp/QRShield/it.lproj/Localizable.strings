@@ -450,3 +450,28 @@
 "kmp.using_mock" = "⚠️ Usando Mock (collegare common.framework)";
 "kmp.brand" = "🛡️ QR-SHIELD";
 "format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Dashboard";
+"nav.menu.dashboard_desc" = "Panoramica e statistiche";
+"nav.menu.scan_qr" = "Scansiona QR";
+"nav.menu.scan_qr_desc" = "Scanner fotocamera";
+"nav.menu.scan_history" = "Cronologia scansioni";
+"nav.menu.scan_history_desc" = "Scansioni precedenti";
+"nav.menu.threat_monitor" = "Monitor minacce";
+"nav.menu.threat_monitor_desc" = "Minacce in tempo reale";
+"nav.menu.trust_centre" = "Centro fiducia";
+"nav.menu.trust_centre_desc" = "Privacy e sicurezza";
+"nav.menu.beat_the_bot" = "Batti il Bot";
+"nav.menu.beat_the_bot_desc" = "Gioco di allenamento";
+"nav.menu.export_report" = "Esporta report";
+"nav.menu.export_report_desc" = "Genera report";
+"nav.menu.settings" = "Impostazioni";
+"nav.menu.settings_desc" = "Preferenze";
+"nav.quick.scan" = "Scansiona";
+"nav.quick.import" = "Importa";
+"nav.quick.paste_url" = "Incolla URL";
+"result.block_button" = "Blocca e aggiungi alla lista nera";
+"result.open_anyway" = "Apri comunque";
+"common.cancel" = "Annulla";
+"common.close" = "Chiudi";
