@@ -36,9 +36,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.viewinterop.AndroidView
+import com.qrshield.android.R
 import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -241,13 +243,13 @@ fun CameraPreview(
         }
     }
 
+    val cameraPreviewDesc = stringResource(R.string.cd_camera_preview)
     Box(
         modifier = modifier
             .fillMaxSize()
             .semantics {
                 // Accessibility: Describe the camera preview for TalkBack
-                contentDescription = "Camera preview for QR code scanning. " +
-                    "Position a QR code in the center of the screen to scan it."
+                contentDescription = cameraPreviewDesc
             }
     ) {
         // Camera preview layer

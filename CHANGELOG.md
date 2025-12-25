@@ -5,6 +5,108 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.57] - 2025-12-26
+
+### 🔧 Production Polish & Accessibility Enhancement
+
+Comprehensive file-by-file debug and polish pass for production readiness.
+
+#### Accessibility Improvements
+- Replaced 50+ hardcoded `contentDescription` strings with localized string resources
+- Added accessibility labels to all interactive elements in:
+  - `ScannerScreen.kt` - camera controls, buttons, state descriptions
+  - `HistoryScreen.kt` - search, filters, scan result cards
+  - `ResultCard.kt` - risk score, URL, action buttons
+  - `CameraPreview.kt` - camera preview description
+  - `SandboxWebView.kt` - security indicators
+
+#### New String Resources (554 total, +25 new)
+| Category | New Strings |
+|----------|-------------|
+| Scanner Content Descriptions | `cd_processing_image`, `cd_home_screen`, `cd_camera_scanning`, `cd_resolving_url`, `cd_analyzing_url`, etc. |
+| History Content Descriptions | `cd_history_screen_items`, `cd_search_history_url`, `cd_filter_by`, `cd_scan_result_details`, `cd_more_options_scan` |
+| ResultCard Content Descriptions | `cd_scan_result_full`, `cd_risk_score`, `cd_scanned_url`, `cd_copy_url`, `cd_dismiss_result`, `cd_scan_another`, `cd_security` |
+| Camera/Sandbox | `cd_camera_preview`, `sandbox_exit`, `placeholder_domain` |
+
+#### Localization
+- All 25 new strings propagated to 16 language files
+- Fixed duplicate string key conflicts in localized resources
+
+#### Code Quality
+- Fixed `@Composable` function invocation error in `HistoryScreen.kt` (stringResource in semantics block)
+- All screens verified for hardcoded string elimination
+- Build verified: Debug compilation successful
+
+---
+
+## [1.17.56] - 2025-12-26
+
+### 📋 Android Checklist Execution + Gradle Property Fix
+
+Executed full Android checklist verification with all items passing.
+
+#### Gradle Warning Fix
+- Documented `kotlin.mpp.androidGradlePluginCompatibility.nowarn` deprecation in `gradle.properties`
+- Added migration note for AGP 9.0+ transition to `com.android.kotlin.multiplatform.library`
+
+#### Verified Checklist Items
+| Category | Status | Key Findings |
+|----------|--------|--------------|
+| Build & Config | ✅ | Debug/Release dry-run passed |
+| UI/UX Consistency | ✅ | 303 `QRShieldColors/Shapes` usages across 14 screens |
+| Navigation | ✅ | `enableOnBackInvokedCallback=true`, 17 `popBackStack` |
+| Beat The Bot | ✅ | `AnimatedVisibility`, `SoundManager`, `RoundAnalysisCard` |
+| Error States | ✅ | `ErrorContent`, `EmptyHistoryState` composables |
+| Performance | ✅ | `LazyColumn` with `key` in HistoryScreen |
+| Logging | ✅ | 19 `Log.*` calls, stripped in release via ProGuard |
+
+---
+
+## [1.17.55] - 2025-12-26
+
+### 📋 Android App Comprehensive Checklist Audit
+
+Full audit against Android submission requirements - all items passing.
+
+#### New Documentation
+- Created `docs/ANDROID_CHECKLIST.md` - comprehensive audit report
+
+#### Build & Config ✅
+- `compileSdk = 35` (Android 16)
+- Debug + Release builds verified
+- Deprecated APIs documented + justified:
+  - `Theme.kt`: statusBarColor/navigationBarColor (backward compat)
+  - `CameraPreview.kt`: LocalLifecycleOwner (documented for future migration)
+
+#### UI/UX Consistency ✅
+- All 15 screens use consistent `QRShieldColors` + `QRShieldShapes`
+- `LazyColumn` for virtualized list performance (6 screens)
+- 17 `popBackStack` calls for proper back navigation
+- Deep links: `qrshield://` + `https://qrshield.app/scan`
+
+#### Beat The Bot - Video Ready ✅
+- Animated result badges (green ✓ / red ✗)
+- "Why the bot flagged it" text explanations
+- `CommonBrainVisualizer` for AI visualization
+- `SoundManager` audio feedback (SUCCESS/ERROR tones)
+- `AnimatedVisibility` transitions
+
+#### Feature Correctness ✅
+- 159 content descriptions across 15 screens
+- Error states: offline, permission denied, invalid URL, empty data
+- Reproducible results from KMP PhishingEngine
+
+#### Android-Specific Polish ✅
+- App icons in all densities (mdpi → xxxhdpi)
+- Splash screen with `Theme.QRShield.Splash`
+- Camera + storage + notification permissions with rationale
+- Structured logging (stripped in release via ProGuard)
+
+#### Localization ✅
+- 16 languages × 529 keys = fully synchronized
+
+---
+
 ## [1.17.54] - 2025-12-26
 
 ### 🌐 Android Localization Cleanup + UI Refinement

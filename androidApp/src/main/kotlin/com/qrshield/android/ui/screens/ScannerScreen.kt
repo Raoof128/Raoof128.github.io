@@ -321,12 +321,13 @@ fun ScannerScreen() {
 
 @Composable
 private fun ProcessingOverlay() {
+    val processingDesc = stringResource(R.string.cd_processing_image)
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black.copy(alpha = 0.7f))
             .semantics {
-                contentDescription = "Processing image, please wait"
+                contentDescription = processingDesc
             },
         contentAlignment = Alignment.Center
     ) {
@@ -361,12 +362,13 @@ private fun IdleContent(
     onUrlAnalyze: (String) -> Unit = {},
     onRedTeamScenarioClick: (RedTeamScenarios.Scenario) -> Unit = {}
 ) {
+    val homeScreenDesc = stringResource(R.string.cd_home_screen)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .semantics {
-                contentDescription = "QR Shield home screen. Tap Start Scanning to begin, or choose from gallery."
+                contentDescription = homeScreenDesc
             }
     ) {
         // === RED TEAM SCENARIOS PANEL (Developer Mode Only) ===
@@ -401,23 +403,25 @@ private fun IdleContent(
                 label = "scale"
             )
 
+            val logoDesc = stringResource(R.string.cd_app_logo_full)
             Text(
                 text = "🛡️",
                 fontSize = (80 * scale).sp,
                 modifier = Modifier.semantics {
-                    contentDescription = "QR Shield logo"
+                    contentDescription = logoDesc
                 }
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            val taglineDesc = stringResource(R.string.cd_app_tagline)
             Text(
                 text = stringResource(R.string.app_name),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = BrandPrimary,
                 modifier = Modifier.semantics {
-                    contentDescription = "QR Shield, Phishing Detection App"
+                    contentDescription = taglineDesc
                 }
             )
 
@@ -433,13 +437,14 @@ private fun IdleContent(
             Spacer(modifier = Modifier.height(48.dp))
 
             // Main scan button
+            val startScanningDesc = stringResource(R.string.cd_start_scanning)
             Button(
                 onClick = onScanClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
                     .semantics {
-                        contentDescription = "Start scanning for QR codes using camera"
+                        contentDescription = startScanningDesc
                     },
                 colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
                 shape = RoundedCornerShape(12.dp)
@@ -454,13 +459,14 @@ private fun IdleContent(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Gallery button
+            val galleryDesc = stringResource(R.string.cd_choose_from_gallery)
             OutlinedButton(
                 onClick = onGalleryClick,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
                     .semantics {
-                        contentDescription = "Choose QR code image from photo gallery"
+                        contentDescription = galleryDesc
                     },
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = BrandSecondary),
                 shape = RoundedCornerShape(12.dp)
@@ -492,6 +498,7 @@ private fun IdleContent(
             
             var urlInput by remember { mutableStateOf("") }
             
+            val enterUrlDesc = stringResource(R.string.cd_enter_url)
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -502,7 +509,7 @@ private fun IdleContent(
                     onValueChange = { urlInput = it },
                     modifier = Modifier
                         .weight(1f)
-                        .semantics { contentDescription = "Enter URL to analyze" },
+                        .semantics { contentDescription = enterUrlDesc },
                     placeholder = {
                         Text(
                             text = stringResource(R.string.url_placeholder),
@@ -732,11 +739,12 @@ private fun ScanningContent(
     cameraError: String?,
     onCameraError: (String) -> Unit
 ) {
+    val cameraScanningDesc = stringResource(R.string.cd_camera_scanning)
     Box(
         modifier = Modifier
             .fillMaxSize()
             .semantics {
-                contentDescription = "Camera scanning mode. Point camera at a QR code."
+                contentDescription = cameraScanningDesc
             }
     ) {
         // Camera preview
@@ -759,6 +767,7 @@ private fun ScanningContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Close button
+            val closeScannerDesc = stringResource(R.string.cd_close_scanner)
             IconButton(
                 onClick = onClose,
                 modifier = Modifier
@@ -767,12 +776,12 @@ private fun ScanningContent(
                         shape = CircleShape
                     )
                     .semantics {
-                        contentDescription = "Close scanner and return to home"
+                        contentDescription = closeScannerDesc
                     }
             ) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Close",
+                    contentDescription = stringResource(R.string.cd_close),
                     tint = Color.White
                 )
             }
@@ -799,6 +808,7 @@ private fun ScanningContent(
         }
 
         // Bottom controls
+        val scanFromGalleryDesc = stringResource(R.string.cd_scan_from_gallery)
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -810,7 +820,7 @@ private fun ScanningContent(
             FilledTonalButton(
                 onClick = onGalleryClick,
                 modifier = Modifier.semantics {
-                    contentDescription = "Scan QR code from photo gallery"
+                    contentDescription = scanFromGalleryDesc
                 },
                 colors = ButtonDefaults.filledTonalButtonColors(
                     containerColor = Color.Black.copy(alpha = 0.6f),
@@ -843,6 +853,7 @@ private fun ScanningContent(
 
             // Error message if any
             AnimatedVisibility(visible = cameraError != null) {
+                val errorDesc = stringResource(R.string.cd_camera_error, cameraError ?: "")
                 Text(
                     text = cameraError ?: "",
                     color = VerdictDanger,
@@ -855,7 +866,7 @@ private fun ScanningContent(
                         )
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                         .semantics {
-                            contentDescription = "Error: $cameraError"
+                            contentDescription = errorDesc
                         }
                 )
             }
@@ -869,13 +880,14 @@ private fun ScanningContent(
 
 @Composable
 private fun ResolvingContent(originalUrl: String) {
+    val resolvingDesc = stringResource(R.string.cd_resolving_url)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(32.dp)
             .semantics {
-                contentDescription = "Resolving shortened URL. Please wait."
+                contentDescription = resolvingDesc
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -939,13 +951,14 @@ private fun ResolvingContent(originalUrl: String) {
 
 @Composable
 private fun AnalyzingContent(url: String) {
+    val analyzingDesc = stringResource(R.string.cd_analyzing_url)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(32.dp)
             .semantics {
-                contentDescription = "Analyzing URL for security threats. Please wait."
+                contentDescription = analyzingDesc
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -1007,13 +1020,15 @@ private fun ErrorContent(
     message: String,
     onRetry: () -> Unit
 ) {
+    val errorDesc = stringResource(R.string.cd_error_occurred, message)
+    val tryAgainDesc = stringResource(R.string.cd_try_again)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .padding(32.dp)
             .semantics {
-                contentDescription = "Error occurred: $message. Tap Try Again to retry."
+                contentDescription = errorDesc
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -1047,7 +1062,7 @@ private fun ErrorContent(
             onClick = onRetry,
             colors = ButtonDefaults.buttonColors(containerColor = BrandPrimary),
             modifier = Modifier.semantics {
-                contentDescription = "Try again"
+                contentDescription = tryAgainDesc
             }
         ) {
             Text(stringResource(R.string.try_again))

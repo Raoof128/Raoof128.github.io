@@ -38,8 +38,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.qrshield.android.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.qrshield.sandbox.SandboxConfig
@@ -193,7 +195,7 @@ fun SandboxWebView(
             ) {
                 Icon(Icons.Default.Close, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Exit Sandbox")
+                Text(stringResource(R.string.sandbox_exit))
             }
         }
     }
@@ -217,7 +219,7 @@ private fun SandboxSafetyBanner() {
         ) {
             Icon(
                 imageVector = Icons.Default.Security,
-                contentDescription = "Security",
+                contentDescription = stringResource(R.string.cd_security),
                 tint = Color.Black,
                 modifier = Modifier.size(24.dp)
             )
@@ -486,7 +488,7 @@ private fun SandboxErrorView(
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(onClick = onClose) {
-            Text("Close")
+            Text(stringResource(R.string.cd_close))
         }
     }
 }

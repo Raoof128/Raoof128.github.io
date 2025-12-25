@@ -564,4 +564,35 @@
     <!-- Common -->
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
+    <!-- Scanner Screen Content Descriptions -->
+    <string name="cd_processing_image">Processing image, please wait</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
+    <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
+    <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
+    <string name="cd_enter_url">Enter URL to analyze</string>
+    <string name="cd_camera_scanning">Camera scanning mode. Point camera at a QR code.</string>
+    <string name="cd_scan_from_gallery">Scan QR code from photo gallery</string>
+    <string name="cd_camera_error">Error: %s</string>
+    <string name="cd_resolving_url">Resolving shortened URL. Please wait.</string>
+    <string name="cd_analyzing_url">Analyzing URL for security threats. Please wait.</string>
+    <string name="cd_error_occurred">Error occurred: %s. Tap Try Again to retry.</string>
+    <!-- History Screen Content Descriptions -->
+    <string name="cd_history_screen_items">Scan history screen with %d items</string>
+    <string name="cd_search_history_url">Search scan history by URL</string>
+    <string name="cd_filter_by">Filter by %s</string>
+    <string name="cd_scan_result_details">Scan result: %1$s, verdict %2$s, score %3$d. Tap to view details.</string>
+    <string name="cd_more_options_scan">More options for this scan</string>
+    <!-- ResultCard Content Descriptions -->
+    <string name="cd_scan_result_full">Scan result: %1$s, risk score %2$d out of 100. URL: %3$s. %4$d risk factors found.</string>
+    <string name="cd_scanned_url">Scanned URL: %s</string>
+    <string name="cd_dismiss_result">Dismiss result and return home</string>
+    <string name="cd_scan_another">Scan another QR code</string>
+    <string name="cd_security">Security</string>
+    <!-- CameraPreview Content Descriptions -->
+    <string name="cd_camera_preview">Camera preview for QR code scanning. Position a QR code in the center of the screen to scan it.</string>
+    <!-- SandboxWebView -->
+    <!-- Common placeholders -->
+    <string name="placeholder_domain">example.com</string>
 </resources>

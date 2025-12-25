@@ -653,7 +653,7 @@ private fun StatusBadge(status: ModuleStatus, hasOfflinePin: Boolean = false) {
         if (hasOfflinePin) {
             Icon(
                 imageVector = Icons.Default.OfflinePin,
-                contentDescription = "Available offline",
+                contentDescription = stringResource(R.string.cd_available_offline),
                 tint = QRShieldColors.Gray400,
                 modifier = Modifier.size(16.dp)
             )

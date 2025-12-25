@@ -92,12 +92,14 @@ fun HistoryScreen(
         }
     }
 
+    val historyScreenDesc = stringResource(R.string.cd_history_screen_items, filteredHistory.size)
+    val clearAllDesc = stringResource(R.string.cd_clear_history)
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
             .semantics {
-                contentDescription = "Scan history screen with ${filteredHistory.size} items"
+                contentDescription = historyScreenDesc
             }
     ) {
         // Top Bar
@@ -114,12 +116,12 @@ fun HistoryScreen(
                     IconButton(
                         onClick = { showClearConfirmation = true },
                         modifier = Modifier.semantics {
-                            contentDescription = "Clear all history"
+                            contentDescription = clearAllDesc
                         }
                     ) {
                         Icon(
                             imageVector = Icons.Default.DeleteSweep,
-                            contentDescription = "Clear All",
+                            contentDescription = stringResource(R.string.cd_clear_all),
                             tint = VerdictDanger
                         )
                     }
@@ -131,6 +133,7 @@ fun HistoryScreen(
         )
 
         // Search Bar
+        val searchDesc = stringResource(R.string.cd_search_history_url)
         OutlinedTextField(
             value = searchQuery,
             onValueChange = { searchQuery = it },
@@ -138,7 +141,7 @@ fun HistoryScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .semantics {
-                    contentDescription = "Search scan history by URL"
+                    contentDescription = searchDesc
                 },
             placeholder = { Text(stringResource(R.string.search_placeholder)) },
             leadingIcon = {
@@ -153,7 +156,7 @@ fun HistoryScreen(
                     IconButton(onClick = { searchQuery = "" }) {
                         Icon(
                             imageVector = Icons.Default.Clear,
-                            contentDescription = "Clear search",
+                            contentDescription = stringResource(R.string.cd_clear_search),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -182,6 +185,7 @@ fun HistoryScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(VerdictFilter.entries) { filter ->
+                val filterDesc = stringResource(R.string.cd_filter_by, filter.displayName)
                 FilterChip(
                     selected = selectedFilter == filter,
                     onClick = { selectedFilter = filter },
@@ -201,7 +205,7 @@ fun HistoryScreen(
                         )
                     },
                     modifier = Modifier.semantics {
-                        contentDescription = "Filter by ${filter.displayName}"
+                        contentDescription = filterDesc
                     }
                 )
             }
@@ -316,13 +320,14 @@ private fun HistoryItemCard(
     }
 
     var showDeleteConfirm by remember { mutableStateOf(false) }
+    val scanResultDesc = stringResource(R.string.cd_scan_result_details, url, verdict.name, score)
 
     Card(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .semantics {
-                contentDescription = "Scan result: $url, verdict ${verdict.name}, score $score. Tap to view details."
+                contentDescription = scanResultDesc
             },
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),
@@ -410,16 +415,17 @@ private fun HistoryItemCard(
             // Actions Menu
             Box {
                 var expanded by remember { mutableStateOf(false) }
+                val moreOptionsDesc = stringResource(R.string.cd_more_options_scan)
 
                 IconButton(
                     onClick = { expanded = true },
                     modifier = Modifier.semantics {
-                        contentDescription = "More options for this scan"
+                        contentDescription = moreOptionsDesc
                     }
                 ) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
-                        contentDescription = "More",
+                        contentDescription = stringResource(R.string.cd_more),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }

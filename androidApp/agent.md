@@ -122,8 +122,14 @@ After making changes:
 
 ## Current Stats
 
-- **Version**: 1.17.54
-- **String Keys**: 529
+- **Version**: 1.17.57
+- **String Keys**: 554 (+25 from polish pass)
 - **Languages**: 16 (1 base + 15 localized)
+- **Content Descriptions**: 184 across 15 screens (+25 new accessibility labels)
+- **Design System Usages**: 303 (QRShieldColors/Shapes)
 - **Last Updated**: 2025-12-26
+
+## Related Documentation
+
+- `docs/ANDROID_CHECKLIST.md` - Comprehensive audit against submission requirements
 

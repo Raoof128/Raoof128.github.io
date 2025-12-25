@@ -83,6 +83,7 @@ fun ResultCard(
         }
     }
 
+    val resultDesc = stringResource(R.string.cd_scan_result_full, verdict.name, score, url, flags.size)
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -90,8 +91,7 @@ fun ResultCard(
             .verticalScroll(rememberScrollState())
             .padding(24.dp)
             .semantics {
-                contentDescription = "Scan result: ${verdict.name}, risk score $score out of 100. " +
-                    "URL: $url. ${flags.size} risk factors found."
+                contentDescription = resultDesc
             },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -122,6 +122,7 @@ fun ResultCard(
             label = "score_pop"
         )
 
+        val riskScoreDesc = stringResource(R.string.cd_risk_score, score)
         Text(
             text = "$animatedScore",
             fontSize = 72.sp,
@@ -130,7 +131,7 @@ fun ResultCard(
             modifier = Modifier
                 .scale(scoreScale)
                 .semantics {
-                contentDescription = "Risk score: $score out of 100"
+                contentDescription = riskScoreDesc
             }
         )
 
@@ -160,11 +161,13 @@ fun ResultCard(
         Spacer(modifier = Modifier.height(24.dp))
 
         // URL Card
+        val scannedUrlDesc = stringResource(R.string.cd_scanned_url, url)
+        val copyUrlDesc = stringResource(R.string.cd_copy_url)
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .semantics {
-                    contentDescription = "Scanned URL: $url"
+                    contentDescription = scannedUrlDesc
                 },
             colors = CardDefaults.cardColors(containerColor = BackgroundCard),
             shape = RoundedCornerShape(12.dp)
@@ -188,7 +191,7 @@ fun ResultCard(
                             clipboardManager.setText(AnnotatedString(url))
                         },
                         modifier = Modifier.semantics {
-                            contentDescription = "Copy URL to clipboard"
+                            contentDescription = copyUrlDesc
                         }
                     ) {
                         Text(
@@ -294,6 +297,8 @@ fun ResultCard(
         Spacer(modifier = Modifier.height(32.dp))
 
         // Action Buttons
+        val dismissDesc = stringResource(R.string.cd_dismiss_result)
+        val scanAnotherDesc = stringResource(R.string.cd_scan_another)
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -304,7 +309,7 @@ fun ResultCard(
                     .weight(1f)
                     .height(48.dp)
                     .semantics {
-                        contentDescription = "Dismiss result and return home"
+                        contentDescription = dismissDesc
                     },
                 colors = ButtonDefaults.outlinedButtonColors(
                     contentColor = TextSecondary
@@ -319,7 +324,7 @@ fun ResultCard(
                     .weight(1f)
                     .height(48.dp)
                     .semantics {
-                        contentDescription = "Scan another QR code"
+                        contentDescription = scanAnotherDesc
                     },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = BrandPrimary

@@ -406,7 +406,7 @@ private fun AddDomainSheet(
                 value = inputUrl,
                 onValueChange = onInputChange,
                 modifier = Modifier.fillMaxWidth(),
-                placeholder = { Text("example.com") },
+                placeholder = { Text(stringResource(R.string.placeholder_domain)) },
                 shape = QRShieldShapes.Card,
                 singleLine = true,
                 isError = hasError,
