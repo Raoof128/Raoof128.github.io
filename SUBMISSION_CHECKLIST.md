@@ -100,7 +100,7 @@ cd qrshield
 | **Ensemble ML for URL classification** | Most scanners use single-model or blocklists |
 | **Dynamic brand discovery** | Detects unknown brands without database |
 | **Explainable verdicts** | Users understand WHY something is risky |
-| **True 4-platform KMP** | Same engine on Android, iOS, Desktop, Web |
+| **True 5-platform KMP** | Same engine on Android, iOS, Desktop, Web (JS + Wasm) |
 | **Production-quality CI** | Detekt, Kover, Konsist, performance CI |
 
 ---

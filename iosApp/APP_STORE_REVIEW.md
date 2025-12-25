@@ -8,7 +8,7 @@
 
 ### App Details
 - **Bundle ID**: com.qrshield.ios (configure in Xcode)
-- **Version**: 1.0.0
+- **Version**: 1.17.34
 - **Build**: 1
 - **Minimum iOS**: 17.0
 - **Architectures**: arm64

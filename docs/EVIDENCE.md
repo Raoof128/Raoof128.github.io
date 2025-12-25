@@ -2,7 +2,7 @@
 
 > **Purpose**: Every numeric claim in the README is linked to a reproducible artifact.  
 > **Last Verified**: December 25, 2025  
-> **Version**: 1.17.31
+> **Version**: 1.17.34
 
 ---
 

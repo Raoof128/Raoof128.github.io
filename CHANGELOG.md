@@ -5,6 +5,52 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.35] - 2025-12-25
+
+### 📋 Documentation Cross-Check & App Docs Audit
+
+Complete cross-check of all documentation files and app-specific docs across all 5 platforms.
+
+#### 🔧 Inconsistencies Fixed
+
+| File | Change |
+|------|--------|
+| `README.md` | Test count: 1000+ → 1,248+ (2 places) |
+| `SUBMISSION_CHECKLIST.md` | Platform count: 4 → 5 |
+| `docs/EVIDENCE.md` | Version: 1.17.31 → 1.17.34 |
+| `iosApp/APP_STORE_REVIEW.md` | Version: 1.0.0 → 1.17.34 |
+
+#### ✨ New Documentation Created
+
+| File | Purpose |
+|------|---------|
+| `androidApp/README.md` | Comprehensive Android app documentation (160 lines) |
+
+#### 🗑️ Files Removed
+
+| File | Reason |
+|------|--------|
+| `androidApp/Androidapp.txt` | Contained incorrect content (unrelated material) |
+
+#### 📊 App Documentation Verified
+
+All 5 apps now have proper documentation:
+- **Android**: `README.md` (new)
+- **iOS**: `README.md`, `INTEGRATION_GUIDE.md`, `APP_STORE_REVIEW.md`
+- **Desktop**: `README.md`
+- **Web**: `e2e/README.md`
+- **Common**: `PACKAGE_ARCHITECTURE.md`
+
+#### ✅ Consistency Verified
+
+- Test count: 1,248+ ✅
+- Platform count: 5 KMP targets ✅
+- Language count: 16 languages ✅
+- Kotlin version: 2.3.0 ✅
+- App version: 1.17.34 ✅
+
+---
+
 ## [1.17.34] - 2025-12-25
 
 ### 📚 Documentation Audit & Consistency Refactor

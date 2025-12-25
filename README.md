@@ -317,7 +317,7 @@ when (result.verdict) {
 | Metric | Value |
 |--------|-------|
 | Test Coverage | 89% |
-| Total Tests | 1000+ |
+| Total Tests | 1,248+ |
 | Architecture Tests | 9 (Konsist) |
 | Performance Tests | 15+ with P99 thresholds |
 | Accuracy | F1: 87.1%, Recall: 89.1% |
@@ -328,7 +328,7 @@ when (result.verdict) {
 
 | Workflow | What It Checks |
 |----------|----------------|
-| `quality-tests.yml` | 1000+ unit tests |
+| `quality-tests.yml` | 1,248+ unit tests |
 | `performance.yml` | P99 latency thresholds |
 | `benchmark.yml` | Performance regression detection |
 | Detekt | Zero-tolerance static analysis |
