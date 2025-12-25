@@ -138,6 +138,7 @@ fun ScanResultScreen(
                 // Risk Score Card
                 RiskScoreCard(
                     score = severityScore,
+                    verdict = verdict,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
 
@@ -362,8 +363,49 @@ private fun VerdictHeader(
 @Composable
 private fun RiskScoreCard(
     score: Float,
+    verdict: String = "UNKNOWN",
     modifier: Modifier = Modifier
 ) {
+    // Use verdict to determine risk level, not just score
+    val verdictUpper = verdict.uppercase()
+    val isSafe = verdictUpper == "SAFE"
+    val isSuspicious = verdictUpper == "SUSPICIOUS"
+    val isMalicious = verdictUpper == "MALICIOUS"
+    
+    // Determine risk level based on verdict first, score as fallback
+    val riskLevel = when {
+        isMalicious -> "CRITICAL"
+        isSuspicious -> "WARNING"
+        isSafe -> "LOW"
+        score < 3 -> "LOW"
+        score < 7 -> "WARNING"
+        else -> "CRITICAL"
+    }
+    
+    // Determine colors based on risk level
+    val riskBgColor = when (riskLevel) {
+        "LOW" -> QRShieldColors.Emerald50
+        "WARNING" -> QRShieldColors.Orange50
+        else -> QRShieldColors.Red50
+    }
+    val riskTextColor = when (riskLevel) {
+        "LOW" -> QRShieldColors.Emerald600
+        "WARNING" -> QRShieldColors.Orange600
+        else -> QRShieldColors.Red600
+    }
+    val progressColor = when (riskLevel) {
+        "LOW" -> QRShieldColors.Emerald500
+        "WARNING" -> QRShieldColors.Orange500
+        else -> QRShieldColors.RiskDanger
+    }
+    
+    // Calculate active segments based on verdict and score
+    val activeSegments = when {
+        isMalicious -> 5  // Full bar for malicious
+        isSuspicious -> 3 // Medium bar for suspicious
+        isSafe -> 1       // Low bar for safe
+        else -> (score / 2).toInt().coerceIn(1, 5)
+    }
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = QRShieldShapes.Card,
@@ -396,25 +438,17 @@ private fun RiskScoreCard(
                 
                 Surface(
                     shape = RoundedCornerShape(4.dp),
-                    color = when {
-                        score < 3 -> QRShieldColors.Emerald50
-                        score < 7 -> QRShieldColors.Orange50
-                        else -> QRShieldColors.Red50
-                    }
+                    color = riskBgColor
                 ) {
                     Text(
-                        text = when {
-                            score < 3 -> stringResource(R.string.risk_level_low)
-                            score < 7 -> stringResource(R.string.risk_level_warning)
+                        text = when (riskLevel) {
+                            "LOW" -> stringResource(R.string.risk_level_low)
+                            "WARNING" -> stringResource(R.string.risk_level_warning)
                             else -> stringResource(R.string.risk_level_critical)
                         },
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
-                        color = when {
-                            score < 3 -> QRShieldColors.Emerald600
-                            score < 7 -> QRShieldColors.Orange600
-                            else -> QRShieldColors.Red600
-                        }
+                        color = riskTextColor
                     )
                 }
             }
@@ -424,11 +458,8 @@ private fun RiskScoreCard(
                 modifier = Modifier.fillMaxWidth().height(12.dp),
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                // 5 Segments
+                // 5 Segments - use pre-calculated activeSegments based on verdict
                 for (i in 1..5) {
-                    val isActive = (score / 2f) >= i // Map 0-10 score to 1-5 segments roughly
-                    // OR: simpler mapping. If score is 8, 4 segments active.
-                    val activeSegments = (score / 2).toInt().coerceAtLeast(1) 
                     val isSegmentActive = i <= activeSegments
                     
                     Box(
@@ -437,15 +468,8 @@ private fun RiskScoreCard(
                             .fillMaxHeight()
                             .clip(RoundedCornerShape(2.dp))
                             .background(
-                                if (isSegmentActive) {
-                                    when {
-                                        score < 3 -> QRShieldColors.Emerald500
-                                        score < 7 -> QRShieldColors.Orange500
-                                        else -> QRShieldColors.RiskDanger
-                                    }
-                                } else {
-                                    MaterialTheme.colorScheme.surfaceVariant
-                                }
+                                if (isSegmentActive) progressColor
+                                else MaterialTheme.colorScheme.surfaceVariant
                             )
                     )
                 }

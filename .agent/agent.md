@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.36`** (as of December 25, 2025)
+**Current App Version: `1.17.37`** (as of December 25, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,49 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🐛 December 25, 2025 (Session 10k+13) - Android Result Screen & History Fixes
+
+### Summary
+Fixed UI/logic inconsistency in ScanResultScreen where MALICIOUS verdicts showed "WARNING" instead of "CRITICAL", and added click-to-navigate for history items.
+
+## ✅ Bugs Fixed
+
+### 1. RiskScoreCard Logic Bug
+
+**Issue**: RiskScoreCard used only the score to determine risk level, ignoring the verdict. This caused MALICIOUS verdicts with scores like 67 to show "WARNING" instead of "CRITICAL".
+
+**Fix**: RiskScoreCard now accepts `verdict` parameter and uses it as the primary source for determining risk level:
+- `MALICIOUS` → Always shows `CRITICAL` with red bar (5 segments)
+- `SUSPICIOUS` → Always shows `WARNING` with orange bar (3 segments)
+- `SAFE` → Always shows `LOW` with green bar (1 segment)
+- `UNKNOWN` → Falls back to score-based logic
+
+### 2. History Item Click Navigation
+
+**Issue**: Clicking a history item did nothing. Users couldn't navigate to the result screen from history.
+
+**Fix**: Added `onItemClick` callback to `HistoryScreen` and `HistoryItemCard`:
+- Card now has `onClick` parameter
+- Clicking navigates to `ScanResultScreen` with URL, verdict, and score
+- Added accessibility description: "Tap to view details"
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | RiskScoreCard now uses verdict for risk level |
+| `HistoryScreen.kt` | Added onItemClick callback and Card onClick |
+| `Navigation.kt` | HistoryScreen now passes navigation callback |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :androidApp:compileDebugKotlin
+# BUILD SUCCESSFUL in 26s
+```
 
 ---
 

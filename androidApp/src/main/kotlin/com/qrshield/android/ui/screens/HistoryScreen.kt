@@ -19,6 +19,7 @@ package com.qrshield.android.ui.screens
 import androidx.compose.animation.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -64,7 +65,9 @@ import java.util.*
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HistoryScreen() {
+fun HistoryScreen(
+    onItemClick: (url: String, verdict: String, score: Int) -> Unit = { _, _, _ -> }
+) {
     val viewModel: SharedViewModel = koinInject()
     val scanHistory by viewModel.scanHistory.collectAsState()
 
@@ -226,6 +229,9 @@ fun HistoryScreen() {
                         score = historyItem.score,
                         verdict = historyItem.verdict,
                         scannedAt = historyItem.scannedAt,
+                        onClick = {
+                            onItemClick(historyItem.url, historyItem.verdict.name, historyItem.score)
+                        },
                         onCopyUrl = {
                             clipboardManager.setText(AnnotatedString(historyItem.url))
                         },
@@ -296,6 +302,7 @@ private fun HistoryItemCard(
     score: Int,
     verdict: Verdict,
     scannedAt: Long,
+    onClick: () -> Unit = {},
     onCopyUrl: () -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
@@ -311,10 +318,11 @@ private fun HistoryItemCard(
     var showDeleteConfirm by remember { mutableStateOf(false) }
 
     Card(
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .semantics {
-                contentDescription = "Scan result: $url, verdict ${verdict.name}, score $score"
+                contentDescription = "Scan result: $url, verdict ${verdict.name}, score $score. Tap to view details."
             },
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)),

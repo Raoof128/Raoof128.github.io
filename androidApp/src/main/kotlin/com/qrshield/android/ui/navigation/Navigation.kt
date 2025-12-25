@@ -405,7 +405,11 @@ fun QRShieldNavHost(
         }
 
         composable(Routes.HISTORY) {
-            HistoryScreen()
+            HistoryScreen(
+                onItemClick = { url, verdict, score ->
+                    navController.navigate(Routes.scanResult(url, verdict, score))
+                }
+            )
         }
 
         composable(Routes.SETTINGS) {

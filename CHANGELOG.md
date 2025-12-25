@@ -5,6 +5,36 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.37] - 2025-12-25
+
+### 🐛 Android Result Screen & History Fixes
+
+Fixed UI/logic bugs in the Android app.
+
+#### Bug Fixes
+
+**1. RiskScoreCard Logic** (`ScanResultScreen.kt`)
+- **Issue**: MALICIOUS verdicts with scores like 67 showed "WARNING" instead of "CRITICAL"
+- **Fix**: RiskScoreCard now uses verdict as primary source for risk level
+  - `MALICIOUS` → Always shows `CRITICAL` (red, 5 segments)
+  - `SUSPICIOUS` → Always shows `WARNING` (orange, 3 segments)
+  - `SAFE` → Always shows `LOW` (green, 1 segment)
+
+**2. History Item Navigation** (`HistoryScreen.kt`, `Navigation.kt`)
+- **Issue**: Clicking history items did nothing
+- **Fix**: Added `onItemClick` callback that navigates to `ScanResultScreen`
+- Added accessibility: "Tap to view details"
+
+#### Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | RiskScoreCard uses verdict for risk level |
+| `HistoryScreen.kt` | Added onItemClick callback + Card onClick |
+| `Navigation.kt` | HistoryScreen passes navigation callback |
+
+---
+
 ## [1.17.36] - 2025-12-25
 
 ### ✍️ Competition Essay Enhancement
