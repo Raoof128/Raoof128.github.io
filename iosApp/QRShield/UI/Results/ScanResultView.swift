@@ -435,7 +435,7 @@ struct ScanResultView: View {
                         .font(.subheadline)
                         .foregroundColor(.textSecondary)
                     
-                    if let detail = breakdown.wrappedValue.technicalDetail {
+                    if breakdown.wrappedValue.technicalDetail != nil {
                         HStack(spacing: 0) {
                             Text("result.expected")
                                 .foregroundColor(.verdictSafe)

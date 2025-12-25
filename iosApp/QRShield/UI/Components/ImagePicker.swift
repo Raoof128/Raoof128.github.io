@@ -60,7 +60,7 @@ struct ImagePicker: View {
                 
                 Spacer()
                 
-                // Photo Picker Button
+                // Photo Picker Button - inline to avoid Sendable warnings
                 PhotosPicker(
                     selection: $selectedItem,
                     matching: .images,

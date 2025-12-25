@@ -91,7 +91,7 @@ struct DashboardView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
-                            Text("app.name")
+                            Text(NSLocalizedString("app.name", comment: "App name"))
                                 .font(.headline)
                                 .foregroundColor(.textPrimary)
                         }
@@ -177,7 +177,7 @@ struct DashboardView: View {
                     .font(.caption)
                     .foregroundColor(.brandPrimary)
                 
-                Text("dashboard.enterprise_badge")
+                Text(NSLocalizedString("dashboard.enterprise_badge", comment: "Enterprise badge"))
                     .font(.caption2.weight(.bold))
                     .foregroundColor(.brandPrimary)
                     .tracking(0.5)
@@ -188,11 +188,11 @@ struct DashboardView: View {
             
             // Tagline
             VStack(alignment: .leading, spacing: 4) {
-                Text("dashboard.hero.tagline")
+                Text(NSLocalizedString("dashboard.hero.tagline", comment: "Hero tagline"))
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.textPrimary)
                 
-                Text("dashboard.hero.tagline2")
+                Text(NSLocalizedString("dashboard.hero.tagline2", comment: "Hero tagline 2"))
                     .font(.system(size: 32, weight: .bold))
                     .foregroundStyle(LinearGradient.brandGradient)
                     .fixedSize(horizontal: false, vertical: true)
@@ -234,7 +234,7 @@ struct DashboardView: View {
                         } else {
                             Image(systemName: "shield.fill")
                         }
-                        Text("dashboard.analyze")
+                        Text(NSLocalizedString("dashboard.analyze", comment: "Analyze button"))
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -254,7 +254,7 @@ struct DashboardView: View {
                 } label: {
                     HStack(spacing: 8) {
                         Image(systemName: "qrcode.viewfinder")
-                        Text("dashboard.scan_qr")
+                        Text(NSLocalizedString("dashboard.scan_qr", comment: "Scan QR button"))
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -269,7 +269,7 @@ struct DashboardView: View {
                 } label: {
                     HStack(spacing: 8) {
                         Image(systemName: "photo.on.rectangle")
-                        Text("dashboard.import_image")
+                        Text(NSLocalizedString("dashboard.import_image", comment: "Import image button"))
                             .fontWeight(.semibold)
                     }
                     .frame(maxWidth: .infinity)
@@ -307,11 +307,11 @@ struct DashboardView: View {
                 }
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("dashboard.system_optimal")
+                    Text(NSLocalizedString("dashboard.system_optimal", comment: "System optimal"))
                         .font(.subheadline.weight(.semibold))
                         .foregroundColor(.textPrimary)
                     
-                    Text("dashboard.engine_status")
+                    Text(NSLocalizedString("dashboard.engine_status", comment: "Engine status"))
                         .font(.caption)
                         .foregroundColor(.textSecondary)
                 }
@@ -360,7 +360,7 @@ struct DashboardView: View {
                         .font(.title.weight(.bold))
                         .foregroundColor(.textPrimary)
                     
-                    Text("dashboard.threats_blocked")
+                    Text(NSLocalizedString("dashboard.threats_blocked", comment: "Threats blocked label"))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                 }
@@ -394,7 +394,7 @@ struct DashboardView: View {
                         .font(.title.weight(.bold))
                         .foregroundColor(.textPrimary)
                     
-                    Text("dashboard.safe_scans")
+                    Text(NSLocalizedString("dashboard.safe_scans", comment: "Safe scans label"))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                 }
@@ -417,7 +417,7 @@ struct DashboardView: View {
     
     private var engineFeaturesSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("dashboard.engine_features")
+            Text(NSLocalizedString("dashboard.engine_features", comment: "Engine features header"))
                 .font(.caption.weight(.bold))
                 .foregroundColor(.textMuted)
                 .tracking(1)
@@ -476,7 +476,7 @@ struct DashboardView: View {
     private var recentScansSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Text("dashboard.recent_scans")
+                Text(NSLocalizedString("dashboard.recent_scans", comment: "Recent scans header"))
                     .font(.caption.weight(.bold))
                     .foregroundColor(.textMuted)
                     .tracking(1)
@@ -486,7 +486,7 @@ struct DashboardView: View {
                 NavigationLink {
                     HistoryView()
                 } label: {
-                    Text("dashboard.view_all")
+                    Text(NSLocalizedString("dashboard.view_all", comment: "View all link"))
                         .font(.caption.weight(.semibold))
                         .foregroundColor(.brandPrimary)
                 }
@@ -499,11 +499,11 @@ struct DashboardView: View {
                         .font(.title)
                         .foregroundColor(.textMuted)
                     
-                    Text("dashboard.no_scans_yet")
+                    Text(NSLocalizedString("dashboard.no_scans_yet", comment: "No scans yet"))
                         .font(.subheadline)
                         .foregroundColor(.textSecondary)
                     
-                    Text("dashboard.no_scans_message")
+                    Text(NSLocalizedString("dashboard.no_scans_message", comment: "No scans message"))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                         .multilineTextAlignment(.center)
@@ -570,11 +570,11 @@ struct DashboardView: View {
     
     private var threatDatabaseCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("dashboard.threat_database")
+            Text(NSLocalizedString("dashboard.threat_database", comment: "Threat database"))
                 .font(.headline)
                 .foregroundColor(.white)
             
-            Text("dashboard.db_updated")
+            Text(NSLocalizedString("dashboard.db_updated", comment: "DB updated"))
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.7))
             

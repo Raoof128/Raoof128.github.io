@@ -5,6 +5,52 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.42] - 2025-12-25
+
+### 🐛 iOS Localization & Build Fixes
+
+Fixed multiple iOS issues including localization showing raw keys and Swift concurrency warnings.
+
+#### Bug Fixes
+
+**1. Localization Not Working** (Dashboard showing "dashboard.hero.tagline" instead of actual text)
+- **Root Cause**: Localizable.strings files existed but weren't added to Xcode project
+- **Fix**: Added `Localizable.strings` variant group to `project.pbxproj`
+- **Fix**: Updated all `Text("key")` to use `Text(NSLocalizedString("key", comment: ""))`
+- **Files Added**: 6 language variants (en, de, es, fr, zh-Hans, ja)
+
+**2. ImagePicker Swift 6 Concurrency Warnings**
+- **Issue**: Main actor-isolated property referenced from Sendable closure
+- **Fix**: Inlined picker button content to avoid computed property in closure
+
+**3. ScanResultView Warning**
+- **Issue**: Unused `detail` variable in `if let` binding
+- **Fix**: Changed to `if != nil` check
+
+#### New Files
+
+| File | Purpose |
+|------|---------|
+| `Localization+Extension.swift` | String.localized extension + L10n type-safe keys |
+
+#### Files Modified
+
+| File | Change |
+|------|--------|
+| `DashboardView.swift` | All strings use NSLocalizedString |
+| `ImagePicker.swift` | Fixed concurrency warning |
+| `ScanResultView.swift` | Fixed unused variable warning |
+| `project.pbxproj` | Added localization + new Swift file |
+
+#### Build Verification
+
+```bash
+xcodebuild -scheme QRShield -destination 'platform=iOS Simulator,name=iPhone 17' build
+# BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.41] - 2025-12-25
 
 ### 🐛 iOS Build Fixes

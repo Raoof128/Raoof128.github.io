@@ -32,6 +32,8 @@
 		A1000017000000000000017 /* ThreatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000017000000000000017 /* ThreatHistoryView.swift */; };
 		A1000018000000000000018 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000018000000000000018 /* MainMenuView.swift */; };
 		A1000019000000000000019 /* UnifiedAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000019000000000000019 /* UnifiedAnalysisService.swift */; };
+		A100001C00000000000001C /* Localization+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100001C00000000000001C /* Localization+Extension.swift */; };
+		A100001D00000000000001D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B100001D00000000000001D /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +64,13 @@
 		B1000017000000000000017 /* ThreatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatHistoryView.swift; sourceTree = "<group>"; };
 		B1000018000000000000018 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		B1000019000000000000019 /* UnifiedAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedAnalysisService.swift; sourceTree = "<group>"; };
+		B100001C00000000000001C /* Localization+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Localization+Extension.swift"; sourceTree = "<group>"; };
+		B100001E00000000000001E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B100001F00000000000001F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000020000000000000020 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000021000000000000021 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000022000000000000022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B1000023000000000000023 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +101,7 @@
 				E1000006000000000000006 /* UI */,
 				B1000002000000000000002 /* Assets.xcassets */,
 				B100000E00000000000000E /* Info.plist */,
+				B100001D00000000000001D /* Localizable.strings */,
 			);
 			path = QRShield;
 			sourceTree = "<group>";
@@ -117,6 +127,7 @@
 			children = (
 				B1000003000000000000003 /* Color+Theme.swift */,
 				B1000004000000000000004 /* Assets+Extension.swift */,
+				B100001C00000000000001C /* Localization+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -246,6 +257,22 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXVariantGroup section */
+		B100001D00000000000001D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B100001E00000000000001E /* en */,
+				B100001F00000000000001F /* de */,
+				B1000020000000000000020 /* es */,
+				B1000021000000000000021 /* fr */,
+				B1000022000000000000022 /* zh-Hans */,
+				B1000023000000000000023 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin PBXNativeTarget section */
 		F1000001000000000000001 /* QRShield */ = {
 			isa = PBXNativeTarget;
@@ -318,6 +345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1000002000000000000002 /* Assets.xcassets in Resources */,
+				A100001D00000000000001D /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +359,7 @@
 				A1000001000000000000001 /* QRShieldApp.swift in Sources */,
 				A1000003000000000000003 /* Color+Theme.swift in Sources */,
 				A1000004000000000000004 /* Assets+Extension.swift in Sources */,
+				A100001C00000000000001C /* Localization+Extension.swift in Sources */,
 				A1000005000000000000005 /* ScannerView.swift in Sources */,
 				A1000006000000000000006 /* ScannerViewModel.swift in Sources */,
 				A1000007000000000000007 /* CameraPreview.swift in Sources */,
