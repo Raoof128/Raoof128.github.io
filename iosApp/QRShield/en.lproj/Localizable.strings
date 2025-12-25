@@ -286,3 +286,7 @@
 "settings.language_search" = "Search languages";
 "settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
 "common.done" = "Done";
+"settings.language_changed" = "Language Changed";
+"settings.restart_later" = "Later";
+"settings.restart_now" = "Restart Now";
+"settings.language_restart_message" = "To fully apply the new language, please restart the app.";

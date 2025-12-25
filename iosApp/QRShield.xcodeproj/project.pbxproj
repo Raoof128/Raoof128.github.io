@@ -34,6 +34,7 @@
 		A1000019000000000000019 /* UnifiedAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000019000000000000019 /* UnifiedAnalysisService.swift */; };
 		A100001C00000000000001C /* Localization+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100001C00000000000001C /* Localization+Extension.swift */; };
 		A100001D00000000000001D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B100001D00000000000001D /* Localizable.strings */; };
+		A1000024000000000000024 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000024000000000000024 /* LanguageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		B1000021000000000000021 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		B1000022000000000000022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B1000023000000000000023 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000024000000000000024 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +205,7 @@
 				B1000010000000000000010 /* SettingsManager.swift */,
 				B1000011000000000000011 /* HistoryStore.swift */,
 				B1000019000000000000019 /* UnifiedAnalysisService.swift */,
+				B1000024000000000000024 /* LanguageManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				A1000018000000000000018 /* MainMenuView.swift in Sources */,
 				A1000019000000000000019 /* UnifiedAnalysisService.swift in Sources */,
 				A100001B00000000000001B /* BrainVisualizer.swift in Sources */,
+				A1000024000000000000024 /* LanguageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

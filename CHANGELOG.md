@@ -5,6 +5,53 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.44] - 2025-12-25
+
+### 🌐 iOS Language Switching - Restart Prompt
+
+Fixed language selection to actually apply changes by showing restart prompt.
+
+#### Improvements
+
+**LanguageManager Class**
+- New `LanguageManager` singleton manages language state
+- Loads correct language bundle at runtime
+- Sets `UserDefaults("AppleLanguages")` for persistence
+
+**Restart Alert**
+- Shows alert after selecting a language
+- "Later" option - continues using app, applies on next launch
+- "Restart Now" option - immediately restarts the app
+
+#### Technical Details
+
+- `@MainActor` ensures thread-safe UI updates
+- `nonisolated` localized methods for safe string access
+- Bundle loading for language-specific `.lproj` folders
+
+#### Files Added
+
+| File | Purpose |
+|------|---------|
+| `LanguageManager.swift` | Language state management and bundle switching |
+
+#### Files Modified
+
+| File | Change |
+|------|--------|
+| `SettingsView.swift` | Uses LanguageManager, shows restart alert |
+| `project.pbxproj` | Added LanguageManager to build |
+| `en.lproj/Localizable.strings` | Added restart alert strings |
+
+#### Build Verification
+
+```bash
+xcodebuild -scheme QRShield -destination 'platform=iOS Simulator,name=iPhone 17' build
+# BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.43] - 2025-12-25
 
 ### 🌐 iOS Language Selector

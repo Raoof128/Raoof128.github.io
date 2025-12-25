@@ -36,12 +36,15 @@ struct SettingsView: View {
     @AppStorage("useDarkMode") private var useDarkMode = true
     @AppStorage("selectedLanguage") private var selectedLanguage = "system"
     
+    @StateObject private var languageManager = LanguageManager.shared
+    
     @State private var showClearConfirmation = false
     @State private var showNotificationDeniedAlert = false
     @State private var showTrustCentre = false
     @State private var showExport = false
     @State private var showThreatHistory = false
     @State private var showLanguagePicker = false
+    @State private var showRestartAlert = false
     
     var body: some View {
         List {
@@ -643,7 +646,10 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
 struct LanguagePickerView: View {
     @Binding var selectedLanguage: String
     @Environment(\.dismiss) private var dismiss
+    @StateObject private var languageManager = LanguageManager.shared
     @State private var searchText = ""
+    @State private var showRestartAlert = false
+    @State private var pendingLanguage: SupportedLanguage?
     
     var filteredLanguages: [SupportedLanguage] {
         if searchText.isEmpty {
@@ -707,26 +713,38 @@ struct LanguagePickerView: View {
                     .foregroundColor(.brandPrimary)
                 }
             }
+            .alert(
+                NSLocalizedString("settings.language_changed", comment: "Language Changed"),
+                isPresented: $showRestartAlert
+            ) {
+                Button(NSLocalizedString("settings.restart_later", comment: "Later")) {
+                    dismiss()
+                }
+                Button(NSLocalizedString("settings.restart_now", comment: "Restart Now")) {
+                    // Force quit the app
+                    exit(0)
+                }
+            } message: {
+                Text(NSLocalizedString("settings.language_restart_message", comment: "Restart message"))
+            }
         }
     }
     
     private func selectLanguage(_ language: SupportedLanguage) {
+        // Update the binding
         selectedLanguage = language.code
-        SettingsManager.shared.triggerHaptic(.selection)
         
-        // Apply language change
-        if language == .system {
-            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-        } else {
-            UserDefaults.standard.set([language.code], forKey: "AppleLanguages")
-        }
+        // Apply via LanguageManager for immediate effect where possible
+        languageManager.currentLanguage = language.code
         
-        // Notify user that restart may be required
+        SettingsManager.shared.triggerHaptic(.success)
+        
         #if DEBUG
         print("🌐 Language changed to: \(language.displayName) (\(language.code))")
         #endif
         
-        dismiss()
+        // Show restart alert
+        showRestartAlert = true
     }
 }
 
