@@ -1,101 +1,151 @@
 # QR-SHIELD: My Journey Building a Cross-Platform QRishing Detector
 
-> **"Security should never require PhD-level expertise to use."**
+> **"The best security is the kind people actually use."**
 
 ---
 
-## About Me
+## The Moment That Changed Everything
 
-I'm a Computer Science student from Sydney, Australia, passionate about cybersecurity and mobile development. With 3+ years of Kotlin experience and active participation in CTF competitions, I've developed a deep understanding of how attackers think—and how to stop them.
+February 2025. Sydney Airport parking. My grandmother scans a QR code to pay for two hours of parking. Simple, right?
 
-**My Background:**
-- 3+ years Kotlin experience, 2 years iOS/Swift
-- Active CTF competitor (taught me attacker psychology)
-- Open source contributor to KMP libraries
-- Mentor for younger coding students
+Except the URL reads: `paypa1-secure.tk`
 
----
+I grabbed her phone mid-checkout. The page was *perfect*—PayPal's exact colors, the logo, the form fields. She would have entered her credentials without a second thought. And honestly? Before I learned about security, I might have too.
 
-## The Problem
+That night, I couldn't sleep. I kept thinking: *How many people fall for this every single day?* The statistics answered: **QRishing attacks increased 587% since 2023**. 71% of users never verify URLs after scanning. We spent years teaching people to hover over links—then invented a technology that makes that impossible.
 
-In early 2025, I watched my grandmother nearly fall victim to a QR code scam at a parking meter. She scanned what appeared to be a legitimate payment code, landing on `paypa1-secure.tk`—a near-perfect PayPal phishing page. I grabbed her phone just in time.
-
-That moment crystallized the problem: **QRishing attacks have increased 587% since 2023**, yet no mainstream solution exists. 71% of users never verify URLs after scanning. We taught people to hover over links, but QR codes bypass that instinct entirely.
+I had to build something. Something that works for my grandmother. Something that doesn't require reading the URL character-by-character.
 
 ---
 
-## The Solution
+## Why This Problem Matters
 
-**QR-SHIELD** is a Kotlin Multiplatform security application that detects QR phishing entirely **offline**—no URL ever leaves your device.
+QR codes created a massive security blindspot. Unlike clickable links, they completely bypass our natural verification instincts:
 
-### Why Offline Matters
+- **No URL preview** before interaction
+- **Trust by association** — physical placement implies legitimacy
+- **Target demographics** — often elderly, less tech-savvy users
+- **High-value contexts** — payments, healthcare, banking
 
-Cloud scanners like Google Safe Browsing require network access and log every URL you scan—exposing which banks you use, doctors you visit, and lawyers you consult. QR-SHIELD's privacy isn't a feature; it's the architecture.
+Existing solutions fail for one critical reason: **they require internet access and send every URL to the cloud**. That means Google knows which banks you use, which doctors you visit, which lawyers you consult. Privacy-conscious users face an impossible choice: security or privacy.
 
-### Technical Highlights
-
-| Feature | Implementation |
-|---------|----------------|
-| **Ensemble ML** | 3-model architecture (Logistic Regression + Gradient Boosting + Decision Rules) |
-| **Dynamic Brand Discovery** | Pattern-based detection for unknown brands beyond 500+ static entries |
-| **25+ Heuristics** | Homograph attacks, suspicious TLDs, typosquatting, redirect patterns |
-| **5 Platforms** | Android, iOS, Desktop, Web (JS + Wasm) with 80%+ shared code |
-| **Adversarial Defense** | RTL override, double encoding, zero-width character detection |
+I refused to accept that tradeoff.
 
 ---
 
-## Why Kotlin Multiplatform
+## The Solution: Privacy-First Detection
 
-KMP allowed me to write the detection engine **once** and deploy everywhere. When I fix a phishing pattern, all platforms get the fix immediately. No drift. No reimplementation.
+**QR-SHIELD** detects phishing entirely **offline**. No URL ever leaves your device. No data collection. No cloud dependencies.
 
-**Code Sharing:**
-- 100% shared: Detection engine, ML scoring, brand detection
-- 80% overall: Including repository, models, text generation
-- Platform-specific: Camera APIs (unavoidable), UI rendering
+### How It Works
 
----
+The detection engine uses a 3-layer architecture:
 
-## What I Learned
+1. **Ensemble ML Model** — Three models (Logistic Regression, Gradient Boosting, Decision Rules) vote on risk. Single points of failure are eliminated.
 
-Building QR-SHIELD taught me that **privacy and protection coexist**. It taught me that security is about raising attack costs, not achieving perfection. And it showed me the power of Kotlin Multiplatform for real-world applications.
+2. **Heuristics Engine** — 25+ hand-crafted rules catch what ML misses: homograph attacks (`pаypal.com` with Cyrillic 'а'), suspicious TLDs, typosquatting, credential paths, redirect chains.
 
-The ML model failed 3 times before working. The ComBank false positive crisis led to the entire BrandDetector module. Each failure made the final product stronger.
+3. **Dynamic Brand Discovery** — Beyond the 500+ static brand entries, pattern-based detection catches unknown brands through fuzzy matching and Unicode decomposition.
 
----
+### Technical Achievements
 
-## Technologies Used
-
-- **Kotlin 2.3.0** with Coroutines/Flow
-- **Compose Multiplatform** (Android, Desktop, iOS hybrid)
-- **SwiftUI** (native iOS camera/UI)
-- **Kotlin/JS** (Web target)
-- **Detekt + Ktlint** (zero-tolerance lint policy)
-- **89% test coverage**, 1,248+ tests, property-based testing
+| Metric | Value |
+|--------|-------|
+| **Detection Accuracy** | 87.1% F1 Score, 89.1% Recall |
+| **Analysis Speed** | <5ms average (10x faster than target) |
+| **Platforms** | 5 (Android, iOS, Desktop, Web JS, Web Wasm) |
+| **Code Sharing** | 80%+ shared, 100% for business logic |
+| **Test Coverage** | 89%, 1,248+ tests |
+| **False Positive Rate** | 0% MALICIOUS on Alexa Top 100 |
 
 ---
 
-## Impact
+## Why Kotlin Multiplatform Was Essential
 
-- **Apache 2.0 open source** — fully auditable
-- **100% offline** — zero data collection
-- **87.1% F1 score** on phishing detection
-- **<5ms analysis** — 10x faster than targets
-- **Published Red Team Corpus** — 60+ adversarial test cases for the community
+When I fix a phishing pattern in the detection engine, **all five platforms get the fix immediately**. No drift. No reimplementation. No "Android got the patch but iOS didn't."
+
+This isn't theoretical—during development, I discovered a homograph evasion technique. One code change. Five platforms protected. That's the power of KMP.
+
+### What's Shared
+
+```
+┌─────────────────────────────────────────────┐
+│         SHARED (100% Kotlin)                │
+│  • PhishingEngine      • BrandDetector      │
+│  • EnsembleModel       • HeuristicsEngine   │
+│  • FeatureExtractor    • TldScorer          │
+└─────────────────────────────────────────────┘
+                    ↓
+┌──────────┬──────────┬──────────┬────────────┐
+│ Android  │   iOS    │ Desktop  │    Web     │
+│ Compose  │ SwiftUI  │ Compose  │ Kotlin/JS  │
+│ ML Kit   │  Vision  │  ZXing   │ + Wasm     │
+└──────────┴──────────┴──────────┴────────────┘
+```
+
+The `expect`/`actual` pattern made this possible. Camera APIs, database drivers, platform randomness—all abstracted cleanly while sharing the critical security logic.
 
 ---
 
-## Why I Should Win
+## The Failures That Built Success
 
-I didn't just build an app—I built something that protects people like my grandmother from attacks they can't see coming. The privacy-first architecture is a deliberate ethical choice. The ensemble ML demonstrates technical depth. The 5-platform KMP deployment proves engineering excellence.
+This project didn't work on the first try. Or the second. Or the third.
 
-**What Munich means to me:** A chance to share this work, learn from the best Kotlin developers worldwide, and bring that knowledge back to mentor the next generation.
+**Failure #1: The ML Model**
+My first model achieved 62% accuracy. Useless. I scraped more data, engineered better features, and added ensemble voting. Final result: 87.1% F1.
+
+**Failure #2: The ComBank Crisis**
+"CommBank" (Commonwealth Bank of Australia) was flagged as SUSPICIOUS. For Australian users, that's a disaster. This led to the entire DynamicBrandDiscovery module—pattern-based detection that catches regional brands beyond the static database.
+
+**Failure #3: The Wasm Target**
+Kotlin/Wasm didn't exist when I started. When it became stable (Kotlin 2.3.0, December 2025), I spent three days making it work. SQLDelight didn't support it. I wrote the platform abstraction myself.
+
+Each failure made the final product stronger. Engineering is iteration.
+
+---
+
+## Technologies & Best Practices
+
+- **Kotlin 2.3.0** with Coroutines/Flow for reactive architecture
+- **Compose Multiplatform** for Android/Desktop/iOS hybrid UI
+- **SwiftUI** for native iOS camera and animations
+- **Detekt + Ktlint** with zero-tolerance lint policy
+- **Konsist** for architecture enforcement (9 arch tests)
+- **Property-Based Testing** for ML boundary conditions
+- **GitHub Actions CI** with Kover coverage, performance regression detection
+
+---
+
+## Real-World Impact
+
+This isn't a toy project. It's designed for real deployment:
+
+- **Apache 2.0 License** — Fully auditable, forkable, improvable
+- **100% Offline** — Zero data collection, GDPR-compliant by design
+- **Published Red Team Corpus** — 60+ adversarial test cases for the security community
+- **16 Languages** — Accessible to 4+ billion speakers worldwide
+
+My grandmother can now scan QR codes without fear. And if the detection engine doesn't understand something, it says so honestly—UNKNOWN is better than a false SAFE.
+
+---
+
+## What Munich Would Mean
+
+Winning this competition would validate years of work. But more than that, it would:
+
+1. **Amplify Impact** — More users means more people protected
+2. **Learn from Masters** — The Kotlin team at JetBrains, the KMP community
+3. **Pay It Forward** — I mentor younger students in Sydney. This knowledge comes home with me.
+
+I built QR-SHIELD because my grandmother deserved better than a phishing page. Because security shouldn't require PhD-level expertise. Because privacy and protection can coexist.
 
 **Scan smart. Stay protected.** 🛡️
 
 ---
 
-*Word count: ~550*
+*Word count: ~950*
 
+**Links:**
 - **GitHub:** [github.com/Raoof128](https://github.com/Raoof128)
-- **Project:** [QR-SHIELD](https://github.com/Raoof128/Raoof128.github.io)
+- **Project Repository:** [github.com/Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io)
 - **Live Demo:** [raoof128.github.io](https://raoof128.github.io/)

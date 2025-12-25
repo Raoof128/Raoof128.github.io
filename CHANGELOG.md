@@ -5,6 +5,37 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.36] - 2025-12-25
+
+### ✍️ Competition Essay Enhancement
+
+Complete rewrite of ESSAY_SUBMISSION.md for maximum judge impact.
+
+#### 📝 Essay Improvements
+
+| Aspect | Before | After |
+|--------|--------|-------|
+| Word Count | ~550 | ~950 |
+| Opening | Generic quote | Vivid personal incident |
+| Technical Depth | Basic table | Architecture diagram + metrics |
+| Failure Stories | Brief mention | 3 detailed failures with lessons |
+| Conclusion | Generic | Specific Munich goals |
+
+#### ✨ New Content
+
+- **Expanded opening scene** - Sydney Airport parking incident
+- **"Why This Problem Matters"** section - QR security blindspot analysis
+- **ASCII architecture diagram** - Visual code sharing representation
+- **Three failure stories** - ML iterations, ComBank crisis, Wasm challenges
+- **"What Munich Would Mean"** - Personal goals and mentorship commitment
+- **Real-world impact section** - Apache 2.0, GDPR, 16 languages
+
+#### 📄 File Modified
+
+`ESSAY_SUBMISSION.md` — Completely rewritten (~550 → ~950 words)
+
+---
+
 ## [1.17.35] - 2025-12-25
 
 ### 📋 Documentation Cross-Check & App Docs Audit
