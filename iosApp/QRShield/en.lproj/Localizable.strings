@@ -278,3 +278,11 @@
 // MARK: - Common
 "common.enabled" = "Enabled";
 "common.disabled" = "Disabled";
+
+// MARK: - Language Settings
+"settings.language" = "Language";
+"settings.language_section" = "Language";
+"settings.language_system" = "System Default";
+"settings.language_search" = "Search languages";
+"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
+"common.done" = "Done";

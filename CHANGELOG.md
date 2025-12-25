@@ -5,6 +5,67 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.43] - 2025-12-25
+
+### 🌐 iOS Language Selector
+
+Added in-app language selection in iOS Settings, supporting all 16 languages.
+
+#### New Features
+
+**Language Picker in Settings**
+- New "Language" section in Settings view
+- Full-featured language picker with 16 languages
+- Search functionality to find languages quickly
+- Native language names with country flags
+- System Default option to follow device language
+
+#### Supported Languages (16 Total)
+
+| Flag | Language | Code |
+|------|----------|------|
+| 🇺🇸 | English | en |
+| 🇩🇪 | Deutsch | de |
+| 🇪🇸 | Español | es |
+| 🇫🇷 | Français | fr |
+| 🇮🇹 | Italiano | it |
+| 🇧🇷 | Português | pt |
+| 🇷🇺 | Русский | ru |
+| 🇯🇵 | 日本語 | ja |
+| 🇰🇷 | 한국어 | ko |
+| 🇨🇳 | 简体中文 | zh-Hans |
+| 🇸🇦 | العربية | ar |
+| 🇮🇳 | हिन्दी | hi |
+| 🇮🇩 | Bahasa Indonesia | id |
+| 🇹🇭 | ไทย | th |
+| 🇹🇷 | Türkçe | tr |
+| 🇻🇳 | Tiếng Việt | vi |
+
+#### Technical Implementation
+
+- `SupportedLanguage` enum with all 16 languages
+- `LanguagePickerView` with search, flags, and checkmarks
+- Uses `UserDefaults("AppleLanguages")` for language override
+- `@AppStorage("selectedLanguage")` for persistence
+- Localized strings for language UI in 6 core languages
+
+#### Files Modified
+
+| File | Change |
+|------|--------|
+| `SettingsView.swift` | Added Language section + LanguagePickerView |
+| `en.lproj/Localizable.strings` | Added language setting keys |
+| `de/es/fr/ja/zh-Hans/ar.lproj` | Added localized language strings |
+
+#### Build Verification
+
+```bash
+xcodebuild -scheme QRShield -destination 'platform=iOS Simulator,name=iPhone 17' build
+# BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.42] - 2025-12-25
 
 ### 🐛 iOS Localization & Build Fixes

@@ -262,3 +262,11 @@
 // MARK: - Common
 "common.enabled" = "有効";
 "common.disabled" = "無効";
+
+// MARK: - Language Settings
+"settings.language" = "言語";
+"settings.language_section" = "言語";
+"settings.language_system" = "システムデフォルト";
+"settings.language_search" = "言語を検索";
+"settings.language_footer" = "お好みの言語を選択してください。アプリはすべてのテキストとコンテンツに選択した言語を使用します。";
+"common.done" = "完了";

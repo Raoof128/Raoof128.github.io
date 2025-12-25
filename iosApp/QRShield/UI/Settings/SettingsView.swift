@@ -34,12 +34,14 @@ struct SettingsView: View {
     @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("useDarkMode") private var useDarkMode = true
+    @AppStorage("selectedLanguage") private var selectedLanguage = "system"
     
     @State private var showClearConfirmation = false
     @State private var showNotificationDeniedAlert = false
     @State private var showTrustCentre = false
     @State private var showExport = false
     @State private var showThreatHistory = false
+    @State private var showLanguagePicker = false
     
     var body: some View {
         List {
@@ -259,6 +261,46 @@ struct SettingsView: View {
             }
             .listRowBackground(Color.clear)
             
+            // Language Section
+            Section {
+                Button {
+                    showLanguagePicker = true
+                } label: {
+                    HStack(spacing: 12) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.brandAccent.opacity(0.15))
+                                .frame(width: 32, height: 32)
+                            Image(systemName: "globe")
+                                .font(.system(size: 14))
+                                .foregroundColor(.brandAccent)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(NSLocalizedString("settings.language", comment: "Language"))
+                                .foregroundColor(.textPrimary)
+                            Text(currentLanguageDisplayName)
+                                .font(.caption)
+                                .foregroundColor(.textMuted)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                            .font(.caption)
+                            .foregroundColor(.textMuted)
+                    }
+                    .padding(.vertical, 4)
+                }
+            } header: {
+                sectionHeader(NSLocalizedString("settings.language_section", comment: "Language"), icon: "globe")
+            } footer: {
+                Text(NSLocalizedString("settings.language_footer", comment: "Language footer"))
+                    .font(.caption2)
+                    .foregroundColor(.textMuted)
+            }
+            .listRowBackground(Color.clear)
+            
             // Privacy Section
             Section {
                 SettingsToggle(
@@ -420,6 +462,20 @@ struct SettingsView: View {
             ReportExportView()
                 .preferredColorScheme(useDarkMode ? .dark : .light)
         }
+        .sheet(isPresented: $showLanguagePicker) {
+            LanguagePickerView(selectedLanguage: $selectedLanguage)
+                .preferredColorScheme(useDarkMode ? .dark : .light)
+        }
+    }
+    
+    // MARK: - Language Helpers
+    
+    /// Display name for the currently selected language
+    private var currentLanguageDisplayName: String {
+        if selectedLanguage == "system" {
+            return NSLocalizedString("settings.language_system", comment: "System Default")
+        }
+        return SupportedLanguage.allCases.first { $0.code == selectedLanguage }?.displayName ?? selectedLanguage
     }
     
     // MARK: - Components
@@ -504,6 +560,173 @@ struct SettingsToggle: View {
         .accessibilityLabel(title)
         .accessibilityValue(isOn ? NSLocalizedString("common.enabled", comment: "") : NSLocalizedString("common.disabled", comment: ""))
         .accessibilityHint(subtitle ?? "")
+    }
+}
+
+// MARK: - Supported Languages
+
+/// All 16 supported languages in QR-SHIELD iOS
+enum SupportedLanguage: String, CaseIterable, Identifiable {
+    case system = "system"
+    case english = "en"
+    case german = "de"
+    case spanish = "es"
+    case french = "fr"
+    case italian = "it"
+    case portuguese = "pt"
+    case russian = "ru"
+    case japanese = "ja"
+    case korean = "ko"
+    case chineseSimplified = "zh-Hans"
+    case arabic = "ar"
+    case hindi = "hi"
+    case indonesian = "id"
+    case thai = "th"
+    case turkish = "tr"
+    case vietnamese = "vi"
+    
+    var id: String { rawValue }
+    
+    var code: String { rawValue }
+    
+    var displayName: String {
+        switch self {
+        case .system: return NSLocalizedString("settings.language_system", comment: "System Default")
+        case .english: return "English"
+        case .german: return "Deutsch"
+        case .spanish: return "Español"
+        case .french: return "Français"
+        case .italian: return "Italiano"
+        case .portuguese: return "Português"
+        case .russian: return "Русский"
+        case .japanese: return "日本語"
+        case .korean: return "한국어"
+        case .chineseSimplified: return "简体中文"
+        case .arabic: return "العربية"
+        case .hindi: return "हिन्दी"
+        case .indonesian: return "Bahasa Indonesia"
+        case .thai: return "ไทย"
+        case .turkish: return "Türkçe"
+        case .vietnamese: return "Tiếng Việt"
+        }
+    }
+    
+    var nativeName: String {
+        displayName
+    }
+    
+    var flag: String {
+        switch self {
+        case .system: return "🌐"
+        case .english: return "🇺🇸"
+        case .german: return "🇩🇪"
+        case .spanish: return "🇪🇸"
+        case .french: return "🇫🇷"
+        case .italian: return "🇮🇹"
+        case .portuguese: return "🇧🇷"
+        case .russian: return "🇷🇺"
+        case .japanese: return "🇯🇵"
+        case .korean: return "🇰🇷"
+        case .chineseSimplified: return "🇨🇳"
+        case .arabic: return "🇸🇦"
+        case .hindi: return "🇮🇳"
+        case .indonesian: return "🇮🇩"
+        case .thai: return "🇹🇭"
+        case .turkish: return "🇹🇷"
+        case .vietnamese: return "🇻🇳"
+        }
+    }
+}
+
+// MARK: - Language Picker View
+
+struct LanguagePickerView: View {
+    @Binding var selectedLanguage: String
+    @Environment(\.dismiss) private var dismiss
+    @State private var searchText = ""
+    
+    var filteredLanguages: [SupportedLanguage] {
+        if searchText.isEmpty {
+            return SupportedLanguage.allCases
+        }
+        return SupportedLanguage.allCases.filter {
+            $0.displayName.localizedCaseInsensitiveContains(searchText) ||
+            $0.code.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+    
+    var body: some View {
+        NavigationStack {
+            List {
+                ForEach(filteredLanguages) { language in
+                    Button {
+                        selectLanguage(language)
+                    } label: {
+                        HStack(spacing: 16) {
+                            Text(language.flag)
+                                .font(.title2)
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(language.displayName)
+                                    .font(.body)
+                                    .foregroundColor(.textPrimary)
+                                
+                                if language != .system {
+                                    Text(language.code)
+                                        .font(.caption)
+                                        .foregroundColor(.textMuted)
+                                }
+                            }
+                            
+                            Spacer()
+                            
+                            if selectedLanguage == language.code {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .font(.title3)
+                                    .foregroundColor(.brandPrimary)
+                            }
+                        }
+                        .padding(.vertical, 4)
+                    }
+                }
+            }
+            .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background {
+                LiquidGlassBackground()
+                    .ignoresSafeArea()
+            }
+            .searchable(text: $searchText, prompt: NSLocalizedString("settings.language_search", comment: "Search languages"))
+            .navigationTitle(NSLocalizedString("settings.language", comment: "Language"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(NSLocalizedString("common.done", comment: "Done")) {
+                        dismiss()
+                    }
+                    .foregroundColor(.brandPrimary)
+                }
+            }
+        }
+    }
+    
+    private func selectLanguage(_ language: SupportedLanguage) {
+        selectedLanguage = language.code
+        SettingsManager.shared.triggerHaptic(.selection)
+        
+        // Apply language change
+        if language == .system {
+            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+        } else {
+            UserDefaults.standard.set([language.code], forKey: "AppleLanguages")
+        }
+        
+        // Notify user that restart may be required
+        #if DEBUG
+        print("🌐 Language changed to: \(language.displayName) (\(language.code))")
+        #endif
+        
+        dismiss()
     }
 }
 

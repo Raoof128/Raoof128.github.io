@@ -262,3 +262,11 @@
 // MARK: - Common
 "common.enabled" = "已启用";
 "common.disabled" = "已禁用";
+
+// MARK: - Language Settings
+"settings.language" = "语言";
+"settings.language_section" = "语言";
+"settings.language_system" = "系统默认";
+"settings.language_search" = "搜索语言";
+"settings.language_footer" = "选择您的首选语言。应用程序将使用所选语言显示所有文本和内容。";
+"common.done" = "完成";
