@@ -306,7 +306,7 @@ private fun PrivacyFeatureCard(
 private fun DataVerificationSection() {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Data Verification",
+            text = stringResource(R.string.privacy_data_verification),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -337,13 +337,13 @@ private fun DataVerificationSection() {
                             .border(width = 0.dp, color = Color.Transparent) // Placeholder
                     ) {
                         Text(
-                            text = "IMAGE DATA",
+                            text = stringResource(R.string.privacy_image_data),
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "Memory Only",
+                            text = stringResource(R.string.privacy_memory_only),
                             style = MaterialTheme.typography.bodyMedium.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Medium),
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -365,7 +365,7 @@ private fun DataVerificationSection() {
                             .padding(start = 16.dp, bottom = 16.dp)
                     ) {
                         Text(
-                            text = "URL ANALYSIS",
+                            text = stringResource(R.string.privacy_url_analysis),
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -379,7 +379,7 @@ private fun DataVerificationSection() {
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = "Local CPU",
+                                text = stringResource(R.string.privacy_local_cpu),
                                 style = MaterialTheme.typography.bodyMedium.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Bold),
                                 color = QRShieldColors.Primary
                             )
@@ -400,13 +400,13 @@ private fun DataVerificationSection() {
                 ) {
                     Column {
                         Text(
-                            text = "USER HISTORY",
+                            text = stringResource(R.string.privacy_user_history),
                             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 1.sp),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "Encrypted Storage (AES-256)",
+                            text = stringResource(R.string.privacy_encrypted_storage),
                             style = MaterialTheme.typography.bodyMedium.copy(fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace, fontWeight = FontWeight.Medium),
                             color = MaterialTheme.colorScheme.onSurface
                         )

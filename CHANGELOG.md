@@ -5,6 +5,57 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.54] - 2025-12-26
+
+### 🌐 Android Localization Cleanup + UI Refinement
+
+Comprehensive cleanup of hardcoded strings and UI improvements for the Android app.
+
+#### UI Changes
+- **Removed "Welcome back QR-SHIELD User"** header from `DashboardScreen.kt`
+  - Simplified `DashboardHeader` composable by removing `userName` parameter
+  - Changed header layout from `SpaceBetween` to `End` alignment (only action buttons remain)
+
+#### Localization Fixes
+
+| File | Hardcoded Strings Fixed |
+|------|------------------------|
+| `Navigation.kt` | 17+ Toast messages (settings saved, import/export, database updates, learning progress) |
+| `ExportReportScreen.kt` | 10 strings (title, version, risk assessment, export format labels) |
+| `ThreatDatabaseScreen.kt` | 5 strings (title, database status, update methods, SHA-256 verified) |
+| `OfflinePrivacyScreen.kt` | 7 strings (data verification section labels) |
+| `AllowlistScreen.kt` | 3 content descriptions (back, add domain, remove domain) |
+| `BlocklistScreen.kt` | 3 content descriptions (add domain, delete, error) |
+
+#### New String Resources Added
+
+| Category | Count | Examples |
+|----------|-------|----------|
+| Toast Messages | 17 | `toast_settings_saved`, `toast_database_up_to_date`, `toast_rule_status` |
+| Content Descriptions | 13 | `cd_verified`, `cd_add_domain`, `cd_remove_domain`, `cd_close`, `cd_try_again` |
+| Common Strings | 2 | `enabled`, `disabled` |
+
+#### Language File Synchronization
+- ✅ All 15 localized `strings.xml` files verified to match English
+- ✅ 529 string keys synchronized across all languages:
+  - Arabic (ar), German (de), Spanish (es), French (fr), Hindi (hi)
+  - Indonesian (in), Italian (it), Japanese (ja), Korean (ko)
+  - Portuguese (pt), Russian (ru), Thai (th), Turkish (tr)
+  - Vietnamese (vi), Chinese (zh)
+
+#### Files Modified
+- `androidApp/src/main/kotlin/com/qrshield/android/ui/screens/DashboardScreen.kt`
+- `androidApp/src/main/kotlin/com/qrshield/android/ui/navigation/Navigation.kt`
+- `androidApp/src/main/kotlin/com/qrshield/android/ui/screens/ExportReportScreen.kt`
+- `androidApp/src/main/kotlin/com/qrshield/android/ui/screens/ThreatDatabaseScreen.kt`
+- `androidApp/src/main/kotlin/com/qrshield/android/ui/screens/OfflinePrivacyScreen.kt`
+- `androidApp/src/main/kotlin/com/qrshield/android/ui/screens/AllowlistScreen.kt`
+- `androidApp/src/main/kotlin/com/qrshield/android/ui/screens/BlocklistScreen.kt`
+- `androidApp/src/main/res/values/strings.xml`
+- All 15 `androidApp/src/main/res/values-*/strings.xml` files
+
+---
+
 ## [1.17.53] - 2025-12-26
 
 ### 📋 iOS App Checklist Audit + Accessibility Improvements

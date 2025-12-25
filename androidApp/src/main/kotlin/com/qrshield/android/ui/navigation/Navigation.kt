@@ -299,13 +299,13 @@ fun QRShieldNavHost(
                 when (result) {
                     is com.qrshield.model.ScanResult.Success -> {
                         viewModel.processScanResult(result, ScanSource.GALLERY)
-                        Toast.makeText(context, "QR code found - analyzing...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_qr_found_analyzing), Toast.LENGTH_SHORT).show()
                     }
                     is com.qrshield.model.ScanResult.NoQrFound -> {
-                        Toast.makeText(context, "No QR code found in image", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_no_qr_found), Toast.LENGTH_SHORT).show()
                     }
                     is com.qrshield.model.ScanResult.Error -> {
-                        Toast.makeText(context, "Error: ${result.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_error_message, result.message), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -460,7 +460,7 @@ fun QRShieldNavHost(
                     val domain = url.substringAfter("://").substringBefore("/").substringBefore("?")
                     coroutineScope.launch {
                         domainListRepository.addToBlocklist(domain, com.qrshield.android.data.DomainSource.SCANNED)
-                        Toast.makeText(context, "Added $domain to blocklist", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_added_to_blocklist, domain), Toast.LENGTH_SHORT).show()
                     }
                     navController.popBackStack()
                 },
@@ -504,7 +504,7 @@ fun QRShieldNavHost(
                 onExport = { format ->
                     when (format) {
                         ExportFormat.PDF -> {
-                            Toast.makeText(context, "Generating PDF report...", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.toast_generating_pdf), Toast.LENGTH_SHORT).show()
                             val shareText = viewModel.generateShareText() ?: "No data"
                             val intent = Intent(Intent.ACTION_SEND).apply {
                                 type = "text/plain"
@@ -513,7 +513,7 @@ fun QRShieldNavHost(
                             context.startActivity(Intent.createChooser(intent, "Export PDF"))
                         }
                         ExportFormat.CSV -> {
-                            Toast.makeText(context, "Exporting to CSV...", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.toast_exporting_csv), Toast.LENGTH_SHORT).show()
                             coroutineScope.launch {
                                 val stats = viewModel.getStatistics()
                                 val csv = "Total,Safe,Suspicious,Malicious\n${stats.totalScans},${stats.safeCount},${stats.suspiciousCount},${stats.maliciousCount}"
@@ -546,7 +546,7 @@ fun QRShieldNavHost(
             TrustCentreScreen(
                 onBackClick = { navController.popBackStack() },
                 onDoneClick = { 
-                    Toast.makeText(context, "Settings saved", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_settings_saved), Toast.LENGTH_SHORT).show()
                     navController.popBackStack() 
                 },
                 onAllowlistClick = { navController.navigate(Routes.ALLOWLIST) },
@@ -575,12 +575,12 @@ fun QRShieldNavHost(
                 onBackClick = { navController.popBackStack() },
                 onAddClick = { showAddSheet = true },
                 onImportClick = { 
-                    Toast.makeText(context, "Import allowlist from file", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_import_allowlist), Toast.LENGTH_SHORT).show()
                 },
                 onDeleteItem = { domainId ->
                     coroutineScope.launch {
                         domainListRepository.removeFromAllowlist(domainId)
-                        Toast.makeText(context, "Removed $domainId from allowlist", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_removed_from_allowlist, domainId), Toast.LENGTH_SHORT).show()
                     }
                 },
                 allowedDomains = allowedDomains,
@@ -589,7 +589,7 @@ fun QRShieldNavHost(
                 onAllowDomain = { domain ->
                     coroutineScope.launch {
                         domainListRepository.addToAllowlist(domain)
-                        Toast.makeText(context, "Added $domain to allowlist", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_added_to_allowlist, domain), Toast.LENGTH_SHORT).show()
                         showAddSheet = false
                     }
                 }
@@ -617,12 +617,12 @@ fun QRShieldNavHost(
                 onBackClick = { navController.popBackStack() },
                 onAddClick = { showAddSheet = true },
                 onImportClick = { 
-                    Toast.makeText(context, "Import blocklist from file", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_import_blocklist), Toast.LENGTH_SHORT).show()
                 },
                 onDeleteItem = { domainId ->
                     coroutineScope.launch {
                         domainListRepository.removeFromBlocklist(domainId)
-                        Toast.makeText(context, "Removed $domainId from blocklist", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_removed_from_blocklist, domainId), Toast.LENGTH_SHORT).show()
                     }
                 },
                 blockedDomains = blockedDomains,
@@ -631,7 +631,7 @@ fun QRShieldNavHost(
                 onBlockDomain = { domain ->
                     coroutineScope.launch {
                         domainListRepository.addToBlocklist(domain)
-                        Toast.makeText(context, "Added $domain to blocklist", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_added_to_blocklist, domain), Toast.LENGTH_SHORT).show()
                         showAddSheet = false
                     }
                 }
@@ -643,15 +643,15 @@ fun QRShieldNavHost(
                 onBackClick = { navController.popBackStack() },
                 onSettingsClick = { navController.navigate(Routes.SETTINGS) },
                 onCheckNow = { 
-                    Toast.makeText(context, "Checking for updates...", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_checking_updates), Toast.LENGTH_SHORT).show()
                     // In production: Trigger database update check
                     coroutineScope.launch {
                         kotlinx.coroutines.delay(1500)
-                        Toast.makeText(context, "Database is up to date!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_database_up_to_date), Toast.LENGTH_SHORT).show()
                     }
                 },
                 onImportFile = { 
-                    Toast.makeText(context, "Select threat signature file", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_select_signature_file), Toast.LENGTH_SHORT).show()
                     // In production: Open file picker for signature import
                 }
             )
@@ -661,17 +661,17 @@ fun QRShieldNavHost(
             HeuristicsScreen(
                 onBackClick = { navController.popBackStack() },
                 onAddRule = { 
-                    Toast.makeText(context, "Custom rule creation coming soon", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_custom_rule_coming_soon), Toast.LENGTH_SHORT).show()
                 },
                 onRuleClick = { ruleId ->
-                    Toast.makeText(context, "Rule details: $ruleId", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_rule_details, ruleId), Toast.LENGTH_SHORT).show()
                 },
                 onToggleRule = { ruleId, enabled ->
                     heuristicsRules = heuristicsRules.toMutableMap().apply {
                         put(ruleId, enabled)
                     }
-                    val status = if (enabled) "enabled" else "disabled"
-                    Toast.makeText(context, "Rule $ruleId $status", Toast.LENGTH_SHORT).show()
+                    val status = if (enabled) context.getString(R.string.enabled) else context.getString(R.string.disabled)
+                    Toast.makeText(context, context.getString(R.string.toast_rule_status, ruleId, status), Toast.LENGTH_SHORT).show()
                 }
             )
         }
@@ -684,21 +684,21 @@ fun QRShieldNavHost(
                 onSettingsClick = { navController.navigate(Routes.SETTINGS) },
                 onViewCertificate = { 
                     if (learningProgress >= 100) {
-                        Toast.makeText(context, "Generating certificate...", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_generating_certificate), Toast.LENGTH_SHORT).show()
                         // In production: Generate and show certificate
                     } else {
-                        Toast.makeText(context, "Complete all modules to earn certificate", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.toast_complete_modules), Toast.LENGTH_SHORT).show()
                     }
                 },
                 onReadTip = {
-                    Toast.makeText(context, "Tip marked as read", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, context.getString(R.string.toast_tip_marked_read), Toast.LENGTH_SHORT).show()
                     learningProgress = (learningProgress + 5).coerceAtMost(100)
                 },
                 onModuleClick = { moduleId ->
                     when (moduleId) {
                         "beat_the_bot" -> navController.navigate(Routes.BEAT_THE_BOT)
                         else -> {
-                            Toast.makeText(context, "Opening module: $moduleId", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, context.getString(R.string.toast_opening_module, moduleId), Toast.LENGTH_SHORT).show()
                             learningProgress = (learningProgress + 10).coerceAtMost(100)
                         }
                     }

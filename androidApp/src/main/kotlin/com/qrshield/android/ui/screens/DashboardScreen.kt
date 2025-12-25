@@ -106,7 +106,6 @@ fun DashboardScreen(
     ) {
         // Top App Bar with dark mode toggle (iOS Parity)
         DashboardHeader(
-            userName = stringResource(R.string.dashboard_default_user),
             onSettingsClick = onSettingsClick,
             onDarkModeToggle = {
                 // Toggle dark mode matching iOS useDarkMode.toggle()
@@ -163,7 +162,6 @@ fun DashboardScreen(
 
 @Composable
 private fun DashboardHeader(
-    userName: String,
     onSettingsClick: () -> Unit,
     onDarkModeToggle: () -> Unit = {},
     isDarkMode: Boolean = true,
@@ -174,55 +172,9 @@ private fun DashboardHeader(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp, vertical = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // User Avatar with online indicator
-            Box {
-                Box(
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(QRShieldColors.Primary.copy(alpha = 0.2f))
-                        .border(2.dp, QRShieldColors.Primary.copy(alpha = 0.3f), CircleShape),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = null,
-                        tint = QRShieldColors.Primary,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
-                // Online indicator
-                Box(
-                    modifier = Modifier
-                        .size(12.dp)
-                        .align(Alignment.BottomEnd)
-                        .clip(CircleShape)
-                        .background(QRShieldColors.RiskSafe)
-                        .border(2.dp, MaterialTheme.colorScheme.background, CircleShape)
-                )
-            }
-
-            Column {
-                Text(
-                    text = stringResource(R.string.dashboard_welcome_back),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = userName,
-                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-            }
-        }
-
         // Trailing icons - matches iOS DashboardView toolbar
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),

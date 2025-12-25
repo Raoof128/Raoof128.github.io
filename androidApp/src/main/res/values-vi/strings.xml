@@ -455,4 +455,96 @@
     <string name="feature_performance_title">Công cụ Hiệu suất Cao</string>
     <string name="feature_performance_desc">Được tối ưu hóa cho môi trường di động. Quét được xử lý trong dưới 5ms bằng các nguyên thủy Kotlin gốc.</string>
 
+    
+    <!-- Blocklist Screen -->
+    <string name="blocklist_offline_synced">Offline-first • Synced</string>
+    <string name="blocklist_manage_desc">Manage domains forbidden by local policy.</string>
+    <string name="blocklist_active_rules">ACTIVE RULES</string>
+    <string name="blocklist_domains_count">%d Domains</string>
+    <string name="blocklist_import_csv_json">Import from CSV/JSON</string>
+    <string name="blocklist_added_date">Added %s</string>
+    <string name="blocklist_block_domain">Block a Domain</string>
+    <string name="blocklist_domain_name">DOMAIN NAME</string>
+    <string name="blocklist_remove_protocol">Please remove "http://" or "https://" protocol.</string>
+    <string name="blocklist_enter_root_domain">Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.</string>
+    <string name="blocklist_block_action">Block Domain</string>
+    
+    <!-- Allowlist Screen -->
+    <string name="allowlist_header">Allowlist</string>
+    <string name="allowlist_trusted_domains">Trusted Domains</string>
+    <string name="allowlist_trusted_domains_desc">URLs from these domains will always be marked as safe. Use with caution.</string>
+    <string name="allowlist_entries_count">%d Entries</string>
+    <string name="allowlist_import_enterprise">Import Enterprise List</string>
+    <string name="allowlist_add_trusted">Add Trusted Domain</string>
+    <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
+    <string name="allowlist_add_action">Add to Allowlist</string>
+    
+    <!-- Export Report Screen -->
+    <string name="export_report_title">Export Report</string>
+    <string name="export_report_version">v2.4</string>
+    <string name="export_risk_assessment">Risk Assessment</string>
+    <string name="export_high_risk">HIGH RISK</string>
+    <string name="export_vector_analysis">Vector Analysis</string>
+    <string name="export_format">Export Format</string>
+    <string name="export_include_in_report">Include in Report</string>
+    <string name="export_generated_locally">Generated locally • No data leaves your device</string>
+    <string name="export_as_format">Export as %s</string>
+    
+    <!-- Offline Privacy Screen -->
+    <string name="privacy_data_verification">Data Verification</string>
+    <string name="privacy_image_data">IMAGE DATA</string>
+    <string name="privacy_memory_only">Memory Only</string>
+    <string name="privacy_url_analysis">URL ANALYSIS</string>
+    <string name="privacy_local_cpu">Local CPU</string>
+    <string name="privacy_user_history">USER HISTORY</string>
+    <string name="privacy_encrypted_storage">Encrypted Storage (AES-256)</string>
+    
+    <!-- Threat Database Screen -->
+    <string name="threat_database_title">Threat Intelligence</string>
+    <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
+    <string name="threat_database_update_methods">Update Methods</string>
+    <string name="threat_database_sha256_verified">SHA-256 Verified</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    
+    <!-- Toast Messages -->
+    <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
+    <string name="toast_no_qr_found">No QR code found in image</string>
+    <string name="toast_error_message">Error: %s</string>
+    <string name="toast_added_to_blocklist">Added %s to blocklist</string>
+    <string name="toast_generating_pdf">Generating PDF report…</string>
+    <string name="toast_exporting_csv">Exporting to CSV…</string>
+    <string name="toast_settings_saved">Settings saved</string>
+    <string name="toast_import_allowlist">Import allowlist from file</string>
+    <string name="toast_removed_from_allowlist">Removed %s from allowlist</string>
+    <string name="toast_added_to_allowlist">Added %s to allowlist</string>
+    <string name="toast_import_blocklist">Import blocklist from file</string>
+    <string name="toast_removed_from_blocklist">Removed %s from blocklist</string>
+    <string name="toast_checking_updates">Checking for updates…</string>
+    <string name="toast_database_up_to_date">Database is up to date!</string>
+    <string name="toast_select_signature_file">Select threat signature file</string>
+    <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
+    <string name="toast_rule_details">Rule details: %s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
+    <string name="toast_generating_certificate">Generating certificate…</string>
+    <string name="toast_complete_modules">Complete all modules to earn certificate</string>
+    <string name="toast_tip_marked_read">Tip marked as read</string>
+    <string name="toast_opening_module">Opening module: %s</string>
+    <!-- Additional Content Descriptions -->
+    <string name="cd_verified">Verified</string>
+    <string name="cd_add">Add</string>
+    <string name="cd_remove">Remove</string>
+    <string name="cd_add_domain">Add domain</string>
+    <string name="cd_remove_domain">Remove domain</string>
+    <string name="cd_error">Error</string>
+    <string name="cd_clear_all">Clear All</string>
+    <string name="cd_clear_search">Clear search</string>
+    <string name="cd_more_options">More options</string>
+    <string name="cd_more">More</string>
+    <string name="cd_available_offline">Available offline</string>
+    <string name="cd_close">Close</string>
+    <string name="cd_try_again">Try again</string>
+
+    <!-- Common -->
+    <string name="enabled">enabled</string>
+    <string name="disabled">disabled</string>
 </resources>

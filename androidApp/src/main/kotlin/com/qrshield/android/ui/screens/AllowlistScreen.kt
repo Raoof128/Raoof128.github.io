@@ -26,9 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.android.ui.theme.QRShieldShapes
 
@@ -75,13 +77,13 @@ fun AllowlistScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Allowlist",
+                        text = stringResource(R.string.allowlist_header),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
@@ -94,7 +96,7 @@ fun AllowlistScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = "Add domain",
+                            contentDescription = stringResource(R.string.cd_add_domain),
                             tint = QRShieldColors.Emerald600
                         )
                     }
@@ -144,12 +146,12 @@ fun AllowlistScreen(
                         )
                         Column {
                             Text(
-                                text = "Trusted Domains",
+                                text = stringResource(R.string.allowlist_trusted_domains),
                                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                                 color = QRShieldColors.Emerald600
                             )
                             Text(
-                                text = "URLs from these domains will always be marked as safe. Use with caution.",
+                                text = stringResource(R.string.allowlist_trusted_domains_desc),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = QRShieldColors.Emerald600.copy(alpha = 0.8f)
                             )
@@ -172,7 +174,7 @@ fun AllowlistScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "TRUSTED DOMAINS",
+                        text = stringResource(R.string.allowlist_title),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 0.5.sp
@@ -180,7 +182,7 @@ fun AllowlistScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "${allowedDomains.size} Entries",
+                        text = stringResource(R.string.allowlist_entries_count, allowedDomains.size),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -259,7 +261,7 @@ private fun AllowlistImportButton(onClick: () -> Unit) {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Import Enterprise List",
+                text = stringResource(R.string.allowlist_import_enterprise),
                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -334,7 +336,7 @@ private fun AllowedDomainItem(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Added ${domain.addedDate}",
+                            text = stringResource(R.string.blocklist_added_date, domain.addedDate),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -362,7 +364,7 @@ private fun AllowedDomainItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Remove",
+                    contentDescription = stringResource(R.string.cd_remove_domain),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(18.dp)
                 )
@@ -392,12 +394,12 @@ private fun AddAllowlistSheet(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Add Trusted Domain",
+                text = stringResource(R.string.allowlist_add_trusted),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
             TextButton(onClick = onCancel) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -425,7 +427,7 @@ private fun AddAllowlistSheet(
                     modifier = Modifier.size(20.dp)
                 )
                 Text(
-                    text = "Allowlisted domains bypass all security checks. Only add domains you fully trust.",
+                    text = stringResource(R.string.allowlist_warning),
                     style = MaterialTheme.typography.bodySmall,
                     color = QRShieldColors.Orange600
                 )
@@ -435,7 +437,7 @@ private fun AddAllowlistSheet(
         // Input Field
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
-                text = "DOMAIN NAME",
+                text = stringResource(R.string.blocklist_domain_name),
                 style = MaterialTheme.typography.labelSmall.copy(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.5.sp
@@ -477,7 +479,7 @@ private fun AddAllowlistSheet(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Add to Allowlist",
+                text = stringResource(R.string.allowlist_add_action),
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )

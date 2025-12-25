@@ -34,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.android.ui.theme.QRShieldShapes
 
@@ -66,7 +68,7 @@ fun ThreatDatabaseScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Threat Intelligence",
+                        text = stringResource(R.string.threat_database_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -74,12 +76,12 @@ fun ThreatDatabaseScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
                     IconButton(onClick = onSettingsClick) {
-                        Icon(Icons.Default.Settings, contentDescription = "Settings")
+                        Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.nav_settings))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -190,7 +192,7 @@ private fun HeroStatusSection(isSecure: Boolean) {
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
-                    contentDescription = "Verified",
+                    contentDescription = stringResource(R.string.cd_verified),
                     tint = Color.White,
                     modifier = Modifier.size(16.dp)
                 )
@@ -210,7 +212,7 @@ private fun HeroStatusSection(isSecure: Boolean) {
                 color = MaterialTheme.colorScheme.onBackground
             )
             Text(
-                text = "Database integrity verified & up to date.",
+                text = stringResource(R.string.threat_database_verified),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -309,7 +311,7 @@ private fun UpdateMethodsSection(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Update Methods",
+            text = stringResource(R.string.threat_database_update_methods),
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
             modifier = Modifier.padding(start = 4.dp)
         )
@@ -480,7 +482,7 @@ private fun IntegrityFooter() {
                     modifier = Modifier.size(18.dp)
                 )
                 Text(
-                    text = "SHA-256 Verified",
+                    text = stringResource(R.string.threat_database_sha256_verified),
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -489,7 +491,7 @@ private fun IntegrityFooter() {
 
         // Description
         Text(
-            text = "Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.",
+            text = stringResource(R.string.threat_database_integrity_desc),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
             textAlign = TextAlign.Center,

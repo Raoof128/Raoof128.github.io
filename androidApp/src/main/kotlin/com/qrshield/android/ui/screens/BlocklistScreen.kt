@@ -27,10 +27,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.android.ui.theme.QRShieldShapes
 
@@ -99,7 +101,7 @@ fun BlocklistScreen(
                             modifier = Modifier.size(18.dp)
                         )
                         Text(
-                            text = "Offline-first • Synced",
+                            text = stringResource(R.string.blocklist_offline_synced),
                             style = MaterialTheme.typography.labelSmall.copy(
                                 letterSpacing = 0.5.sp
                             ),
@@ -117,7 +119,7 @@ fun BlocklistScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = "Add domain",
+                            contentDescription = stringResource(R.string.cd_add_domain),
                             tint = QRShieldColors.Primary
                         )
                     }
@@ -127,13 +129,13 @@ fun BlocklistScreen(
 
                 // Title
                 Text(
-                    text = "Blocklist",
+                    text = stringResource(R.string.blocklist_title),
                     style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
                 )
 
                 // Subtitle
                 Text(
-                    text = "Manage domains forbidden by local policy.",
+                    text = stringResource(R.string.blocklist_manage_desc),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -164,7 +166,7 @@ fun BlocklistScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "ACTIVE RULES",
+                        text = stringResource(R.string.blocklist_active_rules),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 0.5.sp
@@ -172,7 +174,7 @@ fun BlocklistScreen(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "${blockedDomains.size} Domains",
+                        text = stringResource(R.string.blocklist_domains_count, blockedDomains.size),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -251,7 +253,7 @@ private fun ImportButton(onClick: () -> Unit) {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Import from CSV/JSON",
+                text = stringResource(R.string.blocklist_import_csv_json),
                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = MaterialTheme.colorScheme.onSurface
             )
@@ -330,7 +332,7 @@ private fun BlockedDomainItem(
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = "Added ${domain.addedDate}",
+                        text = stringResource(R.string.blocklist_added_date, domain.addedDate),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -345,7 +347,7 @@ private fun BlockedDomainItem(
             ) {
                 Icon(
                     imageVector = Icons.Default.Delete,
-                    contentDescription = "Delete",
+                    contentDescription = stringResource(R.string.cd_remove_domain),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(20.dp)
                 )
@@ -377,12 +379,12 @@ private fun AddDomainSheet(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Block a Domain",
+                text = stringResource(R.string.blocklist_block_domain),
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
             )
             TextButton(onClick = onCancel) {
                 Text(
-                    text = "Cancel",
+                    text = stringResource(R.string.cancel),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -391,7 +393,7 @@ private fun AddDomainSheet(
         // Input Field
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
-                text = "DOMAIN NAME",
+                text = stringResource(R.string.blocklist_domain_name),
                 style = MaterialTheme.typography.labelSmall.copy(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.5.sp
@@ -412,7 +414,7 @@ private fun AddDomainSheet(
                     if (hasError) {
                         Icon(
                             imageVector = Icons.Default.Warning,
-                            contentDescription = "Error",
+                            contentDescription = stringResource(R.string.cd_error),
                             tint = QRShieldColors.Orange500
                         )
                     }
@@ -426,7 +428,7 @@ private fun AddDomainSheet(
 
             if (hasError) {
                 Text(
-                    text = "Please remove \"http://\" or \"https://\" protocol.",
+                    text = stringResource(R.string.blocklist_remove_protocol),
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
                     color = QRShieldColors.Orange500,
                     modifier = Modifier.padding(start = 4.dp)
@@ -434,7 +436,7 @@ private fun AddDomainSheet(
             }
 
             Text(
-                text = "Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.",
+                text = stringResource(R.string.blocklist_enter_root_domain),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(start = 4.dp)
@@ -460,7 +462,7 @@ private fun AddDomainSheet(
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Block Domain",
+                text = stringResource(R.string.blocklist_block_action),
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )

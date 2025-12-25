@@ -36,6 +36,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.qrshield.android.R
 import com.qrshield.android.ui.theme.QRShieldColors
 import com.qrshield.android.ui.theme.QRShieldShapes
 
@@ -78,7 +80,7 @@ fun ExportReportScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Export Report",
+                        text = stringResource(R.string.export_report_title),
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -86,7 +88,7 @@ fun ExportReportScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 },
                 actions = {
@@ -206,13 +208,13 @@ private fun ReportPreviewCard(
                             }
                         }
                         Text(
-                            text = "QR-SHIELD",
+                            text = stringResource(R.string.app_name),
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                             color = Color.White
                         )
                     }
                     Text(
-                        text = "v2.4",
+                        text = stringResource(R.string.export_report_version),
                         style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
                         color = Color.White.copy(alpha = 0.8f)
                     )
@@ -247,7 +249,7 @@ private fun ReportPreviewCard(
                     ) {
                         Column {
                             Text(
-                                text = "Risk Assessment",
+                                text = stringResource(R.string.export_risk_assessment),
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                                 color = riskTitleColor
                             )
@@ -263,7 +265,7 @@ private fun ReportPreviewCard(
                             shadowElevation = 1.dp
                         ) {
                             Text(
-                                text = "HIGH RISK",
+                                text = stringResource(R.string.export_high_risk),
                                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                                 color = if (isDark) QRShieldColors.Red100 else QRShieldColors.Red600
@@ -275,7 +277,7 @@ private fun ReportPreviewCard(
                 // Vector Analysis Chart
                 Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(
-                        text = "Vector Analysis",
+                        text = stringResource(R.string.export_vector_analysis),
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -356,7 +358,7 @@ private fun FormatSelectionSection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Export Format",
+            text = stringResource(R.string.export_format),
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -421,7 +423,7 @@ private fun ContentOptionsSection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Include in Report",
+            text = stringResource(R.string.export_include_in_report),
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
         )
 
@@ -560,7 +562,7 @@ private fun ExportBottomBar(
                     modifier = Modifier.size(14.dp)
                 )
                 Text(
-                    text = "Generated locally • No data leaves your device",
+                    text = stringResource(R.string.export_generated_locally),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -590,7 +592,7 @@ private fun ExportBottomBar(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Export as ${selectedFormat.label}",
+                    text = stringResource(R.string.export_as_format, selectedFormat.label),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
