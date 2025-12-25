@@ -5,6 +5,60 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.49] - 2025-12-26
+
+### 🌐 Complete iOS Localization - All Screens Including Onboarding
+
+**341 unique keys** now fully translated across all 16 languages. Zero hardcoded strings remaining in user-facing UI.
+
+#### Key Additions
+
+| Category | Keys Added |
+|----------|------------|
+| Onboarding Pages | 16 keys (titles, descriptions, buttons) |
+| Format Strings | 10 keys (confidence, score, level, etc.) |
+| History Formats | 5 keys (safe, suspicious, malicious counts) |
+| Dashboard | 2 keys (privacy note, badge) |
+| KMP Demo | 3 keys (status messages) |
+
+#### Onboarding Now Fully Localized
+
+All 4 onboarding pages with native translations:
+1. **Scan Any QR Code** → Native in all 16 languages
+2. **Real-Time Protection** → Native in all 16 languages  
+3. **Privacy First** → Native in all 16 languages
+4. **Beautiful iOS 17+ Design** → Native in all 16 languages
+
+Plus: Skip, Continue, Get Started buttons and camera permission dialog.
+
+#### Files Updated
+
+- `OnboardingView.swift` - Refactored to use key-based model
+- `HistoryView.swift` - Format strings localized
+- `ThreatHistoryView.swift` - Last audit format localized
+- `BeatTheBotView.swift` - Level and signals formats localized
+- `DashboardView.swift` - Privacy note localized
+- `KMPDemoView.swift` - Status messages localized
+- `ScanResultView.swift` - Confidence format localized
+- All 16 `.lproj/Localizable.strings` files
+
+#### Intentionally Untranslated (23 items)
+
+Pure data/symbols that don't need translation:
+- Pure numbers: `\(count)`, `\(score)` 
+- Symbols: `•`, `≠`
+- Demo domains: `paypal.com`, `apple.com` (phishing education examples)
+- Character demos: `p` vs `а` (Cyrillic 'a')
+
+#### Build Verification
+
+```bash
+plutil -lint *.lproj/Localizable.strings  # All 16 files OK  
+xcodebuild -scheme QRShield build  # BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.48] - 2025-12-26
 
 ### 🌐 Complete Native Translations for All 16 Languages

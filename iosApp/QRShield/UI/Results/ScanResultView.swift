@@ -216,7 +216,7 @@ struct ScanResultView: View {
                     .font(.caption)
                     .foregroundColor(themeColor)
                 
-                Text("\(Int(assessment.confidence * 100))% Confidence")
+                Text(String(format: NSLocalizedString("format.confidence", comment: ""), Int(assessment.confidence * 100)))
                     .font(.subheadline.weight(.medium))
                     .foregroundColor(themeColor)
             }
@@ -314,11 +314,11 @@ struct ScanResultView: View {
                             }
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("result.block_report")
+                                Text(NSLocalizedString("result.block_report", comment: ""))
                                     .font(.headline)
                                     .foregroundColor(.white)
                                 
-                                Text("result.block_action")
+                                Text(NSLocalizedString("result.block_action", comment: ""))
                                     .font(.caption)
                                     .foregroundColor(.white.opacity(0.7))
                             }
@@ -351,11 +351,11 @@ struct ScanResultView: View {
                             }
                             
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("result.quarantine")
+                                Text(NSLocalizedString("result.quarantine", comment: ""))
                                     .font(.headline)
                                     .foregroundColor(.textPrimary)
                                 
-                                Text("result.quarantine_action")
+                                Text(NSLocalizedString("result.quarantine_action", comment: ""))
                                     .font(.caption)
                                     .foregroundColor(.textMuted)
                             }
@@ -437,7 +437,7 @@ struct ScanResultView: View {
                     
                     if breakdown.wrappedValue.technicalDetail != nil {
                         HStack(spacing: 0) {
-                            Text("result.expected")
+                            Text(NSLocalizedString("result.expected", comment: ""))
                                 .foregroundColor(.verdictSafe)
                             Text("paypal.com")
                                 .foregroundColor(.verdictSafe)
@@ -448,7 +448,7 @@ struct ScanResultView: View {
                         .background(Color.bgSurface, in: RoundedRectangle(cornerRadius: 8))
                         
                         HStack(spacing: 0) {
-                            Text("result.detected")
+                            Text(NSLocalizedString("result.detected", comment: ""))
                                 .foregroundColor(.verdictDanger)
                             Text("p")
                                 .foregroundColor(.verdictDanger)
@@ -479,7 +479,7 @@ struct ScanResultView: View {
             HStack(spacing: 8) {
                 Image(systemName: "shield.fill")
                     .foregroundColor(.brandPrimary)
-                Text("result.explainable_security")
+                Text(NSLocalizedString("result.explainable_security", comment: ""))
                     .font(.subheadline.weight(.bold))
                     .foregroundColor(.brandPrimary)
             }
@@ -758,11 +758,11 @@ struct SandboxPreviewSheet: View {
                 .foregroundColor(.verdictWarning)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("result.restricted_mode")
+                Text(NSLocalizedString("result.restricted_mode", comment: ""))
                     .font(.headline)
                     .foregroundColor(.textPrimary)
                 
-                Text("result.restricted_description")
+                Text(NSLocalizedString("result.restricted_description", comment: ""))
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
@@ -802,7 +802,7 @@ struct SandboxPreviewSheet: View {
             
             // URL Breakdown
             VStack(alignment: .leading, spacing: 12) {
-                Text("result.url_breakdown")
+                Text(NSLocalizedString("result.url_breakdown", comment: ""))
                     .font(.caption.weight(.bold))
                     .foregroundColor(.textMuted)
                     .tracking(1)
@@ -823,7 +823,7 @@ struct SandboxPreviewSheet: View {
             // Full URL
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("result.full_url")
+                    Text(NSLocalizedString("result.full_url", comment: ""))
                         .font(.caption.weight(.bold))
                         .foregroundColor(.textMuted)
                         .tracking(1)

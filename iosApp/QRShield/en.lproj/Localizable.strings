@@ -429,3 +429,51 @@
 "accessibility.toggle_scanning" = "Toggle scanning";
 "accessibility.gallery" = "Gallery";
 "accessibility.open_history" = "Open history";
+
+// MARK: - Onboarding Pages
+"onboarding.scan.title" = "Scan Any QR Code";
+"onboarding.scan.description" = "Point your camera at any QR code to instantly analyze its contents for potential threats.";
+"onboarding.protect.title" = "Real-Time Protection";
+"onboarding.protect.description" = "Our AI-powered engine analyzes URLs using 25+ security heuristics and machine learning algorithms.";
+"onboarding.privacy.title" = "Privacy First";
+"onboarding.privacy.description" = "All analysis happens on-device using Kotlin Multiplatform. Your data never leaves your phone.";
+"onboarding.design.title" = "Beautiful iOS 17+ Design";
+"onboarding.design.description" = "Experience the stunning Liquid Glass interface with smooth animations and modern aesthetics.";
+"onboarding.skip" = "Skip";
+"onboarding.continue" = "Continue";
+"onboarding.get_started" = "Get Started";
+"onboarding.page_counter" = "%d/%d";
+"onboarding.camera_title" = "Camera Permission";
+"onboarding.camera_allow" = "Allow Camera";
+"onboarding.camera_later" = "Maybe Later";
+
+// MARK: - Format Strings
+"format.signals_detected" = "%d signals detected";
+"format.confidence_percent" = "%d%% Confidence";
+"format.level" = "LEVEL %d";
+"format.score_100" = "%d/100";
+"format.latency_ms" = "%dms";
+
+// MARK: - Dashboard Additional
+"dashboard.privacy_note" = " without compromising data privacy.";
+"dashboard.badge_plus" = "+2";
+
+// MARK: - History Format
+"history.safe_format" = "Safe: %d";
+"history.suspicious_format" = "Suspicious: %d";
+"history.malicious_format" = "Malicious: %d";
+"history.total_format" = "Total: %d scans";
+"history.last_audit_format" = "Last audit: %@";
+
+// MARK: - KMP Demo Status
+"kmp.framework_linked" = "✅ KMP Framework Linked";
+"kmp.using_mock" = "⚠️ Using Mock (link common.framework)";
+"kmp.brand" = "🛡️ QR-SHIELD";
+
+// MARK: - Confidence Formats
+"format.confidence" = "%d%% Confidence";
+"format.score_slash_100" = "%d/100";
+"format.score_total" = "Score: %d/100";
+"format.latency" = "%dms";
+"format.percent" = "%d%%";
+"format.status_date" = "%@ • %@";

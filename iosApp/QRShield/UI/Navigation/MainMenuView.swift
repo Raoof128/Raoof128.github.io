@@ -173,12 +173,12 @@ struct MainMenuView: View {
                         .scaledToFit()
                         .frame(width: 32, height: 32)
                     
-                    Text("app.name")
+                    Text(NSLocalizedString("app.name", comment: ""))
                         .font(.title2.weight(.bold))
                         .foregroundColor(.textPrimary)
                 }
                 
-                Text("dashboard.hero.tagline")
+                Text(NSLocalizedString("dashboard.hero.tagline", comment: ""))
                     .font(.caption)
                     .foregroundColor(.textMuted)
             }
@@ -262,7 +262,7 @@ struct MainMenuView: View {
     
     private var quickActionsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("nav.quick_actions")
+            Text(NSLocalizedString("nav.quick_actions", comment: ""))
                 .font(.caption.weight(.bold))
                 .foregroundColor(.textMuted)
                 .tracking(1)

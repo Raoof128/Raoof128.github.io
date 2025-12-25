@@ -265,7 +265,7 @@ struct DetailSheet: View {
             VStack(alignment: .leading, spacing: 16) {
                 // Full URL
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("detail.url_label")
+                    Text(NSLocalizedString("detail.url_label", comment: ""))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -279,7 +279,7 @@ struct DetailSheet: View {
                 
                 // Domain
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("detail.domain")
+                    Text(NSLocalizedString("detail.domain", comment: ""))
                         .font(.caption)
                         .foregroundColor(.textMuted)
                     
@@ -291,7 +291,7 @@ struct DetailSheet: View {
                 // Protocol
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("detail.protocol")
+                        Text(NSLocalizedString("detail.protocol", comment: ""))
                             .font(.caption)
                             .foregroundColor(.textMuted)
                         
@@ -337,7 +337,7 @@ struct DetailSheet: View {
             ShareLink(item: shareText) {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
-                    Text("detail.share_analysis")
+                    Text(NSLocalizedString("detail.share_analysis", comment: ""))
                 }
                 .font(.headline)
                 .foregroundColor(.white)
@@ -364,7 +364,7 @@ struct DetailSheet: View {
             } label: {
                 HStack {
                     Image(systemName: "globe")
-                    Text("detail.open_url")
+                    Text(NSLocalizedString("detail.open_url", comment: ""))
                 }
                 .font(.headline)
                 .foregroundColor(assessment.verdict == .safe ? .verdictSafe : .textPrimary)
@@ -382,7 +382,7 @@ struct DetailSheet: View {
                 }
                 Button("Cancel", role: .cancel) {}
             } message: {
-                Text("detail.open_warning")
+                Text(NSLocalizedString("detail.open_warning", comment: ""))
             }
             
             // Copy URL Button

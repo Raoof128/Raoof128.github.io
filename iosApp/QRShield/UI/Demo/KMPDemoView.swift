@@ -67,7 +67,7 @@ struct KMPDemoView: View {
     
     private var headerSection: some View {
         VStack(spacing: 8) {
-            Text("🛡️ QR-SHIELD")
+            Text(NSLocalizedString("kmp.brand", comment: ""))
                 .font(.largeTitle.bold())
                 .foregroundColor(.white)
             
@@ -142,7 +142,7 @@ struct KMPDemoView: View {
                     
                     Spacer()
                     
-                    Text("Score: \(result.score)/100")
+                    Text(String(format: NSLocalizedString("format.score_total", comment: ""), result.score))
                         .font(.headline)
                         .foregroundColor(.white)
                 }
@@ -193,11 +193,11 @@ struct KMPDemoView: View {
             }
             
             #if canImport(common)
-            Text("✅ KMP Framework Linked")
+            Text(NSLocalizedString("kmp.framework_linked", comment: ""))
                 .font(.caption)
                 .foregroundColor(.green)
             #else
-            Text("⚠️ Using Mock (link common.framework)")
+            Text(NSLocalizedString("kmp.using_mock", comment: ""))
                 .font(.caption)
                 .foregroundColor(.orange)
             #endif

@@ -392,7 +392,7 @@ struct ThreatHistoryView: View {
             }
             .disabled(isAuditRunning)
             
-            Text("Last audit: \(lastAudit)")
+            Text(String(format: NSLocalizedString("history.last_audit_format", comment: ""), lastAudit))
                 .font(.caption)
                 .foregroundColor(.textMuted)
         }

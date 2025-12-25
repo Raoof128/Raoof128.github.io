@@ -205,7 +205,7 @@ struct DashboardView: View {
             Text(NSLocalizedString("dashboard.zero_latency", comment: ""))
                 .foregroundColor(.textPrimary)
                 .fontWeight(.semibold) +
-            Text(" without compromising data privacy.")
+            Text(NSLocalizedString("dashboard.privacy_note", comment: ""))
                 .foregroundColor(.textSecondary)
             
             // URL Input
@@ -347,7 +347,7 @@ struct DashboardView: View {
                     
                     Spacer()
                     
-                    Text("+2")
+                    Text(NSLocalizedString("dashboard.badge_plus", comment: ""))
                         .font(.caption.weight(.semibold))
                         .foregroundColor(.verdictDanger)
                         .padding(.horizontal, 8)

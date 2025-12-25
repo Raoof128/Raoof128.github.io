@@ -133,20 +133,20 @@ struct HistoryView: View {
                         
                         HStack {
                             Circle().fill(Color.verdictSafe).frame(width: 10, height: 10)
-                            Text("Safe: \(safeCount)")
+                            Text(String(format: NSLocalizedString("history.safe_format", comment: ""), safeCount))
                         }
                         HStack {
                             Circle().fill(Color.verdictWarning).frame(width: 10, height: 10)
-                            Text("Suspicious: \(suspiciousCount)")
+                            Text(String(format: NSLocalizedString("history.suspicious_format", comment: ""), suspiciousCount))
                         }
                         HStack {
                             Circle().fill(Color.verdictDanger).frame(width: 10, height: 10)
-                            Text("Malicious: \(maliciousCount)")
+                            Text(String(format: NSLocalizedString("history.malicious_format", comment: ""), maliciousCount))
                         }
                         
                         Divider()
                         
-                        Text("Total: \(viewModel.filteredHistory.count) scans")
+                        Text(String(format: NSLocalizedString("history.total_format", comment: ""), viewModel.filteredHistory.count))
                             .font(.footnote)
                             .foregroundColor(.textSecondary)
                     }

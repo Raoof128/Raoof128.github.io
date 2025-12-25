@@ -146,7 +146,7 @@ struct TrustCentreView: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("trust.reset_confirm")
+            Text(NSLocalizedString("trust.reset_confirm", comment: ""))
         }
         .sheet(isPresented: $showTrustedDomains) {
             DomainListSheet(
@@ -225,11 +225,11 @@ struct TrustCentreView: View {
             
             // Content
             VStack(alignment: .leading, spacing: 4) {
-                Text("trust.offline_guarantee")
+                Text(NSLocalizedString("trust.offline_guarantee", comment: ""))
                     .font(.headline)
                     .foregroundColor(.textPrimary)
                 
-                Text("trust.offline_description")
+                Text(NSLocalizedString("trust.offline_description", comment: ""))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
                     .fixedSize(horizontal: false, vertical: true)
@@ -253,7 +253,7 @@ struct TrustCentreView: View {
         VStack(alignment: .leading, spacing: 16) {
             // Header
             HStack {
-                Text("trust.threat_sensitivity")
+                Text(NSLocalizedString("trust.threat_sensitivity", comment: ""))
                     .font(.headline)
                     .foregroundColor(.textPrimary)
                 

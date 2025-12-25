@@ -64,9 +64,9 @@ struct SettingsView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("settings.threat_monitor")
+                            Text(NSLocalizedString("settings.threat_monitor", comment: ""))
                                 .foregroundColor(.textPrimary)
-                            Text("settings.threat_monitor_desc")
+                            Text(NSLocalizedString("settings.threat_monitor_desc", comment: ""))
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -88,9 +88,9 @@ struct SettingsView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("settings.trust_centre")
+                            Text(NSLocalizedString("settings.trust_centre", comment: ""))
                                 .foregroundColor(.textPrimary)
-                            Text("settings.trust_centre_desc")
+                            Text(NSLocalizedString("settings.trust_centre_desc", comment: ""))
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -118,9 +118,9 @@ struct SettingsView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("settings.export_report")
+                            Text(NSLocalizedString("settings.export_report", comment: ""))
                                 .foregroundColor(.textPrimary)
-                            Text("settings.export_report_desc")
+                            Text(NSLocalizedString("settings.export_report_desc", comment: ""))
                                 .font(.caption)
                                 .foregroundColor(.textMuted)
                         }
@@ -397,16 +397,16 @@ struct SettingsView: View {
                     }
                     
                     VStack(spacing: 4) {
-                        Text("app.name")
+                        Text(NSLocalizedString("app.name", comment: ""))
                             .font(.headline)
                             .foregroundColor(.textPrimary)
                         
-                        Text("app.tagline")
+                        Text(NSLocalizedString("app.tagline", comment: ""))
                             .font(.caption)
                             .foregroundColor(.textSecondary)
                     }
                     
-                    Text("settings.credits")
+                    Text(NSLocalizedString("settings.credits", comment: ""))
                         .font(.caption2)
                         .foregroundColor(.textMuted)
                     

@@ -320,7 +320,7 @@ struct BeatTheBotView: View {
                 }
                 
                 // Level Badge
-                Text("LEVEL \(currentLevel.levelNumber)")
+                Text(String(format: NSLocalizedString("format.level", comment: ""), currentLevel.levelNumber))
                     .font(.caption2.weight(.bold))
                     .foregroundColor(.white)
                     .padding(.horizontal, 12)
@@ -582,7 +582,7 @@ struct BeatTheBotView: View {
                 Spacer()
                 
                 if !detectedSignals.isEmpty {
-                    Text("\(detectedSignals.count) signals detected")
+                    Text(String(format: NSLocalizedString("format.signals_detected", comment: ""), detectedSignals.count))
                         .font(.caption2)
                         .foregroundColor(.verdictDanger)
                 }

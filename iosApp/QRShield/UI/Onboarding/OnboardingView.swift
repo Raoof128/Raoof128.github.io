@@ -36,29 +36,29 @@ struct OnboardingView: View {
     private let pages: [OnboardingPage] = [
         OnboardingPage(
             icon: "qrcode.viewfinder",
-            title: "Scan Any QR Code",
-            description: "Point your camera at any QR code to instantly analyze its contents for potential threats.",
+            titleKey: "onboarding.scan.title",
+            descriptionKey: "onboarding.scan.description",
             color: .brandPrimary,
             asset: "OnboardScan"
         ),
         OnboardingPage(
             icon: "shield.lefthalf.filled",
-            title: "Real-Time Protection",
-            description: "Our AI-powered engine analyzes URLs using 25+ security heuristics and machine learning algorithms.",
+            titleKey: "onboarding.protect.title",
+            descriptionKey: "onboarding.protect.description",
             color: .brandSecondary,
             asset: "OnboardProtect"
         ),
         OnboardingPage(
             icon: "lock.shield",
-            title: "Privacy First",
-            description: "All analysis happens on-device using Kotlin Multiplatform. Your data never leaves your phone.",
+            titleKey: "onboarding.privacy.title",
+            descriptionKey: "onboarding.privacy.description",
             color: .verdictSafe,
             asset: "OnboardPrivacy"
         ),
         OnboardingPage(
             icon: "sparkles",
-            title: "Beautiful iOS 17+ Design",
-            description: "Experience the stunning Liquid Glass interface with smooth animations and modern aesthetics.",
+            titleKey: "onboarding.design.title",
+            descriptionKey: "onboarding.design.description",
             color: .brandAccent,
             asset: nil
         )
@@ -81,7 +81,7 @@ struct OnboardingView: View {
                     
                     Spacer()
                     
-                    Button("Skip") {
+                    Button(NSLocalizedString("onboarding.skip", comment: "")) {
                         completeOnboarding()
                     }
                     .font(.subheadline.weight(.medium))
@@ -110,11 +110,11 @@ struct OnboardingView: View {
                 }
                 .padding(.bottom, 40)
                 .accessibilityElement(children: .ignore)
-                .accessibilityLabel(Text("Page \(currentPage + 1) of \(pages.count)"))
+                .accessibilityLabel(Text(String(format: NSLocalizedString("onboarding.page_of", comment: ""), currentPage + 1, pages.count)))
                 
                 // Action Button
                 InteractiveGlassButton(
-                    currentPage == pages.count - 1 ? "Get Started" : "Continue",
+                    currentPage == pages.count - 1 ? NSLocalizedString("onboarding.get_started", comment: "") : NSLocalizedString("onboarding.continue", comment: ""),
                     icon: currentPage == pages.count - 1 ? "arrow.right.circle.fill" : "arrow.right",
                     color: pages[currentPage].color
                 ) {
@@ -127,11 +127,11 @@ struct OnboardingView: View {
         .onAppear {
             isAnimating = true
         }
-        .alert("Camera Permission", isPresented: $showCameraPermission) {
-            Button("Allow Camera") {
+        .alert(NSLocalizedString("onboarding.camera_title", comment: ""), isPresented: $showCameraPermission) {
+            Button(NSLocalizedString("onboarding.camera_allow", comment: "")) {
                 requestCameraPermission()
             }
-            Button("Maybe Later", role: .cancel) {
+            Button(NSLocalizedString("onboarding.camera_later", comment: ""), role: .cancel) {
                 withAnimation {
                     isComplete = true
                 }
@@ -187,12 +187,12 @@ struct OnboardingView: View {
             
             // Text content
             VStack(spacing: 16) {
-                Text(page.title)
+                Text(NSLocalizedString(page.titleKey, comment: ""))
                     .font(.title.weight(.bold))
                     .foregroundColor(.textPrimary)
                     .multilineTextAlignment(.center)
                 
-                Text(page.description)
+                Text(NSLocalizedString(page.descriptionKey, comment: ""))
                     .font(.body)
                     .foregroundColor(.textSecondary)
                     .multilineTextAlignment(.center)
@@ -254,8 +254,8 @@ struct OnboardingView: View {
 
 struct OnboardingPage {
     let icon: String
-    let title: String
-    let description: String
+    let titleKey: String
+    let descriptionKey: String
     let color: Color
     var asset: String? = nil
 }

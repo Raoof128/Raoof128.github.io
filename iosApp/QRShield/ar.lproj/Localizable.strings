@@ -411,3 +411,41 @@
 "accessibility.toggle_scanning" = "تبديل المسح";
 "accessibility.gallery" = "المعرض";
 "accessibility.open_history" = "فتح السجل";
+
+// MARK: - Onboarding Pages
+"onboarding.scan.title" = "امسح أي رمز QR";
+"onboarding.scan.description" = "وجه الكاميرا إلى أي رمز QR لتحليل محتواه فوراً بحثاً عن التهديدات المحتملة.";
+"onboarding.protect.title" = "حماية في الوقت الفعلي";
+"onboarding.protect.description" = "يحلل محرك الذكاء الاصطناعي الروابط باستخدام أكثر من 25 قاعدة أمنية وخوارزميات التعلم الآلي.";
+"onboarding.privacy.title" = "الخصوصية أولاً";
+"onboarding.privacy.description" = "كل التحليلات تتم على الجهاز باستخدام Kotlin Multiplatform. بياناتك لا تغادر هاتفك أبداً.";
+"onboarding.design.title" = "تصميم iOS 17+ جميل";
+"onboarding.design.description" = "استمتع بواجهة Liquid Glass المذهلة مع رسوم متحركة سلسة وجماليات حديثة.";
+"onboarding.skip" = "تخطي";
+"onboarding.continue" = "متابعة";
+"onboarding.get_started" = "البدء";
+"onboarding.page_counter" = "%d/%d";
+"onboarding.camera_title" = "إذن الكاميرا";
+"onboarding.camera_allow" = "السماح بالكاميرا";
+"onboarding.camera_later" = "ربما لاحقاً";
+"format.signals_detected" = "تم اكتشاف %d إشارة";
+"format.confidence_percent" = "%d%% ثقة";
+"format.level" = "المستوى %d";
+"format.score_100" = "%d/100";
+"format.latency_ms" = "%dms";
+"format.confidence" = "%d%% ثقة";
+"format.score_total" = "الدرجة: %d/100";
+"format.score_slash_100" = "%d/100";
+"format.percent" = "%d%%";
+"format.status_date" = "%@ • %@";
+"dashboard.privacy_note" = " دون المساس بخصوصية البيانات.";
+"dashboard.badge_plus" = "+2";
+"history.safe_format" = "آمن: %d";
+"history.suspicious_format" = "مشبوه: %d";
+"history.malicious_format" = "خبيث: %d";
+"history.total_format" = "الإجمالي: %d عملية مسح";
+"history.last_audit_format" = "آخر تدقيق: %@";
+"kmp.framework_linked" = "✅ KMP Framework مرتبط";
+"kmp.using_mock" = "⚠️ استخدام Mock (ربط common.framework)";
+"kmp.brand" = "🛡️ QR-SHIELD";
+"format.latency" = "%dms";

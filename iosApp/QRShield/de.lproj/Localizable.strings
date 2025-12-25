@@ -412,3 +412,43 @@
 "accessibility.toggle_scanning" = "Scannen umschalten";
 "accessibility.gallery" = "Galerie";
 "accessibility.open_history" = "Verlauf öffnen";
+
+// MARK: - Onboarding Pages
+"onboarding.scan.title" = "Jeden QR-Code scannen";
+"onboarding.scan.description" = "Richten Sie Ihre Kamera auf einen QR-Code, um seinen Inhalt sofort auf potenzielle Bedrohungen zu analysieren.";
+"onboarding.protect.title" = "Echtzeit-Schutz";
+"onboarding.protect.description" = "Unsere KI-Engine analysiert URLs mit über 25 Sicherheitsheuristiken und Machine-Learning-Algorithmen.";
+"onboarding.privacy.title" = "Datenschutz zuerst";
+"onboarding.privacy.description" = "Alle Analysen erfolgen auf dem Gerät mit Kotlin Multiplatform. Ihre Daten verlassen nie Ihr Telefon.";
+"onboarding.design.title" = "Schönes iOS 17+ Design";
+"onboarding.design.description" = "Erleben Sie die atemberaubende Liquid Glass-Oberfläche mit fließenden Animationen und moderner Ästhetik.";
+"onboarding.skip" = "Überspringen";
+"onboarding.continue" = "Weiter";
+"onboarding.get_started" = "Los geht's";
+"onboarding.page_counter" = "%d/%d";
+"onboarding.camera_title" = "Kameraberechtigung";
+"onboarding.camera_allow" = "Kamera erlauben";
+"onboarding.camera_later" = "Später vielleicht";
+
+// MARK: - Format Strings
+"format.signals_detected" = "%d Signale erkannt";
+"format.confidence_percent" = "%d%% Zuversicht";
+"format.level" = "LEVEL %d";
+"format.score_100" = "%d/100";
+"format.latency_ms" = "%dms";
+"format.confidence" = "%d%% Zuversicht";
+"format.score_total" = "Punktzahl: %d/100";
+"format.score_slash_100" = "%d/100";
+"format.percent" = "%d%%";
+"format.status_date" = "%@ • %@";
+"dashboard.privacy_note" = " ohne die Datenprivatsphäre zu gefährden.";
+"dashboard.badge_plus" = "+2";
+"history.safe_format" = "Sicher: %d";
+"history.suspicious_format" = "Verdächtig: %d";
+"history.malicious_format" = "Bösartig: %d";
+"history.total_format" = "Gesamt: %d Scans";
+"history.last_audit_format" = "Letzte Prüfung: %@";
+"kmp.framework_linked" = "✅ KMP Framework verknüpft";
+"kmp.using_mock" = "⚠️ Mock verwenden (common.framework verknüpfen)";
+"kmp.brand" = "🛡️ QR-SHIELD";
+"format.latency" = "%dms";
