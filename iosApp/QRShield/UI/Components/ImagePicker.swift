@@ -113,20 +113,17 @@ struct ImagePicker: View {
     private func handleSelection(_ item: PhotosPickerItem?) {
         guard let item else { return }
         
-        isLoading = true
-        
-        Task {
+        // Move all state access into @MainActor Task to fix isolation issue
+        Task { @MainActor in
+            self.isLoading = true
+            
             if let data = try? await item.loadTransferable(type: Data.self),
                let image = UIImage(data: data) {
-                await MainActor.run {
-                    isLoading = false
-                    onImagePicked(image)
-                    dismiss()
-                }
+                self.isLoading = false
+                self.onImagePicked(image)
+                self.dismiss()
             } else {
-                await MainActor.run {
-                    isLoading = false
-                }
+                self.isLoading = false
             }
         }
     }
@@ -182,4 +179,3 @@ actor QRImageScanner {
 }
 
 #endif
-

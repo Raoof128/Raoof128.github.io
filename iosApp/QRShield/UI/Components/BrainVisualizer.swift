@@ -22,8 +22,6 @@
 
 import SwiftUI
 
-#if os(iOS)
-
 // MARK: - Brain Node
 
 struct BrainNode: Identifiable {
@@ -237,10 +235,10 @@ struct SignalBadgesView: View {
                     .padding(.vertical, 4)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(.verdictDanger.opacity(0.1))
+                            .fill(Color.verdictDanger.opacity(0.1))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 4)
-                                    .stroke(.verdictDanger.opacity(0.3), lineWidth: 1)
+                                    .stroke(Color.verdictDanger.opacity(0.3), lineWidth: 1)
                             )
                     )
             }
@@ -276,6 +274,4 @@ struct BrainVisualizer_Previews: PreviewProvider {
         .background(Color.bgMain)
     }
 }
-#endif
-
 #endif

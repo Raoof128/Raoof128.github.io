@@ -5,6 +5,41 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.41] - 2025-12-25
+
+### 🐛 iOS Build Fixes
+
+Fixed two iOS build errors that were preventing compilation.
+
+#### Bug Fixes
+
+**1. BrainVisualizer Not in Scope** (`BeatTheBotView.swift`)
+- **Issue**: `BrainVisualizer` was not included in the Xcode project
+- **Fix**: Added `BrainVisualizer.swift` to `project.pbxproj` (PBXBuildFile, PBXFileReference, Group, Sources)
+- **Fix**: Removed `#if os(iOS)` wrapper from `BrainVisualizer.swift` (already limited by project target)
+- **Fix**: Fixed `Color.verdictDanger` usage in `.fill()` and `.stroke()` calls
+
+**2. Main Actor Isolation Error** (`ImagePicker.swift`)
+- **Issue**: `isLoading` property couldn't be referenced from non-isolated context
+- **Fix**: Changed `handleSelection()` to use `Task { @MainActor in }` block for all state access
+
+#### Files Modified
+
+| File | Change |
+|------|--------|
+| `ImagePicker.swift` | Fixed Main actor isolation |
+| `BrainVisualizer.swift` | Removed #if os(iOS), fixed Color types |
+| `project.pbxproj` | Added BrainVisualizer.swift to build |
+
+#### Build Verification
+
+```bash
+xcodebuild -scheme QRShield -destination 'platform=iOS Simulator,name=iPhone 17' build
+# BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.40] - 2025-12-25
 
 ### 📖 README Enhancement for Judges
