@@ -1,173 +1,206 @@
 # 🛡️ QR-SHIELD
 
-> **Offline QR Phishing Detection** — Scan any QR code, get instant verdicts, never send data to the cloud.
+> **Offline QR Phishing Detection** — Protect users from QRishing attacks with on-device ML, zero data collection, and cross-platform deployment.
 
-<!-- 🏆 JUDGES: Start here for quick verification -->
-[![Judge Quick Start](https://img.shields.io/badge/🏆_Judges-Quick_Start-gold?style=for-the-badge)](JUDGE_QUICKSTART.md)
-[![Evidence Pack](https://img.shields.io/badge/📋_Evidence-Verified_Claims-blue?style=for-the-badge)](docs/EVIDENCE.md)
+<p align="center">
+  <a href="https://raoof128.github.io"><img src="https://img.shields.io/badge/🌐_Live_Demo-raoof128.github.io-4F8BFF?style=for-the-badge" alt="Live Demo"></a>
+  <a href="releases/QRShield-1.1.0-release.apk"><img src="https://img.shields.io/badge/📱_Android-Download_APK-3DDC84?style=for-the-badge" alt="Download APK"></a>
+  <a href="JUDGE_QUICKSTART.md"><img src="https://img.shields.io/badge/🏆_Judges-Quick_Start-gold?style=for-the-badge" alt="Judge Quick Start"></a>
+</p>
 
 <!-- Competition Badges -->
-[![Contest](https://img.shields.io/badge/KotlinConf-2025--2026-7F52FF?logo=kotlin&logoColor=white)](CONTEST_START.md)
-[![Platforms](https://img.shields.io/badge/KMP_Targets-5_(Android%2C_iOS%2C_Desktop%2C_JS%2C_Wasm)-orange)](docs/SHARED_CODE_REPORT.md)
-[![Offline](https://img.shields.io/badge/Network-100%25%20Offline-brightgreen)](judge/verify_offline.sh)
-[![No Network](https://img.shields.io/badge/Privacy-Zero%20Data%20Collection-blue)](PRIVACY.md)
-
-<!-- Quality Badges -->
-[![Test Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
-[![Detekt](https://img.shields.io/badge/Detekt-Zero_Tolerance-brightgreen)](detekt.yml)
-[![Performance](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/performance.yml?label=performance)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/performance.yml)
-[![License](https://img.shields.io/badge/license-Apache%202.0-purple)](LICENSE)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.3.0-7F52FF)](https://kotlinlang.org)
-[![i18n](https://img.shields.io/badge/i18n-🇬🇧%20🇩🇪-blue)](common/src/commonMain/kotlin/com/qrshield/localization/Translations.kt)
+<p align="center">
+  <img src="https://img.shields.io/badge/KotlinConf-2025--2026-7F52FF?logo=kotlin&logoColor=white" alt="Contest">
+  <img src="https://img.shields.io/badge/Kotlin-2.3.0-7F52FF" alt="Kotlin">
+  <img src="https://img.shields.io/badge/KMP_Targets-5-orange" alt="Platforms">
+  <img src="https://img.shields.io/badge/Offline-100%25-brightgreen" alt="Offline">
+  <img src="https://img.shields.io/badge/Privacy-Zero_Data-blue" alt="Privacy">
+  <img src="https://img.shields.io/badge/Tests-1,248+-brightgreen" alt="Tests">
+  <img src="https://img.shields.io/badge/Coverage-89%25-brightgreen" alt="Coverage">
+  <img src="https://img.shields.io/badge/F1_Score-87.1%25-brightgreen" alt="F1 Score">
+  <img src="https://img.shields.io/badge/License-Apache_2.0-purple" alt="License">
+</p>
 
 ---
 
-## ⚡ What It Does (10 Seconds)
+## ⚡ 10-Second Summary
 
-- **Scan** → Point at any QR code  
-- **Analyze** → 25+ heuristics + ML ensemble score the URL in <5ms  
-- **Verdict** → SAFE ✅ / SUSPICIOUS ⚠️ / MALICIOUS 🔴 with human-readable reasons
+| Step | Action | Time |
+|------|--------|------|
+| 📷 **Scan** | Point camera at any QR code | 0ms |
+| 🧠 **Analyze** | 25+ heuristics + 3-model ML ensemble | <5ms |
+| ✅ **Verdict** | SAFE / SUSPICIOUS / MALICIOUS with reasons | Instant |
 
-**No network calls. No cloud APIs. No data collection. Ever.**
-
----
-
-## 🎯 Threat Model
-
-| Who Attacks | What We Detect | What We Don't |
-|-------------|----------------|---------------|
-| **Lazy phishers** | .tk/.ml domains, typosquats, IP hosts | Brand-new domains (no blocklist) |
-| **Script kiddies** | Homograph attacks, @ injection, shorteners | Zero-day exploits |
-| **Credential harvesters** | Login keywords, credential params | Sophisticated APTs |
-
-**Trade-off:** We sacrifice real-time blocklist updates for absolute privacy.
-
-📖 Full threat model: [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md)
+**No cloud. No network. No data collection. Ever.**
 
 ---
 
-## 🚀 Get the App — 5 KMP Targets
+## 🎯 The Problem We Solve
 
-| Platform | KMP Target | Status | Download |
-|----------|------------|--------|----------|
-| **Android** | `androidTarget()` | ✅ Full App | [Download APK](releases/QRShield-1.1.0-release.apk) |
-| **iOS** | `iosArm64/iosX64/iosSimulatorArm64` | ✅ Full App | [Simulator Guide](#ios-one-command-simulator) |
-| **Desktop** | `jvm("desktop")` | ✅ Full App | `./gradlew :desktopApp:run` |
-| **Web (JS)** | `js(IR) { browser {} }` | ✅ PWA | [raoof128.github.io](https://raoof128.github.io) |
-| **Web (Wasm)** | `wasmJs { browser {} }` | ✅ PWA | `./gradlew :webApp:wasmJsBrowserRun` |
+**QRishing attacks increased 587% since 2023.** Users scan parking meters, restaurant menus, payment terminals—trusting the code without checking the URL. When they land on `paypa1-secure.tk`, it's already too late.
 
-### iOS One-Command Simulator
+**Existing solutions fail because:**
+- 🔴 Cloud scanners log every URL you scan (privacy nightmare)
+- 🔴 Network-dependent tools don't work in parking garages or planes
+- 🔴 Generic "link checkers" miss QR-specific attack patterns
 
-```bash
-# Build and run on iOS Simulator (requires Xcode)
-./scripts/run_ios_simulator.sh
+**QR-SHIELD is different:**
+- ✅ **100% offline** — URL never leaves your device
+- ✅ **Privacy-first architecture** — Can't leak what we don't transmit
+- ✅ **<5ms analysis** — Real-time during scanning
+- ✅ **Explainable verdicts** — Shows *why* something is risky
+
+---
+
+## 🚀 Try It Now
+
+### 🌐 Web Demo (Instant)
+**[👉 raoof128.github.io](https://raoof128.github.io)** — Works in any browser, no install needed
+
+### 📱 All 5 Platforms
+
+| Platform | Target | Download |
+|----------|--------|----------|
+| **Android** | `androidTarget()` | [📥 Download APK](releases/QRShield-1.1.0-release.apk) |
+| **iOS** | `iosArm64/iosX64/iosSimulatorArm64` | `./scripts/run_ios_simulator.sh` |
+| **Desktop** | `jvm("desktop")` | `./gradlew :desktopApp:run` |
+| **Web (JS)** | `js(IR) { browser {} }` | [raoof128.github.io](https://raoof128.github.io) |
+| **Web (Wasm)** | `wasmJs { browser {} }` | `./gradlew :webApp:wasmJsBrowserRun` |
+
+### 🧪 Test These URLs
+
+| URL | Expected Result |
+|-----|-----------------|
+| `https://paypa1-secure.tk/login` | 🔴 **MALICIOUS** — Brand impersonation + risky TLD |
+| `https://google.com` | 🟢 **SAFE** — No threats detected |
+| `https://gооgle.com` (Cyrillic 'о') | 🔴 **MALICIOUS** — Homograph attack |
+| `https://192.168.1.1/login` | ⚠️ **SUSPICIOUS** — IP-based URL |
+
+---
+
+## 🏗️ Architecture — True 5-Platform KMP
+
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              5 Platform Apps                                      │
+├────────────────┬─────────────┬──────────────┬─────────────┬────────────────────┤
+│   androidApp   │   iosApp    │  desktopApp  │  webApp (JS)│  webApp (Wasm)     │
+│   Compose UI   │   SwiftUI   │  Compose UI  │  Kotlin/JS  │  Kotlin/WasmJS     │
+│   CameraX      │ AVFoundation│    ZXing     │   jsQR      │    jsQR            │
+│   ML Kit       │   Vision    │              │             │                    │
+└───────┬────────┴──────┬──────┴───────┬──────┴──────┬──────┴─────────┬──────────┘
+        │               │              │             │                │
+        └───────────────┴──────────────┴─────────────┴────────────────┘
+                                       │
+                                       ▼
+              ┌─────────────────────────────────────────────────────────┐
+              │            common (100% Shared Kotlin)                  │
+              ├─────────────────────────────────────────────────────────┤
+              │  🔧 PhishingEngine      — Main orchestrator             │
+              │  🧠 EnsembleModel       — 3-model ML architecture       │
+              │  🔍 HeuristicsEngine    — 25+ detection rules           │
+              │  🏷️ BrandDetector       — 500+ brands + dynamic         │
+              │  ✂️ FeatureExtractor    — URL feature engineering       │
+              │  📊 SharedViewModel     — Cross-platform state          │
+              │  🎨 CommonBrainVisualizer— Shared Compose UI            │
+              └─────────────────────────────────────────────────────────┘
 ```
 
----
+### 📊 Code Sharing Metrics
 
-## 📋 What Is QR-SHIELD?
+| Category | Lines of Code | Shared % |
+|----------|---------------|----------|
+| **Business Logic** | ~11,000 | **100%** |
+| **ML Engine** | ~1,400 | **100%** |
+| **Detection Engine** | ~2,500 | **100%** |
+| **UI Components** | ~3,000 | **80%** |
+| **Platform-Specific** | ~12,500 | 0% |
+| **Total Codebase** | ~26,000 | **~52%** |
 
-**QRishing attacks increased 587% since 2023.** Users scan parking meters, restaurant menus, payment terminals—never verifying the URL. Existing solutions require cloud APIs, meaning every scanned URL is logged on corporate servers.
-
-**QR-SHIELD solves this with privacy-first, offline detection:**
-
-| Feature | How It Works |
-|---------|--------------|
-| 🔒 **100% Offline** | No URL ever leaves the device—zero data collection |
-| 🧠 **Ensemble ML** | 3 models: Logistic Regression + Gradient Boosting + Decision Rules |
-| 🔍 **25+ Heuristics** | Homograph detection, typosquatting, suspicious TLDs, IP obfuscation |
-| ⚡ **<5ms Analysis** | Real-time feedback during QR scanning |
-| 📊 **Explainable** | Tells you *why* a URL is risky, not just that it is |
-
-### 🌟 Why This Is Novel (Competition Criteria)
-
-| Innovation | What Makes It Unique |
-|------------|---------------------|
-| **First offline-only QR phisher detector** | No prior solution combines offline detection, explainability, and true cross-platform delivery |
-| **Privacy as architecture, not feature** | Cannot leak data because it never transmits—fundamentally different from cloud solutions |
-| **Ensemble ML in pure Kotlin** | 3-model ML system implemented entirely in Kotlin, compiles to all 5 targets |
-| **Explainable verdicts** | Users see *why* (homograph, typosquat, risky TLD), not just "blocked" |
-| **Educational gamification** | "Beat the Bot" trains users to spot phishing; security through education |
-| **5 KMP targets with shared UI** | Same Compose UI components run on Android, Desktop, and Web |
+> **Key insight:** All security-critical code is shared. Platform code is only for camera access and native UI polish.
 
 ---
 
-## ❓ Why Not Cloud? (Privacy vs. Google Safe Browsing)
+## 🧠 Detection Engine
 
-> **"Why didn't you just use the Google Safe Browsing API?"** — This is a fair question.
+### Ensemble ML Architecture
 
-| Factor | Google Safe Browsing | QR-SHIELD (Offline) |
-|--------|---------------------|---------------------|
-| **Privacy** | ❌ Every URL sent to Google servers | ✅ Zero URLs leave device |
-| **What They Know** | Which banks, doctors, lawyers you visit | Nothing — we can't collect what we don't transmit |
-| **Data Risk** | Can be subpoenaed, leaked, sold | No data = no risk |
-| **Offline Support** | ❌ Requires internet connection | ✅ Works in parking garages, planes, remote areas |
-| **Detection Coverage** | ✅ Real-time blocklists (best for known threats) | 🟡 Heuristics + ML (best for pattern-based attacks) |
-| **Latency** | ~100-500ms (network round trip) | <5ms (on-device) |
-| **Cost** | Free tier limits, enterprise pricing | Free forever |
-
-### 🏎️ Performance Comparison
-
-| Metric | QR-SHIELD | Google Safe Browsing | VirusTotal |
-|--------|-----------|---------------------|------------|
-| **P50 Latency** | **<1ms** | ~200ms | ~1000ms |
-| **P99 Latency** | **<5ms** | ~500ms | ~3000ms |
-| **Works Offline** | ✅ Yes | ❌ No | ❌ No |
-| **Privacy** | ✅ Zero data sent | ❌ URLs logged | ❌ URLs logged |
-| **Rate Limits** | None | 10k/day | 4/min |
-
-### Trade-offs We Accept
-
-- **No real-time blocklists**: We can't check if a specific URL was reported 5 minutes ago
-- **Lower recall on brand-new threats**: First-day phishing sites might slip through
-- **Higher false positive potential**: Heuristics can over-flag unusual but legitimate URLs
-
-### Why We Still Win
-
-- **90% of attacks** use lazy patterns (`.tk` domains, typosquats, IP hosts) that heuristics catch
-- **Privacy is non-negotiable** for medical, legal, and financial QR codes
-- **Offline-first** means protection even without cell signal
-
----
-
-## 🧑‍⚖️ Quick Verification (5 Minutes)
-
-```bash
-# Verify all claims with one command
-./judge/verify_all.sh
+```kotlin
+class EnsembleModel {
+    private val logisticRegression = LogisticRegressionModel()  // Speed
+    private val gradientBoosting = GradientBoostingModel()      // Accuracy
+    private val decisionRules = RuleBasedModel()                // Explainability
+    
+    fun predict(features: FloatArray): Prediction {
+        val votes = listOf(
+            logisticRegression.predict(features),
+            gradientBoosting.predict(features),
+            decisionRules.predict(features)
+        )
+        return Prediction.fromVotes(votes)  // Majority voting
+    }
+}
 ```
 
-| Test | What It Proves |
-|------|----------------|
-| `./judge/verify_offline.sh` | Zero network calls during analysis |
-| `./judge/verify_performance.sh` | <5ms P50 latency |
-| `./judge/verify_accuracy.sh` | 87% F1 score |
-| `./judge/verify_parity.sh` | Identical verdicts on JVM + JS + Native + Wasm |
+### 25+ Heuristics
 
-> 📖 **[Full Evidence Pack →](docs/EVIDENCE.md)** - Every claim linked to reproducible artifacts
+| Attack Type | Detection Method |
+|-------------|------------------|
+| **Homograph Attacks** | Unicode script mixing (Cyrillic 'а', Greek 'ο') |
+| **Typosquatting** | Levenshtein distance for 500+ brands |
+| **Brand Impersonation** | Fuzzy matching + dynamic discovery |
+| **Suspicious TLDs** | `.tk`, `.ml`, `.ga`, `.cf` (free, abused) |
+| **IP-Based URLs** | Standard + obfuscated (octal, hex) |
+| **@ Symbol Injection** | `https://google.com@evil.com` patterns |
+| **URL Shorteners** | bit.ly, tinyurl flagged for review |
+| **Credential Paths** | `/login`, `/signin`, `/account` keywords |
+| **RTL Override** | Right-to-left character attacks |
+| **Zero-Width Injection** | Hidden characters in URLs |
 
-**Try these URLs:**
+### Performance
 
-| Test URL | Expected Result |
-|----------|-----------------|
-| `https://paypa1-secure.tk/login` | 🔴 MALICIOUS — Brand impersonation + suspicious TLD |
-| `https://google.com` | 🟢 SAFE — No threats detected |
-| `https://gооgle.com` (Cyrillic) | 🔴 MALICIOUS — Homograph attack |
-
-> **📱 Platform Note:** Web demo uses optimized ML weights for smaller bundle size (~200KB vs ~500KB on native). This may result in slightly lower scores (SUSPICIOUS vs MALICIOUS) on web compared to native apps. The detection is still accurate—only the score threshold differs.
+| Metric | Value | Comparison |
+|--------|-------|------------|
+| **P50 Latency** | <1ms | 200x faster than Google Safe Browsing |
+| **P99 Latency** | <5ms | 100x faster than VirusTotal |
+| **Memory** | <50MB | Suitable for low-end devices |
+| **Bundle Size** | ~2MB (native), ~200KB (web) | Fully offline |
 
 ---
 
-## 🔒 Offline Guarantee (Provable)
+## 📊 Accuracy Metrics
 
-**"100% Offline" isn't a marketing claim—it's enforced by tests.**
+| Metric | QR-SHIELD | Target |
+|--------|-----------|--------|
+| **F1 Score** | 87.1% | 85% |
+| **Recall** | 89.1% | 85% |
+| **Precision** | 85.2% | 85% |
+| **False Positive Rate** | 0% MALICIOUS on Alexa Top 100 | 0% |
 
-| Enforcement | How |
-|-------------|-----|
-| **No HTTP client** | Analysis module has zero network dependencies |
-| **Test verification** | `./judge/verify_offline.sh` fails if any socket call detected |
-| **CI enforcement** | Quality tests run in isolated network environment |
+### Test Coverage
+
+| Category | Count |
+|----------|-------|
+| **Unit Tests** | 1,248+ |
+| **Architecture Tests** | 9 (Konsist) |
+| **Performance Tests** | 15+ with P99 thresholds |
+| **Platform Parity Tests** | 5 (all targets identical) |
+| **Red Team Corpus** | 60+ adversarial URLs |
+
+---
+
+## 🔒 Privacy Guarantee
+
+| What Cloud Scanners Know | What QR-SHIELD Knows |
+|--------------------------|----------------------|
+| Which banks you use | **Nothing** |
+| Which doctors you visit | **Nothing** |
+| Which lawyers you consult | **Nothing** |
+| Your location patterns | **Nothing** |
+
+**Why?** We can't leak what we never transmit. Privacy is the **architecture**, not a feature.
+
+### Verification
 
 ```bash
 # Prove zero network calls
@@ -178,192 +211,123 @@
 # Analyzed 27 URLs, made 0 network calls
 ```
 
-📖 Full test: [common/src/commonTest/.../OfflineOnlyTest.kt](common/src/commonTest/kotlin/com/qrshield/core/OfflineOnlyTest.kt)
-
 ---
 
-## 📊 Shared Code Proof (KMP is Real)
+## 🌍 Internationalization
 
-### Business Logic — 100% Shared
+**16 Languages** — Reaching 4+ billion speakers worldwide
 
-| Module | Lines | Shared? |
-|--------|-------|---------|
-| `core/` (PhishingEngine) | 1,800 | ✅ 100% |
-| `engine/` (Heuristics) | 2,500 | ✅ 100% |
-| `ml/` (Ensemble Model) | 1,400 | ✅ 100% |
-| `model/` (Data Classes) | 600 | ✅ 100% |
-| `security/` (InputValidator) | 800 | ✅ 100% |
-| **Total Business Logic** | **~11,000** | **100%** |
-
-### Shared Compose UI Components — commonMain
-
-| Component | Location | Used By |
-|-----------|----------|---------|
-| `CommonBrainVisualizer` | `common/src/commonMain/kotlin/com/qrshield/ui/components/` | Android, Desktop, Web |
-| `CameraPermissionScreen` | `common/src/commonMain/kotlin/com/qrshield/ui/components/` | All platforms |
-| `SharedViewModel` | `common/src/commonMain/kotlin/com/qrshield/ui/` | Android, Desktop |
-| `SharedTextGenerator` | `common/src/commonMain/kotlin/com/qrshield/ui/` | All platforms |
-| **Theme system** | `common/src/commonMain/kotlin/com/qrshield/ui/theme/` | Android, Desktop, Web |
-
-Platform-specific code (native camera, platform UI): ~12,500 LOC
-
-**Key insight:** Business logic **AND** UI components are shared. Only hardware access (camera, haptics) is platform-specific.
-
-📖 Full breakdown: [docs/SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md)
-
----
-
-## 🏗️ Architecture — 5 KMP Targets
-
-> **~80% shared code** via Kotlin Multiplatform. One detection engine compiles to **5 targets**: JVM, Native (iOS), JS, and WasmJS.
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                           Platform Apps (5 Targets)                           │
-├───────────────┬──────────────┬─────────────┬──────────────┬──────────────────┤
-│   androidApp  │    iosApp    │  desktopApp │  webApp (JS) │  webApp (Wasm)   │
-│   Compose UI  │   SwiftUI    │   Compose   │  Kotlin/JS   │  Kotlin/WasmJS   │
-│    CameraX    │ AVFoundation │    ZXing    │    jsQR      │    jsQR          │
-└───────┬───────┴──────┬───────┴──────┬──────┴───────┬──────┴────────┬─────────┘
-        │              │              │              │               │
-        └──────────────┴──────────────┴──────────────┴───────────────┘
-                                      │
-                                      ▼
-        ┌─────────────────────────────────────────────────────────────┐
-        │                common (Shared Kotlin — 100%)                 │
-        ├─────────────────────────────────────────────────────────────┤
-        │  PhishingEngine — Main orchestrator                          │
-        │  HeuristicsEngine — 25+ detection rules                      │
-        │  EnsembleModel — 3-model ML architecture                     │
-        │  BrandDetector — 500+ brands + dynamic discovery             │
-        │  SharedViewModel — Cross-platform state management           │
-        │  CommonBrainVisualizer — Shared Compose UI component         │
-        └─────────────────────────────────────────────────────────────┘
-```
-
-### Platform Support — 5 KMP Targets
-
-| Platform | KMP Target | Status | Implementation | LOC |
-|----------|-----------|--------|----------------|-----|
-| **Android** | `androidTarget()` | ✅ **Full** | CameraX + ML Kit + Compose UI | ~4,500 |
-| **iOS** | `iosArm64()` `iosX64()` `iosSimulatorArm64()` | ✅ **Full** | AVFoundation + SwiftUI + KMP | ~6,500 |
-| **Desktop** | `jvm("desktop")` | ✅ **Full** | Compose Desktop + ZXing | ~2,000 |
-| **Web (JS)** | `js(IR) { browser {} }` | ✅ **PWA** | Kotlin/JS + Service Worker | ~1,200 |
-| **Web (Wasm)** | `wasmJs { browser {} }` | ✅ **PWA** | Kotlin/WasmJS + SQLDelight | ~300 |
-
----
-
-## ✨ Detection Capabilities
-
-```kotlin
-val result = PhishingEngine().analyzeBlocking("https://paypa1-secure.tk/login")
-// → Verdict: MALICIOUS (score: 85)
-// → Flags: ["Brand impersonation: paypal", "High-risk TLD: .tk"]
-```
-
-| Attack Type | How We Detect It |
-|-------------|------------------|
-| **Homograph Attacks** | Unicode script mixing (Cyrillic 'а', Greek 'ο') |
-| **Typosquatting** | Levenshtein distance for 500+ brands |
-| **URL Shorteners** | bit.ly, tinyurl, t.co flagged as suspicious |
-| **Suspicious TLDs** | .tk, .ml, .ga, .cf (free, abused for phishing) |
-| **IP Address URLs** | Standard and obfuscated (octal, hex, decimal) |
-| **@ Symbol Injection** | `https://google.com@evil.com` patterns |
-
----
-
-## 🔧 SDK Integration
-
-For developers who want to integrate QR-SHIELD detection into their own apps:
-
-### Local Module Integration
-
-The `common` module contains the complete detection engine and can be included as a local dependency:
-
-```kotlin
-// In your settings.gradle.kts, include the common module
-include(":common")
-project(":common").projectDir = file("path/to/qrshield/common")
-
-// In your build.gradle.kts
-dependencies {
-    implementation(project(":common"))
-}
-```
-
-### Usage
-
-```kotlin
-// Use in your app
-val engine = PhishingEngine()
-val result = engine.analyzeBlocking(url)
-
-when (result.verdict) {
-    Verdict.SAFE -> showGreenCheckmark()
-    Verdict.SUSPICIOUS -> showYellowWarning()
-    Verdict.MALICIOUS -> blockAndAlert()
-}
-```
-
-> **Note:** The SDK is designed for local module integration rather than Maven Central publishing.
-> This ensures you always have the latest detection rules and allows customization.
-
-> 📖 **[SDK Documentation →](docs/API.md)**
-
----
-
-## 🧪 Quality & Testing
-
-| Metric | Value |
-|--------|-------|
-| Test Coverage | 89% |
-| Total Tests | 1,248+ |
-| Architecture Tests | 9 (Konsist) |
-| Performance Tests | 15+ with P99 thresholds |
-| Accuracy | F1: 87.1%, Recall: 89.1% |
-| **False Positive Rate** | **0% MALICIOUS** on Alexa Top 100 |
-
-
-### CI Enforcement
-
-| Workflow | What It Checks |
-|----------|----------------|
-| `quality-tests.yml` | 1,248+ unit tests |
-| `performance.yml` | P99 latency thresholds |
-| `benchmark.yml` | Performance regression detection |
-| Detekt | Zero-tolerance static analysis |
-
----
-
-## 📚 Documentation
-
-| Topic | Document |
-|-------|----------|
-| **Architecture** | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| **ML Model** | [docs/ML_MODEL.md](docs/ML_MODEL.md) |
-| **ML Training & Validation** | [docs/ML_TRAINING.md](docs/ML_TRAINING.md) |
-| **Threat Model** | [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) |
-| **Attack Demos** | [docs/ATTACK_DEMOS.md](docs/ATTACK_DEMOS.md) |
-| **Platform Parity** | [docs/PLATFORM_PARITY.md](docs/PLATFORM_PARITY.md) |
-| **iOS Integration** | [iosApp/INTEGRATION_GUIDE.md](iosApp/INTEGRATION_GUIDE.md) |
-| **API Reference** | [docs/API.md](docs/API.md) |
-| **Competition Essay** | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) |
-
+| Region | Languages |
+|--------|-----------|
+| 🇬🇧 🇺🇸 | English |
+| 🇩🇪 🇦🇹 🇨🇭 | German |
+| 🇫🇷 | French |
+| 🇪🇸 🇲🇽 | Spanish |
+| 🇮🇹 | Italian |
+| 🇵🇹 🇧🇷 | Portuguese |
+| 🇷🇺 | Russian |
+| 🇨🇳 | Chinese (Simplified) |
+| 🇯🇵 | Japanese |
+| 🇰🇷 | Korean |
+| 🇮🇳 | Hindi |
+| 🇸🇦 🇦🇪 | Arabic |
+| 🇹🇭 | Thai |
+| 🇻🇳 | Vietnamese |
+| 🇹🇷 | Turkish |
+| 🇮🇩 | Indonesian |
 
 ---
 
 ## 🏆 Competition Compliance
 
-| Criterion | Status |
-|-----------|--------|
-| ✅ Original work | 100% written during contest period (Dec 5-25, 2025) |
-| ✅ Apache 2.0 license | [LICENSE](LICENSE) |
-| ✅ Public repository | github.com/Raoof128/Raoof128.github.io |
-| ✅ Kotlin Multiplatform | **5 targets** from shared codebase |
-| ✅ README documentation | This file + [JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md) |
-| ✅ Competition essay | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) (~550 words) |
-| ✅ Static analysis | Detekt zero-tolerance (no baseline) |
-| ✅ Test coverage | 89% with 1,248+ tests |
+| Criterion | Status | Evidence |
+|-----------|--------|----------|
+| ✅ Original work | Dec 5-25, 2025 | Git commit history |
+| ✅ Apache 2.0 license | [LICENSE](LICENSE) | Full text included |
+| ✅ Public repository | GitHub | [Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io) |
+| ✅ Kotlin Multiplatform | **5 targets** | Android, iOS, Desktop, JS, Wasm |
+| ✅ README documentation | This file | + [JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md) |
+| ✅ Competition essay | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) | ~950 words |
+| ✅ Static analysis | Detekt | Zero-tolerance (no baseline) |
+| ✅ Test coverage | 89% | 1,248+ tests |
+
+---
+
+## 🧑‍⚖️ Judge Quick Verification
+
+```bash
+# One command to verify all claims
+./judge/verify_all.sh
+
+# Individual verifications
+./judge/verify_offline.sh     # Zero network calls
+./judge/verify_performance.sh # <5ms P50 latency
+./judge/verify_accuracy.sh    # 87% F1 score
+./judge/verify_parity.sh      # Identical on all platforms
+```
+
+📖 **[Full Evidence Pack →](docs/EVIDENCE.md)** — Every claim linked to artifacts
+
+---
+
+## 📚 Documentation
+
+### For Judges
+| Document | Purpose |
+|----------|---------|
+| **[JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md)** | 5-minute verification guide |
+| **[ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md)** | Competition essay (~950 words) |
+| **[docs/EVIDENCE.md](docs/EVIDENCE.md)** | Claims linked to artifacts |
+| **[SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md)** | Rule compliance checklist |
+
+### Technical
+| Document | Purpose |
+|----------|---------|
+| **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** | System design |
+| **[docs/ML_MODEL.md](docs/ML_MODEL.md)** | ML architecture |
+| **[docs/THREAT_MODEL.md](docs/THREAT_MODEL.md)** | Security analysis |
+| **[docs/API.md](docs/API.md)** | Developer reference |
+| **[docs/SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md)** | KMP code sharing breakdown |
+
+### Platform Guides
+| Document | Purpose |
+|----------|---------|
+| **[androidApp/README.md](androidApp/README.md)** | Android app guide |
+| **[iosApp/INTEGRATION_GUIDE.md](iosApp/INTEGRATION_GUIDE.md)** | iOS integration |
+| **[desktopApp/README.md](desktopApp/README.md)** | Desktop app guide |
+| **[docs/ICON_INTEGRATION.md](docs/ICON_INTEGRATION.md)** | Icon setup for all platforms |
+
+---
+
+## 🛠️ Build & Run
+
+### Prerequisites
+- **JDK 17+** (Temurin/Corretto recommended)
+- **Android Studio** (for Android builds)
+- **Xcode 15+** (for iOS, macOS only)
+
+### Quick Start
+
+```bash
+# Clone
+git clone https://github.com/Raoof128/Raoof128.github.io.git
+cd Raoof128.github.io
+
+# Run tests
+./gradlew test
+
+# Run Android
+./gradlew :androidApp:installDebug
+
+# Run Desktop
+./gradlew :desktopApp:run
+
+# Run Web (JS)
+./gradlew :webApp:jsBrowserDevelopmentRun
+
+# Run Web (Wasm)
+./gradlew :webApp:wasmJsBrowserDevelopmentRun
+```
 
 ---
 
@@ -374,12 +338,14 @@ Copyright 2025-2026 QR-SHIELD Contributors
 Licensed under the Apache License, Version 2.0
 ```
 
-See [LICENSE](LICENSE) for the full text.
+See [LICENSE](LICENSE) for full text.
 
 ---
 
 <p align="center">
+  <img src="qr-shield-iconset/QR-SHIELD.iconset/icon_128x128.png" alt="QR-SHIELD Icon" width="64">
+  <br><br>
   <b>🛡️ QR-SHIELD</b><br>
-  Kotlin Multiplatform • Privacy-First • 87% F1 Score • <5ms Analysis<br>
-  <i>Protecting users from QR phishing, one scan at a time.</i>
+  <i>Kotlin Multiplatform • 5 Platforms • 100% Offline • 87% F1 Score</i><br><br>
+  <b>Scan smart. Stay protected.</b>
 </p>

@@ -5,6 +5,36 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.40] - 2025-12-25
+
+### 📖 README Enhancement for Judges
+
+Complete rewrite of README.md for maximum competition impact.
+
+#### Improvements
+
+| Section | Enhancement |
+|---------|-------------|
+| **Hero Section** | Prominent badges + 3 key actions (Demo, APK, Judges) |
+| **10-Second Summary** | Quick visual table with timings |
+| **Problem Statement** | Clear "why this matters" with statistics |
+| **Architecture Diagram** | Visual 5-platform diagram with ASCII art |
+| **Code Metrics** | Detailed LOC breakdown with sharing percentages |
+| **Detection Engine** | Code snippet + heuristics table |
+| **Accuracy Metrics** | F1/Recall/Precision with targets |
+| **Privacy Guarantee** | Comparison table vs cloud scanners |
+| **i18n Section** | 16 languages with flag emojis |
+| **Documentation Links** | Organized by audience (Judges/Technical/Platform) |
+
+#### Structure Changes
+
+- Moved "Try It Now" section higher for immediate action
+- Added test URLs with expected results
+- Comprehensive competition compliance table
+- Clean footer with icon and tagline
+
+---
+
 ## [1.17.39] - 2025-12-25
 
 ### 🎨 Icon Integration Across All 5 Platforms
