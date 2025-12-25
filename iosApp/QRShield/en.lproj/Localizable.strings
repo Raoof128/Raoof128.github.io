@@ -290,3 +290,14 @@
 "settings.restart_later" = "Later";
 "settings.restart_now" = "Restart Now";
 "settings.language_restart_message" = "To fully apply the new language, please restart the app.";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Restart Required";
+"settings.restart_subtitle" = "To display QR-SHIELD in %@, please restart the app.";
+"settings.restart_step1" = "Tap 'Close App' below";
+"settings.restart_step2" = "Swipe up from the app switcher to fully close";
+"settings.restart_step3" = "Reopen QR-SHIELD to see the new language";
+"settings.close_app" = "Close App";
+"settings.restart_error_title" = "Restart Error";
+"settings.restart_error_message" = "Unable to close the app automatically. Please close and reopen the app manually to apply your language change.";
+"common.ok" = "OK";

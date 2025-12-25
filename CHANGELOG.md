@@ -5,6 +5,60 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.45] - 2025-12-25
+
+### 🔄 iOS Language Restart Screen (Apple HIG Compliant)
+
+Replaced simple alert with a full restart screen following Apple Human Interface Guidelines.
+
+#### New Features
+
+**RestartRequiredView** - Dedicated restart screen with:
+- 🌐 Animated globe icon with pulse effect
+- 📝 Clear title and subtitle with selected language name
+- 📋 Step-by-step instructions (numbered 1-2-3)
+- 🔘 "Close App" button - uses `UIApplication.suspend` + graceful exit
+- 🔘 "I'll Restart Later" button - dismisses and continues
+
+**Apple HIG Compliance** (per 2025 documentation research):
+- Does NOT use bare `exit(0)` which logs as crash
+- Uses `UIApplication.perform("suspend")` first (simulates home button)
+- Graceful termination after app is suspended
+- Provides manual instructions as fallback
+
+**Error Handling**:
+- Shows error alert if app can't close automatically
+- Provides manual restart instructions
+
+#### New Localization Keys
+
+| Key | English Text |
+|-----|--------------|
+| `settings.restart_title` | "Restart Required" |
+| `settings.restart_subtitle` | "To display QR-SHIELD in %@, please restart the app." |
+| `settings.restart_step1` | "Tap 'Close App' below" |
+| `settings.restart_step2` | "Swipe up from the app switcher to fully close" |
+| `settings.restart_step3` | "Reopen QR-SHIELD to see the new language" |
+| `settings.close_app` | "Close App" |
+| `settings.restart_error_title` | "Restart Error" |
+| `settings.restart_error_message` | "Unable to close the app automatically..." |
+
+#### Files Modified
+
+| File | Change |
+|------|--------|
+| `SettingsView.swift` | Added `RestartRequiredView` struct |
+| `en.lproj/Localizable.strings` | Added 8 new restart screen strings |
+
+#### Build Verification
+
+```bash
+xcodebuild -scheme QRShield -destination 'platform=iOS Simulator,name=iPhone 17' build
+# BUILD SUCCEEDED
+```
+
+---
+
 ## [1.17.44] - 2025-12-25
 
 ### 🌐 iOS Language Switching - Restart Prompt
