@@ -5,6 +5,29 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.38] - 2025-12-25
+
+### 🎨 VerdictHeader Icon Color Fix
+
+Fixed the icon and pulsing ring showing wrong colors.
+
+#### Bug Fix
+
+**Issue**: VerdictHeader showed BLUE icon for all verdicts (MALICIOUS, SUSPICIOUS, SAFE).
+
+**Root Cause**: VerdictHeader received `displayVerdict` ("High Risk Detected") instead of `rawVerdict` ("MALICIOUS"). Color logic checked for "MALICIOUS" but got the localized display text.
+
+**Fix**: 
+- Added `rawVerdict` parameter for color/icon determination
+- Added `displayVerdict` parameter for text display
+- Now correctly shows:
+  - 🔴 **MALICIOUS** → Red icon + red pulse
+  - 🟡 **SUSPICIOUS** → Orange icon + orange pulse
+  - 🟢 **SAFE** → Green icon + green pulse
+  - 🔵 **UNKNOWN** → Blue icon (default)
+
+---
+
 ## [1.17.37] - 2025-12-25
 
 ### 🐛 Android Result Screen & History Fixes

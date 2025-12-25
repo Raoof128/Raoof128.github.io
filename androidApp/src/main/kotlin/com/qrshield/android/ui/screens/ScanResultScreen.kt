@@ -130,7 +130,8 @@ fun ScanResultScreen(
             ) {
                 // Verdict Header
                 VerdictHeader(
-                    verdict = displayVerdict,
+                    rawVerdict = verdict,
+                    displayVerdict = displayVerdict,
                     threatType = threatType,
                     confidence = confidence
                 )
@@ -206,34 +207,35 @@ fun ScanResultScreen(
 
 @Composable
 private fun VerdictHeader(
-    verdict: String,
+    rawVerdict: String,
+    displayVerdict: String,
     threatType: String,
     confidence: Int
 ) {
-    // Determine colors and icon based on verdict
-    val verdictUpper = verdict.uppercase()
-    val isSafe = verdictUpper.contains("SAFE") || verdictUpper == "SAFE"
-    val isSuspicious = verdictUpper.contains("SUSPICIOUS") || verdictUpper == "SUSPICIOUS"
-    val isMalicious = verdictUpper.contains("MALICIOUS") || verdictUpper == "MALICIOUS"
+    // Determine colors and icon based on RAW verdict (MALICIOUS, SUSPICIOUS, SAFE, UNKNOWN)
+    val verdictUpper = rawVerdict.uppercase()
+    val isSafe = verdictUpper == "SAFE"
+    val isSuspicious = verdictUpper == "SUSPICIOUS"
+    val isMalicious = verdictUpper == "MALICIOUS"
     
     val primaryColor = when {
-        isSafe -> QRShieldColors.RiskSafe
-        isSuspicious -> QRShieldColors.RiskWarning
         isMalicious -> QRShieldColors.RiskDanger
+        isSuspicious -> QRShieldColors.RiskWarning
+        isSafe -> QRShieldColors.RiskSafe
         else -> QRShieldColors.Primary
     }
     
     val secondaryColor = when {
-        isSafe -> QRShieldColors.Emerald600
-        isSuspicious -> QRShieldColors.Orange600
         isMalicious -> QRShieldColors.Red600
+        isSuspicious -> QRShieldColors.Orange600
+        isSafe -> QRShieldColors.Emerald600
         else -> QRShieldColors.Primary
     }
     
     val verdictIcon = when {
-        isSafe -> Icons.Default.GppGood
-        isSuspicious -> Icons.Default.GppMaybe
         isMalicious -> Icons.Default.GppBad
+        isSuspicious -> Icons.Default.GppMaybe
+        isSafe -> Icons.Default.GppGood
         else -> Icons.Default.Shield
     }
     
@@ -326,7 +328,7 @@ private fun VerdictHeader(
 
         // Verdict text
         Text(
-            text = verdict,
+            text = displayVerdict,
             style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold), // Larger text
             color = MaterialTheme.colorScheme.onBackground
         )
