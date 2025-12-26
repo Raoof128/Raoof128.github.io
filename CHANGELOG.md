@@ -38,6 +38,13 @@ Fixed 5 user-reported issues to improve desktop UX.
 - Shows avatar, name, role, quick stats, settings, and plan badge
 - Triggered by clicking profile in sidebar
 
+#### App Icons for Native Packaging
+- Created `desktopApp/icons/` folder with proper icons
+- **macOS**: Generated `icon.icns` from QR-SHIELD.iconset using iconutil
+- **Windows**: Generated `icon.ico` from 256x256 PNG using ImageMagick
+- **Linux**: Copied `icon.png` (512x512) for native distributions
+- Icons configured in build.gradle.kts for all target formats
+
 ---
 
 ## [1.17.63] - 2025-12-26
