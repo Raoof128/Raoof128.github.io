@@ -79,6 +79,11 @@ Replaced 9 "not available yet" placeholder messages with functional behavior:
 - **Date range**: Changed "Oct 24 - Oct 25" to "Last 7 Days" in ScanHistoryScreen.kt
 - **Hindi translations**: Added 5 new string translations for placeholder replacements
 
+#### Keyboard Shortcuts Enhancement
+- **Help message**: Now shows all shortcuts including Cmd/Ctrl+, for settings and Enter for analyze
+- **Enter key**: Added Enter key support in Dashboard URL input field to trigger analysis
+- **Hindi translation**: Updated to include full keyboard shortcuts list
+
 ---
 
 ## [1.17.63] - 2025-12-26

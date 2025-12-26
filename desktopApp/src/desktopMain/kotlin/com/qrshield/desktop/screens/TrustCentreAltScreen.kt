@@ -108,7 +108,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         .size(32.dp)
                         .clip(CircleShape)
                         .background(colors.border)
-                        .clickable { viewModel.showInfo(t("Keyboard shortcuts: Cmd/Ctrl+V paste, Cmd/Ctrl+1-4 navigate, Escape go back")) }
+                        .clickable { viewModel.showInfo(t("Keyboard shortcuts: Cmd/Ctrl+V paste URL, Cmd/Ctrl+, settings, Cmd/Ctrl+1-4 navigate, Enter analyze, Escape go back")) }
                         .focusable()
                         .handCursor(),
                     contentAlignment = Alignment.Center

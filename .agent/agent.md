@@ -236,6 +236,14 @@ Fixed 7 placeholder "not available" messages in the Desktop app, replacing them 
 | `ScanHistoryScreen.kt:235` | Hardcoded date "Oct 24 - Oct 25" | Changed to "Last 7 Days" |
 | `DesktopStringsHi.kt` | Added 5 missing Hindi translations for new placeholder strings |
 
+### Keyboard Shortcuts Enhancement
+
+| File | Change |
+|------|--------|
+| `TrustCentreAltScreen.kt:111` | Updated help message to include all shortcuts: Cmd/Ctrl+V paste URL, Cmd/Ctrl+, settings, Cmd/Ctrl+1-4 navigate, Enter analyze, Escape go back |
+| `DashboardScreen.kt:325-345` | Added Enter key support to URL input field using `keyboardActions` |
+| `DesktopStringsHi.kt` | Updated Hindi translation for extended keyboard shortcuts |
+
 ## 🔧 Build Verification
 
 ```bash

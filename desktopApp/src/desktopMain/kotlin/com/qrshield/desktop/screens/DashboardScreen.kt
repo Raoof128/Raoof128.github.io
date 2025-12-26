@@ -17,6 +17,9 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -331,6 +334,15 @@ private fun DashboardContent(
                                         },
                                         modifier = Modifier.weight(1f),
                                         singleLine = true,
+                                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                                        keyboardActions = KeyboardActions(
+                                            onSearch = {
+                                                if (urlInput.isNotBlank()) {
+                                                    onAnalyzeUrl(urlInput)
+                                                    urlInput = ""
+                                                }
+                                            }
+                                        ),
                                         colors = OutlinedTextFieldDefaults.colors(
                                             focusedBorderColor = Color.Transparent,
                                             unfocusedBorderColor = Color.Transparent,

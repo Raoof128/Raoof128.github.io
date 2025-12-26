@@ -236,7 +236,7 @@ internal val HindiCommonStrings = mapOf(
     "Zoom is not available yet." to "ज़ूम अभी उपलब्ध नहीं है।",
     "Help is not available yet." to "सहायता अभी उपलब्ध नहीं है।",
     "Profile settings are not available yet." to "प्रोफ़ाइल सेटिंग्स अभी उपलब्ध नहीं हैं।",
-    "Keyboard shortcuts: Cmd/Ctrl+V paste, Cmd/Ctrl+1-4 navigate, Escape go back" to "कीबोर्ड शॉर्टकट: Cmd/Ctrl+V पेस्ट, Cmd/Ctrl+1-4 नेविगेट, Escape पीछे जाएं",
+    "Keyboard shortcuts: Cmd/Ctrl+V paste URL, Cmd/Ctrl+, settings, Cmd/Ctrl+1-4 navigate, Enter analyze, Escape go back" to "कीबोर्ड शॉर्टकट: Cmd/Ctrl+V URL पेस्ट, Cmd/Ctrl+, सेटिंग्स, Cmd/Ctrl+1-4 नेविगेट, Enter विश्लेषण, Escape पीछे जाएं",
     "Exports are saved to your Documents folder" to "एक्सपोर्ट आपके डॉक्यूमेंट्स फ़ोल्डर में सहेजे जाते हैं",
     "Tip: Use scroll wheel to zoom in preview" to "टिप: प्रीव्यू में ज़ूम करने के लिए स्क्रॉल व्हील का उपयोग करें",
     "Use the search box to filter by domain, source, or hash" to "डोमेन, स्रोत या हैश से फ़िल्टर करने के लिए सर्च बॉक्स का उपयोग करें",
