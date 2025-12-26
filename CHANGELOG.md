@@ -35,6 +35,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Android Polish | ✅ Icons, splash, permissions, crash logging |
 | Unit Tests | ✅ **1242/1242 passing** |
 
+#### Splash Screen Icon Flash Fix
+- **Issue**: Old/default icon briefly visible before QR-Shield icon on app launch
+- **Root Cause**: Window background was plain color, not branded splash
+- **Fix**: Created `splash_background.xml` layer-list with centered logo
+- **Updated**: `themes.xml` to use `@drawable/splash_background` as `windowBackground`
+
 ---
 
 ## [1.17.58] - 2025-12-26

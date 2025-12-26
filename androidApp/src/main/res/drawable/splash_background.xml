@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Splash background with centered logo to prevent any flash of wrong icon -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Dark background -->
+    <item android:drawable="@color/splash_background" />
+    
+    <!-- Centered icon with background circle -->
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/ic_launcher_foreground_png" />
+    </item>
+</layer-list>

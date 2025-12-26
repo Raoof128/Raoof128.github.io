@@ -223,7 +223,14 @@ Polished the AI Shield Visualizer for premium aesthetics, fixed all Android lint
 | `androidApp/.../values-de/strings.xml` | Escaped `%` + added missing translations |
 | `androidApp/.../values-fr/strings.xml` | Escaped `%` |
 | `androidApp/.../values-*/strings.xml` (13 files) | Added 2 missing translation keys |
+| `androidApp/.../drawable/splash_background.xml` | **NEW** - Layer-list with centered logo |
+| `androidApp/.../values/themes.xml` | Window background uses splash drawable |
 | `docs/ANDROID_AUDIT.md` | Updated with final audit results |
+
+### Splash Screen Icon Flash Fix
+- **Issue**: Old/default icon briefly visible before QR-Shield icon on app launch
+- **Root Cause**: Window background was plain `@color/background_dark`, not branded splash
+- **Fix**: Created `splash_background.xml` layer-list that shows the QR-Shield logo from the start
 
 ## 📊 Android Audit Results
 
