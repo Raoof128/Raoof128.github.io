@@ -232,7 +232,7 @@ private fun ScanHistoryContent(
                 ) {
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         MaterialSymbol(name = "calendar_today", size = 16.sp, color = colors.textMuted)
-                        Text(t("Oct 24 - Oct 25"), fontSize = 14.sp, color = colors.textSub)
+                        Text(t("Last 7 Days"), fontSize = 14.sp, color = colors.textSub)
                     }
                 }
                 Surface(

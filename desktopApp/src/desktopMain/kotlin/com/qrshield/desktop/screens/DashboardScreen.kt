@@ -522,7 +522,7 @@ private fun DashboardContent(
                             }
                             Text(t("Threat Database"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                         }
-                        KeyValueRow(label = t("Version"), value = "v1.17.30", colors = colors)
+                        KeyValueRow(label = t("Version"), value = "v1.17.64", colors = colors)
                         KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"), colors = colors)
                         KeyValueRow(label = t("Signatures"), value = "4,281,092", colors = colors)
                         Button(

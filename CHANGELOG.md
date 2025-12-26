@@ -74,6 +74,11 @@ Replaced 9 "not available yet" placeholder messages with functional behavior:
 - **Sandbox quarantine**: Now actually adds domain to blocklist (was: "Sandbox quarantine is not available on desktop yet")
 - **Sandbox preview**: Now actually opens URL in browser (was: "Sandbox preview is not available on desktop yet")
 
+#### Hardcoded Value Fixes
+- **Version string**: Updated from "v1.17.30" to "v1.17.64" in DashboardScreen.kt
+- **Date range**: Changed "Oct 24 - Oct 25" to "Last 7 Days" in ScanHistoryScreen.kt
+- **Hindi translations**: Added 5 new string translations for placeholder replacements
+
 ---
 
 ## [1.17.63] - 2025-12-26

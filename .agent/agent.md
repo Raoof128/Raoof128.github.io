@@ -228,6 +228,14 @@ Fixed 7 placeholder "not available" messages in the Desktop app, replacing them 
 | `ResultSuspiciousScreen.kt` | Made Open in Sandbox button actually open URL in browser |
 | `DesktopStringsHi.kt` | Added Hindi translations for 3 new strings |
 
+### Additional Hardcoded Value Fixes
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `DashboardScreen.kt:525` | Hardcoded version "v1.17.30" | Updated to "v1.17.64" |
+| `ScanHistoryScreen.kt:235` | Hardcoded date "Oct 24 - Oct 25" | Changed to "Last 7 Days" |
+| `DesktopStringsHi.kt` | Added 5 missing Hindi translations for new placeholder strings |
+
 ## 🔧 Build Verification
 
 ```bash
