@@ -314,7 +314,7 @@
     <string name="platform_kotlin">Kotlin 1.9.22</string>
     <string name="verify_integrity_title">Verify System Integrity</string>
     <string name="verify_integrity_desc_running">Running verification...</string>
-    <string name="verify_integrity_desc_default">Prove 87% accuracy claim on-device</string>
+    <string name="verify_integrity_desc_default">Prove 87%% accuracy claim on-device</string>
     <string name="verification_dialog_healthy">System Healthy ✓</string>
     <string name="verification_dialog_complete">Verification Complete</string>
     <string name="verification_passed_tests">Passed %1$d/%2$d tests</string>
@@ -414,6 +414,8 @@
     <string name="beat_the_bot_why_flagged">Why the bot flagged it %1$s:</string>
     <string name="beat_the_bot_suspicious">Suspicious</string>
     <string name="beat_the_bot_safe">Safe</string>
+    <string name="beat_the_bot_ai_analysis">AI ANALYSIS</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
     
     <!-- Learning Centre Screen -->
     <string name="learning_centre_title">Learning Centre</string>

@@ -578,4 +578,8 @@
     <!-- SandboxWebView -->
     <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
+    
+    <!-- Beat The Bot AI Analysis -->
+    <string name="beat_the_bot_ai_analysis">AI ANALİZİ</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d sinyal algılandı</string>
 </resources>

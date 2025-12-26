@@ -595,4 +595,8 @@
     <!-- SandboxWebView -->
     <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
+    
+    <!-- Beat The Bot AI Analysis -->
+    <string name="beat_the_bot_ai_analysis">تحليل الذكاء الاصطناعي</string>
+    <string name="beat_the_bot_signals_detected_fmt">تم اكتشاف %1$d إشارة</string>
 </resources>

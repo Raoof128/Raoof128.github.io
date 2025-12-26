@@ -235,7 +235,7 @@
     <!-- Verification -->
     <string name="verify_integrity_title">Systemintegrität prüfen</string>
     <string name="verify_integrity_desc_running">Prüfung läuft…</string>
-    <string name="verify_integrity_desc_default">87% Genauigkeit auf dem Gerät beweisen</string>
+    <string name="verify_integrity_desc_default">87%% Genauigkeit auf dem Gerät beweisen</string>
     <string name="verification_dialog_healthy">System gesund ✓</string>
     <string name="verification_dialog_complete">Prüfung abgeschlossen</string>
     <string name="verification_passed_tests">%1$d/%2$d Tests bestanden</string>
@@ -635,4 +635,8 @@
     <!-- SandboxWebView -->
     <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
+    
+    <!-- Beat The Bot AI Analysis -->
+    <string name="beat_the_bot_ai_analysis">KI-ANALYSE</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d Signale erkannt</string>
 </resources>

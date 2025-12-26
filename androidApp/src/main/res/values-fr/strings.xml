@@ -476,7 +476,7 @@
     <string name="privacy_offline_title">Confidentialité et hors ligne</string>
     <string name="privacy_hero_title">Vos données ne partent jamais</string>
     <string name="privacy_hero_desc">QR-SHIELD fonctionne entièrement sur votre appareil. Pas de cloud. Pas de serveurs. Pas de collecte de données. Confidentialité totale par conception.</string>
-    <string name="privacy_offline_badge">100% fonctionnement hors ligne</string>
+    <string name="privacy_offline_badge">100%% fonctionnement hors ligne</string>
     <string name="privacy_architecture">Architecture de confidentialité</string>
     <string name="privacy_local_db_title">Base de données locale</string>
     <string name="privacy_local_db_desc">Signatures de menaces stockées chiffrées sur l\'appareil. Mises à jour via des imports sécurisés hors ligne.</string>
@@ -635,4 +635,8 @@
     <!-- SandboxWebView -->
     <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
+    
+    <!-- Beat The Bot AI Analysis -->
+    <string name="beat_the_bot_ai_analysis">ANALYSE IA</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d signaux détectés</string>
 </resources>

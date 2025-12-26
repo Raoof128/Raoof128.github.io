@@ -174,7 +174,16 @@ fun BeatTheBotScreen(
                 lastResult = lastResult
             )
 
-            // 4. Analysis / Feedback (Shows after decision)
+            // 4. Brain Visualizer Section (Always visible, matching iOS)
+            BrainVisualizerSection(
+                detectedSignals = if (lastResult != null && uiState.currentUrl?.isPhishing == true) {
+                    uiState.currentUrl?.signals ?: emptyList()
+                } else {
+                    emptyList()
+                }
+            )
+
+            // 5. Analysis / Feedback (Shows after decision)
             AnimatedVisibility(
                 visible = lastResult != null,
                 enter = fadeIn() + expandVertically(),
@@ -645,14 +654,6 @@ private fun RoundAnalysisCard(
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
                     color = MaterialTheme.colorScheme.onSurface
                 )
-                
-                // Use the new BrainVisualizer component
-                // We pass signals ONLY if it's phishing. If it's safe, we pass empty list for "Calm" brain.
-                val visualSignals = if (isPhishing) signals else emptyList()
-                CommonBrainVisualizer(
-                    detectedSignals = visualSignals,
-                    modifier = Modifier.fillMaxWidth()
-                )
             }
 
             Button(
@@ -663,6 +664,58 @@ private fun RoundAnalysisCard(
             ) {
                 Text(stringResource(R.string.beat_the_bot_next_round), fontWeight = FontWeight.Bold)
             }
+        }
+    }
+}
+
+/**
+ * Brain Visualizer Section - matches iOS brainVisualizerSection
+ * Shows AI analysis visualization with detected signals
+ */
+@Composable
+private fun BrainVisualizerSection(
+    detectedSignals: List<String>
+) {
+    Card(
+        shape = QRShieldShapes.Card,
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            // Header row with title and signal count
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.beat_the_bot_ai_analysis),
+                    style = MaterialTheme.typography.labelSmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                
+                if (detectedSignals.isNotEmpty()) {
+                    Text(
+                        text = stringResource(R.string.beat_the_bot_signals_detected_fmt, detectedSignals.size),
+                        style = MaterialTheme.typography.labelSmall,
+                        color = QRShieldColors.Red500
+                    )
+                }
+            }
+            
+            // Brain Visualizer Component
+            CommonBrainVisualizer(
+                detectedSignals = detectedSignals,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
