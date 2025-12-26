@@ -20,6 +20,9 @@ import com.qrshield.data.HistoryRepositoryFactory
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -38,7 +41,9 @@ class AppViewModelTest {
     }
 
     private fun createViewModel(): AppViewModel {
+        val testScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
         return AppViewModel(
+            scope = testScope,
             settingsStore = InMemorySettingsStore(),
             historyRepository = HistoryRepositoryFactory.create()
         )
