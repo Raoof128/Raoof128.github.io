@@ -42,6 +42,7 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "abc" -> if (useRounded) Icons.Rounded.Abc else Icons.Outlined.Abc
         "account_circle" -> if (useRounded) Icons.Rounded.AccountCircle else Icons.Outlined.AccountCircle
         "add" -> if (useRounded) Icons.Rounded.Add else Icons.Outlined.Add
+        "add_photo_alternate" -> if (useRounded) Icons.Rounded.AddPhotoAlternate else Icons.Outlined.AddPhotoAlternate
         "analytics" -> if (useRounded) Icons.Rounded.Analytics else Icons.Outlined.Analytics
         "alt_route" -> if (useRounded) Icons.AutoMirrored.Rounded.AltRoute else Icons.AutoMirrored.Outlined.AltRoute
         "arrow_forward" -> if (useRounded) Icons.AutoMirrored.Rounded.ArrowForward else Icons.AutoMirrored.Outlined.ArrowForward

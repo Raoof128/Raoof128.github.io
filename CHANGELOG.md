@@ -5,6 +5,41 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.64] - 2025-12-26
+
+### 🎨 Desktop App UI Polish
+
+Fixed 5 user-reported issues to improve desktop UX.
+
+#### Icon System Fix (`IconText.kt`)
+- Added `add_photo_alternate` icon mapping for Upload Image button
+- Icon now displays correctly in scanner action bar
+
+#### LiveScanScreen UX Improvements
+- Changed default state from "Camera Access Required" to "Upload QR Code"
+- Updated messaging to guide users: "Upload a QR code image or paste a URL to analyze"
+- Changed icon from `videocam_off` to `upload_file` (more appropriate for desktop)
+- Changed primary action from "Enable Camera" to "Upload Image"
+- Desktop scanning now focuses on image upload rather than camera
+
+#### OpenCV Error Resolution
+- The "OpenCV integration required" message is not an error - it's expected behavior
+- Desktop app is designed for Image Upload + URL Paste (camera not supported)
+- UI now clearly communicates this via improved messaging
+
+#### Verified Export Section Works
+- Export functionality is NOT decorative - fully implemented
+- `exportReport()` saves PDF/JSON files to disk
+- `exportHistoryCsv()` exports scan history as CSV
+- Copy and Share buttons functional
+
+#### Profile Dropdown Exists
+- ProfileDropdown.kt has full implementation matching web app features
+- Shows avatar, name, role, quick stats, settings, and plan badge
+- Triggered by clicking profile in sidebar
+
+---
+
 ## [1.17.63] - 2025-12-26
 
 ### ⌨️ Desktop App Checklist Audit Complete

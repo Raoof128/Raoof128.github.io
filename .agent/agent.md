@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.63`** (as of December 26, 2025)
+**Current App Version: `1.17.64`** (as of December 26, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,55 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎨 December 26, 2025 (Session 10k+20) - Desktop App UI Polish
+
+### Summary
+Fixed 5 user-reported issues: missing Upload Image icon, OpenCV error messaging, scanner UX improvements, and verified export/profile sections work correctly.
+
+## ✅ Changes Made
+
+### Issue 1: Upload Image Icon Missing
+- Added `add_photo_alternate` icon mapping to `IconText.kt`
+- Icon now displays correctly in scanner action bar
+
+### Issue 2: Scanner UX (OpenCV "Error")
+- Changed default title from "Camera Access Required" to "Upload QR Code"
+- Updated messaging to "Upload a QR code image or paste a URL to analyze"
+- Changed icon from `videocam_off` to `upload_file`
+- Changed primary action from "Enable Camera" to "Upload Image"
+- Desktop is designed for image upload, not camera
+
+### Issue 3: Export Section (Verified Functional)
+- `exportReport()` saves PDF/JSON to disk ✅
+- `exportHistoryCsv()` exports scan history ✅
+- Copy and Share buttons work ✅
+- NOT decorative
+
+### Issue 4: Profile Section (Verified Matches Web)
+- ProfileDropdown.kt has full implementation
+- Shows avatar, name, role, quick stats, plan badge
+- Triggered by clicking profile in sidebar ✅
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `IconText.kt` | Added `add_photo_alternate` icon |
+| `LiveScanScreen.kt` | Updated messaging, icon, and primary action for desktop UX |
+| `CHANGELOG.md` | Added v1.17.64 entry |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 54s
+
+./gradlew :desktopApp:desktopTest
+# BUILD SUCCESSFUL - 5 tests passed
+```
 
 ---
 

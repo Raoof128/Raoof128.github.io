@@ -91,15 +91,15 @@ private fun LiveScanContent(
     val t = { text: String -> DesktopStrings.translate(text, language) }
     fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
     val stateLabel = when (scanState) {
-        DesktopScanState.Idle -> t("WAITING FOR INPUT")
+        DesktopScanState.Idle -> t("READY TO SCAN")
         DesktopScanState.Scanning -> t("SCANNING")
         is DesktopScanState.Analyzing -> t("ANALYZING")
         is DesktopScanState.Error -> t("ERROR")
         is DesktopScanState.Result -> t("SCAN COMPLETE")
     }
     val stateBody = when (scanState) {
-        DesktopScanState.Idle -> t("To scan QR codes directly, please enable camera access on your device or use the manual input options below.")
-        DesktopScanState.Scanning -> t("Scanning for QR codes. Hold the code steady within the frame.")
+        DesktopScanState.Idle -> t("Upload a QR code image or paste a URL to analyze. Use the options below to get started.")
+        DesktopScanState.Scanning -> t("Processing your QR code image...")
         is DesktopScanState.Analyzing -> tf("Analyzing %s for threats.", scanState.url)
         is DesktopScanState.Error -> scanState.message
         is DesktopScanState.Result -> t("Scan complete. Review the result screen for details.")
@@ -109,7 +109,7 @@ private fun LiveScanContent(
         is DesktopScanState.Analyzing -> t("Analyzing URL")
         is DesktopScanState.Error -> t("Scan Error")
         is DesktopScanState.Result -> t("Scan Complete")
-        DesktopScanState.Idle -> t("Camera Access Required")
+        DesktopScanState.Idle -> t("Upload QR Code")
     }
     val recentScans = viewModel.scanHistory.sortedByDescending { it.scannedAt }.take(5)
     Column(
@@ -277,7 +277,6 @@ private fun LiveScanContent(
                                     .background(colors.surface.copy(alpha = 0.8f), RoundedCornerShape(16.dp))
                                     .border(1.dp, colors.surface.copy(alpha = 0.5f), RoundedCornerShape(16.dp))
                                     .padding(24.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Box(
                                     modifier = Modifier
@@ -287,7 +286,7 @@ private fun LiveScanContent(
                                         .border(1.dp, colors.border, CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    MaterialSymbol(name = "videocam_off", size = 32.sp, color = colors.textMuted)
+                                    MaterialSymbol(name = "upload_file", size = 32.sp, color = colors.primary)
                                 }
                                 Text(stateTitle, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain, modifier = Modifier.padding(top = 12.dp))
                                 Text(
@@ -299,14 +298,14 @@ private fun LiveScanContent(
                                     modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
                                 )
                                 Button(
-                                    onClick = { viewModel.startCameraScan() },
+                                    onClick = { viewModel.pickImageAndScan() },
                                     colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                     shape = RoundedCornerShape(10.dp),
                                     contentPadding = PaddingValues(horizontal = 24.dp, vertical = 10.dp)
                                 ) {
-                                    MaterialSymbol(name = "videocam", size = 18.sp, color = Color.White)
+                                    MaterialSymbol(name = "add_photo_alternate", size = 18.sp, color = Color.White)
                                     Spacer(Modifier.width(8.dp))
-                                    Text(t("Enable Camera"), fontWeight = FontWeight.Medium)
+                                    Text(t("Upload Image"), fontWeight = FontWeight.Medium)
                                 }
                             }
                         }
