@@ -5,6 +5,41 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.63] - 2025-12-26
+
+### ⌨️ Desktop App Checklist Audit Complete
+
+Comprehensive desktop app audit against production checklist - all 11 items verified and passed.
+
+#### Global Keyboard Shortcuts (`Main.kt`)
+- **Cmd/Ctrl+V**: Paste URL from clipboard and analyze immediately
+- **Cmd/Ctrl+,**: Open Settings (TrustCentreAlt)
+- **Cmd/Ctrl+1-4**: Quick navigation to Dashboard, LiveScan, History, Training
+- **Escape**: Smart back navigation from result/secondary screens
+
+#### Window Management
+- Minimum size: 1200x800 enforced
+- Default size: 1280x850
+- Proper ViewModel disposal on close
+- Resizable window with position memory
+
+#### Navigation Verification
+- All 11 screens verified reachable
+- Consistent sidebar navigation on main screens
+- "Back to Scan" buttons on all result screens
+- Escape key returns from secondary screens
+
+#### Verification Results
+
+| Category | Items | Status |
+|----------|-------|--------|
+| Build & Packaging | 3 | ✅ |
+| UI Consistency | 3 | ✅ |
+| Desktop UX | 3 | ✅ |
+| Performance | 2 | ✅ |
+
+---
+
 ## [1.17.62] - 2025-12-26
 
 ### 🎯 Desktop App UI/UX Follow-ups Complete
