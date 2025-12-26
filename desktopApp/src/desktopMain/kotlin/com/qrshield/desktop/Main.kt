@@ -101,6 +101,8 @@ fun QRShieldApp(viewModel: AppViewModel) {
  * - Cmd/Ctrl+2: Go to Live Scan
  * - Cmd/Ctrl+3: Go to Scan History
  * - Cmd/Ctrl+4: Go to Training
+ * - I: Import image (parity with Web app scanner.js)
+ * - G: Gallery/Import image (parity with Web app scanner.js)
  * - Escape: Go back from result screens
  */
 private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Boolean {
@@ -143,6 +145,18 @@ private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Bool
             true
         }
         
+        // I: Import image (parity with Web app scanner.js)
+        !isCtrlOrCmd && event.key == Key.I -> {
+            handleImportShortcut(viewModel)
+            true
+        }
+        
+        // G: Gallery/Import image (parity with Web app scanner.js)
+        !isCtrlOrCmd && event.key == Key.G -> {
+            handleImportShortcut(viewModel)
+            true
+        }
+        
         // Escape: Go back from result/secondary screens
         event.key == Key.Escape -> {
             handleEscapeKey(viewModel)
@@ -150,6 +164,15 @@ private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Bool
         
         else -> false
     }
+}
+
+/**
+ * Handle Import/Gallery keyboard shortcut.
+ * Opens file picker for image import with QR code.
+ */
+private fun handleImportShortcut(viewModel: AppViewModel) {
+    viewModel.currentScreen = AppScreen.LiveScan
+    viewModel.pickImageAndScan()
 }
 
 /**

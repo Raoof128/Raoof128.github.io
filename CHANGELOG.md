@@ -5,6 +5,83 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.65] - 2025-12-27
+
+### 🔄 Desktop Parity Audit - Web to Desktop Feature Alignment **COMPLETE**
+
+Systematic implementation of all missing features from Web app to bring Desktop app into full functional parity.
+
+#### Parity Items Completed: 14/14 ✅
+
+| Item | Status | Description |
+|------|--------|-------------|
+| Edit Profile Modal | ✅ | Full profile editing with name, email, role, auto-initials |
+| Clear Scan History | ✅ | Button + confirmation dialog to clear all scans |
+| Reset Settings | ✅ | Reset to Defaults button with confirmation |
+| Security Audit Export | ✅ | Comprehensive security audit report generation |
+| Game Stats Persistence | ✅ | High score, best streak, totals saved to settings |
+| User Profile Persistence | ✅ | Profile data saved to settings file |
+| Full User Data Export | ✅ | JSON export of all settings + history |
+| Dynamic Export Preview | ✅ | Live preview in ReportsExportScreen |
+| Keyboard: I = Import | ✅ | Press I to open file picker |
+| Keyboard: G = Gallery | ✅ | Press G to open file picker |
+| getScanById | ✅ | Function to lookup scan by ID |
+| Drag and Drop | ✅ | Drop images onto scanner to scan |
+| PDF Export | ✅ | HTML report for PDF save |
+| Share Report | ✅ | Desktop share/open functionality |
+
+#### New Components Created
+
+**EditProfileDialog.kt**
+- Modal dialog with form fields matching Web app
+- Auto-generates initials from name
+- Saves to SettingsManager
+
+**ConfirmationDialog.kt**
+- Reusable confirmation dialog for destructive actions
+- Used for Clear History and Reset Settings
+- Icon, title, message, danger styling options
+
+**DragDrop.kt**
+- Desktop drag-and-drop utilities
+- File type validation
+- Supports PNG, JPG, JPEG, GIF, BMP, WebP
+
+#### New Export Functions
+
+| Function | Description |
+|----------|-------------|
+| `exportSecurityAudit()` | Comprehensive security audit report |
+| `exportFullUserData()` | JSON export of all user data |
+| `scanDroppedImageFile()` | Handle dropped image files |
+
+#### Files Modified
+
+| File | Changes |
+|------|---------|
+| `AppViewModel.kt` | +200 lines: exports, drag-drop, game stats, profile |
+| `SettingsManager.kt` | Added 10 fields (5 profile + 5 game stats) |
+| `Main.kt` | Added I and G keyboard shortcuts |
+| `ProfileDropdown.kt` | Added onEditProfile callback |
+| `DashboardScreen.kt` | Integrated EditProfileDialog |
+| `TrustCentreAltScreen.kt` | Reset button + confirmation dialog |
+| `ScanHistoryScreen.kt` | Clear History button + confirmation dialog |
+| `LiveScanScreen.kt` | Drag-and-drop state tracking |
+| `ui/DragDrop.kt` | NEW: Drag-and-drop utilities |
+
+#### Documentation
+
+- Created `EXPORT_SURFACE.md` - Comprehensive Web/Desktop feature mapping
+- Created `PARITY_LOG.md` - Implementation tracking log (14/14 complete)
+
+#### Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop  # BUILD SUCCESSFUL
+```
+
+---
+
 ## [1.17.64] - 2025-12-26
 
 ### 🎨 Desktop App UI Polish

@@ -43,6 +43,7 @@ fun ProfileDropdown(
     userInitials: String,
     historyStats: ScanHistoryManager.HistoryStatistics,
     onViewProfile: () -> Unit,
+    onEditProfile: () -> Unit,
     onOpenSettings: () -> Unit,
     language: AppLanguage
 ) {
@@ -147,6 +148,15 @@ fun ProfileDropdown(
                     onClick = {
                         onDismiss()
                         onViewProfile()
+                    }
+                )
+                
+                ProfileMenuItem(
+                    icon = "edit",
+                    label = t("Edit Profile"),
+                    onClick = {
+                        onDismiss()
+                        onEditProfile()
                     }
                 )
                 

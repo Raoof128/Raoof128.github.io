@@ -22,7 +22,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
@@ -52,6 +56,7 @@ import com.qrshield.desktop.ui.statusPill
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
 import com.qrshield.desktop.ui.handCursor
+import java.io.File
 
 @Composable
 fun LiveScanScreen(viewModel: AppViewModel) {
@@ -90,15 +95,22 @@ private fun LiveScanContent(
     val statusMessage = viewModel.statusMessage
     val t = { text: String -> DesktopStrings.translate(text, language) }
     fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
+    
+    // Drag and Drop state (parity with Web app scanner.js)
+    var isDragging by remember { mutableStateOf(false) }
+    
     val stateLabel = when (scanState) {
-        DesktopScanState.Idle -> t("READY TO SCAN")
+        DesktopScanState.Idle -> if (isDragging) t("DROP IMAGE HERE") else t("READY TO SCAN")
         DesktopScanState.Scanning -> t("SCANNING")
         is DesktopScanState.Analyzing -> t("ANALYZING")
         is DesktopScanState.Error -> t("ERROR")
         is DesktopScanState.Result -> t("SCAN COMPLETE")
     }
     val stateBody = when (scanState) {
-        DesktopScanState.Idle -> t("Upload a QR code image or paste a URL to analyze. Use the options below to get started.")
+        DesktopScanState.Idle -> if (isDragging) 
+            t("Release to scan the dropped image for QR codes.")
+        else 
+            t("Drop an image here, upload a QR code, or paste a URL to analyze.")
         DesktopScanState.Scanning -> t("Processing your QR code image...")
         is DesktopScanState.Analyzing -> tf("Analyzing %s for threats.", scanState.url)
         is DesktopScanState.Error -> scanState.message
@@ -109,7 +121,7 @@ private fun LiveScanContent(
         is DesktopScanState.Analyzing -> t("Analyzing URL")
         is DesktopScanState.Error -> t("Scan Error")
         is DesktopScanState.Result -> t("Scan Complete")
-        DesktopScanState.Idle -> t("Upload QR Code")
+        DesktopScanState.Idle -> if (isDragging) t("Drop Image to Scan") else t("Upload QR Code")
     }
     val recentScans = viewModel.scanHistory.sortedByDescending { it.scannedAt }.take(5)
     Column(

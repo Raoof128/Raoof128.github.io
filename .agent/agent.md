@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.64`** (as of December 26, 2025)
+**Current App Version: `1.17.65`** (as of December 27, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,79 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔄 December 27, 2025 (Session 10k+23) - Desktop Parity Audit **COMPLETE**
+
+### Summary
+Systematic implementation of ALL missing features from Web app to bring Desktop app into full functional parity. **Completed 14 of 14 parity items!**
+
+## ✅ Parity Items Completed (14/14)
+
+| # | Item | Status |
+|---|------|--------|
+| 1 | Edit Profile Modal | ✅ Complete |
+| 2 | Clear Scan History | ✅ Complete |
+| 3 | Reset Settings to Default | ✅ Complete |
+| 4 | Security Audit Export | ✅ Complete |
+| 5 | Game Stats Persistence | ✅ Complete |
+| 6 | User Profile Persistence | ✅ Complete |
+| 7 | Full User Data Export | ✅ Complete |
+| 8 | Dynamic Export Preview | ✅ Complete |
+| 9 | Keyboard: I = Import | ✅ Complete |
+| 10 | Keyboard: G = Gallery | ✅ Complete |
+| 11 | getScanById lookup | ✅ Complete |
+| 12 | Drag and Drop for Images | ✅ Complete |
+| 13 | PDF Export | ✅ Complete |
+| 14 | Share Report | ✅ Complete |
+
+## 📁 New Files Created
+
+| File | Purpose |
+|------|---------|
+| `ui/EditProfileDialog.kt` | Profile editing modal with form fields |
+| `ui/ConfirmationDialog.kt` | Reusable confirmation dialog for destructive actions |
+| `ui/DragDrop.kt` | Drag-and-drop utilities for image handling |
+| `EXPORT_SURFACE.md` | Comprehensive Web/Desktop feature mapping |
+| `PARITY_LOG.md` | Implementation tracking log |
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `AppViewModel.kt` | +200 lines: exports, game stats, drag-drop, profile |
+| `SettingsManager.kt` | Added 10 fields (5 profile + 5 game stats) |
+| `Main.kt` | Added I and G keyboard shortcuts |
+| `ProfileDropdown.kt` | Added onEditProfile callback |
+| `DashboardScreen.kt` | Integrated EditProfileDialog |
+| `TrustCentreAltScreen.kt` | Reset button + confirmation dialog |
+| `ScanHistoryScreen.kt` | Clear History button + confirmation dialog |
+| `LiveScanScreen.kt` | Drag-and-drop state tracking |
+
+## 🔧 Implementation Details
+
+### New Export Functions
+- `exportSecurityAudit()` - Comprehensive security audit report
+- `exportFullUserData()` - JSON export of all user data
+- `scanDroppedImageFile()` - Handle dropped image files
+
+### Game Stats Persistence
+- High score, best streak, totals saved to settings
+- Updated endTrainingSession() to persist stats
+- Stats loaded on app start
+
+### Drag and Drop
+- Added isDragging state to LiveScanScreen
+- Updated messaging for drag states
+- Created DragDrop.kt utility
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
 
 ---
 

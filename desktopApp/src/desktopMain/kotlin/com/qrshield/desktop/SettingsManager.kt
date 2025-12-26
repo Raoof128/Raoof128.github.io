@@ -41,7 +41,19 @@ object SettingsManager {
         val heuristicSensitivity: String = "Balanced",
         val telemetryEnabled: Boolean = false,
         val biometricLockEnabled: Boolean = false,
-        val languageCode: String = defaultLanguageCode()
+        val languageCode: String = defaultLanguageCode(),
+        // User Profile fields (parity with Web app)
+        val userName: String = "QR-SHIELD User",
+        val userEmail: String = "user@example.com",
+        val userInitials: String = "QU",
+        val userRole: String = "Security Analyst",
+        val userPlan: String = "Enterprise Plan",
+        // Game Statistics fields (parity with Web app training.js)
+        val gameHighScore: Int = 0,
+        val gameBestStreak: Int = 0,
+        val gameTotalGamesPlayed: Int = 0,
+        val gameTotalCorrect: Int = 0,
+        val gameTotalAttempts: Int = 0
     )
 
     /**
@@ -72,7 +84,18 @@ object SettingsManager {
                     heuristicSensitivity = props.getProperty("heuristicSensitivity", "Balanced"),
                     telemetryEnabled = props.getProperty("telemetryEnabled", "false").toBoolean(),
                     biometricLockEnabled = props.getProperty("biometricLockEnabled", "false").toBoolean(),
-                    languageCode = props.getProperty("languageCode", defaultLanguageCode())
+                    languageCode = props.getProperty("languageCode", defaultLanguageCode()),
+                    userName = props.getProperty("userName", "QR-SHIELD User"),
+                    userEmail = props.getProperty("userEmail", "user@example.com"),
+                    userInitials = props.getProperty("userInitials", "QU"),
+                    userRole = props.getProperty("userRole", "Security Analyst"),
+                    userPlan = props.getProperty("userPlan", "Enterprise Plan"),
+                    // Game Statistics (parity with Web app training.js)
+                    gameHighScore = props.getProperty("gameHighScore", "0").toIntOrNull() ?: 0,
+                    gameBestStreak = props.getProperty("gameBestStreak", "0").toIntOrNull() ?: 0,
+                    gameTotalGamesPlayed = props.getProperty("gameTotalGamesPlayed", "0").toIntOrNull() ?: 0,
+                    gameTotalCorrect = props.getProperty("gameTotalCorrect", "0").toIntOrNull() ?: 0,
+                    gameTotalAttempts = props.getProperty("gameTotalAttempts", "0").toIntOrNull() ?: 0
                 )
             } else {
                 Settings()
@@ -105,6 +128,17 @@ object SettingsManager {
             props.setProperty("telemetryEnabled", settings.telemetryEnabled.toString())
             props.setProperty("biometricLockEnabled", settings.biometricLockEnabled.toString())
             props.setProperty("languageCode", settings.languageCode)
+            props.setProperty("userName", settings.userName)
+            props.setProperty("userEmail", settings.userEmail)
+            props.setProperty("userInitials", settings.userInitials)
+            props.setProperty("userRole", settings.userRole)
+            props.setProperty("userPlan", settings.userPlan)
+            // Game Statistics (parity with Web app training.js)
+            props.setProperty("gameHighScore", settings.gameHighScore.toString())
+            props.setProperty("gameBestStreak", settings.gameBestStreak.toString())
+            props.setProperty("gameTotalGamesPlayed", settings.gameTotalGamesPlayed.toString())
+            props.setProperty("gameTotalCorrect", settings.gameTotalCorrect.toString())
+            props.setProperty("gameTotalAttempts", settings.gameTotalAttempts.toString())
 
             file.outputStream().use { props.store(it, "QR-SHIELD Application Settings") }
         } catch (_: Exception) {

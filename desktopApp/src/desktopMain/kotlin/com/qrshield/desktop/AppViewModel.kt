@@ -176,6 +176,14 @@ class AppViewModel(
     
     // Profile Dropdown
     var showProfileDropdown by mutableStateOf(false)
+    
+    // User Profile (parity with Web app shared-ui.js)
+    var userName by mutableStateOf("QR-SHIELD User")
+    var userEmail by mutableStateOf("user@example.com")
+    var userInitials by mutableStateOf("QU")
+    var userRole by mutableStateOf("Security Analyst")
+    var userPlan by mutableStateOf("Enterprise Plan")
+    var showEditProfileModal by mutableStateOf(false)
 
     var trainingState by mutableStateOf(createInitialTrainingState())
     private var trainingScenarioIndex by mutableStateOf(0)
@@ -281,6 +289,21 @@ class AppViewModel(
             return
         }
         scanImageFile(File(directory, selected))
+    }
+
+    // Drag and Drop support (parity with Web app scanner.js handleDrop)
+    fun scanDroppedImageFile(file: File) {
+        val supportedExtensions = listOf("png", "jpg", "jpeg", "gif", "bmp", "webp")
+        val extension = file.extension.lowercase()
+        if (extension !in supportedExtensions) {
+            setError("Unsupported file type: .$extension. Please drop an image file.")
+            return
+        }
+        if (!file.exists()) {
+            setError("File not found: ${file.name}")
+            return
+        }
+        scanImageFile(file)
     }
 
     private fun handleScanResult(result: com.qrshield.model.ScanResult, source: ScanSource) {
@@ -389,6 +412,121 @@ class AppViewModel(
         }
     }
 
+    // Security Audit Export (parity with Web app export.js generateSecurityAudit)
+    fun exportSecurityAudit() {
+        val history = scanHistory
+        val stats = historyStats
+        val timestamp = PlatformTime.currentTimeMillis()
+        
+        val auditReport = buildString {
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine("                    QR-SHIELD SECURITY AUDIT REPORT")
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine()
+            appendLine("Generated: ${formatTimestamp(timestamp)}")
+            appendLine("Engine Version: v2.4.0")
+            appendLine("Sensitivity: ${heuristicSensitivity.name}")
+            appendLine()
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine("                         EXECUTIVE SUMMARY")
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine()
+            appendLine("Total Scans Performed: ${stats.totalScans}")
+            appendLine("  ✓ Safe:       ${stats.safeCount} (${if (stats.totalScans > 0) (stats.safeCount * 100 / stats.totalScans) else 0}%)")
+            appendLine("  ⚠ Suspicious: ${stats.suspiciousCount} (${if (stats.totalScans > 0) (stats.suspiciousCount * 100 / stats.totalScans) else 0}%)")
+            appendLine("  ✗ Malicious:  ${stats.maliciousCount} (${if (stats.totalScans > 0) (stats.maliciousCount * 100 / stats.totalScans) else 0}%)")
+            appendLine()
+            appendLine("Average Risk Score: ${String.format("%.1f", stats.averageScore)}")
+            appendLine()
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine("                        THREAT INTELLIGENCE")
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine()
+            appendLine("Allowlist Entries: ${allowlist.size}")
+            allowlist.take(10).forEach { appendLine("  + $it") }
+            if (allowlist.size > 10) appendLine("  ... and ${allowlist.size - 10} more")
+            appendLine()
+            appendLine("Blocklist Entries: ${blocklist.size}")
+            blocklist.take(10).forEach { appendLine("  - $it") }
+            if (blocklist.size > 10) appendLine("  ... and ${blocklist.size - 10} more")
+            appendLine()
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine("                         RECENT THREATS")
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine()
+            val threats = history.filter { it.verdict != Verdict.SAFE }.take(10)
+            if (threats.isEmpty()) {
+                appendLine("No threats detected in recent scans.")
+            } else {
+                threats.forEach { item ->
+                    appendLine("[${item.verdict}] ${item.url}")
+                    appendLine("    Score: ${item.score} | ${formatTimestamp(item.scannedAt)}")
+                }
+            }
+            appendLine()
+            appendLine("═══════════════════════════════════════════════════════════════")
+            appendLine("                    END OF SECURITY AUDIT REPORT")
+            appendLine("═══════════════════════════════════════════════════════════════")
+        }
+        
+        val file = defaultExportFile("security_audit", "txt")
+        try {
+            file.writeText(auditReport)
+            setMessage(tf("Security audit saved to %s", file.name), MessageKind.Success)
+        } catch (e: IOException) {
+            setError("Failed to save audit report", updateScanState = false)
+        }
+    }
+
+    // Full User Data Export (parity with Web app export.js exportFullUserData)
+    fun exportFullUserData() {
+        val timestamp = PlatformTime.currentTimeMillis()
+        
+        val userData = buildString {
+            appendLine("{")
+            appendLine("  \"exportedAt\": $timestamp,")
+            appendLine("  \"version\": \"1.17.65\",")
+            appendLine("  \"profile\": {")
+            appendLine("    \"name\": \"$userName\",")
+            appendLine("    \"email\": \"$userEmail\",")
+            appendLine("    \"initials\": \"$userInitials\",")
+            appendLine("    \"role\": \"$userRole\",")
+            appendLine("    \"plan\": \"$userPlan\"")
+            appendLine("  },")
+            appendLine("  \"settings\": {")
+            appendLine("    \"heuristicSensitivity\": \"${heuristicSensitivity.name}\",")
+            appendLine("    \"strictOffline\": ${trustCentreToggles.strictOffline},")
+            appendLine("    \"anonymousTelemetry\": ${trustCentreToggles.anonymousTelemetry},")
+            appendLine("    \"autoCopySafe\": ${trustCentreToggles.autoCopySafe},")
+            appendLine("    \"language\": \"${appLanguage.code}\"")
+            appendLine("  },")
+            appendLine("  \"allowlist\": [${allowlist.joinToString(",") { "\"$it\"" }}],")
+            appendLine("  \"blocklist\": [${blocklist.joinToString(",") { "\"$it\"" }}],")
+            appendLine("  \"gameStats\": {")
+            appendLine("    \"highScore\": $gameHighScore,")
+            appendLine("    \"bestStreak\": $gameBestStreak,")
+            appendLine("    \"totalGamesPlayed\": $gameTotalGamesPlayed,")
+            appendLine("    \"totalCorrect\": $gameTotalCorrect,")
+            appendLine("    \"totalAttempts\": $gameTotalAttempts")
+            appendLine("  },")
+            appendLine("  \"scanHistory\": [")
+            scanHistory.forEachIndexed { index, item ->
+                val comma = if (index < scanHistory.size - 1) "," else ""
+                appendLine("    {\"id\": \"${item.id}\", \"url\": \"${item.url}\", \"score\": ${item.score}, \"verdict\": \"${item.verdict}\", \"scannedAt\": ${item.scannedAt}, \"source\": \"${item.source}\"}$comma")
+            }
+            appendLine("  ]")
+            appendLine("}")
+        }
+        
+        val file = defaultExportFile("qrshield_full_export", "json")
+        try {
+            file.writeText(userData)
+            setMessage(tf("Full data export saved to %s", file.name), MessageKind.Success)
+        } catch (e: IOException) {
+            setError("Failed to export user data", updateScanState = false)
+        }
+    }
+
     fun updateHistoryFilter(filter: HistoryFilter) {
         historyFilter = filter
     }
@@ -399,6 +537,29 @@ class AppViewModel(
 
     fun selectHistoryItem(item: ScanHistoryItem) {
         analyzeUrl(item.url, item.source, recordHistory = false)
+    }
+
+    // Clear Scan History (parity with Web app shared-ui.js clearScanHistory)
+    var showClearHistoryConfirmation by mutableStateOf(false)
+
+    fun showClearHistoryDialog() {
+        showClearHistoryConfirmation = true
+    }
+
+    fun dismissClearHistoryDialog() {
+        showClearHistoryConfirmation = false
+    }
+
+    fun clearScanHistory() {
+        scope.launch {
+            val count = historyRepository.clearAll()
+            showClearHistoryConfirmation = false
+            setMessage("Cleared $count scan entries", MessageKind.Success)
+        }
+    }
+
+    fun getScanById(id: String): ScanHistoryItem? {
+        return scanHistory.find { it.id == id }
     }
 
     fun addAllowlistDomain(domain: String) {
@@ -535,6 +696,37 @@ class AppViewModel(
         showProfileDropdown = false
     }
 
+    // Profile Edit Functions (parity with Web app shared-ui.js showEditProfileModal)
+    fun openEditProfileModal() {
+        showProfileDropdown = false
+        showEditProfileModal = true
+    }
+
+    fun dismissEditProfileModal() {
+        showEditProfileModal = false
+    }
+
+    fun saveUserProfile(name: String, email: String, role: String, initials: String? = null) {
+        userName = name.trim().ifBlank { "QR-SHIELD User" }
+        userEmail = email.trim().ifBlank { "user@example.com" }
+        userRole = role.trim().ifBlank { "Security Analyst" }
+        // Auto-generate initials from name if not provided
+        userInitials = initials?.trim()?.takeIf { it.isNotBlank() } ?: generateInitials(userName)
+        showEditProfileModal = false
+        persistSettings()
+        setMessage("Profile updated", MessageKind.Success)
+    }
+
+    private fun generateInitials(name: String): String {
+        val parts = name.trim().split("\\s+".toRegex())
+        return when {
+            parts.size >= 2 -> "${parts[0].firstOrNull() ?: ""}${parts[1].firstOrNull() ?: ""}".uppercase()
+            parts.isNotEmpty() && parts[0].length >= 2 -> parts[0].take(2).uppercase()
+            parts.isNotEmpty() -> parts[0].take(1).uppercase() + "U"
+            else -> "QU"
+        }
+    }
+
     fun submitTrainingVerdict(isPhishing: Boolean) {
         if (trainingState.isGameOver) return
         
@@ -597,8 +789,33 @@ class AppViewModel(
         trainingState = createInitialTrainingState()
     }
 
+    // Game Statistics (parity with Web app training.js)
+    var gameHighScore by mutableStateOf(0)
+    var gameBestStreak by mutableStateOf(0)
+    var gameTotalGamesPlayed by mutableStateOf(0)
+    var gameTotalCorrect by mutableStateOf(0)
+    var gameTotalAttempts by mutableStateOf(0)
+
     fun endTrainingSession() {
         trainingState = trainingState.copy(isGameOver = true)
+        
+        // Update persistent game statistics (parity with Web app training.js saveGameStats)
+        gameTotalGamesPlayed++
+        gameTotalCorrect += trainingState.correct
+        gameTotalAttempts += trainingState.attempts
+        
+        // Check for new high score
+        if (trainingState.score > gameHighScore) {
+            gameHighScore = trainingState.score
+        }
+        
+        // Check for new best streak
+        if (trainingState.bestStreak > gameBestStreak) {
+            gameBestStreak = trainingState.bestStreak
+        }
+        
+        // Persist game stats
+        persistSettings()
     }
 
     fun dispose() {
@@ -741,6 +958,48 @@ class AppViewModel(
         }
         appLanguage = AppLanguage.fromCode(settings.languageCode)
         phishingEngine = buildPhishingEngine(heuristicSensitivity)
+        
+        // User Profile fields
+        userName = settings.userName
+        userEmail = settings.userEmail
+        userInitials = settings.userInitials
+        userRole = settings.userRole
+        userPlan = settings.userPlan
+        
+        // Game Statistics fields (parity with Web app training.js)
+        gameHighScore = settings.gameHighScore
+        gameBestStreak = settings.gameBestStreak
+        gameTotalGamesPlayed = settings.gameTotalGamesPlayed
+        gameTotalCorrect = settings.gameTotalCorrect
+        gameTotalAttempts = settings.gameTotalAttempts
+    }
+
+    // Reset Settings to Default (parity with Web app trust.js resetSettings)
+    var showResetSettingsConfirmation by mutableStateOf(false)
+
+    fun showResetSettingsDialog() {
+        showResetSettingsConfirmation = true
+    }
+
+    fun dismissResetSettingsDialog() {
+        showResetSettingsConfirmation = false
+    }
+
+    fun resetSettingsToDefaults() {
+        // Reset to default settings
+        val defaults = SettingsManager.Settings()
+        applySettings(defaults)
+        settingsStore.save(defaults)
+        
+        // Reset security settings (not in Settings data class)
+        autoBlockThreats = true
+        realTimeScanning = true
+        soundAlerts = true
+        threatAlerts = true
+        showConfidenceScore = true
+        
+        showResetSettingsConfirmation = false
+        setMessage("Settings reset to defaults", MessageKind.Success)
     }
 
     private fun persistSettings() {
@@ -758,7 +1017,19 @@ class AppViewModel(
             },
             telemetryEnabled = trustCentreToggles.anonymousTelemetry,
             biometricLockEnabled = false,
-            languageCode = appLanguage.code
+            languageCode = appLanguage.code,
+            // User Profile fields
+            userName = userName,
+            userEmail = userEmail,
+            userInitials = userInitials,
+            userRole = userRole,
+            userPlan = userPlan,
+            // Game Statistics fields (parity with Web app training.js)
+            gameHighScore = gameHighScore,
+            gameBestStreak = gameBestStreak,
+            gameTotalGamesPlayed = gameTotalGamesPlayed,
+            gameTotalCorrect = gameTotalCorrect,
+            gameTotalAttempts = gameTotalAttempts
         )
         settingsStore.save(settings)
     }

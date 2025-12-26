@@ -44,6 +44,7 @@ import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.NotificationPanel
 import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
 import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
@@ -117,12 +118,27 @@ fun DashboardScreen(viewModel: AppViewModel) {
             ProfileDropdown(
                 isVisible = viewModel.showProfileDropdown,
                 onDismiss = { viewModel.dismissProfileDropdown() },
-                userName = com.qrshield.desktop.SampleData.userProfile.name,
-                userRole = com.qrshield.desktop.SampleData.userProfile.role,
-                userInitials = com.qrshield.desktop.SampleData.userProfile.initials,
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
                 historyStats = viewModel.historyStats,
                 onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
                 onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
+            )
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
                 language = language
             )
         }

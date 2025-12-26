@@ -39,6 +39,7 @@ import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.theme.LocalStitchTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
+import com.qrshield.desktop.ui.ConfirmationDialog
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.ScanSource
 import com.qrshield.model.Verdict
@@ -55,30 +56,46 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
     val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
         val colors = LocalStitchTokens.current.colors
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(colors.background)
-        ) {
-            AppSidebar(
-                currentScreen = viewModel.currentScreen,
-                onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage,
-                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
-            )
-            Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                ScanHistoryHeader(
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(colors.background)
+            ) {
+                AppSidebar(
+                    currentScreen = viewModel.currentScreen,
                     onNavigate = { viewModel.currentScreen = it },
-                    onShowNotifications = { viewModel.toggleNotificationPanel() },
-                    onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
-                    language = language
+                    language = viewModel.appLanguage,
+                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
                 )
-                ScanHistoryContent(
-                    viewModel = viewModel,
-                    onNavigate = { viewModel.currentScreen = it },
-                    language = language
-                )
+                Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                    ScanHistoryHeader(
+                        onNavigate = { viewModel.currentScreen = it },
+                        onShowNotifications = { viewModel.toggleNotificationPanel() },
+                        onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                        language = language
+                    )
+                    ScanHistoryContent(
+                        viewModel = viewModel,
+                        onNavigate = { viewModel.currentScreen = it },
+                        language = language
+                    )
+                }
             }
+            
+            // Clear History Confirmation Dialog (parity with Web app)
+            ConfirmationDialog(
+                isVisible = viewModel.showClearHistoryConfirmation,
+                onDismiss = { viewModel.dismissClearHistoryDialog() },
+                onConfirm = { viewModel.clearScanHistory() },
+                title = "Clear Scan History",
+                message = "This will permanently delete all scan records. This action cannot be undone.",
+                confirmText = "Clear All",
+                cancelText = "Cancel",
+                isDangerous = true,
+                icon = "delete_forever",
+                language = language
+            )
         }
     }
 }
@@ -233,6 +250,21 @@ private fun ScanHistoryContent(
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         MaterialSymbol(name = "calendar_today", size = 16.sp, color = colors.textMuted)
                         Text(t("Last 7 Days"), fontSize = 14.sp, color = colors.textSub)
+                    }
+                }
+                // Clear History button (parity with Web app)
+                Surface(
+                    modifier = Modifier
+                        .clickable { viewModel.showClearHistoryDialog() }
+                        .focusable()
+                        .handCursor(),
+                    shape = RoundedCornerShape(12.dp),
+                    color = colors.surface,
+                    border = BorderStroke(1.dp, colors.danger.copy(alpha = 0.3f))
+                ) {
+                    Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        MaterialSymbol(name = "delete_outline", size = 18.sp, color = colors.danger)
+                        Text(t("Clear History"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.danger)
                     }
                 }
                 Surface(

@@ -36,6 +36,8 @@ import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.toggleTrack
 import com.qrshield.desktop.ui.handCursor
 import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
+import com.qrshield.desktop.ui.ConfirmationDialog
 
 @Composable
 fun TrustCentreAltScreen(viewModel: AppViewModel) {
@@ -61,12 +63,41 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
             ProfileDropdown(
                 isVisible = viewModel.showProfileDropdown,
                 onDismiss = { viewModel.dismissProfileDropdown() },
-                userName = com.qrshield.desktop.SampleData.userProfile.name,
-                userRole = com.qrshield.desktop.SampleData.userProfile.role,
-                userInitials = com.qrshield.desktop.SampleData.userProfile.initials,
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
                 historyStats = viewModel.historyStats,
                 onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
                 onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
+            )
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
+                language = language
+            )
+            
+            // Reset Settings Confirmation Dialog (parity with Web app trust.js)
+            ConfirmationDialog(
+                isVisible = viewModel.showResetSettingsConfirmation,
+                onDismiss = { viewModel.dismissResetSettingsDialog() },
+                onConfirm = { viewModel.resetSettingsToDefaults() },
+                title = "Reset Settings",
+                message = "This will reset all settings to their default values. Your scan history will not be affected.",
+                confirmText = "Reset All",
+                cancelText = "Cancel",
+                isDangerous = true,
+                icon = "restart_alt",
                 language = language
             )
         }
@@ -285,6 +316,38 @@ private fun SecuritySettingsSection(viewModel: AppViewModel, language: AppLangua
                     checked = viewModel.showConfidenceScore,
                     onCheckedChange = { viewModel.showConfidenceScore = it }
                 )
+            }
+            
+            Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(colors.border.copy(alpha = 0.3f)))
+            
+            // Reset Settings Button (parity with Web app trust.js)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = colors.danger.copy(alpha = 0.1f),
+                    border = BorderStroke(1.dp, colors.danger.copy(alpha = 0.3f)),
+                    modifier = Modifier
+                        .clickable { viewModel.showResetSettingsDialog() }
+                        .focusable()
+                        .handCursor()
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        MaterialIconRound(name = "restart_alt", size = 16.sp, color = colors.danger)
+                        Text(
+                            text = t("Reset to Defaults"),
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = colors.danger
+                        )
+                    }
+                }
             }
         }
     }
