@@ -163,6 +163,7 @@ fun AppSidebar(
                 .border(1.dp, colors.border, RoundedCornerShape(radius.md))
                 .clickable(enabled = onProfileClick != null) { onProfileClick?.invoke() }
                 .focusable()
+                .handCursor()
                 .padding(spacing.md),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(spacing.sm)
@@ -232,6 +233,7 @@ private fun SidebarItem(
             .border(1.dp, border, RoundedCornerShape(radius.sm))
             .clickable { onClick() }
             .focusable()
+            .handCursor()
             .padding(horizontal = 12.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)

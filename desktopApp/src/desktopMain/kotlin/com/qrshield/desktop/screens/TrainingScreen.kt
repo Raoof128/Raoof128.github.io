@@ -48,6 +48,7 @@ import com.qrshield.desktop.ui.progressTrack
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.ui.components.CommonBrainVisualizer
+import com.qrshield.desktop.ui.handCursor
 
 @Composable
 fun TrainingScreen(viewModel: AppViewModel) {
@@ -275,10 +276,11 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         fontSize = 12.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = colors.primary,
-                                        modifier = Modifier
+                                    modifier = Modifier
                                             .padding(top = 8.dp)
                                             .clickable { viewModel.showInfo(t("Zoom is not available yet.")) }
                                             .focusable()
+                                            .handCursor()
                                     )
                                 }
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -420,6 +422,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         modifier = Modifier
                                             .clickable { viewModel.skipTrainingRound() }
                                             .focusable()
+                                            .handCursor()
                                     )
                                     Text(
                                         t("⌨ Keys: P = Phishing, L = Legitimate, Enter = Next"),
@@ -569,6 +572,7 @@ private fun TrainingActionButton(
             modifier = Modifier
                 .clickable { onClick() }
                 .focusable()
+                .handCursor()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(12.dp)

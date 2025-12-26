@@ -5,6 +5,48 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.61] - 2025-12-26
+
+### 🖱️ Desktop App UI/UX Audit
+
+Enhanced desktop UX conventions across all screens with cursor helpers and interactive element polish.
+
+#### New Features
+
+**Cursor Helper Extensions** (`Interaction.kt`)
+- Added `Modifier.handCursor()` for clickable elements
+- Added `Modifier.textCursor()` for text input fields
+- Added `Modifier.clickableWithCursor()` convenience extension
+
+#### UI/UX Improvements
+
+**Applied Hand Cursor to All Interactive Elements**
+- `AppSidebar.kt` - Sidebar items, profile card
+- `DashboardScreen.kt` - Header icons, links, scan rows
+- `LiveScanScreen.kt` - Buttons, links, scan items
+- `ScanHistoryScreen.kt` - Buttons, filter chips, history rows
+- `TrustCentreAltScreen.kt` - Icon buttons, toggles, language chips
+- `TrainingScreen.kt` - Action buttons, links
+- `ProfileDropdown.kt` - Menu items
+
+#### Test Fixes
+
+**Fixed Flaky Training Test** (`AppViewModelTest.kt`)
+- `submitTrainingVerdict_updatesTrainingState` was failing intermittently
+- Root cause: Test assumed first scenario was always "AusPost phishing"
+- Actual behavior: Scenarios are shuffled for variety
+- Fix: Updated assertions to handle any scenario order
+
+#### Verification Results
+
+| Check | Status |
+|-------|--------|
+| Compile | ✅ BUILD SUCCESSFUL |
+| Tests | ✅ 5 tests, 0 failures |
+| Deprecations | ⚠️ 2 known (painterResource - out of scope) |
+
+---
+
 ## [1.17.60] - 2025-12-26
 
 ### 🔒 Desktop App Security Audit & Production Hardening

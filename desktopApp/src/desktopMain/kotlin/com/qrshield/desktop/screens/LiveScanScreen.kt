@@ -51,6 +51,7 @@ import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
+import com.qrshield.desktop.ui.handCursor
 
 @Composable
 fun LiveScanScreen(viewModel: AppViewModel) {
@@ -167,6 +168,7 @@ private fun LiveScanContent(
                         .size(36.dp)
                         .clickable { viewModel.toggleNotificationPanel() }
                         .focusable()
+                        .handCursor()
                 ) {
                     MaterialSymbol(name = "notifications", size = 20.sp, color = colors.textMuted)
                     Box(
@@ -379,7 +381,8 @@ private fun LiveScanContent(
                                     modifier = Modifier
                                         .size(24.dp)
                                         .clickable { viewModel.showInfo(t("System status refresh is not available yet.")) }
-                                        .focusable(),
+                                        .focusable()
+                                        .handCursor(),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     MaterialSymbol(name = "refresh", size = 18.sp, color = colors.textMuted)
@@ -463,6 +466,7 @@ private fun LiveScanContent(
                                     modifier = Modifier
                                         .clickable { onNavigate(AppScreen.ScanHistory) }
                                         .focusable()
+                                        .handCursor()
                                 )
                             }
                             Column(
@@ -498,6 +502,7 @@ private fun LiveScanContent(
                                         onNavigate(AppScreen.ReportsExport)
                                     }
                                     .focusable()
+                                    .handCursor()
                                     .padding(12.dp)
                             ) {
                                 Row(
@@ -580,6 +585,7 @@ private fun ScanActionButton(
         modifier = modifier
             .clickable { onClick() }
             .focusable()
+            .handCursor()
             .padding(vertical = 12.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -737,6 +743,7 @@ private fun RecentScanItem(
             .border(1.dp, if (style.highlight == Color.Transparent) Color.Transparent else style.badgeColor.copy(alpha = 0.2f), RoundedCornerShape(8.dp))
             .clickable { onClick(item) }
             .focusable()
+            .handCursor()
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)

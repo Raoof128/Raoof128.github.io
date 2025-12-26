@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.60`** (as of December 26, 2025)
+**Current App Version: `1.17.61`** (as of December 26, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,74 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🖱️ December 26, 2025 (Session 10k+17) - Desktop App UI/UX Audit
+
+### Summary
+Enhanced desktop UX conventions across all screens with cursor helpers. Added hand cursor to all clickable elements for proper desktop behavior. Fixed flaky training test caused by shuffled scenarios.
+
+## ✅ Changes Made
+
+### New Cursor Helper Extensions
+
+| Function | Purpose |
+|----------|---------|
+| `Modifier.handCursor()` | Applies pointer cursor to clickables |
+| `Modifier.textCursor()` | Applies I-beam cursor for text fields |
+| `Modifier.clickableWithCursor()` | Combines clickable + focusable + cursor |
+
+### Screens Updated with Hand Cursor
+
+| Screen | Elements Updated |
+|--------|------------------|
+| `AppSidebar.kt` | Sidebar items, profile card |
+| `DashboardScreen.kt` | Header icons, links, scan rows |
+| `LiveScanScreen.kt` | Buttons, links, scan items |
+| `ScanHistoryScreen.kt` | Buttons, filter chips, history rows |
+| `TrustCentreAltScreen.kt` | Icon buttons, toggles, language chips |
+| `TrainingScreen.kt` | Action buttons, links |
+| `ProfileDropdown.kt` | Menu items |
+
+### Test Fixes
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `AppViewModelTest.kt` | Test assumed first scenario was "AusPost phishing" | Updated to handle shuffled scenarios |
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ui/Interaction.kt` | Added cursor helper extensions (+35 lines) |
+| `ui/AppSidebar.kt` | Applied handCursor |
+| `ui/ProfileDropdown.kt` | Applied handCursor |
+| `screens/DashboardScreen.kt` | Applied handCursor to all clickables |
+| `screens/LiveScanScreen.kt` | Applied handCursor to all clickables |
+| `screens/ScanHistoryScreen.kt` | Applied handCursor to all clickables |
+| `screens/TrustCentreAltScreen.kt` | Applied handCursor to all clickables |
+| `screens/TrainingScreen.kt` | Applied handCursor to clickables |
+| `desktopTest/.../AppViewModelTest.kt` | Fixed flaky test |
+| `desktopApp/.agent/UI_UX_STRATEGY.md` | **NEW** - Audit plan |
+| `desktopApp/.agent/UI_UX_CHANGELOG.md` | **NEW** - Detailed changes |
+| `CHANGELOG.md` | Added v1.17.61 entry |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+
+./gradlew :desktopApp:desktopTest
+# BUILD SUCCESSFUL - 5 tests, 0 failures
+```
+
+## 📋 Risks / Follow-ups
+
+1. **painterResource deprecation** - Requires Compose Resources migration (separate task)
+2. **Custom focus ring styling** - Not implemented, default is acceptable
+3. **Keyboard shortcuts documentation** - TrainingScreen has P/L/Enter/Esc shortcuts inline
 
 ---
 

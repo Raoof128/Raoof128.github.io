@@ -2,6 +2,8 @@ package com.qrshield.desktop.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -14,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -120,3 +124,34 @@ fun Modifier.hoverHighlight(
             }
         )
 }
+
+// ============================================================================
+// Cursor Helpers - Desktop UX
+// ============================================================================
+
+/**
+ * Applies a hand/pointer cursor to clickable elements.
+ * Use this on all clickable non-text elements for proper desktop UX.
+ */
+fun Modifier.handCursor(): Modifier = this.pointerHoverIcon(PointerIcon.Hand)
+
+/**
+ * Applies a text/I-beam cursor for text fields.
+ * Use this on text input areas.
+ */
+fun Modifier.textCursor(): Modifier = this.pointerHoverIcon(PointerIcon.Text)
+
+/**
+ * Convenience extension that combines clickable + focusable + hand cursor.
+ * Use instead of .clickable { } for consistent desktop behavior.
+ * 
+ * @param enabled Whether the click is enabled
+ * @param onClick The click handler
+ */
+fun Modifier.clickableWithCursor(
+    enabled: Boolean = true,
+    onClick: () -> Unit
+): Modifier = this
+    .clickable(enabled = enabled, onClick = onClick)
+    .focusable()
+    .pointerHoverIcon(if (enabled) PointerIcon.Hand else PointerIcon.Default)

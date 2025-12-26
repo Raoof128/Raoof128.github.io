@@ -47,6 +47,7 @@ import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.desktop.ui.progressTrack
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.statusPill
+import com.qrshield.desktop.ui.handCursor
 import com.qrshield.data.ScanHistoryManager
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
@@ -202,7 +203,8 @@ private fun DashboardContent(
                         .size(32.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .clickable { onToggleDarkMode() }
-                        .focusable(),
+                        .focusable()
+                        .handCursor(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(
@@ -215,7 +217,8 @@ private fun DashboardContent(
                     modifier = Modifier
                         .size(32.dp)
                         .clickable { onShowNotifications() }
-                        .focusable(),
+                        .focusable()
+                        .handCursor(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = "notifications", size = 20.sp, color = colors.textMuted)
@@ -233,7 +236,8 @@ private fun DashboardContent(
                     modifier = Modifier
                         .size(32.dp)
                         .clickable { onOpenSettings() }
-                        .focusable(),
+                        .focusable()
+                        .handCursor(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = "settings", size = 20.sp, color = colors.textMuted)
@@ -471,6 +475,7 @@ private fun DashboardContent(
                                 modifier = Modifier
                                     .clickable { onViewHistory() }
                                     .focusable()
+                                    .handCursor()
                             )
                         }
                         Column {
@@ -574,6 +579,7 @@ private fun DashboardContent(
                             modifier = Modifier
                                 .clickable { onOpenTraining() }
                                 .focusable()
+                                .handCursor()
                         )
                     }
                 }
@@ -711,6 +717,7 @@ private fun RecentScanRow(
             .fillMaxWidth()
             .clickable { onClick(item) }
             .focusable()
+            .handCursor()
             .padding(vertical = 12.dp, horizontal = 24.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

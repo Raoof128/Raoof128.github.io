@@ -45,6 +45,7 @@ import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.desktop.ui.surfaceBorder
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.pillShape
+import com.qrshield.desktop.ui.handCursor
 
 @Composable
 fun ScanHistoryScreen(viewModel: AppViewModel) {
@@ -111,7 +112,8 @@ private fun ScanHistoryHeader(
                     .background(colors.backgroundAlt)
                     .border(1.dp, colors.border)
                     .clickable { onShowNotifications() }
-                    .focusable(),
+                    .focusable()
+                    .handCursor(),
                 contentAlignment = Alignment.Center
             ) {
                 MaterialSymbol(name = "notifications", size = 18.sp, color = colors.textMuted)
@@ -123,7 +125,8 @@ private fun ScanHistoryHeader(
                     .background(colors.backgroundAlt)
                     .border(1.dp, colors.border)
                     .clickable { onOpenSettings() }
-                    .focusable(),
+                    .focusable()
+                    .handCursor(),
                 contentAlignment = Alignment.Center
             ) {
                 MaterialSymbol(name = "settings", size = 18.sp, color = colors.textMuted)
@@ -236,7 +239,8 @@ private fun ScanHistoryContent(
                             viewModel.exportHistoryCsv()
                             onNavigate(AppScreen.ReportsExport)
                         }
-                        .focusable(),
+                        .focusable()
+                        .handCursor(),
                     shape = RoundedCornerShape(12.dp),
                     color = colors.primary
                 ) {
@@ -483,6 +487,7 @@ private fun FilterChip(
             .border(1.dp, border, RoundedCornerShape(8.dp))
             .clickable { onClick() }
             .focusable()
+            .handCursor()
             .padding(horizontal = 10.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -589,6 +594,7 @@ private fun HistoryRow(
             .fillMaxWidth()
             .clickable { onClick(item) }
             .focusable()
+            .handCursor()
             .padding(horizontal = 20.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

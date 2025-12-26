@@ -34,6 +34,7 @@ import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.toggleTrack
+import com.qrshield.desktop.ui.handCursor
 
 @Composable
 fun TrustCentreAltScreen(viewModel: AppViewModel) {
@@ -91,7 +92,8 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         .clip(CircleShape)
                         .background(colors.border)
                         .clickable { viewModel.showInfo(t("Help is not available yet.")) }
-                        .focusable(),
+                        .focusable()
+                        .handCursor(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = "help_outline", size = 18.sp, color = colors.textSub)
@@ -102,7 +104,8 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         .clip(CircleShape)
                         .background(colors.border)
                         .clickable { viewModel.showInfo(t("Profile settings are not available yet.")) }
-                        .focusable(),
+                        .focusable()
+                        .handCursor(),
                     contentAlignment = Alignment.Center
                 ) {
                     MaterialIconRound(name = "person", size = 18.sp, color = colors.textSub)
@@ -292,7 +295,8 @@ private fun SettingRow(
             modifier = Modifier
                 .toggleTrack(checked, colors.primary, colors.border, width = 44.dp)
                 .clickable { onCheckedChange(!checked) }
-                .focusable(),
+                .focusable()
+                .handCursor(),
             contentAlignment = if (checked) Alignment.CenterEnd else Alignment.CenterStart
         ) {
             Box(
@@ -401,6 +405,7 @@ private fun LanguageChip(label: String, selected: Boolean, onClick: () -> Unit) 
             .statusPill(background, border)
             .clickable { onClick() }
             .focusable()
+            .handCursor()
             .padding(horizontal = 12.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

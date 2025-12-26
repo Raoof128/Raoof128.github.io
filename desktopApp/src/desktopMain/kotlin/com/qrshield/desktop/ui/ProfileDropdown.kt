@@ -29,6 +29,7 @@ import com.qrshield.desktop.SampleData
 import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.theme.LocalStitchTokens
+import com.qrshield.desktop.ui.handCursor
 
 /**
  * Profile dropdown panel showing user info and quick stats
@@ -233,6 +234,7 @@ private fun ProfileMenuItem(
             .clip(RoundedCornerShape(8.dp))
             .clickable { onClick() }
             .focusable()
+            .handCursor()
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
