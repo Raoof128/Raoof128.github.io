@@ -5,6 +5,64 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.60] - 2025-12-26
+
+### 🔒 Desktop App Security Audit & Production Hardening
+
+Comprehensive security audit and production-readiness review of the `desktopApp` module.
+
+#### Security Fixes
+
+**Removed Stack Trace Logging** (`SettingsManager.kt`)
+- Replaced `e.printStackTrace()` calls with silent error handling
+- Settings persistence is non-critical; errors now silently fallback to defaults
+- Prevents potential information leakage through console output
+- Added comprehensive KDoc documenting the security-conscious design
+
+**Verified Secure Defaults**
+- `offlineOnlyEnabled = true` - Network access disabled by default
+- `telemetryEnabled = false` - No telemetry by default for privacy
+- `autoCopySafeLinksEnabled = false` - User must explicitly enable clipboard auto-copy
+
+**Verified No Hardcoded Secrets**
+- Scanned all 50+ Kotlin files for API keys, tokens, passwords
+- Zero secrets found - all "token" references are design tokens
+
+#### Code Hygiene / Deprecation Fixes
+
+**Fixed Deprecated Material Icons** (`IconText.kt`)
+- Migrated 9 icons to AutoMirrored versions for RTL language support:
+  - `AltRoute`, `ArrowForward`, `CallSplit`, `FactCheck`, `HelpOutline`
+  - `Logout`, `ManageSearch`, `OpenInNew`, `Rule`
+
+**Fixed Deprecated Divider** (`ProfileDropdown.kt`)
+- Replaced deprecated `Divider` with `HorizontalDivider` per Material 3 API
+
+#### Test Fixes
+
+**Fixed Outdated Training Test** (`AppViewModelTest.kt`)
+- Test was asserting immediate round advancement after `submitTrainingVerdict`
+- Actual flow: submit shows modal → dismiss advances round
+- Updated test to verify correct two-step process
+
+#### Verification Results
+
+| Check | Status |
+|-------|--------|
+| Build: `./gradlew :desktopApp:compileKotlinDesktop` | ✅ PASS |
+| Tests: `./gradlew :desktopApp:desktopTest` | ✅ PASS (5/5) |
+| No deprecation warnings | ✅ PASS |
+| No println/debug spam | ✅ PASS |
+| No hardcoded secrets | ✅ PASS |
+
+#### Files Modified
+- `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/SettingsManager.kt`
+- `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/ui/IconText.kt`
+- `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/ui/ProfileDropdown.kt`
+- `desktopApp/src/desktopTest/kotlin/com/qrshield/desktop/AppViewModelTest.kt`
+
+---
+
 ## [1.17.59] - 2025-12-26
 
 ### 🛡️ Shield Visualizer Polish + Android Audit Complete

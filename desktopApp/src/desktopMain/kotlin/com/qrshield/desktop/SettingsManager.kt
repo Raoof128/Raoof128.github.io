@@ -11,10 +11,26 @@ import java.util.Properties
 
 /**
  * Manages persistence of application settings and preferences.
+ *
+ * **Security Design:**
+ * - Settings are stored in platform-specific application data directories
+ *   (macOS: ~/Library/Application Support/QRShield, Windows: %APPDATA%/QRShield, Linux: ~/.config/qrshield)
+ * - No sensitive data (passwords, tokens) is stored in settings
+ * - File I/O errors are silently handled with fallback to defaults (non-critical persistence)
+ * - Telemetry is disabled by default for privacy
+ * - Offline mode is enabled by default for security
  */
 object SettingsManager {
     private const val SETTINGS_FILE = "qrshield_settings.properties"
     
+    /**
+     * Application settings with secure defaults.
+     *
+     * @property trustedDomains User-defined domains to skip heuristic checks (default: major trusted sites)
+     * @property blockedDomains User-defined domains to always flag as dangerous
+     * @property offlineOnlyEnabled When true, prevents opening URLs (default: true for security)
+     * @property telemetryEnabled Anonymous usage telemetry (default: false for privacy)
+     */
     data class Settings(
         val trustedDomains: List<String> = listOf("google.com", "github.com", "microsoft.com"),
         val blockedDomains: List<String> = listOf("bit.ly/*", "suspicious-domain.xyz", "free-crypto-giveaway.net"),
@@ -28,8 +44,14 @@ object SettingsManager {
         val languageCode: String = defaultLanguageCode()
     )
 
+    /**
+     * Loads settings from disk.
+     *
+     * @return Persisted settings if available, otherwise secure defaults.
+     *         Errors are silently handled - settings persistence is non-critical.
+     */
     fun loadSettings(): Settings {
-        try {
+        return try {
             val file = getSettingsFile()
             if (file.exists()) {
                 val props = Properties()
@@ -40,7 +62,7 @@ object SettingsManager {
                 val blockedDomainsStr = props.getProperty("blockedDomains", "bit.ly/*,suspicious-domain.xyz,free-crypto-giveaway.net")
                 val blockedDomains = blockedDomainsStr.split(",").filter { it.isNotBlank() }
 
-                return Settings(
+                Settings(
                     trustedDomains = trustedDomains,
                     blockedDomains = blockedDomains,
                     offlineOnlyEnabled = props.getProperty("offlineOnlyEnabled", "true").toBoolean(),
@@ -52,13 +74,21 @@ object SettingsManager {
                     biometricLockEnabled = props.getProperty("biometricLockEnabled", "false").toBoolean(),
                     languageCode = props.getProperty("languageCode", defaultLanguageCode())
                 )
+            } else {
+                Settings()
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (_: Exception) {
+            // Settings persistence is non-critical; return defaults on any error
+            Settings()
         }
-        return Settings()
     }
 
+    /**
+     * Persists settings to disk.
+     *
+     * Errors are silently handled - the application continues normally even if
+     * settings cannot be saved. Users will lose customizations on restart.
+     */
     fun saveSettings(settings: Settings) {
         try {
             val file = getSettingsFile()
@@ -77,8 +107,8 @@ object SettingsManager {
             props.setProperty("languageCode", settings.languageCode)
 
             file.outputStream().use { props.store(it, "QR-SHIELD Application Settings") }
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (_: Exception) {
+            // Settings persistence is non-critical; app continues normally
         }
     }
 

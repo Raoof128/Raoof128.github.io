@@ -1,6 +1,24 @@
 package com.qrshield.desktop.ui
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.AltRoute
+import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.CallSplit
+import androidx.compose.material.icons.automirrored.outlined.FactCheck
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
+import androidx.compose.material.icons.automirrored.outlined.Logout
+import androidx.compose.material.icons.automirrored.outlined.ManageSearch
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.automirrored.outlined.Rule
+import androidx.compose.material.icons.automirrored.rounded.AltRoute
+import androidx.compose.material.icons.automirrored.rounded.ArrowForward
+import androidx.compose.material.icons.automirrored.rounded.CallSplit
+import androidx.compose.material.icons.automirrored.rounded.FactCheck
+import androidx.compose.material.icons.automirrored.rounded.HelpOutline
+import androidx.compose.material.icons.automirrored.rounded.Logout
+import androidx.compose.material.icons.automirrored.rounded.ManageSearch
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
+import androidx.compose.material.icons.automirrored.rounded.Rule
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material.icons.rounded.*
 import androidx.compose.material3.Icon
@@ -25,12 +43,12 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "account_circle" -> if (useRounded) Icons.Rounded.AccountCircle else Icons.Outlined.AccountCircle
         "add" -> if (useRounded) Icons.Rounded.Add else Icons.Outlined.Add
         "analytics" -> if (useRounded) Icons.Rounded.Analytics else Icons.Outlined.Analytics
-        "alt_route" -> if (useRounded) Icons.Rounded.AltRoute else Icons.Outlined.AltRoute
-        "arrow_forward" -> if (useRounded) Icons.Rounded.ArrowForward else Icons.Outlined.ArrowForward
+        "alt_route" -> if (useRounded) Icons.AutoMirrored.Rounded.AltRoute else Icons.AutoMirrored.Outlined.AltRoute
+        "arrow_forward" -> if (useRounded) Icons.AutoMirrored.Rounded.ArrowForward else Icons.AutoMirrored.Outlined.ArrowForward
         "block" -> if (useRounded) Icons.Rounded.Block else Icons.Outlined.Block
         "bolt" -> if (useRounded) Icons.Rounded.Bolt else Icons.Outlined.Bolt
         "calendar_today" -> if (useRounded) Icons.Rounded.CalendarToday else Icons.Outlined.CalendarToday
-        "call_split" -> if (useRounded) Icons.Rounded.CallSplit else Icons.Outlined.CallSplit
+        "call_split" -> if (useRounded) Icons.AutoMirrored.Rounded.CallSplit else Icons.AutoMirrored.Outlined.CallSplit
         "center_focus_weak" -> if (useRounded) Icons.Rounded.CenterFocusWeak else Icons.Outlined.CenterFocusWeak
         "check" -> if (useRounded) Icons.Rounded.Check else Icons.Outlined.Check
         "check_circle" -> if (useRounded) Icons.Rounded.CheckCircle else Icons.Outlined.CheckCircle
@@ -56,23 +74,23 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "error" -> if (useRounded) Icons.Rounded.Error else Icons.Outlined.Error
         "expand_less" -> if (useRounded) Icons.Rounded.ExpandLess else Icons.Outlined.ExpandLess
         "expand_more" -> if (useRounded) Icons.Rounded.ExpandMore else Icons.Outlined.ExpandMore
-        "fact_check" -> if (useRounded) Icons.Rounded.FactCheck else Icons.Outlined.FactCheck
+        "fact_check" -> if (useRounded) Icons.AutoMirrored.Rounded.FactCheck else Icons.AutoMirrored.Outlined.FactCheck
         "filter_list" -> if (useRounded) Icons.Rounded.FilterList else Icons.Outlined.FilterList
         "flag" -> if (useRounded) Icons.Rounded.Flag else Icons.Outlined.Flag
         "flash_on" -> if (useRounded) Icons.Rounded.FlashOn else Icons.Outlined.FlashOn
         "gpp_bad" -> if (useRounded) Icons.Rounded.GppBad else Icons.Outlined.GppBad
-        "help_outline" -> if (useRounded) Icons.Rounded.HelpOutline else Icons.Outlined.HelpOutline
+        "help_outline" -> if (useRounded) Icons.AutoMirrored.Rounded.HelpOutline else Icons.AutoMirrored.Outlined.HelpOutline
         "history" -> if (useRounded) Icons.Rounded.History else Icons.Outlined.History
         "history_edu" -> if (useRounded) Icons.Rounded.HistoryEdu else Icons.Outlined.HistoryEdu
         "javascript" -> if (useRounded) Icons.Rounded.Javascript else Icons.Outlined.Javascript
         "link" -> if (useRounded) Icons.Rounded.Link else Icons.Outlined.Link
         "location_on" -> if (useRounded) Icons.Rounded.LocationOn else Icons.Outlined.LocationOn
         "lock" -> if (useRounded) Icons.Rounded.Lock else Icons.Outlined.Lock
-        "logout" -> if (useRounded) Icons.Rounded.Logout else Icons.Outlined.Logout
-        "manage_search" -> if (useRounded) Icons.Rounded.ManageSearch else Icons.Outlined.ManageSearch
+        "logout" -> if (useRounded) Icons.AutoMirrored.Rounded.Logout else Icons.AutoMirrored.Outlined.Logout
+        "manage_search" -> if (useRounded) Icons.AutoMirrored.Rounded.ManageSearch else Icons.AutoMirrored.Outlined.ManageSearch
         "more_horiz" -> if (useRounded) Icons.Rounded.MoreHoriz else Icons.Outlined.MoreHoriz
         "notifications" -> if (useRounded) Icons.Rounded.Notifications else Icons.Outlined.Notifications
-        "open_in_new" -> if (useRounded) Icons.Rounded.OpenInNew else Icons.Outlined.OpenInNew
+        "open_in_new" -> if (useRounded) Icons.AutoMirrored.Rounded.OpenInNew else Icons.AutoMirrored.Outlined.OpenInNew
         "person" -> if (useRounded) Icons.Rounded.Person else Icons.Outlined.Person
         "picture_as_pdf" -> if (useRounded) Icons.Rounded.PictureAsPdf else Icons.Outlined.PictureAsPdf
         "preview" -> if (useRounded) Icons.Rounded.Preview else Icons.Outlined.Preview
@@ -82,7 +100,7 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "public_off" -> if (useRounded) Icons.Rounded.PublicOff else Icons.Outlined.PublicOff
         "qr_code_scanner" -> if (useRounded) Icons.Rounded.QrCodeScanner else Icons.Outlined.QrCodeScanner
         "refresh" -> if (useRounded) Icons.Rounded.Refresh else Icons.Outlined.Refresh
-        "rule" -> if (useRounded) Icons.Rounded.Rule else Icons.Outlined.Rule
+        "rule" -> if (useRounded) Icons.AutoMirrored.Rounded.Rule else Icons.AutoMirrored.Outlined.Rule
         "schedule" -> if (useRounded) Icons.Rounded.Schedule else Icons.Outlined.Schedule
         "school" -> if (useRounded) Icons.Rounded.School else Icons.Outlined.School
         "science" -> if (useRounded) Icons.Rounded.Science else Icons.Outlined.Science

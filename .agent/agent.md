@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.59`** (as of December 26, 2025)
+**Current App Version: `1.17.60`** (as of December 26, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,79 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔒 December 26, 2025 (Session 10k+16) - Desktop App Security Audit & Production Hardening
+
+### Summary
+Comprehensive security audit and production-readiness review of the `desktopApp` module. Fixed security issues, deprecated API warnings, and outdated tests. All builds and tests pass with zero warnings.
+
+## ✅ Changes Made
+
+### Security Fixes
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `SettingsManager.kt` | `e.printStackTrace()` leaking stack traces | Replaced with silent error handling + fallback to defaults |
+| `SettingsManager.kt` | Missing documentation | Added comprehensive KDoc explaining security design |
+
+### Deprecation Fixes
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `IconText.kt` | 9 deprecated icon references | Migrated to `AutoMirrored` versions (AltRoute, ArrowForward, CallSplit, FactCheck, HelpOutline, Logout, ManageSearch, OpenInNew, Rule) |
+| `ProfileDropdown.kt` | Deprecated `Divider` | Replaced with `HorizontalDivider` per Material 3 API |
+
+### Test Fixes
+
+| File | Issue | Fix |
+|------|-------|-----|
+| `AppViewModelTest.kt` | Test expecting immediate round advancement | Fixed to match actual two-step flow: submit→modal→dismiss→advance |
+
+### Verification Scans
+
+| Check | Result |
+|-------|--------|
+| `println` statements | ✅ None found |
+| `e.printStackTrace()` calls | ✅ None remaining |
+| Hardcoded secrets/tokens | ✅ None found |
+| Build warnings | ✅ Zero deprecation warnings |
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `desktopApp/.../SettingsManager.kt` | Security: removed stack trace logging, added KDoc |
+| `desktopApp/.../ui/IconText.kt` | Fixed 9 deprecated AutoMirrored icons |
+| `desktopApp/.../ui/ProfileDropdown.kt` | Fixed deprecated Divider → HorizontalDivider |
+| `desktopApp/.../AppViewModelTest.kt` | Fixed training game test to match actual flow |
+| `desktopApp/.agent/CHANGELOG_AUDIT.md` | **NEW** - Detailed audit findings |
+| `CHANGELOG.md` | Added v1.17.60 entry |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL - 0 warnings
+
+./gradlew :desktopApp:desktopTest
+# BUILD SUCCESSFUL - 5 tests, 0 failures
+```
+
+## 📋 Audit Strategy Document
+
+Created comprehensive audit plan: `desktopApp/.agent/AUDIT_STRATEGY.md`
+- Organized files into 7 logical batches
+- Identified security risks and UX checks per batch
+- Documented verification commands
+
+## Notes for Future Agents
+
+1. **Settings persistence is non-critical** - Silent error handling is intentional
+2. **AutoMirrored icons** - Required for RTL language support (Arabic, Hebrew)
+3. **Training game flow** - Two-step: submit shows modal, dismiss advances round
+4. **Audit artifacts** in `desktopApp/.agent/` for future reference
 
 ---
 

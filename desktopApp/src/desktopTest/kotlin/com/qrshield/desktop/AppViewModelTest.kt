@@ -117,13 +117,23 @@ class AppViewModelTest {
         try {
             val initial = viewModel.trainingState
 
+            // Submit verdict - this shows the result modal but doesn't advance round yet
             viewModel.submitTrainingVerdict(isPhishing = true)
 
-            val updated = viewModel.trainingState
-            assertTrue(updated.score > initial.score)
-            assertEquals(initial.round + 1, updated.round)
-            assertEquals(initial.attempts + 1, updated.attempts)
-            assertTrue(updated.streak >= initial.streak)
+            var updated = viewModel.trainingState
+            // Score should be updated (either +100 if correct or -25 if incorrect)
+            // The first scenario is AusPost phishing which expects MALICIOUS, so isPhishing=true is correct
+            assertTrue(updated.score > initial.score, "Score should increase for correct answer")
+            assertEquals(initial.attempts + 1, updated.attempts, "Attempts should increment")
+            assertTrue(updated.streak >= initial.streak, "Streak should increase or stay same")
+            assertTrue(updated.showResultModal, "Result modal should be shown")
+            // Round doesn't advance until modal is dismissed
+            assertEquals(initial.round, updated.round, "Round should not advance until modal dismissed")
+
+            // Dismiss modal to advance round
+            viewModel.dismissTrainingResultModal()
+            updated = viewModel.trainingState
+            assertEquals(initial.round + 1, updated.round, "Round should advance after modal dismissed")
         } finally {
             viewModel.dispose()
         }

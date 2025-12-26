@@ -10,7 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -105,7 +105,7 @@ fun ProfileDropdown(
                     }
                 }
                 
-                Divider(color = colors.border, thickness = 1.dp)
+                HorizontalDivider(color = colors.border, thickness = 1.dp)
                 
                 // Quick Stats
                 Text(
@@ -137,7 +137,7 @@ fun ProfileDropdown(
                     )
                 }
                 
-                Divider(color = colors.border, thickness = 1.dp)
+                HorizontalDivider(color = colors.border, thickness = 1.dp)
                 
                 // Menu Items
                 ProfileMenuItem(
@@ -158,7 +158,7 @@ fun ProfileDropdown(
                     }
                 )
                 
-                Divider(color = colors.border, thickness = 1.dp)
+                HorizontalDivider(color = colors.border, thickness = 1.dp)
                 
                 // Account plan badge
                 Row(
