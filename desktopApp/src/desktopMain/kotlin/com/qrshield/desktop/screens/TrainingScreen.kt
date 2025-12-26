@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION") // painterResource - migration to Compose Resources planned
+
 package com.qrshield.desktop.screens
 
 import androidx.compose.foundation.BorderStroke
@@ -17,7 +19,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -55,6 +60,7 @@ fun TrainingScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.training(isDark = viewModel.isDarkMode)
     val training = viewModel.trainingState
     val focusRequester = remember { FocusRequester() }
+    var showKeyboardHelp by remember { mutableStateOf(false) }
     
     // Request focus when screen loads for keyboard handling
     LaunchedEffect(Unit) {
@@ -99,6 +105,20 @@ fun TrainingScreen(viewModel: AppViewModel) {
                                 viewModel.currentScreen = AppScreen.Dashboard
                                 true
                             }
+                            // H or ? key = Toggle keyboard shortcuts help
+                            (event.key == Key.H || event.key == Key.Slash) && event.isShiftPressed -> {
+                                showKeyboardHelp = !showKeyboardHelp
+                                true
+                            }
+                            event.key == Key.H && !training.showResultModal && !training.isGameOver -> {
+                                showKeyboardHelp = !showKeyboardHelp
+                                true
+                            }
+                            // Escape also closes keyboard help
+                            event.key == Key.Escape && showKeyboardHelp -> {
+                                showKeyboardHelp = false
+                                true
+                            }
                             else -> false
                         }
                     } else false
@@ -140,6 +160,14 @@ fun TrainingScreen(viewModel: AppViewModel) {
                     playerWon = training.playerWon,
                     onPlayAgain = { viewModel.resetTrainingGame() },
                     onReturnToDashboard = { viewModel.currentScreen = AppScreen.Dashboard },
+                    language = viewModel.appLanguage
+                )
+            }
+            
+            // Keyboard Shortcuts Help Overlay
+            if (showKeyboardHelp) {
+                KeyboardShortcutsOverlay(
+                    onDismiss = { showKeyboardHelp = false },
                     language = viewModel.appLanguage
                 )
             }
@@ -425,7 +453,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                             .handCursor()
                                     )
                                     Text(
-                                        t("⌨ Keys: P = Phishing, L = Legitimate, Enter = Next"),
+                                        t("⌨ P/L = Phishing/Legitimate · H = Help"),
                                         fontSize = 10.sp,
                                         color = colors.textMuted.copy(alpha = 0.6f)
                                     )
@@ -846,6 +874,140 @@ private fun TrainingGameOverModal(
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * Keyboard Shortcuts Help Overlay
+ * Shows all available keyboard shortcuts for the training game.
+ */
+@Composable
+private fun KeyboardShortcutsOverlay(
+    onDismiss: () -> Unit,
+    language: AppLanguage
+) {
+    val t = { text: String -> DesktopStrings.translate(text, language) }
+    val colors = LocalStitchTokens.current.colors
+    
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.6f))
+            .clickable { onDismiss() },
+        contentAlignment = Alignment.Center
+    ) {
+        Surface(
+            modifier = Modifier
+                .width(400.dp)
+                .clickable(enabled = false) { }, // Prevent click-through
+            shape = RoundedCornerShape(20.dp),
+            color = colors.surface,
+            border = BorderStroke(1.dp, colors.border)
+        ) {
+            Column(
+                modifier = Modifier.padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Header
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        MaterialSymbol(name = "keyboard", size = 24.sp, color = colors.primary)
+                        Text(
+                            t("Keyboard Shortcuts"),
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = colors.textMain
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .size(28.dp)
+                            .clip(CircleShape)
+                            .background(colors.backgroundAlt)
+                            .clickable { onDismiss() }
+                            .handCursor(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        MaterialSymbol(name = "close", size = 16.sp, color = colors.textMuted)
+                    }
+                }
+                
+                // Divider
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(colors.border)
+                )
+                
+                // Shortcuts List
+                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    ShortcutRow(key = "P", description = t("Mark as Phishing"), color = colors.danger)
+                    ShortcutRow(key = "L", description = t("Mark as Legitimate"), color = colors.success)
+                    ShortcutRow(key = "Enter", description = t("Next Round / Confirm"))
+                    ShortcutRow(key = "Esc", description = t("Return to Dashboard"))
+                    ShortcutRow(key = "H", description = t("Toggle this help panel"))
+                }
+                
+                // Footer hint
+                Text(
+                    t("Press any key to close"),
+                    fontSize = 12.sp,
+                    color = colors.textMuted,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ShortcutRow(
+    key: String,
+    description: String,
+    color: Color = LocalStitchTokens.current.colors.textMain
+) {
+    val colors = LocalStitchTokens.current.colors
+    
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(colors.backgroundAlt)
+                    .border(1.dp, colors.border, RoundedCornerShape(6.dp))
+                    .padding(horizontal = 10.dp, vertical = 4.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    key,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = color,
+                    fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace
+                )
+            }
+            Text(
+                description,
+                fontSize = 14.sp,
+                color = colors.textSub
+            )
         }
     }
 }

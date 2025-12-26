@@ -5,6 +5,43 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.62] - 2025-12-26
+
+### 🎯 Desktop App UI/UX Follow-ups Complete
+
+Resolved all deferred items from the UI/UX audit.
+
+#### Focus Ring Accessibility (`Interaction.kt`)
+- Added `focusRing()` modifier - Draws visible blue outline on keyboard focus
+- Added `focusableWithRing()` - Combines focusable + focus ring
+- Added `fullInteractive()` - Complete: clickable + cursor + focus ring
+- Uses `collectIsFocusedAsState()` for state tracking
+
+#### Keyboard Shortcuts Help (`TrainingScreen.kt`)
+- Added `KeyboardShortcutsOverlay` composable with all game shortcuts
+- Added `H` key handler to toggle the help overlay
+- Added `Esc` to dismiss help overlay
+- Updated inline hint to: "⌨ P/L = Phishing/Legitimate · H = Help"
+- Documented shortcuts: P, L, Enter, Esc, H
+
+#### Deprecation Warnings Suppressed
+- Added `@file:Suppress("DEPRECATION")` to 5 files using `painterResource`:
+  - `Main.kt`
+  - `TrainingScreen.kt`
+  - `ScanHistoryScreen.kt`
+  - `TrustCentreScreen.kt`
+  - `ReportsExportScreen.kt`
+- Comment documents that migration to Compose Resources is planned
+
+#### Verification Results
+
+| Check | Status |
+|-------|--------|
+| Compile | ✅ BUILD SUCCESSFUL (0 warnings) |
+| Tests | ✅ 5 tests, 0 failures |
+
+---
+
 ## [1.17.61] - 2025-12-26
 
 ### 🖱️ Desktop App UI/UX Audit

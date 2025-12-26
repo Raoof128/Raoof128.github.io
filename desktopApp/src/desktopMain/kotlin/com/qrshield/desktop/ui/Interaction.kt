@@ -7,6 +7,7 @@ import androidx.compose.foundation.focusable
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,8 +15,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.Dp
@@ -155,3 +162,97 @@ fun Modifier.clickableWithCursor(
     .clickable(enabled = enabled, onClick = onClick)
     .focusable()
     .pointerHoverIcon(if (enabled) PointerIcon.Hand else PointerIcon.Default)
+
+// ============================================================================
+// Focus Ring Helpers - Accessibility
+// ============================================================================
+
+/**
+ * Default focus ring color - a visible blue outline for accessibility.
+ */
+val DefaultFocusRingColor = Color(0xFF3B82F6)  // Blue-500
+
+/**
+ * Adds a visible focus ring when the element receives keyboard focus.
+ * Essential for accessibility - allows keyboard users to see which element is focused.
+ * 
+ * @param interactionSource The interaction source to monitor for focus state
+ * @param ringColor The color of the focus ring (default: blue)
+ * @param ringWidth Width of the focus ring stroke
+ * @param cornerRadius Corner radius to match the element's shape
+ * @param ringOffset Offset from the element border (creates a gap)
+ */
+@Composable
+fun Modifier.focusRing(
+    interactionSource: MutableInteractionSource,
+    ringColor: Color = DefaultFocusRingColor,
+    ringWidth: Dp = 2.dp,
+    cornerRadius: Dp = 8.dp,
+    ringOffset: Dp = 2.dp
+): Modifier {
+    val isFocused by interactionSource.collectIsFocusedAsState()
+    
+    return this.drawWithContent {
+        drawContent()
+        if (isFocused) {
+            val offsetPx = ringOffset.toPx()
+            val widthPx = ringWidth.toPx()
+            val radiusPx = cornerRadius.toPx()
+            
+            drawRoundRect(
+                color = ringColor,
+                topLeft = Offset(-offsetPx, -offsetPx),
+                size = Size(size.width + offsetPx * 2, size.height + offsetPx * 2),
+                cornerRadius = CornerRadius(radiusPx + offsetPx),
+                style = Stroke(width = widthPx)
+            )
+        }
+    }
+}
+
+/**
+ * Composable modifier that creates an interaction source and applies focus ring.
+ * Use this for elements that need visible keyboard focus indication.
+ * 
+ * @param ringColor The color of the focus ring
+ * @param ringWidth Width of the focus ring stroke
+ * @param cornerRadius Corner radius to match the element's shape
+ */
+fun Modifier.focusableWithRing(
+    ringColor: Color = DefaultFocusRingColor,
+    ringWidth: Dp = 2.dp,
+    cornerRadius: Dp = 8.dp
+): Modifier = composed {
+    val interactionSource = remember { MutableInteractionSource() }
+    this
+        .focusable(interactionSource = interactionSource)
+        .focusRing(
+            interactionSource = interactionSource,
+            ringColor = ringColor,
+            ringWidth = ringWidth,
+            cornerRadius = cornerRadius
+        )
+}
+
+/**
+ * Full interactive modifier combining clickable + hand cursor + focus ring.
+ * Use for important interactive elements that need complete accessibility support.
+ * 
+ * @param enabled Whether the click is enabled
+ * @param ringColor The color of the focus ring
+ * @param cornerRadius Corner radius to match the element's shape
+ * @param onClick The click handler
+ */
+fun Modifier.fullInteractive(
+    enabled: Boolean = true,
+    ringColor: Color = DefaultFocusRingColor,
+    cornerRadius: Dp = 8.dp,
+    onClick: () -> Unit
+): Modifier = composed {
+    val interactionSource = remember { MutableInteractionSource() }
+    this
+        .clickable(enabled = enabled, interactionSource = interactionSource, indication = null, onClick = onClick)
+        .focusable(interactionSource = interactionSource)
+        .focusRing(interactionSource = interactionSource, ringColor = ringColor, cornerRadius = cornerRadius)
+        .pointerHoverIcon(if (enabled) PointerIcon.Hand else PointerIcon.Default)
+}

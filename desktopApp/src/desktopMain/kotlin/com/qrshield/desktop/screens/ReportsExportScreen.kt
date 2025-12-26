@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION") // painterResource - migration to Compose Resources planned
+
 package com.qrshield.desktop.screens
 
 import androidx.compose.foundation.BorderStroke

@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.61`** (as of December 26, 2025)
+**Current App Version: `1.17.62`** (as of December 26, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,63 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎯 December 26, 2025 (Session 10k+18) - Desktop App UI/UX Follow-ups Complete
+
+### Summary
+Resolved all deferred follow-up items from the UI/UX audit: focus ring accessibility, keyboard shortcuts help overlay, and painterResource deprecation warnings.
+
+## ✅ Changes Made
+
+### Focus Ring Accessibility
+
+| Modifier | Purpose |
+|----------|---------|
+| `focusRing()` | Draws blue outline when keyboard focused |
+| `focusableWithRing()` | Combines focusable + focus ring |
+| `fullInteractive()` | clickable + cursor + focus ring |
+
+### Keyboard Shortcuts Help
+
+- Added `KeyboardShortcutsOverlay` composable in TrainingScreen
+- Press `H` to toggle help overlay
+- Documents all shortcuts: P, L, Enter, Esc, H
+- Updated inline hint to mention H key
+
+### Deprecation Suppressions
+
+| File | Reason |
+|------|--------|
+| `Main.kt` | Uses painterResource for app icon |
+| `TrainingScreen.kt` | Uses painterResource for QR example |
+| `ScanHistoryScreen.kt` | Uses painterResource for avatar |
+| `TrustCentreScreen.kt` | Uses painterResource for favicons |
+| `ReportsExportScreen.kt` | Uses painterResource for map image |
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ui/Interaction.kt` | Added focus ring modifiers (+70 lines) |
+| `screens/TrainingScreen.kt` | Added keyboard shortcuts overlay, H key handler |
+| `Main.kt` | Added @file:Suppress("DEPRECATION") |
+| `screens/ScanHistoryScreen.kt` | Added @file:Suppress("DEPRECATION") |
+| `screens/TrustCentreScreen.kt` | Added @file:Suppress("DEPRECATION") |
+| `screens/ReportsExportScreen.kt` | Added @file:Suppress("DEPRECATION") |
+| `desktopApp/.agent/UI_UX_CHANGELOG.md` | Updated with resolved status |
+| `CHANGELOG.md` | Added v1.17.62 entry |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL - 0 warnings
+
+./gradlew :desktopApp:desktopTest
+# BUILD SUCCESSFUL - 5 tests, 0 failures
+```
 
 ---
 
