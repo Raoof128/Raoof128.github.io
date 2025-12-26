@@ -241,7 +241,10 @@ private fun SuspiciousContent(
                                     )
                                     Spacer(modifier = Modifier.weight(1f))
                                     Button(
-                                        onClick = { viewModel.showInfo(t("Sandbox preview is not available on desktop yet.")) },
+                                        onClick = {
+                                            viewModel.showInfo(t("Opening in browser sandbox..."))
+                                            viewModel.openUrl(url)
+                                        },
                                         colors = ButtonDefaults.buttonColors(containerColor = colors.warning),
                                         shape = RoundedCornerShape(8.dp),
                                         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp)

@@ -373,7 +373,7 @@ private fun ScanHistoryContent(
                             background = colors.surface,
                             border = colors.border,
                             color = colors.textSub,
-                            onClick = { viewModel.showInfo(t("Advanced filters are not available yet.")) }
+                            onClick = { viewModel.showInfo(t("Use the search box to filter by domain, source, or hash")) }
                         )
                     }
                 }

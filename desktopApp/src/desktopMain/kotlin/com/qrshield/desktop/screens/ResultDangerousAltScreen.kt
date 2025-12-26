@@ -248,7 +248,11 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                             Text(t("Block & Report"), fontWeight = FontWeight.SemiBold)
                         }
                         Button(
-                            onClick = { viewModel.showInfo(t("Sandbox quarantine is not available on desktop yet.")) },
+                            onClick = {
+                                val host = viewModel.hostFromUrl(url) ?: url
+                                viewModel.addBlocklistDomain(host)
+                                viewModel.showInfo(t("Domain quarantined and added to blocklist"))
+                            },
                             colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
                             border = BorderStroke(1.dp, colors.border),
                             shape = RoundedCornerShape(8.dp),

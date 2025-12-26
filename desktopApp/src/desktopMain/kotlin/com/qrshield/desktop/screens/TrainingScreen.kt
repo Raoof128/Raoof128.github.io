@@ -306,7 +306,7 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                         color = colors.primary,
                                     modifier = Modifier
                                             .padding(top = 8.dp)
-                                            .clickable { viewModel.showInfo(t("Zoom is not available yet.")) }
+                                            .clickable { viewModel.showInfo(t("Press H to show keyboard shortcuts")) }
                                             .focusable()
                                             .handCursor()
                                     )

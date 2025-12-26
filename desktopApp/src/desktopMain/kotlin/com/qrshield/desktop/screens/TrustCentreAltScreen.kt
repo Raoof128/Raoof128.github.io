@@ -35,23 +35,40 @@ import com.qrshield.desktop.ui.dottedPattern
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.toggleTrack
 import com.qrshield.desktop.ui.handCursor
+import com.qrshield.desktop.ui.ProfileDropdown
 
 @Composable
 fun TrustCentreAltScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.trustCentreAlt(isDark = viewModel.isDarkMode)
+    val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(tokens.colors.background)
-        ) {
-            AppSidebar(
-                currentScreen = AppScreen.TrustCentreAlt,
-                onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage,
-                onProfileClick = { /* Already on settings */ }
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(tokens.colors.background)
+            ) {
+                AppSidebar(
+                    currentScreen = AppScreen.TrustCentreAlt,
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = viewModel.appLanguage,
+                    onProfileClick = { /* Already on settings */ }
+                )
+                TrustCentreAltContent(viewModel = viewModel)
+            }
+            
+            // Profile Dropdown Popup (same as DashboardScreen)
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = com.qrshield.desktop.SampleData.userProfile.name,
+                userRole = com.qrshield.desktop.SampleData.userProfile.role,
+                userInitials = com.qrshield.desktop.SampleData.userProfile.initials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
             )
-            TrustCentreAltContent(viewModel = viewModel)
         }
     }
 }
@@ -91,7 +108,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         .size(32.dp)
                         .clip(CircleShape)
                         .background(colors.border)
-                        .clickable { viewModel.showInfo(t("Help is not available yet.")) }
+                        .clickable { viewModel.showInfo(t("Keyboard shortcuts: Cmd/Ctrl+V paste, Cmd/Ctrl+1-4 navigate, Escape go back")) }
                         .focusable()
                         .handCursor(),
                     contentAlignment = Alignment.Center
@@ -103,7 +120,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                         .size(32.dp)
                         .clip(CircleShape)
                         .background(colors.border)
-                        .clickable { viewModel.showInfo(t("Profile settings are not available yet.")) }
+                        .clickable { viewModel.toggleProfileDropdown() }
                         .focusable()
                         .handCursor(),
                     contentAlignment = Alignment.Center

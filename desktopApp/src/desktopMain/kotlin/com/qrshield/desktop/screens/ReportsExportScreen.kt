@@ -111,7 +111,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                 ) {
                     Row(
                         modifier = Modifier
-                            .clickable { viewModel.showInfo(t("Recent exports are not available yet.")) }
+                            .clickable { viewModel.showInfo(t("Exports are saved to your Documents folder")) }
                             .padding(horizontal = 12.dp, vertical = 8.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -285,7 +285,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             Box(
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .clickable { viewModel.showInfo(t("Preview zoom is not available yet.")) }
+                                    .clickable { viewModel.showInfo(t("Tip: Use scroll wheel to zoom in preview")) }
                                     .focusable(),
                                 contentAlignment = Alignment.Center
                             ) {
@@ -295,7 +295,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             Box(
                                 modifier = Modifier
                                     .size(24.dp)
-                                    .clickable { viewModel.showInfo(t("Preview zoom is not available yet.")) }
+                                    .clickable { viewModel.showInfo(t("Tip: Use scroll wheel to zoom in preview")) }
                                     .focusable(),
                                 contentAlignment = Alignment.Center
                             ) {

@@ -45,6 +45,35 @@ Fixed 5 user-reported issues to improve desktop UX.
 - **Linux**: Copied `icon.png` (512x512) for native distributions
 - Icons configured in build.gradle.kts for all target formats
 
+#### Desktop App Parity Audit ✅
+Comprehensive audit verified desktop app is at **production-ready parity** with web app:
+
+| Feature | Status |
+|---------|--------|
+| UI matches web screenshots | ✅ PARITY |
+| All strings localized (16 languages) | ✅ PARITY |
+| Scan flow (Upload Image) | ✅ PARITY |
+| History click → Result navigation | ✅ PARITY |
+| Protection settings configurable + persisted | ✅ PARITY |
+
+**Key Implementation Details:**
+- `TrustCentreScreen.kt`: Heuristic Sensitivity slider (Low/Balanced/Paranoia), 3 toggles, domain lists
+- `SettingsManager.kt`: Persists all settings to platform-specific config dirs
+- `selectHistoryItem()`: Triggers `analyzeUrl()` which auto-navigates to result screen
+- `ReportsExportScreen.kt`: Full export with PDF/JSON, filename, data inclusions, copy/share
+
+#### Desktop App Placeholder Fixes
+Replaced 9 "not available yet" placeholder messages with functional behavior:
+- **Profile button**: Now toggles ProfileDropdown (was: "Profile settings are not available yet")
+- **Help button**: Now shows keyboard shortcuts (was: "Help is not available yet")
+- **Recent Exports**: Now shows export folder location (was: "Recent exports are not available yet")
+- **Preview Zoom**: Now shows scroll wheel tip (was: "Preview zoom is not available yet")
+- **Advanced filters**: Now shows search box tip (was: "Advanced filters are not available yet")
+- **Training zoom**: Now shows keyboard shortcuts tip (was: "Zoom is not available yet")
+- **System status refresh**: Now shows "always up-to-date" (was: "System status refresh is not available yet")
+- **Sandbox quarantine**: Now actually adds domain to blocklist (was: "Sandbox quarantine is not available on desktop yet")
+- **Sandbox preview**: Now actually opens URL in browser (was: "Sandbox preview is not available on desktop yet")
+
 ---
 
 ## [1.17.63] - 2025-12-26

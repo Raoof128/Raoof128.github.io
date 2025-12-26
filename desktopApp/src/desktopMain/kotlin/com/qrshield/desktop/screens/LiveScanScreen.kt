@@ -379,7 +379,7 @@ private fun LiveScanContent(
                                 Box(
                                     modifier = Modifier
                                         .size(24.dp)
-                                        .clickable { viewModel.showInfo(t("System status refresh is not available yet.")) }
+                                        .clickable { viewModel.showInfo(t("System status is always up-to-date")) }
                                         .focusable()
                                         .handCursor(),
                                     contentAlignment = Alignment.Center

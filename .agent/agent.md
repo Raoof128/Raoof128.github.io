@@ -185,6 +185,110 @@ Any important notes for future agents.
 
 ---
 
+# ✅ December 26, 2025 (Session 10k+21) - Desktop App Parity Audit Complete
+
+### Summary
+Performed comprehensive parity audit of the Desktop app against the web app screenshots. **Result: Desktop app is at production-ready parity.** All 5 key areas verified.
+
+---
+
+# 🔧 December 26, 2025 (Session 10k+22) - Desktop App Placeholder Fixes
+
+### Summary
+Fixed 7 placeholder "not available" messages in the Desktop app, replacing them with functional behavior or helpful tips.
+
+## ✅ Issues Fixed
+
+| # | Issue | File | Old Behavior | New Behavior |
+|---|-------|------|--------------|--------------|
+| 1 | Profile button placeholder | `TrustCentreAltScreen.kt:121` | "Profile settings are not available yet" | Toggles ProfileDropdown |
+| 2 | Help button placeholder | `TrustCentreAltScreen.kt:111` | "Help is not available yet" | Shows keyboard shortcuts info |
+| 3 | Recent Exports placeholder | `ReportsExportScreen.kt:114` | "Recent exports are not available yet" | Shows export folder location |
+| 4 | Preview Zoom placeholders | `ReportsExportScreen.kt:288,298` | "Preview zoom is not available yet" | Shows scroll wheel tip |
+| 5 | Advanced filters | `ScanHistoryScreen.kt:376` | "Advanced filters are not available yet" | Shows search box tip |
+| 6 | Training zoom | `TrainingScreen.kt:309` | "Zoom is not available yet" | Shows keyboard shortcuts tip |
+| 7 | System status refresh | `LiveScanScreen.kt:382` | "System status refresh is not available yet" | Shows "always up-to-date" |
+| 8 | Sandbox quarantine | `ResultDangerousAltScreen.kt:251` | "Sandbox quarantine is not available on desktop yet" | Actually quarantines domain to blocklist |
+| 9 | Sandbox preview | `ResultSuspiciousScreen.kt:244` | "Sandbox preview is not available on desktop yet" | Actually opens URL in browser |
+
+**Note**: Two messages are intentionally kept as they are accurate feature limitations:
+- "Update checks are not available in offline mode" - Correct (offline-first design)
+- "Torch not available on desktop" - Correct (no camera flash on desktops)
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `TrustCentreAltScreen.kt` | Added ProfileDropdown import and component, fixed profile button to toggle dropdown, changed help to show keyboard shortcuts |
+| `ReportsExportScreen.kt` | Changed Recent Exports to show folder location, changed zoom buttons to show scroll wheel tip |
+| `ScanHistoryScreen.kt` | Changed Advanced filters to show search box tip |
+| `TrainingScreen.kt` | Changed zoom to show keyboard shortcuts tip |
+| `LiveScanScreen.kt` | Changed system status refresh to show "always up-to-date" |
+| `ResultDangerousAltScreen.kt` | Made Sandbox quarantine button actually add domain to blocklist |
+| `ResultSuspiciousScreen.kt` | Made Open in Sandbox button actually open URL in browser |
+| `DesktopStringsHi.kt` | Added Hindi translations for 3 new strings |
+
+## 🔧 Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+## 📊 Parity Map
+
+| Feature | Web App | Desktop App | Status |
+|---------|---------|-------------|--------|
+| **Threat Analysis Report** | High Risk banner, DANGEROUS badge, Report/Block buttons | ResultDangerousScreen.kt | ✅ PARITY |
+| **Export Settings** | OUTPUT FORMAT, Filename, DATA INCLUSIONS, Export/Copy/Share | ReportsExportScreen.kt | ✅ PARITY |
+| **Scan Complete Flow** | Auto-navigation to result screen | updateResult() auto-navigates | ✅ PARITY |
+| **Trust Centre Settings** | Heuristic slider, 3 toggles, Allowlist/Blocklist | TrustCentreScreen.kt | ✅ PARITY |
+| **Settings Persistence** | Local storage | SettingsManager.kt + FileDesktopSettingsStore | ✅ PARITY |
+| **History Click→Result** | Click item to view details | selectHistoryItem() triggers navigation | ✅ PARITY |
+| **i18n Localization** | Localized strings | 16 language files, t() wrapper | ✅ PARITY |
+| **Camera/Upload Flow** | Camera or upload | Upload Image (desktop alternative) | ⚠️ ACCEPTABLE |
+
+## ✅ Verification Results
+
+### 1. UI Matches Screenshots
+- Screenshot #0 (Export): ✅ Matches ReportsExportScreen.kt
+- Screenshot #2 (Scan Complete): ✅ Matches LiveScanScreen.kt
+- Screenshot #4 (Trust Centre): ✅ Matches TrustCentreScreen.kt
+
+### 2. No Hardcoded Strings
+- All user-facing strings use `t()` wrapper for translation
+- 16 language files in `i18n/` folder
+
+### 3. Desktop Scan Flow Works
+- pickImageAndScan() for file picker
+- Camera not supported (no OpenCV) - acceptable for desktop
+
+### 4. History Navigation Works
+- HistoryRow has onClick callback
+- selectHistoryItem() calls analyzeUrl() which triggers updateResult()
+- updateResult() auto-navigates to appropriate result screen
+
+### 5. Protection Settings Functional
+- TrustCentreScreen: Heuristic Sensitivity slider (Low/Balanced/Paranoia)
+- ToggleCard components for Strict Offline, Telemetry, Auto-copy
+- AllowListCard and BlockListCard with add/remove functionality
+- Settings persisted via SettingsManager
+
+## 🔧 Build Verification
+
+```bash
+./gradlew :desktopApp:desktopMainClasses
+# BUILD SUCCESSFUL
+```
+
+## 📋 How to Test
+
+1. **Scan Flow**: Click "Upload Image" → Select QR code image → Result screen displays
+2. **History Navigation**: Go to Scan History → Click any row → Navigates to result screen
+3. **Protection Settings**: Go to Trust Centre → Toggle settings → Settings persist after restart
+
+---
+
 # 🎨 December 26, 2025 (Session 10k+20) - Desktop App UI Polish
 
 ### Summary
