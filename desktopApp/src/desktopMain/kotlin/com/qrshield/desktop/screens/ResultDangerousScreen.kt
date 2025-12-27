@@ -308,52 +308,6 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                         }
                     }
                 }
-
-                Surface(shape = RoundedCornerShape(12.dp), color = colors.surface, border = BorderStroke(1.dp, colors.border)) {
-                    Column {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(if (isDark) colors.backgroundAlt else colors.backgroundAlt)
-                                .border(1.dp, colors.border)
-                                .padding(horizontal = 24.dp, vertical = 12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                MaterialIconRound(name = "preview", size = 18.sp, color = colors.textSub)
-                                Text(t("Visual Sandbox Preview"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
-                            }
-                            Text(t("SANDBOX MODE: NO NETWORK"), fontSize = 10.sp, color = colors.textMuted)
-                        }
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(240.dp)
-                                .background(if (isDark) colors.background else colors.backgroundAlt),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .width(320.dp)
-                                    .height(180.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(if (isDark) colors.surface else colors.surface)
-                                    .border(1.dp, colors.border)
-                                    .blur(1.dp)
-                            )
-                            Row(
-                                modifier = Modifier
-                                    .statusPill(colors.surface, colors.danger.copy(alpha = 0.3f))
-                                    .padding(horizontal = 12.dp, vertical = 6.dp)
-                            ) {
-                                MaterialIconRound(name = "visibility_off", size = 14.sp, color = colors.danger)
-                                Spacer(Modifier.width(6.dp))
-                                Text(t("Preview blurred for safety"), fontSize = 12.sp, color = colors.textSub)
-                            }
-                        }
-                    }
-                }
             }
 
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {

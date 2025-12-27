@@ -325,7 +325,7 @@ private fun DashboardContent(
                             )
                             // URL Input Bar
                             Surface(
-                                modifier = Modifier.widthIn(max = 520.dp).fillMaxWidth(),
+                                modifier = Modifier.widthIn(max = 680.dp).fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp),
                                 color = colors.backgroundAlt,
                                 border = BorderStroke(1.dp, colors.border)
@@ -367,6 +367,7 @@ private fun DashboardContent(
                                             cursorColor = colors.primary
                                         )
                                     )
+                                    Spacer(Modifier.width(12.dp))
                                     Button(
                                         onClick = {
                                             if (urlInput.isNotBlank()) {

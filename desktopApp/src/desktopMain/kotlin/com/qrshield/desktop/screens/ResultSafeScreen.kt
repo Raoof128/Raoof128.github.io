@@ -300,34 +300,6 @@ private fun SafeResultContent(
                     Surface(
                         shape = RoundedCornerShape(12.dp),
                         color = colors.surface,
-                        border = BorderStroke(1.dp, colors.border)
-                    ) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Text(t("Destination Preview"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textSub, letterSpacing = 1.sp)
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(180.dp)
-                                    .clip(RoundedCornerShape(12.dp))
-                                    .background(colors.backgroundAlt)
-                                    .border(1.dp, colors.border),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Box(
-                                        modifier = Modifier
-                                            .fillMaxWidth(0.8f)
-                                            .height(96.dp)
-                                            .cardSurface(colors.surface, colors.border, radius = 8.dp)
-                                    )
-                                }
-                            }
-                            Text(t("Sandbox rendered. No active scripts executed."), fontSize = 11.sp, color = colors.textSub, modifier = Modifier.padding(top = 8.dp).align(Alignment.CenterHorizontally))
-                        }
-                    }
-                    Surface(
-                        shape = RoundedCornerShape(12.dp),
-                        color = colors.surface,
                         border = BorderStroke(1.dp, colors.primary.copy(alpha = 0.2f))
                     ) {
                         Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {

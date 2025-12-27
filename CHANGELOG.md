@@ -5,6 +5,77 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.83] - 2025-12-28
+
+### 🔧 URL Input & Sandbox Removal
+
+#### 1. Fixed URL Input Text Cutoff ✅
+- **Problem**: Text in typing field (e.g., "www.google.com") was cut off
+- **Root Cause**: Surface container max width was too narrow (520dp)
+- **Fix**: Increased `widthIn(max = 520.dp)` → `widthIn(max = 680.dp)` in DashboardScreen.kt
+- **Result**: Full URL text now fits properly in the input field
+
+#### 2. Removed Destination Preview Sandbox ✅
+- **Problem**: "Destination Preview" decorative section in Safe Result screen served no functional purpose
+- **Location**: `ResultSafeScreen.kt` lines 300-327
+- **Removed elements**:
+  - "Destination Preview" header
+  - Empty 180dp tall preview box
+  - "Sandbox rendered. No active scripts executed." text
+- **Result**: Cleaner Safe Result screen focused on actual analysis data
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `DashboardScreen.kt` | Increased URL input width from 520dp to 680dp |
+| `ResultSafeScreen.kt` | Removed 28-line Destination Preview section |
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 9s ✅
+```
+
+---
+
+## [1.17.82] - 2025-12-28
+
+### 🔧 Dashboard & Profile UI Fixes
+
+#### 1. Fixed URL Input Text Cutoff ✅
+- **Problem**: Text in the URL input field was being cut off near the "Analyze" button
+- **Fix**: Added `Spacer(Modifier.width(12.dp))` between the text field and the button
+- **Result**: Full text is now visible with proper spacing
+
+#### 2. Added Edit Profile Icon ✅
+- **Problem**: "Edit Profile" menu item was missing its icon (while View Profile and Settings had icons)
+- **Root Cause**: "edit" icon wasn't in the `iconForName()` mapping
+- **Fix**: Added `"edit" -> Icons.Rounded.Edit` to IconText.kt
+
+#### 3. Removed Decorative Sandbox Preview ✅
+- **Problem**: "Visual Sandbox Preview" section in dangerous result was purely decorative with no function
+- **Fix**: Removed the entire 46-line Surface block from ResultDangerousScreen.kt
+- **Removed elements**:
+  - "Visual Sandbox Preview" header
+  - "SANDBOX MODE: NO NETWORK" label
+  - Blurred preview box
+  - "Preview blurred for safety" pill
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `IconText.kt` | Added "edit" icon mapping |
+| `DashboardScreen.kt` | Added spacing before Analyze button |
+| `ResultDangerousScreen.kt` | Removed Visual Sandbox Preview section |
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 15s ✅
+```
+
+---
+
 ## [1.17.81] - 2025-12-28
 
 ### 🔧 Dangerous Result Screen UI Fixes

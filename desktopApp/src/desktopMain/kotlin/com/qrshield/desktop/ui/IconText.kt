@@ -73,6 +73,7 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "dark_mode" -> if (useRounded) Icons.Rounded.DarkMode else Icons.Outlined.DarkMode
         "light_mode" -> if (useRounded) Icons.Rounded.LightMode else Icons.Outlined.LightMode
         "error" -> if (useRounded) Icons.Rounded.Error else Icons.Outlined.Error
+        "edit" -> if (useRounded) Icons.Rounded.Edit else Icons.Outlined.Edit
         "expand_less" -> if (useRounded) Icons.Rounded.ExpandLess else Icons.Outlined.ExpandLess
         "expand_more" -> if (useRounded) Icons.Rounded.ExpandMore else Icons.Outlined.ExpandMore
         "fact_check" -> if (useRounded) Icons.AutoMirrored.Rounded.FactCheck else Icons.AutoMirrored.Outlined.FactCheck
