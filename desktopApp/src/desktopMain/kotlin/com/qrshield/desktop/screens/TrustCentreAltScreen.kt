@@ -54,7 +54,7 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.TrustCentreAlt,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { /* Already on settings */ }
+                    onProfileClick = { viewModel.toggleProfileDropdown() }
                 )
                 TrustCentreAltContent(viewModel = viewModel)
             }
@@ -92,10 +92,10 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
                 isVisible = viewModel.showResetSettingsConfirmation,
                 onDismiss = { viewModel.dismissResetSettingsDialog() },
                 onConfirm = { viewModel.resetSettingsToDefaults() },
-                title = "Reset Settings",
-                message = "This will reset all settings to their default values. Your scan history will not be affected.",
-                confirmText = "Reset All",
-                cancelText = "Cancel",
+                title = DesktopStrings.translate("Reset Settings", language),
+                message = DesktopStrings.translate("This will reset all settings to their default values. Your scan history will not be affected.", language),
+                confirmText = DesktopStrings.translate("Reset All", language),
+                cancelText = DesktopStrings.translate("Cancel", language),
                 isDangerous = true,
                 icon = "restart_alt",
                 language = language

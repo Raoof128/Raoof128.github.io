@@ -5,6 +5,164 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.75] - 2025-12-27
+
+### 🐛 Desktop Bug Fixes & Complete Localization
+
+This release fixes three critical issues with the Desktop notification system and adds comprehensive translations to ALL 14 supported languages.
+
+#### Bug Fixes
+
+**1. Duplicate Notifications** 🔧
+- **Root Cause**: Same URL being scanned triggered multiple notifications
+- **Fix**: Added duplicate detection - notifications for the same URL within 5 seconds are ignored
+- **Also**: Limited notification list to 20 items maximum
+
+**2. Notifications Showing Pre-populated Data** 🔧
+- **Root Cause**: `notifications` was initialized with `sampleNotifications()` (demo data)
+- **Fix**: Changed to `emptyList<AppNotification>()` - starts clean on each app launch
+- **Cleanup**: Removed unused `sampleNotifications()` function
+
+**3. Notification Click Creating Duplicates** 🔧
+- **Root Cause**: `handleNotificationClick` was calling `analyzeUrl()` which added another notification
+- **Fix**: Now navigates directly based on notification type without re-analysis
+
+#### Localization Complete
+
+Added Trust Centre & Reports translations to ALL 14 language files:
+
+| Language | File | Status |
+|----------|------|--------|
+| Arabic | `DesktopStringsAr.kt` | ✅ +54 strings |
+| Chinese | `DesktopStringsZh.kt` | ✅ +54 strings |
+| French | `DesktopStringsFr.kt` | ✅ +74 strings |
+| German | `DesktopStringsDe.kt` | ✅ +68 strings |
+| Hindi | `DesktopStringsHi.kt` | ✅ +54 strings |
+| Indonesian | `DesktopStringsIn.kt` | ✅ +54 strings |
+| Italian | `DesktopStringsIt.kt` | ✅ +54 strings |
+| Japanese | `DesktopStringsJa.kt` | ✅ +54 strings |
+| Korean | `DesktopStringsKo.kt` | ✅ +54 strings |
+| Portuguese | `DesktopStringsPt.kt` | ✅ +77 strings |
+| Russian | `DesktopStringsRu.kt` | ✅ +49 strings |
+| Spanish | `DesktopStringsEs.kt` | ✅ +74 strings |
+| Thai | `DesktopStringsTh.kt` | ✅ +54 strings |
+| Turkish | `DesktopStringsTr.kt` | ✅ +54 strings |
+| Vietnamese | `DesktopStringsVi.kt` | ✅ +54 strings |
+
+#### Technical Changes
+
+**AppViewModel.kt**:
+- Changed `notifications` initialization to `emptyList<AppNotification>()`
+- Added duplicate URL detection (5-second window)
+- Added notification list cap at 20 items
+- Fixed `handleNotificationClick` to navigate directly without re-analyzing
+- Removed unused `sampleNotifications()` function
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
+## [1.17.74] - 2025-12-27
+
+### 🌍 Desktop Localization - Trust Centre & Reports Complete
+
+This session addressed missing translations in the Trust Centre and Reports Export screens that were causing English text to display in non-English locales.
+
+#### Root Cause
+Strings were correctly wrapped with `t()` translation function, but the translation entries were missing from language files. When `DesktopStrings.translate()` doesn't find a translation, it falls back to the English source string.
+
+#### Portuguese Translations Added (77 new entries)
+
+| Category | Count | Examples |
+|----------|-------|----------|
+| Trust Centre UI | 25 | "Trust Centre & Privacy Controls", "Heuristic Sensitivity", etc. |
+| Reports Export UI | 35 | "OUTPUT FORMAT", "Human PDF", "THREAT ANALYSIS REPORT", etc. |
+| Sensitivity Options | 9 | "Low", "Balanced", "Paranoia", modes labels |
+| Reset Dialog | 5 | "Reset Settings", "Reset All", etc. |
+| Misc | 3 | "100%", "Map", "Filename" |
+
+#### Technical Changes
+
+**1. DesktopStringsPt.kt**
+- Added 77 new Portuguese translation entries
+- Covers all visible UI strings in Trust Centre and Reports Export screens
+
+**2. ReportsExportScreen.kt**
+- Wrapped remaining hardcoded "100%" zoom indicator with `t()`
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `DesktopStringsPt.kt` | Added 77 Portuguese translations |
+| `ReportsExportScreen.kt` | Wrapped "100%" with `t()` |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
+## [1.17.73] - 2025-12-27
+
+### 🐛 Desktop App Bug Fixes - Notification & Profile Navigation
+
+This session addressed several critical functionality issues in the Desktop application.
+
+#### Issues Fixed
+
+| Issue | Component | Before | After |
+|-------|-----------|--------|-------|
+| Notification click | NotificationPanel | Only marked as read | Navigates to result screen ✅ |
+| Profile dropdown in Settings | TrustCentreAltScreen | Did nothing | Toggles dropdown correctly ✅ |
+| Reset Settings dialog | TrustCentreAltScreen | Hardcoded English | Properly localized ✅ |
+
+#### Technical Changes
+
+**1. NotificationPanel.kt**
+- Added `scanUrl: String?` field to `AppNotification` data class
+- Notifications now store the URL of the associated scan for navigation
+
+**2. AppViewModel.kt**
+- Updated `addNotification()` to accept optional `scanUrl` parameter
+- Added `handleNotificationClick()` method that:
+  - Marks notification as read
+  - Dismisses panel
+  - Re-analyzes the associated URL to navigate to result screen
+- All scan notifications now include their URL for click navigation
+
+**3. DashboardScreen.kt**
+- Changed `onNotificationClick` handler to call `viewModel.handleNotificationClick()`
+
+**4. TrustCentreAltScreen.kt**
+- Fixed `onProfileClick` to toggle dropdown instead of doing nothing
+- Wrapped hardcoded strings in Reset Settings dialog with `DesktopStrings.translate()`
+
+**5. DesktopStringsDe.kt**
+- Added German translations for Reset Settings dialog strings
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `NotificationPanel.kt` | Added `scanUrl` field to AppNotification |
+| `AppViewModel.kt` | Added `handleNotificationClick()`, updated `addNotification()` |
+| `DashboardScreen.kt` | Updated notification click handler |
+| `TrustCentreAltScreen.kt` | Fixed profile click + localized strings |
+| `DesktopStringsDe.kt` | Added Reset Settings translations |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
 ## [1.17.72] - 2025-12-27
 
 ### 🛠️ Desktop UI Layout Fixes - Complete Session

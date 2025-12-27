@@ -107,8 +107,7 @@ fun DashboardScreen(viewModel: AppViewModel) {
                 onDismiss = { viewModel.dismissNotificationPanel() },
                 onMarkAllRead = { viewModel.markAllNotificationsRead() },
                 onNotificationClick = { notification ->
-                    viewModel.markNotificationRead(notification)
-                    viewModel.dismissNotificationPanel()
+                    viewModel.handleNotificationClick(notification)
                 },
                 onClearAll = { viewModel.clearAllNotifications() },
                 language = language

@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.72`** (as of December 27, 2025)
+**Current App Version: `1.17.75`** (as of December 27, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,125 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🐛 December 27, 2025 (Session 10k+26) - Desktop Notification Fixes & Complete Localization
+
+### Summary
+Fixed 3 critical notification bugs and added Trust Centre/Reports translations to ALL 14 supported languages.
+
+## ✅ Bug Fixes
+
+### 1. Duplicate Notifications
+- **Issue**: Same URL scan created multiple identical notifications
+- **Fix**: Added 5-second duplicate detection window + capped list at 20 items
+
+### 2. Pre-populated Notifications on App Start
+- **Issue**: App started with demo notifications
+- **Fix**: Changed from `sampleNotifications()` to `emptyList<AppNotification>()`
+
+### 3. Notification Click Creating More Notifications
+- **Issue**: Clicking notification re-analyzed URL, creating another notification
+- **Fix**: Navigate directly based on notification type without re-analyzing
+
+## Localization Added
+
+Added Trust Centre & Reports translations to:
+- Arabic, Chinese, French, German, Hindi, Indonesian, Italian, Japanese, Korean, Portuguese, Russian, Spanish, Thai, Turkish, Vietnamese
+
+## Files Modified
+
+| File | Change |
+|------|--------|
+| `AppViewModel.kt` | Fixed notifications: empty init, duplicate detection, no re-analysis on click |
+| All 14 `DesktopStrings*.kt` | Added Trust Centre & Reports translations |
+
+## Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
+# 🌍 December 27, 2025 (Session 10k+25) - Desktop Localization Fixes
+
+### Summary
+Added 77 missing Portuguese translations for Trust Centre and Reports Export screens.
+
+## ✅ Root Cause Analysis
+
+The issue wasn't that strings weren't wrapped with `t()` - they were. The problem was that translation entries were **missing** from the language files. When `DesktopStrings.translate()` doesn't find a match, it returns the original English text.
+
+## Changes Made
+
+### DesktopStringsPt.kt
+Added complete Portuguese translations for:
+- Trust Centre UI (25 strings)
+- Reports Export UI (35 strings)
+- Sensitivity options (9 strings)
+- Reset dialog (5 strings)
+- Misc UI elements (3 strings)
+
+### ReportsExportScreen.kt
+- Wrapped remaining "100%" zoom indicator with `t()`
+
+## Files Modified
+
+| File | Change |
+|------|--------|
+| `DesktopStringsPt.kt` | Added 77 Portuguese translations |
+| `ReportsExportScreen.kt` | Wrapped "100%" with `t()` |
+
+## Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
+# 🐛 December 27, 2025 (Session 10k+24) - Desktop App Bug Fixes
+
+### Summary
+Fixed several critical bugs in the Desktop application related to notification navigation, profile dropdown, and hardcoded strings.
+
+## ✅ Changes Made
+
+### 1. Notification Click Navigation Fix
+- **Issue**: Clicking a notification only marked it as read but didn't navigate to the result screen
+- **Fix**: Added `scanUrl` field to `AppNotification` data class and `handleNotificationClick()` method
+- **Files**: `NotificationPanel.kt`, `AppViewModel.kt`, `DashboardScreen.kt`
+
+### 2. Profile Dropdown in Settings Fix
+- **Issue**: Clicking profile bar in TrustCentreAltScreen did nothing
+- **Fix**: Changed `onProfileClick` from no-op to `viewModel.toggleProfileDropdown()`
+- **File**: `TrustCentreAltScreen.kt`
+
+### 3. Reset Settings Dialog Localization
+- **Issue**: Hardcoded English strings in ConfirmationDialog
+- **Fix**: Wrapped strings with `DesktopStrings.translate()`
+- **File**: `TrustCentreAltScreen.kt`, `DesktopStringsDe.kt`
+
+## Files Modified
+
+| File | Change |
+|------|--------|
+| `NotificationPanel.kt` | Added `scanUrl` field to AppNotification |
+| `AppViewModel.kt` | Added `handleNotificationClick()`, updated `addNotification()` |
+| `DashboardScreen.kt` | Updated notification click handler |
+| `TrustCentreAltScreen.kt` | Fixed profile click + localized strings |
+| `DesktopStringsDe.kt` | Added Reset Settings translations |
+
+## Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
 
 ---
 

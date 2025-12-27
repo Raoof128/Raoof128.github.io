@@ -37,7 +37,8 @@ data class AppNotification(
     val message: String,
     val type: NotificationType,
     val timestamp: Long, // epoch milliseconds
-    val isRead: Boolean = false
+    val isRead: Boolean = false,
+    val scanUrl: String? = null // URL of the associated scan for navigation
 )
 
 enum class NotificationType {

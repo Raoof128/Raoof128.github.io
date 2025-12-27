@@ -172,7 +172,7 @@ class AppViewModel(
 
     // Notification System
     var showNotificationPanel by mutableStateOf(false)
-    var notifications by mutableStateOf(sampleNotifications())
+    var notifications by mutableStateOf(emptyList<AppNotification>())
     
     // Profile Dropdown
     var showProfileDropdown by mutableStateOf(false)
@@ -678,17 +678,45 @@ class AppViewModel(
         showNotificationPanel = false
     }
 
-    fun addNotification(title: String, message: String, type: NotificationType) {
+    fun addNotification(title: String, message: String, type: NotificationType, scanUrl: String? = null) {
         val now = PlatformTime.currentTimeMillis()
+        
+        // Prevent duplicate notifications for the same URL within 5 seconds
+        if (scanUrl != null) {
+            val recentDuplicate = notifications.any { 
+                it.scanUrl == scanUrl && (now - it.timestamp) < 5000 
+            }
+            if (recentDuplicate) return
+        }
+        
         val newNotification = AppNotification(
             id = "notif_$now",
             title = title,
             message = message,
             type = type,
             timestamp = now,
-            isRead = false
+            isRead = false,
+            scanUrl = scanUrl
         )
-        notifications = listOf(newNotification) + notifications
+        // Add new notification and keep only last 20
+        notifications = (listOf(newNotification) + notifications).take(20)
+    }
+
+    /**
+     * Handle notification click - navigates to the appropriate result screen
+     * Parity with Web app shared-ui.js handleNotificationClick
+     */
+    fun handleNotificationClick(notification: AppNotification) {
+        markNotificationRead(notification)
+        dismissNotificationPanel()
+        
+        // Navigate directly based on notification type (no re-analysis to avoid duplicates)
+        currentScreen = when (notification.type) {
+            NotificationType.SUCCESS -> AppScreen.ResultSafe
+            NotificationType.WARNING -> AppScreen.ResultSuspicious
+            NotificationType.ERROR -> AppScreen.ResultDangerous
+            NotificationType.INFO -> AppScreen.Dashboard
+        }
     }
 
     // Profile Dropdown Functions
@@ -902,22 +930,26 @@ class AppViewModel(
             Verdict.SAFE -> addNotification(
                 title = t("Scan Complete"),
                 message = tf("URL analysis finished: Safe. %s", urlPreview),
-                type = NotificationType.SUCCESS
+                type = NotificationType.SUCCESS,
+                scanUrl = url
             )
             Verdict.SUSPICIOUS -> addNotification(
                 title = t("Suspicious Activity"),
                 message = tf("Potentially risky URL detected. %s", urlPreview),
-                type = NotificationType.WARNING
+                type = NotificationType.WARNING,
+                scanUrl = url
             )
             Verdict.MALICIOUS -> addNotification(
                 title = t("Threat Blocked"),
                 message = tf("Malicious URL detected! %s", urlPreview),
-                type = NotificationType.ERROR
+                type = NotificationType.ERROR,
+                scanUrl = url
             )
             Verdict.UNKNOWN -> addNotification(
                 title = t("Analysis Incomplete"),
                 message = tf("Could not fully analyze URL. %s", urlPreview),
-                type = NotificationType.INFO
+                type = NotificationType.INFO,
+                scanUrl = url
             )
         }
 
@@ -1368,47 +1400,4 @@ private fun createInitialTrainingState(): TrainingState {
 private fun generateSessionId(): String {
     val chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     return (1..4).map { chars.random() }.joinToString("")
-}
-
-/**
- * Provides sample notifications for demonstration purposes
- */
-private fun sampleNotifications(): List<AppNotification> {
-    val now = PlatformTime.currentTimeMillis()
-    val minute = 60_000L
-    val hour = 60 * minute
-    return listOf(
-        AppNotification(
-            id = "notif_1",
-            title = "Threat Blocked",
-            message = "Malicious URL detected and blocked automatically.",
-            type = NotificationType.ERROR,
-            timestamp = now - 5 * minute,
-            isRead = false
-        ),
-        AppNotification(
-            id = "notif_2",
-            title = "Scan Complete",
-            message = "URL analysis finished. Result: Safe.",
-            type = NotificationType.SUCCESS,
-            timestamp = now - 30 * minute,
-            isRead = false
-        ),
-        AppNotification(
-            id = "notif_3",
-            title = "Database Updated",
-            message = "Threat signatures updated to latest version.",
-            type = NotificationType.INFO,
-            timestamp = now - 2 * hour,
-            isRead = true
-        ),
-        AppNotification(
-            id = "notif_4",
-            title = "Suspicious Activity",
-            message = "A domain on your blocklist was accessed.",
-            type = NotificationType.WARNING,
-            timestamp = now - 4 * hour,
-            isRead = true
-        )
-    )
 }

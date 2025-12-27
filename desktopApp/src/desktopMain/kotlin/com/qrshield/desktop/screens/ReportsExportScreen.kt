@@ -324,7 +324,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                             ) {
                                 MaterialSymbol(name = "zoom_out", size = 16.sp, color = colors.textSub)
                             }
-                            Text("100%", fontSize = 12.sp, color = colors.textSub)
+                            Text(t("100%"), fontSize = 12.sp, color = colors.textSub)
                             Box(
                                 modifier = Modifier
                                     .size(24.dp)
