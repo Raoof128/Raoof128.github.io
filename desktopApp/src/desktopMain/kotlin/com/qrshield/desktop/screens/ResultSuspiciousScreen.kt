@@ -157,36 +157,6 @@ private fun SuspiciousContent(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(64.dp)
-                    .background(colors.surface.copy(alpha = 0.8f))
-                    .border(1.dp, colors.border)
-                    .padding(horizontal = 32.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(t("Scan Monitor"), fontSize = 14.sp, color = colors.textSub)
-                    MaterialIcon(name = "chevron_right", size = 12.sp, color = colors.textSub)
-                    Text(tf("Result #SCAN-%s", scanId), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
-                }
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Box(
-                        modifier = Modifier
-                            .statusPill(colors.success.copy(alpha = if (isDark) 0.15f else 0.1f), colors.success.copy(alpha = 0.2f))
-                            .padding(horizontal = 12.dp, vertical = 4.dp)
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                            PulseDot(colors.success)
-                            Text(t("Engine Active V.2.4"), fontSize = 10.sp, fontWeight = FontWeight.Medium, color = colors.success)
-                        }
-                    }
-                    // Notification bell removed - only show on Dashboard
-                }
-            }
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()

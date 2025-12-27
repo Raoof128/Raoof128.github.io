@@ -119,45 +119,6 @@ private fun SafeResultContent(
             .background(colors.background)
             .gridPattern(spacing = 24.dp, lineColor = colors.border.copy(alpha = 0.3f), lineWidth = 1.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .background(colors.surface.copy(alpha = 0.8f))
-                .border(1.dp, colors.border)
-                .padding(horizontal = 32.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(t("Scan"), fontSize = 14.sp, color = colors.textSub)
-                MaterialIconRound(name = "chevron_right", size = 16.sp, color = colors.textMuted)
-                Text(t("Results"), fontSize = 14.sp, color = colors.textSub)
-                MaterialIconRound(name = "chevron_right", size = 16.sp, color = colors.textMuted)
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(6.dp))
-                            .background(colors.backgroundAlt)
-                            .padding(horizontal = 6.dp, vertical = 2.dp)
-                    ) {
-                        Text(tf("#SCAN-%s", scanId), fontSize = 10.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
-                    }
-            }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Box(
-                    modifier = Modifier
-                        .statusPill(colors.success.copy(alpha = 0.1f), colors.success.copy(alpha = 0.2f))
-                        .padding(horizontal = 12.dp, vertical = 6.dp)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(colors.success))
-                        Text(t("ENGINE ACTIVE"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = colors.success, letterSpacing = 1.sp)
-                    }
-                }
-                // Notification bell removed - only show on Dashboard
-            }
-        }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()

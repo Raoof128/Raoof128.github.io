@@ -160,56 +160,6 @@ private fun LiveScanContent(
             .fillMaxSize()
             .background(colors.background)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .background(colors.surface)
-                .border(1.dp, colors.border)
-                .padding(horizontal = 24.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(t("Dashboard"), fontSize = 14.sp, color = colors.textSub)
-                MaterialSymbol(name = "chevron_right", size = 16.sp, color = colors.textMuted, modifier = Modifier.padding(horizontal = 8.dp))
-                Text(
-                    t("Scan Monitor"),
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = colors.textMain,
-                    modifier = Modifier
-                        .background(colors.backgroundAlt, RoundedCornerShape(6.dp))
-                        .padding(horizontal = 8.dp, vertical = 2.dp)
-                )
-            }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                Surface(
-                    shape = RoundedCornerShape(999.dp),
-                    color = colors.success.copy(alpha = 0.1f),
-                    border = BorderStroke(1.dp, colors.success.copy(alpha = 0.2f)),
-                    shadowElevation = 0.dp
-                ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Box(modifier = Modifier.size(8.dp)) {
-                            Box(
-                                modifier = Modifier
-                                    .size(8.dp)
-                                    .clip(CircleShape)
-                                    .background(colors.success)
-                            )
-                        }
-                        Text(t("Offline Engine V.2.4 Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.success)
-                    }
-                }
-                // Notification bell removed - only show on Dashboard
-            }
-        }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()

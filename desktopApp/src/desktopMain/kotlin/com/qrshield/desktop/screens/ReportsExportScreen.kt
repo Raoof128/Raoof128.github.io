@@ -124,11 +124,6 @@ private fun ReportsContent(viewModel: AppViewModel) {
             verticalAlignment = Alignment.Bottom
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(t("Reports"), fontSize = 14.sp, color = colors.textSub)
-                    MaterialSymbol(name = "chevron_right", size = 12.sp, color = colors.textMuted)
-                    Text(t("Export"), fontSize = 14.sp, color = colors.textMain)
-                }
                 Text(t("Export Report"), fontSize = 32.sp, fontWeight = FontWeight.Black, color = colors.textMain)
                 Text(
                     tf("Configure output parameters for Scan ID #SCAN-%s", scanId),

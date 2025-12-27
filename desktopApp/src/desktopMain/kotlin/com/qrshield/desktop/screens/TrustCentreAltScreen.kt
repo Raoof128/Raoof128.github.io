@@ -116,25 +116,6 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
             .fillMaxSize()
             .background(colors.background)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .background(colors.surface.copy(alpha = 0.8f))
-                .border(1.dp, colors.border)
-                .padding(horizontal = 32.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(t("Settings"), fontSize = 14.sp, color = colors.textSub)
-                MaterialIconRound(name = "chevron_right", size = 16.sp, color = colors.textMuted, modifier = Modifier.padding(horizontal = 8.dp))
-                Text(t("Onboarding"), fontSize = 14.sp, color = colors.textSub)
-                MaterialIconRound(name = "chevron_right", size = 16.sp, color = colors.textMuted, modifier = Modifier.padding(horizontal = 8.dp))
-                Text(t("Offline Privacy"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.Medium)
-            }
-        }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()

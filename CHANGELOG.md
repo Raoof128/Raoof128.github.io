@@ -5,6 +5,70 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.87] - 2025-12-28
+
+### 🔧 Restored Action Icons on Dashboard
+
+Added back the action icons that were accidentally removed with the breadcrumb headers.
+
+#### What's Restored
+- **Engine Active** status pill (green indicator)
+- **Dark Mode Toggle** icon button
+- **Notifications** icon button (with red badge)
+- **Settings** icon button
+
+#### Design
+- Icons are now in a **compact top-right toolbar** without the breadcrumb text
+- Icons have a subtle surface background for better visibility
+- Uses 36x36dp touch targets with 8dp rounded corners
+
+```kotlin
+// New compact action icons bar
+Row(
+    modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 12.dp),
+    horizontalArrangement = Arrangement.End
+) {
+    // Engine Active pill + Dark Mode + Notifications + Settings
+}
+```
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 8s ✅
+```
+
+---
+
+## [1.17.86] - 2025-12-28
+
+### 🔧 Removed Breadcrumb Headers from All Screens
+
+Removed redundant breadcrumb navigation bars from all screens as per user request. The sidebar already provides navigation context.
+
+#### Screens Modified
+
+| Screen | Breadcrumb Removed |
+|--------|-------------------|
+| `DashboardScreen.kt` | "QR-SHIELD / Dashboard" header bar (90 lines) |
+| `LiveScanScreen.kt` | "Dashboard > Scan Monitor" header bar (50 lines) |
+| `ScanHistoryScreen.kt` | "QR-SHIELD / Scan History" header bar |
+| `TrustCentreAltScreen.kt` | "Settings > Onboarding > Offline Privacy" header bar (19 lines) |
+| `ReportsExportScreen.kt` | "Reports > Export" breadcrumb (5 lines) |
+| `ResultSafeScreen.kt` | "Scan > Results > #SCAN-XXX" header bar (39 lines) |
+| `ResultSuspiciousScreen.kt` | "Scan Monitor > Result #SCAN-XXX" header bar (30 lines) |
+| `ResultDangerousScreen.kt` | "Scan Monitor > Result" breadcrumb (simplified) |
+
+**Result**: Cleaner UI with more vertical space for actual content. Navigation context is provided by the sidebar.
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 12s ✅
+```
+
+---
+
 ## [1.17.85] - 2025-12-28
 
 ### 🔧 URL Input - Switched to BasicTextField

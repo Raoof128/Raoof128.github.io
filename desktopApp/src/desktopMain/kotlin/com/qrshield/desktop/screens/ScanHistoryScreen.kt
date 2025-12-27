@@ -71,12 +71,6 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                     onProfileClick = { viewModel.toggleProfileDropdown() }
                 )
                 Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                    ScanHistoryHeader(
-                        onNavigate = { viewModel.currentScreen = it },
-                        onShowNotifications = { viewModel.toggleNotificationPanel() },
-                        onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
-                        language = language
-                    )
                     ScanHistoryContent(
                         viewModel = viewModel,
                         onNavigate = { viewModel.currentScreen = it },

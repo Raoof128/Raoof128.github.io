@@ -132,27 +132,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(t("Scan Monitor"), fontSize = 12.sp, color = colors.textSub)
-                    MaterialIconRound(name = "chevron_right", size = 12.sp, color = colors.textSub)
-                    Text(t("Result"), fontSize = 12.sp, color = colors.textSub)
-                }
-                Text(t("Threat Analysis Report"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
-            }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Box(
-                    modifier = Modifier
-                        .statusPill(colors.surface, colors.border)
-                        .padding(horizontal = 12.dp, vertical = 6.dp)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(colors.success))
-                        Text(t("Engine Active v2.4.4"), fontSize = 11.sp, color = colors.textSub)
-                    }
-                }
-                // Notification bell removed - only show on Dashboard
-            }
+            Text(t("Threat Analysis Report"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
         }
 
         if (assessment == null || url.isNullOrBlank()) {

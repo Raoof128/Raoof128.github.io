@@ -174,93 +174,87 @@ private fun DashboardContent(
             .fillMaxSize()
             .background(colors.background)
     ) {
-        // App Bar / Header
+        // Top Action Icons Bar (no breadcrumb, just icons)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(64.dp)
-                .background(colors.surface)
-                .border(1.dp, colors.border)
-                .padding(horizontal = 32.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .padding(horizontal = 24.dp, vertical = 12.dp),
+            horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(t("QR-SHIELD"), fontSize = 14.sp, color = colors.textSub)
-                Text("/", fontSize = 14.sp, color = colors.textMuted)
-                Text(t("Dashboard"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.SemiBold)
-            }
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                Box(
-                    modifier = Modifier
-                        .statusPill(colors.success.copy(alpha = 0.1f), colors.success.copy(alpha = 0.3f))
-                        .padding(horizontal = 12.dp, vertical = 6.dp)
+            // Engine Active Status
+            Box(
+                modifier = Modifier
+                    .statusPill(colors.success.copy(alpha = 0.1f), colors.success.copy(alpha = 0.3f))
+                    .padding(horizontal = 12.dp, vertical = 6.dp)
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(8.dp)
-                                .clip(CircleShape)
-                                .background(colors.success)
-                        )
-                        Text(t("Engine Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.success)
-                    }
-                }
-                // Divider
-                Box(
-                    modifier = Modifier
-                        .width(1.dp)
-                        .height(24.dp)
-                        .background(colors.border)
-                )
-                // Dark Mode Toggle
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .clickable { onToggleDarkMode() }
-                        .focusable()
-                        .handCursor(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MaterialIconRound(
-                        name = if (isDarkMode) "light_mode" else "dark_mode",
-                        size = 20.sp,
-                        color = colors.textMuted
-                    )
-                }
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clickable { onShowNotifications() }
-                        .focusable()
-                        .handCursor(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MaterialIconRound(name = "notifications", size = 20.sp, color = colors.textMuted)
                     Box(
                         modifier = Modifier
                             .size(8.dp)
-                            .align(Alignment.TopEnd)
-                            .offset(x = 2.dp, y = 2.dp)
                             .clip(CircleShape)
-                            .background(colors.danger)
-                            .border(2.dp, colors.surface, CircleShape)
+                            .background(colors.success)
                     )
+                    Text(t("Engine Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.success)
                 }
+            }
+            Spacer(Modifier.width(16.dp))
+            // Dark Mode Toggle
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(colors.surface)
+                    .clickable { onToggleDarkMode() }
+                    .focusable()
+                    .handCursor(),
+                contentAlignment = Alignment.Center
+            ) {
+                MaterialIconRound(
+                    name = if (isDarkMode) "light_mode" else "dark_mode",
+                    size = 20.sp,
+                    color = colors.textMuted
+                )
+            }
+            Spacer(Modifier.width(8.dp))
+            // Notifications
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(colors.surface)
+                    .clickable { onShowNotifications() }
+                    .focusable()
+                    .handCursor(),
+                contentAlignment = Alignment.Center
+            ) {
+                MaterialIconRound(name = "notifications", size = 20.sp, color = colors.textMuted)
                 Box(
                     modifier = Modifier
-                        .size(32.dp)
-                        .clickable { onOpenSettings() }
-                        .focusable()
-                        .handCursor(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MaterialIconRound(name = "settings", size = 20.sp, color = colors.textMuted)
-                }
+                        .size(8.dp)
+                        .align(Alignment.TopEnd)
+                        .offset(x = 2.dp, y = 2.dp)
+                        .clip(CircleShape)
+                        .background(colors.danger)
+                        .border(2.dp, colors.surface, CircleShape)
+                )
+            }
+            Spacer(Modifier.width(8.dp))
+            // Settings
+            Box(
+                modifier = Modifier
+                    .size(36.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(colors.surface)
+                    .clickable { onOpenSettings() }
+                    .focusable()
+                    .handCursor(),
+                contentAlignment = Alignment.Center
+            ) {
+                MaterialIconRound(name = "settings", size = 20.sp, color = colors.textMuted)
             }
         }
 
