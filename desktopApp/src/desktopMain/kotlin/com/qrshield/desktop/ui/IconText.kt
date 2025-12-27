@@ -132,6 +132,7 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "wifi_off" -> if (useRounded) Icons.Rounded.WifiOff else Icons.Outlined.WifiOff
         "zoom_in" -> if (useRounded) Icons.Rounded.ZoomIn else Icons.Outlined.ZoomIn
         "zoom_out" -> if (useRounded) Icons.Rounded.ZoomOut else Icons.Outlined.ZoomOut
+        "sports_esports" -> if (useRounded) Icons.Rounded.SportsEsports else Icons.Outlined.SportsEsports
         else -> null
     }
 }

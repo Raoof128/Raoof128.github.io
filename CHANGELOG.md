@@ -5,6 +5,40 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.79] - 2025-12-28
+
+### 🔧 UI Fixes and Improvements
+
+#### 1. Beat the Bot Icon Fixed ✅
+- **Problem**: "Beat the Bot" sidebar item was missing its icon
+- **Root Cause**: `sports_esports` icon was not in the `iconForName()` mapping in `IconText.kt`
+- **Fix**: Added `"sports_esports" -> Icons.Rounded.SportsEsports` mapping
+
+#### 2. OpenCV Error Removed ✅
+- **Problem**: "Webcam scanning requires OpenCV integration" error was appearing
+- **Root Cause**: `startCameraScan()` was being called when clicking "Start New Scan" on Dashboard
+- **Fix**: Removed `startCameraScan()` call - now just navigates to LiveScan screen where user can upload images
+
+#### 3. Scan Section UI Cleaned Up ✅
+- **Problem**: Rectangular scanner frame with corner brackets was cluttering the scan UI
+- **Fix**: Removed the `ScanFrame` component that drew the decorative rectangle/corners
+- **Result**: Clean, minimal UI with just the centered icon, title, description, and upload button
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `IconText.kt` | Added `sports_esports` icon mapping |
+| `DashboardScreen.kt` | Removed `startCameraScan()` call |
+| `LiveScanScreen.kt` | Removed `ScanFrame` component, simplified centered content |
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 11s ✅
+```
+
+---
+
 ## [1.17.78] - 2025-12-27
 
 ### 🌍 Critical Localization Fixes & UI Improvements

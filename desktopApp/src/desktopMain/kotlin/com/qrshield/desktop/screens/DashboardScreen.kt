@@ -78,7 +78,8 @@ fun DashboardScreen(viewModel: AppViewModel) {
                 DashboardContent(
                     onStartScan = {
                         viewModel.currentScreen = AppScreen.LiveScan
-                        viewModel.startCameraScan()
+                        // Don't call startCameraScan() - webcam not available on desktop
+                        // User will use image upload from the LiveScan screen
                     },
                     onImportImage = {
                         viewModel.currentScreen = AppScreen.LiveScan

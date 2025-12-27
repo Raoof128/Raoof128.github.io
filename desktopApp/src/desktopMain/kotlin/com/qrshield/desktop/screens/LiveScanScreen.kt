@@ -272,7 +272,7 @@ private fun LiveScanContent(
                                         )
                                     )
                             )
-                            ScanFrame(modifier = Modifier.align(Alignment.Center), colors = colors)
+                            // Status pill at top
                             Box(
                                 modifier = Modifier
                                     .align(Alignment.TopCenter)
@@ -297,29 +297,27 @@ private fun LiveScanContent(
                                     Text(stateLabel, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMain, letterSpacing = 1.sp)
                                 }
                             }
+                            // Centered content - without the scanner frame
                             Column(
                                 modifier = Modifier
                                     .align(Alignment.Center)
-                                    .padding(32.dp)
-                                    .background(colors.surface.copy(alpha = 0.9f), RoundedCornerShape(16.dp))
-                                    .border(1.dp, colors.border, RoundedCornerShape(16.dp))
-                                    .padding(24.dp),
+                                    .padding(32.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Box(
                                     modifier = Modifier
-                                        .size(64.dp)
+                                        .size(80.dp)
                                         .clip(CircleShape)
-                                        .background(colors.backgroundAlt)
-                                        .border(1.dp, colors.border, CircleShape),
+                                        .background(colors.primary.copy(alpha = 0.1f))
+                                        .border(2.dp, colors.primary.copy(alpha = 0.3f), CircleShape),
                                     contentAlignment = Alignment.Center
                                 ) {
-                                    MaterialSymbol(name = "upload_file", size = 32.sp, color = colors.primary)
+                                    MaterialSymbol(name = "upload_file", size = 40.sp, color = colors.primary)
                                 }
-                                Spacer(modifier = Modifier.height(12.dp))
+                                Spacer(modifier = Modifier.height(20.dp))
                                 Text(
                                     stateTitle,
-                                    fontSize = 18.sp,
+                                    fontSize = 20.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = colors.textMain,
                                     textAlign = TextAlign.Center
@@ -327,21 +325,22 @@ private fun LiveScanContent(
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text(
                                     stateBody,
-                                    fontSize = 13.sp,
+                                    fontSize = 14.sp,
                                     color = colors.textSub,
                                     textAlign = TextAlign.Center,
-                                    lineHeight = 18.sp
+                                    lineHeight = 20.sp,
+                                    modifier = Modifier.widthIn(max = 340.dp)
                                 )
-                                Spacer(modifier = Modifier.height(16.dp))
+                                Spacer(modifier = Modifier.height(24.dp))
                                 Button(
                                     onClick = { viewModel.pickImageAndScan() },
                                     colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                     shape = RoundedCornerShape(10.dp),
-                                    contentPadding = PaddingValues(horizontal = 24.dp, vertical = 10.dp)
+                                    contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
                                 ) {
                                     MaterialSymbol(name = "add_photo_alternate", size = 18.sp, color = Color.White)
                                     Spacer(Modifier.width(8.dp))
-                                    Text(t("Upload Image"), fontWeight = FontWeight.Medium)
+                                    Text(t("Upload Image"), fontWeight = FontWeight.Medium, fontSize = 14.sp)
                                 }
                             }
                         }
