@@ -206,24 +206,7 @@ private fun LiveScanContent(
                         Text(t("Offline Engine V.2.4 Active"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.success)
                     }
                 }
-                Box(
-                    modifier = Modifier
-                        .size(36.dp)
-                        .clickable { viewModel.toggleNotificationPanel() }
-                        .focusable()
-                        .handCursor()
-                ) {
-                    MaterialSymbol(name = "notifications", size = 20.sp, color = colors.textMuted)
-                    Box(
-                        modifier = Modifier
-                            .size(8.dp)
-                            .align(Alignment.TopEnd)
-                            .offset(x = (-2).dp, y = 2.dp)
-                            .clip(CircleShape)
-                            .background(colors.danger)
-                            .border(2.dp, colors.surface, CircleShape)
-                    )
-                }
+                // Notification bell removed - only show on Dashboard
             }
         }
 
@@ -318,9 +301,10 @@ private fun LiveScanContent(
                                 modifier = Modifier
                                     .align(Alignment.Center)
                                     .padding(32.dp)
-                                    .background(colors.surface.copy(alpha = 0.8f), RoundedCornerShape(16.dp))
-                                    .border(1.dp, colors.surface.copy(alpha = 0.5f), RoundedCornerShape(16.dp))
+                                    .background(colors.surface.copy(alpha = 0.9f), RoundedCornerShape(16.dp))
+                                    .border(1.dp, colors.border, RoundedCornerShape(16.dp))
                                     .padding(24.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Box(
                                     modifier = Modifier
@@ -332,15 +316,23 @@ private fun LiveScanContent(
                                 ) {
                                     MaterialSymbol(name = "upload_file", size = 32.sp, color = colors.primary)
                                 }
-                                Text(stateTitle, fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain, modifier = Modifier.padding(top = 12.dp))
+                                Spacer(modifier = Modifier.height(12.dp))
+                                Text(
+                                    stateTitle,
+                                    fontSize = 18.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = colors.textMain,
+                                    textAlign = TextAlign.Center
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
                                 Text(
                                     stateBody,
                                     fontSize = 13.sp,
                                     color = colors.textSub,
                                     textAlign = TextAlign.Center,
-                                    lineHeight = 18.sp,
-                                    modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+                                    lineHeight = 18.sp
                                 )
+                                Spacer(modifier = Modifier.height(16.dp))
                                 Button(
                                     onClick = { viewModel.pickImageAndScan() },
                                     colors = ButtonDefaults.buttonColors(containerColor = colors.primary),

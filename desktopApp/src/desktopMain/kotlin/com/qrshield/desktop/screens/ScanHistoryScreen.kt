@@ -153,52 +153,7 @@ private fun ScanHistoryHeader(
             Text("/", fontSize = 14.sp, color = colors.textMuted)
             Text(t("Scan History"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.SemiBold)
         }
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Box(
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(colors.backgroundAlt)
-                    .border(1.dp, colors.border)
-                    .clickable { onShowNotifications() }
-                    .focusable()
-                    .handCursor(),
-                contentAlignment = Alignment.Center
-            ) {
-                MaterialSymbol(name = "notifications", size = 18.sp, color = colors.textMuted)
-            }
-            Box(
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(colors.backgroundAlt)
-                    .border(1.dp, colors.border)
-                    .clickable { onOpenSettings() }
-                    .focusable()
-                    .handCursor(),
-                contentAlignment = Alignment.Center
-            ) {
-                MaterialSymbol(name = "settings", size = 18.sp, color = colors.textMuted)
-            }
-            Box(
-                modifier = Modifier
-                    .height(24.dp)
-                    .width(1.dp)
-                    .background(colors.border)
-            )
-            Row(
-                modifier = Modifier
-                    .pillShape(Color.Transparent)
-                    .padding(horizontal = 4.dp, vertical = 2.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                val userProfile = SampleData.userProfile
-                ImageAvatar(language)
-                Text(t(userProfile.name), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
-                MaterialSymbol(name = "expand_more", size = 16.sp, color = colors.textMuted)
-            }
-        }
+        // Action icons (notifications, settings, profile) removed - only show on Dashboard
     }
 }
 
@@ -308,9 +263,21 @@ private fun ScanHistoryContent(
                     shape = RoundedCornerShape(12.dp),
                     color = colors.primary
                 ) {
-                    Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .height(36.dp)
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
                         MaterialSymbol(name = "download", size = 18.sp, color = Color.White)
-                        Text(t("Export CSV"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        Text(
+                            t("Export CSV"),
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            maxLines = 1
+                        )
                     }
                 }
             }

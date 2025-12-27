@@ -183,23 +183,7 @@ private fun SuspiciousContent(
                             Text(t("Engine Active V.2.4"), fontSize = 10.sp, fontWeight = FontWeight.Medium, color = colors.success)
                         }
                     }
-                    Box(
-                        modifier = Modifier
-                            .size(28.dp)
-                            .clickable { viewModel.toggleNotificationPanel() }
-                            .focusable()
-                    ) {
-                        MaterialIcon(name = "notifications", size = 18.sp, color = colors.textSub)
-                        Box(
-                            modifier = Modifier
-                                .size(8.dp)
-                                .align(Alignment.TopEnd)
-                                .offset(x = (-2).dp, y = 2.dp)
-                                .clip(CircleShape)
-                                .background(colors.danger)
-                                .border(2.dp, colors.surface, CircleShape)
-                        )
-                    }
+                    // Notification bell removed - only show on Dashboard
                 }
             }
 

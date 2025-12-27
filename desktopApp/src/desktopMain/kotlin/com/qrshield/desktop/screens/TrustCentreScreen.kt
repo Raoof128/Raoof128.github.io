@@ -43,6 +43,7 @@ import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.progressTrack
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.toggleTrack
+import com.qrshield.desktop.ui.handCursor
 import com.qrshield.desktop.ui.ProfileDropdown
 import com.qrshield.desktop.ui.EditProfileDialog
 
@@ -141,45 +142,50 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                     color = colors.success.copy(alpha = 0.1f),
                     modifier = Modifier.align(Alignment.TopEnd)
                 )
-                Row(
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // Header row with button aligned to top-right
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.Top
+                    ) {
                         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(colors.success))
                             Text(t("AIR-GAPPED STATUS: ACTIVE"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.success, letterSpacing = 1.2.sp)
                         }
-                        Text(t("Strict Offline Guarantee"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
-                        Text(
-                            t("QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis."),
-                            fontSize = 16.sp,
-                            color = colors.textSub,
-                            modifier = Modifier.widthIn(max = 520.dp)
-                        )
-                    }
-                    Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = colors.surface,
-                        border = BorderStroke(1.dp, colors.border),
-                        modifier = Modifier
-                            .clickable { onNavigate(AppScreen.ReportsExport) }
-                            .focusable()
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        Surface(
+                            shape = RoundedCornerShape(8.dp),
+                            color = colors.surface,
+                            border = BorderStroke(1.dp, colors.border),
+                            modifier = Modifier
+                                .clickable { onNavigate(AppScreen.ReportsExport) }
+                                .focusable()
+                                .handCursor()
                         ) {
-                            MaterialSymbol(name = "description", size = 16.sp, color = colors.textMain)
-                            Text(t("View Audit Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
+                            Row(
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                MaterialSymbol(name = "description", size = 16.sp, color = colors.textMain)
+                                Text(t("View Audit Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
+                            }
                         }
                     }
+                    // Title and description below
+                    Text(t("Strict Offline Guarantee"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+                    Text(
+                        t("QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis."),
+                        fontSize = 16.sp,
+                        color = colors.textSub,
+                        modifier = Modifier.widthIn(max = 520.dp)
+                    )
                 }
             }
         }
-
         Row(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxWidth()) {
             Surface(
                 modifier = Modifier.weight(2f),
@@ -187,98 +193,109 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 color = colors.surface,
                 border = BorderStroke(1.dp, colors.border)
             ) {
-                Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    // Header row
                     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            MaterialSymbol(name = "tune", size = 20.sp, color = colors.primary)
-                            Text(t("Heuristic Sensitivity"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
-                        }
-                        Box(
-                            modifier = Modifier
-                                .clip(RoundedCornerShape(6.dp))
-                                .background(colors.primary.copy(alpha = 0.1f))
-                                .border(1.dp, colors.primary.copy(alpha = 0.2f), RoundedCornerShape(6.dp))
-                                .padding(horizontal = 8.dp, vertical = 4.dp)
-                        ) {
-                            Text(modeLabel, fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.primary)
-                        }
-                    }
-                    Box(modifier = Modifier.height(48.dp)) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .progressTrack(colors.border)
-                        )
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth(0.5f)
-                                .height(8.dp)
-                                .progressFill(colors.primary)
-                        )
-                        Column(
-                            modifier = Modifier
-                                .offset(x = 0.dp, y = 0.dp)
-                                .clickable { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Low) }
-                                .focusable(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                             Box(
                                 modifier = Modifier
-                                    .size(16.dp)
-                                    .clip(CircleShape)
-                                    .background(if (lowSelected) colors.primary else colors.border)
-                                    .border(2.dp, colors.surface, CircleShape)
-                            )
-                            Text(t("Low"), fontSize = 12.sp, color = if (lowSelected) colors.textMain else colors.textSub)
-                        }
-                        Column(
-                            modifier = Modifier
-                                .offset(x = 240.dp, y = (-4).dp)
-                                .clickable { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Balanced) }
-                                .focusable(),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(28.dp)
-                                    .clip(CircleShape)
-                                    .background(if (balancedSelected) colors.primary else colors.border)
-                                    .border(4.dp, colors.surface, CircleShape),
+                                    .size(36.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(colors.primary.copy(alpha = 0.1f)),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(8.dp)
-                                        .clip(CircleShape)
-                                        .background(colors.surface)
-                                )
+                                MaterialSymbol(name = "tune", size = 20.sp, color = colors.primary)
                             }
+                            Column {
+                                Text(t("Heuristic Sensitivity"), fontSize = 15.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
+                                Text(t("Adjust detection strictness"), fontSize = 12.sp, color = colors.textSub)
+                            }
+                        }
+                        // Current mode badge
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(
+                                    when (sensitivity) {
+                                        HeuristicSensitivity.Low -> colors.success.copy(alpha = 0.1f)
+                                        HeuristicSensitivity.Balanced -> colors.primary.copy(alpha = 0.1f)
+                                        HeuristicSensitivity.Paranoia -> colors.warning.copy(alpha = 0.15f)
+                                    }
+                                )
+                                .border(
+                                    1.dp,
+                                    when (sensitivity) {
+                                        HeuristicSensitivity.Low -> colors.success.copy(alpha = 0.3f)
+                                        HeuristicSensitivity.Balanced -> colors.primary.copy(alpha = 0.3f)
+                                        HeuristicSensitivity.Paranoia -> colors.warning.copy(alpha = 0.3f)
+                                    },
+                                    RoundedCornerShape(20.dp)
+                                )
+                                .padding(horizontal = 14.dp, vertical = 6.dp)
+                        ) {
                             Text(
-                                t("Balanced"),
-                                fontSize = 14.sp,
+                                modeLabel,
+                                fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (balancedSelected) colors.textMain else colors.textSub
+                                color = when (sensitivity) {
+                                    HeuristicSensitivity.Low -> colors.success
+                                    HeuristicSensitivity.Balanced -> colors.primary
+                                    HeuristicSensitivity.Paranoia -> colors.warning
+                                },
+                                letterSpacing = 0.5.sp
                             )
                         }
-                        Column(
-                            modifier = Modifier
-                                .offset(x = 480.dp, y = 0.dp)
-                                .clickable { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Paranoia) }
-                                .focusable(),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                    }
+                    
+                    // Segmented control style selector
+                    Surface(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(10.dp),
+                        color = colors.backgroundAlt,
+                        border = BorderStroke(1.dp, colors.border)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(4.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(16.dp)
-                                    .clip(CircleShape)
-                                    .background(if (paranoiaSelected) colors.primary else colors.border)
-                                    .border(2.dp, colors.surface, CircleShape)
+                            // Low option
+                            SensitivityOption(
+                                label = t("Low"),
+                                description = t("Minimal alerts"),
+                                icon = "shield",
+                                selected = lowSelected,
+                                color = colors.success,
+                                modifier = Modifier.weight(1f),
+                                onClick = { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Low) }
                             )
-                            Text(t("Paranoia"), fontSize = 12.sp, color = if (paranoiaSelected) colors.textMain else colors.textSub)
+                            
+                            // Balanced option
+                            SensitivityOption(
+                                label = t("Balanced"),
+                                description = t("Recommended"),
+                                icon = "verified_user",
+                                selected = balancedSelected,
+                                color = colors.primary,
+                                modifier = Modifier.weight(1f),
+                                onClick = { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Balanced) }
+                            )
+                            
+                            // Paranoia option
+                            SensitivityOption(
+                                label = t("Paranoia"),
+                                description = t("Maximum security"),
+                                icon = "warning",
+                                selected = paranoiaSelected,
+                                color = colors.warning,
+                                modifier = Modifier.weight(1f),
+                                onClick = { viewModel.updateHeuristicSensitivity(HeuristicSensitivity.Paranoia) }
+                            )
                         }
                     }
                 }
             }
+            
+            // Verdict Logic Explanation card
             Surface(
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(12.dp),
@@ -286,14 +303,29 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 border = BorderStroke(1.dp, colors.border)
             ) {
                 Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(t("Verdict Logic Explanation"), fontSize = 13.sp, color = colors.textSub, fontWeight = FontWeight.Medium)
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        MaterialSymbol(name = "info", size = 16.sp, color = colors.primary)
+                        Text(t("Verdict Logic"), fontSize = 13.sp, color = colors.textMain, fontWeight = FontWeight.SemiBold)
+                    }
                     Text(
-                        t("Balanced Mode uses standard heuristic signatures. It flags known malicious patterns but allows common URL shorteners unless they redirect to suspicious TLDs."),
-                        fontSize = 14.sp,
-                        color = colors.textMain
+                        when (sensitivity) {
+                            HeuristicSensitivity.Low -> t("Low mode reduces false positives. Only flags confirmed malicious patterns. Best for trusted environments.")
+                            HeuristicSensitivity.Balanced -> t("Balanced mode uses standard heuristics. Flags known malicious patterns and suspicious URL shorteners.")
+                            HeuristicSensitivity.Paranoia -> t("Paranoia mode enables maximum scrutiny. All edge cases trigger warnings. Best for high-security needs.")
+                        },
+                        fontSize = 13.sp,
+                        color = colors.textSub,
+                        lineHeight = 20.sp
                     )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(t("Engine v4.1.2 • Sig DB: 2023-10-27"), fontSize = 11.sp, color = colors.textSub)
+                    Spacer(modifier = Modifier.weight(1f))
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(6.dp))
+                            .background(colors.backgroundAlt)
+                            .padding(horizontal = 10.dp, vertical = 6.dp)
+                    ) {
+                        Text(t("Engine v4.1.2 • Sig DB: 2023-10-27"), fontSize = 10.sp, color = colors.textMuted)
+                    }
                 }
             }
         }
@@ -343,36 +375,99 @@ private fun ToggleCard(
 ) {
     val colors = LocalStitchTokens.current.colors
     Surface(
-        modifier = modifier,
+        modifier = modifier.height(72.dp),
         shape = RoundedCornerShape(12.dp),
         color = colors.surface,
         border = BorderStroke(1.dp, colors.border)
     ) {
         Row(
             modifier = Modifier
+                .fillMaxSize()
                 .clickable { onToggle() }
                 .focusable()
+                .handCursor()
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.weight(1f, fill = false)
+            ) {
                 Text(title, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
                 Text(subtitle, fontSize = 12.sp, color = colors.textSub)
             }
+            Spacer(modifier = Modifier.width(12.dp))
+            // Explicit toggle component with fixed sizing
             Box(
                 modifier = Modifier
-                    .toggleTrack(enabled, activeColor, colors.border)
+                    .width(52.dp)
+                    .height(28.dp)
+                    .clip(RoundedCornerShape(14.dp))
+                    .background(if (enabled) activeColor else colors.border.copy(alpha = 0.6f)),
+                contentAlignment = if (enabled) Alignment.CenterEnd else Alignment.CenterStart
             ) {
                 Box(
                     modifier = Modifier
-                        .size(16.dp)
-                        .align(if (enabled) Alignment.CenterEnd else Alignment.CenterStart)
-                        .offset(x = if (enabled) (-4).dp else 4.dp)
+                        .padding(horizontal = 3.dp)
+                        .size(22.dp)
                         .clip(CircleShape)
-                        .background(colors.surface)
+                        .background(Color.White)
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun SensitivityOption(
+    label: String,
+    description: String,
+    icon: String,
+    selected: Boolean,
+    color: Color,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    val colors = LocalStitchTokens.current.colors
+    Surface(
+        modifier = modifier
+            .clip(RoundedCornerShape(8.dp))
+            .clickable { onClick() }
+            .focusable(),
+        shape = RoundedCornerShape(8.dp),
+        color = if (selected) color.copy(alpha = 0.1f) else Color.Transparent,
+        border = if (selected) BorderStroke(1.5.dp, color.copy(alpha = 0.4f)) else null
+    ) {
+        Column(
+            modifier = Modifier.padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(32.dp)
+                    .clip(CircleShape)
+                    .background(if (selected) color.copy(alpha = 0.15f) else colors.border.copy(alpha = 0.3f)),
+                contentAlignment = Alignment.Center
+            ) {
+                MaterialSymbol(
+                    name = icon,
+                    size = 18.sp,
+                    color = if (selected) color else colors.textMuted
+                )
+            }
+            Text(
+                label,
+                fontSize = 13.sp,
+                fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium,
+                color = if (selected) color else colors.textSub
+            )
+            Text(
+                description,
+                fontSize = 10.sp,
+                color = if (selected) color.copy(alpha = 0.8f) else colors.textMuted
+            )
         }
     }
 }

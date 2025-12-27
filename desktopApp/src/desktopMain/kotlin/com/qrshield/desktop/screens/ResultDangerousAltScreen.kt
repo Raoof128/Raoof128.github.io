@@ -133,24 +133,7 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
                         Text(t("Engine Active (Offline)"), fontSize = 11.sp, color = colors.textSub)
                     }
                 }
-                Box(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { viewModel.toggleNotificationPanel() }
-                        .focusable(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MaterialIconRound(name = "notifications", size = 18.sp, color = colors.textSub)
-                }
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clip(CircleShape)
-                        .background(colors.primary),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(userProfile.initials, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = Color.White)
-                }
+                // Notification bell and profile removed - only show on Dashboard
             }
         }
 

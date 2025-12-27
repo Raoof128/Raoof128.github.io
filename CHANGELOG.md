@@ -5,6 +5,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.69] - 2025-12-27
+
+### 🎨 Desktop UI Polish - 5 Targeted Fixes
+
+#### Task 1: Heuristic Sensitivity Tiles - Icon Consistency
+- **Issue:** Paranoia tile was missing a visible icon
+- **Fix:** Changed Paranoia icon from `gpp_maybe` to `warning` (more reliable Material Symbol)
+- All 3 tiles now have consistent icons: `shield` (Low), `verified_user` (Balanced), `warning` (Paranoia)
+- Icons are same size (18sp) and aligned in 32dp circular containers
+- **File:** `TrustCentreScreen.kt` (line 281)
+
+#### Task 2: Settings Toggle Cards - Size Consistency
+- **Issue:** Auto-copy Safe Links card had different height
+- **Fix:** Added fixed height `72.dp` to ToggleCard and `fillMaxSize()` to inner Row
+- All 3 toggle cards now have identical height, padding, and switch dimensions
+- Switch remains consistent: 52×28dp track, 22dp thumb
+- Added `handCursor()` for pointer feedback
+- **File:** `TrustCentreScreen.kt` (line 371-388)
+
+#### Task 3: Strict Offline Guarantee Card - Button Position
+- **Issue:** "View Audit Log" button sat mid-card instead of top-right
+- **Fix:** Restructured layout - Row with header badge + button now sits at top of Column
+- Button aligns to `Alignment.Top` within the header row
+- Title and description are positioned below the header row
+- Added `handCursor()` for pointer feedback
+- Routes to `AppScreen.ReportsExport` (closest existing logs/export screen)
+- **File:** `TrustCentreScreen.kt` (lines 131-186)
+
+#### Task 4: History Screen - Export CSV Button Orientation
+- **Issue:** Export CSV text was rendering vertically
+- **Fix:** Added explicit `height(36.dp)` constraint and `maxLines = 1` to Text
+- Button now renders horizontally with proper icon + text alignment
+- **File:** `ScanHistoryScreen.kt` (lines 255-282)
+
+#### Task 5: Ready to Scan Panel - Alignment
+- **Issue:** Title, icon, and button were misaligned
+- **Fix:** Added `horizontalAlignment = Alignment.CenterHorizontally` to Column
+- Replaced Modifier.padding with explicit Spacers for consistent spacing
+- Added `textAlign = TextAlign.Center` to title
+- Changed surface alpha from 0.8f to 0.9f for better visibility
+- Changed border from `colors.surface` to `colors.border` for consistency
+- **File:** `LiveScanScreen.kt` (lines 300-346)
+
+#### Files Modified
+| File | Task | Change |
+|------|------|--------|
+| `TrustCentreScreen.kt` | 1 | Paranoia icon: `gpp_maybe` → `warning` |
+| `TrustCentreScreen.kt` | 2 | ToggleCard: Added `.height(72.dp)` + `.fillMaxSize()` |
+| `TrustCentreScreen.kt` | 3 | Strict Offline card: Moved button to header row |
+| `ScanHistoryScreen.kt` | 4 | Export CSV: Added `.height(36.dp)` + `maxLines = 1` |
+| `LiveScanScreen.kt` | 5 | Upload panel: Added `horizontalAlignment` + Spacers |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 7s
+```
+
+---
+
+## [1.17.68] - 2025-12-27
+
+### 🎨 Desktop UI Polish - Heuristic Sensitivity Redesign
+
+- **Old Design:** Disconnected slider with floating dots above a track bar
+- **New Design:** Modern segmented control with icon-based option cards
+- Header with icon in rounded container + subtitle
+- Mode badge changes color based on selection (green/blue/orange)
+- Segmented control with 3 clickable option cards
+- Verdict Logic card now updates dynamically based on selection
+- Added `SensitivityOption` composable for reusable option cards
+
+---
 ## [1.17.67] - 2025-12-27
 
 ### 🎨 Desktop UI Polish - Color Consistency & Visual Refinements

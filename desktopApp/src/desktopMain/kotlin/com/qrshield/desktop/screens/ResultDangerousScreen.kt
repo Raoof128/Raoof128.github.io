@@ -148,23 +148,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                         Text(t("Engine Active v2.4.4"), fontSize = 11.sp, color = colors.textSub)
                     }
                 }
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clickable { viewModel.toggleNotificationPanel() }
-                        .focusable()
-                ) {
-                    MaterialIconRound(name = "notifications", size = 18.sp, color = colors.textSub)
-                    Box(
-                        modifier = Modifier
-                            .size(8.dp)
-                            .align(Alignment.TopEnd)
-                            .offset(x = (-2).dp, y = 2.dp)
-                            .clip(CircleShape)
-                            .background(colors.danger)
-                            .border(2.dp, colors.surface, CircleShape)
-                    )
-                }
+                // Notification bell removed - only show on Dashboard
             }
         }
 
