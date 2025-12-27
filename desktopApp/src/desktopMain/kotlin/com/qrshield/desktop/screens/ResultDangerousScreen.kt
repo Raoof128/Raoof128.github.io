@@ -108,22 +108,25 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
     val isDark = viewModel.isDarkMode
     val colors = LocalStitchTokens.current.colors
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colors.background)
-            .gridPattern(spacing = 40.dp, lineColor = colors.border.copy(alpha = 0.05f), lineWidth = 1.dp)
-            .verticalScroll(rememberScrollState())
-            .padding(32.dp)
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Decorative background circle - positioned absolutely so it doesn't take layout space
         Box(
             modifier = Modifier
                 .size(500.dp)
-                .align(Alignment.End)
-                .offset(y = (-200).dp)
+                .align(Alignment.TopEnd)
+                .offset(x = 100.dp, y = (-150).dp)
                 .background(colors.danger.copy(alpha = 0.1f), CircleShape)
                 .blur(60.dp)
         )
+        
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Transparent)
+                .gridPattern(spacing = 40.dp, lineColor = colors.border.copy(alpha = 0.05f), lineWidth = 1.dp)
+                .verticalScroll(rememberScrollState())
+                .padding(32.dp)
+        ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -357,12 +360,30 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                 Surface(shape = RoundedCornerShape(12.dp), color = colors.surface, border = BorderStroke(1.dp, colors.border)) {
                     Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Text(t("Threat Score"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, letterSpacing = 1.sp)
-                        Box(modifier = Modifier.size(128.dp), contentAlignment = Alignment.Center) {
-                            Text(assessment.score.toString(), fontSize = 32.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+                        Box(
+                            modifier = Modifier.size(128.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            // Red circle background behind the score
+                            Box(
+                                modifier = Modifier
+                                    .size(100.dp)
+                                    .background(colors.danger.copy(alpha = 0.15f), CircleShape)
+                                    .border(2.dp, colors.danger.copy(alpha = 0.3f), CircleShape)
+                            )
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    assessment.score.toString(),
+                                    fontSize = 36.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = colors.danger
+                                )
+                            }
                             Text(
                                 t(assessment.scoreDescription).uppercase(),
                                 fontSize = 10.sp,
-                                color = colors.textSub,
+                                fontWeight = FontWeight.Bold,
+                                color = colors.danger,
                                 modifier = Modifier.align(Alignment.BottomCenter)
                             )
                         }
@@ -430,7 +451,8 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                 }
             }
         }
-    }
+        } // Close Column
+    } // Close outer Box
 }
 
 @Composable

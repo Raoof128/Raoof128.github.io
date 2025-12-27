@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.80`** (as of December 28, 2025)
+**Current App Version: `1.17.81`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 

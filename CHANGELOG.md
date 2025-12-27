@@ -5,6 +5,39 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.81] - 2025-12-28
+
+### 🔧 Dangerous Result Screen UI Fixes
+
+#### 1. Added Red Circle Behind Threat Score ✅
+- **Problem**: Score number lacked visual emphasis for dangerous results
+- **Fix**: Added red background circle behind the score number with matching border
+- **Visual**: Score now displayed in `colors.danger` with 15% alpha background circle
+
+#### 2. Fixed Excessive Top Space ✅
+- **Problem**: Large decorative pink circle was taking layout space, pushing content down
+- **Root Cause**: The circle was inside the Column layout flow with `offset(y = -200.dp)`
+- **Fix**: Moved decorative circle to absolute positioning inside an outer `Box` wrapper
+- **Result**: Content now starts at the top without excessive padding
+
+#### 3. Security Settings Already Wired ✅
+- **Verified**: All toggles in `TrustCentreAltScreen.kt` are connected to `viewModel` properties
+- Settings include: `autoBlockThreats`, `realTimeScanning`, `soundAlerts`, `threatAlerts`, `showConfidenceScore`
+- **No changes needed** - toggles were functional
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `ResultDangerousScreen.kt` | Added Box wrapper for absolute positioning, added red circle behind threat score |
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 9s ✅
+```
+
+---
+
 ## [1.17.80] - 2025-12-28
 
 ### 🔧 Hotkey Fix & Training UI Cleanup
