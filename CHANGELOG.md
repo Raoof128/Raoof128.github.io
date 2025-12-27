@@ -5,6 +5,76 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.89] - 2025-12-28
+
+### 🔧 Fixed Audit Log Button Positioning (Proper Fix)
+
+Restructured the AIR-GAPPED banner card layout to properly position the "View Audit Log" button.
+
+#### Changes
+- **Layout**: Changed from nested Row-based positioning to Box with `Modifier.align(Alignment.TopEnd)`
+- **Button**: Now absolutely positioned at top-right with 16dp padding from card edges
+- **Shield Icon**: Moved to `CenterEnd` so it doesn't overlap with button
+- **Content**: Status indicator, title, and description now in a clean vertical Column
+
+```kotlin
+Box(modifier = Modifier.fillMaxWidth()) {
+    // Decorative shield (CenterEnd)
+    MaterialSymbol(..., modifier = Modifier.align(Alignment.CenterEnd))
+    
+    // Main content (left side)
+    Column(...) { ... }
+    
+    // Button (TopEnd, above everything)
+    Surface(..., modifier = Modifier.align(Alignment.TopEnd).padding(16.dp)) { ... }
+}
+```
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 8s ✅
+```
+
+---
+
+## [1.17.88] - 2025-12-28
+
+### 🔧 UI Fixes & Logo Integration
+
+#### 1. Fixed Audit Log Button Alignment ✅
+- **Problem**: "View Audit Log" button was misaligned with a strange offset
+- **Fix**: Removed `offset(x = 8.dp, y = (-4).dp)` and changed `verticalAlignment` from `Top` to `CenterVertically`
+- **Result**: Button now aligns properly with the "AIR-GAPPED STATUS" indicator
+
+#### 2. Integrated App Logo in Sidebar ✅
+- **Source**: Copied `QR-SHIELD.iconset/icon_128x128.png` → `assets/app-icon.png`
+- **Integration**: Replaced generic `security` icon in sidebar header with actual app logo
+- **Implementation**:
+```kotlin
+Image(
+    painter = painterResource("assets/app-icon.png"),
+    contentDescription = "QR-SHIELD Logo",
+    contentScale = ContentScale.Fit,
+    modifier = Modifier.size(28.dp)
+)
+```
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `TrustCentreScreen.kt` | Fixed Audit Log button alignment |
+| `AppSidebar.kt` | Added Image import, replaced security icon with app logo |
+| `assets/app-icon.png` | New file - 128x128 app icon for UI use |
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 8s ✅
+```
+
+---
+
 ## [1.17.87] - 2025-12-28
 
 ### 🔧 Restored Action Icons on Dashboard

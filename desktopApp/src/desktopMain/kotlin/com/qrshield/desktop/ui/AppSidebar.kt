@@ -1,5 +1,8 @@
+@file:Suppress("DEPRECATION") // painterResource - migration to Compose Resources planned
+
 package com.qrshield.desktop.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -24,6 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.SampleData
@@ -71,10 +76,11 @@ fun AppSidebar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(spacing.sm)
         ) {
-            MaterialIconRound(
-                name = "security",
-                size = 20.sp,
-                color = colors.primary
+            Image(
+                painter = painterResource("assets/app-icon.png"),
+                contentDescription = "QR-SHIELD Logo",
+                contentScale = ContentScale.Fit,
+                modifier = Modifier.size(28.dp)
             )
             Text(
                 text = DesktopStrings.text(DesktopStringKey.AppName, language),

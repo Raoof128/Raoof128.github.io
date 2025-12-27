@@ -136,55 +136,50 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
             color = colors.surface,
             border = BorderStroke(1.dp, colors.success.copy(alpha = 0.2f))
         ) {
-            Box(modifier = Modifier.padding(24.dp)) {
-                MaterialSymbol(
-                    name = "shield_lock",
-                    size = 180.sp,
-                    color = colors.success.copy(alpha = 0.1f),
-                    modifier = Modifier.align(Alignment.TopEnd)
-                )
+            Box(modifier = Modifier.fillMaxWidth()) {
+                // Main content
                 Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(24.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    // Header row with button aligned to top-right
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.Top
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(colors.success))
-                            Text(t("AIR-GAPPED STATUS: ACTIVE"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.success, letterSpacing = 1.2.sp)
-                        }
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = colors.surface,
-                            border = BorderStroke(1.dp, colors.border),
-                            modifier = Modifier
-                                .offset(x = 8.dp, y = (-4).dp)
-                                .clickable { onNavigate(AppScreen.ReportsExport) }
-                                .focusable()
-                                .handCursor()
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                                verticalAlignment = Alignment.CenterVertically,
-                                horizontalArrangement = Arrangement.spacedBy(8.dp)
-                            ) {
-                                MaterialSymbol(name = "description", size = 16.sp, color = colors.textMain)
-                                Text(t("View Audit Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
-                            }
-                        }
+                    // Status indicator
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(colors.success))
+                        Text(t("AIR-GAPPED STATUS: ACTIVE"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.success, letterSpacing = 1.2.sp)
                     }
-                    // Title and description below
+                    // Title
                     Text(t("Strict Offline Guarantee"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+                    // Description
                     Text(
                         t("QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis."),
                         fontSize = 16.sp,
                         color = colors.textSub,
                         modifier = Modifier.widthIn(max = 520.dp)
                     )
+                }
+                
+                // View Audit Log button - positioned at top right
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = colors.surface,
+                    border = BorderStroke(1.dp, colors.border),
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(16.dp)
+                        .clickable { onNavigate(AppScreen.ReportsExport) }
+                        .focusable()
+                        .handCursor()
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        MaterialSymbol(name = "description", size = 16.sp, color = colors.textMain)
+                        Text(t("View Audit Log"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
+                    }
                 }
             }
         }
