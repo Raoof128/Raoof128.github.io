@@ -197,6 +197,15 @@ body.light .viewport-pattern {
     background-image: radial-gradient(#94a3b8 1px, transparent 1px);
 }
 
+/* Light mode - Enable Camera button fix */
+[data-theme="light"] .btn-enable-camera,
+html.light .btn-enable-camera,
+body.light .btn-enable-camera {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+}
+
 /* ==========================================================================
    BASE STYLES
    ========================================================================== */
@@ -465,18 +474,9 @@ html {
     color: var(--primary);
 }
 
+/* Breadcrumbs are hidden as per design requirements */
 .breadcrumbs {
-    display: none;
-    align-items: center;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-}
-
-@media (min-width: 640px) {
-    .breadcrumbs {
-        display: flex;
-    }
+    display: none !important;
 }
 
 .breadcrumb-item {
@@ -861,7 +861,7 @@ html {
 .btn-enable-camera {
     margin-top: var(--space-2);
     padding: var(--space-2) var(--space-6);
-    background: transparent;
+    background-color: var(--primary);
     color: white;
     font-size: 0.875rem;
     font-weight: 600;

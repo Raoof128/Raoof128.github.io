@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.91`** (as of December 28, 2025)
+**Current App Version: `1.17.92`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,50 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎨 December 28, 2025 (Session 10k+27) - Web App UI Polish
+
+### Summary
+Fixed three UI inconsistencies in the web application: URL input theming, Enable Camera button visibility, and removed breadcrumb text.
+
+## ✅ Changes Made
+
+### 1. URL Input Section Light Mode Theming
+- **Issue**: URL input had hardcoded dark background `rgba(22, 27, 34, 0.8)` that didn't adapt to light mode
+- **Fix**: Added CSS light mode overrides in `dashboard.css`:
+  - `.url-input-wrapper` → white background with proper border
+  - `.url-input` → dark text color
+  - `.url-input::placeholder` → muted placeholder color
+  - `.input-icon` → proper icon color
+
+### 2. Enable Camera Button Visibility
+- **Issue**: Button used `background: transparent` making it invisible in light mode
+- **Fix**: Changed to `background-color: var(--primary)` in `scanner.css`
+- **Added**: Light mode override with explicit `#2563eb` blue color
+
+### 3. Removed Breadcrumb Text from All Pages
+- **Rationale**: Breadcrumbs redundant with sidebar navigation, took up vertical space
+- **Fix**: Added `display: none !important` to `.breadcrumbs` class
+- **Files Updated**: 7 CSS files (dashboard, scanner, threat, game, onboarding, results, export)
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `dashboard.css` | +26 lines for URL input light mode, hide breadcrumbs |
+| `scanner.css` | +9 lines light mode button, hide breadcrumbs, fixed button bg |
+| `threat.css` | Hide breadcrumbs |
+| `game.css` | Hide breadcrumbs |
+| `onboarding.css` | Hide breadcrumbs |
+| `results.css` | Hide breadcrumbs |
+| `export.css` | Hide breadcrumbs + breadcrumbs-header |
+
+### Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# Web app running at http://localhost:8080/ ✅
+```
 
 ---
 

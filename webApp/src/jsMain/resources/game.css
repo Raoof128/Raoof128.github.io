@@ -433,17 +433,9 @@ html {
     }
 }
 
+/* Breadcrumbs are hidden as per design requirements */
 .breadcrumbs {
-    display: none;
-    align-items: center;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-@media (min-width: 640px) {
-    .breadcrumbs {
-        display: flex;
-    }
+    display: none !important;
 }
 
 .breadcrumbs a {

@@ -5,6 +5,47 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.92] - 2025-12-28
+
+### 🎨 Web App UI Polish
+
+Resolved three UI inconsistencies identified in the web application.
+
+#### 1. Fixed URL Input Section Theming ✅
+- **Problem**: URL input section had hardcoded dark background that didn't adapt to light mode
+- **Fix**: Added light mode CSS overrides for `.url-input-wrapper`, `.url-input`, and `.input-icon`
+- **Result**: URL section now properly switches to white background with dark text in light mode
+
+#### 2. Fixed "Enable Camera" Button Visibility ✅
+- **Problem**: Button was transparent (`background: transparent`) making it invisible in light mode
+- **Fix**: Changed base style to use `background-color: var(--primary)` with solid blue background
+- **Added**: Light mode override to ensure proper visibility with `#2563eb` blue color
+
+#### 3. Removed Breadcrumb Text ✅
+- **Problem**: Breadcrumb navigation bars took up space and were redundant with sidebar
+- **Fix**: Added `display: none !important` to `.breadcrumbs` class across all CSS files
+- **Files Updated**: dashboard.css, scanner.css, threat.css, game.css, onboarding.css, results.css, export.css
+
+#### Files Modified
+
+| File | Change |
+|------|--------|
+| `dashboard.css` | +26 lines light mode URL input styling, hide breadcrumbs |
+| `scanner.css` | +9 lines light mode button styling, hide breadcrumbs, fixed button background |
+| `threat.css` | Hide breadcrumbs |
+| `game.css` | Hide breadcrumbs |
+| `onboarding.css` | Hide breadcrumbs |
+| `results.css` | Hide breadcrumbs |
+| `export.css` | Hide breadcrumbs + breadcrumbs-header |
+
+#### Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# Web app running at http://localhost:8080/ ✅
+```
+
+---
+
 ## [1.17.91] - 2025-12-28
 
 ### 📋 Desktop App Checklist Audit

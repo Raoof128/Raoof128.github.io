@@ -188,6 +188,32 @@ body.light .table-row:hover {
     background-color: #f1f5f9;
 }
 
+/* Light mode - URL Input Section */
+[data-theme="light"] .url-input-wrapper,
+html.light .url-input-wrapper,
+body.light .url-input-wrapper {
+    background-color: #ffffff;
+    border-color: #cbd5e1;
+}
+
+[data-theme="light"] .url-input,
+html.light .url-input,
+body.light .url-input {
+    color: #0f172a;
+}
+
+[data-theme="light"] .url-input::placeholder,
+html.light .url-input::placeholder,
+body.light .url-input::placeholder {
+    color: #64748b;
+}
+
+[data-theme="light"] .input-icon,
+html.light .input-icon,
+body.light .input-icon {
+    color: #64748b;
+}
+
 /* ==========================================================================
    BASE STYLES
    ========================================================================== */
@@ -509,17 +535,9 @@ html {
     }
 }
 
+/* Breadcrumbs are hidden as per design requirements */
 .breadcrumbs {
-    display: none;
-    align-items: center;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-@media (min-width: 640px) {
-    .breadcrumbs {
-        display: flex;
-    }
+    display: none !important;
 }
 
 .breadcrumbs span {

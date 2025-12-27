@@ -371,16 +371,9 @@ body.light .top-header {
     }
 }
 
+/* Breadcrumbs are hidden as per design requirements */
 .breadcrumbs-header {
-    display: none;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-}
-
-@media (min-width: 768px) {
-    .breadcrumbs-header {
-        display: inline;
-    }
+    display: none !important;
 }
 
 .header-right {
@@ -482,12 +475,7 @@ body.light .top-header {
 }
 
 .breadcrumbs {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: 0.875rem;
-    font-weight: 500;
+    display: none !important;
 }
 
 .breadcrumb-item {
