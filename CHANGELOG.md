@@ -5,6 +5,54 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.91] - 2025-12-28
+
+### 📋 Desktop App Checklist Audit
+
+Performed comprehensive audit of the Desktop application against checklist requirements.
+
+#### ✅ Passing (28 items)
+- Build & packaging works via `./gradlew :desktopApp:run`
+- Window resize, min/max/close all functional
+- All 11 screens reachable via consistent sidebar navigation
+- Keyboard shortcuts implemented (see below)
+- Responsive layouts with min window 1200x800
+- Clipboard and file picker integration working
+- Progress states for scanning operations
+
+#### 🆕 Added: Cmd/Ctrl+F Shortcut
+```kotlin
+// Cmd/Ctrl+F: Find/Search - go to Scan History (which has search)
+isCtrlOrCmd && event.key == Key.F -> {
+    viewModel.currentScreen = AppScreen.ScanHistory
+    true
+}
+```
+
+#### Complete Keyboard Shortcuts
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl+V` | Paste URL and analyze |
+| `Cmd/Ctrl+,` | Open Settings |
+| `Cmd/Ctrl+1` | Dashboard |
+| `Cmd/Ctrl+2` | Live Scan |
+| `Cmd/Ctrl+3` | Scan History |
+| `Cmd/Ctrl+4` | Training |
+| `Cmd/Ctrl+F` | Find/Search (NEW) |
+| `I` | Import image |
+| `Escape` | Go back / Close dialogs |
+
+#### Audit Report
+See `.agent/desktop-checklist-audit.md` for full details.
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 7s ✅
+```
+
+---
+
 ## [1.17.90] - 2025-12-28
 
 ### 🔧 Date Updates & UI Polish

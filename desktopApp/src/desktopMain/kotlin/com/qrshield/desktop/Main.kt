@@ -101,6 +101,7 @@ fun QRShieldApp(viewModel: AppViewModel) {
  * - Cmd/Ctrl+2: Go to Live Scan
  * - Cmd/Ctrl+3: Go to Scan History
  * - Cmd/Ctrl+4: Go to Training
+ * - Cmd/Ctrl+F: Find/Search (go to Scan History)
  * - I: Import image (parity with Web app scanner.js)
  * - Escape: Go back from result screens
  */
@@ -141,6 +142,12 @@ private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Bool
         // Cmd/Ctrl+4: Training
         isCtrlOrCmd && event.key == Key.Four -> {
             viewModel.currentScreen = AppScreen.Training
+            true
+        }
+        
+        // Cmd/Ctrl+F: Find/Search - go to Scan History (which has search)
+        isCtrlOrCmd && event.key == Key.F -> {
+            viewModel.currentScreen = AppScreen.ScanHistory
             true
         }
         
