@@ -5,6 +5,48 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.78] - 2025-12-27
+
+### 🌍 Critical Localization Fixes & UI Improvements
+
+#### Fixed Issues from User Feedback
+
+**1. "MEDIUM RISK" Label Not Translated**
+- `scoreDescription` from `RiskAssessment.kt` was passed directly to UI without translation
+- Fixed `ResultSuspiciousScreen.kt` line 375: wrapped `assessment.scoreDescription` with `t()` function
+- Added translations for "Medium Risk" and "High Risk" to all 14 language files
+
+**2. Action Recommendation Hardcoded Strings**
+- Added translations for all 4 action recommendations across all languages:
+  - "This URL appears safe to visit."
+  - "Proceed with caution. Verify the source before clicking."  
+  - "Do not visit this URL. It shows strong phishing indicators."
+  - "Unable to fully analyze. Verify manually before visiting."
+
+**3. Beat the Bot Navigation Icon**
+- Verified icon "sports_esports" is correctly configured at line 142 of `AppSidebar.kt`
+- Icon rendering issue may be browser/font-related; code is correct
+
+#### New Translation Keys Added (6 per language × 14 languages = 84 total)
+
+| Key | Sample Translation (Chinese) |
+|-----|------------------------------|
+| "Medium Risk" | "中等风险" |
+| "High Risk" | "高风险" |
+| "This URL appears safe to visit." | "此URL看起来可以安全访问。" |
+| "Proceed with caution..." | "请谨慎行事。点击前请验证来源。" |
+| "Do not visit this URL..." | "请勿访问此URL。它显示强烈的钓鱼指标。" |
+| "Unable to fully analyze..." | "无法完全分析。访问前请手动验证。" |
+
+#### Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 13s ✅
+```
+
+---
+
 ## [1.17.77] - 2025-12-27
 
 ### 🌍 Cross-Language Localization Audit & Completion

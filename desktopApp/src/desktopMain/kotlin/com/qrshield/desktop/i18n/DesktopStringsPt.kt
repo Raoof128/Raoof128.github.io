@@ -459,6 +459,14 @@ internal val PortugueseCommonStrings = mapOf(
     "Let's Encrypt R3. Note: Valid SSL does not guarantee site legitimacy." to "Let's Encrypt R3. Nota: SSL válido não garante legitimidade do site.",
     "Warning: Multiple phishing indicators detected." to "Aviso: Múltiplos indicadores de phishing detectados.",
     // Reports Preview - with shorter translations to avoid layout issues
-    "SCAN #SCAN-%s" to "SCAN #%s"
+    "SCAN #SCAN-%s" to "SCAN #%s",
+    // Risk levels
+    "Medium Risk" to "Risco Médio",
+    "High Risk" to "Risco Alto",
+    // Action recommendations
+    "This URL appears safe to visit." to "Este URL parece seguro para visitar.",
+    "Proceed with caution. Verify the source before clicking." to "Proceda com cautela. Verifique a origem antes de clicar.",
+    "Do not visit this URL. It shows strong phishing indicators." to "Não visite este URL. Mostra fortes indicadores de phishing.",
+    "Unable to fully analyze. Verify manually before visiting." to "Não foi possível analisar completamente. Verifique manualmente antes de visitar."
 )
 

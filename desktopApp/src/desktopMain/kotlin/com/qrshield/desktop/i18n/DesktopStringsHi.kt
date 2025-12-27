@@ -409,5 +409,13 @@ internal val HindiCommonStrings = mapOf(
     "Reset Settings" to "सेटिंग्स रीसेट करें",
     "Reset All" to "सभी रीसेट करें",
     "Cancel" to "रद्द करें",
-    "Settings reset to defaults" to "सेटिंग्स रीसेट हो गईं"
+    "Settings reset to defaults" to "सेटिंग्स रीसेट हो गईं",
+    // Risk levels
+    "Medium Risk" to "मध्यम जोखिम",
+    "High Risk" to "उच्च जोखिम",
+    // Action recommendations
+    "This URL appears safe to visit." to "यह URL देखने में सुरक्षित लगता है।",
+    "Proceed with caution. Verify the source before clicking." to "सावधानी से आगे बढ़ें। क्लिक करने से पहले स्रोत सत्यापित करें।",
+    "Do not visit this URL. It shows strong phishing indicators." to "इस URL पर न जाएं। इसमें मजबूत फ़िशिंग संकेत हैं।",
+    "Unable to fully analyze. Verify manually before visiting." to "पूरी तरह विश्लेषण करने में असमर्थ। देखने से पहले मैन्युअल रूप से सत्यापित करें।"
 )

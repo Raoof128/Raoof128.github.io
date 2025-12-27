@@ -416,5 +416,13 @@ internal val IndonesianCommonStrings = mapOf(
     "Domain is not yet listed on major threat intelligence feeds." to "Domain belum terdaftar di feed intelijen ancaman utama.",
     "No source attribution or description provided." to "Tidak ada atribusi sumber atau deskripsi yang disediakan.",
     " promise creates urgency and incentive." to " janji menciptakan urgensi dan insentif.",
-    " is common in phishing." to " umum dalam phishing."
+    " is common in phishing." to " umum dalam phishing.",
+    // Risk levels
+    "Medium Risk" to "Risiko Sedang",
+    "High Risk" to "Risiko Tinggi",
+    // Action recommendations
+    "This URL appears safe to visit." to "URL ini tampaknya aman untuk dikunjungi.",
+    "Proceed with caution. Verify the source before clicking." to "Lanjutkan dengan hati-hati. Verifikasi sumber sebelum mengklik.",
+    "Do not visit this URL. It shows strong phishing indicators." to "Jangan kunjungi URL ini. Menunjukkan indikator phishing yang kuat.",
+    "Unable to fully analyze. Verify manually before visiting." to "Tidak dapat menganalisis sepenuhnya. Verifikasi secara manual sebelum mengunjungi."
 )

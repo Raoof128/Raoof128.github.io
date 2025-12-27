@@ -372,7 +372,7 @@ private fun SuspiciousContent(
                         ) {
                             Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(t("Risk Score"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, letterSpacing = 1.sp, modifier = Modifier.align(Alignment.Start))
-                                RiskGauge(score = assessment.score, color = colors.warning, label = assessment.scoreDescription)
+                                RiskGauge(score = assessment.score, color = colors.warning, label = t(assessment.scoreDescription))
                                 Text(t("Score based on heuristic analysis of domain age, entropy, and keyword matching."), fontSize = 11.sp, color = colors.textSub, textAlign = TextAlign.Center)
                             }
                         }

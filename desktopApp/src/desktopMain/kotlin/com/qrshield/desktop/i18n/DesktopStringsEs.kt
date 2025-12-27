@@ -413,5 +413,13 @@ internal val SpanishCommonStrings = mapOf(
     "This will reset all settings to their default values. Your scan history will not be affected." to "Esto restablecerá toda la configuración a sus valores predeterminados. Tu historial de escaneos no se verá afectado.",
     "Reset All" to "Restablecer Todo",
     "Cancel" to "Cancelar",
-    "Settings reset to defaults" to "Configuración restablecida"
+    "Settings reset to defaults" to "Configuración restablecida",
+    // Risk levels
+    "Medium Risk" to "Riesgo Medio",
+    "High Risk" to "Riesgo Alto",
+    // Action recommendations
+    "This URL appears safe to visit." to "Esta URL parece segura para visitar.",
+    "Proceed with caution. Verify the source before clicking." to "Proceda con precaución. Verifique la fuente antes de hacer clic.",
+    "Do not visit this URL. It shows strong phishing indicators." to "No visite esta URL. Muestra fuertes indicadores de phishing.",
+    "Unable to fully analyze. Verify manually before visiting." to "No se puede analizar completamente. Verifique manualmente antes de visitar."
 )

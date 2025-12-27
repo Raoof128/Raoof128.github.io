@@ -413,5 +413,13 @@ internal val FrenchCommonStrings = mapOf(
     "This will reset all settings to their default values. Your scan history will not be affected." to "Cela réinitialisera tous les paramètres à leurs valeurs par défaut. Votre historique de scans ne sera pas affecté.",
     "Reset All" to "Tout Réinitialiser",
     "Cancel" to "Annuler",
-    "Settings reset to defaults" to "Paramètres réinitialisés"
+    "Settings reset to defaults" to "Paramètres réinitialisés",
+    // Risk levels
+    "Medium Risk" to "Risque Moyen",
+    "High Risk" to "Risque Élevé",
+    // Action recommendations
+    "This URL appears safe to visit." to "Cet URL semble sûr à visiter.",
+    "Proceed with caution. Verify the source before clicking." to "Procédez avec prudence. Vérifiez la source avant de cliquer.",
+    "Do not visit this URL. It shows strong phishing indicators." to "N'allez pas sur cet URL. Il montre de forts indicateurs de phishing.",
+    "Unable to fully analyze. Verify manually before visiting." to "Impossible d'analyser complètement. Vérifiez manuellement avant de visiter."
 )
