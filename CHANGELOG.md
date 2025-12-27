@@ -5,6 +5,76 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.85] - 2025-12-28
+
+### 🔧 URL Input - Switched to BasicTextField
+
+**Problem**: Text still getting cut off even after removing width constraints  
+**Root Cause**: `OutlinedTextField` has internal content padding that clips text
+
+**Solution**: Replaced `OutlinedTextField` with `BasicTextField`
+
+```kotlin
+// Before: OutlinedTextField with internal padding
+OutlinedTextField(
+    value = urlInput,
+    placeholder = { ... },
+    modifier = Modifier.weight(1f),
+    ...
+)
+
+// After: BasicTextField with no internal padding
+Box(modifier = Modifier.weight(1f)) {
+    if (urlInput.isEmpty()) {
+        Text("Paste URL to analyze...", ...)
+    }
+    BasicTextField(
+        value = urlInput,
+        modifier = Modifier.fillMaxWidth(),
+        singleLine = true,
+        ...
+    )
+}
+```
+
+**Benefits**:
+- No internal padding eating up space
+- Text fills the entire available width
+- Custom placeholder that appears only when empty
+- Cleaner, simpler implementation
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 9s ✅
+```
+
+---
+
+## [1.17.84] - 2025-12-28
+
+### 🔧 URL Input Bar - Full Width Fix
+
+**Problem**: Text in URL input field still getting cut off even after previous fix  
+**Root Cause**: The Surface had `widthIn(max = 680.dp)` constraint limiting total width
+
+**Changes Made**:
+- Removed `widthIn(max = 680.dp)` constraint - bar now fills available width with `fillMaxWidth()`
+- Increased horizontal padding from 8dp to 16dp for better visual balance
+- Added explicit `Spacer(12.dp)` between search icon and text field
+- Increased spacer before button from 12dp to 16dp
+- Increased button horizontal padding from 16dp to 20dp
+
+**Result**: URL input field now has much more space for text, fills the available width dynamically
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 8s ✅
+```
+
+---
+
 ## [1.17.83] - 2025-12-28
 
 ### 🔧 URL Input & Sandbox Removal

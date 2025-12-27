@@ -323,51 +323,42 @@ private fun DashboardContent(
                                 lineHeight = 26.sp,
                                 modifier = Modifier.widthIn(max = 520.dp)
                             )
-                            // URL Input Bar
+                            // URL Input Bar - fills available width
                             Surface(
-                                modifier = Modifier.widthIn(max = 680.dp).fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(12.dp),
                                 color = colors.backgroundAlt,
                                 border = BorderStroke(1.dp, colors.border)
                             ) {
                                 Row(
                                     modifier = Modifier
-                                        .padding(horizontal = 8.dp, vertical = 4.dp)
+                                        .padding(horizontal = 16.dp, vertical = 4.dp)
                                         .height(48.dp),
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
                                     MaterialIconRound(name = "search", size = 20.sp, color = colors.textMuted)
-                                    OutlinedTextField(
-                                        value = urlInput,
-                                        onValueChange = { urlInput = it },
-                                        placeholder = {
+                                    Spacer(Modifier.width(12.dp))
+                                    Box(modifier = Modifier.weight(1f)) {
+                                        if (urlInput.isEmpty()) {
                                             Text(
-                                                t("Paste URL to analyze (e.g., https://example.com)"),
+                                                t("Paste URL to analyze..."),
                                                 color = colors.textMuted,
                                                 fontSize = 14.sp
                                             )
-                                        },
-                                        modifier = Modifier.weight(1f),
-                                        singleLine = true,
-                                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                                        keyboardActions = KeyboardActions(
-                                            onSearch = {
-                                                if (urlInput.isNotBlank()) {
-                                                    onAnalyzeUrl(urlInput)
-                                                    urlInput = ""
-                                                }
-                                            }
-                                        ),
-                                        colors = OutlinedTextFieldDefaults.colors(
-                                            focusedBorderColor = Color.Transparent,
-                                            unfocusedBorderColor = Color.Transparent,
-                                            focusedTextColor = colors.textMain,
-                                            unfocusedTextColor = colors.textMain,
-                                            cursorColor = colors.primary
+                                        }
+                                        androidx.compose.foundation.text.BasicTextField(
+                                            value = urlInput,
+                                            onValueChange = { urlInput = it },
+                                            modifier = Modifier.fillMaxWidth(),
+                                            singleLine = true,
+                                            textStyle = androidx.compose.ui.text.TextStyle(
+                                                color = colors.textMain,
+                                                fontSize = 14.sp
+                                            ),
+                                            cursorBrush = androidx.compose.ui.graphics.SolidColor(colors.primary)
                                         )
-                                    )
-                                    Spacer(Modifier.width(12.dp))
+                                    }
+                                    Spacer(Modifier.width(16.dp))
                                     Button(
                                         onClick = {
                                             if (urlInput.isNotBlank()) {
@@ -377,12 +368,12 @@ private fun DashboardContent(
                                         },
                                         colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                                         shape = RoundedCornerShape(8.dp),
-                                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp),
+                                        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp),
                                         modifier = Modifier.height(40.dp)
                                     ) {
                                         Row(
                                             verticalAlignment = Alignment.CenterVertically,
-                                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                                         ) {
                                             MaterialIconRound(name = "security", size = 16.sp, color = Color.White)
                                             Text(t("Analyze"), fontWeight = FontWeight.SemiBold)
