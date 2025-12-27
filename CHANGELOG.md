@@ -5,6 +5,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.67] - 2025-12-27
+
+### 🎨 Desktop UI Polish - Color Consistency & Visual Refinements
+
+#### Issues Fixed
+
+**1. Toggle Color Inconsistency (Image 2)**
+- **Before:** Strict Offline Mode toggle used green (`colors.success`) while other toggles used blue (`colors.primary`)
+- **After:** All toggle cards now consistently use `colors.primary` (blue) for a unified look
+
+**2. Status Indicator Color (Image 3)**
+- **Before:** "READY TO SCAN" showed an orange dot (`colors.warning`)
+- **After:** Idle state now shows blue dot (`colors.primary`), orange only shows during active scanning/analyzing
+
+**3. Scan Frame Corner Design (Image 3)**
+- **Before:** Messy disconnected rounded circles at corners that looked unpolished
+- **After:** Clean L-shaped corner brackets drawn with Canvas using:
+  - Rounded corners with 8dp radius
+  - 40dp bracket length
+  - 3dp stroke width
+  - Professional QR scanner appearance
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `TrustCentreScreen.kt` | Changed Strict Offline toggle from `colors.success` to `colors.primary` |
+| `LiveScanScreen.kt` | Changed idle status dot from `colors.warning` to `colors.primary` |
+| `LiveScanScreen.kt` | Replaced CornerStroke composable with Canvas-drawn L-shaped brackets |
+| `LiveScanScreen.kt` | Added `Offset` import for Canvas drawing |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
+## [1.17.66] - 2025-12-27
+
+### 🎨 Desktop UI Polish - ProfileDropdown Consistency
+
+#### ProfileDropdown Integration Across All Screens
+
+Fixed major UI inconsistency: the profile dropdown was only available on 2 of 11 screens with the sidebar. Now all screens with `AppSidebar` have the `ProfileDropdown` and `EditProfileDialog` properly integrated.
+
+**Screens Updated (9 screens fixed):**
+| Screen | Before | After |
+|--------|--------|-------|
+| `ScanHistoryScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `LiveScanScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `TrustCentreScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `TrainingScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `ReportsExportScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `ResultSafeScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `ResultDangerousScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `ResultDangerousAltScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+| `ResultSuspiciousScreen` | Direct navigation to TrustCentre | ProfileDropdown + EditDialog |
+
+**Changes Made:**
+1. Added imports for `ProfileDropdown` and `EditProfileDialog`
+2. Changed `onProfileClick` from `{ viewModel.currentScreen = AppScreen.TrustCentreAlt }` to `{ viewModel.toggleProfileDropdown() }`
+3. Added `ProfileDropdown` and `EditProfileDialog` components to each screen's Box layout
+4. Ensured consistent UI behavior across all screens
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
 ## [1.17.65] - 2025-12-27
 
 ### 🔄 Desktop Parity Audit - Web to Desktop Feature Alignment **COMPLETE**

@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -56,6 +57,8 @@ import com.qrshield.desktop.ui.statusPill
 import com.qrshield.model.ScanHistoryItem
 import com.qrshield.model.Verdict
 import com.qrshield.desktop.ui.handCursor
+import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
 import java.io.File
 
 @Composable
@@ -72,11 +75,39 @@ fun LiveScanScreen(viewModel: AppViewModel) {
                 currentScreen = viewModel.currentScreen,
                 onNavigate = { viewModel.currentScreen = it },
                 language = viewModel.appLanguage,
-                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                onProfileClick = { viewModel.toggleProfileDropdown() }
             )
             LiveScanContent(
                 viewModel = viewModel,
                 onNavigate = { viewModel.currentScreen = it },
+                language = language
+            )
+            
+            // Profile Dropdown Popup
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
+            )
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
                 language = language
             )
         }
@@ -275,7 +306,8 @@ private fun LiveScanContent(
                                                 when (scanState) {
                                                     is DesktopScanState.Error -> colors.danger
                                                     is DesktopScanState.Result -> colors.success
-                                                    else -> colors.warning
+                                                    DesktopScanState.Scanning, is DesktopScanState.Analyzing -> colors.warning
+                                                    DesktopScanState.Idle -> colors.primary
                                                 }
                                             )
                                     )
@@ -551,15 +583,124 @@ private fun BoxScope.ScanFrame(modifier: Modifier = Modifier, colors: com.qrshie
     Box(
         modifier = modifier.size(256.dp)
     ) {
+        // Main frame border (subtle)
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .border(2.dp, colors.primary.copy(alpha = 0.3f), RoundedCornerShape(24.dp))
+                .border(1.dp, colors.primary.copy(alpha = 0.2f), RoundedCornerShape(16.dp))
         )
-        CornerStroke(Alignment.TopStart, colors)
-        CornerStroke(Alignment.TopEnd, colors)
-        CornerStroke(Alignment.BottomStart, colors)
-        CornerStroke(Alignment.BottomEnd, colors)
+        
+        // Corner brackets using Canvas for clean L-shaped corners
+        androidx.compose.foundation.Canvas(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            val strokeWidth = 3.dp.toPx()
+            val cornerLength = 40.dp.toPx()
+            val cornerRadius = 8.dp.toPx()
+            val color = colors.primary
+            
+            // Top-left corner
+            drawLine(
+                color = color,
+                start = Offset(cornerRadius, 0f),
+                end = Offset(cornerLength, 0f),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawLine(
+                color = color,
+                start = Offset(0f, cornerRadius),
+                end = Offset(0f, cornerLength),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawArc(
+                color = color,
+                startAngle = 180f,
+                sweepAngle = 90f,
+                useCenter = false,
+                topLeft = Offset(0f, 0f),
+                size = androidx.compose.ui.geometry.Size(cornerRadius * 2, cornerRadius * 2),
+                style = androidx.compose.ui.graphics.drawscope.Stroke(width = strokeWidth, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+            )
+            
+            // Top-right corner
+            drawLine(
+                color = color,
+                start = Offset(size.width - cornerLength, 0f),
+                end = Offset(size.width - cornerRadius, 0f),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawLine(
+                color = color,
+                start = Offset(size.width, cornerRadius),
+                end = Offset(size.width, cornerLength),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawArc(
+                color = color,
+                startAngle = 270f,
+                sweepAngle = 90f,
+                useCenter = false,
+                topLeft = Offset(size.width - cornerRadius * 2, 0f),
+                size = androidx.compose.ui.geometry.Size(cornerRadius * 2, cornerRadius * 2),
+                style = androidx.compose.ui.graphics.drawscope.Stroke(width = strokeWidth, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+            )
+            
+            // Bottom-left corner
+            drawLine(
+                color = color,
+                start = Offset(cornerRadius, size.height),
+                end = Offset(cornerLength, size.height),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawLine(
+                color = color,
+                start = Offset(0f, size.height - cornerLength),
+                end = Offset(0f, size.height - cornerRadius),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawArc(
+                color = color,
+                startAngle = 90f,
+                sweepAngle = 90f,
+                useCenter = false,
+                topLeft = Offset(0f, size.height - cornerRadius * 2),
+                size = androidx.compose.ui.geometry.Size(cornerRadius * 2, cornerRadius * 2),
+                style = androidx.compose.ui.graphics.drawscope.Stroke(width = strokeWidth, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+            )
+            
+            // Bottom-right corner
+            drawLine(
+                color = color,
+                start = Offset(size.width - cornerLength, size.height),
+                end = Offset(size.width - cornerRadius, size.height),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawLine(
+                color = color,
+                start = Offset(size.width, size.height - cornerLength),
+                end = Offset(size.width, size.height - cornerRadius),
+                strokeWidth = strokeWidth,
+                cap = androidx.compose.ui.graphics.StrokeCap.Round
+            )
+            drawArc(
+                color = color,
+                startAngle = 0f,
+                sweepAngle = 90f,
+                useCenter = false,
+                topLeft = Offset(size.width - cornerRadius * 2, size.height - cornerRadius * 2),
+                size = androidx.compose.ui.geometry.Size(cornerRadius * 2, cornerRadius * 2),
+                style = androidx.compose.ui.graphics.drawscope.Stroke(width = strokeWidth, cap = androidx.compose.ui.graphics.StrokeCap.Round)
+            )
+        }
+        
+        // Scanning line animation
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -572,16 +713,6 @@ private fun BoxScope.ScanFrame(modifier: Modifier = Modifier, colors: com.qrshie
                 )
         )
     }
-}
-
-@Composable
-private fun BoxScope.CornerStroke(alignment: Alignment, colors: com.qrshield.desktop.theme.ColorTokens) {
-    val shape = RoundedCornerShape(16.dp)
-    val modifier = Modifier
-        .size(32.dp)
-        .border(3.dp, colors.primary, shape)
-        .clip(shape)
-    Box(modifier = modifier.align(alignment))
 }
 
 @Composable

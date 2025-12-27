@@ -49,6 +49,8 @@ import com.qrshield.desktop.ui.surfaceBorder
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.pillShape
 import com.qrshield.desktop.ui.handCursor
+import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
 
 @Composable
 fun ScanHistoryScreen(viewModel: AppViewModel) {
@@ -66,7 +68,7 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                     currentScreen = viewModel.currentScreen,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                    onProfileClick = { viewModel.toggleProfileDropdown() }
                 )
                 Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
                     ScanHistoryHeader(
@@ -94,6 +96,34 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                 cancelText = "Cancel",
                 isDangerous = true,
                 icon = "delete_forever",
+                language = language
+            )
+            
+            // Profile Dropdown Popup
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
+            )
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
                 language = language
             )
         }

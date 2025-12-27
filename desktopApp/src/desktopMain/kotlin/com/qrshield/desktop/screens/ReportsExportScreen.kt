@@ -43,23 +43,56 @@ import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialSymbol
 import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.statusPill
+import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
 
 @Composable
 fun ReportsExportScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.reports(isDark = viewModel.isDarkMode)
+    val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(tokens.colors.background)
-        ) {
-            AppSidebar(
-                currentScreen = AppScreen.ReportsExport,
-                onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage,
-                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(tokens.colors.background)
+            ) {
+                AppSidebar(
+                    currentScreen = AppScreen.ReportsExport,
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = viewModel.appLanguage,
+                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                )
+                ReportsContent(viewModel = viewModel)
+            }
+            
+            // Profile Dropdown Popup
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
             )
-            ReportsContent(viewModel = viewModel)
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
+                language = language
+            )
         }
     }
 }

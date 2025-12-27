@@ -38,10 +38,13 @@ import com.qrshield.desktop.ui.gridPattern
 import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.progressFill
+import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
 
 @Composable
 fun ResultDangerousScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.scanResultDangerous(isDark = viewModel.isDarkMode)
+    val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
         Box(
             modifier = Modifier
@@ -53,13 +56,41 @@ fun ResultDangerousScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.ResultDangerous,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                    onProfileClick = { viewModel.toggleProfileDropdown() }
                 )
                 DangerousContent(
                     viewModel = viewModel,
                     onNavigate = { viewModel.currentScreen = it }
                 )
             }
+            
+            // Profile Dropdown Popup
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
+            )
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
+                language = language
+            )
         }
     }
 }

@@ -48,6 +48,8 @@ import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.panelSurface
 import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.progressFill
+import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
 
 @Composable
 fun ResultSuspiciousScreen(viewModel: AppViewModel) {
@@ -64,7 +66,7 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.ResultSuspicious,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+                    onProfileClick = { viewModel.toggleProfileDropdown() }
                 )
                 SuspiciousContent(
                     viewModel = viewModel,
@@ -74,6 +76,34 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
                 )
             }
             ThemeToggleButton(isDark = viewModel.isDarkMode, onToggle = { viewModel.toggleTheme() })
+            
+            // Profile Dropdown Popup
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
+            )
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
+                language = language
+            )
         }
     }
 }

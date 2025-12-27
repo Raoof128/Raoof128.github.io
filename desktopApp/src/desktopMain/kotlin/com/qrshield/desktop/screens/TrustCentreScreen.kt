@@ -43,26 +43,59 @@ import com.qrshield.desktop.ui.iconContainer
 import com.qrshield.desktop.ui.progressTrack
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.toggleTrack
+import com.qrshield.desktop.ui.ProfileDropdown
+import com.qrshield.desktop.ui.EditProfileDialog
 
 @Composable
 fun TrustCentreScreen(viewModel: AppViewModel) {
     val tokens = StitchTokens.trustCentre(isDark = viewModel.isDarkMode)
+    val language = viewModel.appLanguage
     StitchTheme(tokens = tokens) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(tokens.colors.background)
-                .gridPattern(spacing = 40.dp, lineColor = tokens.colors.border, lineWidth = 1.dp)
-        ) {
-            AppSidebar(
-                currentScreen = AppScreen.TrustCentre,
-                onNavigate = { viewModel.currentScreen = it },
-                language = viewModel.appLanguage,
-                onProfileClick = { viewModel.currentScreen = AppScreen.TrustCentreAlt }
+        Box(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(tokens.colors.background)
+                    .gridPattern(spacing = 40.dp, lineColor = tokens.colors.border, lineWidth = 1.dp)
+            ) {
+                AppSidebar(
+                    currentScreen = AppScreen.TrustCentre,
+                    onNavigate = { viewModel.currentScreen = it },
+                    language = viewModel.appLanguage,
+                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                )
+                TrustCentreContent(
+                    viewModel = viewModel,
+                    onNavigate = { viewModel.currentScreen = it }
+                )
+            }
+            
+            // Profile Dropdown Popup
+            ProfileDropdown(
+                isVisible = viewModel.showProfileDropdown,
+                onDismiss = { viewModel.dismissProfileDropdown() },
+                userName = viewModel.userName,
+                userRole = viewModel.userRole,
+                userInitials = viewModel.userInitials,
+                historyStats = viewModel.historyStats,
+                onViewProfile = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                onEditProfile = { viewModel.openEditProfileModal() },
+                onOpenSettings = { viewModel.currentScreen = AppScreen.TrustCentreAlt },
+                language = language
             )
-            TrustCentreContent(
-                viewModel = viewModel,
-                onNavigate = { viewModel.currentScreen = it }
+            
+            // Edit Profile Dialog
+            EditProfileDialog(
+                isVisible = viewModel.showEditProfileModal,
+                onDismiss = { viewModel.dismissEditProfileModal() },
+                currentName = viewModel.userName,
+                currentEmail = viewModel.userEmail,
+                currentRole = viewModel.userRole,
+                currentInitials = viewModel.userInitials,
+                onSave = { name, email, role, initials ->
+                    viewModel.saveUserProfile(name, email, role, initials)
+                },
+                language = language
             )
         }
     }
@@ -270,7 +303,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                 title = t("Strict Offline Mode"),
                 subtitle = t("Force disable all network adapters for app"),
                 enabled = viewModel.trustCentreToggles.strictOffline,
-                activeColor = colors.success,
+                activeColor = colors.primary,
                 modifier = Modifier.weight(1f),
                 onToggle = { viewModel.toggleStrictOffline() }
             )

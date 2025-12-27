@@ -185,6 +185,14 @@ class AppViewModel(
     var userPlan by mutableStateOf("Enterprise Plan")
     var showEditProfileModal by mutableStateOf(false)
 
+    // Game Statistics (parity with Web app training.js)
+    // NOTE: Must be declared BEFORE init block since applySettings() accesses these
+    var gameHighScore by mutableStateOf(0)
+    var gameBestStreak by mutableStateOf(0)
+    var gameTotalGamesPlayed by mutableStateOf(0)
+    var gameTotalCorrect by mutableStateOf(0)
+    var gameTotalAttempts by mutableStateOf(0)
+
     var trainingState by mutableStateOf(createInitialTrainingState())
     private var trainingScenarioIndex by mutableStateOf(0)
     private var shuffledChallengeIndices by mutableStateOf(trainingScenarios.indices.shuffled())
@@ -789,12 +797,6 @@ class AppViewModel(
         trainingState = createInitialTrainingState()
     }
 
-    // Game Statistics (parity with Web app training.js)
-    var gameHighScore by mutableStateOf(0)
-    var gameBestStreak by mutableStateOf(0)
-    var gameTotalGamesPlayed by mutableStateOf(0)
-    var gameTotalCorrect by mutableStateOf(0)
-    var gameTotalAttempts by mutableStateOf(0)
 
     fun endTrainingSession() {
         trainingState = trainingState.copy(isGameOver = true)
