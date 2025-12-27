@@ -445,7 +445,7 @@ internal val JapaneseCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "脅威シグネチャを共有してDBを改善",
     "Copy to clipboard if Verdict is SAFE" to "判定がSAFEの場合クリップボードにコピー",
     "Verdict Logic" to "判定ロジック",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "エンジン v4.1.2 • シグDB: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "エンジン v4.1.2 • シグDB: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "正規ブランドを偽装するためのドメイン名で混合スクリプト文字が検出されました。",
     "Domain was registered today. Highly suspicious for banking services." to "ドメインは今日登録されました。銀行サービスとして非常に疑わしいです。",

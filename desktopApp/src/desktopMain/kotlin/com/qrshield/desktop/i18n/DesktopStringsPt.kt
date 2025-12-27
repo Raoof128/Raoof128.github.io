@@ -341,7 +341,7 @@ internal val PortugueseCommonStrings = mapOf(
     "Low mode reduces false positives. Only flags confirmed malicious patterns. Best for trusted environments." to "O modo baixo reduz falsos positivos. Sinaliza apenas padrões maliciosos confirmados. Ideal para ambientes confiáveis.",
     "Balanced mode uses standard heuristics. Flags known malicious patterns and suspicious URL shorteners." to "O modo equilibrado usa heurísticas padrão. Sinaliza padrões maliciosos conhecidos e encurtadores de URL suspeitos.",
     "Paranoia mode enables maximum scrutiny. All edge cases trigger warnings. Best for high-security needs." to "O modo paranoia habilita escrutínio máximo. Todos os casos extremos acionam alertas. Ideal para necessidades de alta segurança.",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Motor v4.1.2 • BD Sig: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Motor v4.1.2 • BD Sig: 2025-12-28",
     "Low" to "Baixo",
     "Balanced" to "Equilibrado",
     "Paranoia" to "Paranoia",
@@ -451,7 +451,7 @@ internal val PortugueseCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "Compartilhar assinaturas de ameaças para melhorar BD",
     "Copy to clipboard if Verdict is SAFE" to "Copiar para área de transferência se Veredicto for SEGURO",
     "Verdict Logic" to "Lógica do Veredicto",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Motor v4.1.2 • BD Sig: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Motor v4.1.2 • BD Sig: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "Detectados caracteres de script misto no domínio para falsificar marcas legítimas.",
     "Domain was registered today. Highly suspicious for banking services." to "Domínio foi registrado hoje. Altamente suspeito para serviços bancários.",

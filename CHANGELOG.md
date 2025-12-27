@@ -5,6 +5,29 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.90] - 2025-12-28
+
+### 🔧 Date Updates & UI Polish
+
+#### Outdated Dates Fixed
+| File | Old Value | New Value |
+|------|-----------|-----------|
+| `TrustCentreScreen.kt` | `Sig DB: 2023-10-27` | `Sig DB: 2025-12-28` |
+| `AppViewModel.kt` | `scan_report_20231024_8821X` | `scan_report_20251228_8821X` |
+| All 15 localization files | `2023-10-27` | `2025-12-28` |
+
+#### UI Polish
+- Removed decorative shield icon from AIR-GAPPED banner card
+- Fixed Audit Log button positioning at top-right
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 9s ✅
+```
+
+---
+
 ## [1.17.89] - 2025-12-28
 
 ### 🔧 Fixed Audit Log Button Positioning (Proper Fix)

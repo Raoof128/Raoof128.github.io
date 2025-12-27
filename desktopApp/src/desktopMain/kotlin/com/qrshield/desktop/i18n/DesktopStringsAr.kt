@@ -391,7 +391,7 @@ internal val ArabicCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "مشاركة توقيعات التهديد لتحسين قاعدة البيانات",
     "Copy to clipboard if Verdict is SAFE" to "نسخ إلى الحافظة إذا كان الحكم آمن",
     "Verdict Logic" to "منطق الحكم",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "المحرك v4.1.2 • قاعدة بيانات التوقيع: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "المحرك v4.1.2 • قاعدة بيانات التوقيع: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "تم اكتشاف أحرف نصية مختلطة في اسم النطاق تهدف إلى انتحال العلامات التجارية الشرعية.",
     "Domain was registered today. Highly suspicious for banking services." to "تم تسجيل النطاق اليوم. مشبوه جداً لخدمات البنوك.",

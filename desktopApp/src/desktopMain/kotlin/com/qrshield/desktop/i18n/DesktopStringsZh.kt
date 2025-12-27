@@ -445,7 +445,7 @@ internal val ChineseSimplifiedCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "分享威胁签名以改进数据库",
     "Copy to clipboard if Verdict is SAFE" to "如果判定为安全则复制到剪贴板",
     "Verdict Logic" to "判定逻辑",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "引擎 v4.1.2 • 签名DB: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "引擎 v4.1.2 • 签名DB: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "在域名中检测到混合脚本字符，旨在欺骗合法品牌。",
     "Domain was registered today. Highly suspicious for banking services." to "域名今天注册。对于银行服务非常可疑。",

@@ -388,7 +388,7 @@ internal val IndonesianCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "Bagikan tanda tangan ancaman untuk meningkatkan DB",
     "Copy to clipboard if Verdict is SAFE" to "Salin ke papan klip jika Vonis AMAN",
     "Verdict Logic" to "Logika Vonis",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Mesin v4.1.2 • DB Sig: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Mesin v4.1.2 • DB Sig: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "Karakter skrip campuran terdeteksi dalam nama domain yang dimaksudkan untuk memalsukan merek sah.",
     "Domain was registered today. Highly suspicious for banking services." to "Domain didaftarkan hari ini. Sangat mencurigakan untuk layanan perbankan.",

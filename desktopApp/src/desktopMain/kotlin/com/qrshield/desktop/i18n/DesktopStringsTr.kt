@@ -388,7 +388,7 @@ internal val TurkishCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "DB'yi geliştirmek için tehdit imzalarını paylaş",
     "Copy to clipboard if Verdict is SAFE" to "Karar GÜVENLİ ise panoya kopyala",
     "Verdict Logic" to "Karar Mantığı",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Motor v4.1.2 • İmza DB: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Motor v4.1.2 • İmza DB: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "Meşru markaları taklit etmek için alan adında karışık script karakterleri tespit edildi.",
     "Domain was registered today. Highly suspicious for banking services." to "Alan adı bugün kaydedildi. Bankacılık hizmetleri için oldukça şüpheli.",

@@ -321,7 +321,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                             .background(colors.backgroundAlt)
                             .padding(horizontal = 10.dp, vertical = 6.dp)
                     ) {
-                        Text(t("Engine v4.1.2 • Sig DB: 2023-10-27"), fontSize = 10.sp, color = colors.textMuted)
+                        Text(t("Engine v4.1.2 • Sig DB: 2025-12-28"), fontSize = 10.sp, color = colors.textMuted)
                     }
                 }
             }

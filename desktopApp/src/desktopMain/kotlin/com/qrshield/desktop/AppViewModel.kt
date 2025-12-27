@@ -157,7 +157,7 @@ class AppViewModel(
     var heuristicSensitivity by mutableStateOf(HeuristicSensitivity.Balanced)
 
     var exportFormat by mutableStateOf(ExportFormat.Pdf)
-    var exportFilename by mutableStateOf("scan_report_20231024_8821X")
+    var exportFilename by mutableStateOf("scan_report_20251228_8821X")
     var exportIncludeVerdict by mutableStateOf(true)
     var exportIncludeMetadata by mutableStateOf(true)
     var exportIncludeRawPayload by mutableStateOf(false)

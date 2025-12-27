@@ -425,7 +425,7 @@ internal val RussianCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "Поделиться сигнатурами угроз для улучшения БД",
     "Copy to clipboard if Verdict is SAFE" to "Копировать в буфер обмена если вердикт БЕЗОПАСНО",
     "Verdict Logic" to "Логика вердикта",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Движок v4.1.2 • БД сигнатур: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Движок v4.1.2 • БД сигнатур: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "Обнаружены смешанные символы скриптов в имени домена для подделки легитимных брендов.",
     "Domain was registered today. Highly suspicious for banking services." to "Домен зарегистрирован сегодня. Крайне подозрительно для банковских сервисов.",

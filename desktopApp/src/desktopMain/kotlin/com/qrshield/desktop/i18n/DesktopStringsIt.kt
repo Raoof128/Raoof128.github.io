@@ -434,7 +434,7 @@ internal val ItalianCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "Condividi firme minacce per migliorare DB",
     "Copy to clipboard if Verdict is SAFE" to "Copia negli appunti se il Verdetto è SICURO",
     "Verdict Logic" to "Logica Verdetto",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Motore v4.1.2 • DB Firme: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Motore v4.1.2 • DB Firme: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "Rilevati caratteri script misti nel nome dominio per imitare marchi legittimi.",
     "Domain was registered today. Highly suspicious for banking services." to "Dominio registrato oggi. Altamente sospetto per servizi bancari.",

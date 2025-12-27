@@ -388,7 +388,7 @@ internal val ThaiCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "แชร์ลายเซ็นภัยคุกคามเพื่อปรับปรุง DB",
     "Copy to clipboard if Verdict is SAFE" to "คัดลอกไปยังคลิปบอร์ดหากคำตัดสินคือปลอดภัย",
     "Verdict Logic" to "ตรรกะคำตัดสิน",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "เครื่องยนต์ v4.1.2 • ฐานข้อมูลลายเซ็น: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "เครื่องยนต์ v4.1.2 • ฐานข้อมูลลายเซ็น: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "ตรวจพบอักขระสคริปต์ผสมในชื่อโดเมนที่ตั้งใจเพื่อปลอมแปลงแบรนด์ที่ถูกต้อง",
     "Domain was registered today. Highly suspicious for banking services." to "โดเมนถูกลงทะเบียนวันนี้ น่าสงสัยมากสำหรับบริการธนาคาร",

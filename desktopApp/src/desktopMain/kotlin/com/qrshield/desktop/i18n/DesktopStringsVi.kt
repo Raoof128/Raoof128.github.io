@@ -388,7 +388,7 @@ internal val VietnameseCommonStrings = mapOf(
     "Share threat signatures to improve DB" to "Chia sẻ chữ ký đe dọa để cải thiện DB",
     "Copy to clipboard if Verdict is SAFE" to "Sao chép vào bảng tạm nếu Phán Quyết là AN TOÀN",
     "Verdict Logic" to "Logic Phán Quyết",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Động Cơ v4.1.2 • DB Chữ Ký: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Động Cơ v4.1.2 • DB Chữ Ký: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "Phát hiện ký tự script hỗn hợp trong tên miền nhằm giả mạo thương hiệu hợp pháp.",
     "Domain was registered today. Highly suspicious for banking services." to "Tên miền được đăng ký hôm nay. Rất đáng nghi cho dịch vụ ngân hàng.",

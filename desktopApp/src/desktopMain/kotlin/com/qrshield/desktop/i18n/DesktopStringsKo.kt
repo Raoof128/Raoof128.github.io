@@ -395,7 +395,7 @@ internal val KoreanCommonStrings = mapOf(
     "Force disable all network adapters for app" to "앱의 모든 네트워크 어댑터 강제 비활성화",
     "Share threat signatures to improve DB" to "DB 개선을 위해 위협 서명 공유",
     "Copy to clipboard if Verdict is SAFE" to "판정이 안전하면 클립보드에 복사",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "엔진 v4.1.2 • 서명 DB: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "엔진 v4.1.2 • 서명 DB: 2025-12-28",
     // Risk explanations
     "Mixed script characters detected in domain name intended to spoof legitimate brands." to "합법적인 브랜드를 사칭하기 위한 도메인 이름에서 혼합 스크립트 문자가 감지되었습니다.",
     "Domain was registered today. Highly suspicious for banking services." to "도메인이 오늘 등록되었습니다. 은행 서비스에 매우 의심스럽습니다.",

@@ -356,7 +356,7 @@ internal val SpanishCommonStrings = mapOf(
     "Low mode reduces false positives. Only flags confirmed malicious patterns. Best for trusted environments." to "El modo bajo reduce falsos positivos. Solo marca patrones maliciosos confirmados. Ideal para entornos de confianza.",
     "Balanced mode uses standard heuristics. Flags known malicious patterns and suspicious URL shorteners." to "El modo equilibrado usa heurísticas estándar. Marca patrones maliciosos conocidos y acortadores de URL sospechosos.",
     "Paranoia mode enables maximum scrutiny. All edge cases trigger warnings. Best for high-security needs." to "El modo paranoia habilita escrutinio máximo. Todos los casos extremos activan alertas. Ideal para alta seguridad.",
-    "Engine v4.1.2 • Sig DB: 2023-10-27" to "Motor v4.1.2 • BD Sig: 2023-10-27",
+    "Engine v4.1.2 • Sig DB: 2025-12-28" to "Motor v4.1.2 • BD Sig: 2025-12-28",
     "Low" to "Bajo",
     "Balanced" to "Equilibrado",
     "Paranoia" to "Paranoia",
