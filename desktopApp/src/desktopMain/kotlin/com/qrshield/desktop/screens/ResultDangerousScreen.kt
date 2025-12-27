@@ -158,17 +158,20 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
         }
 
         Surface(
-            modifier = Modifier.padding(top = 24.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 24.dp),
             shape = RoundedCornerShape(16.dp),
             color = if (isDark) colors.danger.copy(alpha = 0.15f) else colors.danger.copy(alpha = 0.1f),
             border = BorderStroke(1.dp, if (isDark) colors.danger.copy(alpha = 0.3f) else colors.danger.copy(alpha = 0.2f))
         ) {
             Row(
-                modifier = Modifier.padding(24.dp),
+                modifier = Modifier.fillMaxWidth().padding(24.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.weight(1f)
+                ) {
                     Box(
                         modifier = Modifier
                             .size(64.dp)
@@ -209,25 +212,28 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                         }
                     }
                 }
+                Spacer(modifier = Modifier.width(16.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(
                         onClick = { viewModel.shareTextReport() },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                         border = BorderStroke(1.dp, colors.danger.copy(alpha = 0.3f)),
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.width(120.dp).height(40.dp)
                     ) {
-                        MaterialIconRound(name = "flag", size = 18.sp, color = colors.danger)
-                        Spacer(Modifier.width(6.dp))
-                        Text(t("Report"), fontSize = 13.sp, color = colors.danger)
+                        MaterialIconRound(name = "flag", size = 16.sp, color = colors.danger)
+                        Spacer(Modifier.width(4.dp))
+                        Text(t("Report"), fontSize = 12.sp, color = colors.danger, maxLines = 1, softWrap = false)
                     }
                     Button(
                         onClick = { viewModel.addBlocklistDomain(viewModel.hostFromUrl(url) ?: url) },
                         colors = ButtonDefaults.buttonColors(containerColor = colors.danger),
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.width(170.dp).height(40.dp)
                     ) {
-                        MaterialIconRound(name = "block", size = 18.sp, color = Color.White)
-                        Spacer(Modifier.width(6.dp))
-                        Text(t("Block Access"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                        MaterialIconRound(name = "block", size = 16.sp, color = Color.White)
+                        Spacer(Modifier.width(4.dp))
+                        Text(t("Block Access"), fontSize = 12.sp, fontWeight = FontWeight.Bold, color = Color.White, maxLines = 1, softWrap = false)
                     }
                 }
             }

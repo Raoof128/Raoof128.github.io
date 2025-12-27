@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
@@ -161,6 +162,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                             color = colors.surface,
                             border = BorderStroke(1.dp, colors.border),
                             modifier = Modifier
+                                .offset(x = 8.dp, y = (-4).dp)
                                 .clickable { onNavigate(AppScreen.ReportsExport) }
                                 .focusable()
                                 .handCursor()
@@ -375,14 +377,14 @@ private fun ToggleCard(
 ) {
     val colors = LocalStitchTokens.current.colors
     Surface(
-        modifier = modifier.height(72.dp),
+        modifier = modifier.heightIn(min = 76.dp),
         shape = RoundedCornerShape(12.dp),
         color = colors.surface,
         border = BorderStroke(1.dp, colors.border)
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .clickable { onToggle() }
                 .focusable()
                 .handCursor()
@@ -394,8 +396,15 @@ private fun ToggleCard(
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 modifier = Modifier.weight(1f, fill = false)
             ) {
-                Text(title, fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
-                Text(subtitle, fontSize = 12.sp, color = colors.textSub)
+                Text(
+                    title,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = colors.textMain,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(subtitle, fontSize = 12.sp, color = colors.textSub, maxLines = 2)
             }
             Spacer(modifier = Modifier.width(12.dp))
             // Explicit toggle component with fixed sizing
@@ -572,28 +581,20 @@ private fun AllowItem(iconPath: String?, domain: String, onDelete: () -> Unit) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            // Always show letter avatar (more reliable than external favicons)
             Box(
                 modifier = Modifier
                     .size(24.dp)
-                    .clip(CircleShape)
-                    .border(1.dp, colors.border),
+                    .clip(RoundedCornerShape(6.dp))
+                    .border(1.dp, colors.border, RoundedCornerShape(6.dp)),
                 contentAlignment = Alignment.Center
             ) {
-                if (iconPath != null) {
-                    Image(
-                        painter = painterResource(iconPath),
-                        contentDescription = domain,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                } else {
-                    Text(
-                        domain.trim().removePrefix("*.").take(1).uppercase(),
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = colors.textSub
-                    )
-                }
+                Text(
+                    domain.trim().removePrefix("*.").take(1).uppercase(),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = colors.primary
+                )
             }
             Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
         }

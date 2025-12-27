@@ -208,7 +208,10 @@ private fun ScanHistoryContent(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.weight(1f)
+            ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text(t("Scan History"), fontSize = 36.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                     Box(
@@ -226,6 +229,7 @@ private fun ScanHistoryContent(
                     modifier = Modifier.widthIn(max = 640.dp)
                 )
             }
+            Spacer(modifier = Modifier.width(16.dp))
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 Surface(
                     shape = RoundedCornerShape(12.dp),
@@ -254,6 +258,8 @@ private fun ScanHistoryContent(
                 }
                 Surface(
                     modifier = Modifier
+                        .width(140.dp)
+                        .height(36.dp)
                         .clickable {
                             viewModel.exportHistoryCsv()
                             onNavigate(AppScreen.ReportsExport)
@@ -264,19 +270,19 @@ private fun ScanHistoryContent(
                     color = colors.primary
                 ) {
                     Row(
-                        modifier = Modifier
-                            .height(36.dp)
-                            .padding(horizontal = 16.dp),
+                        modifier = Modifier.fillMaxSize(),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        MaterialSymbol(name = "download", size = 18.sp, color = Color.White)
+                        MaterialSymbol(name = "download", size = 16.sp, color = Color.White)
+                        Spacer(Modifier.width(6.dp))
                         Text(
                             t("Export CSV"),
-                            fontSize = 14.sp,
+                            fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color.White,
-                            maxLines = 1
+                            maxLines = 1,
+                            softWrap = false
                         )
                     }
                 }

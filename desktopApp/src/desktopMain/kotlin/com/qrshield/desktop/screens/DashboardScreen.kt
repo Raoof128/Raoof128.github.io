@@ -702,10 +702,10 @@ private fun TableHeader(
             .padding(vertical = 12.dp, horizontal = 24.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(120.dp))
-        Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(200.dp))
-        Text(detailsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.width(160.dp))
-        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.weight(1f), textAlign = TextAlign.End)
+        Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.widthIn(min = 100.dp).weight(1f), maxLines = 1)
+        Text(sourceLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.widthIn(min = 140.dp).weight(1.5f), maxLines = 1)
+        Text(detailsLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.widthIn(min = 120.dp).weight(1f), maxLines = 1)
+        Text(timeLabel, fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, modifier = Modifier.widthIn(min = 80.dp).weight(0.8f), textAlign = TextAlign.End, maxLines = 1)
     }
 }
 
@@ -753,7 +753,7 @@ private fun RecentScanRow(
             shape = RoundedCornerShape(8.dp),
             color = statusBg,
             border = BorderStroke(1.dp, statusColor.copy(alpha = 0.3f)),
-            modifier = Modifier.width(120.dp)
+            modifier = Modifier.widthIn(min = 100.dp).weight(1f, fill = false)
         ) {
             Row(
                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -761,10 +761,11 @@ private fun RecentScanRow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MaterialIconRound(name = if (statusLabel == "SAFE") "check_circle" else "warning", size = 14.sp, color = statusColor)
-                Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor)
+                Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor, maxLines = 1, softWrap = false)
             }
         }
-        Row(modifier = Modifier.width(200.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Spacer(modifier = Modifier.width(8.dp))
+        Row(modifier = Modifier.widthIn(min = 140.dp).weight(1.5f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Box(
                 modifier = Modifier
                     .size(20.dp)
@@ -776,8 +777,8 @@ private fun RecentScanRow(
             }
             Text(domain, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain, maxLines = 1, overflow = TextOverflow.Ellipsis)
         }
-        Text(details, fontSize = 13.sp, color = colors.textSub, modifier = Modifier.width(160.dp), maxLines = 1, overflow = TextOverflow.Ellipsis)
-        Text(timeLabel, fontSize = 12.sp, color = colors.textMuted, modifier = Modifier.weight(1f), textAlign = TextAlign.End)
+        Text(details, fontSize = 13.sp, color = colors.textSub, modifier = Modifier.widthIn(min = 120.dp).weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(timeLabel, fontSize = 12.sp, color = colors.textMuted, modifier = Modifier.widthIn(min = 80.dp).weight(0.8f), textAlign = TextAlign.End, maxLines = 1)
     }
 }
 

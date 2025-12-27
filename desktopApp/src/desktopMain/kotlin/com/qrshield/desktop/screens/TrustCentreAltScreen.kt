@@ -133,32 +133,6 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                 MaterialIconRound(name = "chevron_right", size = 16.sp, color = colors.textMuted, modifier = Modifier.padding(horizontal = 8.dp))
                 Text(t("Offline Privacy"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.Medium)
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clip(CircleShape)
-                        .background(colors.border)
-                        .clickable { viewModel.showInfo(t("Keyboard shortcuts: Cmd/Ctrl+V paste URL, Cmd/Ctrl+, settings, Cmd/Ctrl+1-4 navigate, Enter analyze, Escape go back")) }
-                        .focusable()
-                        .handCursor(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MaterialIconRound(name = "help_outline", size = 18.sp, color = colors.textSub)
-                }
-                Box(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clip(CircleShape)
-                        .background(colors.border)
-                        .clickable { viewModel.toggleProfileDropdown() }
-                        .focusable()
-                        .handCursor(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    MaterialIconRound(name = "person", size = 18.sp, color = colors.textSub)
-                }
-            }
         }
 
         Column(

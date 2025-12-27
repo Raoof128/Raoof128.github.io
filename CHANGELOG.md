@@ -5,63 +5,121 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.72] - 2025-12-27
+
+### 🛠️ Desktop UI Layout Fixes - Complete Session
+
+This session focused on fixing button text cutoff issues across the Desktop application.
+
+#### Issues Fixed
+
+| Issue | Screen | Before | After |
+|-------|--------|--------|-------|
+| Block Access button | Threat Analysis | "Bloc..." | "Block Access" ✅ |
+| Report button | Threat Analysis | "Repor..." | "Report" ✅ |
+| Export CSV button | Scan History | Icon only | "Export CSV" ✅ |
+| Domain Allowlist favicon | Trust Centre | Broken icon | Letter avatar "G" ✅ |
+
+#### Technical Changes
+
+**1. ResultDangerousScreen.kt** (Threat Analysis Report)
+- Added `weight(1f)` to left content Row to prevent pushing buttons off-screen
+- Added `Spacer(16.dp)` between content and buttons
+- Report button: Changed to `width(120.dp).height(40.dp)` with 12sp font
+- Block Access button: Changed to `width(170.dp).height(40.dp)` with 12sp font
+- Added `fillMaxWidth()` to parent Surface and Row
+
+**2. ScanHistoryScreen.kt** (Scan History)
+- Added `weight(1f)` to left title Column
+- Added `Spacer(16.dp)` between title and controls
+- Export CSV button: Changed to `width(140.dp).height(36.dp)` with 12sp font
+- Changed inner Row to `Arrangement.Center` for proper alignment
+
+**3. TrustCentreScreen.kt** (Trust Centre)
+- AllowItem: Removed broken favicon loading via `painterResource()`
+- Now always uses letter avatar (e.g., "G" for google.com)
+- Changed from CircleShape to RoundedCornerShape(6.dp)
+
+#### Files Modified
+| File | Lines | Change |
+|------|-------|--------|
+| `ResultDangerousScreen.kt` | 160-240 | Layout restructure + fixed button widths |
+| `ScanHistoryScreen.kt` | 206-290 | Left column weight + button sizing |
+| `TrustCentreScreen.kt` | 572-608 | AllowItem letter avatar |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
+## [1.17.70] - 2025-12-27
+
+### 🛠️ Desktop UI Layout Fixes - 6 Targeted Fixes
+
+#### Task 1: Remove Profile + Question Mark Icons
+- **Issue:** Two icons (help_outline, person) in top-right of TrustCentreAlt screen
+- **Fix:** Removed the Row containing both icons from the header
+- **File:** `TrustCentreAltScreen.kt` (lines 136-161 removed)
+
+#### Task 2: Fix Clipped Text in Toggle Boxes
+- **Issue:** "Strict Offline Mode" and "Anonymous Telemetry" text was clipped
+- **Root cause:** Fixed `height(72.dp)` too restrictive + text needed overflow handling
+- **Fix:** Changed to `heightIn(min = 76.dp)`, added `maxLines = 1` + `TextOverflow.Ellipsis` to title, `maxLines = 2` to subtitle
+- **File:** `TrustCentreScreen.kt` (ToggleCard composable)
+
+#### Task 3: Nudge "View Audit Log" Button
+- **Issue:** Button too centered relative to shield graphic
+- **Fix:** Added `.offset(x = 8.dp, y = (-4).dp)` to nudge button slightly up and right
+- **File:** `TrustCentreScreen.kt` (line 165)
+
+#### Task 4: Fix Export CSV Text Cutoff
+- **Issue:** Export label truncated/vertical
+- **Root cause:** No minimum width, text could wrap
+- **Fix:** Added `.widthIn(min = 120.dp)` + `softWrap = false` to prevent text collapse
+- **File:** `ScanHistoryScreen.kt` (lines 255-284)
+
+#### Task 5: Fix Recent Scans Vertical Text
+- **Issue:** Text in "Details"/"Phishing" column rendered vertically at narrow widths
+- **Root cause:** Fixed `width()` modifiers caused column collapse
+- **Fix:** Changed all columns from `width(X.dp)` to `widthIn(min = X.dp).weight(Y)` for flexible layout
+- Added `maxLines = 1` + `softWrap = false` to status labels
+- **Files:** `DashboardScreen.kt` (TableHeader, RecentScanRow composables)
+
+#### Task 6: Fix "Block Access" Button Vertical Text
+- **Issue:** "Block Access" button label was stacked vertically
+- **Root cause:** No minimum width, text wrapping
+- **Fix:** Added `.widthIn(min = 130.dp)` + `maxLines = 1` + `softWrap = false`
+- **File:** `ResultDangerousScreen.kt` (lines 212-234)
+
+#### Files Modified
+| File | Task(s) | Change |
+|------|---------|--------|
+| `TrustCentreAltScreen.kt` | 1 | Removed help + profile icons from header |
+| `TrustCentreScreen.kt` | 2, 3 | ToggleCard: `heightIn(min=76)` + offset for button |
+| `ScanHistoryScreen.kt` | 4 | Export CSV: `widthIn(min=120)` + `softWrap=false` |
+| `DashboardScreen.kt` | 5 | TableHeader/RecentScanRow: `widthIn` + `weight` |
+| `ResultDangerousScreen.kt` | 6 | Block Access: `widthIn(min=130)` + `softWrap=false` |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 15s
+```
+
+---
+
 ## [1.17.69] - 2025-12-27
 
 ### 🎨 Desktop UI Polish - 5 Targeted Fixes
 
 #### Task 1: Heuristic Sensitivity Tiles - Icon Consistency
-- **Issue:** Paranoia tile was missing a visible icon
-- **Fix:** Changed Paranoia icon from `gpp_maybe` to `warning` (more reliable Material Symbol)
 - All 3 tiles now have consistent icons: `shield` (Low), `verified_user` (Balanced), `warning` (Paranoia)
-- Icons are same size (18sp) and aligned in 32dp circular containers
-- **File:** `TrustCentreScreen.kt` (line 281)
 
-#### Task 2: Settings Toggle Cards - Size Consistency
-- **Issue:** Auto-copy Safe Links card had different height
-- **Fix:** Added fixed height `72.dp` to ToggleCard and `fillMaxSize()` to inner Row
-- All 3 toggle cards now have identical height, padding, and switch dimensions
-- Switch remains consistent: 52×28dp track, 22dp thumb
-- Added `handCursor()` for pointer feedback
-- **File:** `TrustCentreScreen.kt` (line 371-388)
-
-#### Task 3: Strict Offline Guarantee Card - Button Position
-- **Issue:** "View Audit Log" button sat mid-card instead of top-right
-- **Fix:** Restructured layout - Row with header badge + button now sits at top of Column
-- Button aligns to `Alignment.Top` within the header row
-- Title and description are positioned below the header row
-- Added `handCursor()` for pointer feedback
-- Routes to `AppScreen.ReportsExport` (closest existing logs/export screen)
-- **File:** `TrustCentreScreen.kt` (lines 131-186)
-
-#### Task 4: History Screen - Export CSV Button Orientation
-- **Issue:** Export CSV text was rendering vertically
-- **Fix:** Added explicit `height(36.dp)` constraint and `maxLines = 1` to Text
-- Button now renders horizontally with proper icon + text alignment
-- **File:** `ScanHistoryScreen.kt` (lines 255-282)
-
-#### Task 5: Ready to Scan Panel - Alignment
-- **Issue:** Title, icon, and button were misaligned
-- **Fix:** Added `horizontalAlignment = Alignment.CenterHorizontally` to Column
-- Replaced Modifier.padding with explicit Spacers for consistent spacing
-- Added `textAlign = TextAlign.Center` to title
-- Changed surface alpha from 0.8f to 0.9f for better visibility
-- Changed border from `colors.surface` to `colors.border` for consistency
-- **File:** `LiveScanScreen.kt` (lines 300-346)
-
-#### Files Modified
-| File | Task | Change |
-|------|------|--------|
-| `TrustCentreScreen.kt` | 1 | Paranoia icon: `gpp_maybe` → `warning` |
-| `TrustCentreScreen.kt` | 2 | ToggleCard: Added `.height(72.dp)` + `.fillMaxSize()` |
-| `TrustCentreScreen.kt` | 3 | Strict Offline card: Moved button to header row |
-| `ScanHistoryScreen.kt` | 4 | Export CSV: Added `.height(36.dp)` + `maxLines = 1` |
-| `LiveScanScreen.kt` | 5 | Upload panel: Added `horizontalAlignment` + Spacers |
-
-**Build Verification:**
-```bash
-./gradlew :desktopApp:compileKotlinDesktop
-# BUILD SUCCESSFUL in 7s
-```
+#### Task 2-5: Various UI improvements
+- Toggle cards sizing, View Audit Log position, Export CSV orientation, Upload panel alignment
 
 ---
 

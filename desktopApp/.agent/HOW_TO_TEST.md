@@ -1,4 +1,9 @@
-# Desktop UI Polish - Manual Test Guide
+# Desktop UI Layout Fixes - Manual Test Guide
+
+## Version: 1.17.72
+## Date: 2025-12-27
+
+---
 
 ## Quick Start
 
@@ -11,99 +16,74 @@ cd /Users/raoof.r12/Desktop/Raouf/K/qrshield
 
 ## Test Cases
 
-### ✅ Task 1: Paranoia Icon Appears
+### ✅ Task 1: Block Access Button - Full Text
 
-**Screen:** Trust Centre (click "Trust Centre" in sidebar)
+**Screen:** Threat Analysis Report (scan a malicious URL)
 
 **Steps:**
-1. Navigate to Trust Centre
-2. Locate the "Heuristic Sensitivity" section
-3. Look at the three option tiles: Low, Balanced, Paranoia
+1. Scan a URL that triggers a "High Risk Detected" result
+2. Look at the red "Block Access" button on the right
 
 **Expected:**
-- ✓ All 3 tiles have visible icons in circular containers
-- ✓ Low: shield icon (green when selected)
-- ✓ Balanced: verified_user icon (blue when selected)
-- ✓ Paranoia: warning icon (orange when selected)
-- ✓ Icons are same size (32dp circles)
-- ✓ Clicking any tile updates the selection and mode badge
+- ✓ "Block Access" text is fully visible (not "Bloc...")
+- ✓ Button width is 170dp
+- ✓ Icon and text are horizontally aligned
 
 ---
 
-### ✅ Task 2: Toggle Cards Equal Sizes
+### ✅ Task 2: Report Button - Full Text
 
-**Screen:** Trust Centre
+**Screen:** Threat Analysis Report (same screen)
 
 **Steps:**
-1. Navigate to Trust Centre
-2. Scroll to view the three toggle cards:
-   - "Strict Offline Mode"
-   - "Anonymous Telemetry"
-   - "Auto-copy Safe Links"
+1. Look at the "Report" button next to Block Access
 
 **Expected:**
-- ✓ All three cards have identical height (72dp)
-- ✓ All cards have same padding and border styling
-- ✓ Toggle switches are same size (52×28dp track, 22dp thumb)
-- ✓ Pointer changes to hand cursor when hovering
-- ✓ Clicking toggles the switch state
+- ✓ "Report" text is fully visible (not "Repor...")
+- ✓ Button width is 120dp
+- ✓ Icon and text are horizontally aligned
 
 ---
 
-### ✅ Task 3: View Audit Log Button Position
-
-**Screen:** Trust Centre
-
-**Steps:**
-1. Navigate to Trust Centre
-2. Locate the "Strict Offline Guarantee" card at the top
-3. Look at the "View Audit Log" button position
-
-**Expected:**
-- ✓ Button is in the top-right corner of the card header area
-- ✓ Button is NOT vertically centered mid-card
-- ✓ Status badge ("AIR-GAPPED STATUS: ACTIVE") is on the left
-- ✓ Title and description text are below the header row
-- ✓ Pointer changes to hand cursor when hovering button
-- ✓ Clicking button navigates to Reports/Export screen
-
----
-
-### ✅ Task 4: Export CSV Horizontal
+### ✅ Task 3: Export CSV Button - Full Text
 
 **Screen:** Scan History (click "History" in sidebar)
 
 **Steps:**
 1. Navigate to Scan History
-2. Look at the header controls row containing:
-   - "Last 7 Days" filter
-   - "Clear History" button
-   - "Export CSV" button
+2. Look at the blue button next to "Clear History"
 
 **Expected:**
-- ✓ "Export CSV" button text renders horizontally (left-to-right)
-- ✓ Text is NOT vertical
-- ✓ Icon (download) appears to the left of text
-- ✓ Button has blue primary background
-- ✓ No text clipping or overflow
+- ✓ "Export CSV" text is fully visible
+- ✓ Download icon visible on the left
+- ✓ Button width is 140dp
 
 ---
 
-### ✅ Task 5: Upload QR Code Panel Alignment
+### ✅ Task 4: Domain Allowlist - Letter Avatar
 
-**Screen:** Scan Monitor (click "Scan Monitor" in sidebar)
+**Screen:** Trust Centre (click "Trust Centre" in sidebar)
 
 **Steps:**
-1. Navigate to Scan Monitor
-2. Look at the "Upload QR Code" panel in the center
+1. Navigate to Trust Centre
+2. Look at the Domain Allowlist section
+3. Check domains like google.com, github.com
 
 **Expected:**
-- ✓ Upload icon is centered horizontally
-- ✓ Title text ("Upload QR Code") is centered
-- ✓ Description text is centered
-- ✓ "Upload Image" button is centered
-- ✓ All elements align to same vertical axis
-- ✓ Spacing is consistent between elements
+- ✓ Each domain shows a letter avatar (e.g., "G" for google.com)
+- ✓ NO broken/weird favicon icons
+- ✓ Letters are in a rounded square box
+
+---
+
+## Window Size Tests
+
+Test at these resolutions:
+1. **Normal:** 1440×900
+2. **Narrow:** 1024×768
+3. **Maximized:** Full screen
+
+All buttons should remain readable at all sizes.
 
 ---
 
@@ -123,15 +103,19 @@ cd /Users/raoof.r12/Desktop/Raouf/K/qrshield
 
 ## Files Changed
 
-| File | Lines | Task |
-|------|-------|------|
-| `TrustCentreScreen.kt` | 131-186, 281, 371-388 | 1, 2, 3 |
-| `ScanHistoryScreen.kt` | 255-282 | 4 |
-| `LiveScanScreen.kt` | 300-346 | 5 |
+| File | Lines | Change |
+|------|-------|--------|
+| `ResultDangerousScreen.kt` | 160-240 | Layout restructure + button widths |
+| `ScanHistoryScreen.kt` | 206-290 | Column weight + Export CSV sizing |
+| `TrustCentreScreen.kt` | 572-608 | AllowItem letter avatar |
+| `TrustCentreAltScreen.kt` | 136-161 | Removed profile/help icons |
 
 ---
 
-## Version
+## Summary of Button Widths
 
-- **App Version:** 1.17.69
-- **Date:** 2025-12-27
+| Button | Screen | Width | Height | Font |
+|--------|--------|-------|--------|------|
+| Report | Threat Analysis | 120dp | 40dp | 12sp |
+| Block Access | Threat Analysis | 170dp | 40dp | 12sp |
+| Export CSV | Scan History | 140dp | 36dp | 12sp |
