@@ -5,6 +5,40 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.80] - 2025-12-28
+
+### 🔧 Hotkey Fix & Training UI Cleanup
+
+#### 1. Removed G Hotkey ✅
+- **Problem**: Pressing 'G' while typing URLs (e.g., "google.com") would trigger the image import dialog
+- **Root Cause**: Global `Key.G` shortcut in `Main.kt` was firing during text input
+- **Fix**: Removed the `Key.G` hotkey entirely; only `Key.I` is now used for image import
+
+#### 2. Removed Fake QR Code from Beat the Bot ✅
+- **Problem**: Static decorative QR code image with "Enlarge" button served no purpose
+- **Fix**: Removed the entire 26-line QR code column from `TrainingScreen.kt`
+- **Result**: Training section now focuses on the actual URL/browser preview content
+
+#### 3. Decorative Sections Already Wired ✅
+- **System Health Panel**: Already connected to `stats.maliciousCount` and `stats.safeCount` (real data)
+- **Security Settings**: All toggles already wired to `viewModel` properties:
+  - `autoBlockThreats`, `realTimeScanning`, `soundAlerts`, `threatAlerts`, `showConfidenceScore`
+- **No changes needed** - these were functional, just showing actual scan statistics
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `Main.kt` | Removed `Key.G` hotkey block and doc reference |
+| `TrainingScreen.kt` | Removed fake QR code image and "Enlarge" button |
+
+#### Build Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 9s ✅
+```
+
+---
+
 ## [1.17.79] - 2025-12-28
 
 ### 🔧 UI Fixes and Improvements

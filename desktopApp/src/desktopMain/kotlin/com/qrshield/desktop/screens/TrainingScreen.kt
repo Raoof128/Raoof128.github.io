@@ -315,32 +315,6 @@ private fun TrainingContent(viewModel: AppViewModel) {
                                     .padding(24.dp),
                                 horizontalArrangement = Arrangement.spacedBy(24.dp)
                             ) {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Box(
-                                        modifier = Modifier
-                                            .size(192.dp)
-                                            .cardSurface(colors.surface, colors.border, radius = 8.dp)
-                                            .padding(8.dp)
-                                    ) {
-                                        Image(
-                                            painter = painterResource("assets/stitch/qr-example.png"),
-                                            contentDescription = t("QR Code"),
-                                            contentScale = ContentScale.Fit,
-                                            modifier = Modifier.fillMaxSize()
-                                        )
-                                    }
-                                    Text(
-                                        t("Enlarge"),
-                                        fontSize = 12.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = colors.primary,
-                                    modifier = Modifier
-                                            .padding(top = 8.dp)
-                                            .clickable { viewModel.showInfo(t("Press H to show keyboard shortcuts")) }
-                                            .focusable()
-                                            .handCursor()
-                                    )
-                                }
                                 Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                                     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
                                         Text(t("Browser Preview"), fontSize = 10.sp, fontWeight = FontWeight.Bold, color = colors.textMuted, letterSpacing = 1.sp)
