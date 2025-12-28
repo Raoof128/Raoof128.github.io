@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.18.3`** (as of December 28, 2025)
+**Current App Version: `1.18.4`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,73 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎨 December 28, 2025 (Session 10k+35) - UI Polish & Sandbox Removal
+
+### Summary
+Fixed pale Export button and format icon visibility, completely removed sandbox feature, and added language selector to settings.
+
+## ✅ Changes Made
+
+### 1. Fixed Pale "Export Report" Button
+**Problem**: The export button in `export.html` had `background: transparent` making it nearly invisible.
+
+**Solution**: Added proper gradient background in `export.css`:
+```css
+.btn-export {
+    background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4), 0 10px 25px rgba(25, 93, 230, 0.3);
+}
+```
+
+### 2. Fixed Pale "Human-Readable" Format Icon
+**Problem**: When PDF format was selected, the icon background was transparent.
+
+**Solution**: Added gradient background to selected format icon:
+```css
+.format-radio:checked+.format-card .format-icon {
+    background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+    box-shadow: 0 4px 12px rgba(25, 93, 230, 0.4);
+}
+```
+
+### 3. Removed "Sandbox" Feature Completely
+**What Was Removed**:
+- "Quarantine in Sandbox" button from `threat.html`
+- `quarantineInSandbox()` function from `threat.js`
+- All "sandbox" references from `onboarding.html/js`
+- Replaced with accurate "On-Device Analysis" terminology
+
+**Reason**: The "sandbox" feature was misleading as it didn't provide real sandboxing.
+
+### 4. Added Language Selector
+**Location**: Settings page (onboarding.html) → Display section
+
+**Supported Languages (16)**: en, ar, de, es, fr, hi, id, it, ja, ko, pt, ru, th, tr, vi, zh
+
+**How It Works**:
+- Language preference saved to `localStorage` as `qrshield_language`
+- Calls `window.qrshieldSetLanguage()` when changed
+- Re-applies translations to current page
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `export.css` | Fixed `.btn-export` and `.format-icon` backgrounds |
+| `threat.html` | Replaced "Quarantine in Sandbox" with "Export Report" button |
+| `threat.js` | Replaced `quarantineInSandbox()` with `exportThreatReport()` |
+| `onboarding.html` | Replaced sandbox card with "On-Device Analysis", added language selector |
+| `onboarding.js` | Updated settings, added language change handler |
+| `shared-ui.js` | Updated `DEFAULT_SETTINGS` to use `onDeviceAnalysis` |
+| `CHANGELOG.md` | Added entry for v1.18.4 |
+| `agent.md` | Updated version and added session entry |
+
+## Notes for Future Agents
+- The i18n system is already built and working - translations exist for all 16 languages
+- `window.qrshieldGetTranslation()` and `window.qrshieldApplyTranslations()` are available from Kotlin/JS
+- Language preference is now persisted in localStorage under `qrshield_language` key
 
 ---
 

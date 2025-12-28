@@ -4,7 +4,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## [1.18.3] - 2025-12-28
+## [1.18.4] - 2025-12-28
+
+### 🎨 UI Polish & Sandbox Removal
+
+#### 1. Fixed Pale "Export Report" Button ✅
+**Problem**: The export button in `export.html` had `background: transparent` making it nearly invisible.
+
+**Solution**: Added proper gradient background matching the app's primary colors:
+```css
+background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4), 0 10px 25px rgba(25, 93, 230, 0.3);
+```
+
+#### 2. Fixed Pale "Human-Readable" Format Icon ✅
+**Problem**: When PDF format was selected, the icon background was transparent.
+
+**Solution**: Added gradient background to selected format icon:
+```css
+.format-radio:checked+.format-card .format-icon {
+    background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+    box-shadow: 0 4px 12px rgba(25, 93, 230, 0.4);
+}
+```
+
+#### 3. Removed "Sandbox" Feature Completely ✅
+**What Was Removed**:
+- "Quarantine in Sandbox" button from threat.html
+- `quarantineInSandbox()` function from threat.js
+- All "sandbox" references from onboarding.html/js
+- Replaced with accurate "On-Device Analysis" terminology
+
+**Reason**: The "sandbox" feature was misleading as it didn't provide real sandboxing. Replaced with more accurate terminology.
+
+#### 4. Added Language Selector ✅
+**Location**: Settings page (onboarding.html) → Display section
+
+**Supported Languages (16)**:
+| Code | Language |
+|------|----------|
+| en | English |
+| ar | العربية (Arabic) |
+| de | Deutsch (German) |
+| es | Español (Spanish) |
+| fr | Français (French) |
+| hi | हिन्दी (Hindi) |
+| id | Indonesia |
+| it | Italiano (Italian) |
+| ja | 日本語 (Japanese) |
+| ko | 한국어 (Korean) |
+| pt | Português (Portuguese) |
+| ru | Русский (Russian) |
+| th | ไทย (Thai) |
+| tr | Türkçe (Turkish) |
+| vi | Tiếng Việt (Vietnamese) |
+| zh | 中文 (Chinese) |
+
+**How It Works**:
+- Language preference saved to `localStorage` as `qrshield_language`
+- Calls `window.qrshieldSetLanguage()` when changed
+- Re-applies translations to current page
+- Takes full effect on page reload
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `export.css` | Fixed `.btn-export` and `.format-icon` backgrounds |
+| `threat.html` | Replaced "Quarantine in Sandbox" with "Export Report" button |
+| `threat.js` | Replaced `quarantineInSandbox()` with `exportThreatReport()` |
+| `onboarding.html` | Replaced sandbox card with "On-Device Analysis", added language selector |
+| `onboarding.js` | Updated settings, added language change handler |
+| `shared-ui.js` | Updated `DEFAULT_SETTINGS` to use `onDeviceAnalysis` |
+
+---
 
 ### 🎨 Light Mode UI Fixes
 

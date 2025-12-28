@@ -186,25 +186,25 @@
                         </h1>
 
                         <p class="hero-description">
-                            QR-SHIELD processes every scan within a secure, isolated local sandbox.
+                            QR-SHIELD processes every scan using secure on-device analysis.
                             We prioritize explainable security with zero cloud telemetry for image analysis.
                         </p>
                     </div>
 
                     <!-- Feature Cards -->
                     <div class="features-grid">
-                        <!-- Local Sandbox Card -->
-                        <div class="feature-card" data-feature="sandbox">
+                        <!-- On-Device Analysis Card -->
+                        <div class="feature-card" data-feature="analysis">
                             <div class="feature-bg-icon">
-                                <span class="material-symbols-outlined">science</span>
+                                <span class="material-symbols-outlined">security</span>
                             </div>
                             <div class="feature-icon blue">
-                                <span class="material-symbols-outlined">science</span>
+                                <span class="material-symbols-outlined">security</span>
                             </div>
-                            <h3 class="feature-title">Local Sandbox</h3>
+                            <h3 class="feature-title">On-Device Analysis</h3>
                             <p class="feature-description">
-                                Code execution happens in an ephemeral container.
-                                Malicious payloads never touch your OS kernel.
+                                All threat detection runs locally on your device.
+                                No data ever leaves your system.
                             </p>
                         </div>
 
@@ -271,7 +271,7 @@
                                         <td class="data-point">Decoded URL/Payload</td>
                                         <td class="processing-env">
                                             <span class="env-dot blue"></span>
-                                            Isolated Sandbox
+                                            Local Analysis
                                         </td>
                                         <td class="transmission">None</td>
                                     </tr>
@@ -385,6 +385,31 @@
                                     <input type="checkbox" id="settingCompactView">
                                     <span class="toggle-slider"></span>
                                 </label>
+                            </div>
+
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label">Language</span>
+                                    <span class="setting-desc">Choose your preferred language</span>
+                                </div>
+                                <select class="setting-select" id="settingLanguage">
+                                    <option value="en">English</option>
+                                    <option value="ar">العربية</option>
+                                    <option value="de">Deutsch</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                    <option value="hi">हिन्दी</option>
+                                    <option value="id">Indonesia</option>
+                                    <option value="it">Italiano</option>
+                                    <option value="ja">日本語</option>
+                                    <option value="ko">한국어</option>
+                                    <option value="pt">Português</option>
+                                    <option value="ru">Русский</option>
+                                    <option value="th">ไทย</option>
+                                    <option value="tr">Türkçe</option>
+                                    <option value="vi">Tiếng Việt</option>
+                                    <option value="zh">中文</option>
+                                </select>
                             </div>
                         </div>
                     </div>

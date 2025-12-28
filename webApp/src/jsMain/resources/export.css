@@ -671,8 +671,9 @@ body.light .top-header {
 }
 
 .format-radio:checked+.format-card .format-icon {
-    background: transparent;
+    background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
     color: white;
+    box-shadow: 0 4px 12px rgba(25, 93, 230, 0.4);
 }
 
 .format-info {
@@ -716,7 +717,7 @@ body.light .top-header {
 .btn-export {
     width: 100%;
     padding: var(--space-4) var(--space-6);
-    background: transparent;
+    background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
     color: white;
     font-size: 1rem;
     font-weight: 700;
@@ -727,12 +728,14 @@ body.light .top-header {
     align-items: center;
     justify-content: center;
     gap: var(--space-3);
-    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.2);
+    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.4), 0 10px 25px rgba(25, 93, 230, 0.3);
     transition: all var(--transition-fast);
 }
 
 .btn-export:hover {
-    background-color: var(--primary-hover);
+    background: linear-gradient(135deg, var(--primary-hover) 0%, #7c3aed 100%);
+    box-shadow: 0 6px 20px rgba(30, 64, 175, 0.5), 0 14px 30px rgba(25, 93, 230, 0.4);
+    transform: translateY(-1px);
 }
 
 .btn-export:active {

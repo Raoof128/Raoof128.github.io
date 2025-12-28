@@ -65,7 +65,7 @@ const elements = {
 
     // Buttons
     blockBtn: null,
-    quarantineBtn: null,
+    exportReportBtn: null,
     notificationBtn: null,
 
     // Toast
@@ -152,7 +152,7 @@ function cacheElements() {
     elements.scanIdLabel = document.getElementById('scanIdLabel');
     elements.scanTime = document.getElementById('scanTime');
     elements.blockBtn = document.getElementById('blockBtn');
-    elements.quarantineBtn = document.getElementById('quarantineBtn');
+    elements.exportReportBtn = document.getElementById('exportReportBtn');
     elements.notificationBtn = document.getElementById('notificationBtn');
     elements.toast = document.getElementById('toast');
     elements.toastMessage = document.getElementById('toastMessage');
@@ -168,8 +168,8 @@ function setupEventListeners() {
     // Block button
     elements.blockBtn?.addEventListener('click', blockAndReport);
 
-    // Quarantine button
-    elements.quarantineBtn?.addEventListener('click', quarantineInSandbox);
+    // Export Report button
+    elements.exportReportBtn?.addEventListener('click', exportThreatReport);
 
     // Notification button
     elements.notificationBtn?.addEventListener('click', () => {
@@ -562,20 +562,11 @@ function blockAndReport() {
 }
 
 /**
- * Quarantine in sandbox for analysis
+ * Export threat report
  */
-function quarantineInSandbox() {
-    showToast('Quarantined in secure sandbox for analysis', 'info');
-
-    // Visual feedback on button
-    if (elements.quarantineBtn) {
-        elements.quarantineBtn.innerHTML = `
-            <span class="material-symbols-outlined">check</span>
-            Quarantined
-        `;
-        elements.quarantineBtn.disabled = true;
-        elements.quarantineBtn.style.opacity = '0.7';
-    }
+function exportThreatReport() {
+    // Navigate to export page
+    window.location.href = 'export.html';
 }
 
 // =============================================================================
@@ -621,10 +612,10 @@ function setupKeyboardShortcuts() {
             blockAndReport();
         }
 
-        // Q - Quarantine
-        if (e.key === 'q' && !e.ctrlKey && !e.metaKey &&
+        // E - Export
+        if (e.key === 'e' && !e.ctrlKey && !e.metaKey &&
             document.activeElement?.tagName !== 'INPUT') {
-            quarantineInSandbox();
+            exportThreatReport();
         }
     });
 }
@@ -707,6 +698,6 @@ if (typeof module !== 'undefined' && module.exports) {
         ThreatLevels,
         loadThreatData,
         blockAndReport,
-        quarantineInSandbox,
+        exportThreatReport,
     };
 }

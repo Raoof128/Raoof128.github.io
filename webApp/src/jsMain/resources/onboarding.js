@@ -25,7 +25,7 @@ const OnboardingConfig = {
 const OnboardingState = {
     settings: {
         offlineMode: true,
-        localSandbox: true,
+        onDeviceAnalysis: true,
         noCloudLogs: true,
         onDeviceDb: true,
     },
@@ -174,6 +174,13 @@ function loadSettings() {
             el.checked = settings[settingKey] !== false; // Default to true if not set
         }
     }
+
+    // Load language setting
+    const languageEl = document.getElementById('settingLanguage');
+    if (languageEl) {
+        const savedLang = localStorage.getItem('qrshield_language') || 'en';
+        languageEl.value = savedLang;
+    }
 }
 
 /**
@@ -230,6 +237,25 @@ function setupSettingsListeners() {
     if (resetBtn) {
         resetBtn.addEventListener('click', resetSettings);
     }
+
+    // Language selector
+    const languageEl = document.getElementById('settingLanguage');
+    if (languageEl) {
+        languageEl.addEventListener('change', (e) => {
+            const newLang = e.target.value;
+            localStorage.setItem('qrshield_language', newLang);
+
+            // Update the language in the app
+            if (window.qrshieldSetLanguage) {
+                window.qrshieldSetLanguage(newLang);
+            }
+
+            // Re-apply translations to the page
+            window.qrshieldApplyTranslations?.(document.body);
+
+            showToast('Language changed. Reload for full effect.', 'success');
+        });
+    }
 }
 
 /**
@@ -244,7 +270,7 @@ function resetSettings() {
         autoBlock: true,
         realTimeScanning: true,
         offlineMode: true,
-        localSandbox: true,
+        onDeviceAnalysis: true,
         noCloudLogs: true,
         onDeviceDb: true,
         soundEnabled: true,
@@ -274,7 +300,7 @@ function resetSettings() {
 function enableOfflineMode() {
     // Ensure privacy settings are enabled
     OnboardingState.settings.offlineMode = true;
-    OnboardingState.settings.localSandbox = true;
+    OnboardingState.settings.onDeviceAnalysis = true;
     OnboardingState.settings.noCloudLogs = true;
     OnboardingState.settings.onDeviceDb = true;
 
@@ -403,9 +429,9 @@ function setupFeatureCardInteractions() {
  */
 function showFeatureDetails(feature) {
     const details = {
-        sandbox: {
-            title: 'Local Sandbox',
-            description: 'All code execution happens in an ephemeral container that is destroyed after each scan. This ensures malicious payloads can never escape to your system.',
+        analysis: {
+            title: 'On-Device Analysis',
+            description: 'All threat detection runs locally on your device using our advanced phishing engine. No data is ever sent to external servers.',
         },
         cloud: {
             title: 'No Cloud Logs',

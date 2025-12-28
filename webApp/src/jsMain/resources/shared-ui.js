@@ -913,7 +913,7 @@
 
         // Privacy settings
         offlineMode: true,
-        localSandbox: true,
+        onDeviceAnalysis: true,
         noCloudLogs: true,
         onDeviceDb: true,
 
