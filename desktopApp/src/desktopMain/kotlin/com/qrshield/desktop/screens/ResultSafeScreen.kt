@@ -41,6 +41,98 @@ import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.ProfileDropdown
 import com.qrshield.desktop.ui.EditProfileDialog
+import com.qrshield.model.RiskAssessment
+
+/**
+ * Safe indicator data derived from engine analysis (absence of threats).
+ */
+private data class SafeIndicator(
+    val title: String,
+    val badge: String,
+    val icon: String,
+    val body: String
+)
+
+/**
+ * Derives positive security indicators from actual engine assessment.
+ * Shows what checks PASSED based on absence of threat flags.
+ */
+private fun deriveSafeIndicators(
+    assessment: RiskAssessment,
+    t: (String) -> String
+): List<SafeIndicator> {
+    val indicators = mutableListOf<SafeIndicator>()
+    val flagsLower = assessment.flags.map { it.lowercase() }
+    val details = assessment.details
+
+    // Protocol check - HTTPS is good
+    val isHttps = details.originalUrl.startsWith("https")
+    if (isHttps) {
+        indicators.add(SafeIndicator(
+            title = t("Protocol"),
+            badge = t("HTTPS"),
+            icon = "lock",
+            body = t("Secure HTTPS connection with encrypted data transfer.")
+        ))
+    }
+
+    // Homograph check - no mixed scripts detected
+    val hasNoHomograph = !flagsLower.any { it.contains("homograph") || it.contains("mixed script") || it.contains("lookalike") || it.contains("punycode") }
+    if (hasNoHomograph) {
+        indicators.add(SafeIndicator(
+            title = t("Homograph Check"),
+            badge = t("CLEAN"),
+            icon = "spellcheck",
+            body = t("No mixed-script characters or IDN spoofing detected in domain string.")
+        ))
+    }
+
+    // Brand check - no impersonation
+    val hasNoBrandIssue = !flagsLower.any { it.contains("brand") || it.contains("impersonation") }
+    if (hasNoBrandIssue && details.brandMatch == null) {
+        indicators.add(SafeIndicator(
+            title = t("Brand Check"),
+            badge = t("CLEAR"),
+            icon = "verified_user",
+            body = t("No brand impersonation patterns detected.")
+        ))
+    }
+
+    // Redirect check - no shorteners
+    val hasNoRedirect = !flagsLower.any { it.contains("shortener") || it.contains("redirect") }
+    if (hasNoRedirect) {
+        indicators.add(SafeIndicator(
+            title = t("Redirect Chain"),
+            badge = t("DIRECT"),
+            icon = "alt_route",
+            body = t("No URL shorteners or redirect chains detected.")
+        ))
+    }
+
+    // TLD check - not high-risk
+    val tldScore = details.tldScore
+    if (tldScore <= 5) {
+        indicators.add(SafeIndicator(
+            title = t("TLD Risk"),
+            badge = t("LOW"),
+            icon = "public",
+            body = t("Domain uses a standard top-level domain with good reputation.")
+        ))
+    }
+
+    // ML confidence
+    val mlScore = details.mlScore
+    if (mlScore <= 20) {
+        indicators.add(SafeIndicator(
+            title = t("ML Analysis"),
+            badge = t("PASSED"),
+            icon = "psychology",
+            body = t("Machine learning model found no phishing patterns.")
+        ))
+    }
+
+    return indicators.take(4)
+}
 
 @Composable
 fun ResultSafeScreen(viewModel: AppViewModel) {
@@ -216,13 +308,33 @@ private fun SafeResultContent(
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     Text(t("Verdict Analysis"), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                        AnalysisCard(title = t("Domain Identity"), badge = t("PASSED"), icon = "domain_verification", body = t("Verified ownership by Microsoft Corporation via EV Certificate."), modifier = Modifier.weight(1f))
-                        AnalysisCard(title = t("Homograph Check"), badge = t("CLEAN"), icon = "spellcheck", body = t("No mixed-script characters or IDN spoofing detected in domain string."), modifier = Modifier.weight(1f))
-                    }
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                        AnalysisCard(title = t("Domain Age"), badge = t("ESTABLISHED"), icon = "history_edu", body = t("Domain registered > 20 years ago. High reputation score."), modifier = Modifier.weight(1f))
-                        AnalysisCard(title = t("Redirect Chain"), badge = t("DIRECT"), icon = "alt_route", body = t("Zero intermediate redirects found. Destination is final."), modifier = Modifier.weight(1f))
+                    // Dynamic safe indicators from real engine analysis
+                    val safeIndicators = assessment?.let { deriveSafeIndicators(it, t) } ?: emptyList()
+                    if (safeIndicators.isNotEmpty()) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                            safeIndicators.getOrNull(0)?.let { indicator ->
+                                AnalysisCard(title = indicator.title, badge = indicator.badge, icon = indicator.icon, body = indicator.body, modifier = Modifier.weight(1f))
+                            }
+                            safeIndicators.getOrNull(1)?.let { indicator ->
+                                AnalysisCard(title = indicator.title, badge = indicator.badge, icon = indicator.icon, body = indicator.body, modifier = Modifier.weight(1f))
+                            } ?: Spacer(modifier = Modifier.weight(1f))
+                        }
+                        if (safeIndicators.size > 2) {
+                            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                                safeIndicators.getOrNull(2)?.let { indicator ->
+                                    AnalysisCard(title = indicator.title, badge = indicator.badge, icon = indicator.icon, body = indicator.body, modifier = Modifier.weight(1f))
+                                }
+                                safeIndicators.getOrNull(3)?.let { indicator ->
+                                    AnalysisCard(title = indicator.title, badge = indicator.badge, icon = indicator.icon, body = indicator.body, modifier = Modifier.weight(1f))
+                                } ?: Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
+                    } else {
+                        // Fallback when no specific indicators
+                        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                            AnalysisCard(title = t("Risk Score"), badge = t("LOW"), icon = "verified_user", body = t("All security checks passed with low risk score."), modifier = Modifier.weight(1f))
+                            AnalysisCard(title = t("Analysis"), badge = t("COMPLETE"), icon = "task_alt", body = t("Full heuristic and ML analysis completed successfully."), modifier = Modifier.weight(1f))
+                        }
                     }
                     Surface(
                         shape = RoundedCornerShape(12.dp),

@@ -32,6 +32,7 @@ import com.qrshield.desktop.navigation.AppScreen
 import com.qrshield.desktop.theme.StitchTheme
 import com.qrshield.desktop.theme.StitchTokens
 import com.qrshield.desktop.theme.LocalStitchTokens
+import com.qrshield.desktop.theme.ColorTokens
 import com.qrshield.desktop.ui.AppSidebar
 import com.qrshield.desktop.ui.MaterialIconRound
 import com.qrshield.desktop.ui.gridPattern
@@ -40,6 +41,175 @@ import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.ProfileDropdown
 import com.qrshield.desktop.ui.EditProfileDialog
+import com.qrshield.model.RiskAssessment
+
+/**
+ * Security indicator tile data derived from engine flags.
+ * Used to dynamically render security analysis tiles based on real engine output.
+ */
+private data class SecurityIndicator(
+    val title: String,
+    val badge: String,
+    val icon: String,
+    val severity: IndicatorSeverity,
+    val description: String
+)
+
+private enum class IndicatorSeverity { DANGER, WARNING, SUCCESS, INFO }
+
+/**
+ * Derives security indicator tiles from actual engine assessment flags.
+ * Maps engine output to UI tiles - no hardcoded fake data.
+ *
+ * @param flags The list of security flags from RiskAssessment.flags
+ * @param details The URL analysis details from RiskAssessment.details
+ * @param t Translation function for i18n
+ * @return List of SecurityIndicator tiles to display
+ */
+private fun deriveSecurityIndicators(
+    flags: List<String>,
+    details: com.qrshield.model.UrlAnalysisResult?,
+    t: (String) -> String
+): List<SecurityIndicator> {
+    val indicators = mutableListOf<SecurityIndicator>()
+    val flagsLower = flags.map { it.lowercase() }
+
+    // IDN Homograph / Mixed Script detection
+    val hasHomograph = flagsLower.any { it.contains("homograph") || it.contains("punycode") || it.contains("idn") || it.contains("mixed script") || it.contains("lookalike") }
+    if (hasHomograph) {
+        indicators.add(SecurityIndicator(
+            title = t("IDN Homograph"),
+            badge = t("DETECTED"),
+            icon = "text_format",
+            severity = IndicatorSeverity.DANGER,
+            description = t("Mixed script characters detected in domain name intended to spoof legitimate brands.")
+        ))
+    }
+
+    // HTTP vs HTTPS check
+    val isHttp = flagsLower.any { it.contains("http") && (it.contains("not https") || it.contains("insecure") || it.contains("unencrypted")) }
+    if (isHttp) {
+        indicators.add(SecurityIndicator(
+            title = t("Protocol"),
+            badge = t("HTTP"),
+            icon = "lock_open",
+            severity = IndicatorSeverity.DANGER,
+            description = t("The URL uses HTTP instead of HTTPS, meaning data is not encrypted.")
+        ))
+    }
+
+    // Brand impersonation
+    val hasBrandImpersonation = flagsLower.any { it.contains("brand") || it.contains("impersonation") }
+    val brandMatch = details?.brandMatch
+    if (hasBrandImpersonation || brandMatch != null) {
+        indicators.add(SecurityIndicator(
+            title = t("Brand Detection"),
+            badge = brandMatch?.uppercase() ?: t("IMPERSONATION"),
+            icon = "verified",
+            severity = IndicatorSeverity.DANGER,
+            description = t("The URL appears to impersonate a well-known brand, which is a common phishing tactic.")
+        ))
+    }
+
+    // URL Shortener detection
+    val hasShortener = flagsLower.any { it.contains("shortener") || it.contains("shortened") || it.contains("redirect") }
+    if (hasShortener) {
+        indicators.add(SecurityIndicator(
+            title = t("Redirect Chain"),
+            badge = t("SHORTENED"),
+            icon = "shuffle",
+            severity = IndicatorSeverity.WARNING,
+            description = t("The URL uses a shortening service, hiding the actual destination.")
+        ))
+    }
+
+    // High-risk TLD
+    val hasRiskyTld = flagsLower.any { it.contains("tld") || it.contains("top-level domain") }
+    val tld = details?.tld
+    if (hasRiskyTld && tld != null) {
+        indicators.add(SecurityIndicator(
+            title = t("TLD Risk"),
+            badge = ".${tld.uppercase()}",
+            icon = "public",
+            severity = IndicatorSeverity.WARNING,
+            description = t("The domain uses a top-level domain commonly associated with malicious sites.")
+        ))
+    }
+
+    // IP address instead of domain
+    val hasIpHost = flagsLower.any { it.contains("ip address") || it.contains("ip host") }
+    if (hasIpHost) {
+        indicators.add(SecurityIndicator(
+            title = t("IP Host"),
+            badge = t("DETECTED"),
+            icon = "dns",
+            severity = IndicatorSeverity.DANGER,
+            description = t("The URL uses an IP address instead of a domain name, which is unusual for legitimate sites.")
+        ))
+    }
+
+    // Credential harvesting
+    val hasCredentials = flagsLower.any { it.contains("credential") || it.contains("password") || it.contains("token") }
+    if (hasCredentials) {
+        indicators.add(SecurityIndicator(
+            title = t("Credentials"),
+            badge = t("HARVESTING"),
+            icon = "key",
+            severity = IndicatorSeverity.DANGER,
+            description = t("The URL contains parameters that suggest credential harvesting.")
+        ))
+    }
+
+    // Subdomain depth
+    val hasDeepSubdomain = flagsLower.any { it.contains("subdomain") }
+    if (hasDeepSubdomain) {
+        indicators.add(SecurityIndicator(
+            title = t("Subdomain"),
+            badge = t("DEEP"),
+            icon = "account_tree",
+            severity = IndicatorSeverity.WARNING,
+            description = t("The URL has an unusual number of subdomains, which can be used to mislead users.")
+        ))
+    }
+
+    // JavaScript/Data URI
+    val hasDangerousScheme = flagsLower.any { it.contains("javascript") || it.contains("data uri") || it.contains("data:") }
+    if (hasDangerousScheme) {
+        indicators.add(SecurityIndicator(
+            title = t("Scheme"),
+            badge = t("DANGEROUS"),
+            icon = "code",
+            severity = IndicatorSeverity.DANGER,
+            description = t("The URL uses a dangerous scheme that can execute code.")
+        ))
+    }
+
+    // Long URL
+    val hasLongUrl = flagsLower.any { it.contains("long") && it.contains("url") }
+    if (hasLongUrl) {
+        indicators.add(SecurityIndicator(
+            title = t("URL Length"),
+            badge = t("EXCESSIVE"),
+            icon = "straighten",
+            severity = IndicatorSeverity.WARNING,
+            description = t("The URL is unusually long, which can be used to hide the actual destination.")
+        ))
+    }
+
+    // If we have SSL info (always show for completeness - HTTPS means valid cert)
+    val isHttps = !isHttp && details?.originalUrl?.startsWith("https") == true
+    if (isHttps && indicators.isNotEmpty()) {
+        indicators.add(SecurityIndicator(
+            title = t("SSL Certificate"),
+            badge = t("VALID"),
+            icon = "lock",
+            severity = IndicatorSeverity.SUCCESS,
+            description = t("Valid SSL certificate present. Note: Valid SSL does not guarantee site legitimacy.")
+        ))
+    }
+
+    return indicators.take(4) // Limit to 4 tiles for UI layout
+}
 
 @Composable
 fun ResultDangerousScreen(viewModel: AppViewModel) {
@@ -277,13 +447,75 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                                     color = colors.danger
                                 )
                             }
-                            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                                InfoTile(t("IDN Homograph"), t("DETECTED"), "text_format", colors.danger, t("Mixed script characters detected in domain name intended to spoof legitimate brands."), modifier = Modifier.weight(1f))
-                                InfoTile(t("Domain Age"), t("< 24 HOURS"), "domain", colors.danger, t("Domain was registered today. Highly suspicious for banking services."), modifier = Modifier.weight(1f))
-                            }
-                            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-                                InfoTile(t("Redirect Chain"), t("COMPLEX"), "shuffle", colors.warning, t("URL involves 3+ redirects through unrelated shortening services."), modifier = Modifier.weight(1f))
-                                InfoTile(t("SSL Certificate"), t("VALID"), "lock", colors.success, t("Let's Encrypt R3. Note: Valid SSL does not guarantee site legitimacy."), modifier = Modifier.weight(1f))
+                            // Dynamic security indicator tiles from real engine flags
+                            val indicators = deriveSecurityIndicators(assessment.flags, assessment.details, t)
+                            if (indicators.isNotEmpty()) {
+                                // First row of indicators (up to 2)
+                                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                                    indicators.getOrNull(0)?.let { indicator ->
+                                        val tileColor = when (indicator.severity) {
+                                            IndicatorSeverity.DANGER -> colors.danger
+                                            IndicatorSeverity.WARNING -> colors.warning
+                                            IndicatorSeverity.SUCCESS -> colors.success
+                                            IndicatorSeverity.INFO -> colors.primary
+                                        }
+                                        InfoTile(indicator.title, indicator.badge, indicator.icon, tileColor, indicator.description, modifier = Modifier.weight(1f))
+                                    }
+                                    indicators.getOrNull(1)?.let { indicator ->
+                                        val tileColor = when (indicator.severity) {
+                                            IndicatorSeverity.DANGER -> colors.danger
+                                            IndicatorSeverity.WARNING -> colors.warning
+                                            IndicatorSeverity.SUCCESS -> colors.success
+                                            IndicatorSeverity.INFO -> colors.primary
+                                        }
+                                        InfoTile(indicator.title, indicator.badge, indicator.icon, tileColor, indicator.description, modifier = Modifier.weight(1f))
+                                    } ?: Spacer(modifier = Modifier.weight(1f))
+                                }
+                                // Second row of indicators (up to 2 more)
+                                if (indicators.size > 2) {
+                                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                                        indicators.getOrNull(2)?.let { indicator ->
+                                            val tileColor = when (indicator.severity) {
+                                                IndicatorSeverity.DANGER -> colors.danger
+                                                IndicatorSeverity.WARNING -> colors.warning
+                                                IndicatorSeverity.SUCCESS -> colors.success
+                                                IndicatorSeverity.INFO -> colors.primary
+                                            }
+                                            InfoTile(indicator.title, indicator.badge, indicator.icon, tileColor, indicator.description, modifier = Modifier.weight(1f))
+                                        }
+                                        indicators.getOrNull(3)?.let { indicator ->
+                                            val tileColor = when (indicator.severity) {
+                                                IndicatorSeverity.DANGER -> colors.danger
+                                                IndicatorSeverity.WARNING -> colors.warning
+                                                IndicatorSeverity.SUCCESS -> colors.success
+                                                IndicatorSeverity.INFO -> colors.primary
+                                            }
+                                            InfoTile(indicator.title, indicator.badge, indicator.icon, tileColor, indicator.description, modifier = Modifier.weight(1f))
+                                        } ?: Spacer(modifier = Modifier.weight(1f))
+                                    }
+                                }
+                            } else {
+                                // Fallback: Show a summary when no specific indicators detected
+                                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+                                    InfoTile(
+                                        t("Risk Analysis"),
+                                        t("HIGH"),
+                                        "analytics",
+                                        colors.danger,
+                                        t("Multiple phishing indicators detected. See threat score for details."),
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                    val isHttps = assessment.details.originalUrl.startsWith("https")
+                                    InfoTile(
+                                        t("Protocol"),
+                                        if (isHttps) t("HTTPS") else t("HTTP"),
+                                        if (isHttps) "lock" else "lock_open",
+                                        if (isHttps) colors.success else colors.danger,
+                                        if (isHttps) t("Valid SSL certificate present. Note: Valid SSL does not guarantee site legitimacy.")
+                                        else t("The URL uses HTTP instead of HTTPS, meaning data is not encrypted."),
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
                             }
                         }
                     }
@@ -341,6 +573,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                     }
                 }
 
+                // Technical Indicators - unified with Safe/Suspicious screens
                 Surface(shape = RoundedCornerShape(12.dp), color = colors.surface, border = BorderStroke(1.dp, colors.border)) {
                     Column {
                         Row(
@@ -352,12 +585,31 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            MaterialIconRound(name = "public", size = 18.sp, color = colors.textSub)
-                            Text(t("Intelligence Feeds"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
+                            MaterialIconRound(name = "analytics", size = 18.sp, color = colors.textSub)
+                            Text(t("Technical Indicators"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
                         }
-                        FeedRow(t("Google Safe Browsing"), true, t("MATCH"), t("NO MATCH"))
-                        FeedRow(t("PhishTank DB"), true, t("MATCH"), t("NO MATCH"))
-                        FeedRow(t("Local Allowlist"), false, t("MATCH"), t("NO MATCH"))
+                        // Real engine data - unified across all result screens
+                        val details = assessment.details
+                        TechnicalRow(
+                            t("Heuristic Score"),
+                            "${details.heuristicScore}/40",
+                            if (details.heuristicScore >= 20) colors.danger else colors.warning
+                        )
+                        TechnicalRow(
+                            t("ML Score"),
+                            "${details.mlScore}/30",
+                            if (details.mlScore >= 15) colors.danger else colors.warning
+                        )
+                        TechnicalRow(
+                            t("Brand Match"),
+                            details.brandMatch ?: t("None"),
+                            if (details.brandMatch != null) colors.danger else colors.success
+                        )
+                        TechnicalRow(
+                            t("TLD Risk"),
+                            ".${(details.tld ?: "unknown").uppercase()} (${details.tldScore}/10)",
+                            if (details.tldScore >= 5) colors.danger else colors.warning
+                        )
                     }
                 }
 
@@ -449,33 +701,18 @@ private fun InfoTile(title: String, badge: String, icon: String, color: Color, b
 }
 
 @Composable
-private fun FeedRow(label: String, matched: Boolean, matchedLabel: String, noMatchLabel: String) {
+private fun TechnicalRow(label: String, value: String, highlight: Color? = null) {
     val colors = LocalStitchTokens.current.colors
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .border(1.dp, colors.border.copy(alpha = 0.2f))
-            .padding(12.dp),
+            .padding(horizontal = 16.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(if (matched) colors.danger else colors.success))
-            Text(label, fontSize = 13.sp, color = colors.textMain)
-        }
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(6.dp))
-                .background(if (matched) colors.danger.copy(alpha = 0.1f) else colors.backgroundAlt)
-                .padding(horizontal = 8.dp, vertical = 4.dp)
-        ) {
-            Text(
-                if (matched) matchedLabel else noMatchLabel,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Bold,
-                color = if (matched) colors.danger else colors.textSub
-            )
-        }
+        Text(label, fontSize = 13.sp, color = colors.textSub)
+        Text(value, fontSize = 13.sp, fontWeight = FontWeight.SemiBold, color = highlight ?: colors.textMain)
     }
 }
 

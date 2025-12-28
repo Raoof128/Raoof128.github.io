@@ -50,6 +50,178 @@ import com.qrshield.desktop.ui.statusPill
 import com.qrshield.desktop.ui.progressFill
 import com.qrshield.desktop.ui.ProfileDropdown
 import com.qrshield.desktop.ui.EditProfileDialog
+import com.qrshield.model.RiskAssessment
+
+/**
+ * Suspicious indicator data derived from engine flags.
+ */
+private data class SuspiciousIndicatorDot(
+    val color: Color,
+    val label: String
+)
+
+/**
+ * Alert card data derived from engine assessment.
+ */
+private data class SuspiciousAlert(
+    val icon: String,
+    val title: String,
+    val status: String,
+    val statusColor: Color,
+    val badgeBg: Color,
+    val progress: Float,
+    val footerLabel: String,
+    val footerValue: String,
+    val body: String
+)
+
+/**
+ * Derives indicator dots from actual engine flags for the suspicious result screen.
+ */
+private fun deriveSuspiciousIndicatorDots(
+    flags: List<String>,
+    details: com.qrshield.model.UrlAnalysisResult?,
+    t: (String) -> String,
+    warningColor: Color,
+    dangerColor: Color,
+    successColor: Color
+): List<SuspiciousIndicatorDot> {
+    val dots = mutableListOf<SuspiciousIndicatorDot>()
+    val flagsLower = flags.map { it.lowercase() }
+
+    // Protocol indicator
+    val isHttps = details?.originalUrl?.startsWith("https") == true
+    dots.add(SuspiciousIndicatorDot(
+        if (isHttps) successColor else dangerColor,
+        if (isHttps) t("Protocol: HTTPS") else t("Protocol: HTTP (No Encryption)")
+    ))
+
+    // Shortener/redirect
+    if (flagsLower.any { it.contains("shortener") || it.contains("redirect") }) {
+        dots.add(SuspiciousIndicatorDot(warningColor, t("URL Shortener Detected")))
+    }
+
+    // TLD indicator
+    if (flagsLower.any { it.contains("tld") }) {
+        val tld = details?.tld ?: "unknown"
+        dots.add(SuspiciousIndicatorDot(warningColor, t("TLD: .$tld (High Risk)")))
+    }
+
+    // Subdomain depth
+    if (flagsLower.any { it.contains("subdomain") }) {
+        dots.add(SuspiciousIndicatorDot(warningColor, t("Deep Subdomain Structure")))
+    }
+
+    return dots.take(3)
+}
+
+/**
+ * Derives alert cards from actual engine assessment for suspicious results.
+ */
+private fun deriveSuspiciousAlerts(
+    assessment: RiskAssessment,
+    t: (String) -> String,
+    warningColor: Color,
+    dangerColor: Color,
+    successColor: Color,
+    backgroundAlt: Color
+): List<SuspiciousAlert> {
+    val alerts = mutableListOf<SuspiciousAlert>()
+    val flagsLower = assessment.flags.map { it.lowercase() }
+    val details = assessment.details
+
+    // Homograph/IDN check
+    val hasHomograph = flagsLower.any { it.contains("homograph") || it.contains("mixed script") || it.contains("lookalike") || it.contains("punycode") }
+    alerts.add(SuspiciousAlert(
+        icon = "spellcheck",
+        title = t("Homograph Check"),
+        status = if (hasHomograph) t("Detected") else t("Clean"),
+        statusColor = if (hasHomograph) dangerColor else successColor,
+        badgeBg = if (hasHomograph) dangerColor.copy(alpha = 0.1f) else successColor.copy(alpha = 0.1f),
+        progress = if (hasHomograph) 0.9f else 0.1f,
+        footerLabel = t("Confidence"),
+        footerValue = if (hasHomograph) "90%" else "10%",
+        body = if (hasHomograph) t("Domain uses lookalike characters to mimic legitimate sites.")
+               else t("No mixed-script or lookalike characters detected.")
+    ))
+
+    // Heuristic score-based alert
+    val heuristicScore = details.heuristicScore
+    alerts.add(SuspiciousAlert(
+        icon = "analytics",
+        title = t("Heuristic Analysis"),
+        status = when {
+            heuristicScore >= 30 -> t("High Risk")
+            heuristicScore >= 15 -> t("Medium Risk")
+            else -> t("Low Risk")
+        },
+        statusColor = when {
+            heuristicScore >= 30 -> dangerColor
+            heuristicScore >= 15 -> warningColor
+            else -> successColor
+        },
+        badgeBg = when {
+            heuristicScore >= 30 -> dangerColor.copy(alpha = 0.1f)
+            heuristicScore >= 15 -> warningColor.copy(alpha = 0.1f)
+            else -> backgroundAlt
+        },
+        progress = (heuristicScore / 40f).coerceIn(0f, 1f),
+        footerLabel = t("Score"),
+        footerValue = "$heuristicScore/40",
+        body = when {
+            heuristicScore >= 30 -> t("Multiple security heuristics triggered.")
+            heuristicScore >= 15 -> t("Some security patterns detected.")
+            else -> t("Few security patterns detected.")
+        }
+    ))
+
+    // ML score alert
+    val mlScore = details.mlScore
+    alerts.add(SuspiciousAlert(
+        icon = "psychology",
+        title = t("ML Analysis"),
+        status = when {
+            mlScore >= 20 -> t("Suspicious")
+            mlScore >= 10 -> t("Cautious")
+            else -> t("Low Risk")
+        },
+        statusColor = when {
+            mlScore >= 20 -> dangerColor
+            mlScore >= 10 -> warningColor
+            else -> successColor
+        },
+        badgeBg = when {
+            mlScore >= 20 -> dangerColor.copy(alpha = 0.1f)
+            mlScore >= 10 -> warningColor.copy(alpha = 0.1f)
+            else -> backgroundAlt
+        },
+        progress = (mlScore / 30f).coerceIn(0f, 1f),
+        footerLabel = t("Score"),
+        footerValue = "$mlScore/30",
+        body = when {
+            mlScore >= 20 -> t("Machine learning model detected phishing patterns.")
+            mlScore >= 10 -> t("Some phishing-like patterns detected.")
+            else -> t("Low phishing probability from ML analysis.")
+        }
+    ))
+
+    // Brand detection
+    val brandMatch = details.brandMatch
+    alerts.add(SuspiciousAlert(
+        icon = "verified_user",
+        title = t("Brand Detection"),
+        status = if (brandMatch != null) t("Match: $brandMatch") else t("Clean"),
+        statusColor = if (brandMatch != null) dangerColor else successColor,
+        badgeBg = if (brandMatch != null) dangerColor.copy(alpha = 0.1f) else successColor.copy(alpha = 0.1f),
+        progress = if (brandMatch != null) 0.85f else 0.05f,
+        footerLabel = t("Brand"),
+        footerValue = brandMatch ?: t("None"),
+        body = if (brandMatch != null) t("URL appears to impersonate $brandMatch.")
+               else t("No brand impersonation patterns detected.")
+    ))
+
+    return alerts.take(4)
+}
 
 @Composable
 fun ResultSuspiciousScreen(viewModel: AppViewModel) {
@@ -327,9 +499,19 @@ private fun SuspiciousContent(
                                         }
                                     }
                                 }
+                                // Dynamic indicator dots from real engine flags
+                                val indicatorDots = deriveSuspiciousIndicatorDots(
+                                    assessment.flags,
+                                    assessment.details,
+                                    t,
+                                    colors.warning,
+                                    colors.danger,
+                                    colors.success
+                                )
                                 Row(modifier = Modifier.padding(top = 12.dp), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                                    IndicatorDot(colors.warning, t("Redirect Chain: 2 Hops"), colors.textSub)
-                                    IndicatorDot(colors.danger, t("SSL Issuer: Let's Encrypt (Recent)"), colors.textSub)
+                                    indicatorDots.forEach { dot ->
+                                        IndicatorDot(dot.color, dot.label, colors.textSub)
+                                    }
                                 }
                             }
                         }
@@ -349,55 +531,34 @@ private fun SuspiciousContent(
                     }
                 }
 
+                // Dynamic alert cards from real engine assessment
+                val suspiciousAlerts = deriveSuspiciousAlerts(
+                    assessment,
+                    t,
+                    colors.warning,
+                    colors.danger,
+                    colors.success,
+                    colors.backgroundAlt
+                )
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp), modifier = Modifier.fillMaxWidth()) {
-                    AlertCard(
-                        icon = "spellcheck",
-                        title = t("Homograph Attack"),
-                        status = t("Detected"),
-                        color = colors.danger,
-                        badgeBg = colors.danger.copy(alpha = 0.1f),
-                        progress = 0.9f,
-                        footerLabel = t("Confidence"),
-                        footerValue = "90%",
-                        body = t("Domain uses Cyrillic characters to mimic legitimate Latin letters."),
-                        modifier = Modifier.weight(1f)
-                    )
-                    AlertCard(
-                        icon = "schedule",
-                        title = t("Domain Age"),
-                        status = t("Suspicious"),
-                        color = colors.warning,
-                        badgeBg = colors.warning.copy(alpha = 0.1f),
-                        progress = 0.75f,
-                        footerLabel = t("Age"),
-                        footerValue = t("< 2 Days"),
-                        body = t("Registered less than 48 hours ago via cheap registrar."),
-                        modifier = Modifier.weight(1f)
-                    )
-                    AlertCard(
-                        icon = "shuffle",
-                        title = t("URL Entropy"),
-                        status = t("Low Risk"),
-                        color = colors.warning,
-                        badgeBg = colors.backgroundAlt,
-                        progress = 0.4f,
-                        footerLabel = t("Score"),
-                        footerValue = "4.2",
-                        body = t("Subdomain structure appears randomly generated."),
-                        modifier = Modifier.weight(1f)
-                    )
-                    AlertCard(
-                        icon = "verified_user",
-                        title = t("Global Blocklist"),
-                        status = t("Clean"),
-                        color = colors.success,
-                        badgeBg = colors.success.copy(alpha = 0.1f),
-                        progress = 0.05f,
-                        footerLabel = t("Match"),
-                        footerValue = "0/52",
-                        body = t("Domain is not yet listed on major threat intelligence feeds."),
-                        modifier = Modifier.weight(1f)
-                    )
+                    suspiciousAlerts.forEachIndexed { index, alert ->
+                        AlertCard(
+                            icon = alert.icon,
+                            title = alert.title,
+                            status = alert.status,
+                            color = alert.statusColor,
+                            badgeBg = alert.badgeBg,
+                            progress = alert.progress,
+                            footerLabel = alert.footerLabel,
+                            footerValue = alert.footerValue,
+                            body = alert.body,
+                            modifier = Modifier.weight(1f)
+                        )
+                    }
+                    // Fill remaining space if less than 4 alerts
+                    repeat(4 - suspiciousAlerts.size) {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
                 }
 
                 Surface(
@@ -421,10 +582,62 @@ private fun SuspiciousContent(
                                 Tag(t("Heuristics"), active = true)
                             }
                         }
-                        TableRow(t("Visual Similarity"), t("Simulates secure-login.com (Levenshtein Distance: 2)"), "warning", colors.warning)
-                        TableRow(t("Redirect Method"), t("Javascript-based redirection (obfuscates destination from crawlers)"), "error", colors.danger)
-                        TableRow(t("Logo Detection"), t("Brand logo detected on landing page: Global Bank Ltd"), "warning", colors.warning)
-                        TableRow(t("Scan Latency"), t("45ms (Local offline analysis)"), "check_circle", colors.success)
+                        // Dynamic technical indicators from real engine analysis
+                        val details = assessment.details
+                        val heuristicScore = details.heuristicScore
+                        val mlScore = details.mlScore
+                        val brandMatch = details.brandMatch
+                        val tld = details.tld
+                        val tldScore = details.tldScore
+
+                        TableRow(
+                            t("Heuristic Score"),
+                            "$heuristicScore/40",
+                            when {
+                                heuristicScore >= 30 -> "error"
+                                heuristicScore >= 15 -> "warning"
+                                else -> "check_circle"
+                            },
+                            when {
+                                heuristicScore >= 30 -> colors.danger
+                                heuristicScore >= 15 -> colors.warning
+                                else -> colors.success
+                            }
+                        )
+                        TableRow(
+                            t("ML Score"),
+                            "$mlScore/30",
+                            when {
+                                mlScore >= 20 -> "error"
+                                mlScore >= 10 -> "warning"
+                                else -> "check_circle"
+                            },
+                            when {
+                                mlScore >= 20 -> colors.danger
+                                mlScore >= 10 -> colors.warning
+                                else -> colors.success
+                            }
+                        )
+                        TableRow(
+                            t("Brand Match"),
+                            brandMatch ?: t("None"),
+                            if (brandMatch != null) "warning" else "check_circle",
+                            if (brandMatch != null) colors.warning else colors.success
+                        )
+                        TableRow(
+                            t("TLD Risk"),
+                            ".${(tld ?: "unknown").uppercase()} (${tldScore}/10)",
+                            when {
+                                tldScore >= 7 -> "error"
+                                tldScore >= 3 -> "warning"
+                                else -> "check_circle"
+                            },
+                            when {
+                                tldScore >= 7 -> colors.danger
+                                tldScore >= 3 -> colors.warning
+                                else -> colors.success
+                            }
+                        )
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()

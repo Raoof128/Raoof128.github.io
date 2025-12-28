@@ -6690,6 +6690,50 @@ All changes verified via browser testing:
 
 # 📝 Detailed Session Notes
 
+## Raouf: 2025-12-29 AEDT - Wire Desktop Result Screens to Real Engine Data
+
+### Summary
+1. Removed all hardcoded/demo security indicator tiles from Desktop result screens
+2. Unified Technical Indicators section across Safe/Suspicious/Dangerous screens
+3. All three screens now show same core data: Heuristic Score, ML Score, Brand Match, TLD Risk
+
+### Problem
+Result screens had hardcoded tiles showing fake security data:
+- `IDN Homograph: DETECTED` (always shown, regardless of actual analysis)
+- `Visual Similarity: secure-login.com` (hardcoded in Suspicious)
+- `Redirect Method: Javascript-based` (hardcoded in Suspicious)
+- `Google Safe Browsing: MATCH` (hardcoded in Dangerous - no actual integration)
+- `PhishTank DB: MATCH` (hardcoded in Dangerous - no actual integration)
+
+### Solution
+**Phase 1: Dynamic Security Tiles**
+Added `derive*Indicators()` functions that map `RiskAssessment.flags` to UI tiles.
+
+**Phase 2: Unified Technical Indicators**
+All three screens now show same engine data:
+- Heuristic Score (X/40) - from `assessment.details.heuristicScore`
+- ML Score (X/30) - from `assessment.details.mlScore`
+- Brand Match (brand name or "None") - from `assessment.details.brandMatch`
+- TLD Risk (.TLD X/10) - from `assessment.details.tld` + `tldScore`
+
+### Files Changed
+| File | Changes |
+|------|---------|
+| `ResultDangerousScreen.kt` | Replaced fake FeedRow with unified TechnicalRow |
+| `ResultSafeScreen.kt` | Already had proper TechnicalRow (unchanged) |
+| `ResultSuspiciousScreen.kt` | Fixed TableRow to show real engine data |
+
+### Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop  # BUILD SUCCESSFUL
+```
+
+### Follow-ups
+- Add i18n translations for new dynamic strings
+- Consider exposing typed `List<ReasonCode>` in `RiskAssessment` model
+
+---
+
 ## Session: 2025-12-20 (Security & Feature Enhancements)
 
 ### Summary

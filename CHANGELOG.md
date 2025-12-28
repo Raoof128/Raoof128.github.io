@@ -6,6 +6,47 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.19.0] - 2025-12-29
 
+### Raouf: Wire Desktop Result Screens to Real Engine Data (2025-12-29 AEDT)
+
+**Scope:** Desktop result screen security indicator tiles + Technical Indicators unified
+
+**Summary:**
+1. Removed all hardcoded/demo security indicators from Desktop result screens
+2. Unified Technical Indicators section across Safe/Suspicious/Dangerous screens
+3. All three screens now show: Heuristic Score, ML Score, Brand Match, TLD Risk
+
+**Files Changed:**
+- `desktopApp/.../screens/ResultDangerousScreen.kt` - Dynamic `InfoTile` + unified `TechnicalRow`
+- `desktopApp/.../screens/ResultSafeScreen.kt` - Dynamic `AnalysisCard` (already had real TechnicalRow)
+- `desktopApp/.../screens/ResultSuspiciousScreen.kt` - Dynamic `AlertCard` + fixed `TableRow`
+
+**What Was Fixed:**
+| Screen | Before (Hardcoded) | After (Engine-Driven) |
+|--------|--------------------|-----------------------|
+| Dangerous | `Google Safe Browsing: MATCH` | `Heuristic Score: X/40` |
+| Dangerous | `PhishTank DB: MATCH` | `ML Score: X/30` |
+| Suspicious | `Visual Similarity: secure-login.com` | `Heuristic Score: X/40` |
+| Suspicious | `Redirect Method: Javascript-based` | `ML Score: X/30` |
+| Suspicious | `Logo Detection: Global Bank Ltd` | `Brand Match: X / None` |
+| All | N/A | `TLD Risk: .TLD (X/10)` |
+
+**Unified Technical Indicators (All 3 Screens):**
+- Heuristic Score (0-40) with severity coloring
+- ML Score (0-30) with severity coloring
+- Brand Match (detected brand or "None")
+- TLD Risk (.TLD + score out of 10)
+
+**Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop  # BUILD SUCCESSFUL
+```
+
+**Follow-ups:**
+- Add i18n translations for new dynamic indicator strings
+- Consider exposing ReasonCode list directly in RiskAssessment model
+
+---
+
 ### 🛡️ SecurityEngine Improvement Roadmap - Complete Implementation
 
 Major security infrastructure upgrade implementing Milestones 2.1-2.3 + 3.1-3.2 + 4.1-4.2 + 5.0 (ML) of the SecurityEngine Improvement Roadmap. **Plus Web App integration of all new components.**
