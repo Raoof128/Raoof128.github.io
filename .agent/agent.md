@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.97`** (as of December 28, 2025)
+**Current App Version: `1.17.98`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,48 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔧 December 28, 2025 (Session 10k+32) - Results Page UI Fixes
+
+### Summary
+Fixed three issues: sandbox modal colors, help button functionality, and content flash prevention.
+
+## ✅ Fixes Applied
+
+### 1. Sandbox Modal Colors (Verdict-Aware)
+The sandbox modal was showing green "Secure Connection" even for malicious URLs because it only checked HTTPS status.
+
+**Fix**: Made colors based on verdict:
+- MALICIOUS → Red with "HIGH RISK - Threat Detected"
+- SUSPICIOUS → Yellow with "Proceed with Caution"  
+- SAFE + HTTPS → Green with "Secure Connection"
+- SAFE + HTTP → Yellow with "Insecure Connection"
+
+### 2. Help Button Event Listener
+The question mark icon in the header did nothing when clicked.
+
+**Fix**: Added `showHelpInfo()` function that creates a modal showing:
+- Keyboard shortcuts (Copy URL, Go Back, New Scan)
+- About this page information
+
+### 3. Content Flash Prevention
+The results page briefly showed hardcoded placeholder content before JS loaded the real data.
+
+**Fix**: 
+- Added `body:not(.loaded) .main-content { opacity: 0 }` CSS
+- JS sets `body.classList.add('loaded')` after processing URL params
+- Content now fades in smoothly after data is ready
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `results.js` | Verdict-aware sandbox colors, help handler, loading state |
+| `results.css` | Added loading state CSS |
+
+## ✅ Verification
+All three fixes verified via browser testing with malicious URL parameters.
 
 ---
 

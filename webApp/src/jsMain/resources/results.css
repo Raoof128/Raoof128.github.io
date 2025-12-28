@@ -162,6 +162,17 @@ body {
     overflow: hidden;
 }
 
+/* Loading state: Hide main content until JS has loaded and processed URL params */
+/* This prevents the flash of hardcoded placeholder content */
+body:not(.loaded) .main-content {
+    opacity: 0;
+}
+
+body.loaded .main-content {
+    opacity: 1;
+    transition: opacity 0.15s ease-out;
+}
+
 /* Light theme support */
 .bg-background-light {
     background-color: var(--background-light);

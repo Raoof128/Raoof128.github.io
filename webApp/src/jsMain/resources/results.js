@@ -63,6 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
         showDemoResult();
     }
 
+    // Show content now that it's loaded (prevents flash of hardcoded content)
+    // Use requestAnimationFrame to ensure DOM updates are complete before showing
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.body.classList.add('loaded');
+        });
+    });
+
     window.qrshieldApplyTranslations?.(document.body);
 });
 
@@ -264,9 +272,6 @@ function setupEventListeners() {
     // Share Report button
     document.getElementById('shareBtn')?.addEventListener('click', shareReport);
 
-    // Open Safely (Sandbox) button
-    document.getElementById('sandboxBtn')?.addEventListener('click', openInSandbox);
-
     // Copy Link button
     document.getElementById('copyBtn')?.addEventListener('click', copyLink);
 
@@ -276,6 +281,9 @@ function setupEventListeners() {
             card.classList.toggle('expanded');
         });
     });
+
+    // Help button
+    document.getElementById('helpBtn')?.addEventListener('click', showHelpInfo);
 }
 
 function setupMobileMenu() {
@@ -590,392 +598,6 @@ function fallbackShare() {
 }
 
 /**
- * Open URL in sandboxed environment - shows URL analysis instead of iframe
- */
-function openInSandbox() {
-    if (!ResultsState.scannedUrl) {
-        showToast('No URL to open', 'error');
-        return;
-    }
-
-    // Parse URL for analysis
-    let urlInfo = { protocol: '', domain: '', path: '', params: '', isHttps: false };
-    try {
-        const url = new URL(ResultsState.scannedUrl);
-        urlInfo = {
-            protocol: url.protocol.replace(':', ''),
-            domain: url.hostname,
-            path: url.pathname || '/',
-            params: url.search ? url.search.substring(1) : '',
-            port: url.port || (url.protocol === 'https:' ? '443' : '80'),
-            isHttps: url.protocol === 'https:'
-        };
-    } catch (e) {
-        urlInfo.domain = ResultsState.scannedUrl;
-    }
-
-    // Create sandbox modal
-    const existingModal = document.getElementById('sandboxModal');
-    if (existingModal) existingModal.remove();
-
-    const modal = document.createElement('div');
-    modal.id = 'sandboxModal';
-    modal.className = 'sandbox-modal-overlay';
-    modal.innerHTML = `
-        <div class="sandbox-modal">
-            <div class="sandbox-header">
-                <div class="sandbox-title">
-                    <span class="material-symbols-outlined" style="color: #6366f1;">travel_explore</span>
-                    <h3>URL Analysis</h3>
-                </div>
-                <button class="sandbox-close-btn" id="closeSandbox">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            
-            <div class="sandbox-content" style="padding: 20px; overflow-y: auto; flex: 1;">
-                <!-- Security Status -->
-                <div style="background: ${urlInfo.isHttps ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)'}; 
-                     border: 1px solid ${urlInfo.isHttps ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)'}; 
-                     border-radius: 12px; padding: 16px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
-                    <span class="material-symbols-outlined" style="font-size: 24px; color: ${urlInfo.isHttps ? '#22c55e' : '#ef4444'};">
-                        ${urlInfo.isHttps ? 'lock' : 'lock_open'}
-                    </span>
-                    <div>
-                        <div style="font-weight: 600; color: ${urlInfo.isHttps ? '#16a34a' : '#dc2626'};">
-                            ${urlInfo.isHttps ? 'Secure Connection (HTTPS)' : 'Insecure Connection (HTTP)'}
-                        </div>
-                        <div style="font-size: 13px; color: var(--text-secondary, #64748b);">
-                            ${urlInfo.isHttps ? 'Data between you and this site is encrypted' : 'Data is NOT encrypted - avoid entering sensitive info'}
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- URL Breakdown -->
-                <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
-                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">URL Breakdown</div>
-                    
-                    <div style="display: grid; gap: 12px;">
-                        <div style="display: flex; align-items: flex-start; gap: 10px;">
-                            <span class="material-symbols-outlined" style="color: #6366f1; font-size: 20px; margin-top: 2px;">public</span>
-                            <div style="flex: 1; min-width: 0;">
-                                <div style="font-size: 12px; color: var(--text-secondary, #64748b); text-transform: uppercase; margin-bottom: 4px;">Domain</div>
-                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-primary, #f1f5f9); word-break: break-all;">${urlInfo.domain}</div>
-                            </div>
-                        </div>
-                        
-                        <div style="display: flex; align-items: flex-start; gap: 10px;">
-                            <span class="material-symbols-outlined" style="color: #f59e0b; font-size: 20px; margin-top: 2px;">folder</span>
-                            <div style="flex: 1; min-width: 0;">
-                                <div style="font-size: 12px; color: var(--text-secondary, #64748b); text-transform: uppercase; margin-bottom: 4px;">Path</div>
-                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-primary, #f1f5f9); word-break: break-all;">${urlInfo.path || '/'}</div>
-                            </div>
-                        </div>
-                        
-                        ${urlInfo.params ? `
-                        <div style="display: flex; align-items: flex-start; gap: 10px;">
-                            <span class="material-symbols-outlined" style="color: #ef4444; font-size: 20px; margin-top: 2px;">tune</span>
-                            <div style="flex: 1; min-width: 0;">
-                                <div style="font-size: 12px; color: var(--text-secondary, #64748b); text-transform: uppercase; margin-bottom: 4px;">Parameters</div>
-                                <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-primary, #f1f5f9); word-break: break-all;">${urlInfo.params}</div>
-                            </div>
-                        </div>
-                        ` : ''}
-                    </div>
-                </div>
-                
-                <!-- Full URL -->
-                <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                        <div style="font-weight: 600; color: var(--text-primary, #f1f5f9);">Full URL</div>
-                        <button id="sandboxCopyUrl" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.3); 
-                                color: #6366f1; padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; 
-                                display: flex; align-items: center; gap: 6px;">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
-                            Copy
-                        </button>
-                    </div>
-                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-secondary, #94a3b8); 
-                         word-break: break-all; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px;">
-                        ${ResultsState.scannedUrl}
-                    </div>
-                </div>
-            </div>
-            
-            <div class="sandbox-footer">
-                <button class="btn-secondary" id="closeSandboxBtn">Close</button>
-                <button class="btn-primary" id="openExternalBtn" style="
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-                    border: none;
-                    color: white;
-                    padding: 12px 24px;
-                    border-radius: 10px;
-                    cursor: pointer;
-                    font-size: 14px;
-                    font-weight: 600;
-                    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-                ">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">open_in_new</span>
-                    Open in New Tab
-                </button>
-            </div>
-        </div>
-    `;
-
-    document.body.appendChild(modal);
-    window.qrshieldApplyTranslations?.(modal);
-
-    // Add sandbox modal styles if not present
-    if (!document.getElementById('sandboxStyles')) {
-        const styles = document.createElement('style');
-        styles.id = 'sandboxStyles';
-        styles.textContent = `
-            .sandbox-modal-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-                opacity: 0;
-                transition: opacity 0.2s ease;
-            }
-            .sandbox-modal-overlay.visible {
-                opacity: 1;
-            }
-            .sandbox-modal {
-                background: var(--bg-primary, #1a1a2e);
-                border-radius: 16px;
-                width: 90%;
-                max-width: 1000px;
-                height: 80vh;
-                max-height: 800px;
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-                transform: scale(0.95);
-                transition: transform 0.2s ease;
-            }
-            .sandbox-modal-overlay.visible .sandbox-modal {
-                transform: scale(1);
-            }
-            .sandbox-header {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 16px 20px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            .sandbox-title {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-            .sandbox-title h3 {
-                margin: 0;
-                color: var(--text-primary, #fff);
-                font-size: 18px;
-            }
-            .sandbox-close-btn {
-                background: none;
-                border: none;
-                color: var(--text-secondary, #94a3b8);
-                cursor: pointer;
-                padding: 8px;
-                border-radius: 8px;
-                transition: background 0.2s;
-            }
-            .sandbox-close-btn:hover {
-                background: rgba(255, 255, 255, 0.1);
-                color: var(--text-primary, #fff);
-            }
-            .sandbox-warning {
-                display: flex;
-                align-items: flex-start;
-                gap: 12px;
-                padding: 12px 20px;
-                background: rgba(245, 158, 11, 0.1);
-                border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-            }
-            .sandbox-warning .material-symbols-outlined {
-                color: #f59e0b;
-                font-size: 20px;
-            }
-            .sandbox-warning strong {
-                color: #f59e0b;
-                font-size: 14px;
-            }
-            .sandbox-warning p {
-                margin: 4px 0 0;
-                color: var(--text-secondary, #94a3b8);
-                font-size: 12px;
-            }
-            .sandbox-url-bar {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                padding: 10px 20px;
-                background: rgba(0, 0, 0, 0.2);
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-            .sandbox-url-bar .material-symbols-outlined {
-                color: var(--text-secondary, #64748b);
-                font-size: 18px;
-            }
-            .sandbox-url {
-                flex: 1;
-                color: var(--text-secondary, #94a3b8);
-                font-family: monospace;
-                font-size: 13px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-            .sandbox-copy-btn {
-                background: none;
-                border: none;
-                color: var(--text-secondary, #64748b);
-                cursor: pointer;
-                padding: 6px;
-                border-radius: 6px;
-                transition: all 0.2s;
-            }
-            .sandbox-copy-btn:hover {
-                background: rgba(255, 255, 255, 0.1);
-                color: var(--primary, #6366f1);
-            }
-            .sandbox-frame-container {
-                flex: 1;
-                position: relative;
-                background: #fff;
-            }
-            .sandbox-frame {
-                width: 100%;
-                height: 100%;
-                border: none;
-            }
-            .sandbox-loading {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                color: #64748b;
-                font-size: 14px;
-            }
-            .sandbox-loading .spinning {
-                animation: spin 1s linear infinite;
-            }
-            @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-            }
-            .sandbox-notice {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                text-align: center;
-                padding: 40px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .sandbox-footer {
-                display: flex;
-                justify-content: flex-end;
-                gap: 12px;
-                padding: 16px 20px;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            .sandbox-footer .btn-secondary {
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                color: var(--text-primary, #fff);
-                padding: 10px 20px;
-                border-radius: 10px;
-                cursor: pointer;
-                font-size: 14px;
-                transition: background 0.2s;
-            }
-            .sandbox-footer .btn-secondary:hover {
-                background: rgba(255, 255, 255, 0.15);
-            }
-            .sandbox-footer .btn-warning {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                background: rgba(239, 68, 68, 0.2);
-                border: 1px solid rgba(239, 68, 68, 0.3);
-                color: #ef4444;
-                padding: 10px 20px;
-                border-radius: 10px;
-                cursor: pointer;
-                font-size: 14px;
-                transition: all 0.2s;
-            }
-            .sandbox-footer .btn-warning:hover {
-                background: rgba(239, 68, 68, 0.3);
-            }
-            .sandbox-footer .btn-warning .material-symbols-outlined {
-                font-size: 18px;
-            }
-        `;
-        document.head.appendChild(styles);
-    }
-
-    // Animate in
-    requestAnimationFrame(() => {
-        modal.classList.add('visible');
-    });
-
-    // Event listeners
-    const closeModal = () => {
-        modal.classList.remove('visible');
-        setTimeout(() => modal.remove(), 200);
-    };
-
-    modal.querySelector('#closeSandbox').addEventListener('click', closeModal);
-    modal.querySelector('#closeSandboxBtn').addEventListener('click', closeModal);
-
-    modal.querySelector('#sandboxCopyUrl').addEventListener('click', () => {
-        copyToClipboard(ResultsState.scannedUrl);
-        showToast('URL copied to clipboard!');
-    });
-
-    modal.querySelector('#openExternalBtn').addEventListener('click', () => {
-        closeModal();
-        // Open URL directly - 'noopener' makes window.open return null so we can't navigate later
-        window.open(ResultsState.scannedUrl, '_blank', 'noopener,noreferrer');
-        showToast('Opening URL in new tab', 'info');
-    });
-
-    // Close on overlay click
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-
-    // Close on Escape key
-    const handleEscape = (e) => {
-        if (e.key === 'Escape') {
-            closeModal();
-            document.removeEventListener('keydown', handleEscape);
-        }
-    };
-    document.addEventListener('keydown', handleEscape);
-}
-
-/**
  * Copy the scanned URL to clipboard
  */
 async function copyLink() {
@@ -1028,6 +650,171 @@ async function copyToClipboard(text) {
 function truncateUrl(url, maxLength) {
     if (!url || url.length <= maxLength) return url;
     return url.substring(0, maxLength - 3) + '...';
+}
+
+/**
+ * Show help info modal
+ */
+function showHelpInfo() {
+    // Inject modal styles if not present
+    if (!document.getElementById('qrModalStyles')) {
+        const styles = document.createElement('style');
+        styles.id = 'qrModalStyles';
+        styles.textContent = `
+            .qr-modal-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                opacity: 0;
+                transition: opacity 0.2s ease;
+            }
+            .qr-modal-overlay.visible {
+                opacity: 1;
+            }
+            .qr-modal {
+                background: var(--bg-primary, #1a1a2e);
+                border-radius: 16px;
+                width: 90%;
+                max-width: 500px;
+                max-height: 80vh;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+                transform: scale(0.95);
+                transition: transform 0.2s ease;
+            }
+            .qr-modal-overlay.visible .qr-modal {
+                transform: scale(1);
+            }
+            .qr-modal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 16px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .qr-modal-title {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .qr-modal-title h3 {
+                margin: 0;
+                color: var(--text-primary, #fff);
+                font-size: 18px;
+            }
+            .qr-modal-close-btn {
+                background: none;
+                border: none;
+                color: var(--text-secondary, #94a3b8);
+                cursor: pointer;
+                padding: 8px;
+                border-radius: 8px;
+                transition: background 0.2s;
+            }
+            .qr-modal-close-btn:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: var(--text-primary, #fff);
+            }
+            .qr-modal-footer {
+                display: flex;
+                justify-content: flex-end;
+                gap: 12px;
+                padding: 16px 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        `;
+        document.head.appendChild(styles);
+    }
+
+    // Remove existing modal if any
+    const existingModal = document.getElementById('helpModal');
+    if (existingModal) existingModal.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'helpModal';
+    modal.className = 'qr-modal-overlay';
+    modal.innerHTML = `
+        <div class="qr-modal">
+            <div class="qr-modal-header">
+                <div class="qr-modal-title">
+                    <span class="material-symbols-outlined" style="color: #6366f1;">help</span>
+                    <h3>Help & Keyboard Shortcuts</h3>
+                </div>
+                <button class="qr-modal-close-btn" id="closeHelp">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="qr-modal-content" style="padding: 20px;">
+                <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">Keyboard Shortcuts</div>
+                    <div style="display: grid; gap: 8px; font-size: 14px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary, #94a3b8);">Copy URL</span>
+                            <kbd style="background: rgba(99, 102, 241, 0.2); padding: 4px 8px; border-radius: 4px; font-family: monospace; color: #6366f1;">Ctrl/Cmd + C</kbd>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary, #94a3b8);">Go Back</span>
+                            <kbd style="background: rgba(99, 102, 241, 0.2); padding: 4px 8px; border-radius: 4px; font-family: monospace; color: #6366f1;">Backspace</kbd>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary, #94a3b8);">New Scan</span>
+                            <kbd style="background: rgba(99, 102, 241, 0.2); padding: 4px 8px; border-radius: 4px; font-family: monospace; color: #6366f1;">N</kbd>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px;">
+                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">About This Page</div>
+                    <p style="font-size: 14px; color: var(--text-secondary, #94a3b8); line-height: 1.6;">
+                        This page shows the analysis results for a scanned URL. All analysis is performed locally on your device - no data is sent to external servers.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="qr-modal-footer">
+                <button class="btn-primary" id="closeHelpBtn" style="
+                    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+                    border: none;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                ">Got it</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Animate in (must use requestAnimationFrame for transition to work)
+    requestAnimationFrame(() => {
+        modal.classList.add('visible');
+    });
+
+    // Close modal function
+    const closeModal = () => {
+        modal.classList.remove('visible');
+        setTimeout(() => modal.remove(), 200);
+    };
+
+    // Add event listeners
+    document.getElementById('closeHelp')?.addEventListener('click', closeModal);
+    document.getElementById('closeHelpBtn')?.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
 }
 
 /**

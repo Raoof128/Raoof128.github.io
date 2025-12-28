@@ -5,6 +5,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.99] - 2025-12-28
+
+### 🗑️ Removed Sandbox Feature from WebApp
+
+Completely removed the buggy "Open Safely (Sandbox)" feature from the results page.
+
+#### What Was Removed
+
+| Component | Details |
+|-----------|---------|
+| **Button** | "Open Safely (Sandbox)" button from action bar in `results.html` |
+| **Function** | `openInSandbox()` - ~440 lines of modal, CSS, and event handling code |
+| **Event Listener** | Click handler for sandbox button |
+| **CSS Classes** | All `sandbox-*` prefixed class names |
+
+#### What Remains
+The action bar now has only 3 buttons:
+- **Back to Dashboard** - Navigate back
+- **Share Report** - Share the scan results
+- **Copy Link** - Copy URL to clipboard
+
+#### Why Removed
+- The sandbox feature was consistently buggy with visibility and styling issues
+- It was a decorative feature that didn't provide real sandboxing
+- Simpler UX with fewer failure points
+
+#### Refactored
+- `showHelpInfo()` now uses generic `qr-modal-*` class names instead of `sandbox-*` prefix
+- Help modal still works correctly
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `results.html` | Removed sandbox button (4 lines) |
+| `results.js` | Removed openInSandbox function (~440 lines), refactored help modal |
+
+---
+
+## [1.17.98] - 2025-12-28
+
+### 🔧 Results Page UI Fixes
+
+Fixed three issues on the results page:
+
+#### 1. Sandbox Modal Colors Now Dynamic ✅
+- **Problem**: Sandbox modal showed green "Secure Connection" even for malicious URLs
+- **Root Cause**: Colors were based only on HTTPS status, not the verdict
+- **Fix**: Made sandbox modal colors verdict-aware:
+  - MALICIOUS → Red "HIGH RISK - Threat Detected" 
+  - SUSPICIOUS → Yellow "Proceed with Caution"
+  - SAFE + HTTPS → Green "Secure Connection"
+  - SAFE + HTTP → Yellow "Insecure Connection"
+
+#### 2. Help Button Now Working ✅
+- **Problem**: Question mark icon in header did nothing when clicked
+- **Fix**: Added `showHelpInfo()` function and event listener
+- **Result**: Shows "Help & Keyboard Shortcuts" modal with:
+  - Keyboard shortcuts (Copy URL, Go Back, New Scan)
+  - About this page information
+
+#### 3. No More Flash of Hardcoded Content ✅
+- **Problem**: Results page showed hardcoded demo content briefly before loading correct data
+- **Fix**: Added CSS loading state that hides content until JS sets `body.loaded` class
+- **Result**: Content fades in smoothly only after dynamic data is populated
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `results.js` | Added verdict-aware sandbox colors, help button handler, loading state |
+| `results.css` | Added loading state CSS to prevent content flash |
+
+---
+
 ## [1.17.97] - 2025-12-28
 
 ### 🔧 Critical Bug Fix: Results Page Dynamic Content
