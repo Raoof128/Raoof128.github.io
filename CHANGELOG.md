@@ -5,6 +5,60 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.95] - 2025-12-28
+
+### 🔧 Fixed Theme Flash on Page Navigation
+
+Completely eliminated the dark→light flash that occurred when navigating between pages in light mode.
+
+#### Root Cause
+- Theme was being applied by external JavaScript (`theme.js`) which runs AFTER page render
+- HTML defaulted to `class="dark"`, causing initial dark render before JS could apply light theme
+
+#### Solution: Blocking Inline Theme Script
+Added a **synchronous inline script** in the `<head>` of all HTML files that:
+1. Runs **BEFORE** the browser paints anything
+2. Reads saved theme from `localStorage.getItem('qrshield_theme')`
+3. Immediately sets `class="light"` and `data-theme="light"` on `<html>` if needed
+4. Result: Correct theme from the very first render frame
+
+#### Files Modified (8 HTML files)
+| File | Change |
+|------|--------|
+| `dashboard.html` | Added blocking theme init script in `<head>` |
+| `scanner.html` | Added blocking theme init script in `<head>` |
+| `threat.html` | Added blocking theme init script in `<head>` |
+| `game.html` | Added blocking theme init script in `<head>` |
+| `onboarding.html` | Added blocking theme init script in `<head>` |
+| `export.html` | Added blocking theme init script in `<head>` |
+| `results.html` | Added blocking theme init script in `<head>` |
+| `trust.html` | Added blocking theme init script in `<head>` |
+
+#### Technical Implementation
+```html
+<!-- CRITICAL: Blocking theme init to prevent flash -->
+<script>
+    (function() {
+        try {
+            var theme = localStorage.getItem('qrshield_theme');
+            if (theme === 'light') {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                document.documentElement.setAttribute('data-theme', 'light');
+            } else if (theme === 'auto' || !theme) {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            }
+        } catch(e) {}
+    })();
+</script>
+```
+
+---
+
 ## [1.17.94] - 2025-12-28
 
 ### 🎨 Web App Header & Transition Fixes

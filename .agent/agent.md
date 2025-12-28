@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.94`** (as of December 28, 2025)
+**Current App Version: `1.17.95`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,57 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔧 December 28, 2025 (Session 10k+29) - Theme Flash Fix & Notification Buttons
+
+### Summary
+Fixed the dark→light theme flash during page navigation and added notification buttons to all page headers.
+
+## ✅ Changes Made
+
+### 1. Added Notification Button to All Pages
+- Added notification button with bell icon + red dot to ALL 8 page headers
+- Consistent ordering: Theme toggle → Divider → **Notification** → Help → Profile
+
+### 2. Fixed Theme Flash (Dark→Light Flash)
+**Root Cause**: The external `theme.js` was applying the theme AFTER the page rendered, causing a momentary dark flash.
+
+**Solution**: Added a **blocking inline script** in the `<head>` of all HTML files:
+```html
+<script>
+    (function() {
+        try {
+            var theme = localStorage.getItem('qrshield_theme');
+            if (theme === 'light') {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            // Also handles 'auto' with system preference detection
+        } catch(e) {}
+    })();
+</script>
+```
+
+This script runs **synchronously before any rendering**, ensuring the correct theme from the first paint.
+
+### Files Modified
+| File | Change |
+|------|--------|
+| All 8 HTML files | Added blocking theme init script in `<head>` |
+| All 8 HTML files | Added notification button to header |
+| `transitions.css` | Reduced durations (80-150ms), removed View Transitions API |
+| `transitions.js` | Simplified to CSS-only transitions |
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# No theme flashing when navigating between pages in light mode ✅
+# Notification button visible on all pages ✅
+# Fast, snappy transitions ✅
+```
 
 ---
 
