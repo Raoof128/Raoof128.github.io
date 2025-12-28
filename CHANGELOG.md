@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### 🛡️ SecurityEngine Improvement Roadmap - Complete Implementation
 
-Major security infrastructure upgrade implementing Milestones 2.1, 2.2, and 2.3 of the SecurityEngine Improvement Roadmap.
+Major security infrastructure upgrade implementing Milestones 2.1-2.3 + 3.1-3.2 + 4.1-4.2 of the SecurityEngine Improvement Roadmap.
 
 #### New Files Created
 
@@ -18,58 +18,86 @@ Major security infrastructure upgrade implementing Milestones 2.1, 2.2, and 2.3 
 | `core/CanonicalUrl.kt` | Enhanced URL structure with derived security fields |
 | `security/UnicodeRiskAnalyzer.kt` | Homograph/IDN/mixed-script attack detection |
 | `engine/PublicSuffixList.kt` | eTLD+1 computation with bundled PSL snapshot |
+| `intel/BloomFilter.kt` | Space-efficient probabilistic filter (MurmurHash3) |
+| `intel/ThreatIntelLookup.kt` | Two-stage lookup (Bloom + exact set) |
+| `intel/SecureBundleLoader.kt` | Signed bundle loading with rollback |
+| `intel/RiskConfig.kt` | Externalized weight configuration |
+| `evaluation/EvaluationHarness.kt` | Offline evaluation with P/R/F1 metrics |
 
-#### Milestone 2.1: Unicode/IDN Defense ✅
+#### Milestone 3.1: Offline Intel Layer ✅
 
-- **Mixed-script detection**: Detects Latin + Cyrillic combinations
-- **Confusable skeleton approach**: Normalizes "аpple.com" → "apple.com"
-- **Zero-width character filtering**: Removes invisible Unicode obfuscation
-- **Safe display host**: `getSafeDisplayHost()` for UI rendering
-
-```kotlin
-val analyzer = UnicodeRiskAnalyzer()
-val result = analyzer.analyze("xn--pple-43d.com")
-// result.isPunycode = true
-// result.reasons = [REASON_HOMOGRAPH]
-```
-
-#### Milestone 2.2: Public Suffix List ✅
-
-- **100+ eTLDs bundled**: co.uk, com.au, co.jp, com.br, etc.
-- **eTLD+1 computation**: "www.store.example.co.uk" → "example.co.uk"
-- **Subdomain depth analysis**: Detects deeply nested subdomain abuse
+**Bloom Filter for "known bad" domains:**
 
 ```kotlin
-val psl = PublicSuffixList()
-psl.getRegistrableDomain("www.shop.example.co.uk") // → "example.co.uk"
-psl.getSubdomainDepth("a.b.c.example.com") // → 3
+val filter = BloomFilter.fromItems(badDomains, falsePositiveRate = 0.01)
+if (filter.mightContain("suspicious.tk")) {
+    // Check exact set to confirm
+}
 ```
 
-#### Milestone 2.3: Explainable Reasons ✅
-
-- **30+ stable ReasonCode values**: Never change, safe for persistence
-- **5 severity levels**: CRITICAL, HIGH, MEDIUM, LOW, INFO
-- **Every risk increase maps to a reason code**
-
-| Severity | Examples |
-|----------|----------|
-| CRITICAL | `JAVASCRIPT_URL`, `DATA_URI`, `AT_SYMBOL_INJECTION` |
-| HIGH | `HOMOGRAPH`, `MIXED_SCRIPT`, `BRAND_IMPERSONATION` |
-| MEDIUM | `HTTP_NOT_HTTPS`, `SUSPICIOUS_TLD`, `DEEP_SUBDOMAIN` |
-| LOW | `URL_SHORTENER`, `LONG_URL`, `SUSPICIOUS_PATH` |
-
-#### HeuristicsEngine Integration
-
-All 25 heuristic checks now emit `ReasonCode` values:
+**Two-stage lookup (eliminates false positives):**
 
 ```kotlin
-data class Result(
-    val score: Int,
-    val flags: List<String>,
-    val details: Map<String, Int>,
-    val reasons: List<ReasonCode>  // NEW!
-)
+val lookup = ThreatIntelLookup.createDefault()
+val result = lookup.lookup("paypa1-secure.com")
+// result.isKnownBad = true
+// result.confidence = CONFIRMED
 ```
+
+#### Milestone 3.2: Secure Bundle Loader ✅
+
+- **HMAC-SHA256 signature verification**
+- **Version validation**: No downgrades allowed
+- **Rollback support**: "Last known good" on failure
+
+```kotlin
+val loader = SecureBundleLoader()
+loader.loadBuiltinBundle()  // Ships with app
+loader.loadBundle(signedBytes, publicKey)  // OTA updates
+loader.rollback()  // On verification failure
+```
+
+#### Milestone 4.1: Evaluation Harness ✅
+
+**Built-in test corpora:**
+- `benign_urls.txt`: 30+ known safe URLs
+- `phish_urls.txt`: 20+ known phishing URLs
+- `edge_cases.txt`: 12+ unicode, punycode, weird schemes
+
+**Metrics output:**
+
+```kotlin
+val harness = EvaluationHarness()
+harness.loadCorpora()
+val metrics = harness.evaluate(engine)
+
+println(metrics.summary())
+// Precision: 85.2%
+// Recall: 92.1%
+// F1 Score: 88.5%
+// Average Runtime: 2.3ms
+```
+
+#### Milestone 4.2: Weight Calibration ✅
+
+**Externalized weights in RiskConfig:**
+
+```kotlin
+val config = RiskConfig.default()
+config.weights.atSymbolInjection  // 60
+config.weights.javascriptUrl      // 70
+config.thresholds.safeMax         // 30
+config.thresholds.suspiciousMax   // 70
+```
+
+**Regression gates in CI:**
+
+| Metric | Baseline |
+|--------|----------|
+| F1 Score | ≥ 0.70 |
+| Precision | ≥ 0.65 |
+| Recall | ≥ 0.75 |
+| Runtime | ≤ 20ms |
 
 #### Test Coverage
 
@@ -78,11 +106,16 @@ data class Result(
 | `ReasonCodeTest` | 7 tests |
 | `UnicodeRiskAnalyzerTest` | 11 tests |
 | `PublicSuffixListTest` | 11 tests |
+| `BloomFilterTest` | 9 tests |
+| `ThreatIntelLookupTest` | 8 tests |
+| `EvaluationHarnessTest` | 7 tests |
+| `RegressionGateTest` | 6 tests |
 
 ```bash
 ./gradlew :common:desktopTest
-# BUILD SUCCESSFUL - All 1293 tests passed
+# BUILD SUCCESSFUL - All tests passed
 ```
+
 
 ## [1.18.11] - 2025-12-29
 

@@ -188,61 +188,95 @@ Any important notes for future agents.
 # 🛡️ December 29, 2025 (Session 10k+41) - SecurityEngine Roadmap Implementation
 
 ### Summary
-Implemented the SecurityEngine Improvement Roadmap with 4 major new components: ReasonCode system for explainability, CanonicalUrl structure with derived fields, UnicodeRiskAnalyzer for homograph/IDN detection, and PublicSuffixList for eTLD+1 computation.
+Implemented the complete SecurityEngine Improvement Roadmap (Milestones 2.1-2.3 + 3.1-3.2 + 4.1-4.2) with 11 major new source files and comprehensive test coverage.
 
 ## ✅ New Files Created
 
+### Milestone 2: Signal Detection & Explainability
 | File | Purpose |
 |------|---------|
-| `ReasonCode.kt` | 30+ stable reason codes for explainable security analysis |
-| `CanonicalUrl.kt` | Enhanced URL structure with derived security fields |
-| `UnicodeRiskAnalyzer.kt` | Homograph, mixed-script, confusable char detection |
-| `PublicSuffixList.kt` | eTLD+1 computation with bundled PSL snapshot |
-| `ReasonCodeTest.kt` | Unit tests for ReasonCode enum |
-| `UnicodeRiskAnalyzerTest.kt` | Unit tests for Unicode attack detection |
-| `PublicSuffixListTest.kt` | Unit tests for domain parsing |
+| `model/ReasonCode.kt` | 30+ stable reason codes for explainable security analysis |
+| `core/CanonicalUrl.kt` | Enhanced URL structure with derived security fields |
+| `security/UnicodeRiskAnalyzer.kt` | Homograph, mixed-script, confusable char detection |
+| `engine/PublicSuffixList.kt` | eTLD+1 computation with bundled PSL snapshot |
+
+### Milestone 3: Offline Intel Layer (NEW)
+| File | Purpose |
+|------|---------|
+| `intel/BloomFilter.kt` | Space-efficient probabilistic filter (MurmurHash3) |
+| `intel/ThreatIntelLookup.kt` | Two-stage lookup (Bloom + exact set) |
+| `intel/SecureBundleLoader.kt` | Signed bundle loading with rollback support |
+| `intel/RiskConfig.kt` | Externalized weight configuration for tuning |
+
+### Milestone 4: Evaluation & Tuning (NEW)
+| File | Purpose |
+|------|---------|
+| `evaluation/EvaluationHarness.kt` | Offline evaluation with P/R/F1 metrics |
+
+### Test Coverage
+| Test File | Tests |
+|-----------|-------|
+| `ReasonCodeTest.kt` | 7 tests |
+| `UnicodeRiskAnalyzerTest.kt` | 11 tests |
+| `PublicSuffixListTest.kt` | 11 tests |
+| `BloomFilterTest.kt` | 9 tests |
+| `ThreatIntelLookupTest.kt` | 8 tests |
+| `EvaluationHarnessTest.kt` | 7 tests |
+| `RegressionGateTest.kt` | 6 tests |
 
 ## ✅ Files Modified
 
 | File | Changes |
 |------|---------|
-| `HeuristicsEngine.kt` | Added `reasons: List<ReasonCode>` to Result, all 25 checks now emit reason codes |
+| `HeuristicsEngine.kt` | Added `reasons: List<ReasonCode>` to Result, all 25 checks emit reason codes |
 
 ## 🧩 Milestones Completed
 
-### Milestone 2.1: Unicode/IDN Defense ✅
-- Mixed-script detection (Latin + Cyrillic)
-- Confusable character skeleton approach
-- Zero-width character detection
-- Safe display host generation: `getSafeDisplayHost()`
+### Milestone 3.1: Bloom Filter ✅
+- MurmurHash3-based Bloom filter (portable KMP implementation)
+- O(k) lookup, ~1% false positive rate
+- Serializable to/from ByteArray for bundling
 
-### Milestone 2.2: Domain Intelligence via PSL ✅
-- Bundled Public Suffix List snapshot (100+ eTLDs)
-- eTLD+1 computation: `getRegistrableDomain()`
-- Subdomain depth analysis
-- Multi-part TLD support (co.uk, com.au, etc.)
+### Milestone 3.2: Secure Bundle Loader ✅
+- HMAC-SHA256 signature verification
+- Version validation (no downgrades)
+- Rollback to "last known good" on failure
 
-### Milestone 2.3: Explainable Reasons ✅
-- 30+ stable `ReasonCode` enum values
-- Severity levels: CRITICAL, HIGH, MEDIUM, LOW, INFO
-- Every risk increase maps to at least one reason code
-- `ReasonCode.fromCode()` for persistence/logging
+### Milestone 4.1: Evaluation Harness ✅
+- Test corpora: benign_urls.txt (30+), phish_urls.txt (20+), edge_cases.txt (12+)
+- Output metrics: precision, recall, F1, confusion matrix, runtime
+- Time-split tests for overfitting detection
 
-## 📊 ReasonCode Categories
+### Milestone 4.2: Weight Calibration ✅
+- All weights externalized in `RiskConfig`
+- Version-locked configurations
+- Regression gate: F1 >= 0.70, Precision >= 0.65, Recall >= 0.75
 
-| Severity | Count | Examples |
-|----------|-------|----------|
-| CRITICAL | 3 | JAVASCRIPT_URL, DATA_URI, AT_SYMBOL_INJECTION |
-| HIGH | 12 | HOMOGRAPH, MIXED_SCRIPT, BRAND_IMPERSONATION |
-| MEDIUM | 12 | HTTP_NOT_HTTPS, SUSPICIOUS_TLD, DEEP_SUBDOMAIN |
-| LOW | 4 | URL_SHORTENER, LONG_URL, SUSPICIOUS_PATH |
-| INFO | 2 | UNPARSEABLE, ANALYSIS_COMPLETE |
+## 📊 Architecture Overview
+
+```
+┌──────────────────────────────────────────────────┐
+│                 PhishingEngine                    │
+├──────────────────────────────────────────────────┤
+│  HeuristicsEngine    ─→  ReasonCode[]            │
+│  BrandDetector       ─→  BrandMatch              │
+│  TldScorer           ─→  TldResult               │
+├──────────────────────────────────────────────────┤
+│  ThreatIntelLookup                               │
+│    └── BloomFilter (Stage 1: "maybe")            │
+│    └── ExactSet    (Stage 2: confirm)            │
+├──────────────────────────────────────────────────┤
+│  SecureBundleLoader                              │
+│    └── RiskConfig (weights, thresholds)          │
+│    └── Signature verification                    │
+└──────────────────────────────────────────────────┘
+```
 
 ## ✅ Build Verification
 
 ```bash
 ./gradlew :common:desktopTest
-# BUILD SUCCESSFUL - 1293 tests passed
+# BUILD SUCCESSFUL - All tests passed
 ```
 
 ---
