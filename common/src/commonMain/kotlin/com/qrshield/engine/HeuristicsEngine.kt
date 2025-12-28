@@ -303,6 +303,82 @@ class HeuristicsEngine(
             ))
         }
 
+        // === NEW ENHANCED HEURISTICS ===
+
+        // 18. Zero-width character detection
+        if (hasZeroWidthCharacters(url)) {
+            checks.add(HeuristicCheck(
+                "ZERO_WIDTH_CHARS",
+                WEIGHT_ZERO_WIDTH,
+                "Hidden zero-width Unicode characters detected"
+            ))
+        }
+
+        // 19. Data URI scheme detection
+        if (isDataUri(url)) {
+            checks.add(HeuristicCheck(
+                "DATA_URI_SCHEME",
+                WEIGHT_DATA_URI,
+                "Data URI scheme detected - may contain embedded code"
+            ))
+        }
+
+        // 20. JavaScript URL detection
+        if (isJavaScriptUrl(url)) {
+            checks.add(HeuristicCheck(
+                "JAVASCRIPT_URL",
+                WEIGHT_JAVASCRIPT_URL,
+                "JavaScript URL scheme detected - executable code"
+            ))
+        }
+
+        // 21. Fragment parameter hiding (using # to obscure)
+        if (hasFragmentHiding(url)) {
+            checks.add(HeuristicCheck(
+                "FRAGMENT_HIDING",
+                WEIGHT_FRAGMENT_HIDING,
+                "Suspicious use of URL fragment to hide content"
+            ))
+        }
+
+        // 22. Credential harvesting keywords in URL
+        val credentialKeywordCount = countCredentialHarvestingKeywords(url)
+        if (credentialKeywordCount > 0) {
+            val keywordScore = (credentialKeywordCount * WEIGHT_CREDENTIAL_KEYWORD).coerceAtMost(40)
+            checks.add(HeuristicCheck(
+                "CREDENTIAL_KEYWORDS",
+                keywordScore,
+                "Credential harvesting keywords detected ($credentialKeywordCount found)"
+            ))
+        }
+
+        // 23. Suspicious port numbers (common attack vectors)
+        if (parsed.port != null && parsed.port in SUSPICIOUS_PORTS) {
+            checks.add(HeuristicCheck(
+                "SUSPICIOUS_PORT",
+                WEIGHT_SUSPICIOUS_PORT,
+                "Suspicious port number: ${parsed.port}"
+            ))
+        }
+
+        // 24. Lookalike Unicode characters (beyond punycode)
+        if (hasLookalikeCharacters(parsed.host)) {
+            checks.add(HeuristicCheck(
+                "LOOKALIKE_CHARS",
+                WEIGHT_LOOKALIKE,
+                "Lookalike Unicode characters detected in domain"
+            ))
+        }
+
+        // 25. Domain age simulation (sequential numbers in domain)
+        if (hasDomainAgeSimulation(parsed.host)) {
+            checks.add(HeuristicCheck(
+                "DOMAIN_AGE_SIMULATION",
+                WEIGHT_DOMAIN_AGE,
+                "Domain appears to be newly generated (number sequences)"
+            ))
+        }
+
         // Calculate final score with bounds
         val totalScore = checks.sumOf { it.weight }.coerceIn(0, 100)
         val flags = checks.map { it.message }
@@ -449,6 +525,102 @@ class HeuristicsEngine(
         return percentCount >= 5 && percentCount.toFloat() / path.length > 0.1f
     }
 
+    // === NEW ENHANCED HEURISTIC HELPER METHODS ===
+
+    /**
+     * Check for hidden zero-width Unicode characters.
+     * These are invisible but can be used to evade detection.
+     */
+    private fun hasZeroWidthCharacters(url: String): Boolean {
+        return url.any { it in ZERO_WIDTH_CHARS }
+    }
+
+    /**
+     * Check if URL uses data: URI scheme.
+     * Data URIs can contain embedded HTML/JavaScript.
+     */
+    private fun isDataUri(url: String): Boolean {
+        val urlLower = url.lowercase().trim()
+        return urlLower.startsWith("data:") ||
+               urlLower.contains("?data:") ||
+               urlLower.contains("&data:")
+    }
+
+    /**
+     * Check if URL uses javascript: scheme.
+     * JavaScript URLs execute code when clicked.
+     */
+    private fun isJavaScriptUrl(url: String): Boolean {
+        val urlLower = url.lowercase().trim()
+        return urlLower.startsWith("javascript:") ||
+               urlLower.startsWith("vbscript:")
+    }
+
+    /**
+     * Check for suspicious use of URL fragment to hide content.
+     * Fragments after # are not sent to server but can be used client-side.
+     */
+    private fun hasFragmentHiding(url: String): Boolean {
+        val fragmentIndex = url.indexOf('#')
+        if (fragmentIndex < 0) return false
+
+        val fragment = url.substring(fragmentIndex + 1)
+        // Suspicious if fragment looks like a URL or contains suspicious patterns
+        return fragment.contains("://") ||
+               fragment.contains("?") ||
+               fragment.length > 100 ||
+               fragment.contains("base64") ||
+               fragment.contains("eval(")
+    }
+
+    /**
+     * Count credential harvesting keywords in URL.
+     * Multiple keywords suggest phishing attempt.
+     */
+    private fun countCredentialHarvestingKeywords(url: String): Int {
+        val urlLower = url.lowercase()
+        return CREDENTIAL_KEYWORDS.count { keyword ->
+            urlLower.contains(keyword)
+        }
+    }
+
+    /**
+     * Check for lookalike Unicode characters (beyond simple punycode).
+     * Detects mathematical symbols and Cyrillic characters used to impersonate.
+     */
+    private fun hasLookalikeCharacters(host: String): Boolean {
+        return host.any { char -> char in LOOKALIKE_CHARS.keys }
+    }
+
+    /**
+     * Check for domain age simulation patterns.
+     * Newly generated domains often have sequential numbers or random sequences.
+     */
+    private fun hasDomainAgeSimulation(host: String): Boolean {
+        // Check for sequential numbers (e.g., domain123456.com)
+        val digitSequencePattern = Regex("\\d{5,}")
+        if (digitSequencePattern.containsMatchIn(host)) return true
+
+        // Check for alternating letters and numbers (e.g., a1b2c3d4.com)
+        val alternatingPattern = Regex("([a-z]\\d){3,}|([\\d][a-z]){3,}", RegexOption.IGNORE_CASE)
+        if (alternatingPattern.containsMatchIn(host)) return true
+
+        // Check for random-looking hex sequences (e.g., a8f3c2e1.com)
+        val parts = host.split(".")
+        for (part in parts) {
+            if (part.length >= 8 && part.all { it.isLetterOrDigit() }) {
+                val digits = part.count { it.isDigit() }
+                val letters = part.count { it.isLetter() }
+                // Roughly equal mix suggests random generation
+                if (digits >= 3 && letters >= 3 && kotlin.math.abs(digits - letters) <= 2) {
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
     companion object {
         // === HEURISTIC WEIGHTS ===
         const val WEIGHT_HTTP_NOT_HTTPS = 30  // Increased from 15
@@ -468,11 +640,32 @@ class HeuristicsEngine(
         const val WEIGHT_BASE64 = 30          // Increased from 10
         const val WEIGHT_ENCODING = 20        // Increased from 8
 
+        // === NEW ENHANCED HEURISTIC WEIGHTS ===
+        const val WEIGHT_ZERO_WIDTH = 50       // Hidden characters are highly suspicious
+        const val WEIGHT_DATA_URI = 60         // Data URIs can contain executable code
+        const val WEIGHT_JAVASCRIPT_URL = 70   // JavaScript URLs are almost always malicious
+        const val WEIGHT_FRAGMENT_HIDING = 25  // Used to hide real URL
+        const val WEIGHT_CREDENTIAL_KEYWORD = 10 // Per keyword, max 40
+        const val WEIGHT_SUSPICIOUS_PORT = 25  // Common attack ports
+        const val WEIGHT_LOOKALIKE = 35        // Lookalike characters
+        const val WEIGHT_DOMAIN_AGE = 20       // Newly generated domains
+
         // === THRESHOLDS ===
         const val ENTROPY_THRESHOLD = 4.0
 
         // === REFERENCE DATA ===
         val STANDARD_PORTS = setOf(80, 443, 8080, 8443)
+
+        val SUSPICIOUS_PORTS = setOf(
+            4444,  // Metasploit default
+            5555,  // Android ADB
+            6666,  // IRC/Trojans
+            6667,  // IRC
+            8888,  // Alternate HTTP often used by phishing
+            9999,  // Alternate admin
+            1337,  // "leet" - hacker culture
+            31337  // "eleet" - backdoor
+        )
 
         val COMMON_TLDS = setOf(
             "com", "org", "net", "edu", "gov", "io", "co", "us", "uk",
@@ -484,5 +677,33 @@ class HeuristicsEngine(
             ".pif", ".vbs", ".vbe", ".js", ".jse", ".ws", ".wsf",
             ".hta", ".cpl", ".msc", ".jar", ".app", ".dmg"
         )
+
+        // Credential harvesting keywords commonly used in phishing
+        val CREDENTIAL_KEYWORDS = setOf(
+            "verify", "confirm", "update", "secure", "login", "signin",
+            "account", "password", "credential", "billing", "payment",
+            "suspend", "locked", "unusual", "activity", "expire",
+            "validate", "authenticate", "reactivate", "restore"
+        )
+
+        // Zero-width Unicode characters often used for obfuscation
+        val ZERO_WIDTH_CHARS = setOf(
+            '\u200B', // Zero-width space
+            '\u200C', // Zero-width non-joiner
+            '\u200D', // Zero-width joiner
+            '\uFEFF', // Byte order mark
+            '\u2060', // Word joiner
+            '\u180E'  // Mongolian vowel separator
+        )
+
+        // Lookalike Unicode characters (beyond simple homoglyphs)
+        val LOOKALIKE_CHARS = mapOf(
+            'ℙ' to 'P', 'ℚ' to 'Q', 'ℝ' to 'R', 'ℕ' to 'N', 'ℤ' to 'Z',
+            'ℂ' to 'C', 'ℍ' to 'H', 'ℐ' to 'I', 'ℒ' to 'L', 'ℳ' to 'M',
+            'ℬ' to 'B', 'ℰ' to 'E', 'ℱ' to 'F', 'ℋ' to 'H', 'ℛ' to 'R',
+            'а' to 'a', 'е' to 'e', 'о' to 'o', 'р' to 'p', 'с' to 'c', // Cyrillic
+            'х' to 'x', 'у' to 'y', 'і' to 'i', 'ј' to 'j', 'ѕ' to 's'
+        )
     }
 }
+

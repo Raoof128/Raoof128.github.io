@@ -4,6 +4,37 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.18.11] - 2025-12-29
+
+### 🚀 Major Engine Upgrade: Enhanced Detection Capabilities
+
+#### HeuristicsEngine: 8 New Security Checks (25 total)
+
+| New Heuristic | Weight | Description |
+|---------------|--------|-------------|
+| `ZERO_WIDTH_CHARS` | 50 | Hidden Unicode characters |
+| `DATA_URI_SCHEME` | 60 | data: URIs with embedded code |
+| `JAVASCRIPT_URL` | 70 | javascript: execution URLs |
+| `FRAGMENT_HIDING` | 25 | Suspicious # fragment usage |
+| `CREDENTIAL_KEYWORDS` | 10/ea | verify, confirm, login, etc. |
+| `SUSPICIOUS_PORT` | 25 | Ports 4444, 1337, 31337, etc. |
+| `LOOKALIKE_CHARS` | 35 | Mathematical/Cyrillic lookalikes |
+| `DOMAIN_AGE_SIMULATION` | 20 | Generated domain patterns |
+
+#### BrandDatabase: 17 New Brands (52 total)
+
+**Email Providers:** Gmail, Outlook, Yahoo, ProtonMail
+**Crypto (Hardware):** Kraken, Crypto.com, Ledger, Trezor
+**Government (US/UK):** IRS, SSA, HMRC, NHS
+**Tech/Fintech:** Uber, Lyft, Airbnb, Venmo, CashApp
+**Logistics:** UPS, USPS
+
+#### Build Verification
+```bash
+./gradlew :common:test :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL in 1m 3s
+```
+
 ## [1.18.10] - 2025-12-29
 
 ### 🔧 Threat Page: Engine Signals Integration

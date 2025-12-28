@@ -420,6 +420,171 @@ object BrandDatabase {
             homographs = listOf("disсord"), // Cyrillic 'с'
             combosquats = listOf("discord-nitro", "discord-gift", "discord-verify"),
             category = BrandCategory.ENTERTAINMENT
+        ),
+
+        // === EMAIL PROVIDERS ===
+
+        "gmail" to BrandConfig(
+            officialDomains = setOf("gmail.com", "googlemail.com"),
+            typosquats = listOf("gmai1", "gmall", "gmaill", "gmaiI"),
+            homographs = listOf("gmаil"), // Cyrillic 'а'
+            combosquats = listOf("gmail-login", "gmail-verify", "gmail-security", "gmail-support"),
+            category = BrandCategory.TECHNOLOGY
+        ),
+
+        "outlook" to BrandConfig(
+            officialDomains = setOf("outlook.com", "outlook.live.com", "hotmail.com"),
+            typosquats = listOf("out1ook", "outloook", "outlok", "outl00k"),
+            homographs = listOf("оutlook"), // Cyrillic 'о'
+            combosquats = listOf("outlook-login", "outlook-verify", "outlook-support"),
+            category = BrandCategory.TECHNOLOGY
+        ),
+
+        "yahoo" to BrandConfig(
+            officialDomains = setOf("yahoo.com", "ymail.com"),
+            typosquats = listOf("yah00", "yahho", "yahooo", "yaho"),
+            homographs = listOf("yahоo"), // Cyrillic 'о'
+            combosquats = listOf("yahoo-login", "yahoo-mail", "yahoo-verify"),
+            category = BrandCategory.TECHNOLOGY
+        ),
+
+        "protonmail" to BrandConfig(
+            officialDomains = setOf("proton.me", "protonmail.com"),
+            typosquats = listOf("protonmai1", "protonmall", "protonmaiI"),
+            homographs = listOf("prоtonmail"), // Cyrillic 'о'
+            combosquats = listOf("protonmail-login", "proton-verify"),
+            category = BrandCategory.TECHNOLOGY
+        ),
+
+        // === MORE CRYPTOCURRENCY ===
+
+        "kraken" to BrandConfig(
+            officialDomains = setOf("kraken.com"),
+            typosquats = listOf("krak3n", "krakken", "krken"),
+            homographs = listOf("krakеn"), // Cyrillic 'е'
+            combosquats = listOf("kraken-login", "kraken-verify", "kraken-withdraw"),
+            category = BrandCategory.FINANCIAL
+        ),
+
+        "crypto" to BrandConfig(
+            officialDomains = setOf("crypto.com"),
+            typosquats = listOf("crypt0", "cryptto", "cryto"),
+            homographs = listOf("сrypto"), // Cyrillic 'с'
+            combosquats = listOf("crypto-login", "crypto-verify", "crypto-wallet"),
+            category = BrandCategory.FINANCIAL
+        ),
+
+        "ledger" to BrandConfig(
+            officialDomains = setOf("ledger.com"),
+            typosquats = listOf("ledg3r", "ledqer", "ledgerr"),
+            homographs = listOf("lеdger"), // Cyrillic 'е'
+            combosquats = listOf("ledger-verify", "ledger-sync", "ledger-wallet", "ledger-live"),
+            category = BrandCategory.FINANCIAL
+        ),
+
+        "trezor" to BrandConfig(
+            officialDomains = setOf("trezor.io"),
+            typosquats = listOf("trez0r", "tresor", "trezorr"),
+            homographs = listOf("trеzor"), // Cyrillic 'е'
+            combosquats = listOf("trezor-verify", "trezor-sync", "trezor-wallet"),
+            category = BrandCategory.FINANCIAL
+        ),
+
+        // === US GOVERNMENT ===
+
+        "irs" to BrandConfig(
+            officialDomains = setOf("irs.gov"),
+            typosquats = listOf("1rs", "irss", "irs-gov"),
+            homographs = listOf("іrs"), // Cyrillic 'і'
+            combosquats = listOf("irs-refund", "irs-payment", "irs-verify", "irs-tax"),
+            category = BrandCategory.GOVERNMENT
+        ),
+
+        "ssa" to BrandConfig(
+            officialDomains = setOf("ssa.gov", "socialsecurity.gov"),
+            typosquats = listOf("ss4", "sssa", "ssa-gov"),
+            homographs = listOf("ssа"), // Cyrillic 'а'
+            combosquats = listOf("ssa-login", "ssa-benefits", "ssa-verify"),
+            category = BrandCategory.GOVERNMENT
+        ),
+
+        // === UK GOVERNMENT ===
+
+        "hmrc" to BrandConfig(
+            officialDomains = setOf("gov.uk"),
+            typosquats = listOf("hmrcc", "hrnrc", "hmr"),
+            homographs = listOf("hmrс"), // Cyrillic 'с'
+            combosquats = listOf("hmrc-refund", "hmrc-tax", "hmrc-login", "hmrc-verify"),
+            category = BrandCategory.GOVERNMENT
+        ),
+
+        "nhs" to BrandConfig(
+            officialDomains = setOf("nhs.uk"),
+            typosquats = listOf("nhss", "nsh", "n-hs"),
+            homographs = listOf("nhѕ"), // Cyrillic 'ѕ'
+            combosquats = listOf("nhs-login", "nhs-vaccine", "nhs-appointment"),
+            category = BrandCategory.GOVERNMENT
+        ),
+
+        // === MORE TECH ===
+
+        "uber" to BrandConfig(
+            officialDomains = setOf("uber.com", "ubereats.com"),
+            typosquats = listOf("ub3r", "uberr", "ubr"),
+            homographs = listOf("ubеr"), // Cyrillic 'е'
+            combosquats = listOf("uber-login", "uber-verify", "uber-ride"),
+            category = BrandCategory.TECHNOLOGY
+        ),
+
+        "lyft" to BrandConfig(
+            officialDomains = setOf("lyft.com"),
+            typosquats = listOf("1yft", "lyyft", "lyf"),
+            homographs = listOf("lуft"), // Cyrillic 'у'
+            combosquats = listOf("lyft-login", "lyft-ride"),
+            category = BrandCategory.TECHNOLOGY
+        ),
+
+        "airbnb" to BrandConfig(
+            officialDomains = setOf("airbnb.com"),
+            typosquats = listOf("a1rbnb", "airnbnb", "airbnbb"),
+            homographs = listOf("аirbnb"), // Cyrillic 'а'
+            combosquats = listOf("airbnb-login", "airbnb-verify", "airbnb-booking"),
+            category = BrandCategory.TECHNOLOGY
+        ),
+
+        "venmo" to BrandConfig(
+            officialDomains = setOf("venmo.com"),
+            typosquats = listOf("vemno", "venm0", "venmoo"),
+            homographs = listOf("vеnmo"), // Cyrillic 'е'
+            combosquats = listOf("venmo-login", "venmo-verify", "venmo-payment"),
+            category = BrandCategory.FINANCIAL
+        ),
+
+        "cashapp" to BrandConfig(
+            officialDomains = setOf("cash.app"),
+            typosquats = listOf("cashap", "cashappp", "c4shapp"),
+            homographs = listOf("сashapp"), // Cyrillic 'с'
+            combosquats = listOf("cashapp-login", "cashapp-verify", "cashapp-payment"),
+            category = BrandCategory.FINANCIAL
+        ),
+
+        // === MORE LOGISTICS ===
+
+        "ups" to BrandConfig(
+            officialDomains = setOf("ups.com"),
+            typosquats = listOf("upss", "u-ps", "up5"),
+            homographs = listOf("uрs"), // Cyrillic 'р'
+            combosquats = listOf("ups-tracking", "ups-delivery", "ups-package"),
+            category = BrandCategory.LOGISTICS
+        ),
+
+        "usps" to BrandConfig(
+            officialDomains = setOf("usps.com"),
+            typosquats = listOf("uspss", "u-sps", "usp5"),
+            homographs = listOf("usрs"), // Cyrillic 'р'
+            combosquats = listOf("usps-tracking", "usps-delivery", "usps-redelivery"),
+            category = BrandCategory.LOGISTICS
         )
     )
 }
+

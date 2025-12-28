@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.18.10`** (as of December 29, 2025)
+**Current App Version: `1.18.11`** (as of December 29, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,48 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🚀 December 29, 2025 (Session 10k+40) - Major Engine Upgrade
+
+### Summary
+Upgraded the PhishingEngine with 8 new heuristics and 17 new brands to significantly improve detection capabilities.
+
+## ✅ HeuristicsEngine Changes
+
+| File | Changes |
+|------|---------|
+| `HeuristicsEngine.kt` | Added 8 new security checks (25 total) |
+
+**New Detection Rules:**
+- Zero-width Unicode characters (obfuscation)
+- Data URI schemes (embedded code)
+- JavaScript URLs (execution)
+- Fragment hiding (URL obscuration)
+- Credential harvesting keywords
+- Suspicious ports (4444, 1337, etc.)
+- Lookalike Unicode characters
+- Domain age simulation patterns
+
+## ✅ BrandDatabase Changes
+
+| File | Changes |
+|------|---------|
+| `BrandDatabase.kt` | Added 17 new brands (52 total) |
+
+**New Categories:**
+- Email: Gmail, Outlook, Yahoo, ProtonMail
+- Crypto: Kraken, Crypto.com, Ledger, Trezor
+- Government: IRS, SSA, HMRC, NHS
+- Tech: Uber, Lyft, Airbnb, Venmo, CashApp
+- Logistics: UPS, USPS
+
+## ✅ Build Verification
+```bash
+./gradlew :common:test :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL in 1m 3s
+```
 
 ---
 
