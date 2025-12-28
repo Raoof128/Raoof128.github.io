@@ -6,6 +6,13 @@
 package com.qrshield.evaluation
 
 import com.qrshield.model.Verdict
+import kotlin.math.roundToInt
+import kotlin.time.TimeSource
+
+/**
+ * TimeSource for portable timing.
+ */
+private val timeSource = TimeSource.Monotonic
 
 /**
  * Offline evaluation harness for PhishingEngine.
@@ -85,7 +92,16 @@ class EvaluationHarness {
             appendLine("  Max: $maxRuntimeMs ms")
         }
 
-        private fun Double.format(digits: Int) = "%.${digits}f".format(this)
+        private fun Double.format(digits: Int): String {
+            val multiplier = when (digits) {
+                0 -> 1.0
+                1 -> 10.0
+                2 -> 100.0
+                else -> 1000.0
+            }
+            val rounded = (this * multiplier).roundToInt() / multiplier
+            return rounded.toString()
+        }
     }
 
     /**
@@ -152,10 +168,9 @@ class EvaluationHarness {
         val results = mutableListOf<TestResult>()
 
         for (testCase in allCases) {
-            val startTime = System.nanoTime()
+            val startMark = timeSource.markNow()
             val (verdict, score) = evaluator.evaluate(testCase.url)
-            val endTime = System.nanoTime()
-            val runtimeMs = (endTime - startTime) / 1_000_000
+            val runtimeMs = startMark.elapsedNow().inWholeMilliseconds
 
             val isCorrect = when {
                 testCase.expectedVerdict == Verdict.MALICIOUS -> 
@@ -192,10 +207,9 @@ class EvaluationHarness {
         }
 
         val testResults = testCases.map { testCase ->
-            val startTime = System.nanoTime()
+            val startMark = timeSource.markNow()
             val (verdict, score) = evaluator.evaluate(testCase.url)
-            val endTime = System.nanoTime()
-            val runtimeMs = (endTime - startTime) / 1_000_000
+            val runtimeMs = startMark.elapsedNow().inWholeMilliseconds
             val isCorrect = isVerdictCorrect(testCase.expectedVerdict, verdict)
             TestResult(testCase, verdict, score, runtimeMs, isCorrect)
         }

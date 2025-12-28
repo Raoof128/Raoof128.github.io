@@ -39,6 +39,14 @@ fun main() {
     val engine = PhishingEngine()
     console.log("📦 PhishingEngine ready for analysis")
 
+    // Initialize new engine components
+    val heuristicsEngine = com.qrshield.engine.HeuristicsEngine()
+    val mlScorer = com.qrshield.ml.EnsemblePhishingScorer.default
+    val threatIntel = com.qrshield.intel.ThreatIntelLookup.createDefault()
+    val unicodeAnalyzer = com.qrshield.security.UnicodeRiskAnalyzer()
+    val psl = com.qrshield.engine.PublicSuffixList()
+    console.log("🧠 ML Scorer, Threat Intel, and Unicode Analyzer ready")
+
     // Get DOM elements
     val urlInput = document.getElementById("urlInput") as? HTMLInputElement
     val analyzeBtn = document.getElementById("analyzeBtn") as? HTMLButtonElement
@@ -58,18 +66,50 @@ fun main() {
                 // Run analysis using SHARED KMP PhishingEngine
                 val assessment = engine.analyzeBlocking(url)
 
+                // Get enhanced analysis from new components
+                val heuristicResult = heuristicsEngine.analyze(url)
+                val mlResult = mlScorer.scoreWithDetails(url)
+                val threatResult = threatIntel.lookup(url)
+                
                 console.log("✅ Analysis complete: Score=${assessment.score}, Verdict=${assessment.verdict}")
+                console.log("   ML Score: ${(mlResult.ensembleScore * 100).toInt()}%")
+                console.log("   Reason Codes: ${heuristicResult.reasons.size}")
+                console.log("   Known Bad: ${threatResult.isKnownBad}")
 
                 // Convert flags to JS array
                 val flagsArray = assessment.flags.toTypedArray()
+                
+                // Convert reason codes to JS array
+                val reasonCodes = heuristicResult.reasons.map { reason ->
+                    val r = js("{}")
+                    r.code = reason.code
+                    r.severity = reason.severity.name
+                    r.description = reason.description
+                    r
+                }.toTypedArray()
 
-                // Call the display function defined in HTML
+                // Call the display function defined in HTML with enhanced data
                 window.asDynamic().displayResult(
                     assessment.score,
                     assessment.verdict.name,
                     flagsArray,
                     url
                 )
+                
+                // Also expose enhanced analysis data for advanced UI
+                val details = js("{}")
+                details.score = assessment.score
+                details.verdict = assessment.verdict.name
+                details.mlScore = (mlResult.ensembleScore * 100).toInt()
+                details.mlConfidence = (mlResult.confidence * 100).toInt()
+                details.charScore = (mlResult.charScore * 100).toInt()
+                details.featureScore = (mlResult.featureScore * 100).toInt()
+                details.isKnownBad = threatResult.isKnownBad
+                details.threatConfidence = threatResult.confidence.name
+                details.heuristicScore = heuristicResult.score
+                details.reasonCount = heuristicResult.reasons.size
+                window.asDynamic().lastAnalysisDetails = details
+                
             } catch (e: Exception) {
                 console.error("❌ Analysis error: ${e.message}")
                 window.asDynamic().showToast("Error analyzing URL: ${e.message}")
@@ -82,6 +122,116 @@ fun main() {
         }, 100)
 
     }
+
+    // Expose ML scoring function
+    window.asDynamic().qrshieldMlScore = { url: String ->
+        try {
+            val result = mlScorer.scoreWithDetails(url)
+            val obj = js("{}")
+            obj.ensembleScore = result.ensembleScore
+            obj.charScore = result.charScore
+            obj.featureScore = result.featureScore
+            obj.confidence = result.confidence
+            obj.isPhishing = result.isPhishing
+            obj.charRiskLevel = result.charRiskLevel.name
+            obj
+        } catch (e: Exception) {
+            console.error("ML scoring error: ${e.message}")
+            val err = js("{}")
+            err.error = e.message
+            err
+        }
+    }
+
+    // Expose threat intel lookup
+    window.asDynamic().qrshieldThreatLookup = { url: String ->
+        try {
+            val result = threatIntel.lookup(url)
+            val obj = js("{}")
+            obj.isKnownBad = result.isKnownBad
+            obj.confidence = result.confidence.name
+            obj.category = result.category?.name
+            obj
+        } catch (e: Exception) {
+            console.error("Threat lookup error: ${e.message}")
+            val err = js("{}")
+            err.error = e.message
+            err
+        }
+    }
+
+    // Expose unicode risk analysis
+    window.asDynamic().qrshieldUnicodeAnalysis = { host: String ->
+        try {
+            val result = unicodeAnalyzer.analyze(host)
+            val safeDisplay = unicodeAnalyzer.getSafeDisplayHost(host)
+            val obj = js("{}")
+            obj.hasRisk = result.hasRisk
+            obj.isPunycode = result.isPunycode
+            obj.hasMixedScript = result.hasMixedScript
+            obj.hasConfusables = result.hasConfusables
+            obj.hasZeroWidth = result.hasZeroWidth
+            obj.riskScore = result.riskScore
+            obj.safeDisplayHost = safeDisplay
+            obj
+        } catch (e: Exception) {
+            console.error("Unicode analysis error: ${e.message}")
+            val err = js("{}")
+            err.error = e.message
+            err
+        }
+    }
+
+    // Expose PSL domain parsing
+    window.asDynamic().qrshieldParseDomain = { host: String ->
+        try {
+            val parsed = psl.parse(host)
+            val obj = js("{}")
+            obj.effectiveTld = parsed.effectiveTld
+            obj.registrableDomain = parsed.registrableDomain
+            obj.subdomainDepth = parsed.subdomainDepth
+            obj
+        } catch (e: Exception) {
+            console.error("Domain parsing error: ${e.message}")
+            val err = js("{}")
+            err.error = e.message
+            err
+        }
+    }
+
+    // Expose heuristics analysis with reason codes
+    window.asDynamic().qrshieldHeuristics = { url: String ->
+        try {
+            val result = heuristicsEngine.analyze(url)
+            val obj = js("{}")
+            obj.score = result.score
+            obj.flagCount = result.flags.size
+            obj.reasonCount = result.reasons.size
+            obj.reasons = result.reasons.map { reason ->
+                val r = js("{}")
+                r.code = reason.code
+                r.severity = reason.severity.name
+                r.description = reason.description
+                r
+            }.toTypedArray()
+            obj
+        } catch (e: Exception) {
+            console.error("Heuristics error: ${e.message}")
+            val err = js("{}")
+            err.error = e.message
+            err
+        }
+    }
+
+    // Expose engine info
+    val engineInfo = js("{}")
+    engineInfo.version = "1.19.0"
+    engineInfo.mlModelSize = "~10KB"
+    engineInfo.heuristicCount = 25
+    engineInfo.brandCount = 52
+    engineInfo.threatIntelEntries = threatIntel.getStats().exactSetSize
+    engineInfo.capabilities = arrayOf("heuristics", "ml", "brand_detection", "threat_intel", "unicode_analysis", "psl")
+    window.asDynamic().qrshieldEngineInfo = engineInfo
 
     // Expose translation function
     window.asDynamic().qrshieldGetTranslation = { key: String -> 

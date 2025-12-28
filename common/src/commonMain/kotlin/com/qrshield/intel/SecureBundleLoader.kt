@@ -84,7 +84,7 @@ class SecureBundleLoader {
             return LoadResult.ParseError("Bundle too small")
         }
 
-        val magic = String(bundleBytes.sliceArray(0..3))
+        val magic = bundleBytes.sliceArray(0..3).decodeToString()
         if (magic != "QRSB") {
             return LoadResult.ParseError("Invalid magic number")
         }
@@ -223,7 +223,14 @@ class SecureBundleLoader {
     }
 
     private fun ByteArray.toHexString(): String {
-        return joinToString("") { "%02x".format(it) }
+        val hexChars = "0123456789abcdef"
+        val result = StringBuilder(size * 2)
+        for (byte in this) {
+            val v = byte.toInt() and 0xFF
+            result.append(hexChars[v shr 4])
+            result.append(hexChars[v and 0x0F])
+        }
+        return result.toString()
     }
 
     /**

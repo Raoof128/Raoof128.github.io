@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### 🛡️ SecurityEngine Improvement Roadmap - Complete Implementation
 
-Major security infrastructure upgrade implementing Milestones 2.1-2.3 + 3.1-3.2 + 4.1-4.2 of the SecurityEngine Improvement Roadmap.
+Major security infrastructure upgrade implementing Milestones 2.1-2.3 + 3.1-3.2 + 4.1-4.2 + 5.0 (ML) of the SecurityEngine Improvement Roadmap. **Plus Web App integration of all new components.**
 
 #### New Files Created
 
@@ -23,6 +23,34 @@ Major security infrastructure upgrade implementing Milestones 2.1-2.3 + 3.1-3.2 
 | `intel/SecureBundleLoader.kt` | Signed bundle loading with rollback |
 | `intel/RiskConfig.kt` | Externalized weight configuration |
 | `evaluation/EvaluationHarness.kt` | Offline evaluation with P/R/F1 metrics |
+| `ml/CharacterEmbeddingScorer.kt` | Character-level embedding ML scorer (~8KB) |
+| `ml/UrlFeatureExtractor.kt` | 24-feature extraction for ML models |
+| `ml/TinyPhishingClassifier.kt` | Feedforward NN (24→16→8→1) (~2KB) |
+| `ml/EnsemblePhishingScorer.kt` | Weighted ensemble of both ML models |
+
+#### Web App Integration ✅
+
+**New JS APIs exposed from Kotlin:**
+
+```javascript
+// ML scoring
+qrshieldMlScore(url) => { ensembleScore, charScore, featureScore, confidence }
+
+// Threat intel lookup  
+qrshieldThreatLookup(url) => { isKnownBad, confidence, category }
+
+// Unicode risk analysis
+qrshieldUnicodeAnalysis(host) => { hasRisk, isPunycode, hasMixedScript, ... }
+
+// Domain parsing (PSL)
+qrshieldParseDomain(host) => { effectiveTld, registrableDomain, subdomainDepth }
+
+// Heuristics with reason codes
+qrshieldHeuristics(url) => { score, reasons: [{ code, severity, description }] }
+
+// Engine info
+qrshieldEngineInfo => { version, mlModelSize, capabilities: [...] }
+```
 
 #### Milestone 3.1: Offline Intel Layer ✅
 
