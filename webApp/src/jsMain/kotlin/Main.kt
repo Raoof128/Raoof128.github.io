@@ -106,6 +106,48 @@ fun main() {
         }
     }
 
+    // Expose language setter for dynamic switching
+    window.asDynamic().qrshieldSetLanguage = { languageCode: String ->
+        try {
+            // Save to localStorage
+            window.localStorage.setItem("qrshield_language", languageCode)
+            
+            // Re-apply translations to the page
+            val body = document.body as? Element
+            if (body != null) {
+                applyLocalization(body)
+            }
+            
+            console.log("🌍 Language set to: $languageCode")
+            true
+        } catch (e: Exception) {
+            console.error("❌ Failed to set language: ${e.message}")
+            false
+        }
+    }
+
+    // Expose list of available languages
+    window.asDynamic().qrshieldGetAvailableLanguages = {
+        arrayOf(
+            js("({code: 'en', name: 'English'})"),
+            js("({code: 'ar', name: 'العربية'})"),
+            js("({code: 'de', name: 'Deutsch'})"),
+            js("({code: 'es', name: 'Español'})"),
+            js("({code: 'fr', name: 'Français'})"),
+            js("({code: 'hi', name: 'हिन्दी'})"),
+            js("({code: 'id', name: 'Bahasa Indonesia'})"),
+            js("({code: 'it', name: 'Italiano'})"),
+            js("({code: 'ja', name: '日本語'})"),
+            js("({code: 'ko', name: '한국어'})"),
+            js("({code: 'pt', name: 'Português'})"),
+            js("({code: 'ru', name: 'Русский'})"),
+            js("({code: 'th', name: 'ไทย'})"),
+            js("({code: 'tr', name: 'Türkçe'})"),
+            js("({code: 'vi', name: 'Tiếng Việt'})"),
+            js("({code: 'zh', name: '中文'})")
+        )
+    }
+
     // Handle enter key in input
     urlInput?.addEventListener("keypress", { event: Event ->
         if (event.asDynamic().key == "Enter") {

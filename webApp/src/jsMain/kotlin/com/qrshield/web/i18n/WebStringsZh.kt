@@ -64,7 +64,7 @@ internal val ChineseStrings = mapOf(
     WebStringKey.FeatureOfflineTitle to "离线优先架构",
     WebStringKey.FeatureOfflineDesc to "完整分析在本地执行。您的摄像头画面和扫描数据绝不会接触外部服务器。",
     WebStringKey.FeatureExplainableTitle to "可解释的安全性",
-    WebStringKey.FeatureExplainableDesc to "不仅仅是"拦截"。我们提供有关 URL 参数的详细启发式细分。",
+    WebStringKey.FeatureExplainableDesc to "不仅仅是「拦截」。我们提供有关 URL 参数的详细启发式细分。",
     WebStringKey.FeaturePerformanceDesc to "针对桌面环境进行了优化。使用原生 Kotlin Multiplatform 二进制文件在 5 毫秒内处理扫描。",
     WebStringKey.TrainingCentre to "培训中心",
     WebStringKey.LearnHomograph to "学习如何识别高级 QR 同形异义字攻击。",

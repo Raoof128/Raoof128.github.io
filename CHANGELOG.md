@@ -38,6 +38,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Action Descriptions: `ActionBlockDesc`, `ActionQuarantineDesc`
 - Results/Threat Page: `Expected`, `Detected`, `ExplainableSecurity`, `UrlBreakdown`, `FullUrl`, `OpenInBrowser`, `OpenWarning`, `RestrictedMode`, `RestrictedDesc`, `DangerousWarning`, `CopyUrl`, `Share`, `Dismiss`
 
+#### HTML Files Updated with `data-i18n` Attributes:
+All navigation elements now properly use i18n keys across all 8 HTML pages:
+
+| File | Changes |
+|------|---------|
+| `dashboard.html` | Hero section uses `HeroTagline`, `HeroTagline2`, `HeroDescription` |
+| `scanner.html` | Nav section labels + nav link text |
+| `threat.html` | Nav section labels + nav link text |
+| `results.html` | Nav section labels + nav link text + content + actions |
+| `game.html` | Nav section labels + nav link text |
+| `export.html` | Nav section labels + nav link text |
+| `trust.html` | Nav section labels + nav link text |
+| `onboarding.html` | Nav section labels + nav link text |
+
+#### New WebStringKey Entries (116 new, 259 total):
+- **Results Page**: `ScanComplete`, `Loading`, `AnalyzedOffline`, `NoDataLeaves`, `ActiveProtection`, `ConfidenceScore`, `Analyzing`, `ProcessingResults`, `RiskAssessment`, `AnalysisTime`, `Heuristics`, `TopAnalysisFactors`, `Pass`, `Info`, `Clean`, `ValidSslCertificate`, `BlacklistStatus`, `BackToDashboard`, `ShareReport`, `CopyLink`, `LinkCopied`
+- **Game Page**: `BeatTheBot`, `BeatTheBotDesc`, `SessionId`, `EndSession`, `Round`, `BrowserPreview`, `MakeDecision`, `Phishing`, `Legitimate`, `LiveHint`, `LiveScoreboard`, `VsMode`, `You`, `Points`, `Streak`, `Accuracy`, `QrShieldBot`, `Confidence`, `RoundAnalysis`, `CorrectDecision`, etc.
+- **Export Page**: `ExportSecurityReport`, `GenerateReport`, `ReportFormat`, `HumanReadable`, `MachineReadable`, `DateRange`, `Last7Days`, `Last30Days`, etc.
+- **General**: `Success`, `Error`, `Warning`, `Cancel`, `Confirm`, `Save`, `Delete`, `Edit`, `Close`, `Back`, `Next`, etc.
+
+#### New Kotlin/JS API Functions:
+
+**`window.qrshieldSetLanguage(languageCode)`**
+```javascript
+// Set language and re-apply translations
+window.qrshieldSetLanguage('de'); // German
+window.qrshieldSetLanguage('ja'); // Japanese  
+window.qrshieldSetLanguage('ar'); // Arabic
+```
+
+**`window.qrshieldGetAvailableLanguages()`**
+```javascript
+const langs = window.qrshieldGetAvailableLanguages();
+// Returns: [{code: 'en', name: 'English'}, {code: 'de', name: 'Deutsch'}, ...]
+```
+
 ## [1.18.4] - 2025-12-28
 
 ### 🎨 UI Polish & Sandbox Removal

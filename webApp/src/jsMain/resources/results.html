@@ -121,40 +121,40 @@
 
                 <!-- Navigation Links -->
                 <nav class="sidebar-nav">
-                    <div class="nav-section-label">Overview</div>
+                    <div class="nav-section-label" data-i18n="SectionOverview">Overview</div>
                     <a class="nav-link" href="dashboard.html" id="nav-dashboard">
                         <span class="material-symbols-outlined">dashboard</span>
-                        <span class="nav-text">Dashboard</span>
+                        <span class="nav-text" data-i18n="NavDashboard">Dashboard</span>
                     </a>
                     <a class="nav-link" href="scanner.html" id="nav-scanner">
                         <span class="material-symbols-outlined">qr_code_scanner</span>
-                        <span class="nav-text">Live Scanner</span>
+                        <span class="nav-text" data-i18n="NavScanMonitor">Live Scanner</span>
                     </a>
                     <a class="nav-link active" href="threat.html" id="nav-history">
                         <span class="material-symbols-outlined icon-filled">history</span>
-                        <span class="nav-text">Scan History</span>
+                        <span class="nav-text" data-i18n="NavScanHistory">Scan History</span>
                     </a>
 
-                    <div class="nav-section-label">Security</div>
+                    <div class="nav-section-label" data-i18n="SectionSecurity">Security</div>
                     <a class="nav-link" href="trust.html" id="nav-allowlist">
                         <span class="material-symbols-outlined">verified_user</span>
-                        <span class="nav-text">Allow List</span>
+                        <span class="nav-text" data-i18n="NavTrustCentre">Allow List</span>
                     </a>
                     <a class="nav-link" href="onboarding.html" id="nav-settings">
                         <span class="material-symbols-outlined">settings</span>
-                        <span class="nav-text">Settings</span>
+                        <span class="nav-text" data-i18n="NavSettings">Settings</span>
                     </a>
 
-                    <div class="nav-section-label">Training</div>
+                    <div class="nav-section-label" data-i18n="SectionTraining">Training</div>
                     <a class="nav-link" href="game.html" id="nav-game">
                         <span class="material-symbols-outlined">sports_esports</span>
-                        <span class="nav-text">Beat the Bot</span>
+                        <span class="nav-text" data-i18n="NavTraining">Beat the Bot</span>
                     </a>
 
-                    <div class="nav-section-label">Reports</div>
+                    <div class="nav-section-label" data-i18n="SectionReports">Reports</div>
                     <a class="nav-link" href="export.html" id="nav-export">
                         <span class="material-symbols-outlined">download</span>
-                        <span class="nav-text">Export</span>
+                        <span class="nav-text" data-i18n="NavReports">Export</span>
                     </a>
                 </nav>
             </div>
@@ -215,18 +215,18 @@
                         <div class="header-info">
                             <div class="status-badge" id="statusBadge">
                                 <span class="status-icon material-symbols-outlined">check_circle</span>
-                                <h2 class="status-title">Scan Complete</h2>
+                                <h2 class="status-title" data-i18n="ScanComplete">Scan Complete</h2>
                             </div>
                             <div class="url-display" id="urlDisplay">
                                 <span class="material-symbols-outlined url-icon">link</span>
-                                <code class="url-text" id="scannedUrl">Loading...</code>
+                                <code class="url-text" id="scannedUrl" data-i18n="Loading">Loading...</code>
                             </div>
                         </div>
                         <div class="analysis-meta">
                             <span class="material-symbols-outlined">offline_bolt</span>
-                            <span>Analyzed offline in &lt;5ms</span>
+                            <span data-i18n="AnalyzedOffline">Analyzed offline in &lt;5ms</span>
                             <span class="meta-divider"></span>
-                            <span>No data leaves device</span>
+                            <span data-i18n="NoDataLeaves">No data leaves device</span>
                         </div>
                     </div>
 
@@ -243,11 +243,12 @@
                             <div class="verdict-content">
                                 <div class="verdict-top">
                                     <div class="protection-badge">
-                                        <span>Active Protection</span>
+                                        <span data-i18n="ActiveProtection">Active Protection</span>
                                     </div>
                                     <div class="confidence-display">
                                         <div class="confidence-score" id="confidenceScore">--</div>
-                                        <div class="confidence-label" id="confidenceLabel">Confidence Score</div>
+                                        <div class="confidence-label" id="confidenceLabel" data-i18n="ConfidenceScore">
+                                            Confidence Score</div>
                                     </div>
                                 </div>
 
@@ -255,9 +256,11 @@
                                     <div class="verdict-main">
                                         <span class="material-symbols-outlined icon-filled verdict-shield"
                                             id="verdictIcon">shield_lock</span>
-                                        <h3 class="verdict-title" id="verdictTitle">ANALYZING...</h3>
+                                        <h3 class="verdict-title" id="verdictTitle" data-i18n="Analyzing">ANALYZING...
+                                        </h3>
                                     </div>
-                                    <p class="verdict-description" id="verdictDescription">
+                                    <p class="verdict-description" id="verdictDescription"
+                                        data-i18n="ProcessingResults">
                                         Processing scan results...
                                     </p>
                                 </div>
@@ -270,7 +273,7 @@
                             <!-- Risk Meter Card -->
                             <div class="risk-meter-card">
                                 <div class="risk-header">
-                                    <span class="risk-label">Risk Assessment</span>
+                                    <span class="risk-label" data-i18n="RiskAssessment">Risk Assessment</span>
                                     <span class="risk-badge" id="riskBadge">--</span>
                                 </div>
                                 <div class="risk-bar-container">
@@ -292,17 +295,17 @@
                             <!-- Engine Stats Card -->
                             <div class="engine-stats-card">
                                 <div class="stat-item">
-                                    <span class="stat-label">Analysis Time</span>
+                                    <span class="stat-label" data-i18n="AnalysisTime">Analysis Time</span>
                                     <span class="stat-value" id="analysisTime">4ms</span>
                                 </div>
                                 <div class="stat-divider"></div>
                                 <div class="stat-item">
-                                    <span class="stat-label">Heuristics</span>
+                                    <span class="stat-label" data-i18n="Heuristics">Heuristics</span>
                                     <span class="stat-value" id="heuristicsCount">142</span>
                                 </div>
                                 <div class="stat-divider"></div>
                                 <div class="stat-item">
-                                    <span class="stat-label">Engine</span>
+                                    <span class="stat-label" data-i18n="MetaEngine">Engine</span>
                                     <span class="stat-value">v2.4</span>
                                 </div>
                             </div>
@@ -316,7 +319,7 @@
                     <div class="analysis-section">
                         <h3 class="section-title">
                             <span class="material-symbols-outlined">analytics</span>
-                            Top Analysis Factors
+                            <span data-i18n="TopAnalysisFactors">Top Analysis Factors</span>
                         </h3>
 
                         <div class="factors-grid" id="factorsGrid">
@@ -373,18 +376,18 @@
                 <div class="action-bar-content">
                     <button class="btn-back" id="backBtn">
                         <span class="material-symbols-outlined">arrow_back</span>
-                        <span>Back to Dashboard</span>
+                        <span data-i18n="BackToDashboard">Back to Dashboard</span>
                     </button>
 
                     <div class="action-buttons">
                         <button class="btn-action" id="shareBtn">
                             <span class="material-symbols-outlined">share</span>
-                            <span>Share Report</span>
+                            <span data-i18n="ShareReport">Share Report</span>
                         </button>
 
                         <button class="btn-primary-action" id="copyBtn">
                             <span class="material-symbols-outlined">content_copy</span>
-                            <span>Copy Link</span>
+                            <span data-i18n="CopyLink">Copy Link</span>
                         </button>
                     </div>
                 </div>
@@ -398,7 +401,7 @@
          ============================================ -->
     <div class="toast" id="toast">
         <span class="material-symbols-outlined toast-icon">check_circle</span>
-        <span class="toast-message" id="toastMessage">Link copied to clipboard!</span>
+        <span class="toast-message" id="toastMessage" data-i18n="LinkCopied">Link copied to clipboard!</span>
     </div>
 
     <!-- Platform Bridge (Crypto, Clipboard, etc.) -->

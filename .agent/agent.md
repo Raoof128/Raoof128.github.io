@@ -241,13 +241,40 @@ Completed internationalization coverage for the WebApp by adding 35 missing `Web
 | `WebStringsHi.kt` | Added 35 missing translation keys |
 | `WebStringsJa.kt` | Added 35 missing translation keys |
 | `WebStringsZh.kt` | Added 35 missing translation keys |
+| `WebStrings.kt` | Added 116 new WebStringKey entries (total: 259) |
+| `Main.kt` | Added `qrshieldSetLanguage()` and `qrshieldGetAvailableLanguages()` |
+| `dashboard.html` | Added `data-i18n` to hero section |
+| `scanner.html` | Added `data-i18n` to nav labels |
+| `threat.html` | Added `data-i18n` to nav labels |
+| `results.html` | Added `data-i18n` to nav + content + actions |
+| `game.html` | Added `data-i18n` to nav labels |
+| `export.html` | Added `data-i18n` to nav labels |
+| `trust.html` | Added `data-i18n` to nav labels |
+| `onboarding.html` | Added `data-i18n` to nav labels |
 | `CHANGELOG.md` | Added v1.18.5 entry |
 | `agent.md` | Updated version and added session entry |
 
+## New JavaScript API Functions
+
+### `window.qrshieldSetLanguage(languageCode)`
+Sets the app language and re-applies translations.
+```javascript
+// Example: Set to German
+window.qrshieldSetLanguage('de');
+```
+
+### `window.qrshieldGetAvailableLanguages()`
+Returns array of available languages:
+```javascript
+const langs = window.qrshieldGetAvailableLanguages();
+// [{code: 'en', name: 'English'}, {code: 'de', name: 'Deutsch'}, ...]
+```
+
 ## Translation Status Summary
 
-**All 15 WebApp language files now have complete 143/143 keys:**
-- Arabic, German, Spanish, French, Hindi, Indonesian, Italian, Japanese, Korean, Portuguese, Russian, Thai, Turkish, Vietnamese, Chinese
+**WebStringKey entries: 259 total**
+- All 15 translation files have 143/143 of the original keys
+- 116 new keys added (English defaults, ready for translation)
 
 ---
 
