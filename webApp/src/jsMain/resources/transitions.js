@@ -1,91 +1,75 @@
 /**
- * QR-SHIELD Page Transitions Controller
- * Handles smooth page exit animations and navigation
+ * QR-SHIELD Page Transitions Controller v2.1
+ * Fast, smooth page transitions without theme flashing
  */
 
 (function () {
     'use strict';
 
-    // Configuration - Fast transitions
-    const TRANSITION_DURATION = 100; // ms - ultra-fast for snappy feel
+    // Configuration - Ultra-fast for snappy feel
+    const TRANSITION_DURATION = 80; // ms - very fast
     const EXCLUDED_LINKS = ['#', 'javascript:', 'mailto:', 'tel:'];
 
     /**
      * Initialize page transitions
      */
     function init() {
-        // Don't run on pages loaded via back/forward navigation
-        if (performance.getEntriesByType &&
-            performance.getEntriesByType('navigation').length > 0 &&
-            performance.getEntriesByType('navigation')[0].type === 'back_forward') {
-            return;
-        }
-
         // Attach click handlers to all internal links
         document.addEventListener('click', handleLinkClick);
 
         // Handle popstate (back/forward buttons)
         window.addEventListener('popstate', handlePopState);
 
-        // Mark page as loaded for entrance animations
-        document.body.classList.add('page-loaded');
+        // Mark page as loaded
+        requestAnimationFrame(() => {
+            document.body.classList.add('page-loaded');
+        });
 
-        // Detect font loading to prevent FOUC
+        // Detect font loading
         detectFontLoading();
 
-        console.log('[Transitions] Page transitions initialized');
+        console.log('[Transitions v2.1] Initialized');
     }
 
     /**
-     * Detect when Material Symbols font is loaded
-     * Adds 'fonts-loaded' class to body when ready
+     * Detect when fonts are loaded
      */
     function detectFontLoading() {
-        // Use Font Face API if available
         if (document.fonts && document.fonts.ready) {
             document.fonts.ready.then(() => {
                 document.body.classList.add('fonts-loaded');
             }).catch(() => {
-                // Fallback timeout if fonts.ready fails
                 setTimeout(() => {
                     document.body.classList.add('fonts-loaded');
-                }, 300);
+                }, 200);
             });
         } else {
-            // Fallback for older browsers - just wait a bit
             setTimeout(() => {
                 document.body.classList.add('fonts-loaded');
-            }, 300);
+            }, 200);
         }
     }
 
     /**
-     * Check if a link is internal and should have transitions
+     * Check if a link is internal
      */
     function isInternalLink(href) {
         if (!href) return false;
 
-        // Check for excluded prefixes
         for (const excluded of EXCLUDED_LINKS) {
             if (href.startsWith(excluded)) return false;
         }
 
-        // Check if it's a relative URL or same-origin
         try {
             const linkUrl = new URL(href, window.location.origin);
             const currentUrl = new URL(window.location.href);
 
-            // Same origin check
             if (linkUrl.origin !== currentUrl.origin) return false;
-
-            // Check for HTML files (internal navigation)
             if (href.endsWith('.html') || linkUrl.pathname.endsWith('.html')) {
                 return true;
             }
-
             return false;
         } catch (e) {
-            // If URL parsing fails, check if it ends with .html
             return href.endsWith('.html');
         }
     }
@@ -94,43 +78,34 @@
      * Handle click events on links
      */
     function handleLinkClick(event) {
-        // Find the closest anchor element
         const link = event.target.closest('a');
         if (!link) return;
 
         const href = link.getAttribute('href');
-
-        // Check if this is an internal link that should transition
         if (!isInternalLink(href)) return;
-
-        // Don't interfere with modified clicks
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
-        // Prevent default navigation
         event.preventDefault();
-
-        // Navigate with transition
         navigateWithTransition(href);
     }
 
     /**
-     * Navigate to a URL with a smooth exit transition
+     * Navigate with fast CSS transition (no View Transitions API to avoid theme flash)
      */
     function navigateWithTransition(url) {
         // Add exit animation class
         document.body.classList.add('page-exit');
 
-        // Wait for animation, then navigate
+        // Navigate after short delay
         setTimeout(() => {
             window.location.href = url;
         }, TRANSITION_DURATION);
     }
 
     /**
-     * Handle browser back/forward navigation
+     * Handle browser back/forward
      */
     function handlePopState() {
-        // Reload without transition for back/forward
         document.body.classList.remove('page-exit');
     }
 
@@ -141,7 +116,7 @@
         init();
     }
 
-    // Expose for external use if needed
+    // Expose API
     window.QRShieldTransitions = {
         navigateWithTransition: navigateWithTransition
     };

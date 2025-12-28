@@ -36,6 +36,8 @@
     <link href="transitions.css" rel="stylesheet" />
     <!-- Shared UI Components -->
     <link href="shared-ui.css" rel="stylesheet" />
+    <!-- Unified Header Styles -->
+    <link href="shared-header.css" rel="stylesheet" />
 </head>
 
 <body class="onboarding-body">
@@ -126,13 +128,6 @@
                     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                         <span class="material-symbols-outlined">menu</span>
                     </button>
-                    <nav class="breadcrumbs">
-                        <span class="breadcrumb-item">Settings</span>
-                        <span class="breadcrumb-separator">/</span>
-                        <span class="breadcrumb-item">Onboarding</span>
-                        <span class="breadcrumb-separator">/</span>
-                        <span class="breadcrumb-current">Offline Privacy</span>
-                    </nav>
                 </div>
 
                 <div class="header-right">
@@ -141,8 +136,12 @@
                         <span class="material-symbols-outlined icon-dark">dark_mode</span>
                     </button>
                     <div class="header-divider"></div>
+                    <button class="header-btn notification-btn" id="notificationBtn" aria-label="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="notification-dot"></span>
+                    </button>
                     <button class="header-btn" id="helpBtn" aria-label="Help">
-                        <span class="material-symbols-outlined">help</span>
+                        <span class="material-symbols-outlined">help_outline</span>
                     </button>
                     <button class="header-btn" id="profileBtn" aria-label="Profile">
                         <span class="material-symbols-outlined">account_circle</span>

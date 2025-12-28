@@ -5,6 +5,84 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.94] - 2025-12-28
+
+### 🎨 Web App Header & Transition Fixes
+
+Added notification button to all pages and fixed transition animation bugs.
+
+#### 1. Added Notification Button to All Pages ✅
+- Added notification button with bell icon + red dot to ALL page headers
+- Consistent ordering: Theme toggle → Divider → **Notification** → Help → Profile
+- Pages updated: dashboard, scanner, threat, game, onboarding, export, results, trust
+
+#### 2. Fixed Transition Animation Bugs ✅
+- **Speed**: Reduced transition duration from 200-350ms to 80-150ms (ultra-fast)
+- **Theme Flashing Fixed**: Removed View Transitions API that caused dark→light flash
+- Now uses simple CSS animations for instant, flicker-free page changes
+- Maintained smooth entrance animations (fade-in, slide-up)
+
+---
+
+## [1.17.93] - 2025-12-28
+
+### 🎨 Web App Header Unification
+
+Unified header structure across all web app pages.
+
+#### 1. Unified Header Structure ✅
+- **Goal**: Create consistent header appearance across all pages
+- **Solution**: Created new `shared-header.css` with unified styling for:
+  - Theme toggle button with hover/active states
+  - Header divider element
+  - Help icon (help_outline) and Profile icon (account_circle)
+  - Light/dark mode responsive styling
+- **All headers now have**: Menu toggle (mobile), theme toggle, divider, help button, profile button
+
+#### 2. Removed Inconsistent Header Elements ✅
+- Removed breadcrumbs from HTML headers across all pages
+- Removed engine status indicators from headers
+- Removed inline user profiles from headers
+- Removed page-specific buttons (audit, notifications) from headers
+
+#### 3. Enhanced Page Transitions ✅
+- Updated `transitions.css` with View Transitions API support
+- Added smooth entrance/exit animations using CSS keyframes
+- Implemented staggered content animations for premium feel
+- Added `prefers-reduced-motion` accessibility support
+- Updated `transitions.js` to use View Transitions API with fallbacks
+
+#### Files Created
+| File | Purpose |
+|------|---------|
+| `shared-header.css` | Unified header styles for consistent appearance |
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `transitions.css` | Complete rewrite with View Transitions API, modern animations |
+| `transitions.js` | Enhanced with View Transitions API support |
+| `dashboard.html` | Unified header structure, added shared-header.css link |
+| `scanner.html` | Unified header structure, added shared-header.css link |
+| `threat.html` | Unified header structure, added shared-header.css link |
+| `game.html` | Unified header structure, added shared-header.css link |
+| `onboarding.html` | Unified header structure, added shared-header.css link |
+| `export.html` | Unified header structure, added shared-header.css link |
+| `results.html` | Added shared-header.css link |
+| `trust.html` | Unified header structure, added shared-header.css link |
+
+#### Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# Web app running at http://localhost:8080/ ✅
+# All pages tested with consistent headers ✅
+# Theme toggle works in all pages ✅
+# Page transitions are smooth ✅
+```
+
+---
+
+
 ## [1.17.92] - 2025-12-28
 
 ### 🎨 Web App UI Polish

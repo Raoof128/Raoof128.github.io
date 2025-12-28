@@ -1,0 +1,330 @@
+/*
+ * QR-SHIELD Unified Header Styles
+ * Consistent header styling across all pages
+ * Include after page-specific CSS to override inconsistencies
+ */
+
+/* ==========================================================================
+   TOP HEADER - Unified Structure
+   ========================================================================== */
+.top-header {
+    height: var(--header-height, 4rem);
+    border-bottom: 1px solid var(--border-dark, #292e38);
+    background-color: rgba(15, 18, 24, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Light mode override */
+[data-theme="light"] .top-header,
+html.light .top-header,
+body.light .top-header {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-color: #e2e8f0;
+}
+
+/* ==========================================================================
+   HEADER LEFT SECTION
+   ========================================================================== */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+    flex: 1;
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted, #94a3b8);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+}
+
+.menu-toggle:hover {
+    background-color: var(--surface-hover, rgba(255, 255, 255, 0.05));
+    color: var(--text-primary, #ffffff);
+}
+
+@media (min-width: 768px) {
+    .menu-toggle {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   HEADER RIGHT SECTION - Unified Action Icons
+   ========================================================================== */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   THEME TOGGLE - Unified Styling
+   ========================================================================== */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    background-color: var(--surface-card, rgba(30, 41, 59, 0.5));
+    border: 1px solid var(--border-dark, #292e38);
+    border-radius: 0.75rem;
+    color: var(--text-muted, #94a3b8);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    background-color: var(--surface-hover, rgba(255, 255, 255, 0.08));
+    border-color: var(--primary, #195de6);
+    color: var(--text-primary, #ffffff);
+    transform: scale(1.05);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.theme-toggle .material-symbols-outlined {
+    font-size: 1.25rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+/* Light mode theme toggle styling */
+[data-theme="light"] .theme-toggle,
+html.light .theme-toggle,
+body.light .theme-toggle {
+    background-color: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+[data-theme="light"] .theme-toggle:hover,
+html.light .theme-toggle:hover,
+body.light .theme-toggle:hover {
+    background-color: #e2e8f0;
+    border-color: #2563eb;
+    color: #0f172a;
+}
+
+/* ==========================================================================
+   HEADER DIVIDER
+   ========================================================================== */
+.header-divider {
+    width: 1px;
+    height: 1.5rem;
+    background-color: var(--border-dark, #292e38);
+    margin: 0 0.25rem;
+    opacity: 0.5;
+}
+
+[data-theme="light"] .header-divider,
+html.light .header-divider,
+body.light .header-divider {
+    background-color: #e2e8f0;
+}
+
+/* ==========================================================================
+   HEADER BUTTONS (Notifications, Help, Settings)
+   ========================================================================== */
+.header-btn,
+.notification-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: transparent;
+    border: none;
+    border-radius: 0.625rem;
+    color: var(--text-muted, #94a3b8);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s ease;
+}
+
+.header-btn:hover,
+.notification-btn:hover {
+    background-color: var(--surface-hover, rgba(255, 255, 255, 0.05));
+    color: var(--text-primary, #ffffff);
+}
+
+.header-btn .material-symbols-outlined,
+.notification-btn .material-symbols-outlined {
+    font-size: 1.375rem;
+}
+
+/* Light mode header buttons */
+[data-theme="light"] .header-btn,
+[data-theme="light"] .notification-btn,
+html.light .header-btn,
+html.light .notification-btn,
+body.light .header-btn,
+body.light .notification-btn {
+    color: #64748b;
+}
+
+[data-theme="light"] .header-btn:hover,
+[data-theme="light"] .notification-btn:hover,
+html.light .header-btn:hover,
+html.light .notification-btn:hover,
+body.light .header-btn:hover,
+body.light .notification-btn:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+
+/* ==========================================================================
+   NOTIFICATION DOT/BADGE
+   ========================================================================== */
+.notification-dot,
+.notification-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 8px;
+    height: 8px;
+    background-color: #ef4444;
+    border-radius: 50%;
+    border: 2px solid var(--bg-dark, #0f1218);
+    animation: pulse-notification 2s infinite;
+}
+
+[data-theme="light"] .notification-dot,
+[data-theme="light"] .notification-badge,
+html.light .notification-dot,
+html.light .notification-badge,
+body.light .notification-dot,
+body.light .notification-badge {
+    border-color: #ffffff;
+}
+
+@keyframes pulse-notification {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+/* ==========================================================================
+   USER AVATAR (Header Profile)
+   ========================================================================== */
+.header-right .user-avatar,
+.top-header .user-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary, #195de6), #a855f7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    border: 2px solid var(--border-dark, #292e38);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.header-right .user-avatar:hover,
+.top-header .user-avatar:hover {
+    transform: scale(1.1);
+    border-color: var(--primary, #195de6);
+    box-shadow: 0 0 12px rgba(25, 93, 230, 0.3);
+}
+
+[data-theme="light"] .header-right .user-avatar,
+[data-theme="light"] .top-header .user-avatar,
+html.light .header-right .user-avatar,
+html.light .top-header .user-avatar,
+body.light .header-right .user-avatar,
+body.light .top-header .user-avatar {
+    border-color: #e2e8f0;
+}
+
+/* ==========================================================================
+   HEADER USER PROFILE (Full version with name)
+   ========================================================================== */
+.header-right .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--border-dark, #292e38);
+    margin-left: 0.25rem;
+}
+
+.header-right .user-profile .user-info {
+    display: none;
+    flex-direction: column;
+    text-align: right;
+}
+
+@media (min-width: 640px) {
+    .header-right .user-profile .user-info {
+        display: flex;
+    }
+}
+
+.header-right .user-profile .user-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-primary, #ffffff);
+    margin: 0;
+}
+
+.header-right .user-profile .user-role {
+    font-size: 0.75rem;
+    color: var(--text-muted, #94a3b8);
+    margin: 0;
+}
+
+[data-theme="light"] .header-right .user-profile .user-name,
+html.light .header-right .user-profile .user-name,
+body.light .header-right .user-profile .user-name {
+    color: #0f172a;
+}
+
+[data-theme="light"] .header-right .user-profile .user-role,
+html.light .header-right .user-profile .user-role,
+body.light .header-right .user-profile .user-role {
+    color: #64748b;
+}
+
+[data-theme="light"] .header-right .user-profile,
+html.light .header-right .user-profile,
+body.light .header-right .user-profile {
+    border-left-color: #e2e8f0;
+}

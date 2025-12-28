@@ -37,6 +37,8 @@
     <link href="transitions.css" rel="stylesheet" />
     <!-- Shared UI Components -->
     <link href="shared-ui.css" rel="stylesheet" />
+    <!-- Unified Header Styles -->
+    <link href="shared-header.css" rel="stylesheet" />
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-hidden">
@@ -115,41 +117,30 @@
              ============================================ -->
         <main class="main-content">
 
-            <!-- Top Navigation Bar -->
-            <header class="top-nav">
-                <!-- Mobile Menu Toggle -->
-                <div class="mobile-header">
+            <!-- Header -->
+            <header class="top-header">
+                <div class="header-left">
                     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                         <span class="material-symbols-outlined">menu</span>
                     </button>
-                    <h2 class="mobile-title">QR-SHIELD</h2>
                 </div>
 
-                <!-- Breadcrumbs (Desktop) -->
-                <div class="breadcrumbs">
-                    <span>Scans</span>
-                    <span class="material-symbols-outlined breadcrumb-separator">chevron_right</span>
-                    <span class="breadcrumb-current" id="scanId">Result #8291-A</span>
-                </div>
-
-                <!-- Header Actions -->
-                <div class="header-actions">
+                <div class="header-right">
                     <button class="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark mode">
                         <span class="material-symbols-outlined icon-light">light_mode</span>
                         <span class="material-symbols-outlined icon-dark">dark_mode</span>
                     </button>
-                    <button class="btn-scan-new" id="scanNewBtn">
-                        <span class="material-symbols-outlined">qr_code_scanner</span>
-                        <span>Scan New QR</span>
+                    <div class="header-divider"></div>
+                    <button class="header-btn notification-btn" id="notificationBtn" aria-label="Notifications">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="notification-dot"></span>
                     </button>
-
-                    <div class="user-profile">
-                        <div class="user-info">
-                            <span class="user-name">Alex Chen</span>
-                            <span class="user-role">Security Analyst</span>
-                        </div>
-                        <div class="avatar" id="userAvatar"></div>
-                    </div>
+                    <button class="header-btn" id="helpBtn" aria-label="Help">
+                        <span class="material-symbols-outlined">help_outline</span>
+                    </button>
+                    <button class="header-btn" id="profileBtn" aria-label="Profile">
+                        <span class="material-symbols-outlined">account_circle</span>
+                    </button>
                 </div>
             </header>
 
