@@ -4,6 +4,66 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.18.10] - 2025-12-29
+
+### 🔧 Threat Page: Engine Signals Integration
+
+**Attack breakdown now displays real analysis signals from the PhishingEngine.**
+
+#### What Changed
+- `generateAttacksFromUrl()` now accepts engine signals as a third parameter
+- When real signals exist, they are parsed and displayed as attack cards
+- Signal keywords are mapped to appropriate attack types:
+  - `punycode/homograph/idn` → Homograph Attack
+  - `shortener/redirect/tracking` → Redirect Detection
+  - `brand/impersonat` → Brand Impersonation
+  - `entropy/obfuscat/encoded` → Suspicious Encoding
+  - `phish/credential` → Phishing Indicators
+  - `keyword/login/verify` → Suspicious Keywords
+- Added new attack type icons and color classes
+- Fallback to URL-based heuristics if no engine signals available
+
+#### Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL in 7s
+```
+
+## [1.18.9] - 2025-12-28
+
+### 🔧 Threat Page: Real Data Integration (Competition Fix)
+
+**Replaced hardcoded demo data in threat.html with dynamic real scan data.**
+
+#### Problem Solved
+- Judges would see fake/placeholder data (fake URLs, fake scan IDs, fake timestamps)
+- Made the app look like a non-functional mockup
+- Did not demonstrate the actual PhishingEngine capabilities
+
+#### Changes Made
+
+| File | Changes |
+|------|---------|
+| `threat.js` | Loads data from URL params, scan history, or localStorage |
+| `threat.js` | Generates attack analysis from actual scanned URL patterns |
+| `threat.js` | Shows "DEMO MODE" badge when using placeholder data |
+| `threat.js` | Dynamically renders attack cards based on real threats detected |
+
+#### New Features
+- **Real Data Loading**: Checks URL params → scanId lookup → localStorage → history → demo fallback
+- **Dynamic Attack Analysis**: Analyzes actual URLs for:
+  - Punycode/Homograph attacks (domains starting with `xn--`)
+  - URL shorteners (bit.ly, t.co, etc.)
+  - Suspicious parameters (long queries, eval/script keywords)
+  - Suspicious TLDs (.tk, .xyz, .top, etc.)
+- **Demo Mode Badge**: Orange badge appears when showing demo data, prompting user to scan real QR codes
+
+#### Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL in 6s
+```
+
 ## [1.18.8] - 2025-12-28
 
 ### 🌐 i18n Translation Audit Complete: All 16 Languages

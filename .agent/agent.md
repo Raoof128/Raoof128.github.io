@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.18.8`** (as of December 28, 2025)
+**Current App Version: `1.18.10`** (as of December 29, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,55 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔧 December 28, 2025 (Session 10k+39) - Threat Page Real Data Fix
+
+### Summary
+Fixed the threat analysis page to display **real scan data** instead of hardcoded demo placeholders. This is critical for the Kotlin 2026 Competition as judges would otherwise see fake data and think the app doesn't work.
+
+## ✅ Problem Solved
+
+| Before | After |
+|--------|-------|
+| Hardcoded "secure-banking.com" | Actual scanned URL domain |
+| Static "scan_2023_10_24_af92" | Real scan ID from history |
+| Fake timestamps | Actual scan timestamp |
+| Demo attack cards | Dynamic analysis of real URL |
+
+## ✅ Changes Made
+
+### `threat.js` Updates
+
+1. **Enhanced `loadThreatData()`**
+   - Checks URL parameters first
+   - Looks up scanId in history
+   - Falls back to localStorage
+   - Last resort: demo data with visible badge
+
+2. **New Helper Functions**
+   - `mapScoreToVerdict()` - Convert score to threat level
+   - `mapVerdictToLevel()` - Normalize verdict strings
+   - `generateAttacksFromUrl()` - Analyze URL for real threats
+   - `renderAttackCards()` - Dynamically build attack breakdown
+   - `renderDemoModeBadge()` - Show orange "DEMO MODE" indicator
+
+3. **Real URL Analysis**
+   - Punycode/IDN detection (xn-- domains)
+   - URL shortener detection (bit.ly, t.co, etc.)
+   - Suspicious parameter detection
+   - Suspicious TLD detection (.tk, .xyz, etc.)
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL in 6s
+```
+
+## 🔄 Version Update
+- Updated `CHANGELOG.md` with version 1.18.9
+- Updated `agent.md` header version to 1.18.9
 
 ---
 
