@@ -73,7 +73,7 @@
                 <div class="logo">
                     <img src="assets/icon-128.png" alt="QR-SHIELD Logo" class="logo-icon"
                         style="width: 28px; height: 28px;">
-                    <span class="logo-text">QR-SHIELD</span>
+                    <span class="logo-text" data-i18n="AppName">QR-SHIELD</span>
                 </div>
             </div>
 
@@ -127,8 +127,8 @@
                 <div class="user-profile">
                     <div class="user-avatar">JS</div>
                     <div class="user-info">
-                        <span class="user-name">John Smith</span>
-                        <span class="user-role">Security Analyst</span>
+                        <span class="user-name" data-i18n="SampleUserName">John Smith</span>
+                        <span class="user-role" data-i18n="SampleUserRole">Security Analyst</span>
                     </div>
                     <span class="material-symbols-outlined">expand_more</span>
                 </div>
@@ -201,7 +201,8 @@
                                     <span class="material-symbols-outlined input-icon">search</span>
                                     <input type="url" id="urlInput" class="url-input"
                                         placeholder="Paste URL to analyze (e.g., https://example.com)"
-                                        autocomplete="off" spellcheck="false" aria-label="URL to analyze">
+                                        data-i18n-placeholder="UrlInputPlaceholder" autocomplete="off"
+                                        spellcheck="false" aria-label="URL to analyze">
                                     <button class="analyze-btn" id="analyzeBtn">
                                         <span class="material-symbols-outlined">security</span>
                                         <span data-i18n="Analyze">Analyze</span>
@@ -379,7 +380,7 @@
     <!-- Toast Notification -->
     <div class="toast hidden" id="toast">
         <span class="material-symbols-outlined toast-icon">check_circle</span>
-        <span class="toast-message" id="toastMessage">Success!</span>
+        <span class="toast-message" id="toastMessage" data-i18n="Success">Success!</span>
     </div>
 
     <!-- Platform Bridge (Crypto, Clipboard, etc.) -->

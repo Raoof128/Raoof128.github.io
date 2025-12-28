@@ -119,8 +119,8 @@
                 <div class="user-profile">
                     <div class="user-avatar">JS</div>
                     <div class="user-info">
-                        <span class="user-name">John Smith</span>
-                        <span class="user-role">Security Analyst</span>
+                        <span class="user-name" data-i18n="SampleUserName">John Smith</span>
+                        <span class="user-role" data-i18n="SampleUserRole">Security Analyst</span>
                     </div>
                     <span class="material-symbols-outlined">expand_more</span>
                 </div>
@@ -166,18 +166,19 @@
                     <!-- Breadcrumbs & Heading -->
                     <div class="page-header">
                         <nav class="breadcrumbs">
-                            <a href="index.html" class="breadcrumb-item">Home</a>
+                            <a href="index.html" class="breadcrumb-item" data-i18n="BreadcrumbHome">Home</a>
                             <span class="breadcrumb-separator">/</span>
-                            <a href="scanner.html" class="breadcrumb-item">Scan</a>
+                            <a href="scanner.html" class="breadcrumb-item" data-i18n="Scan">Scan</a>
                             <span class="breadcrumb-separator">/</span>
-                            <a href="results.html" class="breadcrumb-item">Result</a>
+                            <a href="results.html" class="breadcrumb-item" data-i18n="Result">Result</a>
                             <span class="breadcrumb-separator">/</span>
-                            <span class="breadcrumb-current">Export</span>
+                            <span class="breadcrumb-current" data-i18n="NavReports">Export</span>
                         </nav>
 
                         <div class="page-title-section">
-                            <h2 class="page-title">Report Generation</h2>
-                            <p class="page-subtitle">Configure formats and download your threat analysis.</p>
+                            <h2 class="page-title" data-i18n="ReportGeneration">Report Generation</h2>
+                            <p class="page-subtitle" data-i18n="ReportGenerationDesc">Configure formats and download
+                                your threat analysis.</p>
                         </div>
                     </div>
 
@@ -188,8 +189,9 @@
                                 <span class="material-symbols-outlined">verified_user</span>
                             </div>
                             <div class="banner-text">
-                                <h3>Offline Security</h3>
-                                <p>Your data never leaves this device. All processing is local. No tracking, no uploads.
+                                <h3 data-i18n="OfflineSecurity">Offline Security</h3>
+                                <p data-i18n="OfflineSecurityDesc">Your data never leaves this device. All processing is
+                                    local. No tracking, no uploads.
                                 </p>
                             </div>
                         </div>
@@ -204,7 +206,7 @@
 
                             <!-- Format Selection -->
                             <section class="format-section">
-                                <h3 class="section-title">Choose Format</h3>
+                                <h3 class="section-title" data-i18n="ChooseFormat">Choose Format</h3>
 
                                 <!-- Option A: PDF (Active) -->
                                 <label class="format-option">
@@ -214,8 +216,10 @@
                                             <span class="material-symbols-outlined">picture_as_pdf</span>
                                         </div>
                                         <div class="format-info">
-                                            <span class="format-title">Human-Readable Report</span>
-                                            <span class="format-description">PDF format. Best for sharing with
+                                            <span class="format-title" data-i18n="HumanReadable">Human-Readable
+                                                Report</span>
+                                            <span class="format-description" data-i18n="PdfFormatDesc">PDF format. Best
+                                                for sharing with
                                                 stakeholders.</span>
                                         </div>
                                         <div class="format-check">
@@ -232,8 +236,10 @@
                                             <span class="material-symbols-outlined">data_object</span>
                                         </div>
                                         <div class="format-info">
-                                            <span class="format-title">Machine-Readable</span>
-                                            <span class="format-description">JSON format. Best for SIEM
+                                            <span class="format-title"
+                                                data-i18n="MachineReadable">Machine-Readable</span>
+                                            <span class="format-description" data-i18n="JsonFormatDesc">JSON format.
+                                                Best for SIEM
                                                 integration.</span>
                                         </div>
                                         <div class="format-check">
@@ -247,17 +253,17 @@
                             <section class="actions-section">
                                 <button class="btn-export" id="exportBtn">
                                     <span class="material-symbols-outlined">download</span>
-                                    Export Report
+                                    <span data-i18n="GenerateExport">Export Report</span>
                                 </button>
 
                                 <div class="secondary-actions">
                                     <button class="btn-secondary" id="copyBtn">
                                         <span class="material-symbols-outlined">content_copy</span>
-                                        Copy
+                                        <span data-i18n="Copy">Copy</span>
                                     </button>
                                     <button class="btn-secondary" id="shareBtn">
                                         <span class="material-symbols-outlined">share</span>
-                                        Share
+                                        <span data-i18n="Share">Share</span>
                                     </button>
                                 </div>
                             </section>
@@ -265,7 +271,8 @@
                             <!-- Help Text -->
                             <div class="help-card">
                                 <span class="material-symbols-outlined">info</span>
-                                <p>Exports include all identified threat vectors, headers, and the raw payload analysis.
+                                <p data-i18n="ExportInfoNote">Exports include all identified threat vectors, headers,
+                                    and the raw payload analysis.
                                 </p>
                             </div>
                         </div>
@@ -273,8 +280,8 @@
                         <!-- Right Column: Live Preview -->
                         <div class="preview-column">
                             <div class="preview-header">
-                                <h3 class="section-title">Live Preview</h3>
-                                <span class="preview-badge">Read Only</span>
+                                <h3 class="section-title" data-i18n="LivePreview">Live Preview</h3>
+                                <span class="preview-badge" data-i18n="ReadOnly">Read Only</span>
                             </div>
 
                             <!-- Report Card Representation -->
@@ -294,7 +301,8 @@
                                     <!-- Header Section -->
                                     <div class="report-header">
                                         <div class="report-title-section">
-                                            <h4 class="report-title">Threat Analysis Report</h4>
+                                            <h4 class="report-title" data-i18n="ThreatAnalysisReport">Threat Analysis
+                                                Report</h4>
                                             <p class="report-date" id="reportDate">Generated on Oct 24, 2023 • 14:32:01
                                                 UTC</p>
                                         </div>
@@ -308,12 +316,13 @@
                                         <div class="verdict-card" id="verdictCard">
                                             <div class="verdict-label">
                                                 <span class="material-symbols-outlined">warning</span>
-                                                Verdict
+                                                <span data-i18n="Verdict">Verdict</span>
                                             </div>
-                                            <div class="verdict-value" id="verdictValue">Suspicious</div>
+                                            <div class="verdict-value" id="verdictValue" data-i18n="Suspicious">
+                                                Suspicious</div>
                                         </div>
                                         <div class="score-card">
-                                            <div class="score-label">Risk Score</div>
+                                            <div class="score-label" data-i18n="RiskScore">Risk Score</div>
                                             <div class="score-value">
                                                 <span id="riskScore">85</span>
                                                 <span class="score-max">/100</span>
@@ -324,14 +333,15 @@
                                     <!-- Details -->
                                     <div class="report-details">
                                         <div class="detail-section">
-                                            <p class="detail-label">Target URL</p>
+                                            <p class="detail-label" data-i18n="TargetUrl">Target URL</p>
                                             <div class="detail-url" id="targetUrl">
                                                 http://login-secure-banking-xyz.auth-gateway.net/ref=882
                                             </div>
                                         </div>
 
                                         <div class="detail-section">
-                                            <p class="detail-label">Analysis Summary</p>
+                                            <p class="detail-label" data-i18n="AnalysisSummaryLabel">Analysis Summary
+                                            </p>
                                             <p class="detail-text" id="analysisSummary">
                                                 The destination URL employs <span class="highlight">homoglyph
                                                     obfuscation</span> characters often associated with phishing
@@ -342,7 +352,8 @@
 
                                         <!-- Technical Details -->
                                         <div class="detail-section">
-                                            <p class="detail-label">Technical Indicators</p>
+                                            <p class="detail-label" data-i18n="TechnicalIndicators">Technical Indicators
+                                            </p>
                                             <div class="json-preview">
                                                 <pre id="jsonPreview">{
   <span class="json-key">"threat_type"</span>: <span class="json-string">"Phishing"</span>,
@@ -359,7 +370,7 @@
 
                                     <!-- Footer Watermark -->
                                     <div class="report-footer">
-                                        <p>Verified by QR-SHIELD Enterprise</p>
+                                        <p data-i18n="VerifiedBy">Verified by QR-SHIELD Enterprise</p>
                                     </div>
                                 </div>
                             </div>

@@ -4,6 +4,77 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.18.7] - 2025-12-28
+
+### 🌐 i18n Audit Complete: All HTML Files Updated
+
+**Added `data-i18n` attributes to all remaining hardcoded strings across 8 HTML files.**
+
+#### Files Updated:
+
+| File | Changes |
+|------|---------|
+| `trust.html` | Version status, user profile, blocklist empty state, modal title, core version, footer |
+| `game.html` | User profile, scoreboard stats, analysis section, modals, buttons |
+| `export.html` | User profile, verdict labels, risk score, detail labels, verified by footer |
+| `dashboard.html` | User profile |
+| `scanner.html` | User profile |
+| `threat.html` | User profile |
+| `results.html` | User profile |
+| `onboarding.html` | User profile |
+
+#### WebStringKey Entries Used:
+- `SampleUserName`, `SampleUserRole` - User profile across all pages
+- `VersionStatus`, `SystemSecure`, `CoreVersion` - Version info in sidebar
+- `NoCustomDomainsBlocked`, `AddManually` - Blocklist empty state
+- `AddToAllowlistTitle`, `AddToBlocklistTitle` - Modal titles
+- `VerifiedBy` - Export preview footer
+- `Analysis` - Game round analysis header
+
+#### Duplicate Entry Fixed:
+- Removed duplicate `MetaEngine` entry that was causing build failure
+
+#### Build Verification:
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL - webpack 5.101.3 compiled successfully
+```
+
+## [1.18.6] - 2025-12-28
+
+### 🌐 Comprehensive Hardcoded String Audit
+
+**Systematically scanned all WebApp HTML files and added `data-i18n` attributes to 100+ UI elements.**
+
+#### WebStringKey Count: 340 total entries (197 new)
+
+#### Files Updated with `data-i18n` Attributes:
+
+| File | Elements Fixed |
+|------|----------------|
+| `dashboard.html` | Logo text, URL placeholder, toast message |
+| `scanner.html` | Recent Scans title, URL placeholder, toast |
+| `results.html` | Scan status, meta labels, action buttons, analysis factors |
+| `export.html` | Breadcrumbs, page title, format options, action buttons, preview |
+| `trust.html` | Sensitivity settings, privacy controls, about section, footer |
+| `game.html` | Title, description, session info, round labels, decision buttons, scoreboard |
+| `onboarding.html` | Hero section, feature cards, data lifecycle verification |
+
+#### New WebStringKey Categories Added:
+- **Placeholders**: `UrlInputPlaceholder`, `UrlExamplePlaceholder`, `DomainPlaceholder`
+- **Export**: `ReportGeneration`, `OfflineSecurity`, `ChooseFormat`, `PdfFormatDesc`, `JsonFormatDesc`, `LivePreview`, `ThreatAnalysisReport`
+- **Trust Centre**: `PhishingDetectionSensitivity`, `SensitivityLow`, `SensitivityBalanced`, `SensitivityParanoia`, `PrivacyControls`, `StrictOfflineMode`, `AnonymousTelemetry`, `AutoCopySafeLinks`, `AllowList`, `BlockList`, `AboutQrShield`, `OpenSourceLicenses`, `PrivacyPolicy`, `ResetAllSettings`
+- **Onboarding**: `AnalysedOfflineTitle`, `YourDataStaysOnDevice`, `OnDeviceAnalysis`, `NoCloudLogs`, `OnDeviceDB`, `DataLifecycleVerification`, `SecurityAuditPass`
+- **Game**: `Safe`, `TimeAgo`, `MinutesAgo`, `HoursAgo`
+- **Footer**: `Copyright`, `Support`, `Terms`, `SystemsOperational`, `SystemSecure`
+- **General**: `Critical`, `Warn`, `Copy`, `Result`, `Scan`
+
+#### Build Verification:
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL
+```
+
 ## [1.18.5] - 2025-12-28
 
 ### 🌐 WebApp Internationalization Complete

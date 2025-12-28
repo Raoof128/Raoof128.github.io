@@ -272,6 +272,7 @@ enum class WebStringKey(val defaultText: String) {
     QrShieldBot("QR-Shield Bot"),
     Confidence("Confidence"),
     RoundAnalysis("Round Analysis"),
+    Analysis("Analysis"),
     CorrectDecision("Correct Decision!"),
     IdentifiedSafe("You identified the safe URL correctly."),
     AiNeuralAnalysis("AI Neural Analysis"),
@@ -339,7 +340,143 @@ enum class WebStringKey(val defaultText: String) {
     Notifications("Notifications"),
     Help("Help"),
     Profile("Profile"),
-    ToggleLightDarkMode("Toggle light/dark mode")
+    ToggleLightDarkMode("Toggle light/dark mode"),
+    
+    // Placeholders
+    UrlInputPlaceholder("Paste URL to analyze (e.g., https://example.com)"),
+    UrlExamplePlaceholder("https://example.com"),
+    
+    // Export Page Additional
+    Scan("Scan"),
+    Result("Result"),
+    ReportGeneration("Report Generation"),
+    ReportGenerationDesc("Configure formats and download your threat analysis."),
+    OfflineSecurity("Offline Security"),
+    OfflineSecurityDesc("Your data never leaves this device. All processing is local. No tracking, no uploads."),
+    ChooseFormat("Choose Format"),
+    PdfFormatDesc("PDF format. Best for sharing with stakeholders."),
+    JsonFormatDesc("JSON format. Best for SIEM integration."),
+    Copy("Copy"),
+    LivePreview("Live Preview"),
+    ReadOnly("Read Only"),
+    ThreatAnalysisReport("Threat Analysis Report"),
+    Verdict("Verdict"),
+    RiskScore("Risk Score"),
+    TargetUrl("Target URL"),
+    AnalysisSummaryLabel("Analysis Summary"),
+    TechnicalIndicators("Technical Indicators"),
+    ExportInfoNote("Exports include all identified threat vectors, headers, and the raw payload analysis."),
+    
+    // Trust Centre Page
+    AllowList("Allow List"),
+    BlockList("Block List"),
+    AddDomain("Add Domain"),
+    RemoveDomain("Remove Domain"),  
+    TrustedDomains("Trusted Domains"),
+    BlockedDomains("Blocked Domains"),
+    DomainPlaceholder("Enter domain (e.g., example.com)"),
+    
+    // Game Page Additional
+    Safe("Safe"),
+    TimeAgo("ago"),
+    MinutesAgo("mins ago"),
+    HoursAgo("hrs ago"),
+    
+    // Misc
+    Critical("CRITICAL"),
+    Warn("WARN"),
+    
+    // Trust Centre - Sensitivity
+    PhishingDetectionSensitivity("Phishing Detection Sensitivity"),
+    SensitivityDescription("Adjust heuristic thresholds. Higher sensitivity may increase false positives."),
+    SensitivityLow("Low"),
+    SensitivityBalanced("Balanced"),
+    SensitivityParanoia("Paranoia"),
+    BalancedModeRecommended("Balanced Mode (Recommended)"),
+    BalancedModeDesc("Scans for known malicious patterns and heuristic mismatches. Blocks homoglyph attacks and redirect chains. Low false positive rate expected."),
+    SecureEnvironment("Secure Environment"),
+    LearnLocalArchitecture("Learn about our local architecture"),
+    NoCustomDomainsBlocked("No custom domains blocked."),
+    AddManually("Add manually"),
+    AddedDaysAgo("Added 2 days ago"),
+    AddedWeekAgo("Added 1 week ago"),
+    
+    // Trust Centre - Privacy Controls
+    PrivacyControls("Privacy Controls"),
+    StrictOfflineMode("Strict Offline Mode"),
+    DisableExternalPreviews("Disable all external link previews."),
+    AnonymousTelemetry("Anonymous Telemetry"),
+    ShareDetectionStats("Share detection stats to improve ML."),
+    AutoCopySafeLinks("Auto-Copy Safe Links"),
+    CopyTrustedUrls("Copy trusted URLs to clipboard."),
+    
+    // Trust Centre - About
+    AboutQrShield("About QR-SHIELD"),
+    OpenSourceLicenses("Open Source Licenses"),
+    PrivacyPolicy("Privacy Policy"),
+    Acknowledgements("Acknowledgements"),
+    ResetAllSettings("Reset all settings to default"),
+    AddToAllowlist("Add to Allowlist"),
+    AddToBlocklist("Add to Blocklist"),
+    
+    // Onboarding
+    AnalysedOfflineTitle("Analysed offline."),
+    YourDataStaysOnDevice("Your data stays on-device."),
+    OnboardingHeroDesc("QR-SHIELD processes every scan using secure on-device analysis. We prioritize explainable security with zero cloud telemetry for image analysis."),
+    OnDeviceAnalysis("On-Device Analysis"),
+    OnDeviceAnalysisDesc("All threat detection runs locally on your device. No data ever leaves your system."),
+    NoCloudLogs("No Cloud Logs"),
+    NoCloudLogsDesc("We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local."),
+    OnDeviceDB("On-Device DB"),
+    OnDeviceDBDesc("The entire threat signature database is downloaded to your device for millisecond lookups."),
+    DataLifecycleVerification("Data Lifecycle Verification"),
+    SecurityAuditPass("Security Audit: PASS"),
+    
+    // Footer
+    Copyright("© 2024 QR-SHIELD Security Inc. All rights reserved."),
+    Support("Support"),
+    Terms("Terms"),
+    SystemsOperational("Systems Operational"),
+    SystemSecure("System Secure"),
+    
+    // Version / Build Info
+    VersionStatus("v2.4.1 • System Secure"),
+    CoreVersion("Core v2.4.1 • Build 2024.12.19"),
+    VerifiedBy("Verified by QR-SHIELD Enterprise"),
+    
+    // User Profile (Sample)
+    SampleUserName("John Smith"),
+    SampleUserRole("Security Analyst"),
+    
+    // Export Preview
+    DetailLabel("Detail Label"),
+    DetailValue("Detail Value"),
+    Suspicious("Suspicious"),
+    
+    // Game Modal Strings
+    IncorrectDecision("Incorrect Decision"),
+    WrongAnswer("Oops! That wasn't correct."),
+    ResponseTime("Response Time"),
+    IncomingMessage("Incoming Message"),
+    CertificateIssuer("Certificate Issuer matches domain owner"),
+    DomainAgeTrust("Domain age > 5 years (High trust)"),
+    WhitelistedRank("Top 1k Alexa Rank whitelisted offline"),
+    
+
+    // Game Tips/Hints
+    GameEducationalNote("Educational Note"),
+    GameHintTitle("Game Hint"),
+    
+    // Trust Modal
+    AddToAllowlistTitle("Add to Allowlist"),
+    AddToBlocklistTitle("Add to Blocklist"),
+    EnterDomainPrompt("Enter a domain to add to your list"),
+    
+    // Additional Game Strings
+    LatencyMs("Latency"),
+    StreakFire("Streak"),
+    AccuracyPercent("Accuracy"),
+    ConfidencePercent("Confidence")
 }
 
 object WebStrings {

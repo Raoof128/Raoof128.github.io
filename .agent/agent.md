@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.18.5`** (as of December 28, 2025)
+**Current App Version: `1.18.7`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,48 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🌐 December 28, 2025 (Session 10k+37) - i18n HTML Audit Complete
+
+### Summary
+Completed comprehensive i18n audit by adding `data-i18n` attributes to all remaining hardcoded strings across 8 HTML files. Fixed duplicate `MetaEngine` enum entry that was causing build failure.
+
+## ✅ Changes Made
+
+### HTML Files Updated with `data-i18n` Attributes
+
+| File | Elements Updated |
+|------|-----------------|
+| `trust.html` | Version status, user profile, blocklist empty state, modal title, core version |
+| `game.html` | User profile, scoreboard stats (Streak, Accuracy, Latency, Confidence), analysis section, modals, buttons |
+| `export.html` | User profile, verdict labels, risk score, detail labels, verified by footer |
+| `dashboard.html` | User profile (SampleUserName, SampleUserRole) |
+| `scanner.html` | User profile |
+| `threat.html` | User profile |
+| `results.html` | User profile |
+| `onboarding.html` | User profile |
+
+### WebStringKey Entries Used
+- `SampleUserName`, `SampleUserRole` - Consistent user profile across all pages
+- `VersionStatus`, `SystemSecure`, `CoreVersion` - Version info in sidebar  
+- `NoCustomDomainsBlocked`, `AddManually` - Blocklist empty state
+- `AddToAllowlistTitle`, `AddToBlocklistTitle` - Modal titles
+- `VerifiedBy` - Export preview footer
+- `Analysis` - Game round analysis header (NEW key added)
+
+### Bug Fix
+- **Removed duplicate `MetaEngine` entry** at line 466 that was causing "Conflicting declarations" build error
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL - webpack 5.101.3 compiled successfully
+```
+
+## 🔄 Version Update
+- Updated `CHANGELOG.md` with version 1.18.7
 
 ---
 

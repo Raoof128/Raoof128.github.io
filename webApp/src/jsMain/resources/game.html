@@ -118,8 +118,8 @@
                 <div class="user-profile">
                     <div class="user-avatar">JS</div>
                     <div class="user-info">
-                        <span class="user-name">John Smith</span>
-                        <span class="user-role">Security Analyst</span>
+                        <span class="user-name" data-i18n="SampleUserName">John Smith</span>
+                        <span class="user-role" data-i18n="SampleUserRole">Security Analyst</span>
                     </div>
                     <span class="material-symbols-outlined">expand_more</span>
                 </div>
@@ -165,12 +165,15 @@
                     <!-- Page Header -->
                     <div class="page-header">
                         <div class="page-title">
-                            <h1>Beat the Bot <span class="material-symbols-outlined">smart_toy</span></h1>
-                            <p>Challenge our offline AI engine. Can you spot the phish faster?</p>
+                            <h1><span data-i18n="BeatTheBot">Beat the Bot</span> <span
+                                    class="material-symbols-outlined">smart_toy</span></h1>
+                            <p data-i18n="BeatTheBotDesc">Challenge our offline AI engine. Can you spot the phish
+                                faster?</p>
                         </div>
                         <div class="session-info">
-                            <span class="session-id">Session ID: #GAME-<span id="sessionId">8821</span></span>
-                            <button class="btn-secondary" id="endSessionBtn">End Session</button>
+                            <span class="session-id"><span data-i18n="SessionId">Session ID</span>: #GAME-<span
+                                    id="sessionId">8821</span></span>
+                            <button class="btn-secondary" id="endSessionBtn" data-i18n="EndSession">End Session</button>
                         </div>
                     </div>
 
@@ -182,8 +185,8 @@
 
                             <!-- Round Progress -->
                             <div class="round-progress">
-                                <span class="round-label">Round <span id="currentRound">4</span> / <span
-                                        id="totalRounds">10</span></span>
+                                <span class="round-label"><span data-i18n="Round">Round</span> <span
+                                        id="currentRound">4</span> / <span id="totalRounds">10</span></span>
                                 <div class="progress-bar">
                                     <div class="progress-fill" id="progressFill" style="width: 40%">
                                         <div class="progress-shimmer"></div>
@@ -204,7 +207,8 @@
                                                 <span class="dot yellow"></span>
                                                 <span class="dot green"></span>
                                             </div>
-                                            <span class="browser-label">Browser Preview</span>
+                                            <span class="browser-label" data-i18n="BrowserPreview">Browser
+                                                Preview</span>
                                         </div>
 
                                         <div class="url-bar">
@@ -226,20 +230,20 @@
 
                                     <!-- Decision Buttons -->
                                     <div class="decision-area">
-                                        <p class="decision-prompt">Make your decision</p>
+                                        <p class="decision-prompt" data-i18n="MakeDecision">Make your decision</p>
                                         <div class="decision-buttons">
                                             <button class="decision-btn phishing" id="btnPhishing">
                                                 <div class="btn-gradient"></div>
                                                 <div class="btn-content">
                                                     <span class="material-symbols-outlined">warning</span>
-                                                    <span>Phishing</span>
+                                                    <span data-i18n="Phishing">Phishing</span>
                                                 </div>
                                             </button>
                                             <button class="decision-btn legitimate" id="btnLegitimate">
                                                 <div class="btn-gradient"></div>
                                                 <div class="btn-content">
                                                     <span class="material-symbols-outlined">check_circle</span>
-                                                    <span>Legitimate</span>
+                                                    <span data-i18n="Legitimate">Legitimate</span>
                                                 </div>
                                             </button>
                                         </div>
@@ -251,7 +255,7 @@
                             <div class="hint-card">
                                 <span class="material-symbols-outlined">lightbulb</span>
                                 <div class="hint-content">
-                                    <h4>Live Hint</h4>
+                                    <h4 data-i18n="LiveHint">Live Hint</h4>
                                     <p id="hintText">Look closely at the domain structure. Legitimate organisations
                                         rarely use hyphens in the main domain name or generic TLDs like
                                         <code>.net</code> for core services.
@@ -266,23 +270,25 @@
                             <!-- Scoreboard -->
                             <div class="scoreboard-card">
                                 <div class="scoreboard-header">
-                                    <h3>Live Scoreboard</h3>
-                                    <span class="vs-badge">VS MODE</span>
+                                    <h3 data-i18n="LiveScoreboard">Live Scoreboard</h3>
+                                    <span class="vs-badge" data-i18n="VsMode">VS MODE</span>
                                 </div>
 
                                 <div class="scores">
                                     <!-- Player Score -->
                                     <div class="score-row player">
                                         <div class="score-header">
-                                            <span class="score-name">You</span>
+                                            <span class="score-name" data-i18n="You">You</span>
                                             <span class="score-value" id="playerScore">350 pts</span>
                                         </div>
                                         <div class="score-bar">
                                             <div class="score-fill player" id="playerBar" style="width: 75%"></div>
                                         </div>
                                         <div class="score-stats">
-                                            <span>Streak: <span id="playerStreak">3</span> 🔥</span>
-                                            <span>Accuracy: <span id="playerAccuracy">100%</span></span>
+                                            <span><span data-i18n="Streak">Streak</span>: <span
+                                                    id="playerStreak">3</span> 🔥</span>
+                                            <span><span data-i18n="Accuracy">Accuracy</span>: <span
+                                                    id="playerAccuracy">100%</span></span>
                                         </div>
                                     </div>
 
@@ -291,7 +297,7 @@
                                         <div class="score-header">
                                             <span class="score-name">
                                                 <span class="material-symbols-outlined">smart_toy</span>
-                                                QR-Shield Bot
+                                                <span data-i18n="QrShieldBot">QR-Shield Bot</span>
                                             </span>
                                             <span class="score-value" id="botScore">400 pts</span>
                                         </div>
@@ -299,8 +305,8 @@
                                             <div class="score-fill bot" id="botBar" style="width: 85%"></div>
                                         </div>
                                         <div class="score-stats">
-                                            <span>Latency: 2ms</span>
-                                            <span>Confidence: 99.8%</span>
+                                            <span><span data-i18n="Latency">Latency</span>: 2ms</span>
+                                            <span><span data-i18n="Confidence">Confidence</span>: 99.8%</span>
                                         </div>
                                     </div>
                                 </div>
@@ -308,22 +314,25 @@
 
                             <!-- Round Analysis -->
                             <div class="analysis-card">
-                                <h3>Round <span id="analysisRound">3</span> Analysis</h3>
+                                <h3><span data-i18n="RoundAnalysis">Round</span> <span id="analysisRound">3</span> <span
+                                        data-i18n="Analysis">Analysis</span></h3>
 
                                 <div class="result-badge" id="resultBadge">
                                     <div class="result-icon success">
                                         <span class="material-symbols-outlined">check</span>
                                     </div>
                                     <div class="result-text">
-                                        <p class="result-title" id="resultTitle">Correct Decision!</p>
-                                        <p class="result-desc" id="resultDesc">You identified the safe URL correctly.
+                                        <p class="result-title" id="resultTitle" data-i18n="CorrectDecision">Correct
+                                            Decision!</p>
+                                        <p class="result-desc" id="resultDesc" data-i18n="IdentifiedSafe">You identified
+                                            the safe URL correctly.
                                         </p>
                                     </div>
                                 </div>
 
                                 <!-- Brain Visualizer Section -->
                                 <div class="brain-visualizer-section" id="brainVisualizerSection">
-                                    <h4>AI Neural Analysis</h4>
+                                    <h4 data-i18n="AiNeuralAnalysis">AI Neural Analysis</h4>
                                     <p class="brain-description visually-hidden" id="brainDescription" role="status"
                                         aria-live="polite">
                                         AI Neural Net: No threats detected. Brain pattern is calm and blue.
@@ -352,7 +361,7 @@
                                 </div>
 
                                 <div class="educational-note">
-                                    <h4>Educational Note</h4>
+                                    <h4 data-i18n="EducationalNote">Educational Note</h4>
                                     <p id="educationalNote">"Always expand short links before scanning. The bot does
                                         this automatically by following redirect headers without rendering the page."
                                     </p>
@@ -377,14 +386,14 @@
             <div class="modal-stats">
                 <div class="stat">
                     <span class="stat-value" id="modalPoints">+50</span>
-                    <span class="stat-label">Points</span>
+                    <span class="stat-label" data-i18n="Points">Points</span>
                 </div>
                 <div class="stat">
                     <span class="stat-value" id="modalTime">1.2s</span>
-                    <span class="stat-label">Response</span>
+                    <span class="stat-label" data-i18n="Response">Response</span>
                 </div>
             </div>
-            <button class="btn-primary" id="nextRoundBtn">Next Round</button>
+            <button class="btn-primary" id="nextRoundBtn" data-i18n="NextRound">Next Round</button>
         </div>
     </div>
 
@@ -398,28 +407,28 @@
             <p id="gameOverMessage">Final Results</p>
             <div class="final-scores">
                 <div class="final-score player">
-                    <span class="label">Your Score</span>
+                    <span class="label" data-i18n="YourScore">Your Score</span>
                     <span class="value" id="finalPlayerScore">850</span>
                 </div>
                 <div class="vs">VS</div>
                 <div class="final-score bot">
-                    <span class="label">Bot Score</span>
+                    <span class="label" data-i18n="BotScore">Bot Score</span>
                     <span class="value" id="finalBotScore">920</span>
                 </div>
             </div>
             <div class="game-stats">
                 <div class="stat">
                     <span class="stat-value" id="finalAccuracy">85%</span>
-                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-label" data-i18n="Accuracy">Accuracy</span>
                 </div>
                 <div class="stat">
                     <span class="stat-value" id="finalBestStreak">5</span>
-                    <span class="stat-label">Best Streak</span>
+                    <span class="stat-label" data-i18n="BestStreak">Best Streak</span>
                 </div>
             </div>
             <div class="modal-actions">
-                <button class="btn-primary" id="playAgainBtn">Play Again</button>
-                <a href="dashboard.html" class="btn-secondary">Return to Dashboard</a>
+                <button class="btn-primary" id="playAgainBtn" data-i18n="PlayAgain">Play Again</button>
+                <a href="dashboard.html" class="btn-secondary" data-i18n="ReturnToDashboard">Return to Dashboard</a>
             </div>
         </div>
     </div>

@@ -74,7 +74,8 @@
                         style="width: 28px; height: 28px;">
                     QR-SHIELD
                 </h1>
-                <p class="version-status">v2.4.1 • <span class="status-secure">System Secure</span></p>
+                <p class="version-status" data-i18n="VersionStatus">v2.4.1 • <span class="status-secure"
+                        data-i18n="SystemSecure">System Secure</span></p>
             </div>
 
             <nav class="sidebar-nav">
@@ -120,8 +121,8 @@
                 <div class="user-profile">
                     <div class="user-avatar">JS</div>
                     <div class="user-info">
-                        <span class="user-name">John Smith</span>
-                        <span class="user-role">Security Analyst</span>
+                        <span class="user-name" data-i18n="SampleUserName">John Smith</span>
+                        <span class="user-role" data-i18n="SampleUserRole">Security Analyst</span>
                     </div>
                     <span class="material-symbols-outlined">expand_more</span>
                 </div>
@@ -171,9 +172,9 @@
                             <div class="hero-text">
                                 <div class="hero-badge">
                                     <span class="material-symbols-outlined">wifi_off</span>
-                                    <span>Secure Environment</span>
+                                    <span data-i18n="SecureEnvironment">Secure Environment</span>
                                 </div>
-                                <h3 class="hero-title">Strict Offline Guarantee</h3>
+                                <h3 class="hero-title" data-i18n="OfflineGuarantee">Strict Offline Guarantee</h3>
                                 <p class="hero-description">
                                     QR-SHIELD uses local heuristic analysis engines. No image data, URL strings, or
                                     metadata leaves this device during scanning. Your privacy is mathematically
@@ -204,28 +205,32 @@
                                     <div class="header-info">
                                         <div class="header-title-row">
                                             <span class="material-symbols-outlined">tune</span>
-                                            <h3>Phishing Detection Sensitivity</h3>
+                                            <h3 data-i18n="PhishingDetectionSensitivity">Phishing Detection Sensitivity
+                                            </h3>
                                         </div>
-                                        <p>Adjust heuristic thresholds. Higher sensitivity may increase false positives.
+                                        <p data-i18n="SensitivityDescription">Adjust heuristic thresholds. Higher
+                                            sensitivity may increase false positives.
                                         </p>
                                     </div>
-                                    <span class="sensitivity-badge" id="sensitivityBadge">Balanced</span>
+                                    <span class="sensitivity-badge" id="sensitivityBadge"
+                                        data-i18n="SensitivityBalanced">Balanced</span>
                                 </div>
 
                                 <div class="slider-container">
                                     <input type="range" class="sensitivity-slider" id="sensitivitySlider" min="1"
                                         max="3" value="2" />
                                     <div class="slider-labels">
-                                        <span>Low</span>
-                                        <span class="active">Balanced</span>
-                                        <span>Paranoia</span>
+                                        <span data-i18n="SensitivityLow">Low</span>
+                                        <span class="active" data-i18n="SensitivityBalanced">Balanced</span>
+                                        <span data-i18n="SensitivityParanoia">Paranoia</span>
                                     </div>
                                 </div>
 
                                 <div class="sensitivity-info" id="sensitivityInfo">
                                     <span class="material-symbols-outlined">info</span>
                                     <div class="info-content">
-                                        <p class="info-title">Balanced Mode (Recommended)</p>
+                                        <p class="info-title" data-i18n="BalancedModeRecommended">Balanced Mode
+                                            (Recommended)</p>
                                         <p class="info-description">Scans for known malicious patterns and heuristic
                                             mismatches. Blocks homoglyph attacks and redirect chains. Low false positive
                                             rate expected.</p>
@@ -241,7 +246,7 @@
                                     <div class="list-header">
                                         <div class="list-title">
                                             <span class="material-symbols-outlined safe">check_circle</span>
-                                            <h3>Allowlist</h3>
+                                            <h3 data-i18n="AllowList">Allowlist</h3>
                                         </div>
                                         <button class="add-btn" id="addAllowlistBtn">
                                             <span class="material-symbols-outlined">add</span>
@@ -274,7 +279,7 @@
                                     <div class="list-header">
                                         <div class="list-title">
                                             <span class="material-symbols-outlined danger">block</span>
-                                            <h3>Blocklist</h3>
+                                            <h3 data-i18n="BlockList">Blocklist</h3>
                                         </div>
                                         <button class="add-btn" id="addBlocklistBtn">
                                             <span class="material-symbols-outlined">add</span>
@@ -283,8 +288,8 @@
                                     <div class="list-content empty" id="blocklistContent">
                                         <div class="empty-state">
                                             <span class="material-symbols-outlined">playlist_remove</span>
-                                            <p>No custom domains blocked.</p>
-                                            <button class="add-manual-btn">Add manually</button>
+                                            <p data-i18n="NoCustomDomainsBlocked">No custom domains blocked.</p>
+                                            <button class="add-manual-btn" data-i18n="AddManually">Add manually</button>
                                         </div>
                                     </div>
                                 </div>
@@ -296,12 +301,13 @@
 
                             <!-- Privacy Controls -->
                             <div class="controls-card">
-                                <h3 class="controls-title">Privacy Controls</h3>
+                                <h3 class="controls-title" data-i18n="PrivacyControls">Privacy Controls</h3>
 
                                 <div class="toggle-item">
                                     <div class="toggle-info">
-                                        <p class="toggle-label">Strict Offline Mode</p>
-                                        <p class="toggle-description">Disable all external link previews.</p>
+                                        <p class="toggle-label" data-i18n="StrictOfflineMode">Strict Offline Mode</p>
+                                        <p class="toggle-description" data-i18n="DisableExternalPreviews">Disable all
+                                            external link previews.</p>
                                     </div>
                                     <label class="toggle-switch on">
                                         <input type="checkbox" id="offlineToggle" checked />
@@ -313,8 +319,9 @@
 
                                 <div class="toggle-item">
                                     <div class="toggle-info">
-                                        <p class="toggle-label">Anonymous Telemetry</p>
-                                        <p class="toggle-description">Share detection stats to improve ML.</p>
+                                        <p class="toggle-label" data-i18n="AnonymousTelemetry">Anonymous Telemetry</p>
+                                        <p class="toggle-description" data-i18n="ShareDetectionStats">Share detection
+                                            stats to improve ML.</p>
                                     </div>
                                     <label class="toggle-switch">
                                         <input type="checkbox" id="telemetryToggle" />
@@ -326,8 +333,9 @@
 
                                 <div class="toggle-item">
                                     <div class="toggle-info">
-                                        <p class="toggle-label">Auto-Copy Safe Links</p>
-                                        <p class="toggle-description">Copy trusted URLs to clipboard.</p>
+                                        <p class="toggle-label" data-i18n="AutoCopySafeLinks">Auto-Copy Safe Links</p>
+                                        <p class="toggle-description" data-i18n="CopyTrustedUrls">Copy trusted URLs to
+                                            clipboard.</p>
                                     </div>
                                     <label class="toggle-switch on">
                                         <input type="checkbox" id="autoCopyToggle" checked />
@@ -343,28 +351,29 @@
                                         <span class="material-symbols-outlined">policy</span>
                                     </div>
                                     <div class="about-info">
-                                        <h4>About QR-SHIELD</h4>
-                                        <p>Core v2.4.1 • Build 2024.12.19</p>
+                                        <h4 data-i18n="AboutQrShield">About QR-SHIELD</h4>
+                                        <p data-i18n="CoreVersion">Core v2.4.1 • Build 2024.12.19</p>
                                     </div>
                                 </div>
 
                                 <div class="about-links">
                                     <a href="#" class="about-link">
-                                        <span>Open Source Licenses</span>
+                                        <span data-i18n="OpenSourceLicenses">Open Source Licenses</span>
                                         <span class="material-symbols-outlined">open_in_new</span>
                                     </a>
                                     <a href="#" class="about-link">
-                                        <span>Privacy Policy</span>
+                                        <span data-i18n="PrivacyPolicy">Privacy Policy</span>
                                         <span class="material-symbols-outlined">open_in_new</span>
                                     </a>
                                     <a href="#" class="about-link no-border">
-                                        <span>Acknowledgements</span>
+                                        <span data-i18n="Acknowledgements">Acknowledgements</span>
                                         <span class="material-symbols-outlined">arrow_forward_ios</span>
                                     </a>
                                 </div>
 
                                 <div class="reset-container">
-                                    <button class="reset-btn" id="resetBtn">Reset all settings to default</button>
+                                    <button class="reset-btn" id="resetBtn" data-i18n="ResetAllSettings">Reset all
+                                        settings to default</button>
                                 </div>
                             </div>
                         </div>
@@ -372,13 +381,13 @@
 
                     <!-- Footer -->
                     <footer class="trust-footer">
-                        <p>© 2024 QR-SHIELD Security Inc. All rights reserved.</p>
+                        <p data-i18n="Copyright">© 2024 QR-SHIELD Security Inc. All rights reserved.</p>
                         <div class="footer-links">
-                            <a href="#">Support</a>
-                            <a href="#">Terms</a>
+                            <a href="#" data-i18n="Support">Support</a>
+                            <a href="#" data-i18n="Terms">Terms</a>
                             <span class="status-indicator">
                                 <span class="status-dot"></span>
-                                Systems Operational
+                                <span data-i18n="SystemsOperational">Systems Operational</span>
                             </span>
                         </div>
                     </footer>
@@ -392,7 +401,7 @@
     <div class="modal-overlay hidden" id="addDomainModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTitle">Add to Allowlist</h3>
+                <h3 id="modalTitle" data-i18n="AddToAllowlistTitle">Add to Allowlist</h3>
                 <button class="modal-close" id="closeModal">
                     <span class="material-symbols-outlined">close</span>
                 </button>
@@ -414,7 +423,7 @@
     <!-- Toast Notification -->
     <div class="toast hidden" id="toast">
         <span class="material-symbols-outlined toast-icon">check_circle</span>
-        <span class="toast-message" id="toastMessage">Success!</span>
+        <span class="toast-message" id="toastMessage" data-i18n="Success">Success!</span>
     </div>
 
     <!-- Platform Bridge (Crypto, Clipboard, etc.) -->
