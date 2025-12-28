@@ -108,10 +108,10 @@ body.light {
     --primary-hover: #1d4ed8;
 
     /* Verdict Colors - More vibrant for light backgrounds */
-    --color-safe: #16a34a;
-    --color-safe-glow: rgba(22, 163, 74, 0.6);
-    --color-safe-bg: rgba(22, 163, 74, 0.15);
-    --color-safe-border: rgba(22, 163, 74, 0.3);
+    --color-safe: #15803d;
+    --color-safe-glow: rgba(21, 128, 61, 0.7);
+    --color-safe-bg: rgba(21, 128, 61, 0.2);
+    --color-safe-border: rgba(21, 128, 61, 0.4);
 
     --color-warning: #d97706;
     --color-warning-bg: rgba(217, 119, 6, 0.15);

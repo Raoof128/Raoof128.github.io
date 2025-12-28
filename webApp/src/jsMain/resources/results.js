@@ -103,7 +103,10 @@ function initializeFromURL() {
 
         // Generate a scan ID
         const scanId = generateScanId();
-        document.getElementById('scanId').textContent = formatText('Result # {id}', { id: scanId });
+        const scanIdEl = document.getElementById('scanId');
+        if (scanIdEl) {
+            scanIdEl.textContent = formatText('Result # {id}', { id: scanId });
+        }
 
         // Construct result object
         ResultsState.currentResult = {
@@ -219,7 +222,10 @@ function applyScanResult(scan, scanId) {
     ResultsState.verdict = resultVerdict;
     ResultsState.confidence = parseInt(scan.score) || 50;
 
-    document.getElementById('scanId').textContent = formatText('Result # {id}', { id: formatScanId(scanId) });
+    const scanIdEl = document.getElementById('scanId');
+    if (scanIdEl) {
+        scanIdEl.textContent = formatText('Result # {id}', { id: formatScanId(scanId) });
+    }
 
     ResultsState.currentResult = {
         url: scan.url,
@@ -434,10 +440,10 @@ function updateRiskMeter(verdict) {
         case 'SAFE':
             riskBadge.textContent = translateText('LOW RISK');
             riskBadge.className = 'risk-badge';
-            // Use stronger green in light mode
-            const safeColor = isLightMode ? '#16a34a' : '#22c55e';
-            const safeGlow = isLightMode ? 'rgba(22, 163, 74, 0.5)' : 'rgba(34, 197, 94, 0.5)';
-            const safeBg = isLightMode ? 'rgba(22, 163, 74, 0.15)' : 'rgba(34, 197, 94, 0.1)';
+            // Use stronger/darker green in light mode for better visibility
+            const safeColor = isLightMode ? '#15803d' : '#22c55e';
+            const safeGlow = isLightMode ? 'rgba(21, 128, 61, 0.7)' : 'rgba(34, 197, 94, 0.5)';
+            const safeBg = isLightMode ? 'rgba(21, 128, 61, 0.2)' : 'rgba(34, 197, 94, 0.1)';
 
             riskBadge.style.backgroundColor = safeBg;
             riskBadge.style.color = safeColor;

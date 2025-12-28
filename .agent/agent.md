@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.95`** (as of December 28, 2025)
+**Current App Version: `1.17.97`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,99 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔧 December 28, 2025 (Session 10k+31) - Critical Results.js Bug Fix
+
+### Summary
+Fixed critical JavaScript error that was crashing the results page and preventing all dynamic content from loading.
+
+## ✅ Root Cause Analysis
+
+The `initializeFromURL()` function in `results.js` tried to access `document.getElementById('scanId')` at lines 106 and 222. However, **no element with ID `scanId` exists** in `results.html`. This caused:
+
+```
+TypeError: Cannot set properties of null (setting 'textContent')
+    at initializeFromURL (results.js:106)
+```
+
+This crashed the entire `DOMContentLoaded` listener before it could call `displayResult()` with the URL parameters. The page then fell back to showing hardcoded demo content.
+
+## ✅ Fix Applied
+
+Added null checks for the `scanId` element:
+
+```javascript
+// Before (crashed)
+document.getElementById('scanId').textContent = formatText('Result # {id}', { id: scanId });
+
+// After (safe)
+const scanIdEl = document.getElementById('scanId');
+if (scanIdEl) {
+    scanIdEl.textContent = formatText('Result # {id}', { id: scanId });
+}
+```
+
+## ✅ Verification
+
+Tested end-to-end flow:
+1. Dashboard → Click history item with "PHISH" status
+2. Navigates to `results.html?url=...&verdict=MALICIOUS&score=85`
+3. Page now correctly displays:
+   - URL: `https://phish-test.com/login` ✅
+   - Verdict: "DO NOT VISIT" (red theme) ✅
+   - Score: 85% ✅
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `results.js` | Added null checks at lines 106 and 222 |
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# Dynamic content now loads correctly ✅
+# History navigation works end-to-end ✅
+```
+
+---
+
+# 🔧 December 28, 2025 (Session 10k+30) - UI Polish & History Navigation Bug
+
+### Summary
+Fixed multiple UI issues including a major bug where scan history items navigated to wrong results.
+
+## ✅ Changes Made
+
+### 1. Fixed History Scan Navigation (Major Bug)
+- **Problem**: Clicking on scan history items navigated to hardcoded/wrong results
+- **Root Cause**: URL parameters were not properly encoded in `dashboard.js`
+- **Fix**: Used `URLSearchParams` for proper URL encoding
+
+### 2. Fixed Pale Green Risk Bar
+- Light mode green was too pale/washed out
+- Changed from `#16a34a` to `#15803d` (darker, more vibrant)
+
+### 3. Fixed Decorative Help Icon
+- Changed from `help_outline` to `help` (filled) for better visibility
+- Applied across all 8 HTML pages
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `dashboard.js` | Fixed history click handler with URLSearchParams |
+| `results.css` | Made green color more vibrant |
+| `results.js` | Updated green color in risk bar |
+| 8 HTML files | Changed `help_outline` to `help` |
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# History items now navigate to correct results ✅
+# Green bar is more visible in light mode ✅
+# Help icon is now filled ✅
+```
 
 ---
 

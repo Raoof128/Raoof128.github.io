@@ -314,13 +314,21 @@ function renderHistory() {
 
     window.qrshieldApplyTranslations?.(elements.recentScansBody);
 
-    // Add click handlers to navigate to results.html
+    // Add click handlers to navigate to results.html with proper data
     elements.recentScansBody.querySelectorAll('.clickable-row').forEach(row => {
         row.addEventListener('click', () => {
-            const url = row.dataset.scanUrl;
+            const encodedUrl = row.dataset.scanUrl;
             const verdict = row.dataset.scanVerdict;
             const score = row.dataset.scanScore;
-            window.location.href = `results.html?url=${url}&verdict=${verdict}&score=${score}`;
+
+            // Use URLSearchParams for proper encoding
+            const params = new URLSearchParams({
+                url: decodeURIComponent(encodedUrl), // Decode first since it was encoded in data attribute
+                verdict: verdict,
+                score: score
+            });
+
+            window.location.href = `results.html?${params.toString()}`;
         });
     });
 }

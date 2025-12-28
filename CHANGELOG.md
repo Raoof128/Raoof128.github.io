@@ -5,6 +5,69 @@ All notable changes to QR-SHIELD will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.97] - 2025-12-28
+
+### 🔧 Critical Bug Fix: Results Page Dynamic Content
+
+Fixed critical JavaScript error that was crashing the results page and preventing all dynamic content from loading.
+
+#### Root Cause
+- `results.js` tried to access `document.getElementById('scanId')` which doesn't exist in the HTML
+- This caused a `TypeError: Cannot set properties of null` that crashed the entire initialization
+- The crash prevented URL parameters from being processed, so the page always showed hardcoded demo content
+
+#### Fix
+- Added null checks for the `scanId` element at lines 106 and 222 in `results.js`
+- Now the initialization completes successfully and processes URL parameters
+
+#### Before Fix
+- Clicking history items navigated to results page with correct URL params
+- But page always showed: "https://secure-login.example.com...", "SAFE TO VISIT", 99.8%
+
+#### After Fix
+- Page correctly shows the actual scanned URL
+- Verdict (SAFE/SUSPICIOUS/MALICIOUS) displays correctly based on URL params
+- Score displays correctly
+- Risk meter color and theme updates correctly
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `results.js` | Added null checks for `scanId` element (lines 106, 222) |
+
+---
+
+## [1.17.96] - 2025-12-28
+
+
+### 🔧 UI Polish & History Navigation Bug Fix
+
+Fixed multiple UI issues and a major navigation bug.
+
+#### 1. Fixed History Scan Navigation (Major Bug) ✅
+- **Problem**: Clicking on scan history items navigated to hardcoded/wrong results
+- **Cause**: URL was not properly encoded using `URLSearchParams` in `dashboard.js`
+- **Fix**: Used `URLSearchParams` for proper URL encoding when navigating to results page
+
+#### 2. Fixed Pale Green Risk Bar in Light Mode ✅
+- **Problem**: The risk assessment green bar was too pale in light mode
+- **Fix**: Changed green color from `#16a34a` to `#15803d` (darker/more vibrant)
+- **Files**: `results.css` and `results.js`
+
+#### 3. Fixed Decorative Help Icon ✅
+- **Problem**: Help icon (`help_outline`) looked too thin/decorative
+- **Fix**: Changed to filled `help` icon across all 8 HTML pages
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `dashboard.js` | Fixed history click handler with proper URLSearchParams encoding |
+| `results.css` | Made green color more vibrant for light mode |
+| `results.js` | Updated green color in risk bar rendering |
+| 8 HTML files | Changed `help_outline` to `help` icon |
+
+---
+
 ## [1.17.95] - 2025-12-28
 
 ### 🔧 Fixed Theme Flash on Page Navigation
