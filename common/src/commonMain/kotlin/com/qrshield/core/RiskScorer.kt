@@ -86,8 +86,8 @@ class RiskScorer {
      * Determine verdict based on score thresholds
      */
     fun determineVerdict(score: Int): Verdict = when {
-        score <= SAFE_THRESHOLD -> Verdict.SAFE
-        score <= SUSPICIOUS_THRESHOLD -> Verdict.SUSPICIOUS
+        score <= SecurityConstants.SAFE_THRESHOLD -> Verdict.SAFE
+        score < SecurityConstants.MALICIOUS_THRESHOLD -> Verdict.SUSPICIOUS
         else -> Verdict.MALICIOUS
     }
 
@@ -135,7 +135,8 @@ class RiskScorer {
     }
 
     companion object {
-        const val SAFE_THRESHOLD = 15
-        const val SUSPICIOUS_THRESHOLD = 50
+        // Removed: Use SecurityConstants instead
+        // const val SAFE_THRESHOLD = 15
+        // const val SUSPICIOUS_THRESHOLD = 50
     }
 }

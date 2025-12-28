@@ -1122,17 +1122,25 @@ Centralized security-related constants for the detection engine, replacing magic
 
 ```kotlin
 object SecurityConstants {
-    // Score Thresholds
+    // Score Thresholds (for individual components)
     const val MAX_SCORE: Int = 100
     const val MIN_SCORE: Int = 0
-    const val SAFE_THRESHOLD: Int = 30      // Below = SAFE verdict
-    const val MALICIOUS_THRESHOLD: Int = 70 // At/above = MALICIOUS verdict
+    const val SAFE_THRESHOLD: Int = 30      // Component score thresholds
+    const val MALICIOUS_THRESHOLD: Int = 70 // for display purposes
 
-    // Component Weights (empirically tuned for F1)
+    // Component Weights (for combined score calculation - legacy, now voting-based)
     const val HEURISTIC_WEIGHT: Float = 0.40f
     const val ML_WEIGHT: Float = 0.30f
     const val BRAND_WEIGHT: Float = 0.20f
     const val TLD_WEIGHT: Float = 0.10f
+
+    // Verdict Determination: VOTING SYSTEM (v1.19.0)
+    // Each component votes SAFE/SUSPICIOUS/MALICIOUS
+    // Heuristic: ≤10=SAFE, ≤25=SUS, >25=MAL
+    // ML:        ≤0.30=SAFE, ≤0.60=SUS, >0.60=MAL
+    // Brand:     ≤5=SAFE, ≤15=SUS, >15=MAL
+    // TLD:       ≤3=SAFE, ≤7=SUS, >7=MAL
+    // Final: 3+ SAFE → SAFE, 2+ MAL → MAL, else SUS
 
     // Confidence Calculation
     const val BASE_CONFIDENCE: Float = 0.5f
@@ -1150,6 +1158,25 @@ object SecurityConstants {
     const val GREEK_START: Int = 0x0370
     const val GREEK_END: Int = 0x03FF
 }
+```
+
+**Component Voting System (v1.19.0):**
+
+Verdict is determined by democratic voting, not pure thresholds:
+
+| Component | Vote Calculation |
+|-----------|------------------|
+| Heuristic | score ≤ 10 → SAFE, ≤ 25 → SUSPICIOUS, > 25 → MALICIOUS |
+| ML | probability ≤ 0.30 → SAFE, ≤ 0.60 → SUSPICIOUS, > 0.60 → MALICIOUS |
+| Brand | score ≤ 5 → SAFE, ≤ 15 → SUSPICIOUS, > 15 → MALICIOUS |
+| TLD | score ≤ 3 → SAFE, ≤ 7 → SUSPICIOUS, > 7 → MALICIOUS |
+
+**Final Verdict Rules:**
+- 3+ SAFE votes → **SAFE** ✅
+- 2+ MALICIOUS votes → **MALICIOUS** ❌
+- 2+ SUSPICIOUS votes → **SUSPICIOUS** ⚠️
+- Critical escalations override (homograph, @ symbol, brand impersonation)
+
 ```
 
 ### FeatureConstants

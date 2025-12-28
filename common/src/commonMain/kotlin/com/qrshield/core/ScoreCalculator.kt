@@ -135,22 +135,30 @@ class VerdictDeterminer(
     private val config: ScoringConfig = ScoringConfig.DEFAULT
 ) {
     /**
-     * Determine verdict based on score and critical factors.
+     * Determine verdict based on VOTING SYSTEM + critical factors.
      *
-     * Some indicators (like confirmed brand impersonation) can
-     * escalate the verdict regardless of overall score.
+     * NEW VOTING LOGIC:
+     * - Each component (Heuristic, ML, Brand, TLD) casts a vote
+     * - Majority vote determines the verdict
+     * - 3+ SAFE votes → SAFE
+     * - 2+ MALICIOUS votes → MALICIOUS
+     * - Otherwise → SUSPICIOUS
      *
-     * @param score Combined risk score (0-100)
+     * Critical escalations can override the vote for safety.
+     *
+     * @param score Combined risk score (0-100) - used for tie-breaking
      * @param heuristicResult Result from HeuristicsEngine
      * @param brandResult Result from BrandDetector
      * @param tldResult Result from TldScorer
+     * @param mlScore ML probability score (0.0-1.0)
      * @return Final verdict (SAFE, SUSPICIOUS, MALICIOUS, or UNKNOWN)
      */
     fun determineVerdict(
         score: Int,
         heuristicResult: HeuristicsEngine.Result,
         brandResult: BrandDetector.DetectionResult,
-        tldResult: TldScorer.TldResult
+        tldResult: TldScorer.TldResult,
+        mlScore: Float = 0.5f
     ): Verdict {
         // Critical escalation: confirmed homograph attack
         if (brandResult.details?.matchType == BrandDetector.MatchType.HOMOGRAPH) {
@@ -190,11 +198,45 @@ class VerdictDeterminer(
             return if (score > config.suspiciousThreshold) Verdict.MALICIOUS else Verdict.SUSPICIOUS
         }
 
-        // Standard threshold-based verdict using injectable config
-        return when {
-            score <= config.safeThreshold -> Verdict.SAFE
-            score <= config.suspiciousThreshold -> Verdict.SUSPICIOUS
+        // === NEW VOTING SYSTEM ===
+        // Each component votes based on its individual score
+        val heuristicVote = when {
+            heuristicResult.score <= 10 -> Verdict.SAFE
+            heuristicResult.score <= 25 -> Verdict.SUSPICIOUS
             else -> Verdict.MALICIOUS
+        }
+        
+        val mlVote = when {
+            mlScore <= 0.30f -> Verdict.SAFE  // ML probability < 30%
+            mlScore <= 0.60f -> Verdict.SUSPICIOUS  // ML probability 30-60%
+            else -> Verdict.MALICIOUS  // ML probability > 60%
+        }
+        
+        val brandVote = when {
+            brandResult.score <= 5 -> Verdict.SAFE
+            brandResult.score <= 15 -> Verdict.SUSPICIOUS
+            else -> Verdict.MALICIOUS
+        }
+        
+        val tldVote = when {
+            tldResult.score <= 3 -> Verdict.SAFE
+            tldResult.score <= 7 -> Verdict.SUSPICIOUS
+            else -> Verdict.MALICIOUS
+        }
+        
+        // Count votes
+        val votes = listOf(heuristicVote, mlVote, brandVote, tldVote)
+        val safeVotes = votes.count { it == Verdict.SAFE }
+        val suspiciousVotes = votes.count { it == Verdict.SUSPICIOUS }
+        val maliciousVotes = votes.count { it == Verdict.MALICIOUS }
+        
+        // Majority vote determines verdict
+        return when {
+            safeVotes >= 3 -> Verdict.SAFE  // 3 or 4 components say SAFE
+            maliciousVotes >= 2 -> Verdict.MALICIOUS  // 2+ components say MALICIOUS
+            suspiciousVotes >= 2 -> Verdict.SUSPICIOUS  // 2+ components say SUSPICIOUS
+            safeVotes >= 2 -> Verdict.SAFE  // Fallback: 2 SAFE is better than mixed
+            else -> Verdict.SUSPICIOUS  // Default to cautious
         }
     }
 }

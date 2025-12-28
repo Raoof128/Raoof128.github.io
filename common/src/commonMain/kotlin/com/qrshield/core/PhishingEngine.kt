@@ -261,7 +261,13 @@ class PhishingEngine(
             tldScore = tldResult.score
         )
         
-        val verdict = verdictDeterminer.determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
+        val verdict = verdictDeterminer.determineVerdict(
+            score = combinedScore,
+            heuristicResult = heuristicResult,
+            brandResult = brandResult,
+            tldResult = tldResult,
+            mlScore = mlScore
+        )
         
         val allFlags = buildList {
             addAll(heuristicResult.flags)
@@ -285,7 +291,7 @@ class PhishingEngine(
             details = UrlAnalysisResult(
                 originalUrl = url.take(256),
                 heuristicScore = heuristicResult.score,
-                mlScore = (mlScore * 100).toInt(),
+                mlScore = (mlScore * 30).toInt(), // ML score is 0.0-1.0, scale to 0-30
                 brandScore = combinedBrandScore,
                 tldScore = tldResult.score,
                 brandMatch = brandResult.match ?: dynamicBrandResult.suggestedBrand,
@@ -348,7 +354,13 @@ class PhishingEngine(
         )
 
         // Determine verdict
-        val verdict = determineVerdict(combinedScore, heuristicResult, brandResult, tldResult)
+        val verdict = determineVerdict(
+            score = combinedScore,
+            heuristicResult = heuristicResult,
+            brandResult = brandResult,
+            tldResult = tldResult,
+            mlScore = mlScore
+        )
 
         // Collect all flags (including dynamic brand findings)
         val allFlags = buildList {
@@ -380,7 +392,7 @@ class PhishingEngine(
             details = UrlAnalysisResult(
                 originalUrl = url.take(256), // Truncate for storage
                 heuristicScore = heuristicResult.score,
-                mlScore = (mlScore * 100).toInt(),
+                mlScore = (mlScore * 30).toInt(), // ML score is 0.0-1.0, scale to 0-30
                 brandScore = combinedBrandScore, // Combined static + dynamic
                 tldScore = tldResult.score,
                 brandMatch = brandResult.match ?: dynamicBrandResult.suggestedBrand,
@@ -421,59 +433,22 @@ class PhishingEngine(
     /**
      * Determine verdict based on score and critical factors.
      *
-     * Some indicators (like confirmed brand impersonation) can
-     * escalate the verdict regardless of overall score.
+     * Delegates to VerdictDeterminer for voting logic.
      */
     private fun determineVerdict(
         score: Int,
         heuristicResult: HeuristicsEngine.Result,
         brandResult: BrandDetector.DetectionResult,
-        tldResult: TldScorer.TldResult
+        tldResult: TldScorer.TldResult,
+        mlScore: Float
     ): Verdict {
-        // Critical escalation: confirmed homograph attack
-        if (brandResult.details?.matchType == BrandDetector.MatchType.HOMOGRAPH) {
-            return Verdict.MALICIOUS
-        }
-
-        // Critical escalation: brand impersonation detected
-        // Any brand match should be at least SUSPICIOUS
-        if (brandResult.match != null) {
-            return if (score > config.suspiciousThreshold || brandResult.score >= 50) {
-                Verdict.MALICIOUS
-            } else {
-                Verdict.SUSPICIOUS
-            }
-        }
-
-        // Critical escalation: multiple high-severity indicators
-        val criticalCount = heuristicResult.details.count { (_, weight) ->
-            weight >= 20
-        }
-        if (criticalCount >= 2 && score > config.safeThreshold) {
-            return Verdict.MALICIOUS
-        }
-
-        // Escalation: @ symbol injection (common phishing technique)
-        if (heuristicResult.flags.any { it.contains("@ symbol", ignoreCase = true) }) {
-            return Verdict.SUSPICIOUS
-        }
-
-        // Escalation: High Risk TLD
-        if (tldResult.isHighRisk) {
-            return if (score > config.suspiciousThreshold) Verdict.MALICIOUS else Verdict.SUSPICIOUS
-        }
-
-        // Escalation: Strong heuristic signal alone
-        if (heuristicResult.score > 60) {
-            return if (score > config.suspiciousThreshold) Verdict.MALICIOUS else Verdict.SUSPICIOUS
-        }
-
-        // Standard threshold-based verdict using injectable config
-        return when {
-            score <= config.safeThreshold -> Verdict.SAFE
-            score <= config.suspiciousThreshold -> Verdict.SUSPICIOUS
-            else -> Verdict.MALICIOUS
-        }
+        return verdictDeterminer.determineVerdict(
+            score = score,
+            heuristicResult = heuristicResult,
+            brandResult = brandResult,
+            tldResult = tldResult,
+            mlScore = mlScore
+        )
     }
 
     /**

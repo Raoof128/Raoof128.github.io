@@ -6,6 +6,158 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.19.0] - 2025-12-29
 
+### Raouf: Implemented Component Voting System for Verdict Determination (2025-12-29 AEDT)
+
+**Scope:** Revolutionary change to verdict logic - from weighted scoring to democratic voting
+
+**Problem:**
+Even with correct thresholds and ML scoring, google.com was showing SUSPICIOUS because weighted
+scoring can be misleading when one component (like ML) has a medium score while all others are clean.
+
+**User's Brilliant Idea:**
+"Put a small test on the app - if like 3 out of 4 tests pass, show green. If 2 trigger yellow, show yellow. Rest is red."
+
+**Solution Implemented:**
+Replaced pure threshold-based verdict with a **VOTING SYSTEM** where each component casts a vote:
+
+1. **Heuristic Vote**: 
+   - ≤10 → SAFE
+   - ≤25 → SUSPICIOUS  
+   - >25 → MALICIOUS
+
+2. **ML Vote**:
+   - ≤0.30 → SAFE (30% probability)
+   - ≤0.60 → SUSPICIOUS (60% probability)
+   - >0.60 → MALICIOUS
+
+3. **Brand Vote**:
+   - ≤5 → SAFE
+   - ≤15 → SUSPICIOUS
+   - >15 → MALICIOUS
+
+4. **TLD Vote**:
+   - ≤3 → SAFE
+   - ≤7 → SUSPICIOUS
+   - >7 → MALICIOUS
+
+**Voting Rules:**
+- **3+ SAFE votes** → **GREEN (SAFE)** ✅
+- **2+ MALICIOUS votes** → **RED (MALICIOUS)** ❌
+- **2+ SUSPICIOUS votes** → **YELLOW (SUSPICIOUS)** ⚠️
+- **2 SAFE votes** (fallback) → **GREEN (SAFE)** ✅
+
+**Example for google.com:**
+```
+Component Scores:
+  Heuristic: 0/40  → Vote: SAFE ✅
+  ML:        13/30 (0.43 probability) → Vote: SUSPICIOUS ⚠️
+  Brand:     0/20  → Vote: SAFE ✅
+  TLD:       0/10  → Vote: SAFE ✅
+
+Final Vote: 3 SAFE, 1 SUSPICIOUS
+Result: MAJORITY SAFE → GREEN! ✅
+```
+
+**Files Changed:**
+- `common/src/commonMain/kotlin/com/qrshield/core/ScoreCalculator.kt` - Added voting logic to VerdictDeterminer
+- `common/src/commonMain/kotlin/com/qrshield/core/PhishingEngine.kt` - Updated to pass mlScore to determineVerdict
+
+**Impact:**
+- More democratic and fair verdict determination
+- Individual component disagreements don't override majority
+- Better handles edge cases like google.com (one suspicious component among three safe ones)
+- Critical escalations (homograph, brand impersonation, @ symbol) still override voting for safety
+
+**Verification:**
+```bash
+./gradlew :common:testDebugUnitTest --tests "GoogleDebugTest"
+# Result: Score=9, Verdict=SAFE ✅ (3 SAFE votes override 1 SUSPICIOUS)
+```
+
+---
+
+### Raouf: Fixed ML Score Display Bug - Showing 45/30 Instead of Max 30 (2025-12-29 AEDT)
+
+**Scope:** ML score scaling bug in PhishingEngine
+
+**Problem:**
+The desktop app was showing ML Analysis score as **45/30** (exceeding the maximum), causing the entire analysis to be flagged as suspicious even for safe URLs like `www.google.com`. This made everything appear yellow/orange (suspicious) when it should be green (safe).
+
+**Root Cause:**
+In `PhishingEngine.kt`, the ML score conversion was incorrect:
+```kotlin
+mlScore = (mlScore * 100).toInt()  // WRONG: gives 0-100
+```
+
+The ML model outputs a probability (0.0-1.0), which was being scaled to 0-100, but the documented range for ML score is **0-30**.
+
+**Solution:**
+Changed the ML score scaling in both `analyze()` and `analyzeBlocking()` methods:
+```kotlin
+mlScore = (mlScore * 30).toInt()  // CORRECT: gives 0-30
+```
+
+**Files Changed:**
+- `common/src/commonMain/kotlin/com/qrshield/core/PhishingEngine.kt` - Fixed ML score scaling (lines 288, 383)
+
+**Impact:**
+- ML scores now correctly range from 0-30 (was 0-100)
+- Safe URLs like `google.com` now show proper ML scores (e.g., 13/30 instead of 45/30)
+- Overall verdict classification is now accurate (combined with threshold fix below)
+
+**Verification:**
+```bash
+./gradlew :common:testDebugUnitTest  # BUILD SUCCESSFUL - all tests pass
+
+# Test Results for google.com:
+# Score: 9, Verdict: SAFE ✅
+# ML: 13/30 (not 45/30) ✅
+# Heuristic: 0/40, Brand: 0/20, TLD: 0/10
+```
+
+**Important:** After these fixes, run:
+```bash
+./gradlew clean :desktopApp:run
+```
+to see google.com correctly show as SAFE (green) instead of SUSPICIOUS (yellow).
+
+---
+
+### Raouf: Fixed Verdict Classification Thresholds (2025-12-29 AEDT)
+
+**Scope:** Core verdict determination logic bug fix
+
+**Problem:**
+The desktop app was incorrectly classifying safe URLs (like `www.google.com` with score=9) as "SUSPICIOUS" instead of "SAFE". The issue was caused by incorrect hardcoded thresholds in `RiskScorer.kt`:
+- SAFE_THRESHOLD was 15 (should be 30)
+- SUSPICIOUS_THRESHOLD was 50 (should be 70)
+
+**Root Cause:**
+`RiskScorer.kt` had its own hardcoded thresholds that didn't match the documented and correct thresholds in `SecurityConstants.kt`:
+- Documented: SAFE (0-30), SUSPICIOUS (31-69), MALICIOUS (70-100)
+- RiskScorer: SAFE (0-15), SUSPICIOUS (16-50), MALICIOUS (51-100)
+
+**Solution:**
+1. Updated `RiskScorer.determineVerdict()` to use `SecurityConstants.SAFE_THRESHOLD` (30) and `SecurityConstants.MALICIOUS_THRESHOLD` (70)
+2. Removed duplicate hardcoded threshold constants from `RiskScorer` companion object
+3. Updated `RiskScorerTest.kt` to test correct threshold boundaries
+
+**Files Changed:**
+- `common/src/commonMain/kotlin/com/qrshield/core/RiskScorer.kt` - Fixed verdict thresholds
+- `common/src/commonTest/kotlin/com/qrshield/core/RiskScorerTest.kt` - Updated test cases
+
+**Impact:**
+- URLs with scores 0-30 now correctly show as SAFE (was SUSPICIOUS for 16-30)
+- URLs with scores 31-69 now correctly show as SUSPICIOUS (was MALICIOUS for 51-69)
+- URLs with scores 70-100 correctly show as MALICIOUS (was MALICIOUS for 51-100)
+
+**Verification:**
+```bash
+./gradlew :common:testDebugUnitTest  # BUILD SUCCESSFUL - 1321 tests passed
+```
+
+---
+
 ### Raouf: Wire Desktop Result Screens to Real Engine Data (2025-12-29 AEDT)
 
 **Scope:** Desktop result screen security indicator tiles + Technical Indicators unified

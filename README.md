@@ -123,6 +123,55 @@
 
 ## 🧠 Detection Engine
 
+### Component Voting System (v1.19.0)
+
+**Revolutionary verdict determination:** Each detection component casts a democratic vote instead of pure threshold scoring.
+
+```kotlin
+class VerdictDeterminer {
+    fun determineVerdict(...): Verdict {
+        // Each component votes independently
+        val heuristicVote = when {
+            heuristicScore <= 10 -> SAFE
+            heuristicScore <= 25 -> SUSPICIOUS
+            else -> MALICIOUS
+        }
+        
+        val mlVote = when {
+            mlProbability <= 0.30 -> SAFE
+            mlProbability <= 0.60 -> SUSPICIOUS
+            else -> MALICIOUS
+        }
+        
+        val brandVote = when {
+            brandScore <= 5 -> SAFE
+            brandScore <= 15 -> SUSPICIOUS
+            else -> MALICIOUS
+        }
+        
+        val tldVote = when {
+            tldScore <= 3 -> SAFE
+            tldScore <= 7 -> SUSPICIOUS
+            else -> MALICIOUS
+        }
+        
+        // Majority voting determines final verdict
+        return when {
+            safeVotes >= 3 -> SAFE       // 3+ components agree
+            maliciousVotes >= 2 -> MALICIOUS
+            suspiciousVotes >= 2 -> SUSPICIOUS
+            else -> SUSPICIOUS           // Default cautious
+        }
+    }
+}
+```
+
+**Why Voting > Pure Scoring:**
+- ✅ Prevents one overly-cautious component from dominating
+- ✅ More resilient to model quirks and edge cases
+- ✅ Better handles legitimate URLs (e.g., google.com: 3 SAFE, 1 SUS → SAFE)
+- ✅ Critical escalations still override (homograph, @ symbol)
+
 ### Ensemble ML Architecture
 
 ```kotlin

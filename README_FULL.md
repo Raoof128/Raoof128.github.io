@@ -1054,11 +1054,43 @@ The result card is designed to be instantly recognizable and memorable:
 
 #### Verdict Levels & Visual Treatment
 
-| Verdict | Score Range | Color | Icon | Background |
-|---------|-------------|-------|------|------------|
-| ✅ **SAFE** | 0–29 | `#22C55E` Green | Shield ✓ | Subtle green gradient |
-| ⚠️ **SUSPICIOUS** | 30–69 | `#F59E0B` Amber | Warning ⚠ | Amber radial glow |
-| ❌ **MALICIOUS** | 70–100 | `#EF4444` Red | Danger ✕ | Red pulse animation |
+**NEW: Component Voting System (v1.19.0)**
+
+QR-SHIELD uses a **democratic voting system** where each detection component casts a vote for SAFE/SUSPICIOUS/MALICIOUS. This prevents one overly-cautious component from overriding clear signals from others.
+
+| Component | Vote Based On | Thresholds |
+|-----------|---------------|------------|
+| **Heuristic** | Security patterns (0-40) | ≤10=SAFE, ≤25=SUS, >25=MAL |
+| **ML Model** | Probability (0.0-1.0) | ≤0.30=SAFE, ≤0.60=SUS, >0.60=MAL |
+| **Brand** | Impersonation (0-20) | ≤5=SAFE, ≤15=SUS, >15=MAL |
+| **TLD** | Domain risk (0-10) | ≤3=SAFE, ≤7=SUS, >7=MAL |
+
+**Voting Rules:**
+- ✅ **3+ SAFE votes** → **GREEN (SAFE)**
+- ⚠️ **2+ SUSPICIOUS votes** → **YELLOW (SUSPICIOUS)**
+- ❌ **2+ MALICIOUS votes** → **RED (MALICIOUS)**
+
+**Example: google.com**
+```
+Heuristic: 0/40  → Vote: SAFE ✅
+ML:        13/30 → Vote: SUSPICIOUS ⚠️ (43% probability)
+Brand:     0/20  → Vote: SAFE ✅
+TLD:       0/10  → Vote: SAFE ✅
+
+Final: 3 SAFE, 1 SUSPICIOUS → Verdict: SAFE ✅
+```
+
+**Why Voting > Pure Scoring:**
+- Prevents false positives when one component is conservative
+- More resilient to model quirks
+- Majority consensus is more accurate
+- Critical escalations (homograph, @ symbol) still override for safety
+
+| Verdict | Visual Treatment | Color | Icon | Background |
+|---------|------------------|-------|------|------------|
+| ✅ **SAFE** | Majority SAFE votes | `#22C55E` Green | Shield ✓ | Subtle green gradient |
+| ⚠️ **SUSPICIOUS** | Mixed votes or 2+ SUS | `#F59E0B` Amber | Warning ⚠ | Amber radial glow |
+| ❌ **MALICIOUS** | 2+ MAL votes | `#EF4444` Red | Danger ✕ | Red pulse animation |
 
 #### Confidence Scoring
 

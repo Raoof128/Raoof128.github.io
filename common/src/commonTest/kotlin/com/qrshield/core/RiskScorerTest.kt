@@ -173,23 +173,23 @@ class RiskScorerTest {
     }
 
     @Test
-    fun `score 15 is SAFE`() {
-        assertEquals(Verdict.SAFE, scorer.determineVerdict(15))
+    fun `score 30 is SAFE`() {
+        assertEquals(Verdict.SAFE, scorer.determineVerdict(30))
     }
 
     @Test
-    fun `score 16 is SUSPICIOUS`() {
-        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(16))
+    fun `score 31 is SUSPICIOUS`() {
+        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(31))
     }
 
     @Test
-    fun `score 50 is SUSPICIOUS`() {
-        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(50))
+    fun `score 69 is SUSPICIOUS`() {
+        assertEquals(Verdict.SUSPICIOUS, scorer.determineVerdict(69))
     }
 
     @Test
-    fun `score 51 is MALICIOUS`() {
-        assertEquals(Verdict.MALICIOUS, scorer.determineVerdict(51))
+    fun `score 70 is MALICIOUS`() {
+        assertEquals(Verdict.MALICIOUS, scorer.determineVerdict(70))
     }
 
     @Test
@@ -258,12 +258,12 @@ class RiskScorerTest {
     // === THRESHOLD CONSTANT TESTS ===
 
     @Test
-    fun `safe threshold is 15`() {
-        assertEquals(15, RiskScorer.SAFE_THRESHOLD)
+    fun `safe threshold matches SecurityConstants`() {
+        assertEquals(30, SecurityConstants.SAFE_THRESHOLD)
     }
 
     @Test
-    fun `suspicious threshold is 50`() {
-        assertEquals(50, RiskScorer.SUSPICIOUS_THRESHOLD)
+    fun `malicious threshold matches SecurityConstants`() {
+        assertEquals(70, SecurityConstants.MALICIOUS_THRESHOLD)
     }
 }

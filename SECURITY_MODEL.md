@@ -41,11 +41,44 @@ This document outlines QR-SHIELD's security model, including attacker assumption
 │  • Brand impersonation detection (500+ brands)                               │
 │  • Homograph/punycode attack detection                                       │
 │  • TLD risk scoring                                                          │
-│  • ML-lite scoring (logistic regression)                                     │
+│  • Ensemble ML (Logistic + Boosting + Rules)                                 │
+│  • Component voting system (v1.19.0) - democratic verdict                    │
 │  • 100% offline analysis (privacy-preserving)                                │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## 🗳️ Component Voting System (v1.19.0)
+
+QR-SHIELD uses a **democratic voting approach** where each detection component votes independently:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    COMPONENT VOTING SYSTEM                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  Each component casts ONE vote:                                  │
+│                                                                  │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌────────┐ │
+│  │ Heuristic   │  │   ML Model  │  │   Brand     │  │  TLD   │ │
+│  │  (0-40)     │  │  (0.0-1.0)  │  │  (0-20)     │  │ (0-10) │ │
+│  └──────┬──────┘  └──────┬──────┘  └──────┬──────┘  └────┬───┘ │
+│         │                │                │               │     │
+│      SAFE ✅          SUS ⚠️           SAFE ✅         SAFE ✅   │
+│                                                                  │
+│  Final Tally: 3 SAFE, 1 SUSPICIOUS                              │
+│  Verdict: SAFE (majority wins) ✅                                │
+│                                                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Why Voting Beats Pure Scoring:**
+- Prevents one cautious component from dominating
+- More resilient to model quirks and edge cases
+- Better reflects "wisdom of the crowd"
+- Critical signals still override (safety-first)
 
 ---
 
