@@ -369,7 +369,7 @@ internal val ItalianStrings = mapOf(
     WebStringKey.SecurityAuditPass to "Audit Sicurezza: SUPERATO",
     
     // Footer
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc. Tutti i diritti riservati.",
+    WebStringKey.Copyright to "© 2025-2026 QR-SHIELD Security Inc. Tutti i diritti riservati.",
     WebStringKey.Support to "Supporto",
     WebStringKey.Terms to "Termini",
     WebStringKey.SystemsOperational to "Sistemi Operativi",

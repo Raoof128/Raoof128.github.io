@@ -293,7 +293,7 @@ function getDemoData() {
         url: 'http://xn--secure-bankng-87b.com/login',
         score: 98.5,
         verdict: 'HIGH',
-        scanId: 'scan_2023_10_24_af92',
+        scanId: 'scan_2025_12_29_h9t2',
         timestamp: Date.now(),
         attacks: getDemoAttacks(),
         tags: ['Phishing Attempt', 'Obfuscated Script', 'Homograph Attack'],

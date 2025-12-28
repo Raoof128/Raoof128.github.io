@@ -433,7 +433,7 @@ enum class WebStringKey(val defaultText: String) {
     SecurityAuditPass("Security Audit: PASS"),
     
     // Footer
-    Copyright("© 2024 QR-SHIELD Security Inc. All rights reserved."),
+    Copyright("© 2025-2026 QR-SHIELD Security Inc. All rights reserved."),
     Support("Support"),
     Terms("Terms"),
     SystemsOperational("Systems Operational"),
@@ -441,7 +441,7 @@ enum class WebStringKey(val defaultText: String) {
     
     // Version / Build Info
     VersionStatus("v2.4.1 • System Secure"),
-    CoreVersion("Core v2.4.1 • Build 2024.12.19"),
+    CoreVersion("Core v2.4.1 • Build 2025.12.29"),
     VerifiedBy("Verified by QR-SHIELD Enterprise"),
     
     // User Profile (Sample)

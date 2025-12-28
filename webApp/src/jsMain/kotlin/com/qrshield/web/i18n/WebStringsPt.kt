@@ -369,7 +369,7 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.SecurityAuditPass to "Auditoria de Segurança: APROVADA",
     
     // Footer
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc. Todos os direitos reservados.",
+    WebStringKey.Copyright to "© 2025-2026 QR-SHIELD Security Inc. Todos os direitos reservados.",
     WebStringKey.Support to "Suporte",
     WebStringKey.Terms to "Termos",
     WebStringKey.SystemsOperational to "Sistemas Operacionais",
@@ -377,7 +377,7 @@ internal val PortugueseStrings = mapOf(
     
     // Version / Build Info
     WebStringKey.VersionStatus to "v2.4.1 • Sistema Seguro",
-    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2024.12.19",
+    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2025.12.29",
     WebStringKey.VerifiedBy to "Verificado por QR-SHIELD Enterprise",
     
     // User Profile (Sample)

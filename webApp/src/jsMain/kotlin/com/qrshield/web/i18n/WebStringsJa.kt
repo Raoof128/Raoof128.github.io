@@ -622,7 +622,7 @@ internal val JapaneseCommonStrings = mapOf(
     "Game Over!" to "ゲーム オーバー!",
     "Generate Test QR" to "テスト QR を生成",
     "Generate a test malicious QR code" to "テスト用の悪意のある QR コードを生成",
-    "Generated on Oct 24, 2023 • 14:32:01 UTC" to "2023 年 10 月 24 日 • 14:32:01 UTC に生成",
+    "Generated on Dec 29, 2025 • 14:32:01 UTC" to "2025 年 12 月 29 日 • 14:32:01 UTC に生成",
     "Generated on {date} • {time} UTC" to "{date} • {time} UTC に生成",
     "Generating {format} report..." to "生成中{format} レポート...",
     "Get Started! 🚀" to "始めましょう! 🚀",

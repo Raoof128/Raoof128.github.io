@@ -377,7 +377,7 @@ internal val GermanStrings = mapOf(
     
     // Version / Build Info
     WebStringKey.VersionStatus to "v2.4.1 • System sicher",
-    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2024.12.19",
+    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2025.12.29",
     WebStringKey.VerifiedBy to "Verifiziert durch QR-SHIELD Enterprise",
     
     // User Profile (Sample)
@@ -586,7 +586,7 @@ internal val GermanCommonStrings = mapOf(
     "Copy" to "Kopieren",
     "Copy Link" to "Link kopieren",
     "Copy trusted URLs to clipboard." to "Vertrauenswürdige URLs in die Zwischenablage kopieren.",
-    "Core v2.4.1 • Build 2024.12.19" to "Core v2.4.1 • Build 2024.12.19",
+    "Core v2.4.1 • Build 2025.12.29" to "Core v2.4.1 • Build 2025.12.29",
     "Correct Decision!" to "Richtig Entscheidung!",
     "Correct!" to "Richtig!",
     "Could not save theme preference:" to "Themeneinstellung konnte nicht gespeichert werden:",
@@ -685,7 +685,7 @@ internal val GermanCommonStrings = mapOf(
     "Game Over!" to "Game Over!",
     "Generate Test QR" to "Test-QR generieren",
     "Generate a test malicious QR code" to "Bösartigen Test-QR-Code generieren",
-    "Generated on Oct 24, 2023 • 14:32:01 UTC" to "Generiert am 24. Okt. 2023 • 14:32:01 UTC",
+    "Generated on Dec 29, 2025 • 14:32:01 UTC" to "Generiert am 29. Dez. 2025 • 14:32:01 UTC",
     "Generated on {date} • {time} UTC" to "Generiert am {date} • {time} UTC",
     "Generating {format} report..." to "Erstellen eines {format}-Berichts...",
     "Get Started! 🚀" to "Erstellen Sie jetzt! 🚀",

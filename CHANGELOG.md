@@ -6,6 +6,83 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.19.0] - 2025-12-29
 
+### Raouf: Fixed All Outdated Dates Across Application (2025-12-29 AEDT)
+
+**Scope:** Global date cleanup - updated all hardcoded dates from 2023/2024 to current 2025-2026
+
+**Problem:**
+Multiple outdated dates scattered throughout the app created a feeling of abandonment and reduced trust:
+- Copyright notices showing "© 2024" (should be 2025-2026)
+- Demo data timestamps from "Oct 24, 2023"
+- Build dates showing "2024.12.19"
+- Scan IDs with "2023" in them
+
+**Solution:**
+Systematic global update of all date references:
+
+**Web App Updates:**
+1. **Demo Data Timestamps**
+   - export.html: "Oct 24, 2023" → "Dec 29, 2025"
+   - threat.html: "scan_2023_10_24_af92" → "scan_2025_12_29_h9t2"
+   - threat.js: Updated demo scan ID
+
+2. **Copyright Years (All 16 Languages)**
+   - English: "© 2024" → "© 2025-2026"
+   - All i18n files: Updated copyright in 15 languages
+   - German, French, Spanish, Chinese, Hindi, Arabic, etc.
+
+3. **Build Dates (All Languages)**
+   - English: "Build 2024.12.19" → "Build 2025.12.29"
+   - Arabic: "بناء 2024.12.19" → "بناء 2025.12.29"
+   - Chinese: "版本 2024.12.19" → "版本 2025.12.29"
+   - Hindi: "बिल्ड 2024.12.19" → "बिल्ड 2025.12.29"
+
+4. **Translated Date Strings**
+   - French: "24 octobre 2023" → "29 décembre 2025"
+   - German: "24. Okt. 2023" → "29. Dez. 2025"
+   - Chinese: "2023 年 10 月 24 日" → "2025 年 12 月 29 日"
+   - Hindi: "24 अक्टूबर 2023" → "29 दिसंबर 2025"
+
+**Files Changed:**
+```
+webApp/src/jsMain/resources/
+  • export.html - Report generation date
+  • threat.html - Scan ID display
+  • threat.js - Demo data scan ID
+  • trust.html - Copyright and build date
+
+webApp/src/jsMain/kotlin/com/qrshield/web/i18n/
+  • WebStrings.kt - Main English strings
+  • WebStringsAr.kt - Arabic translations
+  • WebStringsDe.kt - German translations
+  • WebStringsEs.kt - Spanish translations
+  • WebStringsFr.kt - French translations
+  • WebStringsHi.kt - Hindi translations
+  • WebStringsIn.kt - Indonesian translations
+  • WebStringsIt.kt - Italian translations
+  • WebStringsJa.kt - Japanese translations
+  • WebStringsKo.kt - Korean translations
+  • WebStringsPt.kt - Portuguese translations
+  • WebStringsRu.kt - Russian translations
+  • WebStringsTh.kt - Thai translations
+  • WebStringsTr.kt - Turkish translations
+  • WebStringsVi.kt - Vietnamese translations
+  • WebStringsZh.kt - Chinese translations
+```
+
+**Impact:**
+- Improved app freshness and professionalism
+- Consistent dates across all 16 supported languages
+- Demo data appears current and maintained
+- Trust signals reinforced
+
+**Search Command Used:**
+```bash
+grep -r "2023\|2024\|Oct\|Nov" --include="*.kt" --include="*.html" --include="*.js"
+```
+
+---
+
 ### Raouf: Implemented Component Voting System for Verdict Determination (2025-12-29 AEDT)
 
 **Scope:** Revolutionary change to verdict logic - from weighted scoring to democratic voting

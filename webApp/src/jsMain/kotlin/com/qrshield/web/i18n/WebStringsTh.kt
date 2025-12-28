@@ -338,7 +338,7 @@ internal val ThaiStrings = mapOf(
     WebStringKey.OnDeviceDBDesc to "ฐานข้อมูลลายเซ็นภัยคุกคามฉบับเต็ม",
     WebStringKey.DataLifecycleVerification to "การตรวจสอบวงจรชีวิตข้อมูล",
     WebStringKey.SecurityAuditPass to "การตรวจสอบความปลอดภัย: ผ่าน",
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc.",
+    WebStringKey.Copyright to "© 2025-2026 QR-SHIELD Security Inc.",
     WebStringKey.Support to "สนับสนุน",
     WebStringKey.Terms to "เงื่อนไข",
     WebStringKey.SystemsOperational to "ระบบทำงาน",

@@ -369,7 +369,7 @@ internal val SpanishStrings = mapOf(
     WebStringKey.SecurityAuditPass to "Auditoría de Seguridad: APROBADA",
     
     // Footer
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc. Todos los derechos reservados.",
+    WebStringKey.Copyright to "© 2025-2026 QR-SHIELD Security Inc. Todos los derechos reservados.",
     WebStringKey.Support to "Soporte",
     WebStringKey.Terms to "Términos",
     WebStringKey.SystemsOperational to "Sistemas Operativos",
@@ -685,7 +685,7 @@ internal val SpanishCommonStrings = mapOf(
     "Game Over!" to "¡Juego terminado!",
     "Generate Test QR" to "Generar QR de prueba",
     "Generate a test malicious QR code" to "Generar un código QR malicioso de prueba",
-    "Generated on Oct 24, 2023 • 14:32:01 UTC" to "Generado el 24 de octubre de 2023 • 14:32:01 UTC",
+    "Generated on Dec 29, 2025 • 14:32:01 UTC" to "Generado el 24 de octubre de 2023 • 14:32:01 UTC",
     "Generated on {date} • {time} UTC" to "Generado el {date} • {time} UTC",
     "Generating {format} report..." to "Generando informe {format}...",
     "Get Started! 🚀" to "¡Comience! 🚀",
@@ -1272,7 +1272,7 @@ internal val SpanishCommonStrings = mapOf(
     "{title}: {summary}" to "{title}: {title}",
     "{weeks} week ago" to "{weeks} hace una semana",
     "{weeks} weeks ago" to "{weeks} hace semanas",
-    "© 2024 QR-SHIELD Security Inc. All rights reserved." to "© 2024 QR-SHIELD Security Inc. Todos los derechos reservado.",
+    "© 2025-2026 QR-SHIELD Security Inc. All rights reserved." to "© 2025-2026 QR-SHIELD Security Inc. Todos los derechos reservado.",
     "हिन्दी" to "हिन्दी",
     "⌨️ Tip: Press" to "⌨️ Consejo: Presione",
     "⚠ Try Phishing URL" to "⚠ Pruebe URL de phishing",

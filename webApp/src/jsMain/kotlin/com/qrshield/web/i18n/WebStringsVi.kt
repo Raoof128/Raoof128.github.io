@@ -344,7 +344,7 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.SystemsOperational to "Hệ Thống Hoạt Động",
     WebStringKey.SystemSecure to "Hệ Thống An Toàn",
     WebStringKey.VersionStatus to "v2.4.1 • Hệ Thống An Toàn",
-    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2024.12.19",
+    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2025.12.29",
     WebStringKey.VerifiedBy to "Được xác minh bởi QR-SHIELD Enterprise",
     WebStringKey.SampleUserName to "Nguyễn Văn An",
     WebStringKey.SampleUserRole to "Chuyên Viên Bảo Mật",

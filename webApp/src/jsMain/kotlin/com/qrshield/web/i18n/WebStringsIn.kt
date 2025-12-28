@@ -345,7 +345,7 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.SystemsOperational to "Sistem Beroperasi",
     WebStringKey.SystemSecure to "Sistem Aman",
     WebStringKey.VersionStatus to "v2.4.1 • Sistem Aman",
-    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2024.12.19",
+    WebStringKey.CoreVersion to "Core v2.4.1 • Build 2025.12.29",
     WebStringKey.VerifiedBy to "Diverifikasi oleh QR-SHIELD Enterprise",
     WebStringKey.SampleUserName to "Budi Santoso",
     WebStringKey.SampleUserRole to "Analis Keamanan",
