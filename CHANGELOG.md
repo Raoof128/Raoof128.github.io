@@ -4,6 +4,44 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.18.8] - 2025-12-28
+
+### 🌐 i18n Translation Audit Complete: All 16 Languages
+
+**Added ~220 missing WebStringKey translations to all 9 remaining language files.**
+
+#### Languages Updated:
+
+| Language | File | Status |
+|----------|------|--------|
+| Hindi (हिंदी) | `WebStringsHi.kt` | ✅ Complete |
+| Indonesian | `WebStringsIn.kt` | ✅ Complete |
+| Japanese (日本語) | `WebStringsJa.kt` | ✅ Complete |
+| Korean (한국어) | `WebStringsKo.kt` | ✅ Complete |
+| Thai (ไทย) | `WebStringsTh.kt` | ✅ Complete |
+| Turkish (Türkçe) | `WebStringsTr.kt` | ✅ Complete |
+| Vietnamese (Tiếng Việt) | `WebStringsVi.kt` | ✅ Complete |
+| Russian (Русский) | `WebStringsRu.kt` | ✅ Complete |
+| Chinese (中文) | `WebStringsZh.kt` | ✅ Complete |
+
+#### Previously Completed Languages:
+- English (default), German, Spanish, French, Italian, Portuguese, Arabic
+
+#### Translation Categories Added:
+- **Results Page**: Scan complete, loading, analysis time, SSL cert info
+- **Game Page**: Beat the Bot, scoring, rounds, modals, hints
+- **Export Page**: Report generation, format options, preview
+- **Trust Centre**: Sensitivity, privacy controls, domain lists
+- **Onboarding**: On-device analysis, no cloud logs, data lifecycle
+- **General**: Actions, notifications, placeholders, accessibility
+- **Languages**: All 16 language names translated to each language
+
+#### Build Verification:
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL - No compilation errors
+```
+
 ## [1.18.7] - 2025-12-28
 
 ### 🌐 i18n Audit Complete: All HTML Files Updated

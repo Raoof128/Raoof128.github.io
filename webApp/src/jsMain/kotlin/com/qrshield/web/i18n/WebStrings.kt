@@ -476,7 +476,25 @@ enum class WebStringKey(val defaultText: String) {
     LatencyMs("Latency"),
     StreakFire("Streak"),
     AccuracyPercent("Accuracy"),
-    ConfidencePercent("Confidence")
+    ConfidencePercent("Confidence"),
+    
+    // Language Names
+    English("English"),
+    German("German"),
+    Spanish("Spanish"),
+    French("French"),
+    ChineseSimplified("Chinese (Simplified)"),
+    Japanese("Japanese"),
+    Hindi("Hindi"),
+    Arabic("Arabic"),
+    Indonesian("Indonesian"),
+    Italian("Italian"),
+    Korean("Korean"),
+    Portuguese("Portuguese"),
+    Russian("Russian"),
+    Thai("Thai"),
+    Turkish("Turkish"),
+    Vietnamese("Vietnamese")
 }
 
 object WebStrings {
