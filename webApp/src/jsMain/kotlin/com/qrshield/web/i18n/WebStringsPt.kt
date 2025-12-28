@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val PortugueseStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Detector de QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "Menu Principal",
     WebStringKey.MenuSecurity to "Segurança",
     WebStringKey.MenuSystem to "Sistema",
@@ -12,10 +13,17 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.NavReports to "Relatórios",
     WebStringKey.NavTraining to "Treinamento",
     WebStringKey.NavSettings to "Configurações",
+    WebStringKey.QuickActions to "Ações Rápidas",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "Seguro. Offline.",
+    WebStringKey.HeroTagline2 to "Defesa Explicável.",
+    WebStringKey.HeroDescription to "QR-SHIELD analisa ameaças potenciais diretamente no seu hardware. Experimente proteção com latência zero.",
 
     // Dashboard
     WebStringKey.StartScan to "Iniciar Nova Varredura",
     WebStringKey.ImportImage to "Importar Imagem",
+    WebStringKey.ScanQrCode to "Escanear Código QR",
     WebStringKey.SystemHealth to "Saúde do Sistema",
     WebStringKey.ThreatDatabase to "Banco de Dados de Ameaças",
     WebStringKey.Current to "Atual",
@@ -24,6 +32,10 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.SafeScans to "Varreduras Seguras",
     WebStringKey.EngineActive to "Motor Ativo",
     WebStringKey.EnterpriseProtection to "Proteção Empresarial Ativa",
+    WebStringKey.SystemOptimal to "Sistema Otimizado",
+    WebStringKey.EngineStatus to "Motor v2.4 • Atualizado 2h atrás",
+    WebStringKey.ThreatsBlocked to "Ameaças Bloqueadas",
+    WebStringKey.AllSystemsOperational to "Todos os sistemas operacionais",
 
     // Dashboard Sections
     WebStringKey.SectionOverview to "Visão Geral",
@@ -32,6 +44,20 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.SectionReports to "Relatórios",
     WebStringKey.OfflineReady to "Pronto para Offline",
     WebStringKey.OfflineDescription to "Banco de dados local v2.4.1 ativo. Nenhum dado sai deste dispositivo.",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "Central de Confiança",
+    WebStringKey.OfflineGuarantee to "Garantia Offline Rigorosa",
+    WebStringKey.OfflineGuaranteeDesc to "A análise do QR-SHIELD é executada inteiramente no Neural Engine do seu dispositivo. Os dados de URL nunca saem do seu telefone.",
+    WebStringKey.ThreatSensitivity to "Sensibilidade a Ameaças",
+    WebStringKey.ResetConfirm to "Isso redefinirá todas as configurações da Central de Confiança para os padrões.",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "Monitor de Ameaças",
+    WebStringKey.ThreatMonitorDesc to "Visualize ameaças ao vivo e execute auditoria de segurança",
+    WebStringKey.TrustCentreDesc to "Configurações de privacidade e sensibilidade a ameaças",
+    WebStringKey.ExportReport to "Exportar Relatório",
+    WebStringKey.ExportReportDesc to "Gerar relatório de segurança PDF ou JSON",
 
     // Dashboard Content
     WebStringKey.Analyze to "Analisar",
@@ -109,7 +135,22 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.AttackJsDesc to "String de alta entropia detectada nos parâmetros da URL.",
     WebStringKey.SectionActions to "Ações Recomendadas",
     WebStringKey.ActionBlock to "Bloquear e Reportar",
+    WebStringKey.ActionBlockDesc to "Prevenir acesso e notificar administrador",
     WebStringKey.ActionQuarantine to "Quarentena em Sandbox",
+    WebStringKey.ActionQuarantineDesc to "Abrir com segurança para análise",
+    WebStringKey.Expected to "Esperado: ",
+    WebStringKey.Detected to "Detectado: ",
+    WebStringKey.ExplainableSecurity to "Segurança Explicável",
+    WebStringKey.UrlBreakdown to "ANÁLISE DE URL",
+    WebStringKey.FullUrl to "URL COMPLETA",
+    WebStringKey.OpenInBrowser to "Abrir no Navegador (Arriscado)",
+    WebStringKey.OpenWarning to "Abrir esta URL no seu navegador pode expô-lo a riscos de segurança.",
+    WebStringKey.RestrictedMode to "Modo Restrito",
+    WebStringKey.RestrictedDesc to "Esta URL foi marcada como potencialmente perigosa. Revise a análise abaixo antes de prosseguir.",
+    WebStringKey.DangerousWarning to "Esta URL foi marcada como potencialmente perigosa. Abri-la pode expô-lo a phishing, malware ou outras ameaças de segurança. Tem certeza de que deseja prosseguir?",
+    WebStringKey.CopyUrl to "Copiar URL",
+    WebStringKey.Share to "Compartilhar",
+    WebStringKey.Dismiss to "Dispensar",
     WebStringKey.ReasonDomainAge to "A idade do domínio é menor que 24 horas.",
     WebStringKey.ReasonSignatures to "Correspondência com 3 assinaturas no BD de phishing local.",
     WebStringKey.ReasonAsn to "O IP de destino está localizado em um ASN de alto risco.",

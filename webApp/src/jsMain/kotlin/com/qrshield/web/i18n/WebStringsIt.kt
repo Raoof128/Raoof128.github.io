@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val ItalianStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Rilevatore QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "Menu Principale",
     WebStringKey.MenuSecurity to "Sicurezza",
     WebStringKey.MenuSystem to "Sistema",
@@ -12,10 +13,17 @@ internal val ItalianStrings = mapOf(
     WebStringKey.NavReports to "Report",
     WebStringKey.NavTraining to "Formazione",
     WebStringKey.NavSettings to "Impostazioni",
+    WebStringKey.QuickActions to "Azioni Rapide",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "Sicuro. Offline.",
+    WebStringKey.HeroTagline2 to "Difesa Trasparente.",
+    WebStringKey.HeroDescription to "QR-SHIELD analizza le potenziali minacce direttamente sul tuo hardware. Goditi una protezione a latenza zero.",
 
     // Dashboard
     WebStringKey.StartScan to "Avvia Nuova Scansione",
     WebStringKey.ImportImage to "Importa Immagine",
+    WebStringKey.ScanQrCode to "Scansiona Codice QR",
     WebStringKey.SystemHealth to "Stato del Sistema",
     WebStringKey.ThreatDatabase to "Database Minacce",
     WebStringKey.Current to "Attuale",
@@ -24,6 +32,10 @@ internal val ItalianStrings = mapOf(
     WebStringKey.SafeScans to "Scansioni Sicure",
     WebStringKey.EngineActive to "Motore Attivo",
     WebStringKey.EnterpriseProtection to "Protezione Aziendale Attiva",
+    WebStringKey.SystemOptimal to "Sistema Ottimale",
+    WebStringKey.EngineStatus to "Motore v2.4 • Aggiornato 2h fa",
+    WebStringKey.ThreatsBlocked to "Minacce Bloccate",
+    WebStringKey.AllSystemsOperational to "Tutti i sistemi operativi",
 
     // Dashboard Sections
     WebStringKey.SectionOverview to "Panoramica",
@@ -32,6 +44,20 @@ internal val ItalianStrings = mapOf(
     WebStringKey.SectionReports to "Report",
     WebStringKey.OfflineReady to "Pronto Offline",
     WebStringKey.OfflineDescription to "Database locale v2.4.1 attivo. Nessun dato lascia questo dispositivo.",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "Centro Fiducia",
+    WebStringKey.OfflineGuarantee to "Garanzia Offline Rigorosa",
+    WebStringKey.OfflineGuaranteeDesc to "L'analisi di QR-SHIELD viene eseguita interamente sul Neural Engine del tuo dispositivo. I dati URL non lasciano mai il tuo telefono.",
+    WebStringKey.ThreatSensitivity to "Sensibilità Minacce",
+    WebStringKey.ResetConfirm to "Questo ripristinerà tutte le impostazioni del Centro Fiducia ai valori predefiniti.",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "Monitor Minacce",
+    WebStringKey.ThreatMonitorDesc to "Visualizza minacce in tempo reale ed esegui audit di sicurezza",
+    WebStringKey.TrustCentreDesc to "Impostazioni privacy e sensibilità minacce",
+    WebStringKey.ExportReport to "Esporta Report",
+    WebStringKey.ExportReportDesc to "Genera report di sicurezza PDF o JSON",
 
     // Dashboard Content
     WebStringKey.Analyze to "Analizza",
@@ -109,7 +135,22 @@ internal val ItalianStrings = mapOf(
     WebStringKey.AttackJsDesc to "Rilevata stringa ad alta entropia nei parametri URL.",
     WebStringKey.SectionActions to "Azioni Raccomandate",
     WebStringKey.ActionBlock to "Blocca e Segnala",
+    WebStringKey.ActionBlockDesc to "Impedisci l'accesso e notifica l'amministratore",
     WebStringKey.ActionQuarantine to "Quarantena in Sandbox",
+    WebStringKey.ActionQuarantineDesc to "Apri in sicurezza per l'analisi",
+    WebStringKey.Expected to "Previsto: ",
+    WebStringKey.Detected to "Rilevato: ",
+    WebStringKey.ExplainableSecurity to "Sicurezza Spiegabile",
+    WebStringKey.UrlBreakdown to "ANALISI URL",
+    WebStringKey.FullUrl to "URL COMPLETO",
+    WebStringKey.OpenInBrowser to "Apri nel Browser (Rischioso)",
+    WebStringKey.OpenWarning to "Aprire questo URL nel browser potrebbe esporti a rischi di sicurezza.",
+    WebStringKey.RestrictedMode to "Modalità Ristretta",
+    WebStringKey.RestrictedDesc to "Questo URL è stato segnalato come potenzialmente pericoloso. Esamina l'analisi sottostante prima di procedere.",
+    WebStringKey.DangerousWarning to "Questo URL è stato segnalato come potenzialmente pericoloso. Aprirlo potrebbe esporti a phishing, malware o altre minacce alla sicurezza. Sei sicuro di voler procedere?",
+    WebStringKey.CopyUrl to "Copia URL",
+    WebStringKey.Share to "Condividi",
+    WebStringKey.Dismiss to "Chiudi",
     WebStringKey.ReasonDomainAge to "L'età del dominio è inferiore a 24 ore.",
     WebStringKey.ReasonSignatures to "Corrispondenza con 3 firme nel DB phishing locale.",
     WebStringKey.ReasonAsn to "L'IP target si trova in un ASN ad alto rischio.",

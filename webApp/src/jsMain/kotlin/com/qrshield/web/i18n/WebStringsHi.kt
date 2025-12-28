@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val HindiStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "कोटलिन मल्टीप्लेटफॉर्म QRishing डिटेक्टर",
     WebStringKey.MenuMain to "मुख्य मेनू",
     WebStringKey.MenuSecurity to "सुरक्षा",
     WebStringKey.MenuSystem to "सिस्टम",
@@ -12,10 +13,17 @@ internal val HindiStrings = mapOf(
     WebStringKey.NavReports to "रिपोर्ट",
     WebStringKey.NavTraining to "प्रशिक्षण",
     WebStringKey.NavSettings to "सेटिंग्स",
-    
+    WebStringKey.QuickActions to "त्वरित कार्रवाई",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "सुरक्षित. ऑफ़लाइन.",
+    WebStringKey.HeroTagline2 to "व्याख्यायोग्य बचाव.",
+    WebStringKey.HeroDescription to "QR-SHIELD आपके हार्डवेयर पर सीधे संभावित खतरों का विश्लेषण करता है। शून्य-विलंबता सुरक्षा का अनुभव करें।",
+
     // Dashboard
     WebStringKey.StartScan to "नया स्कैन शुरू करें",
     WebStringKey.ImportImage to "छवि आयात करें",
+    WebStringKey.ScanQrCode to "स्कैन QR कोड",
     WebStringKey.SystemHealth to "सिस्टम स्वास्थ्य",
     WebStringKey.ThreatDatabase to "खतरा डेटाबेस",
     WebStringKey.Current to "वर्तमान",
@@ -24,6 +32,10 @@ internal val HindiStrings = mapOf(
     WebStringKey.SafeScans to "सुरक्षित स्कैन",
     WebStringKey.EngineActive to "इंजन सक्रिय",
     WebStringKey.EnterpriseProtection to "एंटरप्राइज़ सुरक्षा सक्रिय",
+    WebStringKey.SystemOptimal to "सिस्टम इष्टतम",
+    WebStringKey.EngineStatus to "इंजन v2.4 • 2 घंटे पहले अपडेट हुआ",
+    WebStringKey.ThreatsBlocked to "खतरे अवरुद्ध",
+    WebStringKey.AllSystemsOperational to "सभी सिस्टम चालू",
 
     // Dashboard Sections
     WebStringKey.SectionOverview to "अवलोकन",
@@ -32,6 +44,20 @@ internal val HindiStrings = mapOf(
     WebStringKey.SectionReports to "रिपोर्ट",
     WebStringKey.OfflineReady to "ऑफ़लाइन तैयार",
     WebStringKey.OfflineDescription to "स्थानीय डेटाबेस v2.4.1 सक्रिय। कोई डेटा इस डिवाइस को नहीं छोड़ता है।",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "विश्वास केंद्र",
+    WebStringKey.OfflineGuarantee to "सख्त ऑफ़लाइन गारंटी",
+    WebStringKey.OfflineGuaranteeDesc to "QR-SHIELD विश्लेषण पूरी तरह से आपके डिवाइस के न्यूरल इंजन पर चलता है। URL डेटा कभी भी आपके फोन को नहीं छोड़ता है।",
+    WebStringKey.ThreatSensitivity to "खतरे की संवेदनशीलता",
+    WebStringKey.ResetConfirm to "यह कार्रवाई सभी विश्वास केंद्र सेटिंग्स को डिफ़ॉल्ट पर रीसेट कर देगी।",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "खतरा मॉनिटर",
+    WebStringKey.ThreatMonitorDesc to "लाइव खतरे देखें और सुरक्षा जांच चलाएं।",
+    WebStringKey.TrustCentreDesc to "गोपनीयता और खतरा संवेदनशीलता सेटिंग्स।",
+    WebStringKey.ExportReport to "रिपोर्ट निर्यात करें",
+    WebStringKey.ExportReportDesc to "PDF या JSON सुरक्षा रिपोर्ट उत्पन्न करें।",
 
     // Dashboard Content
     WebStringKey.Analyze to "विश्लेषण",
@@ -109,7 +135,22 @@ internal val HindiStrings = mapOf(
     WebStringKey.AttackJsDesc to "URL मापदंडों में उच्च एन्ट्रापी स्ट्रिंग का पता चला।",
     WebStringKey.SectionActions to "अनुशंसित कार्रवाई",
     WebStringKey.ActionBlock to "ब्लॉक और रिपोर्ट करें",
+    WebStringKey.ActionBlockDesc to "पहुंच रोकें और व्यवस्थापकों को सूचित करें।",
     WebStringKey.ActionQuarantine to "सैंडबॉक्स में क्वारंटाइन करें",
+    WebStringKey.ActionQuarantineDesc to "विश्लेषण के लिए सुरक्षित रूप से खोलें।",
+    WebStringKey.Expected to "अपेक्षित: ",
+    WebStringKey.Detected to "पता चला: ",
+    WebStringKey.ExplainableSecurity to "व्याख्यायोग्य सुरक्षा",
+    WebStringKey.UrlBreakdown to "URL विश्लेषण",
+    WebStringKey.FullUrl to "पूर्ण URL",
+    WebStringKey.OpenInBrowser to "ब्राउज़र में खोलें (जोखिम)",
+    WebStringKey.OpenWarning to "इस URL को ब्राउज़र में खोलने से आप सुरक्षा जोखिमों के संपर्क में आ सकते हैं।",
+    WebStringKey.RestrictedMode to "प्रतिबंधित मोड",
+    WebStringKey.RestrictedDesc to "यह URL संभावित रूप से हानिकारक के रूप में चिह्नित है। आगे बढ़ने से पहले नीचे विश्लेषण की समीक्षा करें।",
+    WebStringKey.DangerousWarning to "यह URL संभावित रूप से हानिकारक के रूप में चिह्नित है। इसे खोलने से आप फ़िशिंग, मैलवेयर, या अन्य सुरक्षा खतरों के संपर्क में आ सकते हैं। क्या आप सुनिश्चित हैं कि आप जारी रखना चाहते हैं?",
+    WebStringKey.CopyUrl to "URL कॉपी करें",
+    WebStringKey.Share to "शेयर",
+    WebStringKey.Dismiss to "खारिज करें",
     WebStringKey.ReasonDomainAge to "डोमेन की आयु 24 घंटे से कम है।",
     WebStringKey.ReasonSignatures to "स्थानीय फ़िशिंग DB में 3 हस्ताक्षरों से मेल खाया।",
     WebStringKey.ReasonAsn to "लक्ष्य IP उच्च जोखिम वाले ASN में स्थित है।",

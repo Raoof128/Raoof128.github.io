@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val VietnameseStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Trình Phát Hiện QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "Menu Chính",
     WebStringKey.MenuSecurity to "Bảo Mật",
     WebStringKey.MenuSystem to "Hệ Thống",
@@ -12,8 +13,17 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.NavReports to "Báo Cáo",
     WebStringKey.NavTraining to "Đào Tạo",
     WebStringKey.NavSettings to "Cài Đặt",
+    WebStringKey.QuickActions to "Hành Động Nhanh",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "An Toàn. Ngoại Tuyến.",
+    WebStringKey.HeroTagline2 to "Phòng Thủ Có Thể Giải Thích.",
+    WebStringKey.HeroDescription to "QR-SHIELD phân tích các mối đe dọa tiềm ẩn trực tiếp trên phần cứng của bạn. Trải nghiệm bảo vệ với độ trễ bằng không.",
+
+    // Dashboard
     WebStringKey.StartScan to "Bắt Đầu Quét Mới",
     WebStringKey.ImportImage to "Nhập Hình Ảnh",
+    WebStringKey.ScanQrCode to "Quét Mã QR",
     WebStringKey.SystemHealth to "Tình Trạng Hệ Thống",
     WebStringKey.ThreatDatabase to "Cơ Sở Dữ Liệu Mối Đe Dọa",
     WebStringKey.Current to "Hiện Tại",
@@ -22,12 +32,34 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.SafeScans to "Quét An Toàn",
     WebStringKey.EngineActive to "Động Cơ Hoạt Động",
     WebStringKey.EnterpriseProtection to "Bảo Vệ Doanh Nghiệp Hoạt Động",
+    WebStringKey.SystemOptimal to "Hệ Thống Tối Ưu",
+    WebStringKey.EngineStatus to "Động cơ v2.4 • Cập nhật 2h trước",
+    WebStringKey.ThreatsBlocked to "Mối Đe Dọa Đã Chặn",
+    WebStringKey.AllSystemsOperational to "Tất cả hệ thống hoạt động",
+
+    // Dashboard Sections
     WebStringKey.SectionOverview to "Tổng Quan",
     WebStringKey.SectionSecurity to "Bảo Mật",
     WebStringKey.SectionTraining to "Đào Tạo",
     WebStringKey.SectionReports to "Báo Cáo",
     WebStringKey.OfflineReady to "Sẵn Sàng Ngoại Tuyến",
     WebStringKey.OfflineDescription to "Cơ sở dữ liệu cục bộ v2.4.1 hoạt động. Không có dữ liệu rời khỏi thiết bị này.",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "Trung Tâm Tin Cậy",
+    WebStringKey.OfflineGuarantee to "Đảm Bảo Ngoại Tuyến Nghiêm Ngặt",
+    WebStringKey.OfflineGuaranteeDesc to "Phân tích QR-SHIELD chạy hoàn toàn trên Neural Engine của thiết bị. Dữ liệu URL không bao giờ rời khỏi điện thoại của bạn.",
+    WebStringKey.ThreatSensitivity to "Độ Nhạy Mối Đe Dọa",
+    WebStringKey.ResetConfirm to "Điều này sẽ đặt lại tất cả cài đặt Trung Tâm Tin Cậy về mặc định.",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "Giám Sát Mối Đe Dọa",
+    WebStringKey.ThreatMonitorDesc to "Xem các mối đe dọa trực tiếp và chạy kiểm tra bảo mật",
+    WebStringKey.TrustCentreDesc to "Cài đặt quyền riêng tư và độ nhạy mối đe dọa",
+    WebStringKey.ExportReport to "Xuất Báo Cáo",
+    WebStringKey.ExportReportDesc to "Tạo báo cáo bảo mật PDF hoặc JSON",
+
+    // Dashboard Content
     WebStringKey.Analyze to "Phân Tích",
     WebStringKey.HeuristicEngine to "Động Cơ Heuristic",
     WebStringKey.HighPerformanceEngine to "Động Cơ Hiệu Suất Cao",
@@ -54,6 +86,8 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.VerdictPhish to "LỪA ĐẢO",
     WebStringKey.VerdictWarn to "CẢNH BÁO",
     WebStringKey.ScoreLabel to "Điểm:",
+
+    // Scanner
     WebStringKey.ActiveScanner to "Máy Quét Hoạt Động",
     WebStringKey.OfflineMode to "Chế Độ Ngoại Tuyến",
     WebStringKey.LiveFeedDisconnected to "NGUỒN CẤP TRỰC TIẾP ĐÃ NGẮT KẾT NỐI",
@@ -73,6 +107,8 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.LocalDb to "DB Cục Bộ",
     WebStringKey.Latency to "Độ Trễ",
     WebStringKey.ViewAll to "Xem Tất Cả",
+
+    // Threat / Results
     WebStringKey.BreadcrumbHome to "Trang Chủ",
     WebStringKey.BreadcrumbScans to "Quét",
     WebStringKey.OfflineProtection to "Bảo Vệ Ngoại Tuyến",
@@ -99,7 +135,22 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.AttackJsDesc to "Phát hiện chuỗi entropy cao trong tham số URL.",
     WebStringKey.SectionActions to "Hành Động Được Khuyến Nghị",
     WebStringKey.ActionBlock to "Chặn & Báo Cáo",
+    WebStringKey.ActionBlockDesc to "Ngăn chặn truy cập và thông báo quản trị viên",
     WebStringKey.ActionQuarantine to "Cách Ly Trong Sandbox",
+    WebStringKey.ActionQuarantineDesc to "Mở an toàn để phân tích",
+    WebStringKey.Expected to "Dự Kiến: ",
+    WebStringKey.Detected to "Phát Hiện: ",
+    WebStringKey.ExplainableSecurity to "Bảo Mật Có Thể Giải Thích",
+    WebStringKey.UrlBreakdown to "PHÂN TÍCH URL",
+    WebStringKey.FullUrl to "URL ĐẦY ĐỦ",
+    WebStringKey.OpenInBrowser to "Mở Trong Trình Duyệt (Rủi Ro)",
+    WebStringKey.OpenWarning to "Mở URL này trong trình duyệt có thể khiến bạn gặp rủi ro bảo mật.",
+    WebStringKey.RestrictedMode to "Chế Độ Hạn Chế",
+    WebStringKey.RestrictedDesc to "URL này đã được đánh dấu là có khả năng nguy hiểm. Xem phân tích bên dưới trước khi tiếp tục.",
+    WebStringKey.DangerousWarning to "URL này đã được đánh dấu là có khả năng nguy hiểm. Mở nó có thể khiến bạn gặp lừa đảo, phần mềm độc hại hoặc các mối đe dọa bảo mật khác. Bạn có chắc chắn muốn tiếp tục?",
+    WebStringKey.CopyUrl to "Sao Chép URL",
+    WebStringKey.Share to "Chia Sẻ",
+    WebStringKey.Dismiss to "Đóng",
     WebStringKey.ReasonDomainAge to "Tuổi tên miền dưới 24 giờ.",
     WebStringKey.ReasonSignatures to "Khớp 3 chữ ký trong DB lừa đảo cục bộ.",
     WebStringKey.ReasonAsn to "IP mục tiêu nằm trong ASN có rủi ro cao.",

@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val ChineseStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Kotlin 多平台 QRishing 检测器",
     WebStringKey.MenuMain to "主菜单",
     WebStringKey.MenuSecurity to "安全",
     WebStringKey.MenuSystem to "系统",
@@ -12,10 +13,13 @@ internal val ChineseStrings = mapOf(
     WebStringKey.NavReports to "报告",
     WebStringKey.NavTraining to "培训",
     WebStringKey.NavSettings to "设置",
-    
-    // Dashboard
+    WebStringKey.QuickActions to "快速操作",
+    WebStringKey.HeroTagline to "安全。离线。",
+    WebStringKey.HeroTagline2 to "可解释的防御。",
+    WebStringKey.HeroDescription to "QR-SHIELD 直接在您的硬件上分析潜在威胁。体验零延迟保护。",
     WebStringKey.StartScan to "开始新扫描",
     WebStringKey.ImportImage to "导入图片",
+    WebStringKey.ScanQrCode to "扫描二维码",
     WebStringKey.SystemHealth to "系统健康",
     WebStringKey.ThreatDatabase to "威胁数据库",
     WebStringKey.Current to "当前",
@@ -24,16 +28,26 @@ internal val ChineseStrings = mapOf(
     WebStringKey.SafeScans to "安全扫描",
     WebStringKey.EngineActive to "引擎活跃",
     WebStringKey.EnterpriseProtection to "企业保护已启用",
-
-    // Dashboard Sections
+    WebStringKey.SystemOptimal to "系统最优",
+    WebStringKey.EngineStatus to "引擎 v2.4 • 2小时前更新",
+    WebStringKey.ThreatsBlocked to "已阻止威胁",
+    WebStringKey.AllSystemsOperational to "所有系统正常运行",
     WebStringKey.SectionOverview to "概览",
     WebStringKey.SectionSecurity to "安全",
     WebStringKey.SectionTraining to "培训",
     WebStringKey.SectionReports to "报告",
     WebStringKey.OfflineReady to "离线就绪",
     WebStringKey.OfflineDescription to "本地数据库 v2.4.1 已激活。无数据离开此设备。",
-
-    // Dashboard Content
+    WebStringKey.TrustCentreTitle to "信任中心",
+    WebStringKey.OfflineGuarantee to "严格离线保证",
+    WebStringKey.OfflineGuaranteeDesc to "QR-SHIELD 分析完全在您设备的神经引擎上运行。URL数据永远不会离开您的手机。",
+    WebStringKey.ThreatSensitivity to "威胁敏感度",
+    WebStringKey.ResetConfirm to "此操作将把所有信任中心设置重置为默认值。",
+    WebStringKey.ThreatMonitor to "威胁监控",
+    WebStringKey.ThreatMonitorDesc to "查看实时威胁并运行安全检查。",
+    WebStringKey.TrustCentreDesc to "隐私和威胁敏感度设置。",
+    WebStringKey.ExportReport to "导出报告",
+    WebStringKey.ExportReportDesc to "生成PDF或JSON安全报告。",
     WebStringKey.Analyze to "分析",
     WebStringKey.HeuristicEngine to "启发式引擎",
     WebStringKey.HighPerformanceEngine to "高性能引擎",
@@ -48,9 +62,9 @@ internal val ChineseStrings = mapOf(
     WebStringKey.Signatures to "签名",
     WebStringKey.CheckForUpdates to "检查更新",
     WebStringKey.FeatureOfflineTitle to "离线优先架构",
-    WebStringKey.FeatureOfflineDesc to "完整分析在本地执行。您的摄像头画面和扫描数据绝不会接触外部服务器，确保绝对隐私。",
+    WebStringKey.FeatureOfflineDesc to "完整分析在本地执行。您的摄像头画面和扫描数据绝不会接触外部服务器。",
     WebStringKey.FeatureExplainableTitle to "可解释的安全性",
-    WebStringKey.FeatureExplainableDesc to "不仅仅是“拦截”。我们提供有关 URL 参数、重定向和 Javascript 负载的详细启发式细分。",
+    WebStringKey.FeatureExplainableDesc to "不仅仅是"拦截"。我们提供有关 URL 参数的详细启发式细分。",
     WebStringKey.FeaturePerformanceDesc to "针对桌面环境进行了优化。使用原生 Kotlin Multiplatform 二进制文件在 5 毫秒内处理扫描。",
     WebStringKey.TrainingCentre to "培训中心",
     WebStringKey.LearnHomograph to "学习如何识别高级 QR 同形异义字攻击。",
@@ -60,8 +74,6 @@ internal val ChineseStrings = mapOf(
     WebStringKey.VerdictPhish to "钓鱼",
     WebStringKey.VerdictWarn to "警告",
     WebStringKey.ScoreLabel to "分数：",
-
-    // Scanner
     WebStringKey.ActiveScanner to "主动扫描仪",
     WebStringKey.OfflineMode to "离线模式",
     WebStringKey.LiveFeedDisconnected to "实时信号已断开",
@@ -81,8 +93,6 @@ internal val ChineseStrings = mapOf(
     WebStringKey.LocalDb to "本地数据库",
     WebStringKey.Latency to "延迟",
     WebStringKey.ViewAll to "查看全部",
-
-    // Threat / Results
     WebStringKey.BreadcrumbHome to "首页",
     WebStringKey.BreadcrumbScans to "扫描",
     WebStringKey.OfflineProtection to "离线保护",
@@ -99,7 +109,7 @@ internal val ChineseStrings = mapOf(
     WebStringKey.AttackHomographDesc to "检测到模仿拉丁字母的西里尔字符。",
     WebStringKey.AttackVisualLabel to "视觉外观",
     WebStringKey.AttackPunycodeLabel to "实际 Punycode",
-    WebStringKey.AttackHomographExplain to "该域名使用西里尔字母 'а' (U+0430) 代替拉丁字母 'a' (U+0061)。这种技术通常用于诱骗用户相信他们正在访问合法服务。",
+    WebStringKey.AttackHomographExplain to "该域名使用西里尔字母代替拉丁字母，这通常用于欺骗。",
     WebStringKey.AttackRedirectTitle to "可疑重定向链",
     WebStringKey.AttackRedirectDesc to "检测到涉及已知 URL 缩短服务的 3 次跳转。",
     WebStringKey.RedirectStart to "二维码扫描",
@@ -109,7 +119,22 @@ internal val ChineseStrings = mapOf(
     WebStringKey.AttackJsDesc to "在 URL 参数中检测到高熵字符串。",
     WebStringKey.SectionActions to "推荐操作",
     WebStringKey.ActionBlock to "阻止并报告",
+    WebStringKey.ActionBlockDesc to "阻止访问并通知管理员。",
     WebStringKey.ActionQuarantine to "放入沙箱隔离",
+    WebStringKey.ActionQuarantineDesc to "安全打开以进行分析。",
+    WebStringKey.Expected to "预期: ",
+    WebStringKey.Detected to "检测到: ",
+    WebStringKey.ExplainableSecurity to "可解释安全",
+    WebStringKey.UrlBreakdown to "URL分解",
+    WebStringKey.FullUrl to "完整URL",
+    WebStringKey.OpenInBrowser to "在浏览器中打开（风险）",
+    WebStringKey.OpenWarning to "在浏览器中打开此URL可能会使您面临安全风险。",
+    WebStringKey.RestrictedMode to "受限模式",
+    WebStringKey.RestrictedDesc to "此URL已被标记为潜在有害。",
+    WebStringKey.DangerousWarning to "此URL可能有害。您确定要继续吗？",
+    WebStringKey.CopyUrl to "复制URL",
+    WebStringKey.Share to "分享",
+    WebStringKey.Dismiss to "关闭",
     WebStringKey.ReasonDomainAge to "域名注册时间少于 24 小时。",
     WebStringKey.ReasonSignatures to "匹配本地钓鱼数据库中的 3 个签名。",
     WebStringKey.ReasonAsn to "目标 IP 位于高风险 ASN 中。",
@@ -118,7 +143,7 @@ internal val ChineseStrings = mapOf(
     WebStringKey.MetaSource to "来源",
     WebStringKey.MetaEngine to "引擎",
     WebStringKey.MetaOfflineGuaranteeLabel to "离线保证：",
-    WebStringKey.MetaOfflineGuaranteeDesc to "此图像在您的设备上本地分析。没有任何数据发送到云端以得出此结论。"
+    WebStringKey.MetaOfflineGuaranteeDesc to "此图像在您的设备上本地分析。没有任何数据发送到云端。"
 )
 
 internal val ChineseCommonStrings = mapOf(

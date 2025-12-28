@@ -4,6 +4,40 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.18.5] - 2025-12-28
+
+### 🌐 WebApp Internationalization Complete
+
+**Completed translation parity across all 15 translation files (16 languages)** by adding 35 missing `WebStringKey` entries to each:
+
+#### All Languages Updated (143/143 keys each):
+| Language | File | Status |
+|----------|------|--------|
+| Arabic | `WebStringsAr.kt` | ✅ Complete |
+| German | `WebStringsDe.kt` | ✅ Complete |
+| Spanish | `WebStringsEs.kt` | ✅ Complete |
+| French | `WebStringsFr.kt` | ✅ Complete |
+| Hindi | `WebStringsHi.kt` | ✅ Complete |
+| Indonesian | `WebStringsIn.kt` | ✅ Complete |
+| Italian | `WebStringsIt.kt` | ✅ Complete |
+| Japanese | `WebStringsJa.kt` | ✅ Complete |
+| Korean | `WebStringsKo.kt` | ✅ Complete |
+| Portuguese | `WebStringsPt.kt` | ✅ Complete |
+| Russian | `WebStringsRu.kt` | ✅ Complete |
+| Thai | `WebStringsTh.kt` | ✅ Complete |
+| Turkish | `WebStringsTr.kt` | ✅ Complete |
+| Vietnamese | `WebStringsVi.kt` | ✅ Complete |
+| Chinese | `WebStringsZh.kt` | ✅ Complete |
+
+#### Missing Keys Added:
+- Hero Section: `AppTagline`, `HeroTagline`, `HeroTagline2`, `HeroDescription`
+- Quick Actions: `QuickActions`, `ScanQrCode`
+- System Status: `SystemOptimal`, `EngineStatus`, `ThreatsBlocked`, `AllSystemsOperational`
+- Trust Centre: `TrustCentreTitle`, `OfflineGuarantee`, `OfflineGuaranteeDesc`, `ThreatSensitivity`, `ResetConfirm`
+- Settings Quick Actions: `ThreatMonitor`, `ThreatMonitorDesc`, `TrustCentreDesc`, `ExportReport`, `ExportReportDesc`
+- Action Descriptions: `ActionBlockDesc`, `ActionQuarantineDesc`
+- Results/Threat Page: `Expected`, `Detected`, `ExplainableSecurity`, `UrlBreakdown`, `FullUrl`, `OpenInBrowser`, `OpenWarning`, `RestrictedMode`, `RestrictedDesc`, `DangerousWarning`, `CopyUrl`, `Share`, `Dismiss`
+
 ## [1.18.4] - 2025-12-28
 
 ### 🎨 UI Polish & Sandbox Removal

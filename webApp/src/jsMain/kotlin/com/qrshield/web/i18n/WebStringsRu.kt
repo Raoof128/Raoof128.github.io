@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val RussianStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Kotlin Multiplatform Детектор QRishing",
     WebStringKey.MenuMain to "Главное меню",
     WebStringKey.MenuSecurity to "Безопасность",
     WebStringKey.MenuSystem to "Система",
@@ -12,10 +13,17 @@ internal val RussianStrings = mapOf(
     WebStringKey.NavReports to "Отчёты",
     WebStringKey.NavTraining to "Обучение",
     WebStringKey.NavSettings to "Настройки",
+    WebStringKey.QuickActions to "Быстрые действия",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "Безопасно. Офлайн.",
+    WebStringKey.HeroTagline2 to "Объяснимая защита.",
+    WebStringKey.HeroDescription to "QR-SHIELD анализирует потенциальные угрозы непосредственно на вашем оборудовании. Получите защиту с нулевой задержкой.",
 
     // Dashboard
     WebStringKey.StartScan to "Начать новое сканирование",
     WebStringKey.ImportImage to "Импорт изображения",
+    WebStringKey.ScanQrCode to "Сканировать QR-код",
     WebStringKey.SystemHealth to "Состояние системы",
     WebStringKey.ThreatDatabase to "База данных угроз",
     WebStringKey.Current to "Текущий",
@@ -24,6 +32,10 @@ internal val RussianStrings = mapOf(
     WebStringKey.SafeScans to "Безопасные сканирования",
     WebStringKey.EngineActive to "Движок активен",
     WebStringKey.EnterpriseProtection to "Корпоративная защита активна",
+    WebStringKey.SystemOptimal to "Система оптимальна",
+    WebStringKey.EngineStatus to "Движок v2.4 • Обновлено 2ч назад",
+    WebStringKey.ThreatsBlocked to "Угроз заблокировано",
+    WebStringKey.AllSystemsOperational to "Все системы работают",
 
     // Dashboard Sections
     WebStringKey.SectionOverview to "Обзор",
@@ -32,6 +44,20 @@ internal val RussianStrings = mapOf(
     WebStringKey.SectionReports to "Отчёты",
     WebStringKey.OfflineReady to "Готов к офлайн-работе",
     WebStringKey.OfflineDescription to "Локальная база данных v2.4.1 активна. Никакие данные не покидают это устройство.",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "Центр доверия",
+    WebStringKey.OfflineGuarantee to "Строгая офлайн-гарантия",
+    WebStringKey.OfflineGuaranteeDesc to "Анализ QR-SHIELD выполняется полностью на Neural Engine вашего устройства. Данные URL никогда не покидают ваш телефон.",
+    WebStringKey.ThreatSensitivity to "Чувствительность к угрозам",
+    WebStringKey.ResetConfirm to "Это сбросит все настройки Центра доверия к значениям по умолчанию.",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "Монитор угроз",
+    WebStringKey.ThreatMonitorDesc to "Просмотр угроз в реальном времени и запуск аудита безопасности",
+    WebStringKey.TrustCentreDesc to "Настройки конфиденциальности и чувствительности к угрозам",
+    WebStringKey.ExportReport to "Экспорт отчёта",
+    WebStringKey.ExportReportDesc to "Создать отчёт о безопасности в формате PDF или JSON",
 
     // Dashboard Content
     WebStringKey.Analyze to "Анализировать",
@@ -109,7 +135,22 @@ internal val RussianStrings = mapOf(
     WebStringKey.AttackJsDesc to "Обнаружена строка с высокой энтропией в параметрах URL.",
     WebStringKey.SectionActions to "Рекомендуемые действия",
     WebStringKey.ActionBlock to "Заблокировать и сообщить",
+    WebStringKey.ActionBlockDesc to "Предотвратить доступ и уведомить администратора",
     WebStringKey.ActionQuarantine to "Карантин в песочнице",
+    WebStringKey.ActionQuarantineDesc to "Безопасно открыть для анализа",
+    WebStringKey.Expected to "Ожидается: ",
+    WebStringKey.Detected to "Обнаружено: ",
+    WebStringKey.ExplainableSecurity to "Объяснимая безопасность",
+    WebStringKey.UrlBreakdown to "АНАЛИЗ URL",
+    WebStringKey.FullUrl to "ПОЛНЫЙ URL",
+    WebStringKey.OpenInBrowser to "Открыть в браузере (Рискованно)",
+    WebStringKey.OpenWarning to "Открытие этого URL в браузере может подвергнуть вас рискам безопасности.",
+    WebStringKey.RestrictedMode to "Ограниченный режим",
+    WebStringKey.RestrictedDesc to "Этот URL был помечен как потенциально опасный. Просмотрите анализ ниже перед продолжением.",
+    WebStringKey.DangerousWarning to "Этот URL был помечен как потенциально опасный. Его открытие может подвергнуть вас фишингу, вредоносному ПО или другим угрозам безопасности. Вы уверены, что хотите продолжить?",
+    WebStringKey.CopyUrl to "Копировать URL",
+    WebStringKey.Share to "Поделиться",
+    WebStringKey.Dismiss to "Закрыть",
     WebStringKey.ReasonDomainAge to "Возраст домена менее 24 часов.",
     WebStringKey.ReasonSignatures to "Совпадение с 3 сигнатурами в локальной БД фишинга.",
     WebStringKey.ReasonAsn to "Целевой IP находится в ASN высокого риска.",

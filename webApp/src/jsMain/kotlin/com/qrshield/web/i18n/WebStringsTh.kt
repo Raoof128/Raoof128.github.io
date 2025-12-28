@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val ThaiStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "ตัวตรวจจับ QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "เมนูหลัก",
     WebStringKey.MenuSecurity to "ความปลอดภัย",
     WebStringKey.MenuSystem to "ระบบ",
@@ -12,8 +13,17 @@ internal val ThaiStrings = mapOf(
     WebStringKey.NavReports to "รายงาน",
     WebStringKey.NavTraining to "การฝึกอบรม",
     WebStringKey.NavSettings to "การตั้งค่า",
+    WebStringKey.QuickActions to "การดำเนินการด่วน",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "ปลอดภัย. ออฟไลน์.",
+    WebStringKey.HeroTagline2 to "การป้องกันที่อธิบายได้.",
+    WebStringKey.HeroDescription to "QR-SHIELD วิเคราะห์ภัยคุกคามที่อาจเกิดขึ้นโดยตรงบนฮาร์ดแวร์ของคุณ สัมผัสการป้องกันที่ไม่มีความหน่วง",
+
+    // Dashboard
     WebStringKey.StartScan to "เริ่มการสแกนใหม่",
     WebStringKey.ImportImage to "นำเข้ารูปภาพ",
+    WebStringKey.ScanQrCode to "สแกน QR โค้ด",
     WebStringKey.SystemHealth to "สถานะระบบ",
     WebStringKey.ThreatDatabase to "ฐานข้อมูลภัยคุกคาม",
     WebStringKey.Current to "ปัจจุบัน",
@@ -22,12 +32,34 @@ internal val ThaiStrings = mapOf(
     WebStringKey.SafeScans to "การสแกนที่ปลอดภัย",
     WebStringKey.EngineActive to "เครื่องยนต์ทำงาน",
     WebStringKey.EnterpriseProtection to "การป้องกันองค์กรทำงาน",
+    WebStringKey.SystemOptimal to "ระบบเหมาะสม",
+    WebStringKey.EngineStatus to "เครื่องยนต์ v2.4 • อัปเดต 2 ชม. ที่แล้ว",
+    WebStringKey.ThreatsBlocked to "ภัยคุกคามที่ถูกบล็อก",
+    WebStringKey.AllSystemsOperational to "ระบบทั้งหมดทำงาน",
+
+    // Dashboard Sections
     WebStringKey.SectionOverview to "ภาพรวม",
     WebStringKey.SectionSecurity to "ความปลอดภัย",
     WebStringKey.SectionTraining to "การฝึกอบรม",
     WebStringKey.SectionReports to "รายงาน",
     WebStringKey.OfflineReady to "พร้อมออฟไลน์",
     WebStringKey.OfflineDescription to "ฐานข้อมูลในเครื่อง v2.4.1 ทำงาน ไม่มีข้อมูลออกจากอุปกรณ์นี้",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "ศูนย์ความน่าเชื่อถือ",
+    WebStringKey.OfflineGuarantee to "การรับประกันออฟไลน์อย่างเข้มงวด",
+    WebStringKey.OfflineGuaranteeDesc to "การวิเคราะห์ QR-SHIELD ทำงานทั้งหมดบน Neural Engine ของอุปกรณ์ ข้อมูล URL ไม่เคยออกจากโทรศัพท์ของคุณ",
+    WebStringKey.ThreatSensitivity to "ความไวต่อภัยคุกคาม",
+    WebStringKey.ResetConfirm to "การดำเนินการนี้จะรีเซ็ตการตั้งค่าศูนย์ความน่าเชื่อถือทั้งหมดเป็นค่าเริ่มต้น",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "มอนิเตอร์ภัยคุกคาม",
+    WebStringKey.ThreatMonitorDesc to "ดูภัยคุกคามสดและเรียกใช้การตรวจสอบความปลอดภัย",
+    WebStringKey.TrustCentreDesc to "การตั้งค่าความเป็นส่วนตัวและความไวต่อภัยคุกคาม",
+    WebStringKey.ExportReport to "ส่งออกรายงาน",
+    WebStringKey.ExportReportDesc to "สร้างรายงานความปลอดภัย PDF หรือ JSON",
+
+    // Dashboard Content
     WebStringKey.Analyze to "วิเคราะห์",
     WebStringKey.HeuristicEngine to "เครื่องยนต์ฮิวริสติก",
     WebStringKey.HighPerformanceEngine to "เครื่องยนต์ประสิทธิภาพสูง",
@@ -54,6 +86,8 @@ internal val ThaiStrings = mapOf(
     WebStringKey.VerdictPhish to "ฟิชชิ่ง",
     WebStringKey.VerdictWarn to "เตือน",
     WebStringKey.ScoreLabel to "คะแนน:",
+
+    // Scanner
     WebStringKey.ActiveScanner to "เครื่องสแกนที่ทำงาน",
     WebStringKey.OfflineMode to "โหมดออฟไลน์",
     WebStringKey.LiveFeedDisconnected to "ฟีดสดถูกตัดการเชื่อมต่อ",
@@ -73,6 +107,8 @@ internal val ThaiStrings = mapOf(
     WebStringKey.LocalDb to "DB ในเครื่อง",
     WebStringKey.Latency to "ความหน่วง",
     WebStringKey.ViewAll to "ดูทั้งหมด",
+
+    // Threat / Results
     WebStringKey.BreadcrumbHome to "หน้าแรก",
     WebStringKey.BreadcrumbScans to "การสแกน",
     WebStringKey.OfflineProtection to "การป้องกันออฟไลน์",
@@ -99,7 +135,22 @@ internal val ThaiStrings = mapOf(
     WebStringKey.AttackJsDesc to "ตรวจพบสตริงเอนโทรปีสูงในพารามิเตอร์ URL",
     WebStringKey.SectionActions to "การดำเนินการที่แนะนำ",
     WebStringKey.ActionBlock to "บล็อก & รายงาน",
+    WebStringKey.ActionBlockDesc to "ป้องกันการเข้าถึงและแจ้งผู้ดูแลระบบ",
     WebStringKey.ActionQuarantine to "กักกันใน Sandbox",
+    WebStringKey.ActionQuarantineDesc to "เปิดอย่างปลอดภัยเพื่อวิเคราะห์",
+    WebStringKey.Expected to "คาดหวัง: ",
+    WebStringKey.Detected to "ตรวจพบ: ",
+    WebStringKey.ExplainableSecurity to "ความปลอดภัยที่อธิบายได้",
+    WebStringKey.UrlBreakdown to "การวิเคราะห์ URL",
+    WebStringKey.FullUrl to "URL ฉบับเต็ม",
+    WebStringKey.OpenInBrowser to "เปิดในเบราว์เซอร์ (มีความเสี่ยง)",
+    WebStringKey.OpenWarning to "การเปิด URL นี้ในเบราว์เซอร์อาจทำให้คุณเสี่ยงต่อความปลอดภัย",
+    WebStringKey.RestrictedMode to "โหมดจำกัด",
+    WebStringKey.RestrictedDesc to "URL นี้ถูกทำเครื่องหมายว่าอาจเป็นอันตราย ตรวจสอบการวิเคราะห์ด้านล่างก่อนดำเนินการต่อ",
+    WebStringKey.DangerousWarning to "URL นี้ถูกทำเครื่องหมายว่าอาจเป็นอันตราย การเปิดอาจทำให้คุณเสี่ยงต่อฟิชชิ่ง มัลแวร์ หรือภัยคุกคามความปลอดภัยอื่นๆ คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?",
+    WebStringKey.CopyUrl to "คัดลอก URL",
+    WebStringKey.Share to "แชร์",
+    WebStringKey.Dismiss to "ปิด",
     WebStringKey.ReasonDomainAge to "อายุโดเมนน้อยกว่า 24 ชั่วโมง",
     WebStringKey.ReasonSignatures to "ตรงกับ 3 ลายเซ็นใน DB ฟิชชิ่งในเครื่อง",
     WebStringKey.ReasonAsn to "IP เป้าหมายตั้งอยู่ใน ASN ที่มีความเสี่ยงสูง",

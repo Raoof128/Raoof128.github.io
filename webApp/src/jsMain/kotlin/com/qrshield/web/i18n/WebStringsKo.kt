@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val KoreanStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Kotlin 멀티플랫폼 QRishing 탐지기",
     WebStringKey.MenuMain to "메인 메뉴",
     WebStringKey.MenuSecurity to "보안",
     WebStringKey.MenuSystem to "시스템",
@@ -12,10 +13,17 @@ internal val KoreanStrings = mapOf(
     WebStringKey.NavReports to "보고서",
     WebStringKey.NavTraining to "교육",
     WebStringKey.NavSettings to "설정",
+    WebStringKey.QuickActions to "빠른 작업",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "안전. 오프라인.",
+    WebStringKey.HeroTagline2 to "설명 가능한 방어.",
+    WebStringKey.HeroDescription to "QR-SHIELD는 하드웨어에서 직접 잠재적 위협을 분석합니다. 제로 레이턴시 보호를 경험하세요.",
 
     // Dashboard
     WebStringKey.StartScan to "새 스캔 시작",
     WebStringKey.ImportImage to "이미지 가져오기",
+    WebStringKey.ScanQrCode to "QR 코드 스캔",
     WebStringKey.SystemHealth to "시스템 상태",
     WebStringKey.ThreatDatabase to "위협 데이터베이스",
     WebStringKey.Current to "현재",
@@ -24,6 +32,10 @@ internal val KoreanStrings = mapOf(
     WebStringKey.SafeScans to "안전한 스캔",
     WebStringKey.EngineActive to "엔진 활성화",
     WebStringKey.EnterpriseProtection to "기업 보호 활성화",
+    WebStringKey.SystemOptimal to "시스템 최적",
+    WebStringKey.EngineStatus to "엔진 v2.4 • 2시간 전 업데이트됨",
+    WebStringKey.ThreatsBlocked to "차단된 위협",
+    WebStringKey.AllSystemsOperational to "모든 시스템 정상 작동 중",
 
     // Dashboard Sections
     WebStringKey.SectionOverview to "개요",
@@ -32,6 +44,20 @@ internal val KoreanStrings = mapOf(
     WebStringKey.SectionReports to "보고서",
     WebStringKey.OfflineReady to "오프라인 준비 완료",
     WebStringKey.OfflineDescription to "로컬 데이터베이스 v2.4.1 활성화. 이 기기에서 데이터가 유출되지 않습니다.",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "신뢰 센터",
+    WebStringKey.OfflineGuarantee to "엄격한 오프라인 보장",
+    WebStringKey.OfflineGuaranteeDesc to "QR-SHIELD 분석은 기기의 Neural Engine에서 완전히 실행됩니다. URL 데이터는 절대 휴대폰을 떠나지 않습니다.",
+    WebStringKey.ThreatSensitivity to "위협 민감도",
+    WebStringKey.ResetConfirm to "신뢰 센터 설정이 기본값으로 재설정됩니다.",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "위협 모니터",
+    WebStringKey.ThreatMonitorDesc to "실시간 위협 보기 및 보안 감사 실행",
+    WebStringKey.TrustCentreDesc to "개인정보 설정 및 위협 민감도",
+    WebStringKey.ExportReport to "보고서 내보내기",
+    WebStringKey.ExportReportDesc to "PDF 또는 JSON 보안 보고서 생성",
 
     // Dashboard Content
     WebStringKey.Analyze to "분석",
@@ -109,7 +135,22 @@ internal val KoreanStrings = mapOf(
     WebStringKey.AttackJsDesc to "URL 매개변수에서 높은 엔트로피 문자열이 감지되었습니다.",
     WebStringKey.SectionActions to "권장 조치",
     WebStringKey.ActionBlock to "차단 및 신고",
+    WebStringKey.ActionBlockDesc to "액세스 방지 및 관리자 알림",
     WebStringKey.ActionQuarantine to "샌드박스에서 격리",
+    WebStringKey.ActionQuarantineDesc to "분석을 위해 안전하게 열기",
+    WebStringKey.Expected to "예상: ",
+    WebStringKey.Detected to "감지됨: ",
+    WebStringKey.ExplainableSecurity to "설명 가능한 보안",
+    WebStringKey.UrlBreakdown to "URL 분석",
+    WebStringKey.FullUrl to "전체 URL",
+    WebStringKey.OpenInBrowser to "브라우저에서 열기 (위험)",
+    WebStringKey.OpenWarning to "이 URL을 브라우저에서 열면 보안 위험에 노출될 수 있습니다.",
+    WebStringKey.RestrictedMode to "제한 모드",
+    WebStringKey.RestrictedDesc to "이 URL은 잠재적으로 위험한 것으로 표시되었습니다. 진행하기 전에 아래 분석을 검토하세요.",
+    WebStringKey.DangerousWarning to "이 URL은 잠재적으로 위험한 것으로 표시되었습니다. 열면 피싱, 맬웨어 또는 기타 보안 위협에 노출될 수 있습니다. 계속하시겠습니까?",
+    WebStringKey.CopyUrl to "URL 복사",
+    WebStringKey.Share to "공유",
+    WebStringKey.Dismiss to "닫기",
     WebStringKey.ReasonDomainAge to "도메인 나이가 24시간 미만입니다.",
     WebStringKey.ReasonSignatures to "로컬 피싱 DB에서 3개의 서명과 일치했습니다.",
     WebStringKey.ReasonAsn to "대상 IP가 고위험 ASN에 있습니다.",

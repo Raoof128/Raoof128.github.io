@@ -2,6 +2,7 @@ package com.qrshield.web.i18n
 
 internal val TurkishStrings = mapOf(
     WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppTagline to "Kotlin Multiplatform QRishing Dedektörü",
     WebStringKey.MenuMain to "Ana Menü",
     WebStringKey.MenuSecurity to "Güvenlik",
     WebStringKey.MenuSystem to "Sistem",
@@ -12,8 +13,17 @@ internal val TurkishStrings = mapOf(
     WebStringKey.NavReports to "Raporlar",
     WebStringKey.NavTraining to "Eğitim",
     WebStringKey.NavSettings to "Ayarlar",
+    WebStringKey.QuickActions to "Hızlı İşlemler",
+
+    // Hero Section
+    WebStringKey.HeroTagline to "Güvenli. Çevrimdışı.",
+    WebStringKey.HeroTagline2 to "Açıklanabilir Savunma.",
+    WebStringKey.HeroDescription to "QR-SHIELD potansiyel tehditleri doğrudan donanımınızda analiz eder. Sıfır gecikme korumasını deneyimleyin.",
+
+    // Dashboard
     WebStringKey.StartScan to "Yeni Tarama Başlat",
     WebStringKey.ImportImage to "Görsel İçe Aktar",
+    WebStringKey.ScanQrCode to "QR Kodu Tara",
     WebStringKey.SystemHealth to "Sistem Durumu",
     WebStringKey.ThreatDatabase to "Tehdit Veritabanı",
     WebStringKey.Current to "Güncel",
@@ -22,12 +32,34 @@ internal val TurkishStrings = mapOf(
     WebStringKey.SafeScans to "Güvenli Taramalar",
     WebStringKey.EngineActive to "Motor Aktif",
     WebStringKey.EnterpriseProtection to "Kurumsal Koruma Aktif",
+    WebStringKey.SystemOptimal to "Sistem Optimal",
+    WebStringKey.EngineStatus to "Motor v2.4 • 2s önce güncellendi",
+    WebStringKey.ThreatsBlocked to "Engellenen Tehditler",
+    WebStringKey.AllSystemsOperational to "Tüm sistemler çalışıyor",
+
+    // Dashboard Sections
     WebStringKey.SectionOverview to "Genel Bakış",
     WebStringKey.SectionSecurity to "Güvenlik",
     WebStringKey.SectionTraining to "Eğitim",
     WebStringKey.SectionReports to "Raporlar",
     WebStringKey.OfflineReady to "Çevrimdışı Hazır",
     WebStringKey.OfflineDescription to "Yerel veritabanı v2.4.1 aktif. Bu cihazdan veri çıkmaz.",
+
+    // Trust Centre
+    WebStringKey.TrustCentreTitle to "Güven Merkezi",
+    WebStringKey.OfflineGuarantee to "Katı Çevrimdışı Garantisi",
+    WebStringKey.OfflineGuaranteeDesc to "QR-SHIELD analizi tamamen cihazınızın Neural Engine'inde çalışır. URL verileri asla telefonunuzdan çıkmaz.",
+    WebStringKey.ThreatSensitivity to "Tehdit Hassasiyeti",
+    WebStringKey.ResetConfirm to "Bu, tüm Güven Merkezi ayarlarını varsayılanlara sıfırlayacaktır.",
+
+    // Settings Quick Actions
+    WebStringKey.ThreatMonitor to "Tehdit Monitörü",
+    WebStringKey.ThreatMonitorDesc to "Canlı tehditleri görüntüle ve güvenlik denetimi çalıştır",
+    WebStringKey.TrustCentreDesc to "Gizlilik ayarları ve tehdit hassasiyeti",
+    WebStringKey.ExportReport to "Raporu Dışa Aktar",
+    WebStringKey.ExportReportDesc to "PDF veya JSON güvenlik raporu oluştur",
+
+    // Dashboard Content
     WebStringKey.Analyze to "Analiz Et",
     WebStringKey.HeuristicEngine to "Sezgisel Motor",
     WebStringKey.HighPerformanceEngine to "Yüksek Performanslı Motor",
@@ -54,6 +86,8 @@ internal val TurkishStrings = mapOf(
     WebStringKey.VerdictPhish to "OLTALAMA",
     WebStringKey.VerdictWarn to "UYARI",
     WebStringKey.ScoreLabel to "Puan:",
+
+    // Scanner
     WebStringKey.ActiveScanner to "Aktif Tarayıcı",
     WebStringKey.OfflineMode to "Çevrimdışı Mod",
     WebStringKey.LiveFeedDisconnected to "CANLI YAYIN BAĞLANTISI KESİLDİ",
@@ -73,6 +107,8 @@ internal val TurkishStrings = mapOf(
     WebStringKey.LocalDb to "Yerel DB",
     WebStringKey.Latency to "Gecikme",
     WebStringKey.ViewAll to "Tümünü Görüntüle",
+
+    // Threat / Results
     WebStringKey.BreadcrumbHome to "Ana Sayfa",
     WebStringKey.BreadcrumbScans to "Taramalar",
     WebStringKey.OfflineProtection to "Çevrimdışı Koruma",
@@ -99,7 +135,22 @@ internal val TurkishStrings = mapOf(
     WebStringKey.AttackJsDesc to "URL parametrelerinde yüksek entropi dizesi tespit edildi.",
     WebStringKey.SectionActions to "Önerilen İşlemler",
     WebStringKey.ActionBlock to "Engelle & Raporla",
+    WebStringKey.ActionBlockDesc to "Erişimi engelle ve yöneticiyi bilgilendir",
     WebStringKey.ActionQuarantine to "Sandbox'ta Karantinaya Al",
+    WebStringKey.ActionQuarantineDesc to "Analiz için güvenle aç",
+    WebStringKey.Expected to "Beklenen: ",
+    WebStringKey.Detected to "Tespit Edilen: ",
+    WebStringKey.ExplainableSecurity to "Açıklanabilir Güvenlik",
+    WebStringKey.UrlBreakdown to "URL ANALİZİ",
+    WebStringKey.FullUrl to "TAM URL",
+    WebStringKey.OpenInBrowser to "Tarayıcıda Aç (Riskli)",
+    WebStringKey.OpenWarning to "Bu URL'yi tarayıcınızda açmak sizi güvenlik risklerine maruz bırakabilir.",
+    WebStringKey.RestrictedMode to "Kısıtlı Mod",
+    WebStringKey.RestrictedDesc to "Bu URL potansiyel olarak tehlikeli olarak işaretlendi. Devam etmeden önce aşağıdaki analizi inceleyin.",
+    WebStringKey.DangerousWarning to "Bu URL potansiyel olarak tehlikeli olarak işaretlendi. Açmak sizi oltalama, kötü amaçlı yazılım veya diğer güvenlik tehditlerine maruz bırakabilir. Devam etmek istediğinizden emin misiniz?",
+    WebStringKey.CopyUrl to "URL'yi Kopyala",
+    WebStringKey.Share to "Paylaş",
+    WebStringKey.Dismiss to "Kapat",
     WebStringKey.ReasonDomainAge to "Alan adı yaşı 24 saatten az.",
     WebStringKey.ReasonSignatures to "Yerel oltalama DB'sinde 3 imza eşleşti.",
     WebStringKey.ReasonAsn to "Hedef IP yüksek riskli bir ASN'de bulunuyor.",
