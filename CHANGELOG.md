@@ -52,6 +52,35 @@ qrshieldHeuristics(url) => { score, reasons: [{ code, severity, description }] }
 qrshieldEngineInfo => { version, mlModelSize, capabilities: [...] }
 ```
 
+#### Premium ML Insights UI ✅
+
+**New visual component after URL analysis:**
+
+- **ML Score Panel**: Ensemble score with animated progress bar
+- **Character Analysis**: Character-level embedding score
+- **Feature Score**: 24-feature neural net result
+- **Threat Intel Badge**: Clean/Blocklisted status with confidence
+- **Heuristics Summary**: Signal count and heuristic score
+- **Unicode Risk Warning**: Automatic detection of IDN attacks
+
+**CSS additions (260+ lines):**
+
+- `.ml-insights-section` - Gradient background panel
+- `.ml-insight-card` - Hoverable stat cards with icons
+- `.ml-score-bar` - Animated fill bars
+- `.unicode-warning` - Red warning box for IDN risks
+- Light mode support for all new components
+
+**JavaScript additions:**
+
+```javascript
+// Called after each analysis
+addMlInsightsSection(riskContainer);
+
+// Automatic Unicode risk detection
+tryAddUnicodeWarning(container);
+```
+
 #### Milestone 3.1: Offline Intel Layer ✅
 
 **Bloom Filter for "known bad" domains:**

@@ -1633,3 +1633,270 @@ input:focus-visible {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ==========================================================================
+   ML INSIGHTS SECTION
+   Enhanced detection insights powered by ML, Threat Intel, and Unicode Analysis
+   ========================================================================== */
+
+.ml-insights-section {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg,
+            rgba(25, 93, 230, 0.08) 0%,
+            rgba(139, 92, 246, 0.05) 50%,
+            rgba(16, 185, 129, 0.03) 100%);
+    border: 1px solid rgba(25, 93, 230, 0.2);
+}
+
+.ml-insights-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+}
+
+.ml-insights-header .material-symbols-outlined {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+.ml-insights-header h4 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.ml-insights-badge {
+    margin-left: auto;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-full);
+    background: rgba(25, 93, 230, 0.2);
+    color: var(--primary);
+}
+
+.ml-insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: var(--space-3);
+}
+
+.ml-insight-card {
+    padding: var(--space-3);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all var(--transition-fast);
+}
+
+.ml-insight-card:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.ml-insight-card.safe {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.ml-insight-card.warning {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.ml-insight-card.danger {
+    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.ml-insight-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+}
+
+.ml-insight-icon.ml {
+    background: linear-gradient(135deg, var(--primary), #6366f1);
+}
+
+.ml-insight-icon.threat {
+    background: linear-gradient(135deg, #ef4444, #f97316);
+}
+
+.ml-insight-icon.unicode {
+    background: linear-gradient(135deg, #a855f7, #6366f1);
+}
+
+.ml-insight-icon.domain {
+    background: linear-gradient(135deg, #10b981, #06b6d4);
+}
+
+.ml-insight-icon .material-symbols-outlined {
+    font-size: 18px;
+    color: white;
+}
+
+.ml-insight-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.125rem;
+}
+
+.ml-insight-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+}
+
+.ml-insight-value.safe {
+    color: var(--success);
+}
+
+.ml-insight-value.warning {
+    color: var(--warning);
+}
+
+.ml-insight-value.danger {
+    color: var(--danger);
+}
+
+.ml-insight-desc {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* Score bar for ML scores */
+.ml-score-bar {
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: var(--space-2);
+    overflow: hidden;
+}
+
+.ml-score-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease-out;
+}
+
+.ml-score-fill.safe {
+    background: linear-gradient(90deg, var(--success), #34d399);
+}
+
+.ml-score-fill.warning {
+    background: linear-gradient(90deg, var(--warning), #fbbf24);
+}
+
+.ml-score-fill.danger {
+    background: linear-gradient(90deg, var(--danger), #f87171);
+}
+
+/* Threat intel badge inline styles */
+.threat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: var(--radius-full);
+}
+
+.threat-badge.clean {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.threat-badge.known-bad {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    animation: badge-pulse 2s infinite;
+}
+
+@keyframes badge-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Unicode risk indicator */
+.unicode-warning {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    margin-top: var(--space-3);
+}
+
+.unicode-warning .material-symbols-outlined {
+    color: var(--danger);
+    font-size: 18px;
+}
+
+.unicode-warning-text {
+    flex: 1;
+}
+
+.unicode-warning-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--danger);
+}
+
+.unicode-warning-desc {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+}
+
+/* Light mode overrides for ML insights */
+[data-theme="light"] .ml-insights-section,
+html.light .ml-insights-section,
+body.light .ml-insights-section {
+    background: linear-gradient(135deg,
+            rgba(37, 99, 235, 0.08) 0%,
+            rgba(139, 92, 246, 0.05) 50%,
+            rgba(16, 185, 129, 0.03) 100%);
+    border-color: rgba(37, 99, 235, 0.2);
+}
+
+[data-theme="light"] .ml-insight-card,
+html.light .ml-insight-card,
+body.light .ml-insight-card {
+    background: rgba(255, 255, 255, 0.7);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .ml-insight-value,
+html.light .ml-insight-value,
+body.light .ml-insight-value {
+    color: #1e293b;
+}

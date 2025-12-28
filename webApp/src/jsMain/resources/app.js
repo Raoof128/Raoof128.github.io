@@ -348,7 +348,156 @@ function updateResultCard(score, verdict, flags) {
         }
     }
 
+    // Add ML Insights Section (uses new engine APIs)
+    addMlInsightsSection(riskContainer);
+
     window.qrshieldApplyTranslations?.(riskContainer);
+}
+
+// ==========================================
+// ML Insights Section
+// Shows ML score, threat intel, unicode analysis
+// ==========================================
+
+function addMlInsightsSection(container) {
+    // Get the last analysis details from window (set by Main.kt)
+    const details = window.lastAnalysisDetails;
+    if (!details) return;
+
+    // Create ML insights section
+    const section = document.createElement('div');
+    section.className = 'ml-insights-section';
+
+    // Determine score levels
+    const mlLevel = details.mlScore < 30 ? 'safe' : details.mlScore < 60 ? 'warning' : 'danger';
+    const threatStatus = details.isKnownBad ? 'known-bad' : 'clean';
+
+    section.innerHTML = `
+        <div class="ml-insights-header">
+            <span class="material-symbols-outlined">auto_fix_high</span>
+            <h4>${translateText('Advanced Detection Insights')}</h4>
+            <span class="ml-insights-badge">v1.19</span>
+        </div>
+        <div class="ml-insights-grid">
+            <!-- ML Ensemble Score -->
+            <div class="ml-insight-card ${mlLevel}">
+                <div class="ml-insight-icon ml">
+                    <span class="material-symbols-outlined">psychology</span>
+                </div>
+                <div class="ml-insight-label">${translateText('ML Score')}</div>
+                <div class="ml-insight-value ${mlLevel}">${details.mlScore}%</div>
+                <div class="ml-insight-desc">${translateText('Ensemble model confidence')}</div>
+                <div class="ml-score-bar">
+                    <div class="ml-score-fill ${mlLevel}" style="width: ${details.mlScore}%"></div>
+                </div>
+            </div>
+            
+            <!-- Character Analysis -->
+            <div class="ml-insight-card">
+                <div class="ml-insight-icon ml">
+                    <span class="material-symbols-outlined">text_format</span>
+                </div>
+                <div class="ml-insight-label">${translateText('Char Analysis')}</div>
+                <div class="ml-insight-value">${details.charScore}%</div>
+                <div class="ml-insight-desc">${translateText('Character-level embedding')}</div>
+            </div>
+            
+            <!-- Feature Score -->
+            <div class="ml-insight-card">
+                <div class="ml-insight-icon ml">
+                    <span class="material-symbols-outlined">tune</span>
+                </div>
+                <div class="ml-insight-label">${translateText('Feature Score')}</div>
+                <div class="ml-insight-value">${details.featureScore}%</div>
+                <div class="ml-insight-desc">${translateText('24-feature neural net')}</div>
+            </div>
+            
+            <!-- Threat Intel -->
+            <div class="ml-insight-card ${details.isKnownBad ? 'danger' : 'safe'}">
+                <div class="ml-insight-icon threat">
+                    <span class="material-symbols-outlined">${details.isKnownBad ? 'gpp_bad' : 'verified_user'}</span>
+                </div>
+                <div class="ml-insight-label">${translateText('Threat Intel')}</div>
+                <div class="ml-insight-value ${details.isKnownBad ? 'danger' : 'safe'}">
+                    ${details.isKnownBad ? translateText('BLOCKLISTED') : translateText('CLEAN')}
+                </div>
+                <div class="ml-insight-desc">
+                    ${details.threatConfidence || 'NONE'} ${translateText('confidence')}
+                </div>
+            </div>
+            
+            <!-- Heuristics Count -->
+            <div class="ml-insight-card">
+                <div class="ml-insight-icon domain">
+                    <span class="material-symbols-outlined">rule</span>
+                </div>
+                <div class="ml-insight-label">${translateText('Heuristics')}</div>
+                <div class="ml-insight-value">${details.heuristicScore}</div>
+                <div class="ml-insight-desc">${details.reasonCount} ${translateText('signals fired')}</div>
+            </div>
+            
+            <!-- ML Confidence -->
+            <div class="ml-insight-card">
+                <div class="ml-insight-icon domain">
+                    <span class="material-symbols-outlined">speed</span>
+                </div>
+                <div class="ml-insight-label">${translateText('Confidence')}</div>
+                <div class="ml-insight-value">${details.mlConfidence}%</div>
+                <div class="ml-insight-desc">${translateText('Analysis certainty')}</div>
+            </div>
+        </div>
+    `;
+
+    container.appendChild(section);
+
+    // Also check for Unicode risks if URL has them
+    tryAddUnicodeWarning(container);
+}
+
+/**
+ * Check for Unicode risks and add warning if detected
+ */
+function tryAddUnicodeWarning(container) {
+    const url = currentAnalysis?.url;
+    if (!url || !window.qrshieldUnicodeAnalysis) return;
+
+    try {
+        // Extract host from URL
+        let host = url;
+        try {
+            const urlObj = new URL(url.startsWith('http') ? url : 'https://' + url);
+            host = urlObj.hostname;
+        } catch (e) {
+            // Use URL as-is if parsing fails
+        }
+
+        const result = window.qrshieldUnicodeAnalysis(host);
+
+        if (result && result.hasRisk) {
+            const warning = document.createElement('div');
+            warning.className = 'unicode-warning';
+
+            let warnings = [];
+            if (result.isPunycode) warnings.push(translateText('Punycode (IDN)'));
+            if (result.hasMixedScript) warnings.push(translateText('Mixed Scripts'));
+            if (result.hasConfusables) warnings.push(translateText('Confusable Characters'));
+            if (result.hasZeroWidth) warnings.push(translateText('Hidden Characters'));
+
+            warning.innerHTML = `
+                <span class="material-symbols-outlined">warning</span>
+                <div class="unicode-warning-text">
+                    <div class="unicode-warning-title">${translateText('Unicode Risk Detected')}</div>
+                    <div class="unicode-warning-desc">
+                        ${warnings.join(' • ')} — ${translateText('Safe display:')} <code>${result.safeDisplayHost || host}</code>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(warning);
+        }
+    } catch (e) {
+        console.warn('Unicode analysis error:', e);
+    }
 }
 
 // ==========================================
