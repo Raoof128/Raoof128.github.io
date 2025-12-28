@@ -213,6 +213,14 @@ Implemented the complete SecurityEngine Improvement Roadmap (Milestones 2.1-2.3 
 |------|---------|
 | `evaluation/EvaluationHarness.kt` | Offline evaluation with P/R/F1 metrics |
 
+### Milestone 5: Lightweight ML (NEW)
+| File | Purpose |
+|------|---------|
+| `ml/CharacterEmbeddingScorer.kt` | Character-level embedding scorer (~8KB) |
+| `ml/UrlFeatureExtractor.kt` | 24-feature extraction for ML |
+| `ml/TinyPhishingClassifier.kt` | Feedforward NN (24→16→8→1) (~2KB) |
+| `ml/EnsemblePhishingScorer.kt` | Weighted ensemble of both models |
+
 ### Test Coverage
 | Test File | Tests |
 |-----------|-------|
@@ -223,6 +231,7 @@ Implemented the complete SecurityEngine Improvement Roadmap (Milestones 2.1-2.3 
 | `ThreatIntelLookupTest.kt` | 8 tests |
 | `EvaluationHarnessTest.kt` | 7 tests |
 | `RegressionGateTest.kt` | 6 tests |
+| `MlScorerTest.kt` | 17 tests |
 
 ## ✅ Files Modified
 
@@ -266,11 +275,21 @@ Implemented the complete SecurityEngine Improvement Roadmap (Milestones 2.1-2.3 
 │    └── BloomFilter (Stage 1: "maybe")            │
 │    └── ExactSet    (Stage 2: confirm)            │
 ├──────────────────────────────────────────────────┤
+│  EnsemblePhishingScorer (ML - ~10KB)             │
+│    └── CharacterEmbeddingScorer (~8KB)           │
+│    └── TinyPhishingClassifier (~2KB)             │
+├──────────────────────────────────────────────────┤
 │  SecureBundleLoader                              │
 │    └── RiskConfig (weights, thresholds)          │
 │    └── Signature verification                    │
 └──────────────────────────────────────────────────┘
 ```
+
+### Milestone 5: Lightweight ML (NEW) ✅
+- **CharacterEmbeddingScorer**: 95×16 embeddings + mean pooling (~8KB)
+- **TinyPhishingClassifier**: 24-feature NN (16→8→1) (~2KB)
+- **EnsemblePhishingScorer**: Weighted ensemble with agreement boost
+- **Pure Kotlin**: No external ML libraries, runs in commonMain
 
 ## ✅ Build Verification
 

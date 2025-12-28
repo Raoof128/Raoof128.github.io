@@ -99,6 +99,42 @@ config.thresholds.suspiciousMax   // 70
 | Recall | ≥ 0.75 |
 | Runtime | ≤ 20ms |
 
+#### Milestone 5: Lightweight ML ✅
+
+**Character-level embedding scorer (~8KB):**
+
+```kotlin
+val charScorer = CharacterEmbeddingScorer.default
+val score = charScorer.score("http://paypa1.tk/login")
+// score ≈ 0.7 (suspicious characters detected)
+```
+
+**Feature-based neural network (~2KB):**
+
+```kotlin
+val classifier = TinyPhishingClassifier.default
+val result = classifier.predictWithDetails(url)
+// result.topFeatures = [is_ip, risky_tld, has_at_symbol, ...]
+```
+
+**Ensemble scorer (combines both):**
+
+```kotlin
+val ensemble = EnsemblePhishingScorer.default
+val result = ensemble.scoreWithDetails(url)
+// result.ensembleScore = weighted average with agreement boost
+// result.confidence = model agreement indicator
+```
+
+**Model sizes:**
+
+| Component | Size | Architecture |
+|-----------|------|--------------|
+| CharacterEmbeddingScorer | ~8KB | 95×16 embeddings + 16→32→1 NN |
+| TinyPhishingClassifier | ~2KB | 24→16→8→1 feedforward NN |
+| Total ML weights | ~10KB | Well under 50KB budget |
+
+
 #### Test Coverage
 
 | Test Class | Tests |
@@ -110,6 +146,7 @@ config.thresholds.suspiciousMax   // 70
 | `ThreatIntelLookupTest` | 8 tests |
 | `EvaluationHarnessTest` | 7 tests |
 | `RegressionGateTest` | 6 tests |
+| `MlScorerTest` | 17 tests |
 
 ```bash
 ./gradlew :common:desktopTest
