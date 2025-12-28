@@ -214,6 +214,27 @@ body.light .input-icon {
     color: #64748b;
 }
 
+/* Light mode stat boxes - make them white with subtle border instead of gray */
+[data-theme="light"] .stat-box,
+html.light .stat-box,
+body.light .stat-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .stat-value,
+html.light .stat-value,
+body.light .stat-value {
+    color: #1e293b;
+}
+
+[data-theme="light"] .stat-label,
+html.light .stat-label,
+body.light .stat-label {
+    color: #64748b;
+}
+
 /* ==========================================================================
    BASE STYLES
    ========================================================================== */

@@ -1668,6 +1668,64 @@ details:focus-visible {
     outline-offset: 2px;
 }
 
+/* ==========================================================================
+   LIGHT MODE - Attack Card Content Fixes
+   ========================================================================== */
+
+/* Fix the gray box in attack cards (domain comparison section) */
+[data-theme="light"] .domain-comparison,
+html.light .domain-comparison,
+body.light .domain-comparison {
+    background-color: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .domain-label,
+html.light .domain-label,
+body.light .domain-label {
+    color: #64748b !important;
+}
+
+[data-theme="light"] .domain-value,
+html.light .domain-value,
+body.light .domain-value {
+    color: #0f172a !important;
+}
+
+[data-theme="light"] .domain-value.safe,
+html.light .domain-value.safe,
+body.light .domain-value.safe {
+    color: #15803d !important;
+}
+
+[data-theme="light"] .domain-value.danger,
+html.light .domain-value.danger,
+body.light .domain-value.danger {
+    color: #dc2626 !important;
+}
+
+/* Fix the attack content background */
+[data-theme="light"] .attack-content,
+html.light .attack-content,
+body.light .attack-content {
+    background-color: #f1f5f9 !important;
+    border-top-color: #e2e8f0 !important;
+}
+
+/* Fix attack explanation text */
+[data-theme="light"] .attack-explanation,
+html.light .attack-explanation,
+body.light .attack-explanation {
+    color: #475569 !important;
+}
+
+/* Fix attack header hover */
+[data-theme="light"] .attack-header:hover,
+html.light .attack-header:hover,
+body.light .attack-header:hover {
+    background-color: #f1f5f9 !important;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
 

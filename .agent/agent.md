@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.17.98`** (as of December 28, 2025)
+**Current App Version: `1.18.3`** (as of December 28, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,128 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎨 December 28, 2025 (Session 10k+34) - Light Mode UI Fixes
+
+### Summary
+Fixed light mode styling issues: gray attack breakdown box and pale "Copy Link" button.
+
+## ✅ Changes Made
+
+### 1. Fixed Attack Breakdown Box (Gray Background)
+**Problem**: The "Visual Appearance / Actual Punycode" section in threat.html had a dark gray background that looked wrong in light mode.
+
+**Solution**: Added light mode CSS overrides in `threat.css`:
+- `.domain-comparison`: Light gray background (`#f8fafc`)
+- `.domain-label`: Muted text color (`#64748b`)
+- `.domain-value`: Dark text (`#0f172a`)
+- `.attack-content`: Light background (`#f1f5f9`)
+- `.attack-explanation`: Proper text color (`#475569`)
+
+### 2. Fixed "Copy Link" Button (Pale/Invisible)
+**Problem**: The `.btn-primary-action` had `background: transparent` making it nearly invisible in light mode.
+
+**Solution**: Changed to a proper gradient:
+```css
+background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+```
+
+### 3. Language Strings Integration (Already Complete)
+The web app already has full i18n integration:
+- `WebStrings.kt` contains all 16 language translations
+- `Main.kt` exposes `qrshieldGetTranslation()` to JavaScript
+- Elements with `data-i18n` attributes are automatically translated
+- No additional work needed
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `threat.css` | +58 lines: Light mode overrides for attack cards |
+| `results.css` | Fixed `.btn-primary-action` background gradient |
+| `CHANGELOG.md` | Added v1.18.3 entry |
+
+---
+
+# 🔧 December 28, 2025 (Session 10k+33) - WebApp UI Fixes & Sandbox Removal
+
+### Summary
+Complete session fixing multiple UI issues: removed buggy sandbox feature, fixed help button across all pages, fixed stat-box styling, and completely eliminated results page content flash.
+
+## ✅ Changes Made
+
+### 1. Removed Sandbox Feature Completely
+The "Open Safely (Sandbox)" button was removed because it was:
+- Buggy and non-functional (didn't provide real sandboxing)
+- Misleading to users about security
+- Added complexity without value
+
+**What Was Removed:**
+- `sandboxBtn` button from `results.html`
+- Event listener for sandbox button in `results.js`
+- Entire `openInSandbox()` function (~440 lines)
+- All sandbox-related CSS in `results.js`
+
+### 2. Fixed Help Button (Global)
+**Problem**: Help button (?) only worked on Dashboard page
+
+**Solution**: Moved `showHelpModal()` to `shared-ui.js` which loads on ALL pages
+- Dark theme consistent styling
+- Keyboard shortcuts section (S, I, Escape, D)
+- About section with version info
+- Works on all 8 pages now
+
+### 3. Fixed Stat-Box UI (Light Mode)
+**Problem**: "THREATS" and "SAFE SCANS" stat boxes had ugly gray background in light mode
+
+**Solution**: Added light mode CSS overrides in `dashboard.css`:
+- White background (`#ffffff`) instead of gray
+- Subtle border (`#e2e8f0`)
+- Proper shadow for depth
+- Dark text colors
+
+### 4. Completely Fixed Results Page Flash
+**Problem**: Hardcoded demo content flashed for milliseconds before real data loaded
+
+**Two-Part Solution:**
+
+**A. Inline Blocking CSS in `<head>`**
+```css
+#scannedUrl, #confidenceScore, #verdictTitle, ... { visibility: hidden !important; }
+body.loaded ... { visibility: visible !important; }
+```
+This inline style loads BEFORE any external CSS, guaranteeing no flash.
+
+**B. Replaced Hardcoded Content with Loading Placeholders**
+| Element | Old Demo Value | New Placeholder |
+|---------|---------------|-----------------|
+| `scannedUrl` | `https://secure-login.example.com/auth?id=8291...` | `Loading...` |
+| `confidenceScore` | `99.8%` | `--` |
+| `verdictTitle` | `SAFE TO VISIT` | `ANALYZING...` |
+| `verdictDescription` | Long demo paragraph | `Processing scan results...` |
+| `riskBadge` | `LOW RISK` | `--` |
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `results.html` | Removed sandbox button, added blocking CSS, replaced 5 hardcoded values |
+| `results.js` | Removed sandbox listener, removed `openInSandbox()`, refactored `showHelpInfo()` |
+| `shared-ui.js` | Added `showHelpModal()` function, added help button listener in `init()` |
+| `dashboard.js` | Removed duplicate `showHelpModal()`, removed duplicate help listener |
+| `dashboard.css` | Added light mode styling for `.stat-box`, `.stat-value`, `.stat-label` |
+| `CHANGELOG.md` | Added entries for v1.18.0, v1.18.1, v1.18.2 |
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# All fixes verified in browser ✅
+# No flash of demo content ✅
+# Help button works on all pages ✅
+# Stat boxes have proper light mode styling ✅
+```
 
 ---
 

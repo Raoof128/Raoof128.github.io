@@ -106,10 +106,11 @@ function setupEventListeners() {
     // Mobile menu toggle
     elements.menuToggle?.addEventListener('click', toggleSidebar);
 
-    // Notification button
-    elements.notificationBtn?.addEventListener('click', () => {
-        showToast('No new notifications', 'info');
-    });
+    // Notification button - shared-ui.js now handles the dropdown
+    // Just remove the simple toast message and let shared-ui handle it
+    // (shared-ui.js attaches notification dropdown to #notificationBtn automatically)
+
+    // Help button - handled by shared-ui.js globally
 
     // Settings button
     elements.settingsBtn?.addEventListener('click', () => {

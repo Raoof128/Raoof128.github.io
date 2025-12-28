@@ -40,6 +40,46 @@
     <!-- Unified Header Styles -->
     <link href="shared-header.css" rel="stylesheet" />
 
+    <!-- CRITICAL: Blocking styles to prevent ANY flash of placeholder content -->
+    <style>
+        /* Hide ALL dynamic content until JS has fully loaded and populated real data */
+        /* This inline style loads BEFORE any external CSS, guaranteeing no flash */
+        .dynamic-content {
+            visibility: hidden !important;
+        }
+
+        body.loaded .dynamic-content {
+            visibility: visible !important;
+        }
+
+        /* Also hide elements that will be populated by JS */
+        #scannedUrl,
+        #confidenceScore,
+        #verdictTitle,
+        #verdictDescription,
+        #verdictIcon,
+        #riskBadge,
+        .verdict-card,
+        .risk-meter-card,
+        .signal-grid,
+        .action-bar {
+            visibility: hidden !important;
+        }
+
+        body.loaded #scannedUrl,
+        body.loaded #confidenceScore,
+        body.loaded #verdictTitle,
+        body.loaded #verdictDescription,
+        body.loaded #verdictIcon,
+        body.loaded #riskBadge,
+        body.loaded .verdict-card,
+        body.loaded .risk-meter-card,
+        body.loaded .signal-grid,
+        body.loaded .action-bar {
+            visibility: visible !important;
+        }
+    </style>
+
     <!-- CRITICAL: Blocking theme init to prevent flash -->
     <script>
         (function () {
@@ -179,8 +219,7 @@
                             </div>
                             <div class="url-display" id="urlDisplay">
                                 <span class="material-symbols-outlined url-icon">link</span>
-                                <code class="url-text"
-                                    id="scannedUrl">https://secure-login.example.com/auth?id=8291...</code>
+                                <code class="url-text" id="scannedUrl">Loading...</code>
                             </div>
                         </div>
                         <div class="analysis-meta">
@@ -207,7 +246,7 @@
                                         <span>Active Protection</span>
                                     </div>
                                     <div class="confidence-display">
-                                        <div class="confidence-score" id="confidenceScore">99.8%</div>
+                                        <div class="confidence-score" id="confidenceScore">--</div>
                                         <div class="confidence-label" id="confidenceLabel">Confidence Score</div>
                                     </div>
                                 </div>
@@ -216,11 +255,10 @@
                                     <div class="verdict-main">
                                         <span class="material-symbols-outlined icon-filled verdict-shield"
                                             id="verdictIcon">shield_lock</span>
-                                        <h3 class="verdict-title" id="verdictTitle">SAFE TO VISIT</h3>
+                                        <h3 class="verdict-title" id="verdictTitle">ANALYZING...</h3>
                                     </div>
                                     <p class="verdict-description" id="verdictDescription">
-                                        Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or
-                                        blacklist matches found.
+                                        Processing scan results...
                                     </p>
                                 </div>
                             </div>
@@ -233,7 +271,7 @@
                             <div class="risk-meter-card">
                                 <div class="risk-header">
                                     <span class="risk-label">Risk Assessment</span>
-                                    <span class="risk-badge" id="riskBadge">LOW RISK</span>
+                                    <span class="risk-badge" id="riskBadge">--</span>
                                 </div>
                                 <div class="risk-bar-container">
                                     <div class="risk-bar">

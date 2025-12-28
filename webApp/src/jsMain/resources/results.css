@@ -1165,7 +1165,7 @@ body.loaded .main-content {
     gap: var(--space-sm);
     padding: var(--space-sm) var(--space-lg);
     height: 2.75rem;
-    background: transparent;
+    background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
     border: none;
     border-radius: var(--radius-lg);
     color: white;
@@ -1183,8 +1183,9 @@ body.loaded .main-content {
 }
 
 .btn-primary-action:hover {
-    background-color: var(--primary-hover);
+    background: linear-gradient(135deg, var(--primary-hover) 0%, #7c3aed 100%);
     transform: translateY(-1px);
+    box-shadow: 0 14px 30px var(--primary-glow);
 }
 
 /* ==========================================================================

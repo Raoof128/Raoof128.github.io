@@ -3,7 +3,125 @@
 All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.18.3] - 2025-12-28
+
+### 🎨 Light Mode UI Fixes
+
+#### 1. Fixed Attack Breakdown Box (Gray Background) ✅
+**Problem**: The "Visual Appearance / Actual Punycode" section had a dark gray background that looked bad in light mode.
+
+**Solution**: Added light mode CSS overrides in `threat.css`:
+- `.domain-comparison`: Light gray background (`#f8fafc`)
+- `.domain-label`: Muted text color (`#64748b`)
+- `.domain-value`: Dark text (`#0f172a`)
+- `.attack-content`: Light background (`#f1f5f9`)
+- `.attack-explanation`: Proper text color
+
+#### 2. Fixed "Copy Link" Button (Pale/Invisible) ✅
+**Problem**: The button had `background: transparent` making it nearly invisible in light mode.
+
+**Solution**: Changed to a proper gradient background:
+```css
+background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+```
+- Now visible in both light and dark modes
+- Hover state also updated with enhanced shadow
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `threat.css` | +58 lines: Light mode overrides for attack cards |
+| `results.css` | Fixed `.btn-primary-action` background |
+
+---
+
+## [1.18.2] - 2025-12-28
+
+### 🔧 Completely Fixed Results Page Content Flash
+
+Fixed the issue where hardcoded demo content flashed for a few milliseconds before being replaced with real data.
+
+#### Root Cause
+- External CSS `body:not(.loaded)` rule didn't load fast enough
+- Hardcoded demo text was visible before CSS applied `visibility: hidden`
+
+#### Solution - Two-Part Fix
+
+**1. Inline Blocking CSS in `<head>`**
+Added a `<style>` block directly in the HTML `<head>` that loads BEFORE any external CSS:
+```css
+#scannedUrl, #confidenceScore, #verdictTitle, ... { visibility: hidden !important; }
+body.loaded #scannedUrl, body.loaded #confidenceScore, ... { visibility: visible !important; }
+```
+
+**2. Replaced Hardcoded Demo Content with Loading Placeholders**
+- `scannedUrl`: `"https://secure-login.example.com..."` → `"Loading..."`
+- `confidenceScore`: `"99.8%"` → `"--"`
+- `verdictTitle`: `"SAFE TO VISIT"` → `"ANALYZING..."`
+- `verdictDescription`: Long demo text → `"Processing scan results..."`
+- `riskBadge`: `"LOW RISK"` → `"--"`
+
+#### Result
+Zero flash of misleading content. Users see neutral loading indicators until JS populates real data.
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `results.html` | Added inline blocking CSS, replaced 5 hardcoded values with placeholders |
+
+---
+
+## [1.18.1] - 2025-12-28
+
+### 🔧 Help Modal UI & Global Availability
+
+#### 1. Fixed Help Modal UI (Dark Theme Consistency) ✅
+- **Problem**: Help modal had white content boxes that didn't match the dark theme
+- **Fix**: Redesigned modal to use consistent dark theme styling
+  - Dark background sections with subtle borders
+  - Proper color scheme using CSS variables
+  - Clean keyboard shortcut badges with purple accent
+
+#### 2. Help Button Works on ALL Pages ✅
+- **Problem**: Help button only worked on Dashboard page
+- **Fix**: Moved `showHelpModal()` to `shared-ui.js` which loads on every page
+- **Result**: Clicking `?` in header now shows help modal on all 8 pages
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `shared-ui.js` | Added `showHelpModal()` function with dark theme styling (~145 lines) |
+| `shared-ui.js` | Added help button event listener in `init()` |
+| `dashboard.js` | Removed duplicate `showHelpModal()` function (now uses shared-ui) |
+
+---
+
+## [1.18.0] - 2025-12-28
+
+### 🔧 Dashboard UI Fixes
+
+#### 1. Help Button Now Works ✅
+- **Problem**: Question mark icon (?) in header was unresponsive
+- **Fix**: Added `showHelpModal()` function and click event listener to `dashboard.js`
+- **Result**: Shows a modal with keyboard shortcuts (S, I, Escape) and app information
+
+#### 2. Stat Boxes Light Mode Styling ✅
+- **Problem**: "THREATS" and "SAFE SCANS" boxes had ugly gray background in light mode
+- **Root Cause**: Used `rgba(0,0,0,0.4)` which looked bad on white backgrounds
+- **Fix**: Added light mode CSS overrides with:
+  - White background (`#ffffff`)
+  - Subtle border (`#e2e8f0`)
+  - Proper shadow for depth
+  - Dark text colors for readability
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `dashboard.js` | Added help button event listener and `showHelpModal()` function (~165 lines) |
+| `dashboard.css` | Added light mode styling for `.stat-box`, `.stat-value`, `.stat-label` (~21 lines) |
+
+---
 
 ## [1.17.99] - 2025-12-28
 

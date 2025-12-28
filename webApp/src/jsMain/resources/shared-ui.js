@@ -747,7 +747,156 @@
             });
         }
 
-        console.log('[SharedUI] Initialized profile and notification systems');
+        // Attach help button click handler on all pages
+        document.querySelectorAll('#helpBtn, .help-btn').forEach(btn => {
+            btn.style.cursor = 'pointer';
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                showHelpModal();
+            });
+        });
+
+        console.log('[SharedUI] Initialized profile, notification, and help systems');
+    }
+
+    // ==========================================================================
+    // HELP MODAL
+    // ==========================================================================
+
+    /**
+     * Show help modal with keyboard shortcuts - consistent dark theme
+     */
+    function showHelpModal() {
+        // Remove existing modal if any
+        const existingModal = document.getElementById('helpModal');
+        if (existingModal) existingModal.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'helpModal';
+        modal.className = 'shared-modal-overlay';
+        modal.innerHTML = `
+            <div class="shared-modal" style="max-width: 480px;">
+                <div class="shared-modal-header">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="material-symbols-outlined" style="color: var(--primary, #6366f1);">help</span>
+                        <h3 style="margin: 0; color: var(--text-primary, #f1f5f9);">Help & Keyboard Shortcuts</h3>
+                    </div>
+                    <button class="modal-close-btn" id="closeHelpModal">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                
+                <div class="shared-modal-content" style="padding: 20px;">
+                    <div class="help-section">
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;">Keyboard Shortcuts</h4>
+                        <div class="help-shortcuts-list">
+                            <div class="shortcut-item">
+                                <span class="shortcut-label">Start Scanner</span>
+                                <kbd class="shortcut-key">S</kbd>
+                            </div>
+                            <div class="shortcut-item">
+                                <span class="shortcut-label">Import Image</span>
+                                <kbd class="shortcut-key">I</kbd>
+                            </div>
+                            <div class="shortcut-item">
+                                <span class="shortcut-label">Close Menu / Modal</span>
+                                <kbd class="shortcut-key">Escape</kbd>
+                            </div>
+                            <div class="shortcut-item">
+                                <span class="shortcut-label">Navigate to Dashboard</span>
+                                <kbd class="shortcut-key">D</kbd>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-section" style="margin-top: 16px;">
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;">About QR-SHIELD</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary, #94a3b8); line-height: 1.6; margin: 0;">
+                            Enterprise-grade QR code security with 100% offline analysis. Your data never leaves your device. All threat detection is performed locally using our advanced phishing detection engine.
+                        </p>
+                    </div>
+
+                    <div class="help-section" style="margin-top: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="offline-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
+                            <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);">Version 2.4.1 • Offline Ready</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="shared-modal-footer">
+                    <button class="btn-save" id="closeHelpBtn">Got it</button>
+                </div>
+            </div>
+        `;
+
+        // Add help-specific styles if not already present
+        if (!document.getElementById('helpModalStyles')) {
+            const styles = document.createElement('style');
+            styles.id = 'helpModalStyles';
+            styles.textContent = `
+                .help-section {
+                    background: var(--surface-dark, rgba(30, 41, 59, 0.5));
+                    border: 1px solid var(--surface-border, rgba(255, 255, 255, 0.1));
+                    border-radius: 12px;
+                    padding: 16px;
+                }
+                .help-shortcuts-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .shortcut-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .shortcut-label {
+                    font-size: 14px;
+                    color: var(--text-secondary, #94a3b8);
+                }
+                .shortcut-key {
+                    background: var(--primary-bg, rgba(99, 102, 241, 0.15));
+                    color: var(--primary, #6366f1);
+                    padding: 4px 10px;
+                    border-radius: 6px;
+                    font-family: ui-monospace, monospace;
+                    font-size: 12px;
+                    font-weight: 600;
+                    border: 1px solid var(--primary-border, rgba(99, 102, 241, 0.3));
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+
+        document.body.appendChild(modal);
+
+        // Animate in
+        requestAnimationFrame(() => {
+            modal.classList.add('visible');
+        });
+
+        // Close modal function
+        const closeModal = () => {
+            modal.classList.remove('visible');
+            setTimeout(() => modal.remove(), 150);
+        };
+
+        // Add event listeners
+        document.getElementById('closeHelpModal')?.addEventListener('click', closeModal);
+        document.getElementById('closeHelpBtn')?.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Close on Escape
+        const escHandler = (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                document.removeEventListener('keydown', escHandler);
+            }
+        };
+        document.addEventListener('keydown', escHandler);
     }
 
     // ==========================================================================
@@ -933,7 +1082,10 @@
         getScanById,
         markScanBlocked,
         clearScanHistory,
-        getHistorySummary
+        getHistorySummary,
+
+        // Help Modal
+        showHelpModal
     };
 
 })();
