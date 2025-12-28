@@ -5,13 +5,13 @@ internal val GermanStrings = mapOf(
     WebStringKey.AppTagline to "Kotlin Multiplatform QRishing-Detektor",
     WebStringKey.MenuMain to "Hauptmenü",
     WebStringKey.MenuSecurity to "Sicherheit",
-    WebStringKey.MenuSystem to "System",
-    WebStringKey.NavDashboard to "Dashboard",
+    WebStringKey.MenuSystem to "Systemmenü",
+    WebStringKey.NavDashboard to "Übersicht",
     WebStringKey.NavScanMonitor to "Scanmonitor",
     WebStringKey.NavScanHistory to "Scanverlauf",
     WebStringKey.NavTrustCentre to "Vertrauenszentrum",
     WebStringKey.NavReports to "Berichte",
-    WebStringKey.NavTraining to "Training",
+    WebStringKey.NavTraining to "Schulung",
     WebStringKey.NavSettings to "Einstellungen",
     WebStringKey.QuickActions to "Schnellaktionen",
 
@@ -32,7 +32,7 @@ internal val GermanStrings = mapOf(
     WebStringKey.SafeScans to "Sichere Scans",
     WebStringKey.EngineActive to "Engine aktiv",
     WebStringKey.EnterpriseProtection to "Enterprise-Schutz aktiv",
-    WebStringKey.SystemOptimal to "System Optimal",
+    WebStringKey.SystemOptimal to "System optimal",
     WebStringKey.EngineStatus to "Engine v2.4 • Vor 2h aktualisiert",
     WebStringKey.ThreatsBlocked to "Blockierte Bedrohungen",
     WebStringKey.AllSystemsOperational to "Alle Systeme betriebsbereit",
@@ -40,13 +40,13 @@ internal val GermanStrings = mapOf(
     // Dashboard Sections
     WebStringKey.SectionOverview to "Übersicht",
     WebStringKey.SectionSecurity to "Sicherheit",
-    WebStringKey.SectionTraining to "Training",
+    WebStringKey.SectionTraining to "Schulung",
     WebStringKey.SectionReports to "Berichte",
     WebStringKey.OfflineReady to "Offline bereit",
     WebStringKey.OfflineDescription to "Lokale Datenbank v2.4.1 aktiv. Keine Daten verlassen dieses Gerät.",
     
     // Trust Centre
-    WebStringKey.TrustCentreTitle to "Trust Centre",
+    WebStringKey.TrustCentreTitle to "Vertrauenszentrum",
     WebStringKey.OfflineGuarantee to "Strenge Offline-Garantie",
     WebStringKey.OfflineGuaranteeDesc to "Die QR-SHIELD-Analyse läuft vollständig auf der Neural Engine Ihres Geräts. URL-Daten verlassen niemals Ihr Telefon.",
     WebStringKey.ThreatSensitivity to "Bedrohungsempfindlichkeit",
@@ -65,11 +65,11 @@ internal val GermanStrings = mapOf(
     WebStringKey.HighPerformanceEngine to "Hochleistungs-Engine",
     WebStringKey.RecentScans to "Letzte Scans",
     WebStringKey.ViewFullHistory to "Vollständigen Verlauf anzeigen",
-    WebStringKey.Status to "Status",
+    WebStringKey.Status to "Zustand",
     WebStringKey.Source to "Quelle",
     WebStringKey.Details to "Details",
     WebStringKey.Time to "Zeit",
-    WebStringKey.Version to "Version",
+    WebStringKey.Version to "Ausführung",
     WebStringKey.LastUpdate to "Letztes Update",
     WebStringKey.Signatures to "Signaturen",
     WebStringKey.CheckForUpdates to "Nach Updates suchen",
@@ -110,7 +110,7 @@ internal val GermanStrings = mapOf(
 
     // Threat / Results
     WebStringKey.BreadcrumbHome to "Startseite",
-    WebStringKey.BreadcrumbScans to "Scans",
+    WebStringKey.BreadcrumbScans to "Scans durchgeführt",
     WebStringKey.OfflineProtection to "Offline-Schutz",
     WebStringKey.VerdictHighRisk to "HOHES RISIKO ERKANNT",
     WebStringKey.VerdictDangerous to "Gefährlich",
@@ -283,7 +283,7 @@ internal val GermanStrings = mapOf(
     WebStringKey.UrlExamplePlaceholder to "https://example.com",
     
     // Export Page Additional
-    WebStringKey.Scan to "Scan",
+    WebStringKey.Scan to "Scannen",
     WebStringKey.Result to "Ergebnis",
     WebStringKey.ReportGeneration to "Berichtserstellung",
     WebStringKey.ReportGenerationDesc to "Formate konfigurieren und Bedrohungsanalyse herunterladen.",
@@ -370,7 +370,7 @@ internal val GermanStrings = mapOf(
     
     // Footer
     WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc. Alle Rechte vorbehalten.",
-    WebStringKey.Support to "Support",
+    WebStringKey.Support to "Unterstützung",
     WebStringKey.Terms to "Bedingungen",
     WebStringKey.SystemsOperational to "Systeme betriebsbereit",
     WebStringKey.SystemSecure to "System sicher",

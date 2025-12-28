@@ -102,7 +102,8 @@ fun QRShieldApp(viewModel: AppViewModel) {
  * - Cmd/Ctrl+3: Go to Scan History
  * - Cmd/Ctrl+4: Go to Training
  * - Cmd/Ctrl+F: Find/Search (go to Scan History)
- * - I: Import image (parity with Web app scanner.js)
+ * - Cmd/Ctrl+I: Import image
+ * - Enter: Analyze URL (when on Dashboard)
  * - Escape: Go back from result screens
  */
 private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Boolean {
@@ -151,13 +152,11 @@ private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Bool
             true
         }
         
-        // I: Import image (parity with Web app scanner.js)
-        !isCtrlOrCmd && event.key == Key.I -> {
+        // Cmd/Ctrl+I: Import image (ONLY with modifier to avoid typing interference)
+        isCtrlOrCmd && event.key == Key.I -> {
             handleImportShortcut(viewModel)
             true
         }
-        
-        // Note: G key removed to avoid interference with typing URLs containing 'G'
         
         // Escape: Go back from result/secondary screens
         event.key == Key.Escape -> {
