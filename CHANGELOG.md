@@ -4,6 +4,86 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.19.0] - 2025-12-29
+
+### 🛡️ SecurityEngine Improvement Roadmap - Complete Implementation
+
+Major security infrastructure upgrade implementing Milestones 2.1, 2.2, and 2.3 of the SecurityEngine Improvement Roadmap.
+
+#### New Files Created
+
+| File | Description |
+|------|-------------|
+| `model/ReasonCode.kt` | 30+ stable reason codes for explainable security analysis |
+| `core/CanonicalUrl.kt` | Enhanced URL structure with derived security fields |
+| `security/UnicodeRiskAnalyzer.kt` | Homograph/IDN/mixed-script attack detection |
+| `engine/PublicSuffixList.kt` | eTLD+1 computation with bundled PSL snapshot |
+
+#### Milestone 2.1: Unicode/IDN Defense ✅
+
+- **Mixed-script detection**: Detects Latin + Cyrillic combinations
+- **Confusable skeleton approach**: Normalizes "аpple.com" → "apple.com"
+- **Zero-width character filtering**: Removes invisible Unicode obfuscation
+- **Safe display host**: `getSafeDisplayHost()` for UI rendering
+
+```kotlin
+val analyzer = UnicodeRiskAnalyzer()
+val result = analyzer.analyze("xn--pple-43d.com")
+// result.isPunycode = true
+// result.reasons = [REASON_HOMOGRAPH]
+```
+
+#### Milestone 2.2: Public Suffix List ✅
+
+- **100+ eTLDs bundled**: co.uk, com.au, co.jp, com.br, etc.
+- **eTLD+1 computation**: "www.store.example.co.uk" → "example.co.uk"
+- **Subdomain depth analysis**: Detects deeply nested subdomain abuse
+
+```kotlin
+val psl = PublicSuffixList()
+psl.getRegistrableDomain("www.shop.example.co.uk") // → "example.co.uk"
+psl.getSubdomainDepth("a.b.c.example.com") // → 3
+```
+
+#### Milestone 2.3: Explainable Reasons ✅
+
+- **30+ stable ReasonCode values**: Never change, safe for persistence
+- **5 severity levels**: CRITICAL, HIGH, MEDIUM, LOW, INFO
+- **Every risk increase maps to a reason code**
+
+| Severity | Examples |
+|----------|----------|
+| CRITICAL | `JAVASCRIPT_URL`, `DATA_URI`, `AT_SYMBOL_INJECTION` |
+| HIGH | `HOMOGRAPH`, `MIXED_SCRIPT`, `BRAND_IMPERSONATION` |
+| MEDIUM | `HTTP_NOT_HTTPS`, `SUSPICIOUS_TLD`, `DEEP_SUBDOMAIN` |
+| LOW | `URL_SHORTENER`, `LONG_URL`, `SUSPICIOUS_PATH` |
+
+#### HeuristicsEngine Integration
+
+All 25 heuristic checks now emit `ReasonCode` values:
+
+```kotlin
+data class Result(
+    val score: Int,
+    val flags: List<String>,
+    val details: Map<String, Int>,
+    val reasons: List<ReasonCode>  // NEW!
+)
+```
+
+#### Test Coverage
+
+| Test Class | Tests |
+|------------|-------|
+| `ReasonCodeTest` | 7 tests |
+| `UnicodeRiskAnalyzerTest` | 11 tests |
+| `PublicSuffixListTest` | 11 tests |
+
+```bash
+./gradlew :common:desktopTest
+# BUILD SUCCESSFUL - All 1293 tests passed
+```
+
 ## [1.18.11] - 2025-12-29
 
 ### 🚀 Major Engine Upgrade: Enhanced Detection Capabilities

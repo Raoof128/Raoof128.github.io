@@ -17,6 +17,7 @@
 package com.qrshield.engine
 
 import com.qrshield.core.UrlAnalyzer
+import com.qrshield.model.ReasonCode
 
 /**
  * Heuristics Engine for QR-SHIELD
@@ -79,14 +80,17 @@ class HeuristicsEngine(
     data class Result(
         val score: Int,
         val flags: List<String>,
-        val details: Map<String, Int>
+        val details: Map<String, Int>,
+        /** Stable reason codes for explainability */
+        val reasons: List<ReasonCode> = emptyList()
     ) {
         companion object {
             /** Result for unparseable URLs */
             val UNPARSEABLE = Result(
                 score = 50,
                 flags = listOf("Unable to parse URL"),
-                details = emptyMap()
+                details = emptyMap(),
+                reasons = listOf(ReasonCode.REASON_UNPARSEABLE)
             )
         }
     }
@@ -97,7 +101,8 @@ class HeuristicsEngine(
     private data class HeuristicCheck(
         val name: String,
         val weight: Int,
-        val message: String
+        val message: String,
+        val reasonCode: ReasonCode
     )
 
     /**
@@ -127,7 +132,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "HTTP_NOT_HTTPS",
                 WEIGHT_HTTP_NOT_HTTPS,
-                "Uses insecure HTTP protocol"
+                "Uses insecure HTTP protocol",
+                ReasonCode.REASON_HTTP_NOT_HTTPS
             ))
         }
 
@@ -138,7 +144,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "IP_ADDRESS_HOST",
                 WEIGHT_IP_ADDRESS,
-                "Host is an IP address instead of domain"
+                "Host is an IP address instead of domain",
+                ReasonCode.REASON_IP_HOST
             ))
         }
 
@@ -147,7 +154,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "URL_SHORTENER",
                 WEIGHT_SHORTENER,
-                "Uses URL shortening service"
+                "Uses URL shortening service",
+                ReasonCode.REASON_URL_SHORTENER
             ))
         }
 
@@ -157,7 +165,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "EXCESSIVE_SUBDOMAINS",
                 WEIGHT_SUBDOMAINS,
-                "Excessive subdomain depth ($subdomainCount levels)"
+                "Excessive subdomain depth ($subdomainCount levels)",
+                ReasonCode.REASON_DEEP_SUBDOMAIN
             ))
         }
 
@@ -166,7 +175,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "NON_STANDARD_PORT",
                 WEIGHT_PORT,
-                "Non-standard port: ${parsed.port}"
+                "Non-standard port: ${parsed.port}",
+                ReasonCode.REASON_NON_STANDARD_PORT
             ))
         }
 
@@ -190,7 +200,8 @@ class HeuristicsEngine(
                 "LONG_URL",
                 longUrlWeight,
                 "Unusually long URL (${url.length} characters)" +
-                    if (hasUtmParams) " - contains marketing parameters" else ""
+                    if (hasUtmParams) " - contains marketing parameters" else "",
+                ReasonCode.REASON_LONG_URL
             ))
         }
 
@@ -200,7 +211,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "HIGH_ENTROPY_HOST",
                 WEIGHT_ENTROPY,
-                "High randomness in domain name"
+                "High randomness in domain name",
+                ReasonCode.REASON_HIGH_ENTROPY_HOST
             ))
         }
 
@@ -213,7 +225,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "SUSPICIOUS_PATH_KEYWORDS",
                 keywordScore,
-                "Suspicious keywords in path ($suspiciousKeywordCount found)"
+                "Suspicious keywords in path ($suspiciousKeywordCount found)",
+                ReasonCode.REASON_SUSPICIOUS_PATH
             ))
         }
 
@@ -224,7 +237,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "CREDENTIAL_PARAMS",
                 WEIGHT_CREDENTIAL_PARAMS,
-                "Credential-related parameters in URL"
+                "Credential-related parameters in URL",
+                ReasonCode.REASON_CREDENTIAL_PARAM
             ))
         }
 
@@ -233,7 +247,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "ENCODED_PAYLOAD",
                 WEIGHT_BASE64,
-                "Encoded data detected in query parameters"
+                "Encoded data detected in query parameters",
+                ReasonCode.REASON_ENCODED_PAYLOAD
             ))
         }
 
@@ -244,7 +259,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "AT_SYMBOL_INJECTION",
                 WEIGHT_AT_SYMBOL,
-                "Contains @ symbol (possible URL spoofing)"
+                "Contains @ symbol (possible URL spoofing)",
+                ReasonCode.REASON_AT_SYMBOL_INJECTION
             ))
         }
 
@@ -254,7 +270,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "MULTIPLE_TLD_SEGMENTS",
                 WEIGHT_MULTI_TLD,
-                "Multiple TLD-like segments in domain"
+                "Multiple TLD-like segments in domain",
+                ReasonCode.REASON_MULTI_TLD
             ))
         }
 
@@ -263,7 +280,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "PUNYCODE_DOMAIN",
                 WEIGHT_PUNYCODE,
-                "Internationalized domain (potential homograph)"
+                "Internationalized domain (potential homograph)",
+                ReasonCode.REASON_HOMOGRAPH
             ))
         }
 
@@ -272,7 +290,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "NUMERIC_SUBDOMAIN",
                 WEIGHT_NUMERIC_SUBDOMAIN,
-                "Numeric-only subdomain detected"
+                "Numeric-only subdomain detected",
+                ReasonCode.REASON_NUMERIC_SUBDOMAIN
             ))
         }
 
@@ -281,7 +300,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "RISKY_EXTENSION",
                 WEIGHT_RISKY_EXTENSION,
-                "Potentially dangerous file extension in path"
+                "Potentially dangerous file extension in path",
+                ReasonCode.REASON_RISKY_EXTENSION
             ))
         }
 
@@ -290,7 +310,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "DOUBLE_EXTENSION",
                 WEIGHT_DOUBLE_EXTENSION,
-                "Double file extension detected (common malware tactic)"
+                "Double file extension detected (common malware tactic)",
+                ReasonCode.REASON_DOUBLE_EXTENSION
             ))
         }
 
@@ -299,7 +320,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "EXCESSIVE_ENCODING",
                 WEIGHT_ENCODING,
-                "Excessive URL encoding detected"
+                "Excessive URL encoding detected",
+                ReasonCode.REASON_EXCESSIVE_ENCODING
             ))
         }
 
@@ -310,7 +332,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "ZERO_WIDTH_CHARS",
                 WEIGHT_ZERO_WIDTH,
-                "Hidden zero-width Unicode characters detected"
+                "Hidden zero-width Unicode characters detected",
+                ReasonCode.REASON_ZERO_WIDTH_CHARS
             ))
         }
 
@@ -319,7 +342,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "DATA_URI_SCHEME",
                 WEIGHT_DATA_URI,
-                "Data URI scheme detected - may contain embedded code"
+                "Data URI scheme detected - may contain embedded code",
+                ReasonCode.REASON_DATA_URI
             ))
         }
 
@@ -328,7 +352,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "JAVASCRIPT_URL",
                 WEIGHT_JAVASCRIPT_URL,
-                "JavaScript URL scheme detected - executable code"
+                "JavaScript URL scheme detected - executable code",
+                ReasonCode.REASON_JAVASCRIPT_URL
             ))
         }
 
@@ -337,7 +362,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "FRAGMENT_HIDING",
                 WEIGHT_FRAGMENT_HIDING,
-                "Suspicious use of URL fragment to hide content"
+                "Suspicious use of URL fragment to hide content",
+                ReasonCode.REASON_FRAGMENT_HIDING
             ))
         }
 
@@ -348,7 +374,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "CREDENTIAL_KEYWORDS",
                 keywordScore,
-                "Credential harvesting keywords detected ($credentialKeywordCount found)"
+                "Credential harvesting keywords detected ($credentialKeywordCount found)",
+                ReasonCode.REASON_CREDENTIAL_KEYWORDS
             ))
         }
 
@@ -357,7 +384,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "SUSPICIOUS_PORT",
                 WEIGHT_SUSPICIOUS_PORT,
-                "Suspicious port number: ${parsed.port}"
+                "Suspicious port number: ${parsed.port}",
+                ReasonCode.REASON_SUSPICIOUS_PORT
             ))
         }
 
@@ -366,7 +394,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "LOOKALIKE_CHARS",
                 WEIGHT_LOOKALIKE,
-                "Lookalike Unicode characters detected in domain"
+                "Lookalike Unicode characters detected in domain",
+                ReasonCode.REASON_LOOKALIKE_CHARS
             ))
         }
 
@@ -375,7 +404,8 @@ class HeuristicsEngine(
             checks.add(HeuristicCheck(
                 "DOMAIN_AGE_SIMULATION",
                 WEIGHT_DOMAIN_AGE,
-                "Domain appears to be newly generated (number sequences)"
+                "Domain appears to be newly generated (number sequences)",
+                ReasonCode.REASON_DOMAIN_AGE_PATTERN
             ))
         }
 
@@ -383,11 +413,13 @@ class HeuristicsEngine(
         val totalScore = checks.sumOf { it.weight }.coerceIn(0, 100)
         val flags = checks.map { it.message }
         val details = checks.associate { it.name to it.weight }
+        val reasons = checks.map { it.reasonCode }
 
         return Result(
             score = totalScore,
             flags = flags,
-            details = details
+            details = details,
+            reasons = reasons
         )
     }
 

@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.18.11`** (as of December 29, 2025)
+**Current App Version: `1.19.0`** (as of December 29, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,68 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🛡️ December 29, 2025 (Session 10k+41) - SecurityEngine Roadmap Implementation
+
+### Summary
+Implemented the SecurityEngine Improvement Roadmap with 4 major new components: ReasonCode system for explainability, CanonicalUrl structure with derived fields, UnicodeRiskAnalyzer for homograph/IDN detection, and PublicSuffixList for eTLD+1 computation.
+
+## ✅ New Files Created
+
+| File | Purpose |
+|------|---------|
+| `ReasonCode.kt` | 30+ stable reason codes for explainable security analysis |
+| `CanonicalUrl.kt` | Enhanced URL structure with derived security fields |
+| `UnicodeRiskAnalyzer.kt` | Homograph, mixed-script, confusable char detection |
+| `PublicSuffixList.kt` | eTLD+1 computation with bundled PSL snapshot |
+| `ReasonCodeTest.kt` | Unit tests for ReasonCode enum |
+| `UnicodeRiskAnalyzerTest.kt` | Unit tests for Unicode attack detection |
+| `PublicSuffixListTest.kt` | Unit tests for domain parsing |
+
+## ✅ Files Modified
+
+| File | Changes |
+|------|---------|
+| `HeuristicsEngine.kt` | Added `reasons: List<ReasonCode>` to Result, all 25 checks now emit reason codes |
+
+## 🧩 Milestones Completed
+
+### Milestone 2.1: Unicode/IDN Defense ✅
+- Mixed-script detection (Latin + Cyrillic)
+- Confusable character skeleton approach
+- Zero-width character detection
+- Safe display host generation: `getSafeDisplayHost()`
+
+### Milestone 2.2: Domain Intelligence via PSL ✅
+- Bundled Public Suffix List snapshot (100+ eTLDs)
+- eTLD+1 computation: `getRegistrableDomain()`
+- Subdomain depth analysis
+- Multi-part TLD support (co.uk, com.au, etc.)
+
+### Milestone 2.3: Explainable Reasons ✅
+- 30+ stable `ReasonCode` enum values
+- Severity levels: CRITICAL, HIGH, MEDIUM, LOW, INFO
+- Every risk increase maps to at least one reason code
+- `ReasonCode.fromCode()` for persistence/logging
+
+## 📊 ReasonCode Categories
+
+| Severity | Count | Examples |
+|----------|-------|----------|
+| CRITICAL | 3 | JAVASCRIPT_URL, DATA_URI, AT_SYMBOL_INJECTION |
+| HIGH | 12 | HOMOGRAPH, MIXED_SCRIPT, BRAND_IMPERSONATION |
+| MEDIUM | 12 | HTTP_NOT_HTTPS, SUSPICIOUS_TLD, DEEP_SUBDOMAIN |
+| LOW | 4 | URL_SHORTENER, LONG_URL, SUSPICIOUS_PATH |
+| INFO | 2 | UNPARSEABLE, ANALYSIS_COMPLETE |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :common:desktopTest
+# BUILD SUCCESSFUL - 1293 tests passed
+```
 
 ---
 
