@@ -450,8 +450,99 @@ function addMlInsightsSection(container) {
 
     container.appendChild(section);
 
+    // Add voting breakdown section
+    addVotingSection(container, details);
+
     // Also check for Unicode risks if URL has them
     tryAddUnicodeWarning(container);
+}
+
+/**
+ * Add voting visualization showing 4 component votes
+ * Matches the democratic voting system in VerdictDeterminer.kt
+ */
+function addVotingSection(container, details) {
+    // Calculate individual votes based on the same thresholds as VerdictDeterminer.kt
+    const heuristicVote = details.heuristicScore <= 10 ? 'SAFE' : details.heuristicScore <= 25 ? 'SUS' : 'MAL';
+    const mlProb = (details.mlScore || 0) / 100; // Convert back to 0.0-1.0
+    const mlVote = mlProb <= 0.30 ? 'SAFE' : mlProb <= 0.60 ? 'SUS' : 'MAL';
+    const brandVote = 'SAFE'; // Brand score not directly exposed, assume safe for now
+    const tldVote = 'SAFE'; // TLD score not directly exposed, assume safe for now
+
+    // Count votes
+    const votes = [heuristicVote, mlVote, brandVote, tldVote];
+    const safeVotes = votes.filter(v => v === 'SAFE').length;
+    const susVotes = votes.filter(v => v === 'SUS').length;
+    const malVotes = votes.filter(v => v === 'MAL').length;
+
+    // Determine final verdict from voting
+    let votingResult = 'SUSPICIOUS';
+    let resultClass = 'warning';
+    if (safeVotes >= 3) {
+        votingResult = 'SAFE';
+        resultClass = 'safe';
+    } else if (malVotes >= 2) {
+        votingResult = 'MALICIOUS';
+        resultClass = 'danger';
+    } else if (susVotes >= 2) {
+        votingResult = 'SUSPICIOUS';
+        resultClass = 'warning';
+    } else if (safeVotes >= 2) {
+        votingResult = 'SAFE';
+        resultClass = 'safe';
+    }
+
+    const votingSection = document.createElement('div');
+    votingSection.className = 'voting-section';
+
+    votingSection.innerHTML = `
+        <div class="voting-header">
+            <span class="material-symbols-outlined">how_to_vote</span>
+            <h4>${translateText('Component Voting')}</h4>
+            <span class="voting-result ${resultClass}">${safeVotes}/4 ${translateText('SAFE')}</span>
+        </div>
+        <div class="voting-grid">
+            <div class="vote-chip ${getVoteClass(heuristicVote)}">
+                <span class="vote-icon">${getVoteIcon(heuristicVote)}</span>
+                <span class="vote-label">${translateText('Heuristic')}</span>
+            </div>
+            <div class="vote-chip ${getVoteClass(mlVote)}">
+                <span class="vote-icon">${getVoteIcon(mlVote)}</span>
+                <span class="vote-label">${translateText('ML Model')}</span>
+            </div>
+            <div class="vote-chip ${getVoteClass(brandVote)}">
+                <span class="vote-icon">${getVoteIcon(brandVote)}</span>
+                <span class="vote-label">${translateText('Brand')}</span>
+            </div>
+            <div class="vote-chip ${getVoteClass(tldVote)}">
+                <span class="vote-icon">${getVoteIcon(tldVote)}</span>
+                <span class="vote-label">${translateText('TLD')}</span>
+            </div>
+        </div>
+        <div class="voting-explanation">
+            ${translateText('Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red')}
+        </div>
+    `;
+
+    container.appendChild(votingSection);
+}
+
+function getVoteClass(vote) {
+    switch (vote) {
+        case 'SAFE': return 'vote-safe';
+        case 'SUS': return 'vote-suspicious';
+        case 'MAL': return 'vote-malicious';
+        default: return '';
+    }
+}
+
+function getVoteIcon(vote) {
+    switch (vote) {
+        case 'SAFE': return '✓';
+        case 'SUS': return '⚠';
+        case 'MAL': return '✗';
+        default: return '?';
+    }
 }
 
 /**

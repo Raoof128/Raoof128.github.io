@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ResultsState.scannedUrl) {
         displayResult(ResultsState.currentResult);
     } else {
-        // Demo mode: show sample safe result
-        showDemoResult();
+        // No scan data available - show empty state (NOT fake demo)
+        showNoDataState();
     }
 
     // Show content now that it's loaded (prevents flash of hardcoded content)
@@ -1074,22 +1074,46 @@ function showToast(message, type = 'success') {
 }
 
 /**
- * Show a demo result for testing
+ * Show empty state when no scan data is available
+ * NEVER shows fake security outcomes - this is a non-negotiable rule
  */
-function showDemoResult() {
-    ResultsState.scannedUrl = 'https://secure-login.example.com/auth?id=8291';
-    ResultsState.verdict = 'SAFE';
-    ResultsState.confidence = 99.8;
+function showNoDataState() {
+    // Update verdict to show no data (not fake SAFE)
+    const verdictCard = document.querySelector('.verdict-card');
+    if (verdictCard) {
+        verdictCard.className = 'verdict-card unknown';
+    }
 
-    ResultsState.currentResult = {
-        url: ResultsState.scannedUrl,
-        verdict: ResultsState.verdict,
-        confidence: ResultsState.confidence,
-        analysisTime: 4,
-        factors: getFactorsForVerdict('SAFE'),
-    };
+    const verdictBadge = document.querySelector('.verdict-badge');
+    if (verdictBadge) {
+        verdictBadge.textContent = translateText('NO DATA');
+        verdictBadge.className = 'verdict-badge unknown';
+    }
 
-    displayResult(ResultsState.currentResult);
+    const verdictDescription = document.querySelector('.verdict-description');
+    if (verdictDescription) {
+        verdictDescription.textContent = translateText('No scan data available. Please scan a URL to see analysis results.');
+    }
+
+    // Update URL display
+    const scannedUrl = document.getElementById('scannedUrl');
+    if (scannedUrl) {
+        scannedUrl.textContent = translateText('No URL scanned');
+    }
+
+    // Hide factors section or show empty message
+    const factorsGrid = document.querySelector('.factors-grid');
+    if (factorsGrid) {
+        factorsGrid.innerHTML = `
+            <div class="no-data-card">
+                <span class="material-symbols-outlined">info</span>
+                <p>${translateText('Scan a QR code or enter a URL to analyze.')}</p>
+                <a href="scanner.html" class="scan-link">${translateText('Go to Scanner')}</a>
+            </div>
+        `;
+    }
+
+    console.log('[Results] No scan data - showing empty state (NO fake demo)');
 }
 
 // =============================================================================

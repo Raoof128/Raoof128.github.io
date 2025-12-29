@@ -106,6 +106,13 @@ const ThreatLevels = {
         icon: 'verified',
         description: 'No security threats were detected. The QR code leads to a verified safe destination.',
     },
+    UNKNOWN: {
+        title: 'NO DATA AVAILABLE',
+        badge: 'No Data',
+        badgeClass: 'unknown',
+        icon: 'help_outline',
+        description: 'No scan data available. Please scan a QR code or enter a URL to analyze.',
+    },
 };
 
 // =============================================================================
@@ -279,57 +286,45 @@ function loadThreatData() {
         }
     }
 
-    // 5. No real data available - use demo mode
-    ThreatState.threatData = getDemoData();
-    ThreatState.threatData.isDemo = true;
-    console.log('[Threat] No scan data found, showing demo mode');
+    // 5. No real data available - show EMPTY STATE (NOT fake demo)
+    ThreatState.threatData = getEmptyStateData();
+    console.log('[Threat] No scan data found, showing empty state (NO fake demo)');
 }
 
 /**
- * Get demo threat data
+ * Get empty state data when no real scan is available
+ * NEVER fabricates fake security outcomes - this is a non-negotiable rule
  */
-function getDemoData() {
+function getEmptyStateData() {
     return {
-        url: 'http://xn--secure-bankng-87b.com/login',
-        score: 98.5,
-        verdict: 'HIGH',
-        scanId: 'scan_2025_12_29_h9t2',
+        url: '',
+        score: 0,
+        verdict: 'UNKNOWN',
+        scanId: 'no_data',
         timestamp: Date.now(),
-        attacks: getDemoAttacks(),
-        tags: ['Phishing Attempt', 'Obfuscated Script', 'Homograph Attack'],
+        attacks: [],
+        tags: [],
+        isEmpty: true,
     };
 }
 
 /**
- * Get demo attack details
+ * Legacy demo data function - DEPRECATED
+ * Kept for reference but should never be called in production
+ * @deprecated Use getEmptyStateData() instead
+ */
+function getDemoData() {
+    console.warn('[Security] getDemoData() called - this should not happen in production');
+    return getEmptyStateData();
+}
+
+/**
+ * Legacy demo attacks function - DEPRECATED
+ * @deprecated Demo attacks are no longer shown
  */
 function getDemoAttacks() {
-    return [
-        {
-            type: 'homograph',
-            title: 'Homograph / IDN Attack',
-            description: 'Cyrillic characters mimicking Latin alphabet detected.',
-            visual: 'secure-banking.com',
-            actual: 'xn--secure-bankng-87b.com',
-            explanation: "The domain uses the Cyrillic 'а' (U+0430) instead of Latin 'a' (U+0061).",
-        },
-        {
-            type: 'redirect',
-            title: 'Suspicious Redirect Chain',
-            description: '3 hops detected involving known URL shorteners.',
-            chain: [
-                { label: 'QR Code Scan', url: 'http://bit.ly/3x891', status: 'start' },
-                { label: 'Intermediate Hop', url: 'http://tracker-service-cloud.net/ref?id=99', status: 'warning' },
-                { label: 'Final Destination', url: 'http://xn--secure-bankng-87b.com/login', status: 'danger' },
-            ],
-        },
-        {
-            type: 'obfuscation',
-            title: 'Obfuscated JavaScript',
-            description: 'High entropy string detected in URL parameters.',
-            code: "<script>eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)...",
-        },
-    ];
+    console.warn('[Security] getDemoAttacks() called - this should not happen in production');
+    return [];
 }
 
 // =============================================================================
@@ -902,7 +897,7 @@ function mapVerdictToLevel(verdict) {
         case 'HIGH': return 'HIGH';
         case 'MEDIUM': return 'MEDIUM';
         case 'LOW': return 'LOW';
-        default: return 'SAFE';
+        default: return 'UNKNOWN'; // NEVER default to SAFE - security rule
     }
 }
 

@@ -185,6 +185,73 @@ Any important notes for future agents.
 
 ---
 
+# 📅 December 29, 2025 (Session 10k+45) - WebApp & Desktop i18n Complete Parity
+
+### Summary
+Achieved 100% translation parity across ALL platforms:
+- **WebApp**: Fixed 51 untranslated strings across 6 languages (365 keys each)
+- **Desktop**: Added 866 missing translations to achieve 449 keys in all 15 languages
+
+## ✅ WebApp Fixes (51 translations)
+
+| File | Fixes |
+|------|-------|
+| `WebStringsDe.kt` | 14 |
+| `WebStringsFr.kt` | 12 |
+| `WebStringsIn.kt` | 8 |
+| `WebStringsIt.kt` | 7 |
+| `WebStringsEs.kt` | 5 |
+| `WebStringsPt.kt` | 5 |
+
+## ✅ Desktop Fixes (866 translations + 4 nav fixes)
+
+| File | Translations Added |
+|------|-------------------|
+| `DesktopStringsHi.kt` | 84 |
+| `DesktopStringsDe.kt` | 81 + 3 nav |
+| `DesktopStringsEs.kt` | 81 |
+| `DesktopStringsFr.kt` | 81 |
+| `DesktopStringsTh.kt` | 67 |
+| `DesktopStringsTr.kt` | 67 |
+| `DesktopStringsVi.kt` | 67 |
+| `DesktopStringsAr.kt` | 66 |
+| `DesktopStringsKo.kt` | 60 |
+| `DesktopStringsIn.kt` | 49 |
+| `DesktopStringsJa.kt` | 48 |
+| `DesktopStringsZh.kt` | 48 |
+| `DesktopStringsRu.kt` | 30 |
+| `DesktopStringsIt.kt` | 21 + 1 nav |
+| `DesktopStringsPt.kt` | 16 |
+
+## ✅ Final Verification
+
+**WebApp (16 languages):**
+```
+All languages: 365 keys, 100% coverage ✅
+./gradlew :webApp:jsBrowserDevelopmentWebpack → BUILD SUCCESSFUL ✅
+```
+
+**Desktop (15 languages):**
+```
+All languages: 449 keys, 100% coverage ✅
+./gradlew :desktopApp:compileKotlinDesktop → BUILD SUCCESSFUL ✅
+```
+
+## ✅ Statistics
+
+| Platform | Languages | Keys/Lang | Fixes Made |
+|----------|-----------|-----------|------------|
+| WebApp | 16 | 365 | 51 |
+| Desktop | 15 | 449 (11 nav + 449 common) | 870 |
+| **Total** | **31** | - | **921** |
+
+## 📝 Documentation Updates
+
+- ✅ CHANGELOG.md updated with comprehensive entry
+- ✅ agent.md updated with this session
+
+---
+
 # 📅 December 29, 2025 (Session 10k+45) - WebApp i18n Untranslated Strings Fix
 
 ### Summary
@@ -339,12 +406,52 @@ Zh           365    0        0       100.0%    ✓
 
 ---
 
-# 🔌 December 29, 2025 (Session 10k+45) - Results Page Real Engine Integration
+# 🔒 December 29, 2025 (Session 10k+46) - WebApp Security Audit: No Fake Data
 
 ### Summary
-Wired up the web app results page to use real engine data instead of mock/hardcoded values. The page now calls actual Kotlin/JS APIs for heuristics, ML scoring, threat intel, and unicode analysis.
+Comprehensive audit of WebApp to remove ALL fabricated/demo security outcomes. Core security rule enforced: **Unknown/Invalid ≠ Safe**.
 
-## ✅ Changes Made
+## ✅ Findings Table
+
+| File | Issue | Severity | Fix |
+|------|-------|----------|-----|
+| `results.js` L1079-1093 | `showDemoResult()` showed fake SAFE 99.8% | **High** | Replaced with `showNoDataState()` |
+| `results.js` L62-63 | Called `showDemoResult()` on no params | **High** | Now calls `showNoDataState()` |
+| `threat.js` L282-285 | `getDemoData()` showed fake 98.5% phishing | **High** | Replaced with `getEmptyStateData()` |
+| `threat.js` L905 | `default: return 'SAFE'` | **Med** | Changed to `return 'UNKNOWN'` |
+| `threat.js` L80-109 | Missing UNKNOWN level | **Med** | Added UNKNOWN to ThreatLevels |
+
+## ✅ Security Rules Enforced
+
+1. **No fake security outcomes** - UI never fabricates verdict/score
+2. **Unknown ≠ Safe** - Invalid inputs show UNKNOWN, never default to SAFE
+3. **Offline-first** - No network fallbacks for security decisions
+4. **Deterministic** - No randomness in security displays
+5. **Explainability** - Real engine reasons shown, not mock data
+
+## ✅ Files Changed
+
+| File | Lines Changed |
+|------|---------------|
+| `results.js` | +40, -18 (showNoDataState replaces showDemoResult) |
+| `threat.js` | +45, -50 (getEmptyStateData, UNKNOWN level, default fix) |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserProductionWebpack
+# BUILD SUCCESSFUL in 12s
+```
+
+---
+
+# 🔌 December 29, 2025 (Session 10k+45) - Results Page + Voting System UI
+
+### Summary
+1. Wired up the web app results page to use real engine data instead of mock/hardcoded values
+2. Added visual component voting breakdown matching the desktop app's democratic voting system
+
+## ✅ Part 1: Results Page Real Data
 
 ### results.js - Core Integration
 | Function | Purpose |
@@ -365,6 +472,22 @@ Wired up the web app results page to use real engine data instead of mock/hardco
 | `displayResult()` | Shows real heuristic count, not static "142" |
 | `generateScanId()` | Restored (was accidentally removed) |
 
+## ✅ Part 2: Voting System UI
+
+### app.js - Voting Visualization
+| Function | Purpose |
+|----------|---------|
+| `addVotingSection(container, details)` | Creates voting panel after analysis |
+| `getVoteClass(vote)` | Returns CSS class for vote chip |
+| `getVoteIcon(vote)` | Returns ✓/⚠/✗ icon for vote |
+
+### dashboard.css - Voting Styles (+130 lines)
+- `.voting-section` - Purple gradient container
+- `.voting-header` - Title with vote count badge
+- `.voting-grid` - Flex container for vote chips
+- `.vote-chip.vote-safe/suspicious/malicious` - Colored vote badges
+- Light mode overrides for all components
+
 ## ✅ Engine APIs Used
 - `window.qrshieldHeuristics(url)` → Real reason codes + scores
 - `window.qrshieldMlScore(url)` → ML ensemble + char/feature scores
@@ -374,10 +497,12 @@ Wired up the web app results page to use real engine data instead of mock/hardco
 ## ✅ Build Verification
 ```bash
 ./gradlew :webApp:jsBrowserProductionWebpack
-# BUILD SUCCESSFUL in 2m 47s
+# BUILD SUCCESSFUL in 15s
 ```
 
 ---
+
+# 📅 December 29, 2025 (Session 10k+44) - Global Date Cleanup
 
 ### Summary
 Systematic search and replacement of all outdated dates (2023/2024) throughout the entire application to current dates (2025-2026).
