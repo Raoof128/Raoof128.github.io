@@ -474,4 +474,12 @@ internal val TurkishCommonStrings = mapOf(
     "Zero intermediate redirects found. Destination is final." to "Keine Zwischenweiterleitungen gefunden. Ziel ist final.",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "Bileşen Oylaması",
+    "Heuristic" to "Sezgisel",
+    "ML Model" to "ML Modeli",
+    "Brand" to "Marka",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "Çoğunluk oyu kararı belirler: 3+ GÜVENLİ = yeşil, 2+ ZARARLI = kırmızı"
 )

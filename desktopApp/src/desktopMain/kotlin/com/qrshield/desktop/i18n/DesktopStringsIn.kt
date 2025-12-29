@@ -475,4 +475,12 @@ internal val IndonesianCommonStrings = mapOf(
     "Zero intermediate redirects found. Destination is final." to "Keine Zwischenweiterleitungen gefunden. Ziel ist final.",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "Pemungutan Suara Komponen",
+    "Heuristic" to "Heuristik",
+    "ML Model" to "Model ML",
+    "Brand" to "Merek",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "Suara mayoritas menentukan keputusan: 3+ AMAN = hijau, 2+ BERBAHAYA = merah"
 )

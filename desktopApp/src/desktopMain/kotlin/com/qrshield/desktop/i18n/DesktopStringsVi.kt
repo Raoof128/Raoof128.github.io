@@ -474,4 +474,12 @@ internal val VietnameseCommonStrings = mapOf(
     "Zero intermediate redirects found. Destination is final." to "Keine Zwischenweiterleitungen gefunden. Ziel ist final.",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "Bỏ phiếu thành phần",
+    "Heuristic" to "Heuristic",
+    "ML Model" to "Mô hình ML",
+    "Brand" to "Thương hiệu",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "Đa số phiếu quyết định kết quả: 3+ AN TOÀN = xanh, 2+ ĐỘC HẠI = đỏ"
 )

@@ -383,6 +383,13 @@ internal val ThaiStrings = mapOf(
     WebStringKey.Thai to "ไทย",
     WebStringKey.Turkish to "ตุรกี",
     WebStringKey.Vietnamese to "เวียดนาม"
+,
+    WebStringKey.ComponentVoting to "การโหวตส่วนประกอบ",
+    WebStringKey.Heuristic to "ฮิวริสติก",
+    WebStringKey.MLModel to "โมเดล ML",
+    WebStringKey.Brand to "แบรนด์",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "เสียงข้างมากกำหนดผล: 3+ ปลอดภัย=เขียว, 2+ อันตราย=แดง"
 )
 
 internal val ThaiCommonStrings = mapOf(

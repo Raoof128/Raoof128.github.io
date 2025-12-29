@@ -474,4 +474,12 @@ internal val KoreanCommonStrings = mapOf(
     "We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local." to "हम स्कैन के लिए आउटगोइंग टेलीमेट्री को सख्ती से अक्षम करते हैं। स्कैन परिणाम और इमेज हैश स्थानीय रहते हैं।",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "구성 요소 투표",
+    "Heuristic" to "휴리스틱",
+    "ML Model" to "ML 모델",
+    "Brand" to "브랜드",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "다수결로 판정: 3+ 안전=녹색, 2+ 악성=빨강"
 )

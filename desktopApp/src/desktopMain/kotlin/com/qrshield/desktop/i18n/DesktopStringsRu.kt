@@ -474,4 +474,12 @@ internal val RussianCommonStrings = mapOf(
     "Verbose output for technical auditing" to "Ausführliche Ausgabe für technische Prüfung",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "Голосование компонентов",
+    "Heuristic" to "Эвристика",
+    "ML Model" to "ML модель",
+    "Brand" to "Бренд",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "Большинство голосов определяет вердикт: 3+ БЕЗОПАСНО = зелёный, 2+ ВРЕДОНОСНО = красный"
 )

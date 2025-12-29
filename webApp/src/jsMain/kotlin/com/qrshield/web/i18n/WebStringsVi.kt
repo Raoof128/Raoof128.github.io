@@ -383,6 +383,13 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.Thai to "Tiếng Thái",
     WebStringKey.Turkish to "Tiếng Thổ Nhĩ Kỳ",
     WebStringKey.Vietnamese to "Tiếng Việt"
+,
+    WebStringKey.ComponentVoting to "Bỏ phiếu thành phần",
+    WebStringKey.Heuristic to "Heuristic",
+    WebStringKey.MLModel to "Mô hình ML",
+    WebStringKey.Brand to "Thương hiệu",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "Đa số phiếu quyết định kết quả: 3+ AN TOÀN = xanh, 2+ ĐỘC HẠI = đỏ"
 )
 
 internal val VietnameseCommonStrings = mapOf(

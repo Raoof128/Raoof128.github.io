@@ -504,4 +504,12 @@ internal val GermanCommonStrings = mapOf(
     "Visual Sandbox Preview" to "معاينة الصندوق الرملي المرئي",
     "Warning: Multiple phishing indicators detected." to "تحذير: تم اكتشاف مؤشرات تصيد متعددة.",
     "We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local." to "हम स्कैन के लिए आउटगोइंग टेलीमेट्री को सख्ती से अक्षम करते हैं। स्कैन परिणाम और इमेज हैश स्थानीय रहते हैं।"
+,
+    // Component Voting System,
+    "Component Voting" to "Komponenten-Abstimmung",
+    "Heuristic" to "Heuristik",
+    "ML Model" to "ML-Modell",
+    "Brand" to "Marke",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "Mehrheitsvotum bestimmt Urteil: 3+ SICHER = grün, 2+ BÖSARTIG = rot"
 )

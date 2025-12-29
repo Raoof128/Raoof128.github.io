@@ -367,6 +367,13 @@ internal val JapaneseStrings = mapOf(
     WebStringKey.Thai to "タイ語",
     WebStringKey.Turkish to "トルコ語",
     WebStringKey.Vietnamese to "ベトナム語"
+,
+    WebStringKey.ComponentVoting to "コンポーネント投票",
+    WebStringKey.Heuristic to "ヒューリスティック",
+    WebStringKey.MLModel to "MLモデル",
+    WebStringKey.Brand to "ブランド",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "多数決で判定: 3+安全=緑、2+悪意=赤"
 )
 
 internal val JapaneseCommonStrings = mapOf(

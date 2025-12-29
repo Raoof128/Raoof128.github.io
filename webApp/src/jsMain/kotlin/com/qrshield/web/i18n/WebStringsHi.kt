@@ -430,6 +430,13 @@ internal val HindiStrings = mapOf(
     WebStringKey.Thai to "थाई",
     WebStringKey.Turkish to "तुर्की",
     WebStringKey.Vietnamese to "वियतनामी"
+,
+    WebStringKey.ComponentVoting to "घटक मतदान",
+    WebStringKey.Heuristic to "अनुमान",
+    WebStringKey.MLModel to "एमएल मॉडल",
+    WebStringKey.Brand to "ब्रांड",
+    WebStringKey.TLD to "टीएलडी",
+    WebStringKey.VotingExplanation to "बहुमत मतदान निर्णय निर्धारित करता है: 3+ सुरक्षित = हरा, 2+ दुर्भावनापूर्ण = लाल"
 )
 
 internal val HindiCommonStrings = mapOf(

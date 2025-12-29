@@ -476,4 +476,12 @@ internal val ArabicCommonStrings = mapOf(
     "Zero intermediate redirects found. Destination is final." to "Keine Zwischenweiterleitungen gefunden. Ziel ist final.",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "تصويت المكونات",
+    "Heuristic" to "التحليل الاستكشافي",
+    "ML Model" to "نموذج التعلم الآلي",
+    "Brand" to "العلامة التجارية",
+    "TLD" to "نطاق المستوى الأعلى",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "التصويت بالأغلبية يحدد الحكم: 3+ آمن = أخضر، 2+ ضار = أحمر"
 )

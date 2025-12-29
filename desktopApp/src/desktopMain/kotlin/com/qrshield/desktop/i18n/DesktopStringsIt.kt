@@ -474,4 +474,12 @@ internal val ItalianCommonStrings = mapOf(
     "Use the search box to filter by domain, source, or hash" to "डोमेन, स्रोत या हैश से फ़िल्टर करने के लिए सर्च बॉक्स का उपयोग करें",
     "Verbose output for technical auditing" to "Ausführliche Ausgabe für technische Prüfung",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "Votazione Componenti",
+    "Heuristic" to "Euristica",
+    "ML Model" to "Modello ML",
+    "Brand" to "Marchio",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "Il voto di maggioranza determina il verdetto: 3+ SICURO = verde, 2+ MALIGNO = rosso"
 )

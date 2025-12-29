@@ -430,6 +430,13 @@ internal val SpanishStrings = mapOf(
     WebStringKey.Thai to "Tailandés",
     WebStringKey.Turkish to "Turco",
     WebStringKey.Vietnamese to "Vietnamita"
+,
+    WebStringKey.ComponentVoting to "Votación de Componentes",
+    WebStringKey.Heuristic to "Heurística",
+    WebStringKey.MLModel to "Modelo ML",
+    WebStringKey.Brand to "Marca",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "El voto mayoritario determina el veredicto: 3+ SEGURO = verde, 2+ MALICIOSO = rojo"
 )
 
 internal val SpanishCommonStrings = mapOf(

@@ -494,7 +494,15 @@ enum class WebStringKey(val defaultText: String) {
     Russian("Russian"),
     Thai("Thai"),
     Turkish("Turkish"),
-    Vietnamese("Vietnamese")
+    Vietnamese("Vietnamese"),
+    
+    // Component Voting System
+    ComponentVoting("Component Voting"),
+    Heuristic("Heuristic"),
+    MLModel("ML Model"),
+    Brand("Brand"),
+    TLD("TLD"),
+    VotingExplanation("Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red")
 }
 
 object WebStrings {

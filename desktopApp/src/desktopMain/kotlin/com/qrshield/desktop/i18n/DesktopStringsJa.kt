@@ -512,4 +512,12 @@ internal val JapaneseCommonStrings = mapOf(
     "Verbose output for technical auditing" to "Ausführliche Ausgabe für technische Prüfung",
     "We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local." to "हम स्कैन के लिए आउटगोइंग टेलीमेट्री को सख्ती से अक्षम करते हैं। स्कैन परिणाम और इमेज हैश स्थानीय रहते हैं।",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "コンポーネント投票",
+    "Heuristic" to "ヒューリスティック",
+    "ML Model" to "MLモデル",
+    "Brand" to "ブランド",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "多数決で判定: 3+安全=緑、2+悪意=赤"
 )

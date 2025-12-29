@@ -383,6 +383,13 @@ internal val KoreanStrings = mapOf(
     WebStringKey.Thai to "태국어",
     WebStringKey.Turkish to "터키어",
     WebStringKey.Vietnamese to "베트남어"
+,
+    WebStringKey.ComponentVoting to "구성 요소 투표",
+    WebStringKey.Heuristic to "휴리스틱",
+    WebStringKey.MLModel to "ML 모델",
+    WebStringKey.Brand to "브랜드",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "다수결로 판정: 3+ 안전=녹색, 2+ 악성=빨강"
 )
 
 internal val KoreanCommonStrings = mapOf(

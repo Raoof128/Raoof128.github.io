@@ -485,5 +485,13 @@ internal val PortugueseCommonStrings = mapOf(
     "System status refresh is not available yet." to "Aktualisieren des Systemstatus ist noch nicht verfügbar.",
     "Use the search box to filter by domain, source, or hash" to "डोमेन, स्रोत या हैश से फ़िल्टर करने के लिए सर्च बॉक्स का उपयोग करें",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar."
+,
+    // Component Voting System,
+    "Component Voting" to "Votação de Componentes",
+    "Heuristic" to "Heurística",
+    "ML Model" to "Modelo ML",
+    "Brand" to "Marca",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "Voto majoritário determina o veredito: 3+ SEGURO = verde, 2+ MALICIOSO = vermelho"
 )
 

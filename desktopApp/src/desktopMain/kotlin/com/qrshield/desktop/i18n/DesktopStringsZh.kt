@@ -512,4 +512,12 @@ internal val ChineseSimplifiedCommonStrings = mapOf(
     "Verbose output for technical auditing" to "Ausführliche Ausgabe für technische Prüfung",
     "We strictly disable outgoing telemetry for scans. Scan results and image hashes remain local." to "हम स्कैन के लिए आउटगोइंग टेलीमेट्री को सख्ती से अक्षम करते हैं। स्कैन परिणाम और इमेज हैश स्थानीय रहते हैं।",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "组件投票",
+    "Heuristic" to "启发式",
+    "ML Model" to "ML模型",
+    "Brand" to "品牌",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "多数投票决定判定: 3+安全=绿色, 2+恶意=红色"
 )

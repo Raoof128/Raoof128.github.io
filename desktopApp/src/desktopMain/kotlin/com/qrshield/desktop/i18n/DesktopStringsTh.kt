@@ -474,4 +474,12 @@ internal val ThaiCommonStrings = mapOf(
     "Zero intermediate redirects found. Destination is final." to "Keine Zwischenweiterleitungen gefunden. Ziel ist final.",
     "Zoom is not available yet." to "Zoom ist noch nicht verfügbar.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "การโหวตส่วนประกอบ",
+    "Heuristic" to "ฮิวริสติก",
+    "ML Model" to "โมเดล ML",
+    "Brand" to "แบรนด์",
+    "TLD" to "TLD",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "เสียงข้างมากกำหนดผล: 3+ ปลอดภัย=เขียว, 2+ อันตราย=แดง"
 )

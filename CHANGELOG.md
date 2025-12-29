@@ -40,6 +40,102 @@ The web app had decorative demo/mock data that could mislead users:
 # BUILD SUCCESSFUL in 12s
 ```
 
+### Raouf: Localized Component Voting Panel in Desktop App (2025-12-29 AEDT)
+
+**Scope:** Added i18n support for the voting panel strings in desktop app CommonStrings
+
+**Problem:**
+Desktop app needed the same voting panel localization as webapp for consistency.
+
+**Solution:**
+Added 6 voting-related strings to all 15 desktop language files:
+
+**New Keys Added:**
+| Key | English |
+|-----|---------|
+| `Component Voting` | "Component Voting" |
+| `Heuristic` | "Heuristic" |
+| `ML Model` | "ML Model" |
+| `Brand` | "Brand" |
+| `TLD` | "TLD" |
+| `Majority vote determines verdict...` | Full explanation text |
+
+**Files Changed:**
+```
+desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/i18n/
+  • All 15 DesktopStrings*.kt files - Added 6 voting translations each (90 total)
+```
+
+**Impact:**
+- ✅ Desktop CommonStrings increased from 449 to 455 keys
+- ✅ All 15 languages have voting keys with 100% coverage
+- ✅ Consistent with webapp voting localization
+
+**Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+BUILD SUCCESSFUL in 20s ✅
+
+# All 15 languages now have 455 CommonStrings keys
+```
+
+---
+
+### Raouf: Localized Component Voting Panel in WebApp (2025-12-29 AEDT)
+
+**Scope:** Added i18n support for the voting panel that visualizes the democratic verdict system
+
+**Problem:**
+The Component Voting panel was using hardcoded English strings instead of localized translations:
+- "Component Voting"
+- "Heuristic", "ML Model", "Brand", "TLD"
+- "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red"
+
+**Solution:**
+Added 6 new WebStringKey entries for voting-related strings and translated them into all 16 languages:
+
+**New Keys Added:**
+| Key | English |
+|-----|---------|
+| `ComponentVoting` | "Component Voting" |
+| `Heuristic` | "Heuristic" |
+| `MLModel` | "ML Model" |
+| `Brand` | "Brand" |
+| `TLD` | "TLD" |
+| `VotingExplanation` | "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" |
+
+**Sample Translations:**
+| Language | ComponentVoting | VotingExplanation |
+|----------|-----------------|-------------------|
+| German | Komponenten-Abstimmung | Mehrheitsvotum bestimmt Urteil: 3+ SICHER = grün, 2+ BÖSARTIG = rot |
+| French | Vote des Composants | Le vote majoritaire détermine le verdict: 3+ SÛR = vert, 2+ MALVEILLANT = rouge |
+| Japanese | コンポーネント投票 | 多数決で判定: 3+安全=緑、2+悪意=赤 |
+| Chinese | 组件投票 | 多数投票决定判定: 3+安全=绿色, 2+恶意=红色 |
+| Arabic | تصويت المكونات | التصويت بالأغلبية يحدد الحكم: 3+ آمن = أخضر، 2+ ضار = أحمر |
+
+**Files Changed:**
+```
+webApp/src/jsMain/kotlin/com/qrshield/web/i18n/
+  • WebStrings.kt - Added 6 new enum keys
+  • All 15 language files - Added 6 voting translations each (90 total)
+```
+
+**Impact:**
+- ✅ Voting panel now fully localized in all 16 languages
+- ✅ Total webapp keys increased from 365 to 371
+- ✅ 100% coverage maintained across all languages
+- ✅ Consistent with theme styling (light/dark mode support)
+
+**Verification:**
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+BUILD SUCCESSFUL in 37s ✅
+
+# All 16 languages now have 371 keys with 100% coverage
+```
+
+---
+
 ### Web App Component Voting Visualization (2025-12-29 AEDT)
 
 **Scope:** Added visual representation of the democratic voting system to the web app

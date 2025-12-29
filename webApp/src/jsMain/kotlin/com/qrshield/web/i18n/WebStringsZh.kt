@@ -414,6 +414,13 @@ internal val ChineseStrings = mapOf(
     WebStringKey.Thai to "泰语",
     WebStringKey.Turkish to "土耳其语",
     WebStringKey.Vietnamese to "越南语"
+,
+    WebStringKey.ComponentVoting to "组件投票",
+    WebStringKey.Heuristic to "启发式",
+    WebStringKey.MLModel to "ML模型",
+    WebStringKey.Brand to "品牌",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "多数投票决定判定: 3+安全=绿色, 2+恶意=红色"
 )
 
 internal val ChineseCommonStrings = mapOf(

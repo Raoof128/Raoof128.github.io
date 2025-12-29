@@ -383,6 +383,13 @@ internal val TurkishStrings = mapOf(
     WebStringKey.Thai to "Tayca",
     WebStringKey.Turkish to "Türkçe",
     WebStringKey.Vietnamese to "Vietnamca"
+,
+    WebStringKey.ComponentVoting to "Bileşen Oylaması",
+    WebStringKey.Heuristic to "Sezgisel",
+    WebStringKey.MLModel to "ML Modeli",
+    WebStringKey.Brand to "Marka",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "Çoğunluk oyu kararı belirler: 3+ GÜVENLİ = yeşil, 2+ ZARARLI = kırmızı"
 )
 
 internal val TurkishCommonStrings = mapOf(

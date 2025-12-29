@@ -503,4 +503,12 @@ internal val HindiCommonStrings = mapOf(
     "Visual Similarity" to "Visuelle Ähnlichkeit",
     "Warning: Multiple phishing indicators detected." to "تحذير: تم اكتشاف مؤشرات تصيد متعددة.",
     "scan_report" to "scan_bericht"
+,
+    // Component Voting System,
+    "Component Voting" to "घटक मतदान",
+    "Heuristic" to "अनुमान",
+    "ML Model" to "एमएल मॉडल",
+    "Brand" to "ब्रांड",
+    "TLD" to "टीएलडी",
+    "Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red" to "बहुमत मतदान निर्णय निर्धारित करता है: 3+ सुरक्षित = हरा, 2+ दुर्भावनापूर्ण = लाल"
 )

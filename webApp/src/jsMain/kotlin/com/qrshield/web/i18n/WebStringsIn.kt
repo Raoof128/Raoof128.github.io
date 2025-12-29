@@ -384,6 +384,13 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.Thai to "Thai",
     WebStringKey.Turkish to "Turki",
     WebStringKey.Vietnamese to "Vietnam"
+,
+    WebStringKey.ComponentVoting to "Pemungutan Suara Komponen",
+    WebStringKey.Heuristic to "Heuristik",
+    WebStringKey.MLModel to "Model ML",
+    WebStringKey.Brand to "Merek",
+    WebStringKey.TLD to "TLD",
+    WebStringKey.VotingExplanation to "Suara mayoritas menentukan keputusan: 3+ AMAN = hijau, 2+ BERBAHAYA = merah"
 )
 
 internal val IndonesianCommonStrings = mapOf(

@@ -430,6 +430,13 @@ internal val ArabicStrings = mapOf(
     WebStringKey.Thai to "التايلاندية",
     WebStringKey.Turkish to "التركية",
     WebStringKey.Vietnamese to "الفيتنامية"
+,
+    WebStringKey.ComponentVoting to "تصويت المكونات",
+    WebStringKey.Heuristic to "التحليل الاستكشافي",
+    WebStringKey.MLModel to "نموذج التعلم الآلي",
+    WebStringKey.Brand to "العلامة التجارية",
+    WebStringKey.TLD to "نطاق المستوى الأعلى",
+    WebStringKey.VotingExplanation to "التصويت بالأغلبية يحدد الحكم: 3+ آمن = أخضر، 2+ ضار = أحمر"
 )
 
 internal val ArabicCommonStrings = mapOf(
