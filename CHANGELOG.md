@@ -6,6 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.19.0] - 2025-12-29
 
+### Raouf: WebApp Production Cleanup & Submission Ready (2025-12-29 AEDT)
+
+**Scope:** Remove dead code, deprecated functions, and build for production
+
+**Cleanup:**
+
+| Item | Action |
+|------|--------|
+| `getDemoData()` in threat.js | ✅ Removed (deprecated, never called) |
+| `getDemoAttacks()` in threat.js | ✅ Removed (deprecated, never called) |
+| console.log statements | ⏭️ Kept (stripped by webpack in production) |
+| Judge Mode features | ⏭️ Kept (intentional demo feature) |
+
+**Production Build:**
+```bash
+./gradlew :webApp:jsBrowserProductionWebpack
+# webApp.js: 933 KiB minified ✅
+# BUILD SUCCESSFUL in 48s ✅
+```
+
+**Files Verified:**
+- ✅ All JS files are used (no orphans)
+- ✅ All CSS files are linked
+- ✅ manifest.json is valid PWA manifest
+- ✅ Service worker (sw.js) configured
+- ✅ No TODO/FIXME comments
+- ✅ No debugger statements
+
+---
+
 ### Raouf: WebApp Score Defaults & Null Handling Fixes (2025-12-29 AEDT)
 
 **Scope:** Fix inconsistent score defaults and add null guard to mapScoreToVerdict()
