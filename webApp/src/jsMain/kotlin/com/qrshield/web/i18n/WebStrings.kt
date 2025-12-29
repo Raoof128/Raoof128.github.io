@@ -507,7 +507,44 @@ enum class WebStringKey(val defaultText: String) {
     // Results Page Placeholders
     WaitingForScan("Waiting for scan..."),
     WaitingForAnalysis("Waiting for analysis..."),
-    ScanURLToSeeResults("Scan a URL to see detailed results.")
+    ScanURLToSeeResults("Scan a URL to see detailed results."),
+    
+    // Help Modal & Keyboard Shortcuts
+    HelpKeyboardShortcuts("Help & Keyboard Shortcuts"),
+    KeyboardShortcuts("Keyboard Shortcuts"),
+    StartScanner("Start Scanner"),
+    CloseMenuModal("Close Menu / Modal"),
+    NavigateToDashboard("Navigate to Dashboard"),
+    AboutDescription("Enterprise-grade QR code security with 100% offline analysis. Your data never leaves your device. All threat detection is performed locally using our advanced phishing detection engine."),
+    VersionOfflineReady("Version 2.4.1 • Offline Ready"),
+    GotIt("Got it"),
+    
+    // Security Settings Page
+    SecuritySettings("Security Settings"),
+    SettingsDetection("Detection"),
+    SensitivityLevel("Sensitivity Level"),
+    SensitivityLevelDesc("How aggressive should threat detection be?"),
+    SensitivityPermissive("Permissive"),
+    SensitivityStrict("Strict"),
+    AutoBlockThreats("Auto-Block Threats"),
+    AutoBlockThreatsDesc("Automatically block high-risk URLs"),
+    RealTimeScanning("Real-Time Scanning"),
+    RealTimeScanningDesc("Scan QR codes as they're detected"),
+    SettingsNotifications("Notifications"),
+    SoundAlerts("Sound Alerts"),
+    SoundAlertsDesc("Play sound when threat detected"),
+    ThreatAlerts("Threat Alerts"),
+    ThreatAlertsDesc("Show visual alerts for threats"),
+    SettingsDisplay("Display"),
+    ShowConfidenceScore("Show Confidence Score"),
+    ShowConfidenceScoreDesc("Display threat probability percentage"),
+    CompactView("Compact View"),
+    CompactViewDesc("Use condensed layout for results"),
+    SettingsLanguage("Language"),
+    SettingsLanguageDesc("Choose your preferred language"),
+    SettingsSavedAutomatically("Settings are saved automatically and sync across sessions."),
+    ResetDefaults("Reset Defaults"),
+    SaveAndContinue("Save & Continue")
 }
 
 object WebStrings {

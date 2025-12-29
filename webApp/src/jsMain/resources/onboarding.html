@@ -19,14 +19,8 @@
     <link rel="apple-touch-icon" href="assets/icon-256.png" />
     <link rel="icon" type="image/svg+xml" href="assets/icon-256.png" />
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <!-- Material Symbols -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+    <!-- Local Fonts (Offline-First) -->
+    <link href="fonts.css" rel="stylesheet" />
 
     <!-- Theme System -->
     <link href="theme.css" rel="stylesheet" />
@@ -293,29 +287,31 @@
                     <div class="settings-card" id="settingsCard">
                         <div class="settings-header">
                             <span class="material-symbols-outlined">tune</span>
-                            <h4>Security Settings</h4>
+                            <h4 data-i18n="SecuritySettings">Security Settings</h4>
                         </div>
 
                         <!-- Detection Settings -->
                         <div class="settings-group">
-                            <h5 class="settings-group-title">Detection</h5>
+                            <h5 class="settings-group-title" data-i18n="SettingsDetection">Detection</h5>
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Sensitivity Level</span>
-                                    <span class="setting-desc">How aggressive should threat detection be?</span>
+                                    <span class="setting-label" data-i18n="SensitivityLevel">Sensitivity Level</span>
+                                    <span class="setting-desc" data-i18n="SensitivityLevelDesc">How aggressive should
+                                        threat detection be?</span>
                                 </div>
                                 <select class="setting-select" id="settingSensitivity">
-                                    <option value="permissive">Permissive</option>
-                                    <option value="balanced" selected>Balanced</option>
-                                    <option value="strict">Strict</option>
+                                    <option value="permissive" data-i18n="SensitivityPermissive">Permissive</option>
+                                    <option value="balanced" selected data-i18n="SensitivityBalanced">Balanced</option>
+                                    <option value="strict" data-i18n="SensitivityStrict">Strict</option>
                                 </select>
                             </div>
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Auto-Block Threats</span>
-                                    <span class="setting-desc">Automatically block high-risk URLs</span>
+                                    <span class="setting-label" data-i18n="AutoBlockThreats">Auto-Block Threats</span>
+                                    <span class="setting-desc" data-i18n="AutoBlockThreatsDesc">Automatically block
+                                        high-risk URLs</span>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="settingAutoBlock" checked>
@@ -325,8 +321,9 @@
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Real-Time Scanning</span>
-                                    <span class="setting-desc">Scan QR codes as they're detected</span>
+                                    <span class="setting-label" data-i18n="RealTimeScanning">Real-Time Scanning</span>
+                                    <span class="setting-desc" data-i18n="RealTimeScanningDesc">Scan QR codes as they're
+                                        detected</span>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="settingRealTime" checked>
@@ -337,12 +334,13 @@
 
                         <!-- Notification Settings -->
                         <div class="settings-group">
-                            <h5 class="settings-group-title">Notifications</h5>
+                            <h5 class="settings-group-title" data-i18n="SettingsNotifications">Notifications</h5>
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Sound Alerts</span>
-                                    <span class="setting-desc">Play sound when threat detected</span>
+                                    <span class="setting-label" data-i18n="SoundAlerts">Sound Alerts</span>
+                                    <span class="setting-desc" data-i18n="SoundAlertsDesc">Play sound when threat
+                                        detected</span>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="settingSoundEnabled" checked>
@@ -352,8 +350,9 @@
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Threat Alerts</span>
-                                    <span class="setting-desc">Show visual alerts for threats</span>
+                                    <span class="setting-label" data-i18n="ThreatAlerts">Threat Alerts</span>
+                                    <span class="setting-desc" data-i18n="ThreatAlertsDesc">Show visual alerts for
+                                        threats</span>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="settingThreatAlerts" checked>
@@ -364,12 +363,14 @@
 
                         <!-- Display Settings -->
                         <div class="settings-group">
-                            <h5 class="settings-group-title">Display</h5>
+                            <h5 class="settings-group-title" data-i18n="SettingsDisplay">Display</h5>
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Show Confidence Score</span>
-                                    <span class="setting-desc">Display threat probability percentage</span>
+                                    <span class="setting-label" data-i18n="ShowConfidenceScore">Show Confidence
+                                        Score</span>
+                                    <span class="setting-desc" data-i18n="ShowConfidenceScoreDesc">Display threat
+                                        probability percentage</span>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="settingShowConfidence" checked>
@@ -379,8 +380,9 @@
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Compact View</span>
-                                    <span class="setting-desc">Use condensed layout for results</span>
+                                    <span class="setting-label" data-i18n="CompactView">Compact View</span>
+                                    <span class="setting-desc" data-i18n="CompactViewDesc">Use condensed layout for
+                                        results</span>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="settingCompactView">
@@ -390,8 +392,9 @@
 
                             <div class="setting-row">
                                 <div class="setting-info">
-                                    <span class="setting-label">Language</span>
-                                    <span class="setting-desc">Choose your preferred language</span>
+                                    <span class="setting-label" data-i18n="SettingsLanguage">Language</span>
+                                    <span class="setting-desc" data-i18n="SettingsLanguageDesc">Choose your preferred
+                                        language</span>
                                 </div>
                                 <select class="setting-select" id="settingLanguage">
                                     <option value="en">English</option>
@@ -419,15 +422,16 @@
                     <div class="action-footer">
                         <div class="footer-info">
                             <span class="material-symbols-outlined">info</span>
-                            <span>Settings are saved automatically and sync across sessions.</span>
+                            <span data-i18n="SettingsSavedAutomatically">Settings are saved automatically and sync
+                                across sessions.</span>
                         </div>
 
                         <div class="footer-actions">
-                            <button class="btn-secondary" id="resetSettingsBtn">
+                            <button class="btn-secondary" id="resetSettingsBtn" data-i18n="ResetDefaults">
                                 Reset Defaults
                             </button>
                             <button class="btn-primary" id="enableOfflineBtn">
-                                <span>Save & Continue</span>
+                                <span data-i18n="SaveAndContinue">Save & Continue</span>
                                 <span class="material-symbols-outlined">check</span>
                             </button>
                         </div>

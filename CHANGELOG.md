@@ -4,6 +4,52 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.19.6] - 2025-12-29
+
+### Gemini: UI Polish - Hotkeys, i18n, Button Fixes (2025-12-29 AEDT)
+
+**Scope:** Implement keyboard shortcuts, localize hardcoded strings, fix button styling
+
+**Issue 1: "Next Round" Button Invisible**
+- **Problem:** `btn-primary` in `game.css` had `background: transparent` - button appeared invisible until hover
+- **Fix:** Changed to `background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%)` with box-shadow
+- **File:** `game.css` L1403-1420
+
+**Issue 2: Missing Keyboard Shortcuts**
+- **Problem:** No Cmd/Ctrl shortcuts for Start Scanner, Import Image, Navigate to Dashboard
+- **Fix:** Added `setupKeyboardShortcuts()` in `shared-ui.js` with:
+  - `Cmd/Ctrl + S` → Navigate to scanner.html
+  - `Cmd/Ctrl + I` → Trigger file input or navigate to scanner
+  - `Cmd/Ctrl + D` → Navigate to dashboard.html
+  - `Escape` → Close any open modal/menu
+  - `?` → Open help modal
+- **File:** `shared-ui.js` L760-831
+
+**Issue 3: Hardcoded Help Modal Strings**
+- **Problem:** Help modal strings ("Start Scanner", "About QR-SHIELD", etc.) were not translatable
+- **Fix:** Added translateText() calls and data-i18n attributes to help modal HTML
+- **Fix:** Shows correct modifier key based on platform (⌘ for Mac, Ctrl for Windows)
+- **File:** `shared-ui.js` L840-910
+
+**Issue 4: Hardcoded Security Settings Strings**
+- **Problem:** Settings page labels not using i18n system
+- **Fix:** Added data-i18n attributes to all labels and descriptions
+- **File:** `onboarding.html` L287-427
+
+| ID | File | Issue | Fix |
+|----|------|-------|-----|
+| 1 | `game.css` | Transparent btn-primary | Solid blue gradient |
+| 2 | `shared-ui.js` | No keyboard shortcuts | Added setupKeyboardShortcuts() |
+| 3 | `shared-ui.js` | Help modal hardcoded | Added translateText() |
+| 4 | `onboarding.html` | Settings not i18n | Added data-i18n attrs |
+| 5 | `WebStrings.kt` | Missing keys | Added 35+ new i18n keys |
+
+**New i18n Keys Added:**
+- Help Modal: `HelpKeyboardShortcuts`, `KeyboardShortcuts`, `StartScanner`, `CloseMenuModal`, `NavigateToDashboard`, `AboutDescription`, `VersionOfflineReady`, `GotIt`
+- Settings: `SecuritySettings`, `SettingsDetection`, `SensitivityLevel`, `SensitivityLevelDesc`, `AutoBlockThreats`, `RealTimeScanning`, `SoundAlerts`, `ThreatAlerts`, `ShowConfidenceScore`, `CompactView`, etc.
+
+---
+
 ## [1.19.5] - 2025-12-29
 
 ### Raouf: Web App Offline-First & Judge-Proof Fixes (2025-12-29 AEDT)

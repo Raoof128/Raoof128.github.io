@@ -65,22 +65,6 @@
             "purpose": "maskable"
         }
     ],
-    "screenshots": [
-        {
-            "src": "assets/screenshots/desktop.png",
-            "sizes": "1280x720",
-            "type": "image/png",
-            "form_factor": "wide",
-            "label": "QR-SHIELD Desktop View - Premium Security Scanner"
-        },
-        {
-            "src": "assets/screenshots/mobile.png",
-            "sizes": "390x844",
-            "type": "image/png",
-            "form_factor": "narrow",
-            "label": "QR-SHIELD Mobile View - Scan URLs Safely"
-        }
-    ],
     "shortcuts": [
         {
             "name": "Quick Scan",

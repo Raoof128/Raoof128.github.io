@@ -3,7 +3,7 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v2.5.0';
+const CACHE_NAME = 'qr-shield-v2.7.0';
 const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
 
 function isDevHost() {
@@ -47,10 +47,15 @@ const STATIC_ASSETS = [
     './transitions.js',
     './shared-ui.css',
     './shared-ui.js',
+    './shared-header.css',
     './styles.css',
+    './fonts.css',
+    './fonts/inter-latin.woff2',
+    './fonts/material-symbols.woff2',
     './app.js',
     './platform-bridge.js',
     './webApp.js',
+    './jsQR.min.js',
     './assets/logo.svg',
     './assets/icon-512.png',
     './assets/icon-256.png',
@@ -143,8 +148,16 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => {
                         // Offline fallback for navigation requests
                         if (event.request.mode === 'navigate') {
-                            return caches.match('./dashboard.html');
+                            // Try to match the specific page first
+                            const url = new URL(event.request.url);
+                            const pageName = url.pathname.split('/').pop() || 'index.html';
+                            
+                            return caches.match('./' + pageName)
+                                .then(cached => cached || caches.match('./scanner.html'))
+                                .then(cached => cached || caches.match('./index.html'));
                         }
+                        // For other requests, return nothing (let browser handle)
+                        return undefined;
                     });
             })
     );

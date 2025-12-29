@@ -756,7 +756,78 @@
             });
         });
 
-        console.log('[SharedUI] Initialized profile, notification, and help systems');
+        // ======================================================================
+        // GLOBAL KEYBOARD SHORTCUTS  
+        // ======================================================================
+        setupKeyboardShortcuts();
+
+        console.log('[SharedUI] Initialized profile, notification, help, and keyboard shortcuts');
+    }
+
+    /**
+     * Setup global keyboard shortcuts
+     * Uses Cmd (Mac) / Ctrl (Windows/Linux) + key pattern
+     */
+    function setupKeyboardShortcuts() {
+        document.addEventListener('keydown', (e) => {
+            // Don't trigger shortcuts when typing in inputs
+            const isInputActive =
+                document.activeElement?.tagName === 'INPUT' ||
+                document.activeElement?.tagName === 'TEXTAREA' ||
+                document.activeElement?.isContentEditable;
+
+            if (isInputActive) return;
+
+            // Check for Cmd (Mac) or Ctrl (Windows/Linux)
+            const isMod = e.metaKey || e.ctrlKey;
+
+            // Escape - Close any open modal/menu
+            if (e.key === 'Escape') {
+                hideProfileDropdown();
+                hideNotificationDropdown();
+                const helpModal = document.getElementById('helpModal');
+                if (helpModal) {
+                    helpModal.classList.remove('visible');
+                    setTimeout(() => helpModal.remove(), 150);
+                }
+                return;
+            }
+
+            // Cmd/Ctrl + S - Start Scanner
+            if (isMod && e.key.toLowerCase() === 's') {
+                e.preventDefault();
+                window.location.href = 'scanner.html';
+                return;
+            }
+
+            // Cmd/Ctrl + I - Import Image
+            if (isMod && e.key.toLowerCase() === 'i') {
+                e.preventDefault();
+                // Try to trigger file input on scanner page
+                const fileInput = document.getElementById('qrImageInput') || document.getElementById('imageInput');
+                if (fileInput) {
+                    fileInput.click();
+                } else {
+                    // Navigate to scanner if not on scanner page
+                    window.location.href = 'scanner.html';
+                }
+                return;
+            }
+
+            // Cmd/Ctrl + D - Navigate to Dashboard  
+            if (isMod && e.key.toLowerCase() === 'd') {
+                e.preventDefault();
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // ? - Show Help Modal
+            if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+                e.preventDefault();
+                showHelpModal();
+                return;
+            }
+        });
     }
 
     // ==========================================================================
@@ -771,6 +842,10 @@
         const existingModal = document.getElementById('helpModal');
         if (existingModal) existingModal.remove();
 
+        // Detect platform for modifier key display
+        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+        const modKey = isMac ? '⌘' : 'Ctrl';
+
         const modal = document.createElement('div');
         modal.id = 'helpModal';
         modal.className = 'shared-modal-overlay';
@@ -779,7 +854,7 @@
                 <div class="shared-modal-header">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span class="material-symbols-outlined" style="color: var(--primary, #6366f1);">help</span>
-                        <h3 style="margin: 0; color: var(--text-primary, #f1f5f9);">Help & Keyboard Shortcuts</h3>
+                        <h3 style="margin: 0; color: var(--text-primary, #f1f5f9);" data-i18n="HelpKeyboardShortcuts">${translateText('Help & Keyboard Shortcuts')}</h3>
                     </div>
                     <button class="modal-close-btn" id="closeHelpModal">
                         <span class="material-symbols-outlined">close</span>
@@ -788,44 +863,44 @@
                 
                 <div class="shared-modal-content" style="padding: 20px;">
                     <div class="help-section">
-                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;">Keyboard Shortcuts</h4>
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;" data-i18n="KeyboardShortcuts">${translateText('Keyboard Shortcuts')}</h4>
                         <div class="help-shortcuts-list">
                             <div class="shortcut-item">
-                                <span class="shortcut-label">Start Scanner</span>
-                                <kbd class="shortcut-key">S</kbd>
+                                <span class="shortcut-label" data-i18n="StartScanner">${translateText('Start Scanner')}</span>
+                                <kbd class="shortcut-key">${modKey} + S</kbd>
                             </div>
                             <div class="shortcut-item">
-                                <span class="shortcut-label">Import Image</span>
-                                <kbd class="shortcut-key">I</kbd>
+                                <span class="shortcut-label" data-i18n="ImportImage">${translateText('Import Image')}</span>
+                                <kbd class="shortcut-key">${modKey} + I</kbd>
                             </div>
                             <div class="shortcut-item">
-                                <span class="shortcut-label">Close Menu / Modal</span>
+                                <span class="shortcut-label" data-i18n="CloseMenuModal">${translateText('Close Menu / Modal')}</span>
                                 <kbd class="shortcut-key">Escape</kbd>
                             </div>
                             <div class="shortcut-item">
-                                <span class="shortcut-label">Navigate to Dashboard</span>
-                                <kbd class="shortcut-key">D</kbd>
+                                <span class="shortcut-label" data-i18n="NavigateToDashboard">${translateText('Navigate to Dashboard')}</span>
+                                <kbd class="shortcut-key">${modKey} + D</kbd>
                             </div>
                         </div>
                     </div>
                     
                     <div class="help-section" style="margin-top: 16px;">
-                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;">About QR-SHIELD</h4>
-                        <p style="font-size: 14px; color: var(--text-secondary, #94a3b8); line-height: 1.6; margin: 0;">
-                            Enterprise-grade QR code security with 100% offline analysis. Your data never leaves your device. All threat detection is performed locally using our advanced phishing detection engine.
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;" data-i18n="AboutQrShield">${translateText('About QR-SHIELD')}</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary, #94a3b8); line-height: 1.6; margin: 0;" data-i18n="AboutDescription">
+                            ${translateText('Enterprise-grade QR code security with 100% offline analysis. Your data never leaves your device. All threat detection is performed locally using our advanced phishing detection engine.')}
                         </p>
                     </div>
 
                     <div class="help-section" style="margin-top: 16px;">
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <span class="offline-dot" style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></span>
-                            <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);">Version 2.4.1 • Offline Ready</span>
+                            <span style="font-size: 13px; color: var(--text-secondary, #94a3b8);" data-i18n="VersionOfflineReady">${translateText('Version 2.4.1 • Offline Ready')}</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="shared-modal-footer">
-                    <button class="btn-save" id="closeHelpBtn">Got it</button>
+                    <button class="btn-save" id="closeHelpBtn" data-i18n="GotIt">${translateText('Got it')}</button>
                 </div>
             </div>
         `;

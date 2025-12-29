@@ -14108,3 +14108,117 @@ Refactored key Android screens (Dashboard, Trust Centre, Scan Result) to achieve
 - `webApp/src/wasmJsMain/resources/vendor/js-joda.esm.js` - Backup vendor copy
 
 **Judge-Proof Status:** ✅ Both builds pass, all dependencies bundled locally
+
+### Update: Service Worker Offline Navigation Fix (2025-12-29)
+
+**Problem:** SW wasn't serving HTML pages properly when offline
+- Navigation fallback pointed to `dashboard.html` instead of requested page
+- `scanner.html` would fail with `ERR_INTERNET_DISCONNECTED`
+
+**Fix:**
+1. Updated SW fetch handler to extract page name and match specific cached page
+2. Fallback chain: requested page → scanner.html → index.html
+3. Removed missing `screenshots` from manifest.json (404 errors)
+4. Bumped cache version to `v2.6.0`
+
+**Files:**
+- `sw.js` - Improved navigation fallback logic
+- `manifest.json` - Removed missing screenshot references
+
+**Test:**
+- Turn off Wi-Fi (Airplane Mode)
+- Navigate to scanner.html
+- Should load from cache ✅
+
+### Update: Local Fonts for Offline UI (2025-12-29)
+
+**Problem:** UI looked broken offline due to Google Fonts CDN dependency
+- Inter font from fonts.googleapis.com
+- Material Symbols from fonts.googleapis.com
+- Layout shifts when fonts fail to load
+
+**Fix:**
+1. Downloaded fonts locally:
+   - `fonts/inter-latin.woff2` (24KB)
+   - `fonts/material-symbols.woff2` (3.5MB)
+2. Created `fonts.css` with @font-face declarations
+3. Updated ALL HTML files to use `fonts.css` instead of Google CDN
+4. Added fonts to SW precache list
+
+**Files Updated:**
+- `fonts.css` - NEW local font definitions
+- `fonts/inter-latin.woff2` - NEW
+- `fonts/material-symbols.woff2` - NEW
+- `sw.js` - Added fonts to precache, bumped to v2.7.0
+- All HTML files - Replaced Google Fonts links with local fonts.css
+
+**Offline UI Status:** ✅ Fonts now load offline, UI identical to online
+
+---
+
+## Session: 2025-12-29 (UI Polish - Hotkeys, i18n, Button Fixes)
+
+### Gemini: UI Polish - Hotkeys, i18n, Button Fixes
+
+**Goals:**
+1. ✅ Fix "Next Round" button styling (invisible without hover)
+2. ✅ Implement Cmd/Ctrl keyboard shortcuts
+3. ✅ Localize Help modal hardcoded strings
+4. ✅ Localize Security Settings page strings
+5. 🔴 Results page "Waiting for analysis" placeholder (already has i18n)
+
+### 🔨 Changes Applied
+
+#### 1. 🎨 Fixed btn-primary Button Styling
+- **Problem:** `game.css` btn-primary had `background: transparent`
+- **Fix:** Changed to blue gradient with box-shadow
+- **File:** `game.css` L1403-1425
+
+```css
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+```
+
+#### 2. ⌨️ Added Keyboard Shortcuts
+- **File:** `shared-ui.js`
+- **Function:** `setupKeyboardShortcuts()` (L760-831)
+- **Shortcuts:**
+  | Key | Action |
+  |-----|--------|
+  | `Cmd/Ctrl + S` | Navigate to scanner.html |
+  | `Cmd/Ctrl + I` | Import Image (trigger file input) |
+  | `Cmd/Ctrl + D` | Navigate to dashboard.html |
+  | `Escape` | Close any open modal/dropdown |
+  | `?` | Open help modal |
+
+#### 3. 🌐 Localized Help Modal
+- **File:** `shared-ui.js` L840-910
+- Uses `translateText()` for all labels
+- Detects platform for modifier key display (⌘ for Mac, Ctrl for Windows)
+- Added `data-i18n` attributes for fallback
+
+#### 4. 🌐 Localized Security Settings Page
+- **File:** `onboarding.html` L287-427
+- Added `data-i18n` attributes to all labels and descriptions
+
+#### 5. 📝 Added i18n Keys to WebStringKey
+- **File:** `WebStrings.kt` L510-547
+- **New keys (35+):**
+  - Help Modal: `HelpKeyboardShortcuts`, `KeyboardShortcuts`, `StartScanner`, `CloseMenuModal`, `NavigateToDashboard`, `AboutDescription`, `VersionOfflineReady`, `GotIt`
+  - Settings: `SecuritySettings`, `SettingsDetection`, `SensitivityLevel`, `SensitivityLevelDesc`, `SensitivityPermissive`, `SensitivityStrict`, `AutoBlockThreats`, `AutoBlockThreatsDesc`, `RealTimeScanning`, `RealTimeScanningDesc`, `SettingsNotifications`, `SoundAlerts`, `SoundAlertsDesc`, `ThreatAlerts`, `ThreatAlertsDesc`, `SettingsDisplay`, `ShowConfidenceScore`, `ShowConfidenceScoreDesc`, `CompactView`, `CompactViewDesc`, `SettingsLanguage`, `SettingsLanguageDesc`, `SettingsSavedAutomatically`, `ResetDefaults`, `SaveAndContinue`
+
+### 📋 Files Modified
+
+| File | Change |
+|------|--------|
+| `game.css` | Fixed btn-primary gradient |
+| `shared-ui.js` | Added setupKeyboardShortcuts(), updated help modal |
+| `onboarding.html` | Added data-i18n attributes to settings |
+| `WebStrings.kt` | Added 35+ new i18n keys |
+| `CHANGELOG.md` | Added v1.19.6 entry |
+
+### Status: ✅ Complete
+
+Note: Results page "Waiting for analysis" placeholder already has proper data-i18n attribute (`WaitingForAnalysis`). The issue may be that the i18n system isn't applying translations on initial page load - this requires investigation if still a problem.
