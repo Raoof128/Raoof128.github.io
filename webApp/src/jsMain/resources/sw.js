@@ -3,7 +3,7 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v2.12.0';
+const CACHE_NAME = 'qr-shield-v2.14.0';
 const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
 
 function isDevHost() {
@@ -14,9 +14,14 @@ function isDevHost() {
         return false;
     }
 }
+
+// Complete list of all assets for offline functionality
 const STATIC_ASSETS = [
+    // Root
     './',
     './index.html',
+
+    // Page Files - HTML, CSS, JS
     './dashboard.html',
     './dashboard.css',
     './dashboard.js',
@@ -41,6 +46,8 @@ const STATIC_ASSETS = [
     './game.html',
     './game.css',
     './game.js',
+
+    // Shared CSS/JS
     './theme.css',
     './theme.js',
     './transitions.css',
@@ -48,13 +55,19 @@ const STATIC_ASSETS = [
     './shared-ui.css',
     './shared-ui.js',
     './shared-header.css',
+
+    // Fonts
     './fonts.css',
     './fonts/inter-latin.woff2',
     './fonts/material-symbols.woff2',
+
+    // Core JS
     './platform-bridge.js',
     './webApp.js',
     './jsQR.min.js',
     './visualizer.js',
+
+    // Assets - ALL icons
     './assets/logo.svg',
     './assets/icon-512.png',
     './assets/icon-256.png',
@@ -64,19 +77,46 @@ const STATIC_ASSETS = [
     './assets/shield-safe.svg',
     './assets/shield-warning.svg',
     './assets/shield-danger.svg',
+
+    // PWA manifest
     './manifest.json'
 ];
 
-// Install event - cache static assets (always cache, even on dev hosts for offline support)
+// Install event - cache static assets with individual error handling
 self.addEventListener('install', (event) => {
-    console.log('[SW] Installing QR-SHIELD service worker...');
+    console.log('[SW] Installing QR-SHIELD service worker v2.14.0 (100% Offline Mode)...');
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => {
-                console.log('[SW] Caching static assets');
-                return cache.addAll(STATIC_ASSETS);
+            .then(async (cache) => {
+                console.log('[SW] Caching', STATIC_ASSETS.length, 'static assets');
+
+                // Cache each asset individually to avoid one failure breaking everything
+                const results = await Promise.allSettled(
+                    STATIC_ASSETS.map(async (url) => {
+                        try {
+                            const response = await fetch(url);
+                            if (!response.ok) {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                            await cache.put(url, response);
+                            return { url, status: 'cached' };
+                        } catch (err) {
+                            console.warn('[SW] Failed to cache:', url, err.message);
+                            return { url, status: 'failed', error: err.message };
+                        }
+                    })
+                );
+
+                const cached = results.filter(r => r.value?.status === 'cached').length;
+                const failed = results.filter(r => r.value?.status === 'failed').length;
+                console.log(`[SW] Cached ${cached}/${STATIC_ASSETS.length} assets (${failed} failed)`);
+
+                return Promise.resolve();
             })
-            .then(() => self.skipWaiting())
+            .then(() => {
+                console.log('[SW] Installation complete, activating immediately');
+                return self.skipWaiting();
+            })
     );
 });
 
@@ -97,58 +137,24 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch event - serve from cache, fall back to network
+// Fetch event - cache-first with network update (stale-while-revalidate)
+// This ensures FULL offline functionality on all hosts including dev
 self.addEventListener('fetch', (event) => {
     // Skip non-GET requests
     if (event.request.method !== 'GET') return;
 
-    // Skip cross-origin requests (like fonts, CDN)
+    // Skip cross-origin requests
     if (!event.request.url.startsWith(self.location.origin)) {
-        return;
-    }
-
-    // Dev hosts: network-first with cache fallback (allows offline mode testing)
-    if (isDevHost()) {
-        event.respondWith(
-            fetch(event.request)
-                .then((response) => {
-                    // Cache the response for offline use
-                    if (response && response.status === 200) {
-                        const responseClone = response.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(event.request, responseClone);
-                        });
-                    }
-                    return response;
-                })
-                .catch(() => {
-                    // Network failed, try cache (enables offline mode in dev)
-                    return caches.match(event.request);
-                })
-        );
         return;
     }
 
     event.respondWith(
         caches.match(event.request)
             .then((cachedResponse) => {
-                if (cachedResponse) {
-                    // Return cache hit, but also fetch update in background
-                    fetch(event.request).then((response) => {
-                        if (response && response.status === 200) {
-                            caches.open(CACHE_NAME).then((cache) => {
-                                cache.put(event.request, response);
-                            });
-                        }
-                    }).catch(() => { });
-
-                    return cachedResponse;
-                }
-
-                // Not in cache - fetch from network
-                return fetch(event.request)
+                // Start a network request in background (for updating cache)
+                const networkFetch = fetch(event.request)
                     .then((response) => {
-                        // Cache successful responses
+                        // Cache the new response
                         if (response && response.status === 200) {
                             const responseClone = response.clone();
                             caches.open(CACHE_NAME).then((cache) => {
@@ -157,20 +163,30 @@ self.addEventListener('fetch', (event) => {
                         }
                         return response;
                     })
-                    .catch(() => {
-                        // Offline fallback for navigation requests
-                        if (event.request.mode === 'navigate') {
-                            // Try to match the specific page first
-                            const url = new URL(event.request.url);
-                            const pageName = url.pathname.split('/').pop() || 'index.html';
+                    .catch(() => null);
 
-                            return caches.match('./' + pageName)
-                                .then(cached => cached || caches.match('./scanner.html'))
-                                .then(cached => cached || caches.match('./index.html'));
-                        }
-                        // For other requests, return nothing (let browser handle)
-                        return undefined;
-                    });
+                // Return cached response immediately if available (fast offline!)
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
+
+                // No cache - wait for network
+                return networkFetch.then((response) => {
+                    if (response) {
+                        return response;
+                    }
+
+                    // Network failed too - try page fallback for navigation
+                    if (event.request.mode === 'navigate') {
+                        const url = new URL(event.request.url);
+                        const pageName = url.pathname.split('/').pop() || 'index.html';
+                        return caches.match('./' + pageName)
+                            .then(cached => cached || caches.match('./scanner.html'))
+                            .then(cached => cached || caches.match('./index.html'));
+                    }
+
+                    return undefined;
+                });
             })
     );
 });

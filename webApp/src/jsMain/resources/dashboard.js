@@ -304,7 +304,7 @@ function renderHistory() {
                 </span>
             </td>
             <td class="source-cell">
-                <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=32" alt="" class="favicon" onerror="this.style.display='none'"/>
+                <span class="material-symbols-outlined favicon-icon" style="font-size: 16px; color: var(--text-muted); margin-right: 8px;">language</span>
                 ${escapeHtml(truncateUrl(scan.url, 40))}
             </td>
             <td class="hide-mobile details-cell">${escapeHtml(details)}</td>

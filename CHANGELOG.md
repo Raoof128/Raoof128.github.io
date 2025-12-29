@@ -20,12 +20,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 | 4 | **"HIGH RISK DETECTED" and "DANGEROUS" text hardcoded** | data-i18n attributes were overwriting JS text; now removed before setting content |
 | 5 | **Duplicate history entries** (www.bing.com and https://www.bing.com) | URL normalization + 10-second duplicate window prevents same URL from creating multiple entries |
 | 6 | **Deprecated meta tag warning** (`apple-mobile-web-app-capable`) | Added `<meta name="mobile-web-app-capable">` to all 8 HTML files |
+| 7 | **Training and Report pages not working offline** | Changed SW from network-first to cache-first (stale-while-revalidate) strategy |
+| 8 | **External Google Favicon API breaking offline** | Removed external `google.com/s2/favicons` call, replaced with local Material icon |
+
+**100% Offline Mode Verified:**
+- ✅ No external API calls (removed Google favicon API)
+- ✅ No CDN dependencies (all fonts/icons local)
+- ✅ No XMLHttpRequest or fetch to external servers
+- ✅ All 42 static assets cached on install
+- ✅ Cache-first strategy (stale-while-revalidate)
+- ✅ Phishing detection engine runs 100% client-side
 
 **Files Modified:**
 
 | File | Change |
 |------|--------|
-| `sw.js` | v2.12.0 - Fixed offline caching for dev hosts |
+| `sw.js` | v2.14.0 - Cache-first strategy, 100% offline mode |
+| `dashboard.js` | Removed Google favicon API, replaced with local Material icon |
 | `fonts.css` | Added `color: transparent` on icons until `fonts-loaded` class is applied |
 | `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |
 | `threat.js` | Added `threatIcon` dynamic update + `removeAttribute('data-i18n')` for title/badge/description |

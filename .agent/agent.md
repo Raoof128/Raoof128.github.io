@@ -185,29 +185,37 @@ Any important notes for future agents.
 
 ---
 
-# 🔧 December 30, 2025 (Session 10k+55) - WebApp Bug Fixes
+# 🔧 December 30, 2025 (Session 10k+55) - WebApp Bug Fixes + 100% Offline Mode
 
 ### Summary
-Fixed six critical bugs: offline mode, hardcoded threat text/icon, duplicate history entries, deprecated PWA meta tag, and slow connection icon flash.
+Fixed eight issues to enable 100% offline functionality. Removed external Google favicon API, implemented cache-first service worker strategy, fixed hardcoded UI text, and resolved duplicate history entries.
 
-## ✅ Changes Made
+## ✅ 100% Offline Mode Verified
+- ✅ No external API calls (removed Google favicon API)
+- ✅ No CDN dependencies (all fonts/icons local)
+- ✅ All 42 static assets cached on install
+- ✅ Cache-first strategy (stale-while-revalidate)
+- ✅ Phishing detection engine runs 100% client-side
 
-### Issues Fixed
+## ✅ Issues Fixed
 
 | # | Issue | Root Cause | Fix |
 |---|-------|------------|-----|
-| 1 | Browser offline mode (DevTools) not loading site | Service worker skipped caching on dev hosts | Always cache + network-first with cache fallback |
+| 1 | Browser offline mode (DevTools) not loading site | Service worker skipped caching on dev hosts | Always cache + cache-first strategy |
 | 2 | Slow 3G showing "sports_esports" text | Icon font took >3s to load | Font Loading API + transparent icons until loaded |
 | 3 | Shield icon hardcoded to danger (gpp_maybe) | HTML had static icon, JS didn't update it | Added dynamic icon update in `renderUI()` |
 | 4 | "HIGH RISK DETECTED" text hardcoded | i18n system overwriting dynamic JS text | `removeAttribute('data-i18n')` before setting textContent |
 | 5 | Duplicate history entries | www.bing.com vs https://www.bing.com | URL normalization + 10-second duplicate window |
 | 6 | Deprecated meta tag warning | Missing `mobile-web-app-capable` | Added to all 8 HTML files |
+| 7 | Training/Report pages not offline | Network-first strategy | Changed to cache-first |
+| 8 | **Google Favicon API blocking offline** | External `google.com/s2/favicons` call | Replaced with local Material icon |
 
 ### Files Modified
 
 | File | Change |
 |------|--------|
-| `sw.js` | v2.12.0 - Fixed offline caching for dev hosts |
+| `sw.js` | v2.14.0 - Cache-first strategy, 100% offline mode |
+| `dashboard.js` | Removed Google favicon API, replaced with local icon |
 | `fonts.css` | Added `color: transparent` + `.fonts-loaded` reveal for icons |
 | `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |
 | `threat.js` | Added `threatIcon` element + `removeAttribute('data-i18n')` for dynamic text |
