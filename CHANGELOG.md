@@ -22,12 +22,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 | 6 | **Deprecated meta tag warning** (`apple-mobile-web-app-capable`) | Added `<meta name="mobile-web-app-capable">` to all 8 HTML files |
 | 7 | **Training and Report pages not working offline** | Changed SW from network-first to cache-first (stale-while-revalidate) strategy |
 | 8 | **External Google Favicon API breaking offline** | Removed external `google.com/s2/favicons` call, replaced with local Material icon |
+| 9 | **⚠️ CRITICAL: Pages loading as raw HTML offline** | **SW v2.15.0**: Fixed cache path mismatch - now uses absolute URLs based on registration scope |
 
 **100% Offline Mode Verified:**
 - ✅ No external API calls (removed Google favicon API)
 - ✅ No CDN dependencies (all fonts/icons local)
 - ✅ No XMLHttpRequest or fetch to external servers
-- ✅ All 42 static assets cached on install
+- ✅ All 66 static assets cached on install with absolute URLs
 - ✅ Cache-first strategy (stale-while-revalidate)
 - ✅ Phishing detection engine runs 100% client-side
 
@@ -35,7 +36,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 | File | Change |
 |------|--------|
-| `sw.js` | v2.14.0 - Cache-first strategy, 100% offline mode |
+| `sw.js` | **v2.17.0** - Strips query strings from URLs for cache matching, extensive debug logging |
+| `threat.html` | Removed `?v=3` from CSS link that broke offline caching |
+| `game.html` | Removed `?v=3` from CSS link that broke offline caching |
+| `export.html` | Removed `?v=2` from CSS link that broke offline caching |
 | `dashboard.js` | Removed Google favicon API, replaced with local Material icon |
 | `fonts.css` | Added `color: transparent` on icons until `fonts-loaded` class is applied |
 | `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |

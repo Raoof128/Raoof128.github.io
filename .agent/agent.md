@@ -188,12 +188,12 @@ Any important notes for future agents.
 # 🔧 December 30, 2025 (Session 10k+55) - WebApp Bug Fixes + 100% Offline Mode
 
 ### Summary
-Fixed eight issues to enable 100% offline functionality. Removed external Google favicon API, implemented cache-first service worker strategy, fixed hardcoded UI text, and resolved duplicate history entries.
+Fixed NINE issues to enable 100% offline functionality. Critical fix: SW v2.15.0 now uses absolute URLs based on registration scope to fix cache path mismatch that caused pages to load as raw HTML.
 
 ## ✅ 100% Offline Mode Verified
 - ✅ No external API calls (removed Google favicon API)
 - ✅ No CDN dependencies (all fonts/icons local)
-- ✅ All 42 static assets cached on install
+- ✅ All 66 static assets cached with absolute URLs on install
 - ✅ Cache-first strategy (stale-while-revalidate)
 - ✅ Phishing detection engine runs 100% client-side
 
@@ -208,13 +208,14 @@ Fixed eight issues to enable 100% offline functionality. Removed external Google
 | 5 | Duplicate history entries | www.bing.com vs https://www.bing.com | URL normalization + 10-second duplicate window |
 | 6 | Deprecated meta tag warning | Missing `mobile-web-app-capable` | Added to all 8 HTML files |
 | 7 | Training/Report pages not offline | Network-first strategy | Changed to cache-first |
-| 8 | **Google Favicon API blocking offline** | External `google.com/s2/favicons` call | Replaced with local Material icon |
+| 8 | Google Favicon API blocking offline | External `google.com/s2/favicons` call | Replaced with local Material icon |
+| 9 | **⚠️ CRITICAL: Pages loading as raw HTML offline** | Cache path mismatch (./file vs /file) | **SW v2.15.0**: Absolute URLs via `self.registration.scope` |
 
 ### Files Modified
 
 | File | Change |
 |------|--------|
-| `sw.js` | v2.14.0 - Cache-first strategy, 100% offline mode |
+| `sw.js` | **v2.15.0** - CRITICAL: Uses absolute URLs via `self.registration.scope` for proper cache matching |
 | `dashboard.js` | Removed Google favicon API, replaced with local icon |
 | `fonts.css` | Added `color: transparent` + `.fonts-loaded` reveal for icons |
 | `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |

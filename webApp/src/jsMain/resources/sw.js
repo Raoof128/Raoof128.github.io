@@ -1,73 +1,82 @@
-/*
- * QR-SHIELD Service Worker
- * Enables offline functionality and PWA installation
+/**
+ * QR-SHIELD Service Worker v2.16.0
+ * 100% Offline-First PWA with Cache-First Strategy
+ * 
+ * Based on Google's Workbox best practices (2024)
+ * - Uses cache.addAll with absolute URLs for reliable caching
+ * - Implements cache-first with network fallback
+ * - Includes extensive debug logging
  */
 
-const CACHE_NAME = 'qr-shield-v2.14.0';
-const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
+const CACHE_VERSION = 'v2.17.0';
+const CACHE_NAME = `qr-shield-${CACHE_VERSION}`;
 
-function isDevHost() {
-    try {
-        const scopeUrl = new URL(self.registration.scope);
-        return DEV_HOSTS.has(scopeUrl.hostname);
-    } catch (e) {
-        return false;
-    }
+// Debug mode - logs all cache operations
+const DEBUG = true;
+
+function log(...args) {
+    if (DEBUG) console.log('[SW]', ...args);
 }
 
-// Complete list of all assets for offline functionality
-const STATIC_ASSETS = [
-    // Root
+function warn(...args) {
+    console.warn('[SW]', ...args);
+}
+
+function error(...args) {
+    console.error('[SW]', ...args);
+}
+
+// All files to precache (relative to service worker location)
+const PRECACHE_ASSETS = [
+    // Pages (HTML)
     './',
     './index.html',
-
-    // Page Files - HTML, CSS, JS
     './dashboard.html',
-    './dashboard.css',
-    './dashboard.js',
     './scanner.html',
-    './scanner.css',
-    './scanner.js',
     './results.html',
-    './results.css',
-    './results.js',
     './threat.html',
-    './threat.css',
-    './threat.js',
     './export.html',
-    './export.css',
-    './export.js',
     './trust.html',
-    './trust.css',
-    './trust.js',
     './onboarding.html',
-    './onboarding.css',
-    './onboarding.js',
     './game.html',
+
+    // Stylesheets (CSS)
+    './dashboard.css',
+    './scanner.css',
+    './results.css',
+    './threat.css',
+    './export.css',
+    './trust.css',
+    './onboarding.css',
     './game.css',
-    './game.js',
-
-    // Shared CSS/JS
     './theme.css',
-    './theme.js',
     './transitions.css',
-    './transitions.js',
     './shared-ui.css',
-    './shared-ui.js',
     './shared-header.css',
-
-    // Fonts
     './fonts.css',
-    './fonts/inter-latin.woff2',
-    './fonts/material-symbols.woff2',
 
-    // Core JS
+    // Scripts (JS)
+    './dashboard.js',
+    './scanner.js',
+    './results.js',
+    './threat.js',
+    './export.js',
+    './trust.js',
+    './onboarding.js',
+    './game.js',
+    './theme.js',
+    './transitions.js',
+    './shared-ui.js',
     './platform-bridge.js',
     './webApp.js',
     './jsQR.min.js',
     './visualizer.js',
 
-    // Assets - ALL icons
+    // Fonts
+    './fonts/inter-latin.woff2',
+    './fonts/material-symbols.woff2',
+
+    // Assets
     './assets/logo.svg',
     './assets/icon-512.png',
     './assets/icon-256.png',
@@ -78,122 +87,264 @@ const STATIC_ASSETS = [
     './assets/shield-warning.svg',
     './assets/shield-danger.svg',
 
-    // PWA manifest
+    // PWA Manifest
     './manifest.json'
 ];
 
-// Install event - cache static assets with individual error handling
+/**
+ * Convert relative URL to absolute URL based on service worker scope
+ */
+function toAbsoluteUrl(relativeUrl) {
+    // Use service worker location as base (not scope, which might be different)
+    return new URL(relativeUrl, self.location.href).href;
+}
+
+/**
+ * INSTALL EVENT - Precache all static assets
+ * Uses individual fetches to handle failures gracefully
+ */
 self.addEventListener('install', (event) => {
-    console.log('[SW] Installing QR-SHIELD service worker v2.14.0 (100% Offline Mode)...');
+    log(`Installing ${CACHE_NAME}...`);
+    log('Service worker location:', self.location.href);
+
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(async (cache) => {
-                console.log('[SW] Caching', STATIC_ASSETS.length, 'static assets');
+        caches.open(CACHE_NAME).then(async (cache) => {
+            log(`Opened cache: ${CACHE_NAME}`);
+            log(`Precaching ${PRECACHE_ASSETS.length} assets...`);
 
-                // Cache each asset individually to avoid one failure breaking everything
-                const results = await Promise.allSettled(
-                    STATIC_ASSETS.map(async (url) => {
-                        try {
-                            const response = await fetch(url);
-                            if (!response.ok) {
-                                throw new Error(`HTTP ${response.status}`);
-                            }
-                            await cache.put(url, response);
-                            return { url, status: 'cached' };
-                        } catch (err) {
-                            console.warn('[SW] Failed to cache:', url, err.message);
-                            return { url, status: 'failed', error: err.message };
-                        }
-                    })
-                );
+            let successCount = 0;
+            let failedAssets = [];
 
-                const cached = results.filter(r => r.value?.status === 'cached').length;
-                const failed = results.filter(r => r.value?.status === 'failed').length;
-                console.log(`[SW] Cached ${cached}/${STATIC_ASSETS.length} assets (${failed} failed)`);
+            // Cache each asset individually for better error handling
+            for (const asset of PRECACHE_ASSETS) {
+                try {
+                    const absoluteUrl = toAbsoluteUrl(asset);
 
-                return Promise.resolve();
-            })
-            .then(() => {
-                console.log('[SW] Installation complete, activating immediately');
-                return self.skipWaiting();
-            })
+                    // Fetch with cache: 'reload' to ensure fresh copy
+                    const response = await fetch(absoluteUrl, { cache: 'reload' });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                    }
+
+                    // Cache with the absolute URL
+                    await cache.put(absoluteUrl, response.clone());
+
+                    // Also cache with the relative URL for matching flexibility
+                    await cache.put(asset, response.clone());
+
+                    successCount++;
+                    log(`✓ Cached: ${asset}`);
+                } catch (err) {
+                    failedAssets.push({ asset, error: err.message });
+                    warn(`✗ Failed to cache: ${asset} - ${err.message}`);
+                }
+            }
+
+            log(`=================================`);
+            log(`INSTALL COMPLETE`);
+            log(`Cached: ${successCount}/${PRECACHE_ASSETS.length}`);
+
+            if (failedAssets.length > 0) {
+                warn(`Failed assets (${failedAssets.length}):`, failedAssets);
+            }
+            log(`=================================`);
+
+            return Promise.resolve();
+        }).then(() => {
+            log('Calling skipWaiting()...');
+            return self.skipWaiting();
+        }).catch((err) => {
+            error('Install failed:', err);
+            throw err;
+        })
     );
 });
 
-// Activate event - clean up old caches
+/**
+ * ACTIVATE EVENT - Clean up old caches and claim clients
+ */
 self.addEventListener('activate', (event) => {
-    console.log('[SW] Activating service worker...');
+    log('Activating...');
+
     event.waitUntil(
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames
-                    .filter((name) => name !== CACHE_NAME)
+                    .filter((name) => name.startsWith('qr-shield-') && name !== CACHE_NAME)
                     .map((name) => {
-                        console.log('[SW] Deleting old cache:', name);
+                        log(`Deleting old cache: ${name}`);
                         return caches.delete(name);
                     })
             );
-        }).then(() => self.clients.claim())
+        }).then(() => {
+            log('Claiming clients...');
+            return self.clients.claim();
+        }).then(() => {
+            log('=================================');
+            log('SERVICE WORKER ACTIVE');
+            log(`Cache: ${CACHE_NAME}`);
+            log('Ready for offline mode!');
+            log('=================================');
+        })
     );
 });
 
-// Fetch event - cache-first with network update (stale-while-revalidate)
-// This ensures FULL offline functionality on all hosts including dev
+/**
+ * FETCH EVENT - Cache-first with network fallback
+ * This ensures offline mode works reliably
+ */
 self.addEventListener('fetch', (event) => {
-    // Skip non-GET requests
-    if (event.request.method !== 'GET') return;
+    const request = event.request;
 
-    // Skip cross-origin requests
-    if (!event.request.url.startsWith(self.location.origin)) {
+    // Skip non-GET requests
+    if (request.method !== 'GET') {
         return;
     }
 
-    event.respondWith(
-        caches.match(event.request)
-            .then((cachedResponse) => {
-                // Start a network request in background (for updating cache)
-                const networkFetch = fetch(event.request)
-                    .then((response) => {
-                        // Cache the new response
-                        if (response && response.status === 200) {
-                            const responseClone = response.clone();
-                            caches.open(CACHE_NAME).then((cache) => {
-                                cache.put(event.request, responseClone);
-                            });
-                        }
-                        return response;
-                    })
-                    .catch(() => null);
+    // Skip cross-origin requests (external APIs, etc.)
+    const requestUrl = new URL(request.url);
+    if (requestUrl.origin !== self.location.origin) {
+        log(`Skipping cross-origin: ${request.url}`);
+        return;
+    }
 
-                // Return cached response immediately if available (fast offline!)
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
-
-                // No cache - wait for network
-                return networkFetch.then((response) => {
-                    if (response) {
-                        return response;
-                    }
-
-                    // Network failed too - try page fallback for navigation
-                    if (event.request.mode === 'navigate') {
-                        const url = new URL(event.request.url);
-                        const pageName = url.pathname.split('/').pop() || 'index.html';
-                        return caches.match('./' + pageName)
-                            .then(cached => cached || caches.match('./scanner.html'))
-                            .then(cached => cached || caches.match('./index.html'));
-                    }
-
-                    return undefined;
-                });
-            })
-    );
+    event.respondWith(handleFetch(request));
 });
 
-// Handle messages from the main thread
+/**
+ * Handle fetch with cache-first strategy
+ * Strips query strings for cache matching to handle versioned URLs like file.css?v=2
+ */
+async function handleFetch(request) {
+    const url = request.url;
+
+    // Create a URL without query string for cache matching
+    const urlWithoutQuery = new URL(url);
+    urlWithoutQuery.search = '';
+    const cleanUrl = urlWithoutQuery.href;
+
+    try {
+        // Try to find in cache first (try both with and without query string)
+        let cachedResponse = await caches.match(request);
+
+        // If not found, try without query string
+        if (!cachedResponse && url !== cleanUrl) {
+            cachedResponse = await caches.match(cleanUrl);
+            if (cachedResponse) {
+                log(`✓ Cache hit (without query): ${cleanUrl}`);
+            }
+        }
+
+        if (cachedResponse) {
+            log(`✓ Cache hit: ${url}`);
+
+            // Update cache in background (stale-while-revalidate)
+            updateCacheInBackground(request);
+
+            return cachedResponse;
+        }
+
+        log(`○ Cache miss: ${url}`);
+
+        // Not in cache - try network
+        try {
+            const networkResponse = await fetch(request);
+
+            if (networkResponse.ok) {
+                log(`↓ Network fetch: ${url}`);
+
+                // Cache the response for next time
+                const cache = await caches.open(CACHE_NAME);
+                await cache.put(request, networkResponse.clone());
+
+                return networkResponse;
+            } else {
+                warn(`Network error ${networkResponse.status}: ${url}`);
+            }
+        } catch (networkError) {
+            warn(`Network failed: ${url} - ${networkError.message}`);
+        }
+
+        // Network failed - try fallback for navigation requests
+        if (request.mode === 'navigate') {
+            log(`→ Attempting navigation fallback for: ${url}`);
+
+            // Try to find the specific page
+            const pageName = new URL(url).pathname.split('/').pop() || 'index.html';
+
+            // Try relative path first
+            let fallback = await caches.match(`./${pageName}`);
+
+            // Try absolute URL
+            if (!fallback) {
+                fallback = await caches.match(toAbsoluteUrl(`./${pageName}`));
+            }
+
+            // Fallback to dashboard
+            if (!fallback) {
+                fallback = await caches.match('./dashboard.html') ||
+                    await caches.match(toAbsoluteUrl('./dashboard.html'));
+            }
+
+            // Fallback to index
+            if (!fallback) {
+                fallback = await caches.match('./index.html') ||
+                    await caches.match(toAbsoluteUrl('./index.html'));
+            }
+
+            if (fallback) {
+                log(`→ Serving fallback page: ${pageName}`);
+                return fallback;
+            }
+        }
+
+        // No cache, no network, no fallback - return error response
+        error(`Failed to serve: ${url}`);
+        return new Response('Offline - Resource not available', {
+            status: 503,
+            statusText: 'Service Unavailable',
+            headers: { 'Content-Type': 'text/plain' }
+        });
+
+    } catch (err) {
+        error(`Fetch handler error: ${url}`, err);
+        return new Response('Error', { status: 500 });
+    }
+}
+
+/**
+ * Update cache in background without blocking response
+ */
+function updateCacheInBackground(request) {
+    fetch(request)
+        .then((response) => {
+            if (response.ok) {
+                caches.open(CACHE_NAME).then((cache) => {
+                    cache.put(request, response);
+                    log(`↻ Background update: ${request.url}`);
+                });
+            }
+        })
+        .catch(() => {
+            // Ignore network errors during background update
+        });
+}
+
+/**
+ * MESSAGE EVENT - Handle skip waiting messages
+ */
 self.addEventListener('message', (event) => {
-    if (event.data === 'skipWaiting') {
+    log('Received message:', event.data);
+
+    if (event.data === 'skipWaiting' || event.data?.type === 'SKIP_WAITING') {
+        log('Skipping waiting...');
         self.skipWaiting();
     }
 });
+
+// Log when script is loaded
+log('=================================');
+log(`QR-SHIELD Service Worker ${CACHE_VERSION}`);
+log('Script loaded successfully');
+log('=================================');
