@@ -36,4 +36,21 @@
     -webkit-font-feature-settings: 'liga';
     font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
+    
+    /* Prevent icon text from showing on slow connections */
+    /* The font-display: block handles this for 3 seconds, but after that  */
+    /* font names like "sports_esports" could appear. Make text transparent */
+    /* and use a zero-width technique until font loads */
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+
+/* When the font is loaded (browser adds fonts-loaded class), show icons */
+/* This is detected via JavaScript Font Loading API or font-display completes */
+.fonts-loaded .material-symbols-outlined,
+body.loaded .material-symbols-outlined {
+    color: inherit;
+    background-clip: initial;
+    -webkit-background-clip: initial;
 }

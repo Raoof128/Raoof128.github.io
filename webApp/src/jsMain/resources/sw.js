@@ -3,7 +3,7 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v2.10.0';
+const CACHE_NAME = 'qr-shield-v2.12.0';
 const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
 
 function isDevHost() {
@@ -67,13 +67,9 @@ const STATIC_ASSETS = [
     './manifest.json'
 ];
 
-// Install event - cache static assets
+// Install event - cache static assets (always cache, even on dev hosts for offline support)
 self.addEventListener('install', (event) => {
     console.log('[SW] Installing QR-SHIELD service worker...');
-    if (isDevHost()) {
-        self.skipWaiting();
-        return;
-    }
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
@@ -111,8 +107,25 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
+    // Dev hosts: network-first with cache fallback (allows offline mode testing)
     if (isDevHost()) {
-        event.respondWith(fetch(event.request));
+        event.respondWith(
+            fetch(event.request)
+                .then((response) => {
+                    // Cache the response for offline use
+                    if (response && response.status === 200) {
+                        const responseClone = response.clone();
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, responseClone);
+                        });
+                    }
+                    return response;
+                })
+                .catch(() => {
+                    // Network failed, try cache (enables offline mode in dev)
+                    return caches.match(event.request);
+                })
+        );
         return;
     }
 

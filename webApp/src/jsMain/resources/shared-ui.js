@@ -1111,6 +1111,36 @@
     function addScanToHistory(scanResult) {
         const history = getScanHistory();
 
+        // Normalize URL to prevent duplicates (with/without protocol, trailing slash)
+        const normalizeUrl = (url) => {
+            if (!url) return '';
+            let normalized = url.toLowerCase().trim();
+            // Remove protocol
+            normalized = normalized.replace(/^https?:\/\//i, '');
+            // Remove trailing slash
+            normalized = normalized.replace(/\/$/, '');
+            // Remove www. prefix for comparison
+            normalized = normalized.replace(/^www\./i, '');
+            return normalized;
+        };
+
+        const normalizedNewUrl = normalizeUrl(scanResult.url);
+
+        // Check for duplicate - same URL scanned within last 10 seconds
+        const TEN_SECONDS = 10 * 1000;
+        const now = Date.now();
+        const isDuplicate = history.some(entry => {
+            const normalizedExisting = normalizeUrl(entry.url);
+            const timeDiff = now - entry.timestamp;
+            return normalizedExisting === normalizedNewUrl && timeDiff < TEN_SECONDS;
+        });
+
+        if (isDuplicate) {
+            console.log('[History] Skipping duplicate entry for:', scanResult.url);
+            // Return the existing entry instead of creating new
+            return history.find(entry => normalizeUrl(entry.url) === normalizedNewUrl);
+        }
+
         const entry = {
             id: `scan_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
             timestamp: Date.now(),

@@ -51,6 +51,7 @@ const elements = {
 
     // Hero
     threatHero: null,
+    threatIcon: null, // The shield icon that shows verdict state
     threatTitle: null,
     threatBadge: null,
     threatDescription: null,
@@ -157,6 +158,7 @@ function cacheElements() {
     elements.sidebar = document.getElementById('sidebar');
     elements.menuToggle = document.getElementById('menuToggle');
     elements.threatHero = document.getElementById('threatHero');
+    elements.threatIcon = document.querySelector('.threat-icon .material-symbols-outlined'); // The verdict shield icon
     elements.threatTitle = document.getElementById('threatTitle');
     elements.threatBadge = document.getElementById('threatBadge');
     elements.threatDescription = document.getElementById('threatDescription');
@@ -344,18 +346,26 @@ function renderUI() {
         }
     }
 
-    // Update title
+    // Update the threat icon based on verdict
+    if (elements.threatIcon) {
+        elements.threatIcon.textContent = level.icon;
+    }
+
+    // Update title (remove data-i18n to prevent i18n overwrite)
     if (elements.threatTitle) {
+        elements.threatTitle.removeAttribute('data-i18n');
         elements.threatTitle.textContent = translateText(level.title);
     }
 
-    // Update badge
+    // Update badge (remove data-i18n to prevent i18n overwrite)
     if (elements.threatBadge) {
+        elements.threatBadge.removeAttribute('data-i18n');
         elements.threatBadge.textContent = translateText(level.badge);
     }
 
-    // Update description
+    // Update description (remove data-i18n to prevent i18n overwrite)
     if (elements.threatDescription) {
+        elements.threatDescription.removeAttribute('data-i18n');
         elements.threatDescription.textContent = translateText(level.description);
     }
 

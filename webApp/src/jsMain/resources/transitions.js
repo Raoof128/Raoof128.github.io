@@ -21,12 +21,43 @@
         // Handle popstate (back/forward buttons)
         window.addEventListener('popstate', handlePopState);
 
+        // Detect when icon font is loaded to prevent text fallback on slow connections
+        detectIconFontLoaded();
+
         // Mark page as loaded
         requestAnimationFrame(() => {
             document.body.classList.add('page-loaded');
         });
 
         console.log('[Transitions v2.2] Initialized');
+    }
+
+    /**
+     * Detect when Material Symbols icon font is loaded
+     * This prevents icon text names from showing on slow 3G connections
+     */
+    function detectIconFontLoaded() {
+        if ('fonts' in document) {
+            // Use Font Loading API (modern browsers)
+            document.fonts.ready.then(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            });
+
+            // Also specifically check for Material Symbols
+            document.fonts.load('24px "Material Symbols Outlined"').then(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            }).catch(() => {
+                // Fallback: add class anyway after timeout to ensure icons show
+                setTimeout(() => {
+                    document.documentElement.classList.add('fonts-loaded');
+                }, 3000);
+            });
+        } else {
+            // Fallback for older browsers: assume fonts loaded after 1 second
+            setTimeout(() => {
+                document.documentElement.classList.add('fonts-loaded');
+            }, 1000);
+        }
     }
 
     /**

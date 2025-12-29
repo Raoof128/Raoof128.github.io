@@ -185,6 +185,97 @@ Any important notes for future agents.
 
 ---
 
+# 🔧 December 30, 2025 (Session 10k+55) - WebApp Bug Fixes
+
+### Summary
+Fixed six critical bugs: offline mode, hardcoded threat text/icon, duplicate history entries, deprecated PWA meta tag, and slow connection icon flash.
+
+## ✅ Changes Made
+
+### Issues Fixed
+
+| # | Issue | Root Cause | Fix |
+|---|-------|------------|-----|
+| 1 | Browser offline mode (DevTools) not loading site | Service worker skipped caching on dev hosts | Always cache + network-first with cache fallback |
+| 2 | Slow 3G showing "sports_esports" text | Icon font took >3s to load | Font Loading API + transparent icons until loaded |
+| 3 | Shield icon hardcoded to danger (gpp_maybe) | HTML had static icon, JS didn't update it | Added dynamic icon update in `renderUI()` |
+| 4 | "HIGH RISK DETECTED" text hardcoded | i18n system overwriting dynamic JS text | `removeAttribute('data-i18n')` before setting textContent |
+| 5 | Duplicate history entries | www.bing.com vs https://www.bing.com | URL normalization + 10-second duplicate window |
+| 6 | Deprecated meta tag warning | Missing `mobile-web-app-capable` | Added to all 8 HTML files |
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `sw.js` | v2.12.0 - Fixed offline caching for dev hosts |
+| `fonts.css` | Added `color: transparent` + `.fonts-loaded` reveal for icons |
+| `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |
+| `threat.js` | Added `threatIcon` element + `removeAttribute('data-i18n')` for dynamic text |
+| `shared-ui.js` | Added URL normalization + duplicate detection in `addScanToHistory()` |
+| All 8 HTML files | Added `<meta name="mobile-web-app-capable" content="yes" />` |
+
+## 🔧 Technical Details
+
+### 1. Offline Mode Fix (sw.js)
+The service worker was completely skipping caching on localhost/127.0.0.1:
+```javascript
+// BEFORE (broken)
+if (isDevHost()) {
+    self.skipWaiting();
+    return;  // No caching at all!
+}
+
+// AFTER (fixed)
+// Always cache, use network-first for dev
+event.waitUntil(caches.open(CACHE_NAME).then(...));
+// Dev: fetch network, cache result, fallback to cache
+```
+
+### 2. Icon Font Flash Fix (fonts.css + transitions.js)
+Icons were showing text names like "sports_esports" on slow 3G:
+```css
+/* Hide icon text until font loads */
+.material-symbols-outlined {
+    color: transparent;
+    background-clip: text;
+}
+.fonts-loaded .material-symbols-outlined {
+    color: inherit;
+}
+```
+
+```javascript
+// Detect font load using Font Loading API
+document.fonts.load('24px "Material Symbols Outlined"').then(() => {
+    document.documentElement.classList.add('fonts-loaded');
+});
+```
+
+### 3. Dynamic Threat Icon (threat.js)
+The shield icon was hardcoded in HTML:
+```javascript
+// Added to cacheElements()
+elements.threatIcon = document.querySelector('.threat-icon .material-symbols-outlined');
+
+// Added to renderUI()
+if (elements.threatIcon) {
+    elements.threatIcon.textContent = level.icon;  // verified, warning, info, gpp_maybe, help_outline
+}
+```
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL in 12s ✅
+```
+
+## Notes
+- Cache version bumped to v2.11.0 to force service worker update
+- Font loading fallback: icons show after 3s timeout even if API fails
+- ThreatLevels.UNKNOWN now shows `help_outline` icon
+
+---
+
 # 🔧 December 29, 2025 (Session 10k+54) - WebApp UI & Settings Fixes
 
 ### Summary

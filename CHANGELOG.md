@@ -4,6 +4,68 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.2] - 2025-12-30
+
+### 🔧 WebApp Bug Fixes (2025-12-30 AEDT)
+
+**Scope:** Fix offline mode, hardcoded threat text, duplicate history, deprecated PWA meta tag
+
+**Issues Fixed:**
+
+| # | Issue | Fix |
+|---|-------|-----|
+| 1 | Browser offline mode in DevTools didn't work in development | Service worker now always caches resources and uses network-first with cache fallback on dev hosts |
+| 2 | Slow 3G connections showing icon text names (e.g., "sports_esports") | Added Font Loading API detection and CSS to hide icons until font loads |
+| 3 | Threat page shield icon hardcoded to danger (gpp_maybe) regardless of verdict | Made icon dynamic - now updates based on verdict |
+| 4 | **"HIGH RISK DETECTED" and "DANGEROUS" text hardcoded** | data-i18n attributes were overwriting JS text; now removed before setting content |
+| 5 | **Duplicate history entries** (www.bing.com and https://www.bing.com) | URL normalization + 10-second duplicate window prevents same URL from creating multiple entries |
+| 6 | **Deprecated meta tag warning** (`apple-mobile-web-app-capable`) | Added `<meta name="mobile-web-app-capable">` to all 8 HTML files |
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `sw.js` | v2.12.0 - Fixed offline caching for dev hosts |
+| `fonts.css` | Added `color: transparent` on icons until `fonts-loaded` class is applied |
+| `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |
+| `threat.js` | Added `threatIcon` dynamic update + `removeAttribute('data-i18n')` for title/badge/description |
+| `shared-ui.js` | Added URL normalization + duplicate detection (10-second window) in `addScanToHistory()` |
+| All 8 HTML files | Added `<meta name="mobile-web-app-capable" content="yes" />` |
+
+**Technical Details:**
+
+1. **Hardcoded Text Fix (threat.js):**
+   - The i18n system was calling `qrshieldApplyTranslations()` AFTER `renderUI()`, overwriting dynamic text
+   - Fix: Call `removeAttribute('data-i18n')` on elements before setting their textContent
+   
+2. **Duplicate History Fix (shared-ui.js):**
+   ```javascript
+   // Normalize URL: remove protocol, trailing slash, www. prefix
+   const normalizeUrl = (url) => url.toLowerCase()
+       .replace(/^https?:\/\//i, '')
+       .replace(/\/$/, '')
+       .replace(/^www\./i, '');
+   
+   // Skip if same normalized URL scanned within 10 seconds
+   const isDuplicate = history.some(entry => 
+       normalizeUrl(entry.url) === normalizedNewUrl && 
+       (now - entry.timestamp) < 10000
+   );
+   ```
+
+3. **PWA Meta Tag Fix:**
+   - Old (deprecated): `<meta name="apple-mobile-web-app-capable">`
+   - New (modern): Also includes `<meta name="mobile-web-app-capable">`
+
+**Build Verification:**
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# webpack 5.101.3 compiled successfully ✅
+# BUILD SUCCESSFUL
+```
+
+---
+
 ## [1.20.1] - 2025-12-29
 
 ### 🔧 JS/Wasm Test Compilation Fixes (2025-12-29 AEDT)
