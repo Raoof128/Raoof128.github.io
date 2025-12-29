@@ -646,7 +646,7 @@ function getVerdictClass(verdict) {
         case 'MEDIUM': return 'warning';
         case 'LOW':
         case 'SAFE': return 'safe';
-        default: return 'safe';
+        default: return 'unknown'; // NEVER default to safe - security rule
     }
 }
 

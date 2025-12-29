@@ -1038,6 +1038,19 @@ html {
     color: var(--warning);
 }
 
+.history-badge.unknown {
+    background-color: rgba(100, 116, 139, 0.2);
+    color: #94a3b8;
+}
+
+.history-icon.unknown {
+    background-color: rgba(100, 116, 139, 0.1);
+}
+
+.history-icon.unknown .material-symbols-outlined {
+    color: #94a3b8;
+}
+
 .history-time,
 .history-score {
     font-size: 0.75rem;

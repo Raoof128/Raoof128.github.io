@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.19.0] - 2025-12-29
 
+### Raouf: WebApp Deep Security Audit - Export + Verdict Defaults Fixed (2025-12-29 AEDT)
+
+**Scope:** Fix remaining "default to safe" and "fake demo data" security violations
+
+**Non-Negotiable Rule:** Unknown ≠ Safe. Never fabricate security outcomes.
+
+**Findings & Fixes:**
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `export.js` L190-211 | `getDemoData()` fabricated fake SUSPICIOUS verdict at 85% | **HIGH** | Replaced with `getEmptyStateData()` |
+| 2 | `export.js` L174-175 | Default verdictParam='SUSPICIOUS', score=85 | **MED** | Changed to 'UNKNOWN' / 0 |
+| 3 | `threat.js` L649 | `getVerdictClass()` default → 'safe' | **MED** | Changed to 'unknown' |
+| 4 | `results.js` L400-401 | `getDefaultFactorsForVerdict()` default → safeFactors | **MED** | Added unknownFactors, return them for unknown |
+
+**CSS Added:**
+- `threat.css`: Added `.history-badge.unknown` and `.history-icon.unknown` styles
+
+**Build Verification:**
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# webpack 5.101.3 compiled successfully
+# BUILD SUCCESSFUL in 17s ✅
+```
+
+---
+
 ### Raouf: WebApp Security Audit - Removed All Fake/Demo Security Data (2025-12-29 AEDT)
 
 **Scope:** Eliminated all fabricated security outcomes from production web app

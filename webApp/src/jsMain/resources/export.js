@@ -171,8 +171,8 @@ function loadReportData() {
     if (urlParam) {
         ExportState.reportData = {
             url: decodeURIComponent(urlParam),
-            verdict: verdictParam || 'SUSPICIOUS',
-            score: parseInt(scoreParam) || 85,
+            verdict: verdictParam || 'UNKNOWN',
+            score: parseInt(scoreParam) || 0,
             timestamp: Date.now(),
         };
     } else {
@@ -187,26 +187,28 @@ function loadReportData() {
         }
     }
 
-    // If still no data, use demo data
+    // If still no data, use EMPTY STATE (not fake demo)
     if (!ExportState.reportData) {
-        ExportState.reportData = getDemoData();
+        ExportState.reportData = getEmptyStateData();
     }
 }
 
 /**
- * Get demo data for preview
+ * Get empty state data when no real scan is available
+ * NEVER fabricates fake security outcomes - this is a non-negotiable rule
  */
-function getDemoData() {
+function getEmptyStateData() {
     return {
-        url: 'http://login-secure-banking-xyz.auth-gateway.net/ref=882',
-        verdict: 'SUSPICIOUS',
-        score: 85,
+        url: '',
+        score: 0,
+        verdict: 'UNKNOWN',
         timestamp: Date.now(),
-        threatType: 'Phishing',
-        sslIssuer: "Let's Encrypt (R3)",
-        redirects: 2,
-        heuristics: ['suspicious_tld', 'subdomain_chaining'],
-        summary: 'The destination URL employs <span class="highlight">homoglyph obfuscation</span> characters often associated with phishing campaigns targeting financial institutions. The domain age is <span class="danger">&lt; 24 hours</span>.',
+        threatType: '',
+        sslIssuer: '',
+        redirects: 0,
+        heuristics: [],
+        summary: '',
+        isEmpty: true,
     };
 }
 
@@ -275,7 +277,7 @@ function updatePreview() {
 
     // Update risk score
     if (elements.riskScore) {
-        elements.riskScore.textContent = data.score || 85;
+        elements.riskScore.textContent = data.score || 0;
     }
 
     // Update URL

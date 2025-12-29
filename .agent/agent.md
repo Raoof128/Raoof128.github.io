@@ -185,6 +185,47 @@ Any important notes for future agents.
 
 ---
 
+# 🔒 December 29, 2025 (Session 10k+47) - Deep Security Audit: Export + Verdict Defaults
+
+### Summary
+Comprehensive file-by-file security audit of WebApp to find and fix all remaining "default to safe" and "fake demo data" security violations. Applied the non-negotiable rule: **Unknown ≠ Safe**.
+
+## ✅ Findings & Fixes
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `export.js` L190-211 | `getDemoData()` fabricated fake SUSPICIOUS verdict at 85% | **HIGH** | Replaced with `getEmptyStateData()` |
+| 2 | `export.js` L174-175 | Default verdictParam='SUSPICIOUS', score=85 | **MED** | Changed to 'UNKNOWN' / 0 |
+| 3 | `threat.js` L649 | `getVerdictClass()` default → 'safe' | **MED** | Changed to 'unknown' |
+| 4 | `results.js` L400-401 | `getDefaultFactorsForVerdict()` default → safeFactors | **MED** | Added unknownFactors, return them for unknown |
+
+## ✅ Files Changed
+
+| File | Changes |
+|------|---------|
+| `export.js` | Replaced `getDemoData()` → `getEmptyStateData()`; fixed defaults to 'UNKNOWN'/0 |
+| `threat.js` | `getVerdictClass()` default → 'unknown' |
+| `results.js` | Added `unknownFactors`, default case returns them |
+| `threat.css` | Added `.history-badge.unknown`, `.history-icon.unknown` styles |
+| `CHANGELOG.md` | Added Raouf: entry documenting fixes |
+
+## ✅ Security Rules Enforced
+
+1. **Unknown ≠ Safe**: All default cases now return 'UNKNOWN', never 'SAFE'
+2. **No fake security outcomes**: `getDemoData()` eliminated from export.js
+3. **Offline-first preserved**: No network calls added
+4. **Deterministic**: No randomness in security displays
+
+## ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# webpack 5.101.3 compiled successfully
+# BUILD SUCCESSFUL in 17s ✅
+```
+
+---
+
 # 📅 December 29, 2025 (Session 10k+45) - Complete i18n Parity + Voting Panel + UI Fixes
 
 ### Summary

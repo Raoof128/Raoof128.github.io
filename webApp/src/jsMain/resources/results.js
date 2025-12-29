@@ -390,6 +390,11 @@ function getDefaultFactorsForVerdict(verdict) {
         { type: 'FAIL', category: 'THREAT INTEL', title: 'Security Risk', description: 'This URL exhibits characteristics associated with malicious activity.' },
     ];
 
+    // NEVER default to safe - unknown means unknown
+    const unknownFactors = [
+        { type: 'UNKNOWN', category: 'ANALYSIS', title: 'Analysis Incomplete', description: 'Unable to complete security analysis. Engine APIs may be unavailable.' },
+    ];
+
     switch (verdict) {
         case 'SAFE':
             return safeFactors;
@@ -398,7 +403,7 @@ function getDefaultFactorsForVerdict(verdict) {
         case 'MALICIOUS':
             return maliciousFactors;
         default:
-            return safeFactors;
+            return unknownFactors; // NEVER default to safe - security rule
     }
 }
 
