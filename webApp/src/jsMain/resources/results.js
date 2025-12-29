@@ -94,7 +94,7 @@ function initializeFromURL() {
 
     if (url) {
         const decodedUrl = decodeURIComponent(url);
-        const scoreValue = parseInt(score) || 50;
+        const scoreValue = parseInt(score) || 0; // Use 0 when score missing (consistent with UNKNOWN verdict)
         const verdictValue = verdict || 'UNKNOWN';
 
         if (window.QRShieldUI && window.QRShieldUI.getScanHistory) {

@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.19.0] - 2025-12-29
 
+### Raouf: WebApp Score Defaults & Null Handling Fixes (2025-12-29 AEDT)
+
+**Scope:** Fix inconsistent score defaults and add null guard to mapScoreToVerdict()
+
+**Non-Negotiable Rule:** Unknown ≠ Safe. Score defaults must be consistent.
+
+**Findings & Fixes:**
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `results.js` L97 | `parseInt(score) || 50` inconsistent with UNKNOWN verdict | **MED** | Changed to `|| 0` |
+| 2 | `threat.js` L227 | `parseInt(scoreParam) || 50` same inconsistency | **MED** | Changed to `|| 0` |
+| 3 | `threat.js` L882 | `mapScoreToVerdict()` didn't handle NaN/null | **MED** | Added guard to return 'UNKNOWN' |
+
+**Score Default Rationale:**
+- When score is missing from URL params, default to 0 (not arbitrary 50)
+- Consistent with export.js which already uses `|| 0`
+- 0 score aligns with UNKNOWN verdict semantics
+
+**Build Verification:**
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# webpack 5.101.3 compiled successfully
+# BUILD SUCCESSFUL in 8s ✅
+```
+
+---
+
 ### Raouf: WebApp Deep Security Audit - Export + Verdict Defaults Fixed (2025-12-29 AEDT)
 
 **Scope:** Fix remaining "default to safe" and "fake demo data" security violations

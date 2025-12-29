@@ -224,7 +224,7 @@ function loadThreatData() {
 
     // 1. Try URL parameters
     if (urlParam) {
-        const score = parseInt(scoreParam) || 50;
+        const score = parseInt(scoreParam) || 0; // Use 0 when score missing (consistent with UNKNOWN verdict)
         ThreatState.threatData = {
             url: decodeURIComponent(urlParam),
             score: score,
@@ -880,6 +880,8 @@ function extractDomain(url) {
  * Map score to threat level
  */
 function mapScoreToVerdict(score) {
+    // Guard: return UNKNOWN for invalid scores (NEVER default to SAFE)
+    if (score == null || isNaN(score)) return 'UNKNOWN';
     if (score >= 70) return 'HIGH';
     if (score >= 40) return 'MEDIUM';
     if (score >= 20) return 'LOW';

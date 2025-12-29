@@ -185,6 +185,35 @@ Any important notes for future agents.
 
 ---
 
+# 🔒 December 29, 2025 (Session 10k+48) - Score Defaults & Null Handling Fixes
+
+### Summary
+Fix inconsistent score defaults (`|| 50` → `|| 0`) and add null guard to `mapScoreToVerdict()` to prevent potential false-safe outcomes.
+
+## ✅ Findings & Fixes
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `results.js` L97 | `parseInt(score) || 50` inconsistent with UNKNOWN | **MED** | Changed to `|| 0` |
+| 2 | `threat.js` L227 | `parseInt(scoreParam) || 50` same issue | **MED** | Changed to `|| 0` |
+| 3 | `threat.js` L882 | `mapScoreToVerdict()` no null guard | **MED** | Added `if (score == null || isNaN(score)) return 'UNKNOWN'` |
+
+## ✅ Security Rules Enforced
+
+1. **Score defaults must be consistent**: All files now use `|| 0` when score missing
+2. **Null input → UNKNOWN**: `mapScoreToVerdict()` now handles invalid input
+3. **Unknown ≠ Safe**: Guards prevent silent fallthrough to SAFE
+
+## ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# webpack 5.101.3 compiled successfully
+# BUILD SUCCESSFUL in 8s ✅
+```
+
+---
+
 # 🔒 December 29, 2025 (Session 10k+47) - Deep Security Audit: Export + Verdict Defaults
 
 ### Summary
