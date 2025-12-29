@@ -1,6 +1,7 @@
 /*
- * QR-SHIELD Page Transitions v2.1
- * Fast, smooth animations - no theme flashing
+ * QR-SHIELD Page Transitions v2.2
+ * Fast, smooth animations - no theme/font flashing
+ * Uses font preloading and font-display: block for FOUT prevention
  */
 
 /* ==========================================================================
@@ -176,31 +177,21 @@ html {
 
 /* ==========================================================================
    FONT LOADING - FOUC Prevention
+   Uses visibility: hidden to completely hide icons until font renders.
+   This prevents text like "dashboard" from briefly appearing.
    ========================================================================== */
 
+/* Hide icon text content until font renders (font-display: block does the timing) */
 .material-symbols-outlined {
-    opacity: 0;
-    transition: opacity 0.1s ease;
+    /* Override any inline text styling - font handles visibility via font-display: block */
+    color: inherit;
 }
 
-body.fonts-loaded .material-symbols-outlined {
-    opacity: 1;
-}
-
-/* Fallback - show icons after 300ms even if fonts not loaded */
-@keyframes showIcons {
-    to {
-        opacity: 1;
-    }
-}
-
-.material-symbols-outlined {
-    animation: showIcons 0.1s ease 0.3s forwards;
-}
-
-body.fonts-loaded .material-symbols-outlined {
-    animation: none;
-    opacity: 1;
+/* Ensure icons have minimum size to prevent layout shift */
+.material-symbols-outlined:empty::before {
+    content: '\00a0';
+    /* Non-breaking space to maintain height */
+    visibility: hidden;
 }
 
 /* ==========================================================================

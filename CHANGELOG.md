@@ -4,6 +4,47 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.19.8] - 2025-12-29
+
+### Gemini: Fix Page Transition Font Flash & Remove Dead Code (2025-12-29 AEDT)
+
+**Scope:** Fix FOUT (Flash of Unstyled Text) during page transitions and remove 3875 lines of dead code
+
+**Issue 1: Font Flash During Navigation (FOUT)**
+- **Problem:** Material Symbols icons briefly showed as text names (e.g., "dashboard", "settings") during page transitions
+- **Root Cause:** Font preloading was missing and `font-display: swap` was allowing fallback text to show
+- **Fix:** 
+  1. Added font preloading to all HTML pages (`<link rel="preload" as="font">`)
+  2. Changed Material Symbols `font-display` from `swap` to `block` in `fonts.css`
+  3. Removed now-unnecessary `detectFontLoading()` JavaScript function
+- **Files:** All HTML pages, `fonts.css`, `transitions.css`, `transitions.js`
+
+**Issue 2: Dead Code Removal**
+- **Problem:** Massive dead code files from old single-page UI were still in the codebase
+- **Files Deleted:**
+  - `app.js` (1984 lines, 72KB) - Old single-page scanner logic, never loaded by any HTML
+  - `styles.css` (1891 lines, 40KB) - Old single-page styles, never used
+- **Service Worker Updated:** Removed references to deleted files, bumped cache version to v2.9.0
+- **Impact:** ~112KB reduction in codebase, cleaner project structure
+
+| Change | File | Description |
+|--------|------|-------------|
+| Added | All HTML pages | Font preloading for Material Symbols |
+| Fixed | `fonts.css` | `font-display: block` for FOUT prevention |
+| Updated | `transitions.css` v2.2 | Simplified FOUC prevention rules |
+| Updated | `transitions.js` v2.2 | Removed font detection code |
+| Deleted | `app.js` | 1984 lines of dead code |
+| Deleted | `styles.css` | 1891 lines of dead code |
+| Updated | `sw.js` v2.9.0 | Removed dead file references |
+
+**Build Verification:**
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# webpack 5.101.3 compiled successfully ✅
+```
+
+---
+
 ## [1.19.7] - 2025-12-29
 
 ### Gemini: Debug Hotkeys and Update Help Page (2025-12-29 AEDT)

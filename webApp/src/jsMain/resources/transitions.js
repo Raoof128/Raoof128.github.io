@@ -1,6 +1,7 @@
 /**
- * QR-SHIELD Page Transitions Controller v2.1
- * Fast, smooth page transitions without theme flashing
+ * QR-SHIELD Page Transitions Controller v2.2
+ * Fast, smooth page transitions without theme/font flashing
+ * Uses font preloading and font-display: block for FOUT prevention
  */
 
 (function () {
@@ -25,29 +26,7 @@
             document.body.classList.add('page-loaded');
         });
 
-        // Detect font loading
-        detectFontLoading();
-
-        console.log('[Transitions v2.1] Initialized');
-    }
-
-    /**
-     * Detect when fonts are loaded
-     */
-    function detectFontLoading() {
-        if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(() => {
-                document.body.classList.add('fonts-loaded');
-            }).catch(() => {
-                setTimeout(() => {
-                    document.body.classList.add('fonts-loaded');
-                }, 200);
-            });
-        } else {
-            setTimeout(() => {
-                document.body.classList.add('fonts-loaded');
-            }, 200);
-        }
+        console.log('[Transitions v2.2] Initialized');
     }
 
     /**

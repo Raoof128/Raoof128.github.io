@@ -3,7 +3,7 @@
  * Enables offline functionality and PWA installation
  */
 
-const CACHE_NAME = 'qr-shield-v2.8.0';
+const CACHE_NAME = 'qr-shield-v2.9.0';
 const DEV_HOSTS = new Set(['localhost', '127.0.0.1']);
 
 function isDevHost() {
@@ -48,11 +48,9 @@ const STATIC_ASSETS = [
     './shared-ui.css',
     './shared-ui.js',
     './shared-header.css',
-    './styles.css',
     './fonts.css',
     './fonts/inter-latin.woff2',
     './fonts/material-symbols.woff2',
-    './app.js',
     './platform-bridge.js',
     './webApp.js',
     './jsQR.min.js',
@@ -152,7 +150,7 @@ self.addEventListener('fetch', (event) => {
                             // Try to match the specific page first
                             const url = new URL(event.request.url);
                             const pageName = url.pathname.split('/').pop() || 'index.html';
-                            
+
                             return caches.match('./' + pageName)
                                 .then(cached => cached || caches.match('./scanner.html'))
                                 .then(cached => cached || caches.match('./index.html'));

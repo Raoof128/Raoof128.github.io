@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.19.7`** (as of December 29, 2025)
+**Current App Version: `1.19.8`** (as of December 29, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,76 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎨 December 29, 2025 (Session 10k+52) - Fix FOUT & Remove Dead Code
+
+### Summary
+Fixed page transition font flash (FOUT) issue and removed ~3875 lines of dead code (~112KB).
+
+## ✅ Changes Made
+
+### Issue 1: Font Flash During Navigation (FOUT)
+**Problem:** Material Symbols icons briefly showed text names (e.g., "dashboard", "settings") during page transitions.
+
+**Root Cause:**
+1. Font preloading was missing
+2. `font-display: swap` was allowing fallback text to show before the icon font loaded
+
+**Solution:**
+| Change | File | Description |
+|--------|------|-------------|
+| Added font preloading | All 7 HTML pages | `<link rel="preload" as="font" type="font/woff2">` |
+| Changed font-display | `fonts.css` | `swap` → `block` for Material Symbols |
+| Removed font detection | `transitions.js` | Deleted `detectFontLoading()` - no longer needed |
+| Simplified CSS | `transitions.css` | Removed opacity-based FOUC prevention |
+
+### Issue 2: Dead Code Removal
+**Problem:** Large unused files from old single-page UI were still in the codebase.
+
+**Files Deleted:**
+| File | Size | Lines | Description |
+|------|------|-------|-------------|
+| `app.js` | 72KB | 1984 | Old single-page scanner logic, never loaded by any HTML |
+| `styles.css` | 40KB | 1891 | Old single-page styles, never used |
+
+**Service Worker Updated:**
+- Removed references to deleted files
+- Bumped cache version from `v2.8.0` → `v2.9.0`
+
+## ✅ Files Modified
+
+| File | Change |
+|------|--------|
+| `dashboard.html` | Added font preload link |
+| `scanner.html` | Added font preload link |
+| `threat.html` | Added font preload link |
+| `trust.html` | Added font preload link |
+| `game.html` | Added font preload link |
+| `onboarding.html` | Added font preload link |
+| `export.html` | Added font preload link |
+| `results.html` | Added font preload link |
+| `fonts.css` | Changed font-display to block |
+| `transitions.css` | Updated to v2.2, simplified FOUC prevention |
+| `transitions.js` | Updated to v2.2, removed font detection code |
+| `sw.js` | Removed dead file references, bumped to v2.9.0 |
+| ~~`app.js`~~ | DELETED (dead code) |
+| ~~`styles.css`~~ | DELETED (dead code) |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserDevelopmentRun
+# webpack 5.101.3 compiled successfully ✅
+```
+
+## ✅ Browser Testing
+
+Tested page transitions using browser subagent:
+- Dashboard → Scanner (S key): ✅ Icons render correctly
+- Scanner → History (H key): ✅ No text flash visible
+- All navigation: ✅ Smooth transitions, no FOUT
 
 ---
 

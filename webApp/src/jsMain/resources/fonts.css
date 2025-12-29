@@ -15,7 +15,8 @@
     font-family: 'Material Symbols Outlined';
     font-style: normal;
     font-weight: 100 700;
-    font-display: swap;
+    font-display: block;
+    /* Block to prevent flash of text during page transitions */
     src: url('./fonts/material-symbols.woff2') format('woff2');
 }
 
