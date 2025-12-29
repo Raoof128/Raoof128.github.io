@@ -4,6 +4,56 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.19.7] - 2025-12-29
+
+### Gemini: Debug Hotkeys and Update Help Page (2025-12-29 AEDT)
+
+**Scope:** Fix non-functioning keyboard shortcuts and update help documentation
+
+**Issue 1: Browser Shortcut Conflicts**
+- **Problem:** `Cmd/Ctrl + S/I/D` hotkeys conflicted with browser defaults (Save Page, Italics, Bookmarks)
+- **Fix:** Changed to simple letter keys (`S`, `I`, `D`, `H`, `T`, `G`) when not typing in input fields
+- **Rationale:** Simple letter keys work reliably across all platforms without browser conflicts
+- **File:** `shared-ui.js` L767-850
+
+**Issue 2: Duplicate Shortcut Handlers**
+- **Problem:** `dashboard.js` and `shared-ui.js` both defined 'S' and 'I' shortcuts, causing potential conflicts
+- **Fix:** Removed duplicate handlers from `dashboard.js`, kept only page-specific Escape handler
+- **File:** `dashboard.js` L556-570
+
+**Issue 3: Scanner G Key Conflict**
+- **Problem:** Global 'G' shortcut (Game) conflicted with Scanner page 'G' (Gallery)
+- **Fix:** Made global 'G' bypass scanner page, letting scanner.js handle Gallery
+- **File:** `shared-ui.js` L837-845
+
+**Issue 4: Help Page Missing Keyboard Shortcuts**
+- **Problem:** Settings page had no keyboard shortcuts section for reference
+- **Fix:** Added complete Keyboard Shortcuts card to onboarding.html with all 8 shortcuts
+- **File:** `onboarding.html` L420-470, `onboarding.css` L793-860
+
+| Change | File | Description |
+|--------|------|-------------|
+| Enhanced | `shared-ui.js` | 8 global hotkeys: S, I, D, H, T, G, Escape, ? |
+| Simplified | `dashboard.js` | Removed duplicate shortcuts, kept Escape only |
+| Updated | Help Modal | Shows all 8 shortcuts with descriptions |
+| Added | `onboarding.html` | Keyboard Shortcuts section in Settings |
+| Added | `onboarding.css` | Styled shortcuts grid with kbd styling |
+| Added | `WebStrings.kt` | New i18n keys: KeyboardShortcutsDesc, NavigateToHistory, NavigateToTrust, NavigateToGame, ShowHelp |
+
+**Keyboard Shortcuts Reference:**
+| Key | Action | Page-Specific |
+|-----|--------|---------------|
+| `S` | Start Scanner | Global |
+| `I` | Import Image | Global |
+| `D` | Dashboard | Global |
+| `H` | Scan History | Global |
+| `T` | Trust Centre | Global |
+| `G` | Beat the Bot / Gallery | Global / Scanner |
+| `Escape` | Close Modal/Menu | Global |
+| `?` | Show Help | Global |
+
+---
+
 ## [1.19.6] - 2025-12-29
 
 ### Gemini: UI Polish - Hotkeys, i18n, Button Fixes (2025-12-29 AEDT)

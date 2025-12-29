@@ -791,6 +791,76 @@ body.light .top-header {
 }
 
 /* ==========================================================================
+   KEYBOARD SHORTCUTS SECTION
+   ========================================================================== */
+.settings-info-text {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-4);
+    line-height: 1.5;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+}
+
+@media (min-width: 640px) {
+    .shortcuts-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.shortcut-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-3) var(--space-4);
+    background: var(--surface-hover);
+    border-radius: var(--radius-lg);
+    transition: all var(--transition-fast);
+}
+
+.shortcut-row:hover {
+    background: rgba(25, 93, 230, 0.1);
+}
+
+.shortcut-action {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.shortcut-kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding: var(--space-1) var(--space-3);
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: ui-monospace, 'JetBrains Mono', 'Fira Code', monospace;
+    color: var(--primary);
+    background: rgba(25, 93, 230, 0.15);
+    border: 1px solid rgba(25, 93, 230, 0.3);
+    border-radius: var(--radius-md);
+    white-space: nowrap;
+}
+
+[data-theme="light"] .shortcut-row,
+html.light .shortcut-row,
+body.light .shortcut-row {
+    background: #f1f5f9;
+}
+
+[data-theme="light"] .shortcut-row:hover,
+html.light .shortcut-row:hover,
+body.light .shortcut-row:hover {
+    background: rgba(25, 93, 230, 0.08);
+}
+
+/* ==========================================================================
    ACTION FOOTER
    ========================================================================== */
 .action-footer {

@@ -554,28 +554,17 @@ function closeSidebar() {
 }
 
 // =============================================================================
-// KEYBOARD SHORTCUTS
+// KEYBOARD SHORTCUTS (Page-specific only)
+// Note: Global shortcuts (S, I, D, H, T, G, ?) are handled by shared-ui.js
 // =============================================================================
 
 function setupKeyboardShortcuts() {
     document.addEventListener('keydown', (e) => {
-        // Escape - close sidebar
+        // Escape - close sidebar (page-specific behavior)
         if (e.key === 'Escape') {
             if (DashboardState.isSidebarOpen) {
                 closeSidebar();
             }
-        }
-
-        // S - Start scan
-        if (e.key === 's' && !e.ctrlKey && !e.metaKey &&
-            document.activeElement?.tagName !== 'INPUT') {
-            window.location.href = 'scanner.html';
-        }
-
-        // I - Import
-        if (e.key === 'i' && !e.ctrlKey && !e.metaKey &&
-            document.activeElement?.tagName !== 'INPUT') {
-            handleImport();
         }
     });
 }

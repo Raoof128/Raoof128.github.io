@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.19.0`** (as of December 29, 2025)
+**Current App Version: `1.19.7`** (as of December 29, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,64 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎹 December 29, 2025 (Session 10k+51) - Debug Hotkeys and Update Help Page
+
+### Summary
+Fixed non-functioning keyboard shortcuts and added comprehensive help page documentation.
+
+## ✅ Changes Made
+
+### Problem: Browser Shortcut Conflicts
+The previous implementation used `Cmd/Ctrl + S/I/D` which conflicted with browser defaults:
+- `Cmd+S` → Browser "Save Page"
+- `Cmd+I` → Browser "Italics"
+- `Cmd+D` → Browser "Bookmarks"
+
+### Solution: Simple Letter Keys
+Changed to simple letter keys that work reliably across all platforms:
+
+| Key | Action | Notes |
+|-----|--------|-------|
+| `S` | Start Scanner | Global |
+| `I` | Import Image | Global |
+| `D` | Dashboard | Global |
+| `H` | Scan History | Global (NEW) |
+| `T` | Trust Centre | Global (NEW) |
+| `G` | Beat the Bot / Gallery | Global / Scanner-specific |
+| `Escape` | Close Modal/Menu | Global |
+| `?` | Show Help | Global |
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `shared-ui.js` | Rewrote `setupKeyboardShortcuts()` for simple letter keys |
+| `shared-ui.js` | Updated Help modal with all 8 shortcuts |
+| `dashboard.js` | Removed duplicate S/I shortcuts (now global) |
+| `onboarding.html` | Added Keyboard Shortcuts section to Settings page |
+| `onboarding.css` | Added styles for shortcuts grid with kbd styling |
+| `WebStrings.kt` | Added 5 new i18n keys |
+
+### New i18n Keys
+- `KeyboardShortcutsDesc` - "Press these keys when not typing in an input field..."
+- `NavigateToHistory` - "Scan History"
+- `NavigateToTrust` - "Trust Centre / Allow List"
+- `NavigateToGame` - "Beat the Bot Game"
+- `ShowHelp` - "Show Help"
+
+### Special Case: Scanner Page 'G' Key
+On the Scanner page, `G` opens Gallery (scanner.js) instead of Game.
+The global handler in shared-ui.js detects scanner page and defers to scanner.js.
+
+## ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# Exit code: 0
+```
 
 ---
 

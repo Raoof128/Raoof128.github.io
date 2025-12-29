@@ -766,7 +766,8 @@
 
     /**
      * Setup global keyboard shortcuts
-     * Uses Cmd (Mac) / Ctrl (Windows/Linux) + key pattern
+     * Uses simple letter keys (when not typing) to avoid browser shortcut conflicts
+     * Note: Cmd/Ctrl+S/I/D are reserved by browsers (Save, Italics, Bookmarks)
      */
     function setupKeyboardShortcuts() {
         document.addEventListener('keydown', (e) => {
@@ -776,12 +777,7 @@
                 document.activeElement?.tagName === 'TEXTAREA' ||
                 document.activeElement?.isContentEditable;
 
-            if (isInputActive) return;
-
-            // Check for Cmd (Mac) or Ctrl (Windows/Linux)
-            const isMod = e.metaKey || e.ctrlKey;
-
-            // Escape - Close any open modal/menu
+            // Escape - Close any open modal/menu (works even in inputs)
             if (e.key === 'Escape') {
                 hideProfileDropdown();
                 hideNotificationDropdown();
@@ -793,15 +789,18 @@
                 return;
             }
 
-            // Cmd/Ctrl + S - Start Scanner
-            if (isMod && e.key.toLowerCase() === 's') {
+            // Don't trigger letter shortcuts when typing
+            if (isInputActive) return;
+
+            // S - Start Scanner (simple key, no modifier to avoid browser conflicts)
+            if (e.key.toLowerCase() === 's' && !e.metaKey && !e.ctrlKey && !e.altKey) {
                 e.preventDefault();
                 window.location.href = 'scanner.html';
                 return;
             }
 
-            // Cmd/Ctrl + I - Import Image
-            if (isMod && e.key.toLowerCase() === 'i') {
+            // I - Import Image
+            if (e.key.toLowerCase() === 'i' && !e.metaKey && !e.ctrlKey && !e.altKey) {
                 e.preventDefault();
                 // Try to trigger file input on scanner page
                 const fileInput = document.getElementById('qrImageInput') || document.getElementById('imageInput');
@@ -814,10 +813,34 @@
                 return;
             }
 
-            // Cmd/Ctrl + D - Navigate to Dashboard  
-            if (isMod && e.key.toLowerCase() === 'd') {
+            // D - Navigate to Dashboard  
+            if (e.key.toLowerCase() === 'd' && !e.metaKey && !e.ctrlKey && !e.altKey) {
                 e.preventDefault();
                 window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // H - Navigate to Scan History
+            if (e.key.toLowerCase() === 'h' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+                e.preventDefault();
+                window.location.href = 'threat.html';
+                return;
+            }
+
+            // T - Navigate to Trust Centre / Allow List
+            if (e.key.toLowerCase() === 't' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+                e.preventDefault();
+                window.location.href = 'trust.html';
+                return;
+            }
+
+            // G - Navigate to Game (Beat the Bot) - Skip on scanner page where G is used for gallery
+            if (e.key.toLowerCase() === 'g' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+                // Don't intercept on scanner page - let scanner.js handle it for gallery
+                if (!window.location.pathname.includes('scanner')) {
+                    e.preventDefault();
+                    window.location.href = 'game.html';
+                }
                 return;
             }
 
@@ -842,15 +865,17 @@
         const existingModal = document.getElementById('helpModal');
         if (existingModal) existingModal.remove();
 
-        // Detect platform for modifier key display
+        // Detect platform for display
         const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-        const modKey = isMac ? '⌘' : 'Ctrl';
+        const platformNote = isMac
+            ? translateText('Works on Mac and Windows/Linux')
+            : translateText('Works on Windows, Linux and Mac');
 
         const modal = document.createElement('div');
         modal.id = 'helpModal';
         modal.className = 'shared-modal-overlay';
         modal.innerHTML = `
-            <div class="shared-modal" style="max-width: 480px;">
+            <div class="shared-modal" style="max-width: 520px;">
                 <div class="shared-modal-header">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <span class="material-symbols-outlined" style="color: var(--primary, #6366f1);">help</span>
@@ -864,22 +889,39 @@
                 <div class="shared-modal-content" style="padding: 20px;">
                     <div class="help-section">
                         <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;" data-i18n="KeyboardShortcuts">${translateText('Keyboard Shortcuts')}</h4>
+                        <p style="font-size: 12px; color: var(--text-muted, #64748b); margin: 0 0 12px 0;">${translateText('Press these keys when not typing in an input field:')}</p>
                         <div class="help-shortcuts-list">
                             <div class="shortcut-item">
                                 <span class="shortcut-label" data-i18n="StartScanner">${translateText('Start Scanner')}</span>
-                                <kbd class="shortcut-key">${modKey} + S</kbd>
+                                <kbd class="shortcut-key">S</kbd>
                             </div>
                             <div class="shortcut-item">
                                 <span class="shortcut-label" data-i18n="ImportImage">${translateText('Import Image')}</span>
-                                <kbd class="shortcut-key">${modKey} + I</kbd>
+                                <kbd class="shortcut-key">I</kbd>
+                            </div>
+                            <div class="shortcut-item">
+                                <span class="shortcut-label" data-i18n="NavigateToDashboard">${translateText('Navigate to Dashboard')}</span>
+                                <kbd class="shortcut-key">D</kbd>
+                            </div>
+                            <div class="shortcut-item">
+                                <span class="shortcut-label" data-i18n="NavigateToHistory">${translateText('Scan History')}</span>
+                                <kbd class="shortcut-key">H</kbd>
+                            </div>
+                            <div class="shortcut-item">
+                                <span class="shortcut-label" data-i18n="NavigateToTrust">${translateText('Trust Centre / Allow List')}</span>
+                                <kbd class="shortcut-key">T</kbd>
+                            </div>
+                            <div class="shortcut-item">
+                                <span class="shortcut-label" data-i18n="NavigateToGame">${translateText('Beat the Bot Game')}</span>
+                                <kbd class="shortcut-key">G</kbd>
                             </div>
                             <div class="shortcut-item">
                                 <span class="shortcut-label" data-i18n="CloseMenuModal">${translateText('Close Menu / Modal')}</span>
                                 <kbd class="shortcut-key">Escape</kbd>
                             </div>
                             <div class="shortcut-item">
-                                <span class="shortcut-label" data-i18n="NavigateToDashboard">${translateText('Navigate to Dashboard')}</span>
-                                <kbd class="shortcut-key">${modKey} + D</kbd>
+                                <span class="shortcut-label" data-i18n="ShowHelp">${translateText('Show Help')}</span>
+                                <kbd class="shortcut-key">?</kbd>
                             </div>
                         </div>
                     </div>
