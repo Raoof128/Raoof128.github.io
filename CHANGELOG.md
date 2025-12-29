@@ -4,6 +4,79 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.0] - 2025-12-29
+
+### 🔧 WebApp UI & Settings Fixes (2025-12-29 AEDT)
+
+**Scope:** Fix critical bugs affecting profile dropdown, ML score display, threat.js syntax, and empty state i18n conflicts
+
+**Issues Fixed:**
+
+| # | Issue | Fix |
+|---|-------|-----|
+| 1 | Profile dropdown error on Settings page | Added null check for `anchorElement` with fallback positioning |
+| 2 | ML Phishing score showing excessive decimals (e.g., 39.67473945542236%) | Added `Math.round()` to display whole numbers |
+| 3 | Critical syntax error in `threat.js` | Fixed missing closing bracket in `getEmptyStateData()` function |
+| 4 | Risk score in `updateVerdictDisplay` showing decimals | Added `Math.round()` to riskScore calculation |
+| 5 | **"92%" and "Scan Complete" showing in empty state** | Fixed `showNoDataState()` to properly show "Awaiting Scan", "--", "No Data" |
+| 6 | **i18n system overwriting empty state text** | Added `removeAttribute('data-i18n')` to prevent localization conflicts |
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `shared-ui.js` | Fixed `showProfileDropdown()` with null-check and fallback positioning |
+| `results.js` | Rounded ML Phishing score display (`displayPercent`) |
+| `results.js` | Rounded riskScore in `updateVerdictDisplay()` function |
+| `results.js` | Fixed `showNoDataState()` - now removes `data-i18n` attributes to prevent i18n conflicts |
+| `threat.js` | Fixed critical syntax error - missing `};` in `getEmptyStateData()` |
+| `sw.js` | Bumped cache version to `qr-shield-v2.10.0` |
+
+**Code Changes:**
+
+1. **shared-ui.js - Profile Dropdown Fix:**
+```javascript
+// Guard: If no anchor element, find one from the page
+if (!anchorElement) {
+    anchorElement = document.getElementById('profileBtn') || 
+                    document.querySelector('.user-profile') || 
+                    document.querySelector('.user-avatar');
+}
+// Fallback: position in top-right corner
+if (!anchorElement) {
+    dropdown.style.top = '80px';
+    dropdown.style.right = '16px';
+}
+```
+
+2. **results.js - ML Score Rounding:**
+```javascript
+// Round ML score to whole number for cleaner display
+const displayPercent = Number.isNaN(mlPercent) ? 'N/A' : Math.round(mlPercent) + '%';
+```
+
+3. **threat.js - Syntax Fix:**
+```javascript
+// Before (broken - missing closing bracket)
+function getEmptyStateData() {
+    return { ... }
+    // Functions defined inside!
+
+// After (fixed)
+function getEmptyStateData() {
+    return { ... };
+}
+// Functions now at correct scope
+```
+
+**Build Verification:**
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL
+```
+
+---
+
 ## [1.19.9] - 2025-12-29
 
 ### Gemini: Contest Checklist Audit & Fixes (2025-12-29 AEDT)

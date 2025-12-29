@@ -55,7 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     setupMobileMenu();
 
-    // If we have URL params, display the result
+    // Apply translations FIRST
+    window.qrshieldApplyTranslations?.(document.body);
+
+    // THEN update display based on state (AFTER translations, so we don't get overwritten)
     if (ResultsState.scannedUrl) {
         displayResult(ResultsState.currentResult);
     } else {
@@ -70,8 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.add('loaded');
         });
     });
-
-    window.qrshieldApplyTranslations?.(document.body);
 });
 
 /**
@@ -277,10 +278,12 @@ function getEngineAnalysis(url) {
             mlSeverity = 'PASS';  // Low probability - safe
         }
 
+        // Round ML score to whole number for cleaner display
+        const displayPercent = Number.isNaN(mlPercent) ? 'N/A' : Math.round(mlPercent) + '%';
         result.factors.push({
             type: mlSeverity,
             category: 'ML ENGINE',
-            title: `ML Phishing Score: ${Number.isNaN(mlPercent) ? 'N/A' : mlPercent + '%'}`,
+            title: `ML Phishing Score: ${displayPercent}`,
             description: `Character analysis: ${Math.round(result.mlScore.charScore * 100)}%, Feature analysis: ${Math.round(result.mlScore.featureScore * 100)}%. Confidence: ${Math.round(result.mlScore.confidence * 100)}%.`,
         });
     }
@@ -603,7 +606,8 @@ function updateVerdictDisplay(verdict, confidence) {
     // The 'confidence' param here is actually the RISK SCORE from the engine (0-100)
     // Low risk score = SAFE
     // High risk score = MALICIOUS
-    const riskScore = confidence || 0;
+    // Round to whole number to avoid displaying excessive decimals
+    const riskScore = Math.round(confidence || 0);
 
     // Update based on verdict
     switch (verdict) {
@@ -1103,7 +1107,20 @@ function showToast(message, type = 'success') {
  * NEVER shows fake security outcomes - this is a non-negotiable rule
  */
 function showNoDataState() {
-    // Update verdict to show no data (not fake SAFE)
+    // Update status badge - change icon and title to show "awaiting" state
+    const statusIcon = document.querySelector('.status-badge .status-icon');
+    if (statusIcon) {
+        statusIcon.textContent = 'hourglass_empty';
+        statusIcon.style.color = 'var(--text-secondary, #64748b)';
+    }
+
+    const statusTitle = document.querySelector('.status-badge .status-title');
+    if (statusTitle) {
+        statusTitle.removeAttribute('data-i18n'); // Prevent i18n from overwriting
+        statusTitle.textContent = translateText('Awaiting Scan');
+    }
+
+    // Update verdict card to show "unknown" state
     const verdictCard = document.querySelector('.verdict-card');
     if (verdictCard) {
         verdictCard.className = 'verdict-card unknown';
@@ -1111,18 +1128,48 @@ function showNoDataState() {
 
     const verdictBadge = document.querySelector('.verdict-badge');
     if (verdictBadge) {
+        verdictBadge.removeAttribute('data-i18n'); // Prevent i18n from overwriting
         verdictBadge.textContent = translateText('NO DATA');
         verdictBadge.className = 'verdict-badge unknown';
     }
 
+    // Update verdict description
     const verdictDescription = document.querySelector('.verdict-description');
     if (verdictDescription) {
+        verdictDescription.removeAttribute('data-i18n'); // Prevent i18n from overwriting
         verdictDescription.textContent = translateText('No scan data available. Please scan a URL to see analysis results.');
+    }
+
+    // Update verdict title
+    const verdictTitle = document.getElementById('verdictTitle');
+    if (verdictTitle) {
+        verdictTitle.removeAttribute('data-i18n'); // Prevent i18n from overwriting
+        verdictTitle.textContent = translateText('Waiting for analysis...');
+    }
+
+    // Update verdict icon
+    const verdictIcon = document.getElementById('verdictIcon');
+    if (verdictIcon) {
+        verdictIcon.textContent = 'shield';
+        verdictIcon.style.color = 'var(--text-secondary, #64748b)';
+    }
+
+    // Reset confidence score to show no data
+    const confidenceScore = document.getElementById('confidenceScore');
+    if (confidenceScore) {
+        confidenceScore.removeAttribute('data-i18n'); // Prevent i18n from overwriting
+        confidenceScore.textContent = '--';
+    }
+    const confidenceLabel = document.getElementById('confidenceLabel');
+    if (confidenceLabel) {
+        confidenceLabel.removeAttribute('data-i18n'); // Prevent i18n from overwriting
+        confidenceLabel.textContent = translateText('No Data');
     }
 
     // Update URL display
     const scannedUrl = document.getElementById('scannedUrl');
     if (scannedUrl) {
+        scannedUrl.removeAttribute('data-i18n'); // Prevent i18n from overwriting
         scannedUrl.textContent = translateText('No URL scanned');
     }
 

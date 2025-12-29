@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.19.9`** (as of December 29, 2025)
+**Current App Version: `1.20.0`** (as of December 29, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,91 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔧 December 29, 2025 (Session 10k+54) - WebApp UI & Settings Fixes
+
+### Summary
+Fixed critical bugs in the WebApp affecting profile dropdown, ML score display, syntax error in threat.js, and i18n conflicts in empty state display.
+
+## ✅ Changes Made
+
+### Issues Fixed
+
+| # | Issue | Root Cause | Fix |
+|---|-------|------------|-----|
+| 1 | Profile dropdown error on Settings page | `showProfileDropdown()` called without anchor element, causing `getBoundingClientRect` error | Added null check with fallback positioning |
+| 2 | ML Phishing score showing excessive decimals | Raw float displayed without rounding | Added `Math.round()` |
+| 3 | Critical syntax error in threat.js | Missing `};` after `getEmptyStateData()` return statement | Fixed bracket closure |
+| 4 | Risk score in verdict display showing decimals | `riskScore` not rounded | Added `Math.round()` |
+| 5 | **"92%" and "Scan Complete" in empty state** | `showNoDataState()` values overwritten by i18n system | Added `removeAttribute('data-i18n')` to prevent i18n conflicts |
+
+### Files Modified
+
+| File | Change |
+|------|--------|
+| `webApp/.../resources/shared-ui.js` | Fixed `showProfileDropdown()` - null check + fallback positioning |
+| `webApp/.../resources/results.js` | Rounded ML score display and riskScore |
+| `webApp/.../resources/results.js` | Fixed `showNoDataState()` to remove `data-i18n` attributes |
+| `webApp/.../resources/threat.js` | Fixed syntax error - missing closing bracket |
+| `webApp/.../resources/sw.js` | Bumped cache version to `qr-shield-v2.10.0` |
+
+## 🔧 Technical Details
+
+### Profile Dropdown Fix (shared-ui.js)
+The dropdown would crash when called from settings page because no anchor element was passed:
+```javascript
+// Added fallback anchor search
+if (!anchorElement) {
+    anchorElement = document.getElementById('profileBtn') || 
+                    document.querySelector('.user-profile');
+}
+// Added fallback positioning
+if (!anchorElement) {
+    dropdown.style.top = '80px';
+    dropdown.style.right = '16px';
+}
+```
+
+### ML Score Rounding (results.js)
+Before: `39.67473945542236%`
+After: `40%`
+
+### Empty State i18n Fix (results.js)
+The `window.qrshieldApplyTranslations()` function was overwriting custom empty state text. Fixed by removing `data-i18n` attributes when setting custom text:
+```javascript
+// In showNoDataState()
+statusTitle.removeAttribute('data-i18n'); // Prevent i18n from overwriting
+statusTitle.textContent = translateText('Awaiting Scan');
+
+confidenceLabel.removeAttribute('data-i18n');
+confidenceLabel.textContent = translateText('No Data');
+```
+
+### Empty State Values (verified):
+| Element | Before | After |
+|---------|--------|-------|
+| Status Title | "Scan Complete" | "Awaiting Scan" ✅ |
+| Status Icon | "verified" | "hourglass_empty" ✅ |
+| Confidence Score | "92%" | "--" ✅ |
+| Confidence Label | "Confidence Score" | "No Data" ✅ |
+| Scanned URL | "Waiting for scan..." | "No URL scanned" ✅ |
+
+### threat.js Syntax Fix
+The `getEmptyStateData()` function was missing its closing bracket, causing all subsequent functions (renderUI, renderAttackCards, etc.) to be defined inside it - breaking the entire file.
+
+## ✅ Build Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL
+```
+
+## Notes
+- Settings functionality verified working (toggles save to localStorage correctly)
+- Browser testing confirmed profile dropdown now opens without errors
+- Empty state now correctly shows "Awaiting Scan" with "--" score
+- Version bumped to 1.20.0
 
 ---
 

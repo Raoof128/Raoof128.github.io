@@ -126,6 +126,17 @@
         // Remove existing dropdown
         hideProfileDropdown();
 
+        // Guard: If no anchor element, find one from the page
+        if (!anchorElement) {
+            anchorElement = document.getElementById('profileBtn') ||
+                document.querySelector('.user-profile') ||
+                document.querySelector('.user-avatar');
+            // If still no anchor, position in top-right corner
+            if (!anchorElement) {
+                console.warn('[SharedUI] No anchor element for profile dropdown, using fallback position');
+            }
+        }
+
         const user = getUser();
         const stats = getAppStats();
 
@@ -184,44 +195,54 @@
         window.qrshieldApplyTranslations?.(dropdown);
 
         // Smart positioning - prevent dropdown from going off-screen
-        const rect = anchorElement.getBoundingClientRect();
         const dropdownWidth = 280;
         const dropdownHeight = 320;
-        const spaceBelow = window.innerHeight - rect.bottom;
-        const spaceAbove = rect.top;
-        const spaceRight = window.innerWidth - rect.left;
 
-        // Vertical positioning
-        if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
-            // Open upward
-            dropdown.style.bottom = `${window.innerHeight - rect.top + 8}px`;
-            dropdown.style.top = 'auto';
-        } else {
-            // Open downward (default)
-            dropdown.style.top = `${rect.bottom + 8}px`;
-            dropdown.style.bottom = 'auto';
-        }
-
-        // Horizontal positioning - ensure it stays on screen
-        if (spaceRight < dropdownWidth) {
-            // Not enough space on right, align to right edge
+        // Handle case where anchorElement is still null
+        if (!anchorElement) {
+            // Fallback: position in top-right corner
+            dropdown.style.top = '80px';
             dropdown.style.right = '16px';
             dropdown.style.left = 'auto';
-        } else if (rect.left < 16) {
-            // Too close to left edge
-            dropdown.style.left = '16px';
-            dropdown.style.right = 'auto';
+            dropdown.style.bottom = 'auto';
         } else {
-            dropdown.style.left = `${rect.left}px`;
-            dropdown.style.right = 'auto';
+            const rect = anchorElement.getBoundingClientRect();
+            const spaceBelow = window.innerHeight - rect.bottom;
+            const spaceAbove = rect.top;
+            const spaceRight = window.innerWidth - rect.left;
+
+            // Vertical positioning
+            if (spaceBelow < dropdownHeight && spaceAbove > dropdownHeight) {
+                // Open upward
+                dropdown.style.bottom = `${window.innerHeight - rect.top + 8}px`;
+                dropdown.style.top = 'auto';
+            } else {
+                // Open downward (default)
+                dropdown.style.top = `${rect.bottom + 8}px`;
+                dropdown.style.bottom = 'auto';
+            }
+
+            // Horizontal positioning - ensure it stays on screen
+            if (spaceRight < dropdownWidth) {
+                // Not enough space on right, align to right edge
+                dropdown.style.right = '16px';
+                dropdown.style.left = 'auto';
+            } else if (rect.left < 16) {
+                // Too close to left edge
+                dropdown.style.left = '16px';
+                dropdown.style.right = 'auto';
+            } else {
+                dropdown.style.left = `${rect.left}px`;
+                dropdown.style.right = 'auto';
+            }
         }
 
-        // Animate in
+        // Animate in (always runs)
         requestAnimationFrame(() => {
             dropdown.classList.add('visible');
         });
 
-        // Add event listeners
+        // Add event listeners (always runs)
         dropdown.querySelector('#editProfileBtn').addEventListener('click', () => {
             hideProfileDropdown();
             showEditProfileModal();

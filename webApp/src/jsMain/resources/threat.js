@@ -305,134 +305,135 @@ function getEmptyStateData() {
         attacks: [],
         tags: [],
         isEmpty: true,
+    };
+}
+
+// =============================================================================
+// UI RENDERING
+// =============================================================================
+
+/**
+ * Render all UI components
+ */
+function renderUI() {
+    const data = ThreatState.threatData;
+    if (!data) return;
+
+    const level = ThreatLevels[data.verdict] || ThreatLevels.HIGH;
+
+    // Update hero section color class
+    if (elements.threatHero) {
+        // Remove all state classes
+        elements.threatHero.classList.remove('safe', 'warning', 'caution', 'danger');
+
+        // Add appropriate class based on verdict
+        switch (data.verdict) {
+            case 'SAFE':
+                elements.threatHero.classList.add('safe');
+                break;
+            case 'MEDIUM':
+                elements.threatHero.classList.add('warning');
+                break;
+            case 'LOW':
+                elements.threatHero.classList.add('caution');
+                break;
+            case 'HIGH':
+            default:
+                // Default styling is danger (red), no class needed
+                break;
+        }
     }
 
-    // =============================================================================
-    // UI RENDERING
-    // =============================================================================
+    // Update title
+    if (elements.threatTitle) {
+        elements.threatTitle.textContent = translateText(level.title);
+    }
 
-    /**
-     * Render all UI components
-     */
-    function renderUI() {
-        const data = ThreatState.threatData;
-        if (!data) return;
+    // Update badge
+    if (elements.threatBadge) {
+        elements.threatBadge.textContent = translateText(level.badge);
+    }
 
-        const level = ThreatLevels[data.verdict] || ThreatLevels.HIGH;
+    // Update description
+    if (elements.threatDescription) {
+        elements.threatDescription.textContent = translateText(level.description);
+    }
 
-        // Update hero section color class
-        if (elements.threatHero) {
-            // Remove all state classes
-            elements.threatHero.classList.remove('safe', 'warning', 'caution', 'danger');
+    // Update score
+    if (elements.confidenceScore) {
+        elements.confidenceScore.textContent = `${data.score}%`;
+    }
 
-            // Add appropriate class based on verdict
-            switch (data.verdict) {
-                case 'SAFE':
-                    elements.threatHero.classList.add('safe');
-                    break;
-                case 'MEDIUM':
-                    elements.threatHero.classList.add('warning');
-                    break;
-                case 'LOW':
-                    elements.threatHero.classList.add('caution');
-                    break;
-                case 'HIGH':
-                default:
-                    // Default styling is danger (red), no class needed
-                    break;
-            }
-        }
+    // Update progress bar
+    if (elements.progressFill) {
+        elements.progressFill.style.width = `${data.score}%`;
+    }
 
-        // Update title
-        if (elements.threatTitle) {
-            elements.threatTitle.textContent = translateText(level.title);
-        }
+    // Update scan ID
+    if (elements.scanId) {
+        elements.scanId.textContent = formatText('Scan # {id}', { id: data.scanId.slice(-7).toUpperCase() });
+    }
 
-        // Update badge
-        if (elements.threatBadge) {
-            elements.threatBadge.textContent = translateText(level.badge);
-        }
+    if (elements.scanIdLabel) {
+        elements.scanIdLabel.textContent = formatText('ID: {id}', { id: data.scanId });
+    }
 
-        // Update description
-        if (elements.threatDescription) {
-            elements.threatDescription.textContent = translateText(level.description);
-        }
+    // Update scan time
+    if (elements.scanTime) {
+        elements.scanTime.textContent = formatScanTime(data.timestamp);
+    }
 
-        // Update score
-        if (elements.confidenceScore) {
-            elements.confidenceScore.textContent = `${data.score}%`;
-        }
-
-        // Update progress bar
-        if (elements.progressFill) {
-            elements.progressFill.style.width = `${data.score}%`;
-        }
-
-        // Update scan ID
-        if (elements.scanId) {
-            elements.scanId.textContent = formatText('Scan # {id}', { id: data.scanId.slice(-7).toUpperCase() });
-        }
-
-        if (elements.scanIdLabel) {
-            elements.scanIdLabel.textContent = formatText('ID: {id}', { id: data.scanId });
-        }
-
-        // Update scan time
-        if (elements.scanTime) {
-            elements.scanTime.textContent = formatScanTime(data.timestamp);
-        }
-
-        // Update the URL in meta section
-        const sourceValue = document.querySelector('.meta-item .meta-value');
-        if (sourceValue && data.url) {
-            const domain = extractDomain(data.url);
-            sourceValue.innerHTML = `
+    // Update the URL in meta section
+    const sourceValue = document.querySelector('.meta-item .meta-value');
+    if (sourceValue && data.url) {
+        const domain = extractDomain(data.url);
+        sourceValue.innerHTML = `
             <span class="material-symbols-outlined">link</span>
             ${domain}
         `;
+    }
+}
+
+/**
+ * Render attack cards dynamically based on real threat data
+ */
+function renderAttackCards() {
+    const data = ThreatState.threatData;
+    if (!data || !data.attacks || data.attacks.length === 0) return;
+
+    const mainColumn = document.querySelector('.main-column');
+    if (!mainColumn) return;
+
+    // Find existing attack cards container or create one
+    let attackContainer = document.getElementById('attackCardsContainer');
+    if (!attackContainer) {
+        attackContainer = document.createElement('div');
+        attackContainer.id = 'attackCardsContainer';
+
+        // Insert after section header
+        const sectionHeader = mainColumn.querySelector('.section-header');
+        if (sectionHeader && sectionHeader.nextSibling) {
+            mainColumn.insertBefore(attackContainer, sectionHeader.nextSibling);
+        } else {
+            mainColumn.appendChild(attackContainer);
         }
     }
 
-    /**
-     * Render attack cards dynamically based on real threat data
-     */
-    function renderAttackCards() {
-        const data = ThreatState.threatData;
-        if (!data || !data.attacks || data.attacks.length === 0) return;
+    // If we have real data (not demo), rebuild the attack cards
+    if (!data.isDemo) {
+        // Hide the hardcoded demo cards
+        const demoCards = mainColumn.querySelectorAll('details.attack-card');
+        demoCards.forEach(card => card.style.display = 'none');
 
-        const mainColumn = document.querySelector('.main-column');
-        if (!mainColumn) return;
+        // Render real attack cards
+        attackContainer.innerHTML = data.attacks.map((attack, index) => {
+            const cardClass = getAttackCardClass(attack.type);
+            const icon = getAttackIcon(attack.type);
 
-        // Find existing attack cards container or create one
-        let attackContainer = document.getElementById('attackCardsContainer');
-        if (!attackContainer) {
-            attackContainer = document.createElement('div');
-            attackContainer.id = 'attackCardsContainer';
+            let content = '';
 
-            // Insert after section header
-            const sectionHeader = mainColumn.querySelector('.section-header');
-            if (sectionHeader && sectionHeader.nextSibling) {
-                mainColumn.insertBefore(attackContainer, sectionHeader.nextSibling);
-            } else {
-                mainColumn.appendChild(attackContainer);
-            }
-        }
-
-        // If we have real data (not demo), rebuild the attack cards
-        if (!data.isDemo) {
-            // Hide the hardcoded demo cards
-            const demoCards = mainColumn.querySelectorAll('details.attack-card');
-            demoCards.forEach(card => card.style.display = 'none');
-
-            // Render real attack cards
-            attackContainer.innerHTML = data.attacks.map((attack, index) => {
-                const cardClass = getAttackCardClass(attack.type);
-                const icon = getAttackIcon(attack.type);
-
-                let content = '';
-
-                if (attack.type === 'homograph' && attack.visual && attack.actual) {
-                    content = `
+            if (attack.type === 'homograph' && attack.visual && attack.actual) {
+                content = `
                     <div class="domain-comparison">
                         <div class="domain-item">
                             <span class="domain-label">${translateText('Visual Appearance')}</span>
@@ -445,8 +446,8 @@ function getEmptyStateData() {
                     </div>
                     ${attack.explanation ? `<p class="attack-explanation">${attack.explanation}</p>` : ''}
                 `;
-                } else if (attack.type === 'redirect' && attack.chain) {
-                    content = `
+            } else if (attack.type === 'redirect' && attack.chain) {
+                content = `
                     <ol class="redirect-timeline">
                         ${attack.chain.map(hop => `
                             <li class="timeline-item ${hop.status}">
@@ -459,17 +460,17 @@ function getEmptyStateData() {
                         `).join('')}
                     </ol>
                 `;
-                } else if (attack.type === 'obfuscation' && attack.code) {
-                    content = `
+            } else if (attack.type === 'obfuscation' && attack.code) {
+                content = `
                     <div class="code-block">
                         <code>${escapeHtml(attack.code)}</code>
                     </div>
                 `;
-                } else if (attack.description) {
-                    content = `<p class="attack-explanation">${attack.description}</p>`;
-                }
+            } else if (attack.description) {
+                content = `<p class="attack-explanation">${attack.description}</p>`;
+            }
 
-                return `
+            return `
                 <details class="attack-card ${cardClass}" ${index === 0 ? 'open' : ''}>
                     <summary class="attack-header">
                         <div class="attack-title">
@@ -488,110 +489,110 @@ function getEmptyStateData() {
                     </div>
                 </details>
             `;
-            }).join('');
-        }
+        }).join('');
+    }
+}
+
+function getAttackCardClass(type) {
+    switch (type) {
+        case 'homograph': return 'blue';
+        case 'redirect': return 'warning';
+        case 'obfuscation': return 'primary';
+        case 'suspicious_tld': return 'danger';
+        case 'heuristic': return 'primary';
+        case 'brand_impersonation': return 'danger';
+        case 'phishing': return 'danger';
+        case 'suspicious_keywords': return 'warning';
+        default: return 'primary';
+    }
+}
+
+function getAttackIcon(type) {
+    switch (type) {
+        case 'homograph': return 'abc';
+        case 'redirect': return 'alt_route';
+        case 'obfuscation': return 'javascript';
+        case 'suspicious_tld': return 'domain';
+        case 'heuristic': return 'psychology';
+        case 'brand_impersonation': return 'storefront';
+        case 'phishing': return 'phishing';
+        case 'suspicious_keywords': return 'warning';
+        default: return 'security';
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+/**
+ * Format scan timestamp
+ */
+function formatScanTime(timestamp) {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+
+    let locale = 'en-AU';
+    if (window.qrshieldGetLanguageCode) {
+        locale = window.qrshieldGetLanguageCode();
     }
 
-    function getAttackCardClass(type) {
-        switch (type) {
-            case 'homograph': return 'blue';
-            case 'redirect': return 'warning';
-            case 'obfuscation': return 'primary';
-            case 'suspicious_tld': return 'danger';
-            case 'heuristic': return 'primary';
-            case 'brand_impersonation': return 'danger';
-            case 'phishing': return 'danger';
-            case 'suspicious_keywords': return 'warning';
-            default: return 'primary';
-        }
+    const timeStr = date.toLocaleTimeString(locale, {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+
+    if (isToday) {
+        return formatText('Today, {time}', { time: timeStr });
     }
 
-    function getAttackIcon(type) {
-        switch (type) {
-            case 'homograph': return 'abc';
-            case 'redirect': return 'alt_route';
-            case 'obfuscation': return 'javascript';
-            case 'suspicious_tld': return 'domain';
-            case 'heuristic': return 'psychology';
-            case 'brand_impersonation': return 'storefront';
-            case 'phishing': return 'phishing';
-            case 'suspicious_keywords': return 'warning';
-            default: return 'security';
-        }
+    const dateStr = date.toLocaleDateString(locale, {
+        month: 'short',
+        day: 'numeric'
+    });
+
+    return formatText('{date}, {time}', { date: dateStr, time: timeStr });
+}
+
+/**
+ * Render the scan history list
+ */
+function renderScanHistory() {
+    const historyContainer = document.getElementById('historyList');
+    if (!historyContainer) return;
+
+    // Wait for QRShieldUI
+    if (!window.QRShieldUI) {
+        setTimeout(renderScanHistory, 100);
+        return;
     }
 
-    function escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
-    }
+    const history = window.QRShieldUI.getScanHistory();
 
-    /**
-     * Format scan timestamp
-     */
-    function formatScanTime(timestamp) {
-        const date = new Date(timestamp);
-        const now = new Date();
-        const isToday = date.toDateString() === now.toDateString();
-
-        let locale = 'en-AU';
-        if (window.qrshieldGetLanguageCode) {
-            locale = window.qrshieldGetLanguageCode();
-        }
-
-        const timeStr = date.toLocaleTimeString(locale, {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-        });
-
-        if (isToday) {
-            return formatText('Today, {time}', { time: timeStr });
-        }
-
-        const dateStr = date.toLocaleDateString(locale, {
-            month: 'short',
-            day: 'numeric'
-        });
-
-        return formatText('{date}, {time}', { date: dateStr, time: timeStr });
-    }
-
-    /**
-     * Render the scan history list
-     */
-    function renderScanHistory() {
-        const historyContainer = document.getElementById('historyList');
-        if (!historyContainer) return;
-
-        // Wait for QRShieldUI
-        if (!window.QRShieldUI) {
-            setTimeout(renderScanHistory, 100);
-            return;
-        }
-
-        const history = window.QRShieldUI.getScanHistory();
-
-        if (history.length === 0) {
-            historyContainer.innerHTML = `
+    if (history.length === 0) {
+        historyContainer.innerHTML = `
             <div class="history-empty">
                 <span class="material-symbols-outlined">history</span>
                 <p>No scans yet. Scan a QR code to see it here.</p>
             </div>
         `;
-            window.qrshieldApplyTranslations?.(historyContainer);
-            return;
-        }
+        window.qrshieldApplyTranslations?.(historyContainer);
+        return;
+    }
 
-        // Render history items (show last 10)
-        const recentHistory = history.slice(0, 10);
-        historyContainer.innerHTML = recentHistory.map(scan => {
-            const verdictClass = getVerdictClass(scan.verdict);
-            const verdictLabel = getVerdictLabel(scan.verdict);
-            const icon = getVerdictIcon(scan.verdict);
+    // Render history items (show last 10)
+    const recentHistory = history.slice(0, 10);
+    historyContainer.innerHTML = recentHistory.map(scan => {
+        const verdictClass = getVerdictClass(scan.verdict);
+        const verdictLabel = getVerdictLabel(scan.verdict);
+        const icon = getVerdictIcon(scan.verdict);
 
-            return `
+        return `
             <div class="history-item" data-scan-id="${scan.id}">
                 <div class="history-icon ${verdictClass}">
                     <span class="material-symbols-outlined">${icon}</span>
@@ -607,437 +608,437 @@ function getEmptyStateData() {
                 <span class="material-symbols-outlined" style="color: #64748b;">chevron_right</span>
             </div>
         `;
-        }).join('');
+    }).join('');
 
-        window.qrshieldApplyTranslations?.(historyContainer);
+    window.qrshieldApplyTranslations?.(historyContainer);
 
-        // Add click handlers
-        historyContainer.querySelectorAll('.history-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const scanId = item.dataset.scanId;
-                viewScanDetails(scanId);
-            });
+    // Add click handlers
+    historyContainer.querySelectorAll('.history-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const scanId = item.dataset.scanId;
+            viewScanDetails(scanId);
         });
+    });
+}
+
+function getVerdictClass(verdict) {
+    switch (verdict) {
+        case 'HIGH': return 'danger';
+        case 'MEDIUM': return 'warning';
+        case 'LOW':
+        case 'SAFE': return 'safe';
+        default: return 'unknown'; // NEVER default to safe - security rule
+    }
+}
+
+function getVerdictLabel(verdict) {
+    switch (verdict) {
+        case 'HIGH': return translateText('High Risk');
+        case 'MEDIUM': return translateText('Warning');
+        case 'LOW': return translateText('Low Risk');
+        case 'SAFE': return translateText('Safe');
+        default: return translateText('Unknown');
+    }
+}
+
+function getVerdictIcon(verdict) {
+    switch (verdict) {
+        case 'HIGH': return 'gpp_bad';
+        case 'MEDIUM': return 'warning';
+        case 'LOW':
+        case 'SAFE': return 'verified_user';
+        default: return 'help';
+    }
+}
+
+function truncateUrl(url) {
+    if (!url) return translateText('Unknown URL');
+    if (url.length > 50) {
+        return url.substring(0, 47) + '...';
+    }
+    return url;
+}
+
+function viewScanDetails(scanId) {
+    if (!window.QRShieldUI) return;
+
+    const scan = window.QRShieldUI.getScanById(scanId);
+    if (!scan) return;
+
+    // Map verdict to results.html format
+    let resultVerdict = 'UNKNOWN';
+    switch (scan.verdict) {
+        case 'SAFE':
+            resultVerdict = 'SAFE';
+            break;
+        case 'LOW':
+            resultVerdict = 'SAFE';
+            break;
+        case 'MEDIUM':
+            resultVerdict = 'SUSPICIOUS';
+            break;
+        case 'HIGH':
+            resultVerdict = 'MALICIOUS';
+            break;
     }
 
-    function getVerdictClass(verdict) {
-        switch (verdict) {
-            case 'HIGH': return 'danger';
-            case 'MEDIUM': return 'warning';
-            case 'LOW':
-            case 'SAFE': return 'safe';
-            default: return 'unknown'; // NEVER default to safe - security rule
+    // Navigate to results.html with scan details
+    const params = new URLSearchParams({
+        url: scan.url,
+        verdict: resultVerdict,
+        score: scan.score || 0 // Use 0 when score missing (consistent with UNKNOWN verdict)
+    });
+
+    window.location.href = `results.html?${params.toString()}`;
+}
+
+// =============================================================================
+// ACTIONS
+// =============================================================================
+
+/**
+ * Block and report the threat
+ */
+function blockAndReport() {
+    const data = ThreatState.threatData;
+
+    // Save to blocklist
+    try {
+        const blocklistKey = 'qrshield_blocklist';
+        const blocklist = JSON.parse(localStorage.getItem(blocklistKey) || '[]');
+
+        // Extract domain from URL
+        const domain = extractDomain(data.url);
+
+        if (!blocklist.includes(domain)) {
+            blocklist.push(domain);
+            localStorage.setItem(blocklistKey, JSON.stringify(blocklist));
         }
+    } catch (e) {
+        console.error('[Threat] Failed to add to blocklist:', e);
     }
 
-    function getVerdictLabel(verdict) {
-        switch (verdict) {
-            case 'HIGH': return translateText('High Risk');
-            case 'MEDIUM': return translateText('Warning');
-            case 'LOW': return translateText('Low Risk');
-            case 'SAFE': return translateText('Safe');
-            default: return translateText('Unknown');
-        }
-    }
+    showToast('Threat blocked and reported', 'success');
 
-    function getVerdictIcon(verdict) {
-        switch (verdict) {
-            case 'HIGH': return 'gpp_bad';
-            case 'MEDIUM': return 'warning';
-            case 'LOW':
-            case 'SAFE': return 'verified_user';
-            default: return 'help';
-        }
-    }
-
-    function truncateUrl(url) {
-        if (!url) return translateText('Unknown URL');
-        if (url.length > 50) {
-            return url.substring(0, 47) + '...';
-        }
-        return url;
-    }
-
-    function viewScanDetails(scanId) {
-        if (!window.QRShieldUI) return;
-
-        const scan = window.QRShieldUI.getScanById(scanId);
-        if (!scan) return;
-
-        // Map verdict to results.html format
-        let resultVerdict = 'UNKNOWN';
-        switch (scan.verdict) {
-            case 'SAFE':
-                resultVerdict = 'SAFE';
-                break;
-            case 'LOW':
-                resultVerdict = 'SAFE';
-                break;
-            case 'MEDIUM':
-                resultVerdict = 'SUSPICIOUS';
-                break;
-            case 'HIGH':
-                resultVerdict = 'MALICIOUS';
-                break;
-        }
-
-        // Navigate to results.html with scan details
-        const params = new URLSearchParams({
-            url: scan.url,
-            verdict: resultVerdict,
-            score: scan.score || 0 // Use 0 when score missing (consistent with UNKNOWN verdict)
-        });
-
-        window.location.href = `results.html?${params.toString()}`;
-    }
-
-    // =============================================================================
-    // ACTIONS
-    // =============================================================================
-
-    /**
-     * Block and report the threat
-     */
-    function blockAndReport() {
-        const data = ThreatState.threatData;
-
-        // Save to blocklist
-        try {
-            const blocklistKey = 'qrshield_blocklist';
-            const blocklist = JSON.parse(localStorage.getItem(blocklistKey) || '[]');
-
-            // Extract domain from URL
-            const domain = extractDomain(data.url);
-
-            if (!blocklist.includes(domain)) {
-                blocklist.push(domain);
-                localStorage.setItem(blocklistKey, JSON.stringify(blocklist));
-            }
-        } catch (e) {
-            console.error('[Threat] Failed to add to blocklist:', e);
-        }
-
-        showToast('Threat blocked and reported', 'success');
-
-        // Visual feedback on button
-        if (elements.blockBtn) {
-            elements.blockBtn.innerHTML = `
+    // Visual feedback on button
+    if (elements.blockBtn) {
+        elements.blockBtn.innerHTML = `
             <span class="material-symbols-outlined">check</span>
             Blocked
         `;
-            elements.blockBtn.disabled = true;
-            elements.blockBtn.style.opacity = '0.7';
-        }
+        elements.blockBtn.disabled = true;
+        elements.blockBtn.style.opacity = '0.7';
     }
+}
 
-    /**
-     * Export threat report
-     */
-    function exportThreatReport() {
-        // Navigate to export page
-        window.location.href = 'export.html';
+/**
+ * Export threat report
+ */
+function exportThreatReport() {
+    // Navigate to export page
+    window.location.href = 'export.html';
+}
+
+// =============================================================================
+// SIDEBAR CONTROLS
+// =============================================================================
+
+function toggleSidebar() {
+    if (ThreatState.isSidebarOpen) {
+        closeSidebar();
+    } else {
+        openSidebar();
     }
+}
 
-    // =============================================================================
-    // SIDEBAR CONTROLS
-    // =============================================================================
+function openSidebar() {
+    elements.sidebar?.classList.add('open');
+    ThreatState.isSidebarOpen = true;
+}
 
-    function toggleSidebar() {
-        if (ThreatState.isSidebarOpen) {
-            closeSidebar();
-        } else {
-            openSidebar();
-        }
-    }
+function closeSidebar() {
+    elements.sidebar?.classList.remove('open');
+    ThreatState.isSidebarOpen = false;
+}
 
-    function openSidebar() {
-        elements.sidebar?.classList.add('open');
-        ThreatState.isSidebarOpen = true;
-    }
+// =============================================================================
+// KEYBOARD SHORTCUTS
+// =============================================================================
 
-    function closeSidebar() {
-        elements.sidebar?.classList.remove('open');
-        ThreatState.isSidebarOpen = false;
-    }
-
-    // =============================================================================
-    // KEYBOARD SHORTCUTS
-    // =============================================================================
-
-    function setupKeyboardShortcuts() {
-        document.addEventListener('keydown', (e) => {
-            // Escape - go back
-            if (e.key === 'Escape') {
-                if (ThreatState.isSidebarOpen) {
-                    closeSidebar();
-                } else {
-                    window.history.back();
-                }
-            }
-
-            // B - Block
-            if (e.key === 'b' && !e.ctrlKey && !e.metaKey &&
-                document.activeElement?.tagName !== 'INPUT') {
-                blockAndReport();
-            }
-
-            // E - Export
-            if (e.key === 'e' && !e.ctrlKey && !e.metaKey &&
-                document.activeElement?.tagName !== 'INPUT') {
-                exportThreatReport();
-            }
-        });
-    }
-
-    // =============================================================================
-    // UI HELPERS
-    // =============================================================================
-
-    /**
-     * Show a toast notification
-     */
-    function showToast(message, type = 'success') {
-        if (!elements.toast || !elements.toastMessage) return;
-
-        elements.toastMessage.textContent = translateText(message);
-
-        const icon = elements.toast.querySelector('.toast-icon');
-        if (icon) {
-            switch (type) {
-                case 'success':
-                    icon.textContent = 'check_circle';
-                    icon.style.color = '#10b981';
-                    break;
-                case 'warning':
-                    icon.textContent = 'warning';
-                    icon.style.color = '#f59e0b';
-                    break;
-                case 'error':
-                    icon.textContent = 'error';
-                    icon.style.color = '#ef4444';
-                    break;
-                case 'info':
-                    icon.textContent = 'info';
-                    icon.style.color = '#3b82f6';
-                    break;
+function setupKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+        // Escape - go back
+        if (e.key === 'Escape') {
+            if (ThreatState.isSidebarOpen) {
+                closeSidebar();
+            } else {
+                window.history.back();
             }
         }
 
-        elements.toast.classList.remove('hidden');
-        elements.toast.classList.add('show');
+        // B - Block
+        if (e.key === 'b' && !e.ctrlKey && !e.metaKey &&
+            document.activeElement?.tagName !== 'INPUT') {
+            blockAndReport();
+        }
 
+        // E - Export
+        if (e.key === 'e' && !e.ctrlKey && !e.metaKey &&
+            document.activeElement?.tagName !== 'INPUT') {
+            exportThreatReport();
+        }
+    });
+}
+
+// =============================================================================
+// UI HELPERS
+// =============================================================================
+
+/**
+ * Show a toast notification
+ */
+function showToast(message, type = 'success') {
+    if (!elements.toast || !elements.toastMessage) return;
+
+    elements.toastMessage.textContent = translateText(message);
+
+    const icon = elements.toast.querySelector('.toast-icon');
+    if (icon) {
+        switch (type) {
+            case 'success':
+                icon.textContent = 'check_circle';
+                icon.style.color = '#10b981';
+                break;
+            case 'warning':
+                icon.textContent = 'warning';
+                icon.style.color = '#f59e0b';
+                break;
+            case 'error':
+                icon.textContent = 'error';
+                icon.style.color = '#ef4444';
+                break;
+            case 'info':
+                icon.textContent = 'info';
+                icon.style.color = '#3b82f6';
+                break;
+        }
+    }
+
+    elements.toast.classList.remove('hidden');
+    elements.toast.classList.add('show');
+
+    setTimeout(() => {
+        elements.toast.classList.remove('show');
         setTimeout(() => {
-            elements.toast.classList.remove('show');
-            setTimeout(() => {
-                elements.toast.classList.add('hidden');
-            }, 300);
-        }, 3000);
+            elements.toast.classList.add('hidden');
+        }, 300);
+    }, 3000);
+}
+
+// =============================================================================
+// UTILITY FUNCTIONS
+// =============================================================================
+
+function generateScanId() {
+    const date = new Date();
+    const dateStr = date.toISOString().slice(0, 10).replace(/-/g, '_');
+    const randomStr = Math.random().toString(36).substring(2, 6);
+    return `scan_${dateStr}_${randomStr}`;
+}
+
+function extractDomain(url) {
+    try {
+        const urlObj = new URL(url);
+        return urlObj.hostname;
+    } catch (e) {
+        // If URL parsing fails, try basic extraction
+        const match = url.match(/^(?:https?:\/\/)?([^\/]+)/i);
+        return match ? match[1] : url;
     }
+}
 
-    // =============================================================================
-    // UTILITY FUNCTIONS
-    // =============================================================================
+/**
+ * Map score to threat level
+ */
+function mapScoreToVerdict(score) {
+    // Guard: return UNKNOWN for invalid scores (NEVER default to SAFE)
+    if (score == null || isNaN(score)) return 'UNKNOWN';
+    if (score >= 70) return 'HIGH';
+    if (score >= 40) return 'MEDIUM';
+    if (score >= 20) return 'LOW';
+    return 'SAFE';
+}
 
-    function generateScanId() {
-        const date = new Date();
-        const dateStr = date.toISOString().slice(0, 10).replace(/-/g, '_');
-        const randomStr = Math.random().toString(36).substring(2, 6);
-        return `scan_${dateStr}_${randomStr}`;
+/**
+ * Map engine verdict to threat level
+ */
+function mapVerdictToLevel(verdict) {
+    switch (verdict) {
+        case 'MALICIOUS': return 'HIGH';
+        case 'SUSPICIOUS': return 'MEDIUM';
+        case 'SAFE': return 'SAFE';
+        case 'HIGH': return 'HIGH';
+        case 'MEDIUM': return 'MEDIUM';
+        case 'LOW': return 'LOW';
+        default: return 'UNKNOWN'; // NEVER default to SAFE - security rule
     }
+}
 
-    function extractDomain(url) {
-        try {
-            const urlObj = new URL(url);
-            return urlObj.hostname;
-        } catch (e) {
-            // If URL parsing fails, try basic extraction
-            const match = url.match(/^(?:https?:\/\/)?([^\/]+)/i);
-            return match ? match[1] : url;
-        }
-    }
+/**
+ * Generate attack analysis from actual URL data and engine signals
+ */
+function generateAttacksFromUrl(url, verdict, signals = []) {
+    const attacks = [];
+    const domain = extractDomain(url);
 
-    /**
-     * Map score to threat level
-     */
-    function mapScoreToVerdict(score) {
-        // Guard: return UNKNOWN for invalid scores (NEVER default to SAFE)
-        if (score == null || isNaN(score)) return 'UNKNOWN';
-        if (score >= 70) return 'HIGH';
-        if (score >= 40) return 'MEDIUM';
-        if (score >= 20) return 'LOW';
-        return 'SAFE';
-    }
+    // If we have real signals from the engine, convert them to attack cards
+    if (signals && signals.length > 0) {
+        signals.forEach(signal => {
+            // Parse the signal string to extract useful info
+            const signalLower = signal.toLowerCase();
 
-    /**
-     * Map engine verdict to threat level
-     */
-    function mapVerdictToLevel(verdict) {
-        switch (verdict) {
-            case 'MALICIOUS': return 'HIGH';
-            case 'SUSPICIOUS': return 'MEDIUM';
-            case 'SAFE': return 'SAFE';
-            case 'HIGH': return 'HIGH';
-            case 'MEDIUM': return 'MEDIUM';
-            case 'LOW': return 'LOW';
-            default: return 'UNKNOWN'; // NEVER default to SAFE - security rule
-        }
-    }
-
-    /**
-     * Generate attack analysis from actual URL data and engine signals
-     */
-    function generateAttacksFromUrl(url, verdict, signals = []) {
-        const attacks = [];
-        const domain = extractDomain(url);
-
-        // If we have real signals from the engine, convert them to attack cards
-        if (signals && signals.length > 0) {
-            signals.forEach(signal => {
-                // Parse the signal string to extract useful info
-                const signalLower = signal.toLowerCase();
-
-                if (signalLower.includes('punycode') || signalLower.includes('homograph') || signalLower.includes('idn')) {
-                    attacks.push({
-                        type: 'homograph',
-                        title: translateText('Homograph / IDN Attack'),
-                        description: signal,
-                        visual: domain.replace(/^xn--/, '').replace(/-[a-z0-9]+$/, ''),
-                        actual: domain,
-                        explanation: translateText('This domain uses international characters that may mimic legitimate domains.'),
-                    });
-                } else if (signalLower.includes('shortener') || signalLower.includes('redirect') || signalLower.includes('bit.ly') || signalLower.includes('tracking')) {
-                    attacks.push({
-                        type: 'redirect',
-                        title: translateText('Redirect/Shortener Detected'),
-                        description: signal,
-                        chain: [
-                            { label: translateText('Scanned URL'), url: url, status: 'warning' },
-                        ],
-                    });
-                } else if (signalLower.includes('suspicious') && signalLower.includes('tld')) {
-                    attacks.push({
-                        type: 'suspicious_tld',
-                        title: translateText('Suspicious TLD'),
-                        description: signal,
-                    });
-                } else if (signalLower.includes('brand') || signalLower.includes('impersonat')) {
-                    attacks.push({
-                        type: 'brand_impersonation',
-                        title: translateText('Brand Impersonation'),
-                        description: signal,
-                    });
-                } else if (signalLower.includes('entropy') || signalLower.includes('obfuscat') || signalLower.includes('encoded')) {
-                    attacks.push({
-                        type: 'obfuscation',
-                        title: translateText('Suspicious Encoding'),
-                        description: signal,
-                    });
-                } else if (signalLower.includes('phish') || signalLower.includes('credential')) {
-                    attacks.push({
-                        type: 'phishing',
-                        title: translateText('Phishing Indicators'),
-                        description: signal,
-                    });
-                } else if (signalLower.includes('keyword') || signalLower.includes('login') || signalLower.includes('verify')) {
-                    attacks.push({
-                        type: 'suspicious_keywords',
-                        title: translateText('Suspicious Keywords'),
-                        description: signal,
-                    });
-                } else {
-                    // Generic signal - still show it!
-                    attacks.push({
-                        type: 'heuristic',
-                        title: translateText('Security Signal'),
-                        description: signal,
-                    });
-                }
-            });
-
-            return attacks;
-        }
-
-        // Fallback: URL-based analysis if no engine signals available
-
-        // Check for punycode/homograph indicators
-        if (domain.startsWith('xn--') || /[^\x00-\x7F]/.test(domain)) {
-            attacks.push({
-                type: 'homograph',
-                title: translateText('Homograph / IDN Attack'),
-                description: translateText('Internationalized domain name detected.'),
-                visual: domain.replace(/^xn--/, '').replace(/-[a-z0-9]+$/, ''),
-                actual: domain,
-                explanation: translateText('This domain uses international characters that may mimic legitimate domains.'),
-            });
-        }
-
-        // Check for URL shorteners
-        const shorteners = ['bit.ly', 't.co', 'goo.gl', 'tinyurl.com', 'ow.ly', 'is.gd', 'buff.ly'];
-        if (shorteners.some(s => domain.includes(s))) {
-            attacks.push({
-                type: 'redirect',
-                title: translateText('URL Shortener Detected'),
-                description: translateText('URL uses a shortening service that hides the final destination.'),
-                chain: [
-                    { label: translateText('Scanned URL'), url: url, status: 'warning' },
-                    { label: translateText('Hidden Destination'), url: '???', status: 'danger' },
-                ],
-            });
-        }
-
-        // Check for suspicious parameters
-        try {
-            const urlObj = new URL(url, 'https://example.com');
-            const params = urlObj.search;
-            if (params.length > 100 || /eval|script|exec|base64/i.test(params)) {
+            if (signalLower.includes('punycode') || signalLower.includes('homograph') || signalLower.includes('idn')) {
+                attacks.push({
+                    type: 'homograph',
+                    title: translateText('Homograph / IDN Attack'),
+                    description: signal,
+                    visual: domain.replace(/^xn--/, '').replace(/-[a-z0-9]+$/, ''),
+                    actual: domain,
+                    explanation: translateText('This domain uses international characters that may mimic legitimate domains.'),
+                });
+            } else if (signalLower.includes('shortener') || signalLower.includes('redirect') || signalLower.includes('bit.ly') || signalLower.includes('tracking')) {
+                attacks.push({
+                    type: 'redirect',
+                    title: translateText('Redirect/Shortener Detected'),
+                    description: signal,
+                    chain: [
+                        { label: translateText('Scanned URL'), url: url, status: 'warning' },
+                    ],
+                });
+            } else if (signalLower.includes('suspicious') && signalLower.includes('tld')) {
+                attacks.push({
+                    type: 'suspicious_tld',
+                    title: translateText('Suspicious TLD'),
+                    description: signal,
+                });
+            } else if (signalLower.includes('brand') || signalLower.includes('impersonat')) {
+                attacks.push({
+                    type: 'brand_impersonation',
+                    title: translateText('Brand Impersonation'),
+                    description: signal,
+                });
+            } else if (signalLower.includes('entropy') || signalLower.includes('obfuscat') || signalLower.includes('encoded')) {
                 attacks.push({
                     type: 'obfuscation',
-                    title: translateText('Suspicious URL Parameters'),
-                    description: translateText('URL contains complex or potentially obfuscated parameters.'),
-                    code: params.substring(0, 200) + (params.length > 200 ? '...' : ''),
+                    title: translateText('Suspicious Encoding'),
+                    description: signal,
+                });
+            } else if (signalLower.includes('phish') || signalLower.includes('credential')) {
+                attacks.push({
+                    type: 'phishing',
+                    title: translateText('Phishing Indicators'),
+                    description: signal,
+                });
+            } else if (signalLower.includes('keyword') || signalLower.includes('login') || signalLower.includes('verify')) {
+                attacks.push({
+                    type: 'suspicious_keywords',
+                    title: translateText('Suspicious Keywords'),
+                    description: signal,
+                });
+            } else {
+                // Generic signal - still show it!
+                attacks.push({
+                    type: 'heuristic',
+                    title: translateText('Security Signal'),
+                    description: signal,
                 });
             }
-        } catch (e) {
-            // Ignore URL parsing errors
-        }
-
-        // Check for suspicious TLDs
-        const suspiciousTlds = ['.tk', '.ml', '.ga', '.cf', '.gq', '.xyz', '.top', '.work', '.date'];
-        if (suspiciousTlds.some(tld => domain.endsWith(tld))) {
-            attacks.push({
-                type: 'suspicious_tld',
-                title: translateText('Suspicious Domain'),
-                description: formatText(translateText('Domain uses {tld} TLD commonly associated with malicious sites.'),
-                    { tld: domain.split('.').pop() }),
-            });
-        }
-
-        // If high risk but no specific attacks found, add generic reason
-        if (attacks.length === 0 && (verdict === 'HIGH' || verdict === 'MALICIOUS')) {
-            attacks.push({
-                type: 'heuristic',
-                title: translateText('Heuristic Analysis'),
-                description: translateText('URL flagged based on multiple risk factors detected by the analysis engine.'),
-            });
-        }
+        });
 
         return attacks;
     }
 
-    /**
-     * Render demo mode badge if showing demo data
-     */
-    function renderDemoModeBadge() {
-        const data = ThreatState.threatData;
-        if (!data || !data.isDemo) return;
+    // Fallback: URL-based analysis if no engine signals available
 
-        // Create demo badge
-        const existingBadge = document.getElementById('demoBadge');
-        if (existingBadge) return; // Already exists
+    // Check for punycode/homograph indicators
+    if (domain.startsWith('xn--') || /[^\x00-\x7F]/.test(domain)) {
+        attacks.push({
+            type: 'homograph',
+            title: translateText('Homograph / IDN Attack'),
+            description: translateText('Internationalized domain name detected.'),
+            visual: domain.replace(/^xn--/, '').replace(/-[a-z0-9]+$/, ''),
+            actual: domain,
+            explanation: translateText('This domain uses international characters that may mimic legitimate domains.'),
+        });
+    }
 
-        const badge = document.createElement('div');
-        badge.id = 'demoBadge';
-        badge.style.cssText = `
+    // Check for URL shorteners
+    const shorteners = ['bit.ly', 't.co', 'goo.gl', 'tinyurl.com', 'ow.ly', 'is.gd', 'buff.ly'];
+    if (shorteners.some(s => domain.includes(s))) {
+        attacks.push({
+            type: 'redirect',
+            title: translateText('URL Shortener Detected'),
+            description: translateText('URL uses a shortening service that hides the final destination.'),
+            chain: [
+                { label: translateText('Scanned URL'), url: url, status: 'warning' },
+                { label: translateText('Hidden Destination'), url: '???', status: 'danger' },
+            ],
+        });
+    }
+
+    // Check for suspicious parameters
+    try {
+        const urlObj = new URL(url, 'https://example.com');
+        const params = urlObj.search;
+        if (params.length > 100 || /eval|script|exec|base64/i.test(params)) {
+            attacks.push({
+                type: 'obfuscation',
+                title: translateText('Suspicious URL Parameters'),
+                description: translateText('URL contains complex or potentially obfuscated parameters.'),
+                code: params.substring(0, 200) + (params.length > 200 ? '...' : ''),
+            });
+        }
+    } catch (e) {
+        // Ignore URL parsing errors
+    }
+
+    // Check for suspicious TLDs
+    const suspiciousTlds = ['.tk', '.ml', '.ga', '.cf', '.gq', '.xyz', '.top', '.work', '.date'];
+    if (suspiciousTlds.some(tld => domain.endsWith(tld))) {
+        attacks.push({
+            type: 'suspicious_tld',
+            title: translateText('Suspicious Domain'),
+            description: formatText(translateText('Domain uses {tld} TLD commonly associated with malicious sites.'),
+                { tld: domain.split('.').pop() }),
+        });
+    }
+
+    // If high risk but no specific attacks found, add generic reason
+    if (attacks.length === 0 && (verdict === 'HIGH' || verdict === 'MALICIOUS')) {
+        attacks.push({
+            type: 'heuristic',
+            title: translateText('Heuristic Analysis'),
+            description: translateText('URL flagged based on multiple risk factors detected by the analysis engine.'),
+        });
+    }
+
+    return attacks;
+}
+
+/**
+ * Render demo mode badge if showing demo data
+ */
+function renderDemoModeBadge() {
+    const data = ThreatState.threatData;
+    if (!data || !data.isDemo) return;
+
+    // Create demo badge
+    const existingBadge = document.getElementById('demoBadge');
+    if (existingBadge) return; // Already exists
+
+    const badge = document.createElement('div');
+    badge.id = 'demoBadge';
+    badge.style.cssText = `
         position: fixed;
         top: 80px;
         right: 16px;
@@ -1053,24 +1054,24 @@ function getEmptyStateData() {
         gap: 6px;
         box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
     `;
-        badge.innerHTML = `
+    badge.innerHTML = `
         <span class="material-symbols-outlined" style="font-size: 16px;">science</span>
         <span>DEMO MODE - Scan a QR code to see real data</span>
     `;
-        document.body.appendChild(badge);
-    }
+    document.body.appendChild(badge);
+}
 
-    // =============================================================================
-    // EXPORTS FOR TESTING
-    // =============================================================================
+// =============================================================================
+// EXPORTS FOR TESTING
+// =============================================================================
 
-    if (typeof module !== 'undefined' && module.exports) {
-        module.exports = {
-            ThreatState,
-            ThreatConfig,
-            ThreatLevels,
-            loadThreatData,
-            blockAndReport,
-            exportThreatReport,
-        };
-    }
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        ThreatState,
+        ThreatConfig,
+        ThreatLevels,
+        loadThreatData,
+        blockAndReport,
+        exportThreatReport,
+    };
+}
