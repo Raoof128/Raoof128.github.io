@@ -4,6 +4,44 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.19.9] - 2025-12-29
+
+### Gemini: Contest Checklist Audit & Fixes (2025-12-29 AEDT)
+
+**Scope:** Comprehensive audit against KotlinConf contest submission checklist and fixes
+
+**Audit Results:**
+- ✅ Repo compliance confirmed (LICENSE, .gitignore, no build dirs committed)
+- ✅ Sensitive files (keystore.properties, local.properties) correctly gitignored
+- ✅ README quality verified (problem statement, architecture, run instructions)
+- ✅ KMP shared code structure verified (5 targets, expect/actual, shared core)
+- ✅ Code quality verified (Detekt zero-tolerance, 89% coverage, 1,248+ tests)
+
+**New Files Added:**
+
+| File | Purpose |
+|------|---------|
+| `local.properties.example` | Template for judges to configure Android SDK path |
+| `scripts/judge-smoke.sh` | One-command build verification (recommended by checklist) |
+| `docs/VIDEO_DEMO.md` | Placeholder for screencast video demo |
+
+**Updates:**
+
+| File | Change |
+|------|--------|
+| `README.md` | Added video demo badge to header |
+| `JUDGE_QUICKSTART.md` | Added video demo and smoke test links |
+
+**Judge Smoke Test Script:**
+```bash
+./scripts/judge-smoke.sh
+# Runs: clean → common:test → android:build → desktop:package → webJS → webWasm
+# Output: "OK: smoke test passed"
+```
+
+---
+
+
 ## [1.19.8] - 2025-12-29
 
 ### Gemini: Fix Page Transition Font Flash & Remove Dead Code (2025-12-29 AEDT)

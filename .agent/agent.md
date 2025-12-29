@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.19.8`** (as of December 29, 2025)
+**Current App Version: `1.19.9`** (as of December 29, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,61 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 📋 December 29, 2025 (Session 10k+53) - Contest Checklist Audit & Fixes
+
+### Summary
+Comprehensive audit against KotlinConf contest submission checklist. All critical items verified, fixes and enhancements added.
+
+## ✅ Audit Results
+
+| Category | Status |
+|----------|--------|
+| Repo public + LICENSE | ✅ PASS |
+| Original project (not revived) | ✅ PASS |
+| .gitignore sane | ✅ PASS |
+| No secrets committed | ✅ PASS (keystore.properties gitignored) |
+| No hardcoded paths | ✅ PASS (local.properties gitignored) |
+| README quality | ✅ PASS |
+| KMP shared code | ✅ PASS (5 targets, expect/actual complete) |
+| Code quality | ✅ PASS (Detekt, 89% coverage) |
+| Video demo | ⏳ PENDING (placeholder added) |
+
+## ✅ Files Created
+
+| File | Purpose |
+|------|---------|
+| `local.properties.example` | Template for judges to configure Android SDK |
+| `scripts/judge-smoke.sh` | One-command build verification script |
+| `docs/VIDEO_DEMO.md` | Placeholder for screencast video |
+
+## ✅ Files Updated
+
+| File | Change |
+|------|--------|
+| `README.md` | Added video demo badge to header |
+| `JUDGE_QUICKSTART.md` | Added video + smoke test links |
+| `CHANGELOG.md` | Added v1.19.9 entry |
+
+## 📝 Notes for Future Agents
+
+**Video Demo Still Needed:**
+User will add screencast video at the end. When added:
+1. Update `docs/VIDEO_DEMO.md` with actual video embed
+2. Optionally host on YouTube/Vimeo and embed
+
+**Judge Smoke Test:**
+The new `scripts/judge-smoke.sh` script runs:
+```bash
+./gradlew clean
+./gradlew :common:desktopTest
+./gradlew :androidApp:assembleDebug
+./gradlew :desktopApp:packageDistributionForCurrentOS
+./gradlew :webApp:jsBrowserProductionWebpack
+./gradlew :webApp:wasmJsBrowserProductionWebpack
+```
 
 ---
 

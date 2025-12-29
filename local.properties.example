@@ -1,0 +1,18 @@
+# =============================================================================
+# QR-SHIELD Local Configuration
+# =============================================================================
+#
+# SETUP INSTRUCTIONS:
+# 1. Copy this file to 'local.properties' (it's git-ignored)
+# 2. Replace the placeholder path with your actual Android SDK path
+#
+# =============================================================================
+
+# Path to Android SDK
+# Replace with your actual SDK path:
+#
+# macOS:   sdk.dir=/Users/YOUR_USERNAME/Library/Android/sdk
+# Windows: sdk.dir=C:\\Users\\YOUR_USERNAME\\AppData\\Local\\Android\\Sdk
+# Linux:   sdk.dir=/home/YOUR_USERNAME/Android/Sdk
+
+sdk.dir=/path/to/your/Android/sdk

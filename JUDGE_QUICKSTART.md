@@ -9,8 +9,10 @@
 | Action | Link |
 |--------|------|
 | 🌐 **Try Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
+| 🎬 **Watch Video Demo** | [docs/VIDEO_DEMO.md](docs/VIDEO_DEMO.md) |
 | 📱 **Download Android APK** | [QRShield-1.1.0-release.apk](releases/QRShield-1.1.0-release.apk) |
 | 📖 **Read Essay** | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) |
+| 🔨 **One-Command Build Test** | `./scripts/judge-smoke.sh` |
 | ✅ **Verify All Claims** | `./judge/verify_all.sh` |
 | 📊 **View Evidence Pack** | [docs/EVIDENCE.md](docs/EVIDENCE.md) |
 

@@ -6,6 +6,7 @@
   <a href="https://raoof128.github.io"><img src="https://img.shields.io/badge/🌐_Live_Demo-raoof128.github.io-4F8BFF?style=for-the-badge" alt="Live Demo"></a>
   <a href="releases/QRShield-1.1.0-release.apk"><img src="https://img.shields.io/badge/📱_Android-Download_APK-3DDC84?style=for-the-badge" alt="Download APK"></a>
   <a href="JUDGE_QUICKSTART.md"><img src="https://img.shields.io/badge/🏆_Judges-Quick_Start-gold?style=for-the-badge" alt="Judge Quick Start"></a>
+  <a href="docs/VIDEO_DEMO.md"><img src="https://img.shields.io/badge/🎬_Video-Demo-FF0000?style=for-the-badge" alt="Video Demo"></a>
 </p>
 
 <!-- Competition Badges -->
