@@ -437,6 +437,11 @@ internal val ArabicStrings = mapOf(
     WebStringKey.Brand to "العلامة التجارية",
     WebStringKey.TLD to "نطاق المستوى الأعلى",
     WebStringKey.VotingExplanation to "التصويت بالأغلبية يحدد الحكم: 3+ آمن = أخضر، 2+ ضار = أحمر"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "في انتظار المسح...",
+    WebStringKey.WaitingForAnalysis to "في انتظار التحليل...",
+    WebStringKey.ScanURLToSeeResults to "امسح رابطًا لرؤية النتائج التفصيلية."
 )
 
 internal val ArabicCommonStrings = mapOf(

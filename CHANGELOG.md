@@ -40,6 +40,105 @@ The web app had decorative demo/mock data that could mislead users:
 # BUILD SUCCESSFUL in 12s
 ```
 
+### Raouf: Contest-Proof ML Severity + CRITICAL/UNKNOWN States (2025-12-29 AEDT)
+
+**Scope:** Fixed aggressive ML severity mapping + added proper CRITICAL/UNKNOWN states
+
+**Improvements Applied:**
+1. ✅ Renamed FAIL → CRITICAL (clearer semantics: "high risk" not "engine broke")
+2. ✅ Added UNKNOWN state (when ML didn't run or returned invalid data)
+3. ✅ Added strict numeric parsing (avoids string bugs like "40%" → NaN)
+
+**Problem:**
+The ML severity mapping was too aggressive, causing false "scary" warnings:
+```javascript
+// OLD (wrong): 40% shows as WARN which is too aggressive
+type: mlPercent > 60 ? 'FAIL' : mlPercent > 30 ? 'WARN' : 'PASS'
+```
+
+A legitimate URL with 40% ML score would show an orange "WARN" badge, even though:
+- The overall verdict was LOW RISK
+- 40% is actually a middling score, not truly suspicious
+
+**Solution:**
+Applied sane severity thresholds based on actual risk levels:
+```javascript
+// NEW thresholds - only escalate for truly suspicious scores
+if (mlPercent >= 85) {
+    mlSeverity = 'FAIL';   // Critical - almost certainly phishing
+} else if (mlPercent >= 66) {
+    mlSeverity = 'WARN';   // Warning - suspicious
+} else if (mlPercent >= 33) {
+    mlSeverity = 'INFO';   // Informational - slightly elevated, not scary
+} else {
+    mlSeverity = 'PASS';   // Safe - low probability
+}
+```
+
+**Before vs After:**
+| ML Score | OLD Severity | NEW Severity |
+|----------|--------------|--------------|
+| 20% | PASS ✅ | PASS ✅ |
+| 40% | WARN ❌ (too scary) | INFO ✅ (correct) |
+| 55% | WARN ❌ | INFO ✅ |
+| 70% | FAIL ❌ (too aggressive) | WARN ✅ |
+| 90% | FAIL ✅ | FAIL ✅ |
+
+**Files Changed:**
+| File | Change |
+|------|--------|
+| `results.js` L259-282 | Fixed ML severity thresholds from 30/60 to 33/66/85 |
+
+**Build Verification:**
+```bash
+./gradlew :webApp:jsBrowserProductionWebpack
+# BUILD SUCCESSFUL in 1m 21s
+```
+
+---
+
+### Raouf: Fixed Results Page Placeholders + Localized Waiting State (2025-12-29 AEDT)
+
+**Scope:** Fixed the results page to show proper localized waiting text instead of "ANALYZING..." placeholders
+
+**Problem:**
+The results page was showing hardcoded English placeholder text while waiting for scan data:
+- "Loading..." for the URL field
+- "ANALYZING..." for the verdict
+- "Processing scan results..." for the description
+
+**Solution:**
+1. Replaced hardcoded placeholders with proper localized waiting messages
+2. Added 3 new i18n keys and translated them to all 16 languages
+
+**New Keys Added:**
+| Key | English |
+|-----|---------|
+| `WaitingForScan` | "Waiting for scan..." |
+| `WaitingForAnalysis` | "Waiting for analysis..." |
+| `ScanURLToSeeResults` | "Scan a URL to see detailed results." |
+
+**Files Changed:**
+```
+webApp/src/jsMain/resources/results.html - Updated placeholder text
+webApp/src/jsMain/kotlin/com/qrshield/web/i18n/
+  • WebStrings.kt - Added 3 new enum keys
+  • All 15 language files - Added 3 translations each (45 total)
+```
+
+**Impact:**
+- ✅ Results page now shows localized waiting text in all 16 languages
+- ✅ More professional appearance while waiting for scan data
+- ✅ WebApp keys increased from 371 to 374
+
+**Verification:**
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+BUILD SUCCESSFUL in 36s ✅
+```
+
+---
+
 ### Raouf: Localized Component Voting Panel in Desktop App (2025-12-29 AEDT)
 
 **Scope:** Added i18n support for the voting panel strings in desktop app CommonStrings

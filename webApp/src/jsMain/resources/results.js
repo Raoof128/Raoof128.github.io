@@ -256,13 +256,31 @@ function getEngineAnalysis(url) {
         }
     }
 
-    // Add ML score as a factor
+    // Add ML score as a factor - use sane severity thresholds
     if (result.mlScore && !result.mlScore.error) {
-        const mlPercent = Math.round(result.mlScore.ensembleScore * 100);
+        // Strict numeric parsing to avoid string bugs ("40" or "40%")
+        const rawMl = result.mlScore.ensembleScore;
+        const mlPercent = Number(String(rawMl * 100).replace('%', '').trim());
+
+        // Severity mapping: PASS < INFO < WARN < CRITICAL
+        // Only escalate for truly suspicious scores
+        let mlSeverity;
+        if (mlPercent == null || Number.isNaN(mlPercent)) {
+            mlSeverity = 'UNKNOWN';  // ML didn't run or returned invalid data
+        } else if (mlPercent >= 85) {
+            mlSeverity = 'CRITICAL';  // Almost certainly phishing
+        } else if (mlPercent >= 66) {
+            mlSeverity = 'WARN';  // Suspicious - warrants attention
+        } else if (mlPercent >= 33) {
+            mlSeverity = 'INFO';  // Slightly elevated, not scary
+        } else {
+            mlSeverity = 'PASS';  // Low probability - safe
+        }
+
         result.factors.push({
-            type: mlPercent > 60 ? 'FAIL' : mlPercent > 30 ? 'WARN' : 'PASS',
+            type: mlSeverity,
             category: 'ML ENGINE',
-            title: `ML Phishing Score: ${mlPercent}%`,
+            title: `ML Phishing Score: ${Number.isNaN(mlPercent) ? 'N/A' : mlPercent + '%'}`,
             description: `Character analysis: ${Math.round(result.mlScore.charScore * 100)}%, Feature analysis: ${Math.round(result.mlScore.featureScore * 100)}%. Confidence: ${Math.round(result.mlScore.confidence * 100)}%.`,
         });
     }
@@ -773,6 +791,8 @@ function getTagClass(type) {
         'CLEAN': 'tag-clean',
         'WARN': 'tag-warn',
         'FAIL': 'tag-fail',
+        'CRITICAL': 'tag-critical',  // New: highest severity
+        'UNKNOWN': 'tag-unknown',    // New: ML didn't run or invalid
     };
     return classes[type] || 'tag-info';
 }

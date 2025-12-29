@@ -437,6 +437,11 @@ internal val HindiStrings = mapOf(
     WebStringKey.Brand to "ब्रांड",
     WebStringKey.TLD to "टीएलडी",
     WebStringKey.VotingExplanation to "बहुमत मतदान निर्णय निर्धारित करता है: 3+ सुरक्षित = हरा, 2+ दुर्भावनापूर्ण = लाल"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "स्कैन की प्रतीक्षा में...",
+    WebStringKey.WaitingForAnalysis to "विश्लेषण की प्रतीक्षा में...",
+    WebStringKey.ScanURLToSeeResults to "विस्तृत परिणाम देखने के लिए URL स्कैन करें।"
 )
 
 internal val HindiCommonStrings = mapOf(

@@ -390,6 +390,11 @@ internal val TurkishStrings = mapOf(
     WebStringKey.Brand to "Marka",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "Çoğunluk oyu kararı belirler: 3+ GÜVENLİ = yeşil, 2+ ZARARLI = kırmızı"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "Tarama bekleniyor...",
+    WebStringKey.WaitingForAnalysis to "Analiz bekleniyor...",
+    WebStringKey.ScanURLToSeeResults to "Detaylı sonuçları görmek için URL tarayın."
 )
 
 internal val TurkishCommonStrings = mapOf(

@@ -421,6 +421,11 @@ internal val ChineseStrings = mapOf(
     WebStringKey.Brand to "品牌",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "多数投票决定判定: 3+安全=绿色, 2+恶意=红色"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "等待扫描...",
+    WebStringKey.WaitingForAnalysis to "等待分析...",
+    WebStringKey.ScanURLToSeeResults to "扫描URL以查看详细结果。"
 )
 
 internal val ChineseCommonStrings = mapOf(

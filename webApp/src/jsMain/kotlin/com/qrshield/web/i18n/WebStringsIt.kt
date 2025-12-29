@@ -437,6 +437,11 @@ internal val ItalianStrings = mapOf(
     WebStringKey.Brand to "Marchio",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "Il voto di maggioranza determina il verdetto: 3+ SICURO = verde, 2+ MALIGNO = rosso"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "In attesa di scansione...",
+    WebStringKey.WaitingForAnalysis to "In attesa di analisi...",
+    WebStringKey.ScanURLToSeeResults to "Scansiona un URL per vedere i risultati dettagliati."
 )
 
 internal val ItalianCommonStrings = mapOf(

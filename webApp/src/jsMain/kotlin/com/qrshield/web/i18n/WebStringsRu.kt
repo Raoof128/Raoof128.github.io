@@ -437,6 +437,11 @@ internal val RussianStrings = mapOf(
     WebStringKey.Brand to "Бренд",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "Большинство голосов определяет вердикт: 3+ БЕЗОПАСНО = зелёный, 2+ ВРЕДОНОСНО = красный"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "Ожидание сканирования...",
+    WebStringKey.WaitingForAnalysis to "Ожидание анализа...",
+    WebStringKey.ScanURLToSeeResults to "Отсканируйте URL для просмотра подробных результатов."
 )
 
 internal val RussianCommonStrings = mapOf(

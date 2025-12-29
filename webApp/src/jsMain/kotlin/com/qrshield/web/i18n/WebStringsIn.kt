@@ -391,6 +391,11 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.Brand to "Merek",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "Suara mayoritas menentukan keputusan: 3+ AMAN = hijau, 2+ BERBAHAYA = merah"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "Menunggu pemindaian...",
+    WebStringKey.WaitingForAnalysis to "Menunggu analisis...",
+    WebStringKey.ScanURLToSeeResults to "Pindai URL untuk melihat hasil terperinci."
 )
 
 internal val IndonesianCommonStrings = mapOf(

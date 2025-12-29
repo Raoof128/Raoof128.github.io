@@ -390,6 +390,11 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.Brand to "Thương hiệu",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "Đa số phiếu quyết định kết quả: 3+ AN TOÀN = xanh, 2+ ĐỘC HẠI = đỏ"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "Đang chờ quét...",
+    WebStringKey.WaitingForAnalysis to "Đang chờ phân tích...",
+    WebStringKey.ScanURLToSeeResults to "Quét URL để xem kết quả chi tiết."
 )
 
 internal val VietnameseCommonStrings = mapOf(

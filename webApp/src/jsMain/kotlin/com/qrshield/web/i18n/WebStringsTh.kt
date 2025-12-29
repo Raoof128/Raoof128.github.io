@@ -390,6 +390,11 @@ internal val ThaiStrings = mapOf(
     WebStringKey.Brand to "แบรนด์",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "เสียงข้างมากกำหนดผล: 3+ ปลอดภัย=เขียว, 2+ อันตราย=แดง"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "รอการสแกน...",
+    WebStringKey.WaitingForAnalysis to "รอการวิเคราะห์...",
+    WebStringKey.ScanURLToSeeResults to "สแกน URL เพื่อดูผลลัพธ์โดยละเอียด"
 )
 
 internal val ThaiCommonStrings = mapOf(

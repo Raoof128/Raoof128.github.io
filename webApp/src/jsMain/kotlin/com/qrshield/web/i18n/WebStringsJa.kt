@@ -374,6 +374,11 @@ internal val JapaneseStrings = mapOf(
     WebStringKey.Brand to "ブランド",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "多数決で判定: 3+安全=緑、2+悪意=赤"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "スキャン待機中...",
+    WebStringKey.WaitingForAnalysis to "分析待機中...",
+    WebStringKey.ScanURLToSeeResults to "URLをスキャンして詳細な結果を確認してください。"
 )
 
 internal val JapaneseCommonStrings = mapOf(

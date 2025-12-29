@@ -502,7 +502,12 @@ enum class WebStringKey(val defaultText: String) {
     MLModel("ML Model"),
     Brand("Brand"),
     TLD("TLD"),
-    VotingExplanation("Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red")
+    VotingExplanation("Majority vote determines verdict: 3+ SAFE = green, 2+ MAL = red"),
+    
+    // Results Page Placeholders
+    WaitingForScan("Waiting for scan..."),
+    WaitingForAnalysis("Waiting for analysis..."),
+    ScanURLToSeeResults("Scan a URL to see detailed results.")
 }
 
 object WebStrings {

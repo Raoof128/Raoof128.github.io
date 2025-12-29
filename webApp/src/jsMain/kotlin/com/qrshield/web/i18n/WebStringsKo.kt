@@ -390,6 +390,11 @@ internal val KoreanStrings = mapOf(
     WebStringKey.Brand to "브랜드",
     WebStringKey.TLD to "TLD",
     WebStringKey.VotingExplanation to "다수결로 판정: 3+ 안전=녹색, 2+ 악성=빨강"
+,
+    // Results Page Placeholders,
+    WebStringKey.WaitingForScan to "스캔 대기 중...",
+    WebStringKey.WaitingForAnalysis to "분석 대기 중...",
+    WebStringKey.ScanURLToSeeResults to "URL을 스캔하여 상세 결과를 확인하세요."
 )
 
 internal val KoreanCommonStrings = mapOf(

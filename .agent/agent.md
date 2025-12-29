@@ -185,12 +185,22 @@ Any important notes for future agents.
 
 ---
 
-# 📅 December 29, 2025 (Session 10k+45) - Complete i18n Parity + Voting Panel Localization
+# 📅 December 29, 2025 (Session 10k+45) - Complete i18n Parity + Voting Panel + UI Fixes
 
 ### Summary
-Achieved 100% translation parity across ALL platforms and added localized voting panel:
-- **WebApp**: Fixed 51 strings + added 6 voting keys = 371 keys per language
+Achieved 100% translation parity across ALL platforms, added localized voting panel, and fixed results page placeholders:
+- **WebApp**: Fixed 51 strings + 6 voting keys + 3 placeholder keys = 374 keys per language
 - **Desktop**: Added 866 + 6 voting = 872 translations = 455 CommonStrings + 11 nav keys per language
+
+## ✅ Results Page Placeholders Fixed
+
+Fixed hardcoded English placeholders with proper localized waiting messages:
+
+| Before | After (localized in 16 languages) |
+|--------|-----------------------------------|
+| "Loading..." | "Waiting for scan..." |
+| "ANALYZING..." | "Waiting for analysis..." |
+| "Processing scan results..." | "Scan a URL to see detailed results." |
 
 ## ✅ Voting Panel Localization (6 new keys × 31 files = 186 translations)
 
@@ -208,9 +218,9 @@ Added localized voting strings to visualize the democratic verdict system:
 | Metric | Value |
 |--------|-------|
 | Languages | 16 |
-| Keys per language | 371 |
+| Keys per language | 374 |
 | Coverage | 100% ✅ |
-| Voting keys added | 6 |
+| New keys this session | 51 fixes + 6 voting + 3 placeholders |
 
 ## ✅ Desktop Final State
 
@@ -218,16 +228,18 @@ Added localized voting strings to visualize the democratic verdict system:
 |--------|-------|
 | Languages | 15 |
 | Nav keys per language | 11 |
-| CommonStrings per language | 455 (was 449, +6 voting) |
+| CommonStrings per language | 455 |
 | Coverage | 100% ✅ |
+| New keys this session | 866 parity + 6 voting |
 
 ## 📝 Files Modified
 
-**WebApp i18n:**
-- `WebStrings.kt` + all 15 language files (6 voting keys each)
+**WebApp:**
+- `results.html` - Fixed placeholder text
+- `WebStrings.kt` + all 15 language files (51 fixes + 6 voting + 3 placeholder keys)
 
-**Desktop i18n:**
-- All 15 `DesktopStrings*.kt` files (872 total translations added including voting)
+**Desktop:**
+- All 15 `DesktopStrings*.kt` files (872 total translations added)
 
 **Documentation:**
 - `CHANGELOG.md` - Updated with all changes
@@ -403,6 +415,7 @@ Comprehensive audit of WebApp to remove ALL fabricated/demo security outcomes. C
 | `threat.js` L282-285 | `getDemoData()` showed fake 98.5% phishing | **High** | Replaced with `getEmptyStateData()` |
 | `threat.js` L905 | `default: return 'SAFE'` | **Med** | Changed to `return 'UNKNOWN'` |
 | `threat.js` L80-109 | Missing UNKNOWN level | **Med** | Added UNKNOWN to ThreatLevels |
+| `results.js` L263 | ML 40% showing as WARN | **Med** | Fixed thresholds: 33/66/85% bands |
 
 ## ✅ Security Rules Enforced
 
