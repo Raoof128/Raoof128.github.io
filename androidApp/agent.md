@@ -136,6 +136,20 @@ After making changes:
 
 ---
 
+## Raouf: JS/Wasm Test Compilation Fixes (2025-12-29 AEDT)
+
+**Scope:** Fixed Kotlin/JS test compilation errors for cross-platform compatibility.
+
+**Changes:**
+- `AlexaTop100FPTest.kt`: Replaced all `String.format()` usages with `FormatUtils.formatDouble()`
+- `MlScorerTest.kt`: Replaced `System.nanoTime()` with `kotlin.time.TimeSource.Monotonic` for timing
+
+**Verification:**
+- `./gradlew :common:compileTestKotlinJs` ✅
+- All platform builds/tests pass (see CHANGELOG.md)
+
+---
+
 ## Raouf: Desktop App SampleData Cleanup (2025-12-29 AEDT)
 
 **Scope:** Removed hardcoded `SampleData.userProfile` from desktop app production screens.

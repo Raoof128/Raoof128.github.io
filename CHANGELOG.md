@@ -4,6 +4,34 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.1] - 2025-12-29
+
+### 🔧 JS/Wasm Test Compilation Fixes (2025-12-29 AEDT)
+
+**Scope:** Fix Kotlin/JS test compilation errors for cross-platform compatibility
+
+**Issues Fixed:**
+
+| # | File | Issue | Fix |
+|---|------|-------|-----|
+| 1 | `AlexaTop100FPTest.kt` | `String.format()` not available in Kotlin/JS | Replaced with `FormatUtils.formatDouble()` |
+| 2 | `MlScorerTest.kt` | `System.nanoTime()` not available in Kotlin/JS | Replaced with `kotlin.time.TimeSource.Monotonic` |
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `AlexaTop100FPTest.kt` | Replaced 7 instances of `String.format()` with `FormatUtils.formatDouble()` |
+| `MlScorerTest.kt` | Replaced `System.nanoTime()` timing with `TimeSource.Monotonic.markNow()` |
+
+**Build Verification:**
+```bash
+./gradlew :common:compileTestKotlinJs
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.0] - 2025-12-29
 
 ### 🔧 WebApp UI & Settings Fixes (2025-12-29 AEDT)

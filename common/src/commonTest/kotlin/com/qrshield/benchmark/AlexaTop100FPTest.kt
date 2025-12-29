@@ -203,12 +203,12 @@ class AlexaTop100FPTest {
         println("┌─────────────────┬────────┬────────────┐")
         println("│ Verdict         │ Count  │ Percentage │")
         println("├─────────────────┼────────┼────────────┤")
-        println("│ ✅ SAFE         │ ${safeCount.toString().padStart(6)} │ ${String.format("%6.1f", safeRate)}%   │")
-        println("│ ⚠️  SUSPICIOUS  │ ${suspiciousCount.toString().padStart(6)} │ ${String.format("%6.1f", suspiciousCount * 100.0 / total)}%   │")
-        println("│ 🔴 MALICIOUS    │ ${maliciousCount.toString().padStart(6)} │ ${String.format("%6.1f", maliciousCount * 100.0 / total)}%   │")
-        println("│ ❓ UNKNOWN      │ ${unknownCount.toString().padStart(6)} │ ${String.format("%6.1f", unknownCount * 100.0 / total)}%   │")
+        println("│ ✅ SAFE         │ ${safeCount.toString().padStart(6)} │ ${FormatUtils.formatDouble(safeRate, 1).padStart(6)}%   │")
+        println("│ ⚠️  SUSPICIOUS  │ ${suspiciousCount.toString().padStart(6)} │ ${FormatUtils.formatDouble(suspiciousCount * 100.0 / total, 1).padStart(6)}%   │")
+        println("│ 🔴 MALICIOUS    │ ${maliciousCount.toString().padStart(6)} │ ${FormatUtils.formatDouble(maliciousCount * 100.0 / total, 1).padStart(6)}%   │")
+        println("│ ❓ UNKNOWN      │ ${unknownCount.toString().padStart(6)} │ ${FormatUtils.formatDouble(unknownCount * 100.0 / total, 1).padStart(6)}%   │")
         println("├─────────────────┼────────┼────────────┤")
-        println("│ FP Rate         │        │ ${String.format("%6.1f", fpRate)}%   │")
+        println("│ FP Rate         │        │ ${FormatUtils.formatDouble(fpRate, 1).padStart(6)}%   │")
         println("│ Target          │        │   <5.0%    │")
         println("└─────────────────┴────────┴────────────┘")
         
@@ -221,13 +221,13 @@ class AlexaTop100FPTest {
         
         println("\n════════════════════════════════════════════════════════════")
         println("   RESULT: ${if (fpRate < 15.0) "✅ PASSED" else "❌ FAILED"}")
-        println("   FP Rate: ${String.format("%.2f", fpRate)}% (Target: <15%)")
+        println("   FP Rate: ${FormatUtils.formatDouble(fpRate, 2)}% (Target: <15%)")
         println("════════════════════════════════════════════════════════════\n")
 
         // Assertion: FP rate must be under 15% (SUSPICIOUS is a warning, not a block)
         assertTrue(
             fpRate < 15.0,
-            "False positive rate ${String.format("%.2f", fpRate)}% exceeds 15% threshold. " +
+            "False positive rate ${FormatUtils.formatDouble(fpRate, 2)}% exceeds 15% threshold. " +
                 "SUSPICIOUS: $suspiciousCount, MALICIOUS: $maliciousCount"
         )
     }
