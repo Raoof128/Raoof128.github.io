@@ -243,7 +243,7 @@ function loadThreatData() {
         if (scan) {
             ThreatState.threatData = {
                 url: scan.url,
-                score: scan.score || 50,
+                score: scan.score || 0, // Use 0 when score missing (consistent with UNKNOWN verdict)
                 verdict: mapVerdictToLevel(scan.verdict),
                 scanId: scan.id,
                 timestamp: scan.timestamp,
@@ -274,7 +274,7 @@ function loadThreatData() {
             const recentScan = history[0];
             ThreatState.threatData = {
                 url: recentScan.url,
-                score: recentScan.score || 50,
+                score: recentScan.score || 0, // Use 0 when score missing (consistent with UNKNOWN verdict)
                 verdict: mapVerdictToLevel(recentScan.verdict),
                 scanId: recentScan.id,
                 timestamp: recentScan.timestamp,
@@ -685,7 +685,7 @@ function getEmptyStateData() {
         const params = new URLSearchParams({
             url: scan.url,
             verdict: resultVerdict,
-            score: scan.score || 50
+            score: scan.score || 0 // Use 0 when score missing (consistent with UNKNOWN verdict)
         });
 
         window.location.href = `results.html?${params.toString()}`;

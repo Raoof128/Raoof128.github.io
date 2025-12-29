@@ -6,6 +6,42 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.19.0] - 2025-12-29
 
+### Raouf: Final Security Audit - All Score Defaults Fixed (2025-12-29 AEDT)
+
+**Scope:** Fix remaining `|| 50` score defaults and unsafe SAFE fallback
+
+**Non-Negotiable Rule:** Unknown ≠ Safe. Score defaults must be 0, not arbitrary values.
+
+**Findings & Fixes:**
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `dashboard.js` L299 | `scan.score || 50` in data attribute | **MED** | Changed to `|| 0` |
+| 2 | `dashboard.js` L514-520 | Fallback to SAFE verdict when engine not ready | **HIGH** | Removed - now shows warning instead |
+| 3 | `threat.js` L246 | `scan.score || 50` | **MED** | Changed to `|| 0` |
+| 4 | `threat.js` L277 | `recentScan.score || 50` | **MED** | Changed to `|| 0` |
+| 5 | `threat.js` L688 | `scan.score || 50` in URL params | **MED** | Changed to `|| 0` |
+| 6 | `results.js` L456 | `parseInt(scan.score) || 50` | **MED** | Changed to `|| 0` |
+
+**Critical Security Fix (dashboard.js):**
+```javascript
+// BEFORE (unsafe): Navigated to results with fake SAFE verdict
+resultsUrl.searchParams.set('verdict', 'SAFE');
+resultsUrl.searchParams.set('score', '5');
+
+// AFTER (safe): Shows warning, waits for engine
+showToast('Engine not ready - please wait', 'warning');
+```
+
+**Build Verification:**
+```bash
+./gradlew :webApp:jsBrowserProductionWebpack
+# webApp.js: 933 KiB minified ✅
+# BUILD SUCCESSFUL in 21s ✅
+```
+
+---
+
 ### Raouf: WebApp Production Cleanup & Submission Ready (2025-12-29 AEDT)
 
 **Scope:** Remove dead code, deprecated functions, and build for production

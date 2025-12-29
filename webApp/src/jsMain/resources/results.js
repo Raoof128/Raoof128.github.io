@@ -453,7 +453,7 @@ function applyScanResult(scan, scanId) {
     ResultsState.scanId = scanId;
     ResultsState.scannedUrl = scan.url;
     ResultsState.verdict = resultVerdict;
-    ResultsState.confidence = parseInt(scan.score) || 50;
+    ResultsState.confidence = parseInt(scan.score) || 0; // Use 0 when score missing (consistent with UNKNOWN verdict)
 
     const scanIdEl = document.getElementById('scanId');
     if (scanIdEl) {

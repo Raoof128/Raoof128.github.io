@@ -296,7 +296,7 @@ function renderHistory() {
         else if (isWarning) resultVerdict = 'SUSPICIOUS';
 
         return `
-        <tr class="clickable-row" data-scan-url="${encodeURIComponent(scan.url)}" data-scan-verdict="${resultVerdict}" data-scan-score="${scan.score || 50}">
+        <tr class="clickable-row" data-scan-url="${encodeURIComponent(scan.url)}" data-scan-verdict="${resultVerdict}" data-scan-score="${scan.score || 0}">
             <td>
                 <span class="status-badge ${badgeClass}">
                     <span class="material-symbols-outlined">${badgeIcon}</span>
@@ -510,14 +510,12 @@ function analyzeUrl() {
         window.qrshieldAnalyze(fixedUrl);
     } else {
         // Fallback: Navigate to results with URL
-        showToast('Engine not ready, using demo mode', 'info');
-        setTimeout(() => {
-            const resultsUrl = new URL('results.html', window.location.origin);
-            resultsUrl.searchParams.set('url', encodeURIComponent(fixedUrl));
-            resultsUrl.searchParams.set('verdict', 'SAFE');
-            resultsUrl.searchParams.set('score', '5');
-            window.location.href = resultsUrl.toString();
-        }, 500);
+        showToast('Engine not ready - please wait', 'warning');
+        // SECURITY: Do NOT navigate with fake SAFE verdict - wait for engine
+        if (elements.analyzeBtn) {
+            elements.analyzeBtn.classList.remove('loading');
+            elements.analyzeBtn.innerHTML = `<span class="material-symbols-outlined">security</span> ${translateText('Analyze')}`;
+        }
     }
 }
 
