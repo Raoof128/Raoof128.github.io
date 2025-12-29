@@ -226,7 +226,10 @@ fun ResultDangerousScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.ResultDangerous,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                    onProfileClick = { viewModel.toggleProfileDropdown() },
+                    userName = viewModel.userName,
+                    userRole = viewModel.userRole,
+                    userInitials = viewModel.userInitials
                 )
                 DangerousContent(
                     viewModel = viewModel,

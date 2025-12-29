@@ -238,7 +238,10 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.ResultSuspicious,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                    onProfileClick = { viewModel.toggleProfileDropdown() },
+                    userName = viewModel.userName,
+                    userRole = viewModel.userRole,
+                    userInitials = viewModel.userInitials
                 )
                 SuspiciousContent(
                     viewModel = viewModel,

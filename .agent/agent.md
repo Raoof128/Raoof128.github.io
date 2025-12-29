@@ -14042,3 +14042,69 @@ Refactored key Android screens (Dashboard, Trust Centre, Scan Result) to achieve
 |------|--------|
 | `assembleDebug` | ✅ Success (Zero Warnings) |
 | `compileDebugKotlin` | ✅ Success |
+
+---
+
+## Session: 2025-12-29 (Web App Offline-First & Judge-Proof Fixes)
+
+### Raouf: Web App Offline-First & Judge-Proof Fixes
+
+**Goal:** Make web app fully offline-capable and remove all fake/demo outputs from production scan paths.
+
+### 🔨 Changes Applied
+
+#### 1. 📦 jsQR Local Bundling
+- **Problem:** `scanner.html` loaded jsQR from jsdelivr CDN - breaks offline
+- **Fix:** Downloaded `jsQR.min.js` (v1.4.0) to `webApp/src/jsMain/resources/`
+- **File:** `scanner.html` L375: changed from CDN URL to local `jsQR.min.js`
+
+#### 2. 📦 js-joda WASM Vendoring  
+- **Problem:** WASM loader used bare `import('@js-joda/core')` - fails in browser without bundler
+- **Fix:** Vendored `js-joda.esm.js` to `kotlin/vendor/` folder
+- **Fix:** Updated `wasm-test.html` to pre-load and pass as import
+
+#### 3. 🚫 Removed Fake Judge Mode
+- **Problem:** `forceMaliciousResult()` returned hardcoded mock scores/verdicts
+- **Problem:** `populateDemoHistory()` used hardcoded fake results
+- **Fix:** Replaced `forceMaliciousResult()` with `runGoldenSetDemo()` that runs REAL engine on 6 deterministic URLs
+- **Fix:** Changed `populateDemoHistory()` to call real `qrshieldAnalyze()` for each demo URL
+- **Files:** `app.js` L1457-1474, L1540-1580
+
+### 📋 Judge-Proof Verification
+
+1. Start local server: `python3 -m http.server 8080`
+2. Open: `http://localhost:8080/scanner.html`
+3. DevTools → Network → Offline checkbox
+4. Reload page - should still work
+5. Analyze URLs - should return REAL engine results
+
+### Build Status
+
+| Task | Result |
+|------|--------|
+| `jsBrowserDevelopmentWebpack` | ✅ webpack compiled successfully |
+| `common:compileKotlinWasmJs` | ✅ Success |
+
+### Update: js-joda Webpack Bundling (Reproducible)
+
+**Problem:** Initial fix put js-joda in build output folder (gets wiped)
+
+**Proper Fix:**
+- Created `webApp/webpack.config.d/js-joda-local.js`
+- Webpack alias resolves `@js-joda/core` to `node_modules/@js-joda/core/dist/js-joda.esm.js`
+- Node_modules are managed by Gradle/Kotlin - always present during build
+- js-joda now bundled as separate chunk: `vendors-node_modules_js-joda_core_dist_js-joda_esm_js.js` (1MB)
+
+**Verification:**
+```bash
+./gradlew :webApp:wasmJsBrowserDevelopmentWebpack
+# [webpack] @js-joda/core aliased to: .../build/wasm/node_modules/@js-joda/core/dist/js-joda.esm.js
+# webpack 5.101.3 compiled successfully ✅
+```
+
+**Files Added:**
+- `webApp/webpack.config.d/js-joda-local.js` - Webpack alias config
+- `webApp/src/jsMain/resources/jsQR.min.js` - Local jsQR copy
+- `webApp/src/wasmJsMain/resources/vendor/js-joda.esm.js` - Backup vendor copy
+
+**Judge-Proof Status:** ✅ Both builds pass, all dependencies bundled locally

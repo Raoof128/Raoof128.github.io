@@ -73,7 +73,10 @@ fun DashboardScreen(viewModel: AppViewModel) {
                     currentScreen = viewModel.currentScreen,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                    onProfileClick = { viewModel.toggleProfileDropdown() },
+                    userName = viewModel.userName,
+                    userRole = viewModel.userRole,
+                    userInitials = viewModel.userInitials
                 )
                 DashboardContent(
                     onStartScan = {

@@ -128,7 +128,7 @@ object BrandDatabase {
 
         "google" to BrandConfig(
             officialDomains = setOf("google.com", "google.co.uk", "google.com.au", "gmail.com", "youtube.com"),
-            typosquats = listOf("g00gle", "googie", "goog1e", "gooogle", "goggle", "gogle"),
+            typosquats = listOf("g00gle", "googie", "goog1e", "gooogle", "goggle", "gogle", "ggole", "googel", "goolge"),
             homographs = listOf("gооgle", "googlе"), // Cyrillic 'о', 'е'
             combosquats = listOf("google-login", "google-verify", "google-account", "google-security", "google-alert"),
             category = BrandCategory.TECHNOLOGY

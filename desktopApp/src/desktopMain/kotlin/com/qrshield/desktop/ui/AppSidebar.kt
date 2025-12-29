@@ -31,7 +31,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.qrshield.desktop.SampleData
 import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.desktop.i18n.DesktopStringKey
 import com.qrshield.desktop.i18n.DesktopStrings
@@ -44,13 +43,15 @@ fun AppSidebar(
     onNavigate: (AppScreen) -> Unit,
     language: AppLanguage,
     onProfileClick: (() -> Unit)? = null,
+    userName: String = "Security Analyst",
+    userRole: String = "Offline Operations",
+    userInitials: String = "SA",
     modifier: Modifier = Modifier
 ) {
     val tokens = LocalStitchTokens.current
     val colors = tokens.colors
     val spacing = tokens.spacing
     val radius = tokens.radius
-    val userProfile = SampleData.userProfile
     val t = { text: String -> DesktopStrings.translate(text, language) }
     val activeScreen = when (currentScreen) {
         AppScreen.ResultSafe,
@@ -182,7 +183,7 @@ fun AppSidebar(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = userProfile.initials,
+                    text = userInitials,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -190,13 +191,13 @@ fun AppSidebar(
             }
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = t(userProfile.name),
+                    text = userName,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     color = colors.textMain
                 )
                 Text(
-                    text = t(userProfile.role),
+                    text = userRole,
                     fontSize = 12.sp,
                     color = colors.textMuted
                 )

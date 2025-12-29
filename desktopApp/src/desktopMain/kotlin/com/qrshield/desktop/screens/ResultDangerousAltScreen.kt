@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
-import com.qrshield.desktop.SampleData
 import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
@@ -52,7 +51,10 @@ fun ResultDangerousAltScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.ResultDangerousAlt,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                    onProfileClick = { viewModel.toggleProfileDropdown() },
+                    userName = viewModel.userName,
+                    userRole = viewModel.userRole,
+                    userInitials = viewModel.userInitials
                 )
                 DangerousAltContent(
                     viewModel = viewModel,
@@ -104,7 +106,6 @@ private fun DangerousAltContent(viewModel: AppViewModel, isDark: Boolean, onNavi
     val colors = LocalStitchTokens.current.colors
     val scanTimeLabel = viewModel.lastAnalyzedAt?.let { viewModel.formatTimestamp(it) } ?: t("Unknown")
     val sourceLabel = url?.substringAfter("://")?.substringBefore("/")?.ifBlank { t("Unknown") } ?: t("Unknown")
-    val userProfile = SampleData.userProfile
 
     Column(
         modifier = Modifier

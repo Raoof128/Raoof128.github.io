@@ -135,7 +135,10 @@ fun TrainingScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.Training,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                    onProfileClick = { viewModel.toggleProfileDropdown() },
+                    userName = viewModel.userName,
+                    userRole = viewModel.userRole,
+                    userInitials = viewModel.userInitials
                 )
                 TrainingContent(viewModel = viewModel)
             }

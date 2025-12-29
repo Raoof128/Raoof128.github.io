@@ -4,6 +4,193 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.19.5] - 2025-12-29
+
+### Raouf: Web App Offline-First & Judge-Proof Fixes (2025-12-29 AEDT)
+
+**Scope:** Make web app fully offline-capable and remove fake demo results
+
+**Issue 1: jsQR CDN Dependency (Offline Fail)**
+- **Problem:** `scanner.html` loaded jsQR from jsdelivr CDN - offline demo would fail
+- **Fix:** Downloaded jsQR.min.js (v1.4.0) locally to `webApp/src/jsMain/resources/`
+- **File:** `scanner.html` line 375
+
+**Issue 2: js-joda Not Bundled for WASM (Reproducible Fix)**
+- **Problem:** WASM loader uses bare `import('@js-joda/core')` which fails in browser without bundler
+- **Fix:** Added webpack alias config `js-joda-local.js` that resolves @js-joda/core to node_modules copy
+- **Result:** js-joda now bundled as `vendors-node_modules_js-joda_core_dist_js-joda_esm_js.js` (1MB)
+- **File:** `webApp/webpack.config.d/js-joda-local.js`
+
+**Issue 3: Judge Mode Used FAKE Results**
+- **Problem:** `forceMaliciousResult()` returned hardcoded mock data, not real engine output
+- **Problem:** `populateDemoHistory()` used hardcoded scores/verdicts
+- **Fix:** Replaced with `runGoldenSetDemo()` that runs REAL engine on 6 deterministic URLs
+- **Fix:** Changed `populateDemoHistory()` to call real `qrshieldAnalyze()` on each URL
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `scanner.html` L375 | CDN jsQR dependency | **HIGH** | Local jsQR.min.js |
+| 2 | `webpack.config.d/js-joda-local.js` | Bare @js-joda import | **HIGH** | Webpack alias to node_modules |
+| 3 | `app.js` L1459-1474 | Fake forceMaliciousResult | **HIGH** | Real engine Golden Set |
+| 4 | `app.js` L1540-1580 | Fake demo history | **MED** | Real engine analysis |
+
+**Build Verification:**
+```bash
+./gradlew :webApp:wasmJsBrowserDevelopmentWebpack
+# webpack compiled successfully ✅
+# js-joda bundled as vendors-*.js (1MB) ✅
+
+./gradlew :webApp:jsBrowserDevelopmentWebpack  
+# webpack compiled successfully ✅
+```
+
+**Offline Verification Checklist:**
+1. `cd webApp/build/kotlin-webpack/js/developmentExecutable && python3 -m http.server 8080`
+2. Open `http://localhost:8080/` (need index.html or scanner.html)
+3. DevTools → Network → Offline
+4. Reload page - should still work
+5. `typeof window.qrshieldAnalyze === 'function'` should be true
+
+---
+
+## [1.19.4] - 2025-12-29
+
+### Raouf: Desktop App i18n Completeness Audit (2025-12-29 AEDT)
+
+**Scope:** Added missing translations to all 15 language files to ensure i18n completeness
+
+**Problem:** Language files had inconsistent translation counts (388-449 strings). Many critical UI strings were missing translations, causing fallback to English.
+
+**Baseline:** Portuguese (449 strings) used as reference as most complete file.
+
+**Fixes Applied:**
+
+| Language | File | Missing | Added |
+|----------|------|---------|-------|
+| Thai | `DesktopStringsTh.kt` | 51 | 51 |
+| Vietnamese | `DesktopStringsVi.kt` | 51 | 51 |
+| Turkish | `DesktopStringsTr.kt` | 51 | 51 |
+| Arabic | `DesktopStringsAr.kt` | 50 | 50 |
+| Korean | `DesktopStringsKo.kt` | 44 | 44 |
+| Hindi | `DesktopStringsHi.kt` | 83 | 83 |
+| German | `DesktopStringsDe.kt` | 74 | 74 |
+| Spanish | `DesktopStringsEs.kt` | 74 | 74 |
+| French | `DesktopStringsFr.kt` | 74 | 74 |
+| Indonesian | `DesktopStringsIn.kt` | 33 | 33 |
+| Japanese | `DesktopStringsJa.kt` | 41 | 41 |
+| Chinese | `DesktopStringsZh.kt` | 41 | 41 |
+| Italian | `DesktopStringsIt.kt` | 14 | 14 |
+| Russian | `DesktopStringsRu.kt` | 14 | 14 |
+
+**Key Missing Strings Fixed:**
+- Security explanations (sandbox, telemetry, offline analysis)
+- Report export labels and tips
+- Risk factor explanations (IDN homograph, redirect chains)
+- Training/onboarding strings
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
+## [1.19.3] - 2025-12-29
+
+### Raouf: Desktop App Security Hardening (2025-12-29 AEDT)
+
+**Scope:** Add file size validation and path traversal protection
+
+**Issue 1: Unbounded File Read (DoS Risk)**
+- **Problem:** `scanImageFile()` called `file.readBytes()` without size validation
+- **Risk:** User could drop a multi-GB file causing OOM crash
+- **Fix:** Added 50MB max file size check before reading
+
+**Issue 2: Path Traversal in Export Filename**
+- **Problem:** `defaultExportFile()` used user-controlled `exportFilename` directly
+- **Risk:** Filename like `../../etc/passwd` could write outside Downloads
+- **Fix:** Sanitize filename - remove illegal chars, block `..`, limit length to 200
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `AppViewModel.kt` L274 | No file size limit | **HIGH** | Added 50MB max check |
+| 2 | `AppViewModel.kt` L1110 | No path sanitization | **MED** | Sanitize with regex, block traversal |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
+## [1.19.2] - 2025-12-29
+
+### Raouf: Desktop App - Remove SampleData Leakage (2025-12-29 AEDT)
+
+**Scope:** Remove hardcoded SampleData.userProfile usage from production desktop screens
+
+**Non-Negotiable Rule:** Production screens must not use mock/sample/fixture data. User profile must come from persisted AppViewModel state.
+
+**Issue:** `SampleData.userProfile` was used in 4 files, causing UI to show hardcoded "Security Analyst" instead of user's actual profile.
+
+**Findings & Fixes:**
+
+| ID | File | Issue | Severity | Fix |
+|----|------|-------|----------|-----|
+| 1 | `AppSidebar.kt` L53,185,193,199 | Hardcoded profile in sidebar footer | **HIGH** | Added userName/userRole/userInitials parameters |
+| 2 | `ProfileDropdown.kt` L54 | Dead code - SampleData unused | **LOW** | Removed import and variable |
+| 3 | `ScanHistoryScreen.kt` L158 | Hardcoded profile in ImageAvatar | **MED** | Added userName parameter with default |
+| 4 | `ResultDangerousAltScreen.kt` L107 | Dead code - SampleData unused | **LOW** | Removed import and variable |
+
+**Call Sites Updated (12 total):**
+- DashboardScreen.kt, TrustCentreScreen.kt, ReportsExportScreen.kt
+- LiveScanScreen.kt, TrainingScreen.kt, TrustCentreAltScreen.kt
+- ResultDangerousAltScreen.kt, ResultDangerousScreen.kt
+- ResultSafeScreen.kt, ScanHistoryScreen.kt, ResultSuspiciousScreen.kt
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
+## [1.19.1] - 2025-12-29
+
+### Raouf: Critical Bug Fixes - Brand Detection & i18n Cleanup (2025-12-29 AEDT)
+
+**Scope:** Fix typosquatting detection for `ggole%20.com` and remove mixed-up i18n strings
+
+**Issue 1: Typosquatting URL Classified as SAFE**
+- **Problem:** `www.ggole%20.com` (Google typosquat with URL-encoded space) was incorrectly classified as "Safe to Visit"
+- **Root Cause:** 
+  1. BrandDatabase missing common transposition typosquats like "ggole", "googel", "goolge"
+  2. BrandDetector.extractHost() not URL-decoding percent-encoded characters
+
+**Fixes Applied:**
+| File | Change |
+|------|--------|
+| `BrandDatabase.kt` L131 | Added "ggole", "googel", "goolge" to Google typosquats list |
+| `BrandDetector.kt` L276-305 | Added `decodePercentEncoding()` to extractHost() to handle obfuscation |
+
+**Issue 2: Desktop App i18n Strings Mixed Up**
+- **Problem:** German, Spanish, French, Portuguese, and Turkish language files contained Arabic/Hindi strings
+- **Root Cause:** Copy-paste error during i18n expansion
+
+**Files Fixed:**
+| File | Removed |
+|------|---------|
+| `DesktopStringsDe.kt` | 82 Arabic/Hindi strings |
+| `DesktopStringsEs.kt` | 82 Arabic/Hindi strings |
+| `DesktopStringsFr.kt` | 82 Arabic/Hindi strings |
+| `DesktopStringsPt.kt` | 17 German/Hindi strings |
+| `DesktopStringsTr.kt` | 69 German/Hindi strings |
+
+---
+
 ## [1.19.0] - 2025-12-29
 
 ### Raouf: Final Security Audit - All Score Defaults Fixed (2025-12-29 AEDT)

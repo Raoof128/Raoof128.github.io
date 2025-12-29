@@ -106,12 +106,49 @@ window.formatDate = function (millis) {
 
 /**
  * Generate cryptographically secure random bytes using Web Crypto API.
+ * Returns comma-separated signed byte values for WASM compatibility.
  * 
  * This uses crypto.getRandomValues() which is:
  * - Cryptographically secure (CSPRNG)
  * - Required by W3C Web Cryptography API spec
  * - Available in all modern browsers (Chrome 11+, Firefox 21+, Safari 5+)
  * - Hardware-backed on most platforms via OS CSPRNG
+ * 
+ * @param {number} size - Number of bytes to generate (max 65536 per call)
+ * @returns {string} Comma-separated signed byte values (e.g., "-128,0,127,42")
+ * @throws {Error} If size exceeds 65536 or crypto API unavailable
+ */
+window.getSecureRandomBytesAsString = function (size) {
+    if (size > 65536) {
+        throw new Error('getSecureRandomBytesAsString: Maximum size is 65536 bytes per call');
+    }
+
+    if (size <= 0) {
+        return '';
+    }
+
+    // Use Web Crypto API - universally available in modern browsers
+    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+        // Generate random bytes as Uint8Array
+        var buffer = new Uint8Array(size);
+        crypto.getRandomValues(buffer);
+
+        // Convert to comma-separated signed byte string for WASM compatibility
+        var signedBytes = [];
+        for (var i = 0; i < size; i++) {
+            // Convert unsigned (0-255) to signed (-128 to 127)
+            var signedValue = buffer[i] > 127 ? buffer[i] - 256 : buffer[i];
+            signedBytes.push(signedValue);
+        }
+        return signedBytes.join(',');
+    } else {
+        throw new Error('Web Crypto API not available - secure random generation not possible');
+    }
+};
+
+/**
+ * Legacy function for backwards compatibility with Kotlin/JS.
+ * Generates cryptographically secure random bytes.
  * 
  * @param {number} size - Number of bytes to generate (max 65536 per call)
  * @returns {Int8Array} Secure random bytes as signed byte array (Kotlin ByteArray compatible)

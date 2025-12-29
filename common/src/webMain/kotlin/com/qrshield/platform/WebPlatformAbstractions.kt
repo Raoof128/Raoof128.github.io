@@ -170,7 +170,8 @@ actual object PlatformSecureRandom {
         
         while (offset < size) {
             val chunkSize = minOf(65536, size - offset)
-            val chunk = getSecureRandomBytes(chunkSize)
+            // Get random bytes via JS interop
+            val chunk = getSecureRandomBytesImpl(chunkSize)
             chunk.copyInto(result, offset)
             offset += chunkSize
         }
@@ -196,11 +197,24 @@ actual object PlatformSecureRandom {
             }
         }
     }
+    
+    /**
+     * Internal implementation that gets bytes from JS and converts to ByteArray.
+     * Uses string-based interop which is WASM-compatible.
+     */
+    private fun getSecureRandomBytesImpl(size: Int): ByteArray {
+        // Get comma-separated signed byte values as string from JS
+        val bytesString = getSecureRandomBytesAsString(size)
+        if (bytesString.isEmpty()) return ByteArray(0)
+        
+        // Parse comma-separated signed byte values
+        return bytesString.split(",").map { it.toInt().toByte() }.toByteArray()
+    }
 }
 
-// External declaration for Web Crypto API
-// Maps to: crypto.getRandomValues(new Uint8Array(size))
-private external fun getSecureRandomBytes(size: Int): ByteArray
+// External declaration for Web Crypto API - returns string for WASM compatibility
+// Returns comma-separated signed byte values (e.g., "-128,0,127,42")
+private external fun getSecureRandomBytesAsString(size: Int): String
 
 // ==================== URL Opener ====================
 

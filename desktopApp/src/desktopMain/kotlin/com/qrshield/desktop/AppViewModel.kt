@@ -272,6 +272,12 @@ class AppViewModel(
     }
 
     fun scanImageFile(file: File) {
+        // Security: Validate file size to prevent OOM from huge files (max 50MB)
+        val maxFileSize = 50 * 1024 * 1024L // 50 MB
+        if (file.length() > maxFileSize) {
+            setError("File too large. Maximum size is 50MB.")
+            return
+        }
         scanState = DesktopScanState.Scanning
         scope.launch {
             try {
@@ -1109,7 +1115,12 @@ class AppViewModel(
 
     private fun defaultExportFile(baseName: String, extension: String): File {
         val dir = defaultExportDirectory()
-        val safeName = if (baseName.isBlank()) "qrshield_export" else baseName
+        // Security: Sanitize filename to prevent path traversal attacks
+        val sanitized = baseName
+            .replace(Regex("[\\\\/:*?\"<>|]"), "_") // Remove illegal chars
+            .replace("..", "_") // Prevent path traversal
+            .take(200) // Limit filename length
+        val safeName = sanitized.ifBlank { "qrshield_export" }
         return File(dir, "$safeName.$extension")
     }
 

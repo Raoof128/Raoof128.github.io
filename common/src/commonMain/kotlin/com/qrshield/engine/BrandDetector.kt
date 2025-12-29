@@ -272,6 +272,7 @@ class BrandDetector {
 
     /**
      * Safely extract host from URL.
+     * URL-decodes percent-encoded characters to catch obfuscation attacks.
      */
     private fun extractHost(url: String): String {
         val bounded = url.take(MAX_URL_LENGTH)
@@ -282,9 +283,27 @@ class BrandDetector {
 
         val endIndex = withoutProtocol.indexOfFirst { it == '/' || it == '?' || it == '#' || it == ':' }
 
-        return when {
+        val rawHost = when {
             endIndex > 0 -> withoutProtocol.substring(0, endIndex)
             else -> withoutProtocol
         }.take(MAX_HOST_LENGTH)
+        
+        // URL-decode to catch encoded obfuscation like %20 (space), %2E (dot)
+        return decodePercentEncoding(rawHost)
+    }
+    
+    /**
+     * Decode percent-encoded characters in a string.
+     * Handles common URL obfuscation techniques.
+     */
+    private fun decodePercentEncoding(input: String): String {
+        return input.replace(Regex("%([0-9A-Fa-f]{2})")) { match ->
+            val code = match.groupValues[1].toInt(16)
+            if (code in 0x20..0x7E) { // Printable ASCII
+                code.toChar().toString()
+            } else {
+                match.value // Keep non-printable as-is
+            }
+        }
     }
 }

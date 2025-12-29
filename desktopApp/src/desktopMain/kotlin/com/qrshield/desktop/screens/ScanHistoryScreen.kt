@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.qrshield.desktop.AppViewModel
 import com.qrshield.desktop.HistoryFilter
-import com.qrshield.desktop.SampleData
 import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.navigation.AppScreen
@@ -68,7 +67,10 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                     currentScreen = viewModel.currentScreen,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                    onProfileClick = { viewModel.toggleProfileDropdown() },
+                    userName = viewModel.userName,
+                    userRole = viewModel.userRole,
+                    userInitials = viewModel.userInitials
                 )
                 Column(modifier = Modifier.weight(1f).fillMaxHeight()) {
                     ScanHistoryContent(
@@ -152,10 +154,9 @@ private fun ScanHistoryHeader(
 }
 
 @Composable
-private fun ImageAvatar(language: AppLanguage) {
+private fun ImageAvatar(language: AppLanguage, userName: String = "Security Analyst") {
     val t = { text: String -> DesktopStrings.translate(text, language) }
     fun tf(text: String, vararg args: Any): String = DesktopStrings.format(text, language, *args)
-    val userProfile = SampleData.userProfile
     val colors = LocalStitchTokens.current.colors
     Box(
         modifier = Modifier
@@ -165,7 +166,7 @@ private fun ImageAvatar(language: AppLanguage) {
     ) {
         androidx.compose.foundation.Image(
             painter = painterResource("assets/stitch/avatar-admin.png"),
-            contentDescription = tf("%s avatar", t(userProfile.name)),
+            contentDescription = tf("%s avatar", userName),
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )

@@ -1454,23 +1454,40 @@ function updateJudgeModeUI() {
 }
 
 /**
- * Force a malicious result (Judge Mode simulation)
+ * Run Golden Set demo with REAL engine analysis (no fake results)
+ * Replaces the old forceMaliciousResult function
  */
-window.forceMaliciousResult = () => {
-    const demoUrl = urlInput.value.trim() || 'https://demo-malicious.evil.tk/login';
-
-    // Simulate a MALICIOUS result
-    const mockFlags = [
-        'Brand Impersonation Detected',
-        'Suspicious TLD (.tk)',
-        'Credential Harvesting Path (/login)',
-        'No HTTPS encryption',
-        'Typosquatting pattern detected'
+window.runGoldenSetDemo = async () => {
+    // Golden Set: 6 deterministic URLs for judge demo
+    const goldenUrls = [
+        'https://www.google.com',           // Expected: SAFE
+        'https://github.com',               // Expected: SAFE  
+        'https://microsoft.com',            // Expected: SAFE
+        'https://bit.ly/3xYz123',           // Expected: SUSPICIOUS (shortener)
+        'https://micros0ft-support.tk/login', // Expected: MALICIOUS (typosquat + bad TLD)
+        'https://paypa1-secure.ml/verify'   // Expected: MALICIOUS (brand + bad TLD)
     ];
 
-    // Show demo result
-    window.displayResult(92, 'MALICIOUS', mockFlags, demoUrl);
-    showToast('🧑‍⚖️ Demo: Forced MALICIOUS result', 'warning');
+    showToast('🏆 Running Golden Set with REAL engine...', 'info');
+
+    for (const url of goldenUrls) {
+        if (typeof window.qrshieldAnalyze === 'function') {
+            // Small delay between scans for UI to update
+            await new Promise(r => setTimeout(r, 300));
+            window.qrshieldAnalyze(url);
+        } else {
+            showToast('Engine not ready - try again', 'error');
+            return;
+        }
+    }
+
+    showToast('✅ Golden Set complete - all results from REAL engine', 'success');
+};
+
+// Backwards compatibility: redirect old function to new one
+window.forceMaliciousResult = () => {
+    console.warn('forceMaliciousResult() deprecated - using runGoldenSetDemo() instead');
+    window.runGoldenSetDemo();
 };
 
 /**
@@ -1517,50 +1534,46 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Populate history with perfect demo examples for judges
- * Called when Judge Mode is activated
+ * Populate history by running REAL engine analysis on demo URLs
+ * Called when Judge Mode is activated - NO FAKE RESULTS
  */
-function populateDemoHistory() {
-    // Demo examples covering all verdicts
-    const demoExamples = [
-        {
-            url: 'https://paypa1-secure.tk/login',
-            score: 92,
-            verdict: 'MALICIOUS',
-            timestamp: Date.now() - 60000 // 1 min ago
-        },
-        {
-            url: 'https://gооgle.com/login', // Homograph: Cyrillic 'о'
-            score: 88,
-            verdict: 'MALICIOUS',
-            timestamp: Date.now() - 120000 // 2 min ago
-        },
-        {
-            url: 'https://commbank.secure-verify.ml/account',
-            score: 85,
-            verdict: 'MALICIOUS',
-            timestamp: Date.now() - 180000 // 3 min ago
-        },
-        {
-            url: 'https://bit.ly/3xY7abc',
-            score: 35,
-            verdict: 'SUSPICIOUS',
-            timestamp: Date.now() - 240000 // 4 min ago
-        },
-        {
-            url: 'https://google.com',
-            score: 5,
-            verdict: 'SAFE',
-            timestamp: Date.now() - 300000 // 5 min ago
-        }
+async function populateDemoHistory() {
+    // Demo URLs to analyze with REAL engine
+    const demoUrls = [
+        'https://paypa1-secure.tk/login',           // Should be MALICIOUS
+        'https://commbank.secure-verify.ml/account', // Should be MALICIOUS  
+        'https://bit.ly/3xY7abc',                   // Should be SUSPICIOUS
+        'https://google.com',                       // Should be SAFE
+        'https://microsoft.com'                     // Should be SAFE
     ];
 
-    // Only add if history is empty or small
-    if (history.length < 3) {
-        history = demoExamples;
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-        renderHistory();
+    // Only populate if history is empty or small
+    if (history.length >= 3) {
+        return;
     }
+
+    // Check if engine is ready
+    if (typeof window.qrshieldAnalyze !== 'function') {
+        console.warn('Engine not ready for demo history - skipping auto-populate');
+        return;
+    }
+
+    console.log('🏆 Populating demo history with REAL engine results...');
+
+    // Run each URL through the real engine
+    for (const url of demoUrls) {
+        try {
+            // Analyze with real engine (this will add to history via displayResult)
+            window.qrshieldAnalyze(url);
+            // Small delay between analyses
+            await new Promise(r => setTimeout(r, 200));
+        } catch (e) {
+            console.error(`Demo analysis failed for ${url}:`, e);
+        }
+    }
+
+    console.log('✅ Demo history populated with REAL engine results');
+}
 }
 
 // ==========================================

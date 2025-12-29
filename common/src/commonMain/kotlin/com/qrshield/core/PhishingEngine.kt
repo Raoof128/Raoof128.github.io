@@ -290,7 +290,7 @@ class PhishingEngine(
             flags = allFlags,
             details = UrlAnalysisResult(
                 originalUrl = url.take(256),
-                heuristicScore = heuristicResult.score,
+                heuristicScore = (heuristicResult.score * 40 / 100).coerceIn(0, 40), // Scale from 0-100 to 0-40
                 mlScore = (mlScore * 30).toInt(), // ML score is 0.0-1.0, scale to 0-30
                 brandScore = combinedBrandScore,
                 tldScore = tldResult.score,

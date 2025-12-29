@@ -54,7 +54,10 @@ fun TrustCentreAltScreen(viewModel: AppViewModel) {
                     currentScreen = AppScreen.TrustCentreAlt,
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
-                    onProfileClick = { viewModel.toggleProfileDropdown() }
+                    onProfileClick = { viewModel.toggleProfileDropdown() },
+                    userName = viewModel.userName,
+                    userRole = viewModel.userRole,
+                    userInitials = viewModel.userInitials
                 )
                 TrustCentreAltContent(viewModel = viewModel)
             }

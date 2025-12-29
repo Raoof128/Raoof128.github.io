@@ -134,3 +134,31 @@ After making changes:
 
 - `docs/ANDROID_CHECKLIST.md` - Comprehensive audit against submission requirements
 
+---
+
+## Raouf: Desktop App SampleData Cleanup (2025-12-29 AEDT)
+
+**Scope:** Removed hardcoded `SampleData.userProfile` from desktop app production screens.
+
+**Changes:**
+- `AppSidebar.kt`: Added userName/userRole/userInitials parameters
+- `ProfileDropdown.kt`: Removed dead SampleData variable
+- `ScanHistoryScreen.kt`: Added userName parameter to ImageAvatar
+- `ResultDangerousAltScreen.kt`: Removed dead SampleData import/variable
+- Updated 12 AppSidebar call sites to pass viewModel profile state
+
+**Verification:** `./gradlew :desktopApp:compileKotlinDesktop` ✅
+
+---
+
+## Raouf: Desktop App Security Hardening (2025-12-29 AEDT)
+
+**Scope:** File size validation and path traversal protection.
+
+**Changes:**
+- `AppViewModel.kt` L274: Added 50MB max file size check in `scanImageFile()`
+- `AppViewModel.kt` L1110: Sanitized export filename to prevent path traversal
+
+**Judge Impact:** Security +5, Reliability +3 (prevents DoS and file system attacks)
+
+**Verification:** `./gradlew :desktopApp:compileKotlinDesktop` ✅

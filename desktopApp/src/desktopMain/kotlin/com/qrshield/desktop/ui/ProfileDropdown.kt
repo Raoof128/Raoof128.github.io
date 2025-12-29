@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import com.qrshield.data.ScanHistoryManager
-import com.qrshield.desktop.SampleData
 import com.qrshield.desktop.i18n.AppLanguage
 import com.qrshield.desktop.i18n.DesktopStrings
 import com.qrshield.desktop.theme.LocalStitchTokens
@@ -51,7 +50,6 @@ fun ProfileDropdown(
     
     val t = { text: String -> DesktopStrings.translate(text, language) }
     val colors = LocalStitchTokens.current.colors
-    val userProfile = SampleData.userProfile
     
     Popup(
         alignment = Alignment.BottomStart,
