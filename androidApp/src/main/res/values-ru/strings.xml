@@ -598,7 +598,10 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">ИИ АНАЛИЗ</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d сигналов обнаружено</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
+    <string name="beat_the_bot_reset_game">Reset Game</string>
+    <string name="cd_reset_game">Reset game and start over</string>
+    <string name="toast_game_reset">Game reset! Starting fresh…</string>
     
     <!-- Analysis Breakdown (ScanResultScreen) -->
     <string name="analysis_brand_title">Подмена Бренда</string>

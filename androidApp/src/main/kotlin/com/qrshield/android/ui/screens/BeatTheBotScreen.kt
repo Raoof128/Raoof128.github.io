@@ -56,6 +56,7 @@ import kotlin.random.Random
 fun BeatTheBotScreen(
     onBackClick: () -> Unit = {},
     onEndSession: () -> Unit = {},
+    onResetGame: () -> Unit = {},
     onPhishingClick: () -> Unit = {},
     onLegitimateClick: () -> Unit = {},
     onHintDismiss: () -> Unit = {},
@@ -112,6 +113,17 @@ fun BeatTheBotScreen(
                     }
                 },
                 actions = {
+                    // Reset Game Button (2025 Android Best Practice: IconButton in TopAppBar)
+                    IconButton(
+                        onClick = onResetGame,
+                        modifier = Modifier.padding(end = 4.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.Refresh,
+                            contentDescription = stringResource(R.string.cd_reset_game),
+                            tint = QRShieldColors.Primary
+                        )
+                    }
                     // Session ID Badge
                     Surface(
                         shape = RoundedCornerShape(8.dp),

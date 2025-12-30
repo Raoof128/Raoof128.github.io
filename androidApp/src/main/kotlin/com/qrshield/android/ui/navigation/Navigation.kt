@@ -751,6 +751,7 @@ fun QRShieldNavHost(
                     beatTheBotViewModel.startNewGame() // Reset for next time or just leave
                     navController.popBackStack()
                 },
+                onResetGame = { beatTheBotViewModel.startNewGame() },
                 onPhishingClick = { beatTheBotViewModel.submitGuess(isPhishingGuess = true) },
                 onLegitimateClick = { beatTheBotViewModel.submitGuess(isPhishingGuess = false) },
                 onHintDismiss = { /* Hint auto-dismisses or managed by VM if needed */ },

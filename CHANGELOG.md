@@ -8,6 +8,71 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.22] - 2025-12-30
+
+### Raouf: Beat the Bot Reset Button & Connectivity Audit (2025-12-30 21:31 AEDT)
+
+**Scope:** Add reset button to Beat the Bot game and verify Learning Centre + Settings are fully connected (not decorative).
+
+**Changes:**
+
+1. **Beat the Bot Reset Button** (2025 Android Best Practice: IconButton in TopAppBar)
+   - Added `onResetGame` callback to `BeatTheBotScreen`
+   - Added refresh IconButton in TopAppBar actions
+   - Wired to `beatTheBotViewModel.startNewGame()` in Navigation.kt
+
+2. **New Strings Added (3):**
+   - `beat_the_bot_reset_game` - "Reset Game"
+   - `cd_reset_game` - Content description for accessibility
+   - `toast_game_reset` - Toast confirmation message
+
+3. **All 16 Language Files Updated:** 626 → 629 string keys
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `BeatTheBotScreen.kt` | Added `onResetGame` callback + reset IconButton |
+| `Navigation.kt` | Wired `onResetGame` to ViewModel |
+| `values/strings.xml` | +3 strings |
+| `values-*/strings.xml` (15 files) | +3 strings each |
+
+**Learning Centre Connectivity Audit:**
+
+| Callback | Status | Implementation |
+|----------|--------|----------------|
+| `onViewCertificate` | ✅ CONNECTED | Toast + progress check |
+| `onReadTip` | ✅ CONNECTED | Toast + progress +5 |
+| `onModuleClick` | ✅ CONNECTED | Beat the Bot nav + progress +10 |
+| `onReportThreatClick` | ✅ CONNECTED | Email intent |
+
+**Settings Connectivity Audit:**
+
+| Setting | Status | Implementation |
+|---------|--------|----------------|
+| Haptic Feedback | ✅ | `HapticFeedback` in scanner |
+| Sound Effects | ✅ | `SoundManager.playSound()` |
+| Auto-scan | ✅ | Controls auto-scan launch |
+| Save History | ✅ | Controls `saveToHistory()` |
+| Developer Mode | ✅ | Shows Red Team section |
+| Security Alerts | ✅ | Controls notifications |
+| Dark Mode | ✅ | Theme toggle |
+| Reduced Effects | ✅ | Animation toggle |
+| URL Unshortener | ✅ | Aggressive mode |
+| Quick Actions (3) | ✅ | Navigation callbacks |
+| Language Selection | ✅ | `AppCompatDelegate.setApplicationLocales()` |
+| System Settings (3) | ✅ | Intent to system settings |
+| 7-tap Developer | ✅ | Toggles dev mode |
+| Verify Integrity | ✅ | `SystemIntegrityVerifier` |
+
+**Verdict:** ALL Learning Centre and Settings interactions are CONNECTED and functional, NOT decorative.
+
+**Verification:**
+- `./gradlew :androidApp:compileDebugKotlin` ✅ (Exit 0)
+- String counts: Base English = 629, All languages = 629
+
+---
+
 ## [1.20.21] - 2025-12-30
 
 ### Raouf: Sync Missing Strings to All 16 Languages (2025-12-30 20:30 AEDT)

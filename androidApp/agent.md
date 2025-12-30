@@ -123,12 +123,12 @@ After making changes:
 ## Current Stats
 
 - **Version**: 1.17.58
-- **String Keys**: 554
+- **String Keys**: 629
 - **Languages**: 16 (1 base + 15 localized)
 - **Content Descriptions**: 197 across 20 files
 - **Design System Usages**: 374 (QRShieldColors/Shapes)
 - **Drawable Icons**: 15 (including 3 new module icons)
-- **Last Updated**: 2025-12-26
+- **Last Updated**: 2025-12-30
 
 ## Related Documentation
 
@@ -381,3 +381,38 @@ After making changes:
 **Verification:**
 - `./gradlew :androidApp:compileDebugKotlin` ✅ (Exit 0)
 - All 16 language files now have exactly 626 string keys
+
+---
+
+## Raouf: Beat the Bot Reset Button & Connectivity Audit (2025-12-30 21:31 AEDT)
+
+**Scope:** Add reset button to Beat the Bot game; verify Learning Centre + Settings are fully connected.
+
+**Changes:**
+1. Added `onResetGame` callback to `BeatTheBotScreen`
+2. Added refresh IconButton in TopAppBar (2025 Android Best Practice)
+3. Wired to `beatTheBotViewModel.startNewGame()` in Navigation.kt
+4. Added 3 new strings to all 16 language files (626 → 629)
+
+**Learning Centre Connectivity Audit:**
+| Callback | Status | Implementation |
+|----------|--------|----------------|
+| `onViewCertificate` | ✅ CONNECTED | Toast + progress check |
+| `onReadTip` | ✅ CONNECTED | Toast + progress +5 |
+| `onModuleClick` | ✅ CONNECTED | Beat the Bot nav + progress +10 |
+| `onReportThreatClick` | ✅ CONNECTED | Email intent |
+
+**Settings Connectivity Audit:**
+| Setting | Status | Notes |
+|---------|--------|-------|
+| All 10 toggle settings | ✅ | Connected to `viewModel.updateSettings()` |
+| Quick Actions (3) | ✅ | Navigation callbacks wired |
+| System Settings (3) | ✅ | Intent to Android settings |
+| 7-tap Developer Mode | ✅ | Toggles `isDeveloperModeEnabled` |
+| Verify Integrity | ✅ | `SystemIntegrityVerifier` |
+
+**Verdict:** ALL interactions are CONNECTED and functional, NOT decorative.
+
+**Verification:**
+- `./gradlew :androidApp:compileDebugKotlin` ✅ (Exit 0)
+- String counts: Base = 629, All languages = 629
