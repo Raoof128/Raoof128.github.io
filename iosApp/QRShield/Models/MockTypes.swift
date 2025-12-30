@@ -154,6 +154,20 @@ struct HistoryItemMock: Identifiable, Sendable, Hashable, Codable {
     static func == (lhs: HistoryItemMock, rhs: HistoryItemMock) -> Bool {
         lhs.id == rhs.id
     }
+    
+    /// Converts HistoryItemMock to RiskAssessmentMock for display in ScanResultView
+    /// The flags will be re-analyzed by the engine when ScanResultView loads
+    func toRiskAssessment() -> RiskAssessmentMock {
+        RiskAssessmentMock(
+            id: UUID(uuidString: id) ?? UUID(),
+            score: score,
+            verdict: verdict,
+            flags: [],  // Will be populated by re-analysis in ScanResultView
+            confidence: Double(score) / 100.0,
+            url: url,
+            scannedAt: scannedAt
+        )
+    }
 }
 
 #endif

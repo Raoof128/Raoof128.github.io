@@ -2,6 +2,45 @@
 
 ## Unreleased
 
+## [1.20.26] - 2025-12-31
+
+### Raouf: iOS Parity & UX Improvements (2025-12-31 10:45 AEDT)
+
+**Scope:** iOS ScanResultView parity with Android/Desktop, History navigation fix, Beat the Bot reset button
+
+**Changes:**
+
+1. **ScanResultView Parity (Android/WebApp)**
+   - Added `ScanStatusBadge` showing scan completion status
+   - Added `UrlDisplayRow` with link icon
+   - Added `AnalysisMetaRow` ("Analyzed offline • No data leaves device")
+   - Added `EngineStatsCard` showing analysis time, signals count, engine version
+   - Added `TopAnalysisFactorsSection` with factor cards (PASS/FAIL/WARN/CRITICAL tags)
+   - Factor cards include: HTTPS check, Domain analysis, Database check, Heuristics check
+
+2. **History Navigation Fix**
+   - Changed from popup sheet to full NavigationLink navigation
+   - Clicking a history item now opens the full ScanResultView
+   - Added `toRiskAssessment()` conversion method on HistoryItemMock
+
+3. **Beat the Bot Reset Button**
+   - Added reset button (⟲) to toolbar leading position
+   - `resetGame()` function resets all game state and starts fresh
+   - Includes haptic feedback on reset
+
+**Files Modified:**
+- `ScanResultView.swift` - Added 5 new sections and ~200 lines
+- `HistoryView.swift` - Changed to NavigationLink, removed sheet
+- `MockTypes.swift` - Added `toRiskAssessment()` conversion
+- `BeatTheBotView.swift` - Added reset button and function
+- `en.lproj/Localizable.strings` - Added 30+ new strings
+- `project.pbxproj` - Version 1.20.26
+
+**Build Verification:**
+- `xcodebuild -scheme QRShield build` ✅
+
+---
+
 ## [1.20.25] - 2025-12-31
 
 ### Raouf: iOS Full Parity Audit - Dynamic Analysis Breakdowns (2025-12-31 10:20 AEDT)

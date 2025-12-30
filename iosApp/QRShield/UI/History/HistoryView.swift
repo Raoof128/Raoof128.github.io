@@ -30,7 +30,6 @@ struct HistoryView: View {
     @State private var viewModel = HistoryViewModel()
     @State private var searchText = ""
     @State private var selectedFilter: VerdictFilter = .all
-    @State private var selectedItem: HistoryItemMock?
     @State private var showExportedToast = false
     @State private var showClearConfirmation = false
     @State private var showStatsPopover = false
@@ -158,11 +157,6 @@ struct HistoryView: View {
         .onChange(of: searchText) { _, newValue in
             viewModel.search(query: newValue)
         }
-        .sheet(item: $selectedItem) { item in
-            HistoryDetailSheet(item: item)
-                .presentationDetents([.medium])
-                .presentationBackground(.ultraThinMaterial)
-        }
         .onAppear {
             viewModel.refreshHistory()
         }
@@ -233,33 +227,33 @@ struct HistoryView: View {
         ScrollView {
             LazyVStack(spacing: 8) {
                 ForEach(viewModel.filteredHistory) { item in
-                    HistoryRow(item: item)
-                        .onTapGesture {
-                            selectedItem = item
+                    NavigationLink(destination: ScanResultView(assessment: item.toRiskAssessment())) {
+                        HistoryRow(item: item)
+                    }
+                    .buttonStyle(.plain)
+                    .contextMenu {
+                        Button {
+                            UIPasteboard.general.string = item.url
+                            SettingsManager.shared.triggerHaptic(.success)
+                        } label: {
+                            Label(NSLocalizedString("result.copy_url", comment: ""), systemImage: "doc.on.doc")
                         }
-                        .contextMenu {
-                            Button {
-                                UIPasteboard.general.string = item.url
-                                SettingsManager.shared.triggerHaptic(.success)
-                            } label: {
-                                Label(NSLocalizedString("result.copy_url", comment: ""), systemImage: "doc.on.doc")
-                            }
-                            
-                            ShareLink(item: item.url) {
-                                Label(NSLocalizedString("result.share", comment: ""), systemImage: "square.and.arrow.up")
-                            }
-                            
-                            Divider()
-                            
-                            Button(role: .destructive) {
-                                withAnimation(.spring(response: 0.3)) {
-                                    viewModel.delete(item)
-                                }
-                            } label: {
-                                Label(NSLocalizedString("history.delete", comment: ""), systemImage: "trash")
-                            }
+                        
+                        ShareLink(item: item.url) {
+                            Label(NSLocalizedString("result.share", comment: ""), systemImage: "square.and.arrow.up")
                         }
-                        .transition(.move(edge: .trailing).combined(with: .opacity))
+                        
+                        Divider()
+                        
+                        Button(role: .destructive) {
+                            withAnimation(.spring(response: 0.3)) {
+                                viewModel.delete(item)
+                            }
+                        } label: {
+                            Label(NSLocalizedString("history.delete", comment: ""), systemImage: "trash")
+                        }
+                    }
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
                 }
             }
             .padding(.horizontal)

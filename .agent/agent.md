@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.20.4`** (as of December 30, 2025)
+**Current App Version: `1.20.26`** (as of December 31, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,53 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 📱 December 31, 2025 (Session 10k+66) - iOS Parity & UX Improvements
+
+### Summary
+Added Android/WebApp parity sections to iOS ScanResultView, fixed History navigation to show full result screen, and added Reset button to Beat the Bot game.
+
+## ✅ Changes Made
+
+### 1. ScanResultView Parity (Android/WebApp)
+- Added `ScanStatusBadge` - shows "Scan Complete" / "Threat Detected" based on verdict
+- Added `UrlDisplayRow` - URL with link icon
+- Added `AnalysisMetaRow` - "Analyzed offline • No data leaves device"
+- Added `EngineStatsCard` - analysis time (ms), signals count, engine version (KMP/Swift)
+- Added `TopAnalysisFactorsSection` - grid of factor cards with PASS/FAIL/WARN/CRITICAL tags
+  - HTTPS check
+  - Domain analysis
+  - Database check
+  - Heuristics check
+
+### 2. History Navigation Fix
+- **Before:** Clicking history item showed small popup sheet (HistoryDetailSheet)
+- **After:** Clicking history item navigates to full ScanResultView
+- Added `toRiskAssessment()` conversion method on HistoryItemMock
+- Removed unused `selectedItem` state and sheet modifier
+
+### 3. Beat the Bot Reset Button
+- Added reset button (⟲) to toolbar leading position
+- `resetGame()` function resets: timer, points, streak, accuracy, challenge, signals
+- Includes haptic feedback on reset
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultView.swift` | +5 new sections (ScanStatusBadge, UrlDisplayRow, AnalysisMetaRow, EngineStatsCard, TopAnalysisFactorsSection) |
+| `HistoryView.swift` | Changed to NavigationLink, removed sheet |
+| `MockTypes.swift` | Added `toRiskAssessment()` conversion |
+| `BeatTheBotView.swift` | Added reset button and `resetGame()` function |
+| `en.lproj/Localizable.strings` | +30 new strings |
+| `project.pbxproj` | Version 1.20.26 |
+| `CHANGELOG.md` | Version 1.20.26 entry |
+| `agent.md` | This session entry |
+
+## Build Verification
+- `xcodebuild -scheme QRShield build` ✅
 
 ---
 

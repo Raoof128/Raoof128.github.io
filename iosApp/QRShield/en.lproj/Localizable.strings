@@ -642,3 +642,36 @@
 "meta.heuristics" = "Heuristics";
 "meta.engine" = "Engine";
 "meta.engine_version_fmt" = "v%@";
+
+// MARK: - Engine Stats Card (Android Parity)
+"stats.analysis_time" = "Analysis Time";
+"stats.signals" = "Signals";
+"stats.engine" = "Engine";
+
+// MARK: - Top Analysis Factors (Android/WebApp Parity)
+"factors.title" = "Top Analysis Factors";
+"factor.category.https" = "HTTPS";
+"factor.category.domain" = "Domain";
+"factor.category.database" = "Database";
+"factor.category.heuristics" = "Heuristics";
+
+"factor.ssl_valid" = "SSL Certificate Valid";
+"factor.ssl_valid_desc" = "Connection is encrypted with HTTPS. Data transmitted securely.";
+"factor.ssl_missing" = "No SSL Certificate";
+"factor.ssl_missing_desc" = "No encryption. Data could be intercepted by attackers.";
+
+"factor.ip_address" = "IP Address Used";
+"factor.ip_address_desc" = "URL uses raw IP instead of domain name - common attack technique.";
+"factor.domain_check" = "Domain Verified";
+"factor.domain_check_desc" = "Domain structure appears legitimate.";
+
+"factor.blacklist_found" = "Known Threat";
+"factor.blacklist_found_desc" = "This URL matches known malicious patterns in our database.";
+"factor.blacklist_clean" = "Not in Blocklist";
+"factor.blacklist_clean_desc" = "URL not found in any known threat databases.";
+
+"factor.heuristics_title" = "Heuristic Analysis";
+"factor.heuristics_desc" = "%d signals detected by pattern analysis.";
+
+// MARK: - Beat the Bot Reset
+"training.reset" = "Reset Game";

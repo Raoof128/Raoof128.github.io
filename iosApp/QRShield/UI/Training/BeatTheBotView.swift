@@ -244,6 +244,17 @@ struct BeatTheBotView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 
+                // Reset button
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        resetGame()
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise")
+                            .foregroundColor(.brandPrimary)
+                    }
+                    .accessibilityLabel(Text(NSLocalizedString("training.reset", comment: "")))
+                }
+                
                 ToolbarItem(placement: .principal) {
                     VStack(spacing: 2) {
                         Text(NSLocalizedString("training.mode", comment: ""))
@@ -667,6 +678,34 @@ struct BeatTheBotView: View {
         points = 0
         streak = 0
         startTimer()
+    }
+    
+    /// Resets the game to initial state
+    private func resetGame() {
+        // Stop the timer
+        stopTimer()
+        
+        // Reset all game state
+        timeRemaining = 12
+        ringProgress = 1.0
+        points = 0
+        streak = 0
+        accuracy = 0.0
+        botConfidence = 0.88
+        latency = 12
+        lastAnswer = nil
+        isCorrect = nil
+        detectedSignals = []
+        
+        // Load a new random challenge
+        currentChallenge = Self.sampleChallenges.randomElement() ?? Self.sampleChallenges[0]
+        
+        // Restart the game
+        isPlaying = true
+        startTimer()
+        
+        // Haptic feedback
+        SettingsManager.shared.triggerHaptic(.success)
     }
     
     private func togglePause() {
