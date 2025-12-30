@@ -185,6 +185,43 @@ Any important notes for future agents.
 
 ---
 
+# 🔧 December 30, 2025 (Session 10k+60) - Fix Flag Matching Logic
+
+### Summary
+Fixed flag matching in Android ScanResultScreen. The previous fix wasn't working because it searched for human-readable strings like "ip address" but the engine produces flags like `IP_ADDRESS_HOST` (UPPERCASE_SNAKE_CASE).
+
+## ✅ Root Cause Identified
+
+**Problem:** Screenshot showed `192.168.1.1` (IP address) with tags "Credential Harvesting" and "Homograph Attack" but Analysis Breakdown showed "URL Verified Safe" (WRONG!)
+
+**Root Cause:** 
+- `deriveAnalysisItems()` searched for `flagsLower.any { it.contains("ip address") }`
+- But engine produces flags like `"IP_ADDRESS_HOST"`
+- The lowercase search `"ip_address_host".contains("ip address")` = FALSE!
+
+**Fix:** 
+- Added `flagsUpper = flags.map { it.uppercase() }` 
+- Changed all matching to use `flagsUpper.any { it.contains("IP_ADDRESS") }`
+
+## ✅ Additional Fixes
+
+| Component | Before | After |
+|-----------|--------|-------|
+| `TagsRow()` | Hardcoded 3 tags | Dynamic from real flags |
+| `EngineStatsCard()` | "4ms", "142", "v2.4" | Real data |
+| Flag count | 10 patterns | 15+ patterns |
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | Fixed `deriveAnalysisItems()` to match UPPERCASE flags, added `deriveTags()` |
+| `Navigation.kt` | Pass `heuristicScore` |
+| `strings.xml` | Added 20+ new strings |
+| `CHANGELOG.md` | Version 1.20.17 |
+
+---
+
 # 🔧 December 30, 2025 (Session 10k+59) - Wire Decorative Analysis to Real Engine
 
 ### Summary

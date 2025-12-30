@@ -316,10 +316,30 @@
     <string name="analysis_safe_title">URL Verified Safe</string>
     <string name="analysis_safe_desc">No security issues detected. This URL appears safe to visit.</string>
     <string name="analysis_no_issues">No security issues detected.</string>
+    <string name="analysis_at_symbol_title">At-Symbol Injection</string>
+    <string name="analysis_at_symbol_desc">URL contains @ symbol used to hide the real destination.</string>
+    <string name="analysis_suspicious_path_title">Suspicious Path</string>
+    <string name="analysis_suspicious_path_desc">URL path contains keywords commonly used in phishing.</string>
+    <string name="analysis_risky_extension_title">Risky File Extension</string>
+    <string name="analysis_risky_extension_desc">URL points to a potentially dangerous file type.</string>
+    <string name="analysis_entropy_title">Random Domain</string>
+    <string name="analysis_entropy_desc">Domain appears randomly generated, common in phishing.</string>
+    <string name="analysis_port_title">Unusual Port</string>
+    <string name="analysis_port_desc">URL uses a non-standard port number.</string>
     
+    <!-- Dynamic Tags (derived from real flags) -->
     <string name="tag_credential_harvesting">Credential Harvesting</string>
     <string name="tag_homograph_attack">Homograph Attack</string>
     <string name="tag_new_domain">New Domain</string>
+    <string name="tag_ip_address">IP Address</string>
+    <string name="tag_brand_spoof">Brand Spoof</string>
+    <string name="tag_insecure">Insecure</string>
+    <string name="tag_shortener">Shortener</string>
+    <string name="tag_risky_tld">Risky TLD</string>
+    <string name="tag_suspicious_path">Suspicious Path</string>
+    <string name="tag_long_url">Long URL</string>
+    <string name="tag_at_injection">@ Injection</string>
+    <string name="tag_verified_safe">Verified Safe</string>
     
     <!-- Settings Screen Extras -->
     <string name="url_unshortener_title">Resolve Short Links</string>

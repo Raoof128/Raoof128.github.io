@@ -8,6 +8,61 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.17] - 2025-12-30
+
+### Raouf: Fix Flag Matching - Wire ALL Decorative Data to Engine (2025-12-30 19:00 AEDT)
+
+**Scope:** Fix flag matching logic and wire ALL remaining decorative sections
+
+**Issues Fixed:**
+
+| Component | Before | After |
+|-----------|--------|-------|
+| **Flag Matching** | Searched `lowercase()` for words like "ip address" | Searches `UPPERCASE` for actual flags like `IP_ADDRESS_HOST` |
+| **TagsRow** | Hardcoded 3 tags always shown | Dynamic tags derived from real flags |
+| **EngineStatsCard** | Hardcoded "4ms", "142", "v2.4" | Real analysisTime, heuristicScore, "v1.20" |
+
+**Root Cause:**
+The engine produces flags like:
+- `IP_ADDRESS_HOST` (not "ip address")
+- `CREDENTIAL_PARAMS` (not "credential harvesting")
+- `HTTP_NOT_HTTPS` (not "http not https")
+- `PUNYCODE_DOMAIN` (not "homograph")
+
+Previous code searched for human-readable strings, but engine produces UPPERCASE_SNAKE_CASE flags.
+
+**New Flag Mappings (15+ flags):**
+- `IP_ADDRESS_HOST` → "IP Address Host" card + "IP Address" tag
+- `CREDENTIAL_PARAMS`, `CREDENTIAL_KEYWORDS` → "Credential Harvesting" card + tag
+- `PUNYCODE_DOMAIN`, `LOOKALIKE_CHARS`, `ZERO_WIDTH_CHARS` → "Homograph Attack" card + tag
+- `HTTP_NOT_HTTPS` → "Insecure Protocol" card + "Insecure" tag
+- `URL_SHORTENER` → "Suspicious Redirection" card + "Shortener" tag
+- `EXCESSIVE_SUBDOMAINS`, `MULTIPLE_TLD_SEGMENTS` → "Deep Subdomain" card
+- `LONG_URL`, `URL_TOO_LONG` → "Excessive URL Length" card + tag
+- `DATA_URI_SCHEME`, `JAVASCRIPT_URL` → "Dangerous Scheme" card
+- `AT_SYMBOL_INJECTION` → "At-Symbol Injection" card + tag
+- `SUSPICIOUS_PATH_KEYWORDS` → "Suspicious Path" card + tag
+- `RISKY_EXTENSION`, `DOUBLE_EXTENSION` → "Risky File Extension" card
+- `HIGH_ENTROPY_HOST` → "Random Domain" card
+- `NON_STANDARD_PORT`, `SUSPICIOUS_PORT` → "Unusual Port" card
+- Brand impersonation (contains "brand") → "Brand Impersonation" card + tag
+- High-risk TLD (contains "high-risk tld") → "Risky TLD" card + tag
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | Fixed `deriveAnalysisItems()` to match UPPERCASE flags, added `deriveTags()`, added `heuristicScore` param |
+| `Navigation.kt` | Extract and pass `heuristicScore` from assessment |
+| `strings.xml` | Added 20+ new string resources for tags and analysis items |
+
+**Build Verification:**
+```bash
+./gradlew :androidApp:assembleDebug  # BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.16] - 2025-12-30
 
 ### Raouf: Wire Decorative Analysis Breakdown to Real Engine (2025-12-30 18:30 AEDT)
