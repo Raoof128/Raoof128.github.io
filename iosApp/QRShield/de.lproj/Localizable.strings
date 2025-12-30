@@ -518,3 +518,92 @@
 "accessibility.back" = "Back";
 "accessibility.settings" = "Settings";
 "accessibility.trust_centre" = "Trust Centre";
+
+// MARK: - Scan Result Metadata
+"result.scan_id" = "Scan ID";
+"result.engine_version" = "Engine Version";
+"result.scanned_at" = "Scanned At";
+"result.engine_kmp" = "KMP Engine (Offline)";
+"result.engine_swift" = "Swift Engine (Offline)";
+
+// MARK: - Analysis Breakdown (Android/Desktop Parity)
+"analysis.title" = "Analysis Breakdown";
+"analysis.ai_explained" = "AI Explained";
+"analysis.no_issues" = "No significant issues detected. This URL appears to be safe.";
+
+// Analysis Item Titles (from flags)
+"analysis.ip_host.title" = "IP Address Host";
+"analysis.ip_host.desc" = "This URL uses an IP address instead of a domain name, which is commonly used by attackers to evade detection.";
+
+"analysis.brand.title" = "Brand Impersonation";
+"analysis.brand.desc" = "This URL appears to impersonate a known brand, attempting to deceive users.";
+"analysis.brand.desc_specific" = "This URL appears to impersonate %@, a known brand.";
+
+"analysis.homograph.title" = "Homograph Attack";
+"analysis.homograph.desc" = "This URL uses characters that look similar to legitimate characters (IDN homograph attack) to deceive users.";
+
+"analysis.protocol.title" = "Insecure Protocol";
+"analysis.protocol.desc" = "This URL uses HTTP instead of HTTPS, meaning data is transmitted without encryption.";
+
+"analysis.redirect.title" = "URL Shortener / Redirect";
+"analysis.redirect.desc" = "This URL uses a redirect or shortener service, which can hide the true destination.";
+
+"analysis.tld.title" = "High-Risk TLD";
+"analysis.tld.desc" = "This URL uses a top-level domain that is commonly associated with malicious activity.";
+"analysis.tld.desc_specific" = "The TLD '%@' is frequently used for malicious purposes.";
+
+"analysis.subdomain.title" = "Complex Domain Structure";
+"analysis.subdomain.desc" = "This URL has excessive subdomains, which is often used to obscure the true domain.";
+
+"analysis.credential.title" = "Credential Harvesting";
+"analysis.credential.desc" = "This URL contains patterns commonly used to steal login credentials.";
+
+"analysis.long_url.title" = "Unusually Long URL";
+"analysis.long_url.desc" = "This URL is unusually long, which may indicate an attempt to hide malicious content.";
+
+"analysis.scheme.title" = "Dangerous Scheme";
+"analysis.scheme.desc" = "This URL uses a potentially dangerous scheme (data: or javascript:) that can execute code.";
+
+"analysis.at_symbol.title" = "@ Symbol Attack";
+"analysis.at_symbol.desc" = "This URL contains an @ symbol, which can be used to trick users into visiting a different site.";
+
+"analysis.suspicious_path.title" = "Suspicious Path";
+"analysis.suspicious_path.desc" = "The URL path contains keywords commonly associated with phishing attempts.";
+
+"analysis.risky_extension.title" = "Risky File Extension";
+"analysis.risky_extension.desc" = "This URL points to a file type that may be dangerous to download or execute.";
+
+"analysis.entropy.title" = "Random-Looking Domain";
+"analysis.entropy.desc" = "The domain appears to be randomly generated, which is common in malicious URLs.";
+
+"analysis.port.title" = "Non-Standard Port";
+"analysis.port.desc" = "This URL uses a non-standard port, which may indicate an attempt to bypass security filters.";
+
+"analysis.safe.title" = "No Threats Detected";
+"analysis.safe.desc" = "This URL passed all security checks and appears to be legitimate.";
+
+"analysis.login_keywords.title" = "Login/Verify Keywords";
+"analysis.login_keywords.desc" = "This URL contains keywords commonly used in phishing attacks to steal credentials.";
+
+"analysis.urgency.title" = "Urgency Language";
+"analysis.urgency.desc" = "This URL contains urgent language designed to pressure users into acting quickly.";
+
+"analysis.typosquatting.title" = "Typosquatting";
+"analysis.typosquatting.desc" = "This URL appears to be a misspelled version of a legitimate domain.";
+
+"analysis.verified_domain.title" = "Verified Domain";
+"analysis.verified_domain.desc" = "This URL belongs to a known, trusted domain.";
+
+// Status Badges (WebApp Parity)
+"status.scan_complete" = "Scan Complete";
+"status.caution_advised" = "Caution Advised";
+"status.threat_detected" = "Threat Detected";
+"status.analysis_complete" = "Analysis Complete";
+
+// Meta Info (WebApp Parity)
+"meta.analyzed_offline" = "Analyzed offline";
+"meta.no_data_leaves" = "No data leaves device";
+"meta.analysis_time" = "Analysis Time";
+"meta.heuristics" = "Heuristics";
+"meta.engine" = "Engine";
+"meta.engine_version_fmt" = "v%@";

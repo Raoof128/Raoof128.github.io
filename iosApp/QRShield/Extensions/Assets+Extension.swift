@@ -102,12 +102,14 @@ extension Color {
 // MARK: - VerdictIcon Component
 
 /// Animated verdict icon with pulse effect for danger states
+/// Respects system Reduce Motion setting per HIG accessibility guidelines
 struct VerdictIcon: View {
     let verdict: VerdictMock
     let size: CGFloat
     var useSFSymbols: Bool = true
     
     @State private var isPulsing = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     
     private var color: Color {
         Color.forVerdict(verdict)
@@ -117,15 +119,15 @@ struct VerdictIcon: View {
         Image.forVerdict(verdict)
             .font(.system(size: size))
             .foregroundColor(color)
-            .symbolEffect(.pulse, isActive: verdict == .malicious)
-            .scaleEffect(isPulsing && verdict == .malicious ? 1.1 : 1.0)
+            .symbolEffect(.pulse, isActive: verdict == .malicious && !reduceMotion)
+            .scaleEffect(isPulsing && verdict == .malicious && !reduceMotion ? 1.1 : 1.0)
             .animation(
-                verdict == .malicious ?
+                verdict == .malicious && !reduceMotion ?
                     .easeInOut(duration: 0.6).repeatForever(autoreverses: true) : .default,
                 value: isPulsing
             )
             .onAppear {
-                if verdict == .malicious {
+                if verdict == .malicious && !reduceMotion {
                     isPulsing = true
                 }
             }
@@ -137,15 +139,17 @@ struct VerdictIcon: View {
 // MARK: - Danger Background
 
 /// Full-screen pulsing danger background for malicious detections
+/// Respects system Reduce Motion setting per HIG accessibility guidelines
 struct DangerBackground: View {
     @State private var opacity: Double = 0.0
     let isActive: Bool
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     
     var body: some View {
         ZStack {
-            // Red overlay
+            // Red overlay - static when Reduce Motion is enabled
             Color.verdictDanger
-                .opacity(opacity)
+                .opacity(reduceMotion ? (isActive ? 0.15 : 0) : opacity)
                 .ignoresSafeArea()
             
             // Radial gradient for depth
@@ -161,8 +165,10 @@ struct DangerBackground: View {
             .opacity(isActive ? 0.6 : 0)
             .ignoresSafeArea()
         }
-        .animation(.easeInOut(duration: 0.3), value: isActive)
+        .animation(reduceMotion ? .none : .easeInOut(duration: 0.3), value: isActive)
         .onChange(of: isActive) { _, newValue in
+            // Skip animation if Reduce Motion is enabled
+            guard !reduceMotion else { return }
             if newValue {
                 withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
                     opacity = 0.2

@@ -472,8 +472,10 @@ struct ScanResultView: View {
         .liquidGlass(cornerRadius: 16)
     }
     
-    // MARK: - Explainable Security
+    // MARK: - Explainable Security (Dynamic from Engine Flags)
     
+    /// Returns dynamic analysis explanations based on actual engine flags
+    /// This replaces the hardcoded static explanations for Android/Desktop parity
     private var explainableSecuritySection: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack(spacing: 8) {
@@ -482,18 +484,31 @@ struct ScanResultView: View {
                 Text(NSLocalizedString("result.explainable_security", comment: ""))
                     .font(.subheadline.weight(.bold))
                     .foregroundColor(.brandPrimary)
+                
+                Spacer()
+                
+                // AI Explained badge (like Android)
+                HStack(spacing: 4) {
+                    Image(systemName: "sparkles")
+                        .font(.caption2)
+                    Text(NSLocalizedString("analysis.ai_explained", comment: ""))
+                        .font(.caption2.weight(.semibold))
+                }
+                .foregroundColor(.brandPrimary)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.brandPrimary.opacity(0.1), in: Capsule())
             }
             
+            // Generate explanations from REAL flags
             VStack(alignment: .leading, spacing: 16) {
-                explainableRow(
-                    title: "Zero-Day Engine:",
-                    description: "This pattern matches a known phishing kit (Kit-X29) used in recent financial sector attacks."
-                )
-                
-                explainableRow(
-                    title: "Logo Analysis:",
-                    description: "Found distorted visual assets matching standard banking login screens."
-                )
+                ForEach(generateExplainableRows(), id: \.title) { row in
+                    explainableRow(
+                        title: row.title,
+                        description: row.description,
+                        iconColor: row.iconColor
+                    )
+                }
             }
         }
         .padding(20)
@@ -514,11 +529,56 @@ struct ScanResultView: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
     
-    private func explainableRow(title: String, description: String) -> some View {
+    /// Generates explainable rows from actual assessment flags
+    private func generateExplainableRows() -> [(title: String, description: String, iconColor: Color)] {
+        var rows: [(title: String, description: String, iconColor: Color)] = []
+        let flags = assessment.flags
+        
+        // Engine type explanation
+        let engineType = UnifiedAnalysisService.shared.isKMPAvailable ? "KMP Heuristics Engine" : "Swift Heuristics Engine"
+        rows.append((
+            title: "Analysis Engine:",
+            description: "Powered by \(engineType) with \(flags.count) signal\(flags.count == 1 ? "" : "s") detected.",
+            iconColor: .brandPrimary
+        ))
+        
+        // Add flag-specific explanations
+        if assessment.verdict == .malicious {
+            rows.append((
+                title: "Threat Level:",
+                description: "High-confidence threat detection. This URL exhibits multiple indicators of malicious intent.",
+                iconColor: .verdictDanger
+            ))
+        } else if assessment.verdict == .suspicious {
+            rows.append((
+                title: "Caution Advised:",
+                description: "Some suspicious patterns were detected. Exercise caution before proceeding.",
+                iconColor: .verdictWarning
+            ))
+        } else if assessment.verdict == .safe {
+            rows.append((
+                title: "Verified Safe:",
+                description: "No significant threats detected. URL passed all security checks.",
+                iconColor: .verdictSafe
+            ))
+        }
+        
+        // Add confidence explanation
+        let confidencePercent = Int(assessment.confidence * 100)
+        rows.append((
+            title: "Confidence:",
+            description: "\(confidencePercent)% confidence in this assessment based on \(flags.count) analyzed signals.",
+            iconColor: assessment.confidence > 0.8 ? .verdictSafe : .verdictWarning
+        ))
+        
+        return rows
+    }
+    
+    private func explainableRow(title: String, description: String, iconColor: Color = .verdictSafe) -> some View {
         HStack(alignment: .top, spacing: 12) {
             Image(systemName: "checkmark.circle.fill")
                 .font(.caption)
-                .foregroundColor(.verdictSafe)
+                .foregroundColor(iconColor)
                 .padding(.top, 2)
             
             Text(title)
@@ -533,10 +593,26 @@ struct ScanResultView: View {
     // MARK: - Scan Metadata
     
     private var scanMetadata: some View {
-        VStack(spacing: 12) {
-            metadataRow(label: "Scan ID", value: "#992-AX-291")
-            metadataRow(label: "Engine Version", value: "v4.2.1 (Offline)")
-            metadataRow(label: "Time Elapsed", value: "124ms")
+        // Generate real values from assessment data
+        let scanId = String(format: "#%@", assessment.id.uuidString.prefix(8).uppercased())
+        let engineVersion = UnifiedAnalysisService.shared.isKMPAvailable
+            ? NSLocalizedString("result.engine_kmp", comment: "")
+            : NSLocalizedString("result.engine_swift", comment: "")
+        let scannedTime = assessment.formattedDate
+        
+        return VStack(spacing: 12) {
+            metadataRow(
+                label: NSLocalizedString("result.scan_id", comment: ""),
+                value: scanId
+            )
+            metadataRow(
+                label: NSLocalizedString("result.engine_version", comment: ""),
+                value: engineVersion
+            )
+            metadataRow(
+                label: NSLocalizedString("result.scanned_at", comment: ""),
+                value: scannedTime
+            )
         }
         .padding(16)
         .background(Color.bgSurface.opacity(0.3), in: RoundedRectangle(cornerRadius: 16))
@@ -576,31 +652,258 @@ struct ScanResultView: View {
         }
     }
     
+    /// Derives attack breakdowns from REAL engine flags - Android/Desktop parity
+    /// This replaces the hardcoded static breakdowns with engine-derived analysis
     private func setupAttackBreakdowns() {
-        attackBreakdowns = [
-            AttackBreakdown(
-                title: "Homograph / IDN Attack",
+        var breakdowns: [AttackBreakdown] = []
+        let flags = assessment.flags
+        let flagsLower = flags.map { $0.lowercased() }
+        let flagsUpper = flags.map { $0.uppercased() }
+        
+        // IP Address Host detection
+        if flagsUpper.contains(where: { $0.contains("IP_ADDRESS_HOST") || $0.contains("IP ADDRESS") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.ip_host.title", comment: ""),
+                severity: .critical,
+                icon: "network",
+                description: NSLocalizedString("analysis.ip_host.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Brand impersonation detection
+        if flagsLower.contains(where: { $0.contains("brand") || $0.contains("impersonation") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.brand.title", comment: ""),
+                severity: .critical,
+                icon: "building.2.fill",
+                description: NSLocalizedString("analysis.brand.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // IDN Homograph / Punycode / Lookalike detection
+        if flagsUpper.contains(where: { $0.contains("PUNYCODE") || $0.contains("LOOKALIKE") || $0.contains("ZERO_WIDTH") }) ||
+           flagsLower.contains(where: { $0.contains("homograph") || $0.contains("mixed script") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.homograph.title", comment: ""),
                 severity: .critical,
                 icon: "textformat",
-                description: "The URL uses Cyrillic characters (e.g., 'a', 'o') to mimic the legitimate domain \"paypal.com\".",
-                technicalDetail: "Cyrillic 'а' used instead of Latin 'a'",
-                isExpanded: true
-            ),
-            AttackBreakdown(
-                title: "Suspicious Redirect Chain",
+                description: NSLocalizedString("analysis.homograph.desc", comment: ""),
+                technicalDetail: "IDN homograph characters detected",
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // HTTP vs HTTPS check
+        if flagsUpper.contains(where: { $0.contains("HTTP_NOT_HTTPS") || $0.contains("HTTP NOT HTTPS") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.protocol.title", comment: ""),
+                severity: .high,
+                icon: "lock.open.fill",
+                description: NSLocalizedString("analysis.protocol.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // URL Shortener / Redirect detection
+        if flagsUpper.contains(where: { $0.contains("URL_SHORTENER") || $0.contains("REDIRECT") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.redirect.title", comment: ""),
                 severity: .high,
                 icon: "arrow.triangle.branch",
-                description: "Multiple redirects detected through URL shorteners and tracking domains.",
-                technicalDetail: nil
-            ),
-            AttackBreakdown(
-                title: "Obfuscated JavaScript",
+                description: NSLocalizedString("analysis.redirect.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // High-risk TLD
+        if flagsLower.contains(where: { $0.contains("high-risk tld") || $0.contains("risky tld") || $0.contains("suspicious tld") }) ||
+           flagsUpper.contains(where: { $0.contains("RISKY_TLD") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.tld.title", comment: ""),
+                severity: .high,
+                icon: "globe",
+                description: NSLocalizedString("analysis.tld.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Excessive Subdomains / Complex Domain Structure
+        if flagsUpper.contains(where: { $0.contains("EXCESSIVE_SUBDOMAINS") || $0.contains("MULTIPLE_TLD") }) ||
+           flagsLower.contains(where: { $0.contains("complex domain") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.subdomain.title", comment: ""),
                 severity: .medium,
+                icon: "point.3.connected.trianglepath.dotted",
+                description: NSLocalizedString("analysis.subdomain.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Credential harvesting
+        if flagsUpper.contains(where: { $0.contains("CREDENTIAL") }) ||
+           flagsLower.contains(where: { $0.contains("credential theft") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.credential.title", comment: ""),
+                severity: .critical,
+                icon: "key.fill",
+                description: NSLocalizedString("analysis.credential.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Long URL
+        if flagsUpper.contains(where: { $0.contains("LONG_URL") || $0.contains("URL_TOO_LONG") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.long_url.title", comment: ""),
+                severity: .medium,
+                icon: "ruler",
+                description: NSLocalizedString("analysis.long_url.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Dangerous scheme (DATA_URI_SCHEME, JAVASCRIPT_URL)
+        if flagsUpper.contains(where: { $0.contains("DATA_URI") || $0.contains("JAVASCRIPT_URL") || $0.contains("JAVASCRIPT:") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.scheme.title", comment: ""),
+                severity: .critical,
                 icon: "chevron.left.forwardslash.chevron.right",
-                description: "Heavily encoded JavaScript detected that attempts to bypass security filters.",
-                technicalDetail: nil
-            )
-        ]
+                description: NSLocalizedString("analysis.scheme.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // At-symbol injection attack
+        if flagsUpper.contains(where: { $0.contains("AT_SYMBOL") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.at_symbol.title", comment: ""),
+                severity: .critical,
+                icon: "at",
+                description: NSLocalizedString("analysis.at_symbol.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Suspicious path keywords
+        if flagsUpper.contains(where: { $0.contains("SUSPICIOUS_PATH") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.suspicious_path.title", comment: ""),
+                severity: .medium,
+                icon: "folder.fill",
+                description: NSLocalizedString("analysis.suspicious_path.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Login/Verify keywords
+        if flagsLower.contains(where: { $0.contains("login") || $0.contains("verify") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.login_keywords.title", comment: ""),
+                severity: .high,
+                icon: "person.badge.key.fill",
+                description: NSLocalizedString("analysis.login_keywords.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Urgency language
+        if flagsLower.contains(where: { $0.contains("urgency") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.urgency.title", comment: ""),
+                severity: .high,
+                icon: "exclamationmark.triangle.fill",
+                description: NSLocalizedString("analysis.urgency.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Typosquatting
+        if flagsLower.contains(where: { $0.contains("typosquatting") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.typosquatting.title", comment: ""),
+                severity: .critical,
+                icon: "textformat.abc.dottedunderline",
+                description: NSLocalizedString("analysis.typosquatting.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Risky file extension
+        if flagsUpper.contains(where: { $0.contains("RISKY_EXTENSION") || $0.contains("DOUBLE_EXTENSION") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.risky_extension.title", comment: ""),
+                severity: .high,
+                icon: "doc.fill",
+                description: NSLocalizedString("analysis.risky_extension.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // High entropy host (random-looking domain)
+        if flagsUpper.contains(where: { $0.contains("HIGH_ENTROPY") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.entropy.title", comment: ""),
+                severity: .medium,
+                icon: "shuffle",
+                description: NSLocalizedString("analysis.entropy.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // Non-standard port
+        if flagsUpper.contains(where: { $0.contains("NON_STANDARD_PORT") || $0.contains("SUSPICIOUS_PORT") }) {
+            breakdowns.append(AttackBreakdown(
+                title: NSLocalizedString("analysis.port.title", comment: ""),
+                severity: .medium,
+                icon: "network.badge.shield.half.filled",
+                description: NSLocalizedString("analysis.port.desc", comment: ""),
+                technicalDetail: nil,
+                isExpanded: breakdowns.isEmpty
+            ))
+        }
+        
+        // If no flags detected (safe URL), show positive indicator
+        if breakdowns.isEmpty {
+            if flags.contains(where: { $0.lowercased().contains("verified") || $0.lowercased().contains("no threats") }) {
+                breakdowns.append(AttackBreakdown(
+                    title: NSLocalizedString("analysis.verified_domain.title", comment: ""),
+                    severity: .low,
+                    icon: "checkmark.seal.fill",
+                    description: NSLocalizedString("analysis.verified_domain.desc", comment: ""),
+                    technicalDetail: nil,
+                    isExpanded: true
+                ))
+            } else {
+                breakdowns.append(AttackBreakdown(
+                    title: NSLocalizedString("analysis.safe.title", comment: ""),
+                    severity: .low,
+                    icon: "checkmark.shield.fill",
+                    description: NSLocalizedString("analysis.safe.desc", comment: ""),
+                    technicalDetail: nil,
+                    isExpanded: true
+                ))
+            }
+        }
+        
+        attackBreakdowns = breakdowns
     }
     
     private func blockAndReport() {

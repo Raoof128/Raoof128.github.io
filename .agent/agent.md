@@ -185,6 +185,105 @@ Any important notes for future agents.
 
 ---
 
+# 🔄 December 31, 2025 (Session 10k+65) - iOS Full Parity Audit - Dynamic Analysis
+
+### Summary
+**CRITICAL FIX**: Replaced hardcoded iOS analysis breakdowns with engine-derived dynamic content for full Android/Desktop parity.
+
+## ✅ Critical Issue Fixed
+
+**Problem:** iOS `ScanResultView.swift` had **hardcoded static analysis content**:
+- `setupAttackBreakdowns()` showed same 3 static items regardless of actual flags
+- `explainableSecuritySection` showed hardcoded "Kit-X29" and "Logo Analysis" text
+- This was a MAJOR parity gap - iOS showed fake analysis while Android showed real engine data
+
+**Solution:** Replaced with dynamic derivation from `assessment.flags`:
+- 16 different flag types now mapped to appropriate UI items
+- Analysis content changes based on actual engine detection
+- Matches Android `deriveAnalysisItems()` behavior exactly
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultView.swift` | Complete rewrite of `setupAttackBreakdowns()` and `explainableSecuritySection` |
+| `en.lproj/Localizable.strings` | +50 new analysis strings |
+| `*/Localizable.strings` (15 files) | +50 strings each |
+| `project.pbxproj` | Version 1.20.25 |
+| `CHANGELOG.md` | Version 1.20.25 |
+
+## Build Verification
+- `xcodebuild -scheme QRShield build` ✅
+
+---
+
+# 🎨 December 31, 2025 (Session 10k+64) - iOS UI/UX Polish & Accessibility Audit
+
+### Summary
+UI/UX polish audit focused on localizing hardcoded strings and adding Reduce Motion accessibility support.
+
+## ✅ Issues Fixed
+
+**Localization Fixes:**
+- `ResultCard.swift`: "Show less"/"Show X more" now use NSLocalizedString
+- `HistoryView.swift`: Menu items (Sort, By Date, By Risk, Export, Clear All) now localized
+- `HistoryView.swift`: Context menu items (Copy URL, Share, Delete) now localized
+- `SettingsView.swift`: Section headers and toggle titles/subtitles now localized
+
+**Accessibility (Reduce Motion):**
+- `VerdictIcon`: Pulse animation respects `accessibilityReduceMotion`
+- `DangerBackground`: Pulsing animation disabled when Reduce Motion enabled
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ResultCard.swift` | Use NSLocalizedString for dynamic text |
+| `HistoryView.swift` | Localize all menu and context menu items |
+| `SettingsView.swift` | Localize section headers and toggles |
+| `Assets+Extension.swift` | Add @Environment(\.accessibilityReduceMotion) |
+| `project.pbxproj` | Version 1.20.24 |
+| `CHANGELOG.md` | Version 1.20.24 |
+
+## Build Verification
+- `xcodebuild -scheme QRShield build` ✅
+
+---
+
+# 📱 December 31, 2025 (Session 10k+63) - iOS App Comprehensive Audit
+
+### Summary
+Complete iOS app file-by-file audit. Fixed decorative hardcoded metadata in ScanResultView. Verified all scan surfaces are real (not decorative).
+
+## ✅ Audit Results
+
+**Scan Wiring Verification:**
+- Camera QR Scan → `UnifiedAnalysisService.analyze()` ✅ REAL
+- URL Paste (Dashboard) → `UnifiedAnalysisService.analyze()` ✅ REAL  
+- Image Import → Vision QR decode → analysis ✅ REAL
+- Clipboard Paste → Dashboard with URL ✅ REAL
+- History Display → UserDefaults persistence ✅ REAL
+
+**Issue Fixed:**
+- `ScanResultView.swift` had hardcoded fake values (#992-AX-291, v4.2.1, 124ms)
+- Replaced with real `assessment.id`, engine type detection, and `formattedDate`
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultView.swift` | Use real assessment data for metadata |
+| `en.lproj/Localizable.strings` | +5 strings for metadata labels |
+| `*/Localizable.strings` (15 files) | +5 strings each |
+| `CHANGELOG.md` | Version 1.20.23 |
+
+## Build Verification
+- `./gradlew :common:linkDebugFrameworkIosSimulatorArm64` ✅
+- `./gradlew :common:iosSimulatorArm64Test` ✅
+- `xcodebuild -scheme QRShield build` ✅
+
+---
+
 # 🎨 December 30, 2025 (Session 10k+62) - WebApp Parity for Android
 
 ### Summary

@@ -60,17 +60,17 @@ struct HistoryView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     // Sort options
-                    Section("Sort") {
+                    Section(NSLocalizedString("history.sort_menu", comment: "")) {
                         Button {
                             viewModel.sortByDate()
                         } label: {
-                            Label("By Date", systemImage: "calendar")
+                            Label(NSLocalizedString("history.sort.by_date", comment: ""), systemImage: "calendar")
                         }
                         
                         Button {
                             viewModel.sortByRisk()
                         } label: {
-                            Label("By Risk", systemImage: "shield")
+                            Label(NSLocalizedString("history.sort.by_risk", comment: ""), systemImage: "shield")
                         }
                     }
                     
@@ -85,7 +85,7 @@ struct HistoryView: View {
                             showExportedToast = false
                         }
                     } label: {
-                        Label("Export", systemImage: "square.and.arrow.up")
+                        Label(NSLocalizedString("history.export", comment: ""), systemImage: "square.and.arrow.up")
                     }
                     
                     Divider()
@@ -94,7 +94,7 @@ struct HistoryView: View {
                     Button(role: .destructive) {
                         showClearConfirmation = true
                     } label: {
-                        Label("Clear All", systemImage: "trash")
+                        Label(NSLocalizedString("history.clear_all_action", comment: ""), systemImage: "trash")
                     }
                 } label: {
                     Image(systemName: "ellipsis.circle")
@@ -175,10 +175,10 @@ struct HistoryView: View {
             isPresented: $showClearConfirmation,
             titleVisibility: .visible
         ) {
-            Button("Clear All", role: .destructive) {
+            Button(NSLocalizedString("history.clear_all_action", comment: ""), role: .destructive) {
                 viewModel.clearAll()
             }
-            Button("Cancel", role: .cancel) {}
+            Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
         } message: {
             Text(NSLocalizedString("settings.clear_confirm_message", comment: ""))
         }
@@ -242,11 +242,11 @@ struct HistoryView: View {
                                 UIPasteboard.general.string = item.url
                                 SettingsManager.shared.triggerHaptic(.success)
                             } label: {
-                                Label("Copy URL", systemImage: "doc.on.doc")
+                                Label(NSLocalizedString("result.copy_url", comment: ""), systemImage: "doc.on.doc")
                             }
                             
                             ShareLink(item: item.url) {
-                                Label("Share", systemImage: "square.and.arrow.up")
+                                Label(NSLocalizedString("result.share", comment: ""), systemImage: "square.and.arrow.up")
                             }
                             
                             Divider()
@@ -256,7 +256,7 @@ struct HistoryView: View {
                                     viewModel.delete(item)
                                 }
                             } label: {
-                                Label("Delete", systemImage: "trash")
+                                Label(NSLocalizedString("history.delete", comment: ""), systemImage: "trash")
                             }
                         }
                         .transition(.move(edge: .trailing).combined(with: .opacity))
@@ -491,7 +491,7 @@ struct HistoryDetailSheet: View {
                     UIPasteboard.general.string = item.url
                     SettingsManager.shared.triggerHaptic(.success)
                 } label: {
-                    Label("Copy URL", systemImage: "doc.on.doc")
+                    Label(NSLocalizedString("result.copy_url", comment: ""), systemImage: "doc.on.doc")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.glass(color: .brandSecondary))

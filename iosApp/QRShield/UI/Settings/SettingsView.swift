@@ -142,26 +142,26 @@ struct SettingsView: View {
             Section {
                 SettingsToggle(
                     icon: "qrcode.viewfinder",
-                    title: "Auto-scan on launch",
-                    subtitle: "Start scanning immediately when app opens",
+                    title: NSLocalizedString("settings.auto_scan", comment: ""),
+                    subtitle: NSLocalizedString("settings.auto_scan_description", comment: ""),
                     isOn: $autoScan
                 )
                 
                 SettingsToggle(
                     icon: "waveform",
-                    title: "Haptic feedback",
-                    subtitle: "Vibrate on scan results",
+                    title: NSLocalizedString("settings.haptic", comment: ""),
+                    subtitle: NSLocalizedString("settings.haptic_description", comment: ""),
                     isOn: $hapticEnabled
                 )
                 
                 SettingsToggle(
                     icon: "speaker.wave.2",
-                    title: "Sound effects",
-                    subtitle: "Play sounds for alerts",
+                    title: NSLocalizedString("settings.sound", comment: ""),
+                    subtitle: NSLocalizedString("settings.sound_description", comment: ""),
                     isOn: $soundEnabled
                 )
             } header: {
-                sectionHeader("Scanning", icon: "viewfinder")
+                sectionHeader(NSLocalizedString("settings.section.scanning", comment: ""), icon: "viewfinder")
             }
             .listRowBackground(Color.clear)
             
@@ -203,10 +203,10 @@ struct SettingsView: View {
                     SettingsManager.shared.triggerHaptic(.selection)
                 }
             } header: {
-                sectionHeader("Notifications", icon: "bell")
+                sectionHeader(NSLocalizedString("settings.section.notifications", comment: ""), icon: "bell")
             }
             .listRowBackground(Color.clear)
-            .alert("Notifications Disabled", isPresented: $showNotificationDeniedAlert) {
+            .alert(NSLocalizedString("settings.notifications_denied_title", comment: ""), isPresented: $showNotificationDeniedAlert) {
                 Button(NSLocalizedString("common.open_settings", comment: "")) {
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(url)
@@ -221,15 +221,15 @@ struct SettingsView: View {
             Section {
                 SettingsToggle(
                     icon: "moon.fill",
-                    title: "Dark Mode",
-                    subtitle: "Enable dark color scheme",
+                    title: NSLocalizedString("settings.dark_mode", comment: ""),
+                    subtitle: NSLocalizedString("settings.dark_mode_description", comment: ""),
                     isOn: $useDarkMode
                 )
                 
                 SettingsToggle(
                     icon: "sparkles",
-                    title: "Reduce Liquid Glass",
-                    subtitle: "Simplify visual effects for performance",
+                    title: NSLocalizedString("settings.reduce_effects", comment: ""),
+                    subtitle: NSLocalizedString("settings.reduce_effects_description", comment: ""),
                     isOn: $liquidGlassReduced
                 )
                 
@@ -256,7 +256,7 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader("Appearance", icon: "sparkles")
+                sectionHeader(NSLocalizedString("settings.section.appearance", comment: ""), icon: "sparkles")
             } footer: {
                 Text(NSLocalizedString("settings.liquid_glass_footer", comment: ""))
                     .font(.caption2)

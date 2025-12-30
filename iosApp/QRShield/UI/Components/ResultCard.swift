@@ -244,8 +244,8 @@ struct ResultCard: View {
                 } label: {
                     HStack {
                         Text(showingFullFlags
-                             ? "Show less"
-                             : String(format: "Show %d more...", assessment.flags.count - 3)
+                             ? NSLocalizedString("result.show_less", comment: "")
+                             : String(format: NSLocalizedString("result.show_more", comment: ""), assessment.flags.count - 3)
                         )
                             .font(.caption)
                             .foregroundColor(.brandPrimary)
