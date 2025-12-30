@@ -1,12 +1,44 @@
 # Desktop App UI/UX Audit Changelog
 
 **Module**: `desktopApp`  
-**Date**: December 26, 2025  
-**Version**: 1.17.61  
+**Date**: December 30, 2025  
+**Version**: 1.20.6  
 
 ---
 
-## Summary
+## Summary (Latest Update - 2025-12-30 15:35 AEDT)
+
+Fixed PDF export, removed decorative Technical/Simple toggle, improved Threat Database UI, and added webapp-style keyboard shortcuts.
+
+### Latest Changes
+
+| Issue | Fix |
+|-------|-----|
+| PDF export broken | Changed to `.html` format (can print to PDF from browser) |
+| Technical/Simple toggle decorative | Removed from ResultSafeScreen and ResultDangerousScreen |
+| Check for Updates button ugly | Styled with primary color, improved spacing |
+| Threat Database text scrambled | Fixed KeyValueRow with proper padding and font sizing |
+| Missing simple keyboard shortcuts | Added S, D, H, T, G, ? shortcuts (parity with webapp) |
+
+### Keyboard Shortcuts (Webapp Parity)
+
+| Key | Action |
+|-----|--------|
+| `S` | Start Scanner (Live Scan) |
+| `D` | Dashboard |
+| `H` | Scan History |
+| `T` | Trust Centre |
+| `G` | Beat the Bot (Training) |
+| `?` | Show Help (Shift+/) |
+| `Escape` | Go Back / Close Modals |
+| `Cmd/Ctrl+V` | Paste & Analyze |
+| `Cmd/Ctrl+I` | Import Image |
+| `Cmd/Ctrl+,` | Settings |
+| `Cmd/Ctrl+1-4` | Quick Navigation |
+
+---
+
+## Previous Summary (December 26, 2025)
 
 This audit focused on improving desktop UX conventions, specifically around cursor behavior for interactive elements. All changes maintain the existing visual design while enhancing the user experience.
 

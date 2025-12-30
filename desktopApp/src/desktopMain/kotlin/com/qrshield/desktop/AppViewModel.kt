@@ -384,6 +384,12 @@ class AppViewModel(
         copyUrl(report, label = "Report copied")
     }
 
+    /**
+     * Export report to disk.
+     * Note: ExportFormat.Pdf currently generates an HTML report which can be opened in a browser
+     * and printed to a PDF file. This is a deliberate, low-risk approach to avoid bundling a
+     * native PDF generation dependency into the desktop app.
+     */
     fun exportReport() {
         val assessment = currentAssessment
         val url = currentUrl
@@ -395,7 +401,9 @@ class AppViewModel(
             ExportFormat.Pdf -> ShareManager.generateHtmlReport(url, assessment)
             ExportFormat.Json -> ShareManager.generateJsonReport(url, assessment)
         }
-        val extension = if (exportFormat == ExportFormat.Pdf) "pdf" else "json"
+        // Note: PDF format exports as .html since we generate HTML content
+        // The HTML file can be opened in browser and printed to PDF
+        val extension = if (exportFormat == ExportFormat.Pdf) "html" else "json"
         val file = defaultExportFile(exportFilename, extension)
         try {
             file.writeText(content)

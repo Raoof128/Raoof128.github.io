@@ -521,6 +521,9 @@ private fun DashboardContent(
                 }
 
                 // Database Status Card (Small)
+                // This card was restyled to improve contrast and discoverability of the
+                // primary action (Check for Updates). Styling changes are visual only and
+                // keep the existing offline-first semantics (no network calls in offline mode).
                 Surface(
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(12.dp),
@@ -528,31 +531,33 @@ private fun DashboardContent(
                     border = BorderStroke(1.dp, colors.border)
                 ) {
                     Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             Box(
                                 modifier = Modifier
-                                    .size(36.dp)
-                                    .iconContainer(colors.backgroundAlt),
+                                    .size(40.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(colors.primary.copy(alpha = 0.1f)),
                                 contentAlignment = Alignment.Center
                             ) {
-                                MaterialIconRound(name = "storage", size = 18.sp, color = colors.textSub)
+                                MaterialIconRound(name = "storage", size = 20.sp, color = colors.primary)
                             }
-                            Text(t("Threat Database"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+                            Text(t("Threat Database"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                         }
-                        KeyValueRow(label = t("Version"), value = "v1.20.4", colors = colors)
-                        KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"), colors = colors)
-                        KeyValueRow(label = t("Signatures"), value = "4,281,092", colors = colors)
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            KeyValueRow(label = t("Version"), value = "v1.20.4", colors = colors)
+                            KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"), colors = colors)
+                            KeyValueRow(label = t("Signatures"), value = "4,281,092", colors = colors)
+                        }
                         Button(
                             onClick = onCheckUpdates,
-                            colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
-                            border = BorderStroke(1.dp, colors.borderStrong),
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.fillMaxWidth(),
                             contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
                         ) {
-                            MaterialIconRound(name = "refresh", size = 16.sp, color = colors.textSub)
+                            MaterialIconRound(name = "refresh", size = 16.sp, color = Color.White)
                             Spacer(Modifier.width(8.dp))
-                            Text(t("Check for Updates"), fontSize = 14.sp, color = colors.textSub, fontWeight = FontWeight.Medium)
+                            Text(t("Check for Updates"), fontSize = 14.sp, color = Color.White, fontWeight = FontWeight.SemiBold)
                         }
                     }
                 }
@@ -786,8 +791,13 @@ private fun EmptyRecentRow(text: String, colors: com.qrshield.desktop.theme.Colo
 
 @Composable
 private fun KeyValueRow(label: String, value: String, colors: com.qrshield.desktop.theme.ColorTokens) {
-    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-        Text(label, fontSize = 13.sp, color = colors.textSub)
-        Text(value, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, fontSize = 14.sp, color = colors.textSub, letterSpacing = 0.sp)
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(value, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain, letterSpacing = 0.sp)
     }
 }

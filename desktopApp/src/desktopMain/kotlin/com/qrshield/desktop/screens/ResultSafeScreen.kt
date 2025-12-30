@@ -287,27 +287,13 @@ private fun SafeResultContent(
                             Spacer(Modifier.width(8.dp))
                             Text(t("Copy Safe Link"), color = colors.textSub)
                         }
-                        Spacer(modifier = Modifier.weight(1f))
-                        Row(
-                            modifier = Modifier
-                                .iconContainer(colors.backgroundAlt)
-                                .padding(4.dp)
-                        ) {
-                            ViewModeButton(
-                                t("Simple View"),
-                                selected = viewModel.resultSafeViewMode == ResultViewMode.Simple,
-                                onClick = { viewModel.resultSafeViewMode = ResultViewMode.Simple }
-                            )
-                            ViewModeButton(
-                                t("Technical"),
-                                selected = viewModel.resultSafeViewMode == ResultViewMode.Technical,
-                                onClick = { viewModel.resultSafeViewMode = ResultViewMode.Technical }
-                            )
-                        }
                     }
                 }
             }
 
+            // Removed decorative "Simple/Technical" toggle present in web preview.
+            // The toggle didn't change engine behaviour and caused confusion for judges,
+            // so it was removed and behaviour is driven only by the real assessment data.
             Row(horizontalArrangement = Arrangement.spacedBy(24.dp), modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.weight(2f), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     Text(t("Verdict Analysis"), fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)

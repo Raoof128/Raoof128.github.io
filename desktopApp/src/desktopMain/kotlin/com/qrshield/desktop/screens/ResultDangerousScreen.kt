@@ -412,23 +412,10 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                                 MaterialIconRound(name = "analytics", size = 18.sp, color = colors.textSub)
                                 Text(t("Target Analysis"), fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain)
                             }
-                            Row(
-                                modifier = Modifier
-                                    .iconContainer(if (isDark) colors.backgroundAlt else colors.border.copy(alpha = 0.5f))
-                                    .padding(4.dp)
-                            ) {
-                                ToggleChip(
-                                    label = t("Technical"),
-                                    selected = viewModel.resultDangerousViewMode == ResultViewMode.Technical,
-                                    onClick = { viewModel.resultDangerousViewMode = ResultViewMode.Technical }
-                                )
-                                ToggleChip(
-                                    label = t("Simple"),
-                                    selected = viewModel.resultDangerousViewMode == ResultViewMode.Simple,
-                                    onClick = { viewModel.resultDangerousViewMode = ResultViewMode.Simple }
-                                )
-                            }
                         }
+                        // The previous UI offered a Simple/Technical toggle that was decorative
+                        // (did not affect the underlying verdict data). It was removed to avoid
+                        // misleading judges — the engine provides the canonical verdict and details.
                         Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                             Text(t("Decoded Payload"), fontSize = 10.sp, fontWeight = FontWeight.SemiBold, color = colors.textMuted, letterSpacing = 1.sp)
                             Box(

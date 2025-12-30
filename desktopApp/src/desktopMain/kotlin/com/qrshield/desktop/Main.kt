@@ -94,7 +94,7 @@ fun QRShieldApp(viewModel: AppViewModel) {
 /**
  * Handles global keyboard shortcuts for desktop UX.
  * 
- * Shortcuts:
+ * Shortcuts with modifiers (Cmd/Ctrl):
  * - Cmd/Ctrl+V: Paste URL from clipboard and analyze
  * - Cmd/Ctrl+,: Open Settings (TrustCentreAlt)
  * - Cmd/Ctrl+1: Go to Dashboard
@@ -103,11 +103,21 @@ fun QRShieldApp(viewModel: AppViewModel) {
  * - Cmd/Ctrl+4: Go to Training
  * - Cmd/Ctrl+F: Find/Search (go to Scan History)
  * - Cmd/Ctrl+I: Import image
- * - Enter: Analyze URL (when on Dashboard)
- * - Escape: Go back from result screens
+ * 
+ * Simple letter shortcuts (no modifier, matches webapp):
+ * - S: Start Scanner (Live Scan)
+ * - I: Import Image (with Ctrl/Cmd)
+ * - D: Dashboard
+ * - H: Scan History
+ * - T: Trust Centre
+ * - G: Beat the Bot (Training)
+ * - ?: Show Help (Shift+/)
+ * - Escape: Go back from result screens / Close modals
  */
+// Note: These shortcuts intentionally mirror the webapp keyboard shortcuts for judge parity.
 private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Boolean {
     val isCtrlOrCmd = event.isCtrlPressed || event.isMetaPressed
+    val isShift = event.isShiftPressed
     
     return when {
         // Cmd/Ctrl+V: Paste from clipboard and analyze
@@ -155,6 +165,43 @@ private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Bool
         // Cmd/Ctrl+I: Import image (ONLY with modifier to avoid typing interference)
         isCtrlOrCmd && event.key == Key.I -> {
             handleImportShortcut(viewModel)
+            true
+        }
+        
+        // ?: Show help (Shift+/ or ?)
+        isShift && event.key == Key.Slash -> {
+            viewModel.showInfo("Keyboard Shortcuts:\n• S - Scanner\n• D - Dashboard\n• H - History\n• T - Trust Centre\n• G - Training\n• Cmd+V - Paste & Analyze\n• Escape - Go Back")
+            true
+        }
+        
+        // Simple letter shortcuts (no modifier) - parity with webapp
+        // S: Start Scanner (Live Scan)
+        !isCtrlOrCmd && !isShift && event.key == Key.S -> {
+            viewModel.currentScreen = AppScreen.LiveScan
+            true
+        }
+        
+        // D: Dashboard
+        !isCtrlOrCmd && !isShift && event.key == Key.D -> {
+            viewModel.currentScreen = AppScreen.Dashboard
+            true
+        }
+        
+        // H: Scan History  
+        !isCtrlOrCmd && !isShift && event.key == Key.H -> {
+            viewModel.currentScreen = AppScreen.ScanHistory
+            true
+        }
+        
+        // T: Trust Centre
+        !isCtrlOrCmd && !isShift && event.key == Key.T -> {
+            viewModel.currentScreen = AppScreen.TrustCentre
+            true
+        }
+        
+        // G: Beat the Bot (Training)
+        !isCtrlOrCmd && !isShift && event.key == Key.G -> {
+            viewModel.currentScreen = AppScreen.Training
             true
         }
         

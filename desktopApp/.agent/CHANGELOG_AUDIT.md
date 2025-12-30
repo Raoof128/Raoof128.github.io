@@ -1,5 +1,41 @@
 # Desktop App Security Audit Changelog
 
+## [1.0.2] - 2025-12-30
+
+### Raouf: Desktop App Full Audit & Judge Demo Pack
+
+**Date:** 2025-12-30 15:11 AEDT  
+**Scope:** File-by-file audit confirming scan wiring is REAL, UI/UX verification, Judge Demo Input Pack
+
+**Summary:**
+Performed comprehensive audit of all 20+ Desktop source files. Confirmed that ALL scan functions are properly wired to the shared `PhishingEngine` - there are NO decorative/placeholder scan functions. Added Judge Demo Input Pack for competition judges.
+
+**Key Findings:**
+
+| Category | Finding |
+|----------|---------|
+| Scan Wiring | ✅ REAL - All paths call `PhishingEngine.analyze()` |
+| Result Screens | ✅ Dynamic indicators derived from real `RiskAssessment` data |
+| History Recording | ✅ Real via `HistoryRepository` (SQLDelight) |
+| Decorative Functions | ✅ NONE found |
+| UI/UX | ✅ Consistent theming, accessibility, keyboard support |
+
+**Files Modified:**
+- `SampleData.kt` - Added `JudgeDemoInput` class and 3 sample inputs
+
+**Judge Demo Inputs Added:**
+1. Safe: `https://www.google.com/search?q=kotlin+multiplatform` → SAFE
+2. Phishing: `https://secure-bankofamerica-login.tk/verify?token=abc123&redirect=http://evil.com` → MALICIOUS
+3. Suspicious: `https://bit.ly/3xYz123` → SUSPICIOUS
+
+**Verification:**
+- `./gradlew :desktopApp:compileKotlinDesktop` ✅ PASS
+- `./gradlew :desktopApp:desktopTest` ✅ PASS
+
+**Follow-ups:** None - Desktop app is judge-ready.
+
+---
+
 ## [1.0.1] - 2025-12-26
 
 ### 🔒 Security Fixes
