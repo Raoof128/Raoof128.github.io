@@ -352,23 +352,22 @@ private fun DashboardContent(
                                         androidx.compose.foundation.text.BasicTextField(
                                             value = urlInput,
                                             onValueChange = { urlInput = it },
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .onKeyEvent { event ->
-                                                    if (event.type == KeyEventType.KeyDown && event.key == Key.Enter) {
-                                                        if (urlInput.isNotBlank()) {
-                                                            onAnalyzeUrl(urlInput)
-                                                            urlInput = ""
-                                                        }
-                                                        true
-                                                    } else false
-                                                },
+                                            modifier = Modifier.fillMaxWidth(),
                                             singleLine = true,
                                             textStyle = androidx.compose.ui.text.TextStyle(
                                                 color = colors.textMain,
                                                 fontSize = 14.sp
                                             ),
-                                            cursorBrush = androidx.compose.ui.graphics.SolidColor(colors.primary)
+                                            cursorBrush = androidx.compose.ui.graphics.SolidColor(colors.primary),
+                                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
+                                            keyboardActions = KeyboardActions(
+                                                onGo = {
+                                                    if (urlInput.isNotBlank()) {
+                                                        onAnalyzeUrl(urlInput)
+                                                        urlInput = ""
+                                                    }
+                                                }
+                                            )
                                         )
                                     }
                                     Spacer(Modifier.width(16.dp))
