@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.20.3`** (as of December 30, 2025)
+**Current App Version: `1.20.4`** (as of December 30, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,72 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🔍 December 30, 2025 (Session 10k+57) - Desktop App File-by-File Audit
+
+### Summary
+Comprehensive audit of Desktop app to verify all scan wiring is real (not decorative), identify issues, and create judge-proof demo input pack.
+
+## ✅ Audit Results
+
+| Category | Status | Evidence |
+|----------|--------|----------|
+| **Scan Wiring** | ✅ REAL | `AppViewModel.analyzeUrl()` → `PhishingEngine.analyze()` |
+| **QR Decoding** | ✅ REAL | `DesktopQrScanner` uses ZXing `MultiFormatReader` |
+| **History Recording** | ✅ REAL | `HistoryRepository` + SQLDelight persistence |
+| **TODO/FIXME stubs** | ✅ NONE | 0 occurrences found |
+| **Debug statements** | ✅ NONE | 0 `println` or `console.log` |
+| **Decorative functions** | ✅ NONE | All UI buttons wired to real logic |
+
+## 📁 Files Audited
+
+| File | Purpose | Issues Found |
+|------|---------|---------------|
+| `Main.kt` | Entry point, window config, keyboard shortcuts | ✅ None |
+| `AppViewModel.kt` | State management, scan orchestration | ✅ None |
+| `LiveScanScreen.kt` | QR scan UI, drag/drop, file picker | ✅ None |
+| `ResultSafeScreen.kt` | Safe verdict display | ✅ None |
+| `DesktopQrScanner.kt` | ZXing QR decode implementation | ✅ None |
+| `PhishingEngine.kt` | Shared core detection logic | ✅ None |
+
+## 🔗 Scan Pipeline Trace
+
+```
+1. User pastes URL (Cmd+V) or uploads image (Cmd+I)
+2. AppViewModel.analyzeUrl(url, source) called
+3. InputValidator.validateUrl() sanitizes input
+4. DesktopScanState.Analyzing(url) - UI shows spinner
+5. PhishingEngine.analyze(url) - REAL shared engine
+   ├── HeuristicsEngine.analyze() - 25+ rules
+   ├── BrandDetector.detect() - 500+ brands
+   ├── TldScorer.score() - TLD risk
+   └── EnsembleModel.predict() - ML inference
+6. RiskAssessment returned with score, verdict, flags
+7. VerdictEngine.enrich() adds explanation
+8. Navigate to ResultSafe/Suspicious/Dangerous screen
+9. HistoryManager.recordScan() persists to SQLDelight DB
+10. Notification added to panel
+```
+
+## 📦 Judge Demo Input Pack Created
+
+**File:** `desktopApp/.agent/JUDGE_DEMO_INPUT_PACK.md`
+
+| Input | URL | Expected Verdict |
+|-------|-----|------------------|
+| 1 (Benign) | `https://www.google.com/search` | ✅ SAFE |
+| 2 (Phishing) | `http://secure-login.paypa1-verify.com/update/credentials` | 🔴 MALICIOUS |
+| 3 (Suspicious) | `https://bit.ly/secure-doc-verify` | ⚠️ SUSPICIOUS |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop :common:desktopTest
+# BUILD SUCCESSFUL in 10s ✅
+# 13 actionable tasks: 4 executed, 3 from cache, 6 up-to-date
+```
 
 ---
 
