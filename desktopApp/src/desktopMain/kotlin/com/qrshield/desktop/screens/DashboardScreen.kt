@@ -544,9 +544,9 @@ private fun DashboardContent(
                             Text(t("Threat Database"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                            KeyValueRow(label = t("Version"), value = "v1.20.4", colors = colors)
-                            KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"), colors = colors)
-                            KeyValueRow(label = t("Signatures"), value = "4,281,092", colors = colors)
+                            KeyValueRow(label = t("Version"), value = "2025.12.29", colors = colors)
+                            KeyValueRow(label = t("Last Update"), value = t("Local bundle"), colors = colors)
+                            KeyValueRow(label = t("Patterns"), value = t("Active"), colors = colors)
                         }
                         Button(
                             onClick = onCheckUpdates,
@@ -756,7 +756,7 @@ private fun RecentScanRow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MaterialIconRound(name = if (statusLabel == "SAFE") "check_circle" else "warning", size = 14.sp, color = statusColor)
-                Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor, maxLines = 1, softWrap = false)
+                Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
         }
         Spacer(modifier = Modifier.width(8.dp))

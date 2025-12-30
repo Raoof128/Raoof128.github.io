@@ -4,6 +4,36 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.7] - 2025-12-30
+
+### Raouf: Desktop App UI Polish - Round 2 (2025-12-30 15:57 AEDT)
+
+**Scope:** Fix fake metrics, text cutoff, and Threat Database display
+
+**Issues Fixed:**
+
+| # | Issue | Fix |
+|---|-------|-----|
+| 1 | **Scan History fake zeros** | Removed hardcoded delta/trend indicators (0%, 0) from MetricCards |
+| 2 | **Text cutoff on resize** | Changed PHISHING label from `softWrap=false` to `overflow=TextOverflow.Ellipsis` |
+| 3 | **Threat Database fake data** | Updated to real values: version 2025.12.29, "Local bundle", "Active" |
+| 4 | **Block Access / Report buttons** | Verified ALREADY WORKING: Block → `addBlocklistDomain()`, Report → `shareTextReport()` |
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `ScanHistoryScreen.kt` | Simplified MetricCard - removed fake delta/trend indicators |
+| `DashboardScreen.kt` | Fixed text overflow, updated Threat Database to real values |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.6] - 2025-12-30
 
 ### Raouf: Desktop App UI/UX Fixes & Keyboard Shortcuts Parity (2025-12-30 15:35 AEDT)
