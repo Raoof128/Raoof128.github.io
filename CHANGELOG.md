@@ -40,10 +40,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 | `threat.html` | Removed `?v=3` from CSS link that broke offline caching |
 | `game.html` | Removed `?v=3` from CSS link that broke offline caching |
 | `export.html` | Removed `?v=2` from CSS link that broke offline caching |
+| `threat.js` | Blue "No Activity" hero + history empty state + **auto-reload UI after Clear All** |
+| `threat.css` | Added `.threat-hero.info` and `.history-empty.blue` styling with blue gradient |
 | `dashboard.js` | Removed Google favicon API, replaced with local Material icon |
 | `fonts.css` | Added `color: transparent` on icons until `fonts-loaded` class is applied |
 | `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |
-| `threat.js` | Added `threatIcon` dynamic update + `removeAttribute('data-i18n')` for title/badge/description |
 | `shared-ui.js` | Added URL normalization + duplicate detection (10-second window) in `addScanToHistory()` |
 | All 8 HTML files | Added `<meta name="mobile-web-app-capable" content="yes" />` |
 

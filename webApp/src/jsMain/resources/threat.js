@@ -108,10 +108,10 @@ const ThreatLevels = {
         description: 'No security threats were detected. The QR code leads to a verified safe destination.',
     },
     UNKNOWN: {
-        title: 'NO DATA AVAILABLE',
-        badge: 'No Data',
-        badgeClass: 'unknown',
-        icon: 'help_outline',
+        title: 'No Activity',
+        badge: 'Awaiting Scan',
+        badgeClass: 'info',
+        icon: 'schedule',
         description: 'No scan data available. Please scan a QR code or enter a URL to analyze.',
     },
 };
@@ -199,7 +199,23 @@ function setupEventListeners() {
         clearHistoryBtn.addEventListener('click', () => {
             if (window.QRShieldUI) {
                 window.QRShieldUI.clearScanHistory();
+
+                // Reset threat data to unknown (no activity)
+                ThreatState.threatData = {
+                    url: '',
+                    score: 0,
+                    verdict: 'UNKNOWN',
+                    scanId: '',
+                    timestamp: Date.now(),
+                    attacks: [],
+                    isDemo: false,
+                };
+
+                // Re-render the entire UI
+                renderUI();
                 renderScanHistory();
+                renderAttackCards();
+
                 showToast('Scan history cleared', 'success');
             }
         });
@@ -326,7 +342,7 @@ function renderUI() {
     // Update hero section color class
     if (elements.threatHero) {
         // Remove all state classes
-        elements.threatHero.classList.remove('safe', 'warning', 'caution', 'danger');
+        elements.threatHero.classList.remove('safe', 'warning', 'caution', 'danger', 'info');
 
         // Add appropriate class based on verdict
         switch (data.verdict) {
@@ -338,6 +354,9 @@ function renderUI() {
                 break;
             case 'LOW':
                 elements.threatHero.classList.add('caution');
+                break;
+            case 'UNKNOWN':
+                elements.threatHero.classList.add('info');
                 break;
             case 'HIGH':
             default:
@@ -586,12 +605,12 @@ function renderScanHistory() {
 
     if (history.length === 0) {
         historyContainer.innerHTML = `
-            <div class="history-empty">
-                <span class="material-symbols-outlined">history</span>
-                <p>No scans yet. Scan a QR code to see it here.</p>
+            <div class="history-empty blue">
+                <span class="material-symbols-outlined">schedule</span>
+                <p>No Activity</p>
+                <span class="empty-hint">Scan a QR code to see your activity here</span>
             </div>
         `;
-        window.qrshieldApplyTranslations?.(historyContainer);
         return;
     }
 

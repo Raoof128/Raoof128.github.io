@@ -188,13 +188,14 @@ Any important notes for future agents.
 # 🔧 December 30, 2025 (Session 10k+55) - WebApp Bug Fixes + 100% Offline Mode
 
 ### Summary
-Fixed NINE issues to enable 100% offline functionality. Critical fix: SW v2.15.0 now uses absolute URLs based on registration scope to fix cache path mismatch that caused pages to load as raw HTML.
+Fixed TEN issues to enable 100% offline functionality. Critical fixes: SW v2.17.0 now strips query strings for cache matching and caches with both absolute/relative URLs. Also added "No Activity" blue empty state for scan history.
 
 ## ✅ 100% Offline Mode Verified
 - ✅ No external API calls (removed Google favicon API)
 - ✅ No CDN dependencies (all fonts/icons local)
-- ✅ All 66 static assets cached with absolute URLs on install
+- ✅ All 50 static assets cached with dual URLs (absolute + relative)
 - ✅ Cache-first strategy (stale-while-revalidate)
+- ✅ Query string handling (file.css?v=2 → file.css)
 - ✅ Phishing detection engine runs 100% client-side
 
 ## ✅ Issues Fixed
@@ -209,17 +210,22 @@ Fixed NINE issues to enable 100% offline functionality. Critical fix: SW v2.15.0
 | 6 | Deprecated meta tag warning | Missing `mobile-web-app-capable` | Added to all 8 HTML files |
 | 7 | Training/Report pages not offline | Network-first strategy | Changed to cache-first |
 | 8 | Google Favicon API blocking offline | External `google.com/s2/favicons` call | Replaced with local Material icon |
-| 9 | **⚠️ CRITICAL: Pages loading as raw HTML offline** | Cache path mismatch (./file vs /file) | **SW v2.15.0**: Absolute URLs via `self.registration.scope` |
+| 9 | **CSS not loading offline (threat, game, export)** | Query strings `?v=X` on CSS links | Removed query strings + SW strips them for matching |
+| 10 | **Empty state was red/plain instead of blue** | UNKNOWN verdict used red styling | Changed to blue "No Activity" with `.info` class |
 
 ### Files Modified
 
 | File | Change |
 |------|--------|
-| `sw.js` | **v2.15.0** - CRITICAL: Uses absolute URLs via `self.registration.scope` for proper cache matching |
+| `sw.js` | **v2.17.0** - Dual URL caching, query string stripping, extensive debug logging |
+| `threat.html` | Removed `?v=3` from CSS link |
+| `game.html` | Removed `?v=3` from CSS link |
+| `export.html` | Removed `?v=2` from CSS link |
+| `threat.js` | Blue "No Activity" hero + history + **auto-reload UI after Clear All** |
+| `threat.css` | Added `.threat-hero.info` and `.history-empty.blue` styling |
 | `dashboard.js` | Removed Google favicon API, replaced with local icon |
 | `fonts.css` | Added `color: transparent` + `.fonts-loaded` reveal for icons |
 | `transitions.js` | Added `detectIconFontLoaded()` using Font Loading API |
-| `threat.js` | Added `threatIcon` element + `removeAttribute('data-i18n')` for dynamic text |
 | `shared-ui.js` | Added URL normalization + duplicate detection in `addScanToHistory()` |
 | All 8 HTML files | Added `<meta name="mobile-web-app-capable" content="yes" />` |
 

@@ -744,6 +744,40 @@ html {
     box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
 
+/* Threat hero - INFO (No Activity - blue, lighter) */
+.threat-hero.info {
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.15);
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%);
+}
+
+.threat-hero.info .hero-blur {
+    background-color: rgba(59, 130, 246, 0.15);
+}
+
+.threat-hero.info .threat-icon {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-color: rgba(59, 130, 246, 0.25);
+}
+
+.threat-hero.info .threat-icon .material-symbols-outlined {
+    color: #3b82f6;
+}
+
+.threat-hero.info .threat-badge {
+    background-color: #3b82f6;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.threat-hero.info .score-value {
+    color: #3b82f6;
+}
+
+.threat-hero.info .progress-fill {
+    background-color: #3b82f6;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
 .hero-blur {
     position: absolute;
     right: -5rem;
@@ -1074,7 +1108,37 @@ html {
 }
 
 .history-empty p {
-    font-size: 0.875rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.history-empty .empty-hint {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-top: var(--space-2);
+    opacity: 0.7;
+}
+
+/* Blue variant for "No Activity" state */
+.history-empty.blue {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.02) 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.history-empty.blue .material-symbols-outlined {
+    color: #3b82f6;
+    opacity: 0.8;
+}
+
+.history-empty.blue p {
+    color: #3b82f6;
+}
+
+.history-empty.blue .empty-hint {
+    color: #60a5fa;
+    opacity: 0.8;
 }
 
 /* Light mode overrides for history section */
@@ -1157,6 +1221,32 @@ body.light .history-empty {
 html.light .history-empty .material-symbols-outlined,
 body.light .history-empty .material-symbols-outlined {
     color: #94a3b8 !important;
+}
+
+/* Blue empty state keeps blue colors in light mode */
+[data-theme="light"] .history-empty.blue,
+html.light .history-empty.blue,
+body.light .history-empty.blue {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0.03) 100%) !important;
+    border-color: rgba(59, 130, 246, 0.2) !important;
+}
+
+[data-theme="light"] .history-empty.blue .material-symbols-outlined,
+html.light .history-empty.blue .material-symbols-outlined,
+body.light .history-empty.blue .material-symbols-outlined {
+    color: #2563eb !important;
+}
+
+[data-theme="light"] .history-empty.blue p,
+html.light .history-empty.blue p,
+body.light .history-empty.blue p {
+    color: #2563eb !important;
+}
+
+[data-theme="light"] .history-empty.blue .empty-hint,
+html.light .history-empty.blue .empty-hint,
+body.light .history-empty.blue .empty-hint {
+    color: #3b82f6 !important;
 }
 
 /* ==========================================================================
