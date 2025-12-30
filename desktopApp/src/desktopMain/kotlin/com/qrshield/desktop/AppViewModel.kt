@@ -438,7 +438,7 @@ class AppViewModel(
         val file = defaultExportFile("scan_history", "csv")
         try {
             file.writeText(csv)
-            setMessage(tf("Saved CSV to %s", file.name), MessageKind.Success)
+            showExportSuccess(file.name)
         } catch (e: IOException) {
             setError("Failed to save CSV", updateScanState = false)
         }
@@ -573,6 +573,19 @@ class AppViewModel(
 
     // Clear Scan History (parity with Web app shared-ui.js clearScanHistory)
     var showClearHistoryConfirmation by mutableStateOf(false)
+    
+    // Export Success Dialog
+    var showExportSuccessDialog by mutableStateOf(false)
+    var lastExportedFileName by mutableStateOf("")
+    
+    fun showExportSuccess(fileName: String) {
+        lastExportedFileName = fileName
+        showExportSuccessDialog = true
+    }
+    
+    fun dismissExportSuccessDialog() {
+        showExportSuccessDialog = false
+    }
 
     fun showClearHistoryDialog() {
         showClearHistoryConfirmation = true

@@ -4,6 +4,37 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.9] - 2025-12-30
+
+### Raouf: Desktop App UI Polish - Round 4 (2025-12-30 16:26 AEDT)
+
+**Scope:** Add Help button to sidebar, fix Export CSV popup, wire up onHelpClick across all screens
+
+**Issues Fixed:**
+
+| # | Issue | Fix |
+|---|-------|-----|
+| 1 | **Help button in sidebar** | Added "Help & Shortcuts" item to AppSidebar with onHelpClick callback |
+| 2 | **Export CSV popup** | Added success dialog (matches Clear History style) instead of silent export |
+| 3 | **onHelpClick wiring** | Added onHelpClick to all 11 screens that use AppSidebar |
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `ui/AppSidebar.kt` | Added onHelpClick parameter and Help & Shortcuts sidebar item |
+| `AppViewModel.kt` | Added showExportSuccessDialog state and functions |
+| `ScanHistoryScreen.kt` | Added Export Success dialog |
+| All 11 screen files | Added `onHelpClick = { viewModel.openHelpDialog() }` to AppSidebar |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.8] - 2025-12-30
 
 ### Raouf: Desktop App UI Polish - Round 3 (2025-12-30 16:15 AEDT)

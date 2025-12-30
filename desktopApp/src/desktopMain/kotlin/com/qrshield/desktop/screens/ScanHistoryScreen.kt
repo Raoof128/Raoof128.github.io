@@ -68,6 +68,7 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
                     onProfileClick = { viewModel.toggleProfileDropdown() },
+                    onHelpClick = { viewModel.openHelpDialog() },
                     userName = viewModel.userName,
                     userRole = viewModel.userRole,
                     userInitials = viewModel.userInitials
@@ -92,6 +93,20 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                 cancelText = "Cancel",
                 isDangerous = true,
                 icon = "delete_forever",
+                language = language
+            )
+            
+            // Export Success Dialog
+            ConfirmationDialog(
+                isVisible = viewModel.showExportSuccessDialog,
+                onDismiss = { viewModel.dismissExportSuccessDialog() },
+                onConfirm = { viewModel.dismissExportSuccessDialog() },
+                title = "Export Complete",
+                message = "Scan history exported successfully to: ${viewModel.lastExportedFileName}",
+                confirmText = "OK",
+                cancelText = "",
+                isDangerous = false,
+                icon = "check_circle",
                 language = language
             )
             
