@@ -45,7 +45,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "QRShield"
-            packageVersion = "1.0.0"
+            packageVersion = "1.2.0"
             
             macOS {
                 bundleID = "com.qrshield.desktop"

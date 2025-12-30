@@ -176,3 +176,15 @@ After making changes:
 **Judge Impact:** Security +5, Reliability +3 (prevents DoS and file system attacks)
 
 **Verification:** `./gradlew :desktopApp:compileKotlinDesktop` ✅
+
+---
+
+## Raouf: Hotkey Fix & Version Sync (2025-12-30 17:06 AEDT)
+
+**Scope:** Fix keyboard hotkeys interfering with text input, sync hardcoded versions
+
+**Changes:**
+- `Main.kt`: Changed letter shortcuts (S, D, H, T, G) to require Cmd/Ctrl modifier - prevents typing interference in URL input fields
+- `desktopApp/build.gradle.kts`: Updated packageVersion from 1.0.0 to 1.2.0 to match project version
+
+**Verification:** `./gradlew :desktopApp:compileKotlinDesktop` ✅
