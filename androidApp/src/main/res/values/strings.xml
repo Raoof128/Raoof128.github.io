@@ -288,9 +288,35 @@
     <string name="analysis_domain_age_title">Domain Age Alert</string>
     <string name="analysis_domain_age_desc">Domain created less than 24 hours ago. High likelihood of disposable phishing infrastructure.</string>
     <string name="analysis_redirect_title">Suspicious Redirection</string>
-    <string name="analysis_redirect_desc">URL contains 3 levels of redirection designed to bypass email filters.</string>
+    <string name="analysis_redirect_desc">URL uses redirect chains that may hide the true destination.</string>
     <string name="analysis_db_match_title">Database Match</string>
     <string name="analysis_db_match_desc">Pattern matches known threat signature #4421 from global threat intelligence.</string>
+    
+    <!-- Dynamic Analysis Items - Derived from real engine flags -->
+    <string name="analysis_brand_title">Brand Impersonation</string>
+    <string name="analysis_brand_desc">URL appears to impersonate a well-known brand.</string>
+    <string name="analysis_brand_desc_specific">URL appears to impersonate %1$s.</string>
+    <string name="analysis_homograph_title">Homograph Attack</string>
+    <string name="analysis_homograph_desc">Mixed script characters detected in domain name designed to spoof legitimate brands.</string>
+    <string name="analysis_protocol_title">Insecure Protocol</string>
+    <string name="analysis_protocol_desc">URL uses HTTP instead of HTTPS. Data is not encrypted.</string>
+    <string name="analysis_tld_title">Risky TLD</string>
+    <string name="analysis_tld_desc">Domain uses a top-level domain commonly associated with malicious sites.</string>
+    <string name="analysis_tld_desc_specific">The .%1$s TLD is commonly used for malicious sites.</string>
+    <string name="analysis_ip_host_title">IP Address Host</string>
+    <string name="analysis_ip_host_desc">URL uses an IP address instead of a domain name, which is unusual for legitimate sites.</string>
+    <string name="analysis_subdomain_title">Deep Subdomain</string>
+    <string name="analysis_subdomain_desc">URL has an unusual number of subdomains, which can be used to mislead users.</string>
+    <string name="analysis_credential_title">Credential Harvesting</string>
+    <string name="analysis_credential_desc">URL path or parameters suggest credential harvesting activity.</string>
+    <string name="analysis_long_url_title">Excessive URL Length</string>
+    <string name="analysis_long_url_desc">URL is unusually long, which can be used to hide the actual destination.</string>
+    <string name="analysis_scheme_title">Dangerous Scheme</string>
+    <string name="analysis_scheme_desc">URL uses a dangerous scheme that can execute code.</string>
+    <string name="analysis_safe_title">URL Verified Safe</string>
+    <string name="analysis_safe_desc">No security issues detected. This URL appears safe to visit.</string>
+    <string name="analysis_no_issues">No security issues detected.</string>
+    
     <string name="tag_credential_harvesting">Credential Harvesting</string>
     <string name="tag_homograph_attack">Homograph Attack</string>
     <string name="tag_new_domain">New Domain</string>

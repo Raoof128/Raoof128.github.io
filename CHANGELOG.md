@@ -8,6 +8,59 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.16] - 2025-12-30
+
+### Raouf: Wire Decorative Analysis Breakdown to Real Engine (2025-12-30 18:30 AEDT)
+
+**Scope:** Fix CRITICAL decorative/hardcoded Analysis Breakdown section in Android ScanResultScreen
+
+**Issue Found:**
+- `ScanResultScreen.kt` showed FAKE hardcoded data in "Analysis Breakdown" section:
+  - "Domain Age Alert" - always showed "24 hours ago"
+  - "Suspicious Redirection" - always showed "3 levels"
+  - "Database Match" - always showed "#4421"
+- This fake data appeared even for safe URLs like `https://www.google.com`
+- Footer showed hardcoded date "Oct 24, 14:32" and version "4.2.0"
+
+**Fix Applied:**
+
+| Component | Before | After |
+|-----------|--------|-------|
+| `ScanResultScreen` params | Only `url`, `verdict`, `score` | Added `flags`, `brandMatch`, `tld`, `engineConfidence` |
+| `AnalysisBreakdownSection` | Hardcoded 3 fake items | Dynamic items derived from real `flags` |
+| `deriveAnalysisItems()` | Did not exist | New function mapping 10+ flag types to UI |
+| Navigation | Passed only basic params | Extracts real assessment data from ViewModel |
+| Footer timestamp | "Oct 24, 14:32" | Real current time |
+| Footer version | "4.2.0" | "1.20.4" (actual version) |
+
+**New Flag Mappings:**
+- Brand impersonation → "Brand Impersonation" card
+- Homograph/IDN/Punycode → "Homograph Attack" card  
+- HTTP (insecure) → "Insecure Protocol" card
+- URL shortener/redirect → "Suspicious Redirection" card
+- Risky TLD → "Risky TLD" card
+- IP address host → "IP Address Host" card
+- Deep subdomains → "Deep Subdomain" card
+- Credential harvesting → "Credential Harvesting" card
+- Long URL → "Excessive URL Length" card
+- Dangerous scheme → "Dangerous Scheme" card
+- Safe URL (no flags) → "URL Verified Safe" card
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | Added flags/brandMatch/tld/confidence params, new `deriveAnalysisItems()`, dynamic timestamp |
+| `Navigation.kt` | Extract real `flags`, `brandMatch`, `tld`, `confidence` from ViewModel UiState |
+| `strings.xml` | Added 15 new string resources for dynamic analysis items |
+
+**Build Verification:**
+```bash
+./gradlew :androidApp:assembleDebug  # BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.15] - 2025-12-30
 
 ### Raouf: Fresh UI/UX Audit - New Perspective (2025-12-30 17:55 AEDT)

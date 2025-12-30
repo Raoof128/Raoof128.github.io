@@ -63,6 +63,11 @@ fun ScanResultScreen(
     url: String = "https://example.com",
     verdict: String = "UNKNOWN",
     score: Int = 0,
+    // Real engine data (not hardcoded!)
+    flags: List<String> = emptyList(),
+    brandMatch: String? = null,
+    tld: String? = null,
+    engineConfidence: Float = 0.8f,
     // Callbacks
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
@@ -84,12 +89,8 @@ fun ScanResultScreen(
         "SAFE" -> stringResource(R.string.threat_type_verified)
         else -> stringResource(R.string.threat_type_unknown)
     }
-    val confidence = when (verdict.uppercase()) {
-        "MALICIOUS" -> 98
-        "SUSPICIOUS" -> 75
-        "SAFE" -> 99
-        else -> 50
-    }
+    // Use real engine confidence instead of hardcoded values
+    val confidence = (engineConfidence * 100).toInt().coerceIn(0, 100)
     val severityScore = score / 10f
     val scrollState = rememberScrollState()
 
@@ -175,16 +176,23 @@ fun ScanResultScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Analysis Breakdown
+                // Analysis Breakdown - REAL engine data, not hardcoded!
                 AnalysisBreakdownSection(
+                    flags = flags,
+                    brandMatch = brandMatch,
+                    tld = tld,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Footer Meta
+                // Footer Meta - Dynamic timestamp
+                val currentTime = remember {
+                    java.text.SimpleDateFormat("MMM dd, HH:mm", java.util.Locale.getDefault())
+                        .format(java.util.Date())
+                }
                 Text(
-                    text = stringResource(R.string.scan_meta_fmt, "Oct 24, 14:32", "4.2.0", stringResource(R.string.scan_mode_offline)),
+                    text = stringResource(R.string.scan_meta_fmt, currentTime, "1.20.4", stringResource(R.string.scan_mode_offline)),
                     style = MaterialTheme.typography.labelSmall.copy(
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 0.5.sp
@@ -747,8 +755,173 @@ private fun UrlDisplayCard(
     }
 }
 
+/**
+ * Data class for analysis item display.
+ * Maps engine flags to UI-friendly representations.
+ */
+private data class AnalysisItemData(
+    val icon: ImageVector,
+    val iconBgColor: Color,
+    val iconColor: Color,
+    val title: String,
+    val description: String
+)
+
+/**
+ * Derives analysis items from REAL engine flags.
+ * Maps security flags to user-friendly UI items - NO hardcoded fake data!
+ */
 @Composable
-private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
+private fun deriveAnalysisItems(
+    flags: List<String>,
+    brandMatch: String?,
+    tld: String?
+): List<AnalysisItemData> {
+    val items = mutableListOf<AnalysisItemData>()
+    val flagsLower = flags.map { it.lowercase() }
+    
+    // Brand impersonation detection
+    if (brandMatch != null || flagsLower.any { it.contains("brand") || it.contains("impersonation") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.VerifiedUser,
+            iconBgColor = QRShieldColors.Red50,
+            iconColor = QRShieldColors.RiskDanger,
+            title = stringResource(R.string.analysis_brand_title),
+            description = if (brandMatch != null) {
+                stringResource(R.string.analysis_brand_desc_specific, brandMatch)
+            } else {
+                stringResource(R.string.analysis_brand_desc)
+            }
+        ))
+    }
+    
+    // IDN Homograph / Mixed script detection
+    if (flagsLower.any { it.contains("homograph") || it.contains("punycode") || it.contains("idn") || it.contains("mixed script") || it.contains("lookalike") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.TextFormat,
+            iconBgColor = QRShieldColors.Red50,
+            iconColor = QRShieldColors.RiskDanger,
+            title = stringResource(R.string.analysis_homograph_title),
+            description = stringResource(R.string.analysis_homograph_desc)
+        ))
+    }
+    
+    // HTTP vs HTTPS check
+    if (flagsLower.any { it.contains("http") && (it.contains("not https") || it.contains("insecure") || it.contains("unencrypted")) }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.LockOpen,
+            iconBgColor = QRShieldColors.Orange50,
+            iconColor = QRShieldColors.Orange600,
+            title = stringResource(R.string.analysis_protocol_title),
+            description = stringResource(R.string.analysis_protocol_desc)
+        ))
+    }
+    
+    // URL Shortener / Redirect detection
+    if (flagsLower.any { it.contains("shortener") || it.contains("shortened") || it.contains("redirect") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.AutoMirrored.Filled.AltRoute,
+            iconBgColor = QRShieldColors.Orange50,
+            iconColor = QRShieldColors.Orange600,
+            title = stringResource(R.string.analysis_redirect_title),
+            description = stringResource(R.string.analysis_redirect_desc)
+        ))
+    }
+    
+    // High-risk TLD
+    if (flagsLower.any { it.contains("tld") || it.contains("top-level domain") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.Public,
+            iconBgColor = QRShieldColors.Orange50,
+            iconColor = QRShieldColors.Orange600,
+            title = stringResource(R.string.analysis_tld_title),
+            description = if (tld != null) {
+                stringResource(R.string.analysis_tld_desc_specific, tld)
+            } else {
+                stringResource(R.string.analysis_tld_desc)
+            }
+        ))
+    }
+    
+    // IP address instead of domain
+    if (flagsLower.any { it.contains("ip address") || it.contains("ip host") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.Dns,
+            iconBgColor = QRShieldColors.Red50,
+            iconColor = QRShieldColors.RiskDanger,
+            title = stringResource(R.string.analysis_ip_host_title),
+            description = stringResource(R.string.analysis_ip_host_desc)
+        ))
+    }
+    
+    // Subdomain depth
+    if (flagsLower.any { it.contains("subdomain") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.AccountTree,
+            iconBgColor = QRShieldColors.Orange50,
+            iconColor = QRShieldColors.Orange600,
+            title = stringResource(R.string.analysis_subdomain_title),
+            description = stringResource(R.string.analysis_subdomain_desc)
+        ))
+    }
+    
+    // Credential harvesting
+    if (flagsLower.any { it.contains("credential") || it.contains("password") || it.contains("token") || it.contains("login") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.Key,
+            iconBgColor = QRShieldColors.Red50,
+            iconColor = QRShieldColors.RiskDanger,
+            title = stringResource(R.string.analysis_credential_title),
+            description = stringResource(R.string.analysis_credential_desc)
+        ))
+    }
+    
+    // Long URL
+    if (flagsLower.any { it.contains("long") && it.contains("url") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.Straighten,
+            iconBgColor = QRShieldColors.Orange50,
+            iconColor = QRShieldColors.Orange600,
+            title = stringResource(R.string.analysis_long_url_title),
+            description = stringResource(R.string.analysis_long_url_desc)
+        ))
+    }
+    
+    // Dangerous scheme (javascript:, data:)
+    if (flagsLower.any { it.contains("javascript") || it.contains("data uri") || it.contains("data:") }) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.Code,
+            iconBgColor = QRShieldColors.Red50,
+            iconColor = QRShieldColors.RiskDanger,
+            title = stringResource(R.string.analysis_scheme_title),
+            description = stringResource(R.string.analysis_scheme_desc)
+        ))
+    }
+    
+    // If no flags detected (safe URL), show positive indicators
+    if (items.isEmpty() && flags.isEmpty()) {
+        items.add(AnalysisItemData(
+            icon = Icons.Default.CheckCircle,
+            iconBgColor = QRShieldColors.RiskSafeLight,
+            iconColor = QRShieldColors.RiskSafe,
+            title = stringResource(R.string.analysis_safe_title),
+            description = stringResource(R.string.analysis_safe_desc)
+        ))
+    }
+    
+    return items
+}
+
+@Composable
+private fun AnalysisBreakdownSection(
+    flags: List<String>,
+    brandMatch: String?,
+    tld: String?,
+    modifier: Modifier = Modifier
+) {
+    // Derive items from REAL engine flags
+    val analysisItems = deriveAnalysisItems(flags, brandMatch, tld)
+    
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -796,47 +969,46 @@ private fun AnalysisBreakdownSection(modifier: Modifier = Modifier) {
             }
         }
 
-        // Analysis Items
-        Surface(
-            shape = QRShieldShapes.Card,
-            color = MaterialTheme.colorScheme.surface,
-            shadowElevation = 1.dp,
-            border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
-                brush = Brush.linearGradient(
-                    listOf(
-                        MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-                        MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+        // Analysis Items - REAL data from engine!
+        if (analysisItems.isNotEmpty()) {
+            Surface(
+                shape = QRShieldShapes.Card,
+                color = MaterialTheme.colorScheme.surface,
+                shadowElevation = 1.dp,
+                border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
+                    brush = Brush.linearGradient(
+                        listOf(
+                            MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
+                            MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                        )
                     )
                 )
-            )
-        ) {
-            Column {
-                AnalysisItem(
-                    icon = Icons.Default.History,
-                    iconBgColor = QRShieldColors.Red50,
-                    iconColor = QRShieldColors.RiskDanger,
-                    title = stringResource(R.string.analysis_domain_age_title),
-                    description = stringResource(R.string.analysis_domain_age_desc),
-                    highlightText = "24 hours ago",
-                    showDivider = true
-                )
-                AnalysisItem(
-                    icon = Icons.AutoMirrored.Filled.AltRoute,
-                    iconBgColor = QRShieldColors.Orange50,
-                    iconColor = QRShieldColors.Orange600,
-                    title = stringResource(R.string.analysis_redirect_title),
-                    description = stringResource(R.string.analysis_redirect_desc),
-                    highlightText = "3 levels",
-                    showDivider = true
-                )
-                AnalysisItem(
-                    icon = Icons.Default.Storage,
-                    iconBgColor = QRShieldColors.Gray100,
-                    iconColor = QRShieldColors.Gray600,
-                    title = stringResource(R.string.analysis_db_match_title),
-                    description = stringResource(R.string.analysis_db_match_desc),
-                    highlightText = "#4421",
-                    showDivider = false
+            ) {
+                Column {
+                    analysisItems.forEachIndexed { index, item ->
+                        AnalysisItem(
+                            icon = item.icon,
+                            iconBgColor = item.iconBgColor,
+                            iconColor = item.iconColor,
+                            title = item.title,
+                            description = item.description,
+                            showDivider = index < analysisItems.size - 1
+                        )
+                    }
+                }
+            }
+        } else {
+            // No analysis items - show placeholder
+            Surface(
+                shape = QRShieldShapes.Card,
+                color = MaterialTheme.colorScheme.surface,
+                shadowElevation = 1.dp
+            ) {
+                Text(
+                    text = stringResource(R.string.analysis_no_issues),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(16.dp)
                 )
             }
         }
@@ -850,7 +1022,6 @@ private fun AnalysisItem(
     iconColor: Color,
     title: String,
     description: String,
-    highlightText: String,
     showDivider: Boolean
 ) {
     Column {

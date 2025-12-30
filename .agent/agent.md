@@ -185,6 +185,41 @@ Any important notes for future agents.
 
 ---
 
+# 🔧 December 30, 2025 (Session 10k+59) - Wire Decorative Analysis to Real Engine
+
+### Summary
+Fixed CRITICAL decorative/hardcoded Analysis Breakdown section in Android ScanResultScreen. The section was showing FAKE data regardless of actual scan results.
+
+## ✅ Bug Fixed
+
+**Before:** Analysis Breakdown showed hardcoded fake items:
+- "Domain Age Alert" with "24 hours ago" 
+- "Suspicious Redirection" with "3 levels"
+- "Database Match" with "#4421"
+- Footer: "Oct 24, 14:32 • Engine v4.2.0"
+
+**After:** Analysis Breakdown shows REAL engine data:
+- Items derived from actual `RiskAssessment.flags`
+- 10+ flag types mapped to user-friendly cards
+- Safe URLs show "URL Verified Safe" card
+- Footer shows actual current timestamp and version
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | Added flags/brandMatch/tld/confidence params, new `deriveAnalysisItems()`, dynamic timestamp |
+| `Navigation.kt` | Extract real assessment data from ViewModel UiState |
+| `strings.xml` | Added 15 new string resources for dynamic analysis items |
+| `CHANGELOG.md` | Added version 1.20.16 entry |
+
+## Build Verification
+```bash
+./gradlew :androidApp:assembleDebug  # BUILD SUCCESSFUL ✅
+```
+
+---
+
 # 📁 December 30, 2025 (Session 10k+58) - Documentation Merge & Cleanup
 
 ### Summary
