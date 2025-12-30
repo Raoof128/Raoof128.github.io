@@ -185,6 +185,36 @@ Any important notes for future agents.
 
 ---
 
+# 🔧 December 30, 2025 (Session 10k+61) - Re-analyze URL on Screen Load
+
+### Summary
+Fixed flags not showing by re-analyzing URL when ScanResultScreen loads using 2025 Compose `produceState` pattern.
+
+## ✅ Root Cause
+
+**Problem:** Flags were ALWAYS EMPTY because:
+1. Navigation passes `url`, `verdict`, `score` through URL params (these persist)
+2. `flags` was read from `viewModel.uiState` which changes/resets
+3. When navigating from History, ViewModel state ≠ historical scan
+4. Result: `flags` always `emptyList()`!
+
+**Fix:** Re-analyze URL when screen loads using `produceState`:
+```kotlin
+val analysisResult by produceState<RiskAssessment?>(null, url) {
+    value = phishingEngine.analyze(url)
+}
+```
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | Use `produceState` + `koinInject<PhishingEngine>()` |
+| `Navigation.kt` | Removed stale flag extraction |
+| `CHANGELOG.md` | Version 1.20.18 |
+
+---
+
 # 🔧 December 30, 2025 (Session 10k+60) - Fix Flag Matching Logic
 
 ### Summary

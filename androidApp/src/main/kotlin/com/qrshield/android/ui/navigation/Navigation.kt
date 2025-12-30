@@ -447,24 +447,11 @@ fun QRShieldNavHost(
             val verdict = backStackEntry.arguments?.getString("verdict") ?: "UNKNOWN"
             val score = backStackEntry.arguments?.getInt("score") ?: 0
             
-            // Extract real flags from current assessment in ViewModel
-            val uiState by viewModel.uiState.collectAsState()
-            val assessment = (uiState as? com.qrshield.ui.UiState.Result)?.assessment
-            val flags = assessment?.flags ?: emptyList()
-            val brandMatch = assessment?.details?.brandMatch
-            val tld = assessment?.details?.tld
-            val confidence = assessment?.confidence ?: 0.8f
-            val heuristicScore = assessment?.details?.heuristicScore ?: 0
-            
+            // ScanResultScreen now re-analyzes the URL internally for fresh flags
             ScanResultScreen(
                 url = url,
                 verdict = verdict,
                 score = score,
-                flags = flags,
-                brandMatch = brandMatch,
-                tld = tld,
-                engineConfidence = confidence,
-                heuristicScore = heuristicScore,
                 onBackClick = { navController.popBackStack() },
                 onShareClick = { 
                     val shareText = viewModel.generateShareText()

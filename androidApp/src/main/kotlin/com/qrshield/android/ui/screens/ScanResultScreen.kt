@@ -63,12 +63,6 @@ fun ScanResultScreen(
     url: String = "https://example.com",
     verdict: String = "UNKNOWN",
     score: Int = 0,
-    // Real engine data (not hardcoded!)
-    flags: List<String> = emptyList(),
-    brandMatch: String? = null,
-    tld: String? = null,
-    engineConfidence: Float = 0.8f,
-    heuristicScore: Int = 0,
     // Callbacks
     onBackClick: () -> Unit = {},
     onShareClick: () -> Unit = {},
@@ -77,6 +71,29 @@ fun ScanResultScreen(
     onCopyUrl: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    // Get PhishingEngine to re-analyze for fresh flags
+    val phishingEngine: com.qrshield.core.PhishingEngine = org.koin.compose.koinInject()
+    
+    // Re-analyze URL to get REAL flags (not stale/empty data from navigation)
+    // Use produceState to call suspend function
+    val analysisResult by androidx.compose.runtime.produceState<com.qrshield.model.RiskAssessment?>(
+        initialValue = null,
+        key1 = url
+    ) {
+        value = try {
+            phishingEngine.analyze(url)
+        } catch (e: Exception) {
+            null
+        }
+    }
+    
+    // Use real data from fresh analysis
+    val realFlags = analysisResult?.flags ?: emptyList()
+    val realBrandMatch = analysisResult?.details?.brandMatch
+    val realTld = analysisResult?.details?.tld
+    val realConfidence = analysisResult?.confidence ?: 0.8f
+    val realHeuristicScore = analysisResult?.details?.heuristicScore ?: 0
+    
     // Derive display values from navigation params
     val displayVerdict = when (verdict.uppercase()) {
         "MALICIOUS" -> stringResource(R.string.verdict_malicious)
@@ -91,7 +108,7 @@ fun ScanResultScreen(
         else -> stringResource(R.string.threat_type_unknown)
     }
     // Use real engine confidence instead of hardcoded values
-    val confidence = (engineConfidence * 100).toInt().coerceIn(0, 100)
+    val confidence = (realConfidence * 100).toInt().coerceIn(0, 100)
     val severityScore = score / 10f
     val scrollState = rememberScrollState()
 
@@ -147,17 +164,17 @@ fun ScanResultScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
                 
-                // Engine Stats - REAL data!
+                // Engine Stats - REAL data from fresh analysis!
                 EngineStatsCard(
-                    heuristicScore = heuristicScore,
-                    flagCount = flags.size,
+                    heuristicScore = realHeuristicScore,
+                    flagCount = realFlags.size,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Tags/Chips - Dynamic from real flags!
-                TagsRow(flags = flags)
+                TagsRow(flags = realFlags)
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -179,11 +196,11 @@ fun ScanResultScreen(
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                // Analysis Breakdown - REAL engine data, not hardcoded!
+                // Analysis Breakdown - REAL engine data from fresh analysis!
                 AnalysisBreakdownSection(
-                    flags = flags,
-                    brandMatch = brandMatch,
-                    tld = tld,
+                    flags = realFlags,
+                    brandMatch = realBrandMatch,
+                    tld = realTld,
                     modifier = Modifier.padding(horizontal = 16.dp)
                 )
 

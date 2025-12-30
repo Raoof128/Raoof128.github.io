@@ -8,6 +8,49 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.18] - 2025-12-30
+
+### Raouf: Re-analyze URL on ScanResultScreen (2025-12-30 19:45 AEDT)
+
+**Scope:** Fix flags not showing - re-analyze URL when screen loads
+
+**Root Cause:**
+- Navigation passes `url`, `verdict`, `score` through URL parameters
+- `flags` was being read from ViewModel `uiState` which may not be in `Result` state
+- When navigating from History, ViewModel state is NOT the historical scan
+- Result: `flags` was always empty!
+
+**Fix Applied (2025 Compose Best Practice):**
+- Use `produceState` to call suspend `analyze()` function
+- Re-analyze URL when ScanResultScreen loads
+- Fresh analysis provides real flags every time
+
+**Code Change:**
+```kotlin
+// Before: flags passed through navigation (unreliable)
+val flags = assessment?.flags ?: emptyList()  // ALWAYS EMPTY!
+
+// After: re-analyze URL on screen load (2025 Compose pattern)
+val analysisResult by produceState<RiskAssessment?>(null, url) {
+    value = phishingEngine.analyze(url)
+}
+val realFlags = analysisResult?.flags ?: emptyList()
+```
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | Use `produceState` to call `phishingEngine.analyze(url)` on load |
+| `Navigation.kt` | Simplified - removed stale flag extraction |
+
+**Build Verification:**
+```bash
+./gradlew :androidApp:assembleDebug  # BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.17] - 2025-12-30
 
 ### Raouf: Fix Flag Matching - Wire ALL Decorative Data to Engine (2025-12-30 19:00 AEDT)
