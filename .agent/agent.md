@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.20.0`** (as of December 29, 2025)
+**Current App Version: `1.20.3`** (as of December 30, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,87 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🎨 December 30, 2025 (Session 10k+56) - Desktop App UI Polish
+
+### Summary
+Fixed 4 visual UI issues in the Desktop app: Threat Database button styling, empty square divider near filter buttons, search field polish, and added Reset button to Beat the Bot game.
+
+## ✅ Issues Fixed
+
+| # | Issue | File | Fix |
+|---|-------|------|-----|
+| 1 | "Check for Updates" button decorative | `DashboardScreen.kt` | Made full width, improved padding (12dp vertical, 16dp horizontal), added font weight |
+| 2 | Empty square next to "Dangerous" button | `ScanHistoryScreen.kt` | Changed `size(24.dp)` to `height(24.dp).width(1.dp)` for proper vertical divider |
+| 3 | Search field UI ugly | `ScanHistoryScreen.kt` | Replaced Box with Surface, 360x40dp size, RoundedCornerShape(10.dp), lighter placeholder |
+| 4 | Beat the Bot missing Reset button | `TrainingScreen.kt` | Added Reset button with `restart_alt` icon in stats header |
+
+## ✅ Files Modified
+
+| File | Change |
+|------|--------|
+| `DashboardScreen.kt` L545-556 | Button: `fillMaxWidth()`, `PaddingValues(vertical = 12.dp, horizontal = 16.dp)`, `fontWeight = FontWeight.Medium` |
+| `ScanHistoryScreen.kt` L399 | Divider: `Box(modifier = Modifier.height(24.dp).width(1.dp).background(colors.border))` |
+| `ScanHistoryScreen.kt` L336-371 | Search: Surface wrapper with proper vertical centering and styling |
+| `TrainingScreen.kt` L258-284 | Reset button: Surface with `restart_alt` icon calling `viewModel.resetTrainingGame()` |
+
+## 🔧 Technical Details
+
+### 1. Divider Fix
+The original code created a 24x24 square instead of a thin divider line:
+```kotlin
+// BEFORE (wrong - creates a square)
+Box(modifier = Modifier.size(24.dp).background(colors.border).width(1.dp))
+
+// AFTER (correct - creates a vertical line)
+Box(modifier = Modifier.height(24.dp).width(1.dp).background(colors.border))
+```
+
+### 2. Search Field Polish
+Replaced nested Box with Surface for cleaner styling:
+```kotlin
+Surface(
+    modifier = Modifier.height(40.dp).width(360.dp),
+    shape = RoundedCornerShape(10.dp),
+    color = colors.surface,
+    border = BorderStroke(1.dp, colors.border)
+) {
+    Row(modifier = Modifier.fillMaxSize().padding(horizontal = 14.dp), verticalAlignment = Alignment.CenterVertically) {
+        MaterialSymbol(name = "search", size = 20.sp, color = colors.textMuted)
+        // ... BasicTextField inside Box
+    }
+}
+```
+
+### 3. Reset Button
+Added button in the stats row:
+```kotlin
+Surface(
+    modifier = Modifier.height(52.dp).clickable { viewModel.resetTrainingGame() }.handCursor(),
+    shape = RoundedCornerShape(12.dp),
+    color = colors.surface,
+    border = BorderStroke(1.dp, colors.border)
+) {
+    Row(...) {
+        MaterialSymbol(name = "restart_alt", size = 20.sp, color = colors.textMuted)
+        Text(t("Reset"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textSub)
+    }
+}
+```
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 23s ✅
+```
+
+## Notes
+- Version bumped to 1.20.3
+- "Reset" uses English fallback for non-translated languages (widely understood tech term)
+- All changes are visual polish, no logic changes
 
 ---
 

@@ -4,6 +4,56 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.3] - 2025-12-30
+
+### 🎨 Desktop App UI Polish (2025-12-30 AEDT)
+
+**Scope:** Fix visual UI issues in Desktop app - Threat Database section, filter buttons, search field, and Beat the Bot game
+
+**Issues Fixed:**
+
+| # | Issue | Fix |
+|---|-------|-----|
+| 1 | **Check for Updates button decorative** | Made button full width with improved padding and font weight |
+| 2 | **Empty square near Dangerous button** | Fixed divider from square box to proper 1px vertical line |
+| 3 | **Search field UI ugly** | Polished search input with Surface wrapper, better sizing (360x40dp), improved placeholder styling |
+| 4 | **Beat the Bot missing Reset button** | Added Reset button in header next to stat cards for mid-game restart |
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `DashboardScreen.kt` | Button styling: `fillMaxWidth()`, `PaddingValues(vertical = 12.dp, horizontal = 16.dp)`, `fontWeight = FontWeight.Medium` |
+| `ScanHistoryScreen.kt` | Fixed divider: changed from `size(24.dp)` to `height(24.dp).width(1.dp)` |
+| `ScanHistoryScreen.kt` | Polished search: Surface wrapper, 40dp height, 360dp width, RoundedCornerShape(10.dp), better placeholder alpha |
+| `TrainingScreen.kt` | Added Reset button with `restart_alt` icon in stats row |
+
+**Technical Details:**
+
+1. **Divider Fix (ScanHistoryScreen.kt):**
+   - Before: `Box(modifier = Modifier.size(24.dp).background(colors.border).width(1.dp))` → Created a 24x24 square
+   - After: `Box(modifier = Modifier.height(24.dp).width(1.dp).background(colors.border))` → Proper thin vertical line
+
+2. **Search Field Polish (ScanHistoryScreen.kt):**
+   - Replaced `Box` with `Surface` with proper border styling
+   - Increased size from 320x36 to 360x40 for better visual balance
+   - Added proper vertical centering with `Row` inside Surface
+   - Lighter placeholder color: `colors.textMuted.copy(alpha = 0.6f)`
+
+3. **Reset Button (TrainingScreen.kt):**
+   - Added next to Accuracy stat card
+   - Uses `restart_alt` Material icon
+   - Calls `viewModel.resetTrainingGame()` on click
+   - Styled to match stat cards (52dp height, rounded corners)
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL in 23s ✅
+```
+
+---
+
 ## [1.20.2] - 2025-12-30
 
 ### 🔧 WebApp Bug Fixes (2025-12-30 AEDT)

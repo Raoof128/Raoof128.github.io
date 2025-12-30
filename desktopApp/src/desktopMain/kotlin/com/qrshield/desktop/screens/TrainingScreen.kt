@@ -256,10 +256,31 @@ private fun TrainingContent(viewModel: AppViewModel) {
                     Text(t("Beat the Bot"), fontSize = 40.sp, fontWeight = FontWeight.Black, color = colors.textMain)
                     Text(tf("Phishing Simulation · Round %d of %d", training.round, training.totalRounds), fontSize = 16.sp, fontWeight = FontWeight.Medium, color = colors.textSub)
                 }
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                     StatCard(value = training.score.toString(), label = t("Score"))
                     StatCard(value = training.streak.toString(), label = t("Streak"), highlight = colors.warning)
                     StatCard(value = accuracyLabel, label = t("Accuracy"), color = colors.success)
+                    Spacer(Modifier.width(8.dp))
+                    // Reset Game button
+                    Surface(
+                        modifier = Modifier
+                            .height(52.dp)
+                            .clickable { viewModel.resetTrainingGame() }
+                            .focusable()
+                            .handCursor(),
+                        shape = RoundedCornerShape(12.dp),
+                        color = colors.surface,
+                        border = BorderStroke(1.dp, colors.border)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            MaterialSymbol(name = "restart_alt", size = 20.sp, color = colors.textMuted)
+                            Text(t("Reset"), fontSize = 12.sp, fontWeight = FontWeight.SemiBold, color = colors.textSub)
+                        }
+                    }
                 }
             }
 

@@ -539,7 +539,7 @@ private fun DashboardContent(
                             }
                             Text(t("Threat Database"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                         }
-                        KeyValueRow(label = t("Version"), value = "v1.19.0", colors = colors)
+                        KeyValueRow(label = t("Version"), value = "v1.20.3", colors = colors)
                         KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"), colors = colors)
                         KeyValueRow(label = t("Signatures"), value = "4,281,092", colors = colors)
                         Button(
@@ -547,11 +547,12 @@ private fun DashboardContent(
                             colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
                             border = BorderStroke(1.dp, colors.borderStrong),
                             shape = RoundedCornerShape(8.dp),
-                            contentPadding = PaddingValues(vertical = 10.dp)
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
                         ) {
                             MaterialIconRound(name = "refresh", size = 16.sp, color = colors.textSub)
-                            Spacer(Modifier.width(6.dp))
-                            Text(t("Check for Updates"), fontSize = 14.sp, color = colors.textSub)
+                            Spacer(Modifier.width(8.dp))
+                            Text(t("Check for Updates"), fontSize = 14.sp, color = colors.textSub, fontWeight = FontWeight.Medium)
                         }
                     }
                 }

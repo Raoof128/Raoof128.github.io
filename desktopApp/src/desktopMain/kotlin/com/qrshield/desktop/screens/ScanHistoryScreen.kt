@@ -334,34 +334,39 @@ private fun ScanHistoryContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Box(
+                        Surface(
                             modifier = Modifier
-                                .height(36.dp)
-                                .width(320.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(colors.surface)
-                                .border(1.dp, colors.border, RoundedCornerShape(8.dp))
-                                .padding(horizontal = 12.dp)
+                                .height(40.dp)
+                                .width(360.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            color = colors.surface,
+                            border = BorderStroke(1.dp, colors.border)
                         ) {
-                            BasicTextField(
-                                value = searchQuery,
-                                onValueChange = { viewModel.updateHistorySearch(it) },
-                                singleLine = true,
-                                textStyle = TextStyle(fontSize = 13.sp, color = colors.textMain),
-                                modifier = Modifier.fillMaxWidth(),
-                                decorationBox = { innerTextField ->
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        MaterialSymbol(name = "search", size = 18.sp, color = colors.textMuted)
-                                        Spacer(Modifier.width(8.dp))
-                                        Box(modifier = Modifier.weight(1f)) {
-                                            if (searchQuery.isBlank()) {
-                                                Text(t("Search domains, sources, or hashes..."), fontSize = 13.sp, color = colors.textMuted)
-                                            }
-                                            innerTextField()
-                                        }
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 14.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                MaterialSymbol(name = "search", size = 20.sp, color = colors.textMuted)
+                                Spacer(Modifier.width(10.dp))
+                                Box(modifier = Modifier.weight(1f)) {
+                                    BasicTextField(
+                                        value = searchQuery,
+                                        onValueChange = { viewModel.updateHistorySearch(it) },
+                                        singleLine = true,
+                                        textStyle = TextStyle(fontSize = 14.sp, color = colors.textMain),
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                    if (searchQuery.isBlank()) {
+                                        Text(
+                                            t("Search domains, sources, or hashes..."),
+                                            fontSize = 14.sp,
+                                            color = colors.textMuted.copy(alpha = 0.6f)
+                                        )
                                     }
                                 }
-                            )
+                            }
                         }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -396,7 +401,7 @@ private fun ScanHistoryContent(
                             onClick = { viewModel.updateHistoryFilter(HistoryFilter.Dangerous) },
                             showDot = true
                         )
-                        Box(modifier = Modifier.size(24.dp).background(colors.border).width(1.dp))
+                        Box(modifier = Modifier.height(24.dp).width(1.dp).background(colors.border))
                         FilterChip(
                             label = t("Advanced"),
                             icon = "filter_list",
