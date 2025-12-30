@@ -20,6 +20,11 @@ import androidx.compose.material3.Text
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.type
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -346,7 +351,17 @@ private fun DashboardContent(
                                         androidx.compose.foundation.text.BasicTextField(
                                             value = urlInput,
                                             onValueChange = { urlInput = it },
-                                            modifier = Modifier.fillMaxWidth(),
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .onKeyEvent { event ->
+                                                    if (event.type == KeyEventType.KeyDown && event.key == Key.Enter) {
+                                                        if (urlInput.isNotBlank()) {
+                                                            onAnalyzeUrl(urlInput)
+                                                            urlInput = ""
+                                                        }
+                                                        true
+                                                    } else false
+                                                },
                                             singleLine = true,
                                             textStyle = androidx.compose.ui.text.TextStyle(
                                                 color = colors.textMain,

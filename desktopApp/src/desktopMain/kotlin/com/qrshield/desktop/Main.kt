@@ -88,6 +88,13 @@ fun QRShieldApp(viewModel: AppViewModel) {
             AppScreen.ResultDangerous -> ResultDangerousScreen(viewModel = viewModel)
             AppScreen.ResultDangerousAlt -> ResultDangerousAltScreen(viewModel = viewModel)
         }
+        
+        // Global Help Dialog (shown when pressing ?)
+        com.qrshield.desktop.ui.HelpDialog(
+            isVisible = viewModel.showHelpDialog,
+            onDismiss = { viewModel.dismissHelpDialog() },
+            language = viewModel.appLanguage
+        )
     }
 }
 
@@ -168,9 +175,9 @@ private fun handleGlobalKeyEvent(event: KeyEvent, viewModel: AppViewModel): Bool
             true
         }
         
-        // ?: Show help (Shift+/ or ?)
+        // ?: Show help dialog (Shift+/ or ?)
         isShift && event.key == Key.Slash -> {
-            viewModel.showInfo("Keyboard Shortcuts:\n• S - Scanner\n• D - Dashboard\n• H - History\n• T - Trust Centre\n• G - Training\n• Cmd+V - Paste & Analyze\n• Escape - Go Back")
+            viewModel.openHelpDialog()
             true
         }
         

@@ -257,7 +257,7 @@ private fun ScanHistoryContent(
                         .height(36.dp)
                         .clickable {
                             viewModel.exportHistoryCsv()
-                            onNavigate(AppScreen.ReportsExport)
+                            // Don't navigate - the exportHistoryCsv already shows success message
                         }
                         .focusable()
                         .handCursor(),

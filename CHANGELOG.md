@@ -4,6 +4,48 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.8] - 2025-12-30
+
+### Raouf: Desktop App UI Polish - Round 3 (2025-12-30 16:15 AEDT)
+
+**Scope:** Fix Export CSV redirect, add Enter key support, add Help dialog, fix PDF text, add missing icons
+
+**Issues Fixed:**
+
+| # | Issue | Fix |
+|---|-------|-----|
+| 1 | **Export CSV redirect** | Removed navigation to Reports screen - now just exports and shows success message |
+| 2 | **Enter key for scan** | Added Enter key support to URL input field on Dashboard |
+| 3 | **Help/Guide section** | Added HelpDialog component matching webapp's showHelpModal() |
+| 4 | **PDF text outdated** | Changed "Human PDF" label to "HTML Report" |
+| 5 | **Missing icons** | Added "delete_forever" and "help" icons to IconText.kt |
+| 6 | **Advanced button** | Already shows helpful message - verified working |
+
+**New Features:**
+
+- **HelpDialog**: Full keyboard shortcuts guide matching webapp (press `?` to open)
+- **Enter key scan**: Press Enter in URL field to start scan immediately
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `ScanHistoryScreen.kt` | Removed navigation after CSV export |
+| `DashboardScreen.kt` | Added Enter key handler to URL input |
+| `Main.kt` | Added HelpDialog to global UI, updated ? key to open dialog |
+| `AppViewModel.kt` | Added showHelpDialog state and functions |
+| `ReportsExportScreen.kt` | Changed "Human PDF" to "HTML Report" |
+| `IconText.kt` | Added "delete_forever" and "help" icon mappings |
+| `ui/HelpDialog.kt` | NEW - Keyboard shortcuts dialog (webapp parity) |
+
+**Build Verification:**
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.7] - 2025-12-30
 
 ### Raouf: Desktop App UI Polish - Round 2 (2025-12-30 15:57 AEDT)

@@ -183,7 +183,7 @@ private fun ReportsContent(viewModel: AppViewModel) {
                         .padding(4.dp)
                 ) {
                     FormatOption(
-                        label = t("Human PDF"),
+                        label = t("HTML Report"),
                         icon = "picture_as_pdf",
                         selected = viewModel.exportFormat == ExportFormat.Pdf,
                         modifier = Modifier.weight(1f),

@@ -184,6 +184,16 @@ class AppViewModel(
     var userRole by mutableStateOf("Security Analyst")
     var userPlan by mutableStateOf("Enterprise Plan")
     var showEditProfileModal by mutableStateOf(false)
+    var showHelpDialog by mutableStateOf(false)
+
+    // Help Dialog functions (parity with webapp showHelpModal)
+    fun openHelpDialog() {
+        showHelpDialog = true
+    }
+    
+    fun dismissHelpDialog() {
+        showHelpDialog = false
+    }
 
     // Game Statistics (parity with Web app training.js)
     // NOTE: Must be declared BEFORE init block since applySettings() accesses these
