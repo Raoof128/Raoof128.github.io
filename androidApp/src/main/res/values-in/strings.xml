@@ -582,4 +582,84 @@
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">ANALISIS AI</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d sinyal terdeteksi</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">Peniruan Merek</string>
+    <string name="analysis_brand_desc">URL tampaknya meniru merek terkenal.</string>
+    <string name="analysis_brand_desc_specific">URL tampaknya meniru %1$s.</string>
+    <string name="analysis_homograph_title">Serangan Homograf</string>
+    <string name="analysis_homograph_desc">Karakter skrip campuran terdeteksi dalam nama domain yang dirancang untuk memalsukan merek sah.</string>
+    <string name="analysis_protocol_title">Protokol Tidak Aman</string>
+    <string name="analysis_protocol_desc">URL menggunakan HTTP bukan HTTPS. Data tidak dienkripsi.</string>
+    <string name="analysis_tld_title">TLD Berisiko</string>
+    <string name="analysis_tld_desc">Domain menggunakan domain tingkat atas yang umumnya dikaitkan dengan situs berbahaya.</string>
+    <string name="analysis_tld_desc_specific">TLD .%1$s umumnya digunakan untuk situs berbahaya.</string>
+    <string name="analysis_ip_host_title">Alamat IP sebagai Host</string>
+    <string name="analysis_ip_host_desc">URL menggunakan alamat IP bukan nama domain, yang tidak biasa untuk situs sah.</string>
+    <string name="analysis_subdomain_title">Subdomain Dalam</string>
+    <string name="analysis_subdomain_desc">URL memiliki jumlah subdomain yang tidak biasa, yang dapat digunakan untuk menyesatkan pengguna.</string>
+    <string name="analysis_credential_title">Pencurian Kredensial</string>
+    <string name="analysis_credential_desc">Jalur atau parameter URL menunjukkan aktivitas pencurian kredensial.</string>
+    <string name="analysis_long_url_title">Panjang URL Berlebihan</string>
+    <string name="analysis_long_url_desc">URL sangat panjang, yang dapat digunakan untuk menyembunyikan tujuan sebenarnya.</string>
+    <string name="analysis_scheme_title">Skema Berbahaya</string>
+    <string name="analysis_scheme_desc">URL menggunakan skema berbahaya yang dapat mengeksekusi kode.</string>
+    <string name="analysis_safe_title">URL Terverifikasi Aman</string>
+    <string name="analysis_safe_desc">Tidak ada masalah keamanan terdeteksi. URL ini tampaknya aman untuk dikunjungi.</string>
+    <string name="analysis_no_issues">Tidak ada masalah keamanan terdeteksi.</string>
+    <string name="analysis_at_symbol_title">Injeksi Simbol @</string>
+    <string name="analysis_at_symbol_desc">URL mengandung simbol @ yang digunakan untuk menyembunyikan tujuan sebenarnya.</string>
+    <string name="analysis_suspicious_path_title">Jalur Mencurigakan</string>
+    <string name="analysis_suspicious_path_desc">Jalur URL mengandung kata kunci yang umum digunakan dalam phishing.</string>
+    <string name="analysis_risky_extension_title">Ekstensi File Berisiko</string>
+    <string name="analysis_risky_extension_desc">URL mengarah ke jenis file yang berpotensi berbahaya.</string>
+    <string name="analysis_entropy_title">Domain Acak</string>
+    <string name="analysis_entropy_desc">Domain tampaknya dihasilkan secara acak, umum dalam phishing.</string>
+    <string name="analysis_port_title">Port Tidak Biasa</string>
+    <string name="analysis_port_desc">URL menggunakan nomor port non-standar.</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">Alamat IP</string>
+    <string name="tag_brand_spoof">Pemalsuan Merek</string>
+    <string name="tag_insecure">Tidak Aman</string>
+    <string name="tag_shortener">Pemendek</string>
+    <string name="tag_risky_tld">TLD Berisiko</string>
+    <string name="tag_suspicious_path">Jalur Mencurigakan</string>
+    <string name="tag_long_url">URL Panjang</string>
+    <string name="tag_at_injection">Injeksi @</string>
+    <string name="tag_verified_safe">Terverifikasi Aman</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">Pemindaian Selesai</string>
+    <string name="status_caution_advised">Disarankan Berhati-hati</string>
+    <string name="status_threat_detected">Ancaman Terdeteksi</string>
+    <string name="status_analysis_complete">Analisis Selesai</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">Dianalisis offline dalam &lt;5ms</string>
+    <string name="meta_no_data_leaves">Tidak ada data yang keluar dari perangkat</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">Faktor Analisis Teratas</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">DOMAIN</string>
+    <string name="factor_category_db_check">CEK DB</string>
+    <string name="factor_category_heuristics">HEURISTIK</string>
+    <string name="factor_category_ml">SKOR ML</string>
+    <string name="factor_ssl_valid">Sertifikat SSL Valid</string>
+    <string name="factor_ssl_valid_desc">Koneksi terenkripsi. Rantai sertifikat tervalidasi.</string>
+    <string name="factor_ssl_missing">Tidak Ada Sertifikat SSL</string>
+    <string name="factor_ssl_missing_desc">Koneksi TIDAK terenkripsi. Data dapat disadap.</string>
+    <string name="factor_ip_address">Alamat IP sebagai Host</string>
+    <string name="factor_ip_address_desc">URL menggunakan alamat IP bukan nama domain. Tidak biasa untuk situs sah.</string>
+    <string name="factor_domain_check">Analisis Domain</string>
+    <string name="factor_domain_check_desc">Struktur domain dianalisis untuk pola phishing.</string>
+    <string name="factor_blacklist_clean">Status Daftar Hitam: Bersih</string>
+    <string name="factor_blacklist_clean_desc">Tidak ditemukan dalam database ancaman offline lokal.</string>
+    <string name="factor_blacklist_found">Status Daftar Hitam: DITEMUKAN</string>
+    <string name="factor_blacklist_found_desc">URL ditemukan dalam database intelijen ancaman!</string>
+    <string name="factor_heuristics_title">Analisis Heuristik</string>
+    <string name="factor_heuristics_desc">Skor: %1$d • %2$d sinyal terdeteksi</string>
+    <string name="factor_ml_title">Skor ML Phishing</string>
+    <string name="factor_ml_desc">Kepercayaan model machine learning: %1$d%%</string>
 </resources>

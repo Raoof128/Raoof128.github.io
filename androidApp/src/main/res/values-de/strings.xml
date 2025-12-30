@@ -639,4 +639,84 @@
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">KI-ANALYSE</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d Signale erkannt</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">Markenimitation</string>
+    <string name="analysis_brand_desc">URL scheint eine bekannte Marke zu imitieren.</string>
+    <string name="analysis_brand_desc_specific">URL scheint %1$s zu imitieren.</string>
+    <string name="analysis_homograph_title">Homograph-Angriff</string>
+    <string name="analysis_homograph_desc">Gemischte Schriftzeichen im Domainnamen erkannt, die legitime Marken fälschen sollen.</string>
+    <string name="analysis_protocol_title">Unsicheres Protokoll</string>
+    <string name="analysis_protocol_desc">URL verwendet HTTP statt HTTPS. Daten sind nicht verschlüsselt.</string>
+    <string name="analysis_tld_title">Riskante TLD</string>
+    <string name="analysis_tld_desc">Domain verwendet eine Top-Level-Domain, die häufig mit bösartigen Seiten verbunden ist.</string>
+    <string name="analysis_tld_desc_specific">Die .%1$s TLD wird häufig für bösartige Seiten verwendet.</string>
+    <string name="analysis_ip_host_title">IP-Adresse als Host</string>
+    <string name="analysis_ip_host_desc">URL verwendet eine IP-Adresse statt eines Domainnamens, was für legitime Seiten ungewöhnlich ist.</string>
+    <string name="analysis_subdomain_title">Tiefe Subdomain</string>
+    <string name="analysis_subdomain_desc">URL hat eine ungewöhnliche Anzahl von Subdomains, die verwendet werden können, um Benutzer zu täuschen.</string>
+    <string name="analysis_credential_title">Anmeldedaten-Erfassung</string>
+    <string name="analysis_credential_desc">URL-Pfad oder Parameter deuten auf Anmeldedaten-Erfassung hin.</string>
+    <string name="analysis_long_url_title">Übermäßige URL-Länge</string>
+    <string name="analysis_long_url_desc">URL ist ungewöhnlich lang, was verwendet werden kann, um das eigentliche Ziel zu verbergen.</string>
+    <string name="analysis_scheme_title">Gefährliches Schema</string>
+    <string name="analysis_scheme_desc">URL verwendet ein gefährliches Schema, das Code ausführen kann.</string>
+    <string name="analysis_safe_title">URL als sicher verifiziert</string>
+    <string name="analysis_safe_desc">Keine Sicherheitsprobleme erkannt. Diese URL scheint sicher zu sein.</string>
+    <string name="analysis_no_issues">Keine Sicherheitsprobleme erkannt.</string>
+    <string name="analysis_at_symbol_title">@-Symbol-Injektion</string>
+    <string name="analysis_at_symbol_desc">URL enthält @-Symbol, das verwendet wird, um das echte Ziel zu verbergen.</string>
+    <string name="analysis_suspicious_path_title">Verdächtiger Pfad</string>
+    <string name="analysis_suspicious_path_desc">URL-Pfad enthält Schlüsselwörter, die häufig beim Phishing verwendet werden.</string>
+    <string name="analysis_risky_extension_title">Riskante Dateierweiterung</string>
+    <string name="analysis_risky_extension_desc">URL zeigt auf einen potenziell gefährlichen Dateityp.</string>
+    <string name="analysis_entropy_title">Zufällige Domain</string>
+    <string name="analysis_entropy_desc">Domain erscheint zufällig generiert, häufig bei Phishing.</string>
+    <string name="analysis_port_title">Ungewöhnlicher Port</string>
+    <string name="analysis_port_desc">URL verwendet eine nicht standardmäßige Portnummer.</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">IP-Adresse</string>
+    <string name="tag_brand_spoof">Marken-Fälschung</string>
+    <string name="tag_insecure">Unsicher</string>
+    <string name="tag_shortener">Kurzlink</string>
+    <string name="tag_risky_tld">Riskante TLD</string>
+    <string name="tag_suspicious_path">Verdächtiger Pfad</string>
+    <string name="tag_long_url">Lange URL</string>
+    <string name="tag_at_injection">@-Injektion</string>
+    <string name="tag_verified_safe">Als sicher verifiziert</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">Scan abgeschlossen</string>
+    <string name="status_caution_advised">Vorsicht empfohlen</string>
+    <string name="status_threat_detected">Bedrohung erkannt</string>
+    <string name="status_analysis_complete">Analyse abgeschlossen</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">Offline analysiert in &lt;5ms</string>
+    <string name="meta_no_data_leaves">Keine Daten verlassen das Gerät</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">Top-Analysefaktoren</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">DOMAIN</string>
+    <string name="factor_category_db_check">DB-PRÜFUNG</string>
+    <string name="factor_category_heuristics">HEURISTIK</string>
+    <string name="factor_category_ml">ML-SCORE</string>
+    <string name="factor_ssl_valid">Gültiges SSL-Zertifikat</string>
+    <string name="factor_ssl_valid_desc">Verbindung ist verschlüsselt. Zertifikatskette validiert.</string>
+    <string name="factor_ssl_missing">Kein SSL-Zertifikat</string>
+    <string name="factor_ssl_missing_desc">Verbindung ist NICHT verschlüsselt. Daten können abgefangen werden.</string>
+    <string name="factor_ip_address">IP-Adresse als Host</string>
+    <string name="factor_ip_address_desc">URL verwendet IP-Adresse statt Domainnamen. Ungewöhnlich für legitime Seiten.</string>
+    <string name="factor_domain_check">Domain-Analyse</string>
+    <string name="factor_domain_check_desc">Domain-Struktur auf Phishing-Muster analysiert.</string>
+    <string name="factor_blacklist_clean">Blacklist-Status: Sauber</string>
+    <string name="factor_blacklist_clean_desc">Nicht in lokalen Offline-Bedrohungsdatenbanken gefunden.</string>
+    <string name="factor_blacklist_found">Blacklist-Status: GEFUNDEN</string>
+    <string name="factor_blacklist_found_desc">URL in Bedrohungs-Datenbank gefunden!</string>
+    <string name="factor_heuristics_title">Heuristische Analyse</string>
+    <string name="factor_heuristics_desc">Score: %1$d • %2$d Signale erkannt</string>
+    <string name="factor_ml_title">ML-Phishing-Score</string>
+    <string name="factor_ml_desc">Machine-Learning-Modell-Konfidenz: %1$d%%</string>
 </resources>

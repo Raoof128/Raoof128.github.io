@@ -582,4 +582,84 @@
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">การวิเคราะห์ AI</string>
     <string name="beat_the_bot_signals_detected_fmt">ตรวจพบ %1$d สัญญาณ</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">การปลอมแปลงแบรนด์</string>
+    <string name="analysis_brand_desc">URL ดูเหมือนปลอมแปลงแบรนด์ที่รู้จักกันดี</string>
+    <string name="analysis_brand_desc_specific">URL ดูเหมือนปลอมแปลง %1$s</string>
+    <string name="analysis_homograph_title">การโจมตี Homograph</string>
+    <string name="analysis_homograph_desc">ตรวจพบอักขระสคริปต์ผสมในชื่อโดเมนที่ออกแบบมาเพื่อปลอมแปลงแบรนด์ที่ถูกต้อง</string>
+    <string name="analysis_protocol_title">โปรโตคอลไม่ปลอดภัย</string>
+    <string name="analysis_protocol_desc">URL ใช้ HTTP แทน HTTPS ข้อมูลไม่ได้เข้ารหัส</string>
+    <string name="analysis_tld_title">TLD ที่มีความเสี่ยง</string>
+    <string name="analysis_tld_desc">โดเมนใช้โดเมนระดับบนสุดที่มักเกี่ยวข้องกับเว็บไซต์ที่เป็นอันตราย</string>
+    <string name="analysis_tld_desc_specific">TLD .%1$s มักใช้สำหรับเว็บไซต์ที่เป็นอันตราย</string>
+    <string name="analysis_ip_host_title">ที่อยู่ IP เป็นโฮสต์</string>
+    <string name="analysis_ip_host_desc">URL ใช้ที่อยู่ IP แทนชื่อโดเมน ซึ่งไม่ปกติสำหรับเว็บไซต์ที่ถูกต้อง</string>
+    <string name="analysis_subdomain_title">ซับโดเมนลึก</string>
+    <string name="analysis_subdomain_desc">URL มีจำนวนซับโดเมนที่ผิดปกติ ซึ่งสามารถใช้หลอกลวงผู้ใช้ได้</string>
+    <string name="analysis_credential_title">การเก็บข้อมูลรับรอง</string>
+    <string name="analysis_credential_desc">เส้นทางหรือพารามิเตอร์ของ URL แนะนำกิจกรรมการเก็บข้อมูลรับรอง</string>
+    <string name="analysis_long_url_title">ความยาว URL มากเกินไป</string>
+    <string name="analysis_long_url_desc">URL ยาวผิดปกติ ซึ่งสามารถใช้ซ่อนปลายทางที่แท้จริงได้</string>
+    <string name="analysis_scheme_title">สคีมที่อันตราย</string>
+    <string name="analysis_scheme_desc">URL ใช้สคีมที่อันตรายที่สามารถรันโค้ดได้</string>
+    <string name="analysis_safe_title">URL ยืนยันปลอดภัย</string>
+    <string name="analysis_safe_desc">ไม่พบปัญหาด้านความปลอดภัย URL นี้ดูปลอดภัยที่จะเยี่ยมชม</string>
+    <string name="analysis_no_issues">ไม่พบปัญหาด้านความปลอดภัย</string>
+    <string name="analysis_at_symbol_title">การแทรกสัญลักษณ์ @</string>
+    <string name="analysis_at_symbol_desc">URL มีสัญลักษณ์ @ ที่ใช้ซ่อนปลายทางที่แท้จริง</string>
+    <string name="analysis_suspicious_path_title">เส้นทางที่น่าสงสัย</string>
+    <string name="analysis_suspicious_path_desc">เส้นทาง URL มีคำหลักที่มักใช้ในฟิชชิง</string>
+    <string name="analysis_risky_extension_title">นามสกุลไฟล์ที่มีความเสี่ยง</string>
+    <string name="analysis_risky_extension_desc">URL ชี้ไปยังประเภทไฟล์ที่อาจเป็นอันตราย</string>
+    <string name="analysis_entropy_title">โดเมนสุ่ม</string>
+    <string name="analysis_entropy_desc">โดเมนดูเหมือนถูกสร้างแบบสุ่ม ซึ่งพบได้บ่อยในฟิชชิง</string>
+    <string name="analysis_port_title">พอร์ตที่ผิดปกติ</string>
+    <string name="analysis_port_desc">URL ใช้หมายเลขพอร์ตที่ไม่มาตรฐาน</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">ที่อยู่ IP</string>
+    <string name="tag_brand_spoof">การปลอมแบรนด์</string>
+    <string name="tag_insecure">ไม่ปลอดภัย</string>
+    <string name="tag_shortener">ตัวย่อ</string>
+    <string name="tag_risky_tld">TLD ที่มีความเสี่ยง</string>
+    <string name="tag_suspicious_path">เส้นทางที่น่าสงสัย</string>
+    <string name="tag_long_url">URL ยาว</string>
+    <string name="tag_at_injection">การแทรก @</string>
+    <string name="tag_verified_safe">ยืนยันปลอดภัย</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">สแกนเสร็จสิ้น</string>
+    <string name="status_caution_advised">แนะนำให้ระวัง</string>
+    <string name="status_threat_detected">ตรวจพบภัยคุกคาม</string>
+    <string name="status_analysis_complete">การวิเคราะห์เสร็จสิ้น</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">วิเคราะห์ออฟไลน์ใน &lt;5ms</string>
+    <string name="meta_no_data_leaves">ไม่มีข้อมูลออกจากอุปกรณ์</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">ปัจจัยการวิเคราะห์หลัก</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">โดเมน</string>
+    <string name="factor_category_db_check">ตรวจสอบ DB</string>
+    <string name="factor_category_heuristics">ฮิวริสติก</string>
+    <string name="factor_category_ml">คะแนน ML</string>
+    <string name="factor_ssl_valid">ใบรับรอง SSL ที่ถูกต้อง</string>
+    <string name="factor_ssl_valid_desc">การเชื่อมต่อถูกเข้ารหัส ตรวจสอบห่วงโซ่ใบรับรองแล้ว</string>
+    <string name="factor_ssl_missing">ไม่มีใบรับรอง SSL</string>
+    <string name="factor_ssl_missing_desc">การเชื่อมต่อไม่ได้เข้ารหัส ข้อมูลอาจถูกดักจับได้</string>
+    <string name="factor_ip_address">ที่อยู่ IP เป็นโฮสต์</string>
+    <string name="factor_ip_address_desc">URL ใช้ที่อยู่ IP แทนชื่อโดเมน ไม่ปกติสำหรับเว็บไซต์ที่ถูกต้อง</string>
+    <string name="factor_domain_check">การวิเคราะห์โดเมน</string>
+    <string name="factor_domain_check_desc">โครงสร้างโดเมนถูกวิเคราะห์สำหรับรูปแบบฟิชชิง</string>
+    <string name="factor_blacklist_clean">สถานะบัญชีดำ: สะอาด</string>
+    <string name="factor_blacklist_clean_desc">ไม่พบในฐานข้อมูลภัยคุกคามออฟไลน์ในเครื่อง</string>
+    <string name="factor_blacklist_found">สถานะบัญชีดำ: พบ</string>
+    <string name="factor_blacklist_found_desc">พบ URL ในฐานข้อมูลข่าวกรองภัยคุกคาม!</string>
+    <string name="factor_heuristics_title">การวิเคราะห์ฮิวริสติก</string>
+    <string name="factor_heuristics_desc">คะแนน: %1$d • ตรวจพบ %2$d สัญญาณ</string>
+    <string name="factor_ml_title">คะแนน ML ฟิชชิง</string>
+    <string name="factor_ml_desc">ความเชื่อมั่นของโมเดลการเรียนรู้ของเครื่อง: %1$d%%</string>
 </resources>

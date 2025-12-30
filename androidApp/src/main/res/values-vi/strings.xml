@@ -582,4 +582,84 @@
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">PHÂN TÍCH AI</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d tín hiệu được phát hiện</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">Giả Mạo Thương Hiệu</string>
+    <string name="analysis_brand_desc">URL có vẻ đang giả mạo một thương hiệu nổi tiếng.</string>
+    <string name="analysis_brand_desc_specific">URL có vẻ đang giả mạo %1$s.</string>
+    <string name="analysis_homograph_title">Tấn Công Homograph</string>
+    <string name="analysis_homograph_desc">Phát hiện các ký tự script hỗn hợp trong tên miền được thiết kế để giả mạo các thương hiệu hợp pháp.</string>
+    <string name="analysis_protocol_title">Giao Thức Không An Toàn</string>
+    <string name="analysis_protocol_desc">URL sử dụng HTTP thay vì HTTPS. Dữ liệu không được mã hóa.</string>
+    <string name="analysis_tld_title">TLD Rủi Ro</string>
+    <string name="analysis_tld_desc">Tên miền sử dụng tên miền cấp cao thường liên quan đến các trang web độc hại.</string>
+    <string name="analysis_tld_desc_specific">TLD .%1$s thường được sử dụng cho các trang web độc hại.</string>
+    <string name="analysis_ip_host_title">Địa Chỉ IP Làm Host</string>
+    <string name="analysis_ip_host_desc">URL sử dụng địa chỉ IP thay vì tên miền, điều này bất thường đối với các trang web hợp pháp.</string>
+    <string name="analysis_subdomain_title">Subdomain Sâu</string>
+    <string name="analysis_subdomain_desc">URL có số lượng subdomain bất thường, có thể được sử dụng để đánh lừa người dùng.</string>
+    <string name="analysis_credential_title">Thu Thập Thông Tin Đăng Nhập</string>
+    <string name="analysis_credential_desc">Đường dẫn hoặc tham số URL gợi ý hoạt động thu thập thông tin đăng nhập.</string>
+    <string name="analysis_long_url_title">Độ Dài URL Quá Mức</string>
+    <string name="analysis_long_url_desc">URL dài bất thường, có thể được sử dụng để ẩn đích đến thực sự.</string>
+    <string name="analysis_scheme_title">Scheme Nguy Hiểm</string>
+    <string name="analysis_scheme_desc">URL sử dụng scheme nguy hiểm có thể thực thi mã.</string>
+    <string name="analysis_safe_title">URL Được Xác Nhận An Toàn</string>
+    <string name="analysis_safe_desc">Không phát hiện vấn đề bảo mật. URL này có vẻ an toàn để truy cập.</string>
+    <string name="analysis_no_issues">Không phát hiện vấn đề bảo mật.</string>
+    <string name="analysis_at_symbol_title">Chèn Ký Hiệu @</string>
+    <string name="analysis_at_symbol_desc">URL chứa ký hiệu @ được sử dụng để ẩn đích đến thực sự.</string>
+    <string name="analysis_suspicious_path_title">Đường Dẫn Đáng Ngờ</string>
+    <string name="analysis_suspicious_path_desc">Đường dẫn URL chứa các từ khóa thường được sử dụng trong phishing.</string>
+    <string name="analysis_risky_extension_title">Phần Mở Rộng Tệp Rủi Ro</string>
+    <string name="analysis_risky_extension_desc">URL trỏ đến loại tệp có khả năng nguy hiểm.</string>
+    <string name="analysis_entropy_title">Tên Miền Ngẫu Nhiên</string>
+    <string name="analysis_entropy_desc">Tên miền có vẻ được tạo ngẫu nhiên, phổ biến trong phishing.</string>
+    <string name="analysis_port_title">Cổng Bất Thường</string>
+    <string name="analysis_port_desc">URL sử dụng số cổng không tiêu chuẩn.</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">Địa Chỉ IP</string>
+    <string name="tag_brand_spoof">Giả Mạo Thương Hiệu</string>
+    <string name="tag_insecure">Không An Toàn</string>
+    <string name="tag_shortener">Rút Gọn</string>
+    <string name="tag_risky_tld">TLD Rủi Ro</string>
+    <string name="tag_suspicious_path">Đường Dẫn Đáng Ngờ</string>
+    <string name="tag_long_url">URL Dài</string>
+    <string name="tag_at_injection">Chèn @</string>
+    <string name="tag_verified_safe">Xác Nhận An Toàn</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">Quét Hoàn Tất</string>
+    <string name="status_caution_advised">Khuyến Cáo Cẩn Thận</string>
+    <string name="status_threat_detected">Phát Hiện Mối Đe Dọa</string>
+    <string name="status_analysis_complete">Phân Tích Hoàn Tất</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">Phân tích ngoại tuyến trong &lt;5ms</string>
+    <string name="meta_no_data_leaves">Không có dữ liệu rời khỏi thiết bị</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">Các Yếu Tố Phân Tích Hàng Đầu</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">TÊN MIỀN</string>
+    <string name="factor_category_db_check">KIỂM TRA DB</string>
+    <string name="factor_category_heuristics">HEURISTICS</string>
+    <string name="factor_category_ml">ĐIỂM ML</string>
+    <string name="factor_ssl_valid">Chứng Chỉ SSL Hợp Lệ</string>
+    <string name="factor_ssl_valid_desc">Kết nối được mã hóa. Chuỗi chứng chỉ đã được xác thực.</string>
+    <string name="factor_ssl_missing">Không Có Chứng Chỉ SSL</string>
+    <string name="factor_ssl_missing_desc">Kết nối KHÔNG được mã hóa. Dữ liệu có thể bị chặn.</string>
+    <string name="factor_ip_address">Địa Chỉ IP Làm Host</string>
+    <string name="factor_ip_address_desc">URL sử dụng địa chỉ IP thay vì tên miền. Bất thường cho các trang web hợp pháp.</string>
+    <string name="factor_domain_check">Phân Tích Tên Miền</string>
+    <string name="factor_domain_check_desc">Cấu trúc tên miền được phân tích để tìm các mẫu phishing.</string>
+    <string name="factor_blacklist_clean">Trạng Thái Danh Sách Đen: Sạch</string>
+    <string name="factor_blacklist_clean_desc">Không tìm thấy trong cơ sở dữ liệu mối đe dọa ngoại tuyến cục bộ.</string>
+    <string name="factor_blacklist_found">Trạng Thái Danh Sách Đen: TÌM THẤY</string>
+    <string name="factor_blacklist_found_desc">URL được tìm thấy trong cơ sở dữ liệu tình báo mối đe dọa!</string>
+    <string name="factor_heuristics_title">Phân Tích Heuristics</string>
+    <string name="factor_heuristics_desc">Điểm: %1$d • %2$d tín hiệu được phát hiện</string>
+    <string name="factor_ml_title">Điểm ML Phishing</string>
+    <string name="factor_ml_desc">Độ tin cậy của mô hình machine learning: %1$d%%</string>
 </resources>

@@ -599,4 +599,84 @@
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">تحليل الذكاء الاصطناعي</string>
     <string name="beat_the_bot_signals_detected_fmt">تم اكتشاف %1$d إشارة</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">انتحال العلامة التجارية</string>
+    <string name="analysis_brand_desc">يبدو أن الرابط ينتحل علامة تجارية معروفة.</string>
+    <string name="analysis_brand_desc_specific">يبدو أن الرابط ينتحل %1$s.</string>
+    <string name="analysis_homograph_title">هجوم الحروف المتشابهة</string>
+    <string name="analysis_homograph_desc">تم اكتشاف أحرف نصية مختلطة في اسم النطاق مصممة لانتحال العلامات التجارية المشروعة.</string>
+    <string name="analysis_protocol_title">بروتوكول غير آمن</string>
+    <string name="analysis_protocol_desc">يستخدم الرابط HTTP بدلاً من HTTPS. البيانات غير مشفرة.</string>
+    <string name="analysis_tld_title">نطاق علوي خطر</string>
+    <string name="analysis_tld_desc">يستخدم النطاق امتداداً علوياً مرتبطاً عادةً بالمواقع الضارة.</string>
+    <string name="analysis_tld_desc_specific">امتداد .%1$s شائع الاستخدام في المواقع الضارة.</string>
+    <string name="analysis_ip_host_title">عنوان IP كمضيف</string>
+    <string name="analysis_ip_host_desc">يستخدم الرابط عنوان IP بدلاً من اسم نطاق، وهو أمر غير معتاد للمواقع المشروعة.</string>
+    <string name="analysis_subdomain_title">نطاقات فرعية عميقة</string>
+    <string name="analysis_subdomain_desc">يحتوي الرابط على عدد غير عادي من النطاقات الفرعية، والتي يمكن استخدامها لتضليل المستخدمين.</string>
+    <string name="analysis_credential_title">سرقة بيانات الاعتماد</string>
+    <string name="analysis_credential_desc">يشير مسار الرابط أو معاملاته إلى نشاط سرقة بيانات الاعتماد.</string>
+    <string name="analysis_long_url_title">طول رابط مفرط</string>
+    <string name="analysis_long_url_desc">الرابط طويل بشكل غير عادي، مما يمكن استخدامه لإخفاء الوجهة الفعلية.</string>
+    <string name="analysis_scheme_title">مخطط خطير</string>
+    <string name="analysis_scheme_desc">يستخدم الرابط مخططاً خطيراً يمكنه تنفيذ التعليمات البرمجية.</string>
+    <string name="analysis_safe_title">الرابط آمن</string>
+    <string name="analysis_safe_desc">لم يتم اكتشاف مشاكل أمنية. يبدو أن هذا الرابط آمن للزيارة.</string>
+    <string name="analysis_no_issues">لم يتم اكتشاف مشاكل أمنية.</string>
+    <string name="analysis_at_symbol_title">حقن رمز @</string>
+    <string name="analysis_at_symbol_desc">يحتوي الرابط على رمز @ المستخدم لإخفاء الوجهة الحقيقية.</string>
+    <string name="analysis_suspicious_path_title">مسار مشبوه</string>
+    <string name="analysis_suspicious_path_desc">يحتوي مسار الرابط على كلمات مفتاحية شائعة الاستخدام في التصيد الاحتيالي.</string>
+    <string name="analysis_risky_extension_title">امتداد ملف خطر</string>
+    <string name="analysis_risky_extension_desc">يشير الرابط إلى نوع ملف خطير محتمل.</string>
+    <string name="analysis_entropy_title">نطاق عشوائي</string>
+    <string name="analysis_entropy_desc">يبدو أن النطاق تم إنشاؤه عشوائياً، وهو شائع في التصيد الاحتيالي.</string>
+    <string name="analysis_port_title">منفذ غير عادي</string>
+    <string name="analysis_port_desc">يستخدم الرابط رقم منفذ غير قياسي.</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">عنوان IP</string>
+    <string name="tag_brand_spoof">انتحال علامة تجارية</string>
+    <string name="tag_insecure">غير آمن</string>
+    <string name="tag_shortener">مختصر روابط</string>
+    <string name="tag_risky_tld">نطاق علوي خطر</string>
+    <string name="tag_suspicious_path">مسار مشبوه</string>
+    <string name="tag_long_url">رابط طويل</string>
+    <string name="tag_at_injection">حقن @</string>
+    <string name="tag_verified_safe">تم التحقق كآمن</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">اكتمل الفحص</string>
+    <string name="status_caution_advised">يُنصح بالحذر</string>
+    <string name="status_threat_detected">تم اكتشاف تهديد</string>
+    <string name="status_analysis_complete">اكتمل التحليل</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">تم التحليل دون اتصال في أقل من 5 مللي ثانية</string>
+    <string name="meta_no_data_leaves">لا تغادر البيانات الجهاز</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">أهم عوامل التحليل</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">النطاق</string>
+    <string name="factor_category_db_check">فحص قاعدة البيانات</string>
+    <string name="factor_category_heuristics">الاستدلال</string>
+    <string name="factor_category_ml">نتيجة التعلم الآلي</string>
+    <string name="factor_ssl_valid">شهادة SSL صالحة</string>
+    <string name="factor_ssl_valid_desc">الاتصال مشفر. تم التحقق من سلسلة الشهادات.</string>
+    <string name="factor_ssl_missing">لا توجد شهادة SSL</string>
+    <string name="factor_ssl_missing_desc">الاتصال غير مشفر. قد يتم اعتراض البيانات.</string>
+    <string name="factor_ip_address">عنوان IP كمضيف</string>
+    <string name="factor_ip_address_desc">يستخدم الرابط عنوان IP بدلاً من اسم نطاق. غير معتاد للمواقع المشروعة.</string>
+    <string name="factor_domain_check">تحليل النطاق</string>
+    <string name="factor_domain_check_desc">تم تحليل بنية النطاق للكشف عن أنماط التصيد الاحتيالي.</string>
+    <string name="factor_blacklist_clean">حالة القائمة السوداء: نظيف</string>
+    <string name="factor_blacklist_clean_desc">لم يتم العثور عليه في قواعد بيانات التهديدات المحلية.</string>
+    <string name="factor_blacklist_found">حالة القائمة السوداء: موجود</string>
+    <string name="factor_blacklist_found_desc">تم العثور على الرابط في قاعدة بيانات استخبارات التهديدات!</string>
+    <string name="factor_heuristics_title">التحليل الاستدلالي</string>
+    <string name="factor_heuristics_desc">النتيجة: %1$d • تم اكتشاف %2$d إشارة</string>
+    <string name="factor_ml_title">نتيجة التصيد بالتعلم الآلي</string>
+    <string name="factor_ml_desc">ثقة نموذج التعلم الآلي: %1$d%%</string>
 </resources>

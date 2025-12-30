@@ -582,4 +582,84 @@
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">AI ANALİZİ</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d sinyal algılandı</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">Marka Taklidi</string>
+    <string name="analysis_brand_desc">URL bilinen bir markayı taklit ediyor gibi görünüyor.</string>
+    <string name="analysis_brand_desc_specific">URL %1$s taklit ediyor gibi görünüyor.</string>
+    <string name="analysis_homograph_title">Homograf Saldırısı</string>
+    <string name="analysis_homograph_desc">Alan adında meşru markaları taklit etmek için tasarlanmış karışık komut dosyası karakterleri tespit edildi.</string>
+    <string name="analysis_protocol_title">Güvensiz Protokol</string>
+    <string name="analysis_protocol_desc">URL HTTPS yerine HTTP kullanıyor. Veriler şifrelenmemiş.</string>
+    <string name="analysis_tld_title">Riskli TLD</string>
+    <string name="analysis_tld_desc">Alan adı genellikle kötü amaçlı sitelerle ilişkilendirilen üst düzey alan adı kullanıyor.</string>
+    <string name="analysis_tld_desc_specific">.%1$s TLD genellikle kötü amaçlı siteler için kullanılır.</string>
+    <string name="analysis_ip_host_title">Ana Bilgisayar Olarak IP Adresi</string>
+    <string name="analysis_ip_host_desc">URL alan adı yerine IP adresi kullanıyor, bu meşru siteler için alışılmadık.</string>
+    <string name="analysis_subdomain_title">Derin Alt Alan Adı</string>
+    <string name="analysis_subdomain_desc">URL olağandışı sayıda alt alan adına sahip, bu kullanıcıları yanıltmak için kullanılabilir.</string>
+    <string name="analysis_credential_title">Kimlik Bilgisi Toplama</string>
+    <string name="analysis_credential_desc">URL yolu veya parametreleri kimlik bilgisi toplama aktivitesini gösteriyor.</string>
+    <string name="analysis_long_url_title">Aşırı URL Uzunluğu</string>
+    <string name="analysis_long_url_desc">URL olağandışı şekilde uzun, bu gerçek hedefi gizlemek için kullanılabilir.</string>
+    <string name="analysis_scheme_title">Tehlikeli Şema</string>
+    <string name="analysis_scheme_desc">URL kod çalıştırabilen tehlikeli bir şema kullanıyor.</string>
+    <string name="analysis_safe_title">URL Güvenli Doğrulandı</string>
+    <string name="analysis_safe_desc">Güvenlik sorunu tespit edilmedi. Bu URL ziyaret etmek için güvenli görünüyor.</string>
+    <string name="analysis_no_issues">Güvenlik sorunu tespit edilmedi.</string>
+    <string name="analysis_at_symbol_title">@ Sembolü Enjeksiyonu</string>
+    <string name="analysis_at_symbol_desc">URL gerçek hedefi gizlemek için kullanılan @ sembolü içeriyor.</string>
+    <string name="analysis_suspicious_path_title">Şüpheli Yol</string>
+    <string name="analysis_suspicious_path_desc">URL yolu oltalamada yaygın olarak kullanılan anahtar kelimeler içeriyor.</string>
+    <string name="analysis_risky_extension_title">Riskli Dosya Uzantısı</string>
+    <string name="analysis_risky_extension_desc">URL potansiyel olarak tehlikeli bir dosya türüne işaret ediyor.</string>
+    <string name="analysis_entropy_title">Rastgele Alan Adı</string>
+    <string name="analysis_entropy_desc">Alan adı rastgele oluşturulmuş gibi görünüyor, oltalamada yaygın.</string>
+    <string name="analysis_port_title">Alışılmadık Port</string>
+    <string name="analysis_port_desc">URL standart olmayan bir port numarası kullanıyor.</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">IP Adresi</string>
+    <string name="tag_brand_spoof">Marka Sahtekarlığı</string>
+    <string name="tag_insecure">Güvensiz</string>
+    <string name="tag_shortener">Kısaltıcı</string>
+    <string name="tag_risky_tld">Riskli TLD</string>
+    <string name="tag_suspicious_path">Şüpheli Yol</string>
+    <string name="tag_long_url">Uzun URL</string>
+    <string name="tag_at_injection">@ Enjeksiyonu</string>
+    <string name="tag_verified_safe">Güvenli Doğrulandı</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">Tarama Tamamlandı</string>
+    <string name="status_caution_advised">Dikkat Önerilir</string>
+    <string name="status_threat_detected">Tehdit Algılandı</string>
+    <string name="status_analysis_complete">Analiz Tamamlandı</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">&lt;5ms\'de çevrimdışı analiz edildi</string>
+    <string name="meta_no_data_leaves">Hiçbir veri cihazı terk etmez</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">En Önemli Analiz Faktörleri</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">ALAN ADI</string>
+    <string name="factor_category_db_check">VT KONTROLÜ</string>
+    <string name="factor_category_heuristics">SEZGİSEL</string>
+    <string name="factor_category_ml">ML PUANI</string>
+    <string name="factor_ssl_valid">Geçerli SSL Sertifikası</string>
+    <string name="factor_ssl_valid_desc">Bağlantı şifrelenmiş. Sertifika zinciri doğrulandı.</string>
+    <string name="factor_ssl_missing">SSL Sertifikası Yok</string>
+    <string name="factor_ssl_missing_desc">Bağlantı şifrelenmemiş. Veriler ele geçirilebilir.</string>
+    <string name="factor_ip_address">Ana Bilgisayar Olarak IP Adresi</string>
+    <string name="factor_ip_address_desc">URL alan adı yerine IP adresi kullanıyor. Meşru siteler için alışılmadık.</string>
+    <string name="factor_domain_check">Alan Adı Analizi</string>
+    <string name="factor_domain_check_desc">Alan adı yapısı oltalama kalıpları için analiz edildi.</string>
+    <string name="factor_blacklist_clean">Kara Liste Durumu: Temiz</string>
+    <string name="factor_blacklist_clean_desc">Yerel çevrimdışı tehdit veritabanlarında bulunamadı.</string>
+    <string name="factor_blacklist_found">Kara Liste Durumu: BULUNDU</string>
+    <string name="factor_blacklist_found_desc">URL tehdit istihbarat veritabanında bulundu!</string>
+    <string name="factor_heuristics_title">Sezgisel Analiz</string>
+    <string name="factor_heuristics_desc">Puan: %1$d • %2$d sinyal algılandı</string>
+    <string name="factor_ml_title">ML Oltalama Puanı</string>
+    <string name="factor_ml_desc">Makine öğrenimi modeli güveni: %1$d%%</string>
 </resources>
