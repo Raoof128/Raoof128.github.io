@@ -341,6 +341,40 @@
     <string name="tag_at_injection">@ Injection</string>
     <string name="tag_verified_safe">Verified Safe</string>
     
+    <!-- WebApp Parity: Status Badges -->
+    <string name="status_scan_complete">Scan Complete</string>
+    <string name="status_caution_advised">Caution Advised</string>
+    <string name="status_threat_detected">Threat Detected</string>
+    <string name="status_analysis_complete">Analysis Complete</string>
+    
+    <!-- WebApp Parity: Meta Info -->
+    <string name="meta_analyzed_offline">Analyzed offline in &lt;5ms</string>
+    <string name="meta_no_data_leaves">No data leaves device</string>
+    
+    <!-- WebApp Parity: Top Analysis Factors -->
+    <string name="top_analysis_factors_title">Top Analysis Factors</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">DOMAIN</string>
+    <string name="factor_category_db_check">DB CHECK</string>
+    <string name="factor_category_heuristics">HEURISTICS</string>
+    <string name="factor_category_ml">ML SCORE</string>
+    <string name="factor_ssl_valid">Valid SSL Certificate</string>
+    <string name="factor_ssl_valid_desc">Connection is encrypted. Certificate chain validated.</string>
+    <string name="factor_ssl_missing">No SSL Certificate</string>
+    <string name="factor_ssl_missing_desc">Connection is NOT encrypted. Data may be intercepted.</string>
+    <string name="factor_ip_address">IP Address Host</string>
+    <string name="factor_ip_address_desc">URL uses IP address instead of domain name. Unusual for legitimate sites.</string>
+    <string name="factor_domain_check">Domain Analysis</string>
+    <string name="factor_domain_check_desc">Domain structure analyzed for phishing patterns.</string>
+    <string name="factor_blacklist_clean">Blacklist Status: Clean</string>
+    <string name="factor_blacklist_clean_desc">Not found in local offline threat databases.</string>
+    <string name="factor_blacklist_found">Blacklist Status: FOUND</string>
+    <string name="factor_blacklist_found_desc">URL found in threat intelligence database!</string>
+    <string name="factor_heuristics_title">Heuristic Analysis</string>
+    <string name="factor_heuristics_desc">Score: %1$d • %2$d signals detected</string>
+    <string name="factor_ml_title">ML Phishing Score</string>
+    <string name="factor_ml_desc">Machine learning model confidence: %1$d%%</string>
+    
     <!-- Settings Screen Extras -->
     <string name="url_unshortener_title">Resolve Short Links</string>
     <string name="url_unshortener_desc">Reveal hidden destinations (Online Only). Requires network access.</string>

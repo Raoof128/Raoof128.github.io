@@ -147,6 +147,25 @@ fun ScanResultScreen(
                     .verticalScroll(scrollState)
                     .padding(bottom = 180.dp) // Space for bottom actions
             ) {
+                // ===== STATUS BADGE (WebApp Parity) =====
+                ScanStatusBadge(
+                    verdict = verdict,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+                
+                // ===== URL DISPLAY (WebApp Parity) =====
+                UrlDisplayRow(
+                    url = url,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                
+                // ===== ANALYSIS META (WebApp Parity) =====
+                AnalysisMetaRow(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
                 // Verdict Header
                 VerdictHeader(
                     rawVerdict = verdict,
@@ -177,22 +196,14 @@ fun ScanResultScreen(
                 TagsRow(flags = realFlags)
 
                 Spacer(modifier = Modifier.height(24.dp))
-
-                // Target URL
-                Column(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.target_url_label),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 1.sp
-                        ),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    UrlDisplayCard(url = url, onCopyClick = onCopyUrl)
-                }
+                
+                // ===== TOP ANALYSIS FACTORS (WebApp Parity) =====
+                TopAnalysisFactorsSection(
+                    url = url,
+                    flags = realFlags,
+                    analysisResult = analysisResult,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
 
                 Spacer(modifier = Modifier.height(24.dp))
 
@@ -1240,4 +1251,381 @@ private fun AnalysisItem(
     }
 }
 
+// ===================================
+// WEBAPP PARITY COMPONENTS
+// ===================================
+
+/**
+ * Status badge showing scan completion status (WebApp Parity)
+ */
+@Composable
+private fun ScanStatusBadge(
+    verdict: String,
+    modifier: Modifier = Modifier
+) {
+    val verdictUpper = verdict.uppercase()
+    val (icon, iconColor, bgColor, statusText) = when (verdictUpper) {
+        "SAFE" -> listOf(
+            Icons.Default.CheckCircle,
+            QRShieldColors.RiskSafe,
+            QRShieldColors.RiskSafeLight,
+            R.string.status_scan_complete
+        )
+        "SUSPICIOUS" -> listOf(
+            Icons.Default.Warning,
+            QRShieldColors.Orange600,
+            QRShieldColors.Orange50,
+            R.string.status_caution_advised
+        )
+        "MALICIOUS" -> listOf(
+            Icons.Default.Error,
+            QRShieldColors.RiskDanger,
+            QRShieldColors.Red50,
+            R.string.status_threat_detected
+        )
+        else -> listOf(
+            Icons.Default.Info,
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.primaryContainer,
+            R.string.status_analysis_complete
+        )
+    }
+    
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Surface(
+            shape = CircleShape,
+            color = bgColor as Color
+        ) {
+            Icon(
+                imageVector = icon as ImageVector,
+                contentDescription = null,
+                tint = iconColor as Color,
+                modifier = Modifier.padding(6.dp).size(20.dp)
+            )
+        }
+        Text(
+            text = stringResource(statusText as Int),
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
+
+/**
+ * URL display row with link icon (WebApp Parity)
+ */
+@Composable
+private fun UrlDisplayRow(
+    url: String,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.Link,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(18.dp)
+        )
+        Text(
+            text = url,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontFamily = FontFamily.Monospace
+            ),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+/**
+ * Analysis meta info row (WebApp Parity)
+ */
+@Composable
+private fun AnalysisMetaRow(
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.OfflineBolt,
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.size(16.dp)
+        )
+        Text(
+            text = stringResource(R.string.meta_analyzed_offline),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = "•",
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+        )
+        Text(
+            text = stringResource(R.string.meta_no_data_leaves),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+/**
+ * Factor type for analysis factors
+ */
+private enum class FactorType {
+    PASS, INFO, CLEAN, WARN, FAIL, CRITICAL
+}
+
+/**
+ * Data class for factor card
+ */
+private data class FactorCardData(
+    val type: FactorType,
+    val category: String,
+    val title: String,
+    val description: String,
+    val icon: ImageVector
+)
+
+/**
+ * Derives analysis factors from URL and flags (WebApp Parity)
+ */
+@Composable
+private fun deriveAnalysisFactors(
+    url: String,
+    flags: List<String>,
+    analysisResult: com.qrshield.model.RiskAssessment?
+): List<FactorCardData> {
+    val factors = mutableListOf<FactorCardData>()
+    val flagsUpper = flags.map { it.uppercase() }
+    
+    // SSL/HTTPS Check
+    val isHttps = url.startsWith("https://")
+    factors.add(FactorCardData(
+        type = if (isHttps) FactorType.PASS else FactorType.FAIL,
+        category = stringResource(R.string.factor_category_https),
+        title = if (isHttps) stringResource(R.string.factor_ssl_valid) else stringResource(R.string.factor_ssl_missing),
+        description = if (isHttps) 
+            stringResource(R.string.factor_ssl_valid_desc) 
+        else 
+            stringResource(R.string.factor_ssl_missing_desc),
+        icon = if (isHttps) Icons.Default.Lock else Icons.Default.LockOpen
+    ))
+    
+    // Domain Analysis
+    val isIpAddress = flagsUpper.any { it.contains("IP_ADDRESS") }
+    if (isIpAddress) {
+        factors.add(FactorCardData(
+            type = FactorType.WARN,
+            category = stringResource(R.string.factor_category_domain),
+            title = stringResource(R.string.factor_ip_address),
+            description = stringResource(R.string.factor_ip_address_desc),
+            icon = Icons.Default.Dns
+        ))
+    } else {
+        factors.add(FactorCardData(
+            type = FactorType.INFO,
+            category = stringResource(R.string.factor_category_domain),
+            title = stringResource(R.string.factor_domain_check),
+            description = stringResource(R.string.factor_domain_check_desc),
+            icon = Icons.Default.Domain
+        ))
+    }
+    
+    // Threat Database Check - determine based on verdict/score
+    val isKnownBad = analysisResult?.verdict == com.qrshield.model.Verdict.MALICIOUS && 
+                     (analysisResult.score ?: 0) >= 80
+    factors.add(FactorCardData(
+        type = if (isKnownBad) FactorType.CRITICAL else FactorType.CLEAN,
+        category = stringResource(R.string.factor_category_db_check),
+        title = if (isKnownBad) stringResource(R.string.factor_blacklist_found) else stringResource(R.string.factor_blacklist_clean),
+        description = if (isKnownBad) 
+            stringResource(R.string.factor_blacklist_found_desc) 
+        else 
+            stringResource(R.string.factor_blacklist_clean_desc),
+        icon = if (isKnownBad) Icons.Default.Dangerous else Icons.Default.VerifiedUser
+    ))
+    
+    // Heuristics Check
+    val heuristicScore = analysisResult?.details?.heuristicScore ?: 0
+    val heuristicType = when {
+        heuristicScore >= 50 -> FactorType.CRITICAL
+        heuristicScore >= 30 -> FactorType.WARN
+        heuristicScore >= 10 -> FactorType.INFO
+        else -> FactorType.PASS
+    }
+    factors.add(FactorCardData(
+        type = heuristicType,
+        category = stringResource(R.string.factor_category_heuristics),
+        title = stringResource(R.string.factor_heuristics_title),
+        description = stringResource(R.string.factor_heuristics_desc, heuristicScore, flags.size),
+        icon = Icons.Default.Analytics
+    ))
+    
+    // ML Score Check (if available)
+    val mlScore = analysisResult?.details?.mlScore ?: 0
+    if (mlScore > 0) {
+        val mlType = when {
+            mlScore >= 70 -> FactorType.CRITICAL
+            mlScore >= 40 -> FactorType.WARN
+            else -> FactorType.PASS
+        }
+        factors.add(FactorCardData(
+            type = mlType,
+            category = stringResource(R.string.factor_category_ml),
+            title = stringResource(R.string.factor_ml_title),
+            description = stringResource(R.string.factor_ml_desc, mlScore),
+            icon = Icons.Default.Psychology
+        ))
+    }
+    
+    return factors
+}
+
+/**
+ * Top Analysis Factors section (WebApp Parity)
+ */
+@Composable
+private fun TopAnalysisFactorsSection(
+    url: String,
+    flags: List<String>,
+    analysisResult: com.qrshield.model.RiskAssessment?,
+    modifier: Modifier = Modifier
+) {
+    val factors = deriveAnalysisFactors(url, flags, analysisResult)
+    
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        // Section Header
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Analytics,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(24.dp)
+            )
+            Text(
+                text = stringResource(R.string.top_analysis_factors_title),
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
+            )
+        }
+        
+        // Factor Cards Grid
+        factors.forEach { factor ->
+            FactorCard(factor = factor)
+        }
+    }
+}
+
+/**
+ * Individual factor card (WebApp Parity)
+ */
+@Composable
+private fun FactorCard(
+    factor: FactorCardData,
+    modifier: Modifier = Modifier
+) {
+    val (tagBgColor, tagTextColor) = when (factor.type) {
+        FactorType.PASS -> QRShieldColors.RiskSafeLight to QRShieldColors.RiskSafe
+        FactorType.CLEAN -> QRShieldColors.Emerald50 to QRShieldColors.Emerald600
+        FactorType.INFO -> QRShieldColors.Primary.copy(alpha = 0.1f) to QRShieldColors.Primary
+        FactorType.WARN -> QRShieldColors.Orange50 to QRShieldColors.Orange600
+        FactorType.FAIL -> QRShieldColors.Red50 to QRShieldColors.Red600
+        FactorType.CRITICAL -> QRShieldColors.Red100 to QRShieldColors.RiskDanger
+    }
+    
+    Surface(
+        modifier = modifier.fillMaxWidth(),
+        shape = QRShieldShapes.Card,
+        color = MaterialTheme.colorScheme.surface,
+        shadowElevation = 1.dp,
+        border = ButtonDefaults.outlinedButtonBorder(enabled = true).copy(
+            brush = Brush.linearGradient(
+                listOf(
+                    MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
+                    MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
+                )
+            )
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            // Header with tags
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    // Type tag
+                    Surface(
+                        shape = RoundedCornerShape(4.dp),
+                        color = tagBgColor
+                    ) {
+                        Text(
+                            text = factor.type.name,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                            color = tagTextColor
+                        )
+                    }
+                    // Category tag
+                    Surface(
+                        shape = RoundedCornerShape(4.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant
+                    ) {
+                        Text(
+                            text = factor.category,
+                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+                Icon(
+                    imageVector = Icons.Default.ExpandMore,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            
+            // Title
+            Text(
+                text = factor.title,
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            
+            // Description
+            Text(
+                text = factor.description,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
 

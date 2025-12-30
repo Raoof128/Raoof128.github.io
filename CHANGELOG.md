@@ -8,6 +8,43 @@ All notable changes to QR-SHIELD will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.20.19] - 2025-12-30
+
+### Raouf: WebApp Parity - Add Missing Sections to Android (2025-12-30 20:00 AEDT)
+
+**Scope:** Add missing WebApp sections to Android ScanResultScreen for full parity
+
+**New Sections Added:**
+
+| Section | Description |
+|---------|-------------|
+| **ScanStatusBadge** | "Scan Complete" / "Caution Advised" / "Threat Detected" status with icon |
+| **UrlDisplayRow** | URL display with link icon (like WebApp) |
+| **AnalysisMetaRow** | "Analyzed offline in <5ms • No data leaves device" |
+| **TopAnalysisFactorsSection** | Grid of factor cards (SSL, Domain, DB Check, Heuristics, ML Score) |
+| **FactorCard** | Expandable cards with PASS/FAIL/WARN/INFO/CLEAN/CRITICAL tags |
+
+**Factor Cards Include:**
+1. **SSL Certificate** - PASS/FAIL based on HTTPS
+2. **Domain Analysis** - IP address detection, domain structure
+3. **Blacklist Status** - Threat database check
+4. **Heuristic Analysis** - Score and signal count
+5. **ML Phishing Score** - Machine learning confidence
+
+**Files Modified:**
+
+| File | Change |
+|------|--------|
+| `ScanResultScreen.kt` | Added 5 new composables for WebApp parity |
+| `strings.xml` | Added 25+ new strings for factor cards |
+
+**Build Verification:**
+```bash
+./gradlew :androidApp:assembleDebug  # BUILD SUCCESSFUL ✅
+```
+
+---
+
 ## [1.20.18] - 2025-12-30
 
 ### Raouf: Re-analyze URL on ScanResultScreen (2025-12-30 19:45 AEDT)
