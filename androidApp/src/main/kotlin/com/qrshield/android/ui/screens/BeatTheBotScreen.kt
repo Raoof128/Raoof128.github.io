@@ -177,7 +177,7 @@ fun BeatTheBotScreen(
             // 4. Brain Visualizer Section (Always visible, matching iOS)
             BrainVisualizerSection(
                 detectedSignals = if (lastResult != null && uiState.currentUrl?.isPhishing == true) {
-                    uiState.currentUrl?.signals ?: emptyList()
+                    uiState.currentUrl.signals
                 } else {
                     emptyList()
                 }

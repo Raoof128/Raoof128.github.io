@@ -585,7 +585,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %s %s</string>
+    <string name="toast_rule_status">Rule %1$s %2$s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>

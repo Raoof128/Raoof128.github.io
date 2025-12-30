@@ -1,0 +1,146 @@
+
+WorkshopsVenuePartnersFor volunteersContestAwards
+
+Get tickets
+Kotlin Student Coding Competition Official Rules
+Important: Please read these Official Rules before entering this Contest (the “Contest”). By participating in this Contest, you agree to be bound by these Official Rules and represent that you satisfy all of the eligibility requirements below.
+
+No purchase is necessary to enter this Contest.
+
+Contest void where prohibited. Subject to applicable federal, state, and local laws.
+
+1. Eligibility
+To be eligible to enter the Contest you must:
+
+Be at least 18 years old (or the age of majority in the jurisdiction where you reside, whichever is older);
+Be enrolled in a full-time undergraduate or graduate program at an accredited academic institution, or have been enrolled in a full-time undergraduate or graduate program at an accredited academic institution within the last twelve (12) months at the time the contest starts;
+Not be an individual on the U.S. Department of Treasury’s Office of Foreign Assets Control (“OFAC”) Specially Designated Nationals and Blocked Persons List or otherwise under sanction by OFAC (or an immediate family member (spouses, parent, child, sibling, grandparent, and “step” child, wherever they may live) of such an individual) or be employed by or affiliated with an entity sanctioned by OFAC;
+Not be a resident of Brazil, Quebec, Italy, or any country, state, province, or territory subject to comprehensive OFAC sanctions, including Cuba, Iran, North Korea, Syria, or the regions of Crimea, Donetsk or Luhansk of Ukraine; and
+Not be an employee or official of a federal, state, provincial, or local government body or agency, except if (1) you are an employee of a state university or other government-affiliated educational institution; (2) you are not also employed by another federal, state, provincial, or local government body or agency that is not a state university or other government-affiliated educational institution; and (3) your acceptance of a prize does not violate any applicable law, rule, regulation, or policy related to the receipt of prizes, awards, or gifts.
+(For (c) and (d) above, the list of sanctioned countries and individuals can change, so visit https://home.treasury.gov/policy-issues/financial-sanctions/sanctions-programs-and-country-information to find a current list of countries and more information on sanctioned individuals). In addition, your eligibility to enter the Contest and/or to receive a prize for your participation in the Contest may be or become restricted or prohibited by U.S. banking system, OFAC, or other sanctions, or other applicable laws, rules, regulations, or policies in place at the time of such entrance or potential provision of a prize. If your ability to receive a prize becomes so restricted or prohibited before or after your entrance into the Contest, you will not be eligible to receive a prize and may, in Sponsor’s discretion, be disqualified.
+
+Directors, officers, members, managers, and employees of Kotlin Foundation (“Sponsor”), JetBrains s.r.o., Jetbrains Expo B.V., and Google LLC, (collectively the “Foundation Members”)., or their affiliates and parent companies, affiliate companies, subsidiaries, agents, professional advisors, advertising, promotional, public relations, and fulfillment agencies, consultants, legal counsel, website providers, webmasters, and immediate family members (spouses, parent, child, sibling, grandparent, and “step” child, wherever they may live) of each are not eligible to enter the Contest. To be eligible to enter the Contest, entries must be completed and received by Sponsor in the manner and format designated below. If you do not meet all of these requirements or any other eligibility requirements in these Official Rules, you will not be eligible to participate in the Contest or win a prize.
+
+2. Contest Period
+The Contest starts at 09:00:00 CET on September 15, 2025 and ends at 23:59:00 CET on January 12, 2026 (the “Contest Period”). Sponsor’s or its designee’s computer is the official time-keeping device for the Contest. All entries must be received during the Contest Period unless otherwise stated in these Official Rules and meet other requirements in these Official Rules to be eligible to win a prize. Proof of entry does not constitute proof of receipt by Sponsor.
+
+3. How to Enter
+To enter, complete the following steps during the Contest Period and prior to 23:59:00 CET on January 12, 2026:
+
+Step 1: Visit kotlinlang.org and download the tools necessary to use the Kotlin programming language (Sponsor does not require any payment or charge for this download);
+Step 2: Create a cross-platform project by using Kotlin programming language (the “Code”) and upload your Code to GitHub. The GitHub repository must have one of the following open source licenses documented in a LICENSE file: the Apache 2.0 license, the MIT License, or the BSD 3-clause License;
+Step 3: Prepare a 300-word essay explaining your background (educational and professional background, coding experience with different technologies, hobbies -- if relevant to the topic of the submission--, the idea behind your project and Code, and the technologies used to develop it) (the “Essay”); and
+Step 4: Submit the link for the GitHub repository or repositories containing your Code and Essay together via the form here: https://forms.gle/kvYRm9SqLCCmfYkw7. Submission deadline is 23:59:00 CET, January 12, 2026.
+By submitting an entry (including your Code and Essay) as instructed above (a “Submission”), you agree that your Submission conforms to the Guidelines and Restrictions below. Sponsor may choose to remove any Submission or disqualify you from the Contest if it believes that your Submission fails to conform with the Guidelines and Restrictions. Upon completion of all required entry steps and compliance with the Guidelines and Restrictions, you will automatically receive one entry into the Contest.
+
+Limit: One entry per person during contest period. Any attempt to obtain additional entries, including through multiple or duplicate accounts will result in disqualification.
+
+Submission Guidelines and Restrictions:
+Your Submission must not include or refer to untruthful, incomplete, inaccurate, or misleading information.
+Your submission must be created specifically for this contest. Participants are not allowed to submit existing projects developed before the contest period.
+Template or “Hello World” projects will be excluded from participation in the contest. Participants are encouraged to develop substantial and meaningful projects that showcase their creativity, skills, and an understanding of the Kotlin Multiplatform technology and its full potential.
+Your Submission must be your original creation and be owned 100% by you, or, alternatively, you must have the full rights to grant the license and other rights that you grant to Sponsor and the Foundation Members in Section 10 below.
+Your submission must include a comprehensive README file and clear installation instructions on how to launch the project on all targets and how to try key features. The installation instructions should be detailed enough for easy replication by the judges.
+Consider including a short screencast (three to five minutes long) demonstrating your project’s main features in action. This will help the jury quickly understand your project and evaluate its functionality and creative merit.
+We encourage you to join the contest’s Slack channel. It serves as the primary platform for communication, announcements, and updates related to the contest. It also allows participants to engage with other contestants and seek help if needed.
+Libraries will not be accepted as submissions. Please note that we have a separate program for library grants: https://kotlinfoundation.org/grants/.
+Your Submission must not (in Sponsor’s discretion): (i) violate any third-party rights, including copyrights, trademark rights, or rights of privacy and publicity; (ii) contain disparaging or defamatory statements; (iii) include threats to any person, place, business, or group; (iv) be obscene, offensive, or indecent; (v) depict any risky behavior; (vi) contain material that promotes bigotry, racism, hatred or harm against any group or individual or promotes discrimination based on race, gender, religion, nationality, disability, sexual orientation or age; or (vii) contain unauthorized third-party trademarks or logos.
+You represent and warrant that: (i) the Submission does not violate any applicable law, rule or regulation; (ii) to the extent the Submission depicts any individual or features the voice or other qualities of any individual, you are the individual pictured, heard, or otherwise featured in the Submission, or, alternatively, that you have obtained written permission from each person appearing in the entry to grant the rights to Sponsor described in these Official Rules, and will make written copies of such permissions available to Sponsor upon request; and (iii) the Submission complies with all requirements of these Official Rules.
+4. Identity of Entrant
+All Submissions must be submitted by the individual entrant. Team entries are not allowed. Bulk or automated Submissions will be disqualified (including entries made using any script, macro, bot, or promotional service). Multiple participants are not permitted to share the same email for entry. Any attempt to obtain additional entries through fraud or other illegitimate means will result in disqualification, at Sponsor’s discretion.
+
+If there is a dispute about the identity of the entrant, Submissions will be declared made by the authorized account holder of the email address or social media account submitted or associated with the Submission. An “authorized account holder” means the natural person who is assigned to an e-mail address by an Internet access provider, online service provider or other organization (e.g., business, educational institution, etc.) that is responsible for assigning e-mail addresses for the domain associated with the submitted e-mail address. A potential winner may be required to provide Sponsor with proof that a potential winner is the authorized account holder of the account associated with the winning Submission.
+
+5. Selection and Notification of Winner
+On or about January 22, 2026, a panel of judges selected by Sponsor will score each Submission based on the following criteria (“Judging Criteria”):
+
+Judging Criteria:
+Creativity and novelty of idea; i.e., concept not previously encountered by contest judges (40%);
+Use of the Kotlin Multiplatform technology and/or percentage of Kotlin language code shared between different platforms (40%); and
+Alignment of Submission with Kotlin’s Coding Conventions, which can be found on https://kotlinlang.org/docs/coding-conventions.html (20%).
+The top three scoring Submissions will each be deemed the potential winners. In the unlikely event of a tie, the winner will be determined by the Submission’s score in the following criteria: Creativity and novelty of Submission. Odds of winning a prize depend on number and quality of eligible entries received.
+
+Sponsor will notify each potential winner via email or direct message on or about January 22, 2026. To claim a prize, the potential winner must follow the instructions contained in the notification. To the fullest extent permitted by applicable law, Sponsor may require each potential winner to sign and return, within seven days of being notified by Sponsor, an affidavit of eligibility, liability and publicity release, and other legal, regulatory or tax-related documents required at Sponsor’s discretion (“Affidavit and Related Documents”) in order to claim a prize. If (i) the attempted notification is returned as undeliverable without a forwarding address; (ii) the Affidavit and Related Documents are not signed and returned within seven days of the date the notification email is sent by Sponsor; or (iii) if potential winner is otherwise unable to accept the prize as stated, the prize will be forfeited and will be awarded to an alternate winner in accordance with the Judging Criteria. Only three alternate winners will be selected for each prize, after which the remaining prize(s) will not be awarded. If, by reason of a print or other error, more prizes are claimed than the number listed in these Official Rules, the prize(s) will be awarded to the person with the highest scoring Submission in accordance with the above selection process from among all valid claimants to award the prize(s) available.
+
+Verification of Potential Winner: Each potential winner is subject to verification by Sponsor, whose decisions are final and binding in all matters related to the Contest. An entrant is not a prize winner unless and until entrant’s eligibility has been verified and entrant has been notified that verification is complete and no further action is needed.
+
+6. Prize
+Three winners will each receive (i) a flight, lodging, and ticket to attend the KotlinConf main conference Munich, Germany from May 21 - 22, 2026 (Approximate Retail Value: (“ARV”): $3,000 USD).
+
+Sponsor will provide round trip (economy) coach-class airfare for winner from an airport close to the winner’s home to Munich. Sponsor or its designee will determine which airport is closest to the winner’s home. Sponsor will provide ground transportation (1) to and from airport to winner’s home and (2) to and from destination airport to lodging of winner at the prize trip destination at a reasonable cost, of a total amount not exceeding $400 USD. Sponsor will provide winner lodging for one person for three nights at a location in Munich. Travel arrangements are subject to availability at the discretion of Sponsor. Blackout periods and other restrictions, conditions, and/or limitations may apply. Air transportation, hotel accommodations, ground transportation, and other elements of prize are determined by Sponsor or its designee and must be taken together and cannot be taken separately. Sponsor or its designee will not replace any lost or stolen tickets, travel vouchers or certificates or similar items once they are in the winner’s possession.
+
+Any amendment fees or charges incurred due to any changes to the purchased flights are the responsibility of the winner. All costs not explicitly specified in these Official Rules are the sole responsibility of the winner, and Sponsor will not provide any compensation or reimbursement for these costs, including visa requirements, valid passports, travel insurance, spending money, meals, taxes (excluding airline and airport taxes), vaccinations, transfers, items of a personal nature, excess baggage, in-room charges, other ancillary costs, and any applicable insurance excesses. Air travel is subject to the airline’s conditions of carriage.
+
+Prize Restrictions: Prizes are not transferable. No substitutions or exchanges of any prize (including for cash) will be permitted, except that Sponsor reserves the right to substitute a prize of comparable or greater value for any prize. Only the number of prizes stated in these Official Rules are available to be won in the Contest. Limit one prize per person. Sponsor will not replace any lost or stolen prizes or prize components. Except for applicable manufacturer’s standard warranties, the prizes are awarded “AS IS” and without warranty of any kind, express or implied (including any implied warranty of merchantability or fitness for a particular purpose). Any unclaimed or unused prize (or portion of the prize package) will remain the property of Sponsor.
+
+All federal, state and local taxes associated with the receipt or use of any prize are the sole responsibility of the winner.
+
+7. Disclaimer
+Sponsor and any of their respective parent companies, subsidiaries, affiliates, professional advisors, consultants, contractors, legal counsel, public relations firms, advertising, fulfillment and marketing agencies, and any of their respective directors, officers, members, managers, and employees (collectively, the “Released Parties”) will not be responsible for: (a) any late, lost, misrouted, garbled or distorted or damaged transmissions or entries; (b) phone, electronic, hardware, software, network, Internet, or other computer or communications-related malfunctions or failures; (c) any Contest disruptions, injuries, losses or damages caused by events beyond the reasonable control of Sponsor or the Released Parties; or (d) any printing or typographical errors in any materials associated with the Contest.
+
+8. General Release and Limitation of Liability
+By entering the Contest, you agree to release Sponsor and all Released Parties from any liability whatsoever and waive any and all causes of action, whether under a theory of contract, tort (including negligence), warranty or other theory, arising out of or in connection with the Contest or delivery, misdelivery, acceptance, possession, use of or inability to use any prize (including claims for costs, losses, personal injuries, death, or damages of any kind, such as damage to or destruction of property or damages related to rights of publicity or privacy, moral rights, defamation or portrayal in a false light, whether intentional or unintentional).
+
+To the fullest extent permitted by applicable law, in no event will the aggregate liability of the released parties (jointly) arising out of or relating to your participation in the Contest or use of or inability to use any equipment provided for use in the Contest or any prize exceed $10. The limitations set forth in this section will not exclude or limit liability for personal injury or property damage caused by products purchased from the Sponsor, or for the released parties’ gross negligence, intentional misconduct, or for fraud.
+
+9. Use of Name, Likeness, etc.
+To the fullest extent permitted by applicable law, entry into the Contest constitutes permission to Sponsor and the Foundation Members to use your name, hometown, aural and visual likeness and prize information for advertising, marketing, and promotional purposes without further permission or compensation (including in a public-facing winner list). As a condition of being awarded any prize, except where prohibited by law, winner may be required to execute a written consent, confirming Sponsor’s or the Foundation Members’ right to use winner’s name, hometown, aural and visual likeness and prize information for advertising, marketing, and promotional purposes without further permission or compensation. By entering this Contest, you consent to being contacted by Sponsor for any purpose in connection with this Contest.
+
+10. License to Submission
+By entering the Contest and providing your Submission in connection with the Contest, you hereby grant to Sponsor and the Foundation Members a perpetual, irrevocable, royalty-free, worldwide, nonexclusive license to publish, reproduce, display, perform, distribute, adapt, edit, modify, translate, create derivative works based upon, and otherwise use and sublicense your Submission, or any portion thereof (including your name and likeness as shown and conveyed in the Submission), in connection with the Contest and for other advertising, marketing, and promotional purposes, and to incorporate Submissions, in whole or in part, into other works in any manner, form, media or technology now known or later developed. Sponsor will have no obligation to publish or use or retain any Submission you submit or to return any such Submission to you. You agree that it is your sole responsibility to obtain all permissions and releases necessary for the grant of the rights contained in this paragraph. You agree to take, at Sponsor’s expense, any further action (including execution of affidavits, tax forms, and other documents) reasonably requested by Sponsor to effect, perfect or confirm Sponsor’s or the Foundation Members’ rights as set forth above in this paragraph. You will not be entitled to compensation for any use by Sponsor, the Foundation Members’ or their agents, licensees or assignees, of your Submission.
+
+11. Privacy
+See Sponsor’s Privacy Policy at https://kotlinconf.com/contest-privacy/.
+
+12. Winner List; Rules Request
+For a copy of the winner list, send an email to hello@kotlinfoundation.org after January 22, 2026 and before January 22, 2027 to the address listed in Section 16 below, Attn: Kotlin Student Coding Competition. To obtain a copy of these Official Rules, visit kotlinconf.com/contest-rules or send a stamped, self-addressed business-size envelope to the address listed in Section 16 below, Attn: Kotlin Student Coding Competition. VT residents may omit return postage.
+
+13. Intellectual Property Notice
+KOTLIN is a trademark of Kotlin Foundation. The Contest and all accompanying materials are copyright © 2025 by Kotlin Foundation. All rights reserved.
+
+14. Disputes
+You agree that any disputes, claims, and causes of action arising out of or connected with this Contest or any prize awarded will be resolved individually, without resort to any form of class action, and exclusively by the United States District Court for the District of Delaware or the appropriate State Court located in New Castle County, Delaware. These Official Rules are governed by the Laws of the State of Delaware, without regard to choice of law or conflict of laws rules. You waive any and all objections to jurisdiction and venue in these courts and hereby submit to the jurisdiction of those courts.
+
+15. General Conditions
+By participating in the Contest, you agree to be bound by these Official Rules and by the decisions of Sponsor, which are final and binding in all respects. Sponsor reserves the right to change these Official Rules at any time, in its discretion, and to modify, suspend or cancel the Contest or any entrant’s participation in the Contest should viruses, bugs, unauthorized human intervention, pandemics, public disruptions, or other causes beyond Sponsor’s reasonable control affect the administration, security or proper play of the Contest, or Sponsor otherwise becomes (in its discretion) incapable of running the Contest as planned. Entrants who violate these Official Rules, violate any law, rule, or regulation in connection with participation in the Contest, tamper with the operation of the Contest or engage in any conduct that is detrimental or unfair to Sponsor, the Contest or any other entrant (as determined in Sponsor’s discretion) are subject to disqualification from the Contest. Sponsor reserves the right to lock out persons whose eligibility is in question or who have been disqualified or are otherwise ineligible to enter the Contest. Sponsor reserves the right to disqualify any entries received that contain inappropriate or offensive content. Sponsor’s failure to enforce any term of these Official Rules will not constitute a waiver of that provision. Any provision of these Official Rules deemed unenforceable will be enforced to the extent permissible, and the remainder of these Official Rules will remain in effect. The use of the terms “include” or “including” in these Official Rules is illustrative and not limiting.
+
+16. Sponsor
+Kotlin Foundation, 1120 Route 73, Suite 200, Mt. Laurel, NJ, 08054, USA.
+
+Eligibility
+Contest Period
+How to Enter
+Identity of Entrant
+Selection and Notification of Winner
+Prize
+Disclaimer
+General Release and Limitation of Liability
+Use of Name, Likeness, etc.
+License to Submission
+Privacy
+Winner List; Rules Request
+Intellectual Property Notice
+Disputes
+General Conditions
+Sponsor
+
+FAQ
+Code of Conduct
+Terms of Use
+Privacy Notice
+Opt-Out
+Previous years
+KotlinConf’26. Munich, May 20-22
+
+An official event by JetBrains.
+
+© 2025 JetBrains. All rights reserved.
+
+Keep up to date with new speakers, events, gifts, discounts and more!
+
+Your e-mail
+
+I agree that my personal data will be processed for this purpose.
+For partnership opportunities, contact partners@kotlinconf.com.
+
+Navigated to Kotlin Student Coding Competition Official Rules

@@ -413,13 +413,20 @@ fun QRShieldNavHost(
         }
 
         composable(Routes.SETTINGS) {
-            SettingsScreen()
+            SettingsScreen(
+                onNavigateToThreatMonitor = { navController.navigate(Routes.HISTORY) }, // Threat Monitor shows scan history
+                onNavigateToTrustCentre = { navController.navigate(Routes.TRUST_CENTRE) },
+                onNavigateToExportReport = { navController.navigate(Routes.EXPORT_REPORT) }
+            )
         }
         
         // Settings accessed from Dashboard header - shows back button
         composable(Routes.SETTINGS_FROM_DASHBOARD) {
             SettingsScreen(
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onNavigateToThreatMonitor = { navController.navigate(Routes.HISTORY) },
+                onNavigateToTrustCentre = { navController.navigate(Routes.TRUST_CENTRE) },
+                onNavigateToExportReport = { navController.navigate(Routes.EXPORT_REPORT) }
             )
         }
 

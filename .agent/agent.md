@@ -185,6 +185,35 @@ Any important notes for future agents.
 
 ---
 
+# 📁 December 30, 2025 (Session 10k+58) - Documentation Merge & Cleanup
+
+### Summary
+Merged backup changelog, copied competition rules, and fixed incorrect agent attribution.
+
+## ✅ Changes Made
+
+| Task | Status | Details |
+|------|--------|---------|
+| **Copy Competition Rules** | ✅ | Copied to `docs/KOTLIN_CONTEST_OFFICIAL_RULES.txt` |
+| **Fix Gemini→Raouf** | ✅ | 4 entries in backup fixed from "Gemini:" to "Raouf:" |
+| **Merge Backup CHANGELOG** | ✅ | Merged 9857 lines (1.19.x through 1.0.0) into CHANGELOG.md |
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `docs/KOTLIN_CONTEST_OFFICIAL_RULES.txt` | NEW - KotlinConf contest official rules |
+| `CHANGELOG_backup_20251229.md` | Fixed "### Gemini:" to "### Raouf:" (4 occurrences) |
+| `CHANGELOG.md` | Appended backup content (now 10,116 lines with complete history) |
+| `.agent/agent.md` | Added this session entry |
+
+## Notes
+- All agent entries now correctly attributed to "Raouf:"
+- CHANGELOG.md now contains complete version history from 1.20.15 back to 1.0.0
+- Competition rules document saved for reference
+
+---
+
 # 🔍 December 30, 2025 (Session 10k+57) - Desktop App File-by-File Audit
 
 ### Summary

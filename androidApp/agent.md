@@ -179,6 +179,89 @@ After making changes:
 
 ---
 
+## Raouf: Fresh UI/UX Audit - New Perspective (2025-12-30 17:55 AEDT)
+
+**Scope:** Fresh file-by-file UI/UX audit from new perspective
+
+**Key Findings (All Positive):**
+- ✅ Loading states: CircularProgressIndicator + ProcessingOverlay
+- ✅ Error states: AnimatedVisibility with styled messages
+- ✅ Empty states: EmptyHistoryState with guidance
+- ✅ Animations: AnimatedVisibility, fadeIn/fadeOut transitions
+- ✅ Haptic + Sound feedback: HapticType enum, SoundManager
+- ✅ Search/Filter: OutlinedTextField + FilterChip row
+- ✅ Confirmations: AlertDialog for destructive actions
+- ✅ Localization: 554 keys, 16 languages, no hardcoded strings
+
+**Verification:** `./gradlew :androidApp:assembleDebug` ✅
+
+---
+
+## Raouf: Android UI/UX Polish Audit (2025-12-30 17:50 AEDT)
+
+**Scope:** Comprehensive UI/UX + accessibility audit
+
+**Summary:**
+- Verified all screens use QRShieldColors design system consistently
+- Confirmed touch targets meet 48dp minimum (IconButtons)
+- Verified 197+ contentDescription labels across 20 files
+- Confirmed LazyLists use stable unique keys
+- Verified state management follows remember/derivedStateOf patterns
+- No recomposition storms detected
+
+**Minor Issues Noted (Not Fixed - Low Priority):**
+- TrustCentreScreen add button 28dp (cosmetic placeholder, not interactive)
+
+**Verification:** `./gradlew :androidApp:assembleDebug` ✅
+
+---
+
+## Raouf: Android Fresh Audit & Footer Fix (2025-12-30 17:42 AEDT)
+
+**Scope:** Fresh file-by-file Android audit, wire TrustCentre footer links
+
+**Changes:**
+- `TrustCentreScreen.kt`: Wired footer links (Terms, Privacy, Licenses) to GitHub URLs
+
+**Scan Flow Audit Summary (All REAL):**
+| Flow | Wiring |
+|------|--------|
+| Camera | CameraPreview → ML Kit → onQrCodeScanned → viewModel.processScanResult() |
+| Gallery | PhotoPicker → AndroidQrScanner.scanFromUri() → processScanResult() |
+| URL Paste | OutlinedTextField → viewModel.analyzeUrl() → PhishingEngine |
+| Red Team | Scenario chip → viewModel.analyzeUrl(maliciousUrl) |
+
+**Non-Critical TODOs Noted:**
+- ScanResultScreen "Open in Sandbox" - requires new route
+- TrustCentreScreen add item button - cosmetic
+
+**Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅
+
+---
+
+## Raouf: Android App Audit & Polish (2025-12-30 17:25 AEDT)
+
+**Scope:** Comprehensive Android app audit and fixes
+
+**Changes:**
+- Fixed string format warnings in 16 localized `strings.xml` files (toast_rule_status)
+- Wired Settings Quick Actions to actual navigation routes (was decorative/placeholder)
+- Fixed unnecessary safe call warning in BeatTheBotScreen.kt
+- Added navigation callbacks to SettingsScreen for proper navigation
+
+**Scan Flow Verified:**
+- Camera → ML Kit → PhishingEngine → Result ✅
+- Gallery → AndroidQrScanner → processScanResult → History ✅
+- URL Paste → analyzeUrl → PhishingEngine → Auto-navigate ✅
+- Red Team → Bypass camera → Direct engine analysis ✅
+
+**Verification:**
+- `./gradlew :androidApp:assembleDebug` ✅
+- `./gradlew :androidApp:assembleRelease` ✅
+- `./gradlew :common:testDebugUnitTest` ✅
+
+---
+
 ## Raouf: Hotkey Fix & Version Sync (2025-12-30 17:06 AEDT)
 
 **Scope:** Fix keyboard hotkeys interfering with text input, sync hardcoded versions
