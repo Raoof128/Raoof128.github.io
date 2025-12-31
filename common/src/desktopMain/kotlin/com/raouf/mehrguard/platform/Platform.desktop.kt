@@ -25,7 +25,7 @@ actual class Platform actual constructor() {
     actual val hasCamera: Boolean = true // Via webcam
     actual val hasHaptics: Boolean = false // Desktop doesn't have haptics
     actual val hasLocalStorage: Boolean = true
-    actual val isDebug: Boolean = System.getProperty("qrshield.debug")?.toBoolean() ?: false
+    actual val isDebug: Boolean = System.getProperty("mehrguard.debug")?.toBoolean() ?: false
 }
 
 actual fun getPlatform(): Platform = Platform()

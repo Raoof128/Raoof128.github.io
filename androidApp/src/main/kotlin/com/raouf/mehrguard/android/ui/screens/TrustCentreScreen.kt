@@ -10,6 +10,8 @@
 
 package com.raouf.mehrguard.android.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -30,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -653,6 +656,8 @@ private fun PrivacyToggleItem(
 
 @Composable
 private fun FooterSection() {
+    val context = LocalContext.current
+    
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -700,21 +705,30 @@ private fun FooterSection() {
         Row(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            TextButton(onClick = { }) {
+            TextButton(onClick = { 
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Raoof128/QDKMP-KotlinConf-2026-/blob/main/TERMS.md"))
+                context.startActivity(intent)
+            }) {
                 Text(
                     text = stringResource(R.string.footer_terms),
                     fontSize = 11.sp,
                     color = MehrGuardColors.Primary
                 )
             }
-            TextButton(onClick = { }) {
+            TextButton(onClick = { 
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Raoof128/QDKMP-KotlinConf-2026-/blob/main/PRIVACY.md"))
+                context.startActivity(intent)
+            }) {
                 Text(
                     text = stringResource(R.string.footer_privacy),
                     fontSize = 11.sp,
                     color = MehrGuardColors.Primary
                 )
             }
-            TextButton(onClick = { }) {
+            TextButton(onClick = { 
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Raoof128/QDKMP-KotlinConf-2026-/blob/main/LICENSES.md"))
+                context.startActivity(intent)
+            }) {
                 Text(
                     text = stringResource(R.string.footer_licenses),
                     fontSize = 11.sp,

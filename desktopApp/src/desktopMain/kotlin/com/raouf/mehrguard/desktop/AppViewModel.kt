@@ -122,6 +122,7 @@ class AppViewModel(
     var currentScreen by mutableStateOf<AppScreen>(AppScreen.Dashboard)
     var isDarkMode by mutableStateOf(false)
     var appLanguage by mutableStateOf(AppLanguage.systemDefault())
+    var isJudgeDemoModeEnabled by mutableStateOf(false)
 
     var scanMonitorViewMode by mutableStateOf(ScanMonitorViewMode.Visual)
     var resultSafeViewMode by mutableStateOf(ResultViewMode.Simple)
@@ -184,6 +185,16 @@ class AppViewModel(
     var userRole by mutableStateOf("Security Analyst")
     var userPlan by mutableStateOf("Enterprise Plan")
     var showEditProfileModal by mutableStateOf(false)
+    var showHelpDialog by mutableStateOf(false)
+
+    // Help Dialog functions (parity with webapp showHelpModal)
+    fun openHelpDialog() {
+        showHelpDialog = true
+    }
+    
+    fun dismissHelpDialog() {
+        showHelpDialog = false
+    }
 
     // Game Statistics (parity with Web app training.js)
     // NOTE: Must be declared BEFORE init block since applySettings() accesses these
@@ -216,6 +227,10 @@ class AppViewModel(
 
     fun toggleDarkMode() {
         toggleTheme()
+    }
+    
+    fun toggleJudgeDemoMode() {
+        isJudgeDemoModeEnabled = !isJudgeDemoModeEnabled
     }
 
     fun analyzeUrlDirectly(url: String) {
@@ -384,6 +399,12 @@ class AppViewModel(
         copyUrl(report, label = "Report copied")
     }
 
+    /**
+     * Export report to disk.
+     * Note: ExportFormat.Pdf currently generates an HTML report which can be opened in a browser
+     * and printed to a PDF file. This is a deliberate, low-risk approach to avoid bundling a
+     * native PDF generation dependency into the desktop app.
+     */
     fun exportReport() {
         val assessment = currentAssessment
         val url = currentUrl
@@ -395,7 +416,9 @@ class AppViewModel(
             ExportFormat.Pdf -> ShareManager.generateHtmlReport(url, assessment)
             ExportFormat.Json -> ShareManager.generateJsonReport(url, assessment)
         }
-        val extension = if (exportFormat == ExportFormat.Pdf) "pdf" else "json"
+        // Note: PDF format exports as .html since we generate HTML content
+        // The HTML file can be opened in browser and printed to PDF
+        val extension = if (exportFormat == ExportFormat.Pdf) "html" else "json"
         val file = defaultExportFile(exportFilename, extension)
         try {
             file.writeText(content)
@@ -420,7 +443,7 @@ class AppViewModel(
         val file = defaultExportFile("scan_history", "csv")
         try {
             file.writeText(csv)
-            setMessage(tf("Saved CSV to %s", file.name), MessageKind.Success)
+            showExportSuccess(file.name)
         } catch (e: IOException) {
             setError("Failed to save CSV", updateScanState = false)
         }
@@ -555,6 +578,19 @@ class AppViewModel(
 
     // Clear Scan History (parity with Web app shared-ui.js clearScanHistory)
     var showClearHistoryConfirmation by mutableStateOf(false)
+    
+    // Export Success Dialog
+    var showExportSuccessDialog by mutableStateOf(false)
+    var lastExportedFileName by mutableStateOf("")
+    
+    fun showExportSuccess(fileName: String) {
+        lastExportedFileName = fileName
+        showExportSuccessDialog = true
+    }
+    
+    fun dismissExportSuccessDialog() {
+        showExportSuccessDialog = false
+    }
 
     fun showClearHistoryDialog() {
         showClearHistoryConfirmation = true

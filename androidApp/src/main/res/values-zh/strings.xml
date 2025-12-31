@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">扫描二维码。检测钓鱼攻击。</string>
 
     <!-- Navigation -->
@@ -234,10 +234,10 @@
     <string name="try_again">重试</string>
     <string name="camera_permission_rationale">扫描二维码需要摄像头权限</string>
     <string name="camera_permission_denied">摄像头权限被拒绝。请在设置中启用。</string>
-    <string name="widget_name">QR-SHIELD 快速扫描</string>
+    <string name="widget_name">Mehr Guard 快速扫描</string>
     <string name="widget_description">快速扫描二维码以检测钓鱼威胁</string>
     <string name="widget_tap_to_scan">点击扫描</string>
-    <string name="cd_app_logo">QR-SHIELD图标</string>
+    <string name="cd_app_logo">Mehr Guard图标</string>
     <string name="cd_scanner_preview">二维码扫描摄像头预览</string>
     <string name="cd_close_scanner">关闭扫描器</string>
     <string name="cd_toggle_flash">切换闪光灯</string>
@@ -280,7 +280,7 @@
     <string name="cd_dismiss_hint">关闭提示</string>
     <string name="trust_center_title">安全状态</string>
     <string name="trust_center_secure">您的设备是安全的</string>
-    <string name="trust_center_protected_by">由QR-SHIELD企业版保护</string>
+    <string name="trust_center_protected_by">由Mehr Guard企业版保护</string>
     <string name="trust_center_score">安全评分: %d/100</string>
     <string name="trust_center_realtime">实时保护</string>
     <string name="trust_center_malware">恶意软件检测</string>
@@ -331,7 +331,7 @@
     <string name="auto_copy_subtitle">自动复制安全网址</string>
     <string name="biometric_unlock_title">生物识别解锁</string>
     <string name="biometric_unlock_subtitle">设置需要FaceID</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">企业版</string>
     <string name="footer_terms">条款</string>
     <string name="footer_privacy">隐私政策</string>
@@ -385,7 +385,7 @@
     <string name="learning_centre_title">学习中心</string>
     <string name="your_progress">您的进度</string>
     <string name="view_certificate">查看证书</string>
-    <string name="qr_shield_certified">QR-SHIELD认证</string>
+    <string name="qr_shield_certified">Mehr Guard认证</string>
     <string name="modules_completed_fmt">已完成%1$d/%2$d个模块</string>
     <string name="on_track">进展顺利</string>
     <string name="daily_tip_label">每日提示</string>
@@ -435,7 +435,7 @@
     <string name="phase_prevented">已阻止</string>
     <string name="privacy_offline_title">隐私与离线</string>
     <string name="privacy_hero_title">您的数据永不外泄</string>
-    <string name="privacy_hero_desc">QR-SHIELD完全在您的设备上运行。无云端。无服务器。无数据收集。设计上完全保护隐私。</string>
+    <string name="privacy_hero_desc">Mehr Guard完全在您的设备上运行。无云端。无服务器。无数据收集。设计上完全保护隐私。</string>
     <string name="privacy_offline_badge">100%离线运行</string>
     <string name="privacy_architecture">隐私架构</string>
     <string name="privacy_local_db_title">本地数据库</string>
@@ -521,7 +521,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -541,7 +541,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %s %s</string>
+    <string name="toast_rule_status">Rule %1$s %2$s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -598,5 +598,88 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">AI 分析</string>
-    <string name="beat_the_bot_signals_detected_fmt">检测到 %1$d 个信号</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
+    <string name="beat_the_bot_reset_game">Reset Game</string>
+    <string name="cd_reset_game">Reset game and start over</string>
+    <string name="toast_game_reset">Game reset! Starting fresh…</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">品牌假冒</string>
+    <string name="analysis_brand_desc">URL 似乎在假冒知名品牌。</string>
+    <string name="analysis_brand_desc_specific">URL 似乎在假冒 %1$s。</string>
+    <string name="analysis_homograph_title">同形字攻击</string>
+    <string name="analysis_homograph_desc">在域名中检测到混合脚本字符，旨在伪造合法品牌。</string>
+    <string name="analysis_protocol_title">不安全协议</string>
+    <string name="analysis_protocol_desc">URL 使用 HTTP 而非 HTTPS。数据未加密。</string>
+    <string name="analysis_tld_title">高风险 TLD</string>
+    <string name="analysis_tld_desc">域名使用通常与恶意网站相关的顶级域名。</string>
+    <string name="analysis_tld_desc_specific">.%1$s TLD 通常用于恶意网站。</string>
+    <string name="analysis_ip_host_title">IP 地址作为主机</string>
+    <string name="analysis_ip_host_desc">URL 使用 IP 地址而非域名，这对于合法网站来说不寻常。</string>
+    <string name="analysis_subdomain_title">深层子域名</string>
+    <string name="analysis_subdomain_desc">URL 有异常数量的子域名，可能用于欺骗用户。</string>
+    <string name="analysis_credential_title">凭据收集</string>
+    <string name="analysis_credential_desc">URL 路径或参数表明存在凭据收集活动。</string>
+    <string name="analysis_long_url_title">URL 长度过长</string>
+    <string name="analysis_long_url_desc">URL 异常长，可能用于隐藏实际目的地。</string>
+    <string name="analysis_scheme_title">危险协议</string>
+    <string name="analysis_scheme_desc">URL 使用可执行代码的危险协议。</string>
+    <string name="analysis_safe_title">URL 已验证安全</string>
+    <string name="analysis_safe_desc">未检测到安全问题。此 URL 看起来可以安全访问。</string>
+    <string name="analysis_no_issues">未检测到安全问题。</string>
+    <string name="analysis_at_symbol_title">@ 符号注入</string>
+    <string name="analysis_at_symbol_desc">URL 包含用于隐藏真实目的地的 @ 符号。</string>
+    <string name="analysis_suspicious_path_title">可疑路径</string>
+    <string name="analysis_suspicious_path_desc">URL 路径包含钓鱼中常用的关键词。</string>
+    <string name="analysis_risky_extension_title">高风险文件扩展名</string>
+    <string name="analysis_risky_extension_desc">URL 指向潜在危险的文件类型。</string>
+    <string name="analysis_entropy_title">随机域名</string>
+    <string name="analysis_entropy_desc">域名看起来是随机生成的，这在钓鱼中很常见。</string>
+    <string name="analysis_port_title">异常端口</string>
+    <string name="analysis_port_desc">URL 使用非标准端口号。</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">IP 地址</string>
+    <string name="tag_brand_spoof">品牌伪造</string>
+    <string name="tag_insecure">不安全</string>
+    <string name="tag_shortener">短链接</string>
+    <string name="tag_risky_tld">高风险 TLD</string>
+    <string name="tag_suspicious_path">可疑路径</string>
+    <string name="tag_long_url">长 URL</string>
+    <string name="tag_at_injection">@ 注入</string>
+    <string name="tag_verified_safe">已验证安全</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">扫描完成</string>
+    <string name="status_caution_advised">建议谨慎</string>
+    <string name="status_threat_detected">检测到威胁</string>
+    <string name="status_analysis_complete">分析完成</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">离线分析用时 &lt;5ms</string>
+    <string name="meta_no_data_leaves">数据不会离开设备</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">主要分析因素</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">域名</string>
+    <string name="factor_category_db_check">数据库检查</string>
+    <string name="factor_category_heuristics">启发式</string>
+    <string name="factor_category_ml">ML 评分</string>
+    <string name="factor_ssl_valid">有效的 SSL 证书</string>
+    <string name="factor_ssl_valid_desc">连接已加密。证书链已验证。</string>
+    <string name="factor_ssl_missing">无 SSL 证书</string>
+    <string name="factor_ssl_missing_desc">连接未加密。数据可能被拦截。</string>
+    <string name="factor_ip_address">IP 地址作为主机</string>
+    <string name="factor_ip_address_desc">URL 使用 IP 地址而非域名。对于合法网站不寻常。</string>
+    <string name="factor_domain_check">域名分析</string>
+    <string name="factor_domain_check_desc">已分析域名结构以检测钓鱼模式。</string>
+    <string name="factor_blacklist_clean">黑名单状态：干净</string>
+    <string name="factor_blacklist_clean_desc">未在本地离线威胁数据库中找到。</string>
+    <string name="factor_blacklist_found">黑名单状态：已发现</string>
+    <string name="factor_blacklist_found_desc">在威胁情报数据库中发现 URL！</string>
+    <string name="factor_heuristics_title">启发式分析</string>
+    <string name="factor_heuristics_desc">评分：%1$d • 检测到 %2$d 个信号</string>
+    <string name="factor_ml_title">ML 钓鱼评分</string>
+    <string name="factor_ml_desc">机器学习模型置信度：%1$d%%</string>
 </resources>

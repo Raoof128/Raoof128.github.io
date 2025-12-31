@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">QR कोड स्कैन करें। फ़िशिंग का पता लगाएं।</string>
 
     <!-- Navigation -->
@@ -228,10 +228,10 @@
     <string name="try_again">पुनः प्रयास करें</string>
     <string name="camera_permission_rationale">QR कोड स्कैन करने के लिए कैमरा एक्सेस आवश्यक</string>
     <string name="camera_permission_denied">कैमरा अनुमति अस्वीकृत। कृपया सेटिंग्स में सक्षम करें।</string>
-    <string name="widget_name">QR-SHIELD त्वरित स्कैन</string>
+    <string name="widget_name">Mehr Guard त्वरित स्कैन</string>
     <string name="widget_description">फ़िशिंग खतरों के लिए QR कोड जल्दी स्कैन करें</string>
     <string name="widget_tap_to_scan">स्कैन करने के लिए टैप करें</string>
-    <string name="cd_app_logo">QR-SHIELD लोगो</string>
+    <string name="cd_app_logo">Mehr Guard लोगो</string>
     <string name="cd_scanner_preview">QR कोड स्कैनिंग के लिए कैमरा प्रीव्यू</string>
     <string name="cd_close_scanner">स्कैनर बंद करें</string>
     <string name="cd_toggle_flash">फ्लैश टॉगल करें</string>
@@ -274,7 +274,7 @@
     <string name="cd_dismiss_hint">संकेत खारिज करें</string>
     <string name="trust_center_title">सुरक्षा स्थिति</string>
     <string name="trust_center_secure">आपका डिवाइस सुरक्षित है</string>
-    <string name="trust_center_protected_by">QR-SHIELD Enterprise द्वारा संरक्षित</string>
+    <string name="trust_center_protected_by">Mehr Guard Enterprise द्वारा संरक्षित</string>
     <string name="trust_center_score">सुरक्षा स्कोर: %d/100</string>
     <string name="trust_center_realtime">रीयल-टाइम सुरक्षा</string>
     <string name="trust_center_malware">मैलवेयर पहचान</string>
@@ -325,7 +325,7 @@
     <string name="auto_copy_subtitle">सुरक्षित URL स्वचालित रूप से कॉपी करें</string>
     <string name="biometric_unlock_title">बायोमेट्रिक अनलॉक</string>
     <string name="biometric_unlock_subtitle">सेटिंग्स के लिए FaceID आवश्यक</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">एंटरप्राइज़ संस्करण</string>
     <string name="footer_terms">शर्तें</string>
     <string name="footer_privacy">गोपनीयता नीति</string>
@@ -379,7 +379,7 @@
     <string name="learning_centre_title">लर्निंग सेंटर</string>
     <string name="your_progress">आपकी प्रगति</string>
     <string name="view_certificate">प्रमाणपत्र देखें</string>
-    <string name="qr_shield_certified">QR-SHIELD प्रमाणित</string>
+    <string name="qr_shield_certified">Mehr Guard प्रमाणित</string>
     <string name="modules_completed_fmt">%1$d/%2$d मॉड्यूल पूर्ण</string>
     <string name="on_track">सही राह पर</string>
     <string name="daily_tip_label">दैनिक टिप</string>
@@ -429,7 +429,7 @@
     <string name="phase_prevented">रोका गया</string>
     <string name="privacy_offline_title">गोपनीयता और ऑफ़लाइन</string>
     <string name="privacy_hero_title">आपका डेटा कभी नहीं निकलता</string>
-    <string name="privacy_hero_desc">QR-SHIELD पूरी तरह से आपके डिवाइस पर काम करता है। कोई क्लाउड नहीं। कोई सर्वर नहीं। कोई डेटा संग्रह नहीं। डिज़ाइन द्वारा पूर्ण गोपनीयता।</string>
+    <string name="privacy_hero_desc">Mehr Guard पूरी तरह से आपके डिवाइस पर काम करता है। कोई क्लाउड नहीं। कोई सर्वर नहीं। कोई डेटा संग्रह नहीं। डिज़ाइन द्वारा पूर्ण गोपनीयता।</string>
     <string name="privacy_offline_badge">100% ऑफ़लाइन संचालन</string>
     <string name="privacy_architecture">गोपनीयता आर्किटेक्चर</string>
     <string name="privacy_local_db_title">स्थानीय डेटाबेस</string>
@@ -515,7 +515,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -535,7 +535,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %s %s</string>
+    <string name="toast_rule_status">Rule %1$s %2$s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -592,5 +592,88 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">एआई विश्लेषण</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d संकेत पाए गए</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
+    <string name="beat_the_bot_reset_game">Reset Game</string>
+    <string name="cd_reset_game">Reset game and start over</string>
+    <string name="toast_game_reset">Game reset! Starting fresh…</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">ब्रांड प्रतिरूपण</string>
+    <string name="analysis_brand_desc">URL किसी प्रसिद्ध ब्रांड का प्रतिरूपण करती प्रतीत होती है।</string>
+    <string name="analysis_brand_desc_specific">URL %1$s का प्रतिरूपण करती प्रतीत होती है।</string>
+    <string name="analysis_homograph_title">होमोग्राफ हमला</string>
+    <string name="analysis_homograph_desc">डोमेन नाम में मिश्रित स्क्रिप्ट वर्ण पाए गए जो वैध ब्रांडों की नकल के लिए डिज़ाइन किए गए हैं।</string>
+    <string name="analysis_protocol_title">असुरक्षित प्रोटोकॉल</string>
+    <string name="analysis_protocol_desc">URL HTTPS के बजाय HTTP का उपयोग करती है। डेटा एन्क्रिप्टेड नहीं है।</string>
+    <string name="analysis_tld_title">जोखिमपूर्ण TLD</string>
+    <string name="analysis_tld_desc">डोमेन ऐसे टॉप-लेवल डोमेन का उपयोग करता है जो आमतौर पर दुर्भावनापूर्ण साइटों से जुड़ा होता है।</string>
+    <string name="analysis_tld_desc_specific">.%1$s TLD आमतौर पर दुर्भावनापूर्ण साइटों के लिए उपयोग किया जाता है।</string>
+    <string name="analysis_ip_host_title">IP पता होस्ट के रूप में</string>
+    <string name="analysis_ip_host_desc">URL डोमेन नाम के बजाय IP पते का उपयोग करती है, जो वैध साइटों के लिए असामान्य है।</string>
+    <string name="analysis_subdomain_title">गहरा सबडोमेन</string>
+    <string name="analysis_subdomain_desc">URL में असामान्य संख्या में सबडोमेन हैं, जिनका उपयोग उपयोगकर्ताओं को गुमराह करने के लिए किया जा सकता है।</string>
+    <string name="analysis_credential_title">क्रेडेंशियल हार्वेस्टिंग</string>
+    <string name="analysis_credential_desc">URL पथ या पैरामीटर क्रेडेंशियल हार्वेस्टिंग गतिविधि का संकेत देते हैं।</string>
+    <string name="analysis_long_url_title">अत्यधिक URL लंबाई</string>
+    <string name="analysis_long_url_desc">URL असामान्य रूप से लंबी है, जिसका उपयोग वास्तविक गंतव्य को छिपाने के लिए किया जा सकता है।</string>
+    <string name="analysis_scheme_title">खतरनाक स्कीम</string>
+    <string name="analysis_scheme_desc">URL एक खतरनाक स्कीम का उपयोग करती है जो कोड निष्पादित कर सकती है।</string>
+    <string name="analysis_safe_title">URL सुरक्षित सत्यापित</string>
+    <string name="analysis_safe_desc">कोई सुरक्षा समस्या नहीं पाई गई। यह URL देखने के लिए सुरक्षित प्रतीत होती है।</string>
+    <string name="analysis_no_issues">कोई सुरक्षा समस्या नहीं पाई गई।</string>
+    <string name="analysis_at_symbol_title">@ चिह्न इंजेक्शन</string>
+    <string name="analysis_at_symbol_desc">URL में @ चिह्न है जो वास्तविक गंतव्य को छिपाने के लिए उपयोग किया जाता है।</string>
+    <string name="analysis_suspicious_path_title">संदिग्ध पथ</string>
+    <string name="analysis_suspicious_path_desc">URL पथ में फ़िशिंग में आमतौर पर उपयोग किए जाने वाले कीवर्ड हैं।</string>
+    <string name="analysis_risky_extension_title">जोखिमपूर्ण फ़ाइल एक्सटेंशन</string>
+    <string name="analysis_risky_extension_desc">URL संभावित खतरनाक फ़ाइल प्रकार की ओर इशारा करती है।</string>
+    <string name="analysis_entropy_title">यादृच्छिक डोमेन</string>
+    <string name="analysis_entropy_desc">डोमेन यादृच्छिक रूप से उत्पन्न प्रतीत होता है, फ़िशिंग में आम।</string>
+    <string name="analysis_port_title">असामान्य पोर्ट</string>
+    <string name="analysis_port_desc">URL एक गैर-मानक पोर्ट नंबर का उपयोग करती है।</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">IP पता</string>
+    <string name="tag_brand_spoof">ब्रांड स्पूफ</string>
+    <string name="tag_insecure">असुरक्षित</string>
+    <string name="tag_shortener">शॉर्टनर</string>
+    <string name="tag_risky_tld">जोखिमपूर्ण TLD</string>
+    <string name="tag_suspicious_path">संदिग्ध पथ</string>
+    <string name="tag_long_url">लंबी URL</string>
+    <string name="tag_at_injection">@ इंजेक्शन</string>
+    <string name="tag_verified_safe">सत्यापित सुरक्षित</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">स्कैन पूर्ण</string>
+    <string name="status_caution_advised">सावधानी की सलाह</string>
+    <string name="status_threat_detected">खतरा पाया गया</string>
+    <string name="status_analysis_complete">विश्लेषण पूर्ण</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">&lt;5ms में ऑफ़लाइन विश्लेषित</string>
+    <string name="meta_no_data_leaves">कोई डेटा डिवाइस से बाहर नहीं जाता</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">शीर्ष विश्लेषण कारक</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">डोमेन</string>
+    <string name="factor_category_db_check">DB जांच</string>
+    <string name="factor_category_heuristics">ह्यूरिस्टिक्स</string>
+    <string name="factor_category_ml">ML स्कोर</string>
+    <string name="factor_ssl_valid">वैध SSL प्रमाणपत्र</string>
+    <string name="factor_ssl_valid_desc">कनेक्शन एन्क्रिप्टेड है। प्रमाणपत्र श्रृंखला सत्यापित।</string>
+    <string name="factor_ssl_missing">कोई SSL प्रमाणपत्र नहीं</string>
+    <string name="factor_ssl_missing_desc">कनेक्शन एन्क्रिप्टेड नहीं है। डेटा इंटरसेप्ट हो सकता है।</string>
+    <string name="factor_ip_address">IP पता होस्ट के रूप में</string>
+    <string name="factor_ip_address_desc">URL डोमेन नाम के बजाय IP पते का उपयोग करती है। वैध साइटों के लिए असामान्य।</string>
+    <string name="factor_domain_check">डोमेन विश्लेषण</string>
+    <string name="factor_domain_check_desc">फ़िशिंग पैटर्न के लिए डोमेन संरचना का विश्लेषण किया गया।</string>
+    <string name="factor_blacklist_clean">ब्लैकलिस्ट स्थिति: साफ़</string>
+    <string name="factor_blacklist_clean_desc">स्थानीय ऑफ़लाइन खतरा डेटाबेस में नहीं मिला।</string>
+    <string name="factor_blacklist_found">ब्लैकलिस्ट स्थिति: पाया गया</string>
+    <string name="factor_blacklist_found_desc">URL खतरा इंटेलिजेंस डेटाबेस में मिली!</string>
+    <string name="factor_heuristics_title">ह्यूरिस्टिक विश्लेषण</string>
+    <string name="factor_heuristics_desc">स्कोर: %1$d • %2$d संकेत पाए गए</string>
+    <string name="factor_ml_title">ML फ़िशिंग स्कोर</string>
+    <string name="factor_ml_desc">मशीन लर्निंग मॉडल विश्वास: %1$d%%</string>
 </resources>

@@ -43,6 +43,7 @@ fun AppSidebar(
     onNavigate: (AppScreen) -> Unit,
     language: AppLanguage,
     onProfileClick: (() -> Unit)? = null,
+    onHelpClick: (() -> Unit)? = null,
     userName: String = "Security Analyst",
     userRole: String = "Offline Operations",
     userInitials: String = "SA",
@@ -160,6 +161,18 @@ fun AppSidebar(
                 radius = radius,
                 onClick = { onNavigate(AppScreen.TrustCentreAlt) }
             )
+            
+            // Help button (opens keyboard shortcuts dialog)
+            if (onHelpClick != null) {
+                SidebarItem(
+                    label = t("Help & Shortcuts"),
+                    icon = "help",
+                    active = false,
+                    colors = colors,
+                    radius = radius,
+                    onClick = onHelpClick
+                )
+            }
         }
 
         Row(

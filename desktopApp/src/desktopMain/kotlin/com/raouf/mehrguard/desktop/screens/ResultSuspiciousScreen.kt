@@ -239,6 +239,7 @@ fun ResultSuspiciousScreen(viewModel: AppViewModel) {
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
                     onProfileClick = { viewModel.toggleProfileDropdown() },
+                    onHelpClick = { viewModel.openHelpDialog() },
                     userName = viewModel.userName,
                     userRole = viewModel.userRole,
                     userInitials = viewModel.userInitials
@@ -398,20 +399,6 @@ private fun SuspiciousContent(
                                         colors.danger,
                                         onClick = { viewModel.addBlocklistDomain(viewModel.hostFromUrl(url) ?: url) }
                                     )
-                                    Spacer(modifier = Modifier.weight(1f))
-                                    Button(
-                                        onClick = {
-                                            viewModel.showInfo(t("Opening in browser sandbox..."))
-                                            viewModel.openUrl(url)
-                                        },
-                                        colors = ButtonDefaults.buttonColors(containerColor = colors.warning),
-                                        shape = RoundedCornerShape(8.dp),
-                                        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 10.dp)
-                                    ) {
-                                        Text(t("Open in Sandbox"), fontSize = 13.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                                        Spacer(Modifier.width(6.dp))
-                                        MaterialIcon(name = "open_in_new", size = 14.sp, color = Color.White)
-                                    }
                                 }
                             }
                         }

@@ -20,6 +20,11 @@ import androidx.compose.material3.Text
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.type
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -74,6 +79,7 @@ fun DashboardScreen(viewModel: AppViewModel) {
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
                     onProfileClick = { viewModel.toggleProfileDropdown() },
+                    onHelpClick = { viewModel.openHelpDialog() },
                     userName = viewModel.userName,
                     userRole = viewModel.userRole,
                     userInitials = viewModel.userInitials
@@ -352,7 +358,16 @@ private fun DashboardContent(
                                                 color = colors.textMain,
                                                 fontSize = 14.sp
                                             ),
-                                            cursorBrush = androidx.compose.ui.graphics.SolidColor(colors.primary)
+                                            cursorBrush = androidx.compose.ui.graphics.SolidColor(colors.primary),
+                                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Go),
+                                            keyboardActions = KeyboardActions(
+                                                onGo = {
+                                                    if (urlInput.isNotBlank()) {
+                                                        onAnalyzeUrl(urlInput)
+                                                        urlInput = ""
+                                                    }
+                                                }
+                                            )
                                         )
                                     }
                                     Spacer(Modifier.width(16.dp))
@@ -521,6 +536,9 @@ private fun DashboardContent(
                 }
 
                 // Database Status Card (Small)
+                // This card was restyled to improve contrast and discoverability of the
+                // primary action (Check for Updates). Styling changes are visual only and
+                // keep the existing offline-first semantics (no network calls in offline mode).
                 Surface(
                     modifier = Modifier.weight(1f),
                     shape = RoundedCornerShape(12.dp),
@@ -528,30 +546,33 @@ private fun DashboardContent(
                     border = BorderStroke(1.dp, colors.border)
                 ) {
                     Column(modifier = Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                             Box(
                                 modifier = Modifier
-                                    .size(36.dp)
-                                    .iconContainer(colors.backgroundAlt),
+                                    .size(40.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .background(colors.primary.copy(alpha = 0.1f)),
                                 contentAlignment = Alignment.Center
                             ) {
-                                MaterialIconRound(name = "storage", size = 18.sp, color = colors.textSub)
+                                MaterialIconRound(name = "storage", size = 20.sp, color = colors.primary)
                             }
-                            Text(t("Threat Database"), fontSize = 16.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
+                            Text(t("Threat Database"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                         }
-                        KeyValueRow(label = t("Version"), value = "v1.19.0", colors = colors)
-                        KeyValueRow(label = t("Last Update"), value = t("Today, 04:00 AM"), colors = colors)
-                        KeyValueRow(label = t("Signatures"), value = "4,281,092", colors = colors)
+                        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            KeyValueRow(label = t("Version"), value = "1.20.33", colors = colors)
+                            KeyValueRow(label = t("Last Update"), value = t("Local bundle"), colors = colors)
+                            KeyValueRow(label = t("Patterns"), value = t("Active"), colors = colors)
+                        }
                         Button(
                             onClick = onCheckUpdates,
-                            colors = ButtonDefaults.buttonColors(containerColor = colors.surface),
-                            border = BorderStroke(1.dp, colors.borderStrong),
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.primary),
                             shape = RoundedCornerShape(8.dp),
-                            contentPadding = PaddingValues(vertical = 10.dp)
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 16.dp)
                         ) {
-                            MaterialIconRound(name = "refresh", size = 16.sp, color = colors.textSub)
-                            Spacer(Modifier.width(6.dp))
-                            Text(t("Check for Updates"), fontSize = 14.sp, color = colors.textSub)
+                            MaterialIconRound(name = "refresh", size = 16.sp, color = Color.White)
+                            Spacer(Modifier.width(8.dp))
+                            Text(t("Check for Updates"), fontSize = 14.sp, color = Color.White, fontWeight = FontWeight.SemiBold)
                         }
                     }
                 }
@@ -750,7 +771,7 @@ private fun RecentScanRow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 MaterialIconRound(name = if (statusLabel == "SAFE") "check_circle" else "warning", size = 14.sp, color = statusColor)
-                Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor, maxLines = 1, softWrap = false)
+                Text(statusLabel, fontSize = 12.sp, fontWeight = FontWeight.Bold, color = statusColor, maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
         }
         Spacer(modifier = Modifier.width(8.dp))
@@ -785,8 +806,13 @@ private fun EmptyRecentRow(text: String, colors: com.raouf.mehrguard.desktop.the
 
 @Composable
 private fun KeyValueRow(label: String, value: String, colors: com.raouf.mehrguard.desktop.theme.ColorTokens) {
-    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
-        Text(label, fontSize = 13.sp, color = colors.textSub)
-        Text(value, fontSize = 13.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
+    Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(label, fontSize = 14.sp, color = colors.textSub, letterSpacing = 0.sp)
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(value, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain, letterSpacing = 0.sp)
     }
 }

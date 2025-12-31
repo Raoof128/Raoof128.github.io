@@ -68,6 +68,7 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
                     onProfileClick = { viewModel.toggleProfileDropdown() },
+                    onHelpClick = { viewModel.openHelpDialog() },
                     userName = viewModel.userName,
                     userRole = viewModel.userRole,
                     userInitials = viewModel.userInitials
@@ -92,6 +93,20 @@ fun ScanHistoryScreen(viewModel: AppViewModel) {
                 cancelText = "Cancel",
                 isDangerous = true,
                 icon = "delete_forever",
+                language = language
+            )
+            
+            // Export Success Dialog
+            ConfirmationDialog(
+                isVisible = viewModel.showExportSuccessDialog,
+                onDismiss = { viewModel.dismissExportSuccessDialog() },
+                onConfirm = { viewModel.dismissExportSuccessDialog() },
+                title = "Export Complete",
+                message = "Scan history exported successfully to: ${viewModel.lastExportedFileName}",
+                confirmText = "OK",
+                cancelText = "",
+                isDangerous = false,
+                icon = "check_circle",
                 language = language
             )
             
@@ -257,7 +272,7 @@ private fun ScanHistoryContent(
                         .height(36.dp)
                         .clickable {
                             viewModel.exportHistoryCsv()
-                            onNavigate(AppScreen.ReportsExport)
+                            // Don't navigate - the exportHistoryCsv already shows success message
                         }
                         .focusable()
                         .handCursor(),
@@ -286,35 +301,26 @@ private fun ScanHistoryContent(
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(16.dp)) {
             MetricCard(
-                title = t("Total Scans (24h)"),
+                title = t("Total Scans"),
                 value = stats.totalScans.toString(),
-                delta = "0%",
-                deltaIcon = "trending_up",
-                deltaColor = colors.success,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
                 title = t("Threats Blocked"),
                 value = stats.maliciousCount.toString(),
-                delta = "0%",
-                deltaIcon = "trending_down",
-                deltaColor = colors.danger,
+                valueColor = colors.danger,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
-                title = t("Suspicious Flags"),
+                title = t("Suspicious"),
                 value = stats.suspiciousCount.toString(),
-                delta = "0",
-                deltaIcon = "trending_up",
-                deltaColor = colors.warning,
+                valueColor = colors.warning,
                 modifier = Modifier.weight(1f)
             )
             MetricCard(
                 title = t("Safe Scans"),
                 value = stats.safeCount.toString(),
-                delta = "0%",
-                deltaIcon = "",
-                deltaColor = colors.success,
+                valueColor = colors.success,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -334,34 +340,39 @@ private fun ScanHistoryContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Box(
+                        Surface(
                             modifier = Modifier
-                                .height(36.dp)
-                                .width(320.dp)
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(colors.surface)
-                                .border(1.dp, colors.border, RoundedCornerShape(8.dp))
-                                .padding(horizontal = 12.dp)
+                                .height(40.dp)
+                                .width(360.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            color = colors.surface,
+                            border = BorderStroke(1.dp, colors.border)
                         ) {
-                            BasicTextField(
-                                value = searchQuery,
-                                onValueChange = { viewModel.updateHistorySearch(it) },
-                                singleLine = true,
-                                textStyle = TextStyle(fontSize = 13.sp, color = colors.textMain),
-                                modifier = Modifier.fillMaxWidth(),
-                                decorationBox = { innerTextField ->
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        MaterialSymbol(name = "search", size = 18.sp, color = colors.textMuted)
-                                        Spacer(Modifier.width(8.dp))
-                                        Box(modifier = Modifier.weight(1f)) {
-                                            if (searchQuery.isBlank()) {
-                                                Text(t("Search domains, sources, or hashes..."), fontSize = 13.sp, color = colors.textMuted)
-                                            }
-                                            innerTextField()
-                                        }
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 14.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                MaterialSymbol(name = "search", size = 20.sp, color = colors.textMuted)
+                                Spacer(Modifier.width(10.dp))
+                                Box(modifier = Modifier.weight(1f)) {
+                                    BasicTextField(
+                                        value = searchQuery,
+                                        onValueChange = { viewModel.updateHistorySearch(it) },
+                                        singleLine = true,
+                                        textStyle = TextStyle(fontSize = 14.sp, color = colors.textMain),
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                    if (searchQuery.isBlank()) {
+                                        Text(
+                                            t("Search domains, sources, or hashes..."),
+                                            fontSize = 14.sp,
+                                            color = colors.textMuted.copy(alpha = 0.6f)
+                                        )
                                     }
                                 }
-                            )
+                            }
                         }
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -396,7 +407,7 @@ private fun ScanHistoryContent(
                             onClick = { viewModel.updateHistoryFilter(HistoryFilter.Dangerous) },
                             showDot = true
                         )
-                        Box(modifier = Modifier.size(24.dp).background(colors.border).width(1.dp))
+                        Box(modifier = Modifier.height(24.dp).width(1.dp).background(colors.border))
                         FilterChip(
                             label = t("Advanced"),
                             icon = "filter_list",
@@ -466,7 +477,13 @@ private fun ScanHistoryContent(
 }
 
 @Composable
-private fun MetricCard(title: String, value: String, delta: String, deltaIcon: String, deltaColor: Color, modifier: Modifier = Modifier) {
+// Simplified MetricCard - removed fake delta/trend indicators that were showing hardcoded zeros
+private fun MetricCard(
+    title: String,
+    value: String,
+    valueColor: Color? = null,
+    modifier: Modifier = Modifier
+) {
     val colors = LocalStitchTokens.current.colors
     Surface(
         modifier = modifier,
@@ -476,23 +493,12 @@ private fun MetricCard(title: String, value: String, delta: String, deltaIcon: S
     ) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(title, fontSize = 14.sp, color = colors.textSub, fontWeight = FontWeight.Medium)
-            Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(value, fontSize = 28.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
-                if (deltaIcon.isNotBlank()) {
-                    Row(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(6.dp))
-                            .background(deltaColor.copy(alpha = 0.1f))
-                            .padding(horizontal = 6.dp, vertical = 2.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        MaterialSymbol(name = deltaIcon, size = 14.sp, color = deltaColor)
-                        Text(delta, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = deltaColor)
-                    }
-                } else {
-                    Text(delta, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = deltaColor)
-                }
-            }
+            Text(
+                value,
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                color = valueColor ?: colors.textMain
+            )
         }
     }
 }

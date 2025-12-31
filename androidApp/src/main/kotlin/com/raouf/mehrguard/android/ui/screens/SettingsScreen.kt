@@ -75,7 +75,10 @@ import kotlinx.coroutines.withContext
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    onBackClick: (() -> Unit)? = null
+    onBackClick: (() -> Unit)? = null,
+    onNavigateToThreatMonitor: (() -> Unit)? = null,
+    onNavigateToTrustCentre: (() -> Unit)? = null,
+    onNavigateToExportReport: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
     val viewModel: com.raouf.mehrguard.ui.SharedViewModel = org.koin.compose.koinInject()
@@ -150,7 +153,7 @@ fun SettingsScreen(
                 iconColor = VerdictDanger,
                 title = stringResource(R.string.settings_threat_monitor),
                 subtitle = stringResource(R.string.settings_threat_monitor_desc),
-                onClick = { /* Navigate to Threat Monitor */ }
+                onClick = { onNavigateToThreatMonitor?.invoke() }
             )
         }
 
@@ -161,7 +164,7 @@ fun SettingsScreen(
                 iconColor = VerdictSafe,
                 title = stringResource(R.string.settings_trust_centre),
                 subtitle = stringResource(R.string.settings_trust_centre_desc),
-                onClick = { /* Navigate to Trust Centre */ }
+                onClick = { onNavigateToTrustCentre?.invoke() }
             )
         }
 
@@ -172,7 +175,7 @@ fun SettingsScreen(
                 iconColor = BrandPrimary,
                 title = stringResource(R.string.settings_export_report),
                 subtitle = stringResource(R.string.settings_export_report_desc),
-                onClick = { /* Navigate to Export Report */ }
+                onClick = { onNavigateToExportReport?.invoke() }
             )
         }
 

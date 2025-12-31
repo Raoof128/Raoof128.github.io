@@ -56,6 +56,7 @@ import kotlin.random.Random
 fun BeatTheBotScreen(
     onBackClick: () -> Unit = {},
     onEndSession: () -> Unit = {},
+    onResetGame: () -> Unit = {},
     onPhishingClick: () -> Unit = {},
     onLegitimateClick: () -> Unit = {},
     onHintDismiss: () -> Unit = {},
@@ -112,6 +113,17 @@ fun BeatTheBotScreen(
                     }
                 },
                 actions = {
+                    // Reset Game Button (2025 Android Best Practice: IconButton in TopAppBar)
+                    IconButton(
+                        onClick = onResetGame,
+                        modifier = Modifier.padding(end = 4.dp)
+                    ) {
+                        Icon(
+                            Icons.Default.Refresh,
+                            contentDescription = stringResource(R.string.cd_reset_game),
+                            tint = MehrGuardColors.Primary
+                        )
+                    }
                     // Session ID Badge
                     Surface(
                         shape = RoundedCornerShape(8.dp),
@@ -177,7 +189,7 @@ fun BeatTheBotScreen(
             // 4. Brain Visualizer Section (Always visible, matching iOS)
             BrainVisualizerSection(
                 detectedSignals = if (lastResult != null && uiState.currentUrl?.isPhishing == true) {
-                    uiState.currentUrl?.signals ?: emptyList()
+                    uiState.currentUrl.signals
                 } else {
                     emptyList()
                 }

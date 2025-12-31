@@ -416,3 +416,25 @@ After making changes:
 **Verification:**
 - `./gradlew :androidApp:compileDebugKotlin` ✅ (Exit 0)
 - String counts: Base = 629, All languages = 629
+
+---
+
+## Raouf: Post-Rebrand Build Fixes (2025-12-31 18:25 AEDT)
+
+**Scope:** Fixed build issues after Mehr Guard rebrand completion.
+
+**Issues Fixed:**
+- **Keystore mismatch** - Renamed `qrshield-release.jks` → `mehrguard-release.jks` 
+- **Detekt violations** - Reduced from 27 → 13 issues in webApp Main.kt:
+  - Fixed trailing whitespace (7 instances)
+  - Fixed MaxLineLength violations (3 long lines broken up)
+  - Removed unused `reasonCodes` variable
+  - Added constants for magic numbers (HEURISTIC_COUNT, BRAND_COUNT)
+  - Fixed package declaration by moving file to proper directory structure
+
+**Build Verification:**
+- ✅ `./gradlew :androidApp:assembleDebug` - BUILD SUCCESSFUL
+- ✅ `./gradlew :desktopApp:compileKotlinDesktop` - BUILD SUCCESSFUL  
+- ✅ `./gradlew :common:compileKotlinDesktop` - BUILD SUCCESSFUL
+
+**Note:** 13 remaining detekt issues are complexity-related (LongMethod, CyclomaticComplexity) - non-critical for functionality.

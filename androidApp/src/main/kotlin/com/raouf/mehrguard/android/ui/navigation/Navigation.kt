@@ -413,13 +413,20 @@ fun MehrGuardNavHost(
         }
 
         composable(Routes.SETTINGS) {
-            SettingsScreen()
+            SettingsScreen(
+                onNavigateToThreatMonitor = { navController.navigate(Routes.HISTORY) }, // Threat Monitor shows scan history
+                onNavigateToTrustCentre = { navController.navigate(Routes.TRUST_CENTRE) },
+                onNavigateToExportReport = { navController.navigate(Routes.EXPORT_REPORT) }
+            )
         }
         
         // Settings accessed from Dashboard header - shows back button
         composable(Routes.SETTINGS_FROM_DASHBOARD) {
             SettingsScreen(
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onNavigateToThreatMonitor = { navController.navigate(Routes.HISTORY) },
+                onNavigateToTrustCentre = { navController.navigate(Routes.TRUST_CENTRE) },
+                onNavigateToExportReport = { navController.navigate(Routes.EXPORT_REPORT) }
             )
         }
 
@@ -440,6 +447,7 @@ fun MehrGuardNavHost(
             val verdict = backStackEntry.arguments?.getString("verdict") ?: "UNKNOWN"
             val score = backStackEntry.arguments?.getInt("score") ?: 0
             
+            // ScanResultScreen now re-analyzes the URL internally for fresh flags
             ScanResultScreen(
                 url = url,
                 verdict = verdict,
@@ -743,6 +751,7 @@ fun MehrGuardNavHost(
                     beatTheBotViewModel.startNewGame() // Reset for next time or just leave
                     navController.popBackStack()
                 },
+                onResetGame = { beatTheBotViewModel.startNewGame() },
                 onPhishingClick = { beatTheBotViewModel.submitGuess(isPhishingGuess = true) },
                 onLegitimateClick = { beatTheBotViewModel.submitGuess(isPhishingGuess = false) },
                 onHintDismiss = { /* Hint auto-dismisses or managed by VM if needed */ },

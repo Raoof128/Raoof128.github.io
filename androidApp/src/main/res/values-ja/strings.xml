@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">QRコードをスキャン。フィッシングを検出。</string>
 
     <!-- Navigation -->
@@ -234,10 +234,10 @@
     <string name="try_again">再試行</string>
     <string name="camera_permission_rationale">QRコードのスキャンにはカメラアクセスが必要です</string>
     <string name="camera_permission_denied">カメラの権限が拒否されました。設定で有効にしてください。</string>
-    <string name="widget_name">QR-SHIELD クイックスキャン</string>
+    <string name="widget_name">Mehr Guard クイックスキャン</string>
     <string name="widget_description">QRコードをすばやくスキャンしてフィッシング脅威を検出</string>
     <string name="widget_tap_to_scan">タップしてスキャン</string>
-    <string name="cd_app_logo">QR-SHIELDロゴ</string>
+    <string name="cd_app_logo">Mehr Guardロゴ</string>
     <string name="cd_scanner_preview">QRコードスキャン用カメラプレビュー</string>
     <string name="cd_close_scanner">スキャナーを閉じる</string>
     <string name="cd_toggle_flash">フラッシュを切り替え</string>
@@ -280,7 +280,7 @@
     <string name="cd_dismiss_hint">ヒントを閉じる</string>
     <string name="trust_center_title">セキュリティ状態</string>
     <string name="trust_center_secure">デバイスは安全です</string>
-    <string name="trust_center_protected_by">QR-SHIELD Enterpriseで保護</string>
+    <string name="trust_center_protected_by">Mehr Guard Enterpriseで保護</string>
     <string name="trust_center_score">セキュリティスコア: %d/100</string>
     <string name="trust_center_realtime">リアルタイム保護</string>
     <string name="trust_center_malware">マルウェア検出</string>
@@ -331,7 +331,7 @@
     <string name="auto_copy_subtitle">安全なURLを自動的にコピー</string>
     <string name="biometric_unlock_title">生体認証ロック解除</string>
     <string name="biometric_unlock_subtitle">設定にFaceIDを要求</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">エンタープライズエディション</string>
     <string name="footer_terms">規約</string>
     <string name="footer_privacy">プライバシーポリシー</string>
@@ -385,7 +385,7 @@
     <string name="learning_centre_title">ラーニングセンター</string>
     <string name="your_progress">あなたの進捗</string>
     <string name="view_certificate">証明書を表示</string>
-    <string name="qr_shield_certified">QR-SHIELD認定</string>
+    <string name="qr_shield_certified">Mehr Guard認定</string>
     <string name="modules_completed_fmt">%1$d/%2$dモジュール完了</string>
     <string name="on_track">順調</string>
     <string name="daily_tip_label">今日のヒント</string>
@@ -435,7 +435,7 @@
     <string name="phase_prevented">防止済み</string>
     <string name="privacy_offline_title">プライバシーとオフライン</string>
     <string name="privacy_hero_title">データは決して離れません</string>
-    <string name="privacy_hero_desc">QR-SHIELDはデバイス上で完全に動作します。クラウドなし。サーバーなし。データ収集なし。設計による完全なプライバシー。</string>
+    <string name="privacy_hero_desc">Mehr Guardはデバイス上で完全に動作します。クラウドなし。サーバーなし。データ収集なし。設計による完全なプライバシー。</string>
     <string name="privacy_offline_badge">100%オフライン動作</string>
     <string name="privacy_architecture">プライバシーアーキテクチャ</string>
     <string name="privacy_local_db_title">ローカルデータベース</string>
@@ -521,7 +521,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -541,7 +541,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %s %s</string>
+    <string name="toast_rule_status">Rule %1$s %2$s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -598,5 +598,88 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">AI 分析</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d 件の信号を検出</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
+    <string name="beat_the_bot_reset_game">Reset Game</string>
+    <string name="cd_reset_game">Reset game and start over</string>
+    <string name="toast_game_reset">Game reset! Starting fresh…</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">ブランド偽装</string>
+    <string name="analysis_brand_desc">URLは有名ブランドを偽装しているようです。</string>
+    <string name="analysis_brand_desc_specific">URLは%1$sを偽装しているようです。</string>
+    <string name="analysis_homograph_title">ホモグラフ攻撃</string>
+    <string name="analysis_homograph_desc">正規ブランドを偽装するために設計された混合スクリプト文字がドメイン名で検出されました。</string>
+    <string name="analysis_protocol_title">安全でないプロトコル</string>
+    <string name="analysis_protocol_desc">URLはHTTPSではなくHTTPを使用しています。データは暗号化されていません。</string>
+    <string name="analysis_tld_title">リスクの高いTLD</string>
+    <string name="analysis_tld_desc">ドメインは悪意のあるサイトに一般的に関連付けられているトップレベルドメインを使用しています。</string>
+    <string name="analysis_tld_desc_specific">.%1$s TLDは悪意のあるサイトでよく使用されます。</string>
+    <string name="analysis_ip_host_title">IPアドレスホスト</string>
+    <string name="analysis_ip_host_desc">URLはドメイン名の代わりにIPアドレスを使用しています。正規サイトでは異常です。</string>
+    <string name="analysis_subdomain_title">深いサブドメイン</string>
+    <string name="analysis_subdomain_desc">URLには異常な数のサブドメインがあり、ユーザーを欺くために使用される可能性があります。</string>
+    <string name="analysis_credential_title">認証情報の収集</string>
+    <string name="analysis_credential_desc">URLパスまたはパラメータが認証情報収集活動を示唆しています。</string>
+    <string name="analysis_long_url_title">過度のURL長</string>
+    <string name="analysis_long_url_desc">URLが異常に長く、実際の宛先を隠すために使用される可能性があります。</string>
+    <string name="analysis_scheme_title">危険なスキーム</string>
+    <string name="analysis_scheme_desc">URLはコードを実行できる危険なスキームを使用しています。</string>
+    <string name="analysis_safe_title">URL安全確認済み</string>
+    <string name="analysis_safe_desc">セキュリティ問題は検出されませんでした。このURLは安全にアクセスできます。</string>
+    <string name="analysis_no_issues">セキュリティ問題は検出されませんでした。</string>
+    <string name="analysis_at_symbol_title">@記号インジェクション</string>
+    <string name="analysis_at_symbol_desc">URLに実際の宛先を隠すために使用される@記号が含まれています。</string>
+    <string name="analysis_suspicious_path_title">不審なパス</string>
+    <string name="analysis_suspicious_path_desc">URLパスにフィッシングでよく使用されるキーワードが含まれています。</string>
+    <string name="analysis_risky_extension_title">リスクのあるファイル拡張子</string>
+    <string name="analysis_risky_extension_desc">URLは潜在的に危険なファイルタイプを指しています。</string>
+    <string name="analysis_entropy_title">ランダムドメイン</string>
+    <string name="analysis_entropy_desc">ドメインはランダムに生成されたように見えます。フィッシングで一般的です。</string>
+    <string name="analysis_port_title">異常なポート</string>
+    <string name="analysis_port_desc">URLは非標準のポート番号を使用しています。</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">IPアドレス</string>
+    <string name="tag_brand_spoof">ブランド偽装</string>
+    <string name="tag_insecure">安全でない</string>
+    <string name="tag_shortener">短縮URL</string>
+    <string name="tag_risky_tld">リスクTLD</string>
+    <string name="tag_suspicious_path">不審なパス</string>
+    <string name="tag_long_url">長いURL</string>
+    <string name="tag_at_injection">@インジェクション</string>
+    <string name="tag_verified_safe">安全確認済み</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">スキャン完了</string>
+    <string name="status_caution_advised">注意が必要</string>
+    <string name="status_threat_detected">脅威検出</string>
+    <string name="status_analysis_complete">分析完了</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">オフラインで5ms未満で分析</string>
+    <string name="meta_no_data_leaves">データはデバイスから送信されません</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">主要分析要因</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">ドメイン</string>
+    <string name="factor_category_db_check">DBチェック</string>
+    <string name="factor_category_heuristics">ヒューリスティック</string>
+    <string name="factor_category_ml">MLスコア</string>
+    <string name="factor_ssl_valid">有効なSSL証明書</string>
+    <string name="factor_ssl_valid_desc">接続は暗号化されています。証明書チェーン検証済み。</string>
+    <string name="factor_ssl_missing">SSL証明書なし</string>
+    <string name="factor_ssl_missing_desc">接続は暗号化されていません。データが傍受される可能性があります。</string>
+    <string name="factor_ip_address">IPアドレスホスト</string>
+    <string name="factor_ip_address_desc">URLはドメイン名の代わりにIPアドレスを使用。正規サイトでは異常。</string>
+    <string name="factor_domain_check">ドメイン分析</string>
+    <string name="factor_domain_check_desc">フィッシングパターンのためにドメイン構造を分析。</string>
+    <string name="factor_blacklist_clean">ブラックリスト状態: クリーン</string>
+    <string name="factor_blacklist_clean_desc">ローカルオフライン脅威データベースに見つかりません。</string>
+    <string name="factor_blacklist_found">ブラックリスト状態: 発見</string>
+    <string name="factor_blacklist_found_desc">URLが脅威インテリジェンスデータベースで発見されました！</string>
+    <string name="factor_heuristics_title">ヒューリスティック分析</string>
+    <string name="factor_heuristics_desc">スコア: %1$d • %2$d件の信号検出</string>
+    <string name="factor_ml_title">MLフィッシングスコア</string>
+    <string name="factor_ml_desc">機械学習モデル信頼度: %1$d%%</string>
 </resources>

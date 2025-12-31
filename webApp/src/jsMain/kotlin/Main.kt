@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 Mehr Guard Contributors
+ * Copyright 2025-2026 QR-SHIELD Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("InvalidPackageDeclaration")
-
 package com.raouf.mehrguard.web
 
 import com.raouf.mehrguard.core.PhishingEngine
@@ -27,19 +25,15 @@ import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 
-// Constants for engine info
-private const val HEURISTIC_COUNT = 25
-private const val BRAND_COUNT = 52
-
 /**
- * Mehr Guard Web Application
+ * QR-SHIELD Web Application
  *
  * Kotlin/JS implementation that runs the PhishingEngine entirely in the browser.
  * Demonstrates true cross-platform code sharing with the common module.
  * All analysis happens client-side - no data leaves the browser.
  */
 fun main() {
-    console.log("🛡️ Mehr Guard Web loaded - Kotlin/JS initialized")
+    console.log("🛡️ QR-SHIELD Web loaded - Kotlin/JS initialized")
 
     // Initialize PhishingEngine - same code as Android, iOS, and Desktop
     val engine = PhishingEngine()
@@ -76,7 +70,7 @@ fun main() {
                 val heuristicResult = heuristicsEngine.analyze(url)
                 val mlResult = mlScorer.scoreWithDetails(url)
                 val threatResult = threatIntel.lookup(url)
-
+                
                 console.log("✅ Analysis complete: Score=${assessment.score}, Verdict=${assessment.verdict}")
                 console.log("   ML Score: ${(mlResult.ensembleScore * 100).toInt()}%")
                 console.log("   Reason Codes: ${heuristicResult.reasons.size}")
@@ -84,6 +78,15 @@ fun main() {
 
                 // Convert flags to JS array
                 val flagsArray = assessment.flags.toTypedArray()
+                
+                // Convert reason codes to JS array
+                val reasonCodes = heuristicResult.reasons.map { reason ->
+                    val r = js("{}")
+                    r.code = reason.code
+                    r.severity = reason.severity.name
+                    r.description = reason.description
+                    r
+                }.toTypedArray()
 
                 // Call the display function defined in HTML with enhanced data
                 window.asDynamic().displayResult(
@@ -92,7 +95,7 @@ fun main() {
                     flagsArray,
                     url
                 )
-
+                
                 // Also expose enhanced analysis data for advanced UI
                 val details = js("{}")
                 details.score = assessment.score
@@ -106,7 +109,7 @@ fun main() {
                 details.heuristicScore = heuristicResult.score
                 details.reasonCount = heuristicResult.reasons.size
                 window.asDynamic().lastAnalysisDetails = details
-
+                
             } catch (e: Exception) {
                 console.error("❌ Analysis error: ${e.message}")
                 window.asDynamic().showToast("Error analyzing URL: ${e.message}")
@@ -224,14 +227,14 @@ fun main() {
     val engineInfo = js("{}")
     engineInfo.version = "1.19.0"
     engineInfo.mlModelSize = "~10KB"
-    engineInfo.heuristicCount = HEURISTIC_COUNT
-    engineInfo.brandCount = BRAND_COUNT
+    engineInfo.heuristicCount = 25
+    engineInfo.brandCount = 52
     engineInfo.threatIntelEntries = threatIntel.getStats().exactSetSize
     engineInfo.capabilities = arrayOf("heuristics", "ml", "brand_detection", "threat_intel", "unicode_analysis", "psl")
     window.asDynamic().mehrguardEngineInfo = engineInfo
 
     // Expose translation function
-    window.asDynamic().mehrguardGetTranslation = { key: String ->
+    window.asDynamic().mehrguardGetTranslation = { key: String -> 
         try {
             val language = com.raouf.mehrguard.web.i18n.WebLanguage.current()
             try {
@@ -258,13 +261,13 @@ fun main() {
         try {
             // Save to localStorage
             window.localStorage.setItem("mehrguard_language", languageCode)
-
+            
             // Re-apply translations to the page
             val body = document.body as? Element
             if (body != null) {
                 applyLocalization(body)
             }
-
+            
             console.log("🌍 Language set to: $languageCode")
             true
         } catch (e: Exception) {
@@ -310,7 +313,7 @@ fun main() {
     initializeLocalization()
 
     // Log ready status
-    console.log("🚀 Mehr Guard Web is ready!")
+    console.log("🚀 QR-SHIELD Web is ready!")
     console.log("   • Heuristic analysis: ✓")
     console.log("   • ML scoring: ✓")
     console.log("   • Brand detection: ✓")

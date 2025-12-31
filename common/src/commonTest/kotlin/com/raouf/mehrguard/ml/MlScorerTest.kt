@@ -210,12 +210,14 @@ class MlScorerTest {
             "javascript:alert(1)"
         )
 
-        val startTime = kotlin.time.TimeSource.Monotonic.markNow()
+        // Use TimeSource.Monotonic for cross-platform timing
+        val timeSource = kotlin.time.TimeSource.Monotonic
+        val startMark = timeSource.markNow()
         testUrls.forEach { ensemble.score(it) }
-        val totalTimeMs = startTime.elapsedNow().inWholeMilliseconds.toDouble()
+        val totalTimeMs = startMark.elapsedNow().inWholeMilliseconds.toDouble()
 
         val avgTimeMs = totalTimeMs / testUrls.size
-        assertTrue(avgTimeMs < 50.0, "Average ML scoring should be under 50ms, got ${avgTimeMs}ms")
+        assertTrue(avgTimeMs < 5.0, "Average ML scoring should be under 5ms, got ${avgTimeMs}ms")
     }
 
     // === Edge Cases ===

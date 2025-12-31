@@ -33,7 +33,7 @@ import com.raouf.mehrguard.db.MehrGuardDatabase
 actual class DatabaseDriverFactory(private val context: Context) {
 
     companion object {
-        private const val DATABASE_NAME = "qrshield.db"
+        private const val DATABASE_NAME = "mehrguard.db"
     }
 
     /**

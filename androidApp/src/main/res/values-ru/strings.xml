@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">Сканируйте QR-коды. Обнаруживайте фишинг.</string>
 
     <!-- Navigation -->
@@ -234,10 +234,10 @@
     <string name="try_again">Попробовать снова</string>
     <string name="camera_permission_rationale">Для сканирования QR-кодов требуется доступ к камере</string>
     <string name="camera_permission_denied">Разрешение на камеру отклонено. Пожалуйста, включите в настройках.</string>
-    <string name="widget_name">QR-SHIELD Быстрое сканирование</string>
+    <string name="widget_name">Mehr Guard Быстрое сканирование</string>
     <string name="widget_description">Быстрое сканирование QR-кодов на фишинговые угрозы</string>
     <string name="widget_tap_to_scan">Нажмите для сканирования</string>
-    <string name="cd_app_logo">Логотип QR-SHIELD</string>
+    <string name="cd_app_logo">Логотип Mehr Guard</string>
     <string name="cd_scanner_preview">Предпросмотр камеры для сканирования QR-кода</string>
     <string name="cd_close_scanner">Закрыть сканер</string>
     <string name="cd_toggle_flash">Переключить вспышку</string>
@@ -280,7 +280,7 @@
     <string name="cd_dismiss_hint">Отклонить подсказку</string>
     <string name="trust_center_title">Состояние безопасности</string>
     <string name="trust_center_secure">Ваше устройство защищено</string>
-    <string name="trust_center_protected_by">Защищено QR-SHIELD Enterprise</string>
+    <string name="trust_center_protected_by">Защищено Mehr Guard Enterprise</string>
     <string name="trust_center_score">Оценка безопасности: %d/100</string>
     <string name="trust_center_realtime">Защита в реальном времени</string>
     <string name="trust_center_malware">Обнаружение вредоносного ПО</string>
@@ -331,7 +331,7 @@
     <string name="auto_copy_subtitle">Автоматически копировать безопасные URL</string>
     <string name="biometric_unlock_title">Биометрическая разблокировка</string>
     <string name="biometric_unlock_subtitle">Требовать FaceID для настроек</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">КОРПОРАТИВНАЯ ВЕРСИЯ</string>
     <string name="footer_terms">Условия</string>
     <string name="footer_privacy">Политика конфиденциальности</string>
@@ -385,7 +385,7 @@
     <string name="learning_centre_title">Учебный центр</string>
     <string name="your_progress">Ваш прогресс</string>
     <string name="view_certificate">Посмотреть сертификат</string>
-    <string name="qr_shield_certified">Сертифицирован QR-SHIELD</string>
+    <string name="qr_shield_certified">Сертифицирован Mehr Guard</string>
     <string name="modules_completed_fmt">%1$d из %2$d модулей завершено</string>
     <string name="on_track">На правильном пути</string>
     <string name="daily_tip_label">СОВЕТ ДНЯ</string>
@@ -435,7 +435,7 @@
     <string name="phase_prevented">Предотвращено</string>
     <string name="privacy_offline_title">Конфиденциальность и офлайн</string>
     <string name="privacy_hero_title">Ваши данные никогда не покидают устройство</string>
-    <string name="privacy_hero_desc">QR-SHIELD работает полностью на вашем устройстве. Без облака. Без серверов. Без сбора данных. Полная конфиденциальность по дизайну.</string>
+    <string name="privacy_hero_desc">Mehr Guard работает полностью на вашем устройстве. Без облака. Без серверов. Без сбора данных. Полная конфиденциальность по дизайну.</string>
     <string name="privacy_offline_badge">100% офлайн работа</string>
     <string name="privacy_architecture">Архитектура конфиденциальности</string>
     <string name="privacy_local_db_title">Локальная база данных</string>
@@ -521,7 +521,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -541,7 +541,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %s %s</string>
+    <string name="toast_rule_status">Rule %1$s %2$s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -598,5 +598,88 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">ИИ АНАЛИЗ</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d сигналов обнаружено</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
+    <string name="beat_the_bot_reset_game">Reset Game</string>
+    <string name="cd_reset_game">Reset game and start over</string>
+    <string name="toast_game_reset">Game reset! Starting fresh…</string>
+    
+    <!-- Analysis Breakdown (ScanResultScreen) -->
+    <string name="analysis_brand_title">Подмена Бренда</string>
+    <string name="analysis_brand_desc">URL-адрес похоже имитирует известный бренд.</string>
+    <string name="analysis_brand_desc_specific">URL-адрес похоже имитирует %1$s.</string>
+    <string name="analysis_homograph_title">Гомографная Атака</string>
+    <string name="analysis_homograph_desc">Обнаружены смешанные символы скриптов в имени домена, предназначенные для подделки легитимных брендов.</string>
+    <string name="analysis_protocol_title">Небезопасный Протокол</string>
+    <string name="analysis_protocol_desc">URL использует HTTP вместо HTTPS. Данные не зашифрованы.</string>
+    <string name="analysis_tld_title">Рискованный TLD</string>
+    <string name="analysis_tld_desc">Домен использует домен верхнего уровня, обычно связанный с вредоносными сайтами.</string>
+    <string name="analysis_tld_desc_specific">TLD .%1$s обычно используется для вредоносных сайтов.</string>
+    <string name="analysis_ip_host_title">IP-адрес как Хост</string>
+    <string name="analysis_ip_host_desc">URL использует IP-адрес вместо доменного имени, что необычно для легитимных сайтов.</string>
+    <string name="analysis_subdomain_title">Глубокий Поддомен</string>
+    <string name="analysis_subdomain_desc">URL имеет необычное количество поддоменов, которые могут использоваться для обмана пользователей.</string>
+    <string name="analysis_credential_title">Сбор Учётных Данных</string>
+    <string name="analysis_credential_desc">Путь или параметры URL указывают на активность сбора учётных данных.</string>
+    <string name="analysis_long_url_title">Чрезмерная Длина URL</string>
+    <string name="analysis_long_url_desc">URL необычно длинный, что может использоваться для скрытия реального назначения.</string>
+    <string name="analysis_scheme_title">Опасная Схема</string>
+    <string name="analysis_scheme_desc">URL использует опасную схему, которая может выполнять код.</string>
+    <string name="analysis_safe_title">URL Подтверждён Безопасным</string>
+    <string name="analysis_safe_desc">Проблем безопасности не обнаружено. Этот URL безопасен для посещения.</string>
+    <string name="analysis_no_issues">Проблем безопасности не обнаружено.</string>
+    <string name="analysis_at_symbol_title">Инъекция Символа @</string>
+    <string name="analysis_at_symbol_desc">URL содержит символ @, используемый для скрытия реального назначения.</string>
+    <string name="analysis_suspicious_path_title">Подозрительный Путь</string>
+    <string name="analysis_suspicious_path_desc">Путь URL содержит ключевые слова, обычно используемые в фишинге.</string>
+    <string name="analysis_risky_extension_title">Рискованное Расширение Файла</string>
+    <string name="analysis_risky_extension_desc">URL указывает на потенциально опасный тип файла.</string>
+    <string name="analysis_entropy_title">Случайный Домен</string>
+    <string name="analysis_entropy_desc">Домен выглядит случайно сгенерированным, что типично для фишинга.</string>
+    <string name="analysis_port_title">Необычный Порт</string>
+    <string name="analysis_port_desc">URL использует нестандартный номер порта.</string>
+    
+    <!-- Tags (ScanResultScreen) -->
+    <string name="tag_ip_address">IP-адрес</string>
+    <string name="tag_brand_spoof">Подмена Бренда</string>
+    <string name="tag_insecure">Небезопасный</string>
+    <string name="tag_shortener">Сокращатель</string>
+    <string name="tag_risky_tld">Рискованный TLD</string>
+    <string name="tag_suspicious_path">Подозрительный Путь</string>
+    <string name="tag_long_url">Длинный URL</string>
+    <string name="tag_at_injection">Инъекция @</string>
+    <string name="tag_verified_safe">Подтверждён Безопасным</string>
+    
+    <!-- Status Badges (ScanResultScreen) -->
+    <string name="status_scan_complete">Сканирование Завершено</string>
+    <string name="status_caution_advised">Рекомендуется Осторожность</string>
+    <string name="status_threat_detected">Угроза Обнаружена</string>
+    <string name="status_analysis_complete">Анализ Завершён</string>
+    
+    <!-- Meta Info (ScanResultScreen) -->
+    <string name="meta_analyzed_offline">Проанализировано офлайн за &lt;5мс</string>
+    <string name="meta_no_data_leaves">Данные не покидают устройство</string>
+    
+    <!-- Top Analysis Factors (ScanResultScreen) -->
+    <string name="top_analysis_factors_title">Основные Факторы Анализа</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">ДОМЕН</string>
+    <string name="factor_category_db_check">ПРОВЕРКА БД</string>
+    <string name="factor_category_heuristics">ЭВРИСТИКА</string>
+    <string name="factor_category_ml">ОЦЕНКА ML</string>
+    <string name="factor_ssl_valid">Действительный SSL Сертификат</string>
+    <string name="factor_ssl_valid_desc">Соединение зашифровано. Цепочка сертификатов проверена.</string>
+    <string name="factor_ssl_missing">Нет SSL Сертификата</string>
+    <string name="factor_ssl_missing_desc">Соединение НЕ зашифровано. Данные могут быть перехвачены.</string>
+    <string name="factor_ip_address">IP-адрес как Хост</string>
+    <string name="factor_ip_address_desc">URL использует IP-адрес вместо доменного имени. Необычно для легитимных сайтов.</string>
+    <string name="factor_domain_check">Анализ Домена</string>
+    <string name="factor_domain_check_desc">Структура домена проанализирована на наличие фишинговых паттернов.</string>
+    <string name="factor_blacklist_clean">Статус Чёрного Списка: Чисто</string>
+    <string name="factor_blacklist_clean_desc">Не найдено в локальных офлайн базах данных угроз.</string>
+    <string name="factor_blacklist_found">Статус Чёрного Списка: НАЙДЕНО</string>
+    <string name="factor_blacklist_found_desc">URL найден в базе данных разведки угроз!</string>
+    <string name="factor_heuristics_title">Эвристический Анализ</string>
+    <string name="factor_heuristics_desc">Оценка: %1$d • %2$d сигналов обнаружено</string>
+    <string name="factor_ml_title">ML Оценка Фишинга</string>
+    <string name="factor_ml_desc">Уверенность модели машинного обучения: %1$d%%</string>
 </resources>

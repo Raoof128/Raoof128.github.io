@@ -33,7 +33,7 @@ import java.io.File
 actual class DatabaseDriverFactory {
 
     companion object {
-        private const val DATABASE_NAME = "qrshield.db"
+        private const val DATABASE_NAME = "mehrguard.db"
     }
 
     /**
@@ -68,7 +68,7 @@ actual class DatabaseDriverFactory {
         val appDataDir = when {
             os.contains("windows") -> "${System.getenv("APPDATA")}/MehrGuard"
             os.contains("mac") -> "$userHome/Library/Application Support/MehrGuard"
-            else -> "$userHome/.config/qrshield"
+            else -> "$userHome/.config/mehrguard"
         }
 
         return "$appDataDir/$DATABASE_NAME"

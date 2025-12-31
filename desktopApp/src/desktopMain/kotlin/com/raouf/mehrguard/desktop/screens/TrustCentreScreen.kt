@@ -65,6 +65,7 @@ fun TrustCentreScreen(viewModel: AppViewModel) {
                     onNavigate = { viewModel.currentScreen = it },
                     language = viewModel.appLanguage,
                     onProfileClick = { viewModel.toggleProfileDropdown() },
+                    onHelpClick = { viewModel.openHelpDialog() },
                     userName = viewModel.userName,
                     userRole = viewModel.userRole,
                     userInitials = viewModel.userInitials

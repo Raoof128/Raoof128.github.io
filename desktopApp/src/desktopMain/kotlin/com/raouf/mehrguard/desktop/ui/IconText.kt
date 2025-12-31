@@ -66,6 +66,7 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "dashboard" -> if (useRounded) Icons.Rounded.Dashboard else Icons.Outlined.Dashboard
         "database" -> if (useRounded) Icons.Rounded.Storage else Icons.Outlined.Storage
         "delete" -> if (useRounded) Icons.Rounded.Delete else Icons.Outlined.Delete
+        "delete_forever" -> if (useRounded) Icons.Rounded.DeleteForever else Icons.Outlined.DeleteForever
         "description" -> if (useRounded) Icons.Rounded.Description else Icons.Outlined.Description
         "dns" -> if (useRounded) Icons.Rounded.Dns else Icons.Outlined.Dns
         "domain_verification" -> if (useRounded) Icons.Rounded.DomainVerification else Icons.Outlined.DomainVerification
@@ -81,6 +82,7 @@ private fun iconForName(name: String, font: IconFont): ImageVector? {
         "flag" -> if (useRounded) Icons.Rounded.Flag else Icons.Outlined.Flag
         "flash_on" -> if (useRounded) Icons.Rounded.FlashOn else Icons.Outlined.FlashOn
         "gpp_bad" -> if (useRounded) Icons.Rounded.GppBad else Icons.Outlined.GppBad
+        "help" -> if (useRounded) Icons.Rounded.Help else Icons.Outlined.Help
         "help_outline" -> if (useRounded) Icons.AutoMirrored.Rounded.HelpOutline else Icons.AutoMirrored.Outlined.HelpOutline
         "history" -> if (useRounded) Icons.Rounded.History else Icons.Outlined.History
         "history_edu" -> if (useRounded) Icons.Rounded.HistoryEdu else Icons.Outlined.HistoryEdu
