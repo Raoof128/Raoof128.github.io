@@ -49,6 +49,9 @@ compose.desktop {
             packageName = "MehrGuard"
             packageVersion = "1.2.0"
             
+            // Include java.sql module in the bundled JRE for JDBC/SQLite support
+            modules("java.sql")
+            
             macOS {
                 bundleID = "com.raouf.mehrguard.desktop"
                 iconFile.set(project.file("icons/icon.icns"))
