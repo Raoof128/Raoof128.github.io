@@ -1,4 +1,9 @@
-# 🛡️ Mehr Guard
+<p align="center">
+  <img src="MehrGuard.iconset/icon_512x512.png" alt="Mehr Guard Icon" width="512">
+  <br><br>
+  <b>🛡️ Mehr Guard</b><br
+  <b>Scan smart. Stay protected.</b>
+</p>
 
 > **"Mehr"** (Persian: مهر) — *trust, covenant, light* + **Guard** — *protection*  
 > Offline QR & link security for phishing prevention and redirection verification.
