@@ -203,12 +203,12 @@ class AlexaTop100FPTest {
         println("┌─────────────────┬────────┬────────────┐")
         println("│ Verdict         │ Count  │ Percentage │")
         println("├─────────────────┼────────┼────────────┤")
-        println("│ ✅ SAFE         │ ${safeCount.toString().padStart(6)} │ ${String.format("%6.1f", safeRate)}%   │")
-        println("│ ⚠️  SUSPICIOUS  │ ${suspiciousCount.toString().padStart(6)} │ ${String.format("%6.1f", suspiciousCount * 100.0 / total)}%   │")
-        println("│ 🔴 MALICIOUS    │ ${maliciousCount.toString().padStart(6)} │ ${String.format("%6.1f", maliciousCount * 100.0 / total)}%   │")
-        println("│ ❓ UNKNOWN      │ ${unknownCount.toString().padStart(6)} │ ${String.format("%6.1f", unknownCount * 100.0 / total)}%   │")
+        println("│ ✅ SAFE         │ ${safeCount.toString().padStart(6)} │ ${formatPercent(safeRate)}%   │")
+        println("│ ⚠️  SUSPICIOUS  │ ${suspiciousCount.toString().padStart(6)} │ ${formatPercent(suspiciousCount * 100.0 / total)}%   │")
+        println("│ 🔴 MALICIOUS    │ ${maliciousCount.toString().padStart(6)} │ ${formatPercent(maliciousCount * 100.0 / total)}%   │")
+        println("│ ❓ UNKNOWN      │ ${unknownCount.toString().padStart(6)} │ ${formatPercent(unknownCount * 100.0 / total)}%   │")
         println("├─────────────────┼────────┼────────────┤")
-        println("│ FP Rate         │        │ ${String.format("%6.1f", fpRate)}%   │")
+        println("│ FP Rate         │        │ ${formatPercent(fpRate)}%   │")
         println("│ Target          │        │   <5.0%    │")
         println("└─────────────────┴────────┴────────────┘")
         
@@ -221,13 +221,13 @@ class AlexaTop100FPTest {
         
         println("\n════════════════════════════════════════════════════════════")
         println("   RESULT: ${if (fpRate < 15.0) "✅ PASSED" else "❌ FAILED"}")
-        println("   FP Rate: ${String.format("%.2f", fpRate)}% (Target: <15%)")
+        println("   FP Rate: ${formatPercent(fpRate, 2)}% (Target: <15%)")
         println("════════════════════════════════════════════════════════════\n")
 
         // Assertion: FP rate must be under 15% (SUSPICIOUS is a warning, not a block)
         assertTrue(
             fpRate < 15.0,
-            "False positive rate ${String.format("%.2f", fpRate)}% exceeds 15% threshold. " +
+            "False positive rate ${formatPercent(fpRate, 2)}% exceeds 15% threshold. " +
                 "SUSPICIOUS: $suspiciousCount, MALICIOUS: $maliciousCount"
         )
     }
@@ -311,5 +311,17 @@ class AlexaTop100FPTest {
     private fun getCurrentTimestamp(): String {
         // Returns a simple date string for evidence
         return "2025-12-25"
+    }
+
+    /**
+     * Multiplatform-compatible percentage formatting.
+     * Replaces JVM-only String.format.
+     */
+    private fun formatPercent(value: Double, decimals: Int = 1): String {
+        // Simple rounding: multiply, round, divide
+        val multiplier = if (decimals == 1) 10.0 else 100.0
+        val rounded = kotlin.math.round(value * multiplier) / multiplier
+        val str = rounded.toString()
+        return str.padStart(6)
     }
 }

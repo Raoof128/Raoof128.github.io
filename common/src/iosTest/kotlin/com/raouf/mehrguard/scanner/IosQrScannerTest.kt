@@ -52,7 +52,7 @@ class IosQrScannerTest {
         val result = scanner.scanFromImage(byteArrayOf())
 
         assertEquals(
-            com.qrshield.model.ScanResult.NoQrFound,
+            com.raouf.mehrguard.model.ScanResult.NoQrFound,
             result,
             "Empty image should return NoQrFound"
         )

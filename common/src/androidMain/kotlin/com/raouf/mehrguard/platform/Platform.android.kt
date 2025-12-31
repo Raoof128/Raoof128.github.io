@@ -38,7 +38,7 @@ actual fun getPlatform(): Platform = Platform()
  */
 private object BuildConfig {
     val DEBUG: Boolean = try {
-        Class.forName("com.qrshield.android.BuildConfig")
+        Class.forName("com.raouf.mehrguard.android.BuildConfig")
             .getField("DEBUG")
             .getBoolean(null)
     } catch (e: Exception) {

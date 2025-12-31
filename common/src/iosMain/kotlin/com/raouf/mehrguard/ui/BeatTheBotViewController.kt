@@ -81,7 +81,7 @@ fun BeatTheBotViewController(
 private fun BeatTheBotWithCloseButton(onClose: () -> Unit) {
     // Create the coroutine scope and view model for the game session
     val scope = rememberCoroutineScope()
-    val viewModel = remember(scope) { com.qrshield.gamification.BeatTheBotViewModel(scope = scope) }
+    val viewModel = remember(scope) { com.raouf.mehrguard.gamification.BeatTheBotViewModel(scope = scope) }
     
     Box(modifier = Modifier.fillMaxSize()) {
         BeatTheBotScreen(viewModel = viewModel, onClose = onClose)

@@ -53,7 +53,7 @@ run_test "gradle clean" "./gradlew clean --quiet"
 
 echo ""
 echo -e "${BLUE}Step 2/6: Common Module (Shared Detection Engine)${NC}"
-run_test "shared tests" "./gradlew :common:desktopTest --quiet"
+run_test "shared tests" "./gradlew :common:desktopTest --quiet --no-configuration-cache"
 
 echo ""
 echo -e "${BLUE}Step 3/6: Android App${NC}"

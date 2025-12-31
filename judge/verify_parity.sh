@@ -33,7 +33,7 @@ FAILS=0
 # ==============================================================================
 # JVM (Desktop) Tests
 # ==============================================================================
-echo "📦 [1/4] Testing on JVM (Desktop)..."
+echo "📦 [1/5] Testing on JVM (Desktop)..."
 echo ""
 
 if ./gradlew :common:desktopTest \
@@ -50,9 +50,27 @@ fi
 echo ""
 
 # ==============================================================================
+# Android Tests
+# ==============================================================================
+echo "📱 [2/5] Testing on Android..."
+echo ""
+
+if ./gradlew :androidApp:assembleDebug \
+    --no-daemon \
+    --quiet \
+    2>&1 | tail -5; then
+    echo "✅ Android build PASSED"
+    PASSES=$((PASSES + 1))
+else
+    echo "❌ Android build FAILED"
+    FAILS=$((FAILS + 1))
+fi
+echo ""
+
+# ==============================================================================
 # JavaScript (Web) Tests
 # ==============================================================================
-echo "🌐 [2/4] Testing on JavaScript (Web)..."
+echo "🌐 [3/5] Testing on JavaScript (Web)..."
 echo ""
 
 # Note: JS browser tests are intentionally disabled due to backtick function names
@@ -73,7 +91,7 @@ echo ""
 # ==============================================================================
 # Native (iOS Simulator) Tests
 # ==============================================================================
-echo "📱 [3/4] Testing on Native (iOS Simulator)..."
+echo "📱 [4/5] Testing on Native (iOS Simulator)..."
 echo ""
 
 # Check if we're on macOS and have Xcode
@@ -105,7 +123,7 @@ echo ""
 # ==============================================================================
 # WebAssembly (Wasm) Build Verification
 # ==============================================================================
-echo "🌐 [4/4] Verifying WebAssembly (Wasm) build..."
+echo "🌐 [5/5] Verifying WebAssembly (Wasm) build..."
 echo ""
 
 if ./gradlew :webApp:wasmJsBrowserDevelopmentWebpack \
