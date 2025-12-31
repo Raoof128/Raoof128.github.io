@@ -27,6 +27,8 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.zxing.core)
                 implementation(libs.zxing.javase)
+                // SQLite JDBC driver - required for packaged app to access database
+                implementation(libs.sqlite.jdbc)
             }
         }
         

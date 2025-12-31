@@ -201,6 +201,8 @@ kotlin {
                 implementation(compose.desktop.currentOs)
                 // SQLDelight JVM driver
                 implementation(libs.sqldelight.jvm)
+                // SQLite JDBC driver - required for packaged app to access database
+                implementation(libs.sqlite.jdbc)
             }
         }
 

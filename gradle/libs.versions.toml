@@ -83,6 +83,7 @@ androidx-profileinstaller = { module = "androidx.profileinstaller:profileinstall
 # Desktop specific
 zxing-core = { module = "com.google.zxing:core", version = "3.5.2" }
 zxing-javase = { module = "com.google.zxing:javase", version = "3.5.2" }
+sqlite-jdbc = { module = "org.xerial:sqlite-jdbc", version = "3.45.3.0" }
 konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
 
 [plugins]
