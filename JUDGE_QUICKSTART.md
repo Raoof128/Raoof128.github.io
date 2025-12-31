@@ -65,17 +65,22 @@ cd qrshield
 
 **Hidden feature for testing attack detection across all platforms.**
 
-| Platform | How to Activate |
-|----------|----------------|
-| **Android** | Settings → 7-tap version number → Toggle "Red Team Mode" |
-| **iOS** | Settings → 7-tap version number → Toggle "Red Team Mode" |
-| **Desktop** | Red Team chip bar visible in scanner toolbar |
-| **Web** | Settings → Judge Demo Mode |
+| Platform | How to Activate | State |
+|----------|----------------|-------|
+| **Android** | Settings → 7-tap version number → Toggle "Red Team Mode" | Hidden by default |
+| **iOS** | Settings → 7-tap version number → Toggle "Red Team Mode" | Hidden by default |
+| **Desktop** | Header bar → Click "🕵️ Judge Mode" toggle (next to "Offline First") | Toggle ON/OFF |
+| **Web** | Settings → Security Settings → "Enable Red Team Scenarios" toggle | Toggle ON/OFF |
 
 **What You'll See:**
-- 14 curated attack scenarios (homographs, IP obfuscation, brand impersonation)
-- One-tap testing of detection accuracy
-- Useful for demonstrating engine capabilities to judges
+- 18 curated attack scenarios (homographs, IP obfuscation, TLD abuse, brand impersonation, URL shorteners)
+- One-tap testing of detection accuracy (bypasses camera, feeds URL directly to engine)
+- Useful for demonstrating engine capabilities to judges without needing QR codes
+
+**Quick Demo Steps:**
+1. **Desktop**: Click "Judge Mode" in header → Click any attack chip (e.g., "Cyrillic Apple")
+2. **Web**: Go to Settings → Enable "Red Team Scenarios" → Click any chip → Redirects to scanner with analysis
+3. **Mobile**: Settings → 7-tap version → Enable Red Team Mode → Chips appear in scanner
 
 ---
 

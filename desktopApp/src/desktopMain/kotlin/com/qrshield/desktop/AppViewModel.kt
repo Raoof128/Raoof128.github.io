@@ -122,6 +122,7 @@ class AppViewModel(
     var currentScreen by mutableStateOf<AppScreen>(AppScreen.Dashboard)
     var isDarkMode by mutableStateOf(false)
     var appLanguage by mutableStateOf(AppLanguage.systemDefault())
+    var isJudgeDemoModeEnabled by mutableStateOf(false)
 
     var scanMonitorViewMode by mutableStateOf(ScanMonitorViewMode.Visual)
     var resultSafeViewMode by mutableStateOf(ResultViewMode.Simple)
@@ -226,6 +227,10 @@ class AppViewModel(
 
     fun toggleDarkMode() {
         toggleTheme()
+    }
+    
+    fun toggleJudgeDemoMode() {
+        isJudgeDemoModeEnabled = !isJudgeDemoModeEnabled
     }
 
     fun analyzeUrlDirectly(url: String) {

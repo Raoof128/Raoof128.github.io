@@ -364,6 +364,34 @@
                             </div>
                         </div>
 
+                        <!-- Judge Demo Mode (Developer) -->
+                        <div class="settings-group" style="background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(45, 31, 31, 0.3) 100%); border: 1px solid rgba(255, 107, 107, 0.2); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+                            <h5 class="settings-group-title" style="color: #FF6B6B;">🕵️ Judge Demo Mode</h5>
+                            
+                            <div class="setting-row">
+                                <div class="setting-info">
+                                    <span class="setting-label" style="color: #FF6B6B;">Enable Red Team Scenarios</span>
+                                    <span class="setting-desc" style="color: #AB7878;">Show attack test scenarios on scanner page for judges</span>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="settingJudgeDemoMode">
+                                    <span class="toggle-slider" style="background: rgba(255, 107, 107, 0.2);"></span>
+                                </label>
+                            </div>
+                            
+                            <div id="redTeamScenariosPanel" style="display: none; margin-top: 12px;">
+                                <p style="font-size: 11px; color: #AB7878; margin-bottom: 8px;">Tap any scenario to test the detection engine:</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                                    <button class="red-team-chip" data-url="https://аpple.com/verify" style="background: rgba(255, 107, 107, 0.15); border: 1px solid rgba(255, 107, 107, 0.3); color: #FF6B6B; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">🔤 Cyrillic Apple</button>
+                                    <button class="red-team-chip" data-url="http://3232235777/malware" style="background: rgba(255, 170, 0, 0.15); border: 1px solid rgba(255, 170, 0, 0.3); color: #FFAA00; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">🔢 Decimal IP</button>
+                                    <button class="red-team-chip" data-url="https://paypa1-secure.tk/login/verify" style="background: rgba(255, 105, 180, 0.15); border: 1px solid rgba(255, 105, 180, 0.3); color: #FF69B4; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">🌐 Suspicious TLD</button>
+                                    <button class="red-team-chip" data-url="https://paypa1.com/signin" style="background: rgba(107, 102, 255, 0.15); border: 1px solid rgba(107, 102, 255, 0.3); color: #6B66FF; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">🏷️ Typosquatting</button>
+                                    <button class="red-team-chip" data-url="https://bit.ly/3xYz123" style="background: rgba(0, 212, 255, 0.15); border: 1px solid rgba(0, 212, 255, 0.3); color: #00D4FF; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">🔗 Shortener</button>
+                                    <button class="red-team-chip" data-url="https://www.google.com" style="background: rgba(0, 214, 143, 0.15); border: 1px solid rgba(0, 214, 143, 0.3); color: #00D68F; padding: 6px 10px; border-radius: 8px; font-size: 12px; cursor: pointer;">✅ Safe Control</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Display Settings -->
                         <div class="settings-group">
                             <h5 class="settings-group-title" data-i18n="SettingsDisplay">Display</h5>

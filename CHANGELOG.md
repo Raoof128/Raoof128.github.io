@@ -2,6 +2,110 @@
 
 ## Unreleased
 
+## [1.20.33] - 2025-12-31
+
+### Raouf: Desktop Judge Mode Toggle in Header (2025-12-31 14:27 AEDT)
+
+**Issue:** Desktop Red Team panel was always visible, needed proper toggle control
+
+**Solution:** 
+- Added "Judge Mode" toggle button in scanner header (next to "Offline First" badge)
+- Red Team scenarios panel is now **completely hidden** when toggle is OFF
+- Panel becomes visible only when "Judge Mode" is clicked ON
+
+**Files Changed:**
+
+| File | Changes |
+|------|---------|
+| `desktopApp/.../screens/LiveScanScreen.kt` | Added toggle button in header row, conditional rendering of Red Team panel |
+| `desktopApp/.../AppViewModel.kt` | Added `isJudgeDemoModeEnabled` state and `toggleJudgeDemoMode()` function |
+
+**UI Behavior:**
+- Header shows: `Mode: Offline First` | `🕵️ Judge Mode OFF`
+- Click "Judge Mode" → toggles ON/OFF
+- When ON: Red Team scenarios panel appears below header
+- When OFF: Panel is completely hidden
+
+**Note on AGP Migration:**
+The warning about `com.android.kotlin.multiplatform.library` plugin is for AGP 9.0+ (future).
+Current AGP 8.13.2 works fine. Migration deferred until AGP 9.0 is released.
+
+---
+
+## [1.20.32] - 2025-12-31
+
+### Raouf: Red Team Mode Fixes + Gradle Cleanup (2025-12-31 14:17 AEDT)
+
+**Issues Fixed:**
+
+1. **Web Judge Demo Mode not working** - Scanner wasn't handling the `?demo_url=` parameter
+   - Added URL parameter parsing in scanner.js DOMContentLoaded
+   - Added `analyzeUrlDirectly()` function to process demo URLs
+
+2. **Desktop Red Team always enabled** - Added collapsible toggle UI
+   - Added `isRedTeamExpanded` state with clickable header
+   - Panel now starts collapsed, user clicks to expand
+   - Shows ▶/▼ indicator for expand/collapse state
+
+3. **Deprecated Gradle property warning** - Removed `kotlin.mpp.androidGradlePluginCompatibility.nowarn`
+   - Property was deprecated in Kotlin 2.0+
+   - Cleaned up gradle.properties
+
+**Files Changed:**
+
+| File | Changes |
+|------|---------|
+| `webApp/.../scanner.js` | Added demo_url param handling + analyzeUrlDirectly() |
+| `desktopApp/.../LiveScanScreen.kt` | Added collapsible toggle for Red Team panel |
+| `gradle.properties` | Removed deprecated kotlin.mpp.androidGradlePluginCompatibility.nowarn |
+
+**Verification:**
+- ✅ `./gradlew :desktopApp:compileKotlinDesktop` - BUILD SUCCESSFUL
+- ✅ `node -c scanner.js` - No syntax errors
+- ✅ Deprecated property warning removed
+
+---
+
+## [1.20.31] - 2025-12-31
+
+### Raouf: Red Team Mode for Desktop & Web (2025-12-31 14:06 AEDT)
+
+**Scope:** Add Red Team test scenarios to Desktop and Web platforms for feature parity with Android/iOS
+
+**Problem:** Desktop and Web platforms lacked the Red Team Developer Mode that exists on Android and iOS, making it harder for judges to test the detection engine without physical QR codes.
+
+**Solution:** 
+- **Desktop:** Added Red Team chip bar directly in LiveScanScreen toolbar (always visible for judges)
+- **Web:** Added "Judge Demo Mode" toggle in Settings → Security Settings section
+
+**Files Changed:**
+
+| File | Changes |
+|------|---------|
+| `desktopApp/.../screens/LiveScanScreen.kt` | Added imports for RedTeamScenarios + horizontalScroll, added Red Team panel with scenario chips, added RedTeamChip composable |
+| `webApp/.../onboarding.html` | Added Judge Demo Mode settings section with 6 Red Team scenario chips |
+| `webApp/.../onboarding.js` | Added toggle handler, localStorage persistence, chip click → scanner redirect |
+
+**Technical Details:**
+- Desktop uses shared `com.qrshield.redteam.RedTeamScenarios` from commonMain
+- Desktop calls `viewModel.analyzeUrlDirectly()` to bypass camera
+- Web stores toggle state in `localStorage.qrshield_judge_demo_mode`
+- Web redirects to scanner.html with `?demo_url=` query param on chip click
+
+**Verification:**
+- ✅ `./gradlew :desktopApp:compileKotlinDesktop` - BUILD SUCCESSFUL
+- ✅ `node -c webApp/src/jsMain/resources/onboarding.js` - No syntax errors
+
+**Platform Parity Status:**
+| Platform | Red Team Mode | Location |
+|----------|--------------|----------|
+| Android | ✅ | 7-tap on version → chip bar in Scanner |
+| iOS | ✅ | 7-tap on version → chip bar in Scanner |
+| Desktop | ✅ **NEW** | Always visible chip bar in LiveScanScreen |
+| Web | ✅ **NEW** | Settings → Judge Demo Mode toggle |
+
+---
+
 ## [1.20.30] - 2025-12-31
 
 ### Raouf: Submission-Ready Repository Cleanup (2025-12-31 12:10 AEDT)

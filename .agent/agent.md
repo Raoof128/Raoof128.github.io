@@ -185,6 +185,39 @@ Any important notes for future agents.
 
 ---
 
+# 🕵️ December 31, 2025 (Session 10k+69) - Red Team Mode for Desktop & Web
+
+### Summary
+Added Red Team Developer Mode to Desktop and Web platforms for feature parity with Android/iOS. This allows judges to test the phishing detection engine without needing physical QR codes.
+
+## ✅ Files Changed
+
+| File | Changes |
+|------|---------|
+| `desktopApp/.../screens/LiveScanScreen.kt` | Added RedTeamScenarios import, horizontalScroll import, Red Team chip bar panel, RedTeamChip composable |
+| `webApp/.../onboarding.html` | Added Judge Demo Mode settings section with 6 scenario chips |
+| `webApp/.../onboarding.js` | Added toggle handler, localStorage persistence, chip click navigation |
+
+## 🎯 Platform Parity Achieved
+
+| Platform | Red Team Mode | Activation |
+|----------|--------------|------------|
+| Android | ✅ | 7-tap version → chip bar |
+| iOS | ✅ | 7-tap version → chip bar |
+| Desktop | ✅ **NEW** | Always visible in scanner toolbar |
+| Web | ✅ **NEW** | Settings → Judge Demo Mode toggle |
+
+## 🔧 Technical Details
+- Desktop uses shared `com.qrshield.redteam.RedTeamScenarios` from commonMain (100% code reuse)
+- Web stores state in `localStorage.qrshield_judge_demo_mode`
+- Desktop calls `analyzeUrlDirectly()` to bypass camera input
+
+## ✅ Verification
+- `./gradlew :desktopApp:compileKotlinDesktop` - BUILD SUCCESSFUL
+- `node -c webApp/src/jsMain/resources/onboarding.js` - No syntax errors
+
+---
+
 # 📝 December 31, 2025 (Session 10k+68) - Comprehensive Documentation Update
 
 ### Summary

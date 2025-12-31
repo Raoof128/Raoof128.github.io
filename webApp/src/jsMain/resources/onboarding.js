@@ -256,6 +256,40 @@ function setupSettingsListeners() {
             showToast('Language changed. Reload for full effect.', 'success');
         });
     }
+    
+    // Judge Demo Mode toggle
+    const judgeDemoToggle = document.getElementById('settingJudgeDemoMode');
+    const redTeamPanel = document.getElementById('redTeamScenariosPanel');
+    if (judgeDemoToggle && redTeamPanel) {
+        // Load saved state
+        const savedState = localStorage.getItem('qrshield_judge_demo_mode') === 'true';
+        judgeDemoToggle.checked = savedState;
+        redTeamPanel.style.display = savedState ? 'block' : 'none';
+        
+        judgeDemoToggle.addEventListener('change', (e) => {
+            const enabled = e.target.checked;
+            localStorage.setItem('qrshield_judge_demo_mode', enabled);
+            redTeamPanel.style.display = enabled ? 'block' : 'none';
+            showToast(enabled ? '🕵️ Judge Demo Mode enabled' : 'Judge Demo Mode disabled', enabled ? 'warning' : 'success');
+        });
+    }
+    
+    // Red Team scenario chips
+    document.querySelectorAll('.red-team-chip').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+            const url = e.target.getAttribute('data-url');
+            if (url && window.qrshieldAnalyze) {
+                showToast('🔍 Analyzing: ' + url.substring(0, 30) + '...', 'info');
+                // Navigate to scanner with the URL
+                window.location.href = 'scanner.html?demo_url=' + encodeURIComponent(url);
+            } else if (url) {
+                // Fallback: copy to clipboard and redirect
+                navigator.clipboard?.writeText(url);
+                showToast('URL copied! Paste in scanner.', 'info');
+                window.location.href = 'scanner.html';
+            }
+        });
+    });
 }
 
 /**

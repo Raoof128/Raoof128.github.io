@@ -106,6 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setupKotlinBridge();
 
     window.qrshieldApplyTranslations?.(document.body);
+    
+    // Handle demo_url parameter from Judge Demo Mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const demoUrl = urlParams.get('demo_url');
+    if (demoUrl) {
+        console.log('[QR-SHIELD Scanner] Demo URL detected:', demoUrl);
+        // Small delay to ensure everything is loaded
+        setTimeout(() => {
+            analyzeUrlDirectly(demoUrl);
+        }, 500);
+    }
 
     console.log('[QR-SHIELD Scanner] Ready');
 });
@@ -614,6 +625,31 @@ function analyzeUrlFromModal() {
     setTimeout(() => {
         if (window.qrshieldAnalyze) {
             window.qrshieldAnalyze(fixedUrl);
+        }
+    }, 500);
+}
+
+/**
+ * Analyze a URL directly (for Judge Demo Mode / Red Team scenarios)
+ */
+function analyzeUrlDirectly(url) {
+    if (!url) return;
+    
+    console.log('[QR-SHIELD Scanner] Analyzing demo URL:', url);
+    showToast('🕵️ Analyzing Red Team scenario...', 'info');
+    showScanningState();
+    
+    // Analyze after short delay
+    setTimeout(() => {
+        if (window.qrshieldAnalyze) {
+            window.qrshieldAnalyze(url);
+        } else {
+            // Fallback: show URL in modal for manual analysis
+            if (elements.urlInputField) {
+                elements.urlInputField.value = url;
+            }
+            openUrlModal();
+            showToast('Paste URL loaded. Click Analyze.', 'warning');
         }
     }, 500);
 }

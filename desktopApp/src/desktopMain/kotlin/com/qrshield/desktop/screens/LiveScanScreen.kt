@@ -59,6 +59,8 @@ import com.qrshield.model.Verdict
 import com.qrshield.desktop.ui.handCursor
 import com.qrshield.desktop.ui.ProfileDropdown
 import com.qrshield.desktop.ui.EditProfileDialog
+import com.qrshield.redteam.RedTeamScenarios
+import androidx.compose.foundation.horizontalScroll
 import java.io.File
 
 @Composable
@@ -202,6 +204,89 @@ private fun LiveScanContent(
                                     MaterialSymbol(name = "wifi_off", size = 18.sp, color = colors.success)
                                     Text(t("Offline First"), fontSize = 14.sp, fontWeight = FontWeight.Medium, color = colors.textMain)
                                 }
+                            }
+                            // Judge Demo Mode Toggle
+                            Surface(
+                                shape = RoundedCornerShape(10.dp),
+                                color = Color(0xFF2D1F1F),
+                                border = BorderStroke(1.dp, Color(0xFF6B3A3A)),
+                                modifier = Modifier.clickable { viewModel.toggleJudgeDemoMode() }
+                            ) {
+                                Row(
+                                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    Text("🕵️", fontSize = 14.sp)
+                                    Text(
+                                        t("Judge Mode"),
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = if (viewModel.isJudgeDemoModeEnabled) Color(0xFFFF6B6B) else Color(0xFFAB7878)
+                                    )
+                                    Text(
+                                        if (viewModel.isJudgeDemoModeEnabled) "ON" else "OFF",
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (viewModel.isJudgeDemoModeEnabled) Color(0xFFFF6B6B) else Color(0xFFAB7878)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    
+                    // === RED TEAM SCENARIOS PANEL (Only visible when Judge Demo Mode is enabled) ===
+                    if (viewModel.isJudgeDemoModeEnabled) {
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = Color(0xFF2D1F1F),
+                            border = BorderStroke(1.dp, Color(0xFF6B3A3A))
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(12.dp),
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Text("🕵️", fontSize = 16.sp)
+                                        Text(
+                                            t("Red Team Test Scenarios"),
+                                            fontSize = 14.sp,
+                                            fontWeight = FontWeight.SemiBold,
+                                            color = Color(0xFFFF6B6B)
+                                        )
+                                    }
+                                    Text(
+                                        "${RedTeamScenarios.SCENARIOS.size} attacks",
+                                        fontSize = 12.sp,
+                                        color = Color(0xFFAB7878)
+                                    )
+                                }
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .horizontalScroll(rememberScrollState()),
+                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                ) {
+                                    RedTeamScenarios.SCENARIOS.forEach { scenario ->
+                                        RedTeamChip(
+                                            scenario = scenario,
+                                            onClick = { viewModel.analyzeUrlDirectly(scenario.maliciousUrl) }
+                                        )
+                                    }
+                                }
+                                Text(
+                                    t("Tap any scenario to bypass camera and test detection engine directly"),
+                                    fontSize = 11.sp,
+                                    color = Color(0xFFAB7878)
+                                )
                             }
                         }
                     }
@@ -888,3 +973,56 @@ private data class RecentScanStyle(
     val badgeColor: Color,
     val highlight: Color
 )
+
+
+// === RED TEAM CHIP COMPOSABLE ===
+
+@Composable
+private fun RedTeamChip(
+    scenario: RedTeamScenarios.Scenario,
+    onClick: () -> Unit
+) {
+    val categoryColor = when {
+        scenario.category.contains("Homograph", ignoreCase = true) -> Color(0xFFFF6B6B)
+        scenario.category.contains("IP", ignoreCase = true) -> Color(0xFFFFAA00)
+        scenario.category.contains("TLD", ignoreCase = true) -> Color(0xFFFF69B4)
+        scenario.category.contains("Redirect", ignoreCase = true) -> Color(0xFFAA66FF)
+        scenario.category.contains("Brand", ignoreCase = true) -> Color(0xFF6B66FF)
+        scenario.category.contains("Shortener", ignoreCase = true) -> Color(0xFF00D4FF)
+        scenario.category.contains("Safe", ignoreCase = true) -> Color(0xFF00D68F)
+        else -> Color(0xFFFF5722)
+    }
+    val categoryIcon = when {
+        scenario.category.contains("Homograph", ignoreCase = true) -> "🔤"
+        scenario.category.contains("IP", ignoreCase = true) -> "🔢"
+        scenario.category.contains("TLD", ignoreCase = true) -> "🌐"
+        scenario.category.contains("Redirect", ignoreCase = true) -> "↪️"
+        scenario.category.contains("Brand", ignoreCase = true) -> "🏷️"
+        scenario.category.contains("Shortener", ignoreCase = true) -> "🔗"
+        scenario.category.contains("Safe", ignoreCase = true) -> "✅"
+        else -> "⚠️"
+    }
+    
+    Surface(
+        shape = RoundedCornerShape(8.dp),
+        color = categoryColor.copy(alpha = 0.15f),
+        border = BorderStroke(1.dp, categoryColor.copy(alpha = 0.3f)),
+        modifier = Modifier.clickable { onClick() }
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Text(categoryIcon, fontSize = 12.sp)
+            Text(
+                scenario.title,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = categoryColor,
+                maxLines = 1
+            )
+        }
+    }
+}
+

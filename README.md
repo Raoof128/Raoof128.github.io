@@ -226,29 +226,33 @@ class EnsembleModel {
 
 ### 🔴 Red Team Developer Mode
 
-**What It Does:** Hidden developer mode exposing curated attack scenarios for testing and demonstration.
+**What It Does:** Hidden developer mode exposing curated attack scenarios for testing and demonstration. Bypasses camera and feeds URLs directly to the detection engine.
 
-**Activation:** 7-tap the version number in Settings (Android/iOS)
+**Platform Activation:**
 
-**Available Scenarios (14):**
+| Platform | How to Enable | Default State |
+|----------|---------------|---------------|
+| **Android** | Settings → 7-tap version number → Toggle ON | Hidden |
+| **iOS** | Settings → 7-tap version number → Toggle ON | Hidden |
+| **Desktop** | Header → Click "🕵️ Judge Mode" toggle | OFF (click to show) |
+| **Web** | Settings → Security → "Enable Red Team Scenarios" | OFF (toggle to show) |
+
+**Available Scenarios (18):**
 
 | Category | Examples |
 |----------|----------|
-| **Homograph** | Cyrillic pаypal.com, Greek gооgle.com |
-| **IP Obfuscation** | Octal/Hex/Decimal IP encoding |
-| **Suspicious TLD** | .tk, .ml, .ga, .cf domains |
-| **Brand Impersonation** | paypa1-secure.tk, amaz0n-support.ml |
+| **Homograph** | Cyrillic аpple.com, раypal.com, micrоsоft.com |
+| **IP Obfuscation** | Decimal (3232235777), Hex (0xC0A80101), Octal |
+| **Suspicious TLD** | .tk, .ml, .ga domains with brand keywords |
+| **Brand Impersonation** | paypa1.com, googIe.com, netflix.secure-verify.com |
 | **URL Shortener** | bit.ly, tinyurl with hidden destinations |
-| **Safe Control** | google.com, apple.com for baseline |
+| **Nested Redirect** | legit.com/redirect?url=phishing.tk |
+| **Safe Control** | google.com, github.com for baseline comparison |
 
-**Platform Support:**
-
-| Platform | Status | Notes |
-|----------|--------|-------|
-| Android | ✅ | Settings → 7-tap version → Developer Mode |
-| iOS | ✅ | Settings → 7-tap version → Developer Mode |
-| Desktop | ✅ | Built into scanner toolbar |
-| Web | ✅ | Judge Demo mode in settings |
+**Quick Demo for Judges:**
+1. **Fastest**: Desktop → Click "Judge Mode" → Click "Cyrillic Apple" chip
+2. **Web**: Settings → Enable Red Team → Click chip → Auto-analyzes
+3. **Mobile**: 7-tap version in Settings → Chips appear in scanner
 
 ---
 
