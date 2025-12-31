@@ -36,6 +36,40 @@
 
 ---
 
+### Raouf: Comprehensive Documentation Update (2025-12-31 12:25 AEDT)
+
+**Scope:** Update all documentation to reflect current version 1.20.30 and changelog content. Fixed iOS string count discrepancy (actual 547, not 487). Added comprehensive Red Team Mode documentation.
+
+**Files Updated (14 total):**
+
+| File | Changes |
+|------|---------|
+| `README.md` | Added Version/Languages badges, i18n section, **Red Team Mode section** |
+| `JUDGE_QUICKSTART.md` | Added Languages/Accessibility/Version metrics, essay word count, **Red Team Mode section** |
+| `SUBMISSION_CHECKLIST.md` | Updated essay reference to ESSAY_SUBMISSION.md (~950 words) |
+| `docs/ARCHITECTURE.md` | Updated iOS section with UnifiedAnalysisService, 547 strings |
+| `docs/SHARED_CODE_REPORT.md` | Updated iOS/Android LOC with localization (547 iOS) |
+| `docs/VIDEO_DEMO.md` | Added comprehensive demo script, recording guidelines, **Red Team demo steps** |
+| `docs/EVIDENCE.md` | Updated version to 1.20.30, date to Dec 31 |
+| `CONTEST_START.md` | Updated timeline to Dec 31, version tag to v1.20.30-submission |
+| `docs/PARITY.md` | Updated version to 1.20.30, date to Dec 31 |
+| `docs/ANDROID_CHECKLIST.md` | Updated version, date, string counts, **Red Team Mode section** |
+| `docs/JUDGE_SUMMARY.md` | Updated to 5 platforms, 1,248+ tests |
+| `docs/ICON_INTEGRATION.md` | Updated version to 1.20.30, date to Dec 31 |
+
+**Key Metrics Documented:**
+
+| Metric | Value |
+|--------|-------|
+| Current Version | 1.20.30 |
+| Development Period | 26 days (Dec 5-31, 2025) |
+| Android String Keys | 629 |
+| iOS String Keys | 547 (verified actual count) |
+| Content Descriptions | 197+ |
+| Languages | 16 |
+
+---
+
 ## [1.20.29] - 2025-12-31
 
 ### Raouf: Production Cleanup (2025-12-31 11:20 AEDT)

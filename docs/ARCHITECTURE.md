@@ -221,20 +221,27 @@ Run `./scripts/loc_report.sh` for exact counts.
 3. **Faster Updates**: Fix a bug in common → fixed everywhere
 4. **Shared Tests**: 1,248+ tests run on all targets
 
-### iOS Decision: SwiftUI vs Compose Multiplatform
+### iOS Decision: SwiftUI with KMP Integration
 
-We chose native SwiftUI for iOS because:
+We chose native SwiftUI for iOS with KMP engine integration:
 
 1. **Better UX**: Native animations, gestures, feel
 2. **Camera Access**: AVFoundation is more mature than KMP camera libs
 3. **App Store Ready**: No experimental Compose iOS issues
-4. **The shared code still works**: DetectionEngine is 100% Kotlin
+4. **Full Platform Parity**: Same analysis results as Android/Desktop/Web
+5. **Accessibility**: VoiceOver labels, Reduce Motion support
 
 ```swift
-// iOS code calling Kotlin shared engine
-let engine = PhishingEngine()
-let result = engine.analyze(url: userUrl)
+// iOS code calling Kotlin shared engine via UnifiedAnalysisService
+let service = UnifiedAnalysisService.shared
+let result = await service.analyze(url: userUrl)
 // Same result as Android, Desktop, Web!
+
+// Features at full parity (v1.20.30):
+// - Dynamic analysis breakdowns (16 flag types)
+// - Red Team developer mode
+// - 547 localized strings (16 languages)
+// - VoiceOver accessibility labels
 ```
 
 ---
@@ -248,4 +255,4 @@ let result = engine.analyze(url: userUrl)
 
 ---
 
-*Last updated: December 2025*
+*Last updated: December 31, 2025 (v1.20.30)*

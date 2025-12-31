@@ -61,6 +61,24 @@ cd qrshield
 
 ---
 
+## 🔴 Red Team Developer Mode
+
+**Hidden feature for testing attack detection across all platforms.**
+
+| Platform | How to Activate |
+|----------|----------------|
+| **Android** | Settings → 7-tap version number → Toggle "Red Team Mode" |
+| **iOS** | Settings → 7-tap version number → Toggle "Red Team Mode" |
+| **Desktop** | Red Team chip bar visible in scanner toolbar |
+| **Web** | Settings → Judge Demo Mode |
+
+**What You'll See:**
+- 14 curated attack scenarios (homographs, IP obfuscation, brand impersonation)
+- One-tap testing of detection accuracy
+- Useful for demonstrating engine capabilities to judges
+
+---
+
 ## 📊 Key Metrics at a Glance
 
 | Metric | Value | Evidence |
@@ -72,6 +90,9 @@ cd qrshield
 | **False Positive Rate** | <5% | [AlexaTop100FPTest.kt](common/src/commonTest/kotlin/com/qrshield/benchmark/AlexaTop100FPTest.kt) |
 | **Shared Code** | ~11,000 LOC | [SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md) |
 | **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
+| **Languages** | 16 | 629 Android strings, 547 iOS strings |
+| **Accessibility** | Full | 197+ content descriptions, VoiceOver labels |
+| **App Version** | 1.20.30 | Latest as of Dec 31, 2025 |
 
 ---
 
@@ -85,7 +106,7 @@ If you have limited time, focus on these files:
 | ⭐⭐⭐ | [EnsembleModel.kt](common/src/commonMain/kotlin/com/qrshield/ml/EnsembleModel.kt) | 3-model ML ensemble (LR + Boosting + Rules) |
 | ⭐⭐ | [HeuristicsEngine.kt](common/src/commonMain/kotlin/com/qrshield/engine/HeuristicsEngine.kt) | 25+ security heuristics |
 | ⭐⭐ | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/qrshield/platform/PlatformAbstractions.kt) | expect/actual pattern |
-| ⭐ | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) | Competition essay (~550 words) |
+| ⭐ | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) | Competition essay (~950 words) |
 
 ---
 
@@ -96,7 +117,7 @@ If you have limited time, focus on these files:
 | ✅ Original work (not pre-existing) | PASS | [CONTEST_START.md](CONTEST_START.md) |
 | ✅ Open-source license | PASS | [LICENSE](LICENSE) (Apache 2.0) |
 | ✅ README.md with instructions | PASS | [README.md](README.md) |
-| ✅ Essay (300+ words) | PASS | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) (~550 words) |
+| ✅ Essay (300+ words) | PASS | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) (~950 words) |
 | ✅ Public GitHub repository | PASS | [github.com/Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io) |
 | ✅ Not a library-only submission | PASS | Full apps on 5 platforms |
 | ✅ Not a template/Hello World | PASS | ~26,000 LOC custom implementation |
@@ -142,7 +163,7 @@ Yes! Run `./judge/verify_offline.sh` to prove zero network calls. The analysis m
 
 ### "How long did this take to build?"
 
-17 days (December 1-18, 2025). See [CONTEST_START.md](CONTEST_START.md) for timeline.
+26 days (December 5-31, 2025). See [CONTEST_START.md](CONTEST_START.md) for timeline.
 
 ---
 

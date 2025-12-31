@@ -2,10 +2,10 @@
 
 ## QR-SHIELD Android Audit Report
 
-**Audit Date:** 2025-12-26  
-**Version:** 1.17.57  
+**Audit Date:** 2025-12-31  
+**Version:** 1.20.30  
 **Auditor:** AI Assistant  
-**Last Re-audit:** 2025-12-26  
+**Last Re-audit:** 2025-12-31  
 
 ---
 
@@ -78,6 +78,41 @@ minSdk = 26
 | Heuristics | `LazyColumn` | ✅ Virtualized |
 | Settings | `LazyColumn` | ✅ Virtualized |
 | Scanner | `LazyColumn` (Red Team) | ✅ Virtualized |
+
+---
+
+## 🔴 Red Team Developer Mode ✅
+
+**Hidden developer mode for testing attack detection scenarios.**
+
+### Activation
+
+| Step | Action |
+|------|--------|
+| 1 | Go to Settings |
+| 2 | Tap version number **7 times** |
+| 3 | Developer Mode section appears |
+| 4 | Toggle "Red Team Mode" |
+| 5 | Return to Scanner → Red Team panel visible |
+
+### Attack Scenarios (14 total)
+
+| Category | Count | Examples |
+|----------|-------|----------|
+| Homograph | 3 | Cyrillic pаypal.com, Greek gооgle.com |
+| IP Obfuscation | 2 | Octal/Hex IP encoding |
+| Suspicious TLD | 2 | .tk, .ml domains |
+| Brand Impersonation | 3 | paypa1-secure.tk, amaz0n-support.ml |
+| URL Shortener | 2 | bit.ly, tinyurl with hidden destinations |
+| Safe Control | 2 | google.com, apple.com for baseline |
+
+### Implementation Files
+
+| File | Purpose |
+|------|---------|
+| `SettingsScreen.kt` | 7-tap handler, Developer Mode toggle |
+| `ScannerScreen.kt` | Red Team scenarios panel |
+| `MockData.kt` | Attack scenario definitions |
 
 ---
 
@@ -205,24 +240,24 @@ enum class SoundType {
 
 | Language | Code | String Keys |
 |----------|------|-------------|
-| English (base) | en | 554 |
-| Arabic | ar | 554 |
-| German | de | 554 |
-| Spanish | es | 554 |
-| French | fr | 554 |
-| Hindi | hi | 554 |
-| Indonesian | in | 554 |
-| Italian | it | 554 |
-| Japanese | ja | 554 |
-| Korean | ko | 554 |
-| Portuguese | pt | 554 |
-| Russian | ru | 554 |
-| Thai | th | 554 |
-| Turkish | tr | 554 |
-| Vietnamese | vi | 554 |
-| Chinese | zh | 554 |
+| English (base) | en | 629 |
+| Arabic | ar | 629 |
+| German | de | 629 |
+| Spanish | es | 629 |
+| French | fr | 629 |
+| Hindi | hi | 629 |
+| Indonesian | in | 629 |
+| Italian | it | 629 |
+| Japanese | ja | 629 |
+| Korean | ko | 629 |
+| Portuguese | pt | 629 |
+| Russian | ru | 629 |
+| Thai | th | 629 |
+| Turkish | tr | 629 |
+| Vietnamese | vi | 629 |
+| Chinese | zh | 629 |
 
-**All 16 languages synchronized with same key set (554 strings each).**
+**All 16 languages synchronized with same key set (629 strings each).**
 
 ---
 
@@ -235,7 +270,7 @@ enum class SoundType {
 | Feature Correctness | ✅ 100% | Error states, reproducible detection |
 | Accessibility | ✅ 100% | **197** content descriptions across 20 files |
 | Android Polish | ✅ 100% | Icons, splash, permissions, predictive back |
-| Localization | ✅ 100% | 16 languages, **554 keys** |
+| Localization | ✅ 100% | 16 languages, **629 keys** |
 
 **Overall: READY FOR SUBMISSION** ✅
 
@@ -258,10 +293,10 @@ enum class SoundType {
 
 # Check string resources
 grep -c 'name="' androidApp/src/main/res/values/strings.xml
-# Expected: 554
+# Expected: 629
 ```
 
 ---
 
-*Last updated: 2025-12-26 (v1.17.57)*
+*Last updated: 2025-12-31 (v1.20.30)*
 

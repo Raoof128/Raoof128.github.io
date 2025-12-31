@@ -13,12 +13,14 @@
 <p align="center">
   <img src="https://img.shields.io/badge/KotlinConf-2025--2026-7F52FF?logo=kotlin&logoColor=white" alt="Contest">
   <img src="https://img.shields.io/badge/Kotlin-2.3.0-7F52FF" alt="Kotlin">
+  <img src="https://img.shields.io/badge/Version-1.20.30-blue" alt="Version">
   <img src="https://img.shields.io/badge/KMP_Targets-5-orange" alt="Platforms">
   <img src="https://img.shields.io/badge/Offline-100%25-brightgreen" alt="Offline">
   <img src="https://img.shields.io/badge/Privacy-Zero_Data-blue" alt="Privacy">
   <img src="https://img.shields.io/badge/Tests-1,248+-brightgreen" alt="Tests">
   <img src="https://img.shields.io/badge/Coverage-89%25-brightgreen" alt="Coverage">
   <img src="https://img.shields.io/badge/F1_Score-87.1%25-brightgreen" alt="F1 Score">
+  <img src="https://img.shields.io/badge/Languages-16-blueviolet" alt="Languages">
   <img src="https://img.shields.io/badge/License-Apache_2.0-purple" alt="License">
 </p>
 
@@ -216,6 +218,32 @@ class EnsembleModel {
 | **Memory** | <50MB | Suitable for low-end devices |
 | **Bundle Size** | ~2MB (native), ~200KB (web) | Fully offline |
 
+### 🔴 Red Team Developer Mode
+
+**What It Does:** Hidden developer mode exposing curated attack scenarios for testing and demonstration.
+
+**Activation:** 7-tap the version number in Settings (Android/iOS)
+
+**Available Scenarios (14):**
+
+| Category | Examples |
+|----------|----------|
+| **Homograph** | Cyrillic pаypal.com, Greek gооgle.com |
+| **IP Obfuscation** | Octal/Hex/Decimal IP encoding |
+| **Suspicious TLD** | .tk, .ml, .ga, .cf domains |
+| **Brand Impersonation** | paypa1-secure.tk, amaz0n-support.ml |
+| **URL Shortener** | bit.ly, tinyurl with hidden destinations |
+| **Safe Control** | google.com, apple.com for baseline |
+
+**Platform Support:**
+
+| Platform | Status | Notes |
+|----------|--------|-------|
+| Android | ✅ | Settings → 7-tap version → Developer Mode |
+| iOS | ✅ | Settings → 7-tap version → Developer Mode |
+| Desktop | ✅ | Built into scanner toolbar |
+| Web | ✅ | Judge Demo mode in settings |
+
 ---
 
 ## 📊 Accuracy Metrics
@@ -267,6 +295,13 @@ class EnsembleModel {
 
 **16 Languages** — Reaching 4+ billion speakers worldwide
 
+| Platform | String Keys | Notes |
+|----------|-------------|-------|
+| **Android** | 629 | Full UI + accessibility descriptions |
+| **iOS** | 547 | SwiftUI + VoiceOver labels |
+| **Desktop** | 500+ | Compose Desktop strings |
+| **Web** | 1,200+ | HTML + JS translations |
+
 | Region | Languages |
 |--------|-----------|
 | 🇬🇧 🇺🇸 | English |
@@ -292,7 +327,7 @@ class EnsembleModel {
 
 | Criterion | Status | Evidence |
 |-----------|--------|----------|
-| ✅ Original work | Dec 5-25, 2025 | Git commit history |
+| ✅ Original work | Dec 5-31, 2025 | Git commit history |
 | ✅ Apache 2.0 license | [LICENSE](LICENSE) | Full text included |
 | ✅ Public repository | GitHub | [Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io) |
 | ✅ Kotlin Multiplatform | **5 targets** | Android, iOS, Desktop, JS, Wasm |
@@ -300,6 +335,8 @@ class EnsembleModel {
 | ✅ Competition essay | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) | ~950 words |
 | ✅ Static analysis | Detekt | Zero-tolerance (no baseline) |
 | ✅ Test coverage | 89% | 1,248+ tests |
+| ✅ Accessibility | VoiceOver + TalkBack | 197+ content descriptions |
+| ✅ Full platform parity | All 5 platforms | Dynamic analysis, Red Team mode |
 
 ---
 

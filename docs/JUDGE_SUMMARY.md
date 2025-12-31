@@ -44,11 +44,11 @@ open https://raoof128.github.io/?demo=true
 | Metric | Value |
 |--------|-------|
 | **Shared Code** | ~80% business logic (commonMain) |
-| **Platforms** | 4 (Android, iOS, Desktop, Web) |
+| **Platforms** | 5 (Android, iOS, Desktop, Web JS, Web Wasm) |
 | **Test Coverage** | 89% |
 | **Detection Accuracy** | 87.1% F1 score |
 | **Security Heuristics** | 25+ |
-| **Unit Tests** | 1000+ |
+| **Unit Tests** | 1,248+ |
 | **Analysis Speed** | <5ms per URL |
 
 ---
@@ -94,7 +94,7 @@ open https://raoof128.github.io/?demo=true
 |----------|------|
 | **Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
 | **Full README** | [README.md](../README.md) |
-| **Essay** | [ESSAY.md](../ESSAY.md) |
+| **Essay** | [ESSAY_SUBMISSION.md](../ESSAY_SUBMISSION.md) |
 | **ML Model** | [docs/ML_MODEL.md](ML_MODEL.md) |
 | **Architecture** | [docs/ARCHITECTURE.md](ARCHITECTURE.md) |
 | **Security Model** | [SECURITY_MODEL.md](../SECURITY_MODEL.md) |
@@ -112,4 +112,4 @@ open https://raoof128.github.io/?demo=true
 ---
 
 *Created for KotlinConf Student Competition 2025-2026*
-*Last updated: December 2025 (v1.17.34)*
+*Last updated: December 31, 2025 (v1.20.30)*

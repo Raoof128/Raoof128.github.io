@@ -57,21 +57,25 @@
 |-----------|-------|----------------------|
 | CameraX integration | 800 | Android camera API |
 | ML Kit QR decoder | 400 | Google ML Kit |
-| Compose UI | 2,500 | Android theming, navigation |
+| Compose UI | 2,800 | Android theming, navigation |
 | Permissions | 300 | Android permission system |
 | Haptics | 100 | Android Vibrator API |
-| **Total** | **~4,100** | |
+| Localization | 629 keys × 16 | Full i18n support |
+| Accessibility | 197+ | TalkBack content descriptions |
+| **Total** | **~4,600** | |
 
 ### iOS (iosApp)
 
 | Component | Lines | Why Platform-Specific |
 |-----------|-------|----------------------|
 | AVFoundation scanner | 600 | iOS camera API |
-| SwiftUI views | 3,500 | iOS navigation patterns |
+| SwiftUI views | 3,800 | iOS navigation patterns |
 | Permissions | 200 | iOS permission system |
 | Haptics | 100 | UIImpactFeedbackGenerator |
-| Compose interop | 250 | UIViewControllerRepresentable |
-| **Total** | **~4,650** | |
+| Localization | 547 keys × 16 | Full i18n support |
+| Accessibility | 100+ | VoiceOver labels |
+| Red Team mode | 150 | Developer testing features |
+| **Total** | **~5,500** | |
 
 ### Desktop (desktopApp)
 
@@ -174,7 +178,8 @@ All expect/actual boundaries have contract tests in `PlatformContractTest.kt`:
 | **"5 platforms from one codebase"** | Same PhishingEngine compiles to JVM, Native, JS, WasmJS |
 | **"Strategic expect/actual"** | 7 platform abstractions, all with contract tests |
 | **"Proper dependency inversion"** | common defines interfaces, platforms implement |
-| **"Hybrid Compose works"** | iOS embeds Compose components in SwiftUI |
+| **"Full iOS Parity"** | Dynamic analysis breakdowns, Red Team mode, 547 strings (v1.20.30) |
+| **"Accessibility First"** | 197+ Android content descriptions, VoiceOver labels on iOS |
 
 ---
 

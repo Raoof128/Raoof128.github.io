@@ -1,8 +1,8 @@
 # 📋 QR-SHIELD Evidence Pack
 
 > **Purpose**: Every numeric claim in the README is linked to a reproducible artifact.  
-> **Last Verified**: December 25, 2025  
-> **Version**: 1.17.34
+> **Last Verified**: December 31, 2025  
+> **Version**: 1.20.30
 
 ---
 

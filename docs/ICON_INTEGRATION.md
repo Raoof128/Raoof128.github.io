@@ -189,7 +189,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "QR-SHIELD"
-            packageVersion = "1.17.38"
+            packageVersion = "1.20.30"
             
             windows {
                 iconFile.set(project.file("src/desktopMain/resources/icon.ico"))
@@ -370,5 +370,5 @@ convert input.png -define icon:auto-resize=256,128,64,48,32,16 output.ico
 
 ---
 
-*Created: December 25, 2025*
-*Version: 1.17.38*
+*Last Updated: December 31, 2025*
+*Version: 1.20.30*
