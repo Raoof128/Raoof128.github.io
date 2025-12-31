@@ -1,4 +1,8 @@
-# 🛡️ QR-SHIELD
+<p align="center">
+  <img src="qr-shield-iconset/QR-SHIELD.iconset/icon_512x512.png" alt="QR-SHIELD Icon" width="512">
+  <br><br>
+  <b>🛡️ QR-SHIELD</b><br>
+</p>
 
 > **Offline QR Phishing Detection** — Protect users from QRishing attacks with on-device ML, zero data collection, and cross-platform deployment.
 
