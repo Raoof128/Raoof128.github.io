@@ -12,7 +12,7 @@ plugins {
 
 allprojects {
     group = "com.qrshield"
-    version = "1.2.0"
+    version = "1.20.30"
 }
 
 // Kover configuration - only include common module to avoid Android variant conflicts

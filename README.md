@@ -88,8 +88,8 @@
 │                              5 Platform Apps                                      │
 ├────────────────┬─────────────┬──────────────┬─────────────┬────────────────────┤
 │   androidApp   │   iosApp    │  desktopApp  │  webApp (JS)│  webApp (Wasm)     │
-│   Compose UI   │   SwiftUI   │  Compose UI  │  Kotlin/JS  │  Kotlin/WasmJS     │
-│   CameraX      │ AVFoundation│    ZXing     │   jsQR      │    jsQR            │
+│   Compose UI   │ SwiftUI +   │  Compose UI  │  Kotlin/JS  │  Kotlin/WasmJS     │
+│   CameraX      │ KMP Bridge* │    ZXing     │   jsQR      │    jsQR            │
 │   ML Kit       │   Vision    │              │             │                    │
 └───────┬────────┴──────┬──────┴───────┬──────┴──────┬──────┴─────────┬──────────┘
         │               │              │             │                │
@@ -108,6 +108,12 @@
               │  🎨 CommonBrainVisualizer— Shared Compose UI            │
               └─────────────────────────────────────────────────────────┘
 ```
+
+**\*iOS Architecture Note:** The iOS app uses a **hybrid SwiftUI + KMP pattern**:
+- Native SwiftUI for UI (optimal iOS experience)
+- Calls into KMP framework for all detection logic (100% code parity)
+- `common` module exports iOS framework binaries (iosX64, iosArm64, iosSimulatorArm64)
+- This is the **recommended KMP pattern** for iOS integration (per JetBrains docs)
 
 ### 📊 Code Sharing Metrics
 
@@ -332,7 +338,7 @@ class EnsembleModel {
 | ✅ Public repository | GitHub | [Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io) |
 | ✅ Kotlin Multiplatform | **5 targets** | Android, iOS, Desktop, JS, Wasm |
 | ✅ README documentation | This file | + [JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md) |
-| ✅ Competition essay | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) | ~950 words |
+| ✅ Competition essay | [ESSAY.md](ESSAY.md) | 322 words |
 | ✅ Static analysis | Detekt | Zero-tolerance (no baseline) |
 | ✅ Test coverage | 89% | 1,248+ tests |
 | ✅ Accessibility | VoiceOver + TalkBack | 197+ content descriptions |
@@ -363,7 +369,7 @@ class EnsembleModel {
 | Document | Purpose |
 |----------|---------|
 | **[JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md)** | 5-minute verification guide |
-| **[ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md)** | Competition essay (~950 words) |
+| **[ESSAY.md](ESSAY.md)** | Competition essay (322 words) |
 | **[docs/EVIDENCE.md](docs/EVIDENCE.md)** | Claims linked to artifacts |
 | **[SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md)** | Rule compliance checklist |
 

@@ -94,7 +94,7 @@ open https://raoof128.github.io/?demo=true
 |----------|------|
 | **Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
 | **Full README** | [README.md](../README.md) |
-| **Essay** | [ESSAY_SUBMISSION.md](../ESSAY_SUBMISSION.md) |
+| **Essay** | [ESSAY.md](../ESSAY.md) |
 | **ML Model** | [docs/ML_MODEL.md](ML_MODEL.md) |
 | **Architecture** | [docs/ARCHITECTURE.md](ARCHITECTURE.md) |
 | **Security Model** | [SECURITY_MODEL.md](../SECURITY_MODEL.md) |

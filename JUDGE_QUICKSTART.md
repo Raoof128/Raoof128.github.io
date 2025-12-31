@@ -11,7 +11,7 @@
 | 🌐 **Try Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
 | 🎬 **Watch Video Demo** | [docs/VIDEO_DEMO.md](docs/VIDEO_DEMO.md) |
 | 📱 **Download Android APK** | [QRShield-1.1.0-release.apk](releases/QRShield-1.1.0-release.apk) |
-| 📖 **Read Essay** | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) |
+| 📖 **Read Essay** | [ESSAY.md](ESSAY.md) |
 | 🔨 **One-Command Build Test** | `./scripts/judge-smoke.sh` |
 | ✅ **Verify All Claims** | `./judge/verify_all.sh` |
 | 📊 **View Evidence Pack** | [docs/EVIDENCE.md](docs/EVIDENCE.md) |
@@ -106,7 +106,7 @@ If you have limited time, focus on these files:
 | ⭐⭐⭐ | [EnsembleModel.kt](common/src/commonMain/kotlin/com/qrshield/ml/EnsembleModel.kt) | 3-model ML ensemble (LR + Boosting + Rules) |
 | ⭐⭐ | [HeuristicsEngine.kt](common/src/commonMain/kotlin/com/qrshield/engine/HeuristicsEngine.kt) | 25+ security heuristics |
 | ⭐⭐ | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/qrshield/platform/PlatformAbstractions.kt) | expect/actual pattern |
-| ⭐ | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) | Competition essay (~950 words) |
+| ⭐ | [ESSAY.md](ESSAY.md) | Competition essay (322 words) |
 
 ---
 
@@ -117,7 +117,7 @@ If you have limited time, focus on these files:
 | ✅ Original work (not pre-existing) | PASS | [CONTEST_START.md](CONTEST_START.md) |
 | ✅ Open-source license | PASS | [LICENSE](LICENSE) (Apache 2.0) |
 | ✅ README.md with instructions | PASS | [README.md](README.md) |
-| ✅ Essay (300+ words) | PASS | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) (~950 words) |
+| ✅ Essay (300+ words) | PASS | [ESSAY.md](ESSAY.md) (322 words) |
 | ✅ Public GitHub repository | PASS | [github.com/Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io) |
 | ✅ Not a library-only submission | PASS | Full apps on 5 platforms |
 | ✅ Not a template/Hello World | PASS | ~26,000 LOC custom implementation |

@@ -91,7 +91,7 @@
 
 ### 📝 Competition Essay
 
-> **[Read the Competition Essay →](ESSAY_SUBMISSION.md)** (550 words)
+> **[Read the Competition Essay →](ESSAY.md)** (322 words)
 >
 > Covers: Background, Coding Experience, Hobbies, The Idea, Technologies Used
 

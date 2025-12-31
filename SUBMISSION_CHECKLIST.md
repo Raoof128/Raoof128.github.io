@@ -13,7 +13,7 @@
 | Open-source license | ✅ PASS | [LICENSE](LICENSE) (Apache 2.0) |
 | Public GitHub repository | ✅ PASS | [github.com/Raoof128/Raoof128.github.io](https://github.com/Raoof128/Raoof128.github.io) |
 | README.md present | ✅ PASS | [README.md](README.md) |
-| Essay included (300+ words) | ✅ PASS | [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) (~950 words) |
+| Essay included (300+ words) | ✅ PASS | [ESSAY.md](ESSAY.md) (322 words) |
 
 ---
 
@@ -110,7 +110,7 @@ cd qrshield
 | Document | Purpose |
 |----------|---------|
 | [README.md](README.md) | Quick start, architecture overview |
-| [ESSAY_SUBMISSION.md](ESSAY_SUBMISSION.md) | Competition essay (~950 words) |
+| [ESSAY.md](ESSAY.md) | Competition essay (322 words) |
 | [CONTEST_START.md](CONTEST_START.md) | Contest timeline, original work proof |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | Technical architecture deep-dive |
 | [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md) | Who attacks, what we detect |
