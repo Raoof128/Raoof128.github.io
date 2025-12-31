@@ -1,6 +1,57 @@
 # Changelog
 
+---
+
+# 🚨🚨🚨 CRITICAL WARNING FOR FUTURE AGENTS 🚨🚨🚨
+
+## ⛔ REBRAND DISASTER: Dec 31, 2025
+
+**The rebrand from "QR Shield" to "Mehr Guard" (commit 0d7b3f9) DELETED 262+ source files!**
+
+### Root Cause
+Git detected the package rename (`com/qrshield/` → `com/raouf/mehrguard/`) as DELETE + CREATE, not RENAME.
+Only SQLDelight-generated stubs remained. All core logic was lost.
+
+### Recovery Timeline
+1. **v2.0.2** (8eca247a) - WRONG! Restored from too-old commit, lost 15+ features
+2. **v2.0.3** (4c43d39) - CORRECT! Restored from just-before-rebrand commit with all features
+
+### If You Need To Rename Packages:
+- **NEVER** rely on Git to auto-detect renames for bulk operations
+- Use `mv` to move directories, then `sed` to update package/import statements
+- Always restore from the MOST RECENT working commit (check `git log` carefully!)
+- SQLDelight generates `camelCaseDatabaseQueries` property names
+
+### Verified Working State (Jan 1, 2026)
+All 6 platforms build successfully:
+- ✅ Android, ✅ iOS, ✅ Desktop, ✅ Web (JS), ✅ Web (Wasm), ✅ Common
+
+---
+
 ## Unreleased
+
+## [2.0.3] - 2026-01-01
+
+### 🔧 Correct Source Restoration from Improved Commit
+
+**Fixed the broken restoration** — Previous restoration (v2.0.2) used commit 8eca247a which was too old and lost all improvements from versions 1.20.23-1.20.33.
+
+#### Correct Restoration
+- Restored from commit `4c43d39` (just before rebrand)
+- This commit has ALL improvements: hotkeys, judge mode, 16 languages, red team mode, etc.
+- Applied package renames: `com.qrshield` → `com.raouf.mehrguard`
+- Fixed class names: `QRShield*` → `MehrGuard*`
+- Fixed SQLDelight reference: `qRShieldDatabaseQueries` → `mehrGuardDatabaseQueries`
+
+#### Build Verification
+- ✅ `./gradlew :common:compileKotlinDesktop` - BUILD SUCCESSFUL
+- ✅ `./gradlew :androidApp:assembleDebug` - BUILD SUCCESSFUL
+- ✅ `./gradlew :desktopApp:packageDistributionForCurrentOS` - BUILD SUCCESSFUL
+- ✅ `./gradlew :webApp:jsBrowserDevelopmentWebpack` - BUILD SUCCESSFUL
+- ✅ `./gradlew :common:compileKotlinIosSimulatorArm64` - BUILD SUCCESSFUL
+- ✅ `./gradlew :webApp:wasmJsBrowserDevelopmentWebpack` - BUILD SUCCESSFUL
+
+---
 
 ## [2.0.2] - 2025-12-31
 

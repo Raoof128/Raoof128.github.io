@@ -4,6 +4,78 @@ This file tracks significant changes made during development sessions.
 
 ---
 
+# 🚨🚨🚨 CRITICAL WARNING: REBRAND DISASTER - READ THIS FIRST! 🚨🚨🚨
+
+## ⛔ THE REBRAND FROM "QR Shield" TO "Mehr Guard" CATASTROPHICALLY FAILED!
+
+**On Dec 31, 2025, the rebrand commit (0d7b3f9) DELETED 262+ source files instead of renaming them.**
+
+### What Happened
+1. The rebrand was supposed to rename `com/qrshield/**` → `com/raouf/mehrguard/**`
+2. Instead, Git detected files as DELETED (old location) + NEW (new location)
+3. ONLY the SQLDelight-generated stubs remained
+4. All core logic, UI screens, i18n files, tests — **GONE**
+
+### First Failed Recovery (8eca247a)
+- Restored from commit `8eca247a` (WAY TOO OLD)
+- Lost ALL improvements from versions 1.20.23 through 1.20.33
+- Missing: hotkeys, judge mode, 16 languages, red team mode, etc.
+
+### Correct Recovery (4c43d39)
+- Must restore from commit `4c43d39` (just BEFORE rebrand)
+- This has ALL the improvements
+- Then apply package renames via sed
+
+### ⚠️ If You Need To Rename Packages Again — DO THIS:
+
+```bash
+# 1. Move directories (NOT git mv for bulk operations)
+mkdir -p new/path/to/package
+mv old/path/to/package/* new/path/to/package/
+rm -rf old/path/to/package
+
+# 2. Update package declarations
+find src -name "*.kt" -exec sed -i '' 's/package old\.package/package new.package/g' {} \;
+
+# 3. Update imports
+find src -name "*.kt" -exec sed -i '' 's/import old\.package/import new.package/g' {} \;
+
+# 4. Fix any partial renames (e.g., com.mehrguard → com.raouf.mehrguard)
+find src -name "*.kt" -exec sed -i '' 's/com\.mehrguard\./com.raouf.mehrguard./g' {} \;
+
+# 5. Update class names
+find src -name "*.kt" -exec sed -i '' 's/OldClassName/NewClassName/g' {} \;
+
+# 6. Update SQLDelight references (camelCase property!)
+# qRShieldDatabaseQueries → mehrGuardDatabaseQueries
+find src -name "*.kt" -exec sed -i '' 's/oldDbQueries/newDbQueries/g' {} \;
+```
+
+### Current Canonical Brand Values
+
+| Aspect | Value |
+|--------|-------|
+| **Product Name** | Mehr Guard |
+| **Package Namespace** | `com.raouf.mehrguard` |
+| **Class Prefix** | `MehrGuard*` |
+| **Database Property** | `mehrGuardDatabaseQueries` |
+| **Android App ID** | `com.raouf.mehrguard.android` |
+| **iOS Bundle ID** | `com.raouf.mehrguard` |
+| **Desktop Bundle ID** | `com.raouf.mehrguard.desktop` |
+
+### Build Verification (Jan 1, 2026)
+
+| Platform | Status |
+|----------|--------|
+| ✅ Common (Desktop JVM) | `./gradlew :common:compileKotlinDesktop` |
+| ✅ Android | `./gradlew :androidApp:assembleDebug` |
+| ✅ Desktop | `./gradlew :desktopApp:packageDistributionForCurrentOS` |
+| ✅ Web (JavaScript) | `./gradlew :webApp:jsBrowserDevelopmentWebpack` |
+| ✅ iOS (Simulator) | `./gradlew :common:compileKotlinIosSimulatorArm64` |
+| ✅ WebAssembly | `./gradlew :webApp:wasmJsBrowserDevelopmentWebpack` |
+
+---
+
 # 🤖 MESSAGES FOR ALL AGENTS - READ FIRST!
 
 ## ⚠️ CRITICAL: Version Management
