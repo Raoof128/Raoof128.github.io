@@ -26,7 +26,7 @@ if [[ "$1" == "--device" ]]; then
 fi
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📱 QR-SHIELD iOS Simulator Runner"
+echo "📱 Mehr Guard iOS Simulator Runner"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
@@ -97,13 +97,13 @@ echo "✅ Simulator booted"
 echo ""
 
 # Step 3: Build and install iOS app
-echo "🔨 Step 4/4: Building and installing QR-SHIELD..."
+echo "🔨 Step 4/4: Building and installing Mehr Guard..."
 cd "$IOS_APP_DIR"
 
 # Build with xcodebuild
 xcodebuild \
-    -project QRShield.xcodeproj \
-    -scheme QRShield \
+    -project MehrGuard.xcodeproj \
+    -scheme MehrGuard \
     -sdk iphonesimulator \
     -destination "id=$DEVICE_UDID" \
     -configuration Debug \
@@ -111,32 +111,32 @@ xcodebuild \
     2>&1 | tail -10
 
 # Get the app bundle path
-APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "QRShield.app" -path "*/Build/Products/Debug-iphonesimulator/*" 2>/dev/null | head -1)
+APP_PATH=$(find ~/Library/Developer/Xcode/DerivedData -name "MehrGuard.app" -path "*/Build/Products/Debug-iphonesimulator/*" 2>/dev/null | head -1)
 
 if [[ -z "$APP_PATH" ]]; then
     echo "⚠️  App not found in DerivedData, attempting alternative build..."
     # Alternative: use derived data directly
     xcodebuild \
-        -project QRShield.xcodeproj \
-        -scheme QRShield \
+        -project MehrGuard.xcodeproj \
+        -scheme MehrGuard \
         -sdk iphonesimulator \
         -destination "id=$DEVICE_UDID" \
         -configuration Debug \
         install DSTROOT=. \
         2>&1 | tail -5
-    APP_PATH="./Applications/QRShield.app"
+    APP_PATH="./Applications/MehrGuard.app"
 fi
 
 if [[ -d "$APP_PATH" ]]; then
     echo "📲 Installing app to simulator..."
     xcrun simctl install "$DEVICE_UDID" "$APP_PATH"
     
-    echo "🚀 Launching QR-SHIELD..."
-    xcrun simctl launch "$DEVICE_UDID" com.qrshield.ios
+    echo "🚀 Launching Mehr Guard..."
+    xcrun simctl launch "$DEVICE_UDID" com.raouf.mehrguard
     
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "✅ QR-SHIELD is now running on iOS Simulator!"
+    echo "✅ Mehr Guard is now running on iOS Simulator!"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
     echo "Try these test URLs in the app:"
@@ -148,10 +148,10 @@ if [[ -d "$APP_PATH" ]]; then
 else
     echo "⚠️  Could not locate built app."
     echo "   Please open Xcode and build manually:"
-    echo "   open $IOS_APP_DIR/QRShield.xcodeproj"
+    echo "   open $IOS_APP_DIR/MehrGuard.xcodeproj"
     echo ""
     echo "   Or run with Xcode command:"
-    echo "   xcodebuild -project QRShield.xcodeproj -scheme QRShield -sdk iphonesimulator run"
+    echo "   xcodebuild -project MehrGuard.xcodeproj -scheme MehrGuard -sdk iphonesimulator run"
 fi
 
 cd "$PROJECT_DIR"

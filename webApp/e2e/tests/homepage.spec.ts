@@ -1,9 +1,9 @@
 /**
- * QR-SHIELD Web App E2E Tests - Homepage
+ * Mehr Guard Web App E2E Tests - Homepage
  * 
  * Tests the main landing page and URL analysis functionality.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @license Apache-2.0
  */
 
@@ -50,7 +50,7 @@ test.describe('Homepage', () => {
     // ==========================================================================
 
     test('should load the homepage successfully', async ({ page }) => {
-        await expect(page).toHaveTitle(/QR-SHIELD|QRShield|Premium|Scanner/i);
+        await expect(page).toHaveTitle(/Mehr Guard|MehrGuard|Premium|Scanner/i);
     });
 
     test('should display the logo', async ({ page }) => {

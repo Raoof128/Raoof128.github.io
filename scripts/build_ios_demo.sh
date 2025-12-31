@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════════════════════
-# QR-SHIELD iOS Demo Builder for Judges
+# Mehr Guard iOS Demo Builder for Judges
 # ═══════════════════════════════════════════════════════════════════════════
 #
 # This script builds the iOS KMP framework and opens Xcode for quick
@@ -11,7 +11,7 @@
 
 set -e
 
-echo "🛡️  QR-SHIELD iOS Demo Builder"
+echo "🛡️  Mehr Guard iOS Demo Builder"
 echo "════════════════════════════════════════════════════════════"
 echo ""
 
@@ -48,7 +48,7 @@ echo "✅ Framework built successfully!"
 echo ""
 echo "Step 2/3: Opening Xcode..."
 echo "────────────────────────────────────────────────────────────"
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 
 echo ""
 echo "Step 3/3: Ready to run!"

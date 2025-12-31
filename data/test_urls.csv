@@ -1,6 +1,6 @@
 url,label,category,description
 # ═══════════════════════════════════════════════════════════════════════════
-# QR-SHIELD Test Dataset
+# Mehr Guard Test Dataset
 # ═══════════════════════════════════════════════════════════════════════════
 # 100 labeled URLs for reproducible ML evaluation
 # Labels: phishing (1) or legitimate (0)

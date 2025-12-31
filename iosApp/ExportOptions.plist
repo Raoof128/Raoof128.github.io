@@ -33,8 +33,8 @@
     <!-- Provisioning profiles by bundle ID -->
     <key>provisioningProfiles</key>
     <dict>
-        <key>com.qrshield.ios</key>
-        <string>QRShield AppStore Profile</string>
+        <key>com.raouf.mehrguard</key>
+        <string>MehrGuard AppStore Profile</string>
     </dict>
 </dict>
 </plist>

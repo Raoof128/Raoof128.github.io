@@ -1,9 +1,9 @@
 /**
- * QR-SHIELD Web App E2E Tests - Visual Regression
+ * Mehr Guard Web App E2E Tests - Visual Regression
  * 
  * Tests for visual consistency and UI appearance.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @license Apache-2.0
  */
 

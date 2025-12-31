@@ -368,7 +368,7 @@
     <string name="beat_the_bot_vs_mode">VSモード</string>
     <string name="beat_the_bot_you">あなた</string>
     <string name="beat_the_bot_streak_fmt">連続: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="beat_the_bot_latency_fmt">レイテンシ: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d pts</string>
     <string name="beat_the_bot_preview_hidden">プレビュー非表示</string>

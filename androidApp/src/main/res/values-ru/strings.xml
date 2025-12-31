@@ -368,7 +368,7 @@
     <string name="beat_the_bot_vs_mode">РЕЖИМ VS</string>
     <string name="beat_the_bot_you">Вы</string>
     <string name="beat_the_bot_streak_fmt">Серия: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">QR-Shield Бот</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="beat_the_bot_latency_fmt">Задержка: %1$d мс</string>
     <string name="beat_the_bot_pts_fmt">%1$d очков</string>
     <string name="beat_the_bot_preview_hidden">Предпросмотр скрыт</string>

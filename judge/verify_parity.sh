@@ -112,8 +112,8 @@ if ./gradlew :webApp:wasmJsBrowserDevelopmentWebpack \
     --no-daemon \
     --quiet \
     2>&1 | tail -10; then
-    if [ -f "build/wasm/packages/QRShield-webApp/kotlin/QRShield-webApp.wasm" ]; then
-        WASM_SIZE=$(ls -lh build/wasm/packages/QRShield-webApp/kotlin/QRShield-webApp.wasm | awk '{print $5}')
+    if [ -f "build/wasm/packages/MehrGuard-webApp/kotlin/MehrGuard-webApp.wasm" ]; then
+        WASM_SIZE=$(ls -lh build/wasm/packages/MehrGuard-webApp/kotlin/MehrGuard-webApp.wasm | awk '{print $5}')
         echo "✅ WebAssembly build PASSED (output: $WASM_SIZE)"
         PASSES=$((PASSES + 1))
     else

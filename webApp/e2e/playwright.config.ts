@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright configuration for QR-SHIELD Web E2E Tests
+ * Playwright configuration for Mehr Guard Web E2E Tests
  * 
  * @see https://playwright.dev/docs/test-configuration
  */

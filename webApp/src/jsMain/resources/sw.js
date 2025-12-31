@@ -9,7 +9,7 @@
  */
 
 const CACHE_VERSION = 'v2.17.0';
-const CACHE_NAME = `qr-shield-${CACHE_VERSION}`;
+const CACHE_NAME = `mehr-guard-${CACHE_VERSION}`;
 
 // Debug mode - logs all cache operations
 const DEBUG = true;
@@ -171,7 +171,7 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames
-                    .filter((name) => name.startsWith('qr-shield-') && name !== CACHE_NAME)
+                    .filter((name) => name.startsWith('mehr-guard-') && name !== CACHE_NAME)
                     .map((name) => {
                         log(`Deleting old cache: ${name}`);
                         return caches.delete(name);

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# QR-SHIELD Judge Verification Suite
+# Mehr Guard Judge Verification Suite
 # ==============================================================================
 # This script verifies ALL reproducible claims made in the competition submission.
 # Run time: ~3 minutes on Apple Silicon, ~5 minutes on Intel.
@@ -18,7 +18,7 @@ NC='\033[0m' # No Color
 
 echo ""
 echo -e "${CYAN}╔══════════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║           🧪 QR-SHIELD Judge Verification Suite                      ║${NC}"
+echo -e "${CYAN}║           🧪 Mehr Guard Judge Verification Suite                      ║${NC}"
 echo -e "${CYAN}║                  KotlinConf 2026 Competition                         ║${NC}"
 echo -e "${CYAN}╚══════════════════════════════════════════════════════════════════════╝${NC}"
 echo ""

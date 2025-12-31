@@ -1,4 +1,4 @@
-# Makefile for QR-SHIELD
+# Makefile for Mehr Guard
 # Kotlin Multiplatform QRishing Detector
 
 .PHONY: all build clean test lint format check android desktop docs help
@@ -97,9 +97,9 @@ test-benchmark:
 test-ios-ui:
 	@echo "📱 Running iOS UI tests..."
 	cd iosApp && xcodebuild test \
-		-scheme QRShield \
+		-scheme MehrGuard \
 		-destination 'platform=iOS Simulator,name=iPhone 15' \
-		-testPlan QRShieldUITests || true
+		-testPlan MehrGuardUITests || true
 	@echo "✅ iOS UI tests completed!"
 
 ## Run Web E2E tests with Playwright
@@ -177,7 +177,7 @@ clean-all: clean
 	@echo "🧹 Deep cleaning..."
 	rm -rf .gradle
 	rm -rf **/build
-	rm -rf ~/.gradle/caches/modules-2/files-2.1/com.qrshield*
+	rm -rf ~/.gradle/caches/modules-2/files-2.1/com.raouf.mehrguard*
 
 # ============================================
 # Documentation
@@ -207,7 +207,7 @@ sync:
 ## Generate SQLDelight schema
 generate-db:
 	@echo "📊 Generating SQLDelight schema..."
-	./gradlew generateCommonMainQRShieldDatabaseInterface
+	./gradlew generateCommonMainMehrGuardDatabaseInterface
 
 # ============================================
 # CI/CD
@@ -231,7 +231,7 @@ release: clean
 ## Show this help message
 help:
 	@echo ""
-	@echo "🛡️ QR-SHIELD Makefile"
+	@echo "🛡️ Mehr Guard Makefile"
 	@echo "====================="
 	@echo ""
 	@echo "Usage: make [target]"

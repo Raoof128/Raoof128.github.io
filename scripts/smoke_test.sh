@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# QR-SHIELD Smoke Test Suite
+# Mehr Guard Smoke Test Suite
 # Quick verification tests for all platforms
 #
 # Usage: ./scripts/smoke_test.sh [platform]
 #   platform: all, common, desktop, android, web
 #
-# Copyright 2025-2026 QR-SHIELD Contributors
+# Copyright 2025-2026 Mehr Guard Contributors
 # Licensed under Apache 2.0
 #
 
@@ -22,7 +22,7 @@ NC='\033[0m'
 PLATFORM=${1:-all}
 
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}      QR-SHIELD Smoke Test Suite${NC}"
+echo -e "${BLUE}      Mehr Guard Smoke Test Suite${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 echo -e "Platform: ${YELLOW}$PLATFORM${NC}"
@@ -55,8 +55,8 @@ test_common() {
     echo ""
     
     run_test "Compile Kotlin" "./gradlew :common:compileKotlinDesktop --quiet"
-    run_test "Detection Engine Tests" "./gradlew :common:desktopTest --tests 'com.qrshield.engine.*' --quiet"
-    run_test "ML Model Tests" "./gradlew :common:desktopTest --tests 'com.qrshield.ml.*' --quiet"
+    run_test "Detection Engine Tests" "./gradlew :common:desktopTest --tests 'com.raouf.mehrguard.engine.*' --quiet"
+    run_test "ML Model Tests" "./gradlew :common:desktopTest --tests 'com.raouf.mehrguard.ml.*' --quiet"
     run_test "All Common Tests" "./gradlew :common:desktopTest --quiet"
 }
 
@@ -113,7 +113,7 @@ test_ios() {
     if [[ "$OSTYPE" == "darwin"* ]]; then
         run_test "Compile iOS Framework" "./gradlew :common:linkDebugFrameworkIosSimulatorArm64 --quiet"
         echo ""
-        echo "   To run iOS app: open iosApp/QRShield.xcodeproj"
+        echo "   To run iOS app: open iosApp/MehrGuard.xcodeproj"
     else
         echo -e "${YELLOW}  ⚠️ iOS tests require macOS - skipping${NC}"
     fi

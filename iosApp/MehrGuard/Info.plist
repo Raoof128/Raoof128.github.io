@@ -8,7 +8,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>QR-SHIELD</string>
+    <string>Mehr Guard</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -62,9 +62,9 @@
     <!-- PRIVACY PERMISSIONS (REQUIRED FOR APP STORE) -->
     <!-- ============================================ -->
     <key>NSCameraUsageDescription</key>
-    <string>QR-SHIELD needs camera access to scan QR codes and detect phishing attempts in real-time.</string>
+    <string>Mehr Guard needs camera access to scan QR codes and detect phishing attempts in real-time.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>QR-SHIELD needs photo library access to scan QR codes from saved images.</string>
+    <string>Mehr Guard needs photo library access to scan QR codes from saved images.</string>
     
     <!-- ============================================ -->
     <!-- iOS 17+ PRIVACY MANIFEST REQUIREMENTS        -->
@@ -72,7 +72,7 @@
     <key>NSPrivacyTracking</key>
     <false/>
     <key>NSPrivacyTrackingUsageDescription</key>
-    <string>QR-SHIELD does not track users.</string>
+    <string>Mehr Guard does not track users.</string>
     <key>NSPrivacyCollectedDataTypes</key>
     <array/>
     

@@ -1,4 +1,4 @@
-# QR-SHIELD Malicious URL Test Dataset
+# Mehr Guard Malicious URL Test Dataset
 # Format: url,expected_verdict,category,description
 # expected_verdict: MALICIOUS or SUSPICIOUS
 # 

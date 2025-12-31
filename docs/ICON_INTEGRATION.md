@@ -6,11 +6,11 @@
 
 ## 📦 Source Icons
 
-The master icon set is located in `/qr-shield-iconset/`:
+The master icon set is located in `/mehr-guard-iconset/`:
 
 | File | Size | Purpose |
 |------|------|---------|
-| `qr-shield-icon-1024.png` | 1024×1024 | Master source file |
+| `mehr-guard-icon-1024.png` | 1024×1024 | Master source file |
 | `Mehr Guard.iconset/` | Various | macOS iconset bundle |
 
 ### Available Sizes in iconset
@@ -79,7 +79,7 @@ Create `ic_launcher.xml` in `mipmap-anydpi-v26/`:
 
 1. Right-click `res/` → New → Image Asset
 2. Select "Launcher Icons (Adaptive and Legacy)"
-3. Import `qr-shield-icon-1024.png` as foreground
+3. Import `mehr-guard-icon-1024.png` as foreground
 4. Configure background color
 5. Generate all densities automatically
 
@@ -143,7 +143,7 @@ With iOS 18, you only need:
 
 1. Open `iosApp/MehrGuard.xcodeproj` in Xcode
 2. Navigate to Assets.xcassets → AppIcon
-3. Drag `qr-shield-icon-1024.png` to the 1024×1024 slot
+3. Drag `mehr-guard-icon-1024.png` to the 1024×1024 slot
 4. Build to verify
 
 ---
@@ -169,14 +169,14 @@ desktopApp/src/desktopMain/resources/
 ### Creating .icns from iconset (macOS)
 
 ```bash
-cd /path/to/qr-shield-iconset
+cd /path/to/mehr-guard-iconset
 iconutil -c icns Mehr Guard.iconset -o icon.icns
 ```
 
 ### Creating .ico (ImageMagick)
 
 ```bash
-convert qr-shield-icon-1024.png -define icon:auto-resize=256,128,64,48,32,16 icon.ico
+convert mehr-guard-icon-1024.png -define icon:auto-resize=256,128,64,48,32,16 icon.ico
 ```
 
 ### build.gradle.kts Configuration
@@ -307,7 +307,7 @@ Create `scripts/generate-icons.sh`:
 #!/bin/bash
 # Generate all icon sizes from master 1024×1024 image
 
-SOURCE="qr-shield-iconset/qr-shield-icon-1024.png"
+SOURCE="mehr-guard-iconset/mehr-guard-icon-1024.png"
 
 # Android mipmap
 mkdir -p androidApp/src/main/res/mipmap-{mdpi,hdpi,xhdpi,xxhdpi,xxxhdpi}
@@ -325,8 +325,8 @@ sips -z 256 256 "$SOURCE" --out webApp/src/jsMain/resources/assets/icon-256.png
 sips -z 512 512 "$SOURCE" --out webApp/src/jsMain/resources/assets/icon-512.png
 
 # Desktop
-cp qr-shield-iconset/icon_512x512.png desktopApp/src/desktopMain/resources/icon.png
-# For .icns, run: iconutil -c icns qr-shield-iconset/Mehr Guard.iconset -o desktopApp/src/desktopMain/resources/icon.icns
+cp mehr-guard-iconset/icon_512x512.png desktopApp/src/desktopMain/resources/icon.png
+# For .icns, run: iconutil -c icns mehr-guard-iconset/Mehr Guard.iconset -o desktopApp/src/desktopMain/resources/icon.icns
 
 # iOS (1024 only needed for iOS 18+)
 cp "$SOURCE" iosApp/MehrGuard/Assets.xcassets/AppIcon.appiconset/app-icon-1024.png
@@ -356,10 +356,10 @@ echo "✅ Icons generated for all platforms!"
 
 ```bash
 # Generate macOS .icns from iconset
-iconutil -c icns qr-shield-iconset/Mehr Guard.iconset -o desktopApp/src/desktopMain/resources/icon.icns
+iconutil -c icns mehr-guard-iconset/Mehr Guard.iconset -o desktopApp/src/desktopMain/resources/icon.icns
 
 # Resize with sips (macOS)
-sips -z 512 512 qr-shield-icon-1024.png --out icon-512.png
+sips -z 512 512 mehr-guard-icon-1024.png --out icon-512.png
 
 # Resize with ImageMagick
 convert input.png -resize 512x512 output.png

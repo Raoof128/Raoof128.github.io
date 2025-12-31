@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# QR-SHIELD Evaluation Script
+# Mehr Guard Evaluation Script
 # Runs the detection engine against test_urls.csv and outputs precision/recall/F1
 #
 # Usage: ./scripts/eval.sh
 #
-# Copyright 2025-2026 QR-SHIELD Contributors
+# Copyright 2025-2026 Mehr Guard Contributors
 # Licensed under Apache 2.0
 #
 
@@ -19,7 +19,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}      QR-SHIELD Evaluation Pipeline${NC}"
+echo -e "${BLUE}      Mehr Guard Evaluation Pipeline${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
@@ -57,7 +57,7 @@ echo -e "${YELLOW}Running Evaluation Tests...${NC}"
 echo ""
 
 # Run the specific evaluation test class
-./gradlew :common:desktopTest --tests "com.qrshield.ml.*" --tests "com.qrshield.engine.*" --quiet 2>&1 | tail -20
+./gradlew :common:desktopTest --tests "com.raouf.mehrguard.ml.*" --tests "com.raouf.mehrguard.engine.*" --quiet 2>&1 | tail -20
 
 echo ""
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -109,7 +109,7 @@ REPORT_FILE="evaluation_report_$(date +%Y%m%d_%H%M%S).txt"
 echo "Generating report: $REPORT_FILE"
 
 cat > "$REPORT_FILE" << EOF
-QR-SHIELD Evaluation Report
+Mehr Guard Evaluation Report
 Generated: $(date)
 Seed: $SEED
 Threshold: $THRESHOLD

@@ -1,10 +1,10 @@
 #!/bin/bash
-# QR-SHIELD Setup Script
+# Mehr Guard Setup Script
 # Sets up development environment
 
 set -e
 
-echo "🛡️ QR-SHIELD Development Setup"
+echo "🛡️ Mehr Guard Development Setup"
 echo "==============================="
 echo ""
 

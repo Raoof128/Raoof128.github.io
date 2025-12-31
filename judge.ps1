@@ -1,5 +1,5 @@
 # ============================================================================
-# 🛡️ QR-SHIELD Judge Build Helper (Windows PowerShell)
+# 🛡️ Mehr Guard Judge Build Helper (Windows PowerShell)
 # ============================================================================
 # Quick setup and run commands for competition judges
 # Run: .\judge.ps1
@@ -7,7 +7,7 @@
 
 Write-Host ""
 Write-Host "╔════════════════════════════════════════════════════════════════╗" -ForegroundColor Magenta
-Write-Host "║              🛡️  QR-SHIELD Judge Build Helper              ║" -ForegroundColor Cyan
+Write-Host "║              🛡️  Mehr Guard Judge Build Helper              ║" -ForegroundColor Cyan
 Write-Host "║                 Kotlin Multiplatform Demo                      ║" -ForegroundColor White
 Write-Host "╚════════════════════════════════════════════════════════════════╝" -ForegroundColor Magenta
 Write-Host ""

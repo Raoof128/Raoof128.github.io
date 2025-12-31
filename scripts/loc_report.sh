@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# QR-SHIELD Lines of Code Report by SourceSet
+# Mehr Guard Lines of Code Report by SourceSet
 # Proves shared code percentage across KMP targets
 #
 # Usage: ./scripts/loc_report.sh
 #
-# Copyright 2025-2026 QR-SHIELD Contributors
+# Copyright 2025-2026 Mehr Guard Contributors
 # Licensed under Apache 2.0
 #
 
@@ -19,7 +19,7 @@ CYAN='\033[0;36m'
 NC='\033[0m'
 
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}      QR-SHIELD — Lines of Code by SourceSet${NC}"
+echo -e "${BLUE}      Mehr Guard — Lines of Code by SourceSet${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
@@ -143,7 +143,7 @@ REPORT_FILE="loc_report_$(date +%Y%m%d).txt"
 echo "Saved to: $REPORT_FILE"
 
 cat > "$REPORT_FILE" << EOF
-QR-SHIELD Lines of Code Report
+Mehr Guard Lines of Code Report
 Generated: $(date)
 
 SHARED CODE (common module):

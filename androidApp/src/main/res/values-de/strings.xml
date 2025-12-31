@@ -398,7 +398,7 @@
     <string name="beat_the_bot_vs_mode">VS-MODUS</string>
     <string name="beat_the_bot_you">Sie</string>
     <string name="beat_the_bot_streak_fmt">Serie: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="beat_the_bot_latency_fmt">Latenz: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d Pkt.</string>
     <string name="beat_the_bot_preview_hidden">Vorschau ausgeblendet</string>

@@ -1,10 +1,10 @@
 #!/bin/bash
-# QR-SHIELD Test Runner
+# Mehr Guard Test Runner
 # Runs all platform tests
 
 set -e
 
-echo "🧪 QR-SHIELD Test Runner"
+echo "🧪 Mehr Guard Test Runner"
 echo "========================"
 
 cd "$(dirname "$0")/.."

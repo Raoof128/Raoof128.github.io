@@ -1,10 +1,10 @@
 #!/bin/bash
-# QR-SHIELD Build Script
+# Mehr Guard Build Script
 # Builds all platform targets
 
 set -e
 
-echo "🛡️ QR-SHIELD Build Script"
+echo "🛡️ Mehr Guard Build Script"
 echo "========================="
 
 # Check for required tools

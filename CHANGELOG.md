@@ -2,6 +2,40 @@
 
 ## Unreleased
 
+## [2.0.1] - 2025-12-31
+
+### 🔍 Rebrand Verification Audit
+
+**Forensic verification pass** confirming Mehr Guard rebrand is 100% complete.
+
+#### Files Updated (40+)
+
+**Scripts (14 files):** `eval.sh`, `smoke_test.sh`, `run_ios_simulator.sh`, `build_ios_demo.sh`, `loc_report.sh`, `judge-smoke.sh`, `build_all.sh`, `run_tests.sh`, `count-loc.sh`, `setup.sh`, `generate_model.py`, `verify_all.sh`, `verify_parity.sh`, `judge.sh`, `judge.ps1`
+
+**iOS (5 files):** `ExportOptions.plist`, `Info.plist`, `import_assets.sh`, `build_framework.sh`, xcuserdata deleted
+
+**Web (7 files):** `sw.js`, `manifest.json`, `game.html`, `trust.html`, `shared-ui.js`, `playwright.config.ts`, E2E tests
+
+**Android (16 files):** All `strings.xml` files (`beat_the_bot_bot_name` → "Mehr Guard Bot")
+
+**Config/Docs:** `keystore.properties.template`, `Makefile`, `test_urls.csv`, `malicious_urls.csv`, `ICON_INTEGRATION.md`, `IOS_CHECKLIST.md`
+
+#### Build Artifacts Cleaned
+
+- `build/`, `androidApp/build/`, `common/build/` (stale path references)
+- `docs/artifacts/test_reports/` (old package names)
+- `iosApp/Frameworks/`, `webApp-devserver.log`
+
+#### Build Verification
+
+- ✅ `./gradlew :common:compileKotlinDesktop` - BUILD SUCCESSFUL
+- ✅ `./gradlew :desktopApp:compileKotlinDesktop` - BUILD SUCCESSFUL
+- ✅ `./gradlew :androidApp:compileDebugKotlin` - BUILD SUCCESSFUL
+
+> **"No legacy branding remains. Mehr Guard is the sole identity."**
+
+---
+
 ## [2.0.0] - 2025-12-31
 
 ### 🏷️ COMPLETE REBRAND: QR Shield → Mehr Guard

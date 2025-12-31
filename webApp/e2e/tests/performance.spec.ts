@@ -1,9 +1,9 @@
 /**
- * QR-SHIELD Web App E2E Tests - Performance
+ * Mehr Guard Web App E2E Tests - Performance
  * 
  * Tests for page load performance, responsiveness, and interaction timing.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @license Apache-2.0
  */
 

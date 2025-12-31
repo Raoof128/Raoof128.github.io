@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================================
-# 🛡️ QR-SHIELD Judge Build Helper
+# 🛡️ Mehr Guard Judge Build Helper
 # ============================================================================
 # Quick setup and run commands for competition judges
 # Run: ./judge.sh
@@ -19,7 +19,7 @@ NC='\033[0m' # No Color
 
 echo ""
 echo -e "${PURPLE}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${PURPLE}║${NC}              🛡️  ${CYAN}QR-SHIELD Judge Build Helper${NC}              ${PURPLE}║${NC}"
+echo -e "${PURPLE}║${NC}              🛡️  ${CYAN}Mehr Guard Judge Build Helper${NC}              ${PURPLE}║${NC}"
 echo -e "${PURPLE}║${NC}                 Kotlin Multiplatform Demo                      ${PURPLE}║${NC}"
 echo -e "${PURPLE}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
@@ -90,7 +90,7 @@ echo -e "     ${GREEN}→ Opens at http://localhost:8080${NC}"
 echo ""
 echo -e "  ${CYAN}6. Build iOS Framework${NC}"
 echo -e "     ${YELLOW}./gradlew :common:linkDebugFrameworkIosSimulatorArm64${NC}"
-echo -e "     ${GREEN}→ Then open iosApp/QRShield.xcodeproj${NC}"
+echo -e "     ${GREEN}→ Then open iosApp/MehrGuard.xcodeproj${NC}"
 echo ""
 
 # ============================================================================

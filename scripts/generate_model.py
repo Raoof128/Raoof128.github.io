@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-QR-SHIELD ML Model Training Script
+Mehr Guard ML Model Training Script
 
 Trains a simple logistic regression model for phishing URL detection.
 This is a reference implementation - the actual model runs in Kotlin.
@@ -184,7 +184,7 @@ def generate_synthetic_dataset(n_samples: int = 1000) -> Tuple[np.ndarray, np.nd
 
 
 def main():
-    print("QR-SHIELD ML Model Training")
+    print("Mehr Guard ML Model Training")
     print("=" * 40)
     
     # Generate training data

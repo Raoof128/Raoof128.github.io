@@ -1,18 +1,18 @@
 #!/bin/bash
 #
-# QR-SHIELD Lines of Code Counter
+# Mehr Guard Lines of Code Counter
 # Generates verified LOC statistics for README and judge evaluation
 #
 # Usage: ./scripts/count-loc.sh
 #
-# Copyright 2025-2026 QR-SHIELD Contributors
+# Copyright 2025-2026 Mehr Guard Contributors
 # Licensed under the Apache License, Version 2.0
 #
 
 set -e
 
 echo "╔══════════════════════════════════════════════════════════════════╗"
-echo "║        🛡️  QR-SHIELD Lines of Code Analysis                       ║"
+echo "║        🛡️  Mehr Guard Lines of Code Analysis                       ║"
 echo "╚══════════════════════════════════════════════════════════════════╝"
 echo ""
 

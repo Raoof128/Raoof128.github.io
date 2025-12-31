@@ -368,7 +368,7 @@
     <string name="beat_the_bot_vs_mode">对战模式</string>
     <string name="beat_the_bot_you">你</string>
     <string name="beat_the_bot_streak_fmt">连胜: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">QR-Shield机器人</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="beat_the_bot_latency_fmt">延迟: %1$d毫秒</string>
     <string name="beat_the_bot_pts_fmt">%1$d分</string>
     <string name="beat_the_bot_preview_hidden">预览已隐藏</string>

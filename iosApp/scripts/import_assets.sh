@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# QR-SHIELD iOS Asset Import Script
+# Mehr Guard iOS Asset Import Script
 # Copies and resizes assets from source folder to Xcode asset catalog
 #
 # Usage: ./import_assets.sh /path/to/source/assets
@@ -9,9 +9,9 @@
 set -e
 
 SOURCE_DIR="${1:-/Users/raoof.r12/Desktop/Raouf/K/Assets}"
-TARGET_DIR="/Users/raoof.r12/Desktop/Raouf/K/qrshield/iosApp/QRShield/Assets.xcassets"
+TARGET_DIR="/Users/raoof.r12/Desktop/Raouf/K/mehr-guard/iosApp/MehrGuard/Assets.xcassets"
 
-echo "🎨 QR-SHIELD Asset Importer"
+echo "🎨 Mehr Guard Asset Importer"
 echo "=========================="
 echo "Source: $SOURCE_DIR"
 echo "Target: $TARGET_DIR"

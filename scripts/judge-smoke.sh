@@ -1,13 +1,13 @@
 #!/bin/bash
 #
-# QR-SHIELD Judge Smoke Test
+# Mehr Guard Judge Smoke Test
 # ==========================
 # Quick verification script for contest judges.
 # Run this on a fresh clone to verify the project builds on all platforms.
 #
 # Usage: ./scripts/judge-smoke.sh
 #
-# Copyright 2025-2026 QR-SHIELD Contributors
+# Copyright 2025-2026 Mehr Guard Contributors
 # Licensed under Apache 2.0
 #
 
@@ -22,7 +22,7 @@ NC='\033[0m'
 
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}     🛡️ QR-SHIELD Judge Smoke Test${NC}"
+echo -e "${BLUE}     🛡️ Mehr Guard Judge Smoke Test${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 echo -e "Time: $(date)"

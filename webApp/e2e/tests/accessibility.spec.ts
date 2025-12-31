@@ -1,9 +1,9 @@
 /**
- * QR-SHIELD Web App E2E Tests - Accessibility
+ * Mehr Guard Web App E2E Tests - Accessibility
  * 
  * Tests for WCAG 2.1 AA compliance and accessibility features.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @license Apache-2.0
  */
 

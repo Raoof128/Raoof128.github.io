@@ -948,7 +948,7 @@
                     </div>
                     
                     <div class="help-section" style="margin-top: 16px;">
-                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;" data-i18n="AboutQrShield">${translateText('About Mehr Guard')}</h4>
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;" data-i18n="AboutMehrGuard">${translateText('About Mehr Guard')}</h4>
                         <p style="font-size: 14px; color: var(--text-secondary, #94a3b8); line-height: 1.6; margin: 0;" data-i18n="AboutDescription">
                             ${translateText('Enterprise-grade QR code security with 100% offline analysis. Your data never leaves your device. All threat detection is performed locally using our advanced phishing detection engine.')}
                         </p>

@@ -18,8 +18,8 @@ Target: arm64-apple-macosx15.0
 ### Build Commands (Clean Clone Ready)
 ```bash
 # Clone the repository
-git clone https://github.com/Raoof128/Raoof128.github.io.git qr-shield
-cd qr-shield
+git clone https://github.com/Raoof128/Raoof128.github.io.git mehr-guard
+cd mehr-guard
 
 # Build iOS app (no signing required for simulator)
 cd iosApp
