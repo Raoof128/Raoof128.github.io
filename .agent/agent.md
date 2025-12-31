@@ -257,6 +257,56 @@ Any important notes for future agents.
 
 ---
 
+# 🎨 January 1, 2026 (Session 10k+74) - WebApp Kotlin i18n Branding Fixes & Judge Mode Verification
+
+### Summary
+Fixed remaining "QR-SHIELD" branding in WebApp Kotlin i18n files and verified Judge Demo Mode functionality via browser automation testing.
+
+## ✅ Changes Made
+
+### Files Updated (17 Kotlin files)
+| File | Changes |
+|------|---------|
+| `webApp/src/jsMain/kotlin/Main.kt` | Updated console logs and copyright to "Mehr Guard" |
+| `WebStrings.kt` | Updated AppName, AboutQrShield, QrShieldBot, etc. |
+| All 15 language variants | Same branding updates (ar, de, es, fr, hi, in, it, ja, ko, pt, ru, th, tr, vi, zh) |
+
+### Branding Strings Fixed
+| Old | New |
+|-----|-----|
+| "QR-SHIELD" | "Mehr Guard" |
+| "QR-Shield Bot" | "Mehr Guard Bot" |
+| "About QR-SHIELD" | "About Mehr Guard" |
+| Console: "🛡️ QR-SHIELD Web loaded" | "🛡️ Mehr Guard Web loaded" |
+
+## ✅ Browser Verification Results
+
+Tested via automated browser subagent with JavaScript verification:
+
+| Check | Result |
+|-------|--------|
+| `document.body.innerText.includes('QR-SHIELD')` | **false** ✅ |
+| `document.body.innerText.includes('QR Shield')` | **false** ✅ |
+| "Mehr Guard" visible in sidebar | ✅ |
+| Judge Demo Mode toggle | ✅ Works - shows/hides panel |
+| Red Team scenario click | ✅ Navigates with `?demo_url=` |
+| Scanner analyzes demo URL | ✅ Shows threat verdict |
+
+## 🔧 Technical Notes
+
+- The issue was the **Kotlin i18n files** still contained old branding
+- After fixing and rebuilding with `./gradlew :webApp:clean :webApp:jsBrowserDevelopmentWebpack`, the generated `webApp.js` now has correct branding
+- Old `qrshield_*` localStorage keys are from previous user sessions - current code correctly uses `mehrguard_*`
+
+## ✅ Build Verification
+
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL ✅
+```
+
+---
+
 # 🔧 December 31, 2025 (Session 10k+73) - iOS Build Fixes & Parity Test Improvements
 
 ### Summary

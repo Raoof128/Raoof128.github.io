@@ -30,6 +30,33 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.4] - 2026-01-01
+
+### 🎨 WebApp Kotlin i18n Branding Fixes
+
+**Fixed "QR-SHIELD" branding in WebApp Kotlin source files.**
+
+All 17 Kotlin files in `webApp/src/jsMain/kotlin/` updated:
+- `Main.kt` - console logs and copyright
+- All 16 language i18n files (en, ar, de, es, fr, hi, in, it, ja, ko, pt, ru, th, tr, vi, zh)
+
+Strings updated:
+- `AppName`: "QR-SHIELD" → "Mehr Guard"
+- `QrShieldBot`: "QR-Shield Bot" → "Mehr Guard Bot"
+- `AboutQrShield`: "About QR-SHIELD" → "About Mehr Guard"
+- Hero descriptions, offline guarantees, copyright notices
+
+#### Browser Verification (Judge Mode)
+Tested via Playwright-style browser automation:
+- ✅ No "QR-SHIELD" found on `onboarding.html` (JavaScript check)
+- ✅ No "QR-SHIELD" found on `scanner.html` (JavaScript check)
+- ✅ "Mehr Guard" branding displays correctly in sidebar/header
+- ✅ Judge Demo Mode toggle shows/hides Red Team panel
+- ✅ Clicking scenario chip navigates to scanner with `?demo_url=` parameter
+- ✅ Scanner performs real-time analysis on demo URL
+
+---
+
 ## [2.0.3] - 2026-01-01
 
 ### 🔧 Correct Source Restoration from Improved Commit
