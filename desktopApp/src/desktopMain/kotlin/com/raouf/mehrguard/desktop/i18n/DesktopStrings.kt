@@ -50,7 +50,7 @@ enum class AppLanguage(val code: String, val displayName: String) {
 }
 
 enum class DesktopStringKey(val defaultText: String) {
-    AppName("QR-SHIELD"),
+    AppName("Mehr Guard"),
     MenuMain("Main Menu"),
     MenuSecurity("Security"),
     MenuSystem("System"),

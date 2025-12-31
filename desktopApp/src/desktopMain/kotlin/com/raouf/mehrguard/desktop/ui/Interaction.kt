@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * Desktop Interaction Helpers for QR-SHIELD
+ * Desktop Interaction Helpers for Mehr Guard
  * 
  * These helpers provide consistent hover, press, and focus states
  * for interactive elements in the desktop application.

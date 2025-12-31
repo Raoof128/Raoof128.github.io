@@ -79,7 +79,7 @@ fun AppSidebar(
         ) {
             Image(
                 painter = painterResource("assets/app-icon.png"),
-                contentDescription = "QR-SHIELD Logo",
+                contentDescription = "Mehr Guard Logo",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.size(28.dp)
             )

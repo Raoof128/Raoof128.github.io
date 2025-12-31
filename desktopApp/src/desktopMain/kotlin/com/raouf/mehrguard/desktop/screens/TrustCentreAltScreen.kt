@@ -146,7 +146,7 @@ private fun TrustCentreAltContent(viewModel: AppViewModel) {
                     modifier = Modifier.padding(top = 16.dp)
                 )
                 Text(
-                    text = t("QR-SHIELD processes every scan within a secure, isolated local sandbox. We prioritize explainable security with zero cloud telemetry for image analysis."),
+                    text = t("Mehr Guard processes every scan within a secure, isolated local sandbox. We prioritize explainable security with zero cloud telemetry for image analysis."),
                     fontSize = 16.sp,
                     color = colors.textSub,
                     textAlign = TextAlign.Center,

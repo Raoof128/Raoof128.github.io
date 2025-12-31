@@ -156,7 +156,7 @@ private fun TrustCentreContent(viewModel: AppViewModel, onNavigate: (AppScreen) 
                     Text(t("Strict Offline Guarantee"), fontSize = 24.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                     // Description
                     Text(
-                        t("QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis."),
+                        t("Mehr Guard operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis."),
                         fontSize = 16.sp,
                         color = colors.textSub,
                         modifier = Modifier.widthIn(max = 520.dp)

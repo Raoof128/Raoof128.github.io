@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  * Licensed under the Apache License, Version 2.0
  */
 
@@ -43,7 +43,7 @@ object SettingsManager {
         val biometricLockEnabled: Boolean = false,
         val languageCode: String = defaultLanguageCode(),
         // User Profile fields (parity with Web app)
-        val userName: String = "QR-SHIELD User",
+        val userName: String = "Mehr Guard User",
         val userEmail: String = "user@example.com",
         val userInitials: String = "QU",
         val userRole: String = "Security Analyst",
@@ -85,7 +85,7 @@ object SettingsManager {
                     telemetryEnabled = props.getProperty("telemetryEnabled", "false").toBoolean(),
                     biometricLockEnabled = props.getProperty("biometricLockEnabled", "false").toBoolean(),
                     languageCode = props.getProperty("languageCode", defaultLanguageCode()),
-                    userName = props.getProperty("userName", "QR-SHIELD User"),
+                    userName = props.getProperty("userName", "Mehr Guard User"),
                     userEmail = props.getProperty("userEmail", "user@example.com"),
                     userInitials = props.getProperty("userInitials", "QU"),
                     userRole = props.getProperty("userRole", "Security Analyst"),
@@ -140,7 +140,7 @@ object SettingsManager {
             props.setProperty("gameTotalCorrect", settings.gameTotalCorrect.toString())
             props.setProperty("gameTotalAttempts", settings.gameTotalAttempts.toString())
 
-            file.outputStream().use { props.store(it, "QR-SHIELD Application Settings") }
+            file.outputStream().use { props.store(it, "Mehr Guard Application Settings") }
         } catch (_: Exception) {
             // Settings persistence is non-critical; app continues normally
         }

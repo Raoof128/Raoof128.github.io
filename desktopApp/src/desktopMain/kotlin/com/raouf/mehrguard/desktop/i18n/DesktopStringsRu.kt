@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.desktop.i18n
 
 internal val RussianStrings = mapOf(
-    DesktopStringKey.AppName to "QR-SHIELD",
+    DesktopStringKey.AppName to "Mehr Guard",
     DesktopStringKey.MenuMain to "Главное меню",
     DesktopStringKey.MenuSecurity to "Безопасность",
     DesktopStringKey.MenuSystem to "Система",
@@ -18,7 +18,7 @@ internal val RussianCommonStrings = mapOf(
     "Engine Active" to "Движок активен",
     "Enterprise Protection Active" to "Корпоративная защита активна",
     "Secure. Offline.\nExplainable Defence." to "Безопасно. Офлайн.\nОбъяснимая защита.",
-    "QR-SHIELD analyses potential threats directly on your hardware. Experience zero-latency phishing detection without compromising data privacy." to "QR-SHIELD анализирует потенциальные угрозы непосредственно на вашем оборудовании. Испытайте обнаружение фишинга без задержек без ущерба для конфиденциальности данных.",
+    "Mehr Guard analyses potential threats directly on your hardware. Experience zero-latency phishing detection without compromising data privacy." to "Mehr Guard анализирует потенциальные угрозы непосредственно на вашем оборудовании. Испытайте обнаружение фишинга без задержек без ущерба для конфиденциальности данных.",
     "Start New Scan" to "Начать новое сканирование",
     "Import Image" to "Импорт изображения",
     "System Health" to "Состояние системы",
@@ -298,7 +298,7 @@ internal val RussianCommonStrings = mapOf(
     "MODULE %d" to "МОДУЛЬ %d",
     "%d:%02d remaining" to "%d:%02d осталось",
     "Dashboard" to "Панель",
-    "QR-SHIELD" to "QR-SHIELD",
+    "Mehr Guard" to "Mehr Guard",
     "Settings" to "Настройки",
     "Onboarding" to "Введение",
     "Offline Privacy" to "Офлайн-конфиденциальность",
@@ -320,7 +320,7 @@ internal val RussianCommonStrings = mapOf(
     "Threat Verdict" to "Вердикт угрозы",
     "Local Database" to "Локальная база данных",
     "Analysed offline.\nYour data stays on-device." to "Проанализировано офлайн.\nВаши данные остаются на устройстве.",
-    "QR-SHIELD processes every scan within a secure, isolated local sandbox. We prioritize explainable security with zero cloud telemetry for image analysis." to "QR-SHIELD обрабатывает каждое сканирование в безопасном изолированном локальном sandbox. Мы отдаём приоритет объяснимой безопасности с нулевой облачной телеметрией для анализа изображений.",
+    "Mehr Guard processes every scan within a secure, isolated local sandbox. We prioritize explainable security with zero cloud telemetry for image analysis." to "Mehr Guard обрабатывает каждое сканирование в безопасном изолированном локальном sandbox. Мы отдаём приоритет объяснимой безопасности с нулевой облачной телеметрией для анализа изображений.",
     "Training Centre" to "Учебный центр",
     "Learn how to identify advanced QR homograph attacks." to "Узнайте, как идентифицировать продвинутые омографические атаки QR.",
     "Paste URL to analyze (e.g., https://example.com)" to "Вставьте URL для анализа (напр., https://example.com)",
@@ -419,7 +419,7 @@ internal val RussianCommonStrings = mapOf(
     "Balanced mode uses standard heuristics. Flags known malicious patterns and suspicious URL shorteners." to "Сбалансированный режим использует стандартные эвристики. Отмечает известные вредоносные паттерны и подозрительные сокращатели URL.",
     "Paranoia mode enables maximum scrutiny. All edge cases trigger warnings. Best for high-security needs." to "Режим паранойи включает максимальную проверку. Все пограничные случаи вызывают предупреждения. Лучше для высоких требований безопасности.",
     "Manage offline heuristics, data retention policies, and domain allowlists. All changes apply immediately." to "Управляйте офлайн-эвристиками, политиками хранения данных и белыми списками доменов. Все изменения применяются немедленно.",
-    "QR-SHIELD operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis." to "QR-SHIELD работает полностью на вашем локальном оборудовании. Никакие данные изображений, отсканированные URL или телеметрия не отправляются в облако для анализа.",
+    "Mehr Guard operates entirely on your local hardware. No image data, scanned URLs, or telemetry are sent to the cloud for analysis." to "Mehr Guard работает полностью на вашем локальном оборудовании. Никакие данные изображений, отсканированные URL или телеметрия не отправляются в облако для анализа.",
     "Adjust detection strictness" to "Настроить строгость обнаружения",
     "Force disable all network adapters for app" to "Принудительно отключить все сетевые адаптеры для приложения",
     "Share threat signatures to improve DB" to "Поделиться сигнатурами угроз для улучшения БД",
@@ -433,7 +433,7 @@ internal val RussianCommonStrings = mapOf(
     "Let's Encrypt R3. Note: Valid SSL does not guarantee site legitimacy." to "Let's Encrypt R3. Примечание: действительный SSL не гарантирует легитимность сайта.",
     "Warning: Multiple phishing indicators detected." to "Предупреждение: обнаружено несколько индикаторов фишинга.",
     "SCAN #SCAN-%s" to "СКАН #СКАН-%s",
-    "GENERATED BY QR-SHIELD ENGINE v2.4" to "СОЗДАНО QR-SHIELD ДВИЖКОМ v2.4",
+    "GENERATED BY Mehr Guard ENGINE v2.4" to "СОЗДАНО Mehr Guard ДВИЖКОМ v2.4",
     "The scanned QR code redirects to a known phishing vector designed to harvest credentials." to "Отсканированный QR-код перенаправляет на известный фишинговый вектор, предназначенный для сбора учётных данных.",
     // Risk levels
     "Medium Risk" to "Средний риск",

@@ -145,7 +145,7 @@ private fun ScanHistoryHeader(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Text(t("QR-SHIELD"), fontSize = 14.sp, color = colors.textSub)
+            Text(t("Mehr Guard"), fontSize = 14.sp, color = colors.textSub)
             Text("/", fontSize = 14.sp, color = colors.textMuted)
             Text(t("Scan History"), fontSize = 14.sp, color = colors.textMain, fontWeight = FontWeight.SemiBold)
         }

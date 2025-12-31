@@ -178,7 +178,7 @@ class AppViewModel(
     var showProfileDropdown by mutableStateOf(false)
     
     // User Profile (parity with Web app shared-ui.js)
-    var userName by mutableStateOf("QR-SHIELD User")
+    var userName by mutableStateOf("Mehr Guard User")
     var userEmail by mutableStateOf("user@example.com")
     var userInitials by mutableStateOf("QU")
     var userRole by mutableStateOf("Security Analyst")
@@ -434,7 +434,7 @@ class AppViewModel(
         
         val auditReport = buildString {
             appendLine("═══════════════════════════════════════════════════════════════")
-            appendLine("                    QR-SHIELD SECURITY AUDIT REPORT")
+            appendLine("                    Mehr Guard SECURITY AUDIT REPORT")
             appendLine("═══════════════════════════════════════════════════════════════")
             appendLine()
             appendLine("Generated: ${formatTimestamp(timestamp)}")
@@ -749,7 +749,7 @@ class AppViewModel(
     }
 
     fun saveUserProfile(name: String, email: String, role: String, initials: String? = null) {
-        userName = name.trim().ifBlank { "QR-SHIELD User" }
+        userName = name.trim().ifBlank { "Mehr Guard User" }
         userEmail = email.trim().ifBlank { "user@example.com" }
         userRole = role.trim().ifBlank { "Security Analyst" }
         // Auto-generate initials from name if not provided

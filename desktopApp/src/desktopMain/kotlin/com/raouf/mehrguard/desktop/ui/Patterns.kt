@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * Decorative Modifier Extensions for QR-SHIELD Desktop UI
+ * Decorative Modifier Extensions for Mehr Guard Desktop UI
  * 
  * These helpers provide consistent visual polish across all screens.
  * Use theme tokens from LocalStitchTokens.current for colors when calling.

@@ -314,7 +314,7 @@ private fun DashboardContent(
                                 color = colors.textMain
                             )
                             Text(
-                                text = t("QR-SHIELD analyses potential threats directly on your hardware. Experience zero-latency phishing detection without compromising data privacy."),
+                                text = t("Mehr Guard analyses potential threats directly on your hardware. Experience zero-latency phishing detection without compromising data privacy."),
                                 fontSize = 18.sp,
                                 color = colors.textSub,
                                 lineHeight = 26.sp,

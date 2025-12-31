@@ -37,7 +37,7 @@ fun main() = application {
 
     Window(
         onCloseRequest = ::exitApplication,
-        title = "QR-SHIELD Desktop",
+        title = "Mehr Guard Desktop",
         state = windowState,
         resizable = true,
         icon = painterResource("assets/app-icon.png")
