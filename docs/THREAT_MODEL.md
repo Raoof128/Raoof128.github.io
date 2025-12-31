@@ -133,7 +133,7 @@ https://google.com@evil.com → @ injection
 
 | Method | Coverage |
 |--------|----------|
-| Static database | 500+ brands with official domains |
+| Static database | 60+ brands with official domains |
 | Levenshtein matching | Typosquats within edit distance 2 |
 | Dynamic discovery | Trust words, action words, urgency patterns |
 

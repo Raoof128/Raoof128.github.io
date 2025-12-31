@@ -265,7 +265,7 @@ The ML model is **one layer** of a multi-layer detection system:
 ```
 URL → Heuristics (25+ rules)
     → ML Model (15 features)
-    → Brand Detection (500+ brands)
+    → Brand Detection (60+ brands)
     → TLD Scoring (risk-weighted TLDs)
     → Combined Verdict
 ```

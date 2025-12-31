@@ -291,7 +291,7 @@ Total heuristic tests: **100+**
 
 | Strategy | Implementation |
 |----------|----------------|
-| Brand allowlist | 500+ brands with official domains |
+| Brand allowlist | 60+ brands with official domains |
 | Weight balancing | Low-risk heuristics don't trigger alone |
 | Context awareness | Combinations matter more than singles |
 | Confidence scoring | Multiple signals = higher confidence |

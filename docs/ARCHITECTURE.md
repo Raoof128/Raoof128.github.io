@@ -62,7 +62,7 @@ All business logic lives in `common/src/commonMain/kotlin/`:
 |------|---------|-----|
 | `PhishingEngine.kt` | Main analysis orchestrator (suspend + blocking APIs) | ~400 |
 | `HeuristicsEngine.kt` | 25+ security heuristics | ~400 |
-| `BrandDetector.kt` | Static brand impersonation detection (500+ brands) | ~500 |
+| `BrandDetector.kt` | Static brand impersonation detection (60+ brands) | ~500 |
 | `DynamicBrandDiscovery.kt` | Pattern-based brand detection for unknown brands | ~280 |
 | `BrandDatabase.kt` | 500+ brand patterns | ~600 |
 | `SecurityConstants.kt` | Centralized thresholds and weights | ~380 |

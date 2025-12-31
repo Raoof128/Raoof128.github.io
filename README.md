@@ -102,7 +102,7 @@
               │  🔧 PhishingEngine      — Main orchestrator             │
               │  🧠 EnsembleModel       — 3-model ML architecture       │
               │  🔍 HeuristicsEngine    — 25+ detection rules           │
-              │  🏷️ BrandDetector       — 500+ brands + dynamic         │
+              │  🏷️ BrandDetector       — 60+ brands + dynamic         │
               │  ✂️ FeatureExtractor    — URL feature engineering       │
               │  📊 SharedViewModel     — Cross-platform state          │
               │  🎨 CommonBrainVisualizer— Shared Compose UI            │
@@ -199,7 +199,7 @@ class EnsembleModel {
 | Attack Type | Detection Method |
 |-------------|------------------|
 | **Homograph Attacks** | Unicode script mixing (Cyrillic 'а', Greek 'ο') |
-| **Typosquatting** | Levenshtein distance for 500+ brands |
+| **Typosquatting** | Levenshtein distance for 60+ brands |
 | **Brand Impersonation** | Fuzzy matching + dynamic discovery |
 | **Suspicious TLDs** | `.tk`, `.ml`, `.ga`, `.cf` (free, abused) |
 | **IP-Based URLs** | Standard + obfuscated (octal, hex) |

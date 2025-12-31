@@ -1,70 +1,18 @@
-# QR-SHIELD: Cross-Platform QRishing Detection
+# QR-SHIELD: Privacy-First QR Phishing Detection
 
-> **"The UI intentionally exposes detection reasoning to avoid black-box security decisions."**
+QR-SHIELD started with a near-miss. My mother scanned a QR code on a parking meter and landed on a page that looked legitimate enough to fool anyone. As a cybersecurity and AI student at Macquarie University in Sydney, I wanted a tool that makes QR scams harder to pull off without requiring people to think like a SOC analyst.
 
----
+QR-SHIELD is an offline-first, privacy-preserving QR phishing detector built with Kotlin Multiplatform. I chose KMP because security logic should not fork across platforms. The same detection engine runs in commonMain and ships to five targets: Android, iOS, Desktop, Web (JS) and Web (Wasm). A suspicious URL gets the same analysis everywhere, closing platform gaps attackers love.
 
-## The Spark: My Grandmother's Close Call
+The shared core produces an explainable verdict (SAFE, SUSPICIOUS, MALICIOUS) using a layered scoring pipeline. First, a heuristics engine emits reason codes for 25 checks including homograph risk, IP and encoding obfuscation, and risky TLD patterns. Second, a lightweight on-device ensemble model (Logistic Regression, Gradient Boosting, and decision stumps) adds behavioural signal with zero network calls. Third, redirect simulation and brand-pattern analysis help spot lookalike login pages. The UI shows a risk score and reason codes.
 
-In early 2025, I watched my grandmother nearly fall victim to a QR code scam at a Sydney parking meter. She scanned what appeared to be a legitimate payment code, landing on a convincing phishing page mimicking her bank.
+Detection is only half the win. QR scams thrive on human autopilot, so QR-SHIELD includes Beat the Bot, a training arena. Users see realistic QR destinations, make a call, then instantly compare against the engine's reasoning and practical tips. It turns awareness into reps: learn patterns, get faster, and build confidence without shame.
 
-I grabbed her phone just as she was about to enter her card details. **"Nana, stop—look at the URL."**
-
-She squinted at `paypa1-secure.tk`. She didn't see anything wrong. Neither would most people. The attacker had replaced 'l' with '1', used a free Tokelau domain, and created a near-perfect bank replica.
-
-**That moment crystallized the problem:** QRishing attacks have skyrocketed, yet no mainstream solution protects everyday users like my grandmother—especially offline.
+For judges and researchers, a hidden Red Team Developer Mode (enabled via a 7-tap trigger) loads 19 adversarial scenarios to stress-test the engine. Production quality matters: 16-language localisation, 1,000+ automated tests, and Konsist architecture rules keep the codebase honest and reproducible. QR-SHIELD proves strong security can be private, portable, and genuinely usable for everyday users too.
 
 ---
 
-## The Solution: Offline-First Detection
-
-QR-SHIELD performs all analysis **100% on-device**. No URL ever leaves your phone. The privacy isn't a feature—it's the architecture.
-
-**Why offline?** Cloud scanners know which banks you use, which doctors you visit, which lawyers you consult. This data can be sold, subpoenaed, or leaked. QR-SHIELD can't leak what it never collects.
-
----
-
-## Why Kotlin Multiplatform?
-
-KMP let me write the detection engine once and deploy everywhere—sharing **100% of business logic** across Android, iOS, Desktop, and Web.
-
-- **One bug fix** → All platforms protected
-- **`expect`/`actual` pattern** → Native camera access (ML Kit, AVFoundation)
-- **Ensemble ML** → 3 models combined for robust detection in <5ms
-
----
-
-## Technical Highlights
-
-| Feature | Implementation |
-|---------|---------------|
-| **25+ Heuristics** | Homographs, typosquats, @ injection, suspicious TLDs |
-| **Ensemble ML** | Logistic Regression + Gradient Boosting + Decision Rules |
-| **Brand Detection** | 500+ brands + Dynamic Discovery patterns |
-| **<5ms Analysis** | Real-time feedback during scanning |
-
----
-
-## What I Learned
-
-Building QR-SHIELD taught me that **privacy and protection aren't mutually exclusive**. Every URL analysis happens entirely on-device. No telemetry. No tracking.
-
-I also discovered that security is about **raising the cost of attack**. By catching 90% of scams—the `.tk` domains, the homographs, the typosquats—I protect users from lazy attackers. The other 10%? That's what defense-in-depth is for.
-
----
-
-## About Me
-
-I'm a Computer Science student from Sydney, passionate about cybersecurity and cross-platform development. I've been coding in Kotlin for 3+ years and participate in security CTF competitions.
-
-**Why I built this:** Because my grandmother deserves to use technology without fear.
-
-**What Munich means to me:** A chance to learn from the best Kotlin developers, share what I've built, and bring that knowledge back to the next generation.
-
----
-
-*Word count: ~400*
-
-- **GitHub:** [github.com/Raoof128](https://github.com/Raoof128)
-- **Project:** [QR-SHIELD](https://github.com/Raoof128/Raoof128.github.io)
-- **Live Demo:** [raoof128.github.io](https://raoof128.github.io/)
+**Author:** Mohammad Raouf Abedini  
+**University:** Macquarie University, Sydney, Australia  
+**Email:** raoof.r12@gmail.com  
+**Word Count:** ~300 words
