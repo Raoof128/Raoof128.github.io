@@ -124,10 +124,12 @@ class KMPAnalyzer: ObservableObject {
     }
     
     init() {
-        // Log warning on initialization
+        // Log warning on initialization (debug only)
+        #if DEBUG
         print("⚠️ [QR-SHIELD] KMP common.framework NOT LINKED")
         print("⚠️ [QR-SHIELD] Analysis will show error state")
         print("⚠️ [QR-SHIELD] Run: ./gradlew :common:linkDebugFrameworkIosArm64")
+        #endif
     }
     
     /// Analysis is unavailable without KMP framework.

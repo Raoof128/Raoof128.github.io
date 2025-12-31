@@ -8,7 +8,7 @@ This file tracks significant changes made during development sessions.
 
 ## ⚠️ CRITICAL: Version Management
 
-**Current App Version: `1.20.27`** (as of December 31, 2025)
+**Current App Version: `1.20.30`** (as of December 31, 2025)
 
 ### 🔴 After Making ANY Improvements, YOU MUST Update Version Numbers:
 
@@ -182,6 +182,47 @@ Any important notes for future agents.
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🧹 December 31, 2025 (Session 10k+67) - Submission-Ready Repository Cleanup
+
+### Summary
+Complete repository cleanup for KotlinConf contest submission. Removed dead files, duplicates, empty directories, and macOS noise. All 5 targets verified building successfully.
+
+## ✅ Deleted Items
+
+| Item | Type | Proof |
+|------|------|-------|
+| `screenshot_bug.png` | Corrupt file | 97 bytes containingerror text |
+| `CHANGELOG_backup_20251229.md` | Backup | Content merged to CHANGELOG.md |
+| `loc_report_20251215.txt` | Outdated report | Script regenerates on run |
+| `assets/` | Empty directory | ls confirmed empty |
+| `docs/Kotlin Student Coding Competition Official Rules.txt` | Duplicate | Identical to KOTLIN_CONTEST_OFFICIAL_RULES.txt |
+| `androidApp/src/main/res/raw/` | Empty directory | Unused |
+| All `.DS_Store` files | macOS noise | System-generated |
+
+## ✅ Verification Gates Passed
+
+- `./gradlew :common:desktopTest` ✅ (Exit 0)
+- `./gradlew :desktopApp:compileKotlinDesktop` ✅ (Exit 0)
+- `./gradlew :androidApp:assembleDebug` ✅ (Exit 0)
+- `./gradlew :common:linkDebugFrameworkIosSimulatorArm64` ✅ (Exit 0)
+- `./gradlew :webApp:jsBrowserProductionWebpack` ✅ (Exit 0)
+
+## ❌ Not Deleted (Safe/Required)
+
+- All Android drawables - Referenced in XML configs
+- `security-dsl/` module - Active documented feature
+- `releases/` folder - Not tracked in git (gitignored)
+- All localisation files - Actively used
+
+## 📁 Files Modified
+
+| File | Change |
+|------|--------|
+| `CHANGELOG.md` | Added version 1.20.30 entry |
+| `.agent/agent.md` | Added this session entry |
 
 ---
 

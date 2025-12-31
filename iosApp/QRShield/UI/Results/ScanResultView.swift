@@ -219,11 +219,13 @@ struct ScanResultView: View {
                 VerdictIcon(verdict: assessment.verdict, size: 40)
             }
             .shadow(color: themeColor.opacity(0.4), radius: 20)
+            .accessibilityHidden(true)
             
             // Verdict Text
             Text(verdictTitle)
                 .font(.title2.weight(.bold))
                 .foregroundColor(.textPrimary)
+                .accessibilityLabel(Text(verdictTitle))
             
             // Confidence Badge
             HStack(spacing: 6) {
@@ -238,11 +240,14 @@ struct ScanResultView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 6)
             .background(themeColor.opacity(0.1), in: Capsule())
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text("Confidence \(Int(assessment.confidence * 100)) percent"))
             
             // Threat Tags
             FlowLayout(spacing: 8) {
                 ForEach(assessment.flags.prefix(3), id: \.self) { flag in
                     threatTag(flag)
+                        .accessibilityLabel(Text("Risk flag: \(flag)"))
                 }
             }
             .padding(.top, 8)
@@ -268,6 +273,8 @@ struct ScanResultView: View {
                 .offset(x: 20, y: -20)
         }
         .clipShape(RoundedRectangle(cornerRadius: 24))
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(Text("Verdict: \(verdictTitle). Score: \(assessment.score) out of 100"))
     }
     
     private var verdictTitle: String {
@@ -685,6 +692,8 @@ struct ScanResultView: View {
             
             Spacer()
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text("\(statusText). \(assessment.verdict.rawValue)"))
     }
     
     // MARK: - URL Display Row (Android/WebApp Parity)

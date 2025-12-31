@@ -536,44 +536,8 @@ final class ScannerViewModel {
         }
     }
     
-    // MARK: - Mock Data (Replace with KMP)
-    
-    private func createMockResult(for url: String) -> RiskAssessmentMock {
-        let lowercaseUrl = url.lowercased()
-        
-        let score: Int
-        let verdict: VerdictMock
-        var flags: [String] = []
-        
-        if lowercaseUrl.contains("malware") || lowercaseUrl.contains("phish") ||
-           lowercaseUrl.contains("hack") || lowercaseUrl.contains("scam") {
-            score = 85 + Int.random(in: 0...10)
-            verdict = .malicious
-            flags = [
-                "Known phishing domain",
-                "Suspicious path patterns",
-                "Domain impersonation detected"
-            ]
-        } else if lowercaseUrl.contains("suspicious") ||
-                  !lowercaseUrl.hasPrefix("https") ||
-                  lowercaseUrl.contains("login") {
-            score = 45 + Int.random(in: 0...20)
-            verdict = .suspicious
-            flags = ["HTTP instead of HTTPS", "Login page detected"]
-        } else {
-            score = 5 + Int.random(in: 0...15)
-            verdict = .safe
-        }
-        
-        return RiskAssessmentMock(
-            score: score,
-            verdict: verdict,
-            flags: flags,
-            confidence: Double.random(in: 0.85...0.98),
-            url: url,
-            scannedAt: Date()
-        )
-    }
+    // NOTE: createMockResult() was removed - all analysis now flows through
+    // UnifiedAnalysisService which uses KMP HeuristicsEngine or Swift fallback
 }
 
 // MARK: - QR Code Metadata Delegate (Swift 6 Compliant)

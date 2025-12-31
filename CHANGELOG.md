@@ -2,6 +2,110 @@
 
 ## Unreleased
 
+## [1.20.30] - 2025-12-31
+
+### Raouf: Submission-Ready Repository Cleanup (2025-12-31 12:10 AEDT)
+
+**Scope:** KotlinConf contest submission cleanup - remove dead code, duplicates, empty directories
+
+**Goal:** Make repository judge-proof and submission-ready across all 5 targets (Android, iOS, Desktop, Web, Shared Core)
+
+**Deleted Items (Proof-Based):**
+
+| Item | Type | Proof of Removal Safety |
+|------|------|------------------------|
+| `screenshot_bug.png` | Corrupt file | 97 bytes, contained error text `cat: ... No such file` |
+| `CHANGELOG_backup_20251229.md` | Backup file | Content already merged per session 10k+58 |
+| `loc_report_20251215.txt` | Outdated report | Script regenerates with new date on each run |
+| `assets/` | Empty directory | `ls` confirmed empty |
+| `docs/Kotlin Student Coding Competition Official Rules.txt` | Duplicate | `diff -q` confirmed identical to `KOTLIN_CONTEST_OFFICIAL_RULES.txt` |
+| `androidApp/src/main/res/raw/` | Empty directory | Empty, unused |
+| All `.DS_Store` files | macOS noise | System-generated, no code references |
+
+**Verification Gates (All Passed):**
+- `./gradlew :common:desktopTest` ✅
+- `./gradlew :desktopApp:compileKotlinDesktop` ✅
+- `./gradlew :androidApp:assembleDebug` ✅
+- `./gradlew :common:linkDebugFrameworkIosSimulatorArm64` ✅
+- `./gradlew :webApp:jsBrowserProductionWebpack` ✅
+
+**Not Deleted (Safe/Required):**
+- `releases/keystore-base64.txt` - Not tracked (folder in gitignore)
+- All Android drawables - Confirmed referenced in XML configs
+- `security-dsl/` module - Documented feature, referenced in code
+
+---
+
+## [1.20.29] - 2025-12-31
+
+### Raouf: Production Cleanup (2025-12-31 11:20 AEDT)
+
+**Scope:** Remove dead code and wrap debug prints for production readiness
+
+**Changes:**
+
+1. **Debug Print Cleanup**
+   - Wrapped print statements in `UnifiedAnalysisService.swift` init with `#if DEBUG`
+   - Wrapped print statements in `KMPBridge.swift` init with `#if DEBUG`
+   - All print statements now only execute in Debug builds
+
+2. **Code Audit Results**
+   - No dead files found - all .swift files contain necessary code
+   - No unused imports found
+   - No commented-out code blocks found
+   - Training challenges (`sampleChallenges`) are legitimate game content - kept
+   - `KMPDemoView` is for judge demonstration of KMP integration - kept
+
+**Files Modified:**
+- `UnifiedAnalysisService.swift` - Wrapped prints in `#if DEBUG`
+- `KMPBridge.swift` - Wrapped prints in `#if DEBUG`
+- `project.pbxproj` - Version 1.20.29
+
+**Build Verification:**
+- `xcodebuild -scheme QRShield build` ✅
+
+---
+
+## [1.20.28] - 2025-12-31
+
+### Raouf: iOS Judge-Proof Quality Audit (2025-12-31 11:20 AEDT)
+
+**Scope:** Comprehensive Phase 1 (Code/Parity) and Phase 2 (UI/UX/Accessibility) audit
+
+**Phase 1 Findings & Fixes:**
+
+1. **Dead Code Removal**
+   - Removed `createMockResult()` from ScannerViewModel.swift
+   - All analysis now flows through UnifiedAnalysisService (KMP or Swift fallback)
+   - No hardcoded result strings remain
+
+2. **Parity Matrix** (14/16 capabilities at full parity)
+   - iOS matches Desktop/Android on all core features
+   - Dynamic attack breakdowns derived from engine flags ✅
+   - History with search/filter/sort ✅
+   - Red Team developer mode ✅
+
+3. **Golden Test Vectors** defined (14 URLs)
+   - 3 safe, 6 phishing, 3 suspicious, 2 edge cases
+
+**Phase 2 Fixes:**
+
+1. **Accessibility Improvements**
+   - Added VoiceOver labels to ScanResultView verdict hero
+   - Added accessibility labels to scan status badge
+   - Added labels to threat tags for screen readers
+   - Confidence badge now announces percentage
+
+**Files Modified:**
+- `ScannerViewModel.swift` - Removed dead `createMockResult()` function
+- `ScanResultView.swift` - Added accessibility labels to verdict, status, tags
+- `project.pbxproj` - Version 1.20.28
+
+**Build Verification:**
+- `xcodebuild -scheme QRShield build` ✅
+
+---
+
 ## [1.20.27] - 2025-12-31
 
 ### Raouf: iOS Red Team Mode & Localization Parity (2025-12-31 11:05 AEDT)

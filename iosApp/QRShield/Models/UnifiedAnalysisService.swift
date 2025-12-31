@@ -50,10 +50,14 @@ class UnifiedAnalysisService: ObservableObject {
     private init() {
         #if canImport(common)
         isKMPAvailable = true
+        #if DEBUG
         print("✅ [QR-SHIELD] KMP HeuristicsEngine loaded")
+        #endif
         #else
         isKMPAvailable = false
+        #if DEBUG
         print("⚠️ [QR-SHIELD] Using Swift fallback engine")
+        #endif
         #endif
     }
     
