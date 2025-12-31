@@ -4,6 +4,47 @@
 
 ## [1.20.33] - 2025-12-31
 
+### Raouf: Judge Audit Fixes (2025-12-31 16:05 AEDT)
+
+**Issues Fixed:**
+
+1. **Android version mismatch** - Updated versionCode/versionName from 1.19.0 → 1.20.33
+   - `androidApp/build.gradle.kts: versionCode = 33, versionName = "1.20.33"`
+
+2. **iOS version mismatch** - Updated MARKETING_VERSION from 1.20.29 → 1.20.33
+   - `iosApp/QRShield.xcodeproj/project.pbxproj: MARKETING_VERSION = 1.20.33` (both places)
+
+3. **Desktop version mismatch** - Updated DashboardScreen from 2025.12.29 → 1.20.33
+   - `desktopApp/.../screens/DashboardScreen.kt: KeyValueRow version = "1.20.33"`
+
+4. **Red Team scenario count off-by-one** - Updated from 18 → 19 scenarios
+   - `README.md: "Available Scenarios (19)"`
+   - `JUDGE_QUICKSTART.md: "19 curated attack scenarios"`
+
+5. **Brand database count clarification** - Changed "500+ brands" → "60+ brands (500+ patterns)"
+   - `docs/ARCHITECTURE.md`, `docs/PLATFORM_PARITY.md`, `docs/LIMITATIONS.md`
+   - Verified: 60 BrandConfig entries with 586 total pattern variants
+
+6. **Documentation version synchronization** - Updated all version references to 1.20.33
+   - `JUDGE_QUICKSTART.md`, `CONTEST_START.md`, `docs/EVIDENCE.md`, `.agent/agent.md`, `README.md`
+
+**Files Changed (6):**
+- `androidApp/build.gradle.kts`
+- `iosApp/QRShield.xcodeproj/project.pbxproj`
+- `desktopApp/src/desktopMain/kotlin/com/qrshield/desktop/screens/DashboardScreen.kt`
+- `README.md`
+- `JUDGE_QUICKSTART.md`
+- `docs/ARCHITECTURE.md`, `docs/PLATFORM_PARITY.md`, `docs/LIMITATIONS.md`
+- `CONTEST_START.md`, `docs/EVIDENCE.md`, `.agent/agent.md`
+
+**Verification:**
+- ✅ All version numbers now consistent (1.20.33 across all platforms)
+- ✅ Scenario count verified (19 actual vs documented)
+- ✅ Brand count clarified (60 brands, 500+ patterns)
+- ✅ Desktop build compiles without errors
+
+---
+
 ### Raouf: Desktop Judge Mode Toggle in Header (2025-12-31 14:27 AEDT)
 
 **Issue:** Desktop Red Team panel was always visible, needed proper toggle control

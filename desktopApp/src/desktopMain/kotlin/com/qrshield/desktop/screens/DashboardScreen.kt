@@ -559,7 +559,7 @@ private fun DashboardContent(
                             Text(t("Threat Database"), fontSize = 18.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                         }
                         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                            KeyValueRow(label = t("Version"), value = "2025.12.29", colors = colors)
+                            KeyValueRow(label = t("Version"), value = "1.20.33", colors = colors)
                             KeyValueRow(label = t("Last Update"), value = t("Local bundle"), colors = colors)
                             KeyValueRow(label = t("Patterns"), value = t("Active"), colors = colors)
                         }

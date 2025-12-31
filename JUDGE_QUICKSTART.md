@@ -73,7 +73,7 @@ cd qrshield
 | **Web** | Settings → Security Settings → "Enable Red Team Scenarios" toggle | Toggle ON/OFF |
 
 **What You'll See:**
-- 18 curated attack scenarios (homographs, IP obfuscation, TLD abuse, brand impersonation, URL shorteners)
+- 19 curated attack scenarios (homographs, IP obfuscation, TLD abuse, brand impersonation, URL shorteners)
 - One-tap testing of detection accuracy (bypasses camera, feeds URL directly to engine)
 - Useful for demonstrating engine capabilities to judges without needing QR codes
 
@@ -97,7 +97,7 @@ cd qrshield
 | **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
 | **Languages** | 16 | 629 Android strings, 547 iOS strings |
 | **Accessibility** | Full | 197+ content descriptions, VoiceOver labels |
-| **App Version** | 1.20.30 | Latest as of Dec 31, 2025 |
+| **App Version** | 1.20.33 | Latest as of Dec 31, 2025 |
 
 ---
 

@@ -17,7 +17,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/KotlinConf-2025--2026-7F52FF?logo=kotlin&logoColor=white" alt="Contest">
   <img src="https://img.shields.io/badge/Kotlin-2.3.0-7F52FF" alt="Kotlin">
-  <img src="https://img.shields.io/badge/Version-1.20.30-blue" alt="Version">
+  <img src="https://img.shields.io/badge/Version-1.20.33-blue" alt="Version">
   <img src="https://img.shields.io/badge/KMP_Targets-5-orange" alt="Platforms">
   <img src="https://img.shields.io/badge/Offline-100%25-brightgreen" alt="Offline">
   <img src="https://img.shields.io/badge/Privacy-Zero_Data-blue" alt="Privacy">
@@ -241,7 +241,7 @@ class EnsembleModel {
 | **Desktop** | Header → Click "🕵️ Judge Mode" toggle | OFF (click to show) |
 | **Web** | Settings → Security → "Enable Red Team Scenarios" | OFF (toggle to show) |
 
-**Available Scenarios (18):**
+**Available Scenarios (19):**
 
 | Category | Examples |
 |----------|----------|

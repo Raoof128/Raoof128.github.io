@@ -28,7 +28,7 @@ Platform parity means:
 │  │  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  │   │
 │  │  • Same heuristics (25+ rules)                          │   │
 │  │  • Same ML model (LogisticRegressionModel)             │   │
-│  │  • Same brand detection (500+ brands)                  │   │
+│  │  • Same brand detection (60+ brands (500+ patterns))                  │   │
 │  │  • Same TLD scoring                                     │   │
 │  │  • Same verdict thresholds                              │   │
 │  └─────────────────────────────────────────────────────────┘   │
@@ -74,7 +74,7 @@ Platform parity means:
 |------|----------|---------|
 | `PhishingEngine.kt` | commonMain | Main orchestrator — **SINGLE SOURCE** |
 | `HeuristicsEngine.kt` | commonMain | 25+ rules — **SINGLE SOURCE** |
-| `BrandDetector.kt` | commonMain | 500+ brands — **SINGLE SOURCE** |
+| `BrandDetector.kt` | commonMain | 60+ brands (500+ patterns) — **SINGLE SOURCE** |
 | `TldScorer.kt` | commonMain | TLD risk db — **SINGLE SOURCE** |
 | `EnsembleModel.kt` | commonMain | Ensemble ML (LR + GB + Rules) — **SINGLE SOURCE** |
 | `LogisticRegressionModel.kt` | commonMain | Linear ML — **SINGLE SOURCE** |

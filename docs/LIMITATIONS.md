@@ -13,7 +13,7 @@ This document transparently describes the limitations of QR-SHIELD's detection a
 ## 1. Hardcoded Brand Database
 
 ### Limitation
-The brand impersonation detection relies on a **hardcoded database of ~500 brands** in `BrandDatabase.kt`. This has several implications:
+The brand impersonation detection relies on a **hardcoded database of ~60 brands with 500+ patterns** in `BrandDatabase.kt`. This has several implications:
 
 ```kotlin
 // Example from BrandDatabase.kt
