@@ -1,12 +1,12 @@
 /*
- * QR-SHIELD Theme System
+ * Mehr Guard Theme System
  * JavaScript for handling theme switching and persistence
  */
 
 (function () {
     'use strict';
 
-    const THEME_KEY = 'qrshield_theme';
+    const THEME_KEY = 'mehrguard_theme';
     const THEMES = {
         LIGHT: 'light',
         DARK: 'dark',
@@ -21,11 +21,11 @@
     function translateText(text) {
         const normalized = normalizeKey(text);
         if (!normalized) return text;
-        if (window.qrshieldTranslateText) {
-            return window.qrshieldTranslateText(normalized);
+        if (window.mehrguardTranslateText) {
+            return window.mehrguardTranslateText(normalized);
         }
-        if (window.qrshieldGetTranslation) {
-            return window.qrshieldGetTranslation(normalized);
+        if (window.mehrguardGetTranslation) {
+            return window.mehrguardGetTranslation(normalized);
         }
         return normalized;
     }
@@ -176,9 +176,9 @@
                 const newTheme = toggleTheme();
 
                 // Show toast feedback if available
-                if (window.QRShieldUI && window.QRShieldUI.showToast) {
+                if (window.MehrGuardUI && window.MehrGuardUI.showToast) {
                     const modeLabel = translateText(newTheme === THEMES.LIGHT ? 'Light' : 'Dark');
-                    window.QRShieldUI.showToast(
+                    window.MehrGuardUI.showToast(
                         formatText('Switched to {mode} mode', { mode: modeLabel }),
                         'info'
                     );
@@ -261,7 +261,7 @@
     }
 
     // Expose API globally
-    window.QRShieldTheme = {
+    window.MehrGuardTheme = {
         toggle: toggleTheme,
         set: setTheme,
         get: getEffectiveTheme,

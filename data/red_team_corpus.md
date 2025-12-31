@@ -1,6 +1,6 @@
 # Red Team Corpus
 
-Adversarial test cases for QR-SHIELD detection engine. These patterns are used by real-world phishing attacks to bypass security filters.
+Adversarial test cases for Mehr Guard detection engine. These patterns are used by real-world phishing attacks to bypass security filters.
 
 ## ⚠️ WARNING
 

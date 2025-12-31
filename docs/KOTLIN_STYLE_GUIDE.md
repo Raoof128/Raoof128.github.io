@@ -1,6 +1,6 @@
 # 📐 Kotlin Code Style Guide
 
-> QR-SHIELD follows official Kotlin conventions with security-focused additions.
+> Mehr Guard follows official Kotlin conventions with security-focused additions.
 
 ---
 
@@ -12,7 +12,7 @@
 | Functions | camelCase | `analyzeUrl()`, `detectBrand()` |
 | Properties | camelCase | `riskScore`, `isSecure` |
 | Constants | SCREAMING_SNAKE | `MAX_SCORE`, `DEFAULT_THRESHOLD` |
-| Packages | lowercase | `com.qrshield.engine` |
+| Packages | lowercase | `com.mehrguard.engine` |
 
 ---
 
@@ -67,7 +67,7 @@ val data: Any      // Type is too broad
 
 ```kotlin
 // ✅ BEST - Centralized constants in SecurityConstants.kt (v1.6.1+)
-// common/src/commonMain/kotlin/com/qrshield/core/SecurityConstants.kt
+// common/src/commonMain/kotlin/com/mehrguard/core/SecurityConstants.kt
 object SecurityConstants {
     /**
      * Threshold for SAFE verdict.
@@ -102,7 +102,7 @@ val risky_tlds = setOf("tk", "ml")  // Duplicates SecurityConstants
 
 ```kotlin
 /**
- * Phishing detection engine for QR-SHIELD.
+ * Phishing detection engine for Mehr Guard.
  *
  * Orchestrates URL analysis using multiple detection strategies:
  * - Heuristic rule matching
@@ -122,7 +122,7 @@ val risky_tlds = setOf("tk", "ml")  // Duplicates SecurityConstants
  * ## Thread Safety
  * This class is thread-safe. All internal state is immutable.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  * @see HeuristicsEngine
  * @see BrandDetector
@@ -140,7 +140,7 @@ class PhishingEngine { /* ... */ }
  * @return [RiskAssessment] containing score, verdict, and flags
  * @throws IllegalArgumentException if URL exceeds [MAX_URL_LENGTH]
  *
- * @sample com.qrshield.samples.EngineUsageSample.analyzeUrl
+ * @sample com.mehrguard.samples.EngineUsageSample.analyzeUrl
  */
 fun analyze(url: String): RiskAssessment
 ```
@@ -412,4 +412,4 @@ Key rules enforced:
 
 ---
 
-*Following these conventions keeps QR-SHIELD's codebase readable, maintainable, and professional.*
+*Following these conventions keeps Mehr Guard's codebase readable, maintainable, and professional.*

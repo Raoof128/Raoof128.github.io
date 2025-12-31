@@ -6,7 +6,7 @@
 
 ## 📋 Overview
 
-QR-SHIELD's detection engine uses a pluggable heuristics system. This guide shows you how to:
+Mehr Guard's detection engine uses a pluggable heuristics system. This guide shows you how to:
 
 1. Add new detection rules
 2. Tune existing rule weights
@@ -18,7 +18,7 @@ QR-SHIELD's detection engine uses a pluggable heuristics system. This guide show
 ## 🧠 Architecture Quick Reference
 
 ```
-common/src/commonMain/kotlin/com/qrshield/
+common/src/commonMain/kotlin/com/mehrguard/
 ├── core/
 │   ├── PhishingEngine.kt      ← Main orchestrator
 │   └── SecurityConstants.kt   ← Centralized thresholds
@@ -41,7 +41,7 @@ common/src/commonMain/kotlin/com/qrshield/
 
 ### Step 1: Define the Heuristic
 
-Open `common/src/commonMain/kotlin/com/qrshield/engine/HeuristicsEngine.kt`:
+Open `common/src/commonMain/kotlin/com/mehrguard/engine/HeuristicsEngine.kt`:
 
 ```kotlin
 /**
@@ -84,7 +84,7 @@ fun analyze(url: String): List<HeuristicResult> {
 
 ### Step 3: Add Tests
 
-Create tests in `common/src/commonTest/kotlin/com/qrshield/engine/`:
+Create tests in `common/src/commonTest/kotlin/com/mehrguard/engine/`:
 
 ```kotlin
 @Test
@@ -120,7 +120,7 @@ Weights determine how much each signal contributes to the total score.
 All tunable constants are now centralized in `SecurityConstants.kt`:
 
 ```kotlin
-// common/src/commonMain/kotlin/com/qrshield/core/SecurityConstants.kt
+// common/src/commonMain/kotlin/com/mehrguard/core/SecurityConstants.kt
 object SecurityConstants {
     // Score thresholds
     const val SAFE_THRESHOLD: Int = 30       // URLs below this are SAFE
@@ -183,7 +183,7 @@ private fun checkSuspiciousTld(url: String): HeuristicResult {
 
 ### Step 1: Edit BrandDatabase.kt
 
-Open `common/src/commonMain/kotlin/com/qrshield/engine/BrandDatabase.kt`:
+Open `common/src/commonMain/kotlin/com/mehrguard/engine/BrandDatabase.kt`:
 
 ```kotlin
 private val brands = listOf(

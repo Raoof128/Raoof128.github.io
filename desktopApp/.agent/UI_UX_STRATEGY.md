@@ -8,7 +8,7 @@
 
 ## Overview
 
-This document outlines the systematic UI/UX audit plan for the QR-SHIELD desktop application built with Compose Desktop. The goal is production-readiness without redesigning or adding features.
+This document outlines the systematic UI/UX audit plan for the Mehr Guard desktop application built with Compose Desktop. The goal is production-readiness without redesigning or adding features.
 
 ---
 

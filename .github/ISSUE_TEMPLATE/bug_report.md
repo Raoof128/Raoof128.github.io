@@ -1,6 +1,6 @@
 ---
 name: Bug Report
-about: Create a report to help us improve QR-SHIELD
+about: Create a report to help us improve Mehr Guard
 title: '[BUG] '
 labels: bug
 assignees: ''

@@ -1,14 +1,14 @@
-# QR-SHIELD Competition Pitch
+# Mehr Guard Competition Pitch
 
 ## 30-Second Elevator Pitch
 
 > "QRishing attacks have exploded 587 since 2023. Every day, millions of people scan QR codes without thinking twice—at restaurants, parking meters, even in corporate emails. Attackers exploit this trust to steal credentials and install malware.
 >
-> **QR-SHIELD** is the first Kotlin Multiplatform solution protecting users across Android, iOS, Desktop, and Web with a single shared codebase. Our intelligent engine combines 25+ security heuristics, ML-powered scoring, and brand impersonation detection to deliver instant verdicts.
+> **Mehr Guard** is the first Kotlin Multiplatform solution protecting users across Android, iOS, Desktop, and Web with a single shared codebase. Our intelligent engine combines 25+ security heuristics, ML-powered scoring, and brand impersonation detection to deliver instant verdicts.
 >
 > Zero cloud dependencies. Zero data collection. 100% privacy-first.
 >
-> QR-SHIELD: Scan smart. Stay protected."
+> Mehr Guard: Scan smart. Stay protected."
 
 ---
 
@@ -55,7 +55,7 @@ Attackers exploit this trust through **QRishing** (QR phishing):
 
 ### Why It Matters
 
-| Traditional Scanners | QR-SHIELD |
+| Traditional Scanners | Mehr Guard |
 |---------------------|-----------|
 | Just decode QR | Decode + Analyze |
 | No security | 25+ risk signals |
@@ -82,7 +82,7 @@ No data leaves the device. Period. This isn't a feature—it's our architecture.
 
 ## Differentiation Matrix
 
-| Feature | QR-SHIELD | Generic Scanners | Enterprise Solutions |
+| Feature | Mehr Guard | Generic Scanners | Enterprise Solutions |
 |---------|:---------:|:----------------:|:--------------------:|
 | Cross-platform | ✅ 4 | ❌ 1-2 | ⚠️ Some |
 | Offline analysis | ✅ | ❌ | ⚠️ |
@@ -125,7 +125,7 @@ No data leaves the device. Period. This isn't a feature—it's our architecture.
 
 ## Demo Hook
 
-> "Let me show you something. Here's a QR code for 'Netflix billing update.' Looks legitimate, right? Let's scan it with QR-SHIELD..."
+> "Let me show you something. Here's a QR code for 'Netflix billing update.' Looks legitimate, right? Let's scan it with Mehr Guard..."
 >
 > *[Shows 87 MALICIOUS with breakdown]*
 >

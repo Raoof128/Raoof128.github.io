@@ -40,21 +40,21 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "com.qrshield.desktop.MainKt"
+        mainClass = "com.raouf.mehrguard.desktop.MainKt"
         
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "QRShield"
+            packageName = "MehrGuard"
             packageVersion = "1.2.0"
             
             macOS {
-                bundleID = "com.qrshield.desktop"
+                bundleID = "com.raouf.mehrguard.desktop"
                 iconFile.set(project.file("icons/icon.icns"))
             }
             
             windows {
                 iconFile.set(project.file("icons/icon.ico"))
-                menuGroup = "QR-SHIELD"
+                menuGroup = "Mehr Guard"
             }
             
             linux {

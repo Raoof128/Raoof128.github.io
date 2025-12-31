@@ -1,4 +1,4 @@
-# Pitest Mutation Testing Configuration for QR-SHIELD
+# Pitest Mutation Testing Configuration for Mehr Guard
 #
 # This file configures mutation testing for the JVM targets (desktop).
 # Pitest introduces small changes (mutations) to your code and verifies
@@ -24,11 +24,11 @@
 
 # Classes to mutate (glob patterns)
 targetClasses:
-  - "com.qrshield.core.*"
-  - "com.qrshield.engine.*"
-  - "com.qrshield.ml.*"
-  - "com.qrshield.security.*"
-  - "com.qrshield.scanner.*"
+  - "com.mehrguard.core.*"
+  - "com.mehrguard.engine.*"
+  - "com.mehrguard.ml.*"
+  - "com.mehrguard.security.*"
+  - "com.mehrguard.scanner.*"
 
 # Classes to NOT mutate
 excludedClasses:
@@ -41,7 +41,7 @@ excludedClasses:
 
 # Test classes to run
 targetTests:
-  - "com.qrshield.*Test"
+  - "com.mehrguard.*Test"
 
 # Mutation operators to use
 mutators:

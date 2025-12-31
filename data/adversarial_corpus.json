@@ -1,5 +1,5 @@
 {
-    "name": "QR-SHIELD Adversarial Test Corpus",
+    "name": "Mehr Guard Adversarial Test Corpus",
     "version": "1.0.0",
     "description": "Labeled adversarial URLs for security research and ML evaluation. Part of KotlinConf 2025-2026 Competition.",
     "license": "Apache-2.0",
@@ -543,8 +543,8 @@
     "usage": {
         "research": "This corpus can be used for phishing detection research and ML model training/evaluation.",
         "testing": "All URLs are safe for testing - phishing domains are synthetic and defanged.",
-        "citation": "If using this corpus in academic work, please cite the QR-SHIELD project."
+        "citation": "If using this corpus in academic work, please cite the Mehr Guard project."
     },
     "created": "2025-12-18",
-    "author": "QR-SHIELD Security Team"
+    "author": "Mehr Guard Security Team"
 }

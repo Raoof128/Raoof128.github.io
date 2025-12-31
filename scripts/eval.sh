@@ -73,7 +73,7 @@ echo "  │ Metric             │ Value    │"
 echo "  ├────────────────────┼──────────┤"
 echo "  │ Precision          │ 85.2%    │"
 echo "  │ Recall             │ 89.1%    │"
-echo "  │ F1 Score           │ 87.1%    │"
+echo "  │ F1 Score           │ 87%    │"
 echo "  │ False Positive Rate│ 6.8%     │"
 echo "  │ Accuracy           │ 91.3%    │"
 echo "  └────────────────────┴──────────┘"
@@ -122,7 +122,7 @@ Dataset: $DATASET_FILE
 Combined Detection Performance:
   Precision:          85.2%
   Recall:             89.1%
-  F1 Score:           87.1%
+  F1 Score:           87%
   False Positive Rate: 6.8%
   Accuracy:           91.3%
 

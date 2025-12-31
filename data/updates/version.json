@@ -1,7 +1,7 @@
 {
     "version": 2,
     "lastUpdated": "2025-12-16T00:00:00Z",
-    "description": "OTA update manifest for QR-SHIELD detection engine",
+    "description": "OTA update manifest for Mehr Guard detection engine",
     "files": {
         "brand_db": {
             "version": 2,

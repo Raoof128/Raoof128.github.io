@@ -1,6 +1,6 @@
 # 📊 Shared Code Report
 
-> **KMP Code Sharing Analysis** — Proving QR-SHIELD is not "checkbox KMP"
+> **KMP Code Sharing Analysis** — Proving Mehr Guard is not "checkbox KMP"
 
 ---
 

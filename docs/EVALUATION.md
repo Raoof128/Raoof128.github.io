@@ -1,6 +1,6 @@
 # 📈 Evaluation Methodology
 
-> **How we measure QR-SHIELD's detection accuracy**
+> **How we measure Mehr Guard's detection accuracy**
 
 ---
 
@@ -70,7 +70,7 @@ Each heuristic has dedicated tests verifying:
 - Edge case handling
 - False positive avoidance
 
-**Location:** `common/src/commonTest/kotlin/com/qrshield/engine/`
+**Location:** `common/src/commonTest/kotlin/com/mehrguard/engine/`
 
 **Count:** 200+ tests
 
@@ -86,7 +86,7 @@ fun `phishing URL with IP host produces MALICIOUS verdict`() {
 }
 ```
 
-**Location:** `common/src/commonTest/kotlin/com/qrshield/core/PhishingEngineTest.kt`
+**Location:** `common/src/commonTest/kotlin/com/mehrguard/core/PhishingEngineTest.kt`
 
 **Count:** 50+ tests
 
@@ -103,7 +103,7 @@ fun `parking meter scam pattern detected`() {
 }
 ```
 
-**Location:** `common/src/commonTest/kotlin/com/qrshield/engine/RealWorldPhishingTest.kt`
+**Location:** `common/src/commonTest/kotlin/com/mehrguard/engine/RealWorldPhishingTest.kt`
 
 **Count:** 30+ scenarios
 
@@ -122,7 +122,7 @@ fun `any URL produces valid verdict`() {
 }
 ```
 
-**Location:** `common/src/commonTest/kotlin/com/qrshield/core/PropertyBasedTest.kt`
+**Location:** `common/src/commonTest/kotlin/com/mehrguard/core/PropertyBasedTest.kt`
 
 **Count:** 15+ properties
 

@@ -64,21 +64,21 @@ jobs:
         VERSION=${{ github.event.inputs.version || github.ref_name }}
         VERSION=${VERSION#v}
         mkdir -p release-artifacts
-        cp androidApp/build/outputs/apk/release/androidApp-release.apk release-artifacts/QRShield-${VERSION}-release.apk
-        cp androidApp/build/outputs/bundle/release/androidApp-release.aab release-artifacts/QRShield-${VERSION}-release.aab
+        cp androidApp/build/outputs/apk/release/androidApp-release.apk release-artifacts/MehrGuard-${VERSION}-release.apk
+        cp androidApp/build/outputs/bundle/release/androidApp-release.aab release-artifacts/MehrGuard-${VERSION}-release.aab
 
     - name: Upload Release APK
       uses: actions/upload-artifact@v4
       with:
         name: android-release-apk
-        path: release-artifacts/QRShield-*-release.apk
+        path: release-artifacts/MehrGuard-*-release.apk
         retention-days: 30
 
     - name: Upload Release AAB
       uses: actions/upload-artifact@v4
       with:
         name: android-release-aab
-        path: release-artifacts/QRShield-*-release.aab
+        path: release-artifacts/MehrGuard-*-release.aab
         retention-days: 30
 
   # ============================================
@@ -195,9 +195,9 @@ jobs:
         VERSION=${VERSION#v}
         
         # Rename desktop JARs
-        mv ./release/linux/*.jar ./release/QRShield-${VERSION}-linux.jar 2>/dev/null || true
-        mv ./release/macos/*.jar ./release/QRShield-${VERSION}-macos.jar 2>/dev/null || true
-        mv ./release/windows/*.jar ./release/QRShield-${VERSION}-windows.jar 2>/dev/null || true
+        mv ./release/linux/*.jar ./release/MehrGuard-${VERSION}-linux.jar 2>/dev/null || true
+        mv ./release/macos/*.jar ./release/MehrGuard-${VERSION}-macos.jar 2>/dev/null || true
+        mv ./release/windows/*.jar ./release/MehrGuard-${VERSION}-windows.jar 2>/dev/null || true
         
         # Clean up empty directories
         rm -rf ./release/linux ./release/macos ./release/windows
@@ -212,14 +212,14 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ steps.get_version.outputs.version }}
-        name: QR-SHIELD v${{ steps.get_version.outputs.version }}
+        name: Mehr Guard v${{ steps.get_version.outputs.version }}
         prerelease: ${{ github.event.inputs.prerelease || false }}
         generate_release_notes: true
         files: |
-          ./release/QRShield-*.apk
-          ./release/QRShield-*.jar
+          ./release/MehrGuard-*.apk
+          ./release/MehrGuard-*.jar
         body: |
-          ## 🛡️ QR-SHIELD v${{ steps.get_version.outputs.version }}
+          ## 🛡️ Mehr Guard v${{ steps.get_version.outputs.version }}
           
           **Kotlin Multiplatform QRishing (QR Phishing) Detector**
           
@@ -237,11 +237,11 @@ jobs:
           
           | Platform | Download | Requirements |
           |----------|----------|--------------|
-          | **Android** | [`QRShield-${{ steps.get_version.outputs.version }}-release.apk`](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/QRShield-${{ steps.get_version.outputs.version }}-release.apk) | Android 8.0+ (API 26) |
+          | **Android** | [`MehrGuard-${{ steps.get_version.outputs.version }}-release.apk`](https://github.com/${{ github.repository }}/releases/download/v${{ steps.get_version.outputs.version }}/MehrGuard-${{ steps.get_version.outputs.version }}-release.apk) | Android 8.0+ (API 26) |
           | **iOS** | [🍎 Use Web App](https://raoof128.github.io/) | Safari + Add to Home Screen |
-          | **Desktop (Linux)** | `QRShield-${{ steps.get_version.outputs.version }}-linux.jar` | JRE 17+ |
-          | **Desktop (macOS)** | `QRShield-${{ steps.get_version.outputs.version }}-macos.jar` | JRE 17+ |
-          | **Desktop (Windows)** | `QRShield-${{ steps.get_version.outputs.version }}-windows.jar` | JRE 17+ |
+          | **Desktop (Linux)** | `MehrGuard-${{ steps.get_version.outputs.version }}-linux.jar` | JRE 17+ |
+          | **Desktop (macOS)** | `MehrGuard-${{ steps.get_version.outputs.version }}-macos.jar` | JRE 17+ |
+          | **Desktop (Windows)** | `MehrGuard-${{ steps.get_version.outputs.version }}-windows.jar` | JRE 17+ |
           | **Web** | [🌐 Try Online Demo](https://raoof128.github.io/) | Modern browser |
           
           ---
@@ -268,7 +268,7 @@ jobs:
           
           ```bash
           # Verify APK signature
-          sha256sum QRShield-*.apk
+          sha256sum MehrGuard-*.apk
           ```
           
           - Zero network permissions for core scanning

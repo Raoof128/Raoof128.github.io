@@ -1,0 +1,657 @@
+/* 
+  Localizable.strings
+  Mehr Guard iOS App
+  
+  Vietnamese (Tiếng Việt) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "Mehr Guard";
+"app.tagline" = "Trình Phát Hiện Lừa Đảo QR Kotlin Multiplatform";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Bảng Điều Khiển";
+"tab.scan" = "Quét";
+"tab.history" = "Lịch Sử";
+"tab.training" = "Huấn Luyện";
+"tab.settings" = "Cài Đặt";
+
+// MARK: - Scanner View
+"scanner.title" = "Mehr Guard";
+"scanner.scanning" = "Đang Quét";
+"scanner.paused" = "Đã Tạm Dừng";
+"scanner.analyzing" = "Đang phân tích...";
+"scanner.point_at_qr" = "Hướng về Mã QR";
+"scanner.gallery" = "Thư Viện";
+"scanner.history" = "Lịch Sử";
+"scanner.scans_count" = "Lần quét: %d";
+"scanner.error_dismiss" = "Đóng lỗi";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Cần Quyền Truy Cập Camera";
+"camera.access_message" = "Mehr Guard cần quyền truy cập camera để quét mã QR. Vui lòng bật trong Cài Đặt.";
+"camera.open_settings" = "Mở Cài Đặt";
+"camera.cancel" = "Hủy";
+"camera.no_camera" = "Không có camera";
+"camera.setup_failed" = "Thiết lập camera thất bại: %@";
+"camera.flash_failed" = "Chuyển đổi đèn flash thất bại: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "AN TOÀN";
+"verdict.suspicious" = "ĐÁNG NGỜ";
+"verdict.malicious" = "NGUY HIỂM";
+"verdict.unknown" = "KHÔNG RÕ";
+
+// MARK: - Result Card
+"result.risk_score" = "Điểm Rủi Ro: %d/100";
+"result.risk_score_label" = "Điểm Rủi Ro";
+"result.confidence" = "Độ Tin Cậy";
+"result.view_details" = "Xem Chi Tiết";
+"result.view_full_analysis" = "Xem Phân Tích Đầy Đủ";
+"result.copy_url" = "Sao Chép URL";
+"result.share" = "Chia Sẻ";
+"result.dismiss" = "Đóng";
+"result.show_more" = "Hiển thị thêm %d...";
+"result.show_less" = "Hiển thị ít hơn";
+"result.flags_title" = "Cờ Rủi Ro";
+
+// MARK: - History View
+"history.title" = "Lịch Sử Quét";
+"history.empty_title" = "Chưa Có Lần Quét Nào";
+"history.empty_message" = "Mã QR đã quét sẽ xuất hiện ở đây";
+"history.scan_now" = "Quét Ngay";
+"history.clear_all" = "Xóa Tất Cả";
+"history.delete" = "Xóa";
+"history.open_url" = "Mở URL";
+"history.search_prompt" = "Tìm kiếm URL";
+"history.sort_menu" = "Sắp Xếp";
+"history.sort.by_date" = "Theo Ngày";
+"history.sort.by_risk" = "Theo Rủi Ro";
+"history.export" = "Xuất";
+"history.clear_all_action" = "Xóa Tất Cả";
+"history.scans_counter" = "%d lần quét";
+"history.no_results" = "Không Có Kết Quả";
+"history.no_results_message" = "Thử điều chỉnh tìm kiếm hoặc bộ lọc của bạn";
+"history.clear_confirm_title" = "Xóa Tất Cả Lịch Sử?";
+"history.clear_confirm_message" = "Hành động này không thể hoàn tác. Tất cả lịch sử quét sẽ bị xóa vĩnh viễn.";
+"history.exported_toast" = "Đã xuất vào clipboard";
+
+// MARK: - Settings View
+"settings.title" = "Cài Đặt";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Quét";
+"settings.section.notifications" = "Thông Báo";
+"settings.section.appearance" = "Giao Diện";
+"settings.section.privacy" = "Quyền Riêng Tư";
+"settings.section.about" = "Giới Thiệu";
+"settings.auto_scan" = "Tự động quét khi mở";
+"settings.auto_scan_description" = "Bắt đầu quét ngay khi mở ứng dụng";
+"settings.haptic" = "Phản hồi rung";
+"settings.haptic_description" = "Rung khi có kết quả quét";
+"settings.sound" = "Hiệu ứng âm thanh";
+"settings.sound_description" = "Phát âm thanh cho cảnh báo";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Cảnh báo bảo mật";
+"settings.security_alerts_description" = "Nhận thông báo về các mối đe dọa bảo mật";
+"settings.notifications_denied_title" = "Thông Báo Bị Tắt";
+"settings.notifications_denied_message" = "Để nhận cảnh báo bảo mật, vui lòng bật thông báo cho Mehr Guard trong Cài Đặt.";
+"settings.open_settings" = "Mở Cài Đặt";
+"settings.cancel" = "Hủy";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Giảm Hiệu Ứng Liquid Glass";
+"settings.reduce_effects_description" = "Đơn giản hóa hiệu ứng hình ảnh để tăng hiệu suất";
+"settings.system_appearance" = "Giao Diện Hệ Thống";
+"settings.dark_mode" = "Chế Độ Tối";
+"settings.dark_mode_description" = "Bật giao diện màu tối";
+"settings.appearance_footer" = "iOS 17+ giới thiệu hiệu ứng Liquid Glass đẹp mắt. Giảm hiệu ứng nếu bạn gặp vấn đề hiệu suất trên thiết bị cũ.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Lưu lịch sử quét";
+"settings.save_history_description" = "Giữ bản ghi các URL đã quét";
+"settings.clear_history" = "Xóa Lịch Sử";
+"settings.clear_history_title" = "Xóa Tất Cả Lịch Sử?";
+"settings.clear_history_message" = "Hành động này không thể hoàn tác. Tất cả lịch sử quét sẽ bị xóa vĩnh viễn.";
+"settings.clear_all" = "Xóa Tất Cả";
+"settings.privacy_policy" = "Chính Sách Quyền Riêng Tư";
+"settings.source_code" = "Mã Nguồn";
+"settings.credits" = "Được tạo với ❤️ cho KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "Phiên Bản";
+"settings.build" = "Bản Dựng";
+"settings.engine" = "Engine";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Bỏ Qua";
+"onboarding.continue" = "Tiếp Tục";
+"onboarding.get_started" = "Bắt Đầu";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Quét Bất Kỳ Mã QR Nào";
+"onboarding.scan.description" = "Hướng camera của bạn vào bất kỳ mã QR nào để phân tích ngay nội dung của nó đối với các mối đe dọa tiềm ẩn.";
+"onboarding.protect.title" = "Bảo Vệ Thời Gian Thực";
+"onboarding.protect.description" = "Engine hỗ trợ AI của chúng tôi phân tích URL bằng hơn 25 phương pháp heuristic bảo mật và thuật toán học máy.";
+"onboarding.privacy.title" = "Quyền Riêng Tư Trước Tiên";
+"onboarding.privacy.description" = "Tất cả phân tích diễn ra trên thiết bị sử dụng Kotlin Multiplatform. Dữ liệu của bạn không bao giờ rời khỏi điện thoại.";
+"onboarding.design.title" = "Thiết Kế iOS 17+ Đẹp Mắt";
+"onboarding.design.description" = "Trải nghiệm giao diện Liquid Glass tuyệt đẹp với hoạt ảnh mượt mà và thẩm mỹ hiện đại.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Quyền Camera";
+"onboarding.camera.allow" = "Cho Phép Camera";
+"onboarding.camera.later" = "Để Sau";
+"onboarding.camera.message" = "Mehr Guard cần quyền truy cập camera để quét mã QR. Bạn có thể thay đổi sau trong Cài Đặt.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Chi Tiết Phân Tích";
+"detail.scanned_at" = "Đã quét lúc %@";
+"detail.url_information" = "Thông Tin URL";
+"detail.risk_factors" = "Yếu Tố Rủi Ro";
+"detail.no_risks" = "Không phát hiện rủi ro";
+"detail.open_url" = "Mở URL";
+"detail.open_warning" = "Mở URL này có thể nguy hiểm. Bạn có chắc không?";
+"detail.open_warning_title" = "Cảnh Báo Bảo Mật";
+"detail.proceed" = "Vẫn Tiếp Tục";
+"detail.scanned_at_time_ago" = "Đã quét %@";
+"detail.score_breakdown" = "Phân Tích Điểm";
+"detail.url_details" = "Chi Tiết URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (An Toàn)";
+"detail.protocol_http" = "HTTP (Không An Toàn)";
+"detail.domain" = "Tên Miền";
+"detail.protocol" = "Giao Thức";
+"detail.share_analysis" = "Chia Sẻ Phân Tích";
+"detail.copy_url" = "Sao Chép URL";
+"detail.copied" = "Đã sao chép!";
+"detail.report_false_positive" = "Báo Cáo Dương Tính Giả";
+
+// MARK: - Errors
+"error.generic" = "Đã xảy ra lỗi";
+"error.network" = "Lỗi kết nối mạng";
+"error.invalid_url" = "Phát hiện URL không hợp lệ";
+"error.analysis_failed" = "Phân tích thất bại";
+"error.invalid_or_unsupported" = "Nội dung QR không hợp lệ hoặc không được hỗ trợ.";
+"error.no_qr_found" = "Không tìm thấy mã QR trong hình ảnh đã chọn.";
+"error.image_scan_failed" = "Quét hình ảnh thất bại: %@";
+"error.dismiss" = "Đóng lỗi";
+
+// MARK: - Scanner UI
+"scanner.brand" = "Mehr Guard";
+"scanner.status_scanning" = "Đang Quét";
+"scanner.status_paused" = "Đã Tạm Dừng";
+"scanner.view_details" = "Xem Chi Tiết";
+"scanner.copy_url" = "Sao chép URL";
+"scanner.share" = "Chia sẻ";
+"scanner.dismiss" = "Đóng";
+"scanner.flash_on" = "Đèn flash bật";
+"scanner.flash_off" = "Đèn flash tắt";
+"scanner.open_history" = "Mở lịch sử";
+"scanner.scan_toggle" = "Chuyển đổi quét";
+
+// MARK: - History UI
+"history.no_results" = "Không Có Kết Quả";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "An toàn. Ngoại tuyến.";
+"dashboard.hero.tagline2" = "Phòng thủ Có thể Giải thích.";
+"dashboard.hero.description" = "Mehr Guard phân tích các mối đe dọa tiềm ẩn trực tiếp trên phần cứng của bạn. Trải nghiệm ";
+"dashboard.hero.zero_latency" = "bảo vệ không độ trễ.";
+"dashboard.enterprise_badge" = "BẢO VỆ DOANH NGHIỆP ĐANG HOẠT ĐỘNG";
+"dashboard.analyze" = "Phân tích";
+"dashboard.scan_qr" = "Quét Mã QR";
+"dashboard.import_image" = "Nhập Hình ảnh";
+"dashboard.system_optimal" = "Hệ thống Tối ưu";
+"dashboard.engine_status" = "Engine v2.4 • Cập nhật 2 giờ trước";
+"dashboard.threats_blocked" = "Mối đe dọa Đã chặn";
+"dashboard.safe_scans" = "Lần quét An toàn";
+"dashboard.engine_features" = "TÍNH NĂNG ENGINE";
+"dashboard.recent_scans" = "QUÉT GẦN ĐÂY";
+"dashboard.view_all" = "Xem Tất cả";
+"dashboard.no_scans_yet" = "Chưa có lần quét nào";
+"dashboard.no_scans_message" = "Quét mã QR hoặc dán URL để bắt đầu";
+"dashboard.threat_database" = "Cơ sở dữ liệu Mối đe dọa";
+"dashboard.db_updated" = "Cập nhật cơ sở dữ liệu cục bộ thành công.";
+"dashboard.offline_ready" = "SẴN SÀNG NGOẠI TUYẾN";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Thao tác Nhanh";
+"settings.threat_monitor" = "Giám sát Mối đe dọa";
+"settings.threat_monitor_desc" = "Xem các mối đe dọa trực tiếp và chạy kiểm tra bảo mật";
+"settings.trust_centre" = "Trung tâm Tin cậy";
+"settings.trust_centre_desc" = "Cài đặt quyền riêng tư và độ nhạy mối đe dọa";
+"settings.export_report" = "Xuất Báo cáo";
+"settings.export_report_desc" = "Tạo báo cáo bảo mật PDF hoặc JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Trung tâm Tin cậy";
+"trust.offline_guarantee" = "Đảm bảo Ngoại tuyến Nghiêm ngặt";
+"trust.offline_description" = "Phân tích Mehr Guard chạy hoàn toàn trên Neural Engine của thiết bị. Dữ liệu URL không bao giờ rời khỏi điện thoại của bạn.";
+"trust.threat_sensitivity" = "Độ nhạy Mối đe dọa";
+"trust.reset_confirm" = "Điều này sẽ đặt lại tất cả cài đặt Trung tâm Tin cậy về mặc định.";
+
+// MARK: - Results Actions
+"result.block_report" = "Chặn & Báo cáo";
+"result.block_description" = "Điều này sẽ chặn tên miền và báo cáo cho đội bảo mật của bạn.";
+"result.block_action" = "Ngăn truy cập và thông báo quản trị viên";
+"result.quarantine" = "Cách ly trong Sandbox";
+"result.quarantine_action" = "Mở an toàn để phân tích";
+"result.expected" = "Dự kiến: ";
+"result.detected" = "Phát hiện: ";
+"result.explainable_security" = "Bảo mật Có thể Giải thích";
+"result.url_breakdown" = "PHÂN TÍCH URL";
+"result.full_url" = "URL ĐẦY ĐỦ";
+"result.open_safari" = "Mở trong Safari (Rủi ro)";
+"result.open_warning_full" = "Mở URL này trong trình duyệt có thể khiến bạn gặp rủi ro bảo mật.";
+"result.restricted_mode" = "Chế độ Hạn chế";
+"result.restricted_description" = "URL này đã được đánh dấu là có thể nguy hiểm. Xem xét phân tích bên dưới trước khi tiếp tục.";
+"result.dangerous_warning" = "URL này đã được đánh dấu là có thể nguy hiểm. Mở nó có thể khiến bạn gặp phải lừa đảo, phần mềm độc hại hoặc các mối đe dọa bảo mật khác.\n\nBạn có chắc chắn muốn tiếp tục không?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "THAO TÁC NHANH";
+"nav.systems_operational" = "Tất cả hệ thống hoạt động bình thường";
+
+// MARK: - Common
+"common.enabled" = "Đã bật";
+"common.disabled" = "Đã tắt";
+
+// MARK: - Language Settings
+"settings.language" = "Language";
+"settings.language_section" = "Language";
+"settings.language_system" = "System Default";
+"settings.language_search" = "Search languages";
+"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
+"common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Cần khởi động lại";
+"settings.restart_subtitle" = "Để hiển thị Mehr Guard bằng %@, vui lòng khởi động lại ứng dụng.";
+"settings.restart_step1" = "Nhấn 'Đóng ứng dụng' bên dưới";
+"settings.restart_step2" = "Vuốt lên để đóng hoàn toàn";
+"settings.restart_step3" = "Mở lại Mehr Guard để xem ngôn ngữ mới";
+"settings.close_app" = "Đóng ứng dụng";
+"settings.restart_error_title" = "Lỗi khởi động lại";
+"settings.restart_error_message" = "Không thể tự động đóng ứng dụng. Vui lòng đóng và mở lại thủ công.";
+"common.ok" = "OK";
+"settings.language_changed" = "Đã thay đổi ngôn ngữ";
+"settings.restart_now" = "Khởi động lại ngay";
+"settings.language_restart_message" = "Ứng dụng cần khởi động lại để áp dụng ngôn ngữ mới.";
+"settings.restart_later" = "Để sau";
+
+
+// MARK: - Training (Beat The Bot)
+"training.mode" = "CHẾ ĐỘ ĐÀO TẠO";
+"training.beat_the_bot" = "Đánh bại Bot";
+"training.seconds" = "Giây";
+"training.level" = "CẤP ĐỘ %d";
+"training.unusual_signin" = "Đăng nhập bất thường";
+"training.unusual_signin_message" = "Chúng tôi phát hiện đăng nhập từ thiết bị mới. Vui lòng xác minh danh tính ngay.";
+"training.verify_identity" = "Xác minh danh tính";
+"training.phishing" = "Lừa đảo";
+"training.legitimate" = "Hợp pháp";
+"training.live_session" = "PHIÊN TRỰC TIẾP";
+"training.online" = "TRỰC TUYẾN";
+"training.bot_confidence" = "Độ tin cậy Bot:";
+"training.ai_analysis" = "PHÂN TÍCH AI";
+"training.live_hint" = "Gợi ý trực tiếp";
+"training.tip" = "Mẹo:";
+"training.beginner" = "MỚI BẮT ĐẦU";
+"training.intermediate" = "TRUNG CẤP";
+"training.advanced" = "NÂNG CAO";
+"training.nightmare" = "ÁC MỘNG";
+
+// MARK: - Settings Additional
+"settings.security_alerts_title" = "Cảnh báo bảo mật";
+"settings.security_alerts_desc" = "Nhận thông báo về mối đe dọa";
+"settings.notifications_denied_message" = "Để nhận cảnh báo, bật thông báo cho Mehr Guard trong Cài đặt.";
+"settings.system_appearance_label" = "Giao diện hệ thống";
+"settings.clear_history_button" = "Xóa lịch sử";
+"settings.privacy_policy_link" = "Chính sách bảo mật";
+"settings.source_code_link" = "Mã nguồn";
+"settings.engine_swift" = "Swift 6";
+"settings.clear_confirm_message" = "Hành động này không thể hoàn tác. Toàn bộ lịch sử sẽ bị xóa vĩnh viễn.";
+"settings.ios_version" = "iOS 17+";
+"settings.liquid_glass_footer" = "iOS 17+ giới thiệu hiệu ứng Liquid Glass đẹp mắt. Giảm hiệu ứng nếu gặp vấn đề về hiệu suất.";
+
+// MARK: - Dashboard Additional
+"dashboard.hero.description_full" = "Mehr Guard phân tích mối đe dọa trực tiếp trên thiết bị của bạn. Trải nghiệm";
+"dashboard.zero_latency" = "phát hiện lừa đảo không độ trễ";
+"dashboard.version_date" = "Phiên bản 2023.10.24";
+"dashboard.offline_badge" = "SẴN SÀNG NGOẠI TUYẾN";
+
+// MARK: - Navigation
+"nav.version_offline" = "v2.4.0 • Chế độ ngoại tuyến";
+
+// MARK: - Results Additional
+"result.block_warning" = "Điều này sẽ chặn tên miền và báo cáo cho nhóm bảo mật của bạn.";
+"result.dangerous_full_warning" = "URL này đã được đánh dấu là có thể nguy hiểm. Mở nó có thể khiến bạn tiếp xúc với lừa đảo hoặc phần mềm độc hại.\n\nBạn có chắc muốn tiếp tục?";
+"result.open_safari_risky" = "Mở trong Safari (rủi ro)";
+"result.open_warning_browser" = "Mở URL này trong trình duyệt có thể khiến bạn gặp rủi ro bảo mật.";
+
+// MARK: - Components
+"component.confidence" = "Độ tin cậy";
+"component.risk_score" = "Điểm rủi ro";
+"component.risk_flags" = "Cờ rủi ro";
+"component.view_full_analysis" = "Xem phân tích đầy đủ";
+"component.select_image" = "Chọn hình ảnh";
+"component.select_image_desc" = "Chọn ảnh chứa mã QR";
+"component.idle_state" = "Trạng thái nghỉ";
+"component.active_state" = "Trạng thái hoạt động";
+
+// MARK: - Threat History
+"threat.no_vulnerabilities" = "Không phát hiện lỗ hổng. Thiết bị của bạn an toàn.";
+"threat.live_map" = "BẢN ĐỒ MỐI ĐE DỌA TRỰC TIẾP";
+"threat.global_view" = "Góc nhìn toàn cầu";
+"threat.last_audit" = "Kiểm tra cuối: %@";
+"threat.latest_updates" = "CẬP NHẬT MỚI NHẤT";
+"threat.live" = "TRỰC TIẾP";
+
+// MARK: - History Additional
+"history.scan_statistics" = "Thống kê quét";
+"history.safe_count" = "An toàn: %d";
+"history.suspicious_count" = "Đáng ngờ: %d";
+"history.malicious_count" = "Độc hại: %d";
+"history.total_scans" = "Tổng: %d lần quét";
+"history.exported_clipboard" = "Đã xuất vào bộ nhớ tạm";
+"history.url_label" = "URL";
+
+// MARK: - KMP Demo
+"kmp.integration" = "Tích hợp Kotlin Multiplatform";
+"kmp.analyze_button" = "Phân tích với KMP Engine";
+"kmp.quick_test" = "Kiểm tra nhanh:";
+"kmp.analysis_result" = "Kết quả phân tích";
+"kmp.score_format" = "Điểm: %d/100";
+"kmp.risk_flags" = "Cờ rủi ro:";
+"kmp.powered_by" = "Được phát triển bởi Kotlin/Native";
+
+// MARK: - Scanner Additional
+"scanner.camera_required_title" = "Yêu cầu truy cập Camera";
+"scanner.camera_required_message" = "Mehr Guard cần truy cập camera để quét mã QR. Vui lòng bật trong Cài đặt.";
+"scanner.analyzing_dots" = "Đang phân tích...";
+"scanner.point_qr" = "Hướng vào mã QR";
+"scanner.toggle_scan" = "Chuyển đổi quét";
+"scanner.dismiss_error" = "Đóng lỗi";
+"scanner.camera_preview" = "Xem trước camera";
+
+// MARK: - Trust Centre Additional
+"trust.low" = "Thấp";
+"trust.balanced" = "Cân bằng";
+"trust.paranoia" = "Hoang tưởng";
+"trust.reset_defaults" = "Đặt lại mặc định";
+"trust.version_info" = "Mehr Guard v2.4.0 (Build 892)";
+
+// MARK: - Export View
+"export.title" = "Xuất phân tích mối đe dọa";
+"export.subtitle" = "Chọn định dạng để xuất phân tích ngoại tuyến an toàn.";
+"export.select_format" = "CHỌN ĐỊNH DẠNG";
+"export.live_preview" = "XEM TRƯỚC TRỰC TIẾP";
+"export.expand" = "Mở rộng";
+"export.share" = "Chia sẻ";
+"export.export_button" = "Xuất báo cáo";
+"export.available_actions" = "HÀNH ĐỘNG CÓ SẴN";
+"export.privacy_note" = "Ghi chú bảo mật";
+"export.privacy_message" = "Tất cả phân tích được thực hiện trên thiết bị của bạn. Báo cáo xuất không chứa thông tin cá nhân.";
+
+// MARK: - Onboarding Additional
+"onboarding.camera_permission_message" = "Mehr Guard cần truy cập camera để quét mã QR. Bạn có thể thay đổi sau trong Cài đặt.";
+"onboarding.page_of" = "Trang %d / %d";
+
+// MARK: - Accessibility Labels
+"accessibility.risk_score" = "Điểm rủi ro";
+"accessibility.risk_flags" = "Cờ rủi ro";
+"accessibility.scan_history" = "Lịch sử quét";
+"accessibility.dismiss_error" = "Đóng lỗi";
+"accessibility.toggle_scanning" = "Chuyển đổi quét";
+"accessibility.gallery" = "Thư viện";
+"accessibility.open_history" = "Mở lịch sử";
+
+// MARK: - Onboarding Pages
+"onboarding.scan.title" = "Quét mọi mã QR";
+"onboarding.scan.description" = "Hướng camera vào mã QR để phân tích ngay lập tức nội dung của nó tìm các mối đe dọa tiềm ẩn.";
+"onboarding.protect.title" = "Bảo vệ thời gian thực";
+"onboarding.protect.description" = "Engine AI của chúng tôi phân tích URL sử dụng hơn 25 heuristics bảo mật và thuật toán machine learning.";
+"onboarding.privacy.title" = "Quyền riêng tư trước tiên";
+"onboarding.privacy.description" = "Tất cả phân tích diễn ra trên thiết bị sử dụng Kotlin Multiplatform. Dữ liệu của bạn không bao giờ rời khỏi điện thoại.";
+"onboarding.design.title" = "Thiết kế iOS 17+ đẹp";
+"onboarding.design.description" = "Trải nghiệm giao diện Liquid Glass tuyệt đẹp với hoạt ảnh mượt mà và thẩm mỹ hiện đại.";
+"onboarding.skip" = "Bỏ qua";
+"onboarding.continue" = "Tiếp tục";
+"onboarding.get_started" = "Bắt đầu";
+"onboarding.page_counter" = "%d/%d";
+"onboarding.camera_title" = "Quyền camera";
+"onboarding.camera_allow" = "Cho phép camera";
+"onboarding.camera_later" = "Có lẽ sau";
+"format.signals_detected" = "Phát hiện %d tín hiệu";
+"format.confidence_percent" = "%d%% Độ tin cậy";
+"format.level" = "CẤP ĐỘ %d";
+"format.score_100" = "%d/100";
+"format.latency_ms" = "%dms";
+"format.confidence" = "%d%% Độ tin cậy";
+"format.score_total" = "Điểm: %d/100";
+"format.score_slash_100" = "%d/100";
+"format.percent" = "%d%%";
+"format.status_date" = "%@ • %@";
+"dashboard.privacy_note" = " mà không ảnh hưởng đến quyền riêng tư dữ liệu.";
+"dashboard.badge_plus" = "+2";
+"history.safe_format" = "An toàn: %d";
+"history.suspicious_format" = "Đáng ngờ: %d";
+"history.malicious_format" = "Độc hại: %d";
+"history.total_format" = "Tổng: %d lần quét";
+"history.last_audit_format" = "Kiểm tra cuối: %@";
+"kmp.framework_linked" = "✅ KMP Framework đã liên kết";
+"kmp.using_mock" = "⚠️ Đang dùng Mock (liên kết common.framework)";
+"kmp.brand" = "🛡️ Mehr Guard";
+"format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Bảng điều khiển";
+"nav.menu.dashboard_desc" = "Tổng quan và thống kê";
+"nav.menu.scan_qr" = "Quét QR";
+"nav.menu.scan_qr_desc" = "Máy quét camera";
+"nav.menu.scan_history" = "Lịch sử quét";
+"nav.menu.scan_history_desc" = "Các lần quét trước";
+"nav.menu.threat_monitor" = "Giám sát mối đe dọa";
+"nav.menu.threat_monitor_desc" = "Mối đe dọa trực tiếp";
+"nav.menu.trust_centre" = "Trung tâm tin cậy";
+"nav.menu.trust_centre_desc" = "Quyền riêng tư và bảo mật";
+"nav.menu.beat_the_bot" = "Đánh bại Bot";
+"nav.menu.beat_the_bot_desc" = "Trò chơi huấn luyện";
+"nav.menu.export_report" = "Xuất báo cáo";
+"nav.menu.export_report_desc" = "Tạo báo cáo";
+"nav.menu.settings" = "Cài đặt";
+"nav.menu.settings_desc" = "Tùy chọn";
+"nav.quick.scan" = "Quét";
+"nav.quick.import" = "Nhập";
+"nav.quick.paste_url" = "Dán URL";
+"result.block_button" = "Chặn và thêm vào danh sách đen";
+"result.open_anyway" = "Vẫn mở";
+"common.cancel" = "Hủy";
+"common.close" = "Đóng";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Bảng điều khiển";
+"tab.scan" = "Quét";
+"tab.history" = "Lịch sử";
+"tab.training" = "Huấn luyện";
+"tab.settings" = "Cài đặt";
+
+// MARK: - Common Buttons
+"common.done" = "Xong";
+"common.add" = "Thêm";
+"common.open_settings" = "Mở Cài đặt";
+"common.clear_all" = "Xóa tất cả";
+"common.reset_all_settings" = "Đặt lại tất cả cài đặt";
+
+// MARK: - Export View
+"export.report_preview" = "Xem trước báo cáo";
+"export.help_title" = "Trợ giúp xuất";
+"export.format.pdf_title" = "Báo cáo PDF";
+"export.format.pdf_subtitle" = "Tóm tắt dễ đọc";
+"export.format.json_title" = "Dữ liệu JSON";
+"export.format.json_subtitle" = "Dữ liệu thô máy đọc được";
+"export.help" = "Trợ giúp";
+"export.switch_to" = "Chuyển sang %@";
+"export.copied" = "Đã sao chép!";
+"export.copy" = "Sao chép";
+"export.report_generation" = "Tạo báo cáo";
+
+// MARK: - Additional Accessibility
+"accessibility.flash_on" = "Flash on";
+"accessibility.flash_off" = "Flash off";
+"accessibility.main_menu" = "Open main menu";
+"accessibility.close_menu" = "Close menu";
+"accessibility.scan_result" = "Scan result";
+"accessibility.view_details" = "View details";
+"accessibility.copy_url" = "Copy URL";
+"accessibility.share" = "Share";
+"accessibility.dismiss" = "Dismiss";
+"accessibility.back" = "Back";
+"accessibility.settings" = "Settings";
+"accessibility.trust_centre" = "Trust Centre";
+
+// MARK: - Scan Result Metadata
+"result.scan_id" = "Scan ID";
+"result.engine_version" = "Engine Version";
+"result.scanned_at" = "Scanned At";
+"result.engine_kmp" = "KMP Engine (Offline)";
+"result.engine_swift" = "Swift Engine (Offline)";
+
+// MARK: - Analysis Breakdown (Android/Desktop Parity)
+"analysis.title" = "Analysis Breakdown";
+"analysis.ai_explained" = "AI Explained";
+"analysis.no_issues" = "No significant issues detected. This URL appears to be safe.";
+
+// Analysis Item Titles (from flags)
+"analysis.ip_host.title" = "IP Address Host";
+"analysis.ip_host.desc" = "This URL uses an IP address instead of a domain name, which is commonly used by attackers to evade detection.";
+
+"analysis.brand.title" = "Brand Impersonation";
+"analysis.brand.desc" = "This URL appears to impersonate a known brand, attempting to deceive users.";
+"analysis.brand.desc_specific" = "This URL appears to impersonate %@, a known brand.";
+
+"analysis.homograph.title" = "Homograph Attack";
+"analysis.homograph.desc" = "This URL uses characters that look similar to legitimate characters (IDN homograph attack) to deceive users.";
+
+"analysis.protocol.title" = "Insecure Protocol";
+"analysis.protocol.desc" = "This URL uses HTTP instead of HTTPS, meaning data is transmitted without encryption.";
+
+"analysis.redirect.title" = "URL Shortener / Redirect";
+"analysis.redirect.desc" = "This URL uses a redirect or shortener service, which can hide the true destination.";
+
+"analysis.tld.title" = "High-Risk TLD";
+"analysis.tld.desc" = "This URL uses a top-level domain that is commonly associated with malicious activity.";
+"analysis.tld.desc_specific" = "The TLD '%@' is frequently used for malicious purposes.";
+
+"analysis.subdomain.title" = "Complex Domain Structure";
+"analysis.subdomain.desc" = "This URL has excessive subdomains, which is often used to obscure the true domain.";
+
+"analysis.credential.title" = "Credential Harvesting";
+"analysis.credential.desc" = "This URL contains patterns commonly used to steal login credentials.";
+
+"analysis.long_url.title" = "Unusually Long URL";
+"analysis.long_url.desc" = "This URL is unusually long, which may indicate an attempt to hide malicious content.";
+
+"analysis.scheme.title" = "Dangerous Scheme";
+"analysis.scheme.desc" = "This URL uses a potentially dangerous scheme (data: or javascript:) that can execute code.";
+
+"analysis.at_symbol.title" = "@ Symbol Attack";
+"analysis.at_symbol.desc" = "This URL contains an @ symbol, which can be used to trick users into visiting a different site.";
+
+"analysis.suspicious_path.title" = "Suspicious Path";
+"analysis.suspicious_path.desc" = "The URL path contains keywords commonly associated with phishing attempts.";
+
+"analysis.risky_extension.title" = "Risky File Extension";
+"analysis.risky_extension.desc" = "This URL points to a file type that may be dangerous to download or execute.";
+
+"analysis.entropy.title" = "Random-Looking Domain";
+"analysis.entropy.desc" = "The domain appears to be randomly generated, which is common in malicious URLs.";
+
+"analysis.port.title" = "Non-Standard Port";
+"analysis.port.desc" = "This URL uses a non-standard port, which may indicate an attempt to bypass security filters.";
+
+"analysis.safe.title" = "No Threats Detected";
+"analysis.safe.desc" = "This URL passed all security checks and appears to be legitimate.";
+
+"analysis.login_keywords.title" = "Login/Verify Keywords";
+"analysis.login_keywords.desc" = "This URL contains keywords commonly used in phishing attacks to steal credentials.";
+
+"analysis.urgency.title" = "Urgency Language";
+"analysis.urgency.desc" = "This URL contains urgent language designed to pressure users into acting quickly.";
+
+"analysis.typosquatting.title" = "Typosquatting";
+"analysis.typosquatting.desc" = "This URL appears to be a misspelled version of a legitimate domain.";
+
+"analysis.verified_domain.title" = "Verified Domain";
+"analysis.verified_domain.desc" = "This URL belongs to a known, trusted domain.";
+
+// Status Badges (WebApp Parity)
+"status.scan_complete" = "Scan Complete";
+"status.caution_advised" = "Caution Advised";
+"status.threat_detected" = "Threat Detected";
+"status.analysis_complete" = "Analysis Complete";
+
+// Meta Info (WebApp Parity)
+"meta.analyzed_offline" = "Analyzed offline";
+"meta.no_data_leaves" = "No data leaves device";
+"meta.analysis_time" = "Analysis Time";
+"meta.heuristics" = "Heuristics";
+"meta.engine" = "Engine";
+"meta.engine_version_fmt" = "v%@";
+
+// MARK: - Engine Stats Card (Android Parity)
+"stats.analysis_time" = "Analysis Time";
+"stats.signals" = "Signals";
+"stats.engine" = "Engine";
+
+// MARK: - Top Analysis Factors (Android/WebApp Parity)
+"factors.title" = "Top Analysis Factors";
+"factor.category.https" = "HTTPS";
+"factor.category.domain" = "Domain";
+"factor.category.database" = "Database";
+"factor.category.heuristics" = "Heuristics";
+
+"factor.ssl_valid" = "SSL Certificate Valid";
+"factor.ssl_valid_desc" = "Connection is encrypted with HTTPS. Data transmitted securely.";
+"factor.ssl_missing" = "No SSL Certificate";
+"factor.ssl_missing_desc" = "No encryption. Data could be intercepted by attackers.";
+
+"factor.ip_address" = "IP Address Used";
+"factor.ip_address_desc" = "URL uses raw IP instead of domain name - common attack technique.";
+"factor.domain_check" = "Domain Verified";
+"factor.domain_check_desc" = "Domain structure appears legitimate.";
+
+"factor.blacklist_found" = "Known Threat";
+"factor.blacklist_found_desc" = "This URL matches known malicious patterns in our database.";
+"factor.blacklist_clean" = "Not in Blocklist";
+"factor.blacklist_clean_desc" = "URL not found in any known threat databases.";
+
+"factor.heuristics_title" = "Heuristic Analysis";
+"factor.heuristics_desc" = "%d signals detected by pattern analysis.";
+
+// MARK: - Beat the Bot Reset
+"training.reset" = "Reset Game";
+
+// MARK: - Red Team / Developer Mode (Android Parity)
+"settings.dev_mode_section" = "🕵️ Developer Mode";
+"settings.red_team_mode" = "Red Team Mode";
+"settings.red_team_mode_desc" = "Show attack scenarios on scanner screen";
+"settings.red_team_warning" = "Red Team Mode bypasses camera and injects test URLs directly into the detection engine.";
+
+"scanner.red_team_title" = "Red Team Scenarios";
+"scanner.red_team_attacks_fmt" = "%d attacks";
+"scanner.red_team_hint" = "Tap a scenario to test detection without camera";
+
+// MARK: - Export Actions
+"export.action_copy_desc" = "Copy the report content to your clipboard for pasting into other apps.";
+"export.action_export_desc" = "Save the report directly to your device.";
+"export.action_share" = "Share";
+"export.action_share_desc" = "Open the iOS share sheet to send via Messages, Mail, AirDrop, or save to Files.";
+"export.json_description" = "Exports raw analysis data in JSON format. Perfect for integration with security tools, SIEMs, or for further automated processing.";
+"export.pdf_description" = "Exports a human-readable security report suitable for sharing with team members, management, or for your records. Includes verdict, risk factors, and recommendations.";

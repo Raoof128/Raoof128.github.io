@@ -1,8 +1,8 @@
-# 🔐 QR-SHIELD Security Model
+# 🔐 Mehr Guard Security Model
 
 > **Threat Model & Detection Capabilities**
 
-This document outlines QR-SHIELD's security model, including attacker assumptions, detection capabilities, known limitations, and our privacy-first design rationale.
+This document outlines Mehr Guard's security model, including attacker assumptions, detection capabilities, known limitations, and our privacy-first design rationale.
 
 ---
 
@@ -23,7 +23,7 @@ This document outlines QR-SHIELD's security model, including attacker assumption
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         QR-SHIELD THREAT MODEL                               │
+│                         Mehr Guard THREAT MODEL                               │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  ATTACKER                    ATTACK VECTOR              TARGET               │
@@ -35,7 +35,7 @@ This document outlines QR-SHIELD's security model, including attacker assumption
 │                                                                              │
 │  ─────────────────────────────────────────────────────────────────────────── │
 │                                                                              │
-│  QR-SHIELD DEFENSE                                                           │
+│  Mehr Guard DEFENSE                                                           │
 │  ─────────────────                                                           │
 │  • URL heuristics (25+ signals)                                              │
 │  • Brand impersonation detection (500+ brands)                               │
@@ -52,7 +52,7 @@ This document outlines QR-SHIELD's security model, including attacker assumption
 
 ## 🗳️ Component Voting System (v1.19.0)
 
-QR-SHIELD uses a **democratic voting approach** where each detection component votes independently:
+Mehr Guard uses a **democratic voting approach** where each detection component votes independently:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -86,7 +86,7 @@ QR-SHIELD uses a **democratic voting approach** where each detection component v
 
 ### Who We Defend Against
 
-| Attacker Profile | Sophistication | Attack Method | QR-SHIELD Effectiveness |
+| Attacker Profile | Sophistication | Attack Method | Mehr Guard Effectiveness |
 |------------------|----------------|---------------|------------------------|
 | **Opportunistic Scammer** | Low | Typosquatting, free TLDs, obvious fakes | ✅ **HIGH** - Easily detected |
 | **Phishing Kit User** | Medium | Brand impersonation, URL shorteners | ✅ **HIGH** - Pattern matching |
@@ -433,14 +433,14 @@ Actual  SAFE        49      1             0           = 50
 
 ### Defense in Depth
 
-QR-SHIELD is one layer of protection:
+Mehr Guard is one layer of protection:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │                    DEFENSE LAYERS                                │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
-│  Layer 1: QR-SHIELD (Pre-click analysis)     ◀── WE ARE HERE    │
+│  Layer 1: Mehr Guard (Pre-click analysis)     ◀── WE ARE HERE    │
 │  Layer 2: Browser safe browsing warnings                        │
 │  Layer 3: Anti-phishing extensions                               │
 │  Layer 4: Password manager autofill (domain check)              │
@@ -454,7 +454,7 @@ QR-SHIELD is one layer of protection:
 If you discover a security vulnerability or detection bypass:
 
 1. **DO NOT** publicly disclose before we've addressed it
-2. **DO** email security concerns to: [security@qrshield.dev]
+2. **DO** email security concerns to: [security@mehrguard.dev]
 3. **DO** include proof-of-concept URLs (defanged)
 4. **DO** allow 90 days for fixes before disclosure
 
@@ -470,6 +470,6 @@ We commit to:
 
 ## 📄 License
 
-This security model document is part of QR-SHIELD, licensed under Apache 2.0.
+This security model document is part of Mehr Guard, licensed under Apache 2.0.
 
 See [LICENSE](LICENSE) for full terms.

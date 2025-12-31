@@ -1,6 +1,6 @@
-# 🎬 QR-SHIELD Video Demo
+# 🎬 Mehr Guard Video Demo
 
-> **Quick visual demonstration of QR-SHIELD's capabilities**
+> **Quick visual demonstration of Mehr Guard's capabilities**
 
 ---
 
@@ -45,7 +45,7 @@ While waiting for the video, try the **live demo** at:
 | Platform | How to Run | Version |
 |----------|------------|---------|
 | **Web** | [raoof128.github.io](https://raoof128.github.io) | v1.20.30 |
-| **Android** | [Download APK](../releases/QRShield-1.1.0-release.apk) | v1.20.30 |
+| **Android** | [Download APK](../releases/MehrGuard-1.1.0-release.apk) | v1.20.30 |
 | **Desktop** | `./gradlew :desktopApp:run` | v1.20.30 |
 | **iOS** | `./scripts/run_ios_simulator.sh` | v1.20.30 |
 
@@ -55,12 +55,12 @@ While waiting for the video, try the **live demo** at:
 
 ### 1. Opening (10 seconds)
 - Show app icon and name
-- "QR-SHIELD: Offline QR Phishing Detection"
+- "Mehr Guard: Offline QR Phishing Detection"
 
 ### 2. Problem Statement (20 seconds)
 - "QRishing attacks increased 587 since 2023"
 - "Existing solutions require cloud = privacy nightmare"
-- "QR-SHIELD is 100% offline, zero data collection"
+- "Mehr Guard is 100% offline, zero data collection"
 
 ### 3. Web Demo (60 seconds)
 - Open raoof128.github.io

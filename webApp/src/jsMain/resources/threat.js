@@ -1,10 +1,10 @@
 /**
- * QR-SHIELD Threat Analysis Page Controller
+ * Mehr Guard Threat Analysis Page Controller
  * 
  * Handles threat display, attack breakdown interactions,
  * action buttons, and dynamic data population.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.1
  */
 
@@ -14,7 +14,7 @@
 
 const ThreatConfig = {
     version: '2.4.1',
-    storageKey: 'qrshield_threat_data',
+    storageKey: 'mehrguard_threat_data',
 };
 
 // =============================================================================
@@ -27,15 +27,15 @@ const ThreatState = {
 };
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
@@ -121,12 +121,12 @@ const ThreatLevels = {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Threat] Initializing v' + ThreatConfig.version);
+    console.log('[Mehr Guard Threat] Initializing v' + ThreatConfig.version);
 
     // Cache DOM elements
     cacheElements();
 
-    // Load threat data (may need to wait for QRShieldUI)
+    // Load threat data (may need to wait for MehrGuardUI)
     setTimeout(() => {
         loadThreatData();
 
@@ -142,9 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Render scan history list
         renderScanHistory();
 
-        window.qrshieldApplyTranslations?.(document.body);
+        window.mehrguardApplyTranslations?.(document.body);
 
-        console.log('[QR-SHIELD Threat] Ready');
+        console.log('[Mehr Guard Threat] Ready');
     }, 100);
 
     // Setup event listeners
@@ -197,8 +197,8 @@ function setupEventListeners() {
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     if (clearHistoryBtn) {
         clearHistoryBtn.addEventListener('click', () => {
-            if (window.QRShieldUI) {
-                window.QRShieldUI.clearScanHistory();
+            if (window.MehrGuardUI) {
+                window.MehrGuardUI.clearScanHistory();
 
                 // Reset threat data to unknown (no activity)
                 ThreatState.threatData = {
@@ -256,8 +256,8 @@ function loadThreatData() {
     }
 
     // 2. Try scanId from URL to look up in history
-    if (scanIdParam && window.QRShieldUI) {
-        const scan = window.QRShieldUI.getScanById(scanIdParam);
+    if (scanIdParam && window.MehrGuardUI) {
+        const scan = window.MehrGuardUI.getScanById(scanIdParam);
         if (scan) {
             ThreatState.threatData = {
                 url: scan.url,
@@ -286,8 +286,8 @@ function loadThreatData() {
     }
 
     // 4. Try to get the most recent scan from history
-    if (window.QRShieldUI) {
-        const history = window.QRShieldUI.getScanHistory();
+    if (window.MehrGuardUI) {
+        const history = window.MehrGuardUI.getScanHistory();
         if (history && history.length > 0) {
             const recentScan = history[0];
             ThreatState.threatData = {
@@ -565,8 +565,8 @@ function formatScanTime(timestamp) {
     const isToday = date.toDateString() === now.toDateString();
 
     let locale = 'en-AU';
-    if (window.qrshieldGetLanguageCode) {
-        locale = window.qrshieldGetLanguageCode();
+    if (window.mehrguardGetLanguageCode) {
+        locale = window.mehrguardGetLanguageCode();
     }
 
     const timeStr = date.toLocaleTimeString(locale, {
@@ -595,13 +595,13 @@ function renderScanHistory() {
     const historyContainer = document.getElementById('historyList');
     if (!historyContainer) return;
 
-    // Wait for QRShieldUI
-    if (!window.QRShieldUI) {
+    // Wait for MehrGuardUI
+    if (!window.MehrGuardUI) {
         setTimeout(renderScanHistory, 100);
         return;
     }
 
-    const history = window.QRShieldUI.getScanHistory();
+    const history = window.MehrGuardUI.getScanHistory();
 
     if (history.length === 0) {
         historyContainer.innerHTML = `
@@ -639,7 +639,7 @@ function renderScanHistory() {
         `;
     }).join('');
 
-    window.qrshieldApplyTranslations?.(historyContainer);
+    window.mehrguardApplyTranslations?.(historyContainer);
 
     // Add click handlers
     historyContainer.querySelectorAll('.history-item').forEach(item => {
@@ -689,9 +689,9 @@ function truncateUrl(url) {
 }
 
 function viewScanDetails(scanId) {
-    if (!window.QRShieldUI) return;
+    if (!window.MehrGuardUI) return;
 
-    const scan = window.QRShieldUI.getScanById(scanId);
+    const scan = window.MehrGuardUI.getScanById(scanId);
     if (!scan) return;
 
     // Map verdict to results.html format
@@ -733,7 +733,7 @@ function blockAndReport() {
 
     // Save to blocklist
     try {
-        const blocklistKey = 'qrshield_blocklist';
+        const blocklistKey = 'mehrguard_blocklist';
         const blocklist = JSON.parse(localStorage.getItem(blocklistKey) || '[]');
 
         // Extract domain from URL

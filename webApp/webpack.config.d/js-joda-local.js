@@ -8,7 +8,7 @@ config.resolve = config.resolve || {};
 config.resolve.alias = config.resolve.alias || {};
 
 // Point @js-joda/core to the node_modules copy that Gradle downloads
-// __dirname during webpack run is inside build/wasm/packages/QRShield-webApp
+// __dirname during webpack run is inside build/wasm/packages/MehrGuard-webApp
 // So we go up to build/wasm/ then into node_modules
 const jodaPath = path.resolve(__dirname, '../../node_modules/@js-joda/core/dist/js-joda.esm.js');
 

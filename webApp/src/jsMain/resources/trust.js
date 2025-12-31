@@ -1,10 +1,10 @@
 /**
- * QR-SHIELD Trust Centre Page Controller
+ * Mehr Guard Trust Centre Page Controller
  * 
  * Handles sensitivity settings, allowlist/blocklist management,
  * privacy toggles, and settings persistence.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.1
  */
 
@@ -14,9 +14,9 @@
 
 const TrustConfig = {
     version: '2.4.1',
-    settingsKey: 'qrshield_trust_settings',
-    allowlistKey: 'qrshield_allowlist',
-    blocklistKey: 'qrshield_blocklist',
+    settingsKey: 'mehrguard_trust_settings',
+    allowlistKey: 'mehrguard_allowlist',
+    blocklistKey: 'mehrguard_blocklist',
 };
 
 // =============================================================================
@@ -41,15 +41,15 @@ const TrustState = {
 };
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
@@ -121,7 +121,7 @@ const SensitivityLevels = {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Trust Centre] Initializing v' + TrustConfig.version);
+    console.log('[Mehr Guard Trust Centre] Initializing v' + TrustConfig.version);
 
     // Cache DOM elements
     cacheElements();
@@ -135,9 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render initial UI
     renderUI();
 
-    window.qrshieldApplyTranslations?.(document.body);
+    window.mehrguardApplyTranslations?.(document.body);
 
-    console.log('[QR-SHIELD Trust Centre] Ready');
+    console.log('[Mehr Guard Trust Centre] Ready');
 });
 
 /**
@@ -361,7 +361,7 @@ function renderSensitivity() {
                 <p class="info-description">${translateText(info.description)}</p>
             </div>
         `;
-        window.qrshieldApplyTranslations?.(elements.sensitivityInfo);
+        window.mehrguardApplyTranslations?.(elements.sensitivityInfo);
     }
 }
 
@@ -388,7 +388,7 @@ function renderAllowlist() {
             </div>
         `;
         elements.allowlistContent.classList.add('empty');
-        window.qrshieldApplyTranslations?.(elements.allowlistContent);
+        window.mehrguardApplyTranslations?.(elements.allowlistContent);
     } else {
         elements.allowlistContent.classList.remove('empty');
         elements.allowlistContent.innerHTML = TrustState.allowlist.map((item, index) => `
@@ -402,7 +402,7 @@ function renderAllowlist() {
                 </button>
             </div>
         `).join('');
-        window.qrshieldApplyTranslations?.(elements.allowlistContent);
+        window.mehrguardApplyTranslations?.(elements.allowlistContent);
     }
 }
 
@@ -421,7 +421,7 @@ function renderBlocklist() {
             </div>
         `;
         elements.blocklistContent.classList.add('empty');
-        window.qrshieldApplyTranslations?.(elements.blocklistContent);
+        window.mehrguardApplyTranslations?.(elements.blocklistContent);
     } else {
         elements.blocklistContent.classList.remove('empty');
         elements.blocklistContent.innerHTML = TrustState.blocklist.map((item, index) => `
@@ -435,7 +435,7 @@ function renderBlocklist() {
                 </button>
             </div>
         `).join('');
-        window.qrshieldApplyTranslations?.(elements.blocklistContent);
+        window.mehrguardApplyTranslations?.(elements.blocklistContent);
     }
 }
 
@@ -734,7 +734,7 @@ function formatAddedDate(timestamp) {
  */
 function generateSecurityAudit() {
     const auditData = {
-        reportType: 'QR-SHIELD Security Audit',
+        reportType: 'Mehr Guard Security Audit',
         generatedAt: new Date().toISOString(),
         version: TrustConfig.version,
 
@@ -769,7 +769,7 @@ function generateSecurityAudit() {
             }))
         },
 
-        // Scan Statistics (from QRShieldUI if available)
+        // Scan Statistics (from MehrGuardUI if available)
         scanStatistics: getScanStatistics(),
 
         // System Info
@@ -786,7 +786,7 @@ function generateSecurityAudit() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `qrshield-security-audit-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `mehrguard-security-audit-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -796,17 +796,17 @@ function generateSecurityAudit() {
 }
 
 /**
- * Get scan statistics from QRShieldUI or localStorage
+ * Get scan statistics from MehrGuardUI or localStorage
  */
 function getScanStatistics() {
     try {
-        // Try to get from QRShieldUI
-        if (window.QRShieldUI && window.QRShieldUI.getHistorySummary) {
-            return window.QRShieldUI.getHistorySummary();
+        // Try to get from MehrGuardUI
+        if (window.MehrGuardUI && window.MehrGuardUI.getHistorySummary) {
+            return window.MehrGuardUI.getHistorySummary();
         }
 
         // Fallback to localStorage
-        const history = localStorage.getItem('qrshield_scan_history');
+        const history = localStorage.getItem('mehrguard_scan_history');
         if (history) {
             const scans = JSON.parse(history);
             const today = new Date().toDateString();

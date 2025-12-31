@@ -1,6 +1,6 @@
-# QR-SHIELD API Reference
+# Mehr Guard API Reference
 
-> Complete API documentation for QR-SHIELD SDK
+> Complete API documentation for Mehr Guard SDK
 
 ## Table of Contents
 
@@ -63,8 +63,8 @@
 ## Quick Start
 
 ```kotlin
-import com.qrshield.core.PhishingEngine
-import com.qrshield.model.Verdict
+import com.mehrguard.core.PhishingEngine
+import com.mehrguard.model.Verdict
 
 // Create engine instance
 val engine = PhishingEngine()
@@ -746,7 +746,7 @@ val shareText = SharedTextGenerator.generateShareText(url, assessment)
 
 ```kotlin
 object LocalizationKeys {
-    val APP_NAME = LocalizedKey("app_name", "QR-SHIELD")
+    val APP_NAME = LocalizedKey("app_name", "Mehr Guard")
     val VERDICT_SAFE = LocalizedKey("verdict_safe", "Safe")
     val VERDICT_SUSPICIOUS = LocalizedKey("verdict_suspicious", "Suspicious")
     val VERDICT_MALICIOUS = LocalizedKey("verdict_malicious", "Dangerous")
@@ -1118,7 +1118,7 @@ All public APIs are thread-safe:
 
 Centralized security-related constants for the detection engine, replacing magic numbers throughout the codebase.
 
-**Location:** `com.qrshield.core.SecurityConstants`
+**Location:** `com.mehrguard.core.SecurityConstants`
 
 ```kotlin
 object SecurityConstants {
@@ -1221,7 +1221,7 @@ object TldRiskScores {
 
 Deterministic evaluation of detection accuracy against committed dataset.
 
-**Location:** `com.qrshield.core.AccuracyVerificationTest`
+**Location:** `com.mehrguard.core.AccuracyVerificationTest`
 
 ```bash
 # Run accuracy verification
@@ -1240,9 +1240,9 @@ Deterministic evaluation of detection accuracy against committed dataset.
 
 ### OfflineOnlyTest
 
-Proves that QR-SHIELD performs ALL analysis offline without network calls.
+Proves that Mehr Guard performs ALL analysis offline without network calls.
 
-**Location:** `com.qrshield.core.OfflineOnlyTest`
+**Location:** `com.mehrguard.core.OfflineOnlyTest`
 
 ```bash
 # Run offline verification
@@ -1259,7 +1259,7 @@ Proves that QR-SHIELD performs ALL analysis offline without network calls.
 
 Maps each threat from THREAT_MODEL.md to dedicated tests and mitigations.
 
-**Location:** `com.qrshield.security.ThreatModelVerificationTest`
+**Location:** `com.mehrguard.security.ThreatModelVerificationTest`
 
 ```bash
 # Run threat model verification
@@ -1287,7 +1287,7 @@ Maps each threat from THREAT_MODEL.md to dedicated tests and mitigations.
 
 Tests that verify invariants hold for ANY valid input.
 
-**Location:** `com.qrshield.core.PropertyBasedTest`
+**Location:** `com.mehrguard.core.PropertyBasedTest`
 
 ```bash
 # Run property-based tests
@@ -1336,7 +1336,7 @@ Tests that verify invariants hold for ANY valid input.
 
 **SBOM Format:**
 ```
-# QR-SHIELD Software Bill of Materials (SBOM)
+# Mehr Guard Software Bill of Materials (SBOM)
 # Generated: 2025-12-15T20:50:00
 # Version: 1.2.0
 

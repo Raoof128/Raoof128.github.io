@@ -1,0 +1,607 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A1000001000000000000001 /* MehrGuardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000001000000000000001 /* MehrGuardApp.swift */; };
+		A1000002000000000000002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1000002000000000000002 /* Assets.xcassets */; };
+		A1000003000000000000003 /* Color+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000003000000000000003 /* Color+Theme.swift */; };
+		A1000004000000000000004 /* Assets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000004000000000000004 /* Assets+Extension.swift */; };
+		A1000005000000000000005 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000005000000000000005 /* ScannerView.swift */; };
+		A1000006000000000000006 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000006000000000000006 /* ScannerViewModel.swift */; };
+		A1000007000000000000007 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000007000000000000007 /* CameraPreview.swift */; };
+		A1000008000000000000008 /* ResultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000008000000000000008 /* ResultCard.swift */; };
+		A1000009000000000000009 /* DetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000009000000000000009 /* DetailSheet.swift */; };
+		A100000A00000000000000A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000A00000000000000A /* ImagePicker.swift */; };
+		A100001B00000000000001B /* BrainVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100001B00000000000001B /* BrainVisualizer.swift */; };
+		A100000B00000000000000B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000B00000000000000B /* HistoryView.swift */; };
+		A100000C00000000000000C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000C00000000000000C /* SettingsView.swift */; };
+		A100000D00000000000000D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000D00000000000000D /* OnboardingView.swift */; };
+		A100000E00000000000000E /* MockTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100000F00000000000000F /* MockTypes.swift */; };
+		A1000010000000000000010 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000010000000000000010 /* SettingsManager.swift */; };
+		A1000011000000000000011 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000011000000000000011 /* HistoryStore.swift */; };
+		A1000012000000000000012 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000012000000000000012 /* DashboardView.swift */; };
+		A1000013000000000000013 /* TrustCentreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000013000000000000013 /* TrustCentreView.swift */; };
+		A1000014000000000000014 /* BeatTheBotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000014000000000000014 /* BeatTheBotView.swift */; };
+		A1000015000000000000015 /* ReportExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000015000000000000015 /* ReportExportView.swift */; };
+		A1000016000000000000016 /* ScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000016000000000000016 /* ScanResultView.swift */; };
+		A1000017000000000000017 /* ThreatHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000017000000000000017 /* ThreatHistoryView.swift */; };
+		A1000018000000000000018 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000018000000000000018 /* MainMenuView.swift */; };
+		A1000019000000000000019 /* UnifiedAnalysisService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000019000000000000019 /* UnifiedAnalysisService.swift */; };
+		A100001C00000000000001C /* Localization+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100001C00000000000001C /* Localization+Extension.swift */; };
+		A100001D00000000000001D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B100001D00000000000001D /* Localizable.strings */; };
+		A1000024000000000000024 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1000024000000000000024 /* LanguageManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C1000001000000000000001 /* MehrGuard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MehrGuard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1000001000000000000001 /* MehrGuardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MehrGuardApp.swift; sourceTree = "<group>"; };
+		B1000002000000000000002 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B1000003000000000000003 /* Color+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Theme.swift"; sourceTree = "<group>"; };
+		B1000004000000000000004 /* Assets+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Assets+Extension.swift"; sourceTree = "<group>"; };
+		B1000005000000000000005 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		B1000006000000000000006 /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
+		B1000007000000000000007 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		B1000008000000000000008 /* ResultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCard.swift; sourceTree = "<group>"; };
+		B1000009000000000000009 /* DetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSheet.swift; sourceTree = "<group>"; };
+		B100000A00000000000000A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		B100001B00000000000001B /* BrainVisualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrainVisualizer.swift; sourceTree = "<group>"; };
+		B100000B00000000000000B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B100000C00000000000000C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B100000D00000000000000D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		B100000E00000000000000E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B100000F00000000000000F /* MockTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTypes.swift; sourceTree = "<group>"; };
+		B1000010000000000000010 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		B1000011000000000000011 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
+		B1000012000000000000012 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		B1000013000000000000013 /* TrustCentreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustCentreView.swift; sourceTree = "<group>"; };
+		B1000014000000000000014 /* BeatTheBotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatTheBotView.swift; sourceTree = "<group>"; };
+		B1000015000000000000015 /* ReportExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportExportView.swift; sourceTree = "<group>"; };
+		B1000016000000000000016 /* ScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResultView.swift; sourceTree = "<group>"; };
+		B1000017000000000000017 /* ThreatHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreatHistoryView.swift; sourceTree = "<group>"; };
+		B1000018000000000000018 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		B1000019000000000000019 /* UnifiedAnalysisService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifiedAnalysisService.swift; sourceTree = "<group>"; };
+		B100001C00000000000001C /* Localization+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Localization+Extension.swift"; sourceTree = "<group>"; };
+		B100001E00000000000001E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B100001F00000000000001F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000020000000000000020 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000021000000000000021 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000022000000000000022 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B1000023000000000000023 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		B1000024000000000000024 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1000001000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E1000001000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				E1000002000000000000002 /* MehrGuard */,
+				E1000003000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E1000002000000000000002 /* MehrGuard */ = {
+			isa = PBXGroup;
+			children = (
+				E1000004000000000000004 /* App */,
+				E100000C00000000000000C /* Models */,
+				E1000005000000000000005 /* Extensions */,
+				E1000006000000000000006 /* UI */,
+				B1000002000000000000002 /* Assets.xcassets */,
+				B100000E00000000000000E /* Info.plist */,
+				B100001D00000000000001D /* Localizable.strings */,
+			);
+			path = MehrGuard;
+			sourceTree = "<group>";
+		};
+		E1000003000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C1000001000000000000001 /* MehrGuard.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E1000004000000000000004 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B1000001000000000000001 /* MehrGuardApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E1000005000000000000005 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B1000003000000000000003 /* Color+Theme.swift */,
+				B1000004000000000000004 /* Assets+Extension.swift */,
+				B100001C00000000000001C /* Localization+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E1000006000000000000006 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E1000007000000000000007 /* Scanner */,
+				E1000008000000000000008 /* Components */,
+				E1000009000000000000009 /* History */,
+				E100000A00000000000000A /* Settings */,
+				E100000B00000000000000B /* Onboarding */,
+				E100000D00000000000000D /* Dashboard */,
+				E100000E00000000000000E /* Trust */,
+				E100000F00000000000000F /* Training */,
+				E1000010000000000000010 /* Export */,
+				E1000011000000000000011 /* Results */,
+				E1000012000000000000012 /* Navigation */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E1000007000000000000007 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				B1000005000000000000005 /* ScannerView.swift */,
+				B1000006000000000000006 /* ScannerViewModel.swift */,
+				B1000007000000000000007 /* CameraPreview.swift */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
+		E1000008000000000000008 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B1000008000000000000008 /* ResultCard.swift */,
+				B1000009000000000000009 /* DetailSheet.swift */,
+				B100000A00000000000000A /* ImagePicker.swift */,
+				B100001B00000000000001B /* BrainVisualizer.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E1000009000000000000009 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B100000B00000000000000B /* HistoryView.swift */,
+				B1000017000000000000017 /* ThreatHistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		E100000A00000000000000A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B100000C00000000000000C /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E100000B00000000000000B /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B100000D00000000000000D /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		E100000C00000000000000C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B100000F00000000000000F /* MockTypes.swift */,
+				B1000010000000000000010 /* SettingsManager.swift */,
+				B1000011000000000000011 /* HistoryStore.swift */,
+				B1000019000000000000019 /* UnifiedAnalysisService.swift */,
+				B1000024000000000000024 /* LanguageManager.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E100000D00000000000000D /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				B1000012000000000000012 /* DashboardView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		E100000E00000000000000E /* Trust */ = {
+			isa = PBXGroup;
+			children = (
+				B1000013000000000000013 /* TrustCentreView.swift */,
+			);
+			path = Trust;
+			sourceTree = "<group>";
+		};
+		E100000F00000000000000F /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				B1000014000000000000014 /* BeatTheBotView.swift */,
+			);
+			path = Training;
+			sourceTree = "<group>";
+		};
+		E1000010000000000000010 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				B1000015000000000000015 /* ReportExportView.swift */,
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
+		E1000011000000000000011 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				B1000016000000000000016 /* ScanResultView.swift */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		E1000012000000000000012 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				B1000018000000000000018 /* MainMenuView.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXVariantGroup section */
+		B100001D00000000000001D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B100001E00000000000001E /* en */,
+				B100001F00000000000001F /* de */,
+				B1000020000000000000020 /* es */,
+				B1000021000000000000021 /* fr */,
+				B1000022000000000000022 /* zh-Hans */,
+				B1000023000000000000023 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin PBXNativeTarget section */
+		F1000001000000000000001 /* MehrGuard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = G1000001000000000000001 /* Build configuration list for PBXNativeTarget "MehrGuard" */;
+			buildPhases = (
+				F1000002000000000000002 /* Sources */,
+				D1000001000000000000001 /* Frameworks */,
+				F1000003000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MehrGuard;
+			productName = MehrGuard;
+			productReference = C1000001000000000000001 /* MehrGuard.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		H1000001000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2610;
+				LastUpgradeCheck = 2610;
+				TargetAttributes = {
+					F1000001000000000000001 = {
+						CreatedOnToolsVersion = 26.1;
+					};
+				};
+			};
+			buildConfigurationList = G1000002000000000000002 /* Build configuration list for PBXProject "MehrGuard" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				de,
+				es,
+				fr,
+				"zh-Hans",
+				ja,
+				hi,
+				it,
+				pt,
+				ru,
+				ko,
+				ar,
+				id,
+				th,
+				tr,
+				vi,
+			);
+			mainGroup = E1000001000000000000001;
+			productRefGroup = E1000003000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1000001000000000000001 /* MehrGuard */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1000003000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000002000000000000002 /* Assets.xcassets in Resources */,
+				A100001D00000000000001D /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1000002000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000001000000000000001 /* MehrGuardApp.swift in Sources */,
+				A1000003000000000000003 /* Color+Theme.swift in Sources */,
+				A1000004000000000000004 /* Assets+Extension.swift in Sources */,
+				A100001C00000000000001C /* Localization+Extension.swift in Sources */,
+				A1000005000000000000005 /* ScannerView.swift in Sources */,
+				A1000006000000000000006 /* ScannerViewModel.swift in Sources */,
+				A1000007000000000000007 /* CameraPreview.swift in Sources */,
+				A1000008000000000000008 /* ResultCard.swift in Sources */,
+				A1000009000000000000009 /* DetailSheet.swift in Sources */,
+				A100000A00000000000000A /* ImagePicker.swift in Sources */,
+				A100000B00000000000000B /* HistoryView.swift in Sources */,
+				A100000C00000000000000C /* SettingsView.swift in Sources */,
+				A100000D00000000000000D /* OnboardingView.swift in Sources */,
+				A100000E00000000000000E /* MockTypes.swift in Sources */,
+				A1000010000000000000010 /* SettingsManager.swift in Sources */,
+				A1000011000000000000011 /* HistoryStore.swift in Sources */,
+				A1000012000000000000012 /* DashboardView.swift in Sources */,
+				A1000013000000000000013 /* TrustCentreView.swift in Sources */,
+				A1000014000000000000014 /* BeatTheBotView.swift in Sources */,
+				A1000015000000000000015 /* ReportExportView.swift in Sources */,
+				A1000016000000000000016 /* ScanResultView.swift in Sources */,
+				A1000017000000000000017 /* ThreatHistoryView.swift in Sources */,
+				A1000018000000000000018 /* MainMenuView.swift in Sources */,
+				A1000019000000000000019 /* UnifiedAnalysisService.swift in Sources */,
+				A100001B00000000000001B /* BrainVisualizer.swift in Sources */,
+				A1000024000000000000024 /* LanguageManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		I1000001000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 26;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MehrGuard/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "QR-SHIELD";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.20.33;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raouf.mehrguard.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+			};
+			name = Debug;
+		};
+		I1000002000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 26;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MehrGuard/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "QR-SHIELD";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.20.33;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raouf.mehrguard.ios;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+			};
+			name = Release;
+		};
+		I1000003000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		I1000004000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		G1000001000000000000001 /* Build configuration list for PBXNativeTarget "MehrGuard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				I1000001000000000000001 /* Debug */,
+				I1000002000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		G1000002000000000000002 /* Build configuration list for PBXProject "MehrGuard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				I1000003000000000000003 /* Debug */,
+				I1000004000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = H1000001000000000000001 /* Project object */;
+}

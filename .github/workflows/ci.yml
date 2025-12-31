@@ -58,32 +58,32 @@ jobs:
     - name: Run Performance Benchmarks
       run: |
         echo "📊 Running Performance Benchmarks..."
-        ./gradlew :common:desktopTest --tests "com.qrshield.benchmark.PerformanceBenchmarkTest" --info --no-daemon
+        ./gradlew :common:desktopTest --tests "com.mehrguard.benchmark.PerformanceBenchmarkTest" --info --no-daemon
       continue-on-error: true  # Don't fail build on benchmark variance
 
     # Judge-Proof Verification: Accuracy
     - name: Verify Accuracy (Precision/Recall/F1)
       run: |
         echo "📊 Running Accuracy Verification..."
-        ./gradlew :common:desktopTest --tests "com.qrshield.core.AccuracyVerificationTest" --info --no-daemon
+        ./gradlew :common:desktopTest --tests "com.mehrguard.core.AccuracyVerificationTest" --info --no-daemon
 
     # Judge-Proof Verification: Offline Operation
     - name: Verify Offline Operation (No Network)
       run: |
         echo "🔒 Running Offline Verification..."
-        ./gradlew :common:desktopTest --tests "com.qrshield.core.OfflineOnlyTest" --info --no-daemon
+        ./gradlew :common:desktopTest --tests "com.mehrguard.core.OfflineOnlyTest" --info --no-daemon
 
     # Judge-Proof Verification: Threat Model Coverage
     - name: Verify Threat Model Coverage
       run: |
         echo "🛡️ Running Threat Model Verification..."
-        ./gradlew :common:desktopTest --tests "com.qrshield.security.ThreatModelVerificationTest" --info --no-daemon
+        ./gradlew :common:desktopTest --tests "com.mehrguard.security.ThreatModelVerificationTest" --info --no-daemon
 
     # Property-Based Tests (Invariants)
     - name: Verify Invariants (Property-Based Tests)
       run: |
         echo "🧪 Running Property-Based Tests..."
-        ./gradlew :common:desktopTest --tests "com.qrshield.core.PropertyBasedTest" --info --no-daemon
+        ./gradlew :common:desktopTest --tests "com.mehrguard.core.PropertyBasedTest" --info --no-daemon
 
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
@@ -433,7 +433,7 @@ jobs:
           const fs = require('fs');
           
           // Build summary
-          let summary = `## 🛡️ QR-SHIELD CI Summary\n\n`;
+          let summary = `## 🛡️ Mehr Guard CI Summary\n\n`;
           summary += `| Job | Status |\n`;
           summary += `|-----|--------|\n`;
           summary += `| Build & Test Common | ${{ needs.build.result == 'success' && '✅ Passed' || '❌ Failed' }} |\n`;
@@ -452,7 +452,7 @@ jobs:
             issue_number: context.issue.number,
           });
           
-          const botComment = comments.find(c => c.user.type === 'Bot' && c.body.includes('QR-SHIELD CI Summary'));
+          const botComment = comments.find(c => c.user.type === 'Bot' && c.body.includes('Mehr Guard CI Summary'));
           
           if (botComment) {
             await github.rest.issues.updateComment({
@@ -530,13 +530,13 @@ jobs:
         
         # Copy APK (release if signed, debug if not)
         if [ -f "androidApp/build/outputs/apk/release/androidApp-release.apk" ]; then
-          cp androidApp/build/outputs/apk/release/androidApp-release.apk release-artifacts/QRShield-${VERSION}-release.apk
+          cp androidApp/build/outputs/apk/release/androidApp-release.apk release-artifacts/MehrGuard-${VERSION}-release.apk
         else
-          cp androidApp/build/outputs/apk/debug/androidApp-debug.apk release-artifacts/QRShield-${VERSION}-debug.apk
+          cp androidApp/build/outputs/apk/debug/androidApp-debug.apk release-artifacts/MehrGuard-${VERSION}-debug.apk
         fi
         
         # Copy Desktop JAR
-        cp desktopApp/build/compose/jars/*.jar release-artifacts/QRShield-${VERSION}-desktop.jar || true
+        cp desktopApp/build/compose/jars/*.jar release-artifacts/MehrGuard-${VERSION}-desktop.jar || true
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
@@ -544,7 +544,7 @@ jobs:
         files: release-artifacts/*
         generate_release_notes: true
         body: |
-          ## 🛡️ QR-SHIELD ${{ github.ref_name }}
+          ## 🛡️ Mehr Guard ${{ github.ref_name }}
           
           **Protect yourself from QRishing attacks with intelligent QR code scanning.**
           
@@ -554,9 +554,9 @@ jobs:
           
           | Platform | Download | Requirements |
           |----------|----------|--------------|
-          | **Android** | [📱 Download APK](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/QRShield-${{ steps.get_version.outputs.version }}-release.apk) | Android 8.0+ (API 26) |
+          | **Android** | [📱 Download APK](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/MehrGuard-${{ steps.get_version.outputs.version }}-release.apk) | Android 8.0+ (API 26) |
           | **iOS** | [🍎 Use Web App](https://raoof128.github.io/QDKMP-KotlinConf-2026-/) | Safari + Add to Home Screen |
-          | **Desktop** | [🖥️ Download JAR](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/QRShield-${{ steps.get_version.outputs.version }}-desktop.jar) | JRE 17+ |
+          | **Desktop** | [🖥️ Download JAR](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/MehrGuard-${{ steps.get_version.outputs.version }}-desktop.jar) | JRE 17+ |
           | **Web** | [🌐 Try Online](https://raoof128.github.io/QDKMP-KotlinConf-2026-/) | Modern browser |
           
           ---
@@ -565,7 +565,7 @@ jobs:
           
           **Android:** Download the APK and enable "Install from unknown sources" in Settings.
           
-          **Desktop:** Run with `java -jar QRShield-${{ steps.get_version.outputs.version }}-desktop.jar`
+          **Desktop:** Run with `java -jar MehrGuard-${{ steps.get_version.outputs.version }}-desktop.jar`
           
           ---
           

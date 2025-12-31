@@ -2,7 +2,7 @@
 
 ## 🔒 Our Commitment
 
-QR-SHIELD is a security application designed to protect users from phishing attacks. We take security seriously and appreciate responsible disclosure of vulnerabilities.
+Mehr Guard is a security application designed to protect users from phishing attacks. We take security seriously and appreciate responsible disclosure of vulnerabilities.
 
 ---
 
@@ -19,7 +19,7 @@ QR-SHIELD is a security application designed to protect users from phishing atta
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in QR-SHIELD, please report it responsibly.
+If you discover a security vulnerability in Mehr Guard, please report it responsibly.
 
 ### ⚠️ DO NOT
 
@@ -29,7 +29,7 @@ If you discover a security vulnerability in QR-SHIELD, please report it responsi
 
 ### ✅ DO
 
-1. **Email us at:** security@qrshield.dev
+1. **Email us at:** security@mehrguard.dev
 
 2. **Include:**
    - Description of the vulnerability
@@ -111,7 +111,7 @@ We recommend always using the latest version for the best security.
 
 3. **Verify APK signatures** before installing on Android
 
-4. **Report suspicious behavior** to security@qrshield.dev
+4. **Report suspicious behavior** to security@mehrguard.dev
 
 ### For Contributors
 
@@ -156,7 +156,7 @@ We recommend always using the latest version for the best security.
 
 | Limitation | Description |
 |------------|-------------|
-| **Not 100% detection** | QR-SHIELD provides risk scoring but cannot guarantee detection of all phishing attempts |
+| **Not 100% detection** | Mehr Guard provides risk scoring but cannot guarantee detection of all phishing attempts |
 | **Zero-day attacks** | New attack patterns may not be detected until heuristics are updated |
 | **Legitimate URL flagging** | Some legitimate URLs may trigger false positives |
 
@@ -180,7 +180,7 @@ We recommend always using the latest version for the best security.
 
 ## Bug Bounty
 
-We appreciate security researchers who help improve QR-SHIELD. While we don't currently offer monetary rewards, we provide:
+We appreciate security researchers who help improve Mehr Guard. While we don't currently offer monetary rewards, we provide:
 
 - 🏆 **Public acknowledgment** in SECURITY_ACKNOWLEDGMENTS.md
 - 📝 **Reference letter** upon request
@@ -192,14 +192,14 @@ We appreciate security researchers who help improve QR-SHIELD. While we don't cu
 
 We thank the following security researchers for their responsible disclosures:
 
-*No vulnerabilities have been reported yet. Be the first to help secure QR-SHIELD!*
+*No vulnerabilities have been reported yet. Be the first to help secure Mehr Guard!*
 
 ---
 
 ## Contact
 
-- **Security issues:** security@qrshield.dev
-- **General inquiries:** contributors@qrshield.dev
+- **Security issues:** security@mehrguard.dev
+- **General inquiries:** contributors@mehrguard.dev
 - **GitHub:** https://github.com/Raoof128/Raoof128.github.io
 
 ---

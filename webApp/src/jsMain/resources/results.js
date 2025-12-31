@@ -1,10 +1,10 @@
 /**
- * QR-SHIELD Results Page Controller
+ * Mehr Guard Results Page Controller
  * 
  * Handles the display and interaction of scan results,
  * integrating with the Kotlin/JS PhishingEngine for analysis.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.0
  */
 
@@ -31,15 +31,15 @@ const ResultsState = {
 };
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
@@ -49,14 +49,14 @@ function formatText(template, params) {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Results] Initializing results page v' + ResultsConfig.version);
+    console.log('[Mehr Guard Results] Initializing results page v' + ResultsConfig.version);
 
     initializeFromURL();
     setupEventListeners();
     setupMobileMenu();
 
     // Apply translations FIRST
-    window.qrshieldApplyTranslations?.(document.body);
+    window.mehrguardApplyTranslations?.(document.body);
 
     // THEN update display based on state (AFTER translations, so we don't get overwritten)
     if (ResultsState.scannedUrl) {
@@ -85,8 +85,8 @@ function initializeFromURL() {
     const verdict = urlParams.get('verdict');
     const score = urlParams.get('score');
 
-    if (scanId && window.QRShieldUI && window.QRShieldUI.getScanById) {
-        const scan = window.QRShieldUI.getScanById(scanId);
+    if (scanId && window.MehrGuardUI && window.MehrGuardUI.getScanById) {
+        const scan = window.MehrGuardUI.getScanById(scanId);
         if (scan) {
             applyScanResult(scan, scanId);
             return;
@@ -98,7 +98,7 @@ function initializeFromURL() {
         const scoreValue = parseInt(score) || 0; // Use 0 when score missing (consistent with UNKNOWN verdict)
         const verdictValue = verdict || 'UNKNOWN';
 
-        if (window.QRShieldUI && window.QRShieldUI.getScanHistory) {
+        if (window.MehrGuardUI && window.MehrGuardUI.getScanHistory) {
             const existing = findExistingScan(decodedUrl, verdictValue, scoreValue);
             if (existing) {
                 applyScanResult(existing, existing.id);
@@ -133,16 +133,16 @@ function initializeFromURL() {
             reasonCount: engineData.reasonCount,
         };
 
-        // Save to QRShieldUI scan history if not already saved
+        // Save to MehrGuardUI scan history if not already saved
         // (Check if this URL was just added to avoid duplicates)
-        if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
-            const recentHistory = window.QRShieldUI.getScanHistory();
+        if (window.MehrGuardUI && window.MehrGuardUI.addScanToHistory) {
+            const recentHistory = window.MehrGuardUI.getScanHistory();
             const justAdded = recentHistory.length > 0 &&
                 recentHistory[0].url === ResultsState.scannedUrl &&
                 (Date.now() - recentHistory[0].timestamp) < 5000; // Within 5 seconds
 
             if (!justAdded) {
-                window.QRShieldUI.addScanToHistory({
+                window.MehrGuardUI.addScanToHistory({
                     url: ResultsState.scannedUrl,
                     verdict: ResultsState.verdict === 'MALICIOUS' ? 'HIGH' :
                         ResultsState.verdict === 'SUSPICIOUS' ? 'MEDIUM' :
@@ -170,9 +170,9 @@ function getEngineAnalysis(url) {
     };
 
     // Get heuristics with real reason codes
-    if (window.qrshieldHeuristics) {
+    if (window.mehrguardHeuristics) {
         try {
-            const heuristics = window.qrshieldHeuristics(url);
+            const heuristics = window.mehrguardHeuristics(url);
             result.heuristicScore = heuristics.score || 0;
             result.reasonCount = heuristics.reasonCount || 0;
 
@@ -193,18 +193,18 @@ function getEngineAnalysis(url) {
     }
 
     // Get ML score
-    if (window.qrshieldMlScore) {
+    if (window.mehrguardMlScore) {
         try {
-            result.mlScore = window.qrshieldMlScore(url);
+            result.mlScore = window.mehrguardMlScore(url);
         } catch (e) {
             console.warn('[Results] ML API error:', e);
         }
     }
 
     // Get threat intel status
-    if (window.qrshieldThreatLookup) {
+    if (window.mehrguardThreatLookup) {
         try {
-            result.threatStatus = window.qrshieldThreatLookup(url);
+            result.threatStatus = window.mehrguardThreatLookup(url);
 
             // Add threat intel as a factor if it's known bad
             if (result.threatStatus && result.threatStatus.isKnownBad) {
@@ -221,10 +221,10 @@ function getEngineAnalysis(url) {
     }
 
     // Get Unicode analysis
-    if (window.qrshieldUnicodeAnalysis) {
+    if (window.mehrguardUnicodeAnalysis) {
         try {
             const host = extractHost(url);
-            const unicode = window.qrshieldUnicodeAnalysis(host);
+            const unicode = window.mehrguardUnicodeAnalysis(host);
 
             if (unicode && unicode.hasRisk) {
                 if (unicode.isPunycode) {
@@ -480,7 +480,7 @@ function applyScanResult(scan, scanId) {
 }
 
 function findExistingScan(url, verdict, score) {
-    const history = window.QRShieldUI?.getScanHistory?.() || [];
+    const history = window.MehrGuardUI?.getScanHistory?.() || [];
     const historyVerdict = mapResultVerdictToHistory(verdict);
     return history.find(scan => {
         const scanScore = parseInt(scan.score) || 0;
@@ -787,7 +787,7 @@ function updateFactors(factors) {
         grid.appendChild(card);
     });
 
-    window.qrshieldApplyTranslations?.(grid);
+    window.mehrguardApplyTranslations?.(grid);
 }
 
 /**
@@ -815,7 +815,7 @@ function getTagClass(type) {
  */
 async function shareReport() {
     const shareData = {
-        title: translateText('QR-SHIELD Scan Result'),
+        title: translateText('Mehr Guard Scan Result'),
         text: formatText('URL: {url}\nVerdict: {verdict}\nConfidence: {confidence}%', {
             url: ResultsState.scannedUrl,
             verdict: translateText(ResultsState.verdict),

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.qrshield.web
+package com.raouf.mehrguard.web
 
-import com.qrshield.core.PhishingEngine
+import com.raouf.mehrguard.core.PhishingEngine
 import kotlinx.browser.document
 import kotlinx.browser.window
 import org.w3c.dom.Element
@@ -26,25 +26,25 @@ import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 
 /**
- * QR-SHIELD Web Application
+ * Mehr Guard Web Application
  *
  * Kotlin/JS implementation that runs the PhishingEngine entirely in the browser.
  * Demonstrates true cross-platform code sharing with the common module.
  * All analysis happens client-side - no data leaves the browser.
  */
 fun main() {
-    console.log("🛡️ QR-SHIELD Web loaded - Kotlin/JS initialized")
+    console.log("🛡️ Mehr Guard Web loaded - Kotlin/JS initialized")
 
     // Initialize PhishingEngine - same code as Android, iOS, and Desktop
     val engine = PhishingEngine()
     console.log("📦 PhishingEngine ready for analysis")
 
     // Initialize new engine components
-    val heuristicsEngine = com.qrshield.engine.HeuristicsEngine()
-    val mlScorer = com.qrshield.ml.EnsemblePhishingScorer.default
-    val threatIntel = com.qrshield.intel.ThreatIntelLookup.createDefault()
-    val unicodeAnalyzer = com.qrshield.security.UnicodeRiskAnalyzer()
-    val psl = com.qrshield.engine.PublicSuffixList()
+    val heuristicsEngine = com.raouf.mehrguard.engine.HeuristicsEngine()
+    val mlScorer = com.raouf.mehrguard.ml.EnsemblePhishingScorer.default
+    val threatIntel = com.raouf.mehrguard.intel.ThreatIntelLookup.createDefault()
+    val unicodeAnalyzer = com.raouf.mehrguard.security.UnicodeRiskAnalyzer()
+    val psl = com.raouf.mehrguard.engine.PublicSuffixList()
     console.log("🧠 ML Scorer, Threat Intel, and Unicode Analyzer ready")
 
     // Get DOM elements
@@ -52,7 +52,7 @@ fun main() {
     val analyzeBtn = document.getElementById("analyzeBtn") as? HTMLButtonElement
 
     // Expose the analyze function globally for JavaScript to call
-    window.asDynamic().qrshieldAnalyze = { url: String ->
+    window.asDynamic().mehrguardAnalyze = { url: String ->
         console.log("🔍 Analyzing URL: $url")
 
         // Show loading state
@@ -124,7 +124,7 @@ fun main() {
     }
 
     // Expose ML scoring function
-    window.asDynamic().qrshieldMlScore = { url: String ->
+    window.asDynamic().mehrguardMlScore = { url: String ->
         try {
             val result = mlScorer.scoreWithDetails(url)
             val obj = js("{}")
@@ -144,7 +144,7 @@ fun main() {
     }
 
     // Expose threat intel lookup
-    window.asDynamic().qrshieldThreatLookup = { url: String ->
+    window.asDynamic().mehrguardThreatLookup = { url: String ->
         try {
             val result = threatIntel.lookup(url)
             val obj = js("{}")
@@ -161,7 +161,7 @@ fun main() {
     }
 
     // Expose unicode risk analysis
-    window.asDynamic().qrshieldUnicodeAnalysis = { host: String ->
+    window.asDynamic().mehrguardUnicodeAnalysis = { host: String ->
         try {
             val result = unicodeAnalyzer.analyze(host)
             val safeDisplay = unicodeAnalyzer.getSafeDisplayHost(host)
@@ -183,7 +183,7 @@ fun main() {
     }
 
     // Expose PSL domain parsing
-    window.asDynamic().qrshieldParseDomain = { host: String ->
+    window.asDynamic().mehrguardParseDomain = { host: String ->
         try {
             val parsed = psl.parse(host)
             val obj = js("{}")
@@ -200,7 +200,7 @@ fun main() {
     }
 
     // Expose heuristics analysis with reason codes
-    window.asDynamic().qrshieldHeuristics = { url: String ->
+    window.asDynamic().mehrguardHeuristics = { url: String ->
         try {
             val result = heuristicsEngine.analyze(url)
             val obj = js("{}")
@@ -231,16 +231,16 @@ fun main() {
     engineInfo.brandCount = 52
     engineInfo.threatIntelEntries = threatIntel.getStats().exactSetSize
     engineInfo.capabilities = arrayOf("heuristics", "ml", "brand_detection", "threat_intel", "unicode_analysis", "psl")
-    window.asDynamic().qrshieldEngineInfo = engineInfo
+    window.asDynamic().mehrguardEngineInfo = engineInfo
 
     // Expose translation function
-    window.asDynamic().qrshieldGetTranslation = { key: String -> 
+    window.asDynamic().mehrguardGetTranslation = { key: String -> 
         try {
-            val language = com.qrshield.web.i18n.WebLanguage.current()
+            val language = com.raouf.mehrguard.web.i18n.WebLanguage.current()
             try {
-                com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
+                com.raouf.mehrguard.web.i18n.WebStrings.get(com.raouf.mehrguard.web.i18n.WebStringKey.valueOf(key), language)
             } catch (e: Exception) {
-                com.qrshield.web.i18n.WebStrings.translate(key, language)
+                com.raouf.mehrguard.web.i18n.WebStrings.translate(key, language)
             }
         } catch (e: Exception) {
             key
@@ -248,19 +248,19 @@ fun main() {
     }
 
     // Expose language code
-    window.asDynamic().qrshieldGetLanguageCode = {
+    window.asDynamic().mehrguardGetLanguageCode = {
         try {
-            com.qrshield.web.i18n.WebLanguage.current().code
+            com.raouf.mehrguard.web.i18n.WebLanguage.current().code
         } catch (e: Exception) {
             "en-US"
         }
     }
 
     // Expose language setter for dynamic switching
-    window.asDynamic().qrshieldSetLanguage = { languageCode: String ->
+    window.asDynamic().mehrguardSetLanguage = { languageCode: String ->
         try {
             // Save to localStorage
-            window.localStorage.setItem("qrshield_language", languageCode)
+            window.localStorage.setItem("mehrguard_language", languageCode)
             
             // Re-apply translations to the page
             val body = document.body as? Element
@@ -277,7 +277,7 @@ fun main() {
     }
 
     // Expose list of available languages
-    window.asDynamic().qrshieldGetAvailableLanguages = {
+    window.asDynamic().mehrguardGetAvailableLanguages = {
         arrayOf(
             js("({code: 'en', name: 'English'})"),
             js("({code: 'ar', name: 'العربية'})"),
@@ -304,7 +304,7 @@ fun main() {
             event.preventDefault()
             val url = urlInput.value?.trim() ?: ""
             if (url.isNotBlank()) {
-                window.asDynamic().qrshieldAnalyze(url)
+                window.asDynamic().mehrguardAnalyze(url)
             }
         }
     })
@@ -313,7 +313,7 @@ fun main() {
     initializeLocalization()
 
     // Log ready status
-    console.log("🚀 QR-SHIELD Web is ready!")
+    console.log("🚀 Mehr Guard Web is ready!")
     console.log("   • Heuristic analysis: ✓")
     console.log("   • ML scoring: ✓")
     console.log("   • Brand detection: ✓")
@@ -328,7 +328,7 @@ fun initializeLocalization() {
         applyLocalization(body)
     }
 
-    window.asDynamic().qrshieldApplyTranslations = { root: dynamic ->
+    window.asDynamic().mehrguardApplyTranslations = { root: dynamic ->
         val element = root as? Element ?: (document.body as? Element)
         if (element != null) {
             applyLocalization(element)
@@ -337,7 +337,7 @@ fun initializeLocalization() {
 }
 
 private fun applyLocalization(root: Element) {
-    val language = com.qrshield.web.i18n.WebLanguage.current()
+    val language = com.raouf.mehrguard.web.i18n.WebLanguage.current()
     translateDataI18nElements(root, language)
     translateDataI18nAttributes(root, language)
     translateCommonAttributes(root, language)
@@ -345,23 +345,23 @@ private fun applyLocalization(root: Element) {
     translateTextNodes(root, language)
 }
 
-private fun translateDataI18nElements(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+private fun translateDataI18nElements(root: Element, language: com.raouf.mehrguard.web.i18n.WebLanguage) {
     val elements = root.querySelectorAll("[data-i18n]")
     for (i in 0 until elements.length) {
         val element = elements.item(i) as? org.w3c.dom.HTMLElement ?: continue
         val key = element.getAttribute("data-i18n") ?: continue
 
         val translation = try {
-            com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
+            com.raouf.mehrguard.web.i18n.WebStrings.get(com.raouf.mehrguard.web.i18n.WebStringKey.valueOf(key), language)
         } catch (e: Exception) {
-            com.qrshield.web.i18n.WebStrings.translate(key, language)
+            com.raouf.mehrguard.web.i18n.WebStrings.translate(key, language)
         }
 
         element.innerText = translation
     }
 }
 
-private fun translateDataI18nAttributes(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+private fun translateDataI18nAttributes(root: Element, language: com.raouf.mehrguard.web.i18n.WebLanguage) {
     val attributes = listOf("placeholder", "title", "aria-label", "alt")
     attributes.forEach { attr ->
         val selector = "[data-i18n-$attr]"
@@ -370,16 +370,16 @@ private fun translateDataI18nAttributes(root: Element, language: com.qrshield.we
             val element = elements.item(i) as? Element ?: continue
             val key = element.getAttribute("data-i18n-$attr") ?: continue
             val translation = try {
-                com.qrshield.web.i18n.WebStrings.get(com.qrshield.web.i18n.WebStringKey.valueOf(key), language)
+                com.raouf.mehrguard.web.i18n.WebStrings.get(com.raouf.mehrguard.web.i18n.WebStringKey.valueOf(key), language)
             } catch (e: Exception) {
-                com.qrshield.web.i18n.WebStrings.translate(key, language)
+                com.raouf.mehrguard.web.i18n.WebStrings.translate(key, language)
             }
             element.setAttribute(attr, translation)
         }
     }
 }
 
-private fun translateCommonAttributes(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+private fun translateCommonAttributes(root: Element, language: com.raouf.mehrguard.web.i18n.WebLanguage) {
     val attributes = listOf("placeholder", "title", "aria-label", "alt")
     val elements = root.querySelectorAll("*")
     for (i in 0 until elements.length) {
@@ -387,7 +387,7 @@ private fun translateCommonAttributes(root: Element, language: com.qrshield.web.
         attributes.forEach { attr ->
             val value = element.getAttribute(attr) ?: return@forEach
             if (value.isBlank()) return@forEach
-            val translation = com.qrshield.web.i18n.WebStrings.translate(value, language)
+            val translation = com.raouf.mehrguard.web.i18n.WebStrings.translate(value, language)
             if (translation != value) {
                 element.setAttribute(attr, translation)
             }
@@ -395,7 +395,7 @@ private fun translateCommonAttributes(root: Element, language: com.qrshield.web.
     }
 }
 
-private fun translateMetaContent(language: com.qrshield.web.i18n.WebLanguage) {
+private fun translateMetaContent(language: com.raouf.mehrguard.web.i18n.WebLanguage) {
     val metaElements = document.querySelectorAll("meta[name]")
     val translatableMeta = setOf("description", "apple-mobile-web-app-title", "application-name")
     for (i in 0 until metaElements.length) {
@@ -404,14 +404,14 @@ private fun translateMetaContent(language: com.qrshield.web.i18n.WebLanguage) {
         if (!translatableMeta.contains(name)) continue
         val content = element.getAttribute("content") ?: continue
         if (content.isBlank()) continue
-        val translation = com.qrshield.web.i18n.WebStrings.translate(content, language)
+        val translation = com.raouf.mehrguard.web.i18n.WebStrings.translate(content, language)
         if (translation != content) {
             element.setAttribute("content", translation)
         }
     }
 }
 
-private fun translateTextNodes(root: Element, language: com.qrshield.web.i18n.WebLanguage) {
+private fun translateTextNodes(root: Element, language: com.raouf.mehrguard.web.i18n.WebLanguage) {
     val elements = root.querySelectorAll("*")
     for (i in 0 until elements.length) {
         val element = elements.item(i) as? Element ?: continue
@@ -425,7 +425,7 @@ private fun translateTextNodes(root: Element, language: com.qrshield.web.i18n.We
             val rawText = node.nodeValue ?: continue
             val trimmed = rawText.trim()
             if (trimmed.isBlank()) continue
-            val translation = com.qrshield.web.i18n.WebStrings.translate(trimmed, language)
+            val translation = com.raouf.mehrguard.web.i18n.WebStrings.translate(trimmed, language)
             if (translation != trimmed) {
                 val leading = rawText.takeWhile { it.isWhitespace() }
                 val trailing = rawText.takeLastWhile { it.isWhitespace() }

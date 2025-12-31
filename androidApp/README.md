@@ -1,4 +1,4 @@
-# 📱 QR-SHIELD Android App
+# 📱 Mehr Guard Android App
 
 > **Jetpack Compose implementation for Android 8.0+**
 
@@ -23,7 +23,7 @@
 
 ```bash
 # Prerequisites: Android Studio, JDK 17+
-cd qrshield
+cd mehrguard
 
 # Build and install debug APK
 ./gradlew :androidApp:installDebug
@@ -59,9 +59,9 @@ cd qrshield
 
 ```
 androidApp/
-├── src/main/kotlin/com/qrshield/android/
+├── src/main/kotlin/com/mehrguard/android/
 │   ├── MainActivity.kt          ← Entry point
-│   ├── QRShieldApp.kt            ← Application class
+│   ├── MehrGuardApp.kt            ← Application class
 │   ├── ui/
 │   │   ├── screens/              ← Composable screens
 │   │   │   ├── DashboardScreen.kt

@@ -1,6 +1,6 @@
 # 🏆 Judge's Quick Start Guide
 
-> **Start Here** — Verify QR-SHIELD in under 5 minutes.
+> **Start Here** — Verify Mehr Guard in under 5 minutes.
 
 ---
 
@@ -10,7 +10,7 @@
 |--------|------|
 | 🌐 **Try Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
 | 🎬 **Watch Video Demo** | [docs/VIDEO_DEMO.md](docs/VIDEO_DEMO.md) |
-| 📱 **Download Android APK** | [QRShield-1.1.0-release.apk](releases/QRShield-1.1.0-release.apk) |
+| 📱 **Download Android APK** | [MehrGuard-1.1.0-release.apk](releases/MehrGuard-1.1.0-release.apk) |
 | 📖 **Read Essay** | [ESSAY.md](ESSAY.md) |
 | 🔨 **One-Command Build Test** | `./scripts/judge-smoke.sh` |
 | ✅ **Verify All Claims** | `./judge/verify_all.sh` |
@@ -38,8 +38,8 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/Raoof128/Raoof128.github.io.git qrshield
-cd qrshield
+git clone https://github.com/Raoof128/Raoof128.github.io.git mehrguard
+cd mehrguard
 
 # Run ALL verification (2-3 minutes)
 ./judge/verify_all.sh
@@ -92,7 +92,7 @@ cd qrshield
 | **Total Tests** | 1,248 | `./gradlew :common:desktopTest` |
 | **Analysis Latency** | <5ms P95 | [BENCHMARKS.md](docs/BENCHMARKS.md) |
 | **Detection Rate** | 87 F1 | [EVALUATION.md](docs/EVALUATION.md) |
-| **False Positive Rate** | <5% | [AlexaTop100FPTest.kt](common/src/commonTest/kotlin/com/qrshield/benchmark/AlexaTop100FPTest.kt) |
+| **False Positive Rate** | <5% | [AlexaTop100FPTest.kt](common/src/commonTest/kotlin/com/mehrguard/benchmark/AlexaTop100FPTest.kt) |
 | **Shared Code** | ~11,000 LOC | [SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md) |
 | **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
 | **Languages** | 16 | 629 Android strings, 547 iOS strings |
@@ -107,10 +107,10 @@ If you have limited time, focus on these files:
 
 | Priority | File | What It Shows |
 |----------|------|---------------|
-| ⭐⭐⭐ | [PhishingEngine.kt](common/src/commonMain/kotlin/com/qrshield/core/PhishingEngine.kt) | Core detection logic, KMP architecture |
-| ⭐⭐⭐ | [EnsembleModel.kt](common/src/commonMain/kotlin/com/qrshield/ml/EnsembleModel.kt) | 3-model ML ensemble (LR + Boosting + Rules) |
-| ⭐⭐ | [HeuristicsEngine.kt](common/src/commonMain/kotlin/com/qrshield/engine/HeuristicsEngine.kt) | 25+ security heuristics |
-| ⭐⭐ | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/qrshield/platform/PlatformAbstractions.kt) | expect/actual pattern |
+| ⭐⭐⭐ | [PhishingEngine.kt](common/src/commonMain/kotlin/com/mehrguard/core/PhishingEngine.kt) | Core detection logic, KMP architecture |
+| ⭐⭐⭐ | [EnsembleModel.kt](common/src/commonMain/kotlin/com/mehrguard/ml/EnsembleModel.kt) | 3-model ML ensemble (LR + Boosting + Rules) |
+| ⭐⭐ | [HeuristicsEngine.kt](common/src/commonMain/kotlin/com/mehrguard/engine/HeuristicsEngine.kt) | 25+ security heuristics |
+| ⭐⭐ | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/mehrguard/platform/PlatformAbstractions.kt) | expect/actual pattern |
 | ⭐ | [ESSAY.md](ESSAY.md) | Competition essay (322 words) |
 
 ---
@@ -180,6 +180,6 @@ Yes! Run `./judge/verify_offline.sh` to prove zero network calls. The analysis m
 
 ---
 
-*Thank you for reviewing QR-SHIELD. Every claim in this document is backed by reproducible evidence.*
+*Thank you for reviewing Mehr Guard. Every claim in this document is backed by reproducible evidence.*
 
 🛡️ **Scan smart. Stay protected.**

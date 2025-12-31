@@ -12,11 +12,11 @@ plugins {
 // ================================================================
 // Maven Publishing Configuration (KMP SDK)
 // ================================================================
-// Positions QR-SHIELD as a reusable library for the KMP community.
+// Positions Mehr Guard as a reusable library for the KMP community.
 // Publish to: Maven Central, GitHub Packages, or local repository
 //
 // Usage by consumers:
-//   implementation("com.qrshield:core:1.3.0")
+//   implementation("com.raouf.mehrguard:core:1.3.0")
 //
 // To publish locally:
 //   ./gradlew :common:publishToMavenLocal
@@ -25,7 +25,7 @@ plugins {
 //   ./gradlew :common:publish
 // ================================================================
 
-group = "com.qrshield"
+group = "com.raouf.mehrguard"
 version = "1.20.30"
 
 publishing {
@@ -34,9 +34,9 @@ publishing {
         withType<MavenPublication> {
             // POM metadata for Maven Central compliance
             pom {
-                name.set("QR-SHIELD Core")
-                description.set("Kotlin Multiplatform phishing detection engine for QR codes. " +
-                    "Offline-first, 25+ security heuristics, 500+ brand detection.")
+                name.set("Mehr Guard Core")
+                description.set("Kotlin Multiplatform phishing detection engine for QR codes and links. " +
+                    "Mehr (Persian: trust, covenant, light) + Guard. Offline-first security.")
                 url.set("https://github.com/Raoof128/QDKMP-KotlinConf-2026-")
                 
                 licenses {
@@ -49,8 +49,8 @@ publishing {
                 developers {
                     developer {
                         id.set("raoof128")
-                        name.set("QR-SHIELD Team")
-                        email.set("qrshield@example.com")
+                        name.set("Mehr Guard Team")
+                        email.set("mehrguard@example.com")
                     }
                 }
                 
@@ -88,8 +88,8 @@ publishing {
 // SQLDelight configuration
 sqldelight {
     databases {
-        create("QRShieldDatabase") {
-            packageName.set("com.qrshield.db")
+        create("MehrGuardDatabase") {
+            packageName.set("com.raouf.mehrguard.db")
         }
     }
 }
@@ -243,7 +243,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.qrshield.common"
+    namespace = "com.raouf.mehrguard.common"
     compileSdk = 35  // Android 16
     
     defaultConfig {
@@ -298,7 +298,7 @@ tasks.register("verifyAll") {
         println("""
             |
             |╔══════════════════════════════════════════════════════════════╗
-            |║          QR-SHIELD JUDGE-PROOF VERIFICATION COMPLETE        ║
+            |║          MEHR GUARD JUDGE-PROOF VERIFICATION COMPLETE        ║
             |╠══════════════════════════════════════════════════════════════╣
             |║  ✅ Accuracy Verification (precision/recall/F1)             ║
             |║  ✅ Offline Verification (no network dependency)            ║

@@ -1,4 +1,4 @@
-# QR-SHIELD Master Pack - Part 3
+# Mehr Guard Master Pack - Part 3
 
 ---
 
@@ -17,9 +17,9 @@
 **Narration**: "Attackers embed malicious URLs in QR codes. 71% of users never verify before scanning."
 
 ### Scene 3: App Launch (0:15 - 0:20)
-**Visual**: QR-SHIELD app icon, animated launch screen
-**Text on Screen**: "Introducing QR-SHIELD"
-**Narration**: "QR-SHIELD protects you instantly."
+**Visual**: Mehr Guard app icon, animated launch screen
+**Text on Screen**: "Introducing Mehr Guard"
+**Narration**: "Mehr Guard protects you instantly."
 
 ### Scene 4: Safe Scan Demo (0:20 - 0:30)
 **Visual**: User scans legitimate Google QR code
@@ -29,7 +29,7 @@
 ### Scene 5: Suspicious Scan Demo (0:30 - 0:40)
 **Visual**: User scans shortened URL QR code
 **Text on Screen**: "⚠️ SUSPICIOUS - Risk Score: 45"
-**Narration**: "A shortened URL? QR-SHIELD flags it, shows potential risks."
+**Narration**: "A shortened URL? Mehr Guard flags it, shows potential risks."
 
 ### Scene 6: Malicious Scan Demo (0:40 - 0:50)
 **Visual**: User scans phishing PayPal QR code
@@ -50,9 +50,9 @@
 - "100% Offline & Private"
 
 ### Scene 9: Closing (1:10 - 1:20)
-**Visual**: QR-SHIELD logo animation
-**Text on Screen**: "QR-SHIELD: Scan Smart. Stay Protected."
-**Narration**: "Download QR-SHIELD. Because every scan matters."
+**Visual**: Mehr Guard logo animation
+**Text on Screen**: "Mehr Guard: Scan Smart. Stay Protected."
+**Narration**: "Download Mehr Guard. Because every scan matters."
 **Call to Action**: GitHub link, download badges
 
 ---
@@ -128,7 +128,7 @@
 
 ## ACSC Essential Eight Alignment
 
-| Control | QR-SHIELD Implementation |
+| Control | Mehr Guard Implementation |
 |---------|-------------------------|
 | Application Control | Analyzes URLs before user action |
 | Patch Applications | N/A (user app) |

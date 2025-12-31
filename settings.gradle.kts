@@ -15,7 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "QRShield"
+rootProject.name = "MehrGuard"
 
 include(":common")
 include(":androidApp")

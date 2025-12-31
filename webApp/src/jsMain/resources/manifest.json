@@ -1,6 +1,6 @@
 {
-    "name": "QR-SHIELD - QRishing Detector",
-    "short_name": "QR-SHIELD",
+    "name": "Mehr Guard - QRishing Detector",
+    "short_name": "Mehr Guard",
     "description": "Detect phishing attacks in QR codes. 100% offline, AI-powered security scanning running entirely in your browser. Built with Kotlin Multiplatform.",
     "start_url": "./dashboard.html?source=pwa",
     "scope": "./",

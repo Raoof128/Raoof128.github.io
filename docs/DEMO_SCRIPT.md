@@ -1,4 +1,4 @@
-# QR-SHIELD Demo Video Script
+# Mehr Guard Demo Video Script
 
 ## Video Specifications
 
@@ -59,19 +59,19 @@ QRishing: Phishing via QR Codes
 **Duration**: 7 seconds
 
 **Visual**:
-- QR-SHIELD app icon on home screen
+- Mehr Guard app icon on home screen
 - Finger tap animation
 - App launch with animated shield logo
 - Logo settles into header
 
 **On-Screen Text**:
 ```
-Introducing QR-SHIELD
+Introducing Mehr Guard
 Your Cross-Platform Phishing Detector
 ```
 
 **Narration**:
-> "Introducing QR-SHIELD. Intelligent protection against QR phishing."
+> "Introducing Mehr Guard. Intelligent protection against QR phishing."
 
 **Transition**: Slide to camera view
 
@@ -132,7 +132,7 @@ Your Cross-Platform Phishing Detector
 ```
 
 **Narration**:
-> "A shortened URL? QR-SHIELD flags it as suspicious. The destination is hidden—proceed with caution."
+> "A shortened URL? Mehr Guard flags it as suspicious. The destination is hidden—proceed with caution."
 
 **Transition**: Dramatic pause
 
@@ -168,7 +168,7 @@ Your Cross-Platform Phishing Detector
 ```
 
 **Narration**:
-> "Now watch this. A fake PayPal login page. QR-SHIELD catches the typosquat—that's a number one, not the letter L. High-risk domain. Credential harvesting attempt. Score: 87. Blocked."
+> "Now watch this. A fake PayPal login page. Mehr Guard catches the typosquat—that's a number one, not the letter L. High-risk domain. Credential harvesting attempt. Score: 87. Blocked."
 
 **Transition**: Slide to multi-platform
 
@@ -183,7 +183,7 @@ Your Cross-Platform Phishing Detector
   - Top right: iPhone
   - Bottom left: MacBook
   - Bottom right: Browser window
-- All showing same QR-SHIELD interface
+- All showing same Mehr Guard interface
 - Synchronized scanning animation
 
 **On-Screen Text**:
@@ -231,14 +231,14 @@ Quick cuts (2s each) with animated icons:
 **Duration**: 12 seconds
 
 **Visual**:
-- QR-SHIELD logo animation
+- Mehr Guard logo animation
 - Shield pulsing with protective glow
 - App store badges appear
 - GitHub logo with stars
 
 **On-Screen Text**:
 ```
-QR-SHIELD
+Mehr Guard
 Scan Smart. Stay Protected.
 
 ⭐ Open Source on GitHub
@@ -246,7 +246,7 @@ Scan Smart. Stay Protected.
 ```
 
 **Narration**:
-> "QR-SHIELD. Because every scan matters. Open source, free forever, and available now. Scan smart. Stay protected."
+> "Mehr Guard. Because every scan matters. Open source, free forever, and available now. Scan smart. Stay protected."
 
 **Final Frame**:
 - Logo centered

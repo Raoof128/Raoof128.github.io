@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.qrshield.benchmark.MaliciousUrlProofTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T19:50:07.169Z" hostname="Raoufs-MacBook-Air.local" time="0.071">
+<testsuite name="com.mehrguard.benchmark.MaliciousUrlProofTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T19:50:07.169Z" hostname="Raoufs-MacBook-Air.local" time="0.071">
   <properties/>
-  <testcase name="proof test - detects 150 plus malicious URLs at 95 percent threshold[desktop]" classname="com.qrshield.benchmark.MaliciousUrlProofTest" time="0.066"/>
-  <testcase name="smoke test - detects critical threat categories[desktop]" classname="com.qrshield.benchmark.MaliciousUrlProofTest" time="0.005"/>
+  <testcase name="proof test - detects 150 plus malicious URLs at 95 percent threshold[desktop]" classname="com.mehrguard.benchmark.MaliciousUrlProofTest" time="0.066"/>
+  <testcase name="smoke test - detects critical threat categories[desktop]" classname="com.mehrguard.benchmark.MaliciousUrlProofTest" time="0.005"/>
   <system-out><![CDATA[
 ═══════════════════════════════════════════════════════════════
-             QR-SHIELD MALICIOUS URL PROOF TEST
+             Mehr Guard MALICIOUS URL PROOF TEST
 ═══════════════════════════════════════════════════════════════
 
 ✅ Verified: 119/140 threats blocked (85.0%)

@@ -1,6 +1,6 @@
 # 🧠 ML Model Training Documentation
 
-> How QR-SHIELD's phishing detection model was trained and evaluated.
+> How Mehr Guard's phishing detection model was trained and evaluated.
 
 ---
 
@@ -14,7 +14,7 @@
 |------|---------|------|
 | **`scripts/generate_model.py`** | Python script that trains the model | [View Source](../scripts/generate_model.py) |
 | **`models/phishing_model_weights.json`** | Exported weights used by Kotlin engine | [View Weights](../models/phishing_model_weights.json) |
-| **`common/.../LogisticRegressionModel.kt`** | Kotlin implementation that loads weights | [View Kotlin](../common/src/commonMain/kotlin/com/qrshield/ml/LogisticRegressionModel.kt) |
+| **`common/.../LogisticRegressionModel.kt`** | Kotlin implementation that loads weights | [View Kotlin](../common/src/commonMain/kotlin/com/mehrguard/ml/LogisticRegressionModel.kt) |
 
 **To verify yourself:**
 ```bash

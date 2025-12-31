@@ -1,4 +1,4 @@
-# 🏗️ QR-SHIELD Architecture Tour
+# 🏗️ Mehr Guard Architecture Tour
 
 > **A visual 5-minute guide to the codebase for judges and contributors.**
 
@@ -7,7 +7,7 @@
 ## 📂 Project Structure at a Glance
 
 ```
-qrshield/
+mehrguard/
 ├── 📦 common/                    ← SHARED KOTLIN CODE (~80%)
 │   └── src/
 │       ├── commonMain/           ← Core detection engine
@@ -21,7 +21,7 @@ qrshield/
 │   └── src/main/kotlin/          ← Compose screens, viewmodels
 │
 ├── 🍎 iosApp/                    ← iOS UI (Native SwiftUI)
-│   └── QRShield/                 ← Swift views, viewmodels
+│   └── MehrGuard/                 ← Swift views, viewmodels
 │
 ├── 🖥️ desktopApp/               ← DESKTOP UI (Compose Desktop)
 │   └── src/main/kotlin/          ← Desktop-specific UI
@@ -211,7 +211,7 @@ grep -rn "// Check:" common/src/commonMain/
 | Platform | Entry File | Start Function |
 |----------|------------|----------------|
 | Android | `MainActivity.kt` | `onCreate()` |
-| iOS | `QRShieldApp.swift` | `@main App` |
+| iOS | `MehrGuardApp.swift` | `@main App` |
 | Desktop | `Main.kt` | `main()` |
 | Web | `Main.kt` | `fun main()` |
 | Tests | Any `*Test.kt` | `./gradlew :common:allTests` |

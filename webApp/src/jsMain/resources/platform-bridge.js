@@ -1,5 +1,5 @@
 /**
- * QR-SHIELD Platform Bridge
+ * Mehr Guard Platform Bridge
  * 
  * JavaScript implementations for Kotlin/JS and Kotlin/Wasm external declarations.
  * These functions provide platform-specific capabilities via browser APIs.
@@ -15,9 +15,9 @@
  * | PlatformSecureRandom| crypto.getRandomValues() (CSPRNG)   |
  * | PlatformUrlOpener   | window.open()                       |
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.17.26
- * @see common/src/webMain/kotlin/com/qrshield/platform/WebPlatformAbstractions.kt
+ * @see common/src/webMain/kotlin/com/mehrguard/platform/WebPlatformAbstractions.kt
  */
 
 // ==================== Clipboard API ====================
@@ -218,6 +218,6 @@ window.consoleError = function (message) {
 
 // ==================== Initialization ====================
 
-console.log('[Platform Bridge] QR-SHIELD platform abstractions loaded');
+console.log('[Platform Bridge] Mehr Guard platform abstractions loaded');
 console.log('[Platform Bridge] Web Crypto available:', typeof crypto !== 'undefined' && !!crypto.getRandomValues);
 console.log('[Platform Bridge] Clipboard API available:', !!(navigator.clipboard && navigator.clipboard.writeText));

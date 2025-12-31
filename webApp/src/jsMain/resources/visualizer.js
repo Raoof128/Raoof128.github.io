@@ -1,5 +1,5 @@
 /**
- * QR-SHIELD Brain Visualizer
+ * Mehr Guard Brain Visualizer
  * 
  * Canvas-based neural network visualization for the Beat The Bot game.
  * Matches the CommonBrainVisualizer.kt implementation in Android/Desktop.
@@ -12,7 +12,7 @@
  * - Explanation badges below the visual
  * - Accessible text description
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 1.0.0
  */
 

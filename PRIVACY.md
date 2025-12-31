@@ -1,6 +1,6 @@
 # 🔒 Privacy Policy
 
-> **QR-SHIELD is designed with privacy as architecture, not as a feature.**
+> **Mehr Guard is designed with privacy as architecture, not as a feature.**
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## 🛡️ Data We Never Collect
 
-**QR-SHIELD makes zero network calls during operation.** This is enforced by architecture:
+**Mehr Guard makes zero network calls during operation.** This is enforced by architecture:
 
 1. **No HTTP client** in the analysis module
 2. **No telemetry SDK** included in dependencies
@@ -34,7 +34,7 @@ URLs you scan reveal sensitive information:
 - Where you park, shop, and eat
 - Your travel patterns
 
-Cloud scanners build profiles they can sell, be subpoenaed for, or leak. **QR-SHIELD cannot leak what it never collects.**
+Cloud scanners build profiles they can sell, be subpoenaed for, or leak. **Mehr Guard cannot leak what it never collects.**
 
 ---
 
@@ -78,7 +78,7 @@ Cloud scanners build profiles they can sell, be subpoenaed for, or leak. **QR-SH
 
 ### In Transit
 
-**Not applicable.** QR-SHIELD makes zero network calls.
+**Not applicable.** Mehr Guard makes zero network calls.
 
 ### At Rest
 
@@ -93,7 +93,7 @@ Cloud scanners build profiles they can sell, be subpoenaed for, or leak. **QR-SH
 
 ## 🚫 Third-Party Services
 
-QR-SHIELD uses **zero** third-party services:
+Mehr Guard uses **zero** third-party services:
 
 | Service Type | Status |
 |--------------|--------|
@@ -130,7 +130,7 @@ Since we don't collect any data:
 
 ## 🧒 Children's Privacy
 
-QR-SHIELD does not knowingly collect any information from anyone, including children under 13. Since we collect zero data, there are no special provisions needed.
+Mehr Guard does not knowingly collect any information from anyone, including children under 13. Since we collect zero data, there are no special provisions needed.
 
 ---
 
@@ -154,6 +154,6 @@ Any changes to this privacy policy will be reflected in this document with an up
 
 > **We can't leak your data because we never have it.**
 >
-> QR-SHIELD performs all analysis on your device. URLs never leave your phone. We have no servers, no databases, no way to know what you scan.
+> Mehr Guard performs all analysis on your device. URLs never leave your phone. We have no servers, no databases, no way to know what you scan.
 >
 > Privacy isn't a feature we added—it's the architecture.

@@ -1,13 +1,13 @@
 # 📦 Package Architecture
 
-This document describes the package organization of the QR-SHIELD common module.
+This document describes the package organization of the Mehr Guard common module.
 
 ---
 
 ## Package Overview
 
 ```
-com.qrshield/
+com.mehrguard/
 ├── orchestration/     # 🎯 Main entry points
 ├── analysis/          # 🔍 URL analysis utilities
 ├── core/              # ⚙️ Core engines and utilities

@@ -1,13 +1,13 @@
 @file:OptIn(kotlin.js.ExperimentalWasmJsInterop::class)
 
-package com.qrshield.web
+package com.raouf.mehrguard.web
 
-import com.qrshield.core.PhishingEngine
+import com.raouf.mehrguard.core.PhishingEngine
 import kotlin.js.JsAny
 import kotlin.js.JsString
 
 /**
- * QR-SHIELD Web Application (Wasm)
+ * Mehr Guard Web Application (Wasm)
  *
  * Kotlin/Wasm implementation that runs the PhishingEngine using WebAssembly.
  * Uses external declarations for browser API interop.
@@ -15,7 +15,7 @@ import kotlin.js.JsString
  * @since 1.17.25
  */
 fun main() {
-    consoleLog("🛡️ QR-SHIELD Web loaded - Kotlin/Wasm initialized")
+    consoleLog("🛡️ Mehr Guard Web loaded - Kotlin/Wasm initialized")
 
     val engine = PhishingEngine()
     consoleLog("📦 PhishingEngine ready (Wasm)")
@@ -59,7 +59,7 @@ private external fun consoleLog(msg: String)
 private external fun consoleError(msg: String)
 
 // Register analysis function with global scope
-@JsFun("(fn) => { window.qrshieldAnalyze = fn; }")
+@JsFun("(fn) => { window.mehrguardAnalyze = fn; }")
 private external fun registerAnalyzeFunction(fn: (JsString) -> Unit)
 
 // Display result via existing JavaScript function

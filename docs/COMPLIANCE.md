@@ -1,10 +1,10 @@
-# QR-SHIELD Compliance Mapping
+# Mehr Guard Compliance Mapping
 
 ## Australian Compliance Frameworks
 
 ### ACSC Essential Eight Alignment
 
-| Control | QR-SHIELD Contribution | Alignment Level |
+| Control | Mehr Guard Contribution | Alignment Level |
 |---------|----------------------|-----------------|
 | **1. Application Control** | Analyzes URLs before user executes action | ◐ Partial |
 | **2. Patch Applications** | N/A (end-user application) | — |
@@ -17,7 +17,7 @@
 
 ### Australian Privacy Act 1988
 
-| Principle | QR-SHIELD Compliance |
+| Principle | Mehr Guard Compliance |
 |-----------|---------------------|
 | **APP 1**: Open & Transparent Management | ✅ Open source, clear privacy policy |
 | **APP 3**: Collection of Solicited Personal Information | ✅ Zero personal data collection |
@@ -37,7 +37,7 @@
 
 ### Scamwatch Australia Alignment
 
-QR-SHIELD directly addresses Scamwatch categories:
+Mehr Guard directly addresses Scamwatch categories:
 - ✅ Phishing/credential harvesting
 - ✅ Fake charity/payment scams
 - ✅ Impersonation scams
@@ -45,16 +45,16 @@ QR-SHIELD directly addresses Scamwatch categories:
 
 ### SPAM Act 2003 (Cth) Awareness
 
-QR-SHIELD helps users identify QR codes that may link to content violating Australian anti-spam legislation:
+Mehr Guard helps users identify QR codes that may link to content violating Australian anti-spam legislation:
 
-| Aspect | QR-SHIELD Contribution |
+| Aspect | Mehr Guard Contribution |
 |--------|------------------------|
 | **Consent Verification** | Alerts users to unknown senders via QR |
 | **Identification** | Detects URLs hiding sender identity |
 | **Unsubscribe Mechanisms** | Identifies suspicious redirect chains that obscure opt-out options |
 | **Commercial Email Links** | Flags URLs commonly associated with spam campaigns |
 
-**Note**: While QR-SHIELD helps users identify potentially non-compliant QR marketing, it is a user protection tool and does not replace regulatory enforcement. Users who receive suspected spam QR codes should report them to the ACMA.
+**Note**: While Mehr Guard helps users identify potentially non-compliant QR marketing, it is a user protection tool and does not replace regulatory enforcement. Users who receive suspected spam QR codes should report them to the ACMA.
 
 
 
@@ -72,7 +72,7 @@ QR-SHIELD helps users identify QR codes that may link to content violating Austr
 
 ### NIST Cybersecurity Framework
 
-| Function | QR-SHIELD Mapping |
+| Function | Mehr Guard Mapping |
 |----------|------------------|
 | **Identify (ID)** | Identifies potential threats in QR codes |
 | **Protect (PR)** | Prevents users from accessing malicious URLs |
@@ -117,7 +117,7 @@ QR-SHIELD helps users identify QR codes that may link to content violating Austr
 └─────────────────────────────────────────────────────────┘
 
 Note: Partial scores reflect non-applicable controls
-      QR-SHIELD is an end-user security tool, not an
+      Mehr Guard is an end-user security tool, not an
       enterprise security solution.
 ```
 
@@ -125,7 +125,7 @@ Note: Partial scores reflect non-applicable controls
 
 ## Audit Trail
 
-QR-SHIELD maintains local audit capabilities:
+Mehr Guard maintains local audit capabilities:
 
 1. **Scan History**: Timestamped record of all scans
 2. **Risk Assessments**: Full analysis breakdown stored

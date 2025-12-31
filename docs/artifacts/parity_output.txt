@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.qrshield.benchmark.PlatformParityProofTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T19:50:14.865Z" hostname="Raoufs-MacBook-Air.local" time="0.042">
+<testsuite name="com.mehrguard.benchmark.PlatformParityProofTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2025-12-24T19:50:14.865Z" hostname="Raoufs-MacBook-Air.local" time="0.042">
   <properties/>
-  <testcase name="parity proof - same verdicts across platforms[desktop]" classname="com.qrshield.benchmark.PlatformParityProofTest" time="0.028"/>
-  <testcase name="benchmark - p50 p95 latency[desktop]" classname="com.qrshield.benchmark.PlatformParityProofTest" time="0.014"/>
+  <testcase name="parity proof - same verdicts across platforms[desktop]" classname="com.mehrguard.benchmark.PlatformParityProofTest" time="0.028"/>
+  <testcase name="benchmark - p50 p95 latency[desktop]" classname="com.mehrguard.benchmark.PlatformParityProofTest" time="0.014"/>
   <system-out><![CDATA[
 ═══════════════════════════════════════════════════════════════
-           QR-SHIELD CROSS-PLATFORM PARITY PROOF
+           Mehr Guard CROSS-PLATFORM PARITY PROOF
 ═══════════════════════════════════════════════════════════════
 
 Platform: Kotlin Multiplatform
@@ -33,7 +33,7 @@ PARITY HASH: -57427343
 ═══════════════════════════════════════════════════════════════
 
 ═══════════════════════════════════════════════════════════════
-              QR-SHIELD PERFORMANCE BENCHMARK
+              Mehr Guard PERFORMANCE BENCHMARK
 ═══════════════════════════════════════════════════════════════
 
 Platform: Kotlin Multiplatform

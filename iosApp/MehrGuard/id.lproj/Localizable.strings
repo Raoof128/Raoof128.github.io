@@ -1,0 +1,657 @@
+/* 
+  Localizable.strings
+  Mehr Guard iOS App
+  
+  Indonesian (Bahasa Indonesia) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "Mehr Guard";
+"app.tagline" = "Detektor Phishing QR Kotlin Multiplatform";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Dasbor";
+"tab.scan" = "Pindai";
+"tab.history" = "Riwayat";
+"tab.training" = "Pelatihan";
+"tab.settings" = "Pengaturan";
+
+// MARK: - Scanner View
+"scanner.title" = "Mehr Guard";
+"scanner.scanning" = "Memindai";
+"scanner.paused" = "Dijeda";
+"scanner.analyzing" = "Menganalisis...";
+"scanner.point_at_qr" = "Arahkan ke Kode QR";
+"scanner.gallery" = "Galeri";
+"scanner.history" = "Riwayat";
+"scanner.scans_count" = "Pemindaian: %d";
+"scanner.error_dismiss" = "Tutup kesalahan";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Akses Kamera Diperlukan";
+"camera.access_message" = "Mehr Guard memerlukan akses kamera untuk memindai kode QR. Silakan aktifkan di Pengaturan.";
+"camera.open_settings" = "Buka Pengaturan";
+"camera.cancel" = "Batal";
+"camera.no_camera" = "Kamera tidak tersedia";
+"camera.setup_failed" = "Pengaturan kamera gagal: %@";
+"camera.flash_failed" = "Pengalihan flash gagal: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "AMAN";
+"verdict.suspicious" = "MENCURIGAKAN";
+"verdict.malicious" = "BERBAHAYA";
+"verdict.unknown" = "TIDAK DIKETAHUI";
+
+// MARK: - Result Card
+"result.risk_score" = "Skor Risiko: %d/100";
+"result.risk_score_label" = "Skor Risiko";
+"result.confidence" = "Kepercayaan";
+"result.view_details" = "Lihat Detail";
+"result.view_full_analysis" = "Lihat Analisis Lengkap";
+"result.copy_url" = "Salin URL";
+"result.share" = "Bagikan";
+"result.dismiss" = "Tutup";
+"result.show_more" = "Tampilkan %d lagi...";
+"result.show_less" = "Tampilkan lebih sedikit";
+"result.flags_title" = "Tanda Risiko";
+
+// MARK: - History View
+"history.title" = "Riwayat Pemindaian";
+"history.empty_title" = "Belum Ada Pemindaian";
+"history.empty_message" = "Kode QR yang dipindai akan muncul di sini";
+"history.scan_now" = "Pindai Sekarang";
+"history.clear_all" = "Hapus Semua";
+"history.delete" = "Hapus";
+"history.open_url" = "Buka URL";
+"history.search_prompt" = "Cari URL";
+"history.sort_menu" = "Urutkan";
+"history.sort.by_date" = "Berdasarkan Tanggal";
+"history.sort.by_risk" = "Berdasarkan Risiko";
+"history.export" = "Ekspor";
+"history.clear_all_action" = "Hapus Semua";
+"history.scans_counter" = "%d pemindaian";
+"history.no_results" = "Tidak Ada Hasil";
+"history.no_results_message" = "Coba sesuaikan pencarian atau filter Anda";
+"history.clear_confirm_title" = "Hapus Semua Riwayat?";
+"history.clear_confirm_message" = "Tindakan ini tidak dapat dibatalkan. Semua riwayat pemindaian akan dihapus secara permanen.";
+"history.exported_toast" = "Diekspor ke clipboard";
+
+// MARK: - Settings View
+"settings.title" = "Pengaturan";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Pemindaian";
+"settings.section.notifications" = "Notifikasi";
+"settings.section.appearance" = "Tampilan";
+"settings.section.privacy" = "Privasi";
+"settings.section.about" = "Tentang";
+"settings.auto_scan" = "Pindai otomatis saat membuka";
+"settings.auto_scan_description" = "Mulai memindai segera saat aplikasi dibuka";
+"settings.haptic" = "Umpan balik haptic";
+"settings.haptic_description" = "Bergetar saat hasil pemindaian";
+"settings.sound" = "Efek suara";
+"settings.sound_description" = "Putar suara untuk peringatan";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Peringatan keamanan";
+"settings.security_alerts_description" = "Dapatkan notifikasi tentang ancaman keamanan";
+"settings.notifications_denied_title" = "Notifikasi Dinonaktifkan";
+"settings.notifications_denied_message" = "Untuk menerima peringatan keamanan, silakan aktifkan notifikasi untuk Mehr Guard di Pengaturan.";
+"settings.open_settings" = "Buka Pengaturan";
+"settings.cancel" = "Batal";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Kurangi Liquid Glass";
+"settings.reduce_effects_description" = "Sederhanakan efek visual untuk performa";
+"settings.system_appearance" = "Tampilan Sistem";
+"settings.dark_mode" = "Mode Gelap";
+"settings.dark_mode_description" = "Aktifkan skema warna gelap";
+"settings.appearance_footer" = "iOS 17+ memperkenalkan efek Liquid Glass yang indah. Kurangi efek jika Anda mengalami masalah performa pada perangkat lama.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Simpan riwayat pemindaian";
+"settings.save_history_description" = "Simpan catatan URL yang dipindai";
+"settings.clear_history" = "Hapus Riwayat";
+"settings.clear_history_title" = "Hapus Semua Riwayat?";
+"settings.clear_history_message" = "Tindakan ini tidak dapat dibatalkan. Semua riwayat pemindaian akan dihapus secara permanen.";
+"settings.clear_all" = "Hapus Semua";
+"settings.privacy_policy" = "Kebijakan Privasi";
+"settings.source_code" = "Kode Sumber";
+"settings.credits" = "Dibuat dengan ❤️ untuk KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "Versi";
+"settings.build" = "Build";
+"settings.engine" = "Mesin";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Lewati";
+"onboarding.continue" = "Lanjutkan";
+"onboarding.get_started" = "Mulai";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Pindai Kode QR Apapun";
+"onboarding.scan.description" = "Arahkan kamera Anda ke kode QR manapun untuk langsung menganalisis kontennya terhadap potensi ancaman.";
+"onboarding.protect.title" = "Perlindungan Real-Time";
+"onboarding.protect.description" = "Mesin kami yang didukung AI menganalisis URL menggunakan 25+ heuristik keamanan dan algoritma pembelajaran mesin.";
+"onboarding.privacy.title" = "Privasi Utama";
+"onboarding.privacy.description" = "Semua analisis terjadi di perangkat menggunakan Kotlin Multiplatform. Data Anda tidak pernah meninggalkan ponsel Anda.";
+"onboarding.design.title" = "Desain iOS 17+ yang Indah";
+"onboarding.design.description" = "Nikmati antarmuka Liquid Glass yang menakjubkan dengan animasi halus dan estetika modern.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Izin Kamera";
+"onboarding.camera.allow" = "Izinkan Kamera";
+"onboarding.camera.later" = "Nanti Saja";
+"onboarding.camera.message" = "Mehr Guard memerlukan akses kamera untuk memindai kode QR. Anda dapat mengubah ini nanti di Pengaturan.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Detail Analisis";
+"detail.scanned_at" = "Dipindai pada %@";
+"detail.url_information" = "Informasi URL";
+"detail.risk_factors" = "Faktor Risiko";
+"detail.no_risks" = "Tidak ada risiko terdeteksi";
+"detail.open_url" = "Buka URL";
+"detail.open_warning" = "Membuka URL ini mungkin berbahaya. Apakah Anda yakin?";
+"detail.open_warning_title" = "Peringatan Keamanan";
+"detail.proceed" = "Lanjutkan Saja";
+"detail.scanned_at_time_ago" = "Dipindai %@";
+"detail.score_breakdown" = "Rincian Skor";
+"detail.url_details" = "Detail URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (Aman)";
+"detail.protocol_http" = "HTTP (Tidak Aman)";
+"detail.domain" = "Domain";
+"detail.protocol" = "Protokol";
+"detail.share_analysis" = "Bagikan Analisis";
+"detail.copy_url" = "Salin URL";
+"detail.copied" = "Disalin!";
+"detail.report_false_positive" = "Laporkan Positif Palsu";
+
+// MARK: - Errors
+"error.generic" = "Terjadi kesalahan";
+"error.network" = "Kesalahan koneksi jaringan";
+"error.invalid_url" = "URL tidak valid terdeteksi";
+"error.analysis_failed" = "Analisis gagal";
+"error.invalid_or_unsupported" = "Konten QR tidak valid atau tidak didukung.";
+"error.no_qr_found" = "Tidak ada kode QR ditemukan di gambar yang dipilih.";
+"error.image_scan_failed" = "Pemindaian gambar gagal: %@";
+"error.dismiss" = "Tutup kesalahan";
+
+// MARK: - Scanner UI
+"scanner.brand" = "Mehr Guard";
+"scanner.status_scanning" = "Memindai";
+"scanner.status_paused" = "Dijeda";
+"scanner.view_details" = "Lihat Detail";
+"scanner.copy_url" = "Salin URL";
+"scanner.share" = "Bagikan";
+"scanner.dismiss" = "Tutup";
+"scanner.flash_on" = "Flash menyala";
+"scanner.flash_off" = "Flash mati";
+"scanner.open_history" = "Buka riwayat";
+"scanner.scan_toggle" = "Alihkan pemindaian";
+
+// MARK: - History UI
+"history.no_results" = "Tidak Ada Hasil";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Aman. Offline.";
+"dashboard.hero.tagline2" = "Pertahanan Transparan.";
+"dashboard.hero.description" = "Mehr Guard menganalisis ancaman potensial langsung di perangkat keras Anda. Nikmati ";
+"dashboard.hero.zero_latency" = "perlindungan tanpa latensi.";
+"dashboard.enterprise_badge" = "PERLINDUNGAN ENTERPRISE AKTIF";
+"dashboard.analyze" = "Analisis";
+"dashboard.scan_qr" = "Pindai Kode QR";
+"dashboard.import_image" = "Impor Gambar";
+"dashboard.system_optimal" = "Sistem Optimal";
+"dashboard.engine_status" = "Engine v2.4 • Diperbarui 2j lalu";
+"dashboard.threats_blocked" = "Ancaman Diblokir";
+"dashboard.safe_scans" = "Pemindaian Aman";
+"dashboard.engine_features" = "FITUR ENGINE";
+"dashboard.recent_scans" = "PEMINDAIAN TERBARU";
+"dashboard.view_all" = "Lihat Semua";
+"dashboard.no_scans_yet" = "Belum ada pemindaian";
+"dashboard.no_scans_message" = "Pindai kode QR atau tempel URL untuk memulai";
+"dashboard.threat_database" = "Database Ancaman";
+"dashboard.db_updated" = "Database lokal berhasil diperbarui.";
+"dashboard.offline_ready" = "SIAP OFFLINE";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Aksi Cepat";
+"settings.threat_monitor" = "Monitor Ancaman";
+"settings.threat_monitor_desc" = "Lihat ancaman langsung dan jalankan audit keamanan";
+"settings.trust_centre" = "Pusat Kepercayaan";
+"settings.trust_centre_desc" = "Pengaturan privasi dan sensitivitas ancaman";
+"settings.export_report" = "Ekspor Laporan";
+"settings.export_report_desc" = "Buat laporan keamanan PDF atau JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Pusat Kepercayaan";
+"trust.offline_guarantee" = "Jaminan Offline Ketat";
+"trust.offline_description" = "Analisis Mehr Guard berjalan sepenuhnya di Neural Engine perangkat Anda. Data URL tidak pernah meninggalkan ponsel Anda.";
+"trust.threat_sensitivity" = "Sensitivitas Ancaman";
+"trust.reset_confirm" = "Ini akan mengatur ulang semua pengaturan Pusat Kepercayaan ke default.";
+
+// MARK: - Results Actions
+"result.block_report" = "Blokir & Laporkan";
+"result.block_description" = "Ini akan memblokir domain dan melaporkannya ke tim keamanan Anda.";
+"result.block_action" = "Cegah akses dan beri tahu admin";
+"result.quarantine" = "Karantina di Sandbox";
+"result.quarantine_action" = "Buka dengan aman untuk analisis";
+"result.expected" = "Diharapkan: ";
+"result.detected" = "Terdeteksi: ";
+"result.explainable_security" = "Keamanan Transparan";
+"result.url_breakdown" = "RINCIAN URL";
+"result.full_url" = "URL LENGKAP";
+"result.open_safari" = "Buka di Safari (Berisiko)";
+"result.open_warning_full" = "Membuka URL ini di browser Anda dapat membuat Anda terpapar risiko keamanan.";
+"result.restricted_mode" = "Mode Terbatas";
+"result.restricted_description" = "URL ini telah ditandai sebagai berpotensi berbahaya. Tinjau analisis di bawah sebelum melanjutkan.";
+"result.dangerous_warning" = "URL ini telah ditandai sebagai berpotensi berbahaya. Membukanya dapat membuat Anda terpapar phishing, malware, atau ancaman keamanan lainnya.\n\nApakah Anda yakin ingin melanjutkan?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "AKSI CEPAT";
+"nav.systems_operational" = "Semua sistem beroperasi";
+
+// MARK: - Common
+"common.enabled" = "Diaktifkan";
+"common.disabled" = "Dinonaktifkan";
+
+// MARK: - Language Settings
+"settings.language" = "Language";
+"settings.language_section" = "Language";
+"settings.language_system" = "System Default";
+"settings.language_search" = "Search languages";
+"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
+"common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Perlu Dimulai Ulang";
+"settings.restart_subtitle" = "Untuk menampilkan Mehr Guard dalam %@, silakan mulai ulang aplikasi.";
+"settings.restart_step1" = "Ketuk 'Tutup Aplikasi' di bawah";
+"settings.restart_step2" = "Geser ke atas untuk menutup sepenuhnya";
+"settings.restart_step3" = "Buka kembali Mehr Guard untuk melihat bahasa baru";
+"settings.close_app" = "Tutup Aplikasi";
+"settings.restart_error_title" = "Kesalahan Mulai Ulang";
+"settings.restart_error_message" = "Tidak dapat menutup aplikasi secara otomatis. Silakan tutup dan buka kembali secara manual.";
+"common.ok" = "OK";
+"settings.language_changed" = "Bahasa Diubah";
+"settings.restart_now" = "Mulai Ulang Sekarang";
+"settings.language_restart_message" = "Aplikasi perlu dimulai ulang untuk menerapkan bahasa baru.";
+"settings.restart_later" = "Nanti";
+
+
+// MARK: - Training (Beat The Bot)
+"training.mode" = "MODE PELATIHAN";
+"training.beat_the_bot" = "Kalahkan Bot";
+"training.seconds" = "Detik";
+"training.level" = "LEVEL %d";
+"training.unusual_signin" = "Login tidak biasa";
+"training.unusual_signin_message" = "Kami mendeteksi login dari perangkat baru. Segera verifikasi identitas Anda.";
+"training.verify_identity" = "Verifikasi identitas";
+"training.phishing" = "Phishing";
+"training.legitimate" = "Sah";
+"training.live_session" = "SESI LANGSUNG";
+"training.online" = "ONLINE";
+"training.bot_confidence" = "Keyakinan Bot:";
+"training.ai_analysis" = "ANALISIS NEURAL AI";
+"training.live_hint" = "Petunjuk langsung";
+"training.tip" = "Tips:";
+"training.beginner" = "PEMULA";
+"training.intermediate" = "MENENGAH";
+"training.advanced" = "LANJUTAN";
+"training.nightmare" = "MIMPI BURUK";
+
+// MARK: - Settings Additional
+"settings.security_alerts_title" = "Peringatan keamanan";
+"settings.security_alerts_desc" = "Terima notifikasi tentang ancaman";
+"settings.notifications_denied_message" = "Untuk menerima peringatan, aktifkan notifikasi untuk Mehr Guard di Pengaturan.";
+"settings.system_appearance_label" = "Tampilan sistem";
+"settings.clear_history_button" = "Hapus riwayat";
+"settings.privacy_policy_link" = "Kebijakan privasi";
+"settings.source_code_link" = "Kode sumber";
+"settings.engine_swift" = "Swift 6";
+"settings.clear_confirm_message" = "Tindakan ini tidak dapat dibatalkan. Semua riwayat akan dihapus permanen.";
+"settings.ios_version" = "iOS 17+";
+"settings.liquid_glass_footer" = "iOS 17+ memperkenalkan efek Liquid Glass yang indah. Kurangi efek jika ada masalah kinerja.";
+
+// MARK: - Dashboard Additional
+"dashboard.hero.description_full" = "Mehr Guard menganalisis ancaman langsung di perangkat Anda. Rasakan";
+"dashboard.zero_latency" = "deteksi phishing tanpa latensi";
+"dashboard.version_date" = "Versi 2023.10.24";
+"dashboard.offline_badge" = "SIAP OFFLINE";
+
+// MARK: - Navigation
+"nav.version_offline" = "v2.4.0 • Mode offline";
+
+// MARK: - Results Additional
+"result.block_warning" = "Ini akan memblokir domain dan melaporkannya ke tim keamanan.";
+"result.dangerous_full_warning" = "URL ini telah ditandai sebagai berpotensi berbahaya. Membukanya dapat membuat Anda terkena phishing atau malware.\n\nYakin ingin melanjutkan?";
+"result.open_safari_risky" = "Buka di Safari (berisiko)";
+"result.open_warning_browser" = "Membuka URL ini di browser dapat membuat Anda terkena risiko keamanan.";
+
+// MARK: - Components
+"component.confidence" = "Keyakinan";
+"component.risk_score" = "Skor risiko";
+"component.risk_flags" = "Indikator risiko";
+"component.view_full_analysis" = "Lihat analisis lengkap";
+"component.select_image" = "Pilih gambar";
+"component.select_image_desc" = "Pilih foto yang berisi kode QR";
+"component.idle_state" = "Status tidak aktif";
+"component.active_state" = "Status aktif";
+
+// MARK: - Threat History
+"threat.no_vulnerabilities" = "Tidak ada kerentanan terdeteksi. Perangkat Anda aman.";
+"threat.live_map" = "PETA ANCAMAN LANGSUNG";
+"threat.global_view" = "Tampilan global";
+"threat.last_audit" = "Audit terakhir: %@";
+"threat.latest_updates" = "PEMBARUAN TERBARU";
+"threat.live" = "LANGSUNG";
+
+// MARK: - History Additional
+"history.scan_statistics" = "Statistik pemindaian";
+"history.safe_count" = "Aman: %d";
+"history.suspicious_count" = "Mencurigakan: %d";
+"history.malicious_count" = "Berbahaya: %d";
+"history.total_scans" = "Total: %d pemindaian";
+"history.exported_clipboard" = "Diekspor ke clipboard";
+"history.url_label" = "URL";
+
+// MARK: - KMP Demo
+"kmp.integration" = "Integrasi Kotlin Multiplatform";
+"kmp.analyze_button" = "Analisis dengan mesin KMP";
+"kmp.quick_test" = "Tes cepat:";
+"kmp.analysis_result" = "Hasil analisis";
+"kmp.score_format" = "Skor: %d/100";
+"kmp.risk_flags" = "Indikator risiko:";
+"kmp.powered_by" = "Didukung oleh Kotlin/Native";
+
+// MARK: - Scanner Additional
+"scanner.camera_required_title" = "Akses kamera diperlukan";
+"scanner.camera_required_message" = "Mehr Guard memerlukan akses kamera untuk memindai kode QR. Aktifkan di Pengaturan.";
+"scanner.analyzing_dots" = "Menganalisis...";
+"scanner.point_qr" = "Arahkan ke kode QR";
+"scanner.toggle_scan" = "Alihkan pemindaian";
+"scanner.dismiss_error" = "Tutup error";
+"scanner.camera_preview" = "Pratinjau kamera";
+
+// MARK: - Trust Centre Additional
+"trust.low" = "Rendah";
+"trust.balanced" = "Seimbang";
+"trust.paranoia" = "Paranoid";
+"trust.reset_defaults" = "Atur ulang default";
+"trust.version_info" = "Mehr Guard v2.4.0 (Build 892)";
+
+// MARK: - Export View
+"export.title" = "Ekspor analisis ancaman";
+"export.subtitle" = "Pilih format untuk mengekspor analisis aman offline Anda.";
+"export.select_format" = "PILIH FORMAT";
+"export.live_preview" = "PRATINJAU LANGSUNG";
+"export.expand" = "Perluas";
+"export.share" = "Bagikan";
+"export.export_button" = "Ekspor laporan";
+"export.available_actions" = "TINDAKAN TERSEDIA";
+"export.privacy_note" = "Catatan privasi";
+"export.privacy_message" = "Semua analisis dilakukan di perangkat Anda. Laporan yang diekspor tidak berisi informasi pribadi.";
+
+// MARK: - Onboarding Additional
+"onboarding.camera_permission_message" = "Mehr Guard memerlukan akses kamera untuk memindai kode QR. Anda dapat mengubahnya di Pengaturan.";
+"onboarding.page_of" = "Halaman %d dari %d";
+
+// MARK: - Accessibility Labels
+"accessibility.risk_score" = "Skor risiko";
+"accessibility.risk_flags" = "Indikator risiko";
+"accessibility.scan_history" = "Riwayat pemindaian";
+"accessibility.dismiss_error" = "Tutup error";
+"accessibility.toggle_scanning" = "Alihkan pemindaian";
+"accessibility.gallery" = "Galeri";
+"accessibility.open_history" = "Buka riwayat";
+
+// MARK: - Onboarding Pages
+"onboarding.scan.title" = "Pindai kode QR apapun";
+"onboarding.scan.description" = "Arahkan kamera Anda ke kode QR untuk langsung menganalisis kontennya terhadap ancaman potensial.";
+"onboarding.protect.title" = "Perlindungan real-time";
+"onboarding.protect.description" = "Mesin AI kami menganalisis URL menggunakan 25+ heuristik keamanan dan algoritma machine learning.";
+"onboarding.privacy.title" = "Privasi utama";
+"onboarding.privacy.description" = "Semua analisis terjadi di perangkat menggunakan Kotlin Multiplatform. Data Anda tidak pernah meninggalkan ponsel.";
+"onboarding.design.title" = "Desain iOS 17+ yang indah";
+"onboarding.design.description" = "Rasakan antarmuka Liquid Glass yang memukau dengan animasi halus dan estetika modern.";
+"onboarding.skip" = "Lewati";
+"onboarding.continue" = "Lanjutkan";
+"onboarding.get_started" = "Mulai";
+"onboarding.page_counter" = "%d/%d";
+"onboarding.camera_title" = "Izin kamera";
+"onboarding.camera_allow" = "Izinkan kamera";
+"onboarding.camera_later" = "Nanti saja";
+"format.signals_detected" = "%d sinyal terdeteksi";
+"format.confidence_percent" = "%d%% Keyakinan";
+"format.level" = "LEVEL %d";
+"format.score_100" = "%d/100";
+"format.latency_ms" = "%dms";
+"format.confidence" = "%d%% Keyakinan";
+"format.score_total" = "Skor: %d/100";
+"format.score_slash_100" = "%d/100";
+"format.percent" = "%d%%";
+"format.status_date" = "%@ • %@";
+"dashboard.privacy_note" = " tanpa mengorbankan privasi data.";
+"dashboard.badge_plus" = "+2";
+"history.safe_format" = "Aman: %d";
+"history.suspicious_format" = "Mencurigakan: %d";
+"history.malicious_format" = "Berbahaya: %d";
+"history.total_format" = "Total: %d pemindaian";
+"history.last_audit_format" = "Audit terakhir: %@";
+"kmp.framework_linked" = "✅ KMP Framework terhubung";
+"kmp.using_mock" = "⚠️ Menggunakan Mock (hubungkan common.framework)";
+"kmp.brand" = "🛡️ Mehr Guard";
+"format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Dasbor";
+"nav.menu.dashboard_desc" = "Ikhtisar dan statistik";
+"nav.menu.scan_qr" = "Pindai QR";
+"nav.menu.scan_qr_desc" = "Pemindai kamera";
+"nav.menu.scan_history" = "Riwayat pindai";
+"nav.menu.scan_history_desc" = "Pemindaian sebelumnya";
+"nav.menu.threat_monitor" = "Monitor ancaman";
+"nav.menu.threat_monitor_desc" = "Ancaman langsung";
+"nav.menu.trust_centre" = "Pusat kepercayaan";
+"nav.menu.trust_centre_desc" = "Privasi dan keamanan";
+"nav.menu.beat_the_bot" = "Kalahkan Bot";
+"nav.menu.beat_the_bot_desc" = "Permainan latihan";
+"nav.menu.export_report" = "Ekspor laporan";
+"nav.menu.export_report_desc" = "Buat laporan";
+"nav.menu.settings" = "Pengaturan";
+"nav.menu.settings_desc" = "Preferensi";
+"nav.quick.scan" = "Pindai";
+"nav.quick.import" = "Impor";
+"nav.quick.paste_url" = "Tempel URL";
+"result.block_button" = "Blokir dan tambahkan ke daftar hitam";
+"result.open_anyway" = "Buka saja";
+"common.cancel" = "Batal";
+"common.close" = "Tutup";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Dasbor";
+"tab.scan" = "Pindai";
+"tab.history" = "Riwayat";
+"tab.training" = "Latihan";
+"tab.settings" = "Pengaturan";
+
+// MARK: - Common Buttons
+"common.done" = "Selesai";
+"common.add" = "Tambah";
+"common.open_settings" = "Buka Pengaturan";
+"common.clear_all" = "Hapus semua";
+"common.reset_all_settings" = "Reset semua pengaturan";
+
+// MARK: - Export View
+"export.report_preview" = "Pratinjau laporan";
+"export.help_title" = "Bantuan ekspor";
+"export.format.pdf_title" = "Laporan PDF";
+"export.format.pdf_subtitle" = "Ringkasan yang dapat dibaca";
+"export.format.json_title" = "Data JSON";
+"export.format.json_subtitle" = "Data mentah yang dapat dibaca mesin";
+"export.help" = "Bantuan";
+"export.switch_to" = "Beralih ke %@";
+"export.copied" = "Disalin!";
+"export.copy" = "Salin";
+"export.report_generation" = "Pembuatan laporan";
+
+// MARK: - Additional Accessibility
+"accessibility.flash_on" = "Flash on";
+"accessibility.flash_off" = "Flash off";
+"accessibility.main_menu" = "Open main menu";
+"accessibility.close_menu" = "Close menu";
+"accessibility.scan_result" = "Scan result";
+"accessibility.view_details" = "View details";
+"accessibility.copy_url" = "Copy URL";
+"accessibility.share" = "Share";
+"accessibility.dismiss" = "Dismiss";
+"accessibility.back" = "Back";
+"accessibility.settings" = "Settings";
+"accessibility.trust_centre" = "Trust Centre";
+
+// MARK: - Scan Result Metadata
+"result.scan_id" = "Scan ID";
+"result.engine_version" = "Engine Version";
+"result.scanned_at" = "Scanned At";
+"result.engine_kmp" = "KMP Engine (Offline)";
+"result.engine_swift" = "Swift Engine (Offline)";
+
+// MARK: - Analysis Breakdown (Android/Desktop Parity)
+"analysis.title" = "Analysis Breakdown";
+"analysis.ai_explained" = "AI Explained";
+"analysis.no_issues" = "No significant issues detected. This URL appears to be safe.";
+
+// Analysis Item Titles (from flags)
+"analysis.ip_host.title" = "IP Address Host";
+"analysis.ip_host.desc" = "This URL uses an IP address instead of a domain name, which is commonly used by attackers to evade detection.";
+
+"analysis.brand.title" = "Brand Impersonation";
+"analysis.brand.desc" = "This URL appears to impersonate a known brand, attempting to deceive users.";
+"analysis.brand.desc_specific" = "This URL appears to impersonate %@, a known brand.";
+
+"analysis.homograph.title" = "Homograph Attack";
+"analysis.homograph.desc" = "This URL uses characters that look similar to legitimate characters (IDN homograph attack) to deceive users.";
+
+"analysis.protocol.title" = "Insecure Protocol";
+"analysis.protocol.desc" = "This URL uses HTTP instead of HTTPS, meaning data is transmitted without encryption.";
+
+"analysis.redirect.title" = "URL Shortener / Redirect";
+"analysis.redirect.desc" = "This URL uses a redirect or shortener service, which can hide the true destination.";
+
+"analysis.tld.title" = "High-Risk TLD";
+"analysis.tld.desc" = "This URL uses a top-level domain that is commonly associated with malicious activity.";
+"analysis.tld.desc_specific" = "The TLD '%@' is frequently used for malicious purposes.";
+
+"analysis.subdomain.title" = "Complex Domain Structure";
+"analysis.subdomain.desc" = "This URL has excessive subdomains, which is often used to obscure the true domain.";
+
+"analysis.credential.title" = "Credential Harvesting";
+"analysis.credential.desc" = "This URL contains patterns commonly used to steal login credentials.";
+
+"analysis.long_url.title" = "Unusually Long URL";
+"analysis.long_url.desc" = "This URL is unusually long, which may indicate an attempt to hide malicious content.";
+
+"analysis.scheme.title" = "Dangerous Scheme";
+"analysis.scheme.desc" = "This URL uses a potentially dangerous scheme (data: or javascript:) that can execute code.";
+
+"analysis.at_symbol.title" = "@ Symbol Attack";
+"analysis.at_symbol.desc" = "This URL contains an @ symbol, which can be used to trick users into visiting a different site.";
+
+"analysis.suspicious_path.title" = "Suspicious Path";
+"analysis.suspicious_path.desc" = "The URL path contains keywords commonly associated with phishing attempts.";
+
+"analysis.risky_extension.title" = "Risky File Extension";
+"analysis.risky_extension.desc" = "This URL points to a file type that may be dangerous to download or execute.";
+
+"analysis.entropy.title" = "Random-Looking Domain";
+"analysis.entropy.desc" = "The domain appears to be randomly generated, which is common in malicious URLs.";
+
+"analysis.port.title" = "Non-Standard Port";
+"analysis.port.desc" = "This URL uses a non-standard port, which may indicate an attempt to bypass security filters.";
+
+"analysis.safe.title" = "No Threats Detected";
+"analysis.safe.desc" = "This URL passed all security checks and appears to be legitimate.";
+
+"analysis.login_keywords.title" = "Login/Verify Keywords";
+"analysis.login_keywords.desc" = "This URL contains keywords commonly used in phishing attacks to steal credentials.";
+
+"analysis.urgency.title" = "Urgency Language";
+"analysis.urgency.desc" = "This URL contains urgent language designed to pressure users into acting quickly.";
+
+"analysis.typosquatting.title" = "Typosquatting";
+"analysis.typosquatting.desc" = "This URL appears to be a misspelled version of a legitimate domain.";
+
+"analysis.verified_domain.title" = "Verified Domain";
+"analysis.verified_domain.desc" = "This URL belongs to a known, trusted domain.";
+
+// Status Badges (WebApp Parity)
+"status.scan_complete" = "Scan Complete";
+"status.caution_advised" = "Caution Advised";
+"status.threat_detected" = "Threat Detected";
+"status.analysis_complete" = "Analysis Complete";
+
+// Meta Info (WebApp Parity)
+"meta.analyzed_offline" = "Analyzed offline";
+"meta.no_data_leaves" = "No data leaves device";
+"meta.analysis_time" = "Analysis Time";
+"meta.heuristics" = "Heuristics";
+"meta.engine" = "Engine";
+"meta.engine_version_fmt" = "v%@";
+
+// MARK: - Engine Stats Card (Android Parity)
+"stats.analysis_time" = "Analysis Time";
+"stats.signals" = "Signals";
+"stats.engine" = "Engine";
+
+// MARK: - Top Analysis Factors (Android/WebApp Parity)
+"factors.title" = "Top Analysis Factors";
+"factor.category.https" = "HTTPS";
+"factor.category.domain" = "Domain";
+"factor.category.database" = "Database";
+"factor.category.heuristics" = "Heuristics";
+
+"factor.ssl_valid" = "SSL Certificate Valid";
+"factor.ssl_valid_desc" = "Connection is encrypted with HTTPS. Data transmitted securely.";
+"factor.ssl_missing" = "No SSL Certificate";
+"factor.ssl_missing_desc" = "No encryption. Data could be intercepted by attackers.";
+
+"factor.ip_address" = "IP Address Used";
+"factor.ip_address_desc" = "URL uses raw IP instead of domain name - common attack technique.";
+"factor.domain_check" = "Domain Verified";
+"factor.domain_check_desc" = "Domain structure appears legitimate.";
+
+"factor.blacklist_found" = "Known Threat";
+"factor.blacklist_found_desc" = "This URL matches known malicious patterns in our database.";
+"factor.blacklist_clean" = "Not in Blocklist";
+"factor.blacklist_clean_desc" = "URL not found in any known threat databases.";
+
+"factor.heuristics_title" = "Heuristic Analysis";
+"factor.heuristics_desc" = "%d signals detected by pattern analysis.";
+
+// MARK: - Beat the Bot Reset
+"training.reset" = "Reset Game";
+
+// MARK: - Red Team / Developer Mode (Android Parity)
+"settings.dev_mode_section" = "🕵️ Developer Mode";
+"settings.red_team_mode" = "Red Team Mode";
+"settings.red_team_mode_desc" = "Show attack scenarios on scanner screen";
+"settings.red_team_warning" = "Red Team Mode bypasses camera and injects test URLs directly into the detection engine.";
+
+"scanner.red_team_title" = "Red Team Scenarios";
+"scanner.red_team_attacks_fmt" = "%d attacks";
+"scanner.red_team_hint" = "Tap a scenario to test detection without camera";
+
+// MARK: - Export Actions
+"export.action_copy_desc" = "Copy the report content to your clipboard for pasting into other apps.";
+"export.action_export_desc" = "Save the report directly to your device.";
+"export.action_share" = "Share";
+"export.action_share_desc" = "Open the iOS share sheet to send via Messages, Mail, AirDrop, or save to Files.";
+"export.json_description" = "Exports raw analysis data in JSON format. Perfect for integration with security tools, SIEMs, or for further automated processing.";
+"export.pdf_description" = "Exports a human-readable security report suitable for sharing with team members, management, or for your records. Includes verdict, risk factors, and recommendations.";

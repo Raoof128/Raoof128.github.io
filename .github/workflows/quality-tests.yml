@@ -43,7 +43,7 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Run Property-Based Tests
-        run: ./gradlew :common:desktopTest --tests "com.qrshield.core.PropertyBasedTest" --no-daemon
+        run: ./gradlew :common:desktopTest --tests "com.mehrguard.core.PropertyBasedTest" --no-daemon
         continue-on-error: true
         
       - name: Upload Test Results
@@ -76,11 +76,11 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/main' }}
 
       - name: Run Performance Regression Tests
-        run: ./gradlew :common:desktopTest --tests "com.qrshield.benchmark.PerformanceRegressionTest" --no-daemon
+        run: ./gradlew :common:desktopTest --tests "com.mehrguard.benchmark.PerformanceRegressionTest" --no-daemon
         continue-on-error: true
         
       - name: Run Benchmark Tests
-        run: ./gradlew :common:desktopTest --tests "com.qrshield.benchmark.PerformanceBenchmarkTest" --no-daemon
+        run: ./gradlew :common:desktopTest --tests "com.mehrguard.benchmark.PerformanceBenchmarkTest" --no-daemon
         continue-on-error: true
         
       - name: Upload Test Results
@@ -239,7 +239,7 @@ jobs:
         working-directory: iosApp
         run: |
           xcodebuild test \
-            -scheme QRShield \
+            -scheme MehrGuard \
             -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
             -resultBundlePath TestResults.xcresult \
             CODE_SIGNING_ALLOWED=NO \

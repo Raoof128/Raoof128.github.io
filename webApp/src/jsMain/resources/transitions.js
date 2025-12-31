@@ -1,5 +1,5 @@
 /**
- * QR-SHIELD Page Transitions Controller v2.2
+ * Mehr Guard Page Transitions Controller v2.2
  * Fast, smooth page transitions without theme/font flashing
  * Uses font preloading and font-display: block for FOUT prevention
  */
@@ -127,7 +127,7 @@
     }
 
     // Expose API
-    window.QRShieldTransitions = {
+    window.MehrGuardTransitions = {
         navigateWithTransition: navigateWithTransition
     };
 

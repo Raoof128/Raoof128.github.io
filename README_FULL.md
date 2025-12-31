@@ -1,4 +1,4 @@
-# 🛡️ QR-SHIELD
+# 🛡️ Mehr Guard
 
 > **Kotlin Multiplatform security app detecting QR phishing attacks entirely offline.** Protects users' privacy (no URL ever leaves device) while achieving 87 F1 score on real phishing samples. One shared detection engine across Android, iOS, Desktop, and Web.
 
@@ -50,9 +50,9 @@
 
 ---
 
-### ⚔️ How QR-SHIELD Compares
+### ⚔️ How Mehr Guard Compares
 
-| Feature | QR-SHIELD | Google Lens | Kaspersky QR |
+| Feature | Mehr Guard | Google Lens | Kaspersky QR |
 |---------|:---------:|:-----------:|:------------:|
 | **Privacy (Offline)** | ✅ 100% offline | ❌ Cloud required | ❌ Cloud required |
 | **Data Collection** | ✅ Zero | ❌ Sends to Google | ❌ Sends to servers |
@@ -62,7 +62,7 @@
 | **Works Without Internet** | ✅ Yes | ❌ No | ❌ No |
 | **Custom ML Model** | ✅ On-device ensemble | ❌ Cloud ML | ❌ Cloud ML |
 
-> 🔒 **The Privacy Advantage:** When you scan a QR code with QR-SHIELD, the URL *never leaves your device*. With Google Lens or Kaspersky, every URL you scan is sent to their servers—forever logged, potentially shared, and definitely not private.
+> 🔒 **The Privacy Advantage:** When you scan a QR code with Mehr Guard, the URL *never leaves your device*. With Google Lens or Kaspersky, every URL you scan is sent to their servers—forever logged, potentially shared, and definitely not private.
 
 ---
 
@@ -85,7 +85,7 @@
 | `https://bit.ly/xyz123` | SUSPICIOUS — URL shortener obfuscation |
 
 **Key Files:**
-- Shared detection engine: `common/src/commonMain/kotlin/com/qrshield/`
+- Shared detection engine: `common/src/commonMain/kotlin/com/mehrguard/`
 - Android app: `androidApp/` — iOS app: `iosApp/` — Desktop: `desktopApp/` — Web: `webApp/`
 - **Attack Scenarios:** [docs/ATTACK_DEMOS.md](docs/ATTACK_DEMOS.md) — Curated demos with detection signals
 
@@ -97,7 +97,7 @@
 
 ### 🎬 Demo Video
 
-> **[Watch QR-SHIELD in Action →](https://raoof128.github.io/?demo=true)** (Live Interactive Demo)
+> **[Watch Mehr Guard in Action →](https://raoof128.github.io/?demo=true)** (Live Interactive Demo)
 >
 > The live demo allows you to test URLs directly in your browser without building anything.
 > Try: `https://paypa1-secure.tk/login` to see real-time phishing detection.
@@ -106,7 +106,7 @@
 
 | Platform | Download | Notes |
 |----------|----------|-------|
-| **Android APK** | [`QRShield-1.1.0-release.apk`](releases/QRShield-1.1.0-release.apk) | Signed release, install directly |
+| **Android APK** | [`MehrGuard-1.1.0-release.apk`](releases/MehrGuard-1.1.0-release.apk) | Signed release, install directly |
 | **Web App** | [raoof128.github.io](https://raoof128.github.io) | No install required |
 | **iOS** | Coming to TestFlight | Contact for beta access |
 | **Desktop** | `./gradlew :desktopApp:run` | Build from source |
@@ -147,7 +147,7 @@ This runs 4 automated test suites proving:
 <summary><b>Expected Output</b></summary>
 
 ```
-🧪 QR-SHIELD Judge Verification Suite
+🧪 Mehr Guard Judge Verification Suite
 ======================================
 
 1️⃣  Offline Analysis (Zero Network Calls)
@@ -180,8 +180,8 @@ This runs 4 automated test suites proving:
 
 ```bash
 # Prerequisites: Android Studio + JDK 17+
-git clone https://github.com/Raoof128/Raoof128.github.io.git qrshield
-cd qrshield
+git clone https://github.com/Raoof128/Raoof128.github.io.git mehrguard
+cd mehrguard
 
 # Build debug APK
 ./gradlew :androidApp:assembleDebug
@@ -202,14 +202,14 @@ adb install androidApp/build/outputs/apk/debug/androidApp-debug.apk
 
 # Or manual steps:
 # Prerequisites: macOS, Xcode 15+
-git clone https://github.com/Raoof128/Raoof128.github.io.git qrshield
-cd qrshield
+git clone https://github.com/Raoof128/Raoof128.github.io.git mehrguard
+cd mehrguard
 
 # Build iOS framework for simulator (arm64 Mac or Intel)
 ./gradlew :common:linkDebugFrameworkIosSimulatorArm64
 
 # Open in Xcode
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 
 # In Xcode:
 # 1. Select iPhone 16 Pro simulator (or any iOS 17+)
@@ -226,15 +226,15 @@ open iosApp/QRShield.xcodeproj
 
 ```bash
 # Prerequisites: JDK 17+
-git clone https://github.com/Raoof128/Raoof128.github.io.git qrshield
-cd qrshield
+git clone https://github.com/Raoof128/Raoof128.github.io.git mehrguard
+cd mehrguard
 
 # Run desktop app directly
 ./gradlew :desktopApp:run
 
 # Or build standalone JAR
 ./gradlew :desktopApp:packageUberJarForCurrentOS
-java -jar desktopApp/build/compose/jars/QRShield-*.jar
+java -jar desktopApp/build/compose/jars/MehrGuard-*.jar
 ```
 
 </details>
@@ -244,8 +244,8 @@ java -jar desktopApp/build/compose/jars/QRShield-*.jar
 
 ```bash
 # Prerequisites: JDK 17+
-git clone https://github.com/Raoof128/Raoof128.github.io.git qrshield
-cd qrshield
+git clone https://github.com/Raoof128/Raoof128.github.io.git mehrguard
+cd mehrguard
 
 # Development server (hot reload)
 ./gradlew :webApp:jsBrowserDevelopmentRun
@@ -344,7 +344,7 @@ cd qrshield
 
 ### 🧠 Ensemble ML Architecture
 
-> **Beyond basic classification:** QR-SHIELD uses an ensemble of three model types for robust, explainable predictions.
+> **Beyond basic classification:** Mehr Guard uses an ensemble of three model types for robust, explainable predictions.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -393,16 +393,16 @@ cd qrshield
 
 ---
 
-## 📦 SDK: Use QR-SHIELD in Your Project
+## 📦 SDK: Use Mehr Guard in Your Project
 
-> **This isn't just an app — it's a library.** Integrate QR-SHIELD's detection engine into your own Kotlin Multiplatform project.
+> **This isn't just an app — it's a library.** Integrate Mehr Guard's detection engine into your own Kotlin Multiplatform project.
 
 ### Installation
 
 ```kotlin
 // build.gradle.kts (KMP commonMain)
 dependencies {
-    implementation("com.qrshield:core:1.4.0")
+    implementation("com.mehrguard:core:1.4.0")
 }
 ```
 
@@ -431,8 +431,8 @@ dependencyResolutionManagement {
 ### Basic Usage
 
 ```kotlin
-import com.qrshield.core.PhishingEngine
-import com.qrshield.model.Verdict
+import com.mehrguard.core.PhishingEngine
+import com.mehrguard.model.Verdict
 
 // 1. Create engine (reuse across your app)
 val engine = PhishingEngine()
@@ -490,10 +490,10 @@ val customEngine = PhishingEngine(weightsConfig = weights)
 
 | Platform | Additional Setup |
 |----------|------------------|
-| **Android** | `implementation("com.qrshield:core-android:1.4.0")` — includes ML Kit bridge |
+| **Android** | `implementation("com.mehrguard:core-android:1.4.0")` — includes ML Kit bridge |
 | **iOS** | Add `common.framework` from KMP build |
-| **Desktop** | `implementation("com.qrshield:core-jvm:1.4.0")` — includes ZXing |
-| **Web** | `implementation("com.qrshield:core-js:1.4.0")` — Kotlin/JS module |
+| **Desktop** | `implementation("com.mehrguard:core-jvm:1.4.0")` — includes ZXing |
+| **Web** | `implementation("com.mehrguard:core-js:1.4.0")` — Kotlin/JS module |
 
 ### Publish Your Own Fork
 
@@ -511,7 +511,7 @@ export GITHUB_TOKEN=your-token
 
 ## 🆕 Novelty Features (v1.2.0)
 
-> **What makes QR-SHIELD unique.** These features go beyond typical "heuristics + ML" implementations.
+> **What makes Mehr Guard unique.** These features go beyond typical "heuristics + ML" implementations.
 
 ### 1. 🏢 Local Policy Engine
 
@@ -590,7 +590,7 @@ val result = AdversarialDefense.normalize("https://аpple.com/verify")
 
 > **Beyond static databases:** Detect brand impersonation for brands NOT in the 500+ hardcoded database.
 
-Most security tools rely on static brand databases that quickly become outdated. QR-SHIELD's **Dynamic Brand Discovery** engine detects impersonation patterns for *any* brand:
+Most security tools rely on static brand databases that quickly become outdated. Mehr Guard's **Dynamic Brand Discovery** engine detects impersonation patterns for *any* brand:
 
 | Pattern Type | Example | Detection |
 |--------------|---------|-----------|
@@ -613,7 +613,7 @@ val result = DynamicBrandDiscovery.analyze("https://mybank-secure-login.tk/verif
 - Regional banks and niche services are often targeted
 - Attackers know which brands are in security databases and target others
 
-📄 **Implementation:** [`DynamicBrandDiscovery.kt`](common/src/commonMain/kotlin/com/qrshield/engine/DynamicBrandDiscovery.kt)
+📄 **Implementation:** [`DynamicBrandDiscovery.kt`](common/src/commonMain/kotlin/com/mehrguard/engine/DynamicBrandDiscovery.kt)
 
 ### 5. 🎮 Beat the Bot (Gamified Security Testing)
 
@@ -626,7 +626,7 @@ The "Beat the Bot" mode transforms security testing into an engaging experience:
 │              🎮 BEAT THE BOT - CHALLENGE MODE                    │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
-│  YOUR MISSION: Submit a phishing URL that QR-SHIELD misses      │
+│  YOUR MISSION: Submit a phishing URL that Mehr Guard misses      │
 │                                                                  │
 │  ┌─────────────────────────────────────────────────────────────┐ │
 │  │  Enter adversarial URL: [________________________]          │ │
@@ -649,14 +649,14 @@ The "Beat the Bot" mode transforms security testing into an engaging experience:
 - **Crowdsourced red-teaming:** Discover edge cases from real adversarial attempts
 - **Engagement:** Gamification increases security awareness retention
 
-📄 **Implementation:** [`BeatTheBot.kt`](common/src/commonMain/kotlin/com/qrshield/gamification/BeatTheBot.kt) | [`BeatTheBotScreen.kt`](common/src/commonMain/kotlin/com/qrshield/ui/game/BeatTheBotScreen.kt)
+📄 **Implementation:** [`BeatTheBot.kt`](common/src/commonMain/kotlin/com/mehrguard/gamification/BeatTheBot.kt) | [`BeatTheBotScreen.kt`](common/src/commonMain/kotlin/com/mehrguard/ui/game/BeatTheBotScreen.kt)
 
 ---
 
 
 ## 📸 Key Screens
 
-> **Visual overview of QR-SHIELD's detection capabilities and cross-platform UI.**
+> **Visual overview of Mehr Guard's detection capabilities and cross-platform UI.**
 
 ### 🔴 High-Risk QR Detection Screen
 ![High-Risk Detection](docs/screenshots/high_risk_detection.png)
@@ -763,7 +763,7 @@ This is a **deliberate architectural choice**, not a limitation:
 **SwiftUI calls Kotlin detection engine directly:**
 
 ```swift
-// iosApp/QRShield/KMPBridge.swift
+// iosApp/MehrGuard/KMPBridge.swift
 import common  // ← Kotlin Framework!
 
 class PhishingAnalyzer {
@@ -777,7 +777,7 @@ class PhishingAnalyzer {
 
 **Verification Steps:**
 1. Build KMP framework: `./gradlew :common:linkDebugFrameworkIosSimulatorArm64`
-2. Open `iosApp/QRShield.xcodeproj`
+2. Open `iosApp/MehrGuard.xcodeproj`
 3. Set breakpoint in `KMPBridge.swift` on `engine.analyzeBlocking()`
 4. Run app, scan QR code, observe breakpoint hits
 
@@ -874,7 +874,7 @@ Each platform boundary is documented with **WHY** it must be native:
 Even UI state and text generation are shared:
 
 ```
-common/src/commonMain/kotlin/com/qrshield/ui/
+common/src/commonMain/kotlin/com/mehrguard/ui/
 ├── SharedViewModel.kt        ← State machine (SHARED)
 ├── SharedTextGenerator.kt    ← Risk explanations (SHARED)
 └── LocalizationKeys.kt       ← ~80 string keys (SHARED)
@@ -885,7 +885,7 @@ Platforms **only render** what the shared module provides — they don't duplica
 ### What's Actually Shared (commonMain)
 
 ```
-common/src/commonMain/kotlin/com/qrshield/
+common/src/commonMain/kotlin/com/mehrguard/
 ├── core/
 │   ├── PhishingEngine.kt      ← Main detection orchestrator (SHARED)
 │   ├── DetectionConfig.kt     ← Tunable parameters (SHARED)
@@ -970,7 +970,7 @@ flowchart TB
 ### expect/actual Pattern (Platform Abstraction)
 
 ```kotlin
-// ✅ SHARED: commonMain/kotlin/com/qrshield/scanner/QrScanner.kt
+// ✅ SHARED: commonMain/kotlin/com/mehrguard/scanner/QrScanner.kt
 expect class QrScanner {
     fun decode(imageData: ByteArray): String?
 }
@@ -1018,7 +1018,7 @@ The result card is designed to be instantly recognizable and memorable:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                         🛡️ QR-SHIELD                            │
+│                         🛡️ Mehr Guard                            │
 │                      ANALYSIS COMPLETE                          │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
@@ -1056,7 +1056,7 @@ The result card is designed to be instantly recognizable and memorable:
 
 **NEW: Component Voting System (v1.19.0)**
 
-QR-SHIELD uses a **democratic voting system** where each detection component casts a vote for SAFE/SUSPICIOUS/MALICIOUS. This prevents one overly-cautious component from overriding clear signals from others.
+Mehr Guard uses a **democratic voting system** where each detection component casts a vote for SAFE/SUSPICIOUS/MALICIOUS. This prevents one overly-cautious component from overriding clear signals from others.
 
 | Component | Vote Based On | Thresholds |
 |-----------|---------------|------------|
@@ -1553,7 +1553,7 @@ fun DesktopResultScreen(assessment: UrlAssessment) {
 
 | Error State | Title | Message | Action |
 |-------------|-------|---------|--------|
-| **Camera Denied** | Camera Access Required | QR-SHIELD needs camera access to scan QR codes. | [ Open Settings ] |
+| **Camera Denied** | Camera Access Required | Mehr Guard needs camera access to scan QR codes. | [ Open Settings ] |
 | **Camera in Use** | Camera Unavailable | Another app is using the camera. Please close it and try again. | [ Try Again ] |
 | **Storage Denied** | Photo Access Required | To scan QR codes from your gallery, please grant photo access. | [ Open Settings ] |
 | **Unknown Error** | Something Went Wrong | An unexpected error occurred. Please try again. | [ Try Again ] [ Report Issue ] |
@@ -1846,7 +1846,7 @@ This killer sentence defines our philosophy: **transparency over trust**. Users 
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  CLOUD SCANNERS:                   QR-SHIELD:                   │
+│  CLOUD SCANNERS:                   Mehr Guard:                   │
 │  ────────────────                  ───────────                  │
 │  Upload every URL to servers       Analysis runs 100% locally   │
 │  Build profiles on your habits     Zero data collection         │
@@ -1867,7 +1867,7 @@ This killer sentence defines our philosophy: **transparency over trust**. Users 
 | Consistent protection required | Guaranteed feature parity |
 | Maintenance burden grows with platforms | 70-80% shared code |
 
-📄 **Full Story:** [ESSAY.md](ESSAY.md) — The personal journey behind QR-SHIELD
+📄 **Full Story:** [ESSAY.md](ESSAY.md) — The personal journey behind Mehr Guard
 
 ---
 
@@ -1950,9 +1950,9 @@ Before submitting, we asked ourselves the hardest questions:
 
 ## 🎯 Elevator Pitch
 
-> **"QR-SHIELD is a Kotlin Multiplatform security app that provides real-time, offline phishing detection across Android, iOS, Desktop, and Web—with a single shared codebase."**
+> **"Mehr Guard is a Kotlin Multiplatform security app that provides real-time, offline phishing detection across Android, iOS, Desktop, and Web—with a single shared codebase."**
 
-QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, and uses a multi-layer analysis engine combining **cybersecurity heuristics**, **ML-lite scoring**, and **brand impersonation detection** to protect users from QRishing (QR code phishing) attacks.
+Mehr Guard scans QR codes from your camera or gallery, extracts embedded URLs, and uses a multi-layer analysis engine combining **cybersecurity heuristics**, **ML-lite scoring**, and **brand impersonation detection** to protect users from QRishing (QR code phishing) attacks.
 
 **Verifiable Claims (Test These Yourself):**
 - **Local-first**: Zero network requests during analysis (verify via Network Inspector)
@@ -2000,7 +2000,7 @@ QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, an
 │  ❌ Dangerous TLD: ".tk" (free, abused)                                │
 │  ❌ Fake payment form captures credentials                              │
 │                                                                         │
-│  QR-SHIELD DETECTION: Score 87 → MALICIOUS                             │
+│  Mehr Guard DETECTION: Score 87 → MALICIOUS                             │
 │  • BRAND_IMPERSONATION (+35)                                           │
 │  • SUSPICIOUS_TLD (+25)                                                │
 │  • TYPOSQUATTING (+15)                                                 │
@@ -2026,7 +2026,7 @@ QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, an
 │                      DATA FLOW COMPARISON                            │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                      │
-│  ❌ CLOUD-BASED SCANNER          ✅ QR-SHIELD (OFFLINE)              │
+│  ❌ CLOUD-BASED SCANNER          ✅ Mehr Guard (OFFLINE)              │
 │  ───────────────────────         ─────────────────────               │
 │  User scans QR                   User scans QR                       │
 │       ↓                               ↓                              │
@@ -2043,7 +2043,7 @@ QR-SHIELD scans QR codes from your camera or gallery, extracts embedded URLs, an
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-**QR-SHIELD never uploads your URLs.** Analysis happens 100% on-device using our shared Kotlin engine. This matters because:
+**Mehr Guard never uploads your URLs.** Analysis happens 100% on-device using our shared Kotlin engine. This matters because:
 - Scanned URLs reveal browsing intent, locations, and habits
 - Cloud scanners build profiles they can sell or be forced to disclose
 - Medical, legal, financial QR scans deserve privacy
@@ -2073,7 +2073,7 @@ val result = HomographDetector().detect("pаypаl.com")
 ```
 
 **Real Example:**
-| URL | Looks Like | Reality | QR-SHIELD |
+| URL | Looks Like | Reality | Mehr Guard |
 |-----|------------|---------|-----------|
 | `pаypаl.com` | paypal.com | Cyrillic 'а' (U+0430) | ❌ **MALICIOUS** (+45) |
 | `gοοgle.com` | google.com | Greek 'ο' (U+03BF) | ❌ **MALICIOUS** (+40) |
@@ -2151,7 +2151,7 @@ class StaticRedirectPatternAnalyzer {
 - Track victim engagement
 - Rotate destinations to avoid detection
 
-**QR-SHIELD Detection:**
+**Mehr Guard Detection:**
 | Pattern | Example | Detection |
 |---------|---------|-----------|
 | Shortener | `bit.ly/abc123` | +15 score |
@@ -2163,13 +2163,13 @@ class StaticRedirectPatternAnalyzer {
 
 ## 🔧 What Makes This NOT a Template
 
-> **This is NOT a starter template or "Hello World" project. QR-SHIELD is a production-ready security application with custom-built components demonstrating advanced Kotlin Multiplatform mastery.**
+> **This is NOT a starter template or "Hello World" project. Mehr Guard is a production-ready security application with custom-built components demonstrating advanced Kotlin Multiplatform mastery.**
 
 ### 🧠 Custom Detection Engine (Not Boilerplate)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                    QR-SHIELD Custom Architecture                        │
+│                    Mehr Guard Custom Architecture                        │
 ├─────────────────────────────────────────────────────────────────────────┤
 │  PhishingEngine.kt          → 25+ security heuristics                   │
 │  BrandDetector.kt           → 500+ brand database with fuzzy matching   │
@@ -2180,7 +2180,7 @@ class StaticRedirectPatternAnalyzer {
 └─────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Evidence:** See [`common/src/commonMain/kotlin/com/qrshield/`](common/src/commonMain/kotlin/com/qrshield/) — 15,000+ lines of original business logic.
+**Evidence:** See [`common/src/commonMain/kotlin/com/mehrguard/`](common/src/commonMain/kotlin/com/mehrguard/) — 15,000+ lines of original business logic.
 
 ### 🤖 ML-Lite Scoring (Hand-Crafted Model)
 
@@ -2243,7 +2243,7 @@ actual class QrScanner {
 │   ├── RealWorldPhishingTest.kt → Defanged phishing URLs
 │   └── PerformanceBenchmarkTest.kt → <50ms target validation
 ├── androidApp/src/androidTest/ → UI tests (Compose)
-├── iosApp/QRShieldUITests/    → XCUITest suite
+├── iosApp/MehrGuardUITests/    → XCUITest suite
 └── desktopApp/src/desktopTest/ → JVM unit tests
 ```
 
@@ -2320,7 +2320,7 @@ Our GitHub Actions workflow includes:
 | `model/` | Data models | `UrlAssessment`, `Verdict`, `RiskFlag` |
 | `data/` | Persistence | `HistoryRepository`, `ScanResult` |
 | `scanner/` | QR interface | `QrScanner` (expect) |
-| `ui/theme/` | Theme tokens | `QRShieldColors`, `Typography` |
+| `ui/theme/` | Theme tokens | `MehrGuardColors`, `Typography` |
 
 ### What is Platform-Specific (and Why)
 
@@ -2350,9 +2350,9 @@ expect class DatabaseDriverFactory {
 actual class DatabaseDriverFactory(private val context: Context) {
     actual fun createDriver(): SqlDriver {
         return AndroidSqliteDriver(
-            schema = QRShieldDatabase.Schema,
+            schema = MehrGuardDatabase.Schema,
             context = context,
-            name = "qrshield.db"
+            name = "mehrguard.db"
         )
     }
 }
@@ -2361,8 +2361,8 @@ actual class DatabaseDriverFactory(private val context: Context) {
 actual class DatabaseDriverFactory {
     actual fun createDriver(): SqlDriver {
         return NativeSqliteDriver(
-            schema = QRShieldDatabase.Schema,
-            name = "qrshield.db"
+            schema = MehrGuardDatabase.Schema,
+            name = "mehrguard.db"
         )
     }
 }
@@ -2541,7 +2541,7 @@ actual object FeedbackManager {
 
 | Scanner Type | Latency | Privacy | Offline | Battery |
 |--------------|---------|---------|---------|---------|
-| **QR-SHIELD (Local)** | **25-50ms** ✅ | 100% private | ✅ Works offline | 🔋 Minimal |
+| **Mehr Guard (Local)** | **25-50ms** ✅ | 100% private | ✅ Works offline | 🔋 Minimal |
 | Google Safe Browsing | 200-500ms | Sends URL hash | ❌ Requires network | 🔋 High |
 | VirusTotal API | 500-2000ms | Sends full URL | ❌ Requires network | 🔋 High |
 | PhishTank API | 300-800ms | Sends full URL | ❌ Requires network | 🔋 Medium |
@@ -2550,7 +2550,7 @@ actual object FeedbackManager {
 ### Throughput Comparison
 
 ```
-QR-SHIELD (Local):     ████████████████████████████████ 200+ URLs/sec
+Mehr Guard (Local):     ████████████████████████████████ 200+ URLs/sec
 Google Safe Browsing:  ████████              ~5 URLs/sec (rate limited)
 VirusTotal:            ████                  ~4 URLs/sec (API limits)
 PhishTank:             ██████                ~10 URLs/sec
@@ -2666,7 +2666,7 @@ ls common/build/bin/iosArm64/releaseFramework/common.framework
 ```
 
 #### Xcode Integration Steps
-1. Open `iosApp/QRShield.xcodeproj` in Xcode 15+
+1. Open `iosApp/MehrGuard.xcodeproj` in Xcode 15+
 2. Build for iOS Simulator (⌘+B)
 3. Run on iPhone 14 Pro simulator (⌘+R)
 4. Grant camera permissions when prompted
@@ -2674,7 +2674,7 @@ ls common/build/bin/iosArm64/releaseFramework/common.framework
 
 #### Verification
 - **Framework location:** `common/build/bin/iosArm64/releaseFramework/`
-- **Swift files:** `iosApp/QRShield/` (6,471 LOC)
+- **Swift files:** `iosApp/MehrGuard/` (6,471 LOC)
 - **AVFoundation:** `UI/Scanner/CameraPreview.swift` (372 LOC)
 - **KMP Bridge:** `Models/KMPBridge.swift` (134 LOC)
 
@@ -2686,7 +2686,7 @@ ls common/build/bin/iosArm64/releaseFramework/common.framework
 
 [![Demo Video](https://img.shields.io/badge/▶️_Watch_3--Minute_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=DEMO_PENDING)
 
-**See QR-SHIELD in action across all platforms:**
+**See Mehr Guard in action across all platforms:**
 
 | Platform | Feature Demonstrated |
 |----------|---------------------|
@@ -2745,7 +2745,7 @@ ls common/build/bin/iosArm64/releaseFramework/common.framework
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           QR-SHIELD ARCHITECTURE                            │
+│                           Mehr Guard ARCHITECTURE                            │
 └─────────────────────────────────────────────────────────────────────────────┘
 
 ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐
@@ -2862,14 +2862,14 @@ actual class QrScannerFactory {
 
 #### 🍎 Zero-Wrapper iOS Implementation (cinterop)
 
-**QR-SHIELD uses Kotlin Native `cinterop` to access iOS `AVFoundation` framework directly from Kotlin code.**
+**Mehr Guard uses Kotlin Native `cinterop` to access iOS `AVFoundation` framework directly from Kotlin code.**
 
 This is our biggest technical achievement—no Swift wrappers needed for camera access. Here's a side-by-side comparison:
 
 <table>
 <tr>
 <th>Traditional Swift Implementation</th>
-<th>QR-SHIELD Kotlin Native</th>
+<th>Mehr Guard Kotlin Native</th>
 </tr>
 <tr>
 <td>
@@ -2938,7 +2938,7 @@ Scan history persists across app restarts on ALL platforms:
 
 ```kotlin
 // commonMain - Platform-agnostic repository
-class SqlDelightHistoryRepository(database: QRShieldDatabase) : HistoryRepository {
+class SqlDelightHistoryRepository(database: MehrGuardDatabase) : HistoryRepository {
     private val queries = database.scanHistoryQueries
     
     override fun observe(): Flow<List<ScanHistoryItem>> = 
@@ -3015,13 +3015,13 @@ cd Raoof128.github.io
 2. Navigate to: **https://raoof128.github.io/**
 3. Tap the **Share** button (box with arrow)
 4. Scroll down and tap **"Add to Home Screen"**
-5. Name it "QR-SHIELD" and tap **Add**
+5. Name it "Mehr Guard" and tap **Add**
 
 The app will appear on your home screen and work like a native app!
 
 ### 🍎 iOS Native App (For Judges)
 
-**QR-SHIELD includes a complete native iOS SwiftUI app that calls Kotlin code via KMP framework.**
+**Mehr Guard includes a complete native iOS SwiftUI app that calls Kotlin code via KMP framework.**
 
 #### Quick Start (Xcode Simulator)
 
@@ -3030,7 +3030,7 @@ The app will appear on your home screen and work like a native app!
 ./gradlew :common:linkDebugFrameworkIosSimulatorArm64
 
 # Step 2: Open in Xcode
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 
 # Step 3: Select iPhone 16 Pro simulator and press ⌘+R
 ```
@@ -3041,7 +3041,7 @@ open iosApp/QRShield.xcodeproj
 |------|---------|
 | `KMPBridge.swift` | Calls `HeuristicsEngine.analyze()` from Kotlin |
 | `KMPDemoView.swift` | Demo view showing KMP integration in action |
-| `QRShieldApp.swift` | SwiftUI @main App with TabView navigation |
+| `MehrGuardApp.swift` | SwiftUI @main App with TabView navigation |
 | `build_framework.sh` | Script to build and copy KMP framework |
 
 #### Judge Criteria Met ✅
@@ -3284,10 +3284,10 @@ Final Score = (
 
 ```bash
 # Run real-world phishing test suite
-./gradlew :common:jvmTest --tests "com.qrshield.RealWorldPhishingTest"
+./gradlew :common:jvmTest --tests "com.mehrguard.RealWorldPhishingTest"
 
 # Run performance benchmarks
-./gradlew :common:jvmTest --tests "com.qrshield.benchmark.PerformanceBenchmarkTest"
+./gradlew :common:jvmTest --tests "com.mehrguard.benchmark.PerformanceBenchmarkTest"
 ```
 
 ---
@@ -3296,7 +3296,7 @@ Final Score = (
 
 ### Zero-Tolerance Lint Policy
 
-QR-SHIELD enforces **zero-tolerance** for code quality issues. We deleted the detekt-baseline.xml file that contained 253 suppressed issues and now fail CI on ANY violation.
+Mehr Guard enforces **zero-tolerance** for code quality issues. We deleted the detekt-baseline.xml file that contained 253 suppressed issues and now fail CI on ANY violation.
 
 ```yaml
 # detekt.yml - Key rules enforced
@@ -3375,7 +3375,7 @@ Produces formatted confusion matrix:
 
 ```
 ╔══════════════════════════════════════════════════════════════╗
-║           QR-SHIELD ACCURACY VERIFICATION REPORT            ║
+║           Mehr Guard ACCURACY VERIFICATION REPORT            ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  CONFUSION MATRIX:                                          ║
 ║  │             │ Pred PHISH  │ Pred SAFE   │                ║
@@ -3450,7 +3450,7 @@ Verifies mathematical invariants:
 
 ## ⚡ Coroutines & Flow Best Practices
 
-QR-SHIELD follows Kotlin structured concurrency best practices:
+Mehr Guard follows Kotlin structured concurrency best practices:
 
 ### ✅ No GlobalScope
 
@@ -3703,14 +3703,14 @@ This project was created specifically for the **Kotlin Student Coding Competitio
 | **First Commit** | December 6, 2025 (`d61beda`) |
 | **First Release** | v1.1.0 on December 12, 2025 |
 | **Development Window** | December 2025 – Present |
-| **Copyright** | 2025-2026 QR-SHIELD Contributors |
+| **Copyright** | 2025-2026 Mehr Guard Contributors |
 
 ### 📜 Git History Proof
 
 ```bash
 # Earliest commits (run locally to verify)
 $ git log --reverse --oneline | head -5
-d61beda 🛡️ Initial release: QR-SHIELD v1.0.0
+d61beda 🛡️ Initial release: Mehr Guard v1.0.0
 5db1b98 🔧 Add Gradle wrapper
 f3498d8 📦 Add gradle-wrapper.jar
 ffccb81 🔧 Fix CI: Remove chmod steps
@@ -3735,9 +3735,9 @@ v1.1.0  # Created: 2025-12-12
 
 <div align="center">
 
-[![QR-SHIELD Demo](https://img.shields.io/badge/▶️_Watch_Full_Demo-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+[![Mehr Guard Demo](https://img.shields.io/badge/▶️_Watch_Full_Demo-FF0000?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
 
-*Coming Soon: Full walkthrough video showing QR-SHIELD in action across all 5 platforms*
+*Coming Soon: Full walkthrough video showing Mehr Guard in action across all 5 platforms*
 
 </div>
 
@@ -3752,9 +3752,9 @@ v1.1.0  # Created: 2025-12-12
 
 ## ⚠️ Limitations
 
-> **Transparency builds trust.** Here's what QR-SHIELD can and cannot do.
+> **Transparency builds trust.** Here's what Mehr Guard can and cannot do.
 
-### What QR-SHIELD CANNOT Detect
+### What Mehr Guard CANNOT Detect
 
 | Limitation | Reason | Mitigation |
 |------------|--------|------------|
@@ -3775,7 +3775,7 @@ v1.1.0  # Created: 2025-12-12
 
 ### Why We're Honest About This
 
-Real security tools acknowledge their boundaries. QR-SHIELD is a **first line of defense**, not a replacement for:
+Real security tools acknowledge their boundaries. Mehr Guard is a **first line of defense**, not a replacement for:
 - User education about phishing
 - Enterprise security solutions
 - Network-level threat detection
@@ -3846,7 +3846,7 @@ Have a feature idea? [Open an issue](https://github.com/Raoof128/Raoof128.github
 
 ## 📚 API Documentation
 
-> **For developers who want to integrate QR-SHIELD's detection engine.**
+> **For developers who want to integrate Mehr Guard's detection engine.**
 
 ### Core API
 
@@ -3855,8 +3855,8 @@ Have a feature idea? [Open an issue](https://github.com/Raoof128/Raoof128.github
 The main entry point for phishing analysis.
 
 ```kotlin
-import com.qrshield.core.PhishingEngine
-import com.qrshield.model.Verdict
+import com.mehrguard.core.PhishingEngine
+import com.mehrguard.model.Verdict
 
 val engine = PhishingEngine()
 
@@ -3886,7 +3886,7 @@ enum class Verdict {
 Direct access to heuristic analysis.
 
 ```kotlin
-import com.qrshield.engine.HeuristicsEngine
+import com.mehrguard.engine.HeuristicsEngine
 
 val heuristics = HeuristicsEngine()
 val result = heuristics.analyze("https://paypal-verify.tk/login")
@@ -3902,7 +3902,7 @@ result.details  // Map<String, Int> - individual scores
 Detect brand impersonation attempts.
 
 ```kotlin
-import com.qrshield.engine.BrandDetector
+import com.mehrguard.engine.BrandDetector
 
 val detector = BrandDetector()
 val brand = detector.detect("https://paypa1-secure.com/login")
@@ -3918,7 +3918,7 @@ brand?.keywords    // ["paypal", "pay", "pal"]
 Evaluate domain risk based on TLD.
 
 ```kotlin
-import com.qrshield.engine.TldScorer
+import com.mehrguard.engine.TldScorer
 
 val scorer = TldScorer()
 val result = scorer.score("https://suspicious.tk/path")
@@ -3962,8 +3962,8 @@ class SecurityScanner(context: Context) {
 ```kotlin
 // build.gradle.kts
 dependencies {
-    implementation("com.qrshield:core:1.1.3")
-    implementation("com.qrshield:engine:1.1.3")
+    implementation("com.mehrguard:core:1.1.3")
+    implementation("com.mehrguard:engine:1.1.3")
 }
 ```
 
@@ -4016,7 +4016,7 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 > **Educational Project Notice**
 >
-> QR-SHIELD is an educational project created for the KotlinConf 2025-2026 Student Coding Competition.
+> Mehr Guard is an educational project created for the KotlinConf 2025-2026 Student Coding Competition.
 >
 > - All brand names, logos, and trademarks mentioned in the brand detection database are the property of their respective owners.
 > - Brand detection is performed solely for security research purposes to identify potential phishing attempts.
@@ -4024,4 +4024,4 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 > - Google Lens™ is a trademark of Google LLC. Kaspersky™ is a trademark of Kaspersky Lab.
 > - Shield icons and UI elements are original creations or used under permissive licenses.
 >
-> **Use at your own risk.** While QR-SHIELD provides phishing detection, no security tool is 100% accurate. Always exercise caution when visiting unfamiliar URLs.
+> **Use at your own risk.** While Mehr Guard provides phishing detection, no security tool is 100% accurate. Always exercise caution when visiting unfamiliar URLs.

@@ -1,15 +1,15 @@
-# QR-SHIELD Android App - Agent Guide
+# Mehr Guard Android App - Agent Guide
 
 ## Project Overview
 
-**QR-SHIELD** is a Kotlin Multiplatform (KMP) phishing detection app for scanning QR codes and analyzing URLs for security threats. The Android app is built with Jetpack Compose and follows Material 3 design guidelines.
+**Mehr Guard** is a Kotlin Multiplatform (KMP) phishing detection app for scanning QR codes and analyzing URLs for security threats. The Android app is built with Jetpack Compose and follows Material 3 design guidelines.
 
 ## Architecture
 
 ```
 androidApp/
 ├── src/main/
-│   ├── kotlin/com/qrshield/android/
+│   ├── kotlin/com/mehrguard/android/
 │   │   ├── ui/
 │   │   │   ├── screens/          # Composable screens
 │   │   │   ├── navigation/       # Navigation setup
@@ -88,7 +88,7 @@ When adding a new string:
 
 ```kotlin
 import androidx.compose.ui.res.stringResource
-import com.qrshield.android.R
+import com.mehrguard.android.R
 ```
 
 ### Example Usage
@@ -105,11 +105,11 @@ Toast.makeText(context, context.getString(R.string.toast_saved), Toast.LENGTH_SH
 
 ### Theme Colors
 
-Use `QRShieldColors` from `ui/theme/`:
-- `QRShieldColors.Primary` - Main brand color
-- `QRShieldColors.RiskDanger` - High risk/malicious
-- `QRShieldColors.RiskWarning` - Suspicious/warning
-- `QRShieldColors.RiskSafe` - Safe/verified
+Use `MehrGuardColors` from `ui/theme/`:
+- `MehrGuardColors.Primary` - Main brand color
+- `MehrGuardColors.RiskDanger` - High risk/malicious
+- `MehrGuardColors.RiskWarning` - Suspicious/warning
+- `MehrGuardColors.RiskSafe` - Safe/verified
 
 ## Post-Edit Checklist
 
@@ -126,7 +126,7 @@ After making changes:
 - **String Keys**: 629
 - **Languages**: 16 (1 base + 15 localized)
 - **Content Descriptions**: 197 across 20 files
-- **Design System Usages**: 374 (QRShieldColors/Shapes)
+- **Design System Usages**: 374 (MehrGuardColors/Shapes)
 - **Drawable Icons**: 15 (including 3 new module icons)
 - **Last Updated**: 2025-12-30
 
@@ -202,7 +202,7 @@ After making changes:
 **Scope:** Comprehensive UI/UX + accessibility audit
 
 **Summary:**
-- Verified all screens use QRShieldColors design system consistently
+- Verified all screens use MehrGuardColors design system consistently
 - Confirmed touch targets meet 48dp minimum (IconButtons)
 - Verified 197+ contentDescription labels across 20 files
 - Confirmed LazyLists use stable unique keys

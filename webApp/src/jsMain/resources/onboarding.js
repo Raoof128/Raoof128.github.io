@@ -1,10 +1,10 @@
 /**
- * QR-SHIELD Onboarding Page Controller
+ * Mehr Guard Onboarding Page Controller
  * 
  * Handles the offline privacy onboarding flow,
  * settings management, and navigation.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.1
  */
 
@@ -14,8 +14,8 @@
 
 const OnboardingConfig = {
     version: '2.4.1',
-    settingsKey: 'qrshield_settings',
-    onboardingCompleteKey: 'qrshield_onboarding_complete',
+    settingsKey: 'mehrguard_settings',
+    onboardingCompleteKey: 'mehrguard_onboarding_complete',
 };
 
 // =============================================================================
@@ -33,15 +33,15 @@ const OnboardingState = {
 };
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
@@ -66,7 +66,7 @@ const elements = {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Onboarding] Initializing v' + OnboardingConfig.version);
+    console.log('[Mehr Guard Onboarding] Initializing v' + OnboardingConfig.version);
 
     // Cache DOM elements
     cacheElements();
@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add staggered animations
     animateFeatureCards();
 
-    window.qrshieldApplyTranslations?.(document.body);
+    window.mehrguardApplyTranslations?.(document.body);
 
-    console.log('[QR-SHIELD Onboarding] Ready');
+    console.log('[Mehr Guard Onboarding] Ready');
 });
 
 /**
@@ -136,20 +136,20 @@ function setupEventListeners() {
 }
 
 // =============================================================================
-// SETTINGS MANAGEMENT (Using QRShieldUI API)
+// SETTINGS MANAGEMENT (Using MehrGuardUI API)
 // =============================================================================
 
 /**
  * Load settings from localStorage and update UI
  */
 function loadSettings() {
-    // Wait for QRShieldUI to be available
-    if (!window.QRShieldUI) {
+    // Wait for MehrGuardUI to be available
+    if (!window.MehrGuardUI) {
         setTimeout(loadSettings, 100);
         return;
     }
 
-    const settings = window.QRShieldUI.getSettings();
+    const settings = window.MehrGuardUI.getSettings();
     OnboardingState.settings = settings;
 
     // Update sensitivity select
@@ -178,7 +178,7 @@ function loadSettings() {
     // Load language setting
     const languageEl = document.getElementById('settingLanguage');
     if (languageEl) {
-        const savedLang = localStorage.getItem('qrshield_language') || 'en';
+        const savedLang = localStorage.getItem('mehrguard_language') || 'en';
         languageEl.value = savedLang;
     }
 }
@@ -187,9 +187,9 @@ function loadSettings() {
  * Save settings to localStorage
  */
 function saveSettings() {
-    if (!window.QRShieldUI) return;
+    if (!window.MehrGuardUI) return;
 
-    window.QRShieldUI.saveSettings(OnboardingState.settings);
+    window.MehrGuardUI.saveSettings(OnboardingState.settings);
 }
 
 /**
@@ -243,15 +243,15 @@ function setupSettingsListeners() {
     if (languageEl) {
         languageEl.addEventListener('change', (e) => {
             const newLang = e.target.value;
-            localStorage.setItem('qrshield_language', newLang);
+            localStorage.setItem('mehrguard_language', newLang);
 
             // Update the language in the app
-            if (window.qrshieldSetLanguage) {
-                window.qrshieldSetLanguage(newLang);
+            if (window.mehrguardSetLanguage) {
+                window.mehrguardSetLanguage(newLang);
             }
 
             // Re-apply translations to the page
-            window.qrshieldApplyTranslations?.(document.body);
+            window.mehrguardApplyTranslations?.(document.body);
 
             showToast('Language changed. Reload for full effect.', 'success');
         });
@@ -262,13 +262,13 @@ function setupSettingsListeners() {
     const redTeamPanel = document.getElementById('redTeamScenariosPanel');
     if (judgeDemoToggle && redTeamPanel) {
         // Load saved state
-        const savedState = localStorage.getItem('qrshield_judge_demo_mode') === 'true';
+        const savedState = localStorage.getItem('mehrguard_judge_demo_mode') === 'true';
         judgeDemoToggle.checked = savedState;
         redTeamPanel.style.display = savedState ? 'block' : 'none';
         
         judgeDemoToggle.addEventListener('change', (e) => {
             const enabled = e.target.checked;
-            localStorage.setItem('qrshield_judge_demo_mode', enabled);
+            localStorage.setItem('mehrguard_judge_demo_mode', enabled);
             redTeamPanel.style.display = enabled ? 'block' : 'none';
             showToast(enabled ? '🕵️ Judge Demo Mode enabled' : 'Judge Demo Mode disabled', enabled ? 'warning' : 'success');
         });
@@ -278,7 +278,7 @@ function setupSettingsListeners() {
     document.querySelectorAll('.red-team-chip').forEach(chip => {
         chip.addEventListener('click', (e) => {
             const url = e.target.getAttribute('data-url');
-            if (url && window.qrshieldAnalyze) {
+            if (url && window.mehrguardAnalyze) {
                 showToast('🔍 Analyzing: ' + url.substring(0, 30) + '...', 'info');
                 // Navigate to scanner with the URL
                 window.location.href = 'scanner.html?demo_url=' + encodeURIComponent(url);
@@ -296,7 +296,7 @@ function setupSettingsListeners() {
  * Reset settings to defaults
  */
 function resetSettings() {
-    if (!window.QRShieldUI) return;
+    if (!window.MehrGuardUI) return;
 
     // Get default settings
     const defaults = {
@@ -316,7 +316,7 @@ function resetSettings() {
     };
 
     OnboardingState.settings = defaults;
-    window.QRShieldUI.saveSettings(defaults);
+    window.MehrGuardUI.saveSettings(defaults);
 
     // Reload UI
     loadSettings();
@@ -352,8 +352,8 @@ function enableOfflineMode() {
     showSuccessAnimation();
 
     // Show toast
-    if (window.QRShieldUI) {
-        window.QRShieldUI.showToast('Settings saved! Your data stays on-device.', 'success');
+    if (window.MehrGuardUI) {
+        window.MehrGuardUI.showToast('Settings saved! Your data stays on-device.', 'success');
     } else {
         showToast('Settings saved! Your data stays on-device.', 'success');
     }
@@ -406,9 +406,9 @@ function showHelp() {
  * Show profile - opens the user profile dropdown or navigates to settings
  */
 function showProfile() {
-    // If QRShieldUI's profile dropdown is available, use it
-    if (window.QRShieldUI && window.QRShieldUI.showProfileDropdown) {
-        window.QRShieldUI.showProfileDropdown();
+    // If MehrGuardUI's profile dropdown is available, use it
+    if (window.MehrGuardUI && window.MehrGuardUI.showProfileDropdown) {
+        window.MehrGuardUI.showProfileDropdown();
     } else {
         // Navigate to Trust Centre for settings management
         window.location.href = 'trust.html';
@@ -469,7 +469,7 @@ function showFeatureDetails(feature) {
         },
         cloud: {
             title: 'No Cloud Logs',
-            description: 'QR-SHIELD strictly disables all outgoing telemetry. Your scan results, URL history, and image hashes never leave your device.',
+            description: 'Mehr Guard strictly disables all outgoing telemetry. Your scan results, URL history, and image hashes never leave your device.',
         },
         database: {
             title: 'On-Device Database',
@@ -589,10 +589,10 @@ function showToast(message, type = 'success') {
  */
 function trackOnboardingComplete() {
     try {
-        const stats = JSON.parse(localStorage.getItem('qrshield_stats') || '{}');
+        const stats = JSON.parse(localStorage.getItem('mehrguard_stats') || '{}');
         stats.onboardingCompletedAt = Date.now();
         stats.offlineModeEnabled = true;
-        localStorage.setItem('qrshield_stats', JSON.stringify(stats));
+        localStorage.setItem('mehrguard_stats', JSON.stringify(stats));
     } catch (e) {
         // Silently fail - not critical
     }

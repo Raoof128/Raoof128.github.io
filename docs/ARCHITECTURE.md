@@ -1,4 +1,4 @@
-# 🏗️ QR-SHIELD Architecture
+# 🏗️ Mehr Guard Architecture
 
 > High-level architecture overview: what's shared, what's platform-specific, and where expect/actual is used.
 
@@ -8,7 +8,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           QR-SHIELD Architecture                            │
+│                           Mehr Guard Architecture                            │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                             │
 │  ┌─────────────────────────────────────────────────────────────────────┐   │
@@ -80,7 +80,7 @@ All business logic lives in `common/src/commonMain/kotlin/`:
 | File | Purpose | LOC |
 |------|---------|-----|
 | `HistoryRepository.kt` | Scan history CRUD | ~200 |
-| `QRShieldDatabase.sq` | SQLDelight schema | ~50 |
+| `MehrGuardDatabase.sq` | SQLDelight schema | ~50 |
 
 ### Shared UI Components
 
@@ -115,7 +115,7 @@ All business logic lives in `common/src/commonMain/kotlin/`:
 
 ### expect/actual Declarations
 
-Located in `common/src/commonMain/kotlin/com/qrshield/platform/`:
+Located in `common/src/commonMain/kotlin/com/mehrguard/platform/`:
 
 ```kotlin
 // Database driver - different SQLite implementation per platform

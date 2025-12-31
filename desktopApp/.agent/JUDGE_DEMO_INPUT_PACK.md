@@ -8,8 +8,8 @@
 
 ```bash
 # 1. Clone and build
-git clone https://github.com/<repo>/qrshield
-cd qrshield
+git clone https://github.com/<repo>/mehrguard
+cd mehrguard
 ./gradlew :desktopApp:compileKotlinDesktop
 
 # 2. Run Desktop app

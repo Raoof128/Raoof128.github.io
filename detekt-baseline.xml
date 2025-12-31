@@ -22,7 +22,7 @@
     <ID>ClassOrdering:OrgPolicy.kt$OrgPolicy$Companion</ID>
     <ID>ClassOrdering:OtaUpdateManager.kt$OtaUpdateManager$Companion</ID>
     <ID>ClassOrdering:PhishingEngine.kt$PhishingEngine$Companion</ID>
-    <ID>ClassOrdering:QRShieldApplication.kt$QRShieldApplication$Companion</ID>
+    <ID>ClassOrdering:MehrGuardApplication.kt$MehrGuardApplication$Companion</ID>
     <ID>ClassOrdering:QrPayloadType.kt$QrPayloadType.Companion$fun detect(content: String): QrPayloadType</ID>
     <ID>ClassOrdering:QrPayloadType.kt$QrPayloadType.Companion$private fun looksLikeUrl(content: String): Boolean</ID>
     <ID>ClassOrdering:RedTeamScenarios.kt$RedTeamScenarios$/** * Get all categories in display order. */ val categories: List&lt;String&gt; get() = SCENARIOS.map { it.category }.distinct()</ID>
@@ -33,7 +33,7 @@
     <ID>CognitiveComplexMethod:AndroidQrScanner.kt$AndroidQrScanner$@androidx.camera.core.ExperimentalGetImage override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
     <ID>CognitiveComplexMethod:CameraPreview.kt$@Composable fun CameraPreview( modifier: Modifier = Modifier, scaleType: PreviewView.ScaleType = PreviewView.ScaleType.FILL_CENTER, cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA, onQrCodeScanned: ((String) -&gt; Unit)? = null, onCameraError: ((String) -&gt; Unit)? = null )</ID>
     <ID>CognitiveComplexMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
-    <ID>CognitiveComplexMethod:Main.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class) @Composable @Preview fun QRShieldDesktopApp(initialDarkMode: Boolean = true)</ID>
+    <ID>CognitiveComplexMethod:Main.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class) @Composable @Preview fun MehrGuardDesktopApp(initialDarkMode: Boolean = true)</ID>
     <ID>CognitiveComplexMethod:ScannerScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun ScannerScreen()</ID>
     <ID>CognitiveComplexMethod:SettingsScreen.kt$@OptIn(ExperimentalMaterial3Api::class) @Composable fun SettingsScreen()</ID>
     <ID>CognitiveComplexMethod:WebQrScanner.kt$WebQrScanner$override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
@@ -47,7 +47,7 @@
     <ID>CyclomaticComplexMethod:DetectionConfig.kt$DetectionConfig.Companion$fun fromJson(json: String): DetectionConfig</ID>
     <ID>CyclomaticComplexMethod:EnhancedComponents.kt$fun getSignalExplanation(flag: String): SignalExplanation</ID>
     <ID>CyclomaticComplexMethod:HeuristicsEngine.kt$HeuristicsEngine$fun analyze(url: String): Result</ID>
-    <ID>CyclomaticComplexMethod:Main.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class) @Composable @Preview fun QRShieldDesktopApp(initialDarkMode: Boolean = true)</ID>
+    <ID>CyclomaticComplexMethod:Main.kt$@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class) @Composable @Preview fun MehrGuardDesktopApp(initialDarkMode: Boolean = true)</ID>
     <ID>CyclomaticComplexMethod:OrgPolicy.kt$OrgPolicy$fun evaluate(url: String): PolicyResult</ID>
     <ID>CyclomaticComplexMethod:PhishingEngine.kt$PhishingEngine$private fun determineVerdict( score: Int, heuristicResult: HeuristicsEngine.Result, brandResult: BrandDetector.DetectionResult, tldResult: TldScorer.TldResult ): Verdict</ID>
     <ID>CyclomaticComplexMethod:QrPayloadAnalyzer.kt$QrPayloadAnalyzer$fun analyze(content: String): PayloadAnalysisResult</ID>
@@ -71,7 +71,7 @@
     <ID>ImplicitDefaultLocale:SettingsScreen.kt$String.format("%.1f", result.precision * 100)</ID>
     <ID>ImplicitDefaultLocale:SettingsScreen.kt$String.format("%.1f", result.recall * 100)</ID>
     <ID>ImplicitDefaultLocale:SettingsScreen.kt$String.format("%.2f", result.f1Score)</ID>
-    <ID>InvalidPackageDeclaration:Main.kt$package com.qrshield.web</ID>
+    <ID>InvalidPackageDeclaration:Main.kt$package com.mehrguard.web</ID>
     <ID>LongMethod:AndroidQrScanner.kt$AndroidQrScanner$@androidx.camera.core.ExperimentalGetImage override fun scanFromCamera(): Flow&lt;ScanResult&gt;</ID>
     <ID>LongMethod:AndroidQrScanner.kt$AndroidQrScanner$suspend fun scanFromUri(uri: Uri): ScanResult</ID>
     <ID>LongMethod:BeatTheBot.kt$BeatTheBot$fun challenge(url: String, claimedSafe: Boolean = false): ChallengeResult</ID>
@@ -118,7 +118,7 @@
     <ID>MagicNumber:BeatTheBotScreen.kt$800</ID>
     <ID>MagicNumber:CameraPermissionScreen.kt$0.8f</ID>
     <ID>MagicNumber:CameraPreview.kt$2000L</ID>
-    <ID>MagicNumber:Colors.kt$QRShieldColors$70</ID>
+    <ID>MagicNumber:Colors.kt$MehrGuardColors$70</ID>
     <ID>MagicNumber:CommonComponents.kt$0.6f</ID>
     <ID>MagicNumber:CommonComponents.kt$1500</ID>
     <ID>MagicNumber:CommonComponents.kt$64</ID>
@@ -279,9 +279,9 @@
     <ID>MaxLineLength:BeatTheBotScreen.kt$Triple(Color(0xFF4ADE80), "SYSTEM BYPASSED!", "You successfully evaded detection! (+${result.userPointsEarned} pts)")</ID>
     <ID>MaxLineLength:BrandDatabase.kt$BrandDatabase$combosquats = listOf("microsoft-login", "microsoft-account", "office-login", "microsoft-security", "office365-login")</ID>
     <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Camera permission was denied. Please enable it in your device settings to use QR scanning."</ID>
-    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "QR-SHIELD needs camera access to scan QR codes and protect you from phishing attacks."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Mehr Guard needs camera access to scan QR codes and protect you from phishing attacks."</ID>
     <ID>MaxLineLength:CameraPermissionScreen.kt$description = "This device doesn't have a camera available. You can still analyze URLs by entering them manually or importing QR code images."</ID>
-    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Without camera access, QR-SHIELD cannot scan QR codes. Please grant permission to continue."</ID>
+    <ID>MaxLineLength:CameraPermissionScreen.kt$description = "Without camera access, Mehr Guard cannot scan QR codes. Please grant permission to continue."</ID>
     <ID>MaxLineLength:CameraPreview.kt$// FIX: Always reset the processing flag after callback</ID>
     <ID>MaxLineLength:CameraPreview.kt$// This was the critical bug causing scanning to stop</ID>
     <ID>MaxLineLength:CameraPreview.kt$@file:Suppress("DEPRECATION")</ID>
@@ -397,7 +397,7 @@
     <ID>TooGenericExceptionCaught:Main.kt$e: Exception</ID>
     <ID>TooGenericExceptionCaught:OtaUpdateManager.kt$OtaUpdateManager$e: Exception</ID>
     <ID>TooGenericExceptionCaught:Platform.android.kt$BuildConfig$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:QRShieldApplication.kt$QRShieldApplication$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:MehrGuardApplication.kt$MehrGuardApplication$e: Exception</ID>
     <ID>TooGenericExceptionCaught:SoundManager.kt$SoundManager$e: Exception</ID>
     <ID>TooGenericExceptionCaught:StaticRedirectPatternAnalyzer.kt$StaticRedirectPatternAnalyzer$e: Exception</ID>
     <ID>TooGenericExceptionCaught:UrlAnalyzer.kt$UrlAnalyzer$e: Exception</ID>
@@ -406,30 +406,30 @@
     <ID>TooGenericExceptionThrown:AndroidOta.kt$AndroidOtaHttpClient$throw RuntimeException("HTTP $responseCode")</ID>
     <ID>TooGenericExceptionThrown:AndroidOta.kt$AndroidOtaHttpClient$throw RuntimeException("Response too large: $contentLength bytes")</ID>
     <ID>TooGenericExceptionThrown:AndroidOta.kt$AndroidOtaHttpClient$throw RuntimeException("Response too large: ${response.length} chars")</ID>
-    <ID>TrailingWhitespace:AdvancedFeatures.kt$com.qrshield.desktop.components.AdvancedFeatures.kt</ID>
-    <ID>TrailingWhitespace:AdversarialDefense.kt$com.qrshield.adversarial.AdversarialDefense.kt</ID>
-    <ID>TrailingWhitespace:BeatTheBot.kt$com.qrshield.gamification.BeatTheBot.kt</ID>
-    <ID>TrailingWhitespace:BeatTheBotScreen.kt$com.qrshield.ui.game.BeatTheBotScreen.kt</ID>
-    <ID>TrailingWhitespace:DetectionConfig.kt$com.qrshield.core.DetectionConfig.kt</ID>
-    <ID>TrailingWhitespace:EnhancedComponents.kt$com.qrshield.desktop.components.EnhancedComponents.kt</ID>
-    <ID>TrailingWhitespace:EnsembleModel.kt$com.qrshield.ml.EnsembleModel.kt</ID>
-    <ID>TrailingWhitespace:FeedbackManager.kt$com.qrshield.privacy.FeedbackManager.kt</ID>
-    <ID>TrailingWhitespace:GameComponents.kt$com.qrshield.ui.game.GameComponents.kt</ID>
-    <ID>TrailingWhitespace:HistoryManager.kt$com.qrshield.desktop.HistoryManager.kt</ID>
-    <ID>TrailingWhitespace:MainActivity.kt$com.qrshield.android.MainActivity.kt</ID>
-    <ID>TrailingWhitespace:OrgPolicy.kt$com.qrshield.policy.OrgPolicy.kt</ID>
-    <ID>TrailingWhitespace:OtaUpdateManager.kt$com.qrshield.ota.OtaUpdateManager.kt</ID>
-    <ID>TrailingWhitespace:Platform.ios.kt$com.qrshield.platform.Platform.ios.kt</ID>
-    <ID>TrailingWhitespace:Platform.js.kt$com.qrshield.platform.Platform.js.kt</ID>
-    <ID>TrailingWhitespace:PrivacyPreservingAnalytics.kt$com.qrshield.privacy.PrivacyPreservingAnalytics.kt</ID>
-    <ID>TrailingWhitespace:QrPayloadAnalyzer.kt$com.qrshield.payload.QrPayloadAnalyzer.kt</ID>
-    <ID>TrailingWhitespace:QrPayloadType.kt$com.qrshield.policy.QrPayloadType.kt</ID>
-    <ID>TrailingWhitespace:ScannerComponents.kt$com.qrshield.desktop.components.ScannerComponents.kt</ID>
-    <ID>TrailingWhitespace:SettingsScreen.kt$com.qrshield.android.ui.screens.SettingsScreen.kt</ID>
-    <ID>TrailingWhitespace:SharedResultCard.kt$com.qrshield.ui.shared.SharedResultCard.kt</ID>
-    <ID>TrailingWhitespace:SharedViewModel.kt$com.qrshield.ui.SharedViewModel.kt</ID>
-    <ID>TrailingWhitespace:SystemIntegrityVerifier.kt$com.qrshield.verification.SystemIntegrityVerifier.kt</ID>
-    <ID>TrailingWhitespace:ThreatRadar.kt$com.qrshield.ui.shared.ThreatRadar.kt</ID>
+    <ID>TrailingWhitespace:AdvancedFeatures.kt$com.mehrguard.desktop.components.AdvancedFeatures.kt</ID>
+    <ID>TrailingWhitespace:AdversarialDefense.kt$com.mehrguard.adversarial.AdversarialDefense.kt</ID>
+    <ID>TrailingWhitespace:BeatTheBot.kt$com.mehrguard.gamification.BeatTheBot.kt</ID>
+    <ID>TrailingWhitespace:BeatTheBotScreen.kt$com.mehrguard.ui.game.BeatTheBotScreen.kt</ID>
+    <ID>TrailingWhitespace:DetectionConfig.kt$com.mehrguard.core.DetectionConfig.kt</ID>
+    <ID>TrailingWhitespace:EnhancedComponents.kt$com.mehrguard.desktop.components.EnhancedComponents.kt</ID>
+    <ID>TrailingWhitespace:EnsembleModel.kt$com.mehrguard.ml.EnsembleModel.kt</ID>
+    <ID>TrailingWhitespace:FeedbackManager.kt$com.mehrguard.privacy.FeedbackManager.kt</ID>
+    <ID>TrailingWhitespace:GameComponents.kt$com.mehrguard.ui.game.GameComponents.kt</ID>
+    <ID>TrailingWhitespace:HistoryManager.kt$com.mehrguard.desktop.HistoryManager.kt</ID>
+    <ID>TrailingWhitespace:MainActivity.kt$com.mehrguard.android.MainActivity.kt</ID>
+    <ID>TrailingWhitespace:OrgPolicy.kt$com.mehrguard.policy.OrgPolicy.kt</ID>
+    <ID>TrailingWhitespace:OtaUpdateManager.kt$com.mehrguard.ota.OtaUpdateManager.kt</ID>
+    <ID>TrailingWhitespace:Platform.ios.kt$com.mehrguard.platform.Platform.ios.kt</ID>
+    <ID>TrailingWhitespace:Platform.js.kt$com.mehrguard.platform.Platform.js.kt</ID>
+    <ID>TrailingWhitespace:PrivacyPreservingAnalytics.kt$com.mehrguard.privacy.PrivacyPreservingAnalytics.kt</ID>
+    <ID>TrailingWhitespace:QrPayloadAnalyzer.kt$com.mehrguard.payload.QrPayloadAnalyzer.kt</ID>
+    <ID>TrailingWhitespace:QrPayloadType.kt$com.mehrguard.policy.QrPayloadType.kt</ID>
+    <ID>TrailingWhitespace:ScannerComponents.kt$com.mehrguard.desktop.components.ScannerComponents.kt</ID>
+    <ID>TrailingWhitespace:SettingsScreen.kt$com.mehrguard.android.ui.screens.SettingsScreen.kt</ID>
+    <ID>TrailingWhitespace:SharedResultCard.kt$com.mehrguard.ui.shared.SharedResultCard.kt</ID>
+    <ID>TrailingWhitespace:SharedViewModel.kt$com.mehrguard.ui.SharedViewModel.kt</ID>
+    <ID>TrailingWhitespace:SystemIntegrityVerifier.kt$com.mehrguard.verification.SystemIntegrityVerifier.kt</ID>
+    <ID>TrailingWhitespace:ThreatRadar.kt$com.mehrguard.ui.shared.ThreatRadar.kt</ID>
     <ID>UnderscoresInNumericLiterals:AndroidPlatformAbstractions.kt$PlatformTime$3600_000</ID>
     <ID>UnderscoresInNumericLiterals:AndroidPlatformAbstractions.kt$PlatformTime$604800_000</ID>
     <ID>UnderscoresInNumericLiterals:AndroidPlatformAbstractions.kt$PlatformTime$86400_000</ID>
@@ -454,7 +454,7 @@
     <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.animation.slideInVertically</ID>
     <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.animation.slideOutVertically</ID>
     <ID>UnusedImports:AdvancedFeatures.kt$import androidx.compose.ui.text.style.TextAlign</ID>
-    <ID>UnusedImports:AdvancedFeatures.kt$import com.qrshield.model.Verdict</ID>
+    <ID>UnusedImports:AdvancedFeatures.kt$import com.mehrguard.model.Verdict</ID>
     <ID>UnusedImports:AndroidQrScanner.kt$import androidx.camera.core.Preview</ID>
     <ID>UnusedImports:BeatTheBotScreen.kt$import androidx.compose.foundation.lazy.LazyColumn</ID>
     <ID>UnusedImports:BeatTheBotScreen.kt$import androidx.compose.foundation.lazy.items</ID>
@@ -467,11 +467,11 @@
     <ID>UnusedImports:GameComponents.kt$import androidx.compose.ui.unit.sp</ID>
     <ID>UnusedImports:HistoryRepository.kt$import kotlin.math.min</ID>
     <ID>UnusedImports:HistoryScreen.kt$import androidx.compose.ui.platform.LocalContext</ID>
-    <ID>UnusedImports:IosQrScanner.kt$import com.qrshield.model.ContentType</ID>
+    <ID>UnusedImports:IosQrScanner.kt$import com.mehrguard.model.ContentType</ID>
     <ID>UnusedImports:Main.kt$import androidx.compose.ui.focus.focusRequester</ID>
-    <ID>UnusedImports:QRShieldWidget.kt$import androidx.glance.appwidget.action.actionRunCallback</ID>
-    <ID>UnusedImports:QRShieldWidget.kt$import com.qrshield.android.R</ID>
-    <ID>UnusedImports:QrPayloadAnalyzer.kt$import com.qrshield.policy.RiskLevel</ID>
+    <ID>UnusedImports:MehrGuardWidget.kt$import androidx.glance.appwidget.action.actionRunCallback</ID>
+    <ID>UnusedImports:MehrGuardWidget.kt$import com.mehrguard.android.R</ID>
+    <ID>UnusedImports:QrPayloadAnalyzer.kt$import com.mehrguard.policy.RiskLevel</ID>
     <ID>UnusedImports:ResultCard.kt$import androidx.compose.ui.graphics.Color</ID>
     <ID>UnusedImports:ScannerOverlay.kt$import androidx.compose.ui.graphics.BlendMode</ID>
     <ID>UnusedImports:ScannerScreen.kt$import androidx.compose.ui.graphics.LinearGradientShader</ID>
@@ -496,14 +496,14 @@
     <ID>UseCheckOrError:AndroidQrScanner.kt$AndroidQrScanner$throw IllegalStateException("Context must be LifecycleOwner")</ID>
     <ID>VariableNaming:AndroidOta.kt$AndroidOtaStorage$private val OTA_DIR = "ota_cache"</ID>
     <ID>VariableNaming:AndroidOta.kt$AndroidOtaStorage$private val TAG = "AndroidOtaStorage"</ID>
-    <ID>WildcardImport:HistoryScreen.kt$import com.qrshield.android.ui.theme.*</ID>
-    <ID>WildcardImport:Main.kt$import com.qrshield.desktop.components.*</ID>
-    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.*</ID>
-    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.appwidget.*</ID>
-    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.layout.*</ID>
-    <ID>WildcardImport:QRShieldWidget.kt$import androidx.glance.text.*</ID>
-    <ID>WildcardImport:ResultCard.kt$import com.qrshield.android.ui.theme.*</ID>
-    <ID>WildcardImport:ScannerScreen.kt$import com.qrshield.android.ui.theme.*</ID>
-    <ID>WildcardImport:SettingsScreen.kt$import com.qrshield.android.ui.theme.*</ID>
+    <ID>WildcardImport:HistoryScreen.kt$import com.mehrguard.android.ui.theme.*</ID>
+    <ID>WildcardImport:Main.kt$import com.mehrguard.desktop.components.*</ID>
+    <ID>WildcardImport:MehrGuardWidget.kt$import androidx.glance.*</ID>
+    <ID>WildcardImport:MehrGuardWidget.kt$import androidx.glance.appwidget.*</ID>
+    <ID>WildcardImport:MehrGuardWidget.kt$import androidx.glance.layout.*</ID>
+    <ID>WildcardImport:MehrGuardWidget.kt$import androidx.glance.text.*</ID>
+    <ID>WildcardImport:ResultCard.kt$import com.mehrguard.android.ui.theme.*</ID>
+    <ID>WildcardImport:ScannerScreen.kt$import com.mehrguard.android.ui.theme.*</ID>
+    <ID>WildcardImport:SettingsScreen.kt$import com.mehrguard.android.ui.theme.*</ID>
   </CurrentIssues>
 </SmellBaseline>

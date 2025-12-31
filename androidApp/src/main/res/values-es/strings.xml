@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">Escanea códigos QR. Detecta phishing.</string>
 
     <!-- Navigation -->
@@ -254,12 +254,12 @@
     <string name="camera_permission_denied">Permiso de cámara denegado. Por favor actívalo en ajustes.</string>
 
     <!-- Widget -->
-    <string name="widget_name">QR-SHIELD Escaneo rápido</string>
+    <string name="widget_name">Mehr Guard Escaneo rápido</string>
     <string name="widget_description">Escanea rápidamente códigos QR en busca de amenazas de phishing</string>
     <string name="widget_tap_to_scan">Toca para escanear</string>
 
     <!-- Accessibility -->
-    <string name="cd_app_logo">Logo de QR-SHIELD</string>
+    <string name="cd_app_logo">Logo de Mehr Guard</string>
     <string name="cd_scanner_preview">Vista previa de cámara para escaneo de código QR</string>
     <string name="cd_close_scanner">Cerrar escáner</string>
     <string name="cd_toggle_flash">Alternar linterna</string>
@@ -304,7 +304,7 @@
     <!-- Trust Centre -->
     <string name="trust_center_title">Estado de seguridad</string>
     <string name="trust_center_secure">Tu dispositivo está seguro</string>
-    <string name="trust_center_protected_by">Protegido por QR-SHIELD Enterprise</string>
+    <string name="trust_center_protected_by">Protegido por Mehr Guard Enterprise</string>
     <string name="trust_center_score">Puntuación de seguridad: %d/100</string>
     <string name="trust_center_realtime">Protección en tiempo real</string>
     <string name="trust_center_malware">Detección de malware</string>
@@ -357,7 +357,7 @@
     <string name="biometric_unlock_subtitle">Requerir FaceID para ajustes</string>
 
     <!-- Footer -->
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">EDICIÓN ENTERPRISE</string>
     <string name="footer_terms">Términos</string>
     <string name="footer_privacy">Política de privacidad</string>
@@ -417,7 +417,7 @@
     <string name="learning_centre_title">Centro de aprendizaje</string>
     <string name="your_progress">Tu progreso</string>
     <string name="view_certificate">Ver certificado</string>
-    <string name="qr_shield_certified">Certificado QR-SHIELD</string>
+    <string name="qr_shield_certified">Certificado Mehr Guard</string>
     <string name="modules_completed_fmt">%1$d de %2$d módulos completados</string>
     <string name="on_track">En progreso</string>
     <string name="daily_tip_label">CONSEJO DIARIO</string>
@@ -475,7 +475,7 @@
     <!-- Offline Privacy Screen -->
     <string name="privacy_offline_title">Privacidad y sin conexión</string>
     <string name="privacy_hero_title">Tus datos nunca salen</string>
-    <string name="privacy_hero_desc">QR-SHIELD opera completamente en tu dispositivo. Sin nube. Sin servidores. Sin recopilación de datos. Privacidad completa por diseño.</string>
+    <string name="privacy_hero_desc">Mehr Guard opera completamente en tu dispositivo. Sin nube. Sin servidores. Sin recopilación de datos. Privacidad completa por diseño.</string>
     <string name="privacy_offline_badge">100% operación sin conexión</string>
     <string name="privacy_architecture">Arquitectura de privacidad</string>
     <string name="privacy_local_db_title">Base de datos local</string>
@@ -561,7 +561,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -606,9 +606,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">QR Shield logo</string>
-    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
+    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">Mehr Guard logo</string>
+    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>

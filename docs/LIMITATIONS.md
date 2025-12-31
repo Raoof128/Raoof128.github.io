@@ -1,12 +1,12 @@
 # Known Limitations & Technical Trade-offs
 
-**QR-SHIELD Detection Engine — Honest Assessment**
+**Mehr Guard Detection Engine — Honest Assessment**
 
 ---
 
 ## Overview
 
-This document transparently describes the limitations of QR-SHIELD's detection approach. We believe acknowledging limitations demonstrates engineering maturity and helps users make informed decisions.
+This document transparently describes the limitations of Mehr Guard's detection approach. We believe acknowledging limitations demonstrates engineering maturity and helps users make informed decisions.
 
 ---
 
@@ -120,7 +120,7 @@ The ensemble ML model combines three approaches but is **deliberately lightweigh
 
 ### Accuracy Trade-off
 
-| Metric | QR-SHIELD (Ensemble) | Production DL Model |
+| Metric | Mehr Guard (Ensemble) | Production DL Model |
 |--------|----------------------|---------------------|
 | Precision | ~85% | 92%+ |
 | Recall | ~89% | 95%+ |
@@ -133,7 +133,7 @@ The ensemble ML model combines three approaches but is **deliberately lightweigh
 ## 4. No Real-Time Threat Intelligence
 
 ### Limitation
-QR-SHIELD does **not** connect to:
+Mehr Guard does **not** connect to:
 - Google Safe Browsing API
 - PhishTank API
 - VirusTotal
@@ -206,7 +206,7 @@ A brand-new phishing domain registered 1 hour ago will **not** be in any blockli
 | **Session hijacking** | Requires network monitoring |
 | **Zero-day browser exploits** | Beyond URL analysis |
 
-**QR-SHIELD's Scope:** Pre-click URL reputation scoring. Not an endpoint security solution.
+**Mehr Guard's Scope:** Pre-click URL reputation scoring. Not an endpoint security solution.
 
 ---
 
@@ -225,7 +225,7 @@ A brand-new phishing domain registered 1 hour ago will **not** be in any blockli
 
 ## Our Position
 
-**QR-SHIELD is not meant to replace enterprise security solutions.** 
+**Mehr Guard is not meant to replace enterprise security solutions.** 
 
 It's designed as a **privacy-first, educational tool** that:
 1. Raises user awareness about URL risks
@@ -233,7 +233,7 @@ It's designed as a **privacy-first, educational tool** that:
 3. Works without any cloud dependencies
 4. Explains *why* something is suspicious
 
-For users who need 99.9% detection with real-time threat intelligence, we recommend complementing QR-SHIELD with cloud security services.
+For users who need 99.9% detection with real-time threat intelligence, we recommend complementing Mehr Guard with cloud security services.
 
 ---
 

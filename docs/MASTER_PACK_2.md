@@ -1,11 +1,11 @@
-# QR-SHIELD Master Pack - Part 2
+# Mehr Guard Master Pack - Part 2
 
 ---
 
 # 5. FULL GIT REPO STRUCTURE
 
 ```
-qrshield/
+mehrguard/
 ├── README.md
 ├── LICENSE
 ├── CONTRIBUTING.md
@@ -22,7 +22,7 @@ qrshield/
 │   ├── build.gradle.kts
 │   └── src/
 │       ├── commonMain/
-│       │   └── kotlin/com/qrshield/
+│       │   └── kotlin/com/mehrguard/
 │       │       ├── core/
 │       │       │   ├── PhishingEngine.kt
 │       │       │   ├── UrlAnalyzer.kt
@@ -58,31 +58,31 @@ qrshield/
 │       │           ├── EntropyCalculator.kt
 │       │           └── Constants.kt
 │       ├── androidMain/
-│       │   └── kotlin/com/qrshield/
+│       │   └── kotlin/com/mehrguard/
 │       │       ├── scanner/
 │       │       │   └── AndroidQrScanner.kt
 │       │       └── repository/
 │       │           └── AndroidDatabaseDriver.kt
 │       ├── iosMain/
-│       │   └── kotlin/com/qrshield/
+│       │   └── kotlin/com/mehrguard/
 │       │       ├── scanner/
 │       │       │   └── IosQrScanner.kt
 │       │       └── repository/
 │       │           └── IosDatabaseDriver.kt
 │       ├── desktopMain/
-│       │   └── kotlin/com/qrshield/
+│       │   └── kotlin/com/mehrguard/
 │       │       ├── scanner/
 │       │       │   └── DesktopQrScanner.kt
 │       │       └── repository/
 │       │           └── DesktopDatabaseDriver.kt
 │       ├── webMain/
-│       │   └── kotlin/com/qrshield/
+│       │   └── kotlin/com/mehrguard/
 │       │       ├── scanner/
 │       │       │   └── WebQrScanner.kt
 │       │       └── repository/
 │       │           └── WebDatabaseDriver.kt
 │       └── commonTest/
-│           └── kotlin/com/qrshield/
+│           └── kotlin/com/mehrguard/
 │               ├── PhishingEngineTest.kt
 │               ├── UrlAnalyzerTest.kt
 │               ├── BrandDetectorTest.kt
@@ -92,9 +92,9 @@ qrshield/
 │   ├── build.gradle.kts
 │   └── src/main/
 │       ├── AndroidManifest.xml
-│       ├── kotlin/com/qrshield/android/
+│       ├── kotlin/com/mehrguard/android/
 │       │   ├── MainActivity.kt
-│       │   ├── QRShieldApp.kt
+│       │   ├── MehrGuardApp.kt
 │       │   └── ui/
 │       │       ├── HomeScreen.kt
 │       │       ├── ScanScreen.kt
@@ -109,8 +109,8 @@ qrshield/
 │               └── ic_launcher.xml
 │
 ├── iosApp/
-│   ├── QRShield.xcodeproj/
-│   ├── QRShield/
+│   ├── MehrGuard.xcodeproj/
+│   ├── MehrGuard/
 │   │   ├── AppDelegate.swift
 │   │   ├── ContentView.swift
 │   │   └── Info.plist
@@ -118,14 +118,14 @@ qrshield/
 │
 ├── desktopApp/
 │   ├── build.gradle.kts
-│   └── src/main/kotlin/com/qrshield/desktop/
+│   └── src/main/kotlin/com/mehrguard/desktop/
 │       ├── Main.kt
 │       └── DesktopApp.kt
 │
 ├── webApp/
 │   ├── build.gradle.kts
 │   ├── webpack.config.d/
-│   └── src/main/kotlin/com/qrshield/web/
+│   └── src/main/kotlin/com/mehrguard/web/
 │       ├── Main.kt
 │       └── WebApp.kt
 │
@@ -170,7 +170,7 @@ qrshield/
 ## Typography
 
 ```kotlin
-object QRShieldTypography {
+object MehrGuardTypography {
     val displayLarge = TextStyle(
         fontFamily = FontFamily("Inter"),
         fontWeight = FontWeight.Bold,
@@ -197,7 +197,7 @@ object QRShieldTypography {
 ## Color Palette
 
 ```kotlin
-object QRShieldColors {
+object MehrGuardColors {
     // Primary
     val primary = Color(0xFF6C5CE7)      // Deep Purple
     val primaryVariant = Color(0xFF5B4DCF)
@@ -238,7 +238,7 @@ object QRShieldColors {
 ```
 ┌────────────────────────────────┐
 │  ┌──────────────────────────┐  │
-│  │       🛡️ QR-SHIELD      │  │
+│  │       🛡️ Mehr Guard      │  │
 │  │    Protect Your Scans    │  │
 │  └──────────────────────────┘  │
 │                                │
@@ -308,17 +308,17 @@ object QRShieldColors {
 
 > **"Every day, millions of people scan QR codes without thinking twice. Attackers know this. QRishing attacks—phishing via QR codes—have exploded 587 since 2023.**
 >
-> **QR-SHIELD is the first Kotlin Multiplatform solution that protects users everywhere—Android, iOS, Desktop, and Web—with a single codebase.**
+> **Mehr Guard is the first Kotlin Multiplatform solution that protects users everywhere—Android, iOS, Desktop, and Web—with a single codebase.**
 >
 > **Our intelligent engine combines 25+ cybersecurity heuristics, ML-powered scoring, and brand impersonation detection to deliver instant verdicts: Safe, Suspicious, or Malicious.**
 >
 > **Zero cloud dependencies. Zero data collection. 100% privacy-first.**
 >
-> **QR-SHIELD: Scan smart. Stay protected."**
+> **Mehr Guard: Scan smart. Stay protected."**
 
 ## Differentiators vs Other QR Scanners
 
-| Feature | QR-SHIELD | Generic Scanners | Enterprise Solutions |
+| Feature | Mehr Guard | Generic Scanners | Enterprise Solutions |
 |---------|-----------|------------------|---------------------|
 | Cross-platform | ✅ All 4 | ❌ 1-2 | ⚠️ Some |
 | Offline analysis | ✅ Yes | ❌ No | ⚠️ Partial |

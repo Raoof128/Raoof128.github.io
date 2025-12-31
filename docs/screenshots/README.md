@@ -1,6 +1,6 @@
-# 📸 QR-SHIELD Screenshots
+# 📸 Mehr Guard Screenshots
 
-> **Platform Screenshots** — Visual evidence of QR-SHIELD running across all 5 platforms.
+> **Platform Screenshots** — Visual evidence of Mehr Guard running across all 5 platforms.
 
 ---
 

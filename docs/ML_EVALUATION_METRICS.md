@@ -1,8 +1,8 @@
 # 🧠 ML Model Evaluation Metrics
 
-> **Scientific rigor for the QR-SHIELD phishing detection model.**
+> **Scientific rigor for the Mehr Guard phishing detection model.**
 
-This document provides comprehensive evaluation metrics for the ML-Lite Logistic Regression model used in QR-SHIELD.
+This document provides comprehensive evaluation metrics for the ML-Lite Logistic Regression model used in Mehr Guard.
 
 ---
 
@@ -202,7 +202,7 @@ fun `predictions are deterministic`() {
 
 ## 📚 References
 
-1. **LogisticRegressionModel.kt** — `common/src/commonMain/kotlin/com/qrshield/ml/`
+1. **LogisticRegressionModel.kt** — `common/src/commonMain/kotlin/com/mehrguard/ml/`
 2. **FeatureExtractor.kt** — Feature engineering implementation
 3. **ML_MODEL.md** — Training methodology documentation
 

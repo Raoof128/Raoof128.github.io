@@ -1,4 +1,4 @@
-# ProGuard rules for QR-SHIELD Android App
+# ProGuard rules for Mehr Guard Android App
 # Updated for Android 16 (API 35)
 
 # =============================================================================
@@ -52,13 +52,13 @@
 -dontwarn com.google.android.gms.**
 
 # =============================================================================
-# QR-SHIELD Domain Models
+# Mehr Guard Domain Models
 # =============================================================================
--keep class com.qrshield.model.** { *; }
--keep class com.qrshield.core.** { *; }
--keep class com.qrshield.scanner.** { *; }
--keep class com.qrshield.ui.** { *; }
--keep class com.qrshield.data.** { *; }
+-keep class com.mehrguard.model.** { *; }
+-keep class com.mehrguard.core.** { *; }
+-keep class com.mehrguard.scanner.** { *; }
+-keep class com.mehrguard.ui.** { *; }
+-keep class com.mehrguard.data.** { *; }
 
 # =============================================================================
 # Koin Dependency Injection
@@ -72,7 +72,7 @@
 # =============================================================================
 # SQLDelight Generated Code
 # =============================================================================
--keep class com.qrshield.db.** { *; }
+-keep class com.mehrguard.db.** { *; }
 -keep class app.cash.sqldelight.** { *; }
 
 # =============================================================================

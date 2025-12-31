@@ -23,9 +23,9 @@
 |-----------|----------|--------------|
 | **Unique Problem** | QR phishing detection—587 attack increase since 2023 | +10 |
 | **Offline-First Architecture** | Zero network calls, [verify_offline.sh](judge/verify_offline.sh) | +10 |
-| **Ensemble ML** | 3 models combined ([EnsembleModel.kt](common/src/commonMain/kotlin/com/qrshield/ml/EnsembleModel.kt)) | +8 |
-| **Dynamic Brand Discovery** | Detects unknown brands via patterns ([DynamicBrandDiscovery.kt](common/src/commonMain/kotlin/com/qrshield/engine/DynamicBrandDiscovery.kt)) | +5 |
-| **Adversarial Robustness** | Homographs, punycode, RTL override ([HomographDetector.kt](common/src/commonMain/kotlin/com/qrshield/engine/HomographDetector.kt)) | +5 |
+| **Ensemble ML** | 3 models combined ([EnsembleModel.kt](common/src/commonMain/kotlin/com/mehrguard/ml/EnsembleModel.kt)) | +8 |
+| **Dynamic Brand Discovery** | Detects unknown brands via patterns ([DynamicBrandDiscovery.kt](common/src/commonMain/kotlin/com/mehrguard/engine/DynamicBrandDiscovery.kt)) | +5 |
+| **Adversarial Robustness** | Homographs, punycode, RTL override ([HomographDetector.kt](common/src/commonMain/kotlin/com/mehrguard/engine/HomographDetector.kt)) | +5 |
 | **Explainability** | Every verdict has human-readable reasons | +2 |
 | **TOTAL** | | **40/40** |
 
@@ -37,8 +37,8 @@
 |-----------|----------|--------------|
 | **5 Platform Targets** | Android, iOS, Desktop, Web (JS + Wasm) | +10 |
 | **~80% Shared Code** | [SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md) | +10 |
-| **Strategic expect/actual** | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/qrshield/platform/PlatformAbstractions.kt) | +8 |
-| **Compose Multiplatform** | Shared UI components on iOS ([ComposeInterop.swift](iosApp/QRShield/ComposeInterop.swift)) | +5 |
+| **Strategic expect/actual** | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/mehrguard/platform/PlatformAbstractions.kt) | +8 |
+| **Compose Multiplatform** | Shared UI components on iOS ([ComposeInterop.swift](iosApp/MehrGuard/ComposeInterop.swift)) | +5 |
 | **Native Integration** | SwiftUI host, Compose UI, proper interop | +5 |
 | **Platform Parity Tests** | [verify_parity.sh](judge/verify_parity.sh) runs JVM+JS+Native | +2 |
 | **TOTAL** | | **40/40** |
@@ -53,8 +53,8 @@
 | **Detekt Zero-Tolerance** | CI fails on any violation | +5 |
 | **KDoc Documentation** | All public APIs documented | +3 |
 | **Test Coverage** | 89% coverage, 1,248+ tests | +3 |
-| **Property-Based Tests** | [PropertyBasedTest.kt](common/src/commonTest/kotlin/com/qrshield/core/PropertyBasedTest.kt) | +2 |
-| **Architecture Tests** | [KonsistTest.kt](common/src/desktopTest/kotlin/com/qrshield/architecture/KonsistTest.kt) | +2 |
+| **Property-Based Tests** | [PropertyBasedTest.kt](common/src/commonTest/kotlin/com/mehrguard/core/PropertyBasedTest.kt) | +2 |
+| **Architecture Tests** | [KonsistTest.kt](common/src/desktopTest/kotlin/com/mehrguard/architecture/KonsistTest.kt) | +2 |
 | **TOTAL** | | **20/20** |
 
 ---
@@ -63,8 +63,8 @@
 
 ```bash
 # Clone and verify
-git clone https://github.com/Raoof128/Raoof128.github.io.git qrshield
-cd qrshield
+git clone https://github.com/Raoof128/Raoof128.github.io.git mehrguard
+cd mehrguard
 
 # Run all verification
 ./judge/verify_all.sh
@@ -83,12 +83,12 @@ cd qrshield
 
 | Category | File | Why It's Important |
 |----------|------|--------------------|
-| **Core Engine** | [PhishingEngine.kt](common/src/commonMain/kotlin/com/qrshield/core/PhishingEngine.kt) | Main orchestrator, shows KMP design |
-| **ML Model** | [EnsembleModel.kt](common/src/commonMain/kotlin/com/qrshield/ml/EnsembleModel.kt) | Ensemble architecture |
-| **Platform Abstraction** | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/qrshield/platform/PlatformAbstractions.kt) | expect/actual pattern |
-| **iOS Integration** | [ComposeInterop.swift](iosApp/QRShield/ComposeInterop.swift) | SwiftUI + Compose hybrid |
-| **Tests** | [VerifyMlMathTest.kt](common/src/commonTest/kotlin/com/qrshield/ml/VerifyMlMathTest.kt) | Proves ML is real |
-| **Security Constants** | [SecurityConstants.kt](common/src/commonMain/kotlin/com/qrshield/core/SecurityConstants.kt) | Centralized, documented |
+| **Core Engine** | [PhishingEngine.kt](common/src/commonMain/kotlin/com/mehrguard/core/PhishingEngine.kt) | Main orchestrator, shows KMP design |
+| **ML Model** | [EnsembleModel.kt](common/src/commonMain/kotlin/com/mehrguard/ml/EnsembleModel.kt) | Ensemble architecture |
+| **Platform Abstraction** | [PlatformAbstractions.kt](common/src/commonMain/kotlin/com/mehrguard/platform/PlatformAbstractions.kt) | expect/actual pattern |
+| **iOS Integration** | [ComposeInterop.swift](iosApp/MehrGuard/ComposeInterop.swift) | SwiftUI + Compose hybrid |
+| **Tests** | [VerifyMlMathTest.kt](common/src/commonTest/kotlin/com/mehrguard/ml/VerifyMlMathTest.kt) | Proves ML is real |
+| **Security Constants** | [SecurityConstants.kt](common/src/commonMain/kotlin/com/mehrguard/core/SecurityConstants.kt) | Centralized, documented |
 
 ---
 

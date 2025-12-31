@@ -5,7 +5,7 @@
         ],
         "target": {
             "namespace": "android_app",
-            "package_name": "com.qrshield.android",
+            "package_name": "com.raouf.mehrguard.android",
             "sha256_cert_fingerprints": [
                 "YOUR_APP_SIGNING_CERTIFICATE_SHA256_FINGERPRINT"
             ]

@@ -1,6 +1,6 @@
 # 🍎 iOS Architecture Decision: SwiftUI vs Compose Multiplatform
 
-> A detailed explanation of why QR-SHIELD uses native SwiftUI for iOS instead of Compose Multiplatform.
+> A detailed explanation of why Mehr Guard uses native SwiftUI for iOS instead of Compose Multiplatform.
 
 ---
 
@@ -30,7 +30,7 @@ This is a **strategic architectural decision**, not a limitation.
 
 ### 1. Camera Access is Critical
 
-QR-SHIELD's core functionality requires:
+Mehr Guard's core functionality requires:
 - Real-time camera preview
 - High-performance QR detection
 - Torch/flash control
@@ -165,7 +165,7 @@ struct ResultCard: View {
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│                    QR-SHIELD Code Distribution                  │
+│                    Mehr Guard Code Distribution                  │
 ├────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │  SHARED KOTLIN (80%)                                            │

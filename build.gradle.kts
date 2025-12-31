@@ -11,7 +11,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.qrshield"
+    group = "com.raouf.mehrguard"
     version = "1.20.30"
 }
 
@@ -74,7 +74,7 @@ tasks.register("generateSbom") {
         sbomFile.parentFile.mkdirs()
         
         val sb = StringBuilder()
-        sb.appendLine("# QR-SHIELD Software Bill of Materials (SBOM)")
+        sb.appendLine("# Mehr Guard Software Bill of Materials (SBOM)")
         sb.appendLine("# Generated: ${java.time.LocalDateTime.now()}")
         sb.appendLine("# Version: $projectVersion")
         sb.appendLine("")

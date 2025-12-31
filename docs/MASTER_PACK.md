@@ -1,4 +1,4 @@
-# 🛡️ QR-SHIELD MASTER PACK
+# 🛡️ Mehr Guard MASTER PACK
 
 ## Complete Project Blueprint for Kotlin Multiplatform QRishing Detector
 
@@ -84,13 +84,13 @@ graph TB
 
 | Module | Package | Purpose |
 |--------|---------|---------|
-| commonMain | `com.qrshield.core` | Shared business logic |
-| commonMain | `com.qrshield.engine` | Phishing analysis engine |
-| commonMain | `com.qrshield.model` | Data models |
-| androidMain | `com.qrshield.android` | Android camera integration |
-| iosMain | `com.qrshield.ios` | iOS Vision integration |
-| desktopMain | `com.qrshield.desktop` | JVM camera via OpenCV |
-| webMain | `com.qrshield.web` | JS camera via MediaDevices |
+| commonMain | `com.mehrguard.core` | Shared business logic |
+| commonMain | `com.mehrguard.engine` | Phishing analysis engine |
+| commonMain | `com.mehrguard.model` | Data models |
+| androidMain | `com.mehrguard.android` | Android camera integration |
+| iosMain | `com.mehrguard.ios` | iOS Vision integration |
+| desktopMain | `com.mehrguard.desktop` | JVM camera via OpenCV |
+| webMain | `com.mehrguard.web` | JS camera via MediaDevices |
 
 ## Data Flow
 

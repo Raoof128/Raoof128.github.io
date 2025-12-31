@@ -45,7 +45,7 @@ This document inventories the Web app's behavioral surface and maps each item to
 
 | Web Function | Category | Location (Lines) | Inputs/Outputs | Desktop Status | Notes |
 |--------------|----------|------------------|----------------|----------------|-------|
-| `renderStats()` | Domain Logic | dashboard.js:158-174 | Gets stats from QRShieldUI, updates DOM | ✅ MATCHED | `historyStats` in AppViewModel |
+| `renderStats()` | Domain Logic | dashboard.js:158-174 | Gets stats from MehrGuardUI, updates DOM | ✅ MATCHED | `historyStats` in AppViewModel |
 | `renderHistory()` | UI Component | dashboard.js:225-326 | Renders history table with click handlers | ✅ MATCHED | `DashboardScreen.kt` - RecentScanRow |
 | `handleImport()` | Action | dashboard.js:373-391 | Opens file picker, navigates to scanner | ✅ MATCHED | `pickImageAndScan()` in AppViewModel |
 | `handleUpdateDb()` | Action | dashboard.js:396-414 | Shows loading, displays toast | ✅ MATCHED | Desktop shows static version info |

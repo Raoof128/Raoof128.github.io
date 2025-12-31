@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">QR 코드 스캔. 피싱 탐지.</string>
 
     <!-- Navigation -->
@@ -228,10 +228,10 @@
     <string name="try_again">다시 시도</string>
     <string name="camera_permission_rationale">QR 코드 스캔에 카메라 접근 필요</string>
     <string name="camera_permission_denied">카메라 권한 거부됨. 설정에서 활성화하세요.</string>
-    <string name="widget_name">QR-SHIELD 빠른 스캔</string>
+    <string name="widget_name">Mehr Guard 빠른 스캔</string>
     <string name="widget_description">피싱 위협을 위해 QR 코드 빠르게 스캔</string>
     <string name="widget_tap_to_scan">탭하여 스캔</string>
-    <string name="cd_app_logo">QR-SHIELD 로고</string>
+    <string name="cd_app_logo">Mehr Guard 로고</string>
     <string name="cd_scanner_preview">QR 코드 스캔용 카메라 미리보기</string>
     <string name="cd_close_scanner">스캐너 닫기</string>
     <string name="cd_toggle_flash">플래시 전환</string>
@@ -274,7 +274,7 @@
     <string name="cd_dismiss_hint">힌트 닫기</string>
     <string name="trust_center_title">보안 상태</string>
     <string name="trust_center_secure">기기가 안전합니다</string>
-    <string name="trust_center_protected_by">QR-SHIELD Enterprise로 보호됨</string>
+    <string name="trust_center_protected_by">Mehr Guard Enterprise로 보호됨</string>
     <string name="trust_center_score">보안 점수: %d/100</string>
     <string name="trust_center_realtime">실시간 보호</string>
     <string name="trust_center_malware">맬웨어 탐지</string>
@@ -325,7 +325,7 @@
     <string name="auto_copy_subtitle">안전한 URL 자동 복사</string>
     <string name="biometric_unlock_title">생체인식 잠금해제</string>
     <string name="biometric_unlock_subtitle">설정에 FaceID 필요</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">엔터프라이즈 에디션</string>
     <string name="footer_terms">약관</string>
     <string name="footer_privacy">개인정보 처리방침</string>
@@ -379,7 +379,7 @@
     <string name="learning_centre_title">학습 센터</string>
     <string name="your_progress">진행 상황</string>
     <string name="view_certificate">인증서 보기</string>
-    <string name="qr_shield_certified">QR-SHIELD 인증</string>
+    <string name="qr_shield_certified">Mehr Guard 인증</string>
     <string name="modules_completed_fmt">%1$d/%2$d 모듈 완료</string>
     <string name="on_track">순조로움</string>
     <string name="daily_tip_label">오늘의 팁</string>
@@ -429,7 +429,7 @@
     <string name="phase_prevented">방지됨</string>
     <string name="privacy_offline_title">개인정보 및 오프라인</string>
     <string name="privacy_hero_title">데이터가 절대 나가지 않음</string>
-    <string name="privacy_hero_desc">QR-SHIELD는 기기에서만 작동합니다. 클라우드 없음. 서버 없음. 데이터 수집 없음. 설계부터 완전한 개인정보 보호.</string>
+    <string name="privacy_hero_desc">Mehr Guard는 기기에서만 작동합니다. 클라우드 없음. 서버 없음. 데이터 수집 없음. 설계부터 완전한 개인정보 보호.</string>
     <string name="privacy_offline_badge">100% 오프라인 작동</string>
     <string name="privacy_architecture">개인정보 아키텍처</string>
     <string name="privacy_local_db_title">로컬 데이터베이스</string>
@@ -515,7 +515,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -560,9 +560,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">QR Shield logo</string>
-    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
+    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">Mehr Guard logo</string>
+    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>

@@ -1,5 +1,5 @@
 /**
- * QR-SHIELD Service Worker v2.16.0
+ * Mehr Guard Service Worker v2.16.0
  * 100% Offline-First PWA with Cache-First Strategy
  * 
  * Based on Google's Workbox best practices (2024)
@@ -345,6 +345,6 @@ self.addEventListener('message', (event) => {
 
 // Log when script is loaded
 log('=================================');
-log(`QR-SHIELD Service Worker ${CACHE_VERSION}`);
+log(`Mehr Guard Service Worker ${CACHE_VERSION}`);
 log('Script loaded successfully');
 log('=================================');

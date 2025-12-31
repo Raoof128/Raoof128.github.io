@@ -1,13 +1,13 @@
-# QR-SHIELD iOS App - App Store Review Guide
+# Mehr Guard iOS App - App Store Review Guide
 
 ## Overview
 
-**QR-SHIELD** is a privacy-focused QR code scanner that detects phishing (QRishing) attempts in real-time using advanced heuristic analysis. Built with Kotlin Multiplatform (KMP) for cross-platform security logic.
+**Mehr Guard** is a privacy-focused QR code scanner that detects phishing (QRishing) attempts in real-time using advanced heuristic analysis. Built with Kotlin Multiplatform (KMP) for cross-platform security logic.
 
 ## App Store Submission Information
 
 ### App Details
-- **Bundle ID**: com.qrshield.ios (configure in Xcode)
+- **Bundle ID**: com.mehrguard.ios (configure in Xcode)
 - **Version**: 1.17.34
 - **Build**: 1
 - **Minimum iOS**: 17.0
@@ -76,8 +76,8 @@ The app will flag suspicious URLs that contain:
 
 ## Support Information
 
-- **Email**: support@qrshield.app
-- **Website**: https://qrshield.app
+- **Email**: support@mehrguard.app
+- **Website**: https://mehrguard.app
 - **GitHub**: https://github.com/Raoof128/Raoof128.github.io
 
 ## App Store Review Notes

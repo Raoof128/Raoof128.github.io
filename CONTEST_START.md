@@ -1,6 +1,6 @@
 # 🏁 Contest Start Declaration
 
-> **QR-SHIELD** — KotlinConf 2025-2026 Student Coding Competition Entry
+> **Mehr Guard** — KotlinConf 2025-2026 Student Coding Competition Entry
 
 ---
 
@@ -23,11 +23,11 @@ This project is **100% original work** created specifically for the KotlinConf 2
 
 ### Why This Is New
 
-QR-SHIELD addresses a gap that existing solutions ignore: **privacy-preserving QR security for everyday users**.
+Mehr Guard addresses a gap that existing solutions ignore: **privacy-preserving QR security for everyday users**.
 
 Current solutions like Google Safe Browsing require sending every scanned URL to cloud servers. This means cloud providers know which banks you use, which doctors you visit, which lawyers you consult—simply from the QR codes you scan. For medical offices, legal firms, and financial institutions, this is unacceptable.
 
-QR-SHIELD solves this by performing **100% on-device analysis** using a multi-layer detection engine:
+Mehr Guard solves this by performing **100% on-device analysis** using a multi-layer detection engine:
 - 25+ heuristic rules (homographs, typosquats, IP hosts, suspicious TLDs)
 - Ensemble ML model (Logistic Regression + Gradient Boosting + Decision Rules)
 - 500+ brand database with dynamic discovery
@@ -85,4 +85,4 @@ git log --oneline --reverse | head -5
 
 ---
 
-*This document serves as the official contest start declaration for QR-SHIELD.*
+*This document serves as the official contest start declaration for Mehr Guard.*

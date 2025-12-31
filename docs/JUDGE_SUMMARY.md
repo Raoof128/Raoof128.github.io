@@ -1,6 +1,6 @@
-# 🧑‍⚖️ QR-SHIELD — Judge Summary Card
+# 🧑‍⚖️ Mehr Guard — Judge Summary Card
 
-> **30-second pitch:** QR-SHIELD is a Kotlin Multiplatform security app that detects phishing in QR codes across Android, iOS, Desktop, and Web—entirely offline, with a single shared detection engine using an ensemble ML architecture.
+> **30-second pitch:** Mehr Guard is a Kotlin Multiplatform security app that detects phishing in QR codes across Android, iOS, Desktop, and Web—entirely offline, with a single shared detection engine using an ensemble ML architecture.
 
 ---
 

@@ -1,14 +1,11 @@
-<p align="center">
-  <img src="qr-shield-iconset/QR-SHIELD.iconset/icon_512x512.png" alt="QR-SHIELD Icon" width="512">
-  <br><br>
-  <b>🛡️ QR-SHIELD</b><br>
-</p>
+# 🛡️ Mehr Guard
 
-> **Offline QR Phishing Detection** — Protect users from QRishing attacks with on-device ML, zero data collection, and cross-platform deployment.
+> **"Mehr"** (Persian: مهر) — *trust, covenant, light* + **Guard** — *protection*  
+> Offline QR & link security for phishing prevention and redirection verification.
 
 <p align="center">
   <a href="https://raoof128.github.io"><img src="https://img.shields.io/badge/🌐_Live_Demo-raoof128.github.io-4F8BFF?style=for-the-badge" alt="Live Demo"></a>
-  <a href="releases/QRShield-1.1.0-release.apk"><img src="https://img.shields.io/badge/📱_Android-Download_APK-3DDC84?style=for-the-badge" alt="Download APK"></a>
+  <a href="releases/MehrGuard-1.1.0-release.apk"><img src="https://img.shields.io/badge/📱_Android-Download_APK-3DDC84?style=for-the-badge" alt="Download APK"></a>
   <a href="JUDGE_QUICKSTART.md"><img src="https://img.shields.io/badge/🏆_Judges-Quick_Start-gold?style=for-the-badge" alt="Judge Quick Start"></a>
   <a href="docs/VIDEO_DEMO.md"><img src="https://img.shields.io/badge/🎬_Video-Demo-FF0000?style=for-the-badge" alt="Video Demo"></a>
 </p>
@@ -51,7 +48,7 @@
 - 🔴 Network-dependent tools don't work in parking garages or planes
 - 🔴 Generic "link checkers" miss QR-specific attack patterns
 
-**QR-SHIELD is different:**
+**Mehr Guard is different:**
 - ✅ **100% offline** — URL never leaves your device
 - ✅ **Privacy-first architecture** — Can't leak what we don't transmit
 - ✅ **<5ms analysis** — Real-time during scanning
@@ -68,7 +65,7 @@
 
 | Platform | Target | Download |
 |----------|--------|----------|
-| **Android** | `androidTarget()` | [📥 Download APK](releases/QRShield-1.1.0-release.apk) |
+| **Android** | `androidTarget()` | [📥 Download APK](releases/MehrGuard-1.1.0-release.apk) |
 | **iOS** | `iosArm64/iosX64/iosSimulatorArm64` | `./scripts/run_ios_simulator.sh` |
 | **Desktop** | `jvm("desktop")` | `./gradlew :desktopApp:run` |
 | **Web (JS)** | `js(IR) { browser {} }` | [raoof128.github.io](https://raoof128.github.io) |
@@ -262,7 +259,7 @@ class EnsembleModel {
 
 ## 📊 Accuracy Metrics
 
-| Metric | QR-SHIELD | Target |
+| Metric | Mehr Guard | Target |
 |--------|-----------|--------|
 | **F1 Score** | 87 | 85% |
 | **Recall** | 89.1% | 85% |
@@ -283,7 +280,7 @@ class EnsembleModel {
 
 ## 🔒 Privacy Guarantee
 
-| What Cloud Scanners Know | What QR-SHIELD Knows |
+| What Cloud Scanners Know | What Mehr Guard Knows |
 |--------------------------|----------------------|
 | Which banks you use | **Nothing** |
 | Which doctors you visit | **Nothing** |
@@ -435,7 +432,7 @@ cd Raoof128.github.io
 ## 📄 License
 
 ```
-Copyright 2025-2026 QR-SHIELD Contributors
+Copyright 2025-2026 Mehr Guard Contributors
 Licensed under the Apache License, Version 2.0
 ```
 
@@ -444,9 +441,9 @@ See [LICENSE](LICENSE) for full text.
 ---
 
 <p align="center">
-  <img src="qr-shield-iconset/QR-SHIELD.iconset/icon_128x128.png" alt="QR-SHIELD Icon" width="64">
+  <img src="MehrGuard.iconset/icon_128x128.png" alt="Mehr Guard Icon" width="64">
   <br><br>
-  <b>🛡️ QR-SHIELD</b><br>
+  <b>🛡️ Mehr Guard</b><br>
   <i>Kotlin Multiplatform • 5 Platforms • 100% Offline • 87 F1 Score</i><br><br>
   <b>Scan smart. Stay protected.</b>
 </p>

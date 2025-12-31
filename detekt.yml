@@ -1,4 +1,4 @@
-# Detekt Configuration for QR-SHIELD
+# Detekt Configuration for Mehr Guard
 # Static code analysis for Kotlin
 #
 # Strategy: Zero tolerance for NEW issues. Existing issues tracked in detekt-baseline.xml
@@ -291,7 +291,7 @@ naming:
     excludeClassPattern: '$^'
   InvalidPackageDeclaration:
     active: true
-    rootPackage: 'com.qrshield'
+    rootPackage: 'com.mehrguard'
     requireRootInDeclaration: false
   LambdaParameterNaming:
     active: true

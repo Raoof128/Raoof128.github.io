@@ -1,10 +1,10 @@
 /**
- * QR-SHIELD Beat the Bot Game Controller
+ * Mehr Guard Beat the Bot Game Controller
  * 
  * Handles game logic, scoring, round progression,
  * and integration with the PhishingEngine.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.1
  */
 
@@ -19,7 +19,7 @@ const GameConfig = {
     pointsWrong: -25,
     streakBonus: 25,
     botBasePoints: 100,
-    storageKey: 'qrshield_game_stats',
+    storageKey: 'mehrguard_game_stats',
 };
 
 // =============================================================================
@@ -41,15 +41,15 @@ const GameState = {
 };
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
@@ -262,14 +262,14 @@ const elements = {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Game] Initializing v' + GameConfig.version);
+    console.log('[Mehr Guard Game] Initializing v' + GameConfig.version);
 
     cacheElements();
     setupEventListeners();
     initializeGame();
-    window.qrshieldApplyTranslations?.(document.body);
+    window.mehrguardApplyTranslations?.(document.body);
 
-    console.log('[QR-SHIELD Game] Ready');
+    console.log('[Mehr Guard Game] Ready');
 });
 
 function cacheElements() {

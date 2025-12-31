@@ -1,12 +1,12 @@
-# ♿ QR-SHIELD Accessibility Guide
+# ♿ Mehr Guard Accessibility Guide
 
-> **Ensuring QR-SHIELD is usable by everyone, including users with disabilities.**
+> **Ensuring Mehr Guard is usable by everyone, including users with disabilities.**
 
 ---
 
 ## 📋 Accessibility Compliance
 
-QR-SHIELD targets **WCAG 2.1 Level AA** compliance across all platforms.
+Mehr Guard targets **WCAG 2.1 Level AA** compliance across all platforms.
 
 | Platform | VoiceOver/TalkBack | Keyboard Nav | High Contrast | Dynamic Type |
 |----------|-------------------|--------------|---------------|--------------|
@@ -128,7 +128,7 @@ Risk levels are conveyed through multiple channels:
 
 ### iOS Dynamic Type
 
-QR-SHIELD respects iOS Dynamic Type settings:
+Mehr Guard respects iOS Dynamic Type settings:
 
 ```swift
 Text(score.description)
@@ -167,7 +167,7 @@ CSS uses relative units:
 
 ## 🔇 Reduce Motion
 
-For users with vestibular disorders, QR-SHIELD respects motion preferences:
+For users with vestibular disorders, Mehr Guard respects motion preferences:
 
 ### iOS
 
@@ -210,7 +210,7 @@ if (!reduceMotion) {
 
 Minimum touch target sizes per platform guidelines:
 
-| Platform | Minimum Size | QR-SHIELD Actual |
+| Platform | Minimum Size | Mehr Guard Actual |
 |----------|--------------|------------------|
 | iOS (Apple HIG) | 44×44pt | 48×48pt ✅ |
 | Android (Material) | 48×48dp | 56×56dp ✅ |
@@ -298,7 +298,7 @@ Minimum touch target sizes per platform guidelines:
 cd webApp/e2e && npm test -- --grep "accessibility"
 
 # iOS (XCUITest)
-xcodebuild test -scheme QRShield -destination 'platform=iOS Simulator,name=iPhone 15'
+xcodebuild test -scheme MehrGuard -destination 'platform=iOS Simulator,name=iPhone 15'
 
 # Android (Espresso)
 ./gradlew :androidApp:connectedDebugAndroidTest

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">QR kodları tara. Oltalamayı tespit et.</string>
     <string name="nav_home">Ana Sayfa</string>
     <string name="nav_scan">Tara</string>
@@ -125,10 +125,10 @@
     <string name="try_again">Tekrar Dene</string>
     <string name="camera_permission_rationale">QR kodlarını taramak için kamera erişimi gerekli</string>
     <string name="camera_permission_denied">Kamera izni reddedildi. Lütfen ayarlardan etkinleştirin.</string>
-    <string name="widget_name">QR-SHIELD Hızlı Tarama</string>
+    <string name="widget_name">Mehr Guard Hızlı Tarama</string>
     <string name="widget_description">Oltalama tehditleri için QR kodlarını hızlıca tara</string>
     <string name="widget_tap_to_scan">Taramak için dokun</string>
-    <string name="cd_app_logo">QR-SHIELD Logosu</string>
+    <string name="cd_app_logo">Mehr Guard Logosu</string>
     <string name="cd_scanner_preview">QR kodu tarama için kamera önizlemesi</string>
     <string name="cd_close_scanner">Tarayıcıyı kapat</string>
     <string name="cd_toggle_flash">Flaşı aç/kapat</string>
@@ -155,7 +155,7 @@
     <string name="cd_risk_score">100 üzerinden risk puanı</string>
     <string name="trust_center_title">Güvenlik Durumu</string>
     <string name="trust_center_secure">Cihazınız güvende</string>
-    <string name="trust_center_protected_by">QR-SHIELD Enterprise tarafından korunuyor</string>
+    <string name="trust_center_protected_by">Mehr Guard Enterprise tarafından korunuyor</string>
     <string name="trust_center_score">Güvenlik Puanı: %d/100</string>
     <string name="trust_center_realtime">Gerçek Zamanlı Koruma</string>
     <string name="trust_center_malware">Kötü Amaçlı Yazılım Algılama</string>
@@ -181,7 +181,7 @@
     <string name="trust_center_network_desc">Güvenlik duvarı aktif</string>
     <string name="trust_center_offline">Çevrimdışı Mod</string>
     <string name="trust_center_offline_desc">Yalnızca yerel veritabanı</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">KURUMSAL SÜRÜM</string>
     <string name="footer_terms">Şartlar</string>
     <string name="footer_privacy">Gizlilik Politikası</string>
@@ -359,7 +359,7 @@
     <string name="learning_centre_title">Öğrenme Merkezi</string>
     <string name="your_progress">İlerlemeniz</string>
     <string name="view_certificate">Sertifikayı Görüntüle</string>
-    <string name="qr_shield_certified">QR-SHIELD Sertifikalı</string>
+    <string name="qr_shield_certified">Mehr Guard Sertifikalı</string>
     <string name="modules_completed_fmt">%1$d/%2$d modül tamamlandı</string>
     <string name="on_track">Yolunda</string>
     <string name="daily_tip_label">GÜNÜN İPUCU</string>
@@ -418,7 +418,7 @@
     <string name="remediation_3">Kimlik bilgisi girildiyse, parolaları hemen sıfırlayın</string>
     <string name="privacy_offline_title">Gizlilik ve Çevrimdışı</string>
     <string name="privacy_hero_title">Verileriniz Asla Çıkmaz</string>
-    <string name="privacy_hero_desc">QR-SHIELD tamamen cihazınızda çalışır. Bulut yok. Sunucu yok. Veri toplama yok. Tasarım gereği tam gizlilik.</string>
+    <string name="privacy_hero_desc">Mehr Guard tamamen cihazınızda çalışır. Bulut yok. Sunucu yok. Veri toplama yok. Tasarım gereği tam gizlilik.</string>
     <string name="privacy_offline_badge">%100 Çevrimdışı Çalışma</string>
     <string name="privacy_architecture">Gizlilik Mimarisi</string>
     <string name="privacy_local_db_title">Yerel Veritabanı</string>
@@ -504,7 +504,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -549,9 +549,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">QR Shield logo</string>
-    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
+    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">Mehr Guard logo</string>
+    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>

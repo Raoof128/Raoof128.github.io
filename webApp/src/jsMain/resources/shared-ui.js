@@ -1,5 +1,5 @@
 /**
- * QR-SHIELD Shared UI Controller
+ * Mehr Guard Shared UI Controller
  * Handles common interactive elements across all pages:
  * - User Profile dropdown and settings
  * - Notification system
@@ -19,8 +19,8 @@
     function translateText(text) {
         const normalized = normalizeKey(text);
         if (!normalized) return text;
-        if (window.qrshieldGetTranslation) {
-            return window.qrshieldGetTranslation(normalized);
+        if (window.mehrguardGetTranslation) {
+            return window.mehrguardGetTranslation(normalized);
         }
         return normalized;
     }
@@ -33,8 +33,8 @@
         return translated;
     }
 
-    window.qrshieldTranslateText = translateText;
-    window.qrshieldFormatText = formatText;
+    window.mehrguardTranslateText = translateText;
+    window.mehrguardFormatText = formatText;
 
     // ==========================================================================
     // USER PROFILE MANAGEMENT
@@ -55,7 +55,7 @@
      * Get current user from localStorage
      */
     function getUser() {
-        const stored = localStorage.getItem('qrshield_user');
+        const stored = localStorage.getItem('mehrguard_user');
         if (stored) {
             try {
                 return { ...DEFAULT_USER, ...JSON.parse(stored) };
@@ -70,7 +70,7 @@
      * Save user to localStorage
      */
     function saveUser(user) {
-        localStorage.setItem('qrshield_user', JSON.stringify(user));
+        localStorage.setItem('mehrguard_user', JSON.stringify(user));
         updateAllUserUI();
     }
 
@@ -191,8 +191,8 @@
 
 
         document.body.appendChild(dropdown);
-        window.qrshieldApplyTranslations?.(dropdown);
-        window.qrshieldApplyTranslations?.(dropdown);
+        window.mehrguardApplyTranslations?.(dropdown);
+        window.mehrguardApplyTranslations?.(dropdown);
 
         // Smart positioning - prevent dropdown from going off-screen
         const dropdownWidth = 280;
@@ -333,7 +333,7 @@
         `;
 
         document.body.appendChild(modal);
-        window.qrshieldApplyTranslations?.(modal);
+        window.mehrguardApplyTranslations?.(modal);
 
         // Animate in
         requestAnimationFrame(() => {
@@ -379,7 +379,7 @@
     // NOTIFICATION SYSTEM
     // ==========================================================================
 
-    const NOTIFICATIONS_KEY = 'qrshield_notifications';
+    const NOTIFICATIONS_KEY = 'mehrguard_notifications';
 
     function getNotifications() {
         const stored = localStorage.getItem(NOTIFICATIONS_KEY);
@@ -605,7 +605,7 @@
     // ==========================================================================
 
     function getAppStats() {
-        const stored = localStorage.getItem('qrshield_stats');
+        const stored = localStorage.getItem('mehrguard_stats');
         const defaults = {
             scansToday: 0,
             totalScans: 0,
@@ -633,7 +633,7 @@
     }
 
     function saveAppStats(stats) {
-        localStorage.setItem('qrshield_stats', JSON.stringify(stats));
+        localStorage.setItem('mehrguard_stats', JSON.stringify(stats));
     }
 
     function incrementScanCount(isThreat = false) {
@@ -670,7 +670,7 @@
         const user = getUser();
         const stats = getAppStats();
         const notifications = getNotifications();
-        const scanHistory = JSON.parse(localStorage.getItem('qrshield_history') || '[]');
+        const scanHistory = JSON.parse(localStorage.getItem('mehrguard_history') || '[]');
 
         const exportData = {
             exportDate: new Date().toISOString(),
@@ -678,9 +678,9 @@
             statistics: stats,
             scanHistory: scanHistory,
             settings: {
-                sensitivity: localStorage.getItem('qrshield_sensitivity') || 'balanced',
-                allowlist: JSON.parse(localStorage.getItem('qrshield_allowlist') || '[]'),
-                blocklist: JSON.parse(localStorage.getItem('qrshield_blocklist') || '[]')
+                sensitivity: localStorage.getItem('mehrguard_sensitivity') || 'balanced',
+                allowlist: JSON.parse(localStorage.getItem('mehrguard_allowlist') || '[]'),
+                blocklist: JSON.parse(localStorage.getItem('mehrguard_blocklist') || '[]')
             }
         };
 
@@ -688,7 +688,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `qrshield-data-${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `mehrguard-data-${new Date().toISOString().split('T')[0]}.json`;
         a.click();
         URL.revokeObjectURL(url);
 
@@ -948,7 +948,7 @@
                     </div>
                     
                     <div class="help-section" style="margin-top: 16px;">
-                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;" data-i18n="AboutQrShield">${translateText('About QR-SHIELD')}</h4>
+                        <h4 style="margin: 0 0 12px 0; color: var(--text-primary, #f1f5f9); font-size: 14px; font-weight: 600;" data-i18n="AboutQrShield">${translateText('About Mehr Guard')}</h4>
                         <p style="font-size: 14px; color: var(--text-secondary, #94a3b8); line-height: 1.6; margin: 0;" data-i18n="AboutDescription">
                             ${translateText('Enterprise-grade QR code security with 100% offline analysis. Your data never leaves your device. All threat detection is performed locally using our advanced phishing detection engine.')}
                         </p>
@@ -1041,7 +1041,7 @@
     // SETTINGS MANAGEMENT
     // ==========================================================================
 
-    const SETTINGS_KEY = 'qrshield_settings';
+    const SETTINGS_KEY = 'mehrguard_settings';
 
     const DEFAULT_SETTINGS = {
         // Detection settings
@@ -1093,7 +1093,7 @@
     // SCAN HISTORY MANAGEMENT
     // ==========================================================================
 
-    const HISTORY_KEY = 'qrshield_scan_history';
+    const HISTORY_KEY = 'mehrguard_scan_history';
     const MAX_HISTORY_ITEMS = 50;
 
     function getScanHistory() {
@@ -1212,7 +1212,7 @@
     }
 
     // Expose public API
-    window.QRShieldUI = {
+    window.MehrGuardUI = {
         // User & Stats
         getUser,
         saveUser,

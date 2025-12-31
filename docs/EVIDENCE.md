@@ -1,4 +1,4 @@
-# 📋 QR-SHIELD Evidence Pack
+# 📋 Mehr Guard Evidence Pack
 
 > **Purpose**: Every numeric claim in the README is linked to a reproducible artifact.  
 > **Last Verified**: December 31, 2025  
@@ -30,12 +30,12 @@
 | README Claim | Evidence | Artifact Link |
 |--------------|----------|---------------|
 | **1,248 Tests** | Test results XML | [test_count.txt](artifacts/test_count.txt) |
-| **100% Offline** | Zero network test | [OfflineOnlyTest.kt](../common/src/commonTest/kotlin/com/qrshield/core/OfflineOnlyTest.kt) |
+| **100% Offline** | Zero network test | [OfflineOnlyTest.kt](../common/src/commonTest/kotlin/com/mehrguard/core/OfflineOnlyTest.kt) |
 | **<5ms Analysis** | Benchmark output | [BENCHMARKS.md](BENCHMARKS.md) |
-| **25+ Heuristics** | Code line count | [HeuristicsEngine.kt](../common/src/commonMain/kotlin/com/qrshield/engine/HeuristicsEngine.kt) |
+| **25+ Heuristics** | Code line count | [HeuristicsEngine.kt](../common/src/commonMain/kotlin/com/mehrguard/engine/HeuristicsEngine.kt) |
 | **85% Detection** | Malicious URL test | [malicious_url_output.txt](artifacts/malicious_url_output.txt) |
 | **140 Test URLs** | CSV dataset | [malicious_urls.csv](../common/src/commonTest/resources/malicious_urls.csv) |
-| **<5% False Positive** | Alexa Top 100 test | [AlexaTop100FPTest.kt](../common/src/commonTest/kotlin/com/qrshield/benchmark/AlexaTop100FPTest.kt) |
+| **<5% False Positive** | Alexa Top 100 test | [AlexaTop100FPTest.kt](../common/src/commonTest/kotlin/com/mehrguard/benchmark/AlexaTop100FPTest.kt) |
 | **Parity Hash** | Cross-platform test | [parity_output.txt](artifacts/parity_output.txt) |
 | **5 KMP Targets** | Build verification | [verify_parity.sh](../judge/verify_parity.sh) |
 
@@ -68,7 +68,7 @@ WASM           | —      | —      | ✅ Compiles
 
 ### Claim: "100% Offline - Zero network calls"
 
-**Test File**: [`OfflineOnlyTest.kt`](../common/src/commonTest/kotlin/com/qrshield/core/OfflineOnlyTest.kt)
+**Test File**: [`OfflineOnlyTest.kt`](../common/src/commonTest/kotlin/com/mehrguard/core/OfflineOnlyTest.kt)
 
 **What It Proves**:
 - Analysis module has zero HTTP client dependencies
@@ -92,7 +92,7 @@ Analyzed 27 URLs, made 0 network calls
 
 ### Claim: "<5ms Analysis Latency"
 
-**Test File**: [`PlatformParityProofTest.kt`](../common/src/commonTest/kotlin/com/qrshield/benchmark/PlatformParityProofTest.kt)
+**Test File**: [`PlatformParityProofTest.kt`](../common/src/commonTest/kotlin/com/mehrguard/benchmark/PlatformParityProofTest.kt)
 
 **Actual Results** (Desktop JVM):
 ```
@@ -117,9 +117,9 @@ LATENCY RESULTS (100 iterations):
 
 ## 🏎️ Performance Comparison vs Cloud APIs
 
-### QR-SHIELD vs Cloud-Based Solutions
+### Mehr Guard vs Cloud-Based Solutions
 
-| Metric | QR-SHIELD (Offline) | Google Safe Browsing | VirusTotal API |
+| Metric | Mehr Guard (Offline) | Google Safe Browsing | VirusTotal API |
 |--------|---------------------|---------------------|----------------|
 | **Latency (P50)** | **<1ms** | ~100-300ms | ~500-2000ms |
 | **Latency (P99)** | **<5ms** | ~500-1000ms | ~3000ms+ |
@@ -131,7 +131,7 @@ LATENCY RESULTS (100 iterations):
 
 ### Why This Matters
 
-1. **Latency**: At <5ms, QR-SHIELD provides real-time feedback while users are still pointing their camera at the QR code. Cloud APIs introduce noticeable delays.
+1. **Latency**: At <5ms, Mehr Guard provides real-time feedback while users are still pointing their camera at the QR code. Cloud APIs introduce noticeable delays.
 
 2. **Reliability**: Works in parking garages, airplanes, rural areas—anywhere without cell signal.
 
@@ -140,7 +140,7 @@ LATENCY RESULTS (100 iterations):
    - Which doctors you visit
    - Which lawyers you consult
    
-   QR-SHIELD transmits nothing.
+   Mehr Guard transmits nothing.
 
 ### Benchmark Methodology
 
@@ -162,7 +162,7 @@ repeat(100) {
 
 ### Claim: "85% Detection Rate on 140 URLs"
 
-**Test File**: [`MaliciousUrlProofTest.kt`](../common/src/commonTest/kotlin/com/qrshield/benchmark/MaliciousUrlProofTest.kt)
+**Test File**: [`MaliciousUrlProofTest.kt`](../common/src/commonTest/kotlin/com/mehrguard/benchmark/MaliciousUrlProofTest.kt)
 
 **Dataset**: [`malicious_urls.csv`](../common/src/commonTest/resources/malicious_urls.csv)
 
@@ -193,7 +193,7 @@ By Category:
 
 ### Claim: "Zero MALICIOUS on Alexa Top 100"
 
-**Test File**: [`AlexaTop100FPTest.kt`](../common/src/commonTest/kotlin/com/qrshield/benchmark/AlexaTop100FPTest.kt)
+**Test File**: [`AlexaTop100FPTest.kt`](../common/src/commonTest/kotlin/com/mehrguard/benchmark/AlexaTop100FPTest.kt)
 
 **Dataset**: [`alexa_top_100.csv`](../common/src/commonTest/resources/alexa_top_100.csv)
 
@@ -272,7 +272,7 @@ With 0% MALICIOUS on Alexa Top 100, this test **PASSES**.
 
 ### Claim: "Identical Verdicts on All Platforms"
 
-**Test File**: [`PlatformParityProofTest.kt`](../common/src/commonTest/kotlin/com/qrshield/benchmark/PlatformParityProofTest.kt)
+**Test File**: [`PlatformParityProofTest.kt`](../common/src/commonTest/kotlin/com/mehrguard/benchmark/PlatformParityProofTest.kt)
 
 **Actual Results**:
 ```
@@ -352,7 +352,7 @@ Compare verdicts (SAFE/SUSPICIOUS/MALICIOUS), not raw scores.
 
 ### Claim: "25+ Detection Heuristics"
 
-**Source File**: [`HeuristicsEngine.kt`](../common/src/commonMain/kotlin/com/qrshield/engine/HeuristicsEngine.kt)
+**Source File**: [`HeuristicsEngine.kt`](../common/src/commonMain/kotlin/com/mehrguard/engine/HeuristicsEngine.kt)
 
 **Heuristics Enumerated (26 Total)**:
 
@@ -387,7 +387,7 @@ Compare verdicts (SAFE/SUSPICIOUS/MALICIOUS), not raw scores.
 
 **One Command**:
 ```bash
-grep -c "fun analyze\|fun check\|fun detect" common/src/commonMain/kotlin/com/qrshield/engine/HeuristicsEngine.kt
+grep -c "fun analyze\|fun check\|fun detect" common/src/commonMain/kotlin/com/mehrguard/engine/HeuristicsEngine.kt
 ```
 
 ---
@@ -403,7 +403,7 @@ grep -c "fun analyze\|fun check\|fun detect" common/src/commonMain/kotlin/com/qr
 ./gradlew :desktopApp:packageDistributionForCurrentOS  # ✅
 ./gradlew :webApp:jsBrowserDevelopmentWebpack # ✅
 ./gradlew :webApp:wasmJsBrowserDevelopmentRun # ✅ (WASM)
-xcodebuild -project iosApp/QRShield.xcodeproj -scheme QRShield # ✅
+xcodebuild -project iosApp/MehrGuard.xcodeproj -scheme MehrGuard # ✅
 ```
 
 **Artifact**: [`verify_parity.sh`](../judge/verify_parity.sh)
@@ -480,5 +480,5 @@ echo "✅ All evidence regenerated"
 
 ---
 
-*Evidence pack generated by QR-SHIELD automated verification system*  
+*Evidence pack generated by Mehr Guard automated verification system*  
 *All claims are independently reproducible with the commands above.*

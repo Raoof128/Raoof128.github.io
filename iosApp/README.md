@@ -1,6 +1,6 @@
 # 📱 iOS App Setup Guide
 
-## Running QR-SHIELD iOS in Xcode Simulator
+## Running Mehr Guard iOS in Xcode Simulator
 
 This guide explains how to build and run the native iOS SwiftUI app with Kotlin Multiplatform integration.
 
@@ -11,7 +11,7 @@ This guide explains how to build and run the native iOS SwiftUI app with Kotlin 
 ### Step 1: Build the KMP Framework
 
 ```bash
-cd /Users/raoof.r12/Desktop/Raouf/K/qrshield
+cd /Users/raoof.r12/Desktop/Raouf/K/mehrguard
 ./iosApp/scripts/build_framework.sh
 ```
 
@@ -23,12 +23,12 @@ Or manually:
 ### Step 2: Open in Xcode
 
 ```bash
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 ```
 
 ### Step 3: Link the Framework (First Time Only)
 
-1. Select **QRShield** target in the project navigator
+1. Select **MehrGuard** target in the project navigator
 2. Go to **General** tab
 3. Scroll to **Frameworks, Libraries, and Embedded Content**
 4. Click **+** → **Add Other...** → **Add Files...**
@@ -47,12 +47,12 @@ open iosApp/QRShield.xcodeproj
 
 ```
 iosApp/
-├── QRShield.xcodeproj     # Xcode project file
+├── MehrGuard.xcodeproj     # Xcode project file
 ├── Frameworks/
 │   └── common.framework   # KMP compiled framework
-├── QRShield/
+├── MehrGuard/
 │   ├── App/
-│   │   └── QRShieldApp.swift      # SwiftUI App entry point
+│   │   └── MehrGuardApp.swift      # SwiftUI App entry point
 │   ├── Models/
 │   │   ├── KMPBridge.swift        # Bridge to Kotlin code
 │   │   ├── MockTypes.swift        # Fallback types

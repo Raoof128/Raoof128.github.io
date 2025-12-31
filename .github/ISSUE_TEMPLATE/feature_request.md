@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea for QR-SHIELD
+about: Suggest an idea for Mehr Guard
 title: '[FEATURE] '
 labels: enhancement
 assignees: ''

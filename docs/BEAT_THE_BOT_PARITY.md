@@ -220,8 +220,8 @@ When `prefers-reduced-motion: reduce`:
 - `androidApp/.../BeatTheBotScreen.kt` - Uses `CommonBrainVisualizer`
 
 ### iOS
-- `iosApp/QRShield/UI/Components/BrainVisualizer.swift` - **NEW**
-- `iosApp/QRShield/UI/Training/BeatTheBotView.swift` - Integrated visualizer
+- `iosApp/MehrGuard/UI/Components/BrainVisualizer.swift` - **NEW**
+- `iosApp/MehrGuard/UI/Training/BeatTheBotView.swift` - Integrated visualizer
 
 ### Desktop
 - `desktopApp/.../TrainingScreen.kt` - Uses `CommonBrainVisualizer`
@@ -247,7 +247,7 @@ When `prefers-reduced-motion: reduce`:
 ./gradlew :desktopApp:run
 
 # iOS
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 # Build and run on simulator
 
 # Web

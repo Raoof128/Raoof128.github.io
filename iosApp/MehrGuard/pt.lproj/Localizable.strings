@@ -1,0 +1,658 @@
+/* 
+  Localizable.strings
+  Mehr Guard iOS App
+  
+  Portuguese (Português) Localization
+  Created: December 2025
+*/
+
+// MARK: - App General
+"app.name" = "Mehr Guard";
+"app.tagline" = "Detector de QRishing Kotlin Multiplatform";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "Início";
+"tab.scan" = "Escanear";
+"tab.history" = "Histórico";
+"tab.training" = "Treinamento";
+"tab.settings" = "Ajustes";
+
+// MARK: - Scanner View
+"scanner.title" = "Mehr Guard";
+"scanner.scanning" = "Escaneando";
+"scanner.paused" = "Pausado";
+"scanner.analyzing" = "Analisando...";
+"scanner.point_at_qr" = "Aponte para o código QR";
+"scanner.gallery" = "Galeria";
+"scanner.history" = "Histórico";
+"scanner.scans_count" = "Escaneamentos: %d";
+"scanner.error_dismiss" = "Dispensar erro";
+
+// MARK: - Camera Permission
+"camera.access_required" = "Acesso à câmera necessário";
+"camera.access_message" = "Mehr Guard precisa de acesso à câmera para escanear códigos QR. Por favor, habilite nos Ajustes.";
+"camera.open_settings" = "Abrir Ajustes";
+"camera.cancel" = "Cancelar";
+"camera.no_camera" = "Nenhuma câmera disponível";
+"camera.setup_failed" = "Falha na configuração da câmera: %@";
+"camera.flash_failed" = "Falha ao alternar flash: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "SEGURO";
+"verdict.suspicious" = "SUSPEITO";
+"verdict.malicious" = "MALICIOSO";
+"verdict.unknown" = "DESCONHECIDO";
+
+// MARK: - Result Card
+"result.risk_score" = "Pontuação de risco: %d/100";
+"result.risk_score_label" = "Pontuação de risco";
+"result.confidence" = "Confiança";
+"result.view_details" = "Ver detalhes";
+"result.view_full_analysis" = "Ver análise completa";
+"result.copy_url" = "Copiar URL";
+"result.share" = "Compartilhar";
+"result.dismiss" = "Dispensar";
+"result.show_more" = "Mostrar mais %d...";
+"result.show_less" = "Mostrar menos";
+"result.flags_title" = "Fatores de risco";
+
+// MARK: - History View
+"history.title" = "Histórico de escaneamentos";
+"history.empty_title" = "Nenhum escaneamento ainda";
+"history.empty_message" = "Códigos QR escaneados aparecerão aqui";
+"history.scan_now" = "Escanear agora";
+"history.clear_all" = "Limpar tudo";
+"history.delete" = "Excluir";
+"history.open_url" = "Abrir URL";
+"history.search_prompt" = "Pesquisar URLs";
+"history.sort_menu" = "Ordenar";
+"history.sort.by_date" = "Por data";
+"history.sort.by_risk" = "Por risco";
+"history.export" = "Exportar";
+"history.clear_all_action" = "Limpar tudo";
+"history.scans_counter" = "%d escaneamentos";
+"history.no_results" = "Sem resultados";
+"history.no_results_message" = "Tente ajustar sua pesquisa ou filtros";
+"history.clear_confirm_title" = "Limpar todo o histórico?";
+"history.clear_confirm_message" = "Esta ação não pode ser desfeita. Todo o histórico de escaneamentos será excluído permanentemente.";
+"history.exported_toast" = "Exportado para a área de transferência";
+
+// MARK: - Settings View
+"settings.title" = "Ajustes";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "Escaneamento";
+"settings.section.notifications" = "Notificações";
+"settings.section.appearance" = "Aparência";
+"settings.section.privacy" = "Privacidade";
+"settings.section.about" = "Sobre";
+"settings.auto_scan" = "Escanear automaticamente ao iniciar";
+"settings.auto_scan_description" = "Começar a escanear imediatamente ao abrir o app";
+"settings.haptic" = "Feedback tátil";
+"settings.haptic_description" = "Vibrar nos resultados de escaneamento";
+"settings.sound" = "Efeitos sonoros";
+"settings.sound_description" = "Reproduzir sons para alertas";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "Alertas de segurança";
+"settings.security_alerts_description" = "Receber notificações sobre ameaças de segurança";
+"settings.notifications_denied_title" = "Notificações desativadas";
+"settings.notifications_denied_message" = "Para receber alertas de segurança, habilite as notificações para Mehr Guard nos Ajustes.";
+"settings.open_settings" = "Abrir Ajustes";
+"settings.cancel" = "Cancelar";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "Reduzir Liquid Glass";
+"settings.reduce_effects_description" = "Simplificar efeitos visuais para desempenho";
+"settings.system_appearance" = "Aparência do sistema";
+"settings.dark_mode" = "Modo escuro";
+"settings.dark_mode_description" = "Ativar esquema de cores escuro";
+"settings.appearance_footer" = "iOS 17+ introduz belos efeitos Liquid Glass. Reduza os efeitos se tiver problemas de desempenho em dispositivos mais antigos.";
+
+// Settings: Privacy Section
+"settings.save_history" = "Salvar histórico de escaneamentos";
+"settings.save_history_description" = "Manter um registro de URLs escaneadas";
+"settings.clear_history" = "Limpar histórico";
+"settings.clear_history_title" = "Limpar todo o histórico?";
+"settings.clear_history_message" = "Esta ação não pode ser desfeita. Todo o histórico de escaneamentos será excluído permanentemente.";
+"settings.clear_all" = "Limpar tudo";
+"settings.privacy_policy" = "Política de privacidade";
+"settings.source_code" = "Código fonte";
+"settings.credits" = "Feito com ❤️ para KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "Versão";
+"settings.build" = "Build";
+"settings.engine" = "Motor";
+
+// MARK: - Onboarding
+"onboarding.skip" = "Pular";
+"onboarding.continue" = "Continuar";
+"onboarding.get_started" = "Começar";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "Escaneie qualquer código QR";
+"onboarding.scan.description" = "Aponte sua câmera para qualquer código QR para analisar instantaneamente seu conteúdo em busca de ameaças potenciais.";
+"onboarding.protect.title" = "Proteção em tempo real";
+"onboarding.protect.description" = "Nosso motor alimentado por IA analisa URLs usando mais de 25 heurísticas de segurança e algoritmos de aprendizado de máquina.";
+"onboarding.privacy.title" = "Privacidade em primeiro lugar";
+"onboarding.privacy.description" = "Toda a análise acontece no dispositivo usando Kotlin Multiplatform. Seus dados nunca saem do seu telefone.";
+"onboarding.design.title" = "Belo design iOS 17+";
+"onboarding.design.description" = "Experimente a impressionante interface Liquid Glass com animações suaves e estética moderna.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "Permissão da câmera";
+"onboarding.camera.allow" = "Permitir câmera";
+"onboarding.camera.later" = "Talvez depois";
+"onboarding.camera.message" = "Mehr Guard precisa de acesso à câmera para escanear códigos QR. Você pode mudar isso depois nos Ajustes.";
+
+// MARK: - Detail Sheet
+"detail.analysis_details" = "Detalhes da análise";
+"detail.scanned_at" = "Escaneado em %@";
+"detail.url_information" = "Informações da URL";
+"detail.risk_factors" = "Fatores de risco";
+"detail.no_risks" = "Nenhum risco detectado";
+"detail.open_url" = "Abrir URL";
+"detail.open_warning" = "Abrir esta URL pode ser perigoso. Tem certeza?";
+"detail.open_warning_title" = "Aviso de segurança";
+"detail.proceed" = "Continuar mesmo assim";
+"detail.scanned_at_time_ago" = "Escaneado %@";
+"detail.score_breakdown" = "Detalhamento da pontuação";
+"detail.url_details" = "Detalhes da URL";
+"detail.url_label" = "URL";
+"detail.protocol_https" = "HTTPS (Seguro)";
+"detail.protocol_http" = "HTTP (Não seguro)";
+"detail.domain" = "Domínio";
+"detail.protocol" = "Protocolo";
+"detail.share_analysis" = "Compartilhar análise";
+"detail.copy_url" = "Copiar URL";
+"detail.copied" = "Copiado!";
+"detail.report_false_positive" = "Reportar falso positivo";
+
+// MARK: - Errors
+"error.generic" = "Ocorreu um erro";
+"error.network" = "Erro de conexão de rede";
+"error.invalid_url" = "URL inválida detectada";
+"error.analysis_failed" = "Análise falhou";
+"error.invalid_or_unsupported" = "Conteúdo QR inválido ou não suportado.";
+"error.no_qr_found" = "Nenhum código QR encontrado na imagem selecionada.";
+"error.image_scan_failed" = "Falha ao escanear imagem: %@";
+"error.dismiss" = "Dispensar erro";
+
+// MARK: - Scanner UI
+"scanner.brand" = "Mehr Guard";
+"scanner.status_scanning" = "Escaneando";
+"scanner.status_paused" = "Pausado";
+"scanner.view_details" = "Ver detalhes";
+"scanner.copy_url" = "Copiar URL";
+"scanner.dismiss" = "Fechar";
+"scanner.share" = "Compartilhar";
+"scanner.flash_on" = "Flash ligado";
+"scanner.flash_off" = "Flash desligado";
+"scanner.open_history" = "Abrir histórico";
+"scanner.scan_toggle" = "Alternar escaneamento";
+
+// MARK: - History UI
+"history.search_prompt" = "Pesquisar URLs";
+"history.sort_menu" = "Ordenar";
+
+// MARK: - Onboarding UI
+"onboarding.page_counter" = "%d/%d";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "Seguro. Offline.";
+"dashboard.hero.tagline2" = "Defesa Explicável.";
+"dashboard.hero.description" = "Mehr Guard analisa ameaças potenciais diretamente no seu hardware. Experimente ";
+"dashboard.hero.zero_latency" = "proteção sem latência.";
+"dashboard.enterprise_badge" = "PROTEÇÃO EMPRESARIAL ATIVA";
+"dashboard.analyze" = "Analisar";
+"dashboard.scan_qr" = "Escanear Código QR";
+"dashboard.import_image" = "Importar Imagem";
+"dashboard.system_optimal" = "Sistema Ideal";
+"dashboard.engine_status" = "Motor v2.4 • Atualizado há 2h";
+"dashboard.threats_blocked" = "Ameaças Bloqueadas";
+"dashboard.safe_scans" = "Escaneamentos Seguros";
+"dashboard.engine_features" = "RECURSOS DO MOTOR";
+"dashboard.recent_scans" = "ESCANEAMENTOS RECENTES";
+"dashboard.view_all" = "Ver Tudo";
+"dashboard.no_scans_yet" = "Nenhum escaneamento ainda";
+"dashboard.no_scans_message" = "Escaneie um código QR ou cole uma URL para começar";
+"dashboard.threat_database" = "Banco de Dados de Ameaças";
+"dashboard.db_updated" = "Banco de dados local atualizado com sucesso.";
+"dashboard.offline_ready" = "PRONTO OFFLINE";
+
+// MARK: - Settings Quick Actions
+"settings.quick_actions" = "Ações Rápidas";
+"settings.threat_monitor" = "Monitor de Ameaças";
+"settings.threat_monitor_desc" = "Ver ameaças ao vivo e executar auditoria de segurança";
+"settings.trust_centre" = "Centro de Confiança";
+"settings.trust_centre_desc" = "Configurações de privacidade e sensibilidade a ameaças";
+"settings.export_report" = "Exportar Relatório";
+"settings.export_report_desc" = "Gerar relatório de segurança PDF ou JSON";
+
+// MARK: - Trust Centre
+"trust.title" = "Centro de Confiança";
+"trust.offline_guarantee" = "Garantia Offline Estrita";
+"trust.offline_description" = "A análise do Mehr Guard é executada inteiramente no Neural Engine do seu dispositivo. Os dados de URL nunca saem do seu telefone.";
+"trust.threat_sensitivity" = "Sensibilidade a Ameaças";
+"trust.reset_confirm" = "Isso redefinirá todas as configurações do Centro de Confiança para os padrões.";
+
+// MARK: - Results Actions
+"result.block_report" = "Bloquear e Reportar";
+"result.block_description" = "Isso bloqueará o domínio e reportará à sua equipe de segurança.";
+"result.block_action" = "Impedir acesso e notificar administrador";
+"result.quarantine" = "Quarentena no Sandbox";
+"result.quarantine_action" = "Abrir com segurança para análise";
+"result.expected" = "Esperado: ";
+"result.detected" = "Detectado: ";
+"result.explainable_security" = "Segurança Explicável";
+"result.url_breakdown" = "ANÁLISE DA URL";
+"result.full_url" = "URL COMPLETA";
+"result.open_safari" = "Abrir no Safari (Arriscado)";
+"result.open_warning_full" = "Abrir esta URL no seu navegador pode expô-lo a riscos de segurança.";
+"result.restricted_mode" = "Modo Restrito";
+"result.restricted_description" = "Esta URL foi marcada como potencialmente perigosa. Revise a análise abaixo antes de continuar.";
+"result.dangerous_warning" = "Esta URL foi marcada como potencialmente perigosa. Abri-la pode expô-lo a phishing, malware ou outras ameaças de segurança.\n\nTem certeza de que deseja continuar?";
+
+// MARK: - Navigation
+"nav.quick_actions" = "AÇÕES RÁPIDAS";
+"nav.systems_operational" = "Todos os sistemas operacionais";
+
+// MARK: - Common
+"common.enabled" = "Habilitado";
+"common.disabled" = "Desabilitado";
+
+// MARK: - Language Settings
+"settings.language" = "Language";
+"settings.language_section" = "Language";
+"settings.language_system" = "System Default";
+"settings.language_search" = "Search languages";
+"settings.language_footer" = "Select your preferred language. The app will use the selected language for all text and content.";
+"common.done" = "Done";
+
+// MARK: - Restart Required Screen
+"settings.restart_title" = "Reinício necessário";
+"settings.restart_subtitle" = "Para exibir o Mehr Guard em %@, reinicie o app.";
+"settings.restart_step1" = "Toque em 'Fechar App' abaixo";
+"settings.restart_step2" = "Deslize para cima para fechar completamente";
+"settings.restart_step3" = "Reabra o Mehr Guard para ver o novo idioma";
+"settings.close_app" = "Fechar App";
+"settings.restart_error_title" = "Erro ao reiniciar";
+"settings.restart_error_message" = "Não foi possível fechar o app automaticamente. Feche e reabra manualmente.";
+"common.ok" = "OK";
+"settings.language_changed" = "Idioma alterado";
+"settings.restart_now" = "Reiniciar agora";
+"settings.language_restart_message" = "O app precisa ser reiniciado para aplicar o novo idioma.";
+"settings.restart_later" = "Mais tarde";
+
+
+// MARK: - Training (Beat The Bot)
+"training.mode" = "MODO TREINO";
+"training.beat_the_bot" = "Vença o Bot";
+"training.seconds" = "Segundos";
+"training.level" = "NÍVEL %d";
+"training.unusual_signin" = "Login incomum";
+"training.unusual_signin_message" = "Detectamos um login de um novo dispositivo. Verifique sua identidade imediatamente.";
+"training.verify_identity" = "Verificar identidade";
+"training.phishing" = "Phishing";
+"training.legitimate" = "Legítimo";
+"training.live_session" = "SESSÃO AO VIVO";
+"training.online" = "ONLINE";
+"training.bot_confidence" = "Confiança do Bot:";
+"training.ai_analysis" = "ANÁLISE NEURAL IA";
+"training.live_hint" = "Dica ao vivo";
+"training.tip" = "Dica:";
+"training.beginner" = "INICIANTE";
+"training.intermediate" = "INTERMEDIÁRIO";
+"training.advanced" = "AVANÇADO";
+"training.nightmare" = "PESADELO";
+
+// MARK: - Settings Additional
+"settings.security_alerts_title" = "Alertas de segurança";
+"settings.security_alerts_desc" = "Receber notificações sobre ameaças";
+"settings.notifications_denied_message" = "Para receber alertas, ative as notificações do Mehr Guard nos Ajustes.";
+"settings.system_appearance_label" = "Aparência do sistema";
+"settings.clear_history_button" = "Limpar histórico";
+"settings.privacy_policy_link" = "Política de privacidade";
+"settings.source_code_link" = "Código fonte";
+"settings.engine_swift" = "Swift 6";
+"settings.clear_confirm_message" = "Esta ação não pode ser desfeita. Todo o histórico será excluído permanentemente.";
+"settings.ios_version" = "iOS 17+";
+"settings.liquid_glass_footer" = "iOS 17+ introduz belos efeitos Liquid Glass. Reduza os efeitos se houver problemas de desempenho.";
+
+// MARK: - Dashboard Additional
+"dashboard.hero.description_full" = "Mehr Guard analisa ameaças diretamente no seu hardware. Experimente";
+"dashboard.zero_latency" = "detecção de phishing sem latência";
+"dashboard.version_date" = "Versão 2023.10.24";
+"dashboard.offline_badge" = "PRONTO OFFLINE";
+
+// MARK: - Navigation
+"nav.version_offline" = "v2.4.0 • Modo offline";
+
+// MARK: - Results Additional
+"result.block_warning" = "Isso bloqueará o domínio e reportará à sua equipe de segurança.";
+"result.dangerous_full_warning" = "Este URL foi marcado como potencialmente perigoso. Abri-lo pode expô-lo a phishing ou malware.\n\nTem certeza que deseja continuar?";
+"result.open_safari_risky" = "Abrir no Safari (arriscado)";
+"result.open_warning_browser" = "Abrir este URL no navegador pode expô-lo a riscos de segurança.";
+
+// MARK: - Components
+"component.confidence" = "Confiança";
+"component.risk_score" = "Pontuação de risco";
+"component.risk_flags" = "Indicadores de risco";
+"component.view_full_analysis" = "Ver análise completa";
+"component.select_image" = "Selecionar imagem";
+"component.select_image_desc" = "Escolha uma foto com código QR";
+"component.idle_state" = "Estado inativo";
+"component.active_state" = "Estado ativo";
+
+// MARK: - Threat History
+"threat.no_vulnerabilities" = "Nenhuma vulnerabilidade detectada. Seu dispositivo está seguro.";
+"threat.live_map" = "MAPA DE AMEAÇAS AO VIVO";
+"threat.global_view" = "Visão global";
+"threat.last_audit" = "Última auditoria: %@";
+"threat.latest_updates" = "ÚLTIMAS ATUALIZAÇÕES";
+"threat.live" = "AO VIVO";
+
+// MARK: - History Additional
+"history.scan_statistics" = "Estatísticas de varredura";
+"history.safe_count" = "Seguros: %d";
+"history.suspicious_count" = "Suspeitos: %d";
+"history.malicious_count" = "Maliciosos: %d";
+"history.total_scans" = "Total: %d varreduras";
+"history.exported_clipboard" = "Exportado para área de transferência";
+"history.url_label" = "URL";
+
+// MARK: - KMP Demo
+"kmp.integration" = "Integração Kotlin Multiplatform";
+"kmp.analyze_button" = "Analisar com motor KMP";
+"kmp.quick_test" = "Teste rápido:";
+"kmp.analysis_result" = "Resultado da análise";
+"kmp.score_format" = "Pontuação: %d/100";
+"kmp.risk_flags" = "Indicadores de risco:";
+"kmp.powered_by" = "Desenvolvido com Kotlin/Native";
+
+// MARK: - Scanner Additional
+"scanner.camera_required_title" = "Acesso à câmera necessário";
+"scanner.camera_required_message" = "Mehr Guard precisa de acesso à câmera para escanear códigos QR. Ative nos Ajustes.";
+"scanner.analyzing_dots" = "Analisando...";
+"scanner.point_qr" = "Aponte para o código QR";
+"scanner.toggle_scan" = "Alternar varredura";
+"scanner.dismiss_error" = "Fechar erro";
+"scanner.camera_preview" = "Prévia da câmera";
+
+// MARK: - Trust Centre Additional
+"trust.low" = "Baixo";
+"trust.balanced" = "Equilibrado";
+"trust.paranoia" = "Paranoico";
+"trust.reset_defaults" = "Restaurar padrões";
+"trust.version_info" = "Mehr Guard v2.4.0 (Build 892)";
+
+// MARK: - Export View
+"export.title" = "Exportar análise de ameaças";
+"export.subtitle" = "Escolha um formato para exportar sua análise segura offline.";
+"export.select_format" = "SELECIONAR FORMATO";
+"export.live_preview" = "PRÉVIA AO VIVO";
+"export.expand" = "Expandir";
+"export.share" = "Compartilhar";
+"export.export_button" = "Exportar relatório";
+"export.available_actions" = "AÇÕES DISPONÍVEIS";
+"export.privacy_note" = "Nota de privacidade";
+"export.privacy_message" = "Toda análise é realizada no seu dispositivo. Relatórios exportados não contêm informações pessoais.";
+
+// MARK: - Onboarding Additional
+"onboarding.camera_permission_message" = "Mehr Guard precisa de acesso à câmera para escanear códigos QR. Você pode alterar isso nos Ajustes.";
+"onboarding.page_of" = "Página %d de %d";
+
+// MARK: - Accessibility Labels
+"accessibility.risk_score" = "Pontuação de risco";
+"accessibility.risk_flags" = "Indicadores de risco";
+"accessibility.scan_history" = "Histórico de varreduras";
+"accessibility.dismiss_error" = "Fechar erro";
+"accessibility.toggle_scanning" = "Alternar varredura";
+"accessibility.gallery" = "Galeria";
+"accessibility.open_history" = "Abrir histórico";
+
+// MARK: - Onboarding Pages
+"onboarding.scan.title" = "Escaneie qualquer QR Code";
+"onboarding.scan.description" = "Aponte sua câmera para um QR Code para analisar instantaneamente seu conteúdo em busca de ameaças.";
+"onboarding.protect.title" = "Proteção em tempo real";
+"onboarding.protect.description" = "Nosso motor IA analisa URLs usando mais de 25 heurísticas de segurança e algoritmos de machine learning.";
+"onboarding.privacy.title" = "Privacidade em primeiro lugar";
+"onboarding.privacy.description" = "Toda análise acontece no dispositivo usando Kotlin Multiplatform. Seus dados nunca saem do seu celular.";
+"onboarding.design.title" = "Lindo design iOS 17+";
+"onboarding.design.description" = "Experimente a impressionante interface Liquid Glass com animações suaves e estética moderna.";
+"onboarding.skip" = "Pular";
+"onboarding.continue" = "Continuar";
+"onboarding.get_started" = "Começar";
+"onboarding.page_counter" = "%d/%d";
+"onboarding.camera_title" = "Permissão de câmera";
+"onboarding.camera_allow" = "Permitir câmera";
+"onboarding.camera_later" = "Talvez depois";
+"format.signals_detected" = "%d sinais detectados";
+"format.confidence_percent" = "%d%% Confiança";
+"format.level" = "NÍVEL %d";
+"format.score_100" = "%d/100";
+"format.latency_ms" = "%dms";
+"format.confidence" = "%d%% Confiança";
+"format.score_total" = "Pontuação: %d/100";
+"format.score_slash_100" = "%d/100";
+"format.percent" = "%d%%";
+"format.status_date" = "%@ • %@";
+"dashboard.privacy_note" = " sem comprometer a privacidade dos dados.";
+"dashboard.badge_plus" = "+2";
+"history.safe_format" = "Seguros: %d";
+"history.suspicious_format" = "Suspeitos: %d";
+"history.malicious_format" = "Maliciosos: %d";
+"history.total_format" = "Total: %d varreduras";
+"history.last_audit_format" = "Última auditoria: %@";
+"kmp.framework_linked" = "✅ KMP Framework vinculado";
+"kmp.using_mock" = "⚠️ Usando Mock (vincular common.framework)";
+"kmp.brand" = "🛡️ Mehr Guard";
+"format.latency" = "%dms";
+
+// MARK: - Navigation Menu Items
+"nav.menu.dashboard" = "Painel";
+"nav.menu.dashboard_desc" = "Visão geral e estatísticas";
+"nav.menu.scan_qr" = "Escanear QR";
+"nav.menu.scan_qr_desc" = "Scanner de câmera";
+"nav.menu.scan_history" = "Histórico de scans";
+"nav.menu.scan_history_desc" = "Scans anteriores";
+"nav.menu.threat_monitor" = "Monitor de ameaças";
+"nav.menu.threat_monitor_desc" = "Ameaças ao vivo";
+"nav.menu.trust_centre" = "Centro de confiança";
+"nav.menu.trust_centre_desc" = "Privacidade e segurança";
+"nav.menu.beat_the_bot" = "Vença o Bot";
+"nav.menu.beat_the_bot_desc" = "Jogo de treinamento";
+"nav.menu.export_report" = "Exportar relatório";
+"nav.menu.export_report_desc" = "Gerar relatório";
+"nav.menu.settings" = "Configurações";
+"nav.menu.settings_desc" = "Preferências";
+"nav.quick.scan" = "Escanear";
+"nav.quick.import" = "Importar";
+"nav.quick.paste_url" = "Colar URL";
+"result.block_button" = "Bloquear e adicionar à lista negra";
+"result.open_anyway" = "Abrir mesmo assim";
+"common.cancel" = "Cancelar";
+"common.close" = "Fechar";
+
+// MARK: - Tab Bar Labels
+"tab.dashboard" = "Painel";
+"tab.scan" = "Escanear";
+"tab.history" = "Histórico";
+"tab.training" = "Treinamento";
+"tab.settings" = "Configurações";
+
+// MARK: - Common Buttons
+"common.done" = "Concluído";
+"common.add" = "Adicionar";
+"common.open_settings" = "Abrir Configurações";
+"common.clear_all" = "Limpar tudo";
+"common.reset_all_settings" = "Redefinir todas as configurações";
+
+// MARK: - Export View
+"export.report_preview" = "Visualização do relatório";
+"export.help_title" = "Ajuda de exportação";
+"export.format.pdf_title" = "Relatório PDF";
+"export.format.pdf_subtitle" = "Resumo legível";
+"export.format.json_title" = "Dados JSON";
+"export.format.json_subtitle" = "Dados brutos legíveis por máquina";
+"export.help" = "Ajuda";
+"export.switch_to" = "Mudar para %@";
+"export.copied" = "Copiado!";
+"export.copy" = "Copiar";
+"export.report_generation" = "Geração de relatório";
+
+// MARK: - Additional Accessibility
+"accessibility.flash_on" = "Flash on";
+"accessibility.flash_off" = "Flash off";
+"accessibility.main_menu" = "Open main menu";
+"accessibility.close_menu" = "Close menu";
+"accessibility.scan_result" = "Scan result";
+"accessibility.view_details" = "View details";
+"accessibility.copy_url" = "Copy URL";
+"accessibility.share" = "Share";
+"accessibility.dismiss" = "Dismiss";
+"accessibility.back" = "Back";
+"accessibility.settings" = "Settings";
+"accessibility.trust_centre" = "Trust Centre";
+
+// MARK: - Scan Result Metadata
+"result.scan_id" = "Scan ID";
+"result.engine_version" = "Engine Version";
+"result.scanned_at" = "Scanned At";
+"result.engine_kmp" = "KMP Engine (Offline)";
+"result.engine_swift" = "Swift Engine (Offline)";
+
+// MARK: - Analysis Breakdown (Android/Desktop Parity)
+"analysis.title" = "Analysis Breakdown";
+"analysis.ai_explained" = "AI Explained";
+"analysis.no_issues" = "No significant issues detected. This URL appears to be safe.";
+
+// Analysis Item Titles (from flags)
+"analysis.ip_host.title" = "IP Address Host";
+"analysis.ip_host.desc" = "This URL uses an IP address instead of a domain name, which is commonly used by attackers to evade detection.";
+
+"analysis.brand.title" = "Brand Impersonation";
+"analysis.brand.desc" = "This URL appears to impersonate a known brand, attempting to deceive users.";
+"analysis.brand.desc_specific" = "This URL appears to impersonate %@, a known brand.";
+
+"analysis.homograph.title" = "Homograph Attack";
+"analysis.homograph.desc" = "This URL uses characters that look similar to legitimate characters (IDN homograph attack) to deceive users.";
+
+"analysis.protocol.title" = "Insecure Protocol";
+"analysis.protocol.desc" = "This URL uses HTTP instead of HTTPS, meaning data is transmitted without encryption.";
+
+"analysis.redirect.title" = "URL Shortener / Redirect";
+"analysis.redirect.desc" = "This URL uses a redirect or shortener service, which can hide the true destination.";
+
+"analysis.tld.title" = "High-Risk TLD";
+"analysis.tld.desc" = "This URL uses a top-level domain that is commonly associated with malicious activity.";
+"analysis.tld.desc_specific" = "The TLD '%@' is frequently used for malicious purposes.";
+
+"analysis.subdomain.title" = "Complex Domain Structure";
+"analysis.subdomain.desc" = "This URL has excessive subdomains, which is often used to obscure the true domain.";
+
+"analysis.credential.title" = "Credential Harvesting";
+"analysis.credential.desc" = "This URL contains patterns commonly used to steal login credentials.";
+
+"analysis.long_url.title" = "Unusually Long URL";
+"analysis.long_url.desc" = "This URL is unusually long, which may indicate an attempt to hide malicious content.";
+
+"analysis.scheme.title" = "Dangerous Scheme";
+"analysis.scheme.desc" = "This URL uses a potentially dangerous scheme (data: or javascript:) that can execute code.";
+
+"analysis.at_symbol.title" = "@ Symbol Attack";
+"analysis.at_symbol.desc" = "This URL contains an @ symbol, which can be used to trick users into visiting a different site.";
+
+"analysis.suspicious_path.title" = "Suspicious Path";
+"analysis.suspicious_path.desc" = "The URL path contains keywords commonly associated with phishing attempts.";
+
+"analysis.risky_extension.title" = "Risky File Extension";
+"analysis.risky_extension.desc" = "This URL points to a file type that may be dangerous to download or execute.";
+
+"analysis.entropy.title" = "Random-Looking Domain";
+"analysis.entropy.desc" = "The domain appears to be randomly generated, which is common in malicious URLs.";
+
+"analysis.port.title" = "Non-Standard Port";
+"analysis.port.desc" = "This URL uses a non-standard port, which may indicate an attempt to bypass security filters.";
+
+"analysis.safe.title" = "No Threats Detected";
+"analysis.safe.desc" = "This URL passed all security checks and appears to be legitimate.";
+
+"analysis.login_keywords.title" = "Login/Verify Keywords";
+"analysis.login_keywords.desc" = "This URL contains keywords commonly used in phishing attacks to steal credentials.";
+
+"analysis.urgency.title" = "Urgency Language";
+"analysis.urgency.desc" = "This URL contains urgent language designed to pressure users into acting quickly.";
+
+"analysis.typosquatting.title" = "Typosquatting";
+"analysis.typosquatting.desc" = "This URL appears to be a misspelled version of a legitimate domain.";
+
+"analysis.verified_domain.title" = "Verified Domain";
+"analysis.verified_domain.desc" = "This URL belongs to a known, trusted domain.";
+
+// Status Badges (WebApp Parity)
+"status.scan_complete" = "Scan Complete";
+"status.caution_advised" = "Caution Advised";
+"status.threat_detected" = "Threat Detected";
+"status.analysis_complete" = "Analysis Complete";
+
+// Meta Info (WebApp Parity)
+"meta.analyzed_offline" = "Analyzed offline";
+"meta.no_data_leaves" = "No data leaves device";
+"meta.analysis_time" = "Analysis Time";
+"meta.heuristics" = "Heuristics";
+"meta.engine" = "Engine";
+"meta.engine_version_fmt" = "v%@";
+
+// MARK: - Engine Stats Card (Android Parity)
+"stats.analysis_time" = "Analysis Time";
+"stats.signals" = "Signals";
+"stats.engine" = "Engine";
+
+// MARK: - Top Analysis Factors (Android/WebApp Parity)
+"factors.title" = "Top Analysis Factors";
+"factor.category.https" = "HTTPS";
+"factor.category.domain" = "Domain";
+"factor.category.database" = "Database";
+"factor.category.heuristics" = "Heuristics";
+
+"factor.ssl_valid" = "SSL Certificate Valid";
+"factor.ssl_valid_desc" = "Connection is encrypted with HTTPS. Data transmitted securely.";
+"factor.ssl_missing" = "No SSL Certificate";
+"factor.ssl_missing_desc" = "No encryption. Data could be intercepted by attackers.";
+
+"factor.ip_address" = "IP Address Used";
+"factor.ip_address_desc" = "URL uses raw IP instead of domain name - common attack technique.";
+"factor.domain_check" = "Domain Verified";
+"factor.domain_check_desc" = "Domain structure appears legitimate.";
+
+"factor.blacklist_found" = "Known Threat";
+"factor.blacklist_found_desc" = "This URL matches known malicious patterns in our database.";
+"factor.blacklist_clean" = "Not in Blocklist";
+"factor.blacklist_clean_desc" = "URL not found in any known threat databases.";
+
+"factor.heuristics_title" = "Heuristic Analysis";
+"factor.heuristics_desc" = "%d signals detected by pattern analysis.";
+
+// MARK: - Beat the Bot Reset
+"training.reset" = "Reset Game";
+
+// MARK: - Red Team / Developer Mode (Android Parity)
+"settings.dev_mode_section" = "🕵️ Developer Mode";
+"settings.red_team_mode" = "Red Team Mode";
+"settings.red_team_mode_desc" = "Show attack scenarios on scanner screen";
+"settings.red_team_warning" = "Red Team Mode bypasses camera and injects test URLs directly into the detection engine.";
+
+"scanner.red_team_title" = "Red Team Scenarios";
+"scanner.red_team_attacks_fmt" = "%d attacks";
+"scanner.red_team_hint" = "Tap a scenario to test detection without camera";
+
+// MARK: - Export Actions
+"export.action_copy_desc" = "Copy the report content to your clipboard for pasting into other apps.";
+"export.action_export_desc" = "Save the report directly to your device.";
+"export.action_share" = "Share";
+"export.action_share_desc" = "Open the iOS share sheet to send via Messages, Mail, AirDrop, or save to Files.";
+"export.json_description" = "Exports raw analysis data in JSON format. Perfect for integration with security tools, SIEMs, or for further automated processing.";
+"export.pdf_description" = "Exports a human-readable security report suitable for sharing with team members, management, or for your records. Includes verdict, risk factors, and recommendations.";

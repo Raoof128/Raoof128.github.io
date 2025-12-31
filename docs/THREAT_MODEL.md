@@ -29,7 +29,7 @@
 - Uses IP addresses as hosts
 - Reuses common URL patterns
 
-**QR-SHIELD Detection:** ✅ **EXCELLENT**
+**Mehr Guard Detection:** ✅ **EXCELLENT**
 - TLD scoring catches free domain abuse
 - Brand detector finds typosquats
 - IP host heuristic triggers immediately
@@ -51,7 +51,7 @@ http://192.168.1.1:8080/paypal-login
 - Uses @ symbol injection
 - Copies phishing kits from forums
 
-**QR-SHIELD Detection:** ✅ **GOOD**
+**Mehr Guard Detection:** ✅ **GOOD**
 - Homograph detector catches Unicode tricks
 - URL shortener flagging alerts users
 - @ symbol injection is high-weight heuristic
@@ -73,7 +73,7 @@ https://google.com@evil.com → @ injection
 - May use HTTPS (Let's Encrypt is free)
 - Targets specific organizations
 
-**QR-SHIELD Detection:** ⚠️ **PARTIAL**
+**Mehr Guard Detection:** ⚠️ **PARTIAL**
 - Credential keywords in URL trigger medium risk
 - Dynamic brand discovery catches trust words
 - BUT: New clean domains may pass
@@ -93,7 +93,7 @@ https://google.com@evil.com → @ injection
 - Zero-day exploits in landing page
 - Highly targeted (spear-QRishing)
 
-**QR-SHIELD Detection:** ❌ **NOT DESIGNED FOR THIS**
+**Mehr Guard Detection:** ❌ **NOT DESIGNED FOR THIS**
 - These attacks use legitimate-looking everything
 - Require real-time threat intelligence
 - Beyond scope of offline detection
@@ -220,9 +220,9 @@ https://google.com@evil.com → @ injection
 
 ## 🛡️ Defense in Depth Recommendation
 
-QR-SHIELD is **one layer** in a security stack:
+Mehr Guard is **one layer** in a security stack:
 
-1. **QR-SHIELD** → Catch obvious phishing before navigation
+1. **Mehr Guard** → Catch obvious phishing before navigation
 2. **Browser security** → Block known malware domains
 3. **User awareness** → Verify sensitive actions
 4. **2FA** → Protect credentials even if phished

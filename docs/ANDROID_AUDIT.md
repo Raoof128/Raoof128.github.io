@@ -1,5 +1,5 @@
 # Android App Checklist Audit Report 📱
-## QR-SHIELD - December 26, 2025
+## Mehr Guard - December 26, 2025
 
 ---
 
@@ -27,9 +27,9 @@
 | **No "old UI" Pages** | ✅ PASS | Grep search found no "old ui" references; all 15 screens use new dashboard design |
 | **Design System** | ✅ PASS | Consistent theme in `Theme.kt` with Material 3 color schemes, typography, and shapes |
 | **Typography** | ✅ PASS | Unified typography system with monospace variant for URLs |
-| **Spacing/Cards** | ✅ PASS | `QRShieldShapes` and `QRShieldColors` used consistently across screens |
+| **Spacing/Cards** | ✅ PASS | `MehrGuardShapes` and `MehrGuardColors` used consistently across screens |
 | **Navigation** | ✅ PASS | 4-tab bottom nav (Home, Scan, History, Settings), back behavior correct with `popBackStack()` |
-| **Deep Links** | ✅ PASS | Configured in Manifest: `qrshield://` scheme and `https://qrshield.app/scan` |
+| **Deep Links** | ✅ PASS | Configured in Manifest: `mehrguard://` scheme and `https://mehrguard.app/scan` |
 | **Beat The Bot Feedback** | ✅ PASS | Shield visualizer with signals, result cards, sound feedback on correct/incorrect |
 
 ---

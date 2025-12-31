@@ -1,12 +1,12 @@
 # ML Model Documentation
 
-**QR-SHIELD Phishing Detection Model**
+**Mehr Guard Phishing Detection Model**
 
 ---
 
 ## Overview
 
-QR-SHIELD uses an **Ensemble ML architecture** for robust phishing URL classification. The model combines three complementary approaches and runs entirely on-device with no cloud dependencies, ensuring privacy and offline functionality.
+Mehr Guard uses an **Ensemble ML architecture** for robust phishing URL classification. The model combines three complementary approaches and runs entirely on-device with no cloud dependencies, ensuring privacy and offline functionality.
 
 ### Ensemble Architecture (v1.6.0+)
 
@@ -165,7 +165,7 @@ Feature importance was measured by weight magnitude and ablation testing:
 
 We compared the ML model against heuristics-only detection:
 
-| Metric | Heuristics Only | ML Only | Combined (QR-SHIELD) |
+| Metric | Heuristics Only | ML Only | Combined (Mehr Guard) |
 |--------|-----------------|---------|----------------------|
 | **Precision** | 82.1% | 78.3% | **85.2%** |
 | **Recall** | 71.4% | 85.3% | **89.1%** |

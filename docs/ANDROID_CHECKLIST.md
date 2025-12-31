@@ -1,6 +1,6 @@
 # Android App Checklist 📱
 
-## QR-SHIELD Android Audit Report
+## Mehr Guard Android Audit Report
 
 **Audit Date:** 2025-12-31  
 **Version:** 1.20.30  
@@ -56,15 +56,15 @@ minSdk = 26
 | Item | Status | Notes |
 |------|--------|-------|
 | No "old UI" pages | ✅ | All 15 screens use consistent Compose patterns |
-| Design system | ✅ | `QRShieldColors`, `QRShieldShapes` throughout |
+| Design system | ✅ | `MehrGuardColors`, `MehrGuardShapes` throughout |
 | Navigation coherent | ✅ | 17 `popBackStack` calls, proper back behavior |
-| Deep links | ✅ | `qrshield://` scheme + `https://qrshield.app/scan` |
+| Deep links | ✅ | `mehrguard://` scheme + `https://mehrguard.app/scan` |
 | Beat The Bot memorable | ✅ | Visual + audio feedback (see below) |
 
 ### Design System Components
 
-- **Colors:** `QRShieldColors` object with semantic colors (Primary, RiskDanger, RiskWarning, RiskSafe)
-- **Shapes:** `QRShieldShapes` with consistent card shapes
+- **Colors:** `MehrGuardColors` object with semantic colors (Primary, RiskDanger, RiskWarning, RiskSafe)
+- **Shapes:** `MehrGuardShapes` with consistent card shapes
 - **Typography:** Material 3 typography with custom weights
 - **Icons:** Material Icons Extended library
 
@@ -123,7 +123,7 @@ minSdk = 26
 ```kotlin
 // RoundAnalysisCard in BeatTheBotScreen.kt
 val isCorrect = result == GameResult.CORRECT
-val badgeColor = if (isCorrect) QRShieldColors.Emerald500 else QRShieldColors.Red500
+val badgeColor = if (isCorrect) MehrGuardColors.Emerald500 else MehrGuardColors.Red500
 val badgeIcon = if (isCorrect) Icons.Default.Check else Icons.Default.Close
 ```
 
@@ -195,7 +195,7 @@ enum class SoundType {
 |------|--------|-------|
 | Permissions + rationale | ✅ | Camera, storage, notifications with rationale |
 | App icon | ✅ | All densities (mdpi to xxxhdpi) |
-| Splash screen | ✅ | `Theme.QRShield.Splash` with Android 12+ API |
+| Splash screen | ✅ | `Theme.MehrGuard.Splash` with Android 12+ API |
 | Brand consistency | ✅ | Colors, icons match across app |
 | Crash logging | ✅ | `Log.*` statements, stripped in release |
 
@@ -216,13 +216,13 @@ enum class SoundType {
 | App icon | `mipmap-*/ic_launcher.png` | ✅ |
 | Round icon | `mipmap-*/ic_launcher_round.png` | ✅ |
 | Adaptive icon | `mipmap-anydpi-v26/ic_launcher.xml` | ✅ |
-| Splash | `Theme.QRShield.Splash` | ✅ |
-| App name | `@string/app_name` ("QR-SHIELD") | ✅ |
+| Splash | `Theme.MehrGuard.Splash` | ✅ |
+| App name | `@string/app_name` ("Mehr Guard") | ✅ |
 
 ### Crash Logging
 
 ```kotlin
-// QRShieldApplication.kt - structured logging
+// MehrGuardApplication.kt - structured logging
 // SoundManager.kt - try-catch with Log.w()
 // AndroidOta.kt - network error handling
 
@@ -266,7 +266,7 @@ enum class SoundType {
 | Category | Score | Notes |
 |----------|-------|-------|
 | Build & Config | ✅ 100% | Modern setup, clean builds (Debug + Release verified) |
-| UI/UX Consistency | ✅ 100% | 374 QRShieldColors/Shapes usages, consistent design |
+| UI/UX Consistency | ✅ 100% | 374 MehrGuardColors/Shapes usages, consistent design |
 | Feature Correctness | ✅ 100% | Error states, reproducible detection |
 | Accessibility | ✅ 100% | **197** content descriptions across 20 files |
 | Android Polish | ✅ 100% | Icons, splash, permissions, predictive back |

@@ -1,10 +1,10 @@
 /**
- * QR-SHIELD Scanner Dashboard Controller
+ * Mehr Guard Scanner Dashboard Controller
  * 
  * Handles camera access, QR scanning, URL input, and scan history.
  * Integrates with Kotlin/JS PhishingEngine for analysis.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.0
  */
 
@@ -32,15 +32,15 @@ const ScannerState = {
 };
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
@@ -91,7 +91,7 @@ const elements = {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Scanner] Initializing v' + ScannerConfig.version);
+    console.log('[Mehr Guard Scanner] Initializing v' + ScannerConfig.version);
 
     // Cache DOM elements
     cacheElements();
@@ -105,20 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Kotlin engine callback
     setupKotlinBridge();
 
-    window.qrshieldApplyTranslations?.(document.body);
+    window.mehrguardApplyTranslations?.(document.body);
     
     // Handle demo_url parameter from Judge Demo Mode
     const urlParams = new URLSearchParams(window.location.search);
     const demoUrl = urlParams.get('demo_url');
     if (demoUrl) {
-        console.log('[QR-SHIELD Scanner] Demo URL detected:', demoUrl);
+        console.log('[Mehr Guard Scanner] Demo URL detected:', demoUrl);
         // Small delay to ensure everything is loaded
         setTimeout(() => {
             analyzeUrlDirectly(demoUrl);
         }, 500);
     }
 
-    console.log('[QR-SHIELD Scanner] Ready');
+    console.log('[Mehr Guard Scanner] Ready');
 });
 
 /**
@@ -223,8 +223,8 @@ window.openFullResults = navigateToResults;
  */
 function setupKotlinBridge() {
     // Wait for Kotlin engine
-    if (!window.qrshieldAnalyze) {
-        window.qrshieldAnalyze = (url) => {
+    if (!window.mehrguardAnalyze) {
+        window.mehrguardAnalyze = (url) => {
             console.warn('[Scanner] Kotlin engine not ready');
             showToast('Engine initializing...', 'warning');
         };
@@ -239,8 +239,8 @@ function setupKotlinBridge() {
         hideScanningState();
 
         // Add to history via Shared UI
-        if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
-            window.QRShieldUI.addScanToHistory({
+        if (window.MehrGuardUI && window.MehrGuardUI.addScanToHistory) {
+            window.MehrGuardUI.addScanToHistory({
                 url: url,
                 verdict: verdict === 'MALICIOUS' ? 'HIGH' :
                     verdict === 'SUSPICIOUS' ? 'MEDIUM' :
@@ -472,8 +472,8 @@ function handleQRDetected(data) {
 
         // Call Kotlin analysis
         setTimeout(() => {
-            if (window.qrshieldAnalyze) {
-                window.qrshieldAnalyze(data);
+            if (window.mehrguardAnalyze) {
+                window.mehrguardAnalyze(data);
             }
         }, 500);
     } else {
@@ -623,8 +623,8 @@ function analyzeUrlFromModal() {
 
     // Analyze
     setTimeout(() => {
-        if (window.qrshieldAnalyze) {
-            window.qrshieldAnalyze(fixedUrl);
+        if (window.mehrguardAnalyze) {
+            window.mehrguardAnalyze(fixedUrl);
         }
     }, 500);
 }
@@ -635,14 +635,14 @@ function analyzeUrlFromModal() {
 function analyzeUrlDirectly(url) {
     if (!url) return;
     
-    console.log('[QR-SHIELD Scanner] Analyzing demo URL:', url);
+    console.log('[Mehr Guard Scanner] Analyzing demo URL:', url);
     showToast('🕵️ Analyzing Red Team scenario...', 'info');
     showScanningState();
     
     // Analyze after short delay
     setTimeout(() => {
-        if (window.qrshieldAnalyze) {
-            window.qrshieldAnalyze(url);
+        if (window.mehrguardAnalyze) {
+            window.mehrguardAnalyze(url);
         } else {
             // Fallback: show URL in modal for manual analysis
             if (elements.urlInputField) {
@@ -666,8 +666,8 @@ function renderHistory() {
 
     // Get history from shared UI
     let history = [];
-    if (window.QRShieldUI && window.QRShieldUI.getScanHistory) {
-        history = window.QRShieldUI.getScanHistory();
+    if (window.MehrGuardUI && window.MehrGuardUI.getScanHistory) {
+        history = window.MehrGuardUI.getScanHistory();
     }
 
     if (history.length === 0) {
@@ -676,7 +676,7 @@ function renderHistory() {
                 <span style="color: var(--text-muted); font-size: 0.875rem;">No recent scans</span>
             </div>
         `;
-        window.qrshieldApplyTranslations?.(list);
+        window.mehrguardApplyTranslations?.(list);
         return;
     }
 
@@ -716,7 +716,7 @@ function renderHistory() {
         list.appendChild(div);
     });
 
-    window.qrshieldApplyTranslations?.(list);
+    window.mehrguardApplyTranslations?.(list);
 }
 
 // =============================================================================

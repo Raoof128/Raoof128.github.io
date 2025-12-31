@@ -1,7 +1,7 @@
 {
     "version": 2,
     "lastUpdated": "2025-12-16T00:00:00Z",
-    "description": "Heuristic weights and rules for QR-SHIELD detection engine",
+    "description": "Heuristic weights and rules for Mehr Guard detection engine",
     "weights": {
         "httpNotHttps": 15,
         "ipAddress": 25,

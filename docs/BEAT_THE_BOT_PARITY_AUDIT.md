@@ -86,7 +86,7 @@ Beat The Bot now achieves **100% parity** across all 5 platforms (Android, iOS, 
 # Click "Beat the Bot" in sidebar
 
 # iOS
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 # Build and run → Training tab
 
 # Web

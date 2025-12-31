@@ -1,5 +1,5 @@
 # iOS Comprehensive Audit Report
-## QR-SHIELD iOS Application
+## Mehr Guard iOS Application
 **Audit Date:** December 21, 2025  
 **Auditor:** Claude Opus (Competition-Grade Code Auditor)  
 **Build Status:** ✅ SUCCEEDED
@@ -10,9 +10,9 @@
 
 ### File Structure (26 Swift Files)
 ```
-iosApp/QRShield/
+iosApp/MehrGuard/
 ├── App/
-│   └── QRShieldApp.swift              # @main entry point
+│   └── MehrGuardApp.swift              # @main entry point
 ├── ComposeInterop.swift               # KMP Compose UI integration
 ├── Extensions/
 │   ├── Assets+Extension.swift         # VerdictIcon, DangerBackground
@@ -56,9 +56,9 @@ iosApp/QRShield/
 ```
 
 ### Entry Points
-- **@main:** `QRShieldApp.swift`
+- **@main:** `MehrGuardApp.swift`
 - **Root View:** `ContentView` (TabView with 5 tabs)
-- **Deep Links:** `qrshield://scan` → Scanner tab
+- **Deep Links:** `mehrguard://scan` → Scanner tab
 
 ### Navigation Structure
 | Type | Pattern | Components |
@@ -88,8 +88,8 @@ iosApp/QRShield/
 
 ### Build Command
 ```bash
-xcodebuild -project QRShield.xcodeproj \
-  -scheme QRShield \
+xcodebuild -project MehrGuard.xcodeproj \
+  -scheme MehrGuard \
   -destination 'platform=iOS Simulator,name=iPhone 17' \
   build
 ```
@@ -126,7 +126,7 @@ xcodebuild -project QRShield.xcodeproj \
 
 | File | Status | Notes |
 |------|--------|-------|
-| `QRShieldApp.swift` | ✅ Clean | Proper environment injection |
+| `MehrGuardApp.swift` | ✅ Clean | Proper environment injection |
 | `ComposeInterop.swift` | ✅ Clean | KMP integration documented |
 | `Assets+Extension.swift` | ✅ Clean | Verdict assets + animations |
 | `Color+Theme.swift` | ✅ Clean | Adaptive light/dark colors |

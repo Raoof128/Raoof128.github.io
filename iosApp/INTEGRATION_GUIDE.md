@@ -11,7 +11,7 @@ This guide proves that iOS uses shared Kotlin code, not a parallel Swift impleme
 ./gradlew :common:linkDebugFrameworkIosSimulatorArm64
 
 # 2. Open in Xcode
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 
 # 3. Select iPhone 16 Pro simulator
 # 4. Run app (Cmd+R)
@@ -73,7 +73,7 @@ open iosApp/QRShield.xcodeproj
 
 ### 1. KMPBridge.swift
 
-Location: `iosApp/QRShield/KMPBridge.swift`
+Location: `iosApp/MehrGuard/KMPBridge.swift`
 
 ```swift
 import Foundation
@@ -157,7 +157,7 @@ struct ContentView: View {
 
 ### Step 1: Enable Kotlin Logging
 
-In `iosApp/QRShield/AppDelegate.swift`:
+In `iosApp/MehrGuard/AppDelegate.swift`:
 
 ```swift
 import common
@@ -221,8 +221,8 @@ $ ls -la common.framework/
 
 ```bash
 $ nm common.framework/common | grep PhishingEngine
-_kniprop_com_qrshield_core_PhishingEngine_analyze
-_kniprop_com_qrshield_core_PhishingEngine_analyzeBlocking
+_kniprop_com_mehrguard_core_PhishingEngine_analyze
+_kniprop_com_mehrguard_core_PhishingEngine_analyzeBlocking
 ```
 
 ---
@@ -239,7 +239,7 @@ We demonstrate hybrid approach:
 - `SharedResultCard` uses Compose (proof of concept)
 - Main UI uses SwiftUI for native feel
 
-See `iosApp/QRShield/ComposeInterop.swift` for the hybrid integration.
+See `iosApp/MehrGuard/ComposeInterop.swift` for the hybrid integration.
 
 ### Q: How do I verify 53% code sharing?
 
@@ -259,4 +259,4 @@ $ find iosApp -name "*.swift" | xargs wc -l
 
 - [README.md](../README.md) - Full project documentation
 - [ARCHITECTURE.md](../docs/ARCHITECTURE.md) - Overall architecture
-- [ComposeInterop.swift](../iosApp/QRShield/ComposeInterop.swift) - Compose + SwiftUI hybrid
+- [ComposeInterop.swift](../iosApp/MehrGuard/ComposeInterop.swift) - Compose + SwiftUI hybrid

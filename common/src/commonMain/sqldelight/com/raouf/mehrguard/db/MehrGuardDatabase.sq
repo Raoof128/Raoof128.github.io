@@ -1,0 +1,45 @@
+-- Mehr Guard Database Schema
+
+CREATE TABLE ScanHistory (
+    id TEXT NOT NULL PRIMARY KEY,
+    url TEXT NOT NULL,
+    score INTEGER NOT NULL,
+    verdict TEXT NOT NULL,
+    scanned_at INTEGER NOT NULL,
+    source TEXT NOT NULL
+);
+
+CREATE INDEX idx_scanned_at ON ScanHistory(scanned_at DESC);
+
+-- Insert a new scan record
+insertScan:
+INSERT INTO ScanHistory(id, url, score, verdict, scanned_at, source)
+VALUES (?, ?, ?, ?, ?, ?);
+
+-- Get all scans ordered by date
+getAllScans:
+SELECT * FROM ScanHistory ORDER BY scanned_at DESC;
+
+-- Get scans with limit
+getRecentScans:
+SELECT * FROM ScanHistory ORDER BY scanned_at DESC LIMIT ?;
+
+-- Get scan by ID
+getScanById:
+SELECT * FROM ScanHistory WHERE id = ?;
+
+-- Delete scan by ID
+deleteScan:
+DELETE FROM ScanHistory WHERE id = ?;
+
+-- Clear all history
+clearHistory:
+DELETE FROM ScanHistory;
+
+-- Count total scans
+countScans:
+SELECT COUNT(*) FROM ScanHistory;
+
+-- Get scans by verdict
+getScansByVerdict:
+SELECT * FROM ScanHistory WHERE verdict = ? ORDER BY scanned_at DESC;

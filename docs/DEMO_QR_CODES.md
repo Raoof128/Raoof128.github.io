@@ -1,13 +1,13 @@
 # 🎯 Demo QR Code Gallery
 
-**Printable QR codes to test QR-SHIELD detection capabilities**
+**Printable QR codes to test Mehr Guard detection capabilities**
 
 ---
 
 ## How to Use
 
 1. Print this page or display on another device
-2. Scan each QR code with QR-SHIELD
+2. Scan each QR code with Mehr Guard
 3. Verify the detection matches the expected result
 
 ---
@@ -181,4 +181,4 @@ python -c "import qrcode; qrcode.make('YOUR_URL').save('test_qr.png')"
 
 ---
 
-*Generated for QR-SHIELD Demo — December 2025*
+*Generated for Mehr Guard Demo — December 2025*

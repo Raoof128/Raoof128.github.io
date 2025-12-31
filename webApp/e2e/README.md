@@ -1,6 +1,6 @@
-# QR-SHIELD Web E2E Tests
+# Mehr Guard Web E2E Tests
 
-End-to-end tests for the QR-SHIELD web application using [Playwright](https://playwright.dev/).
+End-to-end tests for the Mehr Guard web application using [Playwright](https://playwright.dev/).
 
 ## Prerequisites
 
@@ -90,7 +90,7 @@ The web app provides the following `data-testid` attributes:
 |----------|---------|
 | `url-input` | Main URL input field |
 | `analyze-button` | Analyze URL button |
-| `logo` | QR-SHIELD logo |
+| `logo` | Mehr Guard logo |
 | `result-card` | Analysis result container |
 | `score-ring` | Risk score display |
 | `verdict-pill` | Verdict badge (SAFE/SUSPICIOUS/MALICIOUS) |

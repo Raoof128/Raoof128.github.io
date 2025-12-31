@@ -54,7 +54,7 @@ If your changes warrant a version bump, update ALL of these:
 | Platform | File | Field |
 |----------|------|-------|
 | **Android** | `androidApp/build.gradle.kts` | `versionCode` + `versionName` |
-| **iOS** | `iosApp/QRShield.xcodeproj/project.pbxproj` | `MARKETING_VERSION` (2 places) |
+| **iOS** | `iosApp/MehrGuard.xcodeproj/project.pbxproj` | `MARKETING_VERSION` (2 places) |
 | **Desktop** | `desktopApp/.../screens/DashboardScreen.kt` | Version in KeyValueRow (~line 520) |
 | **agent.md** | `.agent/agent.md` | Header version number |
 

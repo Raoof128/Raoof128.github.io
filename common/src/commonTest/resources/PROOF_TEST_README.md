@@ -5,7 +5,7 @@
 ## Quick Run
 
 ```bash
-./gradlew :common:desktopTest --tests "com.qrshield.benchmark.MaliciousUrlProofTest"
+./gradlew :common:desktopTest --tests "com.mehrguard.benchmark.MaliciousUrlProofTest"
 ```
 
 ## Test Summary
@@ -35,7 +35,7 @@
 
 ```
 ═══════════════════════════════════════════════════════════════
-             QR-SHIELD MALICIOUS URL PROOF TEST
+             Mehr Guard MALICIOUS URL PROOF TEST
 ═══════════════════════════════════════════════════════════════
 
 ✅ Verified: 119/140 threats blocked (85.0%)

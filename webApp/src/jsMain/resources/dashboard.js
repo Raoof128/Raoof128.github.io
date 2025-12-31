@@ -1,9 +1,9 @@
 /**
- * QR-SHIELD Dashboard Page Controller
+ * Mehr Guard Dashboard Page Controller
  * 
  * Handles sidebar navigation, scan statistics, and page interactions.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.1
  */
 
@@ -63,7 +63,7 @@ const elements = {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Dashboard] Initializing v' + DashboardConfig.version);
+    console.log('[Mehr Guard Dashboard] Initializing v' + DashboardConfig.version);
 
     // Cache DOM elements
     cacheElements();
@@ -73,9 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Render UI (fetches data from Shared UI)
     renderUI();
-    window.qrshieldApplyTranslations?.(document.body);
+    window.mehrguardApplyTranslations?.(document.body);
 
-    console.log('[QR-SHIELD Dashboard] Ready');
+    console.log('[Mehr Guard Dashboard] Ready');
 });
 
 /**
@@ -157,13 +157,13 @@ function renderUI() {
  * Render statistics using Shared UI
  */
 function renderStats() {
-    // Wait for QRShieldUI to be ready
-    if (!window.QRShieldUI || !window.QRShieldUI.getAppStats) {
+    // Wait for MehrGuardUI to be ready
+    if (!window.MehrGuardUI || !window.MehrGuardUI.getAppStats) {
         setTimeout(renderStats, 100);
         return;
     }
 
-    const stats = window.QRShieldUI.getAppStats();
+    const stats = window.MehrGuardUI.getAppStats();
 
     if (elements.threatCount) {
         elements.threatCount.textContent = stats.threatsBlocked || 0;
@@ -200,38 +200,38 @@ function updateDbStats() {
 
 // Helper for translation
 function t(key, fallback) {
-    if (window.qrshieldGetTranslation) {
-        return window.qrshieldGetTranslation(key);
+    if (window.mehrguardGetTranslation) {
+        return window.mehrguardGetTranslation(key);
     }
     return fallback;
 }
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
 
 /**
- * Render scan history table from QRShieldUI
+ * Render scan history table from MehrGuardUI
  */
 function renderHistory() {
     if (!elements.recentScansBody) return;
 
-    // Try to get history from QRShieldUI
+    // Try to get history from MehrGuardUI
     let history = [];
-    if (window.QRShieldUI && window.QRShieldUI.getScanHistory) {
-        history = window.QRShieldUI.getScanHistory().slice(0, 5);
+    if (window.MehrGuardUI && window.MehrGuardUI.getScanHistory) {
+        history = window.MehrGuardUI.getScanHistory().slice(0, 5);
     } else {
-        // Fallback: retry after QRShieldUI loads
+        // Fallback: retry after MehrGuardUI loads
         setTimeout(renderHistory, 200);
         return;
     }
@@ -245,7 +245,7 @@ function renderHistory() {
                 </td>
             </tr>
         `;
-        window.qrshieldApplyTranslations?.(elements.recentScansBody);
+        window.mehrguardApplyTranslations?.(elements.recentScansBody);
         return;
     }
 
@@ -313,7 +313,7 @@ function renderHistory() {
     `;
     }).join('');
 
-    window.qrshieldApplyTranslations?.(elements.recentScansBody);
+    window.mehrguardApplyTranslations?.(elements.recentScansBody);
 
     // Add click handlers to navigate to results.html with proper data
     elements.recentScansBody.querySelectorAll('.clickable-row').forEach(row => {
@@ -343,8 +343,8 @@ function formatHistoryTime(timestamp) {
     const now = new Date();
 
     let locale = 'en-US';
-    if (window.qrshieldGetLanguageCode) {
-        locale = window.qrshieldGetLanguageCode();
+    if (window.mehrguardGetLanguageCode) {
+        locale = window.mehrguardGetLanguageCode();
     }
 
     // Check if today
@@ -431,8 +431,8 @@ function handleUpdateDb() {
  */
 function setupKotlinBridge() {
     // Fallback if Kotlin engine hasn't loaded yet
-    if (!window.qrshieldAnalyze) {
-        window.qrshieldAnalyze = (url) => {
+    if (!window.mehrguardAnalyze) {
+        window.mehrguardAnalyze = (url) => {
             console.warn('[Dashboard] Kotlin engine not ready');
             showToast('Engine initializing...', 'warning');
         };
@@ -447,9 +447,9 @@ function setupKotlinBridge() {
             elements.analyzeBtn.innerHTML = `<span class="material-symbols-outlined">security</span> ${translateText('Analyze')}`;
         }
 
-        // Save to QRShieldUI scan history
-        if (window.QRShieldUI && window.QRShieldUI.addScanToHistory) {
-            window.QRShieldUI.addScanToHistory({
+        // Save to MehrGuardUI scan history
+        if (window.MehrGuardUI && window.MehrGuardUI.addScanToHistory) {
+            window.MehrGuardUI.addScanToHistory({
                 url: url,
                 verdict: verdict === 'MALICIOUS' ? 'HIGH' :
                     verdict === 'SUSPICIOUS' ? 'MEDIUM' :
@@ -506,8 +506,8 @@ function analyzeUrl() {
 
     // Call Kotlin engine
     console.log('[Dashboard] Analyzing URL:', fixedUrl);
-    if (window.qrshieldAnalyze) {
-        window.qrshieldAnalyze(fixedUrl);
+    if (window.mehrguardAnalyze) {
+        window.mehrguardAnalyze(fixedUrl);
     } else {
         // Fallback: Navigate to results with URL
         showToast('Engine not ready - please wait', 'warning');

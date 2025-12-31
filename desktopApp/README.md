@@ -1,4 +1,4 @@
-# 🖥️ QR-SHIELD Desktop App
+# 🖥️ Mehr Guard Desktop App
 
 > **Compose Desktop implementation for Windows, macOS, and Linux**
 
@@ -21,7 +21,7 @@
 
 ```bash
 # Prerequisites: JDK 17+
-cd qrshield
+cd mehrguard
 
 # Run directly (recommended for development)
 ./gradlew :desktopApp:run
@@ -36,10 +36,10 @@ cd qrshield
 # Build fat JAR for current OS
 ./gradlew :desktopApp:packageUberJarForCurrentOS
 
-# Output: desktopApp/build/compose/jars/QRShield-*.jar
+# Output: desktopApp/build/compose/jars/MehrGuard-*.jar
 
 # Run standalone
-java -jar desktopApp/build/compose/jars/QRShield-*.jar
+java -jar desktopApp/build/compose/jars/MehrGuard-*.jar
 ```
 
 ### Package Native Distribution
@@ -64,7 +64,7 @@ java -jar desktopApp/build/compose/jars/QRShield-*.jar
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│  🛡️ QR-SHIELD Desktop                                          🗕  🗗  ✕   │
+│  🛡️ Mehr Guard Desktop                                          🗕  🗗  ✕   │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
 │  ┌────────────────────────────────┐  ┌────────────────────────────────────┐ │
@@ -121,7 +121,7 @@ java -jar desktopApp/build/compose/jars/QRShield-*.jar
 
 ```
 desktopApp/
-├── src/desktopMain/kotlin/com/qrshield/desktop/
+├── src/desktopMain/kotlin/com/mehrguard/desktop/
 │   ├── Main.kt              ← Application entry point
 │   ├── ui/
 │   │   ├── MainWindow.kt    ← Main Compose window
@@ -161,9 +161,9 @@ Pre-built JARs are available on the [Releases page](https://github.com/Raoof128/
 
 ### Manual Installation
 
-1. Download `QRShield-<version>-desktop.jar`
+1. Download `MehrGuard-<version>-desktop.jar`
 2. Ensure JDK 17+ is installed
-3. Run: `java -jar QRShield-<version>-desktop.jar`
+3. Run: `java -jar MehrGuard-<version>-desktop.jar`
 
 ---
 

@@ -2,7 +2,7 @@
 
 > **Demonstrating identical behavior across all platforms from the repository alone**
 
-This document proves that QR-SHIELD achieves true Kotlin Multiplatform parity: the same detection logic, scoring, signals, and output format across Android, iOS, Desktop, and Web.
+This document proves that Mehr Guard achieves true Kotlin Multiplatform parity: the same detection logic, scoring, signals, and output format across Android, iOS, Desktop, and Web.
 
 ---
 

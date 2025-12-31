@@ -1,6 +1,6 @@
-# Contributing to QR-SHIELD
+# Contributing to Mehr Guard
 
-Thank you for your interest in contributing to QR-SHIELD! 🛡️
+Thank you for your interest in contributing to Mehr Guard! 🛡️
 
 We welcome contributions of all kinds—bug reports, feature requests, documentation improvements, and code contributions.
 
@@ -156,7 +156,7 @@ class phishing_engine(private val h: HeuristicsEngine) {
 ./gradlew :common:koverXmlReport
 
 # Run specific test
-./gradlew :common:desktopTest --tests "com.qrshield.engine.HeuristicsEngineTest"
+./gradlew :common:desktopTest --tests "com.mehrguard.engine.HeuristicsEngineTest"
 ```
 
 ### Writing Tests
@@ -247,7 +247,7 @@ We aim for **70%+ coverage** on critical paths:
 ### ⚠️ Important
 
 - **Never commit secrets** or API keys
-- **Report vulnerabilities privately** to security@qrshield.dev
+- **Report vulnerabilities privately** to security@mehrguard.dev
 - **Follow secure coding practices**
 
 See [SECURITY.md](SECURITY.md) for our full security policy.
@@ -258,7 +258,7 @@ See [SECURITY.md](SECURITY.md) for our full security policy.
 
 - 💬 **GitHub Discussions**: General questions and ideas
 - 🐛 **GitHub Issues**: Bug reports and feature requests
-- 📧 **Email**: contributors@qrshield.dev
+- 📧 **Email**: contributors@mehrguard.dev
 
 ---
 
@@ -268,6 +268,6 @@ By contributing, you agree that your contributions will be licensed under the **
 
 ---
 
-Thank you for helping make QR-SHIELD better! 💜
+Thank you for helping make Mehr Guard better! 💜
 
 *Together, we're protecting users from QRishing attacks.*

@@ -27,7 +27,7 @@ Attack:     https://gооgle.com  ← Cyrillic 'о' (U+043E)
 
 **Why It's Dangerous:** These look identical in most fonts and browser address bars!
 
-### QR-SHIELD Detection
+### Mehr Guard Detection
 
 ```
 URL Analyzed: https://gооgle.com/login
@@ -77,7 +77,7 @@ Attack:     https://paypa1.com/login  ← Number '1' instead of 'l'
 
 **Why It's Dangerous:** Easy to miss at a glance, especially in QR codes!
 
-### QR-SHIELD Detection
+### Mehr Guard Detection
 
 ```
 URL Analyzed: https://paypa1-secure.tk/login
@@ -128,7 +128,7 @@ Destination: https://malicious-phishing-site.xyz/steal-data
 
 **Why It's Dangerous:** You can't see where you're going until it's too late!
 
-### QR-SHIELD Detection
+### Mehr Guard Detection
 
 ```
 URL Analyzed: https://bit.ly/3xYz123
@@ -147,7 +147,7 @@ URL Analyzed: https://bit.ly/3xYz123
 │     network request (privacy-preserving mode)"  │
 │                                                 │
 │ ℹ️  Note:                                       │
-│     QR-SHIELD flags shorteners as suspicious    │
+│     Mehr Guard flags shorteners as suspicious    │
 │     because they obscure the true destination   │
 │                                                 │
 │ ✅ Counterfactual hint:                         │
@@ -178,7 +178,7 @@ Attack:     https://commbank.secure-verify.ml/account
 
 **Why It's Dangerous:** The attacker puts the brand FIRST to fool you!
 
-### QR-SHIELD Detection
+### Mehr Guard Detection
 
 ```
 URL Analyzed: https://commbank.secure-verify.ml/account
@@ -231,7 +231,7 @@ Final:      https://paypa1-phishing.tk/login
 
 **Why It's Dangerous:** Each redirect buys the attacker detection evasion time!
 
-### QR-SHIELD Detection
+### Mehr Guard Detection
 
 ```
 URL Analyzed: https://redirect-chain.xyz/r?url=aHR0cHM6Ly9waGlzaGluZy5jb20=
@@ -276,7 +276,7 @@ URL Analyzed: https://redirect-chain.xyz/r?url=aHR0cHM6Ly9waGlzaGluZy5jb20=
 https://www.google.com/search?q=kotlin+multiplatform
 ```
 
-### QR-SHIELD Detection
+### Mehr Guard Detection
 
 ```
 URL Analyzed: https://www.google.com/search?q=kotlin+multiplatform

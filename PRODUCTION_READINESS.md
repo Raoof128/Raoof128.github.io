@@ -1,4 +1,4 @@
-# 🚀 QR-SHIELD Production Readiness Report
+# 🚀 Mehr Guard Production Readiness Report
 
 **Date:** December 17, 2025
 **Version:** 1.17.34 (Build 17)
@@ -37,7 +37,7 @@
 
 | Item | Status | Value |
 |------|--------|-------|
-| applicationId | ✅ | `com.qrshield.android` |
+| applicationId | ✅ | `com.mehrguard.android` |
 | versionCode | ✅ | 3 |
 | versionName | ✅ | 1.1.0 |
 | minSdk | ✅ | 26 (Android 8.0) |
@@ -60,7 +60,7 @@
 | Haptic feedback | ✅ Working | Vibrator API |
 | Sound feedback | ✅ Working | ToneGenerator |
 | Auto-scan | ✅ Working | LaunchedEffect |
-| Deep linking | ✅ Configured | qrshield:// scheme |
+| Deep linking | ✅ Configured | mehrguard:// scheme |
 | App widget | ✅ Configured | Glance |
 
 ### iOS (Web App)
@@ -160,7 +160,7 @@
 ### Google Play Store Requirements
 
 - [x] **App icon**: Adaptive icon configured
-- [x] **App name**: "QR Shield" (localized)
+- [x] **App name**: "Mehr Guard" (localized)
 - [x] **Short description**: Ready
 - [x] **Full description**: README.md content
 - [x] **Privacy policy**: GitHub repository
@@ -208,4 +208,4 @@ The project is **production-ready** for:
 ---
 
 *Report generated: December 17, 2025*  
-*QR-SHIELD Production Readiness Audit (v1.17.34)*
+*Mehr Guard Production Readiness Audit (v1.17.34)*

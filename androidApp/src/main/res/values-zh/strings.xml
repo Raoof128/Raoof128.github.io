@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">扫描二维码。检测钓鱼攻击。</string>
 
     <!-- Navigation -->
@@ -234,10 +234,10 @@
     <string name="try_again">重试</string>
     <string name="camera_permission_rationale">扫描二维码需要摄像头权限</string>
     <string name="camera_permission_denied">摄像头权限被拒绝。请在设置中启用。</string>
-    <string name="widget_name">QR-SHIELD 快速扫描</string>
+    <string name="widget_name">Mehr Guard 快速扫描</string>
     <string name="widget_description">快速扫描二维码以检测钓鱼威胁</string>
     <string name="widget_tap_to_scan">点击扫描</string>
-    <string name="cd_app_logo">QR-SHIELD图标</string>
+    <string name="cd_app_logo">Mehr Guard图标</string>
     <string name="cd_scanner_preview">二维码扫描摄像头预览</string>
     <string name="cd_close_scanner">关闭扫描器</string>
     <string name="cd_toggle_flash">切换闪光灯</string>
@@ -280,7 +280,7 @@
     <string name="cd_dismiss_hint">关闭提示</string>
     <string name="trust_center_title">安全状态</string>
     <string name="trust_center_secure">您的设备是安全的</string>
-    <string name="trust_center_protected_by">由QR-SHIELD企业版保护</string>
+    <string name="trust_center_protected_by">由Mehr Guard企业版保护</string>
     <string name="trust_center_score">安全评分: %d/100</string>
     <string name="trust_center_realtime">实时保护</string>
     <string name="trust_center_malware">恶意软件检测</string>
@@ -331,7 +331,7 @@
     <string name="auto_copy_subtitle">自动复制安全网址</string>
     <string name="biometric_unlock_title">生物识别解锁</string>
     <string name="biometric_unlock_subtitle">设置需要FaceID</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">企业版</string>
     <string name="footer_terms">条款</string>
     <string name="footer_privacy">隐私政策</string>
@@ -385,7 +385,7 @@
     <string name="learning_centre_title">学习中心</string>
     <string name="your_progress">您的进度</string>
     <string name="view_certificate">查看证书</string>
-    <string name="qr_shield_certified">QR-SHIELD认证</string>
+    <string name="qr_shield_certified">Mehr Guard认证</string>
     <string name="modules_completed_fmt">已完成%1$d/%2$d个模块</string>
     <string name="on_track">进展顺利</string>
     <string name="daily_tip_label">每日提示</string>
@@ -435,7 +435,7 @@
     <string name="phase_prevented">已阻止</string>
     <string name="privacy_offline_title">隐私与离线</string>
     <string name="privacy_hero_title">您的数据永不外泄</string>
-    <string name="privacy_hero_desc">QR-SHIELD完全在您的设备上运行。无云端。无服务器。无数据收集。设计上完全保护隐私。</string>
+    <string name="privacy_hero_desc">Mehr Guard完全在您的设备上运行。无云端。无服务器。无数据收集。设计上完全保护隐私。</string>
     <string name="privacy_offline_badge">100%离线运行</string>
     <string name="privacy_architecture">隐私架构</string>
     <string name="privacy_local_db_title">本地数据库</string>
@@ -521,7 +521,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -566,9 +566,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">QR Shield logo</string>
-    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
+    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">Mehr Guard logo</string>
+    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>

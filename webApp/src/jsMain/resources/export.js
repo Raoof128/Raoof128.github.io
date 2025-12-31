@@ -1,10 +1,10 @@
 /**
- * QR-SHIELD Report Export Page Controller
+ * Mehr Guard Report Export Page Controller
  * 
  * Handles format selection, report generation,
  * export actions, and live preview updates.
  * 
- * @author QR-SHIELD Team
+ * @author Mehr Guard Team
  * @version 2.4.1
  */
 
@@ -15,7 +15,7 @@
 const ExportConfig = {
     version: '2.4.1',
     defaultFormat: 'pdf',
-    reportDataKey: 'qrshield_last_analysis',
+    reportDataKey: 'mehrguard_last_analysis',
 };
 
 // =============================================================================
@@ -29,15 +29,15 @@ const ExportState = {
 };
 
 function translateText(text) {
-    if (window.qrshieldTranslateText) {
-        return window.qrshieldTranslateText(text);
+    if (window.mehrguardTranslateText) {
+        return window.mehrguardTranslateText(text);
     }
     return text;
 }
 
 function formatText(template, params) {
-    if (window.qrshieldFormatText) {
-        return window.qrshieldFormatText(template, params);
+    if (window.mehrguardFormatText) {
+        return window.mehrguardFormatText(template, params);
     }
     return template;
 }
@@ -79,7 +79,7 @@ const elements = {
 // =============================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('[QR-SHIELD Export] Initializing v' + ExportConfig.version);
+    console.log('[Mehr Guard Export] Initializing v' + ExportConfig.version);
 
     // Cache DOM elements
     cacheElements();
@@ -93,9 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update preview with data
     updatePreview();
 
-    window.qrshieldApplyTranslations?.(document.body);
+    window.mehrguardApplyTranslations?.(document.body);
 
-    console.log('[QR-SHIELD Export] Ready');
+    console.log('[Mehr Guard Export] Ready');
 });
 
 /**
@@ -288,7 +288,7 @@ function updatePreview() {
     // Update summary
     if (elements.analysisSummary && data.summary) {
         elements.analysisSummary.innerHTML = data.summary;
-        window.qrshieldApplyTranslations?.(elements.analysisSummary);
+        window.mehrguardApplyTranslations?.(elements.analysisSummary);
     }
 
     // Update JSON preview
@@ -367,10 +367,10 @@ function exportAsPDF(data) {
         date: formatDate(date),
         time: formatTime(date)
     });
-    const reportTitle = translateText('QR-SHIELD Threat Analysis Report');
+    const reportTitle = translateText('Mehr Guard Threat Analysis Report');
     const targetUrlLabel = translateText('Target URL');
     const technicalIndicatorsLabel = translateText('Technical Indicators');
-    const verifiedBy = formatText('Verified by QR-SHIELD Enterprise v{version}', {
+    const verifiedBy = formatText('Verified by Mehr Guard Enterprise v{version}', {
         version: ExportConfig.version
     });
 
@@ -378,7 +378,7 @@ function exportAsPDF(data) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>${translateText('QR-SHIELD Threat Report')}</title>
+    <title>${translateText('Mehr Guard Threat Report')}</title>
     <style>
         body { font-family: 'Inter', sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
         h1 { color: #111; margin-bottom: 10px; }
@@ -460,7 +460,7 @@ function exportAsJSON(data) {
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = `qrshield_report_${Date.now()}.json`;
+    a.download = `mehrguard_report_${Date.now()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -483,7 +483,7 @@ async function copyReport() {
     const verdictLabel = verdictMap[data.verdict] || translateText(data.verdict);
     const now = new Date();
     const reportLines = [
-        translateText('QR-SHIELD Threat Analysis Report'),
+        translateText('Mehr Guard Threat Analysis Report'),
         '================================',
         formatText('Generated on {date} • {time} UTC', {
             date: formatDate(now),
@@ -500,7 +500,7 @@ async function copyReport() {
         formatText('- Redirects: {count}', { count: data.redirects || 2 }),
         formatText('- Heuristics: {list}', { list: (data.heuristics || ['suspicious_tld', 'subdomain_chaining']).join(', ') }),
         '',
-        formatText('Verified by QR-SHIELD Enterprise v{version}', { version: ExportConfig.version })
+        formatText('Verified by Mehr Guard Enterprise v{version}', { version: ExportConfig.version })
     ];
     const reportText = reportLines.join('\n');
 
@@ -520,7 +520,7 @@ async function shareReport() {
     const data = ExportState.reportData;
 
     const shareData = {
-        title: 'QR-SHIELD Threat Report',
+        title: 'Mehr Guard Threat Report',
         text: `URL: ${data.url}\nVerdict: ${data.verdict}\nRisk Score: ${data.score}/100`,
         url: window.location.href,
     };
@@ -649,8 +649,8 @@ function showToast(message, type = 'success') {
 function formatDate(date) {
     const options = { month: 'short', day: 'numeric', year: 'numeric' };
     let locale = 'en-US';
-    if (window.qrshieldGetLanguageCode) {
-        locale = window.qrshieldGetLanguageCode();
+    if (window.mehrguardGetLanguageCode) {
+        locale = window.mehrguardGetLanguageCode();
     }
     return date.toLocaleDateString(locale, options);
 }
@@ -658,8 +658,8 @@ function formatDate(date) {
 function formatTime(date) {
     const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
     let locale = 'en-US';
-    if (window.qrshieldGetLanguageCode) {
-        locale = window.qrshieldGetLanguageCode();
+    if (window.mehrguardGetLanguageCode) {
+        locale = window.mehrguardGetLanguageCode();
     }
     return date.toLocaleTimeString(locale, options);
 }

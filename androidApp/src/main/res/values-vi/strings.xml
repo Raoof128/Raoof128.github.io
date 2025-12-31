@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">QR-SHIELD</string>
+    <string name="app_name">Mehr Guard</string>
     <string name="tagline">Quét mã QR. Phát hiện lừa đảo.</string>
     <string name="nav_home">Trang chủ</string>
     <string name="nav_scan">Quét</string>
@@ -125,10 +125,10 @@
     <string name="try_again">Thử lại</string>
     <string name="camera_permission_rationale">Cần truy cập camera để quét mã QR</string>
     <string name="camera_permission_denied">Quyền camera bị từ chối. Vui lòng bật trong cài đặt.</string>
-    <string name="widget_name">QR-SHIELD Quét nhanh</string>
+    <string name="widget_name">Mehr Guard Quét nhanh</string>
     <string name="widget_description">Quét nhanh mã QR để phát hiện mối đe dọa lừa đảo</string>
     <string name="widget_tap_to_scan">Nhấn để quét</string>
-    <string name="cd_app_logo">Logo QR-SHIELD</string>
+    <string name="cd_app_logo">Logo Mehr Guard</string>
     <string name="cd_scanner_preview">Xem trước camera để quét mã QR</string>
     <string name="cd_close_scanner">Đóng máy quét</string>
     <string name="cd_toggle_flash">Bật/tắt đèn flash</string>
@@ -155,7 +155,7 @@
     <string name="cd_risk_score">Điểm rủi ro trên 100</string>
     <string name="trust_center_title">Trạng thái bảo mật</string>
     <string name="trust_center_secure">Thiết bị của bạn an toàn</string>
-    <string name="trust_center_protected_by">Được bảo vệ bởi QR-SHIELD Enterprise</string>
+    <string name="trust_center_protected_by">Được bảo vệ bởi Mehr Guard Enterprise</string>
     <string name="trust_center_score">Điểm bảo mật: %d/100</string>
     <string name="trust_center_realtime">Bảo vệ thời gian thực</string>
     <string name="trust_center_malware">Phát hiện phần mềm độc hại</string>
@@ -181,7 +181,7 @@
     <string name="trust_center_network_desc">Tường lửa hoạt động</string>
     <string name="trust_center_offline">Chế độ ngoại tuyến</string>
     <string name="trust_center_offline_desc">Chỉ cơ sở dữ liệu cục bộ</string>
-    <string name="footer_version">QR-SHIELD v%s</string>
+    <string name="footer_version">Mehr Guard v%s</string>
     <string name="footer_edition">PHIÊN BẢN DOANH NGHIỆP</string>
     <string name="footer_terms">Điều khoản</string>
     <string name="footer_privacy">Chính sách bảo mật</string>
@@ -359,7 +359,7 @@
     <string name="learning_centre_title">Trung tâm học tập</string>
     <string name="your_progress">Tiến trình của bạn</string>
     <string name="view_certificate">Xem chứng chỉ</string>
-    <string name="qr_shield_certified">Được chứng nhận QR-SHIELD</string>
+    <string name="qr_shield_certified">Được chứng nhận Mehr Guard</string>
     <string name="modules_completed_fmt">%1$d/%2$d module hoàn thành</string>
     <string name="on_track">Đúng hướng</string>
     <string name="daily_tip_label">MẸO HÀNG NGÀY</string>
@@ -418,7 +418,7 @@
     <string name="remediation_3">Nếu đã nhập thông tin đăng nhập, đặt lại mật khẩu ngay lập tức</string>
     <string name="privacy_offline_title">Quyền riêng tư và Ngoại tuyến</string>
     <string name="privacy_hero_title">Dữ liệu của bạn không bao giờ rời đi</string>
-    <string name="privacy_hero_desc">QR-SHIELD hoạt động hoàn toàn trên thiết bị của bạn. Không cloud. Không server. Không thu thập dữ liệu. Quyền riêng tư hoàn toàn theo thiết kế.</string>
+    <string name="privacy_hero_desc">Mehr Guard hoạt động hoàn toàn trên thiết bị của bạn. Không cloud. Không server. Không thu thập dữ liệu. Quyền riêng tư hoàn toàn theo thiết kế.</string>
     <string name="privacy_offline_badge">Hoạt động 100% ngoại tuyến</string>
     <string name="privacy_architecture">Kiến trúc quyền riêng tư</string>
     <string name="privacy_local_db_title">Cơ sở dữ liệu cục bộ</string>
@@ -504,7 +504,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -549,9 +549,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">QR Shield logo</string>
-    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
+    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">Mehr Guard logo</string>
+    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>

@@ -1,6 +1,6 @@
-# QR-SHIELD Roadmap
+# Mehr Guard Roadmap
 
-This document outlines future enhancements planned for QR-SHIELD after the KotlinConf 2026 Student Coding Competition.
+This document outlines future enhancements planned for Mehr Guard after the KotlinConf 2026 Student Coding Competition.
 
 > **Note:** Items below are planned features. The [README.md](README.md) documents only shipped features.
 

@@ -1,4 +1,4 @@
-# QR-SHIELD iOS Surface Area Map
+# Mehr Guard iOS Surface Area Map
 
 **Generated:** December 21, 2025  
 **Build Status:** ✅ Successful (iPhone 17 Simulator, iOS 26.0)  
@@ -10,10 +10,10 @@
 
 ```
 iosApp/
-├── QRShield.xcodeproj/          # Xcode project
-├── QRShield/                     # Main app source
+├── MehrGuard.xcodeproj/          # Xcode project
+├── MehrGuard/                     # Main app source
 │   ├── App/                      # App entry point
-│   │   └── QRShieldApp.swift     # @main SwiftUI App
+│   │   └── MehrGuardApp.swift     # @main SwiftUI App
 │   ├── Models/                   # Data models & services
 │   │   ├── HistoryStore.swift    # Scan history persistence
 │   │   ├── KMPBridge.swift       # Kotlin Multiplatform bridge
@@ -37,8 +37,8 @@ iosApp/
 │   │   └── Export/               # Report export
 │   ├── Info.plist                # App configuration
 │   └── Assets.xcassets/          # Image assets
-├── QRShieldWidget/               # iOS widget (optional)
-├── QRShieldUITests/              # UI tests
+├── MehrGuardWidget/               # iOS widget (optional)
+├── MehrGuardUITests/              # UI tests
 ├── Frameworks/                   # Framework dependencies
 └── scripts/                      # Build scripts
 ```
@@ -47,11 +47,11 @@ iosApp/
 
 ## 2. Entry Point
 
-### `QRShieldApp.swift`
+### `MehrGuardApp.swift`
 
 ```swift
 @main
-struct QRShieldApp: App {
+struct MehrGuardApp: App {
     @State private var hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("useDarkMode") private var useDarkMode = true
@@ -74,7 +74,7 @@ struct QRShieldApp: App {
 **Feature Checklist:**
 - ✅ Onboarding flow management
 - ✅ Dark/Light mode switching
-- ✅ Deep link handling (`qrshield://scan`)
+- ✅ Deep link handling (`mehrguard://scan`)
 - ✅ Scene phase lifecycle management
 - ✅ Navigation bar & tab bar Liquid Glass configuration
 
@@ -108,7 +108,7 @@ struct QRShieldApp: App {
 
 ```swift
 // Supported URL schemes
-qrshield://scan  → Opens Scanner tab
+mehrguard://scan  → Opens Scanner tab
 ```
 
 ---
@@ -137,7 +137,7 @@ qrshield://scan  → Opens Scanner tab
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        QRShieldApp                              │
+│                        MehrGuardApp                              │
 │  ┌──────────────────────────────────────────────────────────┐   │
 │  │                    ContentView (TabView)                  │   │
 │  │  ┌─────────┐ ┌───────────┐ ┌──────────┐ ┌─────────────┐  │   │
@@ -446,7 +446,7 @@ return errorResult() // or analyzeWithSwift(url)
 ### 🔄 Remaining Tasks
 
 1. **Test KMP framework linking** - Link `common.framework` and verify `isKMPAvailable == true`
-2. **Run UI tests** - Execute `QRShieldUITests` to verify all interactive flows
+2. **Run UI tests** - Execute `MehrGuardUITests` to verify all interactive flows
 3. **Accessibility audit** - Add missing `accessibilityLabel` and `accessibilityHint` values
 4. **Version constants** - Consolidate hard-coded version strings to `AppConstants` file
 

@@ -23,8 +23,8 @@ buildscript {
 // }
 //
 // pitest {
-//     targetClasses.set(listOf("com.qrshield.*"))
-//     targetTests.set(listOf("com.qrshield.*Test"))
+//     targetClasses.set(listOf("com.raouf.mehrguard.*"))
+//     targetTests.set(listOf("com.raouf.mehrguard.*Test"))
 //     mutators.set(listOf("STRONGER"))
 //     outputFormats.set(listOf("HTML", "XML"))
 //     threads.set(4)

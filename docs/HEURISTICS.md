@@ -1,12 +1,12 @@
 # 🔍 Heuristics Documentation
 
-> **Complete reference for QR-SHIELD's 25+ detection rules**
+> **Complete reference for Mehr Guard's 25+ detection rules**
 
 ---
 
 ## 📋 Overview
 
-QR-SHIELD uses a **weighted heuristic scoring system** combined with ML and brand detection. Each heuristic contributes to the overall risk score.
+Mehr Guard uses a **weighted heuristic scoring system** combined with ML and brand detection. Each heuristic contributes to the overall risk score.
 
 | Scoring Range | Verdict |
 |---------------|---------|

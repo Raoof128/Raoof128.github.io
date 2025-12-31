@@ -9,11 +9,11 @@ import java.util.Properties
 import java.io.FileInputStream
 
 android {
-    namespace = "com.qrshield.android"
+    namespace = "com.raouf.mehrguard.android"
     compileSdk = 35  // Android 16
 
     defaultConfig {
-        applicationId = "com.qrshield.android"
+        applicationId = "com.raouf.mehrguard.android"
         minSdk = 26
         targetSdk = 35  // Android 16
         versionCode = 33

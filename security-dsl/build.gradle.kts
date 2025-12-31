@@ -2,7 +2,7 @@ plugins {
     kotlin("jvm")
 }
 
-group = "com.qrshield"
+group = "com.raouf.mehrguard"
 version = "1.0.0"
 
 kotlin {

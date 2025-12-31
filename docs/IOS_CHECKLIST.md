@@ -1,6 +1,6 @@
 # iOS App Checklist 🍏
 
-**QR-SHIELD iOS Application Verification**
+**Mehr Guard iOS Application Verification**
 
 This document verifies the iOS app against competition requirements and best practices.
 
@@ -23,7 +23,7 @@ cd qr-shield
 
 # Build iOS app (no signing required for simulator)
 cd iosApp
-xcodebuild -scheme QRShield \
+xcodebuild -scheme MehrGuard \
   -destination 'platform=iOS Simulator,name=iPhone 16' \
   build
 
@@ -88,7 +88,7 @@ xcodebuild -scheme QRShield \
 The iOS app uses the **same Kotlin Multiplatform PhishingEngine** as Android:
 
 ```
-shared/src/commonMain/kotlin/com/qrshield/engine/PhishingEngine.kt
+shared/src/commonMain/kotlin/com/mehrguard/engine/PhishingEngine.kt
 ```
 
 | Test Input | Android Result | iOS Result | Status |
@@ -168,7 +168,7 @@ Button(action: viewModel.toggleScanning) {
 
 ```bash
 # 1. Open project in Xcode
-open iosApp/QRShield.xcodeproj
+open iosApp/MehrGuard.xcodeproj
 
 # 2. Select iPhone 16 Simulator
 # Xcode menu: Product > Destination > iPhone 16

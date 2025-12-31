@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- QR-SHIELD Android Theme -->
+<!-- Mehr Guard Android Theme -->
 <resources>
     
     <!-- Base Application Theme using AppCompat (most compatible) -->
-    <style name="Theme.QRShield" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.MehrGuard" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary Colors -->
         <item name="colorPrimary">@color/brand_primary</item>
         <item name="colorPrimaryDark">@color/brand_primary_dark</item>
@@ -20,12 +20,12 @@
     </style>
     
     <!-- Splash Screen Theme (Android 12+) -->
-    <style name="Theme.QRShield.Splash" parent="Theme.SplashScreen">
+    <style name="Theme.MehrGuard.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/splash_background</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/splash_icon_background</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
-        <item name="postSplashScreenTheme">@style/Theme.QRShield</item>
+        <item name="postSplashScreenTheme">@style/Theme.MehrGuard</item>
     </style>
     
 </resources>

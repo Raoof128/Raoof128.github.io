@@ -2,21 +2,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "QRShield",
+    name: "MehrGuard",
     defaultLocalization: "en",
     platforms: [
         .iOS(.v17)
     ],
     products: [
         .library(
-            name: "QRShield",
-            targets: ["QRShield"]),
+            name: "MehrGuard",
+            targets: ["MehrGuard"]),
     ],
     targets: [
         .target(
-            name: "QRShield",
+            name: "MehrGuard",
             dependencies: [],
-            path: "QRShield",
+            path: "MehrGuard",
             exclude: [
                 "Info.plist",
                 "README_PERMISSIONS.md"

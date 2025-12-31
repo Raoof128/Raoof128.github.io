@@ -1,4 +1,4 @@
-# QR-SHIELD UI/UX Design System
+# Mehr Guard UI/UX Design System
 
 ## Design Principles
 

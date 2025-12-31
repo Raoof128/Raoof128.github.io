@@ -1,6 +1,6 @@
-# 📱 TestFlight Setup Guide for QR-SHIELD iOS
+# 📱 TestFlight Setup Guide for Mehr Guard iOS
 
-This guide covers setting up TestFlight for iOS beta testing of QR-SHIELD.
+This guide covers setting up TestFlight for iOS beta testing of Mehr Guard.
 
 ---
 
@@ -9,7 +9,7 @@ This guide covers setting up TestFlight for iOS beta testing of QR-SHIELD.
 - [x] Apple Developer Account ($99/year)
 - [x] Xcode 15+ with valid signing certificate
 - [x] App Store Connect access
-- [x] QR-SHIELD iOS app project
+- [x] Mehr Guard iOS app project
 
 ---
 
@@ -24,10 +24,10 @@ This guide covers setting up TestFlight for iOS beta testing of QR-SHIELD.
 | Field | Value |
 |-------|-------|
 | **Platform** | iOS |
-| **Name** | QR-SHIELD |
+| **Name** | Mehr Guard |
 | **Primary Language** | English (U.S.) |
-| **Bundle ID** | `com.qrshield.ios` |
-| **SKU** | `qrshield-ios-001` |
+| **Bundle ID** | `com.mehrguard.ios` |
+| **SKU** | `mehrguard-ios-001` |
 | **User Access** | Full Access |
 
 ---
@@ -46,17 +46,17 @@ This guide covers setting up TestFlight for iOS beta testing of QR-SHIELD.
 1. Go to [Apple Developer Portal](https://developer.apple.com/account/resources/identifiers/list)
 2. Click **+** → **App IDs** → **Continue**
 3. Configure:
-   - **Description**: QR-SHIELD iOS
-   - **Bundle ID**: Explicit → `com.qrshield.ios`
+   - **Description**: Mehr Guard iOS
+   - **Bundle ID**: Explicit → `com.mehrguard.ios`
    - **Capabilities**: Enable required capabilities
 
 ### 2.3 Create Provisioning Profile
 
 1. Go to **Profiles** → **+**
 2. Select **App Store** (Distribution)
-3. Choose App ID: `com.qrshield.ios`
+3. Choose App ID: `com.mehrguard.ios`
 4. Select your Distribution certificate
-5. Name: `QRShield AppStore Profile`
+5. Name: `MehrGuard AppStore Profile`
 6. Download and double-click to install
 
 ---
@@ -65,14 +65,14 @@ This guide covers setting up TestFlight for iOS beta testing of QR-SHIELD.
 
 ### 3.1 Configure Xcode Project
 
-Open `iosApp/QRShield.xcodeproj` in Xcode:
+Open `iosApp/MehrGuard.xcodeproj` in Xcode:
 
 ```xcodebuild
 # Build Settings
-PRODUCT_BUNDLE_IDENTIFIER = com.qrshield.ios
+PRODUCT_BUNDLE_IDENTIFIER = com.mehrguard.ios
 DEVELOPMENT_TEAM = YOUR_TEAM_ID
 CODE_SIGN_IDENTITY = Apple Distribution
-PROVISIONING_PROFILE_SPECIFIER = QRShield AppStore Profile
+PROVISIONING_PROFILE_SPECIFIER = MehrGuard AppStore Profile
 ```
 
 ### 3.2 Update Build Number
@@ -109,27 +109,27 @@ In `Info.plist` or Xcode:
 
 1. In App Store Connect → **TestFlight** tab
 2. Click **+** next to "External Groups"
-3. Create group: `QR-SHIELD Beta Testers`
+3. Create group: `Mehr Guard Beta Testers`
 
 ### 4.2 Add Build to Group
 
 1. Select your uploaded build
 2. Click **Add to Group**
-3. Select `QR-SHIELD Beta Testers`
+3. Select `Mehr Guard Beta Testers`
 4. Click **Submit for Beta Review**
 
 ### 4.3 Configure Beta App Information
 
 | Field | Value |
 |-------|-------|
-| **Beta App Description** | QR-SHIELD scans QR codes and detects phishing attempts using advanced heuristic analysis. Help us test before the public release! |
-| **Feedback Email** | beta@qrshield.app |
+| **Beta App Description** | Mehr Guard scans QR codes and detects phishing attempts using advanced heuristic analysis. Help us test before the public release! |
+| **Feedback Email** | beta@mehrguard.app |
 | **Marketing URL** | https://github.com/Raoof128/Raoof128.github.io |
 | **Privacy Policy URL** | https://github.com/Raoof128/Raoof128.github.io/blob/main/SECURITY.md |
 
 ### 4.4 Get Public TestFlight Link
 
-1. After approval, go to **External Groups** → `QR-SHIELD Beta Testers`
+1. After approval, go to **External Groups** → `Mehr Guard Beta Testers`
 2. Enable **Public Link**
 3. Copy the link: `https://testflight.apple.com/join/XXXXXXXX`
 
@@ -177,7 +177,7 @@ jobs:
     - name: Install Provisioning Profile
       uses: apple-actions/download-provisioning-profiles@v2
       with:
-        bundle-id: 'com.qrshield.ios'
+        bundle-id: 'com.mehrguard.ios'
         issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
         api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
         api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
@@ -186,9 +186,9 @@ jobs:
       run: |
         cd iosApp
         xcodebuild archive \
-          -project QRShield.xcodeproj \
-          -scheme QRShield \
-          -archivePath build/QRShield.xcarchive \
+          -project MehrGuard.xcodeproj \
+          -scheme MehrGuard \
+          -archivePath build/MehrGuard.xcarchive \
           -destination generic/platform=iOS \
           CODE_SIGN_STYLE=Manual \
           DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
@@ -197,14 +197,14 @@ jobs:
       run: |
         cd iosApp
         xcodebuild -exportArchive \
-          -archivePath build/QRShield.xcarchive \
+          -archivePath build/MehrGuard.xcarchive \
           -exportPath build/export \
           -exportOptionsPlist ExportOptions.plist
     
     - name: Upload to TestFlight
       uses: apple-actions/upload-testflight-build@v1
       with:
-        app-path: 'iosApp/build/export/QRShield.ipa'
+        app-path: 'iosApp/build/export/MehrGuard.ipa'
         issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
         api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
         api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
