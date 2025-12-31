@@ -35,6 +35,7 @@ struct SettingsView: View {
     @AppStorage("notificationsEnabled") private var notificationsEnabled = true
     @AppStorage("useDarkMode") private var useDarkMode = true
     @AppStorage("selectedLanguage") private var selectedLanguage = "system"
+    @AppStorage("developerModeEnabled") private var developerModeEnabled = false
     
     @StateObject private var languageManager = LanguageManager.shared
     
@@ -45,6 +46,10 @@ struct SettingsView: View {
     @State private var showThreatHistory = false
     @State private var showLanguagePicker = false
     @State private var showRestartAlert = false
+    
+    // Developer Mode 7-tap counter
+    @State private var developerTapCount = 0
+    @State private var lastTapTime: Date = Date.distantPast
     
     var body: some View {
         List {
@@ -354,7 +359,26 @@ struct SettingsView: View {
             
             // About Section
             Section {
-                aboutRow(icon: "info.circle", title: "Version", value: "1.0.0 (1)")
+                // Version info with 7-tap developer mode activation
+                Button {
+                    handleVersionTap()
+                } label: {
+                    HStack {
+                        Image(systemName: "info.circle")
+                            .foregroundColor(.brandPrimary)
+                            .frame(width: 28)
+                        
+                        Text("Version")
+                            .foregroundColor(.textPrimary)
+                        
+                        Spacer()
+                        
+                        Text(developerModeEnabled ? "1.20.26 (DEV)" : "1.20.26")
+                            .foregroundColor(.textMuted)
+                    }
+                    .padding(.vertical, 4)
+                }
+                
                 aboutRow(icon: "hammer", title: "Build", value: "iOS 17+ • Swift 6")
                 aboutRow(icon: "cpu", title: "Engine", value: "KMP PhishingEngine")
                 
@@ -379,6 +403,33 @@ struct SettingsView: View {
                 sectionHeader("About", icon: "info.circle")
             }
             .listRowBackground(Color.clear)
+            
+            // Developer Mode Section (only visible when enabled)
+            if developerModeEnabled {
+                Section {
+                    SettingsToggle(
+                        icon: "ant.fill",
+                        title: NSLocalizedString("settings.red_team_mode", comment: ""),
+                        subtitle: NSLocalizedString("settings.red_team_mode_desc", comment: ""),
+                        isOn: $developerModeEnabled
+                    )
+                    
+                    // Warning card
+                    HStack(spacing: 12) {
+                        Text("⚠️")
+                            .font(.title2)
+                        
+                        Text(NSLocalizedString("settings.red_team_warning", comment: ""))
+                            .font(.caption)
+                            .foregroundColor(Color(red: 1.0, green: 0.67, blue: 0.67))
+                    }
+                    .padding()
+                    .background(Color(red: 0.24, green: 0.08, blue: 0.08), in: RoundedRectangle(cornerRadius: 12))
+                } header: {
+                    sectionHeader(NSLocalizedString("settings.dev_mode_section", comment: ""), icon: "ladybug")
+                }
+                .listRowBackground(Color.clear)
+            }
             
             // Credits Section
             Section {
@@ -523,6 +574,52 @@ struct SettingsView: View {
         #if DEBUG
         print("🗑️ History cleared from Settings")
         #endif
+    }
+    
+    // MARK: - Developer Mode 7-Tap Handler
+    
+    private func handleVersionTap() {
+        let currentTime = Date()
+        
+        // Reset counter if more than 2 seconds between taps
+        if currentTime.timeIntervalSince(lastTapTime) > 2.0 {
+            developerTapCount = 0
+        }
+        
+        lastTapTime = currentTime
+        developerTapCount += 1
+        
+        switch developerTapCount {
+        case 7...:
+            // Toggle developer mode
+            developerModeEnabled.toggle()
+            developerTapCount = 0
+            
+            if developerModeEnabled {
+                SettingsManager.shared.triggerHaptic(.success)
+                // Show toast-like feedback via haptic
+                #if DEBUG
+                print("🕵️ Developer Mode ENABLED - Red Team scenarios available!")
+                #endif
+            } else {
+                SettingsManager.shared.triggerHaptic(.warning)
+                #if DEBUG
+                print("🕵️ Developer Mode DISABLED")
+                #endif
+            }
+            
+        case 4...6:
+            let remaining = 7 - developerTapCount
+            SettingsManager.shared.triggerHaptic(.light)
+            #if DEBUG
+            let action = developerModeEnabled ? "disable" : "enable"
+            print("🕵️ \(remaining) more taps to \(action) developer mode")
+            #endif
+            
+        default:
+            // Light haptic for early taps
+            SettingsManager.shared.triggerHaptic(.light)
+        }
     }
 }
 // MARK: - Settings Toggle (iOS 17+ Liquid Glass)

@@ -39,6 +39,7 @@ struct ScannerView: View {
     @AppStorage("autoScan") private var autoScan = true
     @AppStorage("liquidGlassReduced") private var liquidGlassReduced = false
     @AppStorage("useDarkMode") private var useDarkMode = true
+    @AppStorage("developerModeEnabled") private var developerModeEnabled = false
     
     // Environment
     @Environment(\.scenePhase) private var scenePhase
@@ -63,6 +64,17 @@ struct ScannerView: View {
             
             // 3. Main Content
             VStack(spacing: 0) {
+                // RED TEAM SCENARIOS (Developer Mode Only)
+                if developerModeEnabled {
+                    RedTeamScenariosPanel { scenario in
+                        // Bypass camera - feed malicious URL directly to analysis engine
+                        SettingsManager.shared.triggerHaptic(.warning)
+                        SettingsManager.shared.playSound(.scan)
+                        viewModel.analyzeUrl(scenario.maliciousUrl)
+                    }
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                }
+                
                 // Header Bar (Liquid Glass)
                 headerBar
                     .padding(.horizontal)
@@ -612,6 +624,93 @@ struct CornerMask: Shape {
         path.addLine(to: CGPoint(x: 0, y: rect.height - cornerLength))
         
         return path
+    }
+}
+
+// MARK: - Red Team Scenarios Panel
+
+/// Red Team Scenarios Panel - Shows attack scenarios for testing.
+/// This panel appears at the top of the scanner screen when Developer Mode is enabled.
+/// Clicking a scenario bypasses the camera and feeds the malicious URL directly to the engine.
+struct RedTeamScenariosPanel: View {
+    let onScenarioClick: (RedTeamScenario) -> Void
+    
+    var body: some View {
+        VStack(spacing: 8) {
+            // Header
+            HStack {
+                Text("🕵️")
+                    .font(.title3)
+                
+                Text(NSLocalizedString("scanner.red_team_title", comment: ""))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundColor(Color(red: 1.0, green: 0.42, blue: 0.42))
+                
+                Spacer()
+                
+                Text(String(format: NSLocalizedString("scanner.red_team_attacks_fmt", comment: ""), RedTeamScenarios.scenarios.count))
+                    .font(.caption2)
+                    .foregroundColor(Color(red: 0.67, green: 0.47, blue: 0.47))
+            }
+            .padding(.horizontal, 16)
+            
+            // Scrollable Scenario Chips
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(RedTeamScenarios.scenarios) { scenario in
+                        RedTeamScenarioChip(scenario: scenario) {
+                            onScenarioClick(scenario)
+                        }
+                    }
+                }
+                .padding(.horizontal, 16)
+            }
+            
+            // Hint text
+            Text(NSLocalizedString("scanner.red_team_hint", comment: ""))
+                .font(.caption2)
+                .foregroundColor(Color(red: 0.67, green: 0.47, blue: 0.47))
+                .padding(.horizontal, 16)
+        }
+        .padding(.vertical, 12)
+        .background(
+            LinearGradient(
+                colors: [
+                    Color(red: 0.24, green: 0.08, blue: 0.08),
+                    Color(red: 0.16, green: 0.06, blue: 0.06)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        )
+    }
+}
+
+/// A single Red Team scenario chip.
+struct RedTeamScenarioChip: View {
+    let scenario: RedTeamScenario
+    let onClick: () -> Void
+    
+    var body: some View {
+        Button(action: onClick) {
+            HStack(spacing: 6) {
+                Text(scenario.categoryIcon)
+                    .font(.caption)
+                
+                Text(scenario.title)
+                    .font(.caption2.weight(.medium))
+                    .foregroundColor(.white)
+                    .lineLimit(1)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+            .background(scenario.categoryColor.opacity(0.2), in: Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(scenario.categoryColor.opacity(0.5), lineWidth: 1)
+            )
+        }
+        .accessibilityLabel("\(scenario.title). \(scenario.description). Tap to test.")
     }
 }
 

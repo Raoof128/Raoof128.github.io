@@ -2,6 +2,39 @@
 
 ## Unreleased
 
+## [1.20.27] - 2025-12-31
+
+### Raouf: iOS Red Team Mode & Localization Parity (2025-12-31 11:05 AEDT)
+
+**Scope:** Implemented Android Red Team developer mode in iOS, synced all language strings
+
+**Changes:**
+
+1. **Red Team Developer Mode (Android Parity)**
+   - Added `developerModeEnabled` setting to SettingsManager
+   - Added 7-tap activation on Version row in SettingsView
+   - Added Developer Mode section with Red Team toggle and warning card
+   - Created `RedTeamScenario` and `RedTeamScenarios` in MockTypes.swift (14 scenarios)
+   - Added `RedTeamScenariosPanel` and `RedTeamScenarioChip` to ScannerView
+   - Panel shows attack categories: Homograph, IP Obfuscation, Suspicious TLD, Brand Impersonation, URL Shortener, Safe Control
+
+2. **Localization Parity**
+   - All 16 languages now have **487 unique keys**
+   - Added missing strings: stats.*, factors.*, training.reset, scanner.red_team_*, settings.red_team_*, export.*
+
+**Files Modified:**
+- `SettingsManager.swift` - Added developerModeEnabled setting
+- `SettingsView.swift` - Added 7-tap handler and Developer Mode section
+- `ScannerView.swift` - Added RedTeamScenariosPanel and chips
+- `MockTypes.swift` - Added RedTeamScenario and RedTeamScenarios
+- All 16 `*.lproj/Localizable.strings` - Added ~30 new strings each
+- `project.pbxproj` - Version 1.20.27
+
+**Build Verification:**
+- `xcodebuild -scheme QRShield build` ✅
+
+---
+
 ## [1.20.26] - 2025-12-31
 
 ### Raouf: iOS Parity & UX Improvements (2025-12-31 10:45 AEDT)

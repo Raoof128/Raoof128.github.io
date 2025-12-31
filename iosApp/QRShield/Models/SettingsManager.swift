@@ -48,6 +48,7 @@ final class SettingsManager {
         static let liquidGlassReduced = "liquidGlassReduced"
         static let notificationsEnabled = "notificationsEnabled"
         static let useDarkMode = "useDarkMode"
+        static let developerModeEnabled = "developerModeEnabled"
     }
     
     // MARK: - Settings Properties
@@ -85,6 +86,12 @@ final class SettingsManager {
     var useDarkMode: Bool {
         get { UserDefaults.standard.bool(forKey: Keys.useDarkMode) }
         set { UserDefaults.standard.set(newValue, forKey: Keys.useDarkMode) }
+    }
+    
+    /// Developer mode enables Red Team scenarios for testing
+    var developerModeEnabled: Bool {
+        get { UserDefaults.standard.bool(forKey: Keys.developerModeEnabled) }
+        set { UserDefaults.standard.set(newValue, forKey: Keys.developerModeEnabled) }
     }
     
     // MARK: - Initialization

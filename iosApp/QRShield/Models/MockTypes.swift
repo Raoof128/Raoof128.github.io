@@ -22,6 +22,7 @@
 // Replace with actual KMP types (common.Verdict, common.RiskAssessment) when ready.
 
 import Foundation
+import SwiftUI
 
 // MARK: - Verdict Mock
 
@@ -168,6 +169,201 @@ struct HistoryItemMock: Identifiable, Sendable, Hashable, Codable {
             scannedAt: scannedAt
         )
     }
+}
+
+// MARK: - Red Team Scenario
+
+/// A red team test scenario with a description and malicious URL.
+struct RedTeamScenario: Identifiable {
+    let id: String
+    let category: String
+    let title: String
+    let description: String
+    let maliciousUrl: String
+    let targetBrand: String?
+    let expectedScore: ClosedRange<Int>
+    
+    init(
+        id: String,
+        category: String,
+        title: String,
+        description: String,
+        maliciousUrl: String,
+        targetBrand: String? = nil,
+        expectedScore: ClosedRange<Int> = 50...100
+    ) {
+        self.id = id
+        self.category = category
+        self.title = title
+        self.description = description
+        self.maliciousUrl = maliciousUrl
+        self.targetBrand = targetBrand
+        self.expectedScore = expectedScore
+    }
+    
+    /// Returns the emoji icon for this scenario's category
+    var categoryIcon: String {
+        switch category.lowercased() {
+        case let c where c.contains("homograph"):
+            return "🔤"
+        case let c where c.contains("ip"):
+            return "🔢"
+        case let c where c.contains("tld"):
+            return "🌐"
+        case let c where c.contains("redirect"):
+            return "↪️"
+        case let c where c.contains("brand"):
+            return "🏷️"
+        case let c where c.contains("shortener"):
+            return "🔗"
+        case let c where c.contains("safe"):
+            return "✅"
+        default:
+            return "⚠️"
+        }
+    }
+    
+    /// Returns the color for this scenario's category
+    var categoryColor: Color {
+        switch category.lowercased() {
+        case let c where c.contains("homograph"):
+            return .red
+        case let c where c.contains("ip"):
+            return .orange
+        case let c where c.contains("tld"):
+            return .pink
+        case let c where c.contains("redirect"):
+            return .purple
+        case let c where c.contains("brand"):
+            return .indigo
+        case let c where c.contains("shortener"):
+            return .cyan
+        case let c where c.contains("safe"):
+            return .green
+        default:
+            return Color(red: 1.0, green: 0.34, blue: 0.13)
+        }
+    }
+}
+
+// MARK: - Red Team Scenarios Repository
+
+/// Repository of all red team scenarios for testing the detection engine.
+enum RedTeamScenarios {
+    
+    /// All available red team scenarios for testing.
+    static let scenarios: [RedTeamScenario] = [
+        // HOMOGRAPH ATTACKS
+        RedTeamScenario(
+            id: "HG-001",
+            category: "Homograph Attack",
+            title: "Cyrillic 'а' in Apple",
+            description: "Uses Cyrillic 'а' (U+0430) instead of Latin 'a' to impersonate Apple",
+            maliciousUrl: "https://аpple.com/verify",
+            targetBrand: "Apple",
+            expectedScore: 70...100
+        ),
+        RedTeamScenario(
+            id: "HG-002",
+            category: "Homograph Attack",
+            title: "Cyrillic in PayPal",
+            description: "Uses Cyrillic 'р' and 'а' to impersonate PayPal",
+            maliciousUrl: "https://раypal.com/login",
+            targetBrand: "PayPal",
+            expectedScore: 70...100
+        ),
+        
+        // IP OBFUSCATION
+        RedTeamScenario(
+            id: "IP-001",
+            category: "IP Obfuscation",
+            title: "Decimal IP Address",
+            description: "Uses decimal encoding instead of dotted notation",
+            maliciousUrl: "http://3232235777/malware",
+            targetBrand: nil,
+            expectedScore: 60...100
+        ),
+        RedTeamScenario(
+            id: "IP-002",
+            category: "IP Obfuscation",
+            title: "Hexadecimal IP Address",
+            description: "Uses hex encoding to hide IP address",
+            maliciousUrl: "http://0xC0A80101/payload",
+            targetBrand: nil,
+            expectedScore: 60...100
+        ),
+        
+        // SUSPICIOUS TLD
+        RedTeamScenario(
+            id: "TLD-001",
+            category: "Suspicious TLD",
+            title: "PayPal on .tk domain",
+            description: ".tk is a free TLD commonly abused for phishing",
+            maliciousUrl: "https://paypa1-secure.tk/login/verify",
+            targetBrand: "PayPal",
+            expectedScore: 70...100
+        ),
+        RedTeamScenario(
+            id: "TLD-002",
+            category: "Suspicious TLD",
+            title: "Bank on .ml domain",
+            description: ".ml is a free TLD commonly abused for phishing",
+            maliciousUrl: "https://bank-secure.ml/verify",
+            targetBrand: "Banking",
+            expectedScore: 60...100
+        ),
+        
+        // BRAND IMPERSONATION
+        RedTeamScenario(
+            id: "BI-001",
+            category: "Brand Impersonation",
+            title: "PayPal Typosquatting",
+            description: "Uses '1' instead of 'l' in paypal (paypa1)",
+            maliciousUrl: "https://paypa1.com/signin",
+            targetBrand: "PayPal",
+            expectedScore: 60...100
+        ),
+        RedTeamScenario(
+            id: "BI-002",
+            category: "Brand Impersonation",
+            title: "Netflix Subdomain Attack",
+            description: "Uses netflix as subdomain of malicious domain",
+            maliciousUrl: "https://netflix.secure-verify.com/billing",
+            targetBrand: "Netflix",
+            expectedScore: 50...90
+        ),
+        
+        // URL SHORTENERS
+        RedTeamScenario(
+            id: "SH-001",
+            category: "URL Shortener",
+            title: "Bit.ly Shortened URL",
+            description: "URL shorteners hide final destination",
+            maliciousUrl: "https://bit.ly/3xYz123",
+            targetBrand: nil,
+            expectedScore: 30...60
+        ),
+        
+        // SAFE CONTROL
+        RedTeamScenario(
+            id: "SAFE-001",
+            category: "Safe (Control)",
+            title: "Legitimate Google URL",
+            description: "Baseline safe URL - should score low",
+            maliciousUrl: "https://www.google.com",
+            targetBrand: "Google",
+            expectedScore: 0...30
+        ),
+        RedTeamScenario(
+            id: "SAFE-002",
+            category: "Safe (Control)",
+            title: "Legitimate GitHub URL",
+            description: "Baseline safe URL - should score low",
+            maliciousUrl: "https://github.com/Raoof128/QDKMP-KotlinConf-2026-",
+            targetBrand: "GitHub",
+            expectedScore: 0...30
+        )
+    ]
 }
 
 #endif
