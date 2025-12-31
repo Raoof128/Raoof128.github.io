@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mehr Guard</string>
+    <string name="app_name">QR-SHIELD</string>
     <string name="tagline">Pindai kode QR. Deteksi phishing.</string>
     <string name="nav_home">Beranda</string>
     <string name="nav_scan">Pindai</string>
@@ -125,10 +125,10 @@
     <string name="try_again">Coba Lagi</string>
     <string name="camera_permission_rationale">Akses kamera diperlukan untuk memindai kode QR</string>
     <string name="camera_permission_denied">Izin kamera ditolak. Silakan aktifkan di pengaturan.</string>
-    <string name="widget_name">Mehr Guard Pindai Cepat</string>
+    <string name="widget_name">QR-SHIELD Pindai Cepat</string>
     <string name="widget_description">Pindai cepat kode QR untuk ancaman phishing</string>
     <string name="widget_tap_to_scan">Ketuk untuk Memindai</string>
-    <string name="cd_app_logo">Logo Mehr Guard</string>
+    <string name="cd_app_logo">Logo QR-SHIELD</string>
     <string name="cd_scanner_preview">Pratinjau kamera untuk pemindaian kode QR</string>
     <string name="cd_close_scanner">Tutup pemindai</string>
     <string name="cd_toggle_flash">Toggle senter</string>
@@ -155,7 +155,7 @@
     <string name="cd_risk_score">Skor risiko dari 100</string>
     <string name="trust_center_title">Status Keamanan</string>
     <string name="trust_center_secure">Perangkat Anda aman</string>
-    <string name="trust_center_protected_by">Dilindungi oleh Mehr Guard Enterprise</string>
+    <string name="trust_center_protected_by">Dilindungi oleh QR-SHIELD Enterprise</string>
     <string name="trust_center_score">Skor Keamanan: %d/100</string>
     <string name="trust_center_realtime">Perlindungan Real-time</string>
     <string name="trust_center_malware">Deteksi Malware</string>
@@ -181,7 +181,7 @@
     <string name="trust_center_network_desc">Firewall aktif</string>
     <string name="trust_center_offline">Mode Offline</string>
     <string name="trust_center_offline_desc">Hanya database lokal</string>
-    <string name="footer_version">Mehr Guard v%s</string>
+    <string name="footer_version">QR-SHIELD v%s</string>
     <string name="footer_edition">EDISI ENTERPRISE</string>
     <string name="footer_terms">Ketentuan</string>
     <string name="footer_privacy">Kebijakan Privasi</string>
@@ -344,7 +344,7 @@
     <string name="beat_the_bot_vs_mode">MODE VS</string>
     <string name="beat_the_bot_you">Anda</string>
     <string name="beat_the_bot_streak_fmt">Streak: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
     <string name="beat_the_bot_latency_fmt">Latensi: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d poin</string>
     <string name="beat_the_bot_preview_hidden">Pratinjau Tersembunyi</string>
@@ -359,7 +359,7 @@
     <string name="learning_centre_title">Pusat Pembelajaran</string>
     <string name="your_progress">Kemajuan Anda</string>
     <string name="view_certificate">Lihat Sertifikat</string>
-    <string name="qr_shield_certified">Bersertifikat Mehr Guard</string>
+    <string name="qr_shield_certified">Bersertifikat QR-SHIELD</string>
     <string name="modules_completed_fmt">%1$d/%2$d modul selesai</string>
     <string name="on_track">Sesuai jalur</string>
     <string name="daily_tip_label">TIP HARIAN</string>
@@ -418,7 +418,7 @@
     <string name="remediation_3">Jika kredensial dimasukkan, reset password segera</string>
     <string name="privacy_offline_title">Privasi dan Offline</string>
     <string name="privacy_hero_title">Data Anda Tidak Pernah Keluar</string>
-    <string name="privacy_hero_desc">Mehr Guard beroperasi sepenuhnya di perangkat Anda. Tidak ada cloud. Tidak ada server. Tidak ada pengumpulan data. Privasi lengkap berdasarkan desain.</string>
+    <string name="privacy_hero_desc">QR-SHIELD beroperasi sepenuhnya di perangkat Anda. Tidak ada cloud. Tidak ada server. Tidak ada pengumpulan data. Privasi lengkap berdasarkan desain.</string>
     <string name="privacy_offline_badge">Operasi 100% Offline</string>
     <string name="privacy_architecture">Arsitektur Privasi</string>
     <string name="privacy_local_db_title">Database Lokal</string>
@@ -504,7 +504,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -524,7 +524,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %1$s %2$s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -549,9 +549,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">Mehr Guard logo</string>
-    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>
@@ -581,88 +581,5 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">ANALISIS AI</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_reset_game">Reset Game</string>
-    <string name="cd_reset_game">Reset game and start over</string>
-    <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
-    <string name="analysis_brand_title">Peniruan Merek</string>
-    <string name="analysis_brand_desc">URL tampaknya meniru merek terkenal.</string>
-    <string name="analysis_brand_desc_specific">URL tampaknya meniru %1$s.</string>
-    <string name="analysis_homograph_title">Serangan Homograf</string>
-    <string name="analysis_homograph_desc">Karakter skrip campuran terdeteksi dalam nama domain yang dirancang untuk memalsukan merek sah.</string>
-    <string name="analysis_protocol_title">Protokol Tidak Aman</string>
-    <string name="analysis_protocol_desc">URL menggunakan HTTP bukan HTTPS. Data tidak dienkripsi.</string>
-    <string name="analysis_tld_title">TLD Berisiko</string>
-    <string name="analysis_tld_desc">Domain menggunakan domain tingkat atas yang umumnya dikaitkan dengan situs berbahaya.</string>
-    <string name="analysis_tld_desc_specific">TLD .%1$s umumnya digunakan untuk situs berbahaya.</string>
-    <string name="analysis_ip_host_title">Alamat IP sebagai Host</string>
-    <string name="analysis_ip_host_desc">URL menggunakan alamat IP bukan nama domain, yang tidak biasa untuk situs sah.</string>
-    <string name="analysis_subdomain_title">Subdomain Dalam</string>
-    <string name="analysis_subdomain_desc">URL memiliki jumlah subdomain yang tidak biasa, yang dapat digunakan untuk menyesatkan pengguna.</string>
-    <string name="analysis_credential_title">Pencurian Kredensial</string>
-    <string name="analysis_credential_desc">Jalur atau parameter URL menunjukkan aktivitas pencurian kredensial.</string>
-    <string name="analysis_long_url_title">Panjang URL Berlebihan</string>
-    <string name="analysis_long_url_desc">URL sangat panjang, yang dapat digunakan untuk menyembunyikan tujuan sebenarnya.</string>
-    <string name="analysis_scheme_title">Skema Berbahaya</string>
-    <string name="analysis_scheme_desc">URL menggunakan skema berbahaya yang dapat mengeksekusi kode.</string>
-    <string name="analysis_safe_title">URL Terverifikasi Aman</string>
-    <string name="analysis_safe_desc">Tidak ada masalah keamanan terdeteksi. URL ini tampaknya aman untuk dikunjungi.</string>
-    <string name="analysis_no_issues">Tidak ada masalah keamanan terdeteksi.</string>
-    <string name="analysis_at_symbol_title">Injeksi Simbol @</string>
-    <string name="analysis_at_symbol_desc">URL mengandung simbol @ yang digunakan untuk menyembunyikan tujuan sebenarnya.</string>
-    <string name="analysis_suspicious_path_title">Jalur Mencurigakan</string>
-    <string name="analysis_suspicious_path_desc">Jalur URL mengandung kata kunci yang umum digunakan dalam phishing.</string>
-    <string name="analysis_risky_extension_title">Ekstensi File Berisiko</string>
-    <string name="analysis_risky_extension_desc">URL mengarah ke jenis file yang berpotensi berbahaya.</string>
-    <string name="analysis_entropy_title">Domain Acak</string>
-    <string name="analysis_entropy_desc">Domain tampaknya dihasilkan secara acak, umum dalam phishing.</string>
-    <string name="analysis_port_title">Port Tidak Biasa</string>
-    <string name="analysis_port_desc">URL menggunakan nomor port non-standar.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
-    <string name="tag_ip_address">Alamat IP</string>
-    <string name="tag_brand_spoof">Pemalsuan Merek</string>
-    <string name="tag_insecure">Tidak Aman</string>
-    <string name="tag_shortener">Pemendek</string>
-    <string name="tag_risky_tld">TLD Berisiko</string>
-    <string name="tag_suspicious_path">Jalur Mencurigakan</string>
-    <string name="tag_long_url">URL Panjang</string>
-    <string name="tag_at_injection">Injeksi @</string>
-    <string name="tag_verified_safe">Terverifikasi Aman</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
-    <string name="status_scan_complete">Pemindaian Selesai</string>
-    <string name="status_caution_advised">Disarankan Berhati-hati</string>
-    <string name="status_threat_detected">Ancaman Terdeteksi</string>
-    <string name="status_analysis_complete">Analisis Selesai</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
-    <string name="meta_analyzed_offline">Dianalisis offline dalam &lt;5ms</string>
-    <string name="meta_no_data_leaves">Tidak ada data yang keluar dari perangkat</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
-    <string name="top_analysis_factors_title">Faktor Analisis Teratas</string>
-    <string name="factor_category_https">HTTPS</string>
-    <string name="factor_category_domain">DOMAIN</string>
-    <string name="factor_category_db_check">CEK DB</string>
-    <string name="factor_category_heuristics">HEURISTIK</string>
-    <string name="factor_category_ml">SKOR ML</string>
-    <string name="factor_ssl_valid">Sertifikat SSL Valid</string>
-    <string name="factor_ssl_valid_desc">Koneksi terenkripsi. Rantai sertifikat tervalidasi.</string>
-    <string name="factor_ssl_missing">Tidak Ada Sertifikat SSL</string>
-    <string name="factor_ssl_missing_desc">Koneksi TIDAK terenkripsi. Data dapat disadap.</string>
-    <string name="factor_ip_address">Alamat IP sebagai Host</string>
-    <string name="factor_ip_address_desc">URL menggunakan alamat IP bukan nama domain. Tidak biasa untuk situs sah.</string>
-    <string name="factor_domain_check">Analisis Domain</string>
-    <string name="factor_domain_check_desc">Struktur domain dianalisis untuk pola phishing.</string>
-    <string name="factor_blacklist_clean">Status Daftar Hitam: Bersih</string>
-    <string name="factor_blacklist_clean_desc">Tidak ditemukan dalam database ancaman offline lokal.</string>
-    <string name="factor_blacklist_found">Status Daftar Hitam: DITEMUKAN</string>
-    <string name="factor_blacklist_found_desc">URL ditemukan dalam database intelijen ancaman!</string>
-    <string name="factor_heuristics_title">Analisis Heuristik</string>
-    <string name="factor_heuristics_desc">Skor: %1$d • %2$d sinyal terdeteksi</string>
-    <string name="factor_ml_title">Skor ML Phishing</string>
-    <string name="factor_ml_desc">Kepercayaan model machine learning: %1$d%%</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d sinyal terdeteksi</string>
 </resources>

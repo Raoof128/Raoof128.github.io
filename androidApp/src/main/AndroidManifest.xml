@@ -26,13 +26,13 @@
         android:required="false" />
 
     <application
-        android:name=".MehrGuardApplication"
+        android:name=".QRShieldApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MehrGuard"
+        android:theme="@style/Theme.QRShield"
         android:enableOnBackInvokedCallback="true"
         android:localeConfig="@xml/locales_config"
         tools:targetApi="35">
@@ -42,7 +42,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MehrGuard.Splash"
+            android:theme="@style/Theme.QRShield.Splash"
             android:screenOrientation="unspecified"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
@@ -56,7 +56,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" />
-                <data android:host="mehrguard.app" />
+                <data android:host="qrshield.app" />
                 <data android:pathPrefix="/scan" />
             </intent-filter>
             
@@ -65,13 +65,13 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="mehrguard" />
+                <data android:scheme="qrshield" />
             </intent-filter>
         </activity>
         
         <!-- App Widget Receiver -->
         <receiver
-            android:name=".widget.MehrGuardWidgetReceiver"
+            android:name=".widget.QRShieldWidgetReceiver"
             android:exported="true"
             android:label="@string/widget_name">
             <intent-filter>

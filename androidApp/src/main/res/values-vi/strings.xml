@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mehr Guard</string>
+    <string name="app_name">QR-SHIELD</string>
     <string name="tagline">Quét mã QR. Phát hiện lừa đảo.</string>
     <string name="nav_home">Trang chủ</string>
     <string name="nav_scan">Quét</string>
@@ -125,10 +125,10 @@
     <string name="try_again">Thử lại</string>
     <string name="camera_permission_rationale">Cần truy cập camera để quét mã QR</string>
     <string name="camera_permission_denied">Quyền camera bị từ chối. Vui lòng bật trong cài đặt.</string>
-    <string name="widget_name">Mehr Guard Quét nhanh</string>
+    <string name="widget_name">QR-SHIELD Quét nhanh</string>
     <string name="widget_description">Quét nhanh mã QR để phát hiện mối đe dọa lừa đảo</string>
     <string name="widget_tap_to_scan">Nhấn để quét</string>
-    <string name="cd_app_logo">Logo Mehr Guard</string>
+    <string name="cd_app_logo">Logo QR-SHIELD</string>
     <string name="cd_scanner_preview">Xem trước camera để quét mã QR</string>
     <string name="cd_close_scanner">Đóng máy quét</string>
     <string name="cd_toggle_flash">Bật/tắt đèn flash</string>
@@ -155,7 +155,7 @@
     <string name="cd_risk_score">Điểm rủi ro trên 100</string>
     <string name="trust_center_title">Trạng thái bảo mật</string>
     <string name="trust_center_secure">Thiết bị của bạn an toàn</string>
-    <string name="trust_center_protected_by">Được bảo vệ bởi Mehr Guard Enterprise</string>
+    <string name="trust_center_protected_by">Được bảo vệ bởi QR-SHIELD Enterprise</string>
     <string name="trust_center_score">Điểm bảo mật: %d/100</string>
     <string name="trust_center_realtime">Bảo vệ thời gian thực</string>
     <string name="trust_center_malware">Phát hiện phần mềm độc hại</string>
@@ -181,7 +181,7 @@
     <string name="trust_center_network_desc">Tường lửa hoạt động</string>
     <string name="trust_center_offline">Chế độ ngoại tuyến</string>
     <string name="trust_center_offline_desc">Chỉ cơ sở dữ liệu cục bộ</string>
-    <string name="footer_version">Mehr Guard v%s</string>
+    <string name="footer_version">QR-SHIELD v%s</string>
     <string name="footer_edition">PHIÊN BẢN DOANH NGHIỆP</string>
     <string name="footer_terms">Điều khoản</string>
     <string name="footer_privacy">Chính sách bảo mật</string>
@@ -344,7 +344,7 @@
     <string name="beat_the_bot_vs_mode">CHẾ ĐỘ VS</string>
     <string name="beat_the_bot_you">Bạn</string>
     <string name="beat_the_bot_streak_fmt">Chuỗi: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
     <string name="beat_the_bot_latency_fmt">Độ trễ: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d điểm</string>
     <string name="beat_the_bot_preview_hidden">Xem trước ẩn</string>
@@ -359,7 +359,7 @@
     <string name="learning_centre_title">Trung tâm học tập</string>
     <string name="your_progress">Tiến trình của bạn</string>
     <string name="view_certificate">Xem chứng chỉ</string>
-    <string name="qr_shield_certified">Được chứng nhận Mehr Guard</string>
+    <string name="qr_shield_certified">Được chứng nhận QR-SHIELD</string>
     <string name="modules_completed_fmt">%1$d/%2$d module hoàn thành</string>
     <string name="on_track">Đúng hướng</string>
     <string name="daily_tip_label">MẸO HÀNG NGÀY</string>
@@ -418,7 +418,7 @@
     <string name="remediation_3">Nếu đã nhập thông tin đăng nhập, đặt lại mật khẩu ngay lập tức</string>
     <string name="privacy_offline_title">Quyền riêng tư và Ngoại tuyến</string>
     <string name="privacy_hero_title">Dữ liệu của bạn không bao giờ rời đi</string>
-    <string name="privacy_hero_desc">Mehr Guard hoạt động hoàn toàn trên thiết bị của bạn. Không cloud. Không server. Không thu thập dữ liệu. Quyền riêng tư hoàn toàn theo thiết kế.</string>
+    <string name="privacy_hero_desc">QR-SHIELD hoạt động hoàn toàn trên thiết bị của bạn. Không cloud. Không server. Không thu thập dữ liệu. Quyền riêng tư hoàn toàn theo thiết kế.</string>
     <string name="privacy_offline_badge">Hoạt động 100% ngoại tuyến</string>
     <string name="privacy_architecture">Kiến trúc quyền riêng tư</string>
     <string name="privacy_local_db_title">Cơ sở dữ liệu cục bộ</string>
@@ -504,7 +504,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -524,7 +524,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %1$s %2$s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -549,9 +549,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">Mehr Guard logo</string>
-    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>
@@ -581,88 +581,5 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">PHÂN TÍCH AI</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_reset_game">Reset Game</string>
-    <string name="cd_reset_game">Reset game and start over</string>
-    <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
-    <string name="analysis_brand_title">Giả Mạo Thương Hiệu</string>
-    <string name="analysis_brand_desc">URL có vẻ đang giả mạo một thương hiệu nổi tiếng.</string>
-    <string name="analysis_brand_desc_specific">URL có vẻ đang giả mạo %1$s.</string>
-    <string name="analysis_homograph_title">Tấn Công Homograph</string>
-    <string name="analysis_homograph_desc">Phát hiện các ký tự script hỗn hợp trong tên miền được thiết kế để giả mạo các thương hiệu hợp pháp.</string>
-    <string name="analysis_protocol_title">Giao Thức Không An Toàn</string>
-    <string name="analysis_protocol_desc">URL sử dụng HTTP thay vì HTTPS. Dữ liệu không được mã hóa.</string>
-    <string name="analysis_tld_title">TLD Rủi Ro</string>
-    <string name="analysis_tld_desc">Tên miền sử dụng tên miền cấp cao thường liên quan đến các trang web độc hại.</string>
-    <string name="analysis_tld_desc_specific">TLD .%1$s thường được sử dụng cho các trang web độc hại.</string>
-    <string name="analysis_ip_host_title">Địa Chỉ IP Làm Host</string>
-    <string name="analysis_ip_host_desc">URL sử dụng địa chỉ IP thay vì tên miền, điều này bất thường đối với các trang web hợp pháp.</string>
-    <string name="analysis_subdomain_title">Subdomain Sâu</string>
-    <string name="analysis_subdomain_desc">URL có số lượng subdomain bất thường, có thể được sử dụng để đánh lừa người dùng.</string>
-    <string name="analysis_credential_title">Thu Thập Thông Tin Đăng Nhập</string>
-    <string name="analysis_credential_desc">Đường dẫn hoặc tham số URL gợi ý hoạt động thu thập thông tin đăng nhập.</string>
-    <string name="analysis_long_url_title">Độ Dài URL Quá Mức</string>
-    <string name="analysis_long_url_desc">URL dài bất thường, có thể được sử dụng để ẩn đích đến thực sự.</string>
-    <string name="analysis_scheme_title">Scheme Nguy Hiểm</string>
-    <string name="analysis_scheme_desc">URL sử dụng scheme nguy hiểm có thể thực thi mã.</string>
-    <string name="analysis_safe_title">URL Được Xác Nhận An Toàn</string>
-    <string name="analysis_safe_desc">Không phát hiện vấn đề bảo mật. URL này có vẻ an toàn để truy cập.</string>
-    <string name="analysis_no_issues">Không phát hiện vấn đề bảo mật.</string>
-    <string name="analysis_at_symbol_title">Chèn Ký Hiệu @</string>
-    <string name="analysis_at_symbol_desc">URL chứa ký hiệu @ được sử dụng để ẩn đích đến thực sự.</string>
-    <string name="analysis_suspicious_path_title">Đường Dẫn Đáng Ngờ</string>
-    <string name="analysis_suspicious_path_desc">Đường dẫn URL chứa các từ khóa thường được sử dụng trong phishing.</string>
-    <string name="analysis_risky_extension_title">Phần Mở Rộng Tệp Rủi Ro</string>
-    <string name="analysis_risky_extension_desc">URL trỏ đến loại tệp có khả năng nguy hiểm.</string>
-    <string name="analysis_entropy_title">Tên Miền Ngẫu Nhiên</string>
-    <string name="analysis_entropy_desc">Tên miền có vẻ được tạo ngẫu nhiên, phổ biến trong phishing.</string>
-    <string name="analysis_port_title">Cổng Bất Thường</string>
-    <string name="analysis_port_desc">URL sử dụng số cổng không tiêu chuẩn.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
-    <string name="tag_ip_address">Địa Chỉ IP</string>
-    <string name="tag_brand_spoof">Giả Mạo Thương Hiệu</string>
-    <string name="tag_insecure">Không An Toàn</string>
-    <string name="tag_shortener">Rút Gọn</string>
-    <string name="tag_risky_tld">TLD Rủi Ro</string>
-    <string name="tag_suspicious_path">Đường Dẫn Đáng Ngờ</string>
-    <string name="tag_long_url">URL Dài</string>
-    <string name="tag_at_injection">Chèn @</string>
-    <string name="tag_verified_safe">Xác Nhận An Toàn</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
-    <string name="status_scan_complete">Quét Hoàn Tất</string>
-    <string name="status_caution_advised">Khuyến Cáo Cẩn Thận</string>
-    <string name="status_threat_detected">Phát Hiện Mối Đe Dọa</string>
-    <string name="status_analysis_complete">Phân Tích Hoàn Tất</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
-    <string name="meta_analyzed_offline">Phân tích ngoại tuyến trong &lt;5ms</string>
-    <string name="meta_no_data_leaves">Không có dữ liệu rời khỏi thiết bị</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
-    <string name="top_analysis_factors_title">Các Yếu Tố Phân Tích Hàng Đầu</string>
-    <string name="factor_category_https">HTTPS</string>
-    <string name="factor_category_domain">TÊN MIỀN</string>
-    <string name="factor_category_db_check">KIỂM TRA DB</string>
-    <string name="factor_category_heuristics">HEURISTICS</string>
-    <string name="factor_category_ml">ĐIỂM ML</string>
-    <string name="factor_ssl_valid">Chứng Chỉ SSL Hợp Lệ</string>
-    <string name="factor_ssl_valid_desc">Kết nối được mã hóa. Chuỗi chứng chỉ đã được xác thực.</string>
-    <string name="factor_ssl_missing">Không Có Chứng Chỉ SSL</string>
-    <string name="factor_ssl_missing_desc">Kết nối KHÔNG được mã hóa. Dữ liệu có thể bị chặn.</string>
-    <string name="factor_ip_address">Địa Chỉ IP Làm Host</string>
-    <string name="factor_ip_address_desc">URL sử dụng địa chỉ IP thay vì tên miền. Bất thường cho các trang web hợp pháp.</string>
-    <string name="factor_domain_check">Phân Tích Tên Miền</string>
-    <string name="factor_domain_check_desc">Cấu trúc tên miền được phân tích để tìm các mẫu phishing.</string>
-    <string name="factor_blacklist_clean">Trạng Thái Danh Sách Đen: Sạch</string>
-    <string name="factor_blacklist_clean_desc">Không tìm thấy trong cơ sở dữ liệu mối đe dọa ngoại tuyến cục bộ.</string>
-    <string name="factor_blacklist_found">Trạng Thái Danh Sách Đen: TÌM THẤY</string>
-    <string name="factor_blacklist_found_desc">URL được tìm thấy trong cơ sở dữ liệu tình báo mối đe dọa!</string>
-    <string name="factor_heuristics_title">Phân Tích Heuristics</string>
-    <string name="factor_heuristics_desc">Điểm: %1$d • %2$d tín hiệu được phát hiện</string>
-    <string name="factor_ml_title">Điểm ML Phishing</string>
-    <string name="factor_ml_desc">Độ tin cậy của mô hình machine learning: %1$d%%</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d tín hiệu được phát hiện</string>
 </resources>

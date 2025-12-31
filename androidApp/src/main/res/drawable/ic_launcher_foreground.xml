@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Mehr Guard Adaptive Icon Foreground using actual logo PNG -->
+<!-- QR-SHIELD Adaptive Icon Foreground using actual logo PNG -->
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/ic_launcher_foreground_png"
     android:gravity="center" />

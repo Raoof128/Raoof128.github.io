@@ -1,4 +1,4 @@
-# Baseline Profile for Mehr Guard
+# Baseline Profile for QR-SHIELD
 # 
 # This file contains critical methods to AOT compile at install time.
 # Generated profiles should be placed here or in the baseline-prof.txt.
@@ -8,30 +8,30 @@
 # See: https://developer.android.com/topic/performance/baselineprofiles
 
 # Critical app entry points
-Lcom/mehrguard/android/MainActivity;
-Lcom/mehrguard/android/MehrGuardApplication;
-Lcom/mehrguard/android/ui/MehrGuardAppKt;
-Lcom/mehrguard/android/ui/navigation/NavigationKt;
+Lcom/qrshield/android/MainActivity;
+Lcom/qrshield/android/QRShieldApplication;
+Lcom/qrshield/android/ui/QRShieldAppKt;
+Lcom/qrshield/android/ui/navigation/NavigationKt;
 
 # Theme initialization
-Lcom/mehrguard/android/ui/theme/ThemeKt;
+Lcom/qrshield/android/ui/theme/ThemeKt;
 
 # Scanner components
-Lcom/mehrguard/android/ui/screens/ScannerScreenKt;
-Lcom/mehrguard/android/ui/components/CameraPreviewKt;
-Lcom/mehrguard/android/ui/components/ScannerOverlayKt;
+Lcom/qrshield/android/ui/screens/ScannerScreenKt;
+Lcom/qrshield/android/ui/components/CameraPreviewKt;
+Lcom/qrshield/android/ui/components/ScannerOverlayKt;
 
 # Navigation targets
-Lcom/mehrguard/android/ui/screens/HistoryScreenKt;
-Lcom/mehrguard/android/ui/screens/SettingsScreenKt;
+Lcom/qrshield/android/ui/screens/HistoryScreenKt;
+Lcom/qrshield/android/ui/screens/SettingsScreenKt;
 
 # Koin DI
-Lcom/mehrguard/android/di/AndroidModuleKt;
+Lcom/qrshield/android/di/AndroidModuleKt;
 
 # Common module
-Lcom/mehrguard/ui/SharedViewModel;
-Lcom/mehrguard/ui/UiState;
-Lcom/mehrguard/model/Verdict;
+Lcom/qrshield/ui/SharedViewModel;
+Lcom/qrshield/ui/UiState;
+Lcom/qrshield/model/Verdict;
 
 # ML Kit Barcode
 Lcom/google/mlkit/vision/barcode/BarcodeScanning;

@@ -185,6 +185,79 @@ Any important notes for future agents.
 
 ---
 
+# 🚨 December 31, 2025 (Session 10k+72) - CRITICAL: Restore Missing Source Files
+
+### Summary
+**EMERGENCY SOURCE RESTORATION** — The rebrand commit accidentally DELETED 262+ Kotlin source files instead of renaming them. All platforms were broken. This session restored all source files and properly applied the package rename.
+
+## ⚠️ Root Cause Analysis
+
+**Problem:** The rebrand from `com.qrshield` to `com.raouf.mehrguard` deleted the following:
+- `common/src/commonMain/kotlin/com/qrshield/**` (84 files) - **DELETED instead of renamed**
+- `common/src/commonTest/kotlin/com/qrshield/**` (73 files) - **DELETED instead of renamed**
+- `common/src/desktopMain/kotlin/com/qrshield/**` (4 files) - **DELETED**
+- `common/src/androidMain/kotlin/com/qrshield/**` (7 files) - **DELETED**
+- `common/src/iosMain/kotlin/com/qrshield/**` (7 files) - **DELETED**
+- `common/src/webMain/kotlin/com/qrshield/**` (4 files) - **DELETED**
+- `androidApp/src/main/kotlin/com/qrshield/**` (43 files) - **DELETED**
+- `desktopApp/src/desktopMain/kotlin/com/qrshield/**` (44 files) - **DELETED**
+- `webApp/src/jsMain/kotlin/com/qrshield/**` (16 files) - **DELETED**
+
+**Result:** Builds appeared to pass because only generated SQLDelight code existed, but all platform apps were essentially empty/broken.
+
+## ✅ Files Restored & Renamed
+
+### Method
+1. Restored files from pre-rebrand commit `8eca247a` using `git checkout`
+2. Created new `com/raouf/mehrguard/` directory structure
+3. Moved all restored files to new package structure
+4. Applied sed replacements for package declarations and imports
+
+### Package Renames Applied
+| Search | Replace |
+|--------|---------|
+| `package com.qrshield` | `package com.raouf.mehrguard` |
+| `import com.qrshield` | `import com.raouf.mehrguard` |
+| `QRShield` (class names) | `MehrGuard` |
+| `com.mehrguard.` (accidental) | `com.raouf.mehrguard.` |
+
+### Source Sets Restored
+| Source Set | Files | Status |
+|------------|-------|--------|
+| `common/src/commonMain/kotlin` | 84 | ✅ Restored |
+| `common/src/commonTest/kotlin` | 73 | ✅ Restored |
+| `common/src/desktopMain/kotlin` | 4 | ✅ Restored |
+| `common/src/androidMain/kotlin` | 7 | ✅ Restored |
+| `common/src/iosMain/kotlin` | 7 | ✅ Restored |
+| `common/src/webMain/kotlin` | 4 | ✅ Restored |
+| `androidApp/src/main/kotlin` | 43 | ✅ Restored |
+| `desktopApp/src/desktopMain/kotlin` | 44 | ✅ Restored |
+| `webApp/src/jsMain/kotlin` (i18n) | 16 | ✅ Restored |
+| `androidApp/src/androidTest/kotlin` | 6 | ✅ Restored |
+| `desktopApp/src/desktopTest/kotlin` | 1 | ✅ Restored |
+
+## ✅ Build Verification
+
+```bash
+./gradlew :common:compileKotlinDesktop      # BUILD SUCCESSFUL ✅
+./gradlew :androidApp:assembleDebug         # BUILD SUCCESSFUL ✅
+./gradlew :desktopApp:compileKotlinDesktop  # BUILD SUCCESSFUL ✅
+./gradlew :webApp:jsBrowserDevelopmentWebpack # BUILD SUCCESSFUL ✅
+./gradlew :common:desktopTest               # BUILD SUCCESSFUL ✅
+```
+
+## 📊 Final Status
+
+| Platform | Before Fix | After Fix |
+|----------|------------|-----------|
+| Common | ❌ No source files | ✅ 157 files |
+| Android | ❌ No source files | ✅ 43 files |
+| Desktop | ❌ No source files | ✅ 44 files |
+| WebApp | ❌ Only Main.kt | ✅ 18 files |
+| iOS Common | ❌ Missing | ✅ 7 files |
+
+---
+
 # 🔍 December 31, 2025 (Session 10k+71) - REBRAND VERIFICATION AUDIT
 
 ### Summary

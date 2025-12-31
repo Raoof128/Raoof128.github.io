@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">Mehr Guard</string>
+    <string name="app_name">QR-SHIELD</string>
     <string name="tagline">QR 코드 스캔. 피싱 탐지.</string>
 
     <!-- Navigation -->
@@ -228,10 +228,10 @@
     <string name="try_again">다시 시도</string>
     <string name="camera_permission_rationale">QR 코드 스캔에 카메라 접근 필요</string>
     <string name="camera_permission_denied">카메라 권한 거부됨. 설정에서 활성화하세요.</string>
-    <string name="widget_name">Mehr Guard 빠른 스캔</string>
+    <string name="widget_name">QR-SHIELD 빠른 스캔</string>
     <string name="widget_description">피싱 위협을 위해 QR 코드 빠르게 스캔</string>
     <string name="widget_tap_to_scan">탭하여 스캔</string>
-    <string name="cd_app_logo">Mehr Guard 로고</string>
+    <string name="cd_app_logo">QR-SHIELD 로고</string>
     <string name="cd_scanner_preview">QR 코드 스캔용 카메라 미리보기</string>
     <string name="cd_close_scanner">스캐너 닫기</string>
     <string name="cd_toggle_flash">플래시 전환</string>
@@ -274,7 +274,7 @@
     <string name="cd_dismiss_hint">힌트 닫기</string>
     <string name="trust_center_title">보안 상태</string>
     <string name="trust_center_secure">기기가 안전합니다</string>
-    <string name="trust_center_protected_by">Mehr Guard Enterprise로 보호됨</string>
+    <string name="trust_center_protected_by">QR-SHIELD Enterprise로 보호됨</string>
     <string name="trust_center_score">보안 점수: %d/100</string>
     <string name="trust_center_realtime">실시간 보호</string>
     <string name="trust_center_malware">맬웨어 탐지</string>
@@ -325,7 +325,7 @@
     <string name="auto_copy_subtitle">안전한 URL 자동 복사</string>
     <string name="biometric_unlock_title">생체인식 잠금해제</string>
     <string name="biometric_unlock_subtitle">설정에 FaceID 필요</string>
-    <string name="footer_version">Mehr Guard v%s</string>
+    <string name="footer_version">QR-SHIELD v%s</string>
     <string name="footer_edition">엔터프라이즈 에디션</string>
     <string name="footer_terms">약관</string>
     <string name="footer_privacy">개인정보 처리방침</string>
@@ -362,7 +362,7 @@
     <string name="beat_the_bot_vs_mode">VS 모드</string>
     <string name="beat_the_bot_you">당신</string>
     <string name="beat_the_bot_streak_fmt">연속: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
     <string name="beat_the_bot_latency_fmt">지연: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d점</string>
     <string name="beat_the_bot_preview_hidden">미리보기 숨김</string>
@@ -379,7 +379,7 @@
     <string name="learning_centre_title">학습 센터</string>
     <string name="your_progress">진행 상황</string>
     <string name="view_certificate">인증서 보기</string>
-    <string name="qr_shield_certified">Mehr Guard 인증</string>
+    <string name="qr_shield_certified">QR-SHIELD 인증</string>
     <string name="modules_completed_fmt">%1$d/%2$d 모듈 완료</string>
     <string name="on_track">순조로움</string>
     <string name="daily_tip_label">오늘의 팁</string>
@@ -429,7 +429,7 @@
     <string name="phase_prevented">방지됨</string>
     <string name="privacy_offline_title">개인정보 및 오프라인</string>
     <string name="privacy_hero_title">데이터가 절대 나가지 않음</string>
-    <string name="privacy_hero_desc">Mehr Guard는 기기에서만 작동합니다. 클라우드 없음. 서버 없음. 데이터 수집 없음. 설계부터 완전한 개인정보 보호.</string>
+    <string name="privacy_hero_desc">QR-SHIELD는 기기에서만 작동합니다. 클라우드 없음. 서버 없음. 데이터 수집 없음. 설계부터 완전한 개인정보 보호.</string>
     <string name="privacy_offline_badge">100% 오프라인 작동</string>
     <string name="privacy_architecture">개인정보 아키텍처</string>
     <string name="privacy_local_db_title">로컬 데이터베이스</string>
@@ -515,7 +515,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -535,7 +535,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %1$s %2$s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -560,9 +560,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">Mehr Guard logo</string>
-    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>
@@ -592,88 +592,5 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">AI 분석</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_reset_game">Reset Game</string>
-    <string name="cd_reset_game">Reset game and start over</string>
-    <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
-    <string name="analysis_brand_title">브랜드 사칭</string>
-    <string name="analysis_brand_desc">URL이 잘 알려진 브랜드를 사칭하는 것으로 보입니다.</string>
-    <string name="analysis_brand_desc_specific">URL이 %1$s을(를) 사칭하는 것으로 보입니다.</string>
-    <string name="analysis_homograph_title">호모그래프 공격</string>
-    <string name="analysis_homograph_desc">합법적인 브랜드를 위조하기 위해 설계된 혼합 스크립트 문자가 도메인 이름에서 감지되었습니다.</string>
-    <string name="analysis_protocol_title">안전하지 않은 프로토콜</string>
-    <string name="analysis_protocol_desc">URL이 HTTPS 대신 HTTP를 사용합니다. 데이터가 암호화되지 않습니다.</string>
-    <string name="analysis_tld_title">위험한 TLD</string>
-    <string name="analysis_tld_desc">도메인이 악성 사이트와 일반적으로 관련된 최상위 도메인을 사용합니다.</string>
-    <string name="analysis_tld_desc_specific">.%1$s TLD는 악성 사이트에 일반적으로 사용됩니다.</string>
-    <string name="analysis_ip_host_title">IP 주소 호스트</string>
-    <string name="analysis_ip_host_desc">URL이 도메인 이름 대신 IP 주소를 사용합니다. 합법적인 사이트에서는 비정상적입니다.</string>
-    <string name="analysis_subdomain_title">깊은 하위 도메인</string>
-    <string name="analysis_subdomain_desc">URL에 비정상적인 수의 하위 도메인이 있으며, 사용자를 속이는 데 사용될 수 있습니다.</string>
-    <string name="analysis_credential_title">자격 증명 수집</string>
-    <string name="analysis_credential_desc">URL 경로 또는 매개변수가 자격 증명 수집 활동을 암시합니다.</string>
-    <string name="analysis_long_url_title">과도한 URL 길이</string>
-    <string name="analysis_long_url_desc">URL이 비정상적으로 길며, 실제 목적지를 숨기는 데 사용될 수 있습니다.</string>
-    <string name="analysis_scheme_title">위험한 스킴</string>
-    <string name="analysis_scheme_desc">URL이 코드를 실행할 수 있는 위험한 스킴을 사용합니다.</string>
-    <string name="analysis_safe_title">URL 안전 확인됨</string>
-    <string name="analysis_safe_desc">보안 문제가 감지되지 않았습니다. 이 URL은 방문해도 안전한 것으로 보입니다.</string>
-    <string name="analysis_no_issues">보안 문제가 감지되지 않았습니다.</string>
-    <string name="analysis_at_symbol_title">@ 기호 삽입</string>
-    <string name="analysis_at_symbol_desc">URL에 실제 목적지를 숨기는 데 사용되는 @ 기호가 포함되어 있습니다.</string>
-    <string name="analysis_suspicious_path_title">의심스러운 경로</string>
-    <string name="analysis_suspicious_path_desc">URL 경로에 피싱에 일반적으로 사용되는 키워드가 포함되어 있습니다.</string>
-    <string name="analysis_risky_extension_title">위험한 파일 확장자</string>
-    <string name="analysis_risky_extension_desc">URL이 잠재적으로 위험한 파일 유형을 가리킵니다.</string>
-    <string name="analysis_entropy_title">무작위 도메인</string>
-    <string name="analysis_entropy_desc">도메인이 무작위로 생성된 것으로 보입니다. 피싱에서 일반적입니다.</string>
-    <string name="analysis_port_title">비정상적인 포트</string>
-    <string name="analysis_port_desc">URL이 비표준 포트 번호를 사용합니다.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
-    <string name="tag_ip_address">IP 주소</string>
-    <string name="tag_brand_spoof">브랜드 위조</string>
-    <string name="tag_insecure">안전하지 않음</string>
-    <string name="tag_shortener">단축 URL</string>
-    <string name="tag_risky_tld">위험한 TLD</string>
-    <string name="tag_suspicious_path">의심스러운 경로</string>
-    <string name="tag_long_url">긴 URL</string>
-    <string name="tag_at_injection">@ 삽입</string>
-    <string name="tag_verified_safe">안전 확인됨</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
-    <string name="status_scan_complete">스캔 완료</string>
-    <string name="status_caution_advised">주의 권고</string>
-    <string name="status_threat_detected">위협 감지됨</string>
-    <string name="status_analysis_complete">분석 완료</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
-    <string name="meta_analyzed_offline">오프라인에서 5ms 미만으로 분석됨</string>
-    <string name="meta_no_data_leaves">데이터가 기기를 떠나지 않음</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
-    <string name="top_analysis_factors_title">주요 분석 요소</string>
-    <string name="factor_category_https">HTTPS</string>
-    <string name="factor_category_domain">도메인</string>
-    <string name="factor_category_db_check">DB 확인</string>
-    <string name="factor_category_heuristics">휴리스틱</string>
-    <string name="factor_category_ml">ML 점수</string>
-    <string name="factor_ssl_valid">유효한 SSL 인증서</string>
-    <string name="factor_ssl_valid_desc">연결이 암호화되었습니다. 인증서 체인이 검증되었습니다.</string>
-    <string name="factor_ssl_missing">SSL 인증서 없음</string>
-    <string name="factor_ssl_missing_desc">연결이 암호화되지 않았습니다. 데이터가 가로채일 수 있습니다.</string>
-    <string name="factor_ip_address">IP 주소 호스트</string>
-    <string name="factor_ip_address_desc">URL이 도메인 이름 대신 IP 주소를 사용. 합법적인 사이트에서는 비정상적.</string>
-    <string name="factor_domain_check">도메인 분석</string>
-    <string name="factor_domain_check_desc">피싱 패턴에 대해 도메인 구조 분석.</string>
-    <string name="factor_blacklist_clean">블랙리스트 상태: 클린</string>
-    <string name="factor_blacklist_clean_desc">로컬 오프라인 위협 데이터베이스에서 발견되지 않음.</string>
-    <string name="factor_blacklist_found">블랙리스트 상태: 발견됨</string>
-    <string name="factor_blacklist_found_desc">위협 인텔리전스 데이터베이스에서 URL 발견!</string>
-    <string name="factor_heuristics_title">휴리스틱 분석</string>
-    <string name="factor_heuristics_desc">점수: %1$d • %2$d개의 신호 감지됨</string>
-    <string name="factor_ml_title">ML 피싱 점수</string>
-    <string name="factor_ml_desc">머신러닝 모델 신뢰도: %1$d%%</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d개의 신호 감지됨</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">Mehr Guard</string>
+    <string name="app_name">QR-SHIELD</string>
     <string name="tagline">Escanea códigos QR. Detecta phishing.</string>
 
     <!-- Navigation -->
@@ -254,12 +254,12 @@
     <string name="camera_permission_denied">Permiso de cámara denegado. Por favor actívalo en ajustes.</string>
 
     <!-- Widget -->
-    <string name="widget_name">Mehr Guard Escaneo rápido</string>
+    <string name="widget_name">QR-SHIELD Escaneo rápido</string>
     <string name="widget_description">Escanea rápidamente códigos QR en busca de amenazas de phishing</string>
     <string name="widget_tap_to_scan">Toca para escanear</string>
 
     <!-- Accessibility -->
-    <string name="cd_app_logo">Logo de Mehr Guard</string>
+    <string name="cd_app_logo">Logo de QR-SHIELD</string>
     <string name="cd_scanner_preview">Vista previa de cámara para escaneo de código QR</string>
     <string name="cd_close_scanner">Cerrar escáner</string>
     <string name="cd_toggle_flash">Alternar linterna</string>
@@ -304,7 +304,7 @@
     <!-- Trust Centre -->
     <string name="trust_center_title">Estado de seguridad</string>
     <string name="trust_center_secure">Tu dispositivo está seguro</string>
-    <string name="trust_center_protected_by">Protegido por Mehr Guard Enterprise</string>
+    <string name="trust_center_protected_by">Protegido por QR-SHIELD Enterprise</string>
     <string name="trust_center_score">Puntuación de seguridad: %d/100</string>
     <string name="trust_center_realtime">Protección en tiempo real</string>
     <string name="trust_center_malware">Detección de malware</string>
@@ -357,7 +357,7 @@
     <string name="biometric_unlock_subtitle">Requerir FaceID para ajustes</string>
 
     <!-- Footer -->
-    <string name="footer_version">Mehr Guard v%s</string>
+    <string name="footer_version">QR-SHIELD v%s</string>
     <string name="footer_edition">EDICIÓN ENTERPRISE</string>
     <string name="footer_terms">Términos</string>
     <string name="footer_privacy">Política de privacidad</string>
@@ -398,7 +398,7 @@
     <string name="beat_the_bot_vs_mode">MODO VS</string>
     <string name="beat_the_bot_you">Tú</string>
     <string name="beat_the_bot_streak_fmt">Racha: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
     <string name="beat_the_bot_latency_fmt">Latencia: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d pts</string>
     <string name="beat_the_bot_preview_hidden">Vista previa oculta</string>
@@ -417,7 +417,7 @@
     <string name="learning_centre_title">Centro de aprendizaje</string>
     <string name="your_progress">Tu progreso</string>
     <string name="view_certificate">Ver certificado</string>
-    <string name="qr_shield_certified">Certificado Mehr Guard</string>
+    <string name="qr_shield_certified">Certificado QR-SHIELD</string>
     <string name="modules_completed_fmt">%1$d de %2$d módulos completados</string>
     <string name="on_track">En progreso</string>
     <string name="daily_tip_label">CONSEJO DIARIO</string>
@@ -475,7 +475,7 @@
     <!-- Offline Privacy Screen -->
     <string name="privacy_offline_title">Privacidad y sin conexión</string>
     <string name="privacy_hero_title">Tus datos nunca salen</string>
-    <string name="privacy_hero_desc">Mehr Guard opera completamente en tu dispositivo. Sin nube. Sin servidores. Sin recopilación de datos. Privacidad completa por diseño.</string>
+    <string name="privacy_hero_desc">QR-SHIELD opera completamente en tu dispositivo. Sin nube. Sin servidores. Sin recopilación de datos. Privacidad completa por diseño.</string>
     <string name="privacy_offline_badge">100% operación sin conexión</string>
     <string name="privacy_architecture">Arquitectura de privacidad</string>
     <string name="privacy_local_db_title">Base de datos local</string>
@@ -561,7 +561,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -581,7 +581,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %1$s %2$s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -606,9 +606,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">Mehr Guard logo</string>
-    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>
@@ -638,88 +638,5 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">ANÁLISIS IA</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_reset_game">Reset Game</string>
-    <string name="cd_reset_game">Reset game and start over</string>
-    <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
-    <string name="analysis_brand_title">Suplantación de Marca</string>
-    <string name="analysis_brand_desc">La URL parece suplantar una marca conocida.</string>
-    <string name="analysis_brand_desc_specific">La URL parece suplantar %1$s.</string>
-    <string name="analysis_homograph_title">Ataque Homógrafo</string>
-    <string name="analysis_homograph_desc">Se detectaron caracteres de scripts mixtos en el nombre de dominio diseñados para falsificar marcas legítimas.</string>
-    <string name="analysis_protocol_title">Protocolo Inseguro</string>
-    <string name="analysis_protocol_desc">La URL usa HTTP en lugar de HTTPS. Los datos no están cifrados.</string>
-    <string name="analysis_tld_title">TLD de Riesgo</string>
-    <string name="analysis_tld_desc">El dominio usa un dominio de nivel superior comúnmente asociado con sitios maliciosos.</string>
-    <string name="analysis_tld_desc_specific">El TLD .%1$s se usa comúnmente para sitios maliciosos.</string>
-    <string name="analysis_ip_host_title">Dirección IP como Host</string>
-    <string name="analysis_ip_host_desc">La URL usa una dirección IP en lugar de un nombre de dominio, lo cual es inusual para sitios legítimos.</string>
-    <string name="analysis_subdomain_title">Subdominio Profundo</string>
-    <string name="analysis_subdomain_desc">La URL tiene un número inusual de subdominios, que pueden usarse para engañar a los usuarios.</string>
-    <string name="analysis_credential_title">Recolección de Credenciales</string>
-    <string name="analysis_credential_desc">La ruta o parámetros de la URL sugieren actividad de recolección de credenciales.</string>
-    <string name="analysis_long_url_title">Longitud Excesiva de URL</string>
-    <string name="analysis_long_url_desc">La URL es inusualmente larga, lo cual puede usarse para ocultar el destino real.</string>
-    <string name="analysis_scheme_title">Esquema Peligroso</string>
-    <string name="analysis_scheme_desc">La URL usa un esquema peligroso que puede ejecutar código.</string>
-    <string name="analysis_safe_title">URL Verificada como Segura</string>
-    <string name="analysis_safe_desc">No se detectaron problemas de seguridad. Esta URL parece segura para visitar.</string>
-    <string name="analysis_no_issues">No se detectaron problemas de seguridad.</string>
-    <string name="analysis_at_symbol_title">Inyección de Símbolo @</string>
-    <string name="analysis_at_symbol_desc">La URL contiene el símbolo @ usado para ocultar el destino real.</string>
-    <string name="analysis_suspicious_path_title">Ruta Sospechosa</string>
-    <string name="analysis_suspicious_path_desc">La ruta de la URL contiene palabras clave comúnmente usadas en phishing.</string>
-    <string name="analysis_risky_extension_title">Extensión de Archivo de Riesgo</string>
-    <string name="analysis_risky_extension_desc">La URL apunta a un tipo de archivo potencialmente peligroso.</string>
-    <string name="analysis_entropy_title">Dominio Aleatorio</string>
-    <string name="analysis_entropy_desc">El dominio parece generado aleatoriamente, común en phishing.</string>
-    <string name="analysis_port_title">Puerto Inusual</string>
-    <string name="analysis_port_desc">La URL usa un número de puerto no estándar.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
-    <string name="tag_ip_address">Dirección IP</string>
-    <string name="tag_brand_spoof">Suplantación de Marca</string>
-    <string name="tag_insecure">Inseguro</string>
-    <string name="tag_shortener">Acortador</string>
-    <string name="tag_risky_tld">TLD de Riesgo</string>
-    <string name="tag_suspicious_path">Ruta Sospechosa</string>
-    <string name="tag_long_url">URL Larga</string>
-    <string name="tag_at_injection">Inyección @</string>
-    <string name="tag_verified_safe">Verificado Seguro</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
-    <string name="status_scan_complete">Escaneo Completo</string>
-    <string name="status_caution_advised">Se Aconseja Precaución</string>
-    <string name="status_threat_detected">Amenaza Detectada</string>
-    <string name="status_analysis_complete">Análisis Completo</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
-    <string name="meta_analyzed_offline">Analizado sin conexión en &lt;5ms</string>
-    <string name="meta_no_data_leaves">Los datos no salen del dispositivo</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
-    <string name="top_analysis_factors_title">Principales Factores de Análisis</string>
-    <string name="factor_category_https">HTTPS</string>
-    <string name="factor_category_domain">DOMINIO</string>
-    <string name="factor_category_db_check">VERIFICACIÓN BD</string>
-    <string name="factor_category_heuristics">HEURÍSTICA</string>
-    <string name="factor_category_ml">PUNTUACIÓN ML</string>
-    <string name="factor_ssl_valid">Certificado SSL Válido</string>
-    <string name="factor_ssl_valid_desc">La conexión está cifrada. Cadena de certificados validada.</string>
-    <string name="factor_ssl_missing">Sin Certificado SSL</string>
-    <string name="factor_ssl_missing_desc">La conexión NO está cifrada. Los datos pueden ser interceptados.</string>
-    <string name="factor_ip_address">Dirección IP como Host</string>
-    <string name="factor_ip_address_desc">La URL usa dirección IP en lugar de nombre de dominio. Inusual para sitios legítimos.</string>
-    <string name="factor_domain_check">Análisis de Dominio</string>
-    <string name="factor_domain_check_desc">Estructura del dominio analizada para patrones de phishing.</string>
-    <string name="factor_blacklist_clean">Estado de Lista Negra: Limpio</string>
-    <string name="factor_blacklist_clean_desc">No encontrado en bases de datos de amenazas locales offline.</string>
-    <string name="factor_blacklist_found">Estado de Lista Negra: ENCONTRADO</string>
-    <string name="factor_blacklist_found_desc">¡URL encontrada en base de datos de inteligencia de amenazas!</string>
-    <string name="factor_heuristics_title">Análisis Heurístico</string>
-    <string name="factor_heuristics_desc">Puntuación: %1$d • %2$d señales detectadas</string>
-    <string name="factor_ml_title">Puntuación ML de Phishing</string>
-    <string name="factor_ml_desc">Confianza del modelo de aprendizaje automático: %1$d%%</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d señales detectadas</string>
 </resources>

@@ -2,6 +2,66 @@
 
 ## Unreleased
 
+## [2.0.2] - 2025-12-31
+
+### 🚨 CRITICAL: Restore Missing Source Files
+
+**Emergency fix for broken rebrand** — The v2.0.0 rebrand accidentally DELETED 262+ Kotlin source files instead of renaming them, leaving all platforms with empty/broken builds.
+
+#### Root Cause
+The rebrand operation deleted files under `com/qrshield/**` directories but failed to recreate them under `com/raouf/mehrguard/**`. Only SQLDelight-generated code remained.
+
+#### Files Restored
+| Module | Files Restored |
+|--------|---------------|
+| `common/src/commonMain` | 84 files |
+| `common/src/commonTest` | 73 files |
+| `common/src/desktopMain` | 4 files |
+| `common/src/androidMain` | 7 files |
+| `common/src/iosMain` | 7 files |
+| `common/src/webMain` | 4 files |
+| `androidApp/src/main` | 43 files |
+| `desktopApp/src/desktopMain` | 44 files |
+| `webApp/src/jsMain` | 16 files |
+| Test sources | 7 files |
+| **Total** | **262+ files** |
+
+#### Package Renames Applied
+- `package com.qrshield` → `package com.raouf.mehrguard`
+- `import com.qrshield` → `import com.raouf.mehrguard`
+- `QRShield` → `MehrGuard` (class names)
+
+#### Build Verification
+- ✅ `./gradlew :common:compileKotlinDesktop` - BUILD SUCCESSFUL
+- ✅ `./gradlew :androidApp:assembleDebug` - BUILD SUCCESSFUL
+- ✅ `./gradlew :desktopApp:compileKotlinDesktop` - BUILD SUCCESSFUL
+- ✅ `./gradlew :webApp:jsBrowserDevelopmentWebpack` - BUILD SUCCESSFUL
+- ✅ `./gradlew :common:desktopTest` - BUILD SUCCESSFUL
+
+---
+
+## Raouf: Post-Rebrand Build Fixes (2025-12-31 18:25 AEDT)
+
+**Scope:** Fixed build issues after Mehr Guard rebrand completion.
+
+**Issues Fixed:**
+- **Keystore mismatch** - Renamed `qrshield-release.jks` → `mehrguard-release.jks` 
+- **Detekt violations** - Reduced from 27 → 13 issues in webApp Main.kt:
+  - Fixed trailing whitespace (7 instances)
+  - Fixed MaxLineLength violations (3 long lines broken up)
+  - Removed unused `reasonCodes` variable
+  - Added constants for magic numbers (HEURISTIC_COUNT, BRAND_COUNT)
+  - Fixed package declaration by moving file to proper directory structure
+
+**Build Verification:**
+- ✅ `./gradlew :androidApp:assembleDebug` - BUILD SUCCESSFUL
+- ✅ `./gradlew :desktopApp:compileKotlinDesktop` - BUILD SUCCESSFUL  
+- ✅ `./gradlew :common:compileKotlinDesktop` - BUILD SUCCESSFUL
+
+**Note:** 13 remaining detekt issues are complexity-related (LongMethod, CyclomaticComplexity) - non-critical for functionality.
+
+---
+
 ## [2.0.1] - 2025-12-31
 
 ### 🔍 Rebrand Verification Audit

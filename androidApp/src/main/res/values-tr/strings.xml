@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mehr Guard</string>
+    <string name="app_name">QR-SHIELD</string>
     <string name="tagline">QR kodları tara. Oltalamayı tespit et.</string>
     <string name="nav_home">Ana Sayfa</string>
     <string name="nav_scan">Tara</string>
@@ -125,10 +125,10 @@
     <string name="try_again">Tekrar Dene</string>
     <string name="camera_permission_rationale">QR kodlarını taramak için kamera erişimi gerekli</string>
     <string name="camera_permission_denied">Kamera izni reddedildi. Lütfen ayarlardan etkinleştirin.</string>
-    <string name="widget_name">Mehr Guard Hızlı Tarama</string>
+    <string name="widget_name">QR-SHIELD Hızlı Tarama</string>
     <string name="widget_description">Oltalama tehditleri için QR kodlarını hızlıca tara</string>
     <string name="widget_tap_to_scan">Taramak için dokun</string>
-    <string name="cd_app_logo">Mehr Guard Logosu</string>
+    <string name="cd_app_logo">QR-SHIELD Logosu</string>
     <string name="cd_scanner_preview">QR kodu tarama için kamera önizlemesi</string>
     <string name="cd_close_scanner">Tarayıcıyı kapat</string>
     <string name="cd_toggle_flash">Flaşı aç/kapat</string>
@@ -155,7 +155,7 @@
     <string name="cd_risk_score">100 üzerinden risk puanı</string>
     <string name="trust_center_title">Güvenlik Durumu</string>
     <string name="trust_center_secure">Cihazınız güvende</string>
-    <string name="trust_center_protected_by">Mehr Guard Enterprise tarafından korunuyor</string>
+    <string name="trust_center_protected_by">QR-SHIELD Enterprise tarafından korunuyor</string>
     <string name="trust_center_score">Güvenlik Puanı: %d/100</string>
     <string name="trust_center_realtime">Gerçek Zamanlı Koruma</string>
     <string name="trust_center_malware">Kötü Amaçlı Yazılım Algılama</string>
@@ -181,7 +181,7 @@
     <string name="trust_center_network_desc">Güvenlik duvarı aktif</string>
     <string name="trust_center_offline">Çevrimdışı Mod</string>
     <string name="trust_center_offline_desc">Yalnızca yerel veritabanı</string>
-    <string name="footer_version">Mehr Guard v%s</string>
+    <string name="footer_version">QR-SHIELD v%s</string>
     <string name="footer_edition">KURUMSAL SÜRÜM</string>
     <string name="footer_terms">Şartlar</string>
     <string name="footer_privacy">Gizlilik Politikası</string>
@@ -344,7 +344,7 @@
     <string name="beat_the_bot_vs_mode">VS MODU</string>
     <string name="beat_the_bot_you">Sen</string>
     <string name="beat_the_bot_streak_fmt">Seri: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
     <string name="beat_the_bot_latency_fmt">Gecikme: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d puan</string>
     <string name="beat_the_bot_preview_hidden">Önizleme gizli</string>
@@ -359,7 +359,7 @@
     <string name="learning_centre_title">Öğrenme Merkezi</string>
     <string name="your_progress">İlerlemeniz</string>
     <string name="view_certificate">Sertifikayı Görüntüle</string>
-    <string name="qr_shield_certified">Mehr Guard Sertifikalı</string>
+    <string name="qr_shield_certified">QR-SHIELD Sertifikalı</string>
     <string name="modules_completed_fmt">%1$d/%2$d modül tamamlandı</string>
     <string name="on_track">Yolunda</string>
     <string name="daily_tip_label">GÜNÜN İPUCU</string>
@@ -418,7 +418,7 @@
     <string name="remediation_3">Kimlik bilgisi girildiyse, parolaları hemen sıfırlayın</string>
     <string name="privacy_offline_title">Gizlilik ve Çevrimdışı</string>
     <string name="privacy_hero_title">Verileriniz Asla Çıkmaz</string>
-    <string name="privacy_hero_desc">Mehr Guard tamamen cihazınızda çalışır. Bulut yok. Sunucu yok. Veri toplama yok. Tasarım gereği tam gizlilik.</string>
+    <string name="privacy_hero_desc">QR-SHIELD tamamen cihazınızda çalışır. Bulut yok. Sunucu yok. Veri toplama yok. Tasarım gereği tam gizlilik.</string>
     <string name="privacy_offline_badge">%100 Çevrimdışı Çalışma</string>
     <string name="privacy_architecture">Gizlilik Mimarisi</string>
     <string name="privacy_local_db_title">Yerel Veritabanı</string>
@@ -504,7 +504,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -524,7 +524,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %1$s %2$s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -549,9 +549,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">Mehr Guard logo</string>
-    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>
@@ -581,88 +581,5 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">AI ANALİZİ</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_reset_game">Reset Game</string>
-    <string name="cd_reset_game">Reset game and start over</string>
-    <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
-    <string name="analysis_brand_title">Marka Taklidi</string>
-    <string name="analysis_brand_desc">URL bilinen bir markayı taklit ediyor gibi görünüyor.</string>
-    <string name="analysis_brand_desc_specific">URL %1$s taklit ediyor gibi görünüyor.</string>
-    <string name="analysis_homograph_title">Homograf Saldırısı</string>
-    <string name="analysis_homograph_desc">Alan adında meşru markaları taklit etmek için tasarlanmış karışık komut dosyası karakterleri tespit edildi.</string>
-    <string name="analysis_protocol_title">Güvensiz Protokol</string>
-    <string name="analysis_protocol_desc">URL HTTPS yerine HTTP kullanıyor. Veriler şifrelenmemiş.</string>
-    <string name="analysis_tld_title">Riskli TLD</string>
-    <string name="analysis_tld_desc">Alan adı genellikle kötü amaçlı sitelerle ilişkilendirilen üst düzey alan adı kullanıyor.</string>
-    <string name="analysis_tld_desc_specific">.%1$s TLD genellikle kötü amaçlı siteler için kullanılır.</string>
-    <string name="analysis_ip_host_title">Ana Bilgisayar Olarak IP Adresi</string>
-    <string name="analysis_ip_host_desc">URL alan adı yerine IP adresi kullanıyor, bu meşru siteler için alışılmadık.</string>
-    <string name="analysis_subdomain_title">Derin Alt Alan Adı</string>
-    <string name="analysis_subdomain_desc">URL olağandışı sayıda alt alan adına sahip, bu kullanıcıları yanıltmak için kullanılabilir.</string>
-    <string name="analysis_credential_title">Kimlik Bilgisi Toplama</string>
-    <string name="analysis_credential_desc">URL yolu veya parametreleri kimlik bilgisi toplama aktivitesini gösteriyor.</string>
-    <string name="analysis_long_url_title">Aşırı URL Uzunluğu</string>
-    <string name="analysis_long_url_desc">URL olağandışı şekilde uzun, bu gerçek hedefi gizlemek için kullanılabilir.</string>
-    <string name="analysis_scheme_title">Tehlikeli Şema</string>
-    <string name="analysis_scheme_desc">URL kod çalıştırabilen tehlikeli bir şema kullanıyor.</string>
-    <string name="analysis_safe_title">URL Güvenli Doğrulandı</string>
-    <string name="analysis_safe_desc">Güvenlik sorunu tespit edilmedi. Bu URL ziyaret etmek için güvenli görünüyor.</string>
-    <string name="analysis_no_issues">Güvenlik sorunu tespit edilmedi.</string>
-    <string name="analysis_at_symbol_title">@ Sembolü Enjeksiyonu</string>
-    <string name="analysis_at_symbol_desc">URL gerçek hedefi gizlemek için kullanılan @ sembolü içeriyor.</string>
-    <string name="analysis_suspicious_path_title">Şüpheli Yol</string>
-    <string name="analysis_suspicious_path_desc">URL yolu oltalamada yaygın olarak kullanılan anahtar kelimeler içeriyor.</string>
-    <string name="analysis_risky_extension_title">Riskli Dosya Uzantısı</string>
-    <string name="analysis_risky_extension_desc">URL potansiyel olarak tehlikeli bir dosya türüne işaret ediyor.</string>
-    <string name="analysis_entropy_title">Rastgele Alan Adı</string>
-    <string name="analysis_entropy_desc">Alan adı rastgele oluşturulmuş gibi görünüyor, oltalamada yaygın.</string>
-    <string name="analysis_port_title">Alışılmadık Port</string>
-    <string name="analysis_port_desc">URL standart olmayan bir port numarası kullanıyor.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
-    <string name="tag_ip_address">IP Adresi</string>
-    <string name="tag_brand_spoof">Marka Sahtekarlığı</string>
-    <string name="tag_insecure">Güvensiz</string>
-    <string name="tag_shortener">Kısaltıcı</string>
-    <string name="tag_risky_tld">Riskli TLD</string>
-    <string name="tag_suspicious_path">Şüpheli Yol</string>
-    <string name="tag_long_url">Uzun URL</string>
-    <string name="tag_at_injection">@ Enjeksiyonu</string>
-    <string name="tag_verified_safe">Güvenli Doğrulandı</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
-    <string name="status_scan_complete">Tarama Tamamlandı</string>
-    <string name="status_caution_advised">Dikkat Önerilir</string>
-    <string name="status_threat_detected">Tehdit Algılandı</string>
-    <string name="status_analysis_complete">Analiz Tamamlandı</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
-    <string name="meta_analyzed_offline">&lt;5ms\'de çevrimdışı analiz edildi</string>
-    <string name="meta_no_data_leaves">Hiçbir veri cihazı terk etmez</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
-    <string name="top_analysis_factors_title">En Önemli Analiz Faktörleri</string>
-    <string name="factor_category_https">HTTPS</string>
-    <string name="factor_category_domain">ALAN ADI</string>
-    <string name="factor_category_db_check">VT KONTROLÜ</string>
-    <string name="factor_category_heuristics">SEZGİSEL</string>
-    <string name="factor_category_ml">ML PUANI</string>
-    <string name="factor_ssl_valid">Geçerli SSL Sertifikası</string>
-    <string name="factor_ssl_valid_desc">Bağlantı şifrelenmiş. Sertifika zinciri doğrulandı.</string>
-    <string name="factor_ssl_missing">SSL Sertifikası Yok</string>
-    <string name="factor_ssl_missing_desc">Bağlantı şifrelenmemiş. Veriler ele geçirilebilir.</string>
-    <string name="factor_ip_address">Ana Bilgisayar Olarak IP Adresi</string>
-    <string name="factor_ip_address_desc">URL alan adı yerine IP adresi kullanıyor. Meşru siteler için alışılmadık.</string>
-    <string name="factor_domain_check">Alan Adı Analizi</string>
-    <string name="factor_domain_check_desc">Alan adı yapısı oltalama kalıpları için analiz edildi.</string>
-    <string name="factor_blacklist_clean">Kara Liste Durumu: Temiz</string>
-    <string name="factor_blacklist_clean_desc">Yerel çevrimdışı tehdit veritabanlarında bulunamadı.</string>
-    <string name="factor_blacklist_found">Kara Liste Durumu: BULUNDU</string>
-    <string name="factor_blacklist_found_desc">URL tehdit istihbarat veritabanında bulundu!</string>
-    <string name="factor_heuristics_title">Sezgisel Analiz</string>
-    <string name="factor_heuristics_desc">Puan: %1$d • %2$d sinyal algılandı</string>
-    <string name="factor_ml_title">ML Oltalama Puanı</string>
-    <string name="factor_ml_desc">Makine öğrenimi modeli güveni: %1$d%%</string>
+    <string name="beat_the_bot_signals_detected_fmt">%1$d sinyal algılandı</string>
 </resources>

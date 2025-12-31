@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mehr Guard</string>
+    <string name="app_name">QR-SHIELD</string>
     <string name="tagline">สแกนรหัส QR ตรวจจับฟิชชิ่ง</string>
     <string name="nav_home">หน้าแรก</string>
     <string name="nav_scan">สแกน</string>
@@ -125,10 +125,10 @@
     <string name="try_again">ลองอีกครั้ง</string>
     <string name="camera_permission_rationale">ต้องการเข้าถึงกล้องเพื่อสแกนรหัส QR</string>
     <string name="camera_permission_denied">การอนุญาตกล้องถูกปฏิเสธ กรุณาเปิดใช้งานในการตั้งค่า</string>
-    <string name="widget_name">Mehr Guard สแกนด่วน</string>
+    <string name="widget_name">QR-SHIELD สแกนด่วน</string>
     <string name="widget_description">สแกนรหัส QR อย่างรวดเร็วเพื่อหาภัยคุกคามฟิชชิ่ง</string>
     <string name="widget_tap_to_scan">แตะเพื่อสแกน</string>
-    <string name="cd_app_logo">โลโก้ Mehr Guard</string>
+    <string name="cd_app_logo">โลโก้ QR-SHIELD</string>
     <string name="cd_scanner_preview">ตัวอย่างกล้องสำหรับสแกนรหัส QR</string>
     <string name="cd_close_scanner">ปิดสแกนเนอร์</string>
     <string name="cd_toggle_flash">สลับไฟแฟลช</string>
@@ -155,7 +155,7 @@
     <string name="cd_risk_score">คะแนนความเสี่ยงจาก 100</string>
     <string name="trust_center_title">สถานะความปลอดภัย</string>
     <string name="trust_center_secure">อุปกรณ์ของคุณปลอดภัย</string>
-    <string name="trust_center_protected_by">ป้องกันโดย Mehr Guard Enterprise</string>
+    <string name="trust_center_protected_by">ป้องกันโดย QR-SHIELD Enterprise</string>
     <string name="trust_center_score">คะแนนความปลอดภัย: %d/100</string>
     <string name="trust_center_realtime">การป้องกันแบบเรียลไทม์</string>
     <string name="trust_center_malware">การตรวจจับมัลแวร์</string>
@@ -181,7 +181,7 @@
     <string name="trust_center_network_desc">ไฟร์วอลล์ใช้งานอยู่</string>
     <string name="trust_center_offline">โหมดออฟไลน์</string>
     <string name="trust_center_offline_desc">ฐานข้อมูลภายในเครื่องเท่านั้น</string>
-    <string name="footer_version">Mehr Guard v%s</string>
+    <string name="footer_version">QR-SHIELD v%s</string>
     <string name="footer_edition">รุ่นองค์กร</string>
     <string name="footer_terms">เงื่อนไข</string>
     <string name="footer_privacy">นโยบายความเป็นส่วนตัว</string>
@@ -344,7 +344,7 @@
     <string name="beat_the_bot_vs_mode">โหมด VS</string>
     <string name="beat_the_bot_you">คุณ</string>
     <string name="beat_the_bot_streak_fmt">สตรีค: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
+    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
     <string name="beat_the_bot_latency_fmt">เวลาแฝง: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d คะแนน</string>
     <string name="beat_the_bot_preview_hidden">ซ่อนตัวอย่าง</string>
@@ -359,7 +359,7 @@
     <string name="learning_centre_title">ศูนย์การเรียนรู้</string>
     <string name="your_progress">ความคืบหน้าของคุณ</string>
     <string name="view_certificate">ดูใบรับรอง</string>
-    <string name="qr_shield_certified">ได้รับการรับรอง Mehr Guard</string>
+    <string name="qr_shield_certified">ได้รับการรับรอง QR-SHIELD</string>
     <string name="modules_completed_fmt">%1$d/%2$d โมดูลเสร็จสมบูรณ์</string>
     <string name="on_track">ตามแผน</string>
     <string name="daily_tip_label">เคล็ดลับประจำวัน</string>
@@ -418,7 +418,7 @@
     <string name="remediation_3">หากป้อนข้อมูลประจำตัวแล้ว ให้รีเซ็ตรหัสผ่านทันที</string>
     <string name="privacy_offline_title">ความเป็นส่วนตัวและออฟไลน์</string>
     <string name="privacy_hero_title">ข้อมูลของคุณไม่เคยออกไป</string>
-    <string name="privacy_hero_desc">Mehr Guard ทำงานบนอุปกรณ์ของคุณทั้งหมด ไม่มีคลาวด์ ไม่มีเซิร์ฟเวอร์ ไม่มีการรวบรวมข้อมูล ความเป็นส่วนตัวสมบูรณ์โดยการออกแบบ</string>
+    <string name="privacy_hero_desc">QR-SHIELD ทำงานบนอุปกรณ์ของคุณทั้งหมด ไม่มีคลาวด์ ไม่มีเซิร์ฟเวอร์ ไม่มีการรวบรวมข้อมูล ความเป็นส่วนตัวสมบูรณ์โดยการออกแบบ</string>
     <string name="privacy_offline_badge">การทำงานออฟไลน์ 100%</string>
     <string name="privacy_architecture">สถาปัตยกรรมความเป็นส่วนตัว</string>
     <string name="privacy_local_db_title">ฐานข้อมูลภายในเครื่อง</string>
@@ -504,7 +504,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -524,7 +524,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %1$s %2$s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -549,9 +549,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">Mehr Guard logo</string>
-    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>
@@ -581,88 +581,5 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">การวิเคราะห์ AI</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_reset_game">Reset Game</string>
-    <string name="cd_reset_game">Reset game and start over</string>
-    <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
-    <string name="analysis_brand_title">การปลอมแปลงแบรนด์</string>
-    <string name="analysis_brand_desc">URL ดูเหมือนปลอมแปลงแบรนด์ที่รู้จักกันดี</string>
-    <string name="analysis_brand_desc_specific">URL ดูเหมือนปลอมแปลง %1$s</string>
-    <string name="analysis_homograph_title">การโจมตี Homograph</string>
-    <string name="analysis_homograph_desc">ตรวจพบอักขระสคริปต์ผสมในชื่อโดเมนที่ออกแบบมาเพื่อปลอมแปลงแบรนด์ที่ถูกต้อง</string>
-    <string name="analysis_protocol_title">โปรโตคอลไม่ปลอดภัย</string>
-    <string name="analysis_protocol_desc">URL ใช้ HTTP แทน HTTPS ข้อมูลไม่ได้เข้ารหัส</string>
-    <string name="analysis_tld_title">TLD ที่มีความเสี่ยง</string>
-    <string name="analysis_tld_desc">โดเมนใช้โดเมนระดับบนสุดที่มักเกี่ยวข้องกับเว็บไซต์ที่เป็นอันตราย</string>
-    <string name="analysis_tld_desc_specific">TLD .%1$s มักใช้สำหรับเว็บไซต์ที่เป็นอันตราย</string>
-    <string name="analysis_ip_host_title">ที่อยู่ IP เป็นโฮสต์</string>
-    <string name="analysis_ip_host_desc">URL ใช้ที่อยู่ IP แทนชื่อโดเมน ซึ่งไม่ปกติสำหรับเว็บไซต์ที่ถูกต้อง</string>
-    <string name="analysis_subdomain_title">ซับโดเมนลึก</string>
-    <string name="analysis_subdomain_desc">URL มีจำนวนซับโดเมนที่ผิดปกติ ซึ่งสามารถใช้หลอกลวงผู้ใช้ได้</string>
-    <string name="analysis_credential_title">การเก็บข้อมูลรับรอง</string>
-    <string name="analysis_credential_desc">เส้นทางหรือพารามิเตอร์ของ URL แนะนำกิจกรรมการเก็บข้อมูลรับรอง</string>
-    <string name="analysis_long_url_title">ความยาว URL มากเกินไป</string>
-    <string name="analysis_long_url_desc">URL ยาวผิดปกติ ซึ่งสามารถใช้ซ่อนปลายทางที่แท้จริงได้</string>
-    <string name="analysis_scheme_title">สคีมที่อันตราย</string>
-    <string name="analysis_scheme_desc">URL ใช้สคีมที่อันตรายที่สามารถรันโค้ดได้</string>
-    <string name="analysis_safe_title">URL ยืนยันปลอดภัย</string>
-    <string name="analysis_safe_desc">ไม่พบปัญหาด้านความปลอดภัย URL นี้ดูปลอดภัยที่จะเยี่ยมชม</string>
-    <string name="analysis_no_issues">ไม่พบปัญหาด้านความปลอดภัย</string>
-    <string name="analysis_at_symbol_title">การแทรกสัญลักษณ์ @</string>
-    <string name="analysis_at_symbol_desc">URL มีสัญลักษณ์ @ ที่ใช้ซ่อนปลายทางที่แท้จริง</string>
-    <string name="analysis_suspicious_path_title">เส้นทางที่น่าสงสัย</string>
-    <string name="analysis_suspicious_path_desc">เส้นทาง URL มีคำหลักที่มักใช้ในฟิชชิง</string>
-    <string name="analysis_risky_extension_title">นามสกุลไฟล์ที่มีความเสี่ยง</string>
-    <string name="analysis_risky_extension_desc">URL ชี้ไปยังประเภทไฟล์ที่อาจเป็นอันตราย</string>
-    <string name="analysis_entropy_title">โดเมนสุ่ม</string>
-    <string name="analysis_entropy_desc">โดเมนดูเหมือนถูกสร้างแบบสุ่ม ซึ่งพบได้บ่อยในฟิชชิง</string>
-    <string name="analysis_port_title">พอร์ตที่ผิดปกติ</string>
-    <string name="analysis_port_desc">URL ใช้หมายเลขพอร์ตที่ไม่มาตรฐาน</string>
-    
-    <!-- Tags (ScanResultScreen) -->
-    <string name="tag_ip_address">ที่อยู่ IP</string>
-    <string name="tag_brand_spoof">การปลอมแบรนด์</string>
-    <string name="tag_insecure">ไม่ปลอดภัย</string>
-    <string name="tag_shortener">ตัวย่อ</string>
-    <string name="tag_risky_tld">TLD ที่มีความเสี่ยง</string>
-    <string name="tag_suspicious_path">เส้นทางที่น่าสงสัย</string>
-    <string name="tag_long_url">URL ยาว</string>
-    <string name="tag_at_injection">การแทรก @</string>
-    <string name="tag_verified_safe">ยืนยันปลอดภัย</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
-    <string name="status_scan_complete">สแกนเสร็จสิ้น</string>
-    <string name="status_caution_advised">แนะนำให้ระวัง</string>
-    <string name="status_threat_detected">ตรวจพบภัยคุกคาม</string>
-    <string name="status_analysis_complete">การวิเคราะห์เสร็จสิ้น</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
-    <string name="meta_analyzed_offline">วิเคราะห์ออฟไลน์ใน &lt;5ms</string>
-    <string name="meta_no_data_leaves">ไม่มีข้อมูลออกจากอุปกรณ์</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
-    <string name="top_analysis_factors_title">ปัจจัยการวิเคราะห์หลัก</string>
-    <string name="factor_category_https">HTTPS</string>
-    <string name="factor_category_domain">โดเมน</string>
-    <string name="factor_category_db_check">ตรวจสอบ DB</string>
-    <string name="factor_category_heuristics">ฮิวริสติก</string>
-    <string name="factor_category_ml">คะแนน ML</string>
-    <string name="factor_ssl_valid">ใบรับรอง SSL ที่ถูกต้อง</string>
-    <string name="factor_ssl_valid_desc">การเชื่อมต่อถูกเข้ารหัส ตรวจสอบห่วงโซ่ใบรับรองแล้ว</string>
-    <string name="factor_ssl_missing">ไม่มีใบรับรอง SSL</string>
-    <string name="factor_ssl_missing_desc">การเชื่อมต่อไม่ได้เข้ารหัส ข้อมูลอาจถูกดักจับได้</string>
-    <string name="factor_ip_address">ที่อยู่ IP เป็นโฮสต์</string>
-    <string name="factor_ip_address_desc">URL ใช้ที่อยู่ IP แทนชื่อโดเมน ไม่ปกติสำหรับเว็บไซต์ที่ถูกต้อง</string>
-    <string name="factor_domain_check">การวิเคราะห์โดเมน</string>
-    <string name="factor_domain_check_desc">โครงสร้างโดเมนถูกวิเคราะห์สำหรับรูปแบบฟิชชิง</string>
-    <string name="factor_blacklist_clean">สถานะบัญชีดำ: สะอาด</string>
-    <string name="factor_blacklist_clean_desc">ไม่พบในฐานข้อมูลภัยคุกคามออฟไลน์ในเครื่อง</string>
-    <string name="factor_blacklist_found">สถานะบัญชีดำ: พบ</string>
-    <string name="factor_blacklist_found_desc">พบ URL ในฐานข้อมูลข่าวกรองภัยคุกคาม!</string>
-    <string name="factor_heuristics_title">การวิเคราะห์ฮิวริสติก</string>
-    <string name="factor_heuristics_desc">คะแนน: %1$d • ตรวจพบ %2$d สัญญาณ</string>
-    <string name="factor_ml_title">คะแนน ML ฟิชชิง</string>
-    <string name="factor_ml_desc">ความเชื่อมั่นของโมเดลการเรียนรู้ของเครื่อง: %1$d%%</string>
+    <string name="beat_the_bot_signals_detected_fmt">ตรวจพบ %1$d สัญญาณ</string>
 </resources>

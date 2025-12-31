@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Identity -->
-    <string name="app_name">Mehr Guard</string>
+    <string name="app_name">QR-SHIELD</string>
     <string name="tagline">امسح رموز QR. اكتشف التصيد الاحتيالي.</string>
 
     <!-- Navigation -->
@@ -234,10 +234,10 @@
     <string name="try_again">حاول مرة أخرى</string>
     <string name="camera_permission_rationale">يلزم الوصول للكاميرا لمسح رموز QR</string>
     <string name="camera_permission_denied">تم رفض إذن الكاميرا. يرجى التفعيل في الإعدادات.</string>
-    <string name="widget_name">Mehr Guard مسح سريع</string>
+    <string name="widget_name">QR-SHIELD مسح سريع</string>
     <string name="widget_description">امسح رموز QR بسرعة بحثاً عن تهديدات التصيد</string>
     <string name="widget_tap_to_scan">انقر للمسح</string>
-    <string name="cd_app_logo">شعار Mehr Guard</string>
+    <string name="cd_app_logo">شعار QR-SHIELD</string>
     <string name="cd_scanner_preview">معاينة الكاميرا لمسح رمز QR</string>
     <string name="cd_close_scanner">إغلاق الماسح</string>
     <string name="cd_toggle_flash">تبديل الفلاش</string>
@@ -280,7 +280,7 @@
     <string name="cd_dismiss_hint">تجاهل التلميح</string>
     <string name="trust_center_title">حالة الأمان</string>
     <string name="trust_center_secure">جهازك آمن</string>
-    <string name="trust_center_protected_by">محمي بواسطة Mehr Guard Enterprise</string>
+    <string name="trust_center_protected_by">محمي بواسطة QR-SHIELD Enterprise</string>
     <string name="trust_center_score">درجة الأمان: %d/100</string>
     <string name="trust_center_realtime">الحماية الفورية</string>
     <string name="trust_center_malware">اكتشاف البرامج الضارة</string>
@@ -331,7 +331,7 @@
     <string name="auto_copy_subtitle">نسخ الروابط الآمنة تلقائياً</string>
     <string name="biometric_unlock_title">فتح القفل البيومتري</string>
     <string name="biometric_unlock_subtitle">طلب FaceID للإعدادات</string>
-    <string name="footer_version">Mehr Guard v%s</string>
+    <string name="footer_version">QR-SHIELD v%s</string>
     <string name="footer_edition">إصدار المؤسسات</string>
     <string name="footer_terms">الشروط</string>
     <string name="footer_privacy">سياسة الخصوصية</string>
@@ -368,7 +368,7 @@
     <string name="beat_the_bot_vs_mode">وضع المواجهة</string>
     <string name="beat_the_bot_you">أنت</string>
     <string name="beat_the_bot_streak_fmt">التتابع: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
+    <string name="beat_the_bot_bot_name">روبوت QR-Shield</string>
     <string name="beat_the_bot_latency_fmt">التأخير: %1$d مللي ثانية</string>
     <string name="beat_the_bot_pts_fmt">%1$d نقطة</string>
     <string name="beat_the_bot_preview_hidden">المعاينة مخفية</string>
@@ -385,7 +385,7 @@
     <string name="learning_centre_title">مركز التعلم</string>
     <string name="your_progress">تقدمك</string>
     <string name="view_certificate">عرض الشهادة</string>
-    <string name="qr_shield_certified">معتمد من Mehr Guard</string>
+    <string name="qr_shield_certified">معتمد من QR-SHIELD</string>
     <string name="modules_completed_fmt">%1$d من %2$d وحدات مكتملة</string>
     <string name="on_track">في المسار الصحيح</string>
     <string name="daily_tip_label">نصيحة اليوم</string>
@@ -435,7 +435,7 @@
     <string name="phase_prevented">تم المنع</string>
     <string name="privacy_offline_title">الخصوصية وبدون إنترنت</string>
     <string name="privacy_hero_title">بياناتك لا تغادر أبداً</string>
-    <string name="privacy_hero_desc">يعمل Mehr Guard بالكامل على جهازك. بدون سحابة. بدون خوادم. بدون جمع بيانات. خصوصية كاملة بالتصميم.</string>
+    <string name="privacy_hero_desc">يعمل QR-SHIELD بالكامل على جهازك. بدون سحابة. بدون خوادم. بدون جمع بيانات. خصوصية كاملة بالتصميم.</string>
     <string name="privacy_offline_badge">100% تشغيل بدون إنترنت</string>
     <string name="privacy_architecture">هندسة الخصوصية</string>
     <string name="privacy_local_db_title">قاعدة بيانات محلية</string>
@@ -521,7 +521,7 @@
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
+    <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by QR-SHIELD Security Ops.</string>
     
     <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
@@ -541,7 +541,7 @@
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_custom_rule_coming_soon">Custom rule creation coming soon</string>
     <string name="toast_rule_details">Rule details: %s</string>
-    <string name="toast_rule_status">Rule %1$s %2$s</string>
+    <string name="toast_rule_status">Rule %s %s</string>
     <string name="toast_generating_certificate">Generating certificate…</string>
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
@@ -566,9 +566,9 @@
     <string name="disabled">disabled</string>
     <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
-    <string name="cd_home_screen">Mehr Guard home screen. Tap Start Scanning to begin, or choose from gallery.</string>
-    <string name="cd_app_logo_full">Mehr Guard logo</string>
-    <string name="cd_app_tagline">Mehr Guard, Phishing Detection App</string>
+    <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
+    <string name="cd_app_logo_full">QR Shield logo</string>
+    <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
     <string name="cd_start_scanning">Start scanning for QR codes using camera</string>
     <string name="cd_choose_from_gallery">Choose QR code image from photo gallery</string>
     <string name="cd_enter_url">Enter URL to analyze</string>
@@ -598,88 +598,5 @@
     
     <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">تحليل الذكاء الاصطناعي</string>
-    <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_reset_game">Reset Game</string>
-    <string name="cd_reset_game">Reset game and start over</string>
-    <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
-    <string name="analysis_brand_title">انتحال العلامة التجارية</string>
-    <string name="analysis_brand_desc">يبدو أن الرابط ينتحل علامة تجارية معروفة.</string>
-    <string name="analysis_brand_desc_specific">يبدو أن الرابط ينتحل %1$s.</string>
-    <string name="analysis_homograph_title">هجوم الحروف المتشابهة</string>
-    <string name="analysis_homograph_desc">تم اكتشاف أحرف نصية مختلطة في اسم النطاق مصممة لانتحال العلامات التجارية المشروعة.</string>
-    <string name="analysis_protocol_title">بروتوكول غير آمن</string>
-    <string name="analysis_protocol_desc">يستخدم الرابط HTTP بدلاً من HTTPS. البيانات غير مشفرة.</string>
-    <string name="analysis_tld_title">نطاق علوي خطر</string>
-    <string name="analysis_tld_desc">يستخدم النطاق امتداداً علوياً مرتبطاً عادةً بالمواقع الضارة.</string>
-    <string name="analysis_tld_desc_specific">امتداد .%1$s شائع الاستخدام في المواقع الضارة.</string>
-    <string name="analysis_ip_host_title">عنوان IP كمضيف</string>
-    <string name="analysis_ip_host_desc">يستخدم الرابط عنوان IP بدلاً من اسم نطاق، وهو أمر غير معتاد للمواقع المشروعة.</string>
-    <string name="analysis_subdomain_title">نطاقات فرعية عميقة</string>
-    <string name="analysis_subdomain_desc">يحتوي الرابط على عدد غير عادي من النطاقات الفرعية، والتي يمكن استخدامها لتضليل المستخدمين.</string>
-    <string name="analysis_credential_title">سرقة بيانات الاعتماد</string>
-    <string name="analysis_credential_desc">يشير مسار الرابط أو معاملاته إلى نشاط سرقة بيانات الاعتماد.</string>
-    <string name="analysis_long_url_title">طول رابط مفرط</string>
-    <string name="analysis_long_url_desc">الرابط طويل بشكل غير عادي، مما يمكن استخدامه لإخفاء الوجهة الفعلية.</string>
-    <string name="analysis_scheme_title">مخطط خطير</string>
-    <string name="analysis_scheme_desc">يستخدم الرابط مخططاً خطيراً يمكنه تنفيذ التعليمات البرمجية.</string>
-    <string name="analysis_safe_title">الرابط آمن</string>
-    <string name="analysis_safe_desc">لم يتم اكتشاف مشاكل أمنية. يبدو أن هذا الرابط آمن للزيارة.</string>
-    <string name="analysis_no_issues">لم يتم اكتشاف مشاكل أمنية.</string>
-    <string name="analysis_at_symbol_title">حقن رمز @</string>
-    <string name="analysis_at_symbol_desc">يحتوي الرابط على رمز @ المستخدم لإخفاء الوجهة الحقيقية.</string>
-    <string name="analysis_suspicious_path_title">مسار مشبوه</string>
-    <string name="analysis_suspicious_path_desc">يحتوي مسار الرابط على كلمات مفتاحية شائعة الاستخدام في التصيد الاحتيالي.</string>
-    <string name="analysis_risky_extension_title">امتداد ملف خطر</string>
-    <string name="analysis_risky_extension_desc">يشير الرابط إلى نوع ملف خطير محتمل.</string>
-    <string name="analysis_entropy_title">نطاق عشوائي</string>
-    <string name="analysis_entropy_desc">يبدو أن النطاق تم إنشاؤه عشوائياً، وهو شائع في التصيد الاحتيالي.</string>
-    <string name="analysis_port_title">منفذ غير عادي</string>
-    <string name="analysis_port_desc">يستخدم الرابط رقم منفذ غير قياسي.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
-    <string name="tag_ip_address">عنوان IP</string>
-    <string name="tag_brand_spoof">انتحال علامة تجارية</string>
-    <string name="tag_insecure">غير آمن</string>
-    <string name="tag_shortener">مختصر روابط</string>
-    <string name="tag_risky_tld">نطاق علوي خطر</string>
-    <string name="tag_suspicious_path">مسار مشبوه</string>
-    <string name="tag_long_url">رابط طويل</string>
-    <string name="tag_at_injection">حقن @</string>
-    <string name="tag_verified_safe">تم التحقق كآمن</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
-    <string name="status_scan_complete">اكتمل الفحص</string>
-    <string name="status_caution_advised">يُنصح بالحذر</string>
-    <string name="status_threat_detected">تم اكتشاف تهديد</string>
-    <string name="status_analysis_complete">اكتمل التحليل</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
-    <string name="meta_analyzed_offline">تم التحليل دون اتصال في أقل من 5 مللي ثانية</string>
-    <string name="meta_no_data_leaves">لا تغادر البيانات الجهاز</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
-    <string name="top_analysis_factors_title">أهم عوامل التحليل</string>
-    <string name="factor_category_https">HTTPS</string>
-    <string name="factor_category_domain">النطاق</string>
-    <string name="factor_category_db_check">فحص قاعدة البيانات</string>
-    <string name="factor_category_heuristics">الاستدلال</string>
-    <string name="factor_category_ml">نتيجة التعلم الآلي</string>
-    <string name="factor_ssl_valid">شهادة SSL صالحة</string>
-    <string name="factor_ssl_valid_desc">الاتصال مشفر. تم التحقق من سلسلة الشهادات.</string>
-    <string name="factor_ssl_missing">لا توجد شهادة SSL</string>
-    <string name="factor_ssl_missing_desc">الاتصال غير مشفر. قد يتم اعتراض البيانات.</string>
-    <string name="factor_ip_address">عنوان IP كمضيف</string>
-    <string name="factor_ip_address_desc">يستخدم الرابط عنوان IP بدلاً من اسم نطاق. غير معتاد للمواقع المشروعة.</string>
-    <string name="factor_domain_check">تحليل النطاق</string>
-    <string name="factor_domain_check_desc">تم تحليل بنية النطاق للكشف عن أنماط التصيد الاحتيالي.</string>
-    <string name="factor_blacklist_clean">حالة القائمة السوداء: نظيف</string>
-    <string name="factor_blacklist_clean_desc">لم يتم العثور عليه في قواعد بيانات التهديدات المحلية.</string>
-    <string name="factor_blacklist_found">حالة القائمة السوداء: موجود</string>
-    <string name="factor_blacklist_found_desc">تم العثور على الرابط في قاعدة بيانات استخبارات التهديدات!</string>
-    <string name="factor_heuristics_title">التحليل الاستدلالي</string>
-    <string name="factor_heuristics_desc">النتيجة: %1$d • تم اكتشاف %2$d إشارة</string>
-    <string name="factor_ml_title">نتيجة التصيد بالتعلم الآلي</string>
-    <string name="factor_ml_desc">ثقة نموذج التعلم الآلي: %1$d%%</string>
+    <string name="beat_the_bot_signals_detected_fmt">تم اكتشاف %1$d إشارة</string>
 </resources>
