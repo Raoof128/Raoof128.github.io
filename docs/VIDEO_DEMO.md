@@ -58,7 +58,7 @@ While waiting for the video, try the **live demo** at:
 - "QR-SHIELD: Offline QR Phishing Detection"
 
 ### 2. Problem Statement (20 seconds)
-- "QRishing attacks increased 587% since 2023"
+- "QRishing attacks increased 587 since 2023"
 - "Existing solutions require cloud = privacy nightmare"
 - "QR-SHIELD is 100% offline, zero data collection"
 

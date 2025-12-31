@@ -18,7 +18,7 @@ QRishing (QR Code Phishing) represents one of the fastest-growing cyber threats.
 
 | Trend | Impact |
 |-------|--------|
-| 587% attack increase since 2023 | Exponential growth in incidents |
+| 587 attack increase since 2023 | Exponential growth in incidents |
 | 71% of users skip URL verification | Low user awareness |
 | Post-COVID QR adoption | Ubiquitous QR trust |
 | Sophisticated brand spoofing | Harder to detect visually |

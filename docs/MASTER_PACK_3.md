@@ -8,7 +8,7 @@
 
 ### Scene 1: Hook (0:00 - 0:05)
 **Visual**: Close-up of phone scanning QR code at coffee shop
-**Text on Screen**: "587% increase in QR phishing attacks"
+**Text on Screen**: "587 increase in QR phishing attacks"
 **Narration**: "QR codes are everywhere. So are the threats."
 
 ### Scene 2: Problem Statement (0:05 - 0:15)

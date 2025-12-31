@@ -473,7 +473,7 @@ echo "✅ All evidence regenerated"
 |-------|------------------|--------|
 | 100% Offline | `./judge/verify_offline.sh` | 0 network calls |
 | <5ms Latency | Performance test | P99 = 1ms |
-| 87% F1 Score | Accuracy test | 119/140 threats blocked |
+| 87 F1 Score | Accuracy test | 119/140 threats blocked |
 | <5% FP Rate | Alexa test | 3% FP on Top 100 |
 | 5 KMP Targets | Build all | Android, iOS, Desktop, JS, Wasm ✅ |
 | 1,248 Tests | Test suite | 100% passing |

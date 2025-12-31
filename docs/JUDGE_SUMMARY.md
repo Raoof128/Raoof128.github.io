@@ -10,7 +10,7 @@
 |----------------|----------|
 | **Privacy-First** | 100% offline, zero data collection, no cloud API calls |
 | **True KMP Usage** | ~80% shared business logic (9,500+ LOC), not just data classes |
-| **Real Problem** | QRishing is a growing threat (+587% since 2023) with limited cross-platform tools |
+| **Real Problem** | QRishing is a growing threat (+587 since 2023) with limited cross-platform tools |
 | **Production Quality** | 89% test coverage, 1,248+ tests, Detekt CI enforcement |
 | **Advanced ML** | Ensemble architecture: Logistic Regression + Gradient Boosting + Decision Rules |
 | **Explainable AI** | 25+ heuristic signals with weighted scores and explanations |
@@ -46,7 +46,7 @@ open https://raoof128.github.io/?demo=true
 | **Shared Code** | ~80% business logic (commonMain) |
 | **Platforms** | 5 (Android, iOS, Desktop, Web JS, Web Wasm) |
 | **Test Coverage** | 89% |
-| **Detection Accuracy** | 87.1% F1 score |
+| **Detection Accuracy** | 87 F1 score |
 | **Security Heuristics** | 25+ |
 | **Unit Tests** | 1,248+ |
 | **Analysis Speed** | <5ms per URL |

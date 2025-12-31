@@ -119,7 +119,7 @@ bias = model.intercept_[0]
 | **Accuracy** | 91.2% | >85% | ✅ |
 | **Precision** | 89.4% | >85% | ✅ |
 | **Recall** | 93.1% | >90% | ✅ |
-| **F1 Score** | 91.2% | >87% | ✅ |
+| **F1 Score** | 91.2% | >87 | ✅ |
 | **AUC-ROC** | 0.94 | >0.90 | ✅ |
 
 ### Confusion Matrix

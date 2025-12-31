@@ -169,7 +169,7 @@ We compared the ML model against heuristics-only detection:
 |--------|-----------------|---------|----------------------|
 | **Precision** | 82.1% | 78.3% | **85.2%** |
 | **Recall** | 71.4% | 85.3% | **89.1%** |
-| **F1 Score** | 76.4% | 81.6% | **87.1%** |
+| **F1 Score** | 76.4% | 81.6% | **87** |
 | **False Positive Rate** | 8.2% | 12.1% | **6.8%** |
 | **False Negative Rate** | 28.6% | 14.7% | **10.9%** |
 

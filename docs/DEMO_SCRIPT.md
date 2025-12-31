@@ -21,7 +21,7 @@
 
 **On-Screen Text**:
 ```
-"587% increase in QR phishing attacks"
+"587 increase in QR phishing attacks"
 — Source: 2024 Cyber Threat Report
 ```
 

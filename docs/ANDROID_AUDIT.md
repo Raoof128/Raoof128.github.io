@@ -15,7 +15,7 @@
 | **Deprecated APIs** | ⚠️ MINOR | Only justified usage: `SandboxWebView.kt` line 362 - WebView deprecated callback (required for API 22 compat) |
 
 ### Issues Fixed During Audit:
-1. **StringFormatInvalid**: Escaped `%` as `%%` in strings containing percentages (e.g., "87% accuracy")
+1. **StringFormatInvalid**: Escaped `%` as `%%` in strings containing percentages (e.g., "87 accuracy")
 2. **MissingTranslation**: Added `beat_the_bot_ai_analysis` and `beat_the_bot_signals_detected_fmt` to all 15 language files
 
 ---

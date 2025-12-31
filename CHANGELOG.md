@@ -4692,7 +4692,7 @@ Comprehensive security audit and production-readiness review of the `desktopApp`
 - **Cleaner nodes**: 3-layer rendering (halo + body + bright core) for distinct particles
 
 #### Android Lint Fixes (19 Errors → 0)
-- **StringFormatInvalid**: Escaped `%` as `%%` in percentage strings (e.g., "87% accuracy")
+- **StringFormatInvalid**: Escaped `%` as `%%` in percentage strings (e.g., "87 accuracy")
   - Fixed in `values/strings.xml`, `values-de/strings.xml`, `values-fr/strings.xml`
 - **MissingTranslation**: Added 2 missing keys to all 15 language files:
   - `beat_the_bot_ai_analysis` 
@@ -8812,7 +8812,7 @@ struct ThreatRadarView: UIViewControllerRepresentable {
 - KMP "write once, deploy everywhere" win
 
 **Removed:**
-- Industry stats ("587% increase")
+- Industry stats ("587 increase")
 - Lengthy "Why KMP" comparison tables
 - Generic "Privacy Problem" diagrams
 
@@ -10975,3 +10975,5 @@ make test-quality      # All quality tests combined
 [1.0.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v1.0.0
 [0.1.0]: https://github.com/Raoof128/Raoof128.github.io/releases/tag/v0.1.0
 ## 
+
+Raouf: normalized '87

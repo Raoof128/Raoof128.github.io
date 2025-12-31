@@ -2,7 +2,7 @@
 
 ## 30-Second Elevator Pitch
 
-> "QRishing attacks have exploded 587% since 2023. Every day, millions of people scan QR codes without thinking twice—at restaurants, parking meters, even in corporate emails. Attackers exploit this trust to steal credentials and install malware.
+> "QRishing attacks have exploded 587 since 2023. Every day, millions of people scan QR codes without thinking twice—at restaurants, parking meters, even in corporate emails. Attackers exploit this trust to steal credentials and install malware.
 >
 > **QR-SHIELD** is the first Kotlin Multiplatform solution protecting users across Android, iOS, Desktop, and Web with a single shared codebase. Our intelligent engine combines 25+ security heuristics, ML-powered scoring, and brand impersonation detection to deliver instant verdicts.
 >
@@ -102,7 +102,7 @@ No data leaves the device. Period. This isn't a feature—it's our architecture.
 - **Security Focus**: Threat model, compliance mapping
 
 ### Real-World Impact
-- Addresses 587% growth in QR attacks
+- Addresses 587 growth in QR attacks
 - Protects users across all devices
 - Privacy-respecting approach
 

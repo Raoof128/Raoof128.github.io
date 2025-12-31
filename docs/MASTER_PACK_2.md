@@ -306,7 +306,7 @@ object QRShieldColors {
 
 ## 30–45 Second Pitch
 
-> **"Every day, millions of people scan QR codes without thinking twice. Attackers know this. QRishing attacks—phishing via QR codes—have exploded 587% since 2023.**
+> **"Every day, millions of people scan QR codes without thinking twice. Attackers know this. QRishing attacks—phishing via QR codes—have exploded 587 since 2023.**
 >
 > **QR-SHIELD is the first Kotlin Multiplatform solution that protects users everywhere—Android, iOS, Desktop, and Web—with a single codebase.**
 >

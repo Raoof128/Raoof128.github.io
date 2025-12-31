@@ -297,7 +297,7 @@ Compare precision/recall before and after your change:
 |--------|--------|-------|--------|
 | Precision | 85.2% | ? | |
 | Recall | 89.1% | ? | |
-| F1 Score | 87.1% | ? | |
+| F1 Score | 87 | ? | |
 
 A good rule should:
 - ✅ Increase or maintain recall (catch more phishing)

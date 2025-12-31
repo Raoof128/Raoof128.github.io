@@ -1,6 +1,6 @@
 # 🛡️ QR-SHIELD
 
-> **Kotlin Multiplatform security app detecting QR phishing attacks entirely offline.** Protects users' privacy (no URL ever leaves device) while achieving 87% F1 score on real phishing samples. One shared detection engine across Android, iOS, Desktop, and Web.
+> **Kotlin Multiplatform security app detecting QR phishing attacks entirely offline.** Protects users' privacy (no URL ever leaves device) while achieving 87 F1 score on real phishing samples. One shared detection engine across Android, iOS, Desktop, and Web.
 
 [![Test Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/Raoof128/Raoof128.github.io/quality-tests.yml?label=tests)](https://github.com/Raoof128/Raoof128.github.io/actions)
@@ -15,7 +15,7 @@
 
 ### The Problem
 
-**QRishing attacks increased 587% since 2023.** Users scan parking meters, restaurant menus, payment terminals—never verifying the URL. My grandmother nearly lost her bank account to a PayPal phishing QR at a parking meter. Existing solutions require cloud APIs, meaning every scanned URL is logged on corporate servers. **Privacy is sacrificed for protection.**
+**QRishing attacks increased 587 since 2023.** Users scan parking meters, restaurant menus, payment terminals—never verifying the URL. My grandmother nearly lost her bank account to a PayPal phishing QR at a parking meter. Existing solutions require cloud APIs, meaning every scanned URL is logged on corporate servers. **Privacy is sacrificed for protection.**
 
 ### The Solution
 
@@ -140,7 +140,7 @@ This runs 4 automated test suites proving:
 |------|----------------|---------|
 | ✅ **Offline Analysis** | Zero network calls | `./judge/verify_offline.sh` |
 | ✅ **Performance** | <5ms P50 latency | `./judge/verify_performance.sh` |
-| ✅ **Accuracy** | 87% F1 score | `./judge/verify_accuracy.sh` |
+| ✅ **Accuracy** | 87 F1 score | `./judge/verify_accuracy.sh` |
 | ✅ **Platform Parity** | Identical verdicts JVM/JS/Native | `./judge/verify_parity.sh` |
 
 <details>
@@ -156,8 +156,8 @@ This runs 4 automated test suites proving:
 2️⃣  Performance (<5ms P50 Latency)
    ✅ PASSED - P50: 0.3ms, P99: 2.1ms (50x better than claim)
 
-3️⃣  Detection Accuracy (87% F1 Score)
-   ✅ PASSED - Precision: 85%, Recall: 89%, F1: 87.1%
+3️⃣  Detection Accuracy (87 F1 Score)
+   ✅ PASSED - Precision: 85%, Recall: 89%, F1: 87
 
 4️⃣  Platform Parity (Identical Verdicts)
    ✅ PASSED - 50 URLs, 100% verdict agreement
@@ -337,7 +337,7 @@ cd qrshield
 |--------|-------|-------|
 | **Precision** | 85.2% | Of URLs flagged, 85.2% are actually phishing |
 | **Recall** | 89.1% | Of actual phishing URLs, 89.1% correctly detected |
-| **F1 Score** | 87.1% | Harmonic mean of precision and recall |
+| **F1 Score** | 87 | Harmonic mean of precision and recall |
 | **False Positive Rate** | 6.8% | Legitimate URLs incorrectly flagged |
 
 *Measured on validation set of 877 URLs. [Full methodology →](docs/ML_MODEL.md) | [Test Dataset (100 URLs) →](data/test_urls.csv)*
@@ -389,7 +389,7 @@ cd qrshield
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
 ![Precision](https://img.shields.io/badge/precision-85.2%25-blue)
 ![Recall](https://img.shields.io/badge/recall-89.1%25-blue)
-![F1 Score](https://img.shields.io/badge/F1-87.1%25-blue)
+![F1 Score](https://img.shields.io/badge/F1-87%25-blue)
 
 ---
 
@@ -1240,7 +1240,7 @@ result.signals.filter { it.triggered }.forEach { signal ->
 // SUSPICIOUS_TLD: +25
 //   Explanation: TLD ".tk" is high-risk
 //   • Risk category: FREE_ABUSED
-//   • Abuse rate: 87%
+//   • Abuse rate: 87
 // ...
 ```
 
@@ -1419,7 +1419,7 @@ fun DesktopResultScreen(assessment: UrlAssessment) {
             <span class="verdict-text">MALICIOUS</span>
         </div>
         <div class="risk-meter">
-            <div class="meter-fill" style="width: 87%"></div>
+            <div class="meter-fill" style="width: 87"></div>
         </div>
         <div class="score">87/100</div>
     </div>
@@ -1835,7 +1835,7 @@ This killer sentence defines our philosophy: **transparency over trust**. Users 
 
 | Statistic | Source |
 |-----------|--------|
-| **587% increase** in QRishing attacks since 2023 | Industry reports |
+| **587 increase** in QRishing attacks since 2023 | Industry reports |
 | **71% of users** never verify URLs after scanning | User behavior studies |
 | **#1 impersonated sector**: Banking & financial services | Phishing trend analysis |
 | **Fastest growing vector**: Corporate email QR codes | Enterprise security research |

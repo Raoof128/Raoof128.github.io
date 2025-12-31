@@ -21,7 +21,7 @@
 
 | Criterion | Evidence | Score Target |
 |-----------|----------|--------------|
-| **Unique Problem** | QR phishing detection—587% attack increase since 2023 | +10 |
+| **Unique Problem** | QR phishing detection—587 attack increase since 2023 | +10 |
 | **Offline-First Architecture** | Zero network calls, [verify_offline.sh](judge/verify_offline.sh) | +10 |
 | **Ensemble ML** | 3 models combined ([EnsembleModel.kt](common/src/commonMain/kotlin/com/qrshield/ml/EnsembleModel.kt)) | +8 |
 | **Dynamic Brand Discovery** | Detects unknown brands via patterns ([DynamicBrandDiscovery.kt](common/src/commonMain/kotlin/com/qrshield/engine/DynamicBrandDiscovery.kt)) | +5 |
@@ -74,7 +74,7 @@ cd qrshield
 |---------|----------------|---------------|
 | `./judge/verify_offline.sh` | Zero network calls | 30s |
 | `./judge/verify_performance.sh` | <5ms P50 latency | 30s |
-| `./judge/verify_accuracy.sh` | 87% F1 score | 30s |
+| `./judge/verify_accuracy.sh` | 87 F1 score | 30s |
 | `./judge/verify_parity.sh` | JVM+JS+Native identical | 2m |
 
 ---

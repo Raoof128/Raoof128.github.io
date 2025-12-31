@@ -47,7 +47,7 @@ cd qrshield
 # Or run individual checks:
 ./judge/verify_offline.sh      # Proves zero network calls
 ./judge/verify_performance.sh  # Proves <5ms latency
-./judge/verify_accuracy.sh     # Proves 87% F1 score
+./judge/verify_accuracy.sh     # Proves 87 F1 score
 ./judge/verify_parity.sh       # Proves cross-platform parity
 ```
 
@@ -91,7 +91,7 @@ cd qrshield
 | **Test Coverage** | 89% | [Kover Report](https://github.com/Raoof128/Raoof128.github.io/actions/workflows/kover.yml) |
 | **Total Tests** | 1,248 | `./gradlew :common:desktopTest` |
 | **Analysis Latency** | <5ms P95 | [BENCHMARKS.md](docs/BENCHMARKS.md) |
-| **Detection Rate** | 87% F1 | [EVALUATION.md](docs/EVALUATION.md) |
+| **Detection Rate** | 87 F1 | [EVALUATION.md](docs/EVALUATION.md) |
 | **False Positive Rate** | <5% | [AlexaTop100FPTest.kt](common/src/commonTest/kotlin/com/qrshield/benchmark/AlexaTop100FPTest.kt) |
 | **Shared Code** | ~11,000 LOC | [SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md) |
 | **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
@@ -132,7 +132,7 @@ If you have limited time, focus on these files:
 ## 🎯 Scoring Quick Reference
 
 ### Creativity & Novelty (40 pts)
-- **QRishing detection** addresses a 587% attack increase
+- **QRishing detection** addresses a 587 attack increase
 - **Offline-first** = privacy is architecture, not feature
 - **Ensemble ML** = 3 models combined (not just API calling)
 - **Explainable** = tells users WHY, not just WHAT

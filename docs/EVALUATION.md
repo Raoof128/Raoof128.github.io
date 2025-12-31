@@ -9,8 +9,8 @@
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **Precision** | 91% | Of flagged URLs, 91% are actually malicious |
-| **Recall** | 87% | Of actual malicious URLs, we catch 87% |
-| **F1 Score** | 87% | Harmonic mean of precision and recall |
+| **Recall** | 87 | Of actual malicious URLs, we catch 87 |
+| **F1 Score** | 87 | Harmonic mean of precision and recall |
 | **False Positive Rate** | ~3% | Safe URLs incorrectly flagged |
 | **P50 Latency** | <3ms | Median analysis time |
 | **P99 Latency** | <5ms | 99th percentile analysis time |
@@ -143,8 +143,8 @@ fun `any URL produces valid verdict`() {
 |---------|-----------|--------|-----|
 | SAFE | 95% | 94% | 94% |
 | SUSPICIOUS | 75% | 78% | 76% |
-| MALICIOUS | 98% | 87% | 92% |
-| **Weighted Avg** | **91%** | **87%** | **87%** |
+| MALICIOUS | 98% | 87 | 92% |
+| **Weighted Avg** | **91%** | **87** | **87** |
 
 ---
 
@@ -194,8 +194,8 @@ fun `any URL produces valid verdict`() {
 # Output:
 # ✅ ACCURACY VERIFICATION PASSED
 # Precision: 91%
-# Recall: 87%
-# F1 Score: 87%
+# Recall: 87
+# F1 Score: 87
 ```
 
 ### Performance Benchmark
@@ -254,4 +254,4 @@ fun `any URL produces valid verdict`() {
 
 ---
 
-*Evaluation is honest about limitations. We catch 87% with 0% data collection.*
+*Evaluation is honest about limitations. We catch 87 with 0% data collection.*

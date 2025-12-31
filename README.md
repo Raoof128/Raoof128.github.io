@@ -23,7 +23,7 @@
   <img src="https://img.shields.io/badge/Privacy-Zero_Data-blue" alt="Privacy">
   <img src="https://img.shields.io/badge/Tests-1,248+-brightgreen" alt="Tests">
   <img src="https://img.shields.io/badge/Coverage-89%25-brightgreen" alt="Coverage">
-  <img src="https://img.shields.io/badge/F1_Score-87.1%25-brightgreen" alt="F1 Score">
+  <img src="https://img.shields.io/badge/F1_Score-87%25-brightgreen" alt="F1 Score">
   <img src="https://img.shields.io/badge/Languages-16-blueviolet" alt="Languages">
   <img src="https://img.shields.io/badge/License-Apache_2.0-purple" alt="License">
 </p>
@@ -44,7 +44,7 @@
 
 ## 🎯 The Problem We Solve
 
-**QRishing attacks increased 587% since 2023.** Users scan parking meters, restaurant menus, payment terminals—trusting the code without checking the URL. When they land on `paypa1-secure.tk`, it's already too late.
+**QRishing attacks increased 587 since 2023.** Users scan parking meters, restaurant menus, payment terminals—trusting the code without checking the URL. When they land on `paypa1-secure.tk`, it's already too late.
 
 **Existing solutions fail because:**
 - 🔴 Cloud scanners log every URL you scan (privacy nightmare)
@@ -264,7 +264,7 @@ class EnsembleModel {
 
 | Metric | QR-SHIELD | Target |
 |--------|-----------|--------|
-| **F1 Score** | 87.1% | 85% |
+| **F1 Score** | 87 | 85% |
 | **Recall** | 89.1% | 85% |
 | **Precision** | 85.2% | 85% |
 | **False Positive Rate** | 0% MALICIOUS on Alexa Top 100 | 0% |
@@ -363,7 +363,7 @@ class EnsembleModel {
 # Individual verifications
 ./judge/verify_offline.sh     # Zero network calls
 ./judge/verify_performance.sh # <5ms P50 latency
-./judge/verify_accuracy.sh    # 87% F1 score
+./judge/verify_accuracy.sh    # 87 F1 score
 ./judge/verify_parity.sh      # Identical on all platforms
 ```
 
@@ -447,6 +447,6 @@ See [LICENSE](LICENSE) for full text.
   <img src="qr-shield-iconset/QR-SHIELD.iconset/icon_128x128.png" alt="QR-SHIELD Icon" width="64">
   <br><br>
   <b>🛡️ QR-SHIELD</b><br>
-  <i>Kotlin Multiplatform • 5 Platforms • 100% Offline • 87% F1 Score</i><br><br>
+  <i>Kotlin Multiplatform • 5 Platforms • 100% Offline • 87 F1 Score</i><br><br>
   <b>Scan smart. Stay protected.</b>
 </p>
