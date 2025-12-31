@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.web.i18n
 
 internal val TurkishStrings = mapOf(
-    WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppName to "Mehr Guard",
     WebStringKey.AppTagline to "Kotlin Multiplatform QRishing Dedektörü",
     WebStringKey.MenuMain to "Ana Menü",
     WebStringKey.MenuSecurity to "Güvenlik",
@@ -18,7 +18,7 @@ internal val TurkishStrings = mapOf(
     // Hero Section
     WebStringKey.HeroTagline to "Güvenli. Çevrimdışı.",
     WebStringKey.HeroTagline2 to "Açıklanabilir Savunma.",
-    WebStringKey.HeroDescription to "QR-SHIELD potansiyel tehditleri doğrudan donanımınızda analiz eder. Sıfır gecikme korumasını deneyimleyin.",
+    WebStringKey.HeroDescription to "Mehr Guard potansiyel tehditleri doğrudan donanımınızda analiz eder. Sıfır gecikme korumasını deneyimleyin.",
 
     // Dashboard
     WebStringKey.StartScan to "Yeni Tarama Başlat",
@@ -48,7 +48,7 @@ internal val TurkishStrings = mapOf(
     // Trust Centre
     WebStringKey.TrustCentreTitle to "Güven Merkezi",
     WebStringKey.OfflineGuarantee to "Katı Çevrimdışı Garantisi",
-    WebStringKey.OfflineGuaranteeDesc to "QR-SHIELD analizi tamamen cihazınızın Neural Engine'inde çalışır. URL verileri asla telefonunuzdan çıkmaz.",
+    WebStringKey.OfflineGuaranteeDesc to "Mehr Guard analizi tamamen cihazınızın Neural Engine'inde çalışır. URL verileri asla telefonunuzdan çıkmaz.",
     WebStringKey.ThreatSensitivity to "Tehdit Hassasiyeti",
     WebStringKey.ResetConfirm to "Bu, tüm Güven Merkezi ayarlarını varsayılanlara sıfırlayacaktır.",
 
@@ -202,7 +202,7 @@ internal val TurkishStrings = mapOf(
     WebStringKey.Points to "puan",
     WebStringKey.Streak to "Seri",
     WebStringKey.Accuracy to "Doğruluk",
-    WebStringKey.QrShieldBot to "QR-Shield Bot",
+    WebStringKey.QrShieldBot to "Mehr Guard Bot",
     WebStringKey.Confidence to "Güven",
     WebStringKey.RoundAnalysis to "Tur Analizi",
     WebStringKey.Analysis to "Analiz",
@@ -320,7 +320,7 @@ internal val TurkishStrings = mapOf(
     WebStringKey.ShareDetectionStats to "Tespit istatistiklerini paylaş",
     WebStringKey.AutoCopySafeLinks to "Güvenli bağlantıları otomatik kopyala",
     WebStringKey.CopyTrustedUrls to "Güvenilir URL'leri kopyala",
-    WebStringKey.AboutQrShield to "QR-SHIELD Hakkında",
+    WebStringKey.AboutQrShield to "Mehr Guard Hakkında",
     WebStringKey.OpenSourceLicenses to "Açık Kaynak Lisansları",
     WebStringKey.PrivacyPolicy to "Gizlilik Politikası",
     WebStringKey.Acknowledgements to "Teşekkürler",
@@ -338,14 +338,14 @@ internal val TurkishStrings = mapOf(
     WebStringKey.OnDeviceDBDesc to "Tam tehdit imza DB'si",
     WebStringKey.DataLifecycleVerification to "Veri Yaşam Döngüsü Doğrulama",
     WebStringKey.SecurityAuditPass to "Güvenlik Denetimi: GEÇTİ",
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc.",
+    WebStringKey.Copyright to "© 2024 Mehr Guard Security Inc.",
     WebStringKey.Support to "Destek",
     WebStringKey.Terms to "Koşullar",
     WebStringKey.SystemsOperational to "Sistemler Çalışıyor",
     WebStringKey.SystemSecure to "Sistem Güvenli",
     WebStringKey.VersionStatus to "v2.4.1 • Sistem Güvenli",
     WebStringKey.CoreVersion to "Core v2.4.1 • Build 2024.12.19",
-    WebStringKey.VerifiedBy to "QR-SHIELD Enterprise tarafından doğrulandı",
+    WebStringKey.VerifiedBy to "Mehr Guard Enterprise tarafından doğrulandı",
     WebStringKey.SampleUserName to "Ahmet Yılmaz",
     WebStringKey.SampleUserRole to "Güvenlik Analisti",
     WebStringKey.DetailLabel to "Detay Etiketi",
@@ -469,7 +469,7 @@ internal val TurkishCommonStrings = mapOf(
     "Copy Safe Link" to "Güvenli Bağlantıyı Kopyala",
     "Export Report" to "Raporu Dışa Aktar",
     "Dashboard" to "Gösterge Paneli",
-    "QR-SHIELD" to "QR-SHIELD",
+    "Mehr Guard" to "Mehr Guard",
     "Settings" to "Ayarlar",
     "Language" to "Dil",
     "Training Centre" to "Eğitim Merkezi",

@@ -59,7 +59,7 @@ enum class WebLanguage(val code: String) {
 }
 
 enum class WebStringKey(val defaultText: String) {
-    AppName("QR-SHIELD"),
+    AppName("Mehr Guard"),
     AppTagline("Kotlin Multiplatform QRishing Detector"),
     
     // Navigation
@@ -78,7 +78,7 @@ enum class WebStringKey(val defaultText: String) {
     // Hero Section
     HeroTagline("Secure. Offline."),
     HeroTagline2("Explainable Defence."),
-    HeroDescription("QR-SHIELD analyses potential threats directly on your hardware. Experience zero-latency protection."),
+    HeroDescription("Mehr Guard analyses potential threats directly on your hardware. Experience zero-latency protection."),
     
     // Dashboard Actions
     StartScan("Start New Scan"),
@@ -112,7 +112,7 @@ enum class WebStringKey(val defaultText: String) {
     // Trust Centre
     TrustCentreTitle("Trust Centre"),
     OfflineGuarantee("Strict Offline Guarantee"),
-    OfflineGuaranteeDesc("QR-SHIELD analysis runs entirely on your device's Neural Engine. No URL data ever leaves your phone."),
+    OfflineGuaranteeDesc("Mehr Guard analysis runs entirely on your device's Neural Engine. No URL data ever leaves your phone."),
     ThreatSensitivity("Threat Sensitivity"),
     ResetConfirm("This will reset all Trust Centre settings to their defaults."),
     
@@ -269,7 +269,7 @@ enum class WebStringKey(val defaultText: String) {
     Points("pts"),
     Streak("Streak"),
     Accuracy("Accuracy"),
-    QrShieldBot("QR-Shield Bot"),
+    QrShieldBot("Mehr Guard Bot"),
     Confidence("Confidence"),
     RoundAnalysis("Round Analysis"),
     Analysis("Analysis"),
@@ -411,7 +411,7 @@ enum class WebStringKey(val defaultText: String) {
     CopyTrustedUrls("Copy trusted URLs to clipboard."),
     
     // Trust Centre - About
-    AboutQrShield("About QR-SHIELD"),
+    AboutQrShield("About Mehr Guard"),
     OpenSourceLicenses("Open Source Licenses"),
     PrivacyPolicy("Privacy Policy"),
     Acknowledgements("Acknowledgements"),
@@ -422,7 +422,7 @@ enum class WebStringKey(val defaultText: String) {
     // Onboarding
     AnalysedOfflineTitle("Analysed offline."),
     YourDataStaysOnDevice("Your data stays on-device."),
-    OnboardingHeroDesc("QR-SHIELD processes every scan using secure on-device analysis. We prioritize explainable security with zero cloud telemetry for image analysis."),
+    OnboardingHeroDesc("Mehr Guard processes every scan using secure on-device analysis. We prioritize explainable security with zero cloud telemetry for image analysis."),
     OnDeviceAnalysis("On-Device Analysis"),
     OnDeviceAnalysisDesc("All threat detection runs locally on your device. No data ever leaves your system."),
     NoCloudLogs("No Cloud Logs"),
@@ -433,7 +433,7 @@ enum class WebStringKey(val defaultText: String) {
     SecurityAuditPass("Security Audit: PASS"),
     
     // Footer
-    Copyright("© 2025-2026 QR-SHIELD Security Inc. All rights reserved."),
+    Copyright("© 2025-2026 Mehr Guard Security Inc. All rights reserved."),
     Support("Support"),
     Terms("Terms"),
     SystemsOperational("Systems Operational"),
@@ -442,7 +442,7 @@ enum class WebStringKey(val defaultText: String) {
     // Version / Build Info
     VersionStatus("v2.4.1 • System Secure"),
     CoreVersion("Core v2.4.1 • Build 2025.12.29"),
-    VerifiedBy("Verified by QR-SHIELD Enterprise"),
+    VerifiedBy("Verified by Mehr Guard Enterprise"),
     
     // User Profile (Sample)
     SampleUserName("John Smith"),

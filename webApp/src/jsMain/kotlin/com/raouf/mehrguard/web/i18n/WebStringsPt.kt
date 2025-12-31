@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.web.i18n
 
 internal val PortugueseStrings = mapOf(
-    WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppName to "Mehr Guard",
     WebStringKey.AppTagline to "Detector de QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "Menu Principal",
     WebStringKey.MenuSecurity to "Segurança",
@@ -18,7 +18,7 @@ internal val PortugueseStrings = mapOf(
     // Hero Section
     WebStringKey.HeroTagline to "Seguro. Offline.",
     WebStringKey.HeroTagline2 to "Defesa Explicável.",
-    WebStringKey.HeroDescription to "QR-SHIELD analisa ameaças potenciais diretamente no seu hardware. Experimente proteção com latência zero.",
+    WebStringKey.HeroDescription to "Mehr Guard analisa ameaças potenciais diretamente no seu hardware. Experimente proteção com latência zero.",
 
     // Dashboard
     WebStringKey.StartScan to "Iniciar Nova Varredura",
@@ -48,7 +48,7 @@ internal val PortugueseStrings = mapOf(
     // Trust Centre
     WebStringKey.TrustCentreTitle to "Central de Confiança",
     WebStringKey.OfflineGuarantee to "Garantia Offline Rigorosa",
-    WebStringKey.OfflineGuaranteeDesc to "A análise do QR-SHIELD é executada inteiramente no Neural Engine do seu dispositivo. Os dados de URL nunca saem do seu telefone.",
+    WebStringKey.OfflineGuaranteeDesc to "A análise do Mehr Guard é executada inteiramente no Neural Engine do seu dispositivo. Os dados de URL nunca saem do seu telefone.",
     WebStringKey.ThreatSensitivity to "Sensibilidade a Ameaças",
     WebStringKey.ResetConfirm to "Isso redefinirá todas as configurações da Central de Confiança para os padrões.",
 
@@ -205,7 +205,7 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.Points to "pt",
     WebStringKey.Streak to "Sequência",
     WebStringKey.Accuracy to "Precisão",
-    WebStringKey.QrShieldBot to "Bot QR-Shield",
+    WebStringKey.QrShieldBot to "Bot Mehr Guard",
     WebStringKey.Confidence to "Confiança",
     WebStringKey.RoundAnalysis to "Análise da Rodada",
     WebStringKey.Analysis to "Análise",
@@ -347,7 +347,7 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "Copiar URLs confiáveis para a área de transferência.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "Sobre o QR-SHIELD",
+    WebStringKey.AboutQrShield to "Sobre o Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Licenças de Código Aberto",
     WebStringKey.PrivacyPolicy to "Política de Privacidade",
     WebStringKey.Acknowledgements to "Agradecimentos",
@@ -358,7 +358,7 @@ internal val PortugueseStrings = mapOf(
     // Onboarding
     WebStringKey.AnalysedOfflineTitle to "Analisado offline.",
     WebStringKey.YourDataStaysOnDevice to "Seus dados ficam no dispositivo.",
-    WebStringKey.OnboardingHeroDesc to "QR-SHIELD processa cada varredura com análise segura no dispositivo. Priorizamos segurança explicável sem telemetria na nuvem.",
+    WebStringKey.OnboardingHeroDesc to "Mehr Guard processa cada varredura com análise segura no dispositivo. Priorizamos segurança explicável sem telemetria na nuvem.",
     WebStringKey.OnDeviceAnalysis to "Análise no Dispositivo",
     WebStringKey.OnDeviceAnalysisDesc to "Toda a detecção de ameaças é executada localmente no seu dispositivo. Nenhum dado sai do seu sistema.",
     WebStringKey.NoCloudLogs to "Sem Logs na Nuvem",
@@ -369,7 +369,7 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.SecurityAuditPass to "Auditoria de Segurança: APROVADA",
     
     // Footer
-    WebStringKey.Copyright to "© 2025-2026 QR-SHIELD Security Inc. Todos os direitos reservados.",
+    WebStringKey.Copyright to "© 2025-2026 Mehr Guard Security Inc. Todos os direitos reservados.",
     WebStringKey.Support to "Suporte",
     WebStringKey.Terms to "Termos",
     WebStringKey.SystemsOperational to "Sistemas Operacionais",
@@ -378,7 +378,7 @@ internal val PortugueseStrings = mapOf(
     // Version / Build Info
     WebStringKey.VersionStatus to "v2.4.1 • Sistema Seguro",
     WebStringKey.CoreVersion to "Core v2.4.1 • Build 2025.12.29",
-    WebStringKey.VerifiedBy to "Verificado por QR-SHIELD Enterprise",
+    WebStringKey.VerifiedBy to "Verificado por Mehr Guard Enterprise",
     
     // User Profile (Sample)
     WebStringKey.SampleUserName to "João Silva",

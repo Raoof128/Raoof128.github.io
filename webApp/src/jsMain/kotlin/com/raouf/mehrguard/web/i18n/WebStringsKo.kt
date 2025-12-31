@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.web.i18n
 
 internal val KoreanStrings = mapOf(
-    WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppName to "Mehr Guard",
     WebStringKey.AppTagline to "Kotlin 멀티플랫폼 QRishing 탐지기",
     WebStringKey.MenuMain to "메인 메뉴",
     WebStringKey.MenuSecurity to "보안",
@@ -18,7 +18,7 @@ internal val KoreanStrings = mapOf(
     // Hero Section
     WebStringKey.HeroTagline to "안전. 오프라인.",
     WebStringKey.HeroTagline2 to "설명 가능한 방어.",
-    WebStringKey.HeroDescription to "QR-SHIELD는 하드웨어에서 직접 잠재적 위협을 분석합니다. 제로 레이턴시 보호를 경험하세요.",
+    WebStringKey.HeroDescription to "Mehr Guard는 하드웨어에서 직접 잠재적 위협을 분석합니다. 제로 레이턴시 보호를 경험하세요.",
 
     // Dashboard
     WebStringKey.StartScan to "새 스캔 시작",
@@ -48,7 +48,7 @@ internal val KoreanStrings = mapOf(
     // Trust Centre
     WebStringKey.TrustCentreTitle to "신뢰 센터",
     WebStringKey.OfflineGuarantee to "엄격한 오프라인 보장",
-    WebStringKey.OfflineGuaranteeDesc to "QR-SHIELD 분석은 기기의 Neural Engine에서 완전히 실행됩니다. URL 데이터는 절대 휴대폰을 떠나지 않습니다.",
+    WebStringKey.OfflineGuaranteeDesc to "Mehr Guard 분석은 기기의 Neural Engine에서 완전히 실행됩니다. URL 데이터는 절대 휴대폰을 떠나지 않습니다.",
     WebStringKey.ThreatSensitivity to "위협 민감도",
     WebStringKey.ResetConfirm to "신뢰 센터 설정이 기본값으로 재설정됩니다.",
 
@@ -202,7 +202,7 @@ internal val KoreanStrings = mapOf(
     WebStringKey.Points to "포인트",
     WebStringKey.Streak to "연속",
     WebStringKey.Accuracy to "정확도",
-    WebStringKey.QrShieldBot to "QR-Shield 봇",
+    WebStringKey.QrShieldBot to "Mehr Guard 봇",
     WebStringKey.Confidence to "신뢰도",
     WebStringKey.RoundAnalysis to "라운드 분석",
     WebStringKey.Analysis to "분석",
@@ -320,7 +320,7 @@ internal val KoreanStrings = mapOf(
     WebStringKey.ShareDetectionStats to "탐지 통계 공유",
     WebStringKey.AutoCopySafeLinks to "안전한 링크 자동 복사",
     WebStringKey.CopyTrustedUrls to "신뢰할 수 있는 URL 복사",
-    WebStringKey.AboutQrShield to "QR-SHIELD 정보",
+    WebStringKey.AboutQrShield to "Mehr Guard 정보",
     WebStringKey.OpenSourceLicenses to "오픈 소스 라이선스",
     WebStringKey.PrivacyPolicy to "개인정보 처리방침",
     WebStringKey.Acknowledgements to "감사의 글",
@@ -338,14 +338,14 @@ internal val KoreanStrings = mapOf(
     WebStringKey.OnDeviceDBDesc to "전체 위협 서명 DB",
     WebStringKey.DataLifecycleVerification to "데이터 수명 주기 검증",
     WebStringKey.SecurityAuditPass to "보안 감사: 통과",
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc.",
+    WebStringKey.Copyright to "© 2024 Mehr Guard Security Inc.",
     WebStringKey.Support to "지원",
     WebStringKey.Terms to "이용약관",
     WebStringKey.SystemsOperational to "시스템 가동 중",
     WebStringKey.SystemSecure to "시스템 안전",
     WebStringKey.VersionStatus to "v2.4.1 • 시스템 안전",
     WebStringKey.CoreVersion to "Core v2.4.1 • Build 2024.12.19",
-    WebStringKey.VerifiedBy to "QR-SHIELD Enterprise 인증",
+    WebStringKey.VerifiedBy to "Mehr Guard Enterprise 인증",
     WebStringKey.SampleUserName to "김철수",
     WebStringKey.SampleUserRole to "보안 분석가",
     WebStringKey.DetailLabel to "상세 라벨",

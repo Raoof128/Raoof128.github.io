@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.web.i18n
 
 internal val IndonesianStrings = mapOf(
-    WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppName to "Mehr Guard",
     WebStringKey.AppTagline to "Detektor QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "Menu Utama",
     WebStringKey.MenuSecurity to "Keamanan",
@@ -18,7 +18,7 @@ internal val IndonesianStrings = mapOf(
     // Hero Section
     WebStringKey.HeroTagline to "Aman. Offline.",
     WebStringKey.HeroTagline2 to "Pertahanan Transparan.",
-    WebStringKey.HeroDescription to "QR-SHIELD menganalisis ancaman potensial langsung di perangkat keras Anda. Nikmati perlindungan tanpa latensi.",
+    WebStringKey.HeroDescription to "Mehr Guard menganalisis ancaman potensial langsung di perangkat keras Anda. Nikmati perlindungan tanpa latensi.",
 
     // Dashboard
     WebStringKey.StartScan to "Mulai Pemindaian Baru",
@@ -48,7 +48,7 @@ internal val IndonesianStrings = mapOf(
     // Trust Centre
     WebStringKey.TrustCentreTitle to "Pusat Kepercayaan",
     WebStringKey.OfflineGuarantee to "Jaminan Offline Ketat",
-    WebStringKey.OfflineGuaranteeDesc to "Analisis QR-SHIELD berjalan sepenuhnya di Neural Engine perangkat Anda. Data URL tidak pernah meninggalkan ponsel Anda.",
+    WebStringKey.OfflineGuaranteeDesc to "Analisis Mehr Guard berjalan sepenuhnya di Neural Engine perangkat Anda. Data URL tidak pernah meninggalkan ponsel Anda.",
     WebStringKey.ThreatSensitivity to "Sensitivitas Ancaman",
     WebStringKey.ResetConfirm to "Ini akan mengatur ulang semua pengaturan Pusat Kepercayaan ke default.",
     
@@ -203,7 +203,7 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.Points to "poin",
     WebStringKey.Streak to "Beruntun",
     WebStringKey.Accuracy to "Akurasi",
-    WebStringKey.QrShieldBot to "Bot QR-Shield",
+    WebStringKey.QrShieldBot to "Bot Mehr Guard",
     WebStringKey.Confidence to "Kepercayaan",
     WebStringKey.RoundAnalysis to "Analisis Ronde",
     WebStringKey.Analysis to "Analisis",
@@ -321,7 +321,7 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.ShareDetectionStats to "Bagikan statistik deteksi.",
     WebStringKey.AutoCopySafeLinks to "Salin Otomatis Tautan Aman",
     WebStringKey.CopyTrustedUrls to "Salin URL terpercaya.",
-    WebStringKey.AboutQrShield to "Tentang QR-SHIELD",
+    WebStringKey.AboutQrShield to "Tentang Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Lisensi Open Source",
     WebStringKey.PrivacyPolicy to "Kebijakan Privasi",
     WebStringKey.Acknowledgements to "Pengakuan",
@@ -330,7 +330,7 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.AddToBlocklist to "Tambah ke Daftar Blokir",
     WebStringKey.AnalysedOfflineTitle to "Dianalisis offline.",
     WebStringKey.YourDataStaysOnDevice to "Data Anda tetap di perangkat.",
-    WebStringKey.OnboardingHeroDesc to "QR-SHIELD memproses setiap pemindaian dengan analisis aman di perangkat.",
+    WebStringKey.OnboardingHeroDesc to "Mehr Guard memproses setiap pemindaian dengan analisis aman di perangkat.",
     WebStringKey.OnDeviceAnalysis to "Analisis Di Perangkat",
     WebStringKey.OnDeviceAnalysisDesc to "Semua deteksi ancaman berjalan lokal.",
     WebStringKey.NoCloudLogs to "Tanpa Log Cloud",
@@ -339,14 +339,14 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.OnDeviceDBDesc to "Database tanda tangan ancaman lengkap.",
     WebStringKey.DataLifecycleVerification to "Verifikasi Siklus Hidup Data",
     WebStringKey.SecurityAuditPass to "Audit Keamanan: LULUS",
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc.",
+    WebStringKey.Copyright to "© 2024 Mehr Guard Security Inc.",
     WebStringKey.Support to "Dukungan",
     WebStringKey.Terms to "Ketentuan",
     WebStringKey.SystemsOperational to "Sistem Beroperasi",
     WebStringKey.SystemSecure to "Sistem Aman",
     WebStringKey.VersionStatus to "v2.4.1 • Sistem Aman",
     WebStringKey.CoreVersion to "Core v2.4.1 • Build 2025.12.29",
-    WebStringKey.VerifiedBy to "Diverifikasi oleh QR-SHIELD Enterprise",
+    WebStringKey.VerifiedBy to "Diverifikasi oleh Mehr Guard Enterprise",
     WebStringKey.SampleUserName to "Budi Santoso",
     WebStringKey.SampleUserRole to "Analis Keamanan",
     WebStringKey.DetailLabel to "Label Detail",

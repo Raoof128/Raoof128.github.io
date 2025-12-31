@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.web.i18n
 
 internal val ThaiStrings = mapOf(
-    WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppName to "Mehr Guard",
     WebStringKey.AppTagline to "ตัวตรวจจับ QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "เมนูหลัก",
     WebStringKey.MenuSecurity to "ความปลอดภัย",
@@ -18,7 +18,7 @@ internal val ThaiStrings = mapOf(
     // Hero Section
     WebStringKey.HeroTagline to "ปลอดภัย. ออฟไลน์.",
     WebStringKey.HeroTagline2 to "การป้องกันที่อธิบายได้.",
-    WebStringKey.HeroDescription to "QR-SHIELD วิเคราะห์ภัยคุกคามที่อาจเกิดขึ้นโดยตรงบนฮาร์ดแวร์ของคุณ สัมผัสการป้องกันที่ไม่มีความหน่วง",
+    WebStringKey.HeroDescription to "Mehr Guard วิเคราะห์ภัยคุกคามที่อาจเกิดขึ้นโดยตรงบนฮาร์ดแวร์ของคุณ สัมผัสการป้องกันที่ไม่มีความหน่วง",
 
     // Dashboard
     WebStringKey.StartScan to "เริ่มการสแกนใหม่",
@@ -48,7 +48,7 @@ internal val ThaiStrings = mapOf(
     // Trust Centre
     WebStringKey.TrustCentreTitle to "ศูนย์ความน่าเชื่อถือ",
     WebStringKey.OfflineGuarantee to "การรับประกันออฟไลน์อย่างเข้มงวด",
-    WebStringKey.OfflineGuaranteeDesc to "การวิเคราะห์ QR-SHIELD ทำงานทั้งหมดบน Neural Engine ของอุปกรณ์ ข้อมูล URL ไม่เคยออกจากโทรศัพท์ของคุณ",
+    WebStringKey.OfflineGuaranteeDesc to "การวิเคราะห์ Mehr Guard ทำงานทั้งหมดบน Neural Engine ของอุปกรณ์ ข้อมูล URL ไม่เคยออกจากโทรศัพท์ของคุณ",
     WebStringKey.ThreatSensitivity to "ความไวต่อภัยคุกคาม",
     WebStringKey.ResetConfirm to "การดำเนินการนี้จะรีเซ็ตการตั้งค่าศูนย์ความน่าเชื่อถือทั้งหมดเป็นค่าเริ่มต้น",
 
@@ -202,7 +202,7 @@ internal val ThaiStrings = mapOf(
     WebStringKey.Points to "คะแนน",
     WebStringKey.Streak to "ต่อเนื่อง",
     WebStringKey.Accuracy to "ความแม่นยำ",
-    WebStringKey.QrShieldBot to "QR-Shield บอท",
+    WebStringKey.QrShieldBot to "Mehr Guard บอท",
     WebStringKey.Confidence to "ความมั่นใจ",
     WebStringKey.RoundAnalysis to "การวิเคราะห์รอบ",
     WebStringKey.Analysis to "การวิเคราะห์",
@@ -320,7 +320,7 @@ internal val ThaiStrings = mapOf(
     WebStringKey.ShareDetectionStats to "แชร์สถิติการตรวจจับ",
     WebStringKey.AutoCopySafeLinks to "คัดลอกลิงก์ที่ปลอดภัยอัตโนมัติ",
     WebStringKey.CopyTrustedUrls to "คัดลอก URL ที่เชื่อถือได้",
-    WebStringKey.AboutQrShield to "เกี่ยวกับ QR-SHIELD",
+    WebStringKey.AboutQrShield to "เกี่ยวกับ Mehr Guard",
     WebStringKey.OpenSourceLicenses to "ใบอนุญาตโอเพนซอร์ส",
     WebStringKey.PrivacyPolicy to "นโยบายความเป็นส่วนตัว",
     WebStringKey.Acknowledgements to "กิตติกรรมประกาศ",
@@ -338,14 +338,14 @@ internal val ThaiStrings = mapOf(
     WebStringKey.OnDeviceDBDesc to "ฐานข้อมูลลายเซ็นภัยคุกคามฉบับเต็ม",
     WebStringKey.DataLifecycleVerification to "การตรวจสอบวงจรชีวิตข้อมูล",
     WebStringKey.SecurityAuditPass to "การตรวจสอบความปลอดภัย: ผ่าน",
-    WebStringKey.Copyright to "© 2025-2026 QR-SHIELD Security Inc.",
+    WebStringKey.Copyright to "© 2025-2026 Mehr Guard Security Inc.",
     WebStringKey.Support to "สนับสนุน",
     WebStringKey.Terms to "เงื่อนไข",
     WebStringKey.SystemsOperational to "ระบบทำงาน",
     WebStringKey.SystemSecure to "ระบบปลอดภัย",
     WebStringKey.VersionStatus to "v2.4.1 • ระบบปลอดภัย",
     WebStringKey.CoreVersion to "Core v2.4.1 • Build 2024.12.19",
-    WebStringKey.VerifiedBy to "ยืนยันโดย QR-SHIELD Enterprise",
+    WebStringKey.VerifiedBy to "ยืนยันโดย Mehr Guard Enterprise",
     WebStringKey.SampleUserName to "สมชาย ใจดี",
     WebStringKey.SampleUserRole to "นักวิเคราะห์ความปลอดภัย",
     WebStringKey.DetailLabel to "ป้ายกำกับรายละเอียด",
@@ -469,7 +469,7 @@ internal val ThaiCommonStrings = mapOf(
     "Copy Safe Link" to "คัดลอกลิงก์ที่ปลอดภัย",
     "Export Report" to "ส่งออกรายงาน",
     "Dashboard" to "แดชบอร์ด",
-    "QR-SHIELD" to "QR-SHIELD",
+    "Mehr Guard" to "Mehr Guard",
     "Settings" to "การตั้งค่า",
     "Language" to "ภาษา",
     "Training Centre" to "ศูนย์ฝึกอบรม",

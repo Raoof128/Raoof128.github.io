@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ import org.w3c.dom.Node
 import org.w3c.dom.events.Event
 
 /**
- * QR-SHIELD Web Application
+ * Mehr Guard Web Application
  *
  * Kotlin/JS implementation that runs the PhishingEngine entirely in the browser.
  * Demonstrates true cross-platform code sharing with the common module.
  * All analysis happens client-side - no data leaves the browser.
  */
 fun main() {
-    console.log("🛡️ QR-SHIELD Web loaded - Kotlin/JS initialized")
+    console.log("🛡️ Mehr Guard Web loaded - Kotlin/JS initialized")
 
     // Initialize PhishingEngine - same code as Android, iOS, and Desktop
     val engine = PhishingEngine()
@@ -313,7 +313,7 @@ fun main() {
     initializeLocalization()
 
     // Log ready status
-    console.log("🚀 QR-SHIELD Web is ready!")
+    console.log("🚀 Mehr Guard Web is ready!")
     console.log("   • Heuristic analysis: ✓")
     console.log("   • ML scoring: ✓")
     console.log("   • Brand detection: ✓")

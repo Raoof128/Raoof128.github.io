@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.web.i18n
 
 internal val ArabicStrings = mapOf(
-    WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppName to "Mehr Guard",
     WebStringKey.AppTagline to "كاشف التصيد عبر QR متعدد المنصات",
     WebStringKey.MenuMain to "القائمة الرئيسية",
     WebStringKey.MenuSecurity to "الأمان",
@@ -18,7 +18,7 @@ internal val ArabicStrings = mapOf(
     // Hero Section
     WebStringKey.HeroTagline to "آمن. غير متصل.",
     WebStringKey.HeroTagline2 to "دفاع قابل للتفسير.",
-    WebStringKey.HeroDescription to "يحلل QR-SHIELD التهديدات المحتملة مباشرة على جهازك. استمتع بحماية بدون تأخير.",
+    WebStringKey.HeroDescription to "يحلل Mehr Guard التهديدات المحتملة مباشرة على جهازك. استمتع بحماية بدون تأخير.",
 
     // Dashboard
     WebStringKey.StartScan to "بدء مسح جديد",
@@ -48,7 +48,7 @@ internal val ArabicStrings = mapOf(
     // Trust Centre
     WebStringKey.TrustCentreTitle to "مركز الثقة",
     WebStringKey.OfflineGuarantee to "ضمان صارم للعمل دون اتصال",
-    WebStringKey.OfflineGuaranteeDesc to "يعمل تحليل QR-SHIELD بالكامل على محرك Neural Engine في جهازك. لا تغادر بيانات URL هاتفك أبداً.",
+    WebStringKey.OfflineGuaranteeDesc to "يعمل تحليل Mehr Guard بالكامل على محرك Neural Engine في جهازك. لا تغادر بيانات URL هاتفك أبداً.",
     WebStringKey.ThreatSensitivity to "حساسية التهديدات",
     WebStringKey.ResetConfirm to "سيؤدي هذا إلى إعادة تعيين جميع إعدادات مركز الثقة إلى الإعدادات الافتراضية.",
     
@@ -205,7 +205,7 @@ internal val ArabicStrings = mapOf(
     WebStringKey.Points to "نقطة",
     WebStringKey.Streak to "سلسلة",
     WebStringKey.Accuracy to "الدقة",
-    WebStringKey.QrShieldBot to "روبوت QR-Shield",
+    WebStringKey.QrShieldBot to "روبوت Mehr Guard",
     WebStringKey.Confidence to "الثقة",
     WebStringKey.RoundAnalysis to "تحليل الجولة",
     WebStringKey.Analysis to "تحليل",
@@ -347,7 +347,7 @@ internal val ArabicStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "نسخ الروابط الموثوقة إلى الحافظة.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "حول QR-SHIELD",
+    WebStringKey.AboutQrShield to "حول Mehr Guard",
     WebStringKey.OpenSourceLicenses to "تراخيص المصدر المفتوح",
     WebStringKey.PrivacyPolicy to "سياسة الخصوصية",
     WebStringKey.Acknowledgements to "شكر وتقدير",
@@ -358,7 +358,7 @@ internal val ArabicStrings = mapOf(
     // Onboarding
     WebStringKey.AnalysedOfflineTitle to "تم التحليل بدون اتصال.",
     WebStringKey.YourDataStaysOnDevice to "تبقى بياناتك على جهازك.",
-    WebStringKey.OnboardingHeroDesc to "يعالج QR-SHIELD كل مسح باستخدام تحليل آمن على الجهاز. نعطي الأولوية للأمان القابل للتفسير مع عدم وجود قياس عن بعد سحابي لتحليل الصور.",
+    WebStringKey.OnboardingHeroDesc to "يعالج Mehr Guard كل مسح باستخدام تحليل آمن على الجهاز. نعطي الأولوية للأمان القابل للتفسير مع عدم وجود قياس عن بعد سحابي لتحليل الصور.",
     WebStringKey.OnDeviceAnalysis to "تحليل على الجهاز",
     WebStringKey.OnDeviceAnalysisDesc to "يعمل كل اكتشاف للتهديدات محلياً على جهازك. لا تغادر أي بيانات نظامك أبداً.",
     WebStringKey.NoCloudLogs to "لا سجلات سحابية",
@@ -369,7 +369,7 @@ internal val ArabicStrings = mapOf(
     WebStringKey.SecurityAuditPass to "تدقيق الأمان: ناجح",
     
     // Footer
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc. جميع الحقوق محفوظة.",
+    WebStringKey.Copyright to "© 2024 Mehr Guard Security Inc. جميع الحقوق محفوظة.",
     WebStringKey.Support to "الدعم",
     WebStringKey.Terms to "الشروط",
     WebStringKey.SystemsOperational to "الأنظمة تعمل",
@@ -378,7 +378,7 @@ internal val ArabicStrings = mapOf(
     // Version / Build Info
     WebStringKey.VersionStatus to "v2.4.1 • النظام آمن",
     WebStringKey.CoreVersion to "الإصدار الأساسي v2.4.1 • بناء 2024.12.19",
-    WebStringKey.VerifiedBy to "تم التحقق بواسطة QR-SHIELD Enterprise",
+    WebStringKey.VerifiedBy to "تم التحقق بواسطة Mehr Guard Enterprise",
     
     // User Profile (Sample)
     WebStringKey.SampleUserName to "جون سميث",

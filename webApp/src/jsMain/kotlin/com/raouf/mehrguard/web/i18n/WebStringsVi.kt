@@ -1,7 +1,7 @@
 package com.raouf.mehrguard.web.i18n
 
 internal val VietnameseStrings = mapOf(
-    WebStringKey.AppName to "QR-SHIELD",
+    WebStringKey.AppName to "Mehr Guard",
     WebStringKey.AppTagline to "Trình Phát Hiện QRishing Kotlin Multiplatform",
     WebStringKey.MenuMain to "Menu Chính",
     WebStringKey.MenuSecurity to "Bảo Mật",
@@ -18,7 +18,7 @@ internal val VietnameseStrings = mapOf(
     // Hero Section
     WebStringKey.HeroTagline to "An Toàn. Ngoại Tuyến.",
     WebStringKey.HeroTagline2 to "Phòng Thủ Có Thể Giải Thích.",
-    WebStringKey.HeroDescription to "QR-SHIELD phân tích các mối đe dọa tiềm ẩn trực tiếp trên phần cứng của bạn. Trải nghiệm bảo vệ với độ trễ bằng không.",
+    WebStringKey.HeroDescription to "Mehr Guard phân tích các mối đe dọa tiềm ẩn trực tiếp trên phần cứng của bạn. Trải nghiệm bảo vệ với độ trễ bằng không.",
 
     // Dashboard
     WebStringKey.StartScan to "Bắt Đầu Quét Mới",
@@ -48,7 +48,7 @@ internal val VietnameseStrings = mapOf(
     // Trust Centre
     WebStringKey.TrustCentreTitle to "Trung Tâm Tin Cậy",
     WebStringKey.OfflineGuarantee to "Đảm Bảo Ngoại Tuyến Nghiêm Ngặt",
-    WebStringKey.OfflineGuaranteeDesc to "Phân tích QR-SHIELD chạy hoàn toàn trên Neural Engine của thiết bị. Dữ liệu URL không bao giờ rời khỏi điện thoại của bạn.",
+    WebStringKey.OfflineGuaranteeDesc to "Phân tích Mehr Guard chạy hoàn toàn trên Neural Engine của thiết bị. Dữ liệu URL không bao giờ rời khỏi điện thoại của bạn.",
     WebStringKey.ThreatSensitivity to "Độ Nhạy Mối Đe Dọa",
     WebStringKey.ResetConfirm to "Điều này sẽ đặt lại tất cả cài đặt Trung Tâm Tin Cậy về mặc định.",
 
@@ -202,7 +202,7 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.Points to "điểm",
     WebStringKey.Streak to "Chuỗi",
     WebStringKey.Accuracy to "Độ Chính Xác",
-    WebStringKey.QrShieldBot to "QR-Shield Bot",
+    WebStringKey.QrShieldBot to "Mehr Guard Bot",
     WebStringKey.Confidence to "Độ Tin Cậy",
     WebStringKey.RoundAnalysis to "Phân Tích Vòng",
     WebStringKey.Analysis to "Phân Tích",
@@ -320,7 +320,7 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.ShareDetectionStats to "Chia sẻ thống kê phát hiện",
     WebStringKey.AutoCopySafeLinks to "Tự động sao chép liên kết an toàn",
     WebStringKey.CopyTrustedUrls to "Sao chép URL tin cậy",
-    WebStringKey.AboutQrShield to "Về QR-SHIELD",
+    WebStringKey.AboutQrShield to "Về Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Giấy Phép Nguồn Mở",
     WebStringKey.PrivacyPolicy to "Chính Sách Bảo Mật",
     WebStringKey.Acknowledgements to "Lời Cảm Ơn",
@@ -338,14 +338,14 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.OnDeviceDBDesc to "DB chữ ký mối đe dọa đầy đủ",
     WebStringKey.DataLifecycleVerification to "Xác Minh Vòng Đời Dữ Liệu",
     WebStringKey.SecurityAuditPass to "Kiểm Tra Bảo Mật: ĐẠT",
-    WebStringKey.Copyright to "© 2024 QR-SHIELD Security Inc.",
+    WebStringKey.Copyright to "© 2024 Mehr Guard Security Inc.",
     WebStringKey.Support to "Hỗ Trợ",
     WebStringKey.Terms to "Điều Khoản",
     WebStringKey.SystemsOperational to "Hệ Thống Hoạt Động",
     WebStringKey.SystemSecure to "Hệ Thống An Toàn",
     WebStringKey.VersionStatus to "v2.4.1 • Hệ Thống An Toàn",
     WebStringKey.CoreVersion to "Core v2.4.1 • Build 2025.12.29",
-    WebStringKey.VerifiedBy to "Được xác minh bởi QR-SHIELD Enterprise",
+    WebStringKey.VerifiedBy to "Được xác minh bởi Mehr Guard Enterprise",
     WebStringKey.SampleUserName to "Nguyễn Văn An",
     WebStringKey.SampleUserRole to "Chuyên Viên Bảo Mật",
     WebStringKey.DetailLabel to "Nhãn Chi Tiết",
@@ -469,7 +469,7 @@ internal val VietnameseCommonStrings = mapOf(
     "Copy Safe Link" to "Sao Chép Liên Kết An Toàn",
     "Export Report" to "Xuất Báo Cáo",
     "Dashboard" to "Bảng Điều Khiển",
-    "QR-SHIELD" to "QR-SHIELD",
+    "Mehr Guard" to "Mehr Guard",
     "Settings" to "Cài Đặt",
     "Language" to "Ngôn Ngữ",
     "Training Centre" to "Trung Tâm Đào Tạo",
