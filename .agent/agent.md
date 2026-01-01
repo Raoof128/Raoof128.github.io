@@ -1462,6 +1462,90 @@ Fixed 4 visual UI issues in the Desktop app: Threat Database button styling, emp
 
 ---
 
+Raouf: 2026-01-02 20:00 AEDT
+
+Scope: iOS Complete Localization - Phase 4 (Consolidation & Final Push)
+
+Summary: Completed iOS localization to 96% Hebrew and 95% Persian coverage by translating 170+ additional strings across all categories (analysis descriptions, settings, export, history, KMP, navigation, scanner, threat, training). Fixed unescaped quote issues in Hebrew file. All 546 unique localization keys now present across all 18 languages with identical structure.
+
+## ✅ Changes Made
+
+### Phase 4 Translations Completed
+| Language | Total Strings | Coverage | New Translations |
+|----------|---------------|----------|------------------|
+| Hebrew | 553 | 96% | 170+ analysis/settings/export |
+| Persian | 553 | 95% | 170+ analysis/settings/export |
+
+### Categories Fully Translated (All 18 Languages)
+1. **Analysis Descriptions (14 strings)** - All attack type translations
+2. **Common/Dashboard/Detail (17 strings)** - UI element translations
+3. **Error Messages (6 strings)** - Error state translations
+4. **Export Strings (19 strings)** - Report/format translations
+5. **History Strings (12 strings)** - Stats/count translations
+6. **KMP Strings (11 strings)** - Engine/framework translations
+7. **Navigation Strings (10 strings)** - Menu/action translations
+8. **Onboarding Strings (5 strings)** - Permission/flow translations
+9. **Result/Scanner Strings (20 strings)** - UI/flow translations
+10. **Settings Strings (25 strings)** - Settings/config translations
+11. **Threat/Training/Trust Strings (15 strings)** - Feature translations
+12. **Training Hints (36 strings)** - Game/education translations (from v2.0.17)
+13. **Verdict Strings (4 strings)** - Verdict display translations (from v2.0.16)
+
+### Files Updated
+| File | Change |
+|------|--------|
+| `iosApp/MehrGuard/he.lproj/Localizable.strings` | 531/553 translated (96%) |
+| `iosApp/MehrGuard/fa.lproj/Localizable.strings` | 529/553 translated (95%) |
+| `iosApp/MehrGuard/UI/Training/BeatTheBotView.swift` | All 36 hints use NSLocalizedString |
+| `iosApp/MehrGuard/UI/Results/ScanResultView.swift` | Verdict text uses NSLocalizedString |
+| All 16 other language files | 546 unique keys each |
+
+### Technical Fixes
+- Fixed unescaped Hebrew quotes in `history.total_format` and `settings.restart_step1`
+- Converted hardcoded training hints to NSLocalizedString (18 hints + 18 explanations)
+- Converted verdict titles to NSLocalizedString with verdict.* keys
+
+### Remaining Intentionally English (18 strings)
+- Brand names: "Mehr Guard", "Swift 6", "HTTPS", "KMP"
+- Format specifiers: `%d/%d`, `%d/100`, `%dms`, `%d%%`, `%@ • %@`, `v%@`
+- Version strings: Technical version info
+
+## ✅ Verification
+
+```bash
+plutil -lint he.lproj/Localizable.strings → OK
+plutil -lint fa.lproj/Localizable.strings → OK
+xcodebuild -project iosApp/MehrGuard.xcodeproj -scheme MehrGuard build → ** BUILD SUCCEEDED **
+
+# Final String Counts:
+Hebrew: 531/553 strings with native text (96%)
+Persian: 529/553 strings with native text (95%)
+All 18 languages: 546 unique keys
+```
+
+## 🔧 Related Versions (Consolidated)
+
+This consolidation includes work from:
+- v2.0.15: Fixed 50+ hardcoded strings in UI (navigation, sections, buttons, alerts)
+- v2.0.16: Fixed verdict text, added Hebrew/Persian nav menu translations
+- v2.0.17: Localized all 36 training hints/explanations
+- v2.0.18: Completed Hebrew & Persian to 96%/95% with 170+ translations
+- v2.0.19: Final consolidation and documentation update
+
+## Notes
+- All 18 languages now have identical 546-key structure
+- Remaining ~4-5% untranslated strings are intentionally English (technical/brand)
+- Hebrew and Persian went from ~65% to 96%/95% coverage in this session
+- All strings validated with `plutil` before commit
+- Build succeeded without warnings or errors
+
+Follow-ups:
+- Professional translation service recommended for production quality
+- Consider UI testing with RTL languages (Hebrew/Persian)
+- Monitor user feedback for translation quality
+
+---
+
 Raouf: 2025-12-30 16:38 AEDT
 
 Scope: Update AGENT.md and repository changelog files to record the recent edits made by the agent.

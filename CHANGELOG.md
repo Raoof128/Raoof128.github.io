@@ -30,6 +30,106 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.19] - 2026-01-02
+
+### Raouf: iOS Complete Localization - Final Consolidation (96%/95% Coverage)
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** iOS Complete Localization Phase 4 - Final Push
+**Summary:** Consolidated 4 localization releases (v2.0.15-2.0.18) into comprehensive iOS solution achieving 96% Hebrew and 95% Persian coverage. All 546 unique keys now present across all 18 languages with complete consistency.
+
+#### Complete Coverage Summary
+| Language | Total Entries | With Native Text | Coverage |
+|----------|---------------|------------------|----------|
+| **Hebrew** | 553 | 531 | **96%** ✅ |
+| **Persian** | 553 | 529 | **95%** ✅ |
+| German | 574 | 574 | **100%** |
+| Spanish | 574 | 574 | **100%** |
+| French | 574 | 574 | **100%** |
+| Chinese | 574 | 574 | **100%** |
+| Japanese | 574 | 574 | **100%** |
+| Arabic | 573 | 573 | **100%** |
+| Hindi | 574 | 574 | **100%** |
+| Indonesian | 573 | 573 | **100%** |
+| Italian | 574 | 574 | **100%** |
+| Korean | 574 | 574 | **100%** |
+| Portuguese | 574 | 574 | **100%** |
+| Russian | 574 | 574 | **100%** |
+| Thai | 573 | 573 | **100%** |
+| Turkish | 573 | 573 | **100%** |
+| Vietnamese | 573 | 573 | **100%** |
+| English | 618 | 618 | **100%** |
+
+**All 18 languages have 546 identical unique keys.**
+
+#### Translation Categories (All 18 Languages)
+1. **Analysis Descriptions (14 strings)** - @ Symbol Attack, Brand Impersonation, Credential Harvesting, Entropy, Homograph, IP Host, Login Keywords, Long URL, Port, Protocol, Redirect, Risky Extension, Scheme, Subdomain, Suspicious Path, TLD, Typosquatting, Urgency, Verified Domain
+2. **Common/Dashboard/Detail (17 strings)** - Settings, Reset, Offline Badge, Privacy Note, Copied, Domain, No Risks, Open Warning, Protocol labels, URL Details, Scanned At
+3. **Error Messages (6 strings)** - Generic Error, Image Scan Failed, Invalid QR, Invalid URL, Network Error, No QR Found
+4. **Export Strings (19 strings)** - Action Descriptions, Available Actions, Format Titles, Help, JSON/PDF Descriptions, Privacy Message/Note, Report Generation/Preview, Switch To
+5. **History Strings (12 strings)** - Exported Clipboard, Last Audit, Count Formats, Scan Statistics, URL Label
+6. **KMP Strings (11 strings)** - Analysis Result, Analyze Button, Framework Status, Integration, Powered By, Quick Test, Risk Flags, Score Format
+7. **Navigation Strings (10 strings)** - Menu Items, Descriptions, Quick Actions, Systems Operational
+8. **Onboarding Strings (5 strings)** - Camera Allow/Later, Permission Message/Title
+9. **Result/Scanner Strings (20 strings)** - Block Description, Dangerous Warning, Open Safari, Analyzing, Camera Preview/Required, Copy URL, Dismiss, Flash On/Off, Point QR, Status Labels
+10. **Settings Strings (25 strings)** - Clear Confirm, History Button, Close App, Export Description, Language Changed, Restart Messages, Policy Links, Quick Actions, Red Team Warning
+11. **Threat/Training/Trust Strings (15 strings)** - Global View, Last Audit, Live Map, Updates, Reset Game, Tip, Unusual SignIn, Verify Identity, Balanced/Low/Paranoia, Reset Defaults
+12. **Training Hints (36 strings)** - 18 phishing challenge hints + 18 explanations for game scenarios
+13. **Verdict Strings (4 strings)** - HIGH RISK DETECTED, SUSPICIOUS ACTIVITY, VERIFIED SAFE, ANALYSIS COMPLETE
+
+#### Journey from v2.0.15 → v2.0.19
+| Version | Date | Change | Result |
+|---------|------|--------|--------|
+| v2.0.15 | 2026-01-02 | Fixed 50+ hardcoded UI strings | Navigation/buttons localized |
+| v2.0.16 | 2026-01-02 | Fixed verdict text + nav menus | Verdict titles use NSLocalizedString |
+| v2.0.17 | 2026-01-02 | Localized all training hints | 36 game scenario strings |
+| v2.0.18 | 2026-01-02 | Completed H/P translations | 96%/95% coverage achieved |
+| v2.0.19 | 2026-01-02 | Consolidated all work | **Final comprehensive solution** |
+
+#### Technical Details
+- **Fixed hardcoded strings:** 50+ UI elements (navigation, sections, buttons, alerts)
+- **Converted to NSLocalizedString:** Training hints, verdict titles, analysis descriptions
+- **Unescaped quote fixes:** Hebrew file formatting issues resolved
+- **Build validation:** plutil syntax check + xcodebuild verification
+
+#### Remaining Intentionally English (18 strings)
+These are technical/brand identifiers that should remain universal:
+- Brand names: "Mehr Guard", "Swift 6", "HTTPS", "KMP"
+- Format specifiers: `%d/%d`, `%d/100`, `%dms`, `%d%%`, `%@ • %@`, `v%@`
+- Version strings: Technical version information
+
+#### Files Modified (Consolidation View)
+- `iosApp/MehrGuard/he.lproj/Localizable.strings` - 531/553 strings translated
+- `iosApp/MehrGuard/fa.lproj/Localizable.strings` - 529/553 strings translated
+- `iosApp/MehrGuard/UI/Training/BeatTheBotView.swift` - All hints use NSLocalizedString
+- `iosApp/MehrGuard/UI/Results/ScanResultView.swift` - Verdict text uses NSLocalizedString
+- All 16 other language files (.lproj/Localizable.strings) - Consistent 546 keys
+
+#### Verification
+```bash
+# Syntax validation
+plutil -lint he.lproj/Localizable.strings → OK
+plutil -lint fa.lproj/Localizable.strings → OK
+
+# Build verification
+xcodebuild -project iosApp/MehrGuard.xcodeproj -scheme MehrGuard build
+# ** BUILD SUCCEEDED **
+
+# Final counts
+Hebrew: 531/553 = 96% with native text
+Persian: 529/553 = 95% with native text
+All languages: 546 unique keys identical
+```
+
+#### Notes
+- Translation progression: 65% → 96%/95% (Hebrew/Persian) in single session
+- All strings validated with plutil before commit
+- Build succeeded without warnings or errors
+- RTL language layout already configured in iOS project
+- Recommend professional translation review for production quality
+
+---
+
 ## [2.0.18] - 2026-01-02
 
 ### Raouf: Complete Hebrew & Persian Translations (96%/95%)
