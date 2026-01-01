@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,12 @@ import androidx.compose.ui.graphics.Color
 import com.raouf.mehrguard.model.Verdict
 
 /**
- * QR-SHIELD Gradient Definitions
+ * Mehr Guard Gradient Definitions
  *
  * Provides pre-defined gradients for backgrounds and effects.
  * Matches iOS Liquid Glass aesthetic.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 object MehrGuardGradients {

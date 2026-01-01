@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ package com.raouf.mehrguard.policy
  * - WeChat Pay
  * - Alipay
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.2.0
  */
 enum class QrPayloadType(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package com.raouf.mehrguard.engine
 
 /**
- * Homograph Attack Detector for QR-SHIELD
+ * Homograph Attack Detector for Mehr Guard
  *
  * Detects IDN (Internationalized Domain Name) homograph attacks where Unicode
  * characters are used to impersonate ASCII Latin characters, creating
@@ -49,7 +49,7 @@ package com.raouf.mehrguard.engine
  * | Armenian | U+0530-058F | Medium | Some lookalikes |
  * | Georgian | U+10A0-10FF | Medium | Some lookalikes |
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  * @see <a href="https://unicode.org/reports/tr39/">Unicode Security Mechanisms</a>
  */

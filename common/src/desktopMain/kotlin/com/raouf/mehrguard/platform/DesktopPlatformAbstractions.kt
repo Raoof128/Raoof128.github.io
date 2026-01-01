@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ import java.util.logging.Logger
  * - Proper exception handling
  * - Thread-safe implementations
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.2.0
  */
 
@@ -96,7 +96,7 @@ actual object PlatformHaptics {
 // ==================== Logging ====================
 
 actual object PlatformLogger {
-    private val logger = Logger.getLogger("QR-SHIELD")
+    private val logger = Logger.getLogger("Mehr Guard")
 
     actual fun debug(tag: String, message: String) {
         logger.log(Level.FINE, "[$tag] $message")

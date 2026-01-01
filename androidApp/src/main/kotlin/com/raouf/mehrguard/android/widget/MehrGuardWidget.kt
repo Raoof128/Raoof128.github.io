@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import com.raouf.mehrguard.android.MainActivity
 import com.raouf.mehrguard.android.R
 
 /**
- * QR-SHIELD Quick Scan Widget for Android 16
+ * Mehr Guard Quick Scan Widget for Android 16
  *
  * Features:
  * - One-tap to open scanner
@@ -126,7 +126,7 @@ class MehrGuardWidget : GlanceAppWidget() {
             Spacer(modifier = GlanceModifier.width(12.dp))
             Column {
                 Text(
-                    text = "QR-SHIELD",
+                    text = "Mehr Guard",
                     style = TextStyle(
                         color = ColorProvider(WidgetColors.TextPrimary),
                         fontSize = 14.sp,
@@ -173,7 +173,7 @@ class MehrGuardWidget : GlanceAppWidget() {
                 modifier = GlanceModifier.defaultWeight()
             ) {
                 Text(
-                    text = "QR-SHIELD",
+                    text = "Mehr Guard",
                     style = TextStyle(
                         color = ColorProvider(WidgetColors.TextPrimary),
                         fontSize = 16.sp,

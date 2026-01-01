@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package com.raouf.mehrguard.engine
 
 /**
- * TLD Risk Scorer for QR-SHIELD
+ * TLD Risk Scorer for Mehr Guard
  *
  * Scores top-level domains based on historical abuse data from
  * threat intelligence feeds (Spamhaus, SURBL, etc.).
@@ -27,7 +27,7 @@ package com.raouf.mehrguard.engine
  * - TLD lists are immutable and cannot be modified at runtime
  * - Thread-safe for concurrent access
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 class TldScorer {

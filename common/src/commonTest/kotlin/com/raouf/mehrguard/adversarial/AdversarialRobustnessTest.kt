@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,12 @@ import kotlin.test.assertEquals
  * Adversarial Robustness Tests
  *
  * Tests the detection engine against the red-team corpus of obfuscation attacks.
- * These tests verify that QR-SHIELD can detect and defend against real-world
+ * These tests verify that Mehr Guard can detect and defend against real-world
  * evasion techniques used by attackers.
  *
  * See: data/red_team_corpus.md for full corpus documentation.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.2.0
  */
 class AdversarialRobustnessTest {

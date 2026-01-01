@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 package com.raouf.mehrguard.core
 
 /**
- * Centralized Error Messages for QR-SHIELD
+ * Centralized Error Messages for Mehr Guard
  *
  * All user-facing and internal error messages in one place for:
  * - Easy internationalization (i18n)
  * - Consistent messaging across platforms
  * - Centralized maintenance
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 object ErrorMessages {

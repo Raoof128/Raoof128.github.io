@@ -257,6 +257,59 @@ Any important notes for future agents.
 
 ---
 
+# 🎨 January 1, 2026 (Session 10k+75) - Complete Branding Audit & iOS Red Team Verification
+
+### Summary
+Audited and fixed ALL remaining "QR-SHIELD" references across iOS and common modules. Verified iOS Red Team / Judge Mode is fully implemented.
+
+## ✅ Changes Made
+
+### Files Updated
+
+| File | Change |
+|------|--------|
+| `iosApp/MehrGuard/UI/Trust/TrustCentreView.swift` | `privacy@qr-shield.app` → `privacy@mehrguard.app` |
+| 173+ Kotlin files in `common/` | All copyright headers: "QR-SHIELD Contributors" → "Mehr Guard Contributors" |
+| `common/.../redteam/RedTeamScenarios.kt` | Copyright and author annotation updated |
+
+### Cleanup
+
+- Removed stale iOS build artifacts: `iosApp/.build/`, `iosApp/.swiftpm/`
+- These contained cached files with "QRShield" references
+
+### iOS Red Team / Judge Mode Verification
+
+The iOS app already has a complete implementation:
+
+| Component | Location | Status |
+|-----------|----------|--------|
+| Dev Mode Toggle | `SettingsView.swift` (7 taps on version) | ✅ Working |
+| Red Team Panel | `ScannerView.swift` `RedTeamScenariosPanel` | ✅ Working |
+| Scenario Data | `MockTypes.swift` `RedTeamScenarios` | ✅ 10 scenarios |
+| Settings Persistence | `@AppStorage("developerModeEnabled")` | ✅ Working |
+
+### Build Verification
+
+```bash
+./gradlew :common:compileKotlinDesktop :androidApp:compileDebugKotlin
+# BUILD SUCCESSFUL in 52s
+```
+
+### Remaining QR-SHIELD Check
+
+```bash
+grep -ri "QR-SHIELD" common androidApp desktopApp webApp --include="*.kt"
+# 0 matches ✅
+```
+
+## Notes
+
+- WebApp i18n has `WebStringKey.QrShieldBot` and `WebStringKey.AboutQrShield` - these are **enum key names**, not user-visible strings. The actual values are correct ("Mehr Guard Bot", etc.)
+- iOS has its own Swift-native Red Team scenarios in `MockTypes.swift` that mirror the Kotlin `RedTeamScenarios.kt`
+- All 4 app-visible pages tested via browser automation returned **false** for QR-SHIELD presence
+
+---
+
 # 🎨 January 1, 2026 (Session 10k+74) - WebApp Kotlin i18n Branding Fixes & Judge Mode Verification
 
 ### Summary

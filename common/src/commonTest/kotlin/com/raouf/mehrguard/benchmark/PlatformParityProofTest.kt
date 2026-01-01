@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -31,7 +31,7 @@ import kotlin.time.Duration.Companion.milliseconds
  * ./gradlew :common:allTests
  * ```
  * 
- * @author QR-SHIELD Cross-Platform Team
+ * @author Mehr Guard Cross-Platform Team
  * @since 1.17.30
  */
 class PlatformParityProofTest {
@@ -113,7 +113,7 @@ class PlatformParityProofTest {
     fun `parity proof - same verdicts across platforms`() {
         println()
         println("═══════════════════════════════════════════════════════════════")
-        println("           QR-SHIELD CROSS-PLATFORM PARITY PROOF")
+        println("           Mehr Guard CROSS-PLATFORM PARITY PROOF")
         println("═══════════════════════════════════════════════════════════════")
         println()
         println("Platform: ${getPlatformName()}")
@@ -190,7 +190,7 @@ class PlatformParityProofTest {
     fun `benchmark - p50 p95 latency`() {
         println()
         println("═══════════════════════════════════════════════════════════════")
-        println("              QR-SHIELD PERFORMANCE BENCHMARK")
+        println("              Mehr Guard PERFORMANCE BENCHMARK")
         println("═══════════════════════════════════════════════════════════════")
         println()
         println("Platform: ${getPlatformName()}")

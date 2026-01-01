@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import com.raouf.mehrguard.core.UrlAnalyzer
 import com.raouf.mehrguard.model.ReasonCode
 
 /**
- * Heuristics Engine for QR-SHIELD
+ * Heuristics Engine for Mehr Guard
  *
  * Applies 17+ security heuristics to detect phishing indicators in URLs.
  * Each heuristic is assigned a weight based on its predictive power for phishing.
@@ -66,7 +66,7 @@ import com.raouf.mehrguard.model.ReasonCode
  * - Thread-safe: no mutable state
  *
  * @property urlAnalyzer The URL parser for extracting components
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  * @see com.raouf.mehrguard.core.SecurityConstants for threshold values
  */

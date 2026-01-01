@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.test.assertTrue
 /**
  * Alexa Top 100 False Positive Rate Test
  *
- * Validates that QR-SHIELD maintains <5% false positive rate on the most
+ * Validates that Mehr Guard maintains <5% false positive rate on the most
  * popular legitimate websites in the world.
  *
  * ## Why Alexa Top 100?
@@ -57,7 +57,7 @@ import kotlin.test.assertTrue
  * This test generates reproducible evidence for judges.
  * Results are logged with full breakdown for verification.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.17.31
  * @see FalsePositiveRateTest for extended legitimate URL testing
  */
@@ -242,7 +242,7 @@ class AlexaTop100FPTest {
     fun generate_alexa_top_100_evidence_artifact() {
         println("\n# Alexa Top 100 False Positive Evidence")
         println("# Generated: ${getCurrentTimestamp()}")
-        println("# QR-SHIELD Version: 1.17.31")
+        println("# Mehr Guard Version: 1.17.31")
         println("#")
         println("rank,domain,url,verdict,score,flags")
         

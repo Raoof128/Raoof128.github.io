@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import android.media.ToneGenerator
 import android.util.Log
 
 /**
- * Sound Manager for QR-SHIELD scan feedback.
+ * Sound Manager for Mehr Guard scan feedback.
  *
  * Uses ToneGenerator for efficient, lightweight beep sounds.
  * This avoids the need for raw audio files while providing

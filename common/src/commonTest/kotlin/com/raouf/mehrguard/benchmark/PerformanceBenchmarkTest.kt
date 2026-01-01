@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.test.Test
 import kotlin.test.assertTrue
 
 /**
- * Performance benchmarks for QR-SHIELD analysis engines.
+ * Performance benchmarks for Mehr Guard analysis engines.
  *
  * These tests measure execution time for critical operations:
  * - URL analysis speed (full pipeline)
@@ -45,7 +45,7 @@ import kotlin.test.assertTrue
  * - ML inference: < 5ms per URL
  * - Brand detection: < 15ms per URL
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 class PerformanceBenchmarkTest {

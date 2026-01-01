@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ package com.raouf.mehrguard.ui
  * // Returns: "Sicher"
  * ```
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.6.2
  */
 object Translations {
@@ -113,7 +113,7 @@ object Translations {
         override val languageName = "Deutsch"
         override val translations = mapOf(
             // App
-            "app_name" to "QR-SHIELD",
+            "app_name" to "Mehr Guard",
             "app_tagline" to "Scannen. Erkennen. Schützen.",
 
             // Tabs
@@ -238,7 +238,7 @@ object Translations {
         override val languageName = "Español"
         override val translations = mapOf(
             // App
-            "app_name" to "QR-SHIELD",
+            "app_name" to "Mehr Guard",
             "app_tagline" to "Escanea. Detecta. Protege.",
 
             // Tabs
@@ -281,7 +281,7 @@ object Translations {
         override val languageName = "Français"
         override val translations = mapOf(
             // App
-            "app_name" to "QR-SHIELD",
+            "app_name" to "Mehr Guard",
             "app_tagline" to "Scanner. Détecter. Protéger.",
 
             // Tabs
@@ -324,7 +324,7 @@ object Translations {
         override val languageName = "日本語"
         override val translations = mapOf(
             // App
-            "app_name" to "QR-SHIELD",
+            "app_name" to "Mehr Guard",
             "app_tagline" to "スキャン。検出。保護。",
 
             // Tabs

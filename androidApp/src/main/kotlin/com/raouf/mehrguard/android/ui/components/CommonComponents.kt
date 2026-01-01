@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,7 @@ import androidx.compose.ui.res.stringResource
 import com.raouf.mehrguard.android.R
 
 /**
- * QR-SHIELD Top App Bar
+ * Mehr Guard Top App Bar
  * Matches the HTML: sticky, backdrop blur effect, centered title
  */
 @OptIn(ExperimentalMaterial3Api::class)
@@ -320,7 +320,7 @@ enum class ChipStatus {
 
 /**
  * Toggle Switch using Material 3 Switch component
- * Properly themed with QR-SHIELD colors
+ * Properly themed with Mehr Guard colors
  */
 @Composable
 fun MehrGuardToggle(

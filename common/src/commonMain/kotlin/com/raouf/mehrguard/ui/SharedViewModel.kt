@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 
 /**
- * Shared ViewModel for QR-SHIELD UI
+ * Shared ViewModel for Mehr Guard UI
  *
  * Manages UI state across all platforms using Kotlin Coroutines Flow.
  * Now with persistent history storage via HistoryRepository.
@@ -47,7 +47,7 @@ import kotlinx.datetime.Clock
  * @param shortLinkResolver Resolver for URL shorteners (Aggressive Mode)
  * @param coroutineScope Scope for launching coroutines
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 class SharedViewModel(
@@ -224,7 +224,7 @@ class SharedViewModel(
         val url = assessment.details.originalUrl
 
         return ShareContent(
-            title = "QR-SHIELD Analysis: ${assessment.verdict.name}",
+            title = "Mehr Guard Analysis: ${assessment.verdict.name}",
             text = ShareManager.generateTextSummary(url, assessment),
             html = ShareManager.generateHtmlReport(url, assessment),
             url = url

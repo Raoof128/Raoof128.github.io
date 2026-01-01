@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 
 /**
- * Baseline Profile Generator for QR-SHIELD
+ * Baseline Profile Generator for Mehr Guard
  *
  * Generates a baseline profile that improves app startup
  * and runtime performance by pre-compiling critical paths.

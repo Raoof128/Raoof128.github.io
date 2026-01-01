@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package com.raouf.mehrguard.core
 
 /**
- * URL Analyzer for QR-SHIELD
+ * URL Analyzer for Mehr Guard
  *
  * Parses and extracts features from URLs for phishing analysis.
  *
@@ -26,7 +26,7 @@ package com.raouf.mehrguard.core
  * - Regex patterns are designed to avoid ReDoS
  * - All string operations use safe methods
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 class UrlAnalyzer {

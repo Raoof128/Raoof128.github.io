@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.datetime.Clock
 
 /**
- * Rate Limiter for QR-SHIELD
+ * Rate Limiter for Mehr Guard
  *
  * Prevents abuse by limiting the number of operations per time window.
  * Uses a sliding window algorithm for smooth rate limiting.
@@ -35,7 +35,7 @@ import kotlinx.datetime.Clock
  * For thread-safe access in non-suspend contexts, use the
  * internal lock-free version where possible.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 class RateLimiter(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,12 @@ import com.raouf.mehrguard.android.R
 import com.raouf.mehrguard.model.Verdict
 
 /**
- * QR-SHIELD Icon Resources
+ * Mehr Guard Icon Resources
  *
  * Provides access to all app icons as Compose Painters.
  * Mirrors the iOS SF Symbols for cross-platform consistency.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 object MehrGuardIcons {

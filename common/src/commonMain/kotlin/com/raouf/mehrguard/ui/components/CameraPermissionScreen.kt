@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ fun CameraPermissionScreen(
                     PermissionRequestContent(
                         icon = "📷",
                         title = "Camera Access Required",
-                        description = "QR-SHIELD needs camera access to scan QR codes and protect you from phishing attacks.",
+                        description = "Mehr Guard needs camera access to scan QR codes and protect you from phishing attacks.",
                         primaryButtonText = "Grant Camera Access",
                         onPrimaryClick = onRequestPermission,
                         secondaryButtonText = "Not Now",
@@ -120,7 +120,7 @@ fun CameraPermissionScreen(
                     PermissionRequestContent(
                         icon = "🚫",
                         title = "Camera Permission Denied",
-                        description = "Without camera access, QR-SHIELD cannot scan QR codes. Please grant permission to continue.",
+                        description = "Without camera access, Mehr Guard cannot scan QR codes. Please grant permission to continue.",
                         primaryButtonText = "Try Again",
                         onPrimaryClick = onRequestPermission,
                         secondaryButtonText = "Skip for Now",

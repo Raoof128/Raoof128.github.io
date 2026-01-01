@@ -563,7 +563,7 @@ struct TrustCentreView: View {
         
         5. CONTACT
         ----------
-        For privacy inquiries: privacy@qr-shield.app
+        For privacy inquiries: privacy@mehrguard.app
         """
     }
     

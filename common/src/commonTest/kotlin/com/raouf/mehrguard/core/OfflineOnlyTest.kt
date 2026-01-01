@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ import kotlin.time.TimeSource
 /**
  * Offline-Only Verification Test
  *
- * Proves that QR-SHIELD performs ALL analysis offline without any network calls.
+ * Proves that Mehr Guard performs ALL analysis offline without any network calls.
  * This is a core privacy guarantee of the application.
  *
  * ## Security Rationale
@@ -45,7 +45,7 @@ import kotlin.time.TimeSource
  * 3. Results are consistent (no external data variation)
  * 4. All components work without network initialization
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.2.0
  */
 class OfflineOnlyTest {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
- * QR-SHIELD Phishing Engine
+ * Mehr Guard Phishing Engine
  *
  * Main orchestrator for URL phishing analysis.
  * Combines heuristics, ML scoring, brand detection, and TLD analysis.
@@ -69,7 +69,7 @@ import kotlinx.coroutines.withContext
  * - Scoring uses defensive arithmetic with bounds checking
  * - Thread-safe: all dependencies are stateless
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  * @see HeuristicsEngine
  * @see BrandDetector

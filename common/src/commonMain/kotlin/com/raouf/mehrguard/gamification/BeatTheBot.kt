@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ import com.raouf.mehrguard.model.Verdict
  * - **User Win**: Engine misses phishing → +50 User points (rare!)
  * - **False Alarm**: Engine flags a truly safe URL → +5 User points
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.3.0
  */
 class BeatTheBot(

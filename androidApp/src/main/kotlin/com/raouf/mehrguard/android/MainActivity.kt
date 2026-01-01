@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import com.raouf.mehrguard.ui.SharedViewModel
 import org.koin.android.ext.android.inject
 
 /**
- * Main entry point for QR-SHIELD Android application.
+ * Main entry point for Mehr Guard Android application.
  *
  * Handles deep links and widget actions:
  * - ACTION=SCAN: Opens directly to scanner with camera active

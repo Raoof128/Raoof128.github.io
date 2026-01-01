@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  * Licensed under the Apache License, Version 2.0
  */
 
@@ -22,7 +22,7 @@ package com.raouf.mehrguard.ml
  * val finalScore = heuristicScore * 0.7 + mlScore * 0.3
  * ```
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.19.0
  */
 class EnsemblePhishingScorer private constructor(

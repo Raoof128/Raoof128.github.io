@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.graphics.Color
 
 /**
- * QR-SHIELD Design System Colors
+ * Mehr Guard Design System Colors
  * Based on HTML TailwindCSS dark mode patterns:
  * - Primary: #215eed
  * - Background Light: #f6f6f8

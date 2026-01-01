@@ -30,6 +30,44 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.5] - 2026-01-01
+
+### 🎨 Complete Branding Unification
+
+**Audit and fix of ALL remaining "QR-SHIELD" references across the codebase.**
+
+#### Changes Made
+
+1. **iOS `TrustCentreView.swift`**
+   - Fixed leftover `privacy@qr-shield.app` → `privacy@mehrguard.app`
+
+2. **Common Module Kotlin Files (173 files)**
+   - All copyright headers updated: "QR-SHIELD Contributors" → "Mehr Guard Contributors"
+   - All author annotations updated: "@author QR-SHIELD Security Team" → "@author Mehr Guard Security Team"
+
+3. **`RedTeamScenarios.kt`**
+   - Copyright and author updated to Mehr Guard
+
+4. **iOS Build Artifacts Cleaned**
+   - Removed stale `.build/` and `.swiftpm/` folders containing old "QRShield" references
+
+#### Verification
+
+- ✅ `grep -ri "QR-SHIELD" common androidApp desktopApp webApp --include="*.kt"` → 0 matches
+- ✅ `grep -ri "com\.qrshield"` → 0 matches
+- ✅ `./gradlew :common:compileKotlinDesktop :androidApp:compileDebugKotlin` → BUILD SUCCESSFUL
+- ✅ iOS Red Team / Judge Mode verified working with full scenario list
+
+#### iOS Red Team / Judge Mode
+
+The iOS app already has a complete Judge Mode implementation:
+- **Activation**: 7 taps on version number in Settings
+- **Location**: `SettingsView.swift` handles activation, `ScannerView.swift` shows `RedTeamScenariosPanel`
+- **Scenarios**: 10 test cases defined in `MockTypes.swift` (matching Kotlin scenarios)
+- **Categories**: Homograph Attack, IP Obfuscation, Suspicious TLD, Brand Impersonation, URL Shortener, Safe Control
+
+---
+
 ## [2.0.4] - 2026-01-01
 
 ### 🎨 WebApp Kotlin i18n Branding Fixes

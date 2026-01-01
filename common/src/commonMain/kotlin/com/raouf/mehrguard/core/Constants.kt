@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 package com.raouf.mehrguard.core
 
 /**
- * Centralized Constants for QR-SHIELD
+ * Centralized Constants for Mehr Guard
  *
  * All magic numbers and configuration values in one place for:
  * - Easy tuning and calibration
  * - Consistent values across components
  * - Clear documentation of each constant's purpose
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 object Constants {

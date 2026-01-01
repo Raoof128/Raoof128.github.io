@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ import kotlin.test.assertTrue
  * - SUSPICIOUS_PATH: Login/verify paths on untrusted domains
  * - COMBO: Multiple red flags combined
  * 
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.17.31
  */
 class MaliciousUrlProofTest {
@@ -248,7 +248,7 @@ https://skype-video-call.gq/answer,SUSPICIOUS,BRAND_IMPERSONATION,Skype scam
      * **Output Format (for judges):**
      * ```
      * ═══════════════════════════════════════════════════════════════
-     *              QR-SHIELD MALICIOUS URL PROOF TEST
+     *              Mehr Guard MALICIOUS URL PROOF TEST
      * ═══════════════════════════════════════════════════════════════
      * 
      * ✅ Verified: 147/150 threats blocked (98.0%)
@@ -267,7 +267,7 @@ https://skype-video-call.gq/answer,SUSPICIOUS,BRAND_IMPERSONATION,Skype scam
     fun `proof test - detects 150 plus malicious URLs at 95 percent threshold`() {
         println()
         println("═══════════════════════════════════════════════════════════════")
-        println("             QR-SHIELD MALICIOUS URL PROOF TEST")
+        println("             Mehr Guard MALICIOUS URL PROOF TEST")
         println("═══════════════════════════════════════════════════════════════")
         println()
         

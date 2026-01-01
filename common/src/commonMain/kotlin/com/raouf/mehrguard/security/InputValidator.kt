@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 package com.raouf.mehrguard.security
 
 /**
- * Input Validation and Sanitization Layer for QR-SHIELD
+ * Input Validation and Sanitization Layer for Mehr Guard
  *
  * Provides comprehensive input validation for all user inputs
  * to prevent injection attacks, DoS, and other security issues.
@@ -27,7 +27,7 @@ package com.raouf.mehrguard.security
  * - Returns sealed class results for explicit error handling
  * - No exceptions thrown for invalid inputs
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 object InputValidator {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package com.raouf.mehrguard.core
 import com.raouf.mehrguard.model.Verdict
 
 /**
- * Risk Scorer for QR-SHIELD
+ * Risk Scorer for Mehr Guard
  *
  * Combines multiple analysis signals into a final risk score.
  */

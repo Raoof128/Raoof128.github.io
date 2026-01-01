@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
 /**
- * QR-SHIELD Android Application
+ * Mehr Guard Android Application
  *
  * Entry point for the Android application.
  * Initializes Koin dependency injection and OTA update manager.
@@ -43,7 +43,7 @@ import org.koin.core.logger.Level
  * - Android 16 compatibility
  * - **Living Engine OTA Updates** (NEW in v1.3.0)
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 class MehrGuardApplication : Application() {

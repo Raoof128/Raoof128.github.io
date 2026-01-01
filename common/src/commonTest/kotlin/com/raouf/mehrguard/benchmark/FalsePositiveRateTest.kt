@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.test.assertTrue
 /**
  * False Positive Rate Test Suite
  *
- * Validates that QR-SHIELD does not incorrectly flag legitimate websites.
+ * Validates that Mehr Guard does not incorrectly flag legitimate websites.
  * These tests run against major legitimate URLs to ensure low FP rate.
  *
  * ## Why False Positive Rate Matters

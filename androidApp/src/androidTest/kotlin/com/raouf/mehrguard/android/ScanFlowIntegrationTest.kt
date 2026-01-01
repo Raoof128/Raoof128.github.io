@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import kotlinx.coroutines.runBlocking
 import com.raouf.mehrguard.model.RiskAssessment
 
 /**
- * End-to-end Integration Tests for QR-SHIELD Android
+ * End-to-end Integration Tests for Mehr Guard Android
  *
  * Tests the complete analysis pipeline from URL input to verdict.
  * These tests run on an Android device/emulator.

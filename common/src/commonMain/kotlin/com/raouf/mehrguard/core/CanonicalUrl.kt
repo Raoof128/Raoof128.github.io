@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import com.raouf.mehrguard.security.UnicodeRiskAnalyzer
 /**
  * Canonical URL structure with derived security fields.
  *
- * This is the single source of truth for URL parsing in QR-SHIELD.
+ * This is the single source of truth for URL parsing in Mehr Guard.
  * All URL analysis should go through this structure to ensure consistency.
  *
  * ## Design Principles
@@ -36,7 +36,7 @@ import com.raouf.mehrguard.security.UnicodeRiskAnalyzer
  * - **Derived**: registrableDomain, subdomainDepth, effectiveTld, etc.
  * - **Security**: safeDisplayHost, isPunycode, isIpAddress, unicodeRisk
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.19.0
  */
 data class CanonicalUrl(

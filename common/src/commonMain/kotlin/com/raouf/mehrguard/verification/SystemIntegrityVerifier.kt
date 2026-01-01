@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ import com.raouf.mehrguard.model.Verdict
  * - False Negatives (FN): Phishing incorrectly passed
  * - Precision, Recall, F1 Score
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.3.0
  */
 class SystemIntegrityVerifier(

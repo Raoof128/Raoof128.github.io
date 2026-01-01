@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  * Licensed under the Apache License, Version 2.0
  */
 
@@ -20,7 +20,7 @@ import com.raouf.mehrguard.engine.PublicSuffixList
  * - Rollback to "last known good" on failure
  * - Bundle version validation (no downgrades)
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.19.0
  */
 class SecureBundleLoader {

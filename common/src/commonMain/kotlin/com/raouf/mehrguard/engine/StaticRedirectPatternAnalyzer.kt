@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 package com.raouf.mehrguard.engine
 
 /**
- * Static Redirect Pattern Analyzer for QR-SHIELD
+ * Static Redirect Pattern Analyzer for Mehr Guard
  *
  * ⚠️ **IMPORTANT CLARIFICATION FOR SECURITY EXPERTS:**
  * This class performs **STATIC PATTERN ANALYSIS** on URL strings.
  * It does **NOT** actually follow HTTP redirects (301, 302, etc.).
  *
  * We cannot follow real redirects because:
- * 1. QR-SHIELD is offline-first (no network requests)
+ * 1. Mehr Guard is offline-first (no network requests)
  * 2. Server-side redirects (bit.ly → actual-site.com) require network
  * 3. Privacy: we don't want to contact untrusted servers
  *
@@ -61,7 +61,7 @@ package com.raouf.mehrguard.engine
  *
  * The warning is: "This URL may redirect - we can't verify the destination offline."
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.1.0
  */
 class StaticRedirectPatternAnalyzer {

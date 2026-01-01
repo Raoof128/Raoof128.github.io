@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 /**
- * QR-SHIELD Typography System
+ * Mehr Guard Typography System
  *
  * Consistent text styles across all platforms.
  * Uses Inter font family for modern, clean appearance.
@@ -154,7 +154,7 @@ object MehrGuardTypography {
         letterSpacing = 0.5.sp
     )
 
-    // Special styles for QR-SHIELD
+    // Special styles for Mehr Guard
     val riskScore = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,

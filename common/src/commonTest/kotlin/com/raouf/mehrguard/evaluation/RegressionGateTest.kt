@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  * Licensed under the Apache License, Version 2.0
  */
 
@@ -21,7 +21,7 @@ import kotlin.test.assertTrue
  * - Recall: >= 0.75 (catch phishing)
  * - Runtime: <= 20ms per scan (desktop)
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.19.0
  */
 class RegressionGateTest {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,7 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 
 /**
- * Navigation routes for the QR-SHIELD app.
+ * Navigation routes for the Mehr Guard app.
  * REWIRED: Dashboard is now the start destination with expanded navigation.
  */
 object Routes {
@@ -498,7 +498,7 @@ fun MehrGuardNavHost(
                     val intent = Intent(Intent.ACTION_SEND).apply {
                         type = "message/rfc822"
                         putExtra(Intent.EXTRA_EMAIL, arrayOf("security@company.com"))
-                        putExtra(Intent.EXTRA_SUBJECT, "QR-SHIELD: Security Incident Report")
+                        putExtra(Intent.EXTRA_SUBJECT, "Mehr Guard: Security Incident Report")
                         putExtra(Intent.EXTRA_TEXT, jsonReport)
                     }
                     context.startActivity(Intent.createChooser(intent, "Send IT Report"))
@@ -715,7 +715,7 @@ fun MehrGuardNavHost(
                     val intent = Intent(Intent.ACTION_SEND).apply {
                         type = "message/rfc822"
                         putExtra(Intent.EXTRA_EMAIL, arrayOf("threats@mehrguard.app"))
-                        putExtra(Intent.EXTRA_SUBJECT, "Threat Report from QR-SHIELD User")
+                        putExtra(Intent.EXTRA_SUBJECT, "Threat Report from Mehr Guard User")
                     }
                     context.startActivity(Intent.createChooser(intent, "Report Threat"))
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  * Licensed under the Apache License, Version 2.0
  */
 
@@ -30,7 +30,7 @@ import kotlin.math.max
  * Weights are pre-trained on a corpus of ~100K URLs
  * (50K phishing, 50K benign) and quantized for size.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.19.0
  */
 class TinyPhishingClassifier private constructor(

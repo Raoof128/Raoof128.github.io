@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ import kotlin.test.assertTrue
  * - **F1 Score**: Harmonic mean of precision and recall
  * - **Accuracy**: (TP + TN) / Total
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.2.0
  */
 class AccuracyVerificationTest {
@@ -226,7 +226,7 @@ class AccuracyVerificationTest {
         println("""
             |
             |╔══════════════════════════════════════════════════════════════╗
-            |║           QR-SHIELD ACCURACY VERIFICATION REPORT            ║
+            |║           Mehr Guard ACCURACY VERIFICATION REPORT            ║
             |╠══════════════════════════════════════════════════════════════╣
             |║  Dataset Size: ${metrics.total} URLs                                      ║
             |║  - Known Phishing: ${knownPhishingUrls.size}                                      ║

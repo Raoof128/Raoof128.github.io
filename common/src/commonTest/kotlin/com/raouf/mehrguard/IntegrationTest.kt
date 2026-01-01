@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import kotlin.test.assertTrue
 import kotlin.test.assertNotNull
 
 /**
- * End-to-end integration tests for QR-SHIELD.
+ * End-to-end integration tests for Mehr Guard.
  *
  * Tests the complete analysis pipeline from URL input to verdict.
  */

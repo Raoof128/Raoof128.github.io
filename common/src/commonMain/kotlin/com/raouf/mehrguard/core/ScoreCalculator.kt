@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import com.raouf.mehrguard.model.Verdict
  * - Produce bounded combined score
  *
  * @param config Scoring configuration with weights and thresholds
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.7.0
  */
 class ScoreCalculator(
@@ -128,7 +128,7 @@ class ScoreCalculator(
  * 7. Standard threshold-based verdict
  *
  * @param config Scoring configuration with thresholds
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.7.0
  */
 class VerdictDeterminer(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import com.raouf.mehrguard.model.Verdict
  * val explanation = generator.getRiskExplanation(assessment)
  * ```
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.2.0
  */
 object SharedTextGenerator {
@@ -277,7 +277,7 @@ object SharedTextGenerator {
      */
     fun generateShareText(url: String, assessment: RiskAssessment): String {
         return buildString {
-            appendLine("🛡️ QR-SHIELD Scan Result")
+            appendLine("🛡️ Mehr Guard Scan Result")
             appendLine()
             appendLine("URL: $url")
             appendLine("Verdict: ${getVerdictTitle(assessment.verdict)}")
@@ -290,7 +290,7 @@ object SharedTextGenerator {
                 }
             }
             appendLine()
-            appendLine("Scanned with QR-SHIELD - raoof128.github.io")
+            appendLine("Scanned with Mehr Guard - raoof128.github.io")
         }
     }
 

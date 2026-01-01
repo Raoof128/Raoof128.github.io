@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ import com.raouf.mehrguard.model.RiskAssessment
 import com.raouf.mehrguard.model.Verdict
 
 /**
- * Share Manager for QR-SHIELD
+ * Share Manager for Mehr Guard
  *
  * Generates shareable content from scan analysis results.
  * Platform-specific implementations handle actual sharing.
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 object ShareManager {
@@ -42,7 +42,7 @@ object ShareManager {
         }
 
         return buildString {
-            appendLine("$emoji QR-SHIELD Analysis Report")
+            appendLine("$emoji Mehr Guard Analysis Report")
             appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
             appendLine()
             appendLine("🔗 URL: ${url.take(100)}${if (url.length > 100) "..." else ""}")
@@ -64,7 +64,7 @@ object ShareManager {
 
             appendLine()
             appendLine("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-            appendLine("Analyzed with QR-SHIELD 🛡️")
+            appendLine("Analyzed with Mehr Guard 🛡️")
             appendLine("Kotlin Multiplatform QRishing Detector")
         }
     }
@@ -93,7 +93,7 @@ object ShareManager {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>QR-SHIELD Analysis Report</title>
+                <title>Mehr Guard Analysis Report</title>
                 <style>
                     body {
                         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -154,7 +154,7 @@ object ShareManager {
             <body>
                 <div class="card">
                     <div class="header">
-                        <h1>🛡️ QR-SHIELD</h1>
+                        <h1>🛡️ Mehr Guard</h1>
                         <p>Analysis Report</p>
                     </div>
 
@@ -174,7 +174,7 @@ object ShareManager {
 
                     <div class="footer">
                         <p>Confidence: ${(assessment.confidence * 100).toInt()}%</p>
-                        <p>Analyzed with QR-SHIELD - Kotlin Multiplatform QRishing Detector</p>
+                        <p>Analyzed with Mehr Guard - Kotlin Multiplatform QRishing Detector</p>
                     </div>
                 </div>
             </body>
@@ -208,7 +208,7 @@ object ShareManager {
             }
             appendLine("    \"tld\": \"${escapeJsonString(assessment.details.tld ?: "")}\"")
             appendLine("  },")
-            appendLine("  \"analyzedBy\": \"QR-SHIELD v1.0.0\",")
+            appendLine("  \"analyzedBy\": \"Mehr Guard v1.0.0\",")
             appendLine("  \"platform\": \"Kotlin Multiplatform\"")
             appendLine("}")
         }

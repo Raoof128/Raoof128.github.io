@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 package com.raouf.mehrguard.localization
 
 /**
- * German Translations for QR-SHIELD
+ * German Translations for Mehr Guard
  *
- * Complete German (Deutsch) localization for the QR-SHIELD application.
+ * Complete German (Deutsch) localization for the Mehr Guard application.
  * Added for KotlinConf 2026 in Munich - demonstrates i18n completion.
  *
  * ## Usage
@@ -28,7 +28,7 @@ package com.raouf.mehrguard.localization
  * val text = Translations.get("de").verdictSafe // "Sicher"
  * ```
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.7.0
  */
 object GermanTranslations : TranslationBundle {
@@ -56,7 +56,7 @@ object GermanTranslations : TranslationBundle {
     override val actionGoBack: String = "Zurück in Sicherheit"
     
     // ==================== UI Elements ====================
-    override val appName: String = "QR-SHIELD"
+    override val appName: String = "Mehr Guard"
     override val appTagline: String = "Smart scannen. Geschützt bleiben."
     override val tabScan: String = "Scannen"
     override val tabHistory: String = "Verlauf"
@@ -231,7 +231,7 @@ object EnglishTranslations : TranslationBundle {
     override val actionProceed: String = "Proceed Anyway"
     override val actionGoBack: String = "Go Back to Safety"
     
-    override val appName: String = "QR-SHIELD"
+    override val appName: String = "Mehr Guard"
     override val appTagline: String = "Scan Smart. Stay Protected."
     override val tabScan: String = "Scan"
     override val tabHistory: String = "History"

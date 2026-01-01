@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
- * Ensemble ML Model for QR-SHIELD
+ * Ensemble ML Model for Mehr Guard
  *
  * Advanced ensemble model combining multiple classifiers for robust phishing detection.
  * Demonstrates ML sophistication beyond basic logistic regression.
@@ -74,7 +74,7 @@ import kotlin.math.sqrt
  * - Deterministic: same input produces identical output
  * - No network calls: runs entirely on-device
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.3.0
  * @see LogisticRegressionModel
  */

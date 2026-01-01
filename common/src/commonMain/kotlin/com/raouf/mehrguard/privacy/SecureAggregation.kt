@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ import kotlin.random.Random
  * - Bernstein, D. J. (2006). "Curve25519: new Diffie-Hellman speed records"
  * - Hankerson, D., Menezes, A., & Vanstone, S. (2004). "Guide to Elliptic Curve Cryptography"
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.6.2
  */
 class SecureAggregation {

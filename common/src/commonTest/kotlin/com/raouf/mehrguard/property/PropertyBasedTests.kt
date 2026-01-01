@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 QR-SHIELD Contributors
+ * Copyright 2025-2026 Mehr Guard Contributors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 /**
- * Property-based / Fuzz testing for QR-SHIELD using custom generators.
+ * Property-based / Fuzz testing for Mehr Guard using custom generators.
  *
  * These tests generate random inputs to find edge cases and verify invariants.
  * Inspired by QuickCheck/Kotest property testing patterns.
@@ -42,7 +42,7 @@ import kotlin.test.assertTrue
  * - Input validation properly sanitizes all inputs
  * - Homograph detection handles Unicode correctly
  *
- * @author QR-SHIELD Security Team
+ * @author Mehr Guard Security Team
  * @since 1.0.0
  */
 class PropertyBasedTests {
