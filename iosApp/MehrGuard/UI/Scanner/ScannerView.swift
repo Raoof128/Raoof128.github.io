@@ -65,15 +65,19 @@ struct ScannerView: View {
             // 3. Main Content
             VStack(spacing: 0) {
                 // RED TEAM SCENARIOS (Developer Mode Only)
-                if developerModeEnabled {
-                    RedTeamScenariosPanel { scenario in
-                        // Bypass camera - feed malicious URL directly to analysis engine
-                        SettingsManager.shared.triggerHaptic(.warning)
-                        SettingsManager.shared.playSound(.scan)
-                        viewModel.analyzeUrl(scenario.maliciousUrl)
+                // Wrapped in Group with animation modifier for proper transition
+                Group {
+                    if developerModeEnabled {
+                        RedTeamScenariosPanel { scenario in
+                            // Bypass camera - feed malicious URL directly to analysis engine
+                            SettingsManager.shared.triggerHaptic(.warning)
+                            SettingsManager.shared.playSound(.scan)
+                            viewModel.analyzeUrl(scenario.maliciousUrl)
+                        }
+                        .transition(.move(edge: .top).combined(with: .opacity))
                     }
-                    .transition(.move(edge: .top).combined(with: .opacity))
                 }
+                .animation(.easeInOut(duration: 0.3), value: developerModeEnabled)
                 
                 // Header Bar (Liquid Glass)
                 headerBar

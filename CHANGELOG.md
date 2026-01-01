@@ -51,20 +51,27 @@ All 6 platforms build successfully:
 4. **iOS Build Artifacts Cleaned**
    - Removed stale `.build/` and `.swiftpm/` folders containing old "QRShield" references
 
+### 🕵️ iOS Red Team / Judge Mode Fixes
+
+**Fixed iOS Red Team panel animation and expanded scenarios to match Kotlin.**
+
+1. **`ScannerView.swift`**
+   - Wrapped `if developerModeEnabled` block with `Group` and `.animation()` modifier
+   - Red Team panel now properly animates in/out when toggling Developer Mode
+
+2. **`MockTypes.swift` - Expanded Scenarios**
+   - Added 8 new scenarios to match Kotlin `RedTeamScenarios.kt` (now 18 total)
+   - Added: HG-003 (Microsoft Cyrillic), IP-003 (Octal), TLD-003 (Amazon .ga)
+   - Added: NR-001/NR-002 (Nested Redirects), BI-002 (Google typosquatting)
+   - Added: SH-002 (TinyURL)
+
 #### Verification
 
 - ✅ `grep -ri "QR-SHIELD" common androidApp desktopApp webApp --include="*.kt"` → 0 matches
 - ✅ `grep -ri "com\.qrshield"` → 0 matches
 - ✅ `./gradlew :common:compileKotlinDesktop :androidApp:compileDebugKotlin` → BUILD SUCCESSFUL
-- ✅ iOS Red Team / Judge Mode verified working with full scenario list
-
-#### iOS Red Team / Judge Mode
-
-The iOS app already has a complete Judge Mode implementation:
-- **Activation**: 7 taps on version number in Settings
-- **Location**: `SettingsView.swift` handles activation, `ScannerView.swift` shows `RedTeamScenariosPanel`
-- **Scenarios**: 10 test cases defined in `MockTypes.swift` (matching Kotlin scenarios)
-- **Categories**: Homograph Attack, IP Obfuscation, Suspicious TLD, Brand Impersonation, URL Shortener, Safe Control
+- ✅ `./gradlew :common:compileKotlinIosSimulatorArm64` → BUILD SUCCESSFUL
+- ✅ iOS + Android Red Team scenarios now have 18 identical test cases
 
 ---
 

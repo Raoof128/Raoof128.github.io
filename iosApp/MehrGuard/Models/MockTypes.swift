@@ -252,8 +252,9 @@ struct RedTeamScenario: Identifiable {
 enum RedTeamScenarios {
     
     /// All available red team scenarios for testing.
+    /// Matches the Kotlin RedTeamScenarios exactly for cross-platform parity.
     static let scenarios: [RedTeamScenario] = [
-        // HOMOGRAPH ATTACKS
+        // HOMOGRAPH ATTACKS (Mixed Scripts)
         RedTeamScenario(
             id: "HG-001",
             category: "Homograph Attack",
@@ -272,13 +273,22 @@ enum RedTeamScenarios {
             targetBrand: "PayPal",
             expectedScore: 70...100
         ),
+        RedTeamScenario(
+            id: "HG-003",
+            category: "Homograph Attack",
+            title: "Cyrillic 'о' in Microsoft",
+            description: "Uses Cyrillic 'о' (U+043E) to impersonate Microsoft",
+            maliciousUrl: "https://micrоsоft.com/signin",
+            targetBrand: "Microsoft",
+            expectedScore: 70...100
+        ),
         
         // IP OBFUSCATION
         RedTeamScenario(
             id: "IP-001",
             category: "IP Obfuscation",
             title: "Decimal IP Address",
-            description: "Uses decimal encoding instead of dotted notation",
+            description: "Uses decimal encoding (3232235777) instead of dotted notation",
             maliciousUrl: "http://3232235777/malware",
             targetBrand: nil,
             expectedScore: 60...100
@@ -287,13 +297,22 @@ enum RedTeamScenarios {
             id: "IP-002",
             category: "IP Obfuscation",
             title: "Hexadecimal IP Address",
-            description: "Uses hex encoding to hide IP address",
+            description: "Uses hex encoding (0xC0A80101) to hide IP address",
             maliciousUrl: "http://0xC0A80101/payload",
             targetBrand: nil,
             expectedScore: 60...100
         ),
+        RedTeamScenario(
+            id: "IP-003",
+            category: "IP Obfuscation",
+            title: "Octal IP Address",
+            description: "Uses octal notation (0300.0250.0001.0001) to obfuscate IP",
+            maliciousUrl: "http://0300.0250.0001.0001/shell",
+            targetBrand: nil,
+            expectedScore: 50...100
+        ),
         
-        // SUSPICIOUS TLD
+        // SUSPICIOUS TLD (Known Phishing TLDs)
         RedTeamScenario(
             id: "TLD-001",
             category: "Suspicious TLD",
@@ -312,8 +331,37 @@ enum RedTeamScenarios {
             targetBrand: "Banking",
             expectedScore: 60...100
         ),
+        RedTeamScenario(
+            id: "TLD-003",
+            category: "Suspicious TLD",
+            title: "Amazon on .ga domain",
+            description: ".ga is a free TLD commonly abused for phishing",
+            maliciousUrl: "https://amazon-security.ga/giftcard",
+            targetBrand: "Amazon",
+            expectedScore: 60...100
+        ),
         
-        // BRAND IMPERSONATION
+        // NESTED REDIRECTS
+        RedTeamScenario(
+            id: "NR-001",
+            category: "Nested Redirect",
+            title: "URL in Query Parameter",
+            description: "Embeds phishing URL in redirect parameter",
+            maliciousUrl: "https://legit.com/redirect?url=https://phishing.tk/login",
+            targetBrand: nil,
+            expectedScore: 50...90
+        ),
+        RedTeamScenario(
+            id: "NR-002",
+            category: "Nested Redirect",
+            title: "Encoded Nested URL",
+            description: "URL-encoded malicious redirect destination",
+            maliciousUrl: "https://legit.com/goto?next=https%3A%2F%2Fmalware.ml%2Fdownload",
+            targetBrand: nil,
+            expectedScore: 50...90
+        ),
+        
+        // BRAND IMPERSONATION (Typosquatting)
         RedTeamScenario(
             id: "BI-001",
             category: "Brand Impersonation",
@@ -325,6 +373,15 @@ enum RedTeamScenarios {
         ),
         RedTeamScenario(
             id: "BI-002",
+            category: "Brand Impersonation",
+            title: "Google Typosquatting",
+            description: "Uses 'googIe' with capital I instead of 'l'",
+            maliciousUrl: "https://googIe.com/account/verify",
+            targetBrand: "Google",
+            expectedScore: 50...90
+        ),
+        RedTeamScenario(
+            id: "BI-003",
             category: "Brand Impersonation",
             title: "Netflix Subdomain Attack",
             description: "Uses netflix as subdomain of malicious domain",
@@ -338,13 +395,22 @@ enum RedTeamScenarios {
             id: "SH-001",
             category: "URL Shortener",
             title: "Bit.ly Shortened URL",
-            description: "URL shorteners hide final destination",
+            description: "URL shorteners hide final destination, often used in phishing",
             maliciousUrl: "https://bit.ly/3xYz123",
             targetBrand: nil,
             expectedScore: 30...60
         ),
+        RedTeamScenario(
+            id: "SH-002",
+            category: "URL Shortener",
+            title: "TinyURL Shortened",
+            description: "Another common shortener used to hide malicious destinations",
+            maliciousUrl: "https://tinyurl.com/y2abc",
+            targetBrand: nil,
+            expectedScore: 30...60
+        ),
         
-        // SAFE CONTROL
+        // SAFE CONTROL (Baseline for comparison)
         RedTeamScenario(
             id: "SAFE-001",
             category: "Safe (Control)",
