@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Mehr Guard</string>
     <string name="tagline">Quét mã QR. Phát hiện lừa đảo.</string>
@@ -106,6 +106,8 @@
     <string name="language_vietnamese">Tiếng Việt</string>
     <string name="language_indonesian">Bahasa Indonesia</string>
     <string name="language_thai">ภาษาไทย</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_persian">فارسی</string>
     <string name="settings_privacy">Quyền riêng tư</string>
     <string name="settings_save_history">Lưu lịch sử quét</string>
     <string name="settings_save_history_desc">Giữ bản ghi các URL đã quét</string>
@@ -446,17 +448,12 @@
     <string name="privacy_type2">Loại II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
-
-    <!-- Feature Cards -->
     <string name="feature_offline_title">Kiến trúc Offline-First</string>
     <string name="feature_offline_desc">Phân tích hoàn chỉnh được thực hiện cục bộ. Camera và dữ liệu quét của bạn không bao giờ chạm vào máy chủ bên ngoài.</string>
     <string name="feature_explainable_title">Bảo mật Có thể Giải thích</string>
     <string name="feature_explainable_desc">Không chỉ là Chặn. Chúng tôi cung cấp phân tích heuristic chi tiết về tham số URL và chuyển hướng.</string>
     <string name="feature_performance_title">Công cụ Hiệu suất Cao</string>
     <string name="feature_performance_desc">Được tối ưu hóa cho môi trường di động. Quét được xử lý trong dưới 5ms bằng các nguyên thủy Kotlin gốc.</string>
-
-    
-    <!-- Blocklist Screen -->
     <string name="blocklist_offline_synced">Offline-first • Synced</string>
     <string name="blocklist_manage_desc">Manage domains forbidden by local policy.</string>
     <string name="blocklist_active_rules">ACTIVE RULES</string>
@@ -468,8 +465,6 @@
     <string name="blocklist_remove_protocol">Please remove "http://" or "https://" protocol.</string>
     <string name="blocklist_enter_root_domain">Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.</string>
     <string name="blocklist_block_action">Block Domain</string>
-    
-    <!-- Allowlist Screen -->
     <string name="allowlist_header">Allowlist</string>
     <string name="allowlist_trusted_domains">Trusted Domains</string>
     <string name="allowlist_trusted_domains_desc">URLs from these domains will always be marked as safe. Use with caution.</string>
@@ -478,8 +473,6 @@
     <string name="allowlist_add_trusted">Add Trusted Domain</string>
     <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
     <string name="allowlist_add_action">Add to Allowlist</string>
-    
-    <!-- Export Report Screen -->
     <string name="export_report_title">Export Report</string>
     <string name="export_report_version">v2.4</string>
     <string name="export_risk_assessment">Risk Assessment</string>
@@ -489,8 +482,6 @@
     <string name="export_include_in_report">Include in Report</string>
     <string name="export_generated_locally">Generated locally • No data leaves your device</string>
     <string name="export_as_format">Export as %s</string>
-    
-    <!-- Offline Privacy Screen -->
     <string name="privacy_data_verification">Data Verification</string>
     <string name="privacy_image_data">IMAGE DATA</string>
     <string name="privacy_memory_only">Memory Only</string>
@@ -498,15 +489,11 @@
     <string name="privacy_local_cpu">Local CPU</string>
     <string name="privacy_user_history">USER HISTORY</string>
     <string name="privacy_encrypted_storage">Encrypted Storage (AES-256)</string>
-    
-    <!-- Threat Database Screen -->
     <string name="threat_database_title">Threat Intelligence</string>
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
     <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
-    
-    <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
     <string name="toast_no_qr_found">No QR code found in image</string>
     <string name="toast_error_message">Error: %s</string>
@@ -529,7 +516,6 @@
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
     <string name="toast_opening_module">Opening module: %s</string>
-    <!-- Additional Content Descriptions -->
     <string name="cd_verified">Verified</string>
     <string name="cd_add">Add</string>
     <string name="cd_remove">Remove</string>
@@ -543,11 +529,8 @@
     <string name="cd_available_offline">Available offline</string>
     <string name="cd_close">Close</string>
     <string name="cd_try_again">Try again</string>
-
-    <!-- Common -->
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
-    <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
     <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
     <string name="cd_app_logo_full">QR Shield logo</string>
@@ -561,32 +544,23 @@
     <string name="cd_resolving_url">Resolving shortened URL. Please wait.</string>
     <string name="cd_analyzing_url">Analyzing URL for security threats. Please wait.</string>
     <string name="cd_error_occurred">Error occurred: %s. Tap Try Again to retry.</string>
-    <!-- History Screen Content Descriptions -->
     <string name="cd_history_screen_items">Scan history screen with %d items</string>
     <string name="cd_search_history_url">Search scan history by URL</string>
     <string name="cd_filter_by">Filter by %s</string>
     <string name="cd_scan_result_details">Scan result: %1$s, verdict %2$s, score %3$d. Tap to view details.</string>
     <string name="cd_more_options_scan">More options for this scan</string>
-    <!-- ResultCard Content Descriptions -->
     <string name="cd_scan_result_full">Scan result: %1$s, risk score %2$d out of 100. URL: %3$s. %4$d risk factors found.</string>
     <string name="cd_scanned_url">Scanned URL: %s</string>
     <string name="cd_dismiss_result">Dismiss result and return home</string>
     <string name="cd_scan_another">Scan another QR code</string>
     <string name="cd_security">Security</string>
-    <!-- CameraPreview Content Descriptions -->
     <string name="cd_camera_preview">Camera preview for QR code scanning. Position a QR code in the center of the screen to scan it.</string>
-    <!-- SandboxWebView -->
-    <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
-    
-    <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">PHÂN TÍCH AI</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
     <string name="beat_the_bot_reset_game">Reset Game</string>
     <string name="cd_reset_game">Reset game and start over</string>
     <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
     <string name="analysis_brand_title">Giả Mạo Thương Hiệu</string>
     <string name="analysis_brand_desc">URL có vẻ đang giả mạo một thương hiệu nổi tiếng.</string>
     <string name="analysis_brand_desc_specific">URL có vẻ đang giả mạo %1$s.</string>
@@ -620,8 +594,6 @@
     <string name="analysis_entropy_desc">Tên miền có vẻ được tạo ngẫu nhiên, phổ biến trong phishing.</string>
     <string name="analysis_port_title">Cổng Bất Thường</string>
     <string name="analysis_port_desc">URL sử dụng số cổng không tiêu chuẩn.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
     <string name="tag_ip_address">Địa Chỉ IP</string>
     <string name="tag_brand_spoof">Giả Mạo Thương Hiệu</string>
     <string name="tag_insecure">Không An Toàn</string>
@@ -631,18 +603,12 @@
     <string name="tag_long_url">URL Dài</string>
     <string name="tag_at_injection">Chèn @</string>
     <string name="tag_verified_safe">Xác Nhận An Toàn</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
     <string name="status_scan_complete">Quét Hoàn Tất</string>
     <string name="status_caution_advised">Khuyến Cáo Cẩn Thận</string>
     <string name="status_threat_detected">Phát Hiện Mối Đe Dọa</string>
     <string name="status_analysis_complete">Phân Tích Hoàn Tất</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
     <string name="meta_analyzed_offline">Phân tích ngoại tuyến trong &lt;5ms</string>
     <string name="meta_no_data_leaves">Không có dữ liệu rời khỏi thiết bị</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
     <string name="top_analysis_factors_title">Các Yếu Tố Phân Tích Hàng Đầu</string>
     <string name="factor_category_https">HTTPS</string>
     <string name="factor_category_domain">TÊN MIỀN</string>

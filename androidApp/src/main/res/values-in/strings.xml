@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Mehr Guard</string>
     <string name="tagline">Pindai kode QR. Deteksi phishing.</string>
@@ -106,6 +106,8 @@
     <string name="language_vietnamese">Tiếng Việt</string>
     <string name="language_indonesian">Bahasa Indonesia</string>
     <string name="language_thai">ภาษาไทย</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_persian">فارسی</string>
     <string name="settings_privacy">Privasi</string>
     <string name="settings_save_history">Simpan Riwayat Pemindaian</string>
     <string name="settings_save_history_desc">Simpan catatan URL yang dipindai</string>
@@ -446,17 +448,12 @@
     <string name="privacy_type2">Tipe II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
-
-    <!-- Feature Cards -->
     <string name="feature_offline_title">Arsitektur Offline-First</string>
     <string name="feature_offline_desc">Analisis lengkap dilakukan secara lokal. Kamera dan data pindaian Anda tidak pernah menyentuh server eksternal.</string>
     <string name="feature_explainable_title">Keamanan yang Dapat Dijelaskan</string>
     <string name="feature_explainable_desc">Bukan hanya Blokir. Kami menyediakan analisis heuristik terperinci dari parameter URL dan pengalihan.</string>
     <string name="feature_performance_title">Mesin Performa Tinggi</string>
     <string name="feature_performance_desc">Dioptimalkan untuk lingkungan seluler. Pemindaian diproses dalam waktu kurang dari 5ms menggunakan primitif Kotlin asli.</string>
-
-    
-    <!-- Blocklist Screen -->
     <string name="blocklist_offline_synced">Offline-first • Synced</string>
     <string name="blocklist_manage_desc">Manage domains forbidden by local policy.</string>
     <string name="blocklist_active_rules">ACTIVE RULES</string>
@@ -468,8 +465,6 @@
     <string name="blocklist_remove_protocol">Please remove "http://" or "https://" protocol.</string>
     <string name="blocklist_enter_root_domain">Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.</string>
     <string name="blocklist_block_action">Block Domain</string>
-    
-    <!-- Allowlist Screen -->
     <string name="allowlist_header">Allowlist</string>
     <string name="allowlist_trusted_domains">Trusted Domains</string>
     <string name="allowlist_trusted_domains_desc">URLs from these domains will always be marked as safe. Use with caution.</string>
@@ -478,8 +473,6 @@
     <string name="allowlist_add_trusted">Add Trusted Domain</string>
     <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
     <string name="allowlist_add_action">Add to Allowlist</string>
-    
-    <!-- Export Report Screen -->
     <string name="export_report_title">Export Report</string>
     <string name="export_report_version">v2.4</string>
     <string name="export_risk_assessment">Risk Assessment</string>
@@ -489,8 +482,6 @@
     <string name="export_include_in_report">Include in Report</string>
     <string name="export_generated_locally">Generated locally • No data leaves your device</string>
     <string name="export_as_format">Export as %s</string>
-    
-    <!-- Offline Privacy Screen -->
     <string name="privacy_data_verification">Data Verification</string>
     <string name="privacy_image_data">IMAGE DATA</string>
     <string name="privacy_memory_only">Memory Only</string>
@@ -498,15 +489,11 @@
     <string name="privacy_local_cpu">Local CPU</string>
     <string name="privacy_user_history">USER HISTORY</string>
     <string name="privacy_encrypted_storage">Encrypted Storage (AES-256)</string>
-    
-    <!-- Threat Database Screen -->
     <string name="threat_database_title">Threat Intelligence</string>
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
     <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
-    
-    <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
     <string name="toast_no_qr_found">No QR code found in image</string>
     <string name="toast_error_message">Error: %s</string>
@@ -529,7 +516,6 @@
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
     <string name="toast_opening_module">Opening module: %s</string>
-    <!-- Additional Content Descriptions -->
     <string name="cd_verified">Verified</string>
     <string name="cd_add">Add</string>
     <string name="cd_remove">Remove</string>
@@ -543,11 +529,8 @@
     <string name="cd_available_offline">Available offline</string>
     <string name="cd_close">Close</string>
     <string name="cd_try_again">Try again</string>
-
-    <!-- Common -->
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
-    <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
     <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
     <string name="cd_app_logo_full">QR Shield logo</string>
@@ -561,32 +544,23 @@
     <string name="cd_resolving_url">Resolving shortened URL. Please wait.</string>
     <string name="cd_analyzing_url">Analyzing URL for security threats. Please wait.</string>
     <string name="cd_error_occurred">Error occurred: %s. Tap Try Again to retry.</string>
-    <!-- History Screen Content Descriptions -->
     <string name="cd_history_screen_items">Scan history screen with %d items</string>
     <string name="cd_search_history_url">Search scan history by URL</string>
     <string name="cd_filter_by">Filter by %s</string>
     <string name="cd_scan_result_details">Scan result: %1$s, verdict %2$s, score %3$d. Tap to view details.</string>
     <string name="cd_more_options_scan">More options for this scan</string>
-    <!-- ResultCard Content Descriptions -->
     <string name="cd_scan_result_full">Scan result: %1$s, risk score %2$d out of 100. URL: %3$s. %4$d risk factors found.</string>
     <string name="cd_scanned_url">Scanned URL: %s</string>
     <string name="cd_dismiss_result">Dismiss result and return home</string>
     <string name="cd_scan_another">Scan another QR code</string>
     <string name="cd_security">Security</string>
-    <!-- CameraPreview Content Descriptions -->
     <string name="cd_camera_preview">Camera preview for QR code scanning. Position a QR code in the center of the screen to scan it.</string>
-    <!-- SandboxWebView -->
-    <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
-    
-    <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">ANALISIS AI</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
     <string name="beat_the_bot_reset_game">Reset Game</string>
     <string name="cd_reset_game">Reset game and start over</string>
     <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
     <string name="analysis_brand_title">Peniruan Merek</string>
     <string name="analysis_brand_desc">URL tampaknya meniru merek terkenal.</string>
     <string name="analysis_brand_desc_specific">URL tampaknya meniru %1$s.</string>
@@ -620,8 +594,6 @@
     <string name="analysis_entropy_desc">Domain tampaknya dihasilkan secara acak, umum dalam phishing.</string>
     <string name="analysis_port_title">Port Tidak Biasa</string>
     <string name="analysis_port_desc">URL menggunakan nomor port non-standar.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
     <string name="tag_ip_address">Alamat IP</string>
     <string name="tag_brand_spoof">Pemalsuan Merek</string>
     <string name="tag_insecure">Tidak Aman</string>
@@ -631,18 +603,12 @@
     <string name="tag_long_url">URL Panjang</string>
     <string name="tag_at_injection">Injeksi @</string>
     <string name="tag_verified_safe">Terverifikasi Aman</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
     <string name="status_scan_complete">Pemindaian Selesai</string>
     <string name="status_caution_advised">Disarankan Berhati-hati</string>
     <string name="status_threat_detected">Ancaman Terdeteksi</string>
     <string name="status_analysis_complete">Analisis Selesai</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
     <string name="meta_analyzed_offline">Dianalisis offline dalam &lt;5ms</string>
     <string name="meta_no_data_leaves">Tidak ada data yang keluar dari perangkat</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
     <string name="top_analysis_factors_title">Faktor Analisis Teratas</string>
     <string name="factor_category_https">HTTPS</string>
     <string name="factor_category_domain">DOMAIN</string>

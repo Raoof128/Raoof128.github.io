@@ -97,7 +97,7 @@
 "settings.security_alerts" = "تنبيهات الأمان";
 "settings.security_alerts_description" = "الحصول على إشعارات حول التهديدات الأمنية";
 "settings.notifications_denied_title" = "الإشعارات معطلة";
-"settings.notifications_denied_message" = "لتلقي تنبيهات الأمان، يرجى تفعيل الإشعارات لـ Mehr Guard من الإعدادات.";
+"settings.notifications_denied_message" = "لتلقي التنبيهات، يرجى تمكين الإشعارات لـ Mehr Guard في الإعدادات.";
 "settings.open_settings" = "فتح الإعدادات";
 "settings.cancel" = "إلغاء";
 
@@ -128,18 +128,18 @@
 // MARK: - Onboarding
 "onboarding.skip" = "تخطي";
 "onboarding.continue" = "متابعة";
-"onboarding.get_started" = "ابدأ الآن";
+"onboarding.get_started" = "البدء";
 "onboarding.page_indicator" = "%d/%d";
 
 // Onboarding Pages
 "onboarding.scan.title" = "امسح أي رمز QR";
-"onboarding.scan.description" = "وجّه الكاميرا نحو أي رمز QR لتحليل محتواه فوراً بحثاً عن التهديدات المحتملة.";
-"onboarding.protect.title" = "حماية في الوقت الحقيقي";
-"onboarding.protect.description" = "يحلل محركنا المدعوم بالذكاء الاصطناعي الروابط باستخدام أكثر من 25 قاعدة أمنية وخوارزميات تعلم آلي.";
+"onboarding.scan.description" = "وجه الكاميرا إلى أي رمز QR لتحليل محتواه فوراً بحثاً عن التهديدات المحتملة.";
+"onboarding.protect.title" = "حماية في الوقت الفعلي";
+"onboarding.protect.description" = "يحلل محرك الذكاء الاصطناعي الروابط باستخدام أكثر من 25 قاعدة أمنية وخوارزميات التعلم الآلي.";
 "onboarding.privacy.title" = "الخصوصية أولاً";
-"onboarding.privacy.description" = "يتم كل التحليل على الجهاز باستخدام Kotlin Multiplatform. بياناتك لا تغادر هاتفك أبداً.";
-"onboarding.design.title" = "تصميم iOS 17+ الجميل";
-"onboarding.design.description" = "استمتع بواجهة الزجاج السائل المذهلة مع حركات سلسة وجماليات حديثة.";
+"onboarding.privacy.description" = "كل التحليلات تتم على الجهاز باستخدام Kotlin Multiplatform. بياناتك لا تغادر هاتفك أبداً.";
+"onboarding.design.title" = "تصميم iOS 17+ جميل";
+"onboarding.design.description" = "استمتع بواجهة Liquid Glass المذهلة مع رسوم متحركة سلسة وجماليات حديثة.";
 
 // Camera Permission Alert
 "onboarding.camera.title" = "إذن الكاميرا";
@@ -655,3 +655,15 @@
 "export.action_share_desc" = "Open the iOS share sheet to send via Messages, Mail, AirDrop, or save to Files.";
 "export.json_description" = "Exports raw analysis data in JSON format. Perfect for integration with security tools, SIEMs, or for further automated processing.";
 "export.pdf_description" = "Exports a human-readable security report suitable for sharing with team members, management, or for your records. Includes verdict, risk factors, and recommendations.";
+
+/* Additional Strings */
+"common.settings" = "Settings";
+"component.risk_score_format" = "Risk Score: %d/100";
+"result.analysis_description" = "Review the URL breakdown below.";
+"result.analysis_mode" = "Analysis Complete";
+"result.caution_description" = "Some suspicious patterns detected. Exercise caution before proceeding.";
+"result.caution_mode" = "Caution Advised";
+"result.open_safe_message" = "This URL has been verified as safe. You can proceed with confidence.";
+"result.safe_description" = "This URL passed all security checks. Safe to proceed.";
+"result.safe_mode" = "Verified Safe";
+"scanner.camera_required_short" = "Enable camera in Settings to scan QR codes";

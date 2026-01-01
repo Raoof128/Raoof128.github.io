@@ -137,6 +137,8 @@
     <string name="language_vietnamese">Tiếng Việt</string>
     <string name="language_indonesian">Bahasa Indonesia</string>
     <string name="language_thai">ภาษาไทย</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_persian">فارسی</string>
     
     <string name="settings_privacy">Privacy</string>
     <string name="settings_save_history">Save scan history</string>

@@ -1,16 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <!-- App Identity -->
     <string name="app_name">Mehr Guard</string>
     <string name="tagline">QR 코드 스캔. 피싱 탐지.</string>
-
-    <!-- Navigation -->
     <string name="nav_home">홈</string>
     <string name="nav_scan">스캔</string>
     <string name="nav_history">기록</string>
     <string name="nav_settings">설정</string>
-
-    <!-- Dashboard -->
     <string name="dashboard_welcome_back">다시 오신 것을 환영합니다</string>
     <string name="dashboard_default_user">보안 관리자</string>
     <string name="dashboard_shield_active">보호 활성화됨</string>
@@ -30,8 +25,6 @@
     <string name="dashboard_db_status_default">데이터베이스 업데이트됨</string>
     <string name="dashboard_enterprise_protection">기업 보호</string>
     <string name="dashboard_url_placeholder">여기에 URL 입력…</string>
-
-    <!-- Scanner Screen -->
     <string name="start_scanning">스캔 시작</string>
     <string name="scan_from_gallery">갤러리에서 스캔</string>
     <string name="scan_instruction">프레임에 QR 코드 맞추기</string>
@@ -48,8 +41,6 @@
     <string name="analyze_url">URL 분석</string>
     <string name="url_hint">예: https://example.com</string>
     <string name="url_placeholder">URL 주소 입력</string>
-
-    <!-- Results -->
     <string name="risk_score">위험 점수</string>
     <string name="scanned_url">스캔된 URL</string>
     <string name="copy">복사</string>
@@ -59,8 +50,6 @@
     <string name="safe_verdict">안전</string>
     <string name="suspicious_verdict">의심스러움</string>
     <string name="malicious_verdict">악성</string>
-
-    <!-- Scan Result Screen -->
     <string name="scan_result_title">스캔 결과</string>
     <string name="verdict_malicious">높은 위험 감지됨</string>
     <string name="verdict_suspicious">의심스러운 활동</string>
@@ -170,6 +159,8 @@
     <string name="language_vietnamese">Tiếng Việt</string>
     <string name="language_indonesian">Bahasa Indonesia</string>
     <string name="language_thai">ภาษาไทย</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_persian">فارسی</string>
     <string name="settings_privacy">개인정보</string>
     <string name="settings_save_history">스캔 기록 저장</string>
     <string name="settings_save_history_desc">스캔된 URL 기록 유지</string>
@@ -457,17 +448,12 @@
     <string name="privacy_type2">Type II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
-
-    <!-- Feature Cards -->
     <string name="feature_offline_title">오프라인 우선 아키텍처</string>
     <string name="feature_offline_desc">전체 분석이 로컬에서 수행됩니다. 카메라 피드와 스캔 데이터는 외부 서버에 접촉하지 않습니다.</string>
     <string name="feature_explainable_title">설명 가능한 보안</string>
     <string name="feature_explainable_desc">단순한 차단이 아닙니다. URL 매개변수와 리디렉션에 대한 상세한 휴리스틱 분석을 제공합니다.</string>
     <string name="feature_performance_title">고성능 엔진</string>
     <string name="feature_performance_desc">모바일 환경에 최적화되었습니다. 네이티브 Kotlin 프리미티브를 사용하여 5ms 이내에 스캔을 처리합니다.</string>
-
-    
-    <!-- Blocklist Screen -->
     <string name="blocklist_offline_synced">Offline-first • Synced</string>
     <string name="blocklist_manage_desc">Manage domains forbidden by local policy.</string>
     <string name="blocklist_active_rules">ACTIVE RULES</string>
@@ -479,8 +465,6 @@
     <string name="blocklist_remove_protocol">Please remove "http://" or "https://" protocol.</string>
     <string name="blocklist_enter_root_domain">Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.</string>
     <string name="blocklist_block_action">Block Domain</string>
-    
-    <!-- Allowlist Screen -->
     <string name="allowlist_header">Allowlist</string>
     <string name="allowlist_trusted_domains">Trusted Domains</string>
     <string name="allowlist_trusted_domains_desc">URLs from these domains will always be marked as safe. Use with caution.</string>
@@ -489,8 +473,6 @@
     <string name="allowlist_add_trusted">Add Trusted Domain</string>
     <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
     <string name="allowlist_add_action">Add to Allowlist</string>
-    
-    <!-- Export Report Screen -->
     <string name="export_report_title">Export Report</string>
     <string name="export_report_version">v2.4</string>
     <string name="export_risk_assessment">Risk Assessment</string>
@@ -500,8 +482,6 @@
     <string name="export_include_in_report">Include in Report</string>
     <string name="export_generated_locally">Generated locally • No data leaves your device</string>
     <string name="export_as_format">Export as %s</string>
-    
-    <!-- Offline Privacy Screen -->
     <string name="privacy_data_verification">Data Verification</string>
     <string name="privacy_image_data">IMAGE DATA</string>
     <string name="privacy_memory_only">Memory Only</string>
@@ -509,15 +489,11 @@
     <string name="privacy_local_cpu">Local CPU</string>
     <string name="privacy_user_history">USER HISTORY</string>
     <string name="privacy_encrypted_storage">Encrypted Storage (AES-256)</string>
-    
-    <!-- Threat Database Screen -->
     <string name="threat_database_title">Threat Intelligence</string>
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
     <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
-    
-    <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
     <string name="toast_no_qr_found">No QR code found in image</string>
     <string name="toast_error_message">Error: %s</string>
@@ -540,7 +516,6 @@
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
     <string name="toast_opening_module">Opening module: %s</string>
-    <!-- Additional Content Descriptions -->
     <string name="cd_verified">Verified</string>
     <string name="cd_add">Add</string>
     <string name="cd_remove">Remove</string>
@@ -554,11 +529,8 @@
     <string name="cd_available_offline">Available offline</string>
     <string name="cd_close">Close</string>
     <string name="cd_try_again">Try again</string>
-
-    <!-- Common -->
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
-    <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
     <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
     <string name="cd_app_logo_full">QR Shield logo</string>
@@ -572,32 +544,23 @@
     <string name="cd_resolving_url">Resolving shortened URL. Please wait.</string>
     <string name="cd_analyzing_url">Analyzing URL for security threats. Please wait.</string>
     <string name="cd_error_occurred">Error occurred: %s. Tap Try Again to retry.</string>
-    <!-- History Screen Content Descriptions -->
     <string name="cd_history_screen_items">Scan history screen with %d items</string>
     <string name="cd_search_history_url">Search scan history by URL</string>
     <string name="cd_filter_by">Filter by %s</string>
     <string name="cd_scan_result_details">Scan result: %1$s, verdict %2$s, score %3$d. Tap to view details.</string>
     <string name="cd_more_options_scan">More options for this scan</string>
-    <!-- ResultCard Content Descriptions -->
     <string name="cd_scan_result_full">Scan result: %1$s, risk score %2$d out of 100. URL: %3$s. %4$d risk factors found.</string>
     <string name="cd_scanned_url">Scanned URL: %s</string>
     <string name="cd_dismiss_result">Dismiss result and return home</string>
     <string name="cd_scan_another">Scan another QR code</string>
     <string name="cd_security">Security</string>
-    <!-- CameraPreview Content Descriptions -->
     <string name="cd_camera_preview">Camera preview for QR code scanning. Position a QR code in the center of the screen to scan it.</string>
-    <!-- SandboxWebView -->
-    <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
-    
-    <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">AI 분석</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
     <string name="beat_the_bot_reset_game">Reset Game</string>
     <string name="cd_reset_game">Reset game and start over</string>
     <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
     <string name="analysis_brand_title">브랜드 사칭</string>
     <string name="analysis_brand_desc">URL이 잘 알려진 브랜드를 사칭하는 것으로 보입니다.</string>
     <string name="analysis_brand_desc_specific">URL이 %1$s을(를) 사칭하는 것으로 보입니다.</string>
@@ -631,8 +594,6 @@
     <string name="analysis_entropy_desc">도메인이 무작위로 생성된 것으로 보입니다. 피싱에서 일반적입니다.</string>
     <string name="analysis_port_title">비정상적인 포트</string>
     <string name="analysis_port_desc">URL이 비표준 포트 번호를 사용합니다.</string>
-    
-    <!-- Tags (ScanResultScreen) -->
     <string name="tag_ip_address">IP 주소</string>
     <string name="tag_brand_spoof">브랜드 위조</string>
     <string name="tag_insecure">안전하지 않음</string>
@@ -642,18 +603,12 @@
     <string name="tag_long_url">긴 URL</string>
     <string name="tag_at_injection">@ 삽입</string>
     <string name="tag_verified_safe">안전 확인됨</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
     <string name="status_scan_complete">스캔 완료</string>
     <string name="status_caution_advised">주의 권고</string>
     <string name="status_threat_detected">위협 감지됨</string>
     <string name="status_analysis_complete">분석 완료</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
     <string name="meta_analyzed_offline">오프라인에서 5ms 미만으로 분석됨</string>
     <string name="meta_no_data_leaves">데이터가 기기를 떠나지 않음</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
     <string name="top_analysis_factors_title">주요 분석 요소</string>
     <string name="factor_category_https">HTTPS</string>
     <string name="factor_category_domain">도메인</string>

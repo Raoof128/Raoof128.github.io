@@ -1,16 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <!-- App Identity -->
     <string name="app_name">Mehr Guard</string>
     <string name="tagline">QR कोड स्कैन करें। फ़िशिंग का पता लगाएं।</string>
-
-    <!-- Navigation -->
     <string name="nav_home">होम</string>
     <string name="nav_scan">स्कैन</string>
     <string name="nav_history">इतिहास</string>
     <string name="nav_settings">सेटिंग्स</string>
-
-    <!-- Dashboard -->
     <string name="dashboard_welcome_back">वापस स्वागत है</string>
     <string name="dashboard_default_user">सुरक्षा व्यवस्थापक</string>
     <string name="dashboard_shield_active">शील्ड सक्रिय</string>
@@ -30,8 +25,6 @@
     <string name="dashboard_db_status_default">डेटाबेस अपडेट</string>
     <string name="dashboard_enterprise_protection">एंटरप्राइज़ सुरक्षा</string>
     <string name="dashboard_url_placeholder">यहाँ URL दर्ज करें…</string>
-
-    <!-- Scanner Screen -->
     <string name="start_scanning">स्कैनिंग शुरू करें</string>
     <string name="scan_from_gallery">गैलरी से स्कैन करें</string>
     <string name="scan_instruction">QR कोड को फ्रेम में संरेखित करें</string>
@@ -48,8 +41,6 @@
     <string name="analyze_url">URL का विश्लेषण करें</string>
     <string name="url_hint">उदा. https://example.com</string>
     <string name="url_placeholder">URL पता दर्ज करें</string>
-
-    <!-- Results -->
     <string name="risk_score">जोखिम स्कोर</string>
     <string name="scanned_url">स्कैन किया गया URL</string>
     <string name="copy">कॉपी</string>
@@ -59,8 +50,6 @@
     <string name="safe_verdict">सुरक्षित</string>
     <string name="suspicious_verdict">संदिग्ध</string>
     <string name="malicious_verdict">दुर्भावनापूर्ण</string>
-
-    <!-- Scan Result Screen -->
     <string name="scan_result_title">स्कैन परिणाम</string>
     <string name="verdict_malicious">उच्च जोखिम का पता चला</string>
     <string name="verdict_suspicious">संदिग्ध गतिविधि</string>
@@ -170,6 +159,8 @@
     <string name="language_vietnamese">Tiếng Việt</string>
     <string name="language_indonesian">Bahasa Indonesia</string>
     <string name="language_thai">ภาษาไทย</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_persian">فارسی</string>
     <string name="settings_privacy">गोपनीयता</string>
     <string name="settings_save_history">स्कैन इतिहास सहेजें</string>
     <string name="settings_save_history_desc">स्कैन किए गए URL का रिकॉर्ड रखें</string>
@@ -457,17 +448,12 @@
     <string name="privacy_type2">Type II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
-
-    <!-- Feature Cards -->
     <string name="feature_offline_title">ऑफ़लाइन-फर्स्ट आर्किटेक्चर</string>
     <string name="feature_offline_desc">पूर्ण विश्लेषण स्थानीय रूप से किया जाता है। आपका कैमरा फीड और स्कैन किया गया डेटा कभी भी बाहरी सर्वर को नहीं छूता।</string>
     <string name="feature_explainable_title">स्पष्ट सुरक्षा</string>
     <string name="feature_explainable_desc">सिर्फ ब्लॉक नहीं। हम URL पैरामीटर और रीडायरेक्ट का विस्तृत ह्यूरिस्टिक विश्लेषण प्रदान करते हैं।</string>
     <string name="feature_performance_title">उच्च-प्रदर्शन इंजन</string>
     <string name="feature_performance_desc">मोबाइल वातावरण के लिए अनुकूलित। नेटिव Kotlin प्रिमिटिव का उपयोग करके 5ms के भीतर स्कैन संसाधित होते हैं।</string>
-
-    
-    <!-- Blocklist Screen -->
     <string name="blocklist_offline_synced">Offline-first • Synced</string>
     <string name="blocklist_manage_desc">Manage domains forbidden by local policy.</string>
     <string name="blocklist_active_rules">ACTIVE RULES</string>
@@ -479,8 +465,6 @@
     <string name="blocklist_remove_protocol">Please remove "http://" or "https://" protocol.</string>
     <string name="blocklist_enter_root_domain">Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.</string>
     <string name="blocklist_block_action">Block Domain</string>
-    
-    <!-- Allowlist Screen -->
     <string name="allowlist_header">Allowlist</string>
     <string name="allowlist_trusted_domains">Trusted Domains</string>
     <string name="allowlist_trusted_domains_desc">URLs from these domains will always be marked as safe. Use with caution.</string>
@@ -489,8 +473,6 @@
     <string name="allowlist_add_trusted">Add Trusted Domain</string>
     <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
     <string name="allowlist_add_action">Add to Allowlist</string>
-    
-    <!-- Export Report Screen -->
     <string name="export_report_title">Export Report</string>
     <string name="export_report_version">v2.4</string>
     <string name="export_risk_assessment">Risk Assessment</string>
@@ -500,8 +482,6 @@
     <string name="export_include_in_report">Include in Report</string>
     <string name="export_generated_locally">Generated locally • No data leaves your device</string>
     <string name="export_as_format">Export as %s</string>
-    
-    <!-- Offline Privacy Screen -->
     <string name="privacy_data_verification">Data Verification</string>
     <string name="privacy_image_data">IMAGE DATA</string>
     <string name="privacy_memory_only">Memory Only</string>
@@ -509,15 +489,11 @@
     <string name="privacy_local_cpu">Local CPU</string>
     <string name="privacy_user_history">USER HISTORY</string>
     <string name="privacy_encrypted_storage">Encrypted Storage (AES-256)</string>
-    
-    <!-- Threat Database Screen -->
     <string name="threat_database_title">Threat Intelligence</string>
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
     <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
-    
-    <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
     <string name="toast_no_qr_found">No QR code found in image</string>
     <string name="toast_error_message">Error: %s</string>
@@ -540,7 +516,6 @@
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
     <string name="toast_opening_module">Opening module: %s</string>
-    <!-- Additional Content Descriptions -->
     <string name="cd_verified">Verified</string>
     <string name="cd_add">Add</string>
     <string name="cd_remove">Remove</string>
@@ -554,11 +529,8 @@
     <string name="cd_available_offline">Available offline</string>
     <string name="cd_close">Close</string>
     <string name="cd_try_again">Try again</string>
-
-    <!-- Common -->
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
-    <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
     <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
     <string name="cd_app_logo_full">QR Shield logo</string>
@@ -572,32 +544,23 @@
     <string name="cd_resolving_url">Resolving shortened URL. Please wait.</string>
     <string name="cd_analyzing_url">Analyzing URL for security threats. Please wait.</string>
     <string name="cd_error_occurred">Error occurred: %s. Tap Try Again to retry.</string>
-    <!-- History Screen Content Descriptions -->
     <string name="cd_history_screen_items">Scan history screen with %d items</string>
     <string name="cd_search_history_url">Search scan history by URL</string>
     <string name="cd_filter_by">Filter by %s</string>
     <string name="cd_scan_result_details">Scan result: %1$s, verdict %2$s, score %3$d. Tap to view details.</string>
     <string name="cd_more_options_scan">More options for this scan</string>
-    <!-- ResultCard Content Descriptions -->
     <string name="cd_scan_result_full">Scan result: %1$s, risk score %2$d out of 100. URL: %3$s. %4$d risk factors found.</string>
     <string name="cd_scanned_url">Scanned URL: %s</string>
     <string name="cd_dismiss_result">Dismiss result and return home</string>
     <string name="cd_scan_another">Scan another QR code</string>
     <string name="cd_security">Security</string>
-    <!-- CameraPreview Content Descriptions -->
     <string name="cd_camera_preview">Camera preview for QR code scanning. Position a QR code in the center of the screen to scan it.</string>
-    <!-- SandboxWebView -->
-    <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
-    
-    <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">एआई विश्लेषण</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
     <string name="beat_the_bot_reset_game">Reset Game</string>
     <string name="cd_reset_game">Reset game and start over</string>
     <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
     <string name="analysis_brand_title">ब्रांड प्रतिरूपण</string>
     <string name="analysis_brand_desc">URL किसी प्रसिद्ध ब्रांड का प्रतिरूपण करती प्रतीत होती है।</string>
     <string name="analysis_brand_desc_specific">URL %1$s का प्रतिरूपण करती प्रतीत होती है।</string>
@@ -631,8 +594,6 @@
     <string name="analysis_entropy_desc">डोमेन यादृच्छिक रूप से उत्पन्न प्रतीत होता है, फ़िशिंग में आम।</string>
     <string name="analysis_port_title">असामान्य पोर्ट</string>
     <string name="analysis_port_desc">URL एक गैर-मानक पोर्ट नंबर का उपयोग करती है।</string>
-    
-    <!-- Tags (ScanResultScreen) -->
     <string name="tag_ip_address">IP पता</string>
     <string name="tag_brand_spoof">ब्रांड स्पूफ</string>
     <string name="tag_insecure">असुरक्षित</string>
@@ -642,18 +603,12 @@
     <string name="tag_long_url">लंबी URL</string>
     <string name="tag_at_injection">@ इंजेक्शन</string>
     <string name="tag_verified_safe">सत्यापित सुरक्षित</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
     <string name="status_scan_complete">स्कैन पूर्ण</string>
     <string name="status_caution_advised">सावधानी की सलाह</string>
     <string name="status_threat_detected">खतरा पाया गया</string>
     <string name="status_analysis_complete">विश्लेषण पूर्ण</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
     <string name="meta_analyzed_offline">&lt;5ms में ऑफ़लाइन विश्लेषित</string>
     <string name="meta_no_data_leaves">कोई डेटा डिवाइस से बाहर नहीं जाता</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
     <string name="top_analysis_factors_title">शीर्ष विश्लेषण कारक</string>
     <string name="factor_category_https">HTTPS</string>
     <string name="factor_category_domain">डोमेन</string>

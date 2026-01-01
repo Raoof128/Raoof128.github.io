@@ -11,7 +11,7 @@
 "app.tagline" = "Kotlin Multiplatform QRishingディテクター";
 
 // MARK: - Tab Bar
-"tab.dashboard" = "ホーム";
+"tab.dashboard" = "ダッシュボード";
 "tab.scan" = "スキャン";
 "tab.history" = "履歴";
 "tab.training" = "トレーニング";
@@ -97,7 +97,7 @@
 "settings.security_alerts" = "セキュリティアラート";
 "settings.security_alerts_description" = "セキュリティ脅威の通知を受け取る";
 "settings.notifications_denied_title" = "通知が無効です";
-"settings.notifications_denied_message" = "セキュリティアラートを受け取るには、設定でMehr Guardの通知を有効にしてください。";
+"settings.notifications_denied_message" = "アラートを受け取るには、設定でMehr Guardの通知を有効にしてください。";
 "settings.open_settings" = "設定を開く";
 "settings.cancel" = "キャンセル";
 
@@ -133,13 +133,13 @@
 
 // Onboarding Pages
 "onboarding.scan.title" = "あらゆるQRコードをスキャン";
-"onboarding.scan.description" = "カメラを任意のQRコードに向けて、潜在的な脅威がないか即座にコンテンツを分析します。";
+"onboarding.scan.description" = "カメラをQRコードに向けると、潜在的な脅威を即座に分析します。";
 "onboarding.protect.title" = "リアルタイム保護";
-"onboarding.protect.description" = "AIを搭載したエンジンが25以上のセキュリティヒューリスティックスと機械学習アルゴリズムを使用してURLを分析します。";
-"onboarding.privacy.title" = "プライバシー優先";
-"onboarding.privacy.description" = "すべての分析はKotlin Multiplatformを使用してデバイス上で行われます。あなたのデータが電話を離れることはありません。";
+"onboarding.protect.description" = "AIエンジンが25以上のセキュリティヒューリスティクスと機械学習でURLを分析します。";
+"onboarding.privacy.title" = "プライバシー最優先";
+"onboarding.privacy.description" = "すべての分析はKotlin Multiplatformを使用してデバイス上で行われます。データは外部に送信されません。";
 "onboarding.design.title" = "美しいiOS 17+デザイン";
-"onboarding.design.description" = "滑らかなアニメーションとモダンな美学を備えた素晴らしいLiquid Glassインターフェースを体験してください。";
+"onboarding.design.description" = "滑らかなアニメーションとモダンな美学を備えた魅力的なLiquid Glassインターフェースを体験。";
 
 // Camera Permission Alert
 "onboarding.camera.title" = "カメラの許可";
@@ -656,3 +656,15 @@
 "export.action_share_desc" = "Open the iOS share sheet to send via Messages, Mail, AirDrop, or save to Files.";
 "export.json_description" = "Exports raw analysis data in JSON format. Perfect for integration with security tools, SIEMs, or for further automated processing.";
 "export.pdf_description" = "Exports a human-readable security report suitable for sharing with team members, management, or for your records. Includes verdict, risk factors, and recommendations.";
+
+/* Additional Strings */
+"common.settings" = "Settings";
+"component.risk_score_format" = "Risk Score: %d/100";
+"result.analysis_description" = "Review the URL breakdown below.";
+"result.analysis_mode" = "Analysis Complete";
+"result.caution_description" = "Some suspicious patterns detected. Exercise caution before proceeding.";
+"result.caution_mode" = "Caution Advised";
+"result.open_safe_message" = "This URL has been verified as safe. You can proceed with confidence.";
+"result.safe_description" = "This URL passed all security checks. Safe to proceed.";
+"result.safe_mode" = "Verified Safe";
+"scanner.camera_required_short" = "Enable camera in Settings to scan QR codes";

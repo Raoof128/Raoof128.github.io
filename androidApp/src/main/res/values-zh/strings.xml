@@ -1,16 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <!-- App Identity -->
     <string name="app_name">Mehr Guard</string>
     <string name="tagline">扫描二维码。检测钓鱼攻击。</string>
-
-    <!-- Navigation -->
     <string name="nav_home">首页</string>
     <string name="nav_scan">扫描</string>
     <string name="nav_history">历史</string>
     <string name="nav_settings">设置</string>
-
-    <!-- Dashboard -->
     <string name="dashboard_welcome_back">欢迎回来</string>
     <string name="dashboard_default_user">安全管理员</string>
     <string name="dashboard_shield_active">防护已激活</string>
@@ -30,8 +25,6 @@
     <string name="dashboard_db_status_default">数据库已更新</string>
     <string name="dashboard_enterprise_protection">企业保护</string>
     <string name="dashboard_url_placeholder">在此输入网址…</string>
-
-    <!-- Scanner Screen -->
     <string name="start_scanning">开始扫描</string>
     <string name="scan_from_gallery">从相册扫描</string>
     <string name="scan_instruction">将二维码对准框内</string>
@@ -48,8 +41,6 @@
     <string name="analyze_url">分析网址</string>
     <string name="url_hint">例如 https://example.com</string>
     <string name="url_placeholder">输入网址</string>
-
-    <!-- Results -->
     <string name="risk_score">风险评分</string>
     <string name="scanned_url">已扫描的网址</string>
     <string name="copy">复制</string>
@@ -59,8 +50,6 @@
     <string name="safe_verdict">安全</string>
     <string name="suspicious_verdict">可疑</string>
     <string name="malicious_verdict">恶意</string>
-
-    <!-- Scan Result Screen -->
     <string name="scan_result_title">扫描结果</string>
     <string name="verdict_malicious">检测到高风险</string>
     <string name="verdict_suspicious">可疑活动</string>
@@ -109,8 +98,6 @@
     <string name="tag_credential_harvesting">凭据收集</string>
     <string name="tag_homograph_attack">同形异义攻击</string>
     <string name="tag_new_domain">新域名</string>
-
-    <!-- Recommendations -->
     <string name="recommendation_safe">此网址看起来安全。您可以继续。</string>
     <string name="recommendation_suspicious">请谨慎对待此网址。请验证来源。</string>
     <string name="recommendation_malicious">⛔ 警告：此网址显示钓鱼迹象。请勿输入任何个人信息。</string>
@@ -119,8 +106,6 @@
     <string name="remediation_1">请勿在此页面输入凭据</string>
     <string name="remediation_2">在企业防火墙中阻止此域名</string>
     <string name="remediation_3">如果已输入凭据，请立即重置密码</string>
-
-    <!-- History Screen -->
     <string name="search_placeholder">搜索网址…</string>
     <string name="clear_history_title">清除历史？</string>
     <string name="clear_history_message">此操作无法撤销。所有扫描历史将被永久删除。</string>
@@ -135,8 +120,6 @@
     <string name="no_results">未找到结果</string>
     <string name="try_different_filter">尝试不同的过滤器或搜索词</string>
     <string name="history_go_to_scanner">前往扫描器</string>
-
-    <!-- Settings Screen -->
     <string name="settings_scanning">扫描</string>
     <string name="settings_auto_scan">启动时自动扫描</string>
     <string name="settings_auto_scan_desc">打开应用时立即扫描</string>
@@ -176,6 +159,8 @@
     <string name="language_vietnamese">Tiếng Việt</string>
     <string name="language_indonesian">Bahasa Indonesia</string>
     <string name="language_thai">ภาษาไทย</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_persian">فارسی</string>
     <string name="settings_privacy">隐私</string>
     <string name="settings_save_history">保存扫描历史</string>
     <string name="settings_save_history_desc">保留已扫描网址的记录</string>
@@ -463,17 +448,12 @@
     <string name="privacy_type2">类型II</string>
     <string name="privacy_iso">ISO</string>
     <string name="privacy_27001">27001</string>
-
-    <!-- Feature Cards -->
     <string name="feature_offline_title">离线优先架构</string>
     <string name="feature_offline_desc">完整分析在本地执行。您的相机画面和扫描数据永远不会接触外部服务器。</string>
     <string name="feature_explainable_title">可解释安全性</string>
     <string name="feature_explainable_desc">不仅仅是阻止。我们提供URL参数和重定向的详细启发式分析。</string>
     <string name="feature_performance_title">高性能引擎</string>
     <string name="feature_performance_desc">针对移动环境优化。使用原生Kotlin原语在5毫秒内完成扫描处理。</string>
-
-    
-    <!-- Blocklist Screen -->
     <string name="blocklist_offline_synced">Offline-first • Synced</string>
     <string name="blocklist_manage_desc">Manage domains forbidden by local policy.</string>
     <string name="blocklist_active_rules">ACTIVE RULES</string>
@@ -485,8 +465,6 @@
     <string name="blocklist_remove_protocol">Please remove "http://" or "https://" protocol.</string>
     <string name="blocklist_enter_root_domain">Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.</string>
     <string name="blocklist_block_action">Block Domain</string>
-    
-    <!-- Allowlist Screen -->
     <string name="allowlist_header">Allowlist</string>
     <string name="allowlist_trusted_domains">Trusted Domains</string>
     <string name="allowlist_trusted_domains_desc">URLs from these domains will always be marked as safe. Use with caution.</string>
@@ -495,8 +473,6 @@
     <string name="allowlist_add_trusted">Add Trusted Domain</string>
     <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
     <string name="allowlist_add_action">Add to Allowlist</string>
-    
-    <!-- Export Report Screen -->
     <string name="export_report_title">Export Report</string>
     <string name="export_report_version">v2.4</string>
     <string name="export_risk_assessment">Risk Assessment</string>
@@ -506,8 +482,6 @@
     <string name="export_include_in_report">Include in Report</string>
     <string name="export_generated_locally">Generated locally • No data leaves your device</string>
     <string name="export_as_format">Export as %s</string>
-    
-    <!-- Offline Privacy Screen -->
     <string name="privacy_data_verification">Data Verification</string>
     <string name="privacy_image_data">IMAGE DATA</string>
     <string name="privacy_memory_only">Memory Only</string>
@@ -515,15 +489,11 @@
     <string name="privacy_local_cpu">Local CPU</string>
     <string name="privacy_user_history">USER HISTORY</string>
     <string name="privacy_encrypted_storage">Encrypted Storage (AES-256)</string>
-    
-    <!-- Threat Database Screen -->
     <string name="threat_database_title">Threat Intelligence</string>
     <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
     <string name="threat_database_update_methods">Update Methods</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
     <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
-    
-    <!-- Toast Messages -->
     <string name="toast_qr_found_analyzing">QR code found - analyzing…</string>
     <string name="toast_no_qr_found">No QR code found in image</string>
     <string name="toast_error_message">Error: %s</string>
@@ -546,7 +516,6 @@
     <string name="toast_complete_modules">Complete all modules to earn certificate</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
     <string name="toast_opening_module">Opening module: %s</string>
-    <!-- Additional Content Descriptions -->
     <string name="cd_verified">Verified</string>
     <string name="cd_add">Add</string>
     <string name="cd_remove">Remove</string>
@@ -560,11 +529,8 @@
     <string name="cd_available_offline">Available offline</string>
     <string name="cd_close">Close</string>
     <string name="cd_try_again">Try again</string>
-
-    <!-- Common -->
     <string name="enabled">enabled</string>
     <string name="disabled">disabled</string>
-    <!-- Scanner Screen Content Descriptions -->
     <string name="cd_processing_image">Processing image, please wait</string>
     <string name="cd_home_screen">QR Shield home screen. Tap Start Scanning to begin, or choose from gallery.</string>
     <string name="cd_app_logo_full">QR Shield logo</string>
@@ -578,32 +544,23 @@
     <string name="cd_resolving_url">Resolving shortened URL. Please wait.</string>
     <string name="cd_analyzing_url">Analyzing URL for security threats. Please wait.</string>
     <string name="cd_error_occurred">Error occurred: %s. Tap Try Again to retry.</string>
-    <!-- History Screen Content Descriptions -->
     <string name="cd_history_screen_items">Scan history screen with %d items</string>
     <string name="cd_search_history_url">Search scan history by URL</string>
     <string name="cd_filter_by">Filter by %s</string>
     <string name="cd_scan_result_details">Scan result: %1$s, verdict %2$s, score %3$d. Tap to view details.</string>
     <string name="cd_more_options_scan">More options for this scan</string>
-    <!-- ResultCard Content Descriptions -->
     <string name="cd_scan_result_full">Scan result: %1$s, risk score %2$d out of 100. URL: %3$s. %4$d risk factors found.</string>
     <string name="cd_scanned_url">Scanned URL: %s</string>
     <string name="cd_dismiss_result">Dismiss result and return home</string>
     <string name="cd_scan_another">Scan another QR code</string>
     <string name="cd_security">Security</string>
-    <!-- CameraPreview Content Descriptions -->
     <string name="cd_camera_preview">Camera preview for QR code scanning. Position a QR code in the center of the screen to scan it.</string>
-    <!-- SandboxWebView -->
-    <!-- Common placeholders -->
     <string name="placeholder_domain">example.com</string>
-    
-    <!-- Beat The Bot AI Analysis -->
     <string name="beat_the_bot_ai_analysis">AI 分析</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
     <string name="beat_the_bot_reset_game">Reset Game</string>
     <string name="cd_reset_game">Reset game and start over</string>
     <string name="toast_game_reset">Game reset! Starting fresh…</string>
-    
-    <!-- Analysis Breakdown (ScanResultScreen) -->
     <string name="analysis_brand_title">品牌假冒</string>
     <string name="analysis_brand_desc">URL 似乎在假冒知名品牌。</string>
     <string name="analysis_brand_desc_specific">URL 似乎在假冒 %1$s。</string>
@@ -637,8 +594,6 @@
     <string name="analysis_entropy_desc">域名看起来是随机生成的，这在钓鱼中很常见。</string>
     <string name="analysis_port_title">异常端口</string>
     <string name="analysis_port_desc">URL 使用非标准端口号。</string>
-    
-    <!-- Tags (ScanResultScreen) -->
     <string name="tag_ip_address">IP 地址</string>
     <string name="tag_brand_spoof">品牌伪造</string>
     <string name="tag_insecure">不安全</string>
@@ -648,18 +603,12 @@
     <string name="tag_long_url">长 URL</string>
     <string name="tag_at_injection">@ 注入</string>
     <string name="tag_verified_safe">已验证安全</string>
-    
-    <!-- Status Badges (ScanResultScreen) -->
     <string name="status_scan_complete">扫描完成</string>
     <string name="status_caution_advised">建议谨慎</string>
     <string name="status_threat_detected">检测到威胁</string>
     <string name="status_analysis_complete">分析完成</string>
-    
-    <!-- Meta Info (ScanResultScreen) -->
     <string name="meta_analyzed_offline">离线分析用时 &lt;5ms</string>
     <string name="meta_no_data_leaves">数据不会离开设备</string>
-    
-    <!-- Top Analysis Factors (ScanResultScreen) -->
     <string name="top_analysis_factors_title">主要分析因素</string>
     <string name="factor_category_https">HTTPS</string>
     <string name="factor_category_domain">域名</string>
