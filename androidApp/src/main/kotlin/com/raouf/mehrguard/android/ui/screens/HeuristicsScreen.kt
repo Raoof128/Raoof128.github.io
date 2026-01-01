@@ -56,20 +56,35 @@ data class HeuristicRule(
     val isActive: Boolean
 )
 
-enum class RuleCategory(val label: String) {
-    ALL("All"),
-    URL_PATTERN("URL Pattern"),
-    DOMAIN("Domain"),
-    REDIRECT("Redirect"),
-    SSL("SSL/TLS"),
-    CONTENT("Content")
+enum class RuleCategory(val labelResId: Int) {
+    ALL(R.string.category_all),
+    URL_PATTERN(R.string.category_url_pattern),
+    DOMAIN(R.string.category_domain),
+    REDIRECT(R.string.category_redirect),
+    SSL(R.string.category_ssl),
+    CONTENT(R.string.category_content)
 }
 
-enum class RuleSeverity(val label: String) {
-    CRITICAL("Critical"),
-    HIGH("High"),
-    MEDIUM("Medium"),
-    LOW("Low")
+enum class RuleSeverity(val labelResId: Int) {
+    CRITICAL(R.string.severity_critical),
+    HIGH(R.string.severity_high),
+    MEDIUM(R.string.severity_medium),
+    LOW(R.string.severity_low)
+}
+
+/**
+ * Returns localized default heuristic rules
+ */
+@Composable
+private fun getDefaultRules(): List<HeuristicRule> {
+    return listOf(
+        HeuristicRule("1", stringResource(R.string.heuristic_homograph_title), stringResource(R.string.heuristic_homograph_desc), RuleCategory.URL_PATTERN, RuleSeverity.CRITICAL, true),
+        HeuristicRule("2", stringResource(R.string.heuristic_suspicious_tld_title), stringResource(R.string.heuristic_suspicious_tld_desc), RuleCategory.DOMAIN, RuleSeverity.HIGH, true),
+        HeuristicRule("3", stringResource(R.string.heuristic_redirect_chain_title), stringResource(R.string.heuristic_redirect_chain_desc), RuleCategory.REDIRECT, RuleSeverity.MEDIUM, true),
+        HeuristicRule("4", stringResource(R.string.heuristic_new_domain_title), stringResource(R.string.heuristic_new_domain_desc), RuleCategory.DOMAIN, RuleSeverity.HIGH, true),
+        HeuristicRule("5", stringResource(R.string.heuristic_ssl_cert_title), stringResource(R.string.heuristic_ssl_cert_desc), RuleCategory.SSL, RuleSeverity.MEDIUM, false),
+        HeuristicRule("6", stringResource(R.string.heuristic_brand_title), stringResource(R.string.heuristic_brand_desc), RuleCategory.CONTENT, RuleSeverity.CRITICAL, true)
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,23 +95,17 @@ fun HeuristicsScreen(
     onRuleClick: (String) -> Unit = {},
     onToggleRule: (String, Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
-    rules: List<HeuristicRule> = listOf(
-        HeuristicRule("1", "Homograph Detection", "Detects unicode characters that mimic ASCII letters", RuleCategory.URL_PATTERN, RuleSeverity.CRITICAL, true),
-        HeuristicRule("2", "Suspicious TLD", "Flags uncommon or high-risk top-level domains", RuleCategory.DOMAIN, RuleSeverity.HIGH, true),
-        HeuristicRule("3", "Redirect Chain", "Detects excessive URL redirections (>3 hops)", RuleCategory.REDIRECT, RuleSeverity.MEDIUM, true),
-        HeuristicRule("4", "New Domain Alert", "Flags domains registered < 30 days ago", RuleCategory.DOMAIN, RuleSeverity.HIGH, true),
-        HeuristicRule("5", "SSL Certificate Age", "Warns on certificates issued < 7 days ago", RuleCategory.SSL, RuleSeverity.MEDIUM, false),
-        HeuristicRule("6", "Brand Impersonation", "Detects known brand names in suspicious domains", RuleCategory.CONTENT, RuleSeverity.CRITICAL, true)
-    ),
+    rules: List<HeuristicRule>? = null,
     activeRulesCount: Int = 5,
     detectionRate: Float = 98.7f
 ) {
+    val effectiveRules = rules ?: getDefaultRules()
     var selectedCategory by remember { mutableStateOf(RuleCategory.ALL) }
 
     val filteredRules = if (selectedCategory == RuleCategory.ALL) {
-        rules
+        effectiveRules
     } else {
-        rules.filter { it.category == selectedCategory }
+        effectiveRules.filter { it.category == selectedCategory }
     }
 
     Scaffold(
@@ -306,7 +315,7 @@ private fun CategoryChips(
                 onClick = { onCategorySelected(category) },
                 label = {
                     Text(
-                        text = category.label,
+                        text = stringResource(category.labelResId),
                         fontSize = 12.sp,
                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
                     )
@@ -394,7 +403,7 @@ private fun RuleItem(
                         color = severityColor.copy(alpha = 0.1f)
                     ) {
                         Text(
-                            text = rule.severity.label,
+                            text = stringResource(rule.severity.labelResId),
                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
                             style = MaterialTheme.typography.labelSmall,
                             fontSize = 9.sp,
@@ -412,7 +421,7 @@ private fun RuleItem(
 
                 // Category Tag
                 Text(
-                    text = rule.category.label,
+                    text = stringResource(rule.category.labelResId),
                     style = MaterialTheme.typography.labelSmall.copy(
                         fontFamily = FontFamily.Monospace
                     ),

@@ -281,9 +281,9 @@ private fun ReportPreviewCard(
                         style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
-                    VectorBar("Heuristic Match", 0.85f, MehrGuardColors.Red500)
-                    VectorBar("ML Confidence", 0.92f, MehrGuardColors.Red500)
-                    VectorBar("Database Hit", 1.0f, MehrGuardColors.Red500)
+                    VectorBar(stringResource(R.string.export_heuristic_match), 0.85f, MehrGuardColors.Red500)
+                    VectorBar(stringResource(R.string.export_ml_confidence), 0.92f, MehrGuardColors.Red500)
+                    VectorBar(stringResource(R.string.export_database_hit), 1.0f, MehrGuardColors.Red500)
                 }
             }
         }
@@ -444,24 +444,24 @@ private fun ContentOptionsSection(
             Column {
                 ContentToggleRow(
                     icon = Icons.Default.Fullscreen,
-                    title = "Page Screenshot",
-                    subtitle = "Visual capture of landing page",
+                    title = stringResource(R.string.export_page_screenshot),
+                    subtitle = stringResource(R.string.export_page_screenshot_desc),
                     checked = includeScreenshot,
                     onCheckedChange = onIncludeScreenshotChange,
                     showDivider = true
                 )
                 ContentToggleRow(
                     icon = Icons.Default.BugReport,
-                    title = "Heuristics Log",
-                    subtitle = "Detailed rule matching output",
+                    title = stringResource(R.string.export_heuristics_log),
+                    subtitle = stringResource(R.string.export_heuristics_log_desc),
                     checked = includeHeuristicsLog,
                     onCheckedChange = onIncludeHeuristicsLogChange,
                     showDivider = true
                 )
                 ContentToggleRow(
                     icon = Icons.Default.Code,
-                    title = "Raw HTTP Headers",
-                    subtitle = "Server response metadata",
+                    title = stringResource(R.string.export_raw_http_headers),
+                    subtitle = stringResource(R.string.export_raw_http_headers_desc),
                     checked = includeRawHeaders,
                     onCheckedChange = onIncludeRawHeadersChange,
                     showDivider = false

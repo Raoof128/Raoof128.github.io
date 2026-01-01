@@ -30,6 +30,200 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.25] - 2026-01-02
+
+### Raouf: Home Page, Settings & Hebrew Translations
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Android Localization - Persian + Hebrew Comprehensive Update
+**Summary:** Fixed 150+ hardcoded strings in Persian and added equivalent Hebrew translations for Home page, Settings, Risk Assessment, and all remaining screens.
+
+#### Screens Fixed (Both Languages)
+- Home Page: Offline-First Architecture, Explainable Security, High-Performance Engine
+- Settings: Quick Actions, Accessibility, System Appearance, Threat Monitor
+- Risk Assessment: CRITICAL, WARN, SAFE labels
+- Privacy: Architecture, Data Flow, Compliance, Steps
+- Modules: All module titles and descriptions
+- Attack Breakdown: All attack phases and descriptions
+- Heuristics: All rule titles and descriptions
+- Export Report: All export options
+
+#### Languages Updated
+- **Persian (fa):** 150+ strings translated
+- **Hebrew (iw):** 150+ strings translated (matching Persian coverage)
+
+#### Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+# BUILD SUCCESSFUL
+# All 18 languages: 693 strings each
+```
+
+---
+
+## [2.0.24] - 2026-01-02
+
+### Raouf: Extended Persian Translations - Settings, Trust Centre, Export
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Android Localization - Extended Persian Translations
+**Summary:** Fixed 80+ additional untranslated English strings in Persian locale across Settings, Trust Centre, Export Report, Attack Breakdown, and Widget screens.
+
+#### Screens Fixed
+- Settings: Quick Actions, Threat Monitor, Trust Centre, Export Report
+- Trust Centre: Privacy & Access, Strict Offline Mode, Anonymous Telemetry
+- Export Report: Risk Assessment, Vector Analysis, Format options
+- Attack Breakdown: All attack phases and descriptions
+- Tools Grid: All tool titles and subtitles
+- Widgets: Quick Scan widget strings
+
+#### Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+# BUILD SUCCESSFUL
+# All 18 languages: 693 strings each
+```
+
+---
+
+## [2.0.23] - 2026-01-02
+
+### Raouf: Persian (Farsi) Translations Completion
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Android Localization - Persian Language Fix
+**Summary:** Fixed 50+ untranslated English strings in Persian (values-fa/strings.xml) that were showing English text despite the app being set to Persian.
+
+#### Problem
+Persian language users saw English text for many UI elements across multiple screens:
+- Trust Centre: "Air-Gapped Mode Active", sensitivity descriptions
+- Threat Database: "System Secure", "Update Methods", stat labels
+- Learning Centre: "Your Progress", "Modules", "Daily Tip"
+- Beat the Bot: "Live Scoreboard", "VS MODE", "Preview Hidden"
+- Allowlist: "Trusted Domains", "Import Enterprise List"
+
+#### Solution
+Added proper Persian translations for all untranslated strings in `values-fa/strings.xml`.
+
+#### Key Translations
+| English | Persian |
+|---------|---------|
+| Air-Gapped Mode Active | حالت ایرگپ فعال |
+| Update Methods | روش‌های به‌روزرسانی |
+| Learning Centre | مرکز آموزش |
+| Live Scoreboard | تابلوی امتیازات زنده |
+| Trusted Domains | دامنه‌های مورد اعتماد |
+| In Progress | در حال انجام |
+| Modules | ماژول‌ها |
+
+#### Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+# BUILD SUCCESSFUL
+```
+
+---
+
+## [2.0.22] - 2026-01-02
+
+### Raouf: Final Hardcoded Strings Cleanup - AllowlistScreen & TrustCentreScreen
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Android Localization - Final Hardcoded Strings Fix
+**Summary:** Fixed remaining hardcoded English strings in AllowlistScreen (source labels) and TrustCentreScreen (recommended suffix).
+
+#### Problem
+Two screens still had hardcoded English strings:
+- AllowlistScreen: Source labels ("Manual", "Enterprise", "Auto-learned")
+- TrustCentreScreen: "(Recommended)" suffix in sensitivity info box
+
+#### Solution
+1. Added 4 new string resources to `values/strings.xml`
+2. Replaced hardcoded strings with `stringResource()` calls
+3. Added translations to all 17 localized language files
+
+#### Files Modified
+- `AllowlistScreen.kt` - Source labels now use stringResource()
+- `TrustCentreScreen.kt` - Recommended suffix now uses stringResource()
+- All 18 `strings.xml` files updated
+
+#### New String Keys
+- `allowlist_source_manual`
+- `allowlist_source_enterprise`
+- `allowlist_source_auto_learned`
+- `sensitivity_recommended_suffix`
+
+#### String Resource Changes
+| Before | After |
+|--------|-------|
+| 689 keys | 693 keys |
+
+#### Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+# BUILD SUCCESSFUL
+```
+
+---
+
+## [2.0.21] - 2026-01-02
+
+### Raouf: Android Hardcoded Strings Cleanup
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Android Localization - Hardcoded Strings Fix
+**Summary:** Replaced 60+ hardcoded English strings with proper string resources across 8 Kotlin files, adding them to all 18 language files.
+
+#### Problem
+Multiple Android screens had hardcoded English strings that weren't localized:
+- ThreatDatabaseScreen: "System Secure", "Update Required", stat labels
+- OfflinePrivacyScreen: "Local Sandbox", "No Cloud Logs", feature descriptions
+- TrustCentreScreen: "Strict Offline Mode", "Anonymous Telemetry"
+- HeuristicsScreen: All rule names and descriptions hardcoded in default list
+- ExportReportScreen: Vector analysis labels, content toggle titles
+- ScannerScreen: Flash button content descriptions
+- SandboxWebView: "Navigation Blocked" title
+- Navigation.kt: Share intent chooser titles
+
+#### Solution
+1. Added 60 new string resources to `values/strings.xml`
+2. Replaced hardcoded strings with `stringResource()` calls
+3. Refactored HeuristicsScreen to use `@Composable` helper for localized default rules
+4. Updated enum classes `RuleCategory` and `RuleSeverity` to use resource IDs
+5. Added all new strings to all 17 localized language files
+
+#### Files Modified (Kotlin)
+- `ThreatDatabaseScreen.kt` - 3 sections localized
+- `OfflinePrivacyScreen.kt` - 3 feature cards localized  
+- `TrustCentreScreen.kt` - 2 toggle items localized
+- `HeuristicsScreen.kt` - Refactored enums + default rules
+- `ExportReportScreen.kt` - 6 strings localized
+- `ScannerScreen.kt` - Flash button descriptions
+- `SandboxWebView.kt` - Navigation blocked title
+- `Navigation.kt` - 3 share chooser titles
+
+#### String Resource Changes
+| Before | After |
+|--------|-------|
+| 629 keys | 689 keys |
+| +60 new localization keys |
+
+#### New String Keys Added
+```
+threat_db_*, privacy_*, trust_*, heuristic_*, 
+attack_*, export_*, cd_flash_*, sandbox_*,
+share_*_title, report_threat_title
+```
+
+#### Verification
+```bash
+./gradlew :androidApp:assembleDebug
+# BUILD SUCCESSFUL
+# All 18 languages: 689 keys each
+```
+
+---
+
 ## [2.0.20] - 2026-01-02
 
 ### Raouf: Critical Android Bug Fixes - App Crash + UI Polish + Complete Language Support

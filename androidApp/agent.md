@@ -122,13 +122,13 @@ After making changes:
 
 ## Current Stats
 
-- **Version**: 1.17.58
-- **String Keys**: 629
-- **Languages**: 16 (1 base + 15 localized)
-- **Content Descriptions**: 197 across 20 files
+- **Version**: 2.0.21
+- **String Keys**: 689
+- **Languages**: 18 (1 base + 17 localized)
+- **Content Descriptions**: 200+ across 20 files
 - **Design System Usages**: 374 (MehrGuardColors/Shapes)
 - **Drawable Icons**: 15 (including 3 new module icons)
-- **Last Updated**: 2025-12-30
+- **Last Updated**: 2026-01-02
 
 ## Related Documentation
 
@@ -438,3 +438,128 @@ After making changes:
 - ✅ `./gradlew :common:compileKotlinDesktop` - BUILD SUCCESSFUL
 
 **Note:** 13 remaining detekt issues are complexity-related (LongMethod, CyclomaticComplexity) - non-critical for functionality.
+
+---
+
+## Raouf: Android Hardcoded Strings Cleanup (2026-01-02 AEDT)
+
+**Scope:** Replaced 60+ hardcoded English strings with proper string resources.
+
+**Changes:**
+- ThreatDatabaseScreen.kt: Localized stat labels, update method titles/descriptions
+- OfflinePrivacyScreen.kt: Localized feature card titles/descriptions
+- TrustCentreScreen.kt: Localized privacy toggle items
+- HeuristicsScreen.kt: Refactored to use `@Composable` helper for localized default rules
+- ExportReportScreen.kt: Localized vector analysis labels, content toggle rows
+- ScannerScreen.kt: Localized flash button content descriptions
+- SandboxWebView.kt: Localized navigation blocked title
+- Navigation.kt: Localized share chooser titles
+
+**String Count:** 629 → 689 keys (all 18 languages synced)
+
+**Verification:** `./gradlew :androidApp:assembleDebug` ✅
+
+---
+
+## Raouf: Final Hardcoded Strings Cleanup (2026-01-02 AEDT)
+
+**Scope:** Fixed remaining hardcoded English strings in AllowlistScreen and TrustCentreScreen.
+
+**Changes:**
+- AllowlistScreen.kt: Replaced hardcoded source labels ("Manual", "Enterprise", "Auto-learned") with `stringResource()`
+- TrustCentreScreen.kt: Replaced hardcoded "(Recommended)" suffix with `stringResource()`
+- Added 4 new string keys to all 18 language files
+
+**New String Keys:**
+- `allowlist_source_manual`
+- `allowlist_source_enterprise`
+- `allowlist_source_auto_learned`
+- `sensitivity_recommended_suffix`
+
+**String Count:** 689 → 693 keys (all 18 languages synced)
+
+**Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅
+
+---
+
+## Raouf: Persian (Farsi) Translations Completion (2026-01-02 AEDT)
+
+**Scope:** Fixed 50+ untranslated English strings in Persian (values-fa/strings.xml) across all screens.
+
+**Problem:** Persian language users saw English text for many UI elements despite the app being set to Persian.
+
+**Screens Fixed:**
+- **Trust Centre:** Air-Gapped Mode, Sensitivity descriptions, Offline Guarantee
+- **Threat Database:** System Secure, Update Methods, Online/Offline Update
+- **Learning Centre:** Progress, Modules, Daily Tip, Status badges
+- **Beat the Bot:** Live Scoreboard, VS Mode, Session, Preview Hidden
+- **Allowlist:** Trusted Domains, Import Enterprise, Source labels
+- **Heuristics:** All rule titles and descriptions
+
+**Key Translations Added:**
+- `air_gapped_active` → حالت ایرگپ فعال
+- `threat_database_update_methods` → روش‌های به‌روزرسانی
+- `learning_centre_title` → مرکز آموزش
+- `beat_the_bot_live_scoreboard` → تابلوی امتیازات زنده
+- `allowlist_trusted_domains` → دامنه‌های مورد اعتماد
+- And 45+ more strings
+
+**Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅
+
+---
+
+## Raouf: Extended Persian Translations - Settings, Trust Centre, Export (2026-01-02 AEDT)
+
+**Scope:** Fixed 80+ additional untranslated English strings in Persian (values-fa/strings.xml).
+
+**Problem:** Settings tab, Trust Centre Privacy section, Export Report, and other screens still showing English text in Persian locale.
+
+**Screens Fixed:**
+- **Settings:** Quick Actions, Threat Monitor, Trust Centre, Export Report
+- **Trust Centre:** Privacy & Access, Strict Offline Mode, Anonymous Telemetry, Auto-copy Safe Links
+- **Export Report:** Risk Assessment, Vector Analysis, Include in Report, Format options
+- **Attack Breakdown:** All attack phases and descriptions
+- **Tools Grid:** All tool titles and subtitles
+- **Trust Center:** All status labels and descriptions
+- **Verification:** System integrity dialogs
+- **Widgets:** Quick Scan widget strings
+
+**Key Translations Added:**
+- `settings_quick_actions` → اقدامات سریع
+- `privacy_access_title` → حریم خصوصی و دسترسی
+- `trust_strict_offline_mode` → حالت آفلاین سخت‌گیرانه
+- `attack_analysis` → تحلیل حمله
+- `export_risk_assessment` → ارزیابی خطر
+- And 75+ more strings
+
+**String Count:** 693 keys (all 18 languages synced)
+
+**Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅
+
+---
+
+## Raouf: Home Page, Settings & Hebrew Translations (2026-01-02 AEDT)
+
+**Scope:** Fixed 150+ hardcoded strings in Persian and added equivalent Hebrew translations.
+
+**Problem:** Home page features, Settings screen, Risk Assessment, and many other screens still showing English text in Persian and Hebrew locales.
+
+**Screens Fixed (Persian + Hebrew):**
+- **Home Page:** Offline-First Architecture, Explainable Security, High-Performance Engine
+- **Settings:** Quick Actions, Threat Monitor, Trust Centre, Export Report, Accessibility, System Appearance
+- **Risk Assessment:** CRITICAL, WARN, SAFE labels
+- **Privacy:** Architecture, Data Flow, Compliance, Steps
+- **Modules:** All module titles and descriptions
+- **Tools Grid:** All tool titles and subtitles
+- **Heuristics:** All rule titles and descriptions
+- **Attack Breakdown:** All attack phases and descriptions
+- **Export Report:** All export options and descriptions
+- **Threat Database:** All status labels and update methods
+
+**Key Translations Added:**
+- Persian: معماری اولویت-آفلاین, امنیت قابل توضیح, موتور پرفورمنس بالا
+- Hebrew: ארכיטקטורת אופליין-ראשון, אבטחה מוסברת, מנוע בעל ביצועים גבוהים
+
+**String Count:** 693 keys (all 18 languages synced)
+
+**Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅

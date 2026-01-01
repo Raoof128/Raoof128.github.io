@@ -211,21 +211,25 @@
     <string name="factor_heuristics_desc">امتیاز: %1$d • %2$d سیگنال شناسایی شد</string>
     <string name="enabled">فعال</string>
     <string name="disabled">غیرفعال</string>
-    <string name="action_review">Review</string>
-    <string name="action_start_module">Start Module</string>
+    <string name="action_review">مرور</string>
+    <string name="action_start_module">شروع ماژول</string>
     <string name="active_rules">Active Rules</string>
     <string name="add_rule">Add rule</string>
-    <string name="air_gapped_active">Air-Gapped Mode Active</string>
-    <string name="allowlist_add_action">Add to Allowlist</string>
-    <string name="allowlist_add_trusted">Add Trusted Domain</string>
-    <string name="allowlist_entries_count">%d Entries</string>
-    <string name="allowlist_header">Allowlist</string>
-    <string name="allowlist_import_enterprise">Import Enterprise List</string>
-    <string name="allowlist_subtitle">Safe domains</string>
-    <string name="allowlist_title">Allowlist</string>
-    <string name="allowlist_trusted_domains">Trusted Domains</string>
-    <string name="allowlist_trusted_domains_desc">URLs from these domains will always be marked as safe. Use with caution.</string>
-    <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
+    <string name="air_gapped_active">حالت ایرگپ فعال</string>
+    <string name="allowlist_add_action">اضافه به لیست مجاز</string>
+    <string name="allowlist_source_manual">دستی</string>
+    <string name="allowlist_source_enterprise">سازمانی</string>
+    <string name="allowlist_source_auto_learned">یادگیری خودکار</string>
+    <string name="sensitivity_recommended_suffix"> (پیشنهادی)</string>
+    <string name="allowlist_add_trusted">اضافه کردن دامنه مورد اعتماد</string>
+    <string name="allowlist_entries_count">%d مورد</string>
+    <string name="allowlist_header">لیست مجاز</string>
+    <string name="allowlist_import_enterprise">وارد کردن لیست سازمانی</string>
+    <string name="allowlist_subtitle">دامنه‌های امن</string>
+    <string name="allowlist_title">لیست مجاز</string>
+    <string name="allowlist_trusted_domains">دامنه‌های مورد اعتماد</string>
+    <string name="allowlist_trusted_domains_desc">لینک‌های این دامنه‌ها همیشه امن علامت‌گذاری می‌شوند. با احتیاط استفاده کنید.</string>
+    <string name="allowlist_warning">دامنه‌های لیست مجاز از تمام بررسی‌های امنیتی عبور می‌کنند. فقط دامنه‌هایی را اضافه کنید که کاملاً به آن‌ها اعتماد دارید.</string>
     <string name="analysis_at_symbol_desc">URL contains @ symbol used to hide the real destination.</string>
     <string name="analysis_at_symbol_title">At-Symbol Injection</string>
     <string name="analysis_brand_desc_specific">URL appears to impersonate %1$s.</string>
@@ -257,44 +261,44 @@
     <string name="analysis_tld_desc">Domain uses a top-level domain commonly associated with malicious sites.</string>
     <string name="analysis_tld_desc_specific">The .%1$s TLD is commonly used for malicious sites.</string>
     <string name="analysis_tld_title">Risky TLD</string>
-    <string name="attack_analysis">Attack Analysis</string>
-    <string name="attack_chain">Attack Chain</string>
-    <string name="auto_copy_subtitle">Copy safe URLs automatically</string>
-    <string name="auto_copy_title">Auto-copy Safe Links</string>
-    <string name="available_offline">Available offline</string>
+    <string name="attack_analysis">تحلیل حمله</string>
+    <string name="attack_chain">زنجیره حمله</string>
+    <string name="auto_copy_subtitle">کپی خودکار لینک‌های امن</string>
+    <string name="auto_copy_title">کپی خودکار لینک‌های امن</string>
+    <string name="available_offline">دسترسی آفلاین</string>
     <string name="beat_the_bot_ai_analysis">AI ANALYSIS</string>
     <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
     <string name="beat_the_bot_incorrect_hint">Incorrect! Try again.</string>
     <string name="beat_the_bot_incorrect_legit">Oops! This was actually Legitimate.</string>
     <string name="beat_the_bot_incorrect_phishing">Oops! This was actually a Phishing attack.</string>
-    <string name="beat_the_bot_latency_fmt">Latency: %1$dms</string>
-    <string name="beat_the_bot_live_scoreboard">Live Scoreboard</string>
+    <string name="beat_the_bot_latency_fmt">تأخیر: %1$dمیلی‌ثانیه</string>
+    <string name="beat_the_bot_live_scoreboard">تابلوی امتیازات زنده</string>
     <string name="beat_the_bot_loading">Loading...</string>
-    <string name="beat_the_bot_preview_hidden">Preview Hidden</string>
+    <string name="beat_the_bot_preview_hidden">پیش‌نمایش مخفی</string>
     <string name="beat_the_bot_pts_fmt">%1$d pts</string>
     <string name="beat_the_bot_safe">Safe</string>
     <string name="beat_the_bot_session_fmt">Session: #%1$s</string>
     <string name="beat_the_bot_signals_detected_fmt">%1$d signals detected</string>
-    <string name="beat_the_bot_streak_fmt">Streak: %1$d 🔥</string>
+    <string name="beat_the_bot_streak_fmt">رشته: %1$d 🔥</string>
     <string name="beat_the_bot_suspicious">Suspicious</string>
-    <string name="beat_the_bot_vs_mode">VS MODE</string>
+    <string name="beat_the_bot_vs_mode">حالت رقابت</string>
     <string name="beat_the_bot_why_flagged">Why the bot flagged it %1$s:</string>
-    <string name="beat_the_bot_you">You</string>
+    <string name="beat_the_bot_you">شما</string>
     <string name="biometric_unlock_subtitle">Require FaceID for settings</string>
     <string name="biometric_unlock_title">Biometric Unlock</string>
     <string name="blocklist_active_rules">ACTIVE RULES</string>
-    <string name="blocklist_added_date">Added %s</string>
+    <string name="blocklist_added_date">اضافه شده در %s</string>
     <string name="blocklist_block_action">Block Domain</string>
     <string name="blocklist_block_domain">Block a Domain</string>
     <string name="blocklist_domain_name">DOMAIN NAME</string>
     <string name="blocklist_domains_count">%d Domains</string>
-    <string name="blocklist_enter_root_domain">Enter the root domain (e.g., example.com). Subdomains will automatically be blocked by the AI engine.</string>
-    <string name="blocklist_import_csv_json">Import from CSV/JSON</string>
-    <string name="blocklist_manage_desc">Manage domains forbidden by local policy.</string>
-    <string name="blocklist_offline_synced">Offline-first • Synced</string>
-    <string name="blocklist_remove_protocol">Please remove \"http://\" or \"https://\" protocol.</string>
-    <string name="blocklist_subtitle">Blocked rules</string>
-    <string name="blocklist_title">Blocklist</string>
+    <string name="blocklist_enter_root_domain">دامنه ریشه را وارد کنید (مثلاً example.com). زیردامنه‌ها به صورت خودکار توسط موتور هوش مصنوعی مسدود می‌شوند.</string>
+    <string name="blocklist_import_csv_json">واردات از CSV/JSON</string>
+    <string name="blocklist_manage_desc">مدیریت دامنه‌های ممنوعه توسط سیاست محلی.</string>
+    <string name="blocklist_offline_synced">اولویت-آفلاین • همگام</string>
+    <string name="blocklist_remove_protocol">لطفاً پروتکل "http://" یا "https://" را حذف کنید.</string>
+    <string name="blocklist_subtitle">قواعد مسدود</string>
+    <string name="blocklist_title">لیست مسدود</string>
     <string name="camera_permission_denied">Camera permission denied. Please enable in settings.</string>
     <string name="camera_permission_rationale">Camera access is needed to scan QR codes</string>
     <string name="category_all">All</string>
@@ -377,176 +381,176 @@
     <string name="cd_verified">Verified</string>
     <string name="confusion_matrix">Confusion Matrix</string>
     <string name="current_score">Current Score</string>
-    <string name="daily_tip_label">DAILY TIP</string>
-    <string name="daily_tip_url_shorteners">URL Shorteners</string>
-    <string name="daily_tip_url_shorteners_desc">Learn how attackers hide malicious links.</string>
-    <string name="detection_rate">Detection Rate</string>
-    <string name="detection_rules">DETECTION RULES</string>
+    <string name="daily_tip_label">نکته روزانه</string>
+    <string name="daily_tip_url_shorteners">کوتاه‌کننده‌های لینک</string>
+    <string name="daily_tip_url_shorteners_desc">یاد بگیرید چگونه مهاجمان لینک‌های مخرب را پنهان می‌کنند.</string>
+    <string name="detection_rate">نرخ تشخیص</string>
+    <string name="detection_rules">قواعد تشخیص</string>
     <string name="dev_mode_disable">disable</string>
     <string name="dev_mode_disabled_toast">Developer Mode disabled</string>
     <string name="dev_mode_enable">enable</string>
     <string name="dev_mode_enabled_toast">🕵️ Developer Mode enabled! Red Team scenarios available.</string>
     <string name="dev_mode_tap_hint">%1$d more taps to %2$s developer mode</string>
     <string name="dev_mode_version_suffix">(DEV)</string>
-    <string name="end_session">End Session</string>
-    <string name="engine_label">Engine</string>
+    <string name="end_session">پایان جلسه</string>
+    <string name="engine_label">موتور</string>
     <string name="engine_version_fmt">v%1$s</string>
-    <string name="error_title">Something went wrong</string>
-    <string name="execution_time_fmt">Completed in %1$dms</string>
-    <string name="export_as_format">Export as %s</string>
-    <string name="export_format">Export Format</string>
-    <string name="export_generated_locally">Generated locally • No data leaves your device</string>
-    <string name="export_high_risk">HIGH RISK</string>
-    <string name="export_include_in_report">Include in Report</string>
-    <string name="export_report_title">Export Report</string>
+    <string name="error_title">مشکلی پیش آمد</string>
+    <string name="execution_time_fmt">تکمیل در %1$dمیلی‌ثانیه</string>
+    <string name="export_as_format">خروجی به فرمت %s</string>
+    <string name="export_format">فرمت خروجی</string>
+    <string name="export_generated_locally">تولید محلی • هیچ داده‌ای دستگاه شما را ترک نمی‌کند</string>
+    <string name="export_high_risk">خطر بالا</string>
+    <string name="export_include_in_report">شامل در گزارش</string>
+    <string name="export_report_title">خروجی گزارش</string>
     <string name="export_report_version">v2.4</string>
-    <string name="export_risk_assessment">Risk Assessment</string>
-    <string name="export_vector_analysis">Vector Analysis</string>
-    <string name="factor_category_ml">ML SCORE</string>
-    <string name="factor_domain_check">Domain Analysis</string>
-    <string name="factor_domain_check_desc">Domain structure analyzed for phishing patterns.</string>
-    <string name="factor_ip_address">IP Address Host</string>
-    <string name="factor_ip_address_desc">URL uses IP address instead of domain name. Unusual for legitimate sites.</string>
-    <string name="factor_ml_desc">Machine learning model confidence: %1$d%%</string>
-    <string name="factor_ml_title">ML Phishing Score</string>
-    <string name="feature_explainable_desc">Don\'t just get a "Block". We provide detailed heuristic breakdowns of URL parameters and redirects.</string>
-    <string name="feature_explainable_title">Explainable Security</string>
-    <string name="feature_offline_desc">Complete analysis is performed locally. Your camera feed and scanned data never touch an external server.</string>
-    <string name="feature_offline_title">Offline-First Architecture</string>
-    <string name="feature_performance_desc">Optimised for mobile environments. Scans are processed in under 5ms using native Kotlin primitives.</string>
-    <string name="feature_performance_title">High-Performance Engine</string>
-    <string name="footer_edition">ENTERPRISE EDITION</string>
-    <string name="footer_licenses">Licenses</string>
-    <string name="footer_privacy">Privacy Policy</string>
-    <string name="footer_terms">Terms</string>
+    <string name="export_risk_assessment">ارزیابی خطر</string>
+    <string name="export_vector_analysis">تحلیل بردار</string>
+    <string name="factor_category_ml">امتیاز ML</string>
+    <string name="factor_domain_check">تحلیل دامنه</string>
+    <string name="factor_domain_check_desc">ساختار دامنه برای الگوهای فیشینگ تحلیل شد.</string>
+    <string name="factor_ip_address">میزبان آدرس IP</string>
+    <string name="factor_ip_address_desc">URL از آدرس IP به جای نام دامنه استفاده می‌کند. غیرمعمول برای سایت‌های معتبر.</string>
+    <string name="factor_ml_desc">اطمینان مدل یادگیری ماشین: %1$d%%</string>
+    <string name="factor_ml_title">امتیاز فیشینگ ML</string>
+    <string name="feature_explainable_desc">فقط "مسدود" نگیرید. ما تحلیل جزئیات اکتشافی پارامترهای URL و تغییر مسیرها را ارائه می‌دهیم.</string>
+    <string name="feature_explainable_title">امنیت قابل توضیح</string>
+    <string name="feature_offline_desc">تحلیل کامل به صورت محلی انجام می‌شود. دوربین و داده‌های اسکن شده هرگز به سرور خارجی ارسال نمی‌شوند.</string>
+    <string name="feature_offline_title">معماری اولویت-آفلاین</string>
+    <string name="feature_performance_desc">بهینه‌سازی شده برای محیط‌های موبایل. اسکن‌ها در کمتر از ۵ میلی‌ثانیه با Kotlin پردازش می‌شوند.</string>
+    <string name="feature_performance_title">موتور پرفورمنس بالا</string>
+    <string name="footer_edition">نسخه سازمانی</string>
+    <string name="footer_licenses">مجوزها</string>
+    <string name="footer_privacy">سیاست حریم خصوصی</string>
+    <string name="footer_terms">شرایط</string>
     <string name="footer_version">Mehr Guard v%s</string>
-    <string name="heuristics_engine_title">Heuristics Engine</string>
-    <string name="heuristics_label">Heuristics</string>
-    <string name="iocs_title">Indicators of Compromise</string>
-    <string name="learning_centre_title">Learning Centre</string>
-    <string name="login_page_preview">Login Page Preview</string>
-    <string name="mark_safe">Mark Safe</string>
-    <string name="metric_accuracy">Accuracy</string>
-    <string name="metric_f1_score">F1 Score</string>
-    <string name="metric_precision">Precision</string>
-    <string name="metric_recall">Recall</string>
-    <string name="metrics_title">Performance Metrics</string>
-    <string name="module_link_hygiene">Link Hygiene</string>
-    <string name="module_link_hygiene_desc">Understanding redirects, shorteners, and safe browsing habits.</string>
-    <string name="module_qr_basics">QR Safety Basics</string>
-    <string name="module_qr_basics_desc">Introduction to QR technology and recognizing physical tampering.</string>
-    <string name="module_spot_the_phish">Spot the Phish</string>
-    <string name="module_spot_the_phish_desc">Master the art of visual inspection to detect malicious URLs instantly.</string>
-    <string name="modules">Modules</string>
-    <string name="modules_completed_fmt">%1$d of %2$d modules completed</string>
-    <string name="next_advanced_phishing">Next: Advanced Phishing</string>
-    <string name="on_track">On track</string>
-    <string name="phase_blocked">Blocked</string>
-    <string name="phase_executed">Executed</string>
-    <string name="phase_prevented">Prevented</string>
+    <string name="heuristics_engine_title">موتور اکتشافی</string>
+    <string name="heuristics_label">اکتشافیات</string>
+    <string name="iocs_title">شاخص‌های نفوذ</string>
+    <string name="learning_centre_title">مرکز آموزش</string>
+    <string name="login_page_preview">پیش‌نمایش صفحه ورود</string>
+    <string name="mark_safe">علامت‌گذاری امن</string>
+    <string name="metric_accuracy">دقت</string>
+    <string name="metric_f1_score">امتیاز F1</string>
+    <string name="metric_precision">دقت پیش‌بینی</string>
+    <string name="metric_recall">فراخوانی</string>
+    <string name="metrics_title">معیارهای عملکرد</string>
+    <string name="module_link_hygiene">بهداشت لینک</string>
+    <string name="module_link_hygiene_desc">درک تغییر مسیرها، کوتاه‌کننده‌ها و عادات مرور امن.</string>
+    <string name="module_qr_basics">مبانی امنیت QR</string>
+    <string name="module_qr_basics_desc">آشنایی با فناوری QR و شناسایی دستکاری فیزیکی.</string>
+    <string name="module_spot_the_phish">شناسایی فیشینگ</string>
+    <string name="module_spot_the_phish_desc">هنر بازرسی بصری را برای شناسایی فوری لینک‌های مخرب یاد بگیرید.</string>
+    <string name="modules">ماژول‌ها</string>
+    <string name="modules_completed_fmt">%1$d از %2$d ماژول تکمیل شده</string>
+    <string name="next_advanced_phishing">بعدی: فیشینگ پیشرفته</string>
+    <string name="on_track">در مسیر</string>
+    <string name="phase_blocked">مسدود شد</string>
+    <string name="phase_executed">اجرا شد</string>
+    <string name="phase_prevented">جلوگیری شد</string>
     <string name="placeholder_domain">example.com</string>
     <string name="platform_android">Android 16</string>
     <string name="platform_kotlin">Kotlin 1.9.22</string>
-    <string name="preview">Preview</string>
+    <string name="preview">پیش‌نمایش</string>
     <string name="privacy_27001">27001</string>
-    <string name="privacy_access_title">Privacy &amp; Access</string>
-    <string name="privacy_airgap_desc">Works perfectly in isolated networks. Designed for enterprise security.</string>
-    <string name="privacy_airgap_title">Air-Gap Compatible</string>
-    <string name="privacy_architecture">Privacy Architecture</string>
-    <string name="privacy_compliance">Compliance &amp; Certifications</string>
-    <string name="privacy_compliant">Compliant</string>
-    <string name="privacy_data_flow">Data Flow</string>
-    <string name="privacy_data_verification">Data Verification</string>
-    <string name="privacy_encrypted_storage">Encrypted Storage (AES-256)</string>
+    <string name="privacy_access_title">حریم خصوصی و دسترسی</string>
+    <string name="privacy_airgap_desc">کارکرد کامل در شبکه‌های ایزوله. طراحی شده برای امنیت سازمانی.</string>
+    <string name="privacy_airgap_title">سازگار با ایرگپ</string>
+    <string name="privacy_architecture">معماری حریم خصوصی</string>
+    <string name="privacy_compliance">انطباق و گواهینامه‌ها</string>
+    <string name="privacy_compliant">منطبق</string>
+    <string name="privacy_data_flow">جریان داده</string>
+    <string name="privacy_data_verification">تأیید داده</string>
+    <string name="privacy_encrypted_storage">ذخیره‌سازی رمزنگاری شده (AES-256)</string>
     <string name="privacy_gdpr">GDPR</string>
-    <string name="privacy_hero_desc">Mehr Guard operates entirely on your device. No cloud. No servers. No data collection. Complete privacy by design.</string>
-    <string name="privacy_hero_title">Your Data Never Leaves</string>
-    <string name="privacy_image_data">IMAGE DATA</string>
+    <string name="privacy_hero_desc">Mehr Guard کاملاً روی دستگاه شما کار می‌کند. بدون ابر. بدون سرور. بدون جمع‌آوری داده. حریم خصوصی کامل طبق طراحی.</string>
+    <string name="privacy_hero_title">داده‌های شما هرگز خارج نمی‌شود</string>
+    <string name="privacy_image_data">داده تصویر</string>
     <string name="privacy_iso">ISO</string>
-    <string name="privacy_local_cpu">Local CPU</string>
-    <string name="privacy_local_db_desc">Threat signatures stored encrypted on-device. Updated via secure offline imports.</string>
-    <string name="privacy_local_db_title">Local Database</string>
-    <string name="privacy_memory_only">Memory Only</string>
-    <string name="privacy_no_retention_desc">Scan history can be wiped instantly. We collect zero telemetry or analytics.</string>
-    <string name="privacy_no_retention_title">No Data Retention</string>
-    <string name="privacy_offline_badge">100% Offline Operation</string>
-    <string name="privacy_offline_title">Privacy &amp; Offline</string>
-    <string name="privacy_on_device_ai_desc">ML models run locally using optimized inference. Zero cloud dependencies.</string>
-    <string name="privacy_on_device_ai_title">On-Device AI</string>
-    <string name="privacy_read_full">Read Full Privacy Policy</string>
+    <string name="privacy_local_cpu">CPU محلی</string>
+    <string name="privacy_local_db_desc">امضاهای تهدید رمزنگاری شده روی دستگاه ذخیره می‌شوند. به‌روزرسانی از طریق واردات آفلاین امن.</string>
+    <string name="privacy_local_db_title">پایگاه داده محلی</string>
+    <string name="privacy_memory_only">فقط حافظه</string>
+    <string name="privacy_no_retention_desc">تاریخچه اسکن فوراً قابل پاک‌سازی است. ما هیچ تله‌متری یا تحلیلی جمع‌آوری نمی‌کنیم.</string>
+    <string name="privacy_no_retention_title">بدون نگهداری داده</string>
+    <string name="privacy_offline_badge">عملکرد ۱۰۰٪ آفلاین</string>
+    <string name="privacy_offline_title">حریم خصوصی و آفلاین</string>
+    <string name="privacy_on_device_ai_desc">مدل‌های ML به صورت محلی با استنتاج بهینه اجرا می‌شوند. بدون وابستگی ابری.</string>
+    <string name="privacy_on_device_ai_title">هوش مصنوعی روی دستگاه</string>
+    <string name="privacy_read_full">مطالعه سیاست حریم خصوصی کامل</string>
     <string name="privacy_soc2">SOC 2</string>
-    <string name="privacy_step_1_desc">Camera captures and decodes QR locally</string>
-    <string name="privacy_step_1_title">QR Code Scanned</string>
-    <string name="privacy_step_2_desc">Link parsed without external lookups</string>
-    <string name="privacy_step_2_title">URL Extracted</string>
-    <string name="privacy_step_3_desc">On-device ML evaluates threat level</string>
-    <string name="privacy_step_3_title">AI Analysis</string>
-    <string name="privacy_step_4_desc">Verdict shown, data stays on device</string>
-    <string name="privacy_step_4_title">Result Displayed</string>
+    <string name="privacy_step_1_desc">دوربین QR را به صورت محلی ضبط و رمزگشایی می‌کند</string>
+    <string name="privacy_step_1_title">کد QR اسکن شد</string>
+    <string name="privacy_step_2_desc">لینک بدون جستجوی خارجی تجزیه شد</string>
+    <string name="privacy_step_2_title">URL استخراج شد</string>
+    <string name="privacy_step_3_desc">ML روی دستگاه سطح تهدید را ارزیابی می‌کند</string>
+    <string name="privacy_step_3_title">تحلیل هوش مصنوعی</string>
+    <string name="privacy_step_4_desc">نتیجه نمایش داده شد، داده روی دستگاه می‌ماند</string>
+    <string name="privacy_step_4_title">نتیجه نمایش داده شد</string>
     <string name="privacy_type2">Type II</string>
-    <string name="privacy_url_analysis">URL ANALYSIS</string>
-    <string name="privacy_user_history">USER HISTORY</string>
-    <string name="qr_shield_certified">Mehr Guard Certified</string>
-    <string name="quick_hint">Quick Hint</string>
-    <string name="read_tip">Read Tip</string>
-    <string name="red_team_warning_text">Red Team Mode bypasses camera and injects test URLs directly into the detection engine.</string>
-    <string name="remediation_1">Do not enter credentials on this page</string>
-    <string name="remediation_2">Block the domain in your enterprise firewall</string>
-    <string name="remediation_3">If credentials were entered, reset passwords immediately</string>
-    <string name="report_a_threat">Report a Threat</string>
-    <string name="report_a_threat_desc">Learn how to report suspicious QRs.</string>
-    <string name="report_threat">Report Threat</string>
-    <string name="resolving_short_link_subtitle">Revealing hidden destination</string>
-    <string name="resolving_short_link_title">Resolving Short Link...</string>
-    <string name="risk_assessment_title">Risk Assessment</string>
-    <string name="risk_label_critical">CRITICAL</string>
-    <string name="risk_label_safe">SAFE</string>
-    <string name="risk_label_warn">WARN</string>
-    <string name="risk_level_critical">CRITICAL</string>
-    <string name="risk_level_low">LOW RISK</string>
-    <string name="risk_level_warning">WARNING</string>
-    <string name="risk_score_desc">This URL exhibits patterns consistent with known malicious campaigns targeting enterprise credentials.</string>
-    <string name="round_progress_fmt">Round %1$d/%2$d</string>
-    <string name="rules_count_fmt">%d Rules</string>
-    <string name="sandbox_cannot_open">Cannot Open URL</string>
-    <string name="sandbox_close">Close</string>
-    <string name="sandbox_exit">Exit Sandbox</string>
-    <string name="sandbox_navigation_blocked">Navigation Blocked</string>
-    <string name="sandbox_security">Security</string>
-    <string name="security_tool">SECURITY TOOL</string>
-    <string name="sensitivity_balanced_desc">Checks for known patterns and homoglyphs without aggressive heuristics. Ideal for daily use.</string>
-    <string name="sensitivity_low_desc">Minimal checks. Prioritizes speed and fewer interruptions. Use only for trusted environments.</string>
-    <string name="sensitivity_mode_suffix">Mode</string>
-    <string name="sensitivity_paranoia_desc">Aggressive heuristics and strict sandboxing. Expect frequent warnings for unknown domains.</string>
-    <string name="settings_accessibility">Accessibility</string>
-    <string name="settings_accessibility_settings">Accessibility settings</string>
-    <string name="settings_accessibility_settings_desc">Configure TalkBack and other services</string>
+    <string name="privacy_url_analysis">تحلیل URL</string>
+    <string name="privacy_user_history">تاریخچه کاربر</string>
+    <string name="qr_shield_certified">گواهی Mehr Guard</string>
+    <string name="quick_hint">نکته سریع</string>
+    <string name="read_tip">مطالعه نکته</string>
+    <string name="red_team_warning_text">حالت Red Team دوربین را دور می‌زند و URLهای تست را مستقیماً به موتور تشخیص تزریق می‌کند.</string>
+    <string name="remediation_1">اعتبارنامه وارد این صفحه نکنید</string>
+    <string name="remediation_2">دامنه را در فایروال سازمانی مسدود کنید</string>
+    <string name="remediation_3">اگر اعتبارنامه وارد شده، فوراً رمز عبور را تغییر دهید</string>
+    <string name="report_a_threat">گزارش تهدید</string>
+    <string name="report_a_threat_desc">یاد بگیرید چگونه کدهای QR مشکوک را گزارش دهید.</string>
+    <string name="report_threat">گزارش تهدید</string>
+    <string name="resolving_short_link_subtitle">نمایش مقصد پنهان</string>
+    <string name="resolving_short_link_title">حل لینک کوتاه...</string>
+    <string name="risk_assessment_title">ارزیابی خطر</string>
+    <string name="risk_label_critical">بحرانی</string>
+    <string name="risk_label_safe">امن</string>
+    <string name="risk_label_warn">هشدار</string>
+    <string name="risk_level_critical">بحرانی</string>
+    <string name="risk_level_low">خطر کم</string>
+    <string name="risk_level_warning">هشدار</string>
+    <string name="risk_score_desc">این URL الگوهایی مطابق با کمپین‌های مخرب شناخته شده که اعتبارنامه‌های سازمانی را هدف قرار می‌دهند نشان می‌دهد.</string>
+    <string name="round_progress_fmt">دور %1$d/%2$d</string>
+    <string name="rules_count_fmt">%d قاعده</string>
+    <string name="sandbox_cannot_open">نمی‌توان URL را باز کرد</string>
+    <string name="sandbox_close">بستن</string>
+    <string name="sandbox_exit">خروج از سندباکس</string>
+    <string name="sandbox_navigation_blocked">ناوبری مسدود شد</string>
+    <string name="sandbox_security">امنیت</string>
+    <string name="security_tool">ابزار امنیتی</string>
+    <string name="sensitivity_balanced_desc">الگوها و همگلف‌های شناخته شده را بدون اکتشافیات تهاجمی بررسی می‌کند. ایده‌آل برای استفاده روزانه.</string>
+    <string name="sensitivity_low_desc">بررسی‌های حداقلی. سرعت و وقفه‌های کمتر را اولویت می‌دهد. فقط برای محیط‌های مورد اعتماد استفاده کنید.</string>
+    <string name="sensitivity_mode_suffix">حالت</string>
+    <string name="sensitivity_paranoia_desc">اکتشافیات تهاجمی و سندباکس سختگیرانه. انتظار هشدارهای مکرر برای دامنه‌های ناشناخته را داشته باشید.</string>
+    <string name="settings_accessibility">دسترسی‌پذیری</string>
+    <string name="settings_accessibility_settings">تنظیمات دسترسی‌پذیری</string>
+    <string name="settings_accessibility_settings_desc">پیکربندی TalkBack و سایر خدمات</string>
     <string name="settings_build_fmt">Android %1$s • API %2$d</string>
     <string name="settings_engine_desc">KMP PhishingEngine v1.0</string>
-    <string name="settings_export_report">Export Report</string>
-    <string name="settings_export_report_desc">Generate PDF or JSON security report</string>
-    <string name="settings_help">Help &amp; Support</string>
-    <string name="settings_help_desc">Report issues or get help</string>
-    <string name="settings_quick_actions">Quick Actions</string>
-    <string name="settings_system_appearance">System Appearance</string>
-    <string name="settings_system_appearance_desc">Configure display settings</string>
-    <string name="settings_system_notifications">System notifications</string>
-    <string name="settings_system_notifications_desc">Configure notification preferences</string>
-    <string name="settings_threat_monitor">Threat Monitor</string>
-    <string name="settings_threat_monitor_desc">View live threats and run security audit</string>
-    <string name="settings_trust_centre">Trust Centre</string>
-    <string name="settings_trust_centre_desc">Privacy settings and threat sensitivity</string>
-    <string name="severity_critical">Critical</string>
-    <string name="severity_high">High</string>
-    <string name="severity_low">Low</string>
-    <string name="severity_medium">Medium</string>
-    <string name="share_threats_subtitle">Anonymous heuristics upload</string>
-    <string name="share_threats_title">Share Threat Signatures</string>
-    <string name="sms_from_fmt">From: %1$s</string>
-    <string name="status_completed">Completed</string>
-    <string name="status_in_progress">In Progress</string>
-    <string name="status_new_module">New Module</string>
-    <string name="streak">Streak</string>
+    <string name="settings_export_report">خروجی گزارش</string>
+    <string name="settings_export_report_desc">تولید گزارش امنیتی PDF یا JSON</string>
+    <string name="settings_help">راهنما و پشتیبانی</string>
+    <string name="settings_help_desc">گزارش مشکلات یا دریافت کمک</string>
+    <string name="settings_quick_actions">اقدامات سریع</string>
+    <string name="settings_system_appearance">ظاهر سیستم</string>
+    <string name="settings_system_appearance_desc">پیکربندی تنظیمات نمایش</string>
+    <string name="settings_system_notifications">اعلان‌های سیستم</string>
+    <string name="settings_system_notifications_desc">پیکربندی ترجیحات اعلان</string>
+    <string name="settings_threat_monitor">نظارت تهدید</string>
+    <string name="settings_threat_monitor_desc">مشاهده تهدیدات زنده و اجرای ممیزی امنیتی</string>
+    <string name="settings_trust_centre">مرکز اعتماد</string>
+    <string name="settings_trust_centre_desc">تنظیمات حریم خصوصی و حساسیت تهدید</string>
+    <string name="severity_critical">بحرانی</string>
+    <string name="severity_high">بالا</string>
+    <string name="severity_low">کم</string>
+    <string name="severity_medium">متوسط</string>
+    <string name="share_threats_subtitle">آپلود اکتشافی ناشناس</string>
+    <string name="share_threats_title">اشتراک امضاهای تهدید</string>
+    <string name="sms_from_fmt">از: %1$s</string>
+    <string name="status_completed">تکمیل شده</string>
+    <string name="status_in_progress">در حال انجام</string>
+    <string name="status_new_module">ماژول جدید</string>
+    <string name="streak">رکورد</string>
     <string name="subtitle_github">GitHub</string>
     <string name="tag_at_injection">@ Injection</string>
     <string name="tag_brand_spoof">Brand Spoof</string>
@@ -562,9 +566,9 @@
     <string name="tag_verified_safe">Verified Safe</string>
     <string name="threat_database_integrity_desc">Database integrity verified via cryptographic checksum. Signed by Mehr Guard Security Ops.</string>
     <string name="threat_database_sha256_verified">SHA-256 Verified</string>
-    <string name="threat_database_title">Threat Intelligence</string>
-    <string name="threat_database_update_methods">Update Methods</string>
-    <string name="threat_database_verified">Database integrity verified &amp; up to date.</string>
+    <string name="threat_database_title">اطلاعات تهدید</string>
+    <string name="threat_database_update_methods">روش‌های به‌روزرسانی</string>
+    <string name="threat_database_verified">یکپارچگی پایگاه داده تأیید شد و به‌روز است.</string>
     <string name="toast_added_to_allowlist">Added %s to allowlist</string>
     <string name="toast_added_to_blocklist">Added %s to blocklist</string>
     <string name="toast_checking_updates">Checking for updates…</string>
@@ -583,52 +587,128 @@
     <string name="toast_rule_status">Rule %1$s %2$s</string>
     <string name="toast_select_signature_file">Select threat signature file</string>
     <string name="toast_tip_marked_read">Tip marked as read</string>
-    <string name="tool_beat_the_bot">Beat the Bot</string>
-    <string name="tool_beat_the_bot_subtitle">Test your skills</string>
-    <string name="tool_learning">Learning</string>
-    <string name="tool_learning_subtitle">Security training</string>
-    <string name="tool_threat_database">Threat Database</string>
-    <string name="tool_threat_database_subtitle">Manage signatures</string>
-    <string name="tool_trust_centre">Trust Centre</string>
-    <string name="tool_trust_centre_subtitle">Security settings</string>
-    <string name="tool_whitelisting">Allowlist</string>
-    <string name="tool_whitelisting_subtitle">Manage exceptions</string>
-    <string name="trust_center_blocked">Blocked</string>
-    <string name="trust_center_check_updates">Check for Updates</string>
-    <string name="trust_center_database_status">Database Status</string>
-    <string name="trust_center_enabled">Enabled</string>
-    <string name="trust_center_heuristics">Heuristics Engine</string>
-    <string name="trust_center_heuristics_desc">Advanced AI analysis</string>
-    <string name="trust_center_just_now">Just now</string>
-    <string name="trust_center_last_updated">Last Updated: %s</string>
-    <string name="trust_center_malware">Malware Detection</string>
-    <string name="trust_center_modules">Security Modules</string>
-    <string name="trust_center_network">Network Shield</string>
-    <string name="trust_center_network_desc">Firewall active</string>
-    <string name="trust_center_offline">Offline Mode</string>
-    <string name="trust_center_offline_desc">Local database only</string>
-    <string name="trust_center_privacy">Privacy Guard</string>
-    <string name="trust_center_privacy_desc">Data leak prevention</string>
-    <string name="trust_center_report_24h">24h Protection Report</string>
-    <string name="trust_center_safe">Safe</string>
-    <string name="trust_center_scans">Scans</string>
-    <string name="trust_center_scarm_blocker">Scam Blocker</string>
-    <string name="trust_center_system_activity">System Activity</string>
-    <string name="trust_center_threats">Threats</string>
-    <string name="trust_centre_adjust_thresholds">Adjust heuristic thresholds</string>
-    <string name="trust_centre_last_added">Last added 2d ago</string>
-    <string name="try_again">Try Again</string>
-    <string name="url_unshortener_desc">Reveal hidden destinations (Online Only). Requires network access.</string>
-    <string name="url_unshortener_title">Resolve Short Links</string>
-    <string name="verification_dialog_complete">Verification Complete</string>
-    <string name="verification_dialog_healthy">System Healthy ✓</string>
-    <string name="verification_passed_tests">Passed %1$d/%2$d tests</string>
-    <string name="verify_integrity_desc_default">Prove 87%% accuracy claim on-device</string>
-    <string name="verify_integrity_desc_running">Running verification...</string>
-    <string name="verify_integrity_title">Verify System Integrity</string>
-    <string name="view_certificate">View Certificate</string>
-    <string name="widget_description">Quickly scan QR codes for phishing threats</string>
-    <string name="widget_name">Mehr Guard Quick Scan</string>
-    <string name="widget_tap_to_scan">Tap to Scan</string>
-    <string name="your_progress">Your Progress</string>
+    <string name="tool_beat_the_bot">شکست ربات</string>
+    <string name="tool_beat_the_bot_subtitle">آزمایش مهارت‌های شما</string>
+    <string name="tool_learning">آموزش</string>
+    <string name="tool_learning_subtitle">آموزش امنیتی</string>
+    <string name="tool_threat_database">پایگاه داده تهدید</string>
+    <string name="tool_threat_database_subtitle">مدیریت امضاها</string>
+    <string name="tool_trust_centre">مرکز اعتماد</string>
+    <string name="tool_trust_centre_subtitle">تنظیمات امنیتی</string>
+    <string name="tool_whitelisting">لیست مجاز</string>
+    <string name="tool_whitelisting_subtitle">مدیریت استثناها</string>
+    <string name="trust_center_blocked">مسدود</string>
+    <string name="trust_center_check_updates">بررسی به‌روزرسانی</string>
+    <string name="trust_center_database_status">وضعیت پایگاه داده</string>
+    <string name="trust_center_enabled">فعال</string>
+    <string name="trust_center_heuristics">موتور اکتشافی</string>
+    <string name="trust_center_heuristics_desc">تحلیل پیشرفته هوش مصنوعی</string>
+    <string name="trust_center_just_now">همین الان</string>
+    <string name="trust_center_last_updated">آخرین به‌روزرسانی: %s</string>
+    <string name="trust_center_malware">تشخیص بدافزار</string>
+    <string name="trust_center_modules">ماژول‌های امنیتی</string>
+    <string name="trust_center_network">سپر شبکه</string>
+    <string name="trust_center_network_desc">فایروال فعال</string>
+    <string name="trust_center_offline">حالت آفلاین</string>
+    <string name="trust_center_offline_desc">فقط پایگاه داده محلی</string>
+    <string name="trust_center_privacy">محافظ حریم خصوصی</string>
+    <string name="trust_center_privacy_desc">پیشگیری از نشت داده</string>
+    <string name="trust_center_report_24h">گزارش حفاظت ۲۴ ساعته</string>
+    <string name="trust_center_safe">امن</string>
+    <string name="trust_center_scans">اسکن‌ها</string>
+    <string name="trust_center_scarm_blocker">مسدودکننده کلاهبرداری</string>
+    <string name="trust_center_system_activity">فعالیت سیستم</string>
+    <string name="trust_center_threats">تهدیدات</string>
+    <string name="trust_centre_adjust_thresholds">تنظیم آستانه‌های اکتشافی</string>
+    <string name="trust_centre_last_added">آخرین اضافه ۲ روز پیش</string>
+    <string name="try_again">تلاش مجدد</string>
+    <string name="url_unshortener_desc">نمایش مقاصد پنهان (فقط آنلاین). نیاز به دسترسی شبکه.</string>
+    <string name="url_unshortener_title">حل لینک‌های کوتاه</string>
+    <string name="verification_dialog_complete">تأیید کامل شد</string>
+    <string name="verification_dialog_healthy">سیستم سالم ✓</string>
+    <string name="verification_passed_tests">قبول %1$d/%2$d آزمون</string>
+    <string name="verify_integrity_desc_default">اثبات ادعای دقت ۸۷٪٪ روی دستگاه</string>
+    <string name="verify_integrity_desc_running">در حال اجرای تأیید...</string>
+    <string name="verify_integrity_title">تأیید یکپارچگی سیستم</string>
+    <string name="view_certificate">مشاهده گواهی</string>
+    <string name="widget_description">اسکن سریع کدهای QR برای تهدیدات فیشینگ</string>
+    <string name="widget_name">اسکن سریع Mehr Guard</string>
+    <string name="widget_tap_to_scan">برای اسکن ضربه بزنید</string>
+    <string name="your_progress">پیشرفت شما</string>
+
+    <!-- Threat Database Screen - Hardcoded Fixes -->
+    <string name="threat_db_system_secure">سیستم امن</string>
+    <string name="threat_db_update_required">نیاز به به‌روزرسانی</string>
+    <string name="threat_db_version">نسخه</string>
+    <string name="threat_db_signatures">امضاها</string>
+    <string name="threat_db_last_sync">آخرین همگام‌سازی</string>
+    <string name="threat_db_online_update">به‌روزرسانی آنلاین</string>
+    <string name="threat_db_online_update_desc">دریافت جدیدترین امضاها از سرور ابری امن Mehr Guard.</string>
+    <string name="threat_db_check_now">بررسی الان</string>
+    <string name="threat_db_import_offline">وارد کردن پایگاه داده آفلاین</string>
+    <string name="threat_db_import_offline_desc">وارد کردن فایل .DAT تأیید شده از حافظه محلی برای به‌روزرسانی ایرگپ.</string>
+    <string name="threat_db_import_file">وارد کردن فایل</string>
+    
+    <!-- Offline Privacy Screen - Hardcoded Fixes -->
+    <string name="privacy_local_sandbox">سندباکس محلی</string>
+    <string name="privacy_local_sandbox_desc">لینک‌ها در یک محفظه مجازی اجرا می‌شوند.</string>
+    <string name="privacy_no_cloud_logs">بدون گزارش ابری</string>
+    <string name="privacy_no_cloud_logs_desc">هیچ داده‌ای به سرورهای خارجی ارسال نمی‌شود.</string>
+    <string name="privacy_on_device_db">پایگاه داده دستگاه</string>
+    <string name="privacy_on_device_db_desc">تعاریف تهدید به صورت محلی به‌روز می‌شوند.</string>
+    
+    <!-- Trust Centre Screen - Hardcoded Fixes -->
+    <string name="trust_strict_offline_mode">حالت آفلاین سخت‌گیرانه</string>
+    <string name="trust_strict_offline_mode_desc">غیرفعال کردن تمام پیش‌نمایش‌های لینک خارجی.</string>
+    <string name="trust_anonymous_telemetry">تله‌متری ناشناس</string>
+    <string name="trust_anonymous_telemetry_desc">اشتراک آمار تشخیص برای بهبود یادگیری ماشین.</string>
+    
+    <!-- Heuristics Screen - Hardcoded Fixes -->
+    <string name="heuristic_homograph_title">تشخیص همگلف</string>
+    <string name="heuristic_homograph_desc">شناسایی کاراکترهای یونیکد که حروف ASCII را تقلید می‌کنند</string>
+    <string name="heuristic_suspicious_tld_title">TLD مشکوک</string>
+    <string name="heuristic_suspicious_tld_desc">علامت‌گذاری دامنه‌های سطح بالای غیرمعمول یا پرخطر</string>
+    <string name="heuristic_redirect_chain_title">زنجیره تغییر مسیر</string>
+    <string name="heuristic_redirect_chain_desc">تشخیص تغییر مسیرهای بیش از حد URL (بیش از ۳ پرش)</string>
+    <string name="heuristic_new_domain_title">هشدار دامنه جدید</string>
+    <string name="heuristic_new_domain_desc">علامت‌گذاری دامنه‌های ثبت شده کمتر از ۳۰ روز پیش</string>
+    <string name="heuristic_ssl_cert_title">سن گواهی SSL</string>
+    <string name="heuristic_ssl_cert_desc">هشدار برای گواهی‌های صادر شده کمتر از ۷ روز پیش</string>
+    <string name="heuristic_brand_title">جعل برند</string>
+    <string name="heuristic_brand_desc">شناسایی نام‌های برند شناخته شده در دامنه‌های مشکوک</string>
+    
+    <!-- Attack Breakdown Screen - Hardcoded Fixes -->
+    <string name="attack_type_credential_phishing">فیشینگ اعتبارنامه</string>
+    <string name="attack_goal_harvest_credentials">جمع‌آوری اعتبارنامه‌های ورود Microsoft 365</string>
+    <string name="attack_phase_initial_access">دسترسی اولیه</string>
+    <string name="attack_phase_initial_access_desc">کد QR از سند فیزیکی اسکن شد</string>
+    <string name="attack_phase_redirection">تغییر مسیر</string>
+    <string name="attack_phase_redirection_desc">زنجیره تغییر مسیر ۳ پرشی شناسایی شد</string>
+    <string name="attack_phase_spoofed_login">ورود جعلی</string>
+    <string name="attack_phase_spoofed_login_desc">صفحه ورود جعلی مایکروسافت نمایش داده شد</string>
+    <string name="attack_phase_data_exfil">استخراج داده</string>
+    <string name="attack_phase_data_exfil_desc">اعتبارنامه‌ها به سرور مهاجم ارسال می‌شود</string>
+    
+    <!-- Export Report Screen - Hardcoded Fixes -->
+    <string name="export_heuristic_match">تطابق اکتشافی</string>
+    <string name="export_ml_confidence">اطمینان یادگیری ماشین</string>
+    <string name="export_database_hit">یافت در پایگاه داده</string>
+    <string name="export_page_screenshot">اسکرین‌شات صفحه</string>
+    <string name="export_page_screenshot_desc">تصویر بصری از صفحه فرود</string>
+    <string name="export_heuristics_log">گزارش اکتشافی</string>
+    <string name="export_heuristics_log_desc">خروجی جزئیات تطابق قواعد</string>
+    <string name="export_raw_http_headers">هدرهای HTTP خام</string>
+    <string name="export_raw_http_headers_desc">متادیتای پاسخ سرور</string>
+    
+    <!-- Scanner Screen - Hardcoded Fixes -->
+    <string name="cd_flash_on">خاموش کردن فلش</string>
+    <string name="cd_flash_off">روشن کردن فلش</string>
+    
+    <!-- Sandbox WebView - Hardcoded Fixes -->
+    <string name="sandbox_navigation_blocked_title">ناوبری مسدود شد</string>
+    
+    <!-- Navigation - Hardcoded Fixes -->
+    <string name="share_analysis_title">اشتراک تحلیل</string>
+    <string name="share_threat_analysis_title">اشتراک تحلیل تهدید</string>
+    <string name="report_threat_title">گزارش تهدید</string>
 </resources>

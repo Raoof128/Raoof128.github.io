@@ -371,7 +371,7 @@ private fun SensitivitySection(
                 )
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
-                        text = stringResource(selectedSensitivity.labelRes) + " (Recommended)",
+                        text = stringResource(selectedSensitivity.labelRes) + stringResource(R.string.sensitivity_recommended_suffix),
                         style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -579,8 +579,8 @@ private fun PrivacyControlsSection(
             Column {
                 // Strict Offline Mode (Simulated using existing boolean or new state)
                 PrivacyToggleItem(
-                    title = "Strict Offline Mode",
-                    subtitle = "Disable all external link previews.",
+                    title = stringResource(R.string.trust_strict_offline_mode),
+                    subtitle = stringResource(R.string.trust_strict_offline_mode_desc),
                     checked = true, // Always true for now as per design
                     onCheckedChange = { }, 
                     showDivider = true
@@ -588,8 +588,8 @@ private fun PrivacyControlsSection(
                 
                 // Anonymous Telemetry (Mapped from Share Threat Signatures)
                 PrivacyToggleItem(
-                    title = "Anonymous Telemetry",
-                    subtitle = "Share detection stats to improve ML.",
+                    title = stringResource(R.string.trust_anonymous_telemetry),
+                    subtitle = stringResource(R.string.trust_anonymous_telemetry_desc),
                     checked = shareThreatSignatures,
                     onCheckedChange = onShareThreatSignaturesChange,
                     showDivider = true

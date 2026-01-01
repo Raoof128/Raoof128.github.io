@@ -787,6 +787,8 @@ private fun ScanningContent(
             }
 
             // Flash toggle
+            val flashOnDesc = stringResource(R.string.cd_flash_on)
+            val flashOffDesc = stringResource(R.string.cd_flash_off)
             IconButton(
                 onClick = onFlashToggle,
                 modifier = Modifier
@@ -796,12 +798,12 @@ private fun ScanningContent(
                         shape = CircleShape
                     )
                     .semantics {
-                        contentDescription = if (isFlashOn) "Turn off flashlight" else "Turn on flashlight"
+                        contentDescription = if (isFlashOn) flashOnDesc else flashOffDesc
                     }
             ) {
                 Icon(
                     imageVector = if (isFlashOn) Icons.Default.FlashOn else Icons.Default.FlashOff,
-                    contentDescription = if (isFlashOn) "Flash On" else "Flash Off",
+                    contentDescription = null,
                     tint = Color.White
                 )
             }

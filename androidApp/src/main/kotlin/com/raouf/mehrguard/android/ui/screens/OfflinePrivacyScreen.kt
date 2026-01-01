@@ -215,8 +215,8 @@ private fun PrivacyArchitectureSection() {
                 icon = Icons.Default.ViewModule, // generic for 'dataset'
                 iconBgColor = MehrGuardColors.Primary.copy(alpha = 0.1f),
                 iconColor = MehrGuardColors.Primary,
-                title = "Local Sandbox",
-                description = "URLs execute in a virtual container."
+                title = stringResource(R.string.privacy_local_sandbox),
+                description = stringResource(R.string.privacy_local_sandbox_desc)
             )
 
             // Feature 2: No Cloud Logs
@@ -224,8 +224,8 @@ private fun PrivacyArchitectureSection() {
                 icon = Icons.Default.CloudOff,
                 iconBgColor = MehrGuardColors.Primary.copy(alpha = 0.1f),
                 iconColor = MehrGuardColors.Primary,
-                title = "No Cloud Logs",
-                description = "Zero telemetry sent to external servers."
+                title = stringResource(R.string.privacy_no_cloud_logs),
+                description = stringResource(R.string.privacy_no_cloud_logs_desc)
             )
 
             // Feature 3: On-Device DB
@@ -233,8 +233,8 @@ private fun PrivacyArchitectureSection() {
                 icon = Icons.Default.Storage, // for 'database'
                 iconBgColor = MehrGuardColors.Primary.copy(alpha = 0.1f),
                 iconColor = MehrGuardColors.Primary,
-                title = "On-Device DB",
-                description = "Threat definitions updated locally."
+                title = stringResource(R.string.privacy_on_device_db),
+                description = stringResource(R.string.privacy_on_device_db_desc)
             )
         }
     }

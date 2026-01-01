@@ -473,6 +473,10 @@
     <string name="allowlist_add_trusted">Add Trusted Domain</string>
     <string name="allowlist_warning">Allowlisted domains bypass all security checks. Only add domains you fully trust.</string>
     <string name="allowlist_add_action">Add to Allowlist</string>
+    <string name="allowlist_source_manual">يدوي</string>
+    <string name="allowlist_source_enterprise">مؤسسي</string>
+    <string name="allowlist_source_auto_learned">تعلم تلقائي</string>
+    <string name="sensitivity_recommended_suffix"> (موصى به)</string>
     <string name="export_report_title">Export Report</string>
     <string name="export_report_version">v2.4</string>
     <string name="export_risk_assessment">Risk Assessment</string>
@@ -631,4 +635,80 @@
     <string name="factor_heuristics_desc">النتيجة: %1$d • تم اكتشاف %2$d إشارة</string>
     <string name="factor_ml_title">نتيجة التصيد بالتعلم الآلي</string>
     <string name="factor_ml_desc">ثقة نموذج التعلم الآلي: %1$d%%</string>
+
+    <!-- Threat Database Screen - Hardcoded Fixes -->
+    <string name="threat_db_system_secure">System Secure</string>
+    <string name="threat_db_update_required">Update Required</string>
+    <string name="threat_db_version">Version</string>
+    <string name="threat_db_signatures">Signatures</string>
+    <string name="threat_db_last_sync">Last Sync</string>
+    <string name="threat_db_online_update">Online Update</string>
+    <string name="threat_db_online_update_desc">Fetch latest signatures from the secure Mehr Guard cloud server.</string>
+    <string name="threat_db_check_now">Check Now</string>
+    <string name="threat_db_import_offline">Import Offline Database</string>
+    <string name="threat_db_import_offline_desc">Import a verified .DAT file from local storage for air-gapped updates.</string>
+    <string name="threat_db_import_file">Import File</string>
+    
+    <!-- Offline Privacy Screen - Hardcoded Fixes -->
+    <string name="privacy_local_sandbox">Local Sandbox</string>
+    <string name="privacy_local_sandbox_desc">URLs execute in a virtual container.</string>
+    <string name="privacy_no_cloud_logs">No Cloud Logs</string>
+    <string name="privacy_no_cloud_logs_desc">Zero telemetry sent to external servers.</string>
+    <string name="privacy_on_device_db">On-Device DB</string>
+    <string name="privacy_on_device_db_desc">Threat definitions updated locally.</string>
+    
+    <!-- Trust Centre Screen - Hardcoded Fixes -->
+    <string name="trust_strict_offline_mode">Strict Offline Mode</string>
+    <string name="trust_strict_offline_mode_desc">Disable all external link previews.</string>
+    <string name="trust_anonymous_telemetry">Anonymous Telemetry</string>
+    <string name="trust_anonymous_telemetry_desc">Share detection stats to improve ML.</string>
+    
+    <!-- Heuristics Screen - Hardcoded Fixes -->
+    <string name="heuristic_homograph_title">Homograph Detection</string>
+    <string name="heuristic_homograph_desc">Detects unicode characters that mimic ASCII letters</string>
+    <string name="heuristic_suspicious_tld_title">Suspicious TLD</string>
+    <string name="heuristic_suspicious_tld_desc">Flags uncommon or high-risk top-level domains</string>
+    <string name="heuristic_redirect_chain_title">Redirect Chain</string>
+    <string name="heuristic_redirect_chain_desc">Detects excessive URL redirections (>3 hops)</string>
+    <string name="heuristic_new_domain_title">New Domain Alert</string>
+    <string name="heuristic_new_domain_desc">Flags domains registered &lt; 30 days ago</string>
+    <string name="heuristic_ssl_cert_title">SSL Certificate Age</string>
+    <string name="heuristic_ssl_cert_desc">Warns on certificates issued &lt; 7 days ago</string>
+    <string name="heuristic_brand_title">Brand Impersonation</string>
+    <string name="heuristic_brand_desc">Detects known brand names in suspicious domains</string>
+    
+    <!-- Attack Breakdown Screen - Hardcoded Fixes -->
+    <string name="attack_type_credential_phishing">Credential Phishing</string>
+    <string name="attack_goal_harvest_credentials">Harvest Microsoft 365 login credentials</string>
+    <string name="attack_phase_initial_access">Initial Access</string>
+    <string name="attack_phase_initial_access_desc">QR code scanned from physical document</string>
+    <string name="attack_phase_redirection">Redirection</string>
+    <string name="attack_phase_redirection_desc">3-hop URL redirect chain detected</string>
+    <string name="attack_phase_spoofed_login">Spoofed Login</string>
+    <string name="attack_phase_spoofed_login_desc">Fake Microsoft login page rendered</string>
+    <string name="attack_phase_data_exfil">Data Exfiltration</string>
+    <string name="attack_phase_data_exfil_desc">Credentials would be sent to attacker server</string>
+    
+    <!-- Export Report Screen - Hardcoded Fixes -->
+    <string name="export_heuristic_match">Heuristic Match</string>
+    <string name="export_ml_confidence">ML Confidence</string>
+    <string name="export_database_hit">Database Hit</string>
+    <string name="export_page_screenshot">Page Screenshot</string>
+    <string name="export_page_screenshot_desc">Visual capture of landing page</string>
+    <string name="export_heuristics_log">Heuristics Log</string>
+    <string name="export_heuristics_log_desc">Detailed rule matching output</string>
+    <string name="export_raw_http_headers">Raw HTTP Headers</string>
+    <string name="export_raw_http_headers_desc">Server response metadata</string>
+    
+    <!-- Scanner Screen - Hardcoded Fixes -->
+    <string name="cd_flash_on">Turn off flashlight</string>
+    <string name="cd_flash_off">Turn on flashlight</string>
+    
+    <!-- Sandbox WebView - Hardcoded Fixes -->
+    <string name="sandbox_navigation_blocked_title">Navigation Blocked</string>
+    
+    <!-- Navigation - Hardcoded Fixes -->
+    <string name="share_analysis_title">Share Analysis</string>
+    <string name="share_threat_analysis_title">Share Threat Analysis</string>
+    <string name="report_threat_title">Report Threat</string>
 </resources>

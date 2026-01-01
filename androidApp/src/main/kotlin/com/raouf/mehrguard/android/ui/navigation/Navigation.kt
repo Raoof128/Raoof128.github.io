@@ -460,7 +460,7 @@ fun MehrGuardNavHost(
                             type = "text/plain"
                             putExtra(Intent.EXTRA_TEXT, shareText)
                         }
-                        context.startActivity(Intent.createChooser(intent, "Share Analysis"))
+                        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share_analysis_title)))
                     }
                 },
                 onBlockClick = { 
@@ -486,7 +486,7 @@ fun MehrGuardNavHost(
                             type = "text/plain"
                             putExtra(Intent.EXTRA_TEXT, shareText)
                         }
-                        context.startActivity(Intent.createChooser(intent, "Share Threat Analysis"))
+                        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share_threat_analysis_title)))
                     }
                 },
                 onBlockDomain = { 
@@ -717,7 +717,7 @@ fun MehrGuardNavHost(
                         putExtra(Intent.EXTRA_EMAIL, arrayOf("threats@mehrguard.app"))
                         putExtra(Intent.EXTRA_SUBJECT, "Threat Report from Mehr Guard User")
                     }
-                    context.startActivity(Intent.createChooser(intent, "Report Threat"))
+                    context.startActivity(Intent.createChooser(intent, context.getString(R.string.report_threat_title)))
                 }
             )
         }

@@ -275,9 +275,9 @@ private fun AllowedDomainItem(
     onDelete: () -> Unit
 ) {
     val sourceLabel = when (domain.source) {
-        AllowlistSource.MANUAL -> "Manual"
-        AllowlistSource.ENTERPRISE -> "Enterprise"
-        AllowlistSource.AUTO_LEARNED -> "Auto-learned"
+        AllowlistSource.MANUAL -> stringResource(R.string.allowlist_source_manual)
+        AllowlistSource.ENTERPRISE -> stringResource(R.string.allowlist_source_enterprise)
+        AllowlistSource.AUTO_LEARNED -> stringResource(R.string.allowlist_source_auto_learned)
     }
 
     val sourceBgColor = when (domain.source) {

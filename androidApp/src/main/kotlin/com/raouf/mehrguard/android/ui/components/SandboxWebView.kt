@@ -422,7 +422,7 @@ private fun BlockedRedirectView(
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = "Navigation Blocked",
+            text = stringResource(R.string.sandbox_navigation_blocked_title),
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.error

@@ -205,7 +205,7 @@ private fun HeroStatusSection(isSecure: Boolean) {
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
-                text = if (isSecure) "System Secure" else "Update Required",
+                text = stringResource(if (isSecure) R.string.threat_db_system_secure else R.string.threat_db_update_required),
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Black
                 ),
@@ -234,19 +234,19 @@ private fun StatsGrid(
     ) {
         StatCard(
             modifier = Modifier.weight(1f),
-            label = "Version",
+            label = stringResource(R.string.threat_db_version),
             value = version,
             valueColor = MaterialTheme.colorScheme.onSurface
         )
         StatCard(
             modifier = Modifier.weight(1f),
-            label = "Signatures",
+            label = stringResource(R.string.threat_db_signatures),
             value = signatureCount,
             valueColor = MehrGuardColors.Primary
         )
         StatCard(
             modifier = Modifier.weight(1f),
-            label = "Last Sync",
+            label = stringResource(R.string.threat_db_last_sync),
             value = lastSync,
             valueColor = MaterialTheme.colorScheme.onSurface
         )
@@ -321,9 +321,9 @@ private fun UpdateMethodsSection(
             icon = Icons.Default.CloudSync,
             iconBgColor = MehrGuardColors.Blue50,
             iconColor = MehrGuardColors.Primary,
-            title = "Online Update",
-            description = "Fetch latest signatures from the secure Mehr Guard cloud server.",
-            buttonText = "Check Now",
+            title = stringResource(R.string.threat_db_online_update),
+            description = stringResource(R.string.threat_db_online_update_desc),
+            buttonText = stringResource(R.string.threat_db_check_now),
             isPrimary = true,
             onClick = onCheckNow
         )
@@ -333,9 +333,9 @@ private fun UpdateMethodsSection(
             icon = Icons.Default.FolderCopy,
             iconBgColor = MehrGuardColors.Gray100,
             iconColor = MehrGuardColors.Gray600,
-            title = "Import Offline Database",
-            description = "Import a verified .DAT file from local storage for air-gapped updates.",
-            buttonText = "Import File",
+            title = stringResource(R.string.threat_db_import_offline),
+            description = stringResource(R.string.threat_db_import_offline_desc),
+            buttonText = stringResource(R.string.threat_db_import_file),
             isPrimary = false,
             onClick = onImportFile
         )
