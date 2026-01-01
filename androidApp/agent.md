@@ -563,3 +563,32 @@ After making changes:
 **String Count:** 693 keys (all 18 languages synced)
 
 **Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅
+
+---
+
+## Raouf: History Filters & IP Address Host (2026-01-02 AEDT)
+
+**Scope:** Externalized hardcoded History filter tabs and IP Address Host analysis factor.
+
+**Problem:** History screen filter tabs (All, Safe, Suspicious, Malicious) and IP Address Host factor showing English text in Persian and Hebrew locales.
+
+**Screens Fixed (Persian + Hebrew):**
+- **History Filter Tabs:** All, Safe, Suspicious, Malicious
+- **Analysis Factor:** IP Address Host title and description
+
+**Code Changes:**
+- Refactored `VerdictFilter` enum in `HistoryScreen.kt` to use `@StringRes` annotations
+- Added `filter_all`, `filter_safe`, `filter_suspicious`, `filter_malicious` string resources
+
+**Key Translations Added:**
+| English | Persian | Hebrew |
+|---------|---------|--------|
+| All | همه | הכל |
+| Safe | امن | בטוח |
+| Suspicious | مشکوک | חשוד |
+| Malicious | مخرب | זדוני |
+| IP Address Host | میزبان آدرس IP | מארח כתובת IP |
+
+**String Count:** 697 keys (all 18 languages synced)
+
+**Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅
