@@ -315,7 +315,7 @@ fun SettingsScreen(
             val appLocales = AppCompatDelegate.getApplicationLocales()
             val currentLanguageCode = if (appLocales.isEmpty) {
                 // System default - treat as English or get actual system language
-                context.resources.configuration.locales[0].language.takeIf { it in listOf("en", "de", "es", "fr", "it", "pt", "ru", "zh", "ja", "ko", "hi", "ar", "tr", "vi", "in", "id", "th") } ?: "en"
+                context.resources.configuration.locales[0].language.takeIf { it in listOf("en", "de", "es", "fr", "it", "pt", "ru", "zh", "ja", "ko", "hi", "ar", "tr", "vi", "in", "id", "th", "iw", "he", "fa") } ?: "en"
             } else {
                 appLocales[0]?.language ?: "en"
             }
@@ -338,6 +338,8 @@ fun SettingsScreen(
                 "vi" -> stringResource(R.string.language_vietnamese)
                 "in", "id" -> stringResource(R.string.language_indonesian)
                 "th" -> stringResource(R.string.language_thai)
+                "iw", "he" -> stringResource(R.string.language_hebrew)
+                "fa" -> stringResource(R.string.language_persian)
                 else -> stringResource(R.string.language_english)
             }
             
@@ -811,7 +813,8 @@ fun SettingsScreen(
     
     // Language Selection Dialog
     if (showLanguageDialog) {
-        // All 15 supported languages (no "System Default" - English is the default)
+        // All 18 supported languages
+        // IMPORTANT: Use legacy codes (iw, in) to match resource folders and locales_config.xml
         val languages = listOf(
             "en" to stringResource(R.string.language_english),
             "de" to stringResource(R.string.language_german),
@@ -828,7 +831,9 @@ fun SettingsScreen(
             "tr" to stringResource(R.string.language_turkish),
             "vi" to stringResource(R.string.language_vietnamese),
             "in" to stringResource(R.string.language_indonesian),
-            "th" to stringResource(R.string.language_thai)
+            "th" to stringResource(R.string.language_thai),
+            "iw" to stringResource(R.string.language_hebrew),
+            "fa" to stringResource(R.string.language_persian)
         )
         
         // Get current app locale (default to 'en' if system default)
@@ -853,15 +858,17 @@ fun SettingsScreen(
                 ) {
                     items(languages.size) { index ->
                         val (code, name) = languages[index]
+                        // Check selection - handle both legacy (iw/in) and BCP 47 (he/id) returns
                         val isSelected = code == currentLocale || 
                             (code == "in" && currentLocale == "id") ||
+                            (code == "iw" && currentLocale == "he") ||
                             (code == "en" && currentLocale == "en")
                         
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    // Change app language directly
+                                    // Change app language - use legacy codes to match resource folders
                                     val localeList = LocaleListCompat.forLanguageTags(code)
                                     AppCompatDelegate.setApplicationLocales(localeList)
                                     showLanguageDialog = false

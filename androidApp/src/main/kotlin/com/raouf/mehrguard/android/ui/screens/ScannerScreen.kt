@@ -391,13 +391,13 @@ private fun IdleContent(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Animated shield icon
+            // Subtle breathing animation for shield icon (reduced from 1.1f to 1.02f)
             val infiniteTransition = rememberInfiniteTransition(label = "shield_pulse")
             val scale by infiniteTransition.animateFloat(
                 initialValue = 1f,
-                targetValue = 1.1f,
+                targetValue = 1.02f,
                 animationSpec = infiniteRepeatable(
-                    animation = tween(1500, easing = EaseInOutCubic),
+                    animation = tween(2500, easing = EaseInOutCubic),
                     repeatMode = RepeatMode.Reverse
                 ),
                 label = "scale"

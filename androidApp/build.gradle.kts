@@ -22,7 +22,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     
-    // Resource configurations for localization - all 16 supported languages
+    // Resource configurations for localization - all 18 supported languages
     androidResources {
         localeFilters += listOf(
             "en",  // English (default)
@@ -39,8 +39,10 @@ android {
             "ar",  // Arabic
             "tr",  // Turkish
             "vi",  // Vietnamese
-            "in",  // Indonesian
-            "th"   // Thai
+            "in",  // Indonesian (legacy code)
+            "th",  // Thai
+            "iw",  // Hebrew (legacy code)
+            "fa"   // Persian/Farsi
         )
     }
 

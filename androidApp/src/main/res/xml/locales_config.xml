@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Per-app language preferences (Android 13+) - 16 supported languages -->
+<!-- Per-app language preferences (Android 13+) - 18 supported languages -->
+<!-- IMPORTANT: Use legacy codes (iw, in) to match resource folder names -->
 <locale-config xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Default language -->
     <locale android:name="en" />
@@ -24,4 +25,6 @@
     <!-- Middle Eastern languages -->
     <locale android:name="ar" />
     <locale android:name="tr" />
+    <locale android:name="iw" />
+    <locale android:name="fa" />
 </locale-config>
