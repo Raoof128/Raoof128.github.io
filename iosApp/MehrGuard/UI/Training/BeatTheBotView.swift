@@ -100,112 +100,112 @@ struct BeatTheBotView: View {
         PhishingChallenge(
             url: "https://account-verify-appleid.support.co.uk",
             isPhishing: true,
-            hint: "Check the domain extension carefully.",
-            explanation: "Legitimate Apple support sites typically end in apple.com, not support.co.uk."
+            hint: NSLocalizedString("training.hint.1", comment: "Check the domain extension carefully."),
+            explanation: NSLocalizedString("training.explanation.1", comment: "Legitimate Apple support sites typically end in apple.com, not support.co.uk.")
         ),
         PhishingChallenge(
             url: "https://secure-paypa1.com/login",
             isPhishing: true,
-            hint: "Look closely at the spelling of the domain.",
-            explanation: "The letter 'l' is replaced with '1' (typosquatting attack)."
+            hint: NSLocalizedString("training.hint.2", comment: "Look closely at the spelling of the domain."),
+            explanation: NSLocalizedString("training.explanation.2", comment: "The letter 'l' is replaced with '1' (typosquatting attack).")
         ),
         PhishingChallenge(
             url: "https://amazon.customer-service.net",
             isPhishing: true,
-            hint: "Check the main domain, not the subdomain.",
-            explanation: "The real domain is customer-service.net, not amazon.com."
+            hint: NSLocalizedString("training.hint.3", comment: "Check the main domain, not the subdomain."),
+            explanation: NSLocalizedString("training.explanation.3", comment: "The real domain is customer-service.net, not amazon.com.")
         ),
         PhishingChallenge(
             url: "https://netflix-billing-update.tk",
             isPhishing: true,
-            hint: "Free TLDs like .tk are often used for phishing.",
-            explanation: "Netflix would never use a .tk domain for billing."
+            hint: NSLocalizedString("training.hint.4", comment: "Free TLDs like .tk are often used for phishing."),
+            explanation: NSLocalizedString("training.explanation.4", comment: "Netflix would never use a .tk domain for billing.")
         ),
         PhishingChallenge(
             url: "https://login.microsoftonline.com.secure-verify.net",
             isPhishing: true,
-            hint: "The real domain is at the end, before the path.",
-            explanation: "The actual domain is secure-verify.net, not microsoft.com."
+            hint: NSLocalizedString("training.hint.5", comment: "The real domain is at the end, before the path."),
+            explanation: NSLocalizedString("training.explanation.5", comment: "The actual domain is secure-verify.net, not microsoft.com.")
         ),
         PhishingChallenge(
             url: "https://dropbox.com.file-share.ga",
             isPhishing: true,
-            hint: "Check what comes right before the TLD.",
-            explanation: "The domain is file-share.ga, not dropbox.com."
+            hint: NSLocalizedString("training.hint.6", comment: "Check what comes right before the TLD."),
+            explanation: NSLocalizedString("training.explanation.6", comment: "The domain is file-share.ga, not dropbox.com.")
         ),
         PhishingChallenge(
             url: "https://faceb00k-security.com/verify",
             isPhishing: true,
-            hint: "Look for letter substitutions in the brand name.",
-            explanation: "The 'o's are replaced with zeros (homograph attack)."
+            hint: NSLocalizedString("training.hint.7", comment: "Look for letter substitutions in the brand name."),
+            explanation: NSLocalizedString("training.explanation.7", comment: "The 'o's are replaced with zeros (homograph attack).")
         ),
         PhishingChallenge(
             url: "https://urgent-paypal-verify.ml/secure",
             isPhishing: true,
-            hint: "Urgency words and free TLDs are red flags.",
-            explanation: "PayPal never uses urgency tactics or .ml domains."
+            hint: NSLocalizedString("training.hint.8", comment: "Urgency words and free TLDs are red flags."),
+            explanation: NSLocalizedString("training.explanation.8", comment: "PayPal never uses urgency tactics or .ml domains.")
         ),
         PhishingChallenge(
             url: "https://www.bank0famerica.com/signin",
             isPhishing: true,
-            hint: "Check for number substitutions in the domain.",
-            explanation: "'Bank of America' is spelled with a zero instead of 'o'."
+            hint: NSLocalizedString("training.hint.9", comment: "Check for number substitutions in the domain."),
+            explanation: NSLocalizedString("training.explanation.9", comment: "'Bank of America' is spelled with a zero instead of 'o'.")
         ),
         PhishingChallenge(
             url: "https://apple-id-suspended.cf/restore",
             isPhishing: true,
-            hint: "Scare tactics and free TLDs are phishing indicators.",
-            explanation: "Apple would never use a .cf domain or suspension threats."
+            hint: NSLocalizedString("training.hint.10", comment: "Scare tactics and free TLDs are phishing indicators."),
+            explanation: NSLocalizedString("training.explanation.10", comment: "Apple would never use a .cf domain or suspension threats.")
         ),
         
         // LEGITIMATE EXAMPLES
         PhishingChallenge(
             url: "https://github.com/login",
             isPhishing: false,
-            hint: "Verify the domain matches the official site.",
-            explanation: "This is the legitimate GitHub login page."
+            hint: NSLocalizedString("training.hint.11", comment: "Verify the domain matches the official site."),
+            explanation: NSLocalizedString("training.explanation.11", comment: "This is the legitimate GitHub login page.")
         ),
         PhishingChallenge(
             url: "https://www.google.com",
             isPhishing: false,
-            hint: "Standard domain structure with valid TLD.",
-            explanation: "This is the legitimate Google homepage."
+            hint: NSLocalizedString("training.hint.12", comment: "Standard domain structure with valid TLD."),
+            explanation: NSLocalizedString("training.explanation.12", comment: "This is the legitimate Google homepage.")
         ),
         PhishingChallenge(
             url: "https://www.apple.com/shop",
             isPhishing: false,
-            hint: "Official domain with standard path.",
-            explanation: "This is Apple's official shopping page."
+            hint: NSLocalizedString("training.hint.13", comment: "Official domain with standard path."),
+            explanation: NSLocalizedString("training.explanation.13", comment: "This is Apple's official shopping page.")
         ),
         PhishingChallenge(
             url: "https://account.microsoft.com",
             isPhishing: false,
-            hint: "Subdomain on verified parent domain.",
-            explanation: "This is Microsoft's official account management page."
+            hint: NSLocalizedString("training.hint.14", comment: "Subdomain on verified parent domain."),
+            explanation: NSLocalizedString("training.explanation.14", comment: "This is Microsoft's official account management page.")
         ),
         PhishingChallenge(
             url: "https://www.amazon.com/orders",
             isPhishing: false,
-            hint: "Official domain with standard path structure.",
-            explanation: "This is Amazon's official orders page."
+            hint: NSLocalizedString("training.hint.15", comment: "Official domain with standard path structure."),
+            explanation: NSLocalizedString("training.explanation.15", comment: "This is Amazon's official orders page.")
         ),
         PhishingChallenge(
             url: "https://pay.google.com",
             isPhishing: false,
-            hint: "Subdomain on a trusted parent domain.",
-            explanation: "This is Google Pay's official domain."
+            hint: NSLocalizedString("training.hint.16", comment: "Subdomain on a trusted parent domain."),
+            explanation: NSLocalizedString("training.explanation.16", comment: "This is Google Pay's official domain.")
         ),
         PhishingChallenge(
             url: "https://www.paypal.com/signin",
             isPhishing: false,
-            hint: "Correct spelling and official TLD.",
-            explanation: "This is PayPal's legitimate login page."
+            hint: NSLocalizedString("training.hint.17", comment: "Correct spelling and official TLD."),
+            explanation: NSLocalizedString("training.explanation.17", comment: "This is PayPal's legitimate login page.")
         ),
         PhishingChallenge(
             url: "https://netflix.com/browse",
             isPhishing: false,
-            hint: "Simple, correct domain structure.",
-            explanation: "This is Netflix's official browsing page."
+            hint: NSLocalizedString("training.hint.18", comment: "Simple, correct domain structure."),
+            explanation: NSLocalizedString("training.explanation.18", comment: "This is Netflix's official browsing page.")
         )
     ]
     

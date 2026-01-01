@@ -53,8 +53,8 @@ struct HistoryView: View {
             LiquidGlassBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle("Scan History")
-        .searchable(text: $searchText, prompt: "Search URLs")
+        .navigationTitle(NSLocalizedString("history.title", comment: "Scan History"))
+        .searchable(text: $searchText, prompt: NSLocalizedString("history.search_prompt", comment: "Search URLs"))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
@@ -476,7 +476,7 @@ struct HistoryDetailSheet: View {
             // Actions
             HStack(spacing: 16) {
                 ShareLink(item: item.url) {
-                    Label("Share", systemImage: "square.and.arrow.up")
+                    Label(NSLocalizedString("common.share", comment: "Share"), systemImage: "square.and.arrow.up")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.glass)

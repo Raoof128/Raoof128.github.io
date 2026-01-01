@@ -313,8 +313,8 @@ struct SettingsView: View {
             Section {
                 SettingsToggle(
                     icon: "clock.arrow.circlepath",
-                    title: "Save scan history",
-                    subtitle: "Keep a record of scanned URLs",
+                    title: NSLocalizedString("settings.save_history", comment: "Save scan history"),
+                    subtitle: NSLocalizedString("settings.save_history_desc", comment: "Keep a record of scanned URLs"),
                     isOn: $saveHistory
                 )
                 
@@ -353,7 +353,7 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader("Privacy", icon: "hand.raised")
+                sectionHeader(NSLocalizedString("settings.section.privacy", comment: "Privacy"), icon: "hand.raised")
             }
             .listRowBackground(Color.clear)
             
@@ -368,7 +368,7 @@ struct SettingsView: View {
                             .foregroundColor(.brandPrimary)
                             .frame(width: 28)
                         
-                        Text("Version")
+                        Text(NSLocalizedString("settings.version", comment: "Version"))
                             .foregroundColor(.textPrimary)
                         
                         Spacer()
@@ -379,8 +379,8 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
                 
-                aboutRow(icon: "hammer", title: "Build", value: "iOS 17+ • Swift 6")
-                aboutRow(icon: "cpu", title: "Engine", value: "KMP PhishingEngine")
+                aboutRow(icon: "hammer", title: NSLocalizedString("settings.build", comment: "Build"), value: "iOS 17+ • Swift 6")
+                aboutRow(icon: "cpu", title: NSLocalizedString("settings.engine", comment: "Engine"), value: "KMP PhishingEngine")
                 
                 Link(destination: URL(string: "https://github.com/Raoof128/QDKMP-KotlinConf-2026-")!) {
                     HStack {
@@ -400,7 +400,7 @@ struct SettingsView: View {
                     .padding(.vertical, 4)
                 }
             } header: {
-                sectionHeader("About", icon: "info.circle")
+                sectionHeader(NSLocalizedString("settings.section.about", comment: "About"), icon: "info.circle")
             }
             .listRowBackground(Color.clear)
             
@@ -495,9 +495,9 @@ struct SettingsView: View {
             LiquidGlassBackground()
                 .ignoresSafeArea()
         }
-        .navigationTitle("Settings")
+        .navigationTitle(NSLocalizedString("tab.settings", comment: "Settings"))
         .confirmationDialog(
-            "Clear All History?",
+            NSLocalizedString("settings.clear_confirm_title", comment: "Clear All History?"),
             isPresented: $showClearConfirmation,
             titleVisibility: .visible
         ) {

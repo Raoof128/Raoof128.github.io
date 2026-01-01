@@ -737,3 +737,97 @@
 "scanner.red_team_title" = "Red Team Scenarios";
 "scanner.red_team_attacks_fmt" = "%d attacks";
 "scanner.red_team_hint" = "Tap a scenario to test detection without camera";
+
+// ============================================
+// ADDITIONAL LOCALIZATION KEYS - 2026-01-02
+// ============================================
+
+// Settings
+"settings.clear_confirm_title" = "Clear All History?";
+"settings.save_history_desc" = "Keep a record of scanned URLs";
+
+// Threat History
+"threat.history_title" = "Threat History";
+"threat.export_report" = "Export Report";
+"threat.audit_complete" = "Security Audit Complete";
+
+// Common
+"common.refresh" = "Refresh";
+"common.share" = "Share";
+
+// Detail
+"detail.risk_flags" = "Risk Flags";
+
+// Scanner
+"scanner.import_qr" = "Import QR Code";
+
+// Result
+"result.title" = "Scan Result";
+"result.recommended_actions" = "Recommended Actions";
+"result.attack_breakdown" = "Attack Breakdown";
+
+// Verdict Strings
+"verdict.high_risk" = "HIGH RISK DETECTED";
+"verdict.suspicious" = "SUSPICIOUS ACTIVITY";
+"verdict.safe" = "VERIFIED SAFE";
+"verdict.unknown" = "ANALYSIS COMPLETE";
+
+// ============================================
+// TRAINING HINTS AND EXPLANATIONS
+// ============================================
+
+// Phishing Examples (1-10)
+"training.hint.1" = "Check the domain extension carefully.";
+"training.explanation.1" = "Legitimate Apple support sites typically end in apple.com, not support.co.uk.";
+
+"training.hint.2" = "Look closely at the spelling of the domain.";
+"training.explanation.2" = "The letter 'l' is replaced with '1' (typosquatting attack).";
+
+"training.hint.3" = "Check the main domain, not the subdomain.";
+"training.explanation.3" = "The real domain is customer-service.net, not amazon.com.";
+
+"training.hint.4" = "Free TLDs like .tk are often used for phishing.";
+"training.explanation.4" = "Netflix would never use a .tk domain for billing.";
+
+"training.hint.5" = "The real domain is at the end, before the path.";
+"training.explanation.5" = "The actual domain is secure-verify.net, not microsoft.com.";
+
+"training.hint.6" = "Check what comes right before the TLD.";
+"training.explanation.6" = "The domain is file-share.ga, not dropbox.com.";
+
+"training.hint.7" = "Look for letter substitutions in the brand name.";
+"training.explanation.7" = "The 'o's are replaced with zeros (homograph attack).";
+
+"training.hint.8" = "Urgency words and free TLDs are red flags.";
+"training.explanation.8" = "PayPal never uses urgency tactics or .ml domains.";
+
+"training.hint.9" = "Check for number substitutions in the domain.";
+"training.explanation.9" = "'Bank of America' is spelled with a zero instead of 'o'.";
+
+"training.hint.10" = "Scare tactics and free TLDs are phishing indicators.";
+"training.explanation.10" = "Apple would never use a .cf domain or suspension threats.";
+
+// Legitimate Examples (11-18)
+"training.hint.11" = "Verify the domain matches the official site.";
+"training.explanation.11" = "This is the legitimate GitHub login page.";
+
+"training.hint.12" = "Standard domain structure with valid TLD.";
+"training.explanation.12" = "This is the legitimate Google homepage.";
+
+"training.hint.13" = "Official domain with standard path.";
+"training.explanation.13" = "This is Apple's official shopping page.";
+
+"training.hint.14" = "Subdomain on verified parent domain.";
+"training.explanation.14" = "This is Microsoft's official account management page.";
+
+"training.hint.15" = "Official domain with standard path structure.";
+"training.explanation.15" = "This is Amazon's official orders page.";
+
+"training.hint.16" = "Subdomain on a trusted parent domain.";
+"training.explanation.16" = "This is Google Pay's official domain.";
+
+"training.hint.17" = "Correct spelling and official TLD.";
+"training.explanation.17" = "This is PayPal's legitimate login page.";
+
+"training.hint.18" = "Simple, correct domain structure.";
+"training.explanation.18" = "This is Netflix's official browsing page.";

@@ -117,7 +117,7 @@ struct ScanResultView: View {
             .background {
                 meshBackground
             }
-            .navigationTitle("Scan Result")
+            .navigationTitle(NSLocalizedString("result.title", comment: "Scan Result"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -279,10 +279,10 @@ struct ScanResultView: View {
     
     private var verdictTitle: String {
         switch assessment.verdict {
-        case .malicious: return "HIGH RISK DETECTED"
-        case .suspicious: return "SUSPICIOUS ACTIVITY"
-        case .safe: return "VERIFIED SAFE"
-        case .unknown: return "ANALYSIS COMPLETE"
+        case .malicious: return NSLocalizedString("verdict.high_risk", comment: "HIGH RISK DETECTED")
+        case .suspicious: return NSLocalizedString("verdict.suspicious", comment: "SUSPICIOUS ACTIVITY")
+        case .safe: return NSLocalizedString("verdict.safe", comment: "VERIFIED SAFE")
+        case .unknown: return NSLocalizedString("verdict.unknown", comment: "ANALYSIS COMPLETE")
         }
     }
     
@@ -316,7 +316,7 @@ struct ScanResultView: View {
     
     private var recommendedActions: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("Recommended Actions", icon: "hand.thumbsup.fill")
+            sectionHeader(NSLocalizedString("result.recommended_actions", comment: "Recommended Actions"), icon: "hand.thumbsup.fill")
             
             VStack(spacing: 12) {
                 // Block & Report (Primary)
@@ -399,7 +399,7 @@ struct ScanResultView: View {
     
     private var attackBreakdownSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("Attack Breakdown", icon: "chart.bar.fill")
+            sectionHeader(NSLocalizedString("result.attack_breakdown", comment: "Attack Breakdown"), icon: "chart.bar.fill")
             
             VStack(spacing: 8) {
                 ForEach($attackBreakdowns) { $breakdown in

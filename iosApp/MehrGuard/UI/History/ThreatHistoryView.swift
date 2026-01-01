@@ -112,7 +112,7 @@ struct ThreatHistoryView: View {
                 LiquidGlassBackground()
                     .ignoresSafeArea()
             }
-            .navigationTitle("Threat History")
+            .navigationTitle(NSLocalizedString("threat.history_title", comment: "Threat History"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -120,13 +120,13 @@ struct ThreatHistoryView: View {
                         Button {
                             refreshThreats()
                         } label: {
-                            Label("Refresh", systemImage: "arrow.clockwise")
+                            Label(NSLocalizedString("common.refresh", comment: "Refresh"), systemImage: "arrow.clockwise")
                         }
                         
                         Button {
                             exportThreatReport()
                         } label: {
-                            Label("Export Report", systemImage: "square.and.arrow.up")
+                            Label(NSLocalizedString("threat.export_report", comment: "Export Report"), systemImage: "square.and.arrow.up")
                         }
                         
                         Divider()
@@ -134,7 +134,7 @@ struct ThreatHistoryView: View {
                         Button {
                             dismiss()
                         } label: {
-                            Label("Close", systemImage: "xmark")
+                            Label(NSLocalizedString("common.close", comment: "Close"), systemImage: "xmark")
                         }
                     } label: {
                         Image(systemName: "ellipsis")
@@ -149,8 +149,8 @@ struct ThreatHistoryView: View {
                     animateDots = true
                 }
             }
-            .alert("Security Audit Complete", isPresented: $showAuditResult) {
-                Button("OK", role: .cancel) {}
+            .alert(NSLocalizedString("threat.audit_complete", comment: "Security Audit Complete"), isPresented: $showAuditResult) {
+                Button(NSLocalizedString("common.ok", comment: "OK"), role: .cancel) {}
             } message: {
                 Text(NSLocalizedString("threat.no_vulnerabilities", comment: ""))
             }

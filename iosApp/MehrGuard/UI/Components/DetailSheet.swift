@@ -73,7 +73,7 @@ struct DetailSheet: View {
                 LiquidGlassBackground()
                     .ignoresSafeArea()
             }
-            .navigationTitle("Analysis Details")
+            .navigationTitle(NSLocalizedString("detail.analysis_details", comment: "Analysis Details"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -156,32 +156,32 @@ struct DetailSheet: View {
     
     private var scoreBreakdownSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle("Score Breakdown", icon: "chart.bar.fill")
+            sectionTitle(NSLocalizedString("detail.score_breakdown", comment: "Score Breakdown"), icon: "chart.bar.fill")
             
             VStack(spacing: 12) {
                 breakdownRow(
-                    title: "URL Details",
+                    title: NSLocalizedString("detail.url_details", comment: "URL Details"),
                     icon: "link",
                     score: min(assessment.score * 2, 100),
                     color: .brandPrimary,
                     delay: 0
                 )
                 breakdownRow(
-                    title: "Domain",
+                    title: NSLocalizedString("detail.domain", comment: "Domain"),
                     icon: "globe",
                     score: assessment.score,
                     color: .brandSecondary,
                     delay: 0.1
                 )
                 breakdownRow(
-                    title: "Risk Factors",
+                    title: NSLocalizedString("detail.risk_factors", comment: "Risk Factors"),
                     icon: "waveform",
                     score: max(0, assessment.score - 10),
                     color: .verdictWarning,
                     delay: 0.2
                 )
                 breakdownRow(
-                    title: "Confidence",
+                    title: NSLocalizedString("component.confidence", comment: "Confidence"),
                     icon: "brain",
                     score: Int(assessment.confidence * 100),
                     color: .verdictSafe,
@@ -234,7 +234,7 @@ struct DetailSheet: View {
     
     private var riskFlagsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle("Risk Flags", icon: "exclamationmark.triangle.fill")
+            sectionTitle(NSLocalizedString("detail.risk_flags", comment: "Risk Flags"), icon: "exclamationmark.triangle.fill")
             
             VStack(spacing: 8) {
                 ForEach(assessment.flags, id: \.self) { flag in
@@ -260,7 +260,7 @@ struct DetailSheet: View {
     
     private var urlDetailsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionTitle("URL Details", icon: "link")
+            sectionTitle(NSLocalizedString("detail.url_details", comment: "URL Details"), icon: "link")
             
             VStack(alignment: .leading, spacing: 16) {
                 // Full URL
@@ -373,14 +373,14 @@ struct DetailSheet: View {
                 .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14))
             }
             .confirmationDialog(
-                "Security Warning",
+                NSLocalizedString("detail.open_warning_title", comment: "Security Warning"),
                 isPresented: $showOpenURLConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("Proceed Anyway", role: .destructive) {
+                Button(NSLocalizedString("detail.proceed", comment: "Proceed Anyway"), role: .destructive) {
                     openURL()
                 }
-                Button("Cancel", role: .cancel) {}
+                Button(NSLocalizedString("common.cancel", comment: "Cancel"), role: .cancel) {}
             } message: {
                 Text(NSLocalizedString("detail.open_warning", comment: ""))
             }

@@ -97,11 +97,11 @@ struct ImagePicker: View {
                 Spacer()
             }
             .liquidGlassBackground()
-            .navigationTitle("Import QR Code")
+            .navigationTitle(NSLocalizedString("scanner.import_qr", comment: "Import QR Code"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
+                    Button(NSLocalizedString("common.cancel", comment: "Cancel")) {
                         dismiss()
                     }
                     .foregroundColor(.brandPrimary)
