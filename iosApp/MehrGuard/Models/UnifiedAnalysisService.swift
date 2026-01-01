@@ -137,6 +137,66 @@ class UnifiedAnalysisService: ObservableObject {
         }
         
         // ============================================
+        // UNICODE/CYRILLIC HOMOGRAPH DETECTION
+        // This is critical for detecting mixed-script attacks
+        // ============================================
+        let cyrillicCharacters: Set<Character> = Set("абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ")
+        let latinCharacters: Set<Character> = Set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        
+        var hasCyrillic = false
+        var hasLatin = false
+        
+        for char in host {
+            if cyrillicCharacters.contains(char) {
+                hasCyrillic = true
+            }
+            if latinCharacters.contains(char) {
+                hasLatin = true
+            }
+        }
+        
+        if hasCyrillic && hasLatin {
+            // CRITICAL: Mixed-script attack detected!
+            score += 70
+            flags.append("Mixed Script Attack (Cyrillic/Latin)")
+        } else if hasCyrillic {
+            // All Cyrillic is suspicious unless it's .ru domain
+            if !host.hasSuffix(".ru") && !host.hasSuffix(".рф") {
+                score += 50
+                flags.append("Cyrillic Homograph")
+            }
+        }
+        
+        // ============================================
+        // URL SHORTENERS - Often hide malicious destinations
+        // ============================================
+        let urlShorteners = [
+            "bit.ly", "tinyurl.com", "t.co", "goo.gl", "ow.ly", "is.gd",
+            "buff.ly", "rebrand.ly", "cutt.ly", "short.io", "bl.ink",
+            "tiny.cc", "s.id", "shorturl.at", "v.gd", "tr.im"
+        ]
+        
+        for shortener in urlShorteners {
+            if host == shortener || host.hasSuffix(".\(shortener)") {
+                score += 30
+                flags.append("URL Shortener")
+                break
+            }
+        }
+        
+        // ============================================
+        // NESTED REDIRECT DETECTION
+        // ============================================
+        let redirectParams = ["url=", "redirect=", "next=", "goto=", "return=", "dest=", "target=", "link="]
+        for param in redirectParams {
+            if url.contains(param) && (url.contains("http%3A") || url.contains("https%3A") || url.contains("http://", after: param) || url.contains("https://", after: param)) {
+                score += 40
+                flags.append("Nested Redirect URL")
+                break
+            }
+        }
+        
+        // ============================================
         // TRUSTED DOMAINS - known safe domains
         // ============================================
         let trustedDomains = [
@@ -160,13 +220,17 @@ class UnifiedAnalysisService: ObservableObject {
         // Check if it's a trusted domain
         let isTrusted = trustedDomains.contains(host) || trustedDomains.contains { host.hasSuffix(".\($0)") }
         
-        if isTrusted {
-            // Trusted domain - low risk
-            score = 5
-            flags.append("Verified Domain")
+        if isTrusted && score < 30 {
+            // Trusted domain - low risk (but still apply any homograph penalties)
+            score = max(5, score)
+            if !flags.contains(where: { $0.contains("Homograph") || $0.contains("Mixed Script") }) {
+                flags.append("Verified Domain")
+            }
         } else {
             // Start with base score for unknown domains
-            score = 25
+            if score == 0 {
+                score = 25
+            }
             
             // ============================================
             // SUSPICIOUS PATTERNS
@@ -185,7 +249,7 @@ class UnifiedAnalysisService: ObservableObject {
             }
             
             // ============================================
-            // HOMOGRAPH DETECTION
+            // ASCII HOMOGRAPH DETECTION
             // ============================================
             let homographPatterns = [
                 "paypa1", "paypal1", "paypai", "paypall",
@@ -201,7 +265,7 @@ class UnifiedAnalysisService: ObservableObject {
             for pattern in homographPatterns {
                 if url.contains(pattern) {
                     score += 40
-                    flags.append("Homograph Attack")
+                    flags.append("ASCII Homograph Attack")
                     break
                 }
             }
@@ -253,11 +317,21 @@ class UnifiedAnalysisService: ObservableObject {
                 flags.append("Complex Domain Structure")
             }
             
-            // IP address in URL
-            let ipPattern = try? NSRegularExpression(pattern: "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}")
-            if let ipPattern = ipPattern, ipPattern.firstMatch(in: url, range: NSRange(url.startIndex..., in: url)) != nil {
-                score += 45
-                flags.append("IP Address URL")
+            // IP address in URL (decimal, hex, or octal)
+            let ipPatterns = [
+                "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}",  // Standard IP
+                "0x[0-9a-fA-F]+",  // Hex IP
+                "0[0-7]+\\.[0-7]+\\.[0-7]+\\.[0-7]+",  // Octal IP
+                "\\d{8,10}"  // Decimal IP (large number)
+            ]
+            
+            for pattern in ipPatterns {
+                if let regex = try? NSRegularExpression(pattern: pattern),
+                   regex.firstMatch(in: host, range: NSRange(host.startIndex..., in: host)) != nil {
+                    score += 45
+                    flags.append("IP Address URL")
+                    break
+                }
             }
             
             // Excessive hyphens
@@ -328,6 +402,17 @@ class UnifiedAnalysisService: ObservableObject {
         let scoreConfidence = score > 70 || score < 20 ? 0.9 : 0.7
         let flagBonus = min(Double(flagCount) * 0.05, 0.1)
         return min(scoreConfidence + flagBonus, 0.98)
+    }
+}
+
+// MARK: - String Extension for URL Detection
+
+extension String {
+    /// Check if string contains a substring after a given marker
+    func contains(_ substring: String, after marker: String) -> Bool {
+        guard let markerRange = self.range(of: marker) else { return false }
+        let afterMarker = self[markerRange.upperBound...]
+        return afterMarker.contains(substring)
     }
 }
 

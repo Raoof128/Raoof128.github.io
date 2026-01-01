@@ -388,11 +388,18 @@
 // MARK: - Scanner Additional
 "scanner.camera_required_title" = "Camera Access Required";
 "scanner.camera_required_message" = "Mehr Guard needs camera access to scan QR codes. Please enable it in Settings.";
+"scanner.camera_required_short" = "Enable camera in Settings to scan QR codes";
 "scanner.analyzing_dots" = "Analyzing...";
 "scanner.point_qr" = "Point at QR Code";
 "scanner.toggle_scan" = "Toggle scanning";
 "scanner.dismiss_error" = "Dismiss error";
 "scanner.camera_preview" = "Camera Preview";
+
+// MARK: - Common
+"common.settings" = "Settings";
+"common.cancel" = "Cancel";
+"common.ok" = "OK";
+"common.done" = "Done";
 
 // MARK: - Trust Centre Additional
 "trust.low" = "Low";

@@ -64,25 +64,10 @@ struct ScannerView: View {
             
             // 3. Main Content
             VStack(spacing: 0) {
-                // RED TEAM SCENARIOS (Developer Mode Only)
-                // Wrapped in Group with animation modifier for proper transition
-                Group {
-                    if developerModeEnabled {
-                        RedTeamScenariosPanel { scenario in
-                            // Bypass camera - feed malicious URL directly to analysis engine
-                            SettingsManager.shared.triggerHaptic(.warning)
-                            SettingsManager.shared.playSound(.scan)
-                            viewModel.analyzeUrl(scenario.maliciousUrl)
-                        }
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                    }
-                }
-                .animation(.easeInOut(duration: 0.3), value: developerModeEnabled)
-                
                 // Header Bar (Liquid Glass)
                 headerBar
                     .padding(.horizontal)
-                    .padding(.top, 8)
+                    .padding(.top, developerModeEnabled ? 8 : 8) // Extra top padding when Red Team is not shown
                 
                 Spacer()
                 
@@ -105,6 +90,26 @@ struct ScannerView: View {
             if let error = viewModel.errorMessage {
                 errorBanner(error)
                     .transition(.move(edge: .top).combined(with: .opacity))
+            }
+            
+            // 6. RED TEAM SCENARIOS (Developer Mode Only)
+            // Rendered LAST so it appears ON TOP of permission overlay
+            // This allows judges to test detection without camera access
+            VStack {
+                Group {
+                    if developerModeEnabled {
+                        RedTeamScenariosPanel { scenario in
+                            // Bypass camera - feed malicious URL directly to analysis engine
+                            SettingsManager.shared.triggerHaptic(.warning)
+                            SettingsManager.shared.playSound(.scan)
+                            viewModel.analyzeUrl(scenario.maliciousUrl)
+                        }
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                    }
+                }
+                .animation(.easeInOut(duration: 0.3), value: developerModeEnabled)
+                
+                Spacer()
             }
         }
         .sheet(isPresented: $showDetails) {
@@ -535,34 +540,59 @@ struct ScannerView: View {
         .liquidGlass(cornerRadius: 30)
     }
     
-    // MARK: - Permission Denied Overlay
+    // MARK: - Permission Denied Banner (Compact Bottom Banner)
     
+    /// Compact camera permission banner - doesn't block the entire screen
+    /// This allows Red Team scenarios to work even without camera access
     private var permissionDeniedOverlay: some View {
-        VStack(spacing: 24) {
-            Image(systemName: "camera.fill")
-                .font(.system(size: 60))
-                .foregroundColor(.textMuted)
-                .symbolEffect(.pulse)
+        VStack {
+            Spacer()
             
-            Text(NSLocalizedString("scanner.camera_required_title", comment: ""))
-                .font(.title2.weight(.semibold))
-                .foregroundColor(.textPrimary)
-            
-            Text(NSLocalizedString("scanner.camera_required_message", comment: ""))
-                .font(.subheadline)
-                .foregroundColor(.textSecondary)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-            
-            InteractiveGlassButton("Open Settings", icon: "gear") {
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url)
+            // Compact bottom banner
+            HStack(spacing: 12) {
+                // Warning icon
+                Image(systemName: "camera.fill")
+                    .font(.title3)
+                    .foregroundColor(.orange)
+                    .symbolEffect(.pulse)
+                
+                // Text content
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(NSLocalizedString("scanner.camera_required_title", comment: ""))
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundColor(.textPrimary)
+                    
+                    Text(NSLocalizedString("scanner.camera_required_short", comment: ""))
+                        .font(.caption)
+                        .foregroundColor(.textSecondary)
+                        .lineLimit(1)
+                }
+                
+                Spacer()
+                
+                // Open Settings button
+                Button {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                } label: {
+                    Text(NSLocalizedString("common.settings", comment: ""))
+                        .font(.caption.weight(.semibold))
+                        .foregroundColor(.white)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color.brandPrimary, in: Capsule())
                 }
             }
-            .padding(.horizontal, 40)
+            .padding(16)
+            .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+            .overlay {
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(Color.orange.opacity(0.3), lineWidth: 1)
+            }
+            .padding(.horizontal, 16)
+            .padding(.bottom, 100) // Above the tab bar
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.ultraThinMaterial)
     }
 }
 

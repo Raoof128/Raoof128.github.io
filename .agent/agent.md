@@ -257,10 +257,70 @@ Any important notes for future agents.
 
 ---
 
-# 🎨 January 1, 2026 (Session 10k+75) - Complete Branding Audit & iOS Red Team Verification
+# 🕵️ January 1, 2026 (Session 10k+76) - iOS Red Team Z-Fix & Scan Engine Polish
 
 ### Summary
-Audited and fixed ALL remaining "QR-SHIELD" references across iOS and common modules. Verified iOS Red Team / Judge Mode is fully implemented.
+Fixed critical iOS Red Team panel visibility issue and polished the iOS scan engine with enhanced detection capabilities.
+
+## ✅ Changes Made
+
+### Files Updated
+
+| File | Change |
+|------|--------|
+| `ScannerView.swift` | Moved Red Team panel to render ON TOP of permission overlay (Z-ordering fix) |
+| `ScannerView.swift` | Redesigned permission overlay as compact bottom banner |
+| `MockTypes.swift` | Added 8 more scenarios (now 18 total, matching Kotlin) |
+| `UnifiedAnalysisService.swift` | Enhanced with Cyrillic/URL shortener/Nested redirect detection |
+| `en.lproj/Localizable.strings` | Added `scanner.camera_required_short`, `common.settings` |
+
+### Critical Z-Ordering Fix
+
+**Problem**: Red Team panel was hidden behind camera permission overlay.
+
+**Before (broken)**:
+```
+ZStack {
+    ...
+    3. VStack { RedTeamPanel... }  ← Hidden!
+    4. PermissionOverlay  ← Covers item 3
+}
+```
+
+**After (fixed)**:
+```
+ZStack {
+    ...
+    4. PermissionOverlay
+    6. RedTeamPanel  ← Now ON TOP! 🎉
+}
+```
+
+### Swift Fallback Engine Enhancements
+
+| Feature | Detection |
+|---------|-----------|
+| Unicode Homograph | Mixed Cyrillic/Latin scripts (аpple.com) |
+| URL Shorteners | bit.ly, tinyurl.com, t.co, etc. (16 services) |
+| Nested Redirects | url=, redirect=, next= with embedded URLs |
+| IP Obfuscation | Hex (0xC0A80101), Octal, Decimal formats |
+
+### Build Verification
+
+```bash
+xcodebuild MehrGuard -destination 'iPhone 17 Pro'
+# ** BUILD SUCCEEDED **
+```
+
+## Notes
+
+- Camera permission overlay is now a compact bottom banner, doesn't block screen
+- Red Team scenarios work on simulator even without camera access
+- iOS scenarios now match Kotlin exactly (18 total)
+
+---
+
+# 🎨 January 1, 2026 (Session 10k+75) - Complete Branding Audit & iOS Red Team Verification
 
 ## ✅ Changes Made
 

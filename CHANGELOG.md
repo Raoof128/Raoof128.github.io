@@ -55,15 +55,48 @@ All 6 platforms build successfully:
 
 **Fixed iOS Red Team panel animation and expanded scenarios to match Kotlin.**
 
-1. **`ScannerView.swift`**
+1. **`ScannerView.swift` - Z-Ordering Fix (CRITICAL)**
+   - **Problem**: Red Team panel was rendered BEHIND the Camera Permission overlay
+   - **Fix**: Moved Red Team panel to render LAST in ZStack (item 6 instead of item 3)
+   - Now judges can test detection engine even WITHOUT camera access
+   - Panel appears on top of "Camera Access Required" screen
+
+2. **`ScannerView.swift` - Animation Fix**
    - Wrapped `if developerModeEnabled` block with `Group` and `.animation()` modifier
    - Red Team panel now properly animates in/out when toggling Developer Mode
 
-2. **`MockTypes.swift` - Expanded Scenarios**
+3. **`MockTypes.swift` - Expanded Scenarios**
    - Added 8 new scenarios to match Kotlin `RedTeamScenarios.kt` (now 18 total)
    - Added: HG-003 (Microsoft Cyrillic), IP-003 (Octal), TLD-003 (Amazon .ga)
    - Added: NR-001/NR-002 (Nested Redirects), BI-002 (Google typosquatting)
    - Added: SH-002 (TinyURL)
+
+4. **Camera Permission Banner Redesign**
+   - Changed from full-screen overlay to compact bottom banner
+   - Banner shows at bottom, doesn't block Red Team panel
+   - Includes "Settings" button to open iOS Settings
+   - Added new localization keys: `scanner.camera_required_short`, `common.settings`
+
+### 🔧 iOS Scan Engine Polish
+
+**Enhanced Swift fallback engine with better detection capabilities.**
+
+1. **Unicode/Cyrillic Homograph Detection**
+   - Detects mixed-script attacks (Latin + Cyrillic characters)
+   - Flags pure Cyrillic domains on non-.ru TLDs
+   - Critical for detecting `аpple.com` type attacks
+
+2. **URL Shortener Detection**
+   - Detects 16 popular shorteners (bit.ly, tinyurl.com, t.co, etc.)
+   - Adds 30 risk points for shortened URLs
+
+3. **Nested Redirect Detection**
+   - Detects URLs embedded in query parameters (url=, redirect=, next=, etc.)
+   - Catches both plain and URL-encoded nested URLs
+
+4. **Enhanced IP Address Detection**
+   - Detects standard, hexadecimal, octal, and decimal IP formats
+   - Covers all obfuscation techniques in Red Team scenarios
 
 #### Verification
 
