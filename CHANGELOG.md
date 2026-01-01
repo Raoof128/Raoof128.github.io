@@ -30,6 +30,113 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.14] - 2026-01-02
+
+### Raouf: Hebrew & Persian Translation Improvements + RTL Documentation
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** iOS Localization, Hebrew, Persian, RTL
+**Summary:** Added 40+ Hebrew and Persian translations, documented RTL behavior, analyzed language coverage
+
+#### Changes
+
+1. **Hebrew Translations Added (40+ strings)**
+   - Accessibility strings: חזור, סגור תפריט, העתק כתובת, פלאש, הגדרות, שתף, etc.
+   - Analysis titles: התחזות למותג, גניבת פרטי התחברות, התקפת הומוגרף, etc.
+   - Component labels: מצב פעיל, מצב המתנה
+   - Detail strings: פרטי ניתוח, גורמי סיכון, פירוט ציון, etc.
+   - Hebrew text coverage: 257 → 297 strings (78% → ~60% complete)
+
+2. **Persian Translations Added (40+ strings)**
+   - Accessibility: بازگشت, بستن منو, کپی آدرس, فلش, تنظیمات, اشتراک‌گذاری, etc.
+   - Analysis: جعل هویت برند, سرقت اطلاعات ورود, حمله همنگار, etc.
+   - Component/Detail: حالت فعال, جزئیات تحلیل, عوامل خطر, etc.
+   - Persian text coverage: 257 → 297 strings (~60% complete)
+
+3. **RTL (Right-to-Left) Behavior Documentation**
+   - Hebrew and Persian are RTL languages - iOS CORRECTLY flips the layout
+   - Navigation flows right-to-left (this is expected behavior)
+   - Menus appear on the right side (this is expected behavior)
+   - SwiftUI automatically handles RTL via `.leading`/`.trailing` modifiers
+   - No code changes needed - this is proper localization
+
+#### Language Coverage Analysis
+| Language | Unique Keys | Status |
+|----------|-------------|--------|
+| All 18 languages | 497 | Same keys |
+| Hebrew translated | ~297/497 | ~60% |
+| Persian translated | ~297/497 | ~60% |
+| Other 15 languages | ~497/497 | ~99% |
+
+Note: English file has 562 entries due to duplicate keys (same 497 unique keys)
+
+#### Remaining Work
+- ~200 strings in Hebrew still need translation
+- ~200 strings in Persian still need translation  
+- ~44 duplicate entries in English file could be cleaned
+- Some hardcoded strings in Swift UI code need localization
+
+#### Files Modified
+- `iosApp/MehrGuard/he.lproj/Localizable.strings` - 40+ translations
+- `iosApp/MehrGuard/fa.lproj/Localizable.strings` - 40+ translations
+- `CHANGELOG.md` - This entry
+
+---
+
+## [2.0.13] - 2026-01-02
+
+### Raouf: Fixed All 18 Languages Not Loading in iOS App
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** iOS Localization, Xcode Project Configuration
+**Summary:** Fixed critical bug where only English and German worked; 16 languages were missing from Xcode project build
+
+#### Problem
+- Only English (en) and German (de) languages worked after app restart
+- All other 16 languages (Spanish, French, Chinese, Japanese, Arabic, Hindi, Indonesian, Italian, Korean, Portuguese, Russian, Thai, Turkish, Vietnamese, Hebrew, Persian) did not load
+- Languages appeared in Settings picker but selecting them had no effect
+
+#### Root Cause
+- The `project.pbxproj` file's `PBXVariantGroup` for `Localizable.strings` only included 6 languages (en, de, es, fr, zh-Hans, ja)
+- The remaining 12 languages' file references were missing from `PBXFileReference` section
+- Physical .lproj folders existed on disk but were NOT compiled into the app bundle
+- Only folders referenced in Xcode project get copied to the build
+
+#### Solution
+1. **Added 12 Missing PBXFileReference Entries**
+   - ar, hi, id, it, ko, pt, ru, th, tr, vi, he, fa
+
+2. **Updated PBXVariantGroup for Localizable.strings**
+   - Added all 18 language references to the children array
+
+3. **Verified knownRegions includes all languages**
+   - Already had he and fa from previous fix
+
+#### Files Modified
+- `iosApp/MehrGuard.xcodeproj/project.pbxproj`:
+  - Added 12 new PBXFileReference entries for missing language .lproj files
+  - Updated PBXVariantGroup children to include all 18 languages
+
+#### Verification
+```bash
+xcodebuild clean build
+# All 18 .lproj folders now copied to app bundle:
+ls MehrGuard.app/*.lproj
+# ar.lproj de.lproj en.lproj es.lproj fa.lproj fr.lproj he.lproj hi.lproj
+# id.lproj it.lproj ja.lproj ko.lproj pt.lproj ru.lproj th.lproj tr.lproj
+# vi.lproj zh-Hans.lproj
+```
+
+#### Technical Detail
+For iOS localization to work, THREE things must be in sync:
+1. `.lproj` folder exists on disk with `Localizable.strings`
+2. `PBXFileReference` entry in project.pbxproj points to the .strings file
+3. `PBXVariantGroup` includes the file reference in its children array
+
+Missing any one of these causes the language to be excluded from the build.
+
+---
+
 ## [2.0.12] - 2026-01-02
 
 ### Raouf: Fixed Duplicate App & Language System
