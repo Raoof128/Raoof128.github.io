@@ -1879,7 +1879,7 @@ Before submitting, we asked ourselves the hardest questions:
 |----------|------------|----------|
 | **Can a judge understand why a QR is dangerous in 5 seconds?** | ✅ YES | Explainability Panel with visual signal breakdown, not just a score |
 | **Is there one screen they'll remember tomorrow?** | ✅ YES | Signature Result Screen with risk meter, verdict card, signal cards |
-| **Does this feel like a real product, not a demo?** | ✅ YES | Edge states, error handling, 16 languages, production CI/CD |
+| **Does this feel like a real product, not a demo?** | ✅ YES | Edge states, error handling, 18 languages, production CI/CD |
 | **Is KMP usage undeniable?** | ✅ YES | `expect`/`actual` patterns, 70-80% shared code, 5 platforms from 1 codebase |
 
 ### Top-3 Readiness Checklist
@@ -2270,7 +2270,7 @@ Our GitHub Actions workflow includes:
 | **Shared Business Logic** | 85% | True KMP architecture |
 | **Custom Algorithms** | 6 | No copy-paste libraries |
 | **Test Files** | 35+ | Quality assurance |
-| **Supported Languages** | 16 | i18n investment |
+| **Supported Languages** | 18 | i18n investment |
 | **Platform Targets** | 5 | Android, iOS, Desktop, Web JS, Web Wasm |
 
 > **Bottom line:** This project represents 100+ hours of original development, not 10 minutes of template scaffolding.

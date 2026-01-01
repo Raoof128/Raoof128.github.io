@@ -32,7 +32,7 @@
 | `crypto/` | 400 | SecureECDH (Curve25519) | 100% |
 | `gamification/` | 700 | BeatTheBot, GameSession, LeaderboardManager | 100% |
 | `ui/shared/` | 800 | SharedResultCard, ThreatRadar, SharedTextGenerator | 100% |
-| `localization/` | 500 | LocalizationKeys, Translations (16 languages) | 100% |
+| `localization/` | 500 | LocalizationKeys, Translations (18 languages) | 100% |
 | **Total commonMain** | **~11,000** | | **100%** |
 
 ### Shared Tests (commonTest)
@@ -60,7 +60,7 @@
 | Compose UI | 2,800 | Android theming, navigation |
 | Permissions | 300 | Android permission system |
 | Haptics | 100 | Android Vibrator API |
-| Localization | 629 keys × 16 | Full i18n support |
+| Localization | 629 keys × 18 | Full i18n support |
 | Accessibility | 197+ | TalkBack content descriptions |
 | **Total** | **~4,600** | |
 
@@ -72,7 +72,7 @@
 | SwiftUI views | 3,800 | iOS navigation patterns |
 | Permissions | 200 | iOS permission system |
 | Haptics | 100 | UIImpactFeedbackGenerator |
-| Localization | 547 keys × 16 | Full i18n support |
+| Localization | 547 keys × 18 | Full i18n support |
 | Accessibility | 100+ | VoiceOver labels |
 | Red Team mode | 150 | Developer testing features |
 | **Total** | **~5,500** | |

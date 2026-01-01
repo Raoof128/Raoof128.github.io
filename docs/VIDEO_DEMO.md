@@ -18,7 +18,7 @@ The demo will showcase:
 - 🌐 Cross-platform functionality with full parity
 - 🎮 Beat the Bot gamification feature
 - 🔴 Red Team developer mode
-- 🌍 16 language support
+- 🌍 18 language support
 
 ---
 

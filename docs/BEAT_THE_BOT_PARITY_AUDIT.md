@@ -135,7 +135,7 @@ open iosApp/MehrGuard.xcodeproj
 
 ### Desktop (Parity Label Fix)
 - `desktopApp/.../i18n/DesktopStrings.kt` - NavTraining default
-- `desktopApp/.../i18n/DesktopStrings*.kt` - All 16 language files
+- `desktopApp/.../i18n/DesktopStrings*.kt` - All 18 language files
 - `desktopApp/.../ui/AppSidebar.kt` - Icon update
 
 ---

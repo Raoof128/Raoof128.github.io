@@ -256,8 +256,10 @@ enum class SoundType {
 | Turkish | tr | 629 |
 | Vietnamese | vi | 629 |
 | Chinese | zh | 629 |
+| Hebrew | iw | 629 |
+| Persian | fa | 629 |
 
-**All 16 languages synchronized with same key set (629 strings each).**
+**All 18 languages synchronized with same key set (629 strings each).**
 
 ---
 
@@ -270,7 +272,7 @@ enum class SoundType {
 | Feature Correctness | ✅ 100% | Error states, reproducible detection |
 | Accessibility | ✅ 100% | **197** content descriptions across 20 files |
 | Android Polish | ✅ 100% | Icons, splash, permissions, predictive back |
-| Localization | ✅ 100% | 16 languages, **629 keys** |
+| Localization | ✅ 100% | 18 languages, **629 keys** |
 
 **Overall: READY FOR SUBMISSION** ✅
 

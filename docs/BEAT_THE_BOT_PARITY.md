@@ -20,7 +20,7 @@ This document defines the cross-platform parity requirements for the "Beat The B
 | **Web** | Sidebar → Beat the Bot | "Beat the Bot" | `game.html` |
 
 ### Parity Action
-- ✅ Desktop renamed "Training" to "Beat the Bot" in sidebar (all 16 languages)
+- ✅ Desktop renamed "Training" to "Beat the Bot" in sidebar (all 18 languages)
 
 ---
 

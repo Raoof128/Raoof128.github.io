@@ -111,8 +111,10 @@
 | Korean | ko | ✅ Complete |
 | Italian | it | ✅ Complete |
 | Russian | ru | ✅ Complete |
+| Hebrew | he | ✅ Complete (RTL) |
+| Persian | fa | ✅ Complete (RTL) |
 
-**Total: 16 languages** (English, Spanish, French, German, Arabic, Japanese, Chinese, Portuguese, Korean, Italian, Russian, Hindi, Indonesian, Thai, Turkish, Vietnamese)
+**Total: 18 languages** (English, Spanish, French, German, Arabic, Japanese, Chinese, Portuguese, Korean, Italian, Russian, Hindi, Indonesian, Thai, Turkish, Vietnamese, Hebrew, Persian)
 
 ---
 
@@ -199,7 +201,7 @@ The project is **production-ready** for:
 | ML Architecture | Ensemble (LR + GB + Rules) |
 | Detection engine | 25+ heuristic rules |
 | Brand database | 500+ brands |
-| Languages | 16 supported |
+| Languages | 18 supported |
 | Test coverage | 1,248+ tests (89% coverage) |
 | Performance | 500+ URLs/second |
 | Privacy | 100% offline capable |

@@ -26,7 +26,7 @@
   <img src="https://img.shields.io/badge/Tests-1,248+-brightgreen" alt="Tests">
   <img src="https://img.shields.io/badge/Coverage-89%25-brightgreen" alt="Coverage">
   <img src="https://img.shields.io/badge/F1_Score-87%25-brightgreen" alt="F1 Score">
-  <img src="https://img.shields.io/badge/Languages-16-blueviolet" alt="Languages">
+  <img src="https://img.shields.io/badge/Languages-18-blueviolet" alt="Languages">
   <img src="https://img.shields.io/badge/License-Apache_2.0-purple" alt="License">
 </p>
 
@@ -309,7 +309,7 @@ class EnsembleModel {
 
 ## 🌍 Internationalization
 
-**16 Languages** — Reaching 4+ billion speakers worldwide
+**18 Languages** — Reaching 4+ billion speakers worldwide
 
 | Platform | String Keys | Notes |
 |----------|-------------|-------|
@@ -336,6 +336,8 @@ class EnsembleModel {
 | 🇻🇳 | Vietnamese |
 | 🇹🇷 | Turkish |
 | 🇮🇩 | Indonesian |
+| 🇮🇱 | Hebrew |
+| 🇮🇷 | Persian (Farsi) |
 
 ---
 

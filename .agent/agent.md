@@ -248,12 +248,56 @@ Any important notes for future agents.
 2. **Read CHANGELOG.md first** - Understand recent changes before making new ones
 3. **Check for existing patterns** - Don't reinvent; follow existing code style
 4. **Test on all platforms if possible** - Changes to `common/` affect everything
-5. **Keep localization in sync** - If you add a string, add it to ALL 16 languages
+5. **Keep localization in sync** - If you add a string, add it to ALL 18 languages
 6. **Update docs if you change architecture** - Keep `docs/` folder current
 
 ---
 
 # SESSION HISTORY
+
+---
+
+# 🌐 January 1, 2026 (Session 10k+78) - Hebrew & Persian Language Support
+
+### Summary
+Added Hebrew (עברית) and Persian/Farsi (فارسی) language support across all 4 platforms: iOS, Android, Desktop, and Web.
+
+## ✅ Changes Made
+
+### Files Created
+| Platform | File | Purpose |
+|----------|------|---------|
+| iOS | `he.lproj/Localizable.strings` | Hebrew translations for iOS |
+| iOS | `fa.lproj/Localizable.strings` | Persian translations for iOS |
+| Android | `values-iw/strings.xml` | Hebrew translations for Android |
+| Android | `values-fa/strings.xml` | Persian translations for Android |
+| Desktop | `DesktopStringsHe.kt` | Hebrew strings for Desktop |
+| Desktop | `DesktopStringsFa.kt` | Persian strings for Desktop |
+| Web | `WebStringsHe.kt` | Hebrew strings for Web |
+| Web | `WebStringsFa.kt` | Persian strings for Web |
+
+### Files Modified
+| File | Change |
+|------|--------|
+| `DesktopStrings.kt` | Added `Hebrew` and `Persian` to `AppLanguage` enum |
+| `WebStrings.kt` | Added `Hebrew` and `Persian` to `WebLanguage` enum |
+| `CHANGELOG.md` | Added v2.0.8 entry |
+
+### Language Support Summary
+- **Total Languages**: 18 (previously 16)
+- **New Languages**: Hebrew (he), Persian (fa)
+- **RTL Support**: Both new languages use right-to-left text direction
+
+### Platform-Specific Notes
+- **Android**: Uses `iw` locale code for Hebrew (legacy Android convention)
+- **Desktop/Web**: Added multiple locale code mappings (`he`, `he-il`, `iw`, `fa`, `fa-ir`, `per`)
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop → EXIT CODE 0
+./gradlew :webApp:compileKotlinJs → EXIT CODE 0
+```
 
 ---
 

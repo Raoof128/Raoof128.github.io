@@ -240,7 +240,7 @@ let result = await service.analyze(url: userUrl)
 // Features at full parity (v1.20.30):
 // - Dynamic analysis breakdowns (16 flag types)
 // - Red Team developer mode
-// - 547 localized strings (16 languages)
+// - 547 localized strings (18 languages)
 // - VoiceOver accessibility labels
 ```
 

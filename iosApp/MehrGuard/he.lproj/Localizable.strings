@@ -1,0 +1,340 @@
+/* 
+  Localizable.strings
+  Mehr Guard iOS App
+  
+  Hebrew (עברית) Localization
+  Created: January 2026
+*/
+
+// MARK: - App General
+"app.name" = "Mehr Guard";
+"app.tagline" = "גלאי פישינג QR חוצה-פלטפורמות";
+
+// MARK: - Tab Bar
+"tab.dashboard" = "לוח בקרה";
+"tab.scan" = "סריקה";
+"tab.history" = "היסטוריה";
+"tab.training" = "אימון";
+"tab.settings" = "הגדרות";
+
+// MARK: - Scanner View
+"scanner.title" = "Mehr Guard";
+"scanner.scanning" = "סורק";
+"scanner.paused" = "מושהה";
+"scanner.analyzing" = "מנתח...";
+"scanner.point_at_qr" = "כוון את המצלמה לקוד QR";
+"scanner.gallery" = "גלריה";
+"scanner.history" = "היסטוריה";
+"scanner.scans_count" = "סריקות: %d";
+"scanner.error_dismiss" = "סגור שגיאה";
+
+// MARK: - Camera Permission
+"camera.access_required" = "נדרשת גישה למצלמה";
+"camera.access_message" = "Mehr Guard זקוק לגישה למצלמה כדי לסרוק קודי QR. אנא אפשר זאת בהגדרות.";
+"camera.open_settings" = "פתח הגדרות";
+"camera.cancel" = "ביטול";
+"camera.no_camera" = "אין מצלמה זמינה";
+"camera.setup_failed" = "הגדרת המצלמה נכשלה: %@";
+"camera.flash_failed" = "החלפת פלאש נכשלה: %@";
+
+// MARK: - Verdicts
+"verdict.safe" = "בטוח";
+"verdict.suspicious" = "חשוד";
+"verdict.malicious" = "זדוני";
+"verdict.unknown" = "לא ידוע";
+
+// MARK: - Result Card
+"result.risk_score" = "ציון סיכון: %d/100";
+"result.risk_score_label" = "ציון סיכון";
+"result.confidence" = "ביטחון";
+"result.view_details" = "הצג פרטים";
+"result.view_full_analysis" = "הצג ניתוח מלא";
+"result.copy_url" = "העתק קישור";
+"result.share" = "שתף";
+"result.dismiss" = "סגור";
+"result.show_more" = "הצג עוד %d...";
+"result.show_less" = "הצג פחות";
+"result.flags_title" = "דגלי סיכון";
+
+// MARK: - History View
+"history.title" = "היסטוריית סריקות";
+"history.empty_title" = "אין סריקות";
+"history.empty_message" = "קודי QR שנסרקו יופיעו כאן";
+"history.scan_now" = "סרוק עכשיו";
+"history.clear_all" = "נקה הכל";
+"history.delete" = "מחק";
+"history.open_url" = "פתח קישור";
+"history.search_prompt" = "חפש קישורים";
+"history.sort_menu" = "מיון";
+"history.sort.by_date" = "לפי תאריך";
+"history.sort.by_risk" = "לפי סיכון";
+"history.export" = "ייצוא";
+"history.clear_all_action" = "נקה הכל";
+"history.scans_counter" = "%d סריקות";
+"history.no_results" = "אין תוצאות";
+"history.no_results_message" = "נסה לשנות את החיפוש או המסננים";
+"history.clear_confirm_title" = "לנקות את כל ההיסטוריה?";
+"history.clear_confirm_message" = "לא ניתן לבטל פעולה זו. כל רשומות הסריקה יימחקו לצמיתות.";
+"history.exported_toast" = "יוצא ללוח";
+
+// MARK: - Settings View
+"settings.title" = "הגדרות";
+
+// Settings: Scanning Section
+"settings.section.scanning" = "סריקה";
+"settings.section.notifications" = "התראות";
+"settings.section.appearance" = "מראה";
+"settings.section.privacy" = "פרטיות";
+"settings.section.about" = "אודות";
+"settings.auto_scan" = "סריקה אוטומטית בפתיחה";
+"settings.auto_scan_description" = "התחל לסרוק מיד עם פתיחת האפליקציה";
+"settings.haptic" = "משוב רטט";
+"settings.haptic_description" = "רטט עם תוצאות סריקה";
+"settings.sound" = "אפקטים קוליים";
+"settings.sound_description" = "השמע צלילים לעירנים";
+
+// Settings: Notifications Section
+"settings.security_alerts" = "התראות אבטחה";
+"settings.security_alerts_description" = "קבל התראות על איומי אבטחה";
+"settings.notifications_denied_title" = "התראות כבויות";
+"settings.notifications_denied_message" = "כדי לקבל התראות אבטחה, אנא הפעל התראות עבור Mehr Guard בהגדרות.";
+"settings.open_settings" = "פתח הגדרות";
+"settings.cancel" = "ביטול";
+
+// Settings: Appearance Section
+"settings.reduce_effects" = "הפחת אפקטי זכוכית נוזלית";
+"settings.reduce_effects_description" = "פשט אפקטים ויזואליים לביצועים טובים יותר";
+"settings.system_appearance" = "מראה המערכת";
+"settings.dark_mode" = "מצב כהה";
+"settings.dark_mode_description" = "הפעל ערכת צבעים כהה";
+"settings.appearance_footer" = "iOS 17+ מציג אפקטי Liquid Glass יפים. הפחת אפקטים אם אתה חווה בעיות ביצועים במכשירים ישנים יותר.";
+
+// Settings: Privacy Section
+"settings.save_history" = "שמור היסטוריית סריקות";
+"settings.save_history_description" = "שמור רשומה של קישורים שנסרקו";
+"settings.clear_history" = "נקה היסטוריה";
+"settings.clear_history_title" = "לנקות את כל ההיסטוריה?";
+"settings.clear_history_message" = "לא ניתן לבטל פעולה זו. כל רשומות הסריקה יימחקו לצמיתות.";
+"settings.clear_all" = "נקה הכל";
+"settings.privacy_policy" = "מדיניות פרטיות";
+"settings.source_code" = "קוד מקור";
+"settings.credits" = "נוצר עם ❤️ עבור KotlinConf 2026";
+
+// Settings: About Section
+"settings.version" = "גרסה";
+"settings.build" = "בנייה";
+"settings.engine" = "מנוע";
+
+// MARK: - Onboarding
+"onboarding.skip" = "דלג";
+"onboarding.continue" = "המשך";
+"onboarding.get_started" = "התחל";
+"onboarding.page_indicator" = "%d/%d";
+
+// Onboarding Pages
+"onboarding.scan.title" = "סרוק כל קוד QR";
+"onboarding.scan.description" = "כוון את המצלמה לכל קוד QR כדי לנתח מיידית את תוכנו לאיומים פוטנציאליים.";
+"onboarding.protect.title" = "הגנה בזמן אמת";
+"onboarding.protect.description" = "המנוע שלנו המופעל על ידי AI מנתח קישורים באמצעות יותר מ-25 כללי אבטחה ואלגוריתמי ML.";
+"onboarding.privacy.title" = "פרטיות קודמת";
+"onboarding.privacy.description" = "כל הניתוח נעשה על המכשיר באמצעות Kotlin Multiplatform. הנתונים שלך לעולם לא עוזבים את הטלפון.";
+"onboarding.design.title" = "עיצוב iOS 17+ יפהפה";
+"onboarding.design.description" = "חווה ממשק Liquid Glass מדהים עם אנימציות חלקות ואסתטיקה מודרנית.";
+
+// Camera Permission Alert
+"onboarding.camera.title" = "הרשאת מצלמה";
+"onboarding.camera.allow" = "אפשר מצלמה";
+"onboarding.camera.later" = "אולי אחר כך";
+"onboarding.camera.message" = "Mehr Guard זקוק לגישה למצלמה כדי לסרוק קודי QR. אתה יכול לשנות זאת מאוחר יותר בהגדרות.";
+
+// MARK: - Dashboard
+"dashboard.hero.tagline" = "מאובטח. לא מקוון.";
+"dashboard.hero.tagline2" = "הגנה ניתנת להסבר.";
+"dashboard.hero.description" = "Mehr Guard מנתח איומים פוטנציאליים ישירות על החומרה שלך. חווה";
+"dashboard.hero.zero_latency" = "זיהוי פישינג ללא השהייה.";
+"dashboard.enterprise_badge" = "הגנה ארגונית פעילה";
+"dashboard.analyze" = "נתח";
+"dashboard.scan_qr" = "סרוק קוד QR";
+"dashboard.import_image" = "ייבא תמונה";
+"dashboard.system_optimal" = "המערכת אופטימלית";
+"dashboard.engine_status" = "מנוע v2.4 • עודכן לפני 2 שעות";
+"dashboard.threats_blocked" = "איומים חסומים";
+"dashboard.safe_scans" = "סריקות בטוחות";
+"dashboard.engine_features" = "תכונות מנוע";
+"dashboard.recent_scans" = "סריקות אחרונות";
+"dashboard.view_all" = "הצג הכל";
+"dashboard.no_scans_yet" = "אין סריקות עדיין";
+"dashboard.no_scans_message" = "סרוק קוד QR או הדבק קישור להתחלה";
+"dashboard.threat_database" = "מאגר איומים";
+"dashboard.db_updated" = "מאגר נתונים מקומי עודכן בהצלחה.";
+"dashboard.offline_ready" = "מוכן לעבודה לא מקוונת";
+
+// MARK: - Training (Beat The Bot)
+"training.mode" = "מצב אימון";
+"training.beat_the_bot" = "נצח את הבוט";
+"training.seconds" = "שניות";
+"training.level" = "רמה %d";
+"training.phishing" = "פישינג";
+"training.legitimate" = "לגיטימי";
+"training.live_session" = "הפעלה חיה";
+"training.online" = "מקוון";
+"training.bot_confidence" = "ביטחון בוט:";
+"training.ai_analysis" = "ניתוח AI";
+"training.beginner" = "מתחיל";
+"training.intermediate" = "בינוני";
+"training.advanced" = "מתקדם";
+"training.nightmare" = "סיוט";
+
+// MARK: - Trust Centre
+"trust.title" = "מרכז אמון";
+"trust.offline_guarantee" = "הבטחה לא מקוונת מוחלטת";
+"trust.offline_description" = "ניתוח Mehr Guard פועל לחלוטין על Neural Engine של המכשיר שלך. נתוני URL לעולם לא עוזבים את הטלפון שלך.";
+"trust.threat_sensitivity" = "רגישות לאיומים";
+
+// MARK: - Results Actions
+"result.block_report" = "חסום ודווח";
+"result.block_action" = "חסום גישה והודע למנהל";
+"result.quarantine" = "בידוד ב-Sandbox";
+"result.quarantine_action" = "פתח בבטחה לניתוח";
+"result.expected" = "צפוי: ";
+"result.detected" = "זוהה: ";
+"result.explainable_security" = "אבטחה ניתנת להסבר";
+"result.url_breakdown" = "פירוט קישור";
+"result.full_url" = "קישור מלא";
+"result.restricted_mode" = "מצב מוגבל";
+"result.restricted_description" = "קישור זה סומן כפוטנציאלית מסוכן. סקור את הניתוח למטה לפני המשך.";
+
+// MARK: - Common
+"common.enabled" = "פועל";
+"common.disabled" = "כבוי";
+"common.done" = "סיום";
+"common.ok" = "אישור";
+"common.cancel" = "ביטול";
+"common.close" = "סגור";
+"common.add" = "הוסף";
+"common.open_settings" = "פתח הגדרות";
+"common.clear_all" = "נקה הכל";
+
+// MARK: - Language Settings
+"settings.language" = "שפה";
+"settings.language_section" = "שפה";
+"settings.language_system" = "ברירת מחדל של המערכת";
+"settings.language_search" = "חפש שפות";
+"settings.language_footer" = "בחר את השפה המועדפת עליך. האפליקציה תשתמש בשפה שנבחרה לכל הטקסט והתוכן.";
+
+// MARK: - Components
+"component.confidence" = "ביטחון";
+"component.risk_score" = "ציון סיכון";
+"component.risk_score_format" = "ציון סיכון: %d/100";
+"component.risk_flags" = "דגלי סיכון";
+"component.view_full_analysis" = "הצג ניתוח מלא";
+"component.select_image" = "בחר תמונה";
+"component.select_image_desc" = "בחר תמונה המכילה קוד QR";
+
+// MARK: - Engine Stats
+"stats.analysis_time" = "זמן ניתוח";
+"stats.signals" = "איתותים";
+"stats.engine" = "מנוע";
+
+// MARK: - Analysis
+"analysis.title" = "פירוט ניתוח";
+"analysis.ai_explained" = "מוסבר על ידי AI";
+"analysis.safe.title" = "לא זוהו איומים";
+"analysis.safe.desc" = "הקישור עבר את כל בדיקות האבטחה ונראה לגיטימי.";
+
+// MARK: - Status Badges
+"status.scan_complete" = "הסריקה הושלמה";
+"status.caution_advised" = "מומלצת זהירות";
+"status.threat_detected" = "זוהה איום";
+"status.analysis_complete" = "הניתוח הושלם";
+
+// MARK: - Meta Info
+"meta.analyzed_offline" = "נותח במצב לא מקוון";
+"meta.no_data_leaves" = "שום נתונים לא עוזבים את המכשיר";
+
+// MARK: - Top Analysis Factors
+"factors.title" = "גורמי ניתוח מובילים";
+"factor.category.https" = "HTTPS";
+"factor.category.domain" = "דומיין";
+"factor.category.database" = "מאגר נתונים";
+"factor.category.heuristics" = "היוריסטיקה";
+"factor.ssl_valid" = "תעודת SSL תקפה";
+"factor.ssl_valid_desc" = "החיבור מוצפן עם HTTPS. נתונים מועברים בבטחה.";
+"factor.ssl_missing" = "אין תעודת SSL";
+"factor.ssl_missing_desc" = "אין הצפנה. נתונים עשויים להיות מיורטים על ידי תוקפים.";
+"factor.ip_address" = "כתובת IP בשימוש";
+"factor.ip_address_desc" = "הקישור משתמש בכתובת IP גולמית במקום שם דומיין - טכניקת תקיפה נפוצה.";
+"factor.domain_check" = "דומיין אומת";
+"factor.domain_check_desc" = "מבנה הדומיין נראה לגיטימי.";
+"factor.blacklist_found" = "איום ידוע";
+"factor.blacklist_found_desc" = "קישור זה תואם לדפוסים זדוניים ידועים במאגר הנתונים שלנו.";
+"factor.blacklist_clean" = "לא ברשימה שחורה";
+"factor.blacklist_clean_desc" = "הקישור לא נמצא במאגרי איומים ידועים.";
+"factor.heuristics_title" = "ניתוח היוריסטי";
+"factor.heuristics_desc" = "%d איתותים זוהו על ידי ניתוח דפוסים.";
+
+// MARK: - Sandbox Mode States
+"result.safe_mode" = "אומת כבטוח";
+"result.safe_description" = "קישור זה עבר את כל בדיקות האבטחה. בטוח להמשיך.";
+"result.caution_mode" = "מומלצת זהירות";
+"result.caution_description" = "זוהו כמה דפוסים חשודים. נקוט זהירות לפני המשך.";
+"result.analysis_mode" = "הניתוח הושלם";
+"result.analysis_description" = "סקור את פירוט הקישור למטה.";
+"result.open_safe_message" = "קישור זה אומת כבטוח. אתה יכול להמשיך בביטחון.";
+"result.dangerous_full_warning" = "קישור זה סומן כפוטנציאלית מסוכן. פתיחתו עלולה לחשוף אותך לפישינג, תוכנות זדוניות, או איומי אבטחה אחרים.\n\nהאם אתה בטוח שברצונך להמשיך?";
+"result.open_safari_risky" = "פתח ב-Safari (מסוכן)";
+"result.open_warning_browser" = "פתיחת קישור זה בדפדפן שלך עלולה לחשוף אותך לסיכוני אבטחה.";
+"result.open_anyway" = "פתח בכל זאת";
+"result.block_warning" = "פעולה זו תחסום את הדומיין ותדווח לצוות האבטחה שלך.";
+"result.block_button" = "חסום והוסף לרשימה שחורה";
+
+// MARK: - Accessibility Labels
+"accessibility.risk_score" = "ציון סיכון";
+"accessibility.risk_flags" = "דגלי סיכון";
+"accessibility.scan_history" = "היסטוריית סריקות";
+"accessibility.dismiss_error" = "סגור שגיאה";
+"accessibility.toggle_scanning" = "החלף סריקה";
+"accessibility.gallery" = "גלריה";
+"accessibility.open_history" = "פתח היסטוריה";
+
+// MARK: - Export View
+"export.title" = "ייצא ניתוח איומים";
+"export.subtitle" = "בחר פורמט לייצוא הניתוח המאובטח הלא מקוון שלך.";
+"export.select_format" = "בחר פורמט";
+"export.live_preview" = "תצוגה מקדימה חיה";
+"export.share" = "שתף";
+"export.export_button" = "ייצא דוח";
+
+// MARK: - Scan Result Metadata
+"result.scan_id" = "מזהה סריקה";
+"result.engine_version" = "גרסת מנוע";
+"result.scanned_at" = "נסרק ב";
+"result.engine_kmp" = "מנוע KMP (לא מקוון)";
+"result.engine_swift" = "מנוע Swift (לא מקוון)";
+
+// MARK: - Format Strings
+"format.signals_detected" = "%d איתותים זוהו";
+"format.confidence_percent" = "%d%% ביטחון";
+"format.level" = "רמה %d";
+"format.score_100" = "%d/100";
+"format.latency_ms" = "%dms";
+"format.confidence" = "%d%% ביטחון";
+"format.score_total" = "ציון: %d/100";
+
+// MARK: - Red Team Mode
+"settings.dev_mode_section" = "🕵️ מצב מפתח";
+"settings.red_team_mode" = "מצב צוות אדום";
+"settings.red_team_mode_desc" = "הצג תרחישי תקיפה על מסך הסורק";
+"scanner.red_team_title" = "תרחישי צוות אדום";
+"scanner.red_team_attacks_fmt" = "%d תקיפות";
+"scanner.red_team_hint" = "הקש על תרחיש כדי לבדוק זיהוי ללא מצלמה";
+
+// MARK: - Navigation Menu
+"nav.menu.dashboard" = "לוח בקרה";
+"nav.menu.dashboard_desc" = "סקירה וסטטיסטיקות";
+"nav.menu.scan_qr" = "סרוק QR";
+"nav.menu.scan_qr_desc" = "סורק מצלמה";
+"nav.menu.scan_history" = "היסטוריית סריקות";
+"nav.menu.scan_history_desc" = "סריקות קודמות";
+"nav.menu.settings" = "הגדרות";
+"nav.menu.settings_desc" = "העדפות";

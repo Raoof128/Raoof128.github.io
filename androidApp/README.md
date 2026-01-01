@@ -11,7 +11,7 @@
 - **Full URL Analysis** — Same detection engine as all platforms
 - **Scan History** — Persistent storage with SQLDelight
 - **Dark Mode** — System-aware theming with Material 3
-- **16 Languages** — Full internationalization support
+- **18 Languages** — Full internationalization support
 - **Haptic Feedback** — Vibration on scan results
 - **Beat the Bot** — Gamified phishing detection training
 

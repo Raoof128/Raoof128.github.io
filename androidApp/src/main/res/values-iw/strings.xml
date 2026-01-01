@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Identity -->
+    <string name="app_name">Mehr Guard</string>
+    <string name="tagline">סרוק קודי QR. גלה פישינג.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">בית</string>
+    <string name="nav_scan">סריקה</string>
+    <string name="nav_history">היסטוריה</string>
+    <string name="nav_settings">הגדרות</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome_back">שמחים לראותך שוב</string>
+    <string name="dashboard_default_user">מנהל אבטחה</string>
+    <string name="dashboard_shield_active">מגן פעיל</string>
+    <string name="dashboard_headline">בטוח. לא מקוון.\nהגנה ניתנת להסבר.</string>
+    <string name="dashboard_subtitle">מסד הנתונים הארגוני שלך מעודכן ומנוטר מקומית.</string>
+    <string name="dashboard_scan_qr">סרוק QR</string>
+    <string name="dashboard_import_image">ייבא תמונה</string>
+    <string name="dashboard_system_health">בריאות מערכת</string>
+    <string name="dashboard_total_scans">סך הסריקות</string>
+    <string name="dashboard_threats_blocked">איומים חסומים</string>
+    <string name="dashboard_recent_scans">סריקות אחרונות</string>
+    <string name="dashboard_view_all">הצג הכל</string>
+    <string name="dashboard_tools">כלי אבטחה</string>
+    <string name="dashboard_no_scans">אין סריקות</string>
+    <string name="dashboard_no_scans_hint">סרוק קוד QR כדי להתחיל את ההיסטוריה שלך</string>
+    <string name="dashboard_score_fmt">ציון: %1$d</string>
+    <string name="dashboard_db_status_default">מסד נתונים מעודכן</string>
+    <string name="dashboard_enterprise_protection">הגנה ארגונית</string>
+    <string name="dashboard_url_placeholder">הזן קישור כאן…</string>
+
+    <!-- Scanner Screen -->
+    <string name="start_scanning">התחל סריקה</string>
+    <string name="scan_from_gallery">סרוק מהגלריה</string>
+    <string name="scan_instruction">יישר את קוד ה-QR במסגרת</string>
+    <string name="analyzing_url">מנתח קישור…</string>
+    <string name="scans_in_history">%d סריקות בהיסטוריה</string>
+    <string name="error_no_qr_found">לא נמצא קוד QR בתמונה שנבחרה</string>
+    <string name="scanning_image_progress">סורק תמונה לקודי QR…</string>
+    <string name="red_team_scenarios_title">תרחישי צוות אדום</string>
+    <string name="red_team_attacks_fmt">%1$d התקפות</string>
+    <string name="red_team_hint">הקש על תרחיש כדי לבדוק זיהוי ללא מצלמה</string>
+    <string name="enter_url_manually">הזן קישור ידנית</string>
+    <string name="analyze_url">נתח קישור</string>
+    <string name="url_hint">דוגמה: https://example.com</string>
+    <string name="url_placeholder">הזן כתובת קישור</string>
+
+    <!-- Results -->
+    <string name="risk_score">ציון סיכון</string>
+    <string name="scanned_url">קישור נסרק</string>
+    <string name="copy">העתק</string>
+    <string name="risk_factors">גורמי סיכון</string>
+    <string name="done">סיום</string>
+    <string name="scan_another">סרוק עוד</string>
+    <string name="safe_verdict">בטוח</string>
+    <string name="suspicious_verdict">חשוד</string>
+    <string name="malicious_verdict">זדוני</string>
+
+    <!-- Scan Result Screen -->
+    <string name="scan_result_title">תוצאת סריקה</string>
+    <string name="verdict_malicious">זוהה סיכון גבוה</string>
+    <string name="verdict_suspicious">פעילות חשודה</string>
+    <string name="verdict_safe">בטוח לפתיחה</string>
+    <string name="verdict_unknown">סיכון לא ידוע</string>
+    <string name="threat_type_phishing">פישינג</string>
+    <string name="threat_type_suspicious">חשוד</string>
+    <string name="threat_type_verified">מאומת</string>
+    <string name="threat_type_unknown">לא ידוע</string>
+    <string name="confidence_fmt">%1$d%% ביטחון</string>
+    <string name="severity_score_label">ציון חומרה</string>
+    <string name="target_url_label">קישור יעד</string>
+    <string name="analysis_breakdown_title">פירוט ניתוח</string>
+    <string name="ai_explained_label">מוסבר על ידי AI</string>
+    <string name="scan_meta_fmt">נסרק: %1$s • מנוע v%2$s • %3$s</string>
+    <string name="scan_mode_offline">לא מקוון</string>
+    <string name="scan_mode_online">מקוון</string>
+    <string name="action_block_report">חסום ודווח ל-IT</string>
+    <string name="action_ignore_warning">התעלם מאזהרה (מנהל)</string>
+    <string name="action_share">שתף</string>
+    <string name="action_open_safely">פתח בבטחה</string>
+    <string name="action_block">חסום</string>
+    <string name="action_report_it">דווח ל-IT</string>
+    <string name="action_close">סגור</string>
+    <string name="action_continue">המשך</string>
+
+    <!-- Recommendations -->
+    <string name="recommendation_safe">קישור זה נראה בטוח. אתה יכול להמשיך.</string>
+    <string name="recommendation_suspicious">טפל בקישור זה בזהירות. אמת את המקור.</string>
+    <string name="recommendation_malicious">⛔ אזהרה: קישור זה מציג סימני פישינג. אל תזין מידע אישי.</string>
+    <string name="recommendation_unknown">לא ניתן היה לאמת את הקישור במלואו. מומלץ להיזהר.</string>
+    <string name="recommended_actions">פעולות מומלצות</string>
+
+    <!-- History Screen -->
+    <string name="search_placeholder">חפש קישורים…</string>
+    <string name="clear_history_title">לנקות היסטוריה?</string>
+    <string name="clear_history_message">לא ניתן לבטל פעולה זו. כל הסריקות יימחקו לצמיתות.</string>
+    <string name="clear_all">נקה הכל</string>
+    <string name="cancel">ביטול</string>
+    <string name="delete">מחק</string>
+    <string name="delete_item_title">למחוק סריקה?</string>
+    <string name="delete_item_message">פריט זה יוסר מההיסטוריה שלך.</string>
+    <string name="copy_url">העתק קישור</string>
+    <string name="no_history">אין היסטוריית סריקות</string>
+    <string name="scan_to_see_history">תוצאות הסריקה יופיעו כאן</string>
+    <string name="no_results">לא נמצאו תוצאות</string>
+    <string name="try_different_filter">נסה מסנן או מונח חיפוש אחר</string>
+    <string name="history_go_to_scanner">עבור לסורק</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_scanning">סריקה</string>
+    <string name="settings_auto_scan">סריקה אוטומטית בהפעלה</string>
+    <string name="settings_auto_scan_desc">סרוק מיד כשהאפליקציה נפתחת</string>
+    <string name="settings_haptic">משוב רטט</string>
+    <string name="settings_haptic_desc">רטט עם תוצאות סריקה</string>
+    <string name="settings_sound">אפקטים קוליים</string>
+    <string name="settings_sound_desc">השמע צלילים לעירנים</string>
+    <string name="settings_notifications">התראות</string>
+    <string name="settings_security_alerts">התראות אבטחה</string>
+    <string name="settings_security_alerts_desc">קבל התראות על איומי אבטחה</string>
+    <string name="settings_appearance">מראה</string>
+    <string name="settings_dark_mode">מצב כהה</string>
+    <string name="settings_dark_mode_desc">השתמש בערכת צבעים כהה</string>
+    <string name="settings_reduced_effects">הפחת אפקטים</string>
+    <string name="settings_reduced_effects_desc">הפחת אפקטי זכוכית ואנימציות</string>
+    <string name="settings_language">שפה</string>
+    <string name="settings_language_desc">בחר את השפה המועדפת עליך</string>
+    <string name="settings_language_system">ברירת מחדל מערכת</string>
+    <string name="settings_select_language">בחר שפה</string>
+    <string name="language_english">English</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_french">Français</string>
+    <string name="language_italian">Italiano</string>
+    <string name="language_portuguese">Português</string>
+    <string name="language_russian">Русский</string>
+    <string name="language_chinese">中文</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_hindi">हिन्दी</string>
+    <string name="language_arabic">العربية</string>
+    <string name="language_turkish">Türkçe</string>
+    <string name="language_vietnamese">Tiếng Việt</string>
+    <string name="language_indonesian">Bahasa Indonesia</string>
+    <string name="language_thai">ภาษาไทย</string>
+    <string name="language_hebrew">עברית</string>
+    <string name="language_persian">فارسی</string>
+    <string name="settings_privacy">פרטיות</string>
+    <string name="settings_save_history">שמור היסטוריית סריקות</string>
+    <string name="settings_save_history_desc">שמור רשומה של קישורים נסרקים</string>
+    <string name="settings_privacy_policy">מדיניות פרטיות</string>
+    <string name="settings_privacy_policy_desc">צפה בנהלי הפרטיות שלנו</string>
+    <string name="settings_about">אודות</string>
+    <string name="settings_version">גרסה</string>
+    <string name="settings_build">בנייה</string>
+    <string name="settings_engine">מנוע זיהוי</string>
+    <string name="settings_source_code">קוד מקור</string>
+    <string name="about_app_desc">גלאי QRishing מבוסס Kotlin Multiplatform</string>
+    <string name="about_made_with_love">נוצר עם ❤️ עבור KotlinConf 2026</string>
+    <string name="dev_mode_section">🕵️ מצב מפתח</string>
+    <string name="red_team_mode">מצב צוות אדום</string>
+    <string name="red_team_mode_desc">הצג תרחישי תקיפה על מסך הסורק</string>
+
+    <!-- Trust Centre -->
+    <string name="trust_center_title">סטטוס אבטחה</string>
+    <string name="trust_center_secure">המכשיר שלך מאובטח</string>
+    <string name="trust_center_protected_by">מוגן על ידי Mehr Guard Enterprise</string>
+    <string name="trust_center_score">ציון אבטחה: %d/100</string>
+    <string name="trust_center_realtime">הגנה בזמן אמת</string>
+    <string name="trust_center_active">פעיל</string>
+    <string name="trust_center_screen_title">מרכז אמון</string>
+    <string name="offline_guarantee_title">הבטחה לא מקוונת מוחלטת</string>
+    <string name="offline_guarantee_desc">שום נתונים לא עוזבים מכשיר זה.</string>
+    <string name="phishing_sensitivity">רגישות פישינג</string>
+    <string name="sensitivity_low">נמוכה</string>
+    <string name="sensitivity_balanced">מאוזנת</string>
+    <string name="sensitivity_paranoia">פרנויה</string>
+
+    <!-- Beat the Bot -->
+    <string name="beat_the_bot_title">נצח את הבוט</string>
+    <string name="beat_the_bot_subtitle">אתגר את ה-AI הלא מקוון שלנו</string>
+    <string name="training_session">הפעלת אימון</string>
+    <string name="phishing">פישינג</string>
+    <string name="legitimate">לגיטימי</string>
+    <string name="beat_the_bot_correct">החלטה נכונה!</string>
+    <string name="beat_the_bot_correct_desc">זיהית נכון את האיום.</string>
+    <string name="beat_the_bot_incorrect">החלטה שגויה</string>
+    <string name="beat_the_bot_next_round">סיבוב הבא</string>
+    <string name="beat_the_bot_reset_game">אפס משחק</string>
+
+    <!-- Toast Messages -->
+    <string name="toast_qr_found_analyzing">נמצא קוד QR - מנתח…</string>
+    <string name="toast_no_qr_found">לא נמצא קוד QR בתמונה</string>
+    <string name="toast_error_message">שגיאה: %s</string>
+    <string name="toast_settings_saved">הגדרות נשמרו</string>
+    <string name="toast_game_reset">המשחק אופס! מתחילים מחדש…</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_app_logo">לוגו Mehr Guard</string>
+    <string name="cd_scanner_preview">תצוגה מקדימה של מצלמה לסריקת QR</string>
+    <string name="cd_back">חזרה</string>
+    <string name="cd_share">שתף</string>
+    <string name="cd_copy_url">העתק קישור</string>
+    <string name="cd_close">סגור</string>
+    <string name="cd_reset_game">אפס משחק והתחל מחדש</string>
+
+    <!-- Analysis Breakdown -->
+    <string name="analysis_safe_title">הקישור בטוח</string>
+    <string name="analysis_safe_desc">לא זוהו בעיות אבטחה. קישור זה נראה בטוח לביקור.</string>
+    <string name="analysis_no_issues">לא זוהו בעיות אבטחה.</string>
+    <string name="analysis_brand_title">התחזות למותג</string>
+    <string name="analysis_brand_desc">קישור זה נראה כמתחזה למותג מוכר.</string>
+    <string name="analysis_homograph_title">התקפת הומוגרף</string>
+    <string name="analysis_homograph_desc">זוהו תווי סקריפט מעורבים בשם הדומיין שנועדו להתחזות למותגים לגיטימיים.</string>
+    <string name="analysis_protocol_title">פרוטוקול לא מאובטח</string>
+    <string name="analysis_protocol_desc">הקישור משתמש ב-HTTP במקום HTTPS. הנתונים אינם מוצפנים.</string>
+
+    <!-- Status Badges -->
+    <string name="status_scan_complete">הסריקה הושלמה</string>
+    <string name="status_caution_advised">מומלצת זהירות</string>
+    <string name="status_threat_detected">זוהה איום</string>
+    <string name="status_analysis_complete">הניתוח הושלם</string>
+
+    <!-- Meta Info -->
+    <string name="meta_analyzed_offline">נותח במצב לא מקוון תוך פחות מ-5ms</string>
+    <string name="meta_no_data_leaves">שום נתונים לא עוזבים את המכשיר</string>
+
+    <!-- Top Analysis Factors -->
+    <string name="top_analysis_factors_title">גורמי ניתוח מובילים</string>
+    <string name="factor_category_https">HTTPS</string>
+    <string name="factor_category_domain">דומיין</string>
+    <string name="factor_category_db_check">בדיקת מסד נתונים</string>
+    <string name="factor_category_heuristics">היוריסטיקה</string>
+    <string name="factor_ssl_valid">תעודת SSL תקפה</string>
+    <string name="factor_ssl_valid_desc">החיבור מוצפן. שרשרת התעודות אומתה.</string>
+    <string name="factor_ssl_missing">אין תעודת SSL</string>
+    <string name="factor_ssl_missing_desc">החיבור אינו מוצפן. נתונים עלולים להיות מיורטים.</string>
+    <string name="factor_blacklist_clean">סטטוס רשימה שחורה: נקי</string>
+    <string name="factor_blacklist_clean_desc">לא נמצא במסדי נתוני איומים מקומיים.</string>
+    <string name="factor_blacklist_found">סטטוס רשימה שחורה: נמצא</string>
+    <string name="factor_blacklist_found_desc">קישור נמצא במסד נתוני מודיעין איומים!</string>
+    <string name="factor_heuristics_title">ניתוח היוריסטי</string>
+    <string name="factor_heuristics_desc">ציון: %1$d • %2$d איתותים זוהו</string>
+
+    <!-- Common -->
+    <string name="enabled">מופעל</string>
+    <string name="disabled">מושבת</string>
+</resources>

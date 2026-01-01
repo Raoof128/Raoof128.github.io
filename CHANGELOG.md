@@ -30,6 +30,53 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.8] - 2026-01-01
+
+### 🌐 Hebrew and Persian Language Support
+
+**Added Hebrew (עברית) and Persian/Farsi (فارسی) localization across all platforms.**
+
+This update brings support for two new right-to-left (RTL) languages, expanding Mehr Guard's language support from 16 to 18 languages.
+
+#### iOS Platform
+- Created `he.lproj/Localizable.strings` with 200+ Hebrew translations
+- Created `fa.lproj/Localizable.strings` with 200+ Persian translations
+- Full coverage of scanner, dashboard, settings, history, and onboarding screens
+
+#### Android Platform
+- Created `values-iw/strings.xml` (Hebrew uses 'iw' code on Android)
+- Created `values-fa/strings.xml` for Persian
+- Complete translation of all app strings including Toast messages
+
+#### Desktop Platform
+- Created `DesktopStringsHe.kt` with Hebrew navigation and UI strings
+- Created `DesktopStringsFa.kt` with Persian navigation and UI strings
+- Updated `AppLanguage` enum with `Hebrew("he")` and `Persian("fa")`
+- Added language code mappings for 'iw', 'he-il', 'fa-ir', 'per'
+
+#### Web Platform
+- Created `WebStringsHe.kt` with Hebrew web interface strings
+- Created `WebStringsFa.kt` with Persian web interface strings
+- Updated `WebLanguage` enum with new language options
+- Added support in `get()` and `translate()` functions
+
+#### Files Created/Modified
+| Platform | Files Created | Files Modified |
+|----------|---------------|----------------|
+| iOS | 2 | 0 |
+| Android | 2 | 0 |
+| Desktop | 2 | 1 |
+| Web | 2 | 1 |
+
+#### Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop → BUILD SUCCESSFUL
+./gradlew :webApp:compileKotlinJs → BUILD SUCCESSFUL
+```
+
+---
+
 ## [2.0.7] - 2026-01-01
 
 ### 🎨 iOS UI Polish & Sandbox Mode Fix

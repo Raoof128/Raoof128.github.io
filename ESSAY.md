@@ -8,7 +8,7 @@ The shared core produces an explainable verdict (SAFE, SUSPICIOUS, MALICIOUS) us
 
 Detection is only half the win. QR scams thrive on human autopilot, so Mehr Guard includes Beat the Bot, a training arena. Users see realistic QR destinations, make a call, then instantly compare against the engine's reasoning and practical tips. It turns awareness into reps: learn patterns, get faster, and build confidence without shame.
 
-For judges and researchers, a hidden Red Team Developer Mode (enabled via a 7-tap trigger) loads 19 adversarial scenarios to stress-test the engine. Production quality matters: 16-language localisation, 1,000+ automated tests, and Konsist architecture rules keep the codebase honest and reproducible. Mehr Guard proves strong security can be private, portable, and genuinely usable for everyday users too.
+For judges and researchers, a hidden Red Team Developer Mode (enabled via a 7-tap trigger) loads 19 adversarial scenarios to stress-test the engine. Production quality matters: 18-language localisation, 1,000+ automated tests, and Konsist architecture rules keep the codebase honest and reproducible. Mehr Guard proves strong security can be private, portable, and genuinely usable for everyday users too.
 
 ---
 

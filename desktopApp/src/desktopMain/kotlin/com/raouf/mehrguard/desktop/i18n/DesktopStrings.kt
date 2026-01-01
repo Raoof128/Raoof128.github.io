@@ -18,7 +18,9 @@ enum class AppLanguage(val code: String, val displayName: String) {
     Turkish("tr", "Türkçe"),
     Vietnamese("vi", "Tiếng Việt"),
     Indonesian("in", "Bahasa Indonesia"),
-    Thai("th", "ไทย");
+    Thai("th", "ไทย"),
+    Hebrew("he", "עברית"),
+    Persian("fa", "فارسی");
 
     companion object {
         fun fromCode(code: String): AppLanguage {
@@ -38,6 +40,8 @@ enum class AppLanguage(val code: String, val displayName: String) {
                 "vi", "vi-vn" -> Vietnamese
                 "in", "id", "id-id" -> Indonesian
                 "th", "th-th" -> Thai
+                "he", "he-il", "iw" -> Hebrew
+                "fa", "fa-ir", "per" -> Persian
                 else -> English
             }
         }
@@ -83,6 +87,8 @@ object DesktopStrings {
             AppLanguage.Vietnamese -> VietnameseStrings[key] ?: key.defaultText
             AppLanguage.Indonesian -> IndonesianStrings[key] ?: key.defaultText
             AppLanguage.Thai -> ThaiStrings[key] ?: key.defaultText
+            AppLanguage.Hebrew -> HebrewStrings[key] ?: key.defaultText
+            AppLanguage.Persian -> PersianStrings[key] ?: key.defaultText
             AppLanguage.English -> key.defaultText
         }
     }
@@ -108,6 +114,8 @@ object DesktopStrings {
             AppLanguage.Vietnamese -> VietnameseCommonStrings[text] ?: text
             AppLanguage.Indonesian -> IndonesianCommonStrings[text] ?: text
             AppLanguage.Thai -> ThaiCommonStrings[text] ?: text
+            AppLanguage.Hebrew -> HebrewCommonStrings[text] ?: text
+            AppLanguage.Persian -> PersianCommonStrings[text] ?: text
             AppLanguage.English -> text
         }
     }

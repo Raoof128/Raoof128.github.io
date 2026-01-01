@@ -211,6 +211,8 @@ open iosApp/MehrGuard.xcodeproj
 | Thai | 400+ | ✅ Complete |
 | Turkish | 400+ | ✅ Complete |
 | Vietnamese | 400+ | ✅ Complete |
+| Hebrew | 400+ | ✅ Complete |
+| Persian | 400+ | ✅ Complete |
 
 ---
 
@@ -226,6 +228,6 @@ open iosApp/MehrGuard.xcodeproj
 | Input handling complete | ✅ | Camera, paste, import |
 | Error states handled | ✅ | Permission, invalid input |
 | VoiceOver accessibility | ✅ | 20+ accessibility labels |
-| Localization | ✅ | 16 languages, 400+ keys |
+| Localization | ✅ | 18 languages, 400+ keys |
 
 **iOS App: READY FOR JUDGING ✅**

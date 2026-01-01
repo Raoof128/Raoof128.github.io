@@ -18,7 +18,9 @@ enum class WebLanguage(val code: String) {
     Russian("ru"),
     Thai("th"),
     Turkish("tr"),
-    Vietnamese("vi");
+    Vietnamese("vi"),
+    Hebrew("he"),
+    Persian("fa");
 
     companion object {
         fun fromCode(code: String): WebLanguage {
@@ -39,6 +41,8 @@ enum class WebLanguage(val code: String) {
                 "th" -> Thai
                 "tr" -> Turkish
                 "vi" -> Vietnamese
+                "he", "iw" -> Hebrew
+                "fa", "per" -> Persian
                 else -> English
             }
         }
@@ -574,6 +578,8 @@ object WebStrings {
             WebLanguage.Thai -> ThaiStrings[key] ?: key.defaultText
             WebLanguage.Turkish -> TurkishStrings[key] ?: key.defaultText
             WebLanguage.Vietnamese -> VietnameseStrings[key] ?: key.defaultText
+            WebLanguage.Hebrew -> HebrewStrings[key] ?: key.defaultText
+            WebLanguage.Persian -> PersianStrings[key] ?: key.defaultText
             WebLanguage.English -> key.defaultText
         }
     }
@@ -596,6 +602,8 @@ object WebStrings {
             WebLanguage.Thai -> ThaiCommonStrings[normalized] ?: ThaiCommonStrings[text] ?: text
             WebLanguage.Turkish -> TurkishCommonStrings[normalized] ?: TurkishCommonStrings[text] ?: text
             WebLanguage.Vietnamese -> VietnameseCommonStrings[normalized] ?: VietnameseCommonStrings[text] ?: text
+            WebLanguage.Hebrew -> HebrewCommonStrings[normalized] ?: HebrewCommonStrings[text] ?: text
+            WebLanguage.Persian -> PersianCommonStrings[normalized] ?: PersianCommonStrings[text] ?: text
             WebLanguage.English -> text
         }
     }
