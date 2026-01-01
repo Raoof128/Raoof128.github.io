@@ -51,6 +51,7 @@ import com.raouf.mehrguard.android.ui.theme.*
 import com.raouf.mehrguard.model.Verdict
 import com.raouf.mehrguard.ui.SharedViewModel
 import org.koin.compose.koinInject
+import androidx.annotation.StringRes
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -185,11 +186,12 @@ fun HistoryScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(VerdictFilter.entries) { filter ->
-                val filterDesc = stringResource(R.string.cd_filter_by, filter.displayName)
+                val displayName = stringResource(filter.displayNameRes)
+                val filterDesc = stringResource(R.string.cd_filter_by, displayName)
                 FilterChip(
                     selected = selectedFilter == filter,
                     onClick = { selectedFilter = filter },
-                    label = { Text(filter.displayName) },
+                    label = { Text(displayName) },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = filter.color.copy(alpha = 0.2f),
                         selectedLabelColor = filter.color,
@@ -585,14 +587,14 @@ private fun EmptyHistoryState(hasFilters: Boolean) {
 // =============================================================================
 
 private enum class VerdictFilter(
-    val displayName: String,
+    @StringRes val displayNameRes: Int,
     val color: Color,
     val icon: androidx.compose.ui.graphics.vector.ImageVector
 ) {
-    ALL("All", BrandPrimary, Icons.Default.FilterList),
-    SAFE("Safe", VerdictSafe, Icons.Default.CheckCircle),
-    SUSPICIOUS("Suspicious", VerdictWarning, Icons.Default.Warning),
-    MALICIOUS("Malicious", VerdictDanger, Icons.Default.Dangerous)
+    ALL(R.string.filter_all, BrandPrimary, Icons.Default.FilterList),
+    SAFE(R.string.filter_safe, VerdictSafe, Icons.Default.CheckCircle),
+    SUSPICIOUS(R.string.filter_suspicious, VerdictWarning, Icons.Default.Warning),
+    MALICIOUS(R.string.filter_malicious, VerdictDanger, Icons.Default.Dangerous)
 }
 
 private fun formatTimestamp(epochMillis: Long): String {

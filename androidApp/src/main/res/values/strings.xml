@@ -186,6 +186,12 @@
     <string name="cd_filter_safe">Show only safe scans</string>
     <string name="cd_filter_suspicious">Show only suspicious scans</string>
     <string name="cd_filter_malicious">Show only malicious scans</string>
+    
+    <!-- History Filter Tabs -->
+    <string name="filter_all">All</string>
+    <string name="filter_safe">Safe</string>
+    <string name="filter_suspicious">Suspicious</string>
+    <string name="filter_malicious">Malicious</string>
     <string name="cd_history_item">Scan history item</string>
     <string name="cd_settings_toggle">Toggle setting</string>
     <string name="cd_back_button">Go back</string>

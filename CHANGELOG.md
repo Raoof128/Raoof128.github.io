@@ -30,6 +30,38 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.26] - 2026-01-02
+
+### Raouf: History Filters & IP Address Host Translations
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Android Localization - History Screen & Analysis Factors
+**Summary:** Externalized hardcoded filter tabs (All, Safe, Suspicious, Malicious) and translated IP Address Host analysis factor to Persian and Hebrew.
+
+#### Code Changes
+- Refactored `VerdictFilter` enum in `HistoryScreen.kt` to use `@StringRes` annotations
+- Added `filter_all`, `filter_safe`, `filter_suspicious`, `filter_malicious` string resources
+- Translated `analysis_ip_host_title` and `analysis_ip_host_desc` to Persian and Hebrew
+- Translated `factor_ip_address` and `factor_ip_address_desc` to Persian and Hebrew
+
+#### Translations Added
+| English | Persian | Hebrew |
+|---------|---------|--------|
+| All | همه | הכל |
+| Safe | امن | בטוח |
+| Suspicious | مشکوک | חשוד |
+| Malicious | مخرب | זדוני |
+| IP Address Host | میزبان آدرس IP | מארח כתובת IP |
+
+#### Verification
+```bash
+./gradlew :androidApp:compileDebugKotlin
+# BUILD SUCCESSFUL
+# All 18 languages: 697 strings each
+```
+
+---
+
 ## [2.0.25] - 2026-01-02
 
 ### Raouf: Home Page, Settings & Hebrew Translations

@@ -241,8 +241,8 @@
     <string name="analysis_domain_age_title">Domain Age Alert</string>
     <string name="analysis_entropy_desc">Domain appears randomly generated, common in phishing.</string>
     <string name="analysis_entropy_title">Random Domain</string>
-    <string name="analysis_ip_host_desc">URL uses an IP address instead of a domain name, which is unusual for legitimate sites.</string>
-    <string name="analysis_ip_host_title">IP Address Host</string>
+    <string name="analysis_ip_host_title">میزبان آدرس IP</string>
+    <string name="analysis_ip_host_desc">URL از آدرس IP به جای نام دامنه استفاده می‌کند که برای سایت‌های معتبر غیرعادی است.</string>
     <string name="analysis_long_url_desc">URL is unusually long, which can be used to hide the actual destination.</string>
     <string name="analysis_long_url_title">Excessive URL Length</string>
     <string name="analysis_port_desc">URL uses a non-standard port number.</string>
@@ -301,7 +301,7 @@
     <string name="blocklist_title">لیست مسدود</string>
     <string name="camera_permission_denied">Camera permission denied. Please enable in settings.</string>
     <string name="camera_permission_rationale">Camera access is needed to scan QR codes</string>
-    <string name="category_all">All</string>
+    <string name="category_all">همه</string>
     <string name="category_content">Content</string>
     <string name="category_domain">Domain</string>
     <string name="category_redirect">Redirect</string>
@@ -332,9 +332,15 @@
     <string name="cd_error">Error</string>
     <string name="cd_error_occurred">Error occurred: %s. Tap Try Again to retry.</string>
     <string name="cd_filter_by">Filter by %s</string>
-    <string name="cd_filter_malicious">Show only malicious scans</string>
     <string name="cd_filter_safe">Show only safe scans</string>
     <string name="cd_filter_suspicious">Show only suspicious scans</string>
+    <string name="cd_filter_malicious">Show only malicious scans</string>
+    
+    <!-- History Filter Tabs -->
+    <string name="filter_all">همه</string>
+    <string name="filter_safe">امن</string>
+    <string name="filter_suspicious">مشکوک</string>
+    <string name="filter_malicious">مخرب</string>
     <string name="cd_gallery_button">Select QR code image from photo gallery</string>
     <string name="cd_history_item">Scan history item</string>
     <string name="cd_history_screen">Scan history screen</string>
