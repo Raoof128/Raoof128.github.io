@@ -30,6 +30,98 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.12] - 2026-01-02
+
+### Raouf: Fixed Duplicate App & Language System
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** iOS App Branding, Language System
+**Summary:** Fixed duplicate "QR-SHIELD" app icon on simulator, improved language switching architecture
+
+#### Changes
+
+1. **Fixed Duplicate App Icon Issue**
+   - Problem: After rebrand, old "QR-SHIELD" app remained alongside new "Mehr Guard" in simulator
+   - Root Cause: `project.pbxproj` had `INFOPLIST_KEY_CFBundleDisplayName = "QR-SHIELD"` overriding Info.plist
+   - Solution: Updated `project.pbxproj` to use `"Mehr Guard"` display name
+   - User Action: Delete old "QR-SHIELD" app from simulator/device manually, or run:
+     ```bash
+     xcrun simctl uninstall all com.raouf.mehrguard.ios
+     ```
+
+2. **Improved Language Manager Architecture**
+   - Simplified LanguageManager to properly integrate with iOS language system
+   - Added `pendingRestart` flag to track when restart is needed
+   - Added `isLanguageApplied` property to check if selected language matches system
+   - Language changes now properly set `AppleLanguages` UserDefaults for next app launch
+   - Note: iOS requires app restart for language changes (Apple platform limitation)
+
+#### Technical Notes
+- iOS `NSLocalizedString` uses `Bundle.main` which cannot be changed at runtime
+- Setting `AppleLanguages` UserDefaults key tells iOS which language to use on next launch
+- This is the Apple-recommended approach for per-app language settings
+- See: Apple Documentation on Adding Support for Languages and Regions
+
+#### Files Modified
+- `iosApp/MehrGuard.xcodeproj/project.pbxproj` - Fixed bundle display name
+- `iosApp/MehrGuard/Models/LanguageManager.swift` - Improved language system integration
+
+#### Verification
+```bash
+xcodebuild clean build → ** BUILD SUCCEEDED **
+grep "INFOPLIST_KEY_CFBundleDisplayName" project.pbxproj
+# Output: INFOPLIST_KEY_CFBundleDisplayName = "Mehr Guard";
+```
+
+---
+
+## [2.0.11] - 2026-01-02
+
+### Raouf: iOS App Polish & Language Integration
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** iOS App UI, Localization, Settings
+**Summary:** Fixed Risk Score text cutoff, integrated Hebrew & Persian languages into Settings, localized hardcoded strings
+
+#### Changes
+
+1. **Fixed Risk Score Text Cutoff (ResultCard.swift)**
+   - Issue: "Risk Score: 5/..." was being truncated on smaller screens
+   - Solution: Added `lineLimit(1)`, `minimumScaleFactor(0.7)`, `fixedSize(horizontal: false, vertical: true)`
+   - File: `iosApp/MehrGuard/UI/Components/ResultCard.swift`
+
+2. **Added Hebrew & Persian Languages to Settings Picker**
+   - Added `hebrew = "he"` and `persian = "fa"` to `SupportedLanguage` enum
+   - Updated display names: Hebrew = "עברית", Persian = "فارسی"
+   - Updated flags: Hebrew = 🇮🇱, Persian = 🇮🇷
+   - Updated language count comment: 16 → 18 languages
+   - File: `iosApp/MehrGuard/UI/Settings/SettingsView.swift`
+
+3. **Localized Hardcoded Strings**
+   - DetailSheet.swift line 129: "Risk Score" → `NSLocalizedString("component.risk_score")`
+   - DetailSheet.swift line 134: "Confidence" → `NSLocalizedString("component.confidence")`
+   - HistoryView.swift line 446: "Risk Score: %d/100" → `NSLocalizedString("component.risk_score_format")`
+
+#### Files Modified
+- `iosApp/MehrGuard/UI/Components/ResultCard.swift` - Risk Score text fix
+- `iosApp/MehrGuard/UI/Settings/SettingsView.swift` - Hebrew & Persian language integration
+- `iosApp/MehrGuard/UI/Components/DetailSheet.swift` - Localized strings
+- `iosApp/MehrGuard/UI/History/HistoryView.swift` - Localized strings
+- `CHANGELOG.md` - This entry
+
+#### Verification
+```bash
+xcodebuild -project iosApp/MehrGuard.xcodeproj -scheme MehrGuard -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+# ** BUILD SUCCEEDED **
+```
+
+#### Follow-ups
+- [ ] RTL layout testing for Hebrew & Persian (both are right-to-left languages)
+- [ ] Professional translation review for Hebrew & Persian placeholder strings
+- [ ] Additional hardcoded strings may need localization in export/report views
+
+---
+
 ## [2.0.10] - 2026-01-01
 
 ### 🌐 iOS Localization Complete - All 18 Languages at 100% Coverage

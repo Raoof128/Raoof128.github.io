@@ -16,80 +16,84 @@
 
 // Models/LanguageManager.swift
 // Mehr Guard Language Manager - Runtime language switching
+//
+// iOS Language Architecture:
+// - NSLocalizedString uses Bundle.main which cannot be changed at runtime
+// - Setting AppleLanguages requires app restart to take effect
+// - For runtime switching, we store preference and prompt restart
+// - The app respects iOS system language settings by default
 
 import Foundation
 import SwiftUI
 #if os(iOS)
 
-/// Manages app language with runtime switching capability
+/// Manages app language with system integration
+/// Note: iOS language changes require app restart to fully take effect
 @MainActor
 final class LanguageManager: ObservableObject {
     static let shared = LanguageManager()
     
-    /// Current language code
+    /// Current language code stored in UserDefaults
     @Published var currentLanguage: String {
         didSet {
             if oldValue != currentLanguage {
-                applyLanguage(currentLanguage)
-                UserDefaults.standard.set(currentLanguage, forKey: "selectedLanguage")
+                saveLanguagePreference(currentLanguage)
             }
         }
     }
     
-    /// Custom bundle for localization
-    private(set) var bundle: Bundle = .main
+    /// Whether a language change is pending (requires restart)
+    @Published var pendingRestart: Bool = false
     
     private init() {
         // Load saved language or use system default
         let saved = UserDefaults.standard.string(forKey: "selectedLanguage") ?? "system"
         self.currentLanguage = saved
-        applyLanguage(saved)
+        
+        // Apply AppleLanguages on init for next launch
+        applyAppleLanguages(saved)
     }
     
-    /// Apply a language change
-    func applyLanguage(_ code: String) {
-        let languageCode: String
-        
-        if code == "system" {
-            // Use system language
-            languageCode = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
-        } else {
-            languageCode = code
-        }
-        
-        // Find the bundle for this language
-        if let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
-           let langBundle = Bundle(path: path) {
-            bundle = langBundle
-        } else if let path = Bundle.main.path(forResource: "en", ofType: "lproj"),
-                  let fallbackBundle = Bundle(path: path) {
-            // Fallback to English
-            bundle = fallbackBundle
-        } else {
-            bundle = .main
-        }
-        
-        // Also set AppleLanguages for system integration
-        if code == "system" {
-            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
-        } else {
-            UserDefaults.standard.set([code], forKey: "AppleLanguages")
-        }
+    /// Save language preference and set AppleLanguages for next launch
+    private func saveLanguagePreference(_ code: String) {
+        UserDefaults.standard.set(code, forKey: "selectedLanguage")
+        applyAppleLanguages(code)
+        pendingRestart = true
         
         #if DEBUG
-        print("🌐 Language applied: \(code) -> bundle: \(bundle.bundlePath)")
+        print("🌐 Language preference saved: \(code)")
+        print("🌐 App restart required for changes to take effect")
         #endif
     }
     
-    /// Get localized string using current language bundle
-    nonisolated func localized(_ key: String) -> String {
-        // Access bundle safely without MainActor isolation requirement
-        Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+    /// Set AppleLanguages UserDefaults key for iOS to use on next launch
+    private func applyAppleLanguages(_ code: String) {
+        if code == "system" {
+            // Remove override to use system language
+            UserDefaults.standard.removeObject(forKey: "AppleLanguages")
+        } else {
+            // Set specific language for next launch
+            UserDefaults.standard.set([code], forKey: "AppleLanguages")
+        }
+        UserDefaults.standard.synchronize()
     }
     
-    /// Get localized string with format arguments
-    nonisolated func localized(_ key: String, _ args: CVarArg...) -> String {
-        String(format: localized(key), arguments: args)
+    /// Get display name for a language code
+    func displayName(for code: String) -> String {
+        if code == "system" {
+            return NSLocalizedString("settings.language_system", comment: "System Default")
+        }
+        let locale = Locale(identifier: code)
+        return locale.localizedString(forIdentifier: code) ?? code
+    }
+    
+    /// Check if the current system language matches our preference
+    var isLanguageApplied: Bool {
+        if currentLanguage == "system" {
+            return true
+        }
+        let systemLang = Locale.preferredLanguages.first?.components(separatedBy: "-").first ?? "en"
+        return systemLang == currentLanguage
     }
 }
 

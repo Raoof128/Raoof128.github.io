@@ -126,12 +126,12 @@ struct DetailSheet: View {
             
             // Score
             HStack(spacing: 20) {
-                scoreItem(title: "Risk Score", value: "\(assessment.score)/100", color: themeColor)
+                scoreItem(title: NSLocalizedString("component.risk_score", comment: ""), value: "\(assessment.score)/100", color: themeColor)
                 
                 Divider()
                     .frame(height: 40)
                 
-                scoreItem(title: "Confidence", value: "\(Int(assessment.confidence * 100))%", color: .brandPrimary)
+                scoreItem(title: NSLocalizedString("component.confidence", comment: ""), value: "\(Int(assessment.confidence * 100))%", color: .brandPrimary)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 16)

@@ -144,6 +144,9 @@ struct ResultCard: View {
                 Text(String(format: NSLocalizedString("component.risk_score_format", comment: ""), assessment.score))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .accessibilityElement(children: .combine)
             .accessibilityLabel(Text(assessment.verdict.rawValue))

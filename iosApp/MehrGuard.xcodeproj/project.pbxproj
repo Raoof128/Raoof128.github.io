@@ -402,7 +402,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MehrGuard/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "QR-SHIELD";
+				INFOPLIST_KEY_CFBundleDisplayName = "Mehr Guard";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -437,7 +437,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MehrGuard/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "QR-SHIELD";
+				INFOPLIST_KEY_CFBundleDisplayName = "Mehr Guard";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

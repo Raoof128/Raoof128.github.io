@@ -443,7 +443,7 @@ struct HistoryDetailSheet: View {
                     .font(.title2.weight(.bold))
                     .foregroundColor(Color.forVerdict(item.verdict))
                 
-                Text(String(format: "Risk Score: %d/100", item.score))
+                Text(String(format: NSLocalizedString("component.risk_score_format", comment: ""), item.score))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }

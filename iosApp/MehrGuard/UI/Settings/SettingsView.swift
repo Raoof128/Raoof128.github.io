@@ -665,7 +665,7 @@ struct SettingsToggle: View {
 
 // MARK: - Supported Languages
 
-/// All 16 supported languages in Mehr Guard iOS
+/// All 18 supported languages in Mehr Guard iOS
 enum SupportedLanguage: String, CaseIterable, Identifiable {
     case system = "system"
     case english = "en"
@@ -684,6 +684,8 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
     case thai = "th"
     case turkish = "tr"
     case vietnamese = "vi"
+    case hebrew = "he"
+    case persian = "fa"
     
     var id: String { rawValue }
     
@@ -708,6 +710,8 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
         case .thai: return "ไทย"
         case .turkish: return "Türkçe"
         case .vietnamese: return "Tiếng Việt"
+        case .hebrew: return "עברית"
+        case .persian: return "فارسی"
         }
     }
     
@@ -734,6 +738,8 @@ enum SupportedLanguage: String, CaseIterable, Identifiable {
         case .thai: return "🇹🇭"
         case .turkish: return "🇹🇷"
         case .vietnamese: return "🇻🇳"
+        case .hebrew: return "🇮🇱"
+        case .persian: return "🇮🇷"
         }
     }
 }
