@@ -136,9 +136,12 @@ struct ResultCard: View {
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(themeColor)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
                     .contentTransition(.numericText())
                 
-                Text(String(format: "Risk Score: %d/100", assessment.score))
+                Text(String(format: NSLocalizedString("component.risk_score_format", comment: ""), assessment.score))
                     .font(.subheadline)
                     .foregroundColor(.textSecondary)
             }

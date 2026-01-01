@@ -30,6 +30,68 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.7] - 2026-01-01
+
+### 🎨 iOS UI Polish & Sandbox Mode Fix
+
+**Fixed scan result display issues and made sandbox mode dynamic.**
+
+1. **Scanner Result Card Text Fix**
+   - **Problem**: Verdict text "MALICIOUS" was breaking across lines as "MALI-CIOUS"
+   - **Fix**: Added `lineLimit(1)` and `minimumScaleFactor(0.7)` to prevent text breaking
+   - Risk score now uses localized format string
+
+2. **Dynamic Sandbox Mode**
+   - **Problem**: URL Analysis (Sandbox) always showed "Restricted Mode" for ALL URLs
+   - **Fix**: Made `SandboxPreviewSheet` accept `verdict` parameter
+   - Now shows appropriate styling:
+     - **Safe**: Green "Verified Safe" banner
+     - **Suspicious**: Orange "Caution Advised" banner  
+     - **Malicious**: Red "Restricted Mode" banner
+     - **Unknown**: Blue "Analysis Complete" banner
+
+3. **New Localization Strings**
+   - Added `component.risk_score_format` for formatted risk score
+   - Added sandbox mode state strings: `result.safe_mode`, `result.caution_mode`, etc.
+   - Added `result.safe_description`, `result.caution_description`, etc.
+
+#### Build Verification
+
+```bash
+xcodebuild MehrGuard → BUILD SUCCEEDED
+```
+
+---
+
+## [2.0.6] - 2026-01-01
+
+### 🐛 iOS Bug Fixes
+
+**Fixed multiple issues with iOS scan logic and result display.**
+
+1. **URL Shortener Detection Fix**
+   - **Problem**: URL shorteners (bit.ly, tinyurl.com, etc.) were marked as SAFE
+   - **Fix**: Increased penalty from +30 to +40 (now crosses 35 SUSPICIOUS threshold)
+   - All shortened URLs now correctly show as SUSPICIOUS
+
+2. **Unified Result Screen**
+   - **Problem**: Scanner and Dashboard showed different result views
+   - **Fix**: Changed Scanner from `DetailSheet` to `ScanResultView`
+   - All scans now use consistent `ScanResultView` across all views
+
+3. **Image QR Error Handling**
+   - Verified existing graceful error handling for images without QR codes
+   - Displays "No QR code found in the selected image" message
+   - Plays warning haptic feedback
+
+#### Build Verification
+
+```bash
+xcodebuild MehrGuard → BUILD SUCCEEDED
+```
+
+---
+
 ## [2.0.5] - 2026-01-01
 
 ### 🎨 Complete Branding Unification

@@ -114,11 +114,8 @@ struct ScannerView: View {
         }
         .sheet(isPresented: $showDetails) {
             if let result = viewModel.currentResult {
-                DetailSheet(assessment: result)
-                    .presentationDetents([.medium, .large])
-                    .presentationDragIndicator(.visible)
-                    // iOS 17+: Glass background for sheets
-                    .presentationBackground(.ultraThinMaterial)
+                // Use ScanResultView for consistency across all views
+                ScanResultView(assessment: result)
                     .preferredColorScheme(useDarkMode ? .dark : .light)
             }
         }

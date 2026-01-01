@@ -257,6 +257,43 @@ Any important notes for future agents.
 
 ---
 
+# 🎨 January 1, 2026 (Session 10k+77) - iOS UI Polish & Sandbox Mode Fix
+
+### Summary
+Fixed iOS scan result card text breaking and made sandbox mode dynamically display based on URL verdict.
+
+## ✅ Changes Made
+
+### Files Updated
+| File | Change |
+|------|--------|
+| `iosApp/MehrGuard/UI/Components/ResultCard.swift` | Fixed verdict text breaking with `lineLimit(1)` and `minimumScaleFactor(0.7)` |
+| `iosApp/MehrGuard/UI/Results/ScanResultView.swift` | Made `SandboxPreviewSheet` accept verdict parameter for dynamic styling |
+| `iosApp/MehrGuard/en.lproj/Localizable.strings` | Added localization strings for sandbox mode states |
+| `CHANGELOG.md` | Added v2.0.7 entry |
+
+### Key Fixes
+
+1. **Scanner Result Card Text**
+   - Problem: "MALICIOUS" was breaking as "MALI-CIOUS"
+   - Fix: Added `lineLimit(1).minimumScaleFactor(0.7)` to prevent text breaking
+
+2. **Dynamic Sandbox Mode**
+   - Problem: Always showed "Restricted Mode" even for safe URLs
+   - Fix: Added `verdict` parameter to `SandboxPreviewSheet`
+   - Now shows: Safe (green) / Caution (orange) / Restricted (red) / Analysis (blue)
+
+3. **URL Shortener Detection** (from previous session)
+   - Increased penalty from +30 to +40 so shorteners cross SUSPICIOUS threshold (35)
+
+## ✅ Build Verification
+
+```bash
+xcodebuild MehrGuard → BUILD SUCCEEDED
+```
+
+---
+
 # 🕵️ January 1, 2026 (Session 10k+76) - iOS Red Team Z-Fix & Scan Engine Polish
 
 ### Summary

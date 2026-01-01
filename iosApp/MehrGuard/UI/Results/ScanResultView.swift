@@ -156,7 +156,7 @@ struct ScanResultView: View {
                     .preferredColorScheme(useDarkMode ? .dark : .light)
             }
             .sheet(isPresented: $showSandbox) {
-                SandboxPreviewSheet(url: assessment.url)
+                SandboxPreviewSheet(url: assessment.url, verdict: assessment.verdict)
                     .preferredColorScheme(useDarkMode ? .dark : .light)
             }
         }
@@ -1314,6 +1314,7 @@ struct FlowLayout: Layout {
 
 struct SandboxPreviewSheet: View {
     let url: String
+    let verdict: VerdictMock  // Add verdict to make UI dynamic
     
     @Environment(\.dismiss) private var dismiss
     @State private var copiedURL = false
@@ -1335,11 +1336,43 @@ struct SandboxPreviewSheet: View {
         urlComponents?.path ?? ""
     }
     
+    // Dynamic theme based on verdict
+    private var themeColor: Color {
+        Color.forVerdict(verdict)
+    }
+    
+    private var warningIcon: String {
+        switch verdict {
+        case .safe: return "checkmark.shield.fill"
+        case .suspicious: return "exclamationmark.shield.fill"
+        case .malicious: return "xmark.shield.fill"
+        case .unknown: return "questionmark.shield.fill"
+        }
+    }
+    
+    private var warningTitle: String {
+        switch verdict {
+        case .safe: return NSLocalizedString("result.safe_mode", comment: "")
+        case .suspicious: return NSLocalizedString("result.caution_mode", comment: "")
+        case .malicious: return NSLocalizedString("result.restricted_mode", comment: "")
+        case .unknown: return NSLocalizedString("result.analysis_mode", comment: "")
+        }
+    }
+    
+    private var warningDescription: String {
+        switch verdict {
+        case .safe: return NSLocalizedString("result.safe_description", comment: "")
+        case .suspicious: return NSLocalizedString("result.caution_description", comment: "")
+        case .malicious: return NSLocalizedString("result.restricted_description", comment: "")
+        case .unknown: return NSLocalizedString("result.analysis_description", comment: "")
+        }
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    // Security Warning
+                    // Security Warning (dynamic based on verdict)
                     securityWarning
                     
                     // URL Analysis Card
@@ -1370,39 +1403,41 @@ struct SandboxPreviewSheet: View {
                 isPresented: $showOpenConfirmation,
                 titleVisibility: .visible
             ) {
-                Button(NSLocalizedString("result.open_anyway", comment: ""), role: .destructive) {
+                Button(NSLocalizedString("result.open_anyway", comment: ""), role: verdict == .safe ? .none : .destructive) {
                     if let url = URL(string: url) {
                         UIApplication.shared.open(url)
                     }
                 }
                 Button(NSLocalizedString("common.cancel", comment: ""), role: .cancel) {}
             } message: {
-                Text(NSLocalizedString("result.dangerous_full_warning", comment: ""))
+                Text(verdict == .safe 
+                     ? NSLocalizedString("result.open_safe_message", comment: "")
+                     : NSLocalizedString("result.dangerous_full_warning", comment: ""))
             }
         }
     }
     
     private var securityWarning: some View {
         HStack(spacing: 12) {
-            Image(systemName: "exclamationmark.shield.fill")
+            Image(systemName: warningIcon)
                 .font(.title2)
-                .foregroundColor(.verdictWarning)
+                .foregroundColor(themeColor)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(NSLocalizedString("result.restricted_mode", comment: ""))
+                Text(warningTitle)
                     .font(.headline)
                     .foregroundColor(.textPrimary)
                 
-                Text(NSLocalizedString("result.restricted_description", comment: ""))
+                Text(warningDescription)
                     .font(.caption)
                     .foregroundColor(.textSecondary)
             }
         }
         .padding(16)
-        .background(Color.verdictWarning.opacity(0.1), in: RoundedRectangle(cornerRadius: 16))
+        .background(themeColor.opacity(0.1), in: RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.verdictWarning.opacity(0.3), lineWidth: 1)
+                .stroke(themeColor.opacity(0.3), lineWidth: 1)
         )
     }
     

@@ -350,10 +350,22 @@
 "result.dangerous_full_warning" = "This URL has been flagged as potentially dangerous. Opening it may expose you to phishing, malware, or other security threats.\n\nAre you sure you want to proceed?";
 "result.open_safari_risky" = "Open in Safari (Risky)";
 "result.open_warning_browser" = "Opening this URL in your browser may expose you to security risks.";
+"result.open_safe_message" = "This URL has been verified as safe. You can proceed with confidence.";
+
+// MARK: - Sandbox Mode States
+"result.safe_mode" = "Verified Safe";
+"result.safe_description" = "This URL passed all security checks. Safe to proceed.";
+"result.caution_mode" = "Caution Advised";
+"result.caution_description" = "Some suspicious patterns detected. Exercise caution before proceeding.";
+"result.restricted_mode" = "Restricted Mode";
+"result.restricted_description" = "This URL has been flagged as potentially dangerous. Review the analysis below before proceeding.";
+"result.analysis_mode" = "Analysis Complete";
+"result.analysis_description" = "Review the URL breakdown below.";
 
 // MARK: - Components
 "component.confidence" = "Confidence";
 "component.risk_score" = "Risk Score";
+"component.risk_score_format" = "Risk Score: %d/100";
 "component.risk_flags" = "Risk Flags";
 "component.view_full_analysis" = "View Full Analysis";
 "component.select_image" = "Select an Image";

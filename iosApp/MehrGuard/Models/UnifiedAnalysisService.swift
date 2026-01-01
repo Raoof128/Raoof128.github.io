@@ -169,6 +169,7 @@ class UnifiedAnalysisService: ObservableObject {
         
         // ============================================
         // URL SHORTENERS - Often hide malicious destinations
+        // Must add enough to cross suspicious threshold (35)
         // ============================================
         let urlShorteners = [
             "bit.ly", "tinyurl.com", "t.co", "goo.gl", "ow.ly", "is.gd",
@@ -178,7 +179,7 @@ class UnifiedAnalysisService: ObservableObject {
         
         for shortener in urlShorteners {
             if host == shortener || host.hasSuffix(".\(shortener)") {
-                score += 30
+                score += 40  // Increased from 30 to ensure SUSPICIOUS verdict
                 flags.append("URL Shortener")
                 break
             }
