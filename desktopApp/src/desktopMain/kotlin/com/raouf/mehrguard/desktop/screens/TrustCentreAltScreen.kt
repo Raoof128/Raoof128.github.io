@@ -398,7 +398,9 @@ private fun LanguageSection(
         AppLanguage.Turkish,
         AppLanguage.Vietnamese,
         AppLanguage.Indonesian,
-        AppLanguage.Thai
+        AppLanguage.Thai,
+        AppLanguage.Hebrew,
+        AppLanguage.Persian
     )
     Surface(
         shape = RoundedCornerShape(16.dp),

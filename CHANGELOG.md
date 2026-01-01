@@ -30,6 +30,51 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.27] - 2026-01-02
+
+### Raouf: Desktop App Hebrew & Persian Localization Parity
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Desktop App i18n - Hebrew & Persian Language Settings
+**Summary:** Added Hebrew and Persian to desktop app language selector UI and added 241 missing translations to each language file.
+
+#### UI Fix
+- Added `AppLanguage.Hebrew` and `AppLanguage.Persian` to `LanguageSection` in `TrustCentreAltScreen.kt`
+- Languages now display as **עברית** (Hebrew) and **فارسی** (Persian) in settings
+
+#### String Count Comparison (Before → After)
+
+| Language | Before | After | Change |
+|----------|--------|-------|--------|
+| Hebrew (He) | 216 | 457 | **+241** |
+| Persian (Fa) | 216 | 457 | **+241** |
+| German (De) | 493 | 493 | baseline |
+
+#### Files Updated
+| File | Change |
+|------|--------|
+| `desktopApp/.../i18n/DesktopStringsHe.kt` | +241 Hebrew translations |
+| `desktopApp/.../i18n/DesktopStringsFa.kt` | +241 Persian translations |
+
+#### Categories of Strings Added
+- Trust Centre & Privacy Controls descriptions
+- Heuristic Sensitivity mode explanations
+- Scan result messages and error handling
+- Export/Report configuration strings
+- Beat the Bot game scenario contexts
+- Technical indicator descriptions
+- Sandbox and security audit messages
+- Profile and navigation labels
+- Domain allowlist/blocklist feedback
+
+#### Verification
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+---
+
 ## [2.0.26] - 2026-01-02
 
 ### Raouf: History Filters & IP Address Host Translations

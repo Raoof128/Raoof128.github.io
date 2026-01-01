@@ -257,6 +257,51 @@ Any important notes for future agents.
 
 ---
 
+# 🖥️ January 2, 2026 (Session 10k+81) - Desktop Hebrew & Persian Localization Parity
+
+### Summary
+Added Hebrew and Persian to desktop app language selector UI and added 241 missing translations to each language file.
+
+## ✅ Changes Made
+
+### Problem Identified
+1. Hebrew and Persian were NOT showing in the Language Settings UI (hardcoded list missing them)
+2. Hebrew (DesktopStringsHe.kt): Only 216/493 strings (43.8% coverage)
+3. Persian (DesktopStringsFa.kt): Only 216/493 strings (43.8% coverage)
+
+### Files Updated
+| File | Change |
+|------|--------|
+| `desktopApp/.../screens/TrustCentreAltScreen.kt` | Added Hebrew & Persian to `languages` list in `LanguageSection()` |
+| `desktopApp/.../i18n/DesktopStringsHe.kt` | +241 Hebrew translations (216 → 457) |
+| `desktopApp/.../i18n/DesktopStringsFa.kt` | +241 Persian translations (216 → 457) |
+| `CHANGELOG.md` | v2.0.27 entry |
+
+### String Categories Added
+- Trust Centre & Privacy Controls
+- Heuristic Sensitivity mode descriptions
+- Scan result messages and errors
+- Export/Report configuration
+- Beat the Bot game contexts
+- Technical indicator descriptions
+- Sandbox and security audit messages
+- Profile and navigation labels
+- Domain allowlist/blocklist feedback
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+### Notes
+- Hebrew and Persian are now at 93% coverage (457/493) vs baseline
+- Remaining ~36 strings are highly specific technical phrases that may benefit from professional translation
+- Both languages are RTL (right-to-left) and include proper translations, not English placeholders
+
+---
+
 # 🌐 January 1, 2026 (Session 10k+80) - iOS Localization Complete
 
 ### Summary
