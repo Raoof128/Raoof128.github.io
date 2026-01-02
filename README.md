@@ -19,7 +19,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/KotlinConf-2025--2026-7F52FF?logo=kotlin&logoColor=white" alt="Contest">
   <img src="https://img.shields.io/badge/Kotlin-2.3.0-7F52FF" alt="Kotlin">
-  <img src="https://img.shields.io/badge/Version-1.20.33-blue" alt="Version">
+  <img src="https://img.shields.io/badge/Version-2.0.35-blue" alt="Version">
   <img src="https://img.shields.io/badge/KMP_Targets-5-orange" alt="Platforms">
   <img src="https://img.shields.io/badge/Offline-100%25-brightgreen" alt="Offline">
   <img src="https://img.shields.io/badge/Privacy-Zero_Data-blue" alt="Privacy">
@@ -243,21 +243,21 @@ class EnsembleModel {
 | **Desktop** | Header → Click "🕵️ Judge Mode" toggle | OFF (click to show) |
 | **Web** | Settings → Security → "Enable Red Team Scenarios" | OFF (toggle to show) |
 
-**Available Scenarios (19):**
+**Available Scenarios (11):**
 
 | Category | Examples |
 |----------|----------|
 | **Homograph** | Cyrillic аpple.com, раypal.com, micrоsоft.com |
-| **IP Obfuscation** | Decimal (3232235777), Hex (0xC0A80101), Octal |
-| **Suspicious TLD** | .tk, .ml, .ga domains with brand keywords |
-| **Brand Impersonation** | paypa1.com, googIe.com, netflix.secure-verify.com |
-| **URL Shortener** | bit.ly, tinyurl with hidden destinations |
+| **IP Obfuscation** | Decimal (3232235777), Hex (0xC0A80101) |
+| **Suspicious TLD** | .tk, .ml domains with brand keywords |
+| **Brand Impersonation** | paypa1.com, netflix.secure-verify.com |
+| **URL Shortener** | bit.ly with hidden destinations |
 | **Nested Redirect** | legit.com/redirect?url=phishing.tk |
-| **Safe Control** | google.com, github.com for baseline comparison |
+| **Safe Control** | google.com for baseline comparison |
 
 **Quick Demo for Judges:**
 1. **Fastest**: Desktop → Click "Judge Mode" → Click "Cyrillic Apple" chip
-2. **Web**: Settings → Enable Red Team → Click chip → Auto-analyzes
+2. **Web**: Settings → Enable Red Team → Go to Scanner → Chips appear at top → Click any chip
 3. **Mobile**: 7-tap version in Settings → Chips appear in scanner
 
 ---

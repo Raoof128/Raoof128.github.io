@@ -19,6 +19,31 @@ const ScannerConfig = {
 };
 
 // =============================================================================
+// RED TEAM SCENARIOS (Matching Desktop/Android)
+// =============================================================================
+
+const RedTeamScenarios = [
+    // Homograph Attacks
+    { id: 'HG-001', category: 'Homograph Attack', title: 'Cyrillic Apple', url: 'https://аpple.com/verify', icon: '🔤' },
+    { id: 'HG-002', category: 'Homograph Attack', title: 'Cyrillic PayPal', url: 'https://раypal.com/login', icon: '🔤' },
+    { id: 'HG-003', category: 'Homograph Attack', title: 'Cyrillic Microsoft', url: 'https://micrоsоft.com/signin', icon: '🔤' },
+    // IP Obfuscation
+    { id: 'IP-001', category: 'IP Obfuscation', title: 'Decimal IP', url: 'http://3232235777/malware', icon: '🔢' },
+    { id: 'IP-002', category: 'IP Obfuscation', title: 'Hex IP', url: 'http://0xC0A80101/payload', icon: '🔢' },
+    // Suspicious TLD
+    { id: 'TLD-001', category: 'Suspicious TLD', title: 'PayPal .tk', url: 'https://paypa1-secure.tk/login/verify', icon: '🌐' },
+    { id: 'TLD-002', category: 'Suspicious TLD', title: 'Bank .ml', url: 'https://bank-secure.ml/verify', icon: '🌐' },
+    // Nested Redirects
+    { id: 'NR-001', category: 'Nested Redirect', title: 'URL in Query', url: 'https://legit.com/redirect?url=https://phishing.tk/login', icon: '↪️' },
+    // Brand Impersonation
+    { id: 'BI-001', category: 'Brand Impersonation', title: 'Typosquatting', url: 'https://paypa1.com/signin', icon: '🏷️' },
+    // URL Shortener
+    { id: 'SH-001', category: 'URL Shortener', title: 'bit.ly', url: 'https://bit.ly/3xYz123', icon: '🔗' },
+    // Safe Control
+    { id: 'SAFE-001', category: 'Safe Control', title: 'Google.com', url: 'https://www.google.com', icon: '✅' },
+];
+
+// =============================================================================
 // STATE
 // =============================================================================
 
@@ -29,6 +54,7 @@ const ScannerState = {
     scanAnimationFrame: null,
     isSidebarOpen: false,
     isTorchOn: false,
+    isRedTeamEnabled: false,
 };
 
 function translateText(text) {
@@ -84,6 +110,11 @@ const elements = {
     // Toast
     toast: null,
     toastMessage: null,
+
+    // Red Team Panel
+    redTeamPanel: null,
+    redTeamChips: null,
+    redTeamCount: null,
 };
 
 // =============================================================================
@@ -104,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Kotlin engine callback
     setupKotlinBridge();
+    
+    // Initialize Red Team panel
+    initRedTeamPanel();
 
     window.mehrguardApplyTranslations?.(document.body);
     
@@ -148,6 +182,11 @@ function cacheElements() {
     elements.viewAllBtn = document.getElementById('viewAllBtn');
     elements.toast = document.getElementById('toast');
     elements.toastMessage = document.getElementById('toastMessage');
+    
+    // Red Team Panel elements
+    elements.redTeamPanel = document.getElementById('redTeamPanel');
+    elements.redTeamChips = document.getElementById('redTeamChips');
+    elements.redTeamCount = document.getElementById('redTeamCount');
 }
 
 /**
@@ -197,6 +236,80 @@ function setupEventListeners() {
     elements.urlModal?.addEventListener('click', (e) => {
         if (e.target === elements.urlModal) closeUrlModal();
     });
+}
+
+// =============================================================================
+// RED TEAM PANEL
+// =============================================================================
+
+/**
+ * Initialize Red Team panel based on Judge Demo Mode setting
+ */
+function initRedTeamPanel() {
+    const isEnabled = localStorage.getItem('mehrguard_judge_demo_mode') === 'true';
+    ScannerState.isRedTeamEnabled = isEnabled;
+    
+    if (elements.redTeamPanel) {
+        if (isEnabled) {
+            elements.redTeamPanel.style.display = 'block';
+            populateRedTeamChips();
+        } else {
+            elements.redTeamPanel.style.display = 'none';
+        }
+    }
+    
+    // Update count badge
+    if (elements.redTeamCount) {
+        elements.redTeamCount.textContent = RedTeamScenarios.length;
+    }
+}
+
+/**
+ * Populate Red Team chips with attack scenarios
+ */
+function populateRedTeamChips() {
+    if (!elements.redTeamChips) return;
+    
+    // Clear existing chips
+    elements.redTeamChips.innerHTML = '';
+    
+    // Create chip for each scenario
+    RedTeamScenarios.forEach(scenario => {
+        const chip = document.createElement('button');
+        chip.className = `red-team-chip ${getCategoryClass(scenario.category)}`;
+        chip.setAttribute('data-url', scenario.url);
+        chip.setAttribute('title', `${scenario.id}: ${scenario.url}`);
+        
+        chip.innerHTML = `
+            <span class="red-team-chip-icon">${scenario.icon}</span>
+            <span class="red-team-chip-title">${scenario.title}</span>
+        `;
+        
+        // Click handler to analyze the malicious URL
+        chip.addEventListener('click', () => {
+            console.log('[Red Team] Testing scenario:', scenario.id, scenario.title);
+            showToast(`Testing: ${scenario.title}`, 'info');
+            analyzeUrlDirectly(scenario.url);
+        });
+        
+        elements.redTeamChips.appendChild(chip);
+    });
+}
+
+/**
+ * Get CSS class for scenario category
+ */
+function getCategoryClass(category) {
+    const categoryMap = {
+        'Homograph Attack': 'homograph',
+        'IP Obfuscation': 'ip',
+        'Suspicious TLD': 'tld',
+        'Nested Redirect': 'redirect',
+        'Brand Impersonation': 'brand',
+        'URL Shortener': 'shortener',
+        'Safe Control': 'safe',
+    };
+    return categoryMap[category] || 'default';
 }
 
 /**

@@ -73,13 +73,13 @@ cd mehrguard
 | **Web** | Settings → Security Settings → "Enable Red Team Scenarios" toggle | Toggle ON/OFF |
 
 **What You'll See:**
-- 19 curated attack scenarios (homographs, IP obfuscation, TLD abuse, brand impersonation, URL shorteners)
+- 11 curated attack scenarios (homographs, IP obfuscation, TLD abuse, brand impersonation, URL shorteners)
 - One-tap testing of detection accuracy (bypasses camera, feeds URL directly to engine)
 - Useful for demonstrating engine capabilities to judges without needing QR codes
 
 **Quick Demo Steps:**
 1. **Desktop**: Click "Judge Mode" in header → Click any attack chip (e.g., "Cyrillic Apple")
-2. **Web**: Go to Settings → Enable "Red Team Scenarios" → Click any chip → Redirects to scanner with analysis
+2. **Web**: Go to Settings → Enable "Red Team Scenarios" → Go to Scanner page → Chips appear at top → Click any chip
 3. **Mobile**: Settings → 7-tap version → Enable Red Team Mode → Chips appear in scanner
 
 ---
@@ -97,7 +97,7 @@ cd mehrguard
 | **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
 | **Languages** | 16 | 629 Android strings, 547 iOS strings |
 | **Accessibility** | Full | 197+ content descriptions, VoiceOver labels |
-| **App Version** | 1.20.33 | Latest as of Dec 31, 2025 |
+| **App Version** | 2.0.35 | Latest as of Jan 2, 2026 |
 
 ---
 

@@ -43,3 +43,12 @@ kotlin {
         }
     }
 }
+
+// Fix duplicate webApp.js issue in distribution task
+tasks.withType<Copy>().configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.withType<Sync>().configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

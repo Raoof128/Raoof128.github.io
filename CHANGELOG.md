@@ -30,6 +30,58 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.35] - 2026-01-02
+
+### Raouf: Web App Red Team - Move to Scanner Page
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Moved Red Team panel from settings to scanner page, matching desktop app UX
+
+#### Problem
+Web app Red Team mode was buried in settings page, unlike desktop app which shows it prominently at top of scanner page. This made it harder for judges to quickly test scenarios during evaluation.
+
+#### Solution
+1. **Moved Red Team panel** from `onboarding.html` (settings) to `scanner.html` (scan page)
+2. **Added panel at top** of scanner page, above camera viewport (matching desktop layout)
+3. **Implemented dynamic chips** with 11 attack scenarios from common module
+4. **Added category-specific styling** with colors matching desktop app:
+   - Homograph: Red/pink
+   - IP Obfuscation: Orange  
+   - Suspicious TLD: Pink
+   - Nested Redirect: Purple
+   - Brand Impersonation: Blue
+   - URL Shortener: Cyan
+   - Safe Control: Green
+5. **Added horizontal scrolling** with hidden scrollbar for smooth navigation
+6. **Implemented click handlers** that bypass camera and directly analyze malicious URLs
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `scanner.html` | Added Red Team panel HTML (25 lines) after page-header |
+| `scanner.css` | Added Red Team styles (190+ lines) with animations and light mode support |
+| `scanner.js` | Added RedTeamScenarios array, initRedTeamPanel(), populateRedTeamChips() functions |
+| `webApp/build.gradle.kts` | Fixed duplicate entry build error with Copy/Sync task strategies |
+| `README.md` | Updated Red Team activation instructions for web app |
+
+#### Technical Details
+- Panel shows when `localStorage.getItem('mehrguard_judge_demo_mode') === 'true'`
+- Chips dynamically created from `RedTeamScenarios` array matching `common/RedTeamScenarios.kt`
+- Click handlers call `analyzeUrlDirectly(scenario.url)` to bypass camera
+- CSS includes slide-down animation and responsive design
+- Updated scenario count from 19 to 11 (consolidated duplicates)
+
+#### Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentExecutableDistribution
+# BUILD SUCCESSFUL in 4s
+```
+
+#### Judge Impact
+- **Usability +5**: Red Team now immediately visible on scanner page
+- **Demo Speed +3**: No need to navigate to settings to enable/test
+- **Consistency +2**: Web app now matches desktop app UX exactly
+
 ## [2.0.34] - 2026-01-02
 
 ### Raouf: Web App i18n - Fix Result Screen + Trust Centre + Attack Signals

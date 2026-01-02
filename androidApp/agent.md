@@ -255,6 +255,43 @@ After making changes:
 
 ---
 
+## Raouf: Web App Red Team - Move to Scanner Page (2026-01-02 AEDT)
+
+**Scope:** Web App ONLY – Moved Red Team panel from settings to scanner page for better judge UX
+
+### Problem
+- Red Team mode buried in settings page (onboarding.html)
+- Judges had to navigate away from scanner to enable/test scenarios
+- Inconsistent with desktop app which shows Red Team prominently at top of scanner
+
+### Solution
+1. **Relocated panel** from `onboarding.html` → `scanner.html` (top of page)
+2. **Added dynamic chips** with 11 scenarios from `common/RedTeamScenarios.kt`
+3. **Category-specific styling** matching desktop app colors
+4. **Horizontal scrolling** with smooth animations
+5. **Direct URL analysis** bypassing camera on chip clicks
+
+### Files Modified
+- `scanner.html` - Added Red Team panel HTML (25 lines)
+- `scanner.css` - Added Red Team styles (190+ lines) with animations
+- `scanner.js` - Added RedTeamScenarios array, initRedTeamPanel(), populateRedTeamChips()
+- `webApp/build.gradle.kts` - Fixed duplicate entry build error
+
+### Technical Details
+- Panel shows when `localStorage.getItem('mehrguard_judge_demo_mode') === 'true'`
+- Chips: Homograph (🔤), IP Obfuscation (🔢), Suspicious TLD (🌐), etc.
+- Click handlers call `analyzeUrlDirectly(scenario.url)`
+- CSS includes slide-down animation and light mode support
+
+### Judge Impact
+- **Usability +5**: Red Team immediately visible on scanner page
+- **Demo Speed +3**: No navigation required to test scenarios
+- **Consistency +2**: Web app now matches desktop UX exactly
+
+**Verification:** `./gradlew :webApp:jsBrowserDevelopmentExecutableDistribution` ✅ BUILD SUCCESSFUL
+
+---
+
 ## Raouf: Fresh UI/UX Audit - New Perspective (2025-12-30 17:55 AEDT)
 
 **Scope:** Fresh file-by-file UI/UX audit from new perspective
