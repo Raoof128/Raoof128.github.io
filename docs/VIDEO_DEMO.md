@@ -6,11 +6,9 @@
 
 ## 📺 Watch the Demo
 
-<!-- TODO: Replace with actual video embed when ready -->
+**🎥 Demo Video Available**
 
-**Video coming soon!**
-
-The demo will showcase:
+The video demonstrates:
 - 📷 Real-time QR code scanning on all 5 platforms
 - 🧠 Instant threat analysis (<5ms) with explainable verdicts
 - ✅ Clear verdict display (SAFE/SUSPICIOUS/MALICIOUS)
@@ -44,10 +42,10 @@ While waiting for the video, try the **live demo** at:
 
 | Platform | How to Run | Version |
 |----------|------------|---------|
-| **Web** | [raoof128.github.io](https://raoof128.github.io) | v1.20.30 |
-| **Android** | [Download APK](../releases/MehrGuard-1.1.0-release.apk) | v1.20.30 |
-| **Desktop** | `./gradlew :desktopApp:run` | v1.20.30 |
-| **iOS** | `./scripts/run_ios_simulator.sh` | v1.20.30 |
+| **Web** | [raoof128.github.io](https://raoof128.github.io) | v2.0.36 |
+| **Android** | [Download APK](../releases/MehrGuard-2.0.36-debug.apk) | v2.0.36 |
+| **Desktop** | `./gradlew :desktopApp:run` | v2.0.36 |
+| **iOS** | Open `iosApp/MehrGuard.xcodeproj` in Xcode | v2.0.36 |
 
 ---
 

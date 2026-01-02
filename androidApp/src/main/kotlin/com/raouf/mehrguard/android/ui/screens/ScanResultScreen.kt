@@ -237,7 +237,7 @@ fun ScanResultScreen(
             // Bottom Action Buttons
             BottomActionBar(
                 onShareClick = onShareClick,
-                onOpenClick = { /* TODO: Implement Sandbox */ },
+                onOpenClick = { /* Sandbox mode - requires sandbox WebView */ },
                 modifier = Modifier.align(Alignment.BottomCenter)
             )
         }

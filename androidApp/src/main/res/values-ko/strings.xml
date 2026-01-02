@@ -353,7 +353,7 @@
     <string name="beat_the_bot_vs_mode">VS 모드</string>
     <string name="beat_the_bot_you">당신</string>
     <string name="beat_the_bot_streak_fmt">연속: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="beat_the_bot_latency_fmt">지연: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d점</string>
     <string name="beat_the_bot_preview_hidden">미리보기 숨김</string>

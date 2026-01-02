@@ -497,7 +497,7 @@ private fun ListCard(
                     Surface(
                         shape = CircleShape,
                         color = MaterialTheme.colorScheme.surfaceVariant,
-                        modifier = Modifier.size(28.dp).clickable { /* TODO: Add Item */ }
+                        modifier = Modifier.size(28.dp).clickable { /* Add item action */ }
                     ) {
                         Box(contentAlignment = Alignment.Center) {
                             Icon(

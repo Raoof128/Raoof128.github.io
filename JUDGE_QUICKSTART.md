@@ -10,7 +10,7 @@
 |--------|------|
 | 🌐 **Try Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
 | 🎬 **Watch Video Demo** | [docs/VIDEO_DEMO.md](docs/VIDEO_DEMO.md) |
-| 📱 **Download Android APK** | [MehrGuard-1.1.0-release.apk](releases/MehrGuard-1.1.0-release.apk) |
+| 📱 **Download Android APK** | [MehrGuard-2.0.36-debug.apk](releases/MehrGuard-2.0.36-debug.apk) |
 | 📖 **Read Essay** | [ESSAY.md](ESSAY.md) |
 | 🔨 **One-Command Build Test** | `./scripts/judge-smoke.sh` |
 | ✅ **Verify All Claims** | `./judge/verify_all.sh` |

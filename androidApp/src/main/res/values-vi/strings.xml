@@ -346,7 +346,7 @@
     <string name="beat_the_bot_vs_mode">CHẾ ĐỘ VS</string>
     <string name="beat_the_bot_you">Bạn</string>
     <string name="beat_the_bot_streak_fmt">Chuỗi: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="beat_the_bot_latency_fmt">Độ trễ: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d điểm</string>
     <string name="beat_the_bot_preview_hidden">Xem trước ẩn</string>

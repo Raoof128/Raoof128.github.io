@@ -42,9 +42,9 @@ Paste any URL to test detection:
 
 ### 📱 Pre-Built Android APK
 
-**Download:** [releases/MehrGuard-1.1.0-release.apk](releases/MehrGuard-1.1.0-release.apk)
+**Download:** [releases/MehrGuard-2.0.36-debug.apk](releases/MehrGuard-2.0.36-debug.apk)
 
-Install on any Android 8+ device. No build required.
+Install on any Android 8+ device. No build required. Debug build for evaluation purposes.
 
 ---
 

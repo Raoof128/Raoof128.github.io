@@ -102,3 +102,5 @@ androidApp/Androidapp.txt
 .agent/artifacts/ios_ux_spec_for_android.md
 .agent/artifacts/ios_parity_implementation_log.md
 .agent/artifacts/android_gap_analysis.md
+releases/keystore-base64.txt
+*.bak

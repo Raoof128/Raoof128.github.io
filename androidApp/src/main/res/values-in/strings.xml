@@ -346,7 +346,7 @@
     <string name="beat_the_bot_vs_mode">MODE VS</string>
     <string name="beat_the_bot_you">Anda</string>
     <string name="beat_the_bot_streak_fmt">Streak: %1$d 🔥</string>
-    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="beat_the_bot_latency_fmt">Latensi: %1$dms</string>
     <string name="beat_the_bot_pts_fmt">%1$d poin</string>
     <string name="beat_the_bot_preview_hidden">Pratinjau Tersembunyi</string>

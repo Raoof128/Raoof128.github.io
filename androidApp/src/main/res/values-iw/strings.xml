@@ -651,7 +651,7 @@
     <string name="blocklist_import_csv_json">Import from CSV/JSON</string>
     <string name="cd_camera_scanning">Camera scanning mode. Point camera at a QR code.</string>
     <string name="cd_app_tagline">QR Shield, Phishing Detection App</string>
-    <string name="beat_the_bot_bot_name">QR-Shield Bot</string>
+    <string name="beat_the_bot_bot_name">Mehr Guard Bot</string>
     <string name="cd_dismiss_hint">Dismiss hint</string>
     <string name="category_ssl">SSL/TLS</string>
     <string name="analysis_suspicious_path_desc">URL path contains keywords commonly used in phishing.</string>
