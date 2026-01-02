@@ -379,8 +379,7 @@ private fun SafeResultContent(
                                 Text(t("AI Verdict Logic"), fontSize = 14.sp, fontWeight = FontWeight.Bold, color = colors.textMain)
                             }
                             Text(
-                                verdictDetails?.summary?.let { t(it) }
-                                    ?: t("The ML model classified this URL as benign with high certainty. The structure matches known legitimate authentication patterns."),
+                                tf("This URL appears to be safe with a risk score of %d. No significant phishing indicators were detected.", assessment.score),
                                 fontSize = 12.sp,
                                 color = colors.textSub
                             )

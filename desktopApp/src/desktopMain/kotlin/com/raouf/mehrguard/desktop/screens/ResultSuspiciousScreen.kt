@@ -375,8 +375,7 @@ private fun SuspiciousContent(
                                     }
                                 }
                                 Text(
-                                    verdictDetails?.summary?.let { t(it) }
-                                        ?: t(assessment.actionRecommendation),
+                                    tf("This URL has some suspicious characteristics with a risk score of %d. Several potential phishing indicators were found.", assessment.score),
                                     fontSize = 13.sp,
                                     color = colors.textSub,
                                     lineHeight = 18.sp,

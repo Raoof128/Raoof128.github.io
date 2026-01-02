@@ -30,6 +30,50 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.28] - 2026-01-02
+
+### Raouf: Result Screen Translation Fix & Judge Mode UX
+
+**Date:** 2026-01-02 (Australia/Sydney)
+**Scope:** Desktop App - Result Screen Translations & Judge Mode UX
+**Summary:** Fixed hardcoded result screen descriptions that weren't translating and added horizontal scrollbar to Judge Mode scenarios section.
+
+#### Translation Fixes
+- Fixed result screen descriptions in `ResultDangerousScreen.kt`, `ResultSuspiciousScreen.kt`, and `ResultSafeScreen.kt`
+- Changed from translating pre-formatted strings to using `tf()` format function with score parameter
+- Root cause: `VerdictEngine` generates summaries with embedded scores, but translation keys use `%d` placeholders
+
+**Before (broken):**
+```kotlin
+verdictDetails?.summary?.let { t(it) } ?: t(assessment.actionRecommendation)
+```
+
+**After (fixed):**
+```kotlin
+tf("This URL is likely malicious with a high risk score of %d. Multiple strong phishing indicators were detected.", assessment.score)
+tf("This URL has some suspicious characteristics with a risk score of %d. Several potential phishing indicators were found.", assessment.score)
+tf("This URL appears to be safe with a risk score of %d. No significant phishing indicators were detected.", assessment.score)
+```
+
+#### Judge Mode UX Enhancement
+- Added `HorizontalScrollbar` component to Red Team scenarios section in `LiveScanScreen.kt`
+- Custom red-themed styling matching Judge Mode UI
+- Shows on hover for easy navigation through all 18 attack scenarios
+- Uses `rememberScrollbarAdapter()` for proper Compose integration
+
+#### Files Changed
+- `desktopApp/src/desktopMain/kotlin/com/raouf/mehrguard/desktop/screens/ResultDangerousScreen.kt`
+- `desktopApp/src/desktopMain/kotlin/com/raouf/mehrguard/desktop/screens/ResultSuspiciousScreen.kt`
+- `desktopApp/src/desktopMain/kotlin/com/raouf/mehrguard/desktop/screens/ResultSafeScreen.kt`
+- `desktopApp/src/desktopMain/kotlin/com/raouf/mehrguard/desktop/screens/LiveScanScreen.kt`
+
+#### Verification
+- All result screen descriptions now properly translate across all 18 languages
+- Judge Mode scenarios are easily accessible with horizontal scrolling
+- Build successful: `./gradlew :desktopApp:compileKotlinDesktop`
+
+---
+
 ## [2.0.27] - 2026-01-02
 
 ### Raouf: Desktop App Hebrew & Persian Localization Parity

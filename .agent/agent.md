@@ -257,6 +257,64 @@ Any important notes for future agents.
 
 ---
 
+# 🖥️ January 2, 2026 (Session 10k+82) - Result Screen Translation Fix & Judge Mode UX
+
+### Summary
+Fixed hardcoded result screen descriptions that weren't translating and added horizontal scrollbar to Judge Mode scenarios section for better UX.
+
+## ✅ Changes Made
+
+### Problem Identified
+1. Result screen descriptions (Safe/Suspicious/Dangerous) were hardcoded in English and not translating
+2. Judge Mode Red Team scenarios section lacked horizontal scrollbar for easy navigation through 18 attack scenarios
+
+### Root Cause Analysis
+The `VerdictEngine` generates summaries with scores already embedded (e.g., "score of 39"), but the translation system has keys with `%d` placeholders. The code was trying to translate pre-formatted strings which failed to match.
+
+### Files Updated
+| File | Change |
+|------|--------|
+| `desktopApp/.../screens/ResultDangerousScreen.kt` | Fixed malicious URL description to use `tf()` with score |
+| `desktopApp/.../screens/ResultSuspiciousScreen.kt` | Fixed suspicious URL description to use `tf()` with score |
+| `desktopApp/.../screens/ResultSafeScreen.kt` | Fixed safe URL description to use `tf()` with score |
+| `desktopApp/.../screens/LiveScanScreen.kt` | Added horizontal scrollbar to Red Team scenarios section |
+| `CHANGELOG.md` | v2.0.28 entry |
+| `.agent/agent.md` | Session history |
+
+### Translation Fixes Applied
+**Before (broken):**
+```kotlin
+verdictDetails?.summary?.let { t(it) } ?: t(assessment.actionRecommendation)
+```
+
+**After (fixed):**
+```kotlin
+tf("This URL is likely malicious with a high risk score of %d. Multiple strong phishing indicators were detected.", assessment.score)
+tf("This URL has some suspicious characteristics with a risk score of %d. Several potential phishing indicators were found.", assessment.score)
+tf("This URL appears to be safe with a risk score of %d. No significant phishing indicators were detected.", assessment.score)
+```
+
+### Judge Mode UX Enhancement
+- Added `HorizontalScrollbar` component with custom red-themed styling
+- Matches Judge Mode UI color scheme (red theme)
+- Shows on hover for easy navigation through all 18 attack scenarios
+- Uses `rememberScrollbarAdapter()` for proper Compose integration
+
+## ✅ Build Verification
+
+```bash
+./gradlew :desktopApp:compileKotlinDesktop
+# BUILD SUCCESSFUL
+```
+
+### Notes
+- Result screen descriptions now properly translate across all 18 languages
+- Judge Mode scenarios are now easily accessible with horizontal scrolling
+- All translation strings were already present in language files (from previous sessions)
+- The issue was the code wasn't using the format function properly
+
+---
+
 # 🖥️ January 2, 2026 (Session 10k+81) - Desktop Hebrew & Persian Localization Parity
 
 ### Summary

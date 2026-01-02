@@ -352,8 +352,7 @@ private fun DangerousContent(viewModel: AppViewModel, onNavigate: (AppScreen) ->
                             }
                         }
                         Text(
-                            verdictDetails?.summary?.let { t(it) }
-                                ?: t(assessment.actionRecommendation),
+                            tf("This URL is likely malicious with a high risk score of %d. Multiple strong phishing indicators were detected.", assessment.score),
                             fontSize = 12.sp,
                             color = colors.textSub
                         )

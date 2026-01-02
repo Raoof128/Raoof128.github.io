@@ -808,11 +808,24 @@ private fun EmptyRecentRow(text: String, colors: com.raouf.mehrguard.desktop.the
 private fun KeyValueRow(label: String, value: String, colors: com.raouf.mehrguard.desktop.theme.ColorTokens) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(label, fontSize = 14.sp, color = colors.textSub, letterSpacing = 0.sp)
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(value, fontSize = 14.sp, fontWeight = FontWeight.SemiBold, color = colors.textMain, letterSpacing = 0.sp)
+        Text(
+            text = label,
+            fontSize = 14.sp,
+            color = colors.textSub,
+            letterSpacing = 0.sp,
+            modifier = Modifier.weight(1f)
+        )
+        Spacer(modifier = Modifier.width(24.dp))
+        Text(
+            text = value,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = colors.textMain,
+            letterSpacing = 0.sp,
+            textAlign = TextAlign.End
+        )
     }
 }

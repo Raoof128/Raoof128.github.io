@@ -12,9 +12,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.HorizontalScrollbar
+import androidx.compose.foundation.LocalScrollbarStyle
+import androidx.compose.foundation.ScrollbarStyle
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.focusable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -269,18 +273,33 @@ private fun LiveScanContent(
                                         color = Color(0xFFAB7878)
                                     )
                                 }
-                                Row(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .horizontalScroll(rememberScrollState()),
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                                ) {
-                                    RedTeamScenarios.SCENARIOS.forEach { scenario ->
-                                        RedTeamChip(
-                                            scenario = scenario,
-                                            onClick = { viewModel.analyzeUrlDirectly(scenario.maliciousUrl) }
-                                        )
+                                val redTeamScrollState = rememberScrollState()
+                                Column {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .horizontalScroll(redTeamScrollState),
+                                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        RedTeamScenarios.SCENARIOS.forEach { scenario ->
+                                            RedTeamChip(
+                                                scenario = scenario,
+                                                onClick = { viewModel.analyzeUrlDirectly(scenario.maliciousUrl) }
+                                            )
+                                        }
                                     }
+                                    HorizontalScrollbar(
+                                        adapter = rememberScrollbarAdapter(redTeamScrollState),
+                                        modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                                        style = ScrollbarStyle(
+                                            minimalHeight = 16.dp,
+                                            thickness = 6.dp,
+                                            shape = RoundedCornerShape(3.dp),
+                                            hoverDurationMillis = 300,
+                                            unhoverColor = Color(0xFFAB7878).copy(alpha = 0.4f),
+                                            hoverColor = Color(0xFFFF6B6B)
+                                        )
+                                    )
                                 }
                                 Text(
                                     t("Tap any scenario to bypass camera and test detection engine directly"),
