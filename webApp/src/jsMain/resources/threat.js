@@ -465,11 +465,11 @@ function renderAttackCards() {
                 content = `
                     <div class="domain-comparison">
                         <div class="domain-item">
-                            <span class="domain-label">${translateText('Visual Appearance')}</span>
+                            <span class="domain-label">${translateText('VisualAppearance')}</span>
                             <span class="domain-value safe">${attack.visual}</span>
                         </div>
                         <div class="domain-item">
-                            <span class="domain-label">${translateText('Actual Domain')}</span>
+                            <span class="domain-label">${translateText('ActualDomain')}</span>
                             <span class="domain-value danger">${attack.actual}</span>
                         </div>
                     </div>
@@ -662,11 +662,11 @@ function getVerdictClass(verdict) {
 
 function getVerdictLabel(verdict) {
     switch (verdict) {
-        case 'HIGH': return translateText('High Risk');
-        case 'MEDIUM': return translateText('Warning');
-        case 'LOW': return translateText('Low Risk');
-        case 'SAFE': return translateText('Safe');
-        default: return translateText('Unknown');
+        case 'HIGH': return translateText('HighRisk');
+        case 'MEDIUM': return translateText('VerdictWarning');
+        case 'LOW': return translateText('LowRisk');
+        case 'SAFE': return translateText('VerdictSafeLabel');
+        default: return translateText('UnknownVerdict');
     }
 }
 
@@ -681,7 +681,7 @@ function getVerdictIcon(verdict) {
 }
 
 function truncateUrl(url) {
-    if (!url) return translateText('Unknown URL');
+    if (!url) return translateText('UnknownUrl');
     if (url.length > 50) {
         return url.substring(0, 47) + '...';
     }
@@ -929,56 +929,56 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
             if (signalLower.includes('punycode') || signalLower.includes('homograph') || signalLower.includes('idn')) {
                 attacks.push({
                     type: 'homograph',
-                    title: translateText('Homograph / IDN Attack'),
+                    title: translateText('HomographIdnAttack'),
                     description: signal,
                     visual: domain.replace(/^xn--/, '').replace(/-[a-z0-9]+$/, ''),
                     actual: domain,
-                    explanation: translateText('This domain uses international characters that may mimic legitimate domains.'),
+                    explanation: translateText('DomainUsesInternationalChars'),
                 });
             } else if (signalLower.includes('shortener') || signalLower.includes('redirect') || signalLower.includes('bit.ly') || signalLower.includes('tracking')) {
                 attacks.push({
                     type: 'redirect',
-                    title: translateText('Redirect/Shortener Detected'),
+                    title: translateText('RedirectShortenerDetected'),
                     description: signal,
                     chain: [
-                        { label: translateText('Scanned URL'), url: url, status: 'warning' },
+                        { label: translateText('ScannedURLLabel'), url: url, status: 'warning' },
                     ],
                 });
             } else if (signalLower.includes('suspicious') && signalLower.includes('tld')) {
                 attacks.push({
                     type: 'suspicious_tld',
-                    title: translateText('Suspicious TLD'),
+                    title: translateText('SuspiciousTld'),
                     description: signal,
                 });
             } else if (signalLower.includes('brand') || signalLower.includes('impersonat')) {
                 attacks.push({
                     type: 'brand_impersonation',
-                    title: translateText('Brand Impersonation'),
+                    title: translateText('BrandImpersonation'),
                     description: signal,
                 });
             } else if (signalLower.includes('entropy') || signalLower.includes('obfuscat') || signalLower.includes('encoded')) {
                 attacks.push({
                     type: 'obfuscation',
-                    title: translateText('Suspicious Encoding'),
+                    title: translateText('SuspiciousEncoding'),
                     description: signal,
                 });
             } else if (signalLower.includes('phish') || signalLower.includes('credential')) {
                 attacks.push({
                     type: 'phishing',
-                    title: translateText('Phishing Indicators'),
+                    title: translateText('PhishingIndicators'),
                     description: signal,
                 });
             } else if (signalLower.includes('keyword') || signalLower.includes('login') || signalLower.includes('verify')) {
                 attacks.push({
                     type: 'suspicious_keywords',
-                    title: translateText('Suspicious Keywords'),
+                    title: translateText('SuspiciousKeywords'),
                     description: signal,
                 });
             } else {
                 // Generic signal - still show it!
                 attacks.push({
                     type: 'heuristic',
-                    title: translateText('Security Signal'),
+                    title: translateText('SecuritySignal'),
                     description: signal,
                 });
             }
@@ -993,11 +993,11 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
     if (domain.startsWith('xn--') || /[^\x00-\x7F]/.test(domain)) {
         attacks.push({
             type: 'homograph',
-            title: translateText('Homograph / IDN Attack'),
-            description: translateText('Internationalized domain name detected.'),
+            title: translateText('HomographIdnAttack'),
+            description: translateText('InternationalizedDomainDetected'),
             visual: domain.replace(/^xn--/, '').replace(/-[a-z0-9]+$/, ''),
             actual: domain,
-            explanation: translateText('This domain uses international characters that may mimic legitimate domains.'),
+            explanation: translateText('DomainUsesInternationalChars'),
         });
     }
 
@@ -1006,11 +1006,11 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
     if (shorteners.some(s => domain.includes(s))) {
         attacks.push({
             type: 'redirect',
-            title: translateText('URL Shortener Detected'),
-            description: translateText('URL uses a shortening service that hides the final destination.'),
+            title: translateText('UrlShortenerDetected'),
+            description: translateText('UrlShortenerDesc'),
             chain: [
-                { label: translateText('Scanned URL'), url: url, status: 'warning' },
-                { label: translateText('Hidden Destination'), url: '???', status: 'danger' },
+                { label: translateText('ScannedURLLabel'), url: url, status: 'warning' },
+                { label: translateText('HiddenDestination'), url: '???', status: 'danger' },
             ],
         });
     }
@@ -1022,8 +1022,8 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
         if (params.length > 100 || /eval|script|exec|base64/i.test(params)) {
             attacks.push({
                 type: 'obfuscation',
-                title: translateText('Suspicious URL Parameters'),
-                description: translateText('URL contains complex or potentially obfuscated parameters.'),
+                title: translateText('SuspiciousUrlParams'),
+                description: translateText('SuspiciousUrlParamsDesc'),
                 code: params.substring(0, 200) + (params.length > 200 ? '...' : ''),
             });
         }
@@ -1036,8 +1036,8 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
     if (suspiciousTlds.some(tld => domain.endsWith(tld))) {
         attacks.push({
             type: 'suspicious_tld',
-            title: translateText('Suspicious Domain'),
-            description: formatText(translateText('Domain uses {tld} TLD commonly associated with malicious sites.'),
+            title: translateText('SuspiciousDomain'),
+            description: formatText(translateText('SuspiciousTldDesc'),
                 { tld: domain.split('.').pop() }),
         });
     }
@@ -1046,8 +1046,8 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
     if (attacks.length === 0 && (verdict === 'HIGH' || verdict === 'MALICIOUS')) {
         attacks.push({
             type: 'heuristic',
-            title: translateText('Heuristic Analysis'),
-            description: translateText('URL flagged based on multiple risk factors detected by the analysis engine.'),
+            title: translateText('HeuristicAnalysis'),
+            description: translateText('HeuristicAnalysisDesc'),
         });
     }
 

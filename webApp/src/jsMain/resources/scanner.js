@@ -699,6 +699,8 @@ function renderHistory() {
         let verdictText = item.verdict;
         if (verdictText === 'HIGH') verdictText = translateText('Malicious');
         else if (verdictText === 'MEDIUM') verdictText = translateText('Suspicious');
+        else if (verdictText === 'SAFE') verdictText = translateText('VerdictSafeLabel');
+        else if (verdictText === 'LOW') verdictText = translateText('LowRisk');
         else verdictText = translateText(verdictText.charAt(0) + verdictText.slice(1).toLowerCase());
 
         const timeAgo = getTimeAgo(item.timestamp);
@@ -729,8 +731,8 @@ function updateLiveStatus(text, state) {
 
     if (liveText) {
         liveText.textContent = state === 'connected'
-            ? translateText('LIVE FEED ACTIVE')
-            : translateText('LIVE FEED DISCONNECTED');
+            ? translateText('LiveFeedActive')
+            : translateText('LiveFeedDisconnected');
     }
 
     if (liveDot) {
@@ -851,7 +853,7 @@ function getDomainFromUrl(url) {
 function getTimeAgo(timestamp) {
     const seconds = Math.floor((Date.now() - timestamp) / 1000);
 
-    if (seconds < 60) return translateText('Just now');
+    if (seconds < 60) return translateText('JustNow');
     if (seconds < 3600) {
         const minutes = Math.floor(seconds / 60);
         return minutes === 1

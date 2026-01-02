@@ -281,7 +281,7 @@ enum class WebStringKey(val defaultText: String) {
     ShareReport("Share Report"),
     CopyLink("Copy Link"),
     LinkCopied("Link copied to clipboard!"),
-    
+
     // Game Page
     BeatTheBot("Beat the Bot"),
     BeatTheBotDesc("Challenge our offline AI engine. Can you spot the phish faster?"),
@@ -525,6 +525,8 @@ enum class WebStringKey(val defaultText: String) {
     Thai("Thai"),
     Turkish("Turkish"),
     Vietnamese("Vietnamese"),
+    Hebrew("Hebrew"),
+    Persian("Persian"),
     
     // Component Voting System
     ComponentVoting("Component Voting"),
@@ -579,7 +581,66 @@ enum class WebStringKey(val defaultText: String) {
     SettingsLanguageDesc("Choose your preferred language"),
     SettingsSavedAutomatically("Settings are saved automatically and sync across sessions."),
     ResetDefaults("Reset Defaults"),
-    SaveAndContinue("Save & Continue")
+    SaveAndContinue("Save & Continue"),
+    
+    // Security Signals & Heuristics (for dynamic attack cards)
+    SecuritySignal("Security Signal"),
+    HighRisk("High Risk"),
+    LowRisk("Low Risk"),
+    Unknown("Unknown"),
+    UnknownURL("Unknown URL"),
+    VisualAppearance("Visual Appearance"),
+    ActualDomain("Actual Domain"),
+    
+    // Result Page Verdict Labels
+    ScanCompleteLabel("Scan Complete"),
+    SafeToVisit("SAFE TO VISIT"),
+    SafeToVisitDesc("Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or blacklist matches found."),
+    SafetyScore("Safety Score"),
+    CautionAdvised("Caution Advised"),
+    ProceedWithCaution("PROCEED WITH CAUTION"),
+    ProceedWithCautionDesc("Some suspicious indicators detected. Verify the source before entering sensitive information."),
+    ThreatDetected("Threat Detected"),
+    DoNotVisit("DO NOT VISIT"),
+    DoNotVisitDesc("High-confidence phishing detected. This URL exhibits multiple malicious indicators."),
+    AnalysisComplete("Analysis Complete"),
+    UnableToDetermine("Unable to determine verdict. Please try again."),
+    LowRiskLabel("LOW RISK"),
+    MediumRiskLabel("MEDIUM RISK"),
+    HighRiskLabel("HIGH RISK"),
+    NoData("NO DATA"),
+    AwaitingScanLabel("Awaiting Scan"),
+    NoScanDataResults("No scan data available. Please scan a URL to see analysis results."),
+    WaitingForAnalysisLabel("Waiting for analysis..."),
+    NoUrlScanned("No URL scanned"),
+    ScanToAnalyze("Scan a QR code or enter a URL to analyze."),
+    GoToScanner("Go to Scanner"),
+    
+    // Attack Type Labels
+    HomographIdnAttack("Homograph / IDN Attack"),
+    InternationalizedDomainDetected("Internationalized domain name detected."),
+    DomainUsesInternationalChars("This domain uses international characters that may mimic legitimate domains."),
+    RedirectShortenerDetected("Redirect/Shortener Detected"),
+    UrlShortenerDetected("URL Shortener Detected"),
+    UrlShortenerDesc("URL uses a shortening service that hides the final destination."),
+    ScannedURLLabel("Scanned URL"),
+    HiddenDestination("Hidden Destination"),
+    SuspiciousTld("Suspicious TLD"),
+    BrandImpersonation("Brand Impersonation"),
+    SuspiciousEncoding("Suspicious Encoding"),
+    PhishingIndicators("Phishing Indicators"),
+    SuspiciousKeywords("Suspicious Keywords"),
+    SuspiciousUrlParams("Suspicious URL Parameters"),
+    SuspiciousUrlParamsDesc("URL contains complex or potentially obfuscated parameters."),
+    SuspiciousDomain("Suspicious Domain"),
+    SuspiciousTldDesc("Domain uses {tld} TLD commonly associated with malicious sites."),
+    HeuristicAnalysis("Heuristic Analysis"),
+    HeuristicAnalysisDesc("URL flagged based on multiple risk factors detected by the analysis engine."),
+    
+    // Scanner Page Labels
+    Malicious("Malicious"),
+    LiveFeedActive("LIVE FEED ACTIVE"),
+    JustNow("Just now")
 }
 
 object WebStrings {

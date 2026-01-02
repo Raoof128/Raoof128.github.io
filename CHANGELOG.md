@@ -30,6 +30,74 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.33] - 2026-01-02
+
+### Raouf: Web App i18n - Scanner/Results JS Files + 70+ Missing Keys
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Complete i18n for scanner, results, and threat analysis pages
+
+#### Problem
+Continued from v2.0.32 - Additional hardcoded English strings discovered in:
+1. **Scanner Page**: "LIVE FEED ACTIVE", "LIVE FEED DISCONNECTED", "Just now", verdict labels
+2. **Results Page**: "NO DATA", "AWAITING SCAN", "No URL scanned", "Go to Scanner", risk meter labels
+3. **Threat Analysis Cards**: "Security Signal", "High Risk", "Low Risk", "Unknown", attack descriptions
+4. **Missing Language Keys**: `Hebrew` and `Persian` missing from WebStringKey enum
+
+#### Solution
+1. **Fixed JavaScript files** to use translation keys:
+   - `threat.js`: getVerdictLabel(), truncateUrl(), attack card labels
+   - `results.js`: showNoDataState(), updateRiskMeter()
+   - `scanner.js`: live feed status, verdict labels, timestamps
+
+2. **Added 70+ new WebStringKey entries** for:
+   - Security signals: SecuritySignal, HighRisk, LowRisk, Unknown, UnknownURL
+   - Result verdicts: ScanCompleteLabel, SafeToVisit, DoNotVisit, ProceedWithCaution
+   - Scanner labels: Malicious, LiveFeedActive, JustNow
+   - Attack types: HomographIdnAttack, UrlShortenerDetected, SuspiciousTld, etc.
+   - Settings: SettingsDetection, SettingsLanguage, SensitivityStrict, etc.
+   - Fixed missing: Hebrew, Persian language name keys
+
+3. **Translated all 70+ keys to all 18 languages**
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| WebStrings.kt | +70+ new WebStringKey entries including Hebrew/Persian |
+| threat.js | getVerdictLabel() uses HighRisk/VerdictWarning/LowRisk/VerdictSafeLabel keys |
+| results.js | showNoDataState() uses 6 i18n keys, updateRiskMeter() uses HighRiskLabel |
+| scanner.js | Uses LiveFeedActive/LiveFeedDisconnected, JustNow, proper verdict keys |
+| WebStringsAr.kt | +72 Arabic translations |
+| WebStringsDe.kt | +72 German translations |
+| WebStringsEs.kt | +72 Spanish translations |
+| WebStringsFa.kt | +72 Persian translations |
+| WebStringsFr.kt | +72 French translations |
+| WebStringsHe.kt | +72 Hebrew translations |
+| WebStringsHi.kt | +72 Hindi translations |
+| WebStringsIn.kt | +72 Indonesian translations |
+| WebStringsIt.kt | +72 Italian translations |
+| WebStringsJa.kt | +72 Japanese translations |
+| WebStringsKo.kt | +72 Korean translations |
+| WebStringsPt.kt | +72 Portuguese translations |
+| WebStringsRu.kt | +72 Russian translations |
+| WebStringsTh.kt | +72 Thai translations |
+| WebStringsTr.kt | +72 Turkish translations |
+| WebStringsVi.kt | +72 Vietnamese translations |
+| WebStringsZh.kt | +72 Chinese translations |
+
+#### Verification
+```bash
+./gradlew :webApp:compileKotlinJs
+# BUILD SUCCESSFUL
+```
+
+#### Technical Notes
+- Fixed duplicate key error: LiveFeedDisconnected existed at lines 161 and 641
+- Added Hebrew/Persian to WebStringKey enum (they existed in WebLanguage but not WebStringKey)
+- All translation files now have matching key sets
+
+---
+
 ## [2.0.32] - 2026-01-02
 
 ### Raouf: Web App Hardcoded English Strings → All 18 Languages

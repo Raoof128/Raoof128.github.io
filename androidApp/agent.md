@@ -179,6 +179,45 @@ After making changes:
 
 ---
 
+## Raouf: Web App i18n - Scanner/Results JS + 70+ Missing Keys (2026-01-02 AEDT)
+
+**Scope:** Complete i18n for scanner, results, and threat analysis pages in Web App
+
+**Problem:**
+- Scanner Page: hardcoded "LIVE FEED ACTIVE", "LIVE FEED DISCONNECTED", "Just now"
+- Results Page: hardcoded "NO DATA", "AWAITING SCAN", "No URL scanned", "Go to Scanner"
+- Threat Analysis Cards: hardcoded "Security Signal", "High Risk", "Low Risk"
+- Missing keys: `Hebrew` and `Persian` not in WebStringKey enum
+
+**Solution:**
+1. Fixed JavaScript files to use translation keys:
+   - `threat.js`: getVerdictLabel(), truncateUrl()
+   - `results.js`: showNoDataState(), updateRiskMeter()
+   - `scanner.js`: live feed status, verdict labels
+
+2. Added 70+ new WebStringKey entries:
+   - Security signals: SecuritySignal, HighRisk, LowRisk, Unknown
+   - Result verdicts: ScanCompleteLabel, SafeToVisit, DoNotVisit
+   - Scanner labels: Malicious, LiveFeedActive, JustNow
+   - Attack types: HomographIdnAttack, UrlShortenerDetected, etc.
+   - Added missing: Hebrew, Persian language name keys
+
+3. Translated all 70+ keys to 18 languages
+
+**Files Modified:**
+| Category | Files |
+|----------|-------|
+| Core | WebStrings.kt, threat.js, results.js, scanner.js |
+| Translations | All 17 WebStrings*.kt files |
+
+**Technical Notes:**
+- Fixed duplicate key error: LiveFeedDisconnected at lines 161 and 641
+- Added Hebrew/Persian to WebStringKey (existed in WebLanguage but not WebStringKey)
+
+**Verification:** `./gradlew :webApp:compileKotlinJs` ✅ BUILD SUCCESSFUL
+
+---
+
 ## Raouf: Web App Hardcoded English → 18 Languages (2026-01-02 AEDT)
 
 **Scope:** Complete i18n for verdict screens and data lifecycle table in Web App

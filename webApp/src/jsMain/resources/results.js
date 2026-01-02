@@ -616,15 +616,15 @@ function updateVerdictDisplay(verdict, confidence) {
             statusIcon.textContent = 'check_circle';
             statusIcon.style.backgroundColor = 'rgba(22, 163, 74, 0.2)';
             statusIcon.style.color = '#16a34a';
-            statusTitle.textContent = translateText('Scan Complete');
+            statusTitle.textContent = translateText('ScanCompleteLabel');
             verdictIcon.textContent = 'shield_lock';
             verdictIcon.style.color = '#16a34a';
-            verdictTitle.textContent = translateText('SAFE TO VISIT');
-            verdictDescription.textContent = translateText('Verified by local heuristics v2.4. No phishing patterns, obfuscated scripts, or blacklist matches found.');
+            verdictTitle.textContent = translateText('SafeToVisit');
+            verdictDescription.textContent = translateText('SafeToVisitDesc');
             // For SAFE: Show SAFETY score (100 - risk), minimum 92%
             const safetyScore = Math.max(100 - riskScore, 92);
             confidenceScore.textContent = `${safetyScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = translateText('Safety Score');
+            if (confidenceLabel) confidenceLabel.textContent = translateText('SafetyScore');
             break;
 
         case 'SUSPICIOUS':
@@ -632,14 +632,14 @@ function updateVerdictDisplay(verdict, confidence) {
             statusIcon.textContent = 'warning';
             statusIcon.style.backgroundColor = 'rgba(245, 158, 11, 0.2)';
             statusIcon.style.color = '#f59e0b';
-            statusTitle.textContent = translateText('Caution Advised');
+            statusTitle.textContent = translateText('CautionAdvised');
             verdictIcon.textContent = 'shield';
             verdictIcon.style.color = '#f59e0b';
-            verdictTitle.textContent = translateText('PROCEED WITH CAUTION');
-            verdictDescription.textContent = translateText('Some suspicious indicators detected. Verify the source before entering sensitive information.');
+            verdictTitle.textContent = translateText('ProceedWithCaution');
+            verdictDescription.textContent = translateText('ProceedWithCautionDesc');
             // For SUSPICIOUS: Show the RISK score directly
             confidenceScore.textContent = `${riskScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = translateText('Risk Score');
+            if (confidenceLabel) confidenceLabel.textContent = translateText('RiskScore');
             break;
 
         case 'MALICIOUS':
@@ -647,22 +647,22 @@ function updateVerdictDisplay(verdict, confidence) {
             statusIcon.textContent = 'error';
             statusIcon.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
             statusIcon.style.color = '#ef4444';
-            statusTitle.textContent = translateText('Threat Detected');
+            statusTitle.textContent = translateText('ThreatDetected');
             verdictIcon.textContent = 'gpp_bad';
             verdictIcon.style.color = '#ef4444';
-            verdictTitle.textContent = translateText('DO NOT VISIT');
-            verdictDescription.textContent = translateText('High-confidence phishing detected. This URL exhibits multiple malicious indicators.');
+            verdictTitle.textContent = translateText('DoNotVisit');
+            verdictDescription.textContent = translateText('DoNotVisitDesc');
             // For MALICIOUS: Show the RISK score directly
             confidenceScore.textContent = `${riskScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = translateText('Risk Score');
+            if (confidenceLabel) confidenceLabel.textContent = translateText('RiskScore');
             break;
 
         default:
-            statusTitle.textContent = translateText('Analysis Complete');
-            verdictTitle.textContent = translateText('UNKNOWN');
-            verdictDescription.textContent = translateText('Unable to determine verdict. Please try again.');
+            statusTitle.textContent = translateText('AnalysisComplete');
+            verdictTitle.textContent = translateText('Unknown');
+            verdictDescription.textContent = translateText('UnableToDetermine');
             confidenceScore.textContent = `${riskScore}%`;
-            if (confidenceLabel) confidenceLabel.textContent = translateText('Confidence Score');
+            if (confidenceLabel) confidenceLabel.textContent = translateText('ConfidenceScore');
     }
 }
 
@@ -694,7 +694,7 @@ function updateRiskMeter(verdict) {
 
     switch (verdict) {
         case 'SAFE':
-            riskBadge.textContent = translateText('LOW RISK');
+            riskBadge.textContent = translateText('LowRiskLabel');
             riskBadge.className = 'risk-badge';
             // Use stronger/darker green in light mode for better visibility
             const safeColor = isLightMode ? '#15803d' : '#22c55e';
@@ -713,7 +713,7 @@ function updateRiskMeter(verdict) {
             break;
 
         case 'SUSPICIOUS':
-            riskBadge.textContent = translateText('MEDIUM RISK');
+            riskBadge.textContent = translateText('MediumRiskLabel');
             riskBadge.className = 'risk-badge warning';
             const warnColor = isLightMode ? '#d97706' : '#f59e0b';
             const warnGlow = isLightMode ? 'rgba(217, 119, 6, 0.5)' : 'rgba(245, 158, 11, 0.5)';
@@ -732,7 +732,7 @@ function updateRiskMeter(verdict) {
             break;
 
         case 'MALICIOUS':
-            riskBadge.textContent = translateText('HIGH RISK');
+            riskBadge.textContent = translateText('HighRiskLabel');
             riskBadge.className = 'risk-badge danger';
             const dangerColor = isLightMode ? '#dc2626' : '#ef4444';
             const dangerGlow = isLightMode ? 'rgba(220, 38, 38, 0.5)' : 'rgba(239, 68, 68, 0.5)';
@@ -1117,7 +1117,7 @@ function showNoDataState() {
     const statusTitle = document.querySelector('.status-badge .status-title');
     if (statusTitle) {
         statusTitle.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        statusTitle.textContent = translateText('Awaiting Scan');
+        statusTitle.textContent = translateText('VerdictAwaitingScan');
     }
 
     // Update verdict card to show "unknown" state
@@ -1129,7 +1129,7 @@ function showNoDataState() {
     const verdictBadge = document.querySelector('.verdict-badge');
     if (verdictBadge) {
         verdictBadge.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        verdictBadge.textContent = translateText('NO DATA');
+        verdictBadge.textContent = translateText('NoData');
         verdictBadge.className = 'verdict-badge unknown';
     }
 
@@ -1137,14 +1137,14 @@ function showNoDataState() {
     const verdictDescription = document.querySelector('.verdict-description');
     if (verdictDescription) {
         verdictDescription.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        verdictDescription.textContent = translateText('No scan data available. Please scan a URL to see analysis results.');
+        verdictDescription.textContent = translateText('NoScanDataUrl');
     }
 
     // Update verdict title
     const verdictTitle = document.getElementById('verdictTitle');
     if (verdictTitle) {
         verdictTitle.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        verdictTitle.textContent = translateText('Waiting for analysis...');
+        verdictTitle.textContent = translateText('WaitingForAnalysisDots');
     }
 
     // Update verdict icon
@@ -1170,7 +1170,7 @@ function showNoDataState() {
     const scannedUrl = document.getElementById('scannedUrl');
     if (scannedUrl) {
         scannedUrl.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        scannedUrl.textContent = translateText('No URL scanned');
+        scannedUrl.textContent = translateText('NoUrlScanned');
     }
 
     // Hide factors section or show empty message
@@ -1179,8 +1179,8 @@ function showNoDataState() {
         factorsGrid.innerHTML = `
             <div class="no-data-card">
                 <span class="material-symbols-outlined">info</span>
-                <p>${translateText('Scan a QR code or enter a URL to analyze.')}</p>
-                <a href="scanner.html" class="scan-link">${translateText('Go to Scanner')}</a>
+                <p>${translateText('ScanQrOrEnterUrl')}</p>
+                <a href="scanner.html" class="scan-link">${translateText('GoToScanner')}</a>
             </div>
         `;
     }
