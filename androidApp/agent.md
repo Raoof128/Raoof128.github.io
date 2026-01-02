@@ -592,3 +592,34 @@ After making changes:
 **String Count:** 697 keys (all 18 languages synced)
 
 **Verification:** `./gradlew :androidApp:compileDebugKotlin` ✅
+
+---
+
+## Raouf: [WEB APP] Rebranding & RTL Internationalisation (2026-01-02 AEDT)
+
+**Scope:** Web App ONLY – Strict rebranding (QRShield → MehrGuard) and i18n expansion for Hebrew (he) and Persian (fa).
+
+**Problem:** Legacy QRShield branding still present in WebStringKey enum names; Hebrew and Persian translations incomplete (189 keys vs 374 in Spanish).
+
+**Changes:**
+
+| Task | Details |
+|------|---------|
+| Rebranding | Renamed `QrShieldBot` → `MehrGuardBot`, `AboutQrShield` → `AboutMehrGuard` in 18 files |
+| Hebrew (he) | Expanded from 189 to 392 translation keys (+203 keys) |
+| Persian (fa) | Expanded from 189 to 392 translation keys (+203 keys) |
+| Bug Fix | Removed invalid `WebStringKey.Hebrew`/`WebStringKey.Persian` entries |
+
+**Files Modified:**
+- `webApp/src/jsMain/kotlin/ir/mehr/mehrguard/web/i18n/WebStrings.kt` – Rebranded 2 enum keys
+- `webApp/src/jsMain/kotlin/ir/mehr/mehrguard/web/i18n/WebStringsHe.kt` – +203 translations
+- `webApp/src/jsMain/kotlin/ir/mehr/mehrguard/web/i18n/WebStringsFa.kt` – +203 translations
+- 16 other `WebStrings*.kt` files – Updated key references
+
+**Scope Confirmation:**
+- ✅ Web App modified
+- ❌ Desktop App NOT touched
+- ❌ Android App NOT touched  
+- ❌ iOS App NOT touched
+
+**Verification:** `./gradlew :webApp:compileKotlinJs` ✅ BUILD SUCCESSFUL

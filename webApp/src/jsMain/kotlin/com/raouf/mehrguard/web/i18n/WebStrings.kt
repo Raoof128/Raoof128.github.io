@@ -273,7 +273,7 @@ enum class WebStringKey(val defaultText: String) {
     Points("pts"),
     Streak("Streak"),
     Accuracy("Accuracy"),
-    QrShieldBot("Mehr Guard Bot"),
+    MehrGuardBot("Mehr Guard Bot"),
     Confidence("Confidence"),
     RoundAnalysis("Round Analysis"),
     Analysis("Analysis"),
@@ -415,7 +415,7 @@ enum class WebStringKey(val defaultText: String) {
     CopyTrustedUrls("Copy trusted URLs to clipboard."),
     
     // Trust Centre - About
-    AboutQrShield("About Mehr Guard"),
+    AboutMehrGuard("About Mehr Guard"),
     OpenSourceLicenses("Open Source Licenses"),
     PrivacyPolicy("Privacy Policy"),
     Acknowledgements("Acknowledgements"),

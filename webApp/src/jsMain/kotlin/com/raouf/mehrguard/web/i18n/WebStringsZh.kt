@@ -189,7 +189,7 @@ internal val ChineseStrings = mapOf(
     WebStringKey.Points to "分",
     WebStringKey.Streak to "连胜",
     WebStringKey.Accuracy to "准确度",
-    WebStringKey.QrShieldBot to "Mehr Guard 机器人",
+    WebStringKey.MehrGuardBot to "Mehr Guard 机器人",
     WebStringKey.Confidence to "置信度",
     WebStringKey.RoundAnalysis to "回合分析",
     WebStringKey.Analysis to "分析",
@@ -331,7 +331,7 @@ internal val ChineseStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "将受信任的URL复制到剪贴板。",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "关于Mehr Guard",
+    WebStringKey.AboutMehrGuard to "关于Mehr Guard",
     WebStringKey.OpenSourceLicenses to "开源许可证",
     WebStringKey.PrivacyPolicy to "隐私政策",
     WebStringKey.Acknowledgements to "致谢",
@@ -1322,4 +1322,25 @@ internal val ChineseCommonStrings = mapOf(
     "subdomain_chaining" to "子域名链",
     "suspicious_tld" to "可疑_tld",
     "threat_type" to "威胁类型",
+
+    // Accessibility & Settings keys (sync with other languages)
+    WebStringKey.AutoBlockThreats to "自动拦截威胁",
+    WebStringKey.CloseMenuModal to "关闭菜单/对话框",
+    WebStringKey.CompactView to "紧凑视图",
+    WebStringKey.GotIt to "知道了",
+    WebStringKey.KeyboardShortcuts to "键盘快捷键",
+    WebStringKey.NavigateToDashboard to "前往仪表板",
+    WebStringKey.NavigateToGame to "智斗机器人游戏",
+    WebStringKey.NavigateToHistory to "扫描历史",
+    WebStringKey.NavigateToTrust to "信任中心/白名单",
+    WebStringKey.RealTimeScanning to "实时扫描",
+    WebStringKey.ResetDefaults to "恢复默认",
+    WebStringKey.SaveAndContinue to "保存并继续",
+    WebStringKey.SecuritySettings to "安全设置",
+    WebStringKey.SensitivityLevel to "灵敏度级别",
+    WebStringKey.ShowConfidenceScore to "显示置信度分数",
+    WebStringKey.ShowHelp to "显示帮助",
+    WebStringKey.SoundAlerts to "声音提醒",
+    WebStringKey.StartScanner to "启动扫描器",
+    WebStringKey.ThreatAlerts to "威胁警报"
 )

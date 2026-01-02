@@ -186,7 +186,7 @@ internal val JapaneseStrings = mapOf(
     WebStringKey.Points to "ポイント",
     WebStringKey.Streak to "連続",
     WebStringKey.Accuracy to "精度",
-    WebStringKey.QrShieldBot to "Mehr Guardボット",
+    WebStringKey.MehrGuardBot to "Mehr Guardボット",
     WebStringKey.Confidence to "信頼度",
     WebStringKey.RoundAnalysis to "ラウンド分析",
     WebStringKey.Analysis to "分析",
@@ -304,7 +304,7 @@ internal val JapaneseStrings = mapOf(
     WebStringKey.ShareDetectionStats to "検出統計を共有",
     WebStringKey.AutoCopySafeLinks to "安全なリンクを自動コピー",
     WebStringKey.CopyTrustedUrls to "信頼されたURLをコピー",
-    WebStringKey.AboutQrShield to "Mehr Guardについて",
+    WebStringKey.AboutMehrGuard to "Mehr Guardについて",
     WebStringKey.OpenSourceLicenses to "オープンソースライセンス",
     WebStringKey.PrivacyPolicy to "プライバシーポリシー",
     WebStringKey.Acknowledgements to "謝辞",
@@ -378,7 +378,28 @@ internal val JapaneseStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "スキャン待機中...",
     WebStringKey.WaitingForAnalysis to "分析待機中...",
-    WebStringKey.ScanURLToSeeResults to "URLをスキャンして詳細な結果を確認してください。"
+    WebStringKey.ScanURLToSeeResults to "URLをスキャンして詳細な結果を確認してください。",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "キーボードショートカット",
+    WebStringKey.StartScanner to "スキャナーを開始",
+    WebStringKey.CloseMenuModal to "メニュー / モーダルを閉じる",
+    WebStringKey.NavigateToDashboard to "ダッシュボードへ移動",
+    WebStringKey.NavigateToHistory to "スキャン履歴",
+    WebStringKey.NavigateToTrust to "トラストセンター / 許可リスト",
+    WebStringKey.NavigateToGame to "ボットに勝てゲーム",
+    WebStringKey.ShowHelp to "ヘルプを表示",
+    WebStringKey.GotIt to "了解",
+    WebStringKey.SecuritySettings to "セキュリティ設定",
+    WebStringKey.SensitivityLevel to "感度レベル",
+    WebStringKey.AutoBlockThreats to "脅威を自動ブロック",
+    WebStringKey.RealTimeScanning to "リアルタイムスキャン",
+    WebStringKey.SoundAlerts to "音声アラート",
+    WebStringKey.ThreatAlerts to "脅威アラート",
+    WebStringKey.ShowConfidenceScore to "信頼スコアを表示",
+    WebStringKey.CompactView to "コンパクト表示",
+    WebStringKey.ResetDefaults to "デフォルトにリセット",
+    WebStringKey.SaveAndContinue to "保存して続行"
 )
 
 internal val JapaneseCommonStrings = mapOf(

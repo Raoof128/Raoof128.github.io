@@ -205,7 +205,7 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.Points to "pt",
     WebStringKey.Streak to "Sequência",
     WebStringKey.Accuracy to "Precisão",
-    WebStringKey.QrShieldBot to "Bot Mehr Guard",
+    WebStringKey.MehrGuardBot to "Bot Mehr Guard",
     WebStringKey.Confidence to "Confiança",
     WebStringKey.RoundAnalysis to "Análise da Rodada",
     WebStringKey.Analysis to "Análise",
@@ -347,7 +347,7 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "Copiar URLs confiáveis para a área de transferência.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "Sobre o Mehr Guard",
+    WebStringKey.AboutMehrGuard to "Sobre o Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Licenças de Código Aberto",
     WebStringKey.PrivacyPolicy to "Política de Privacidade",
     WebStringKey.Acknowledgements to "Agradecimentos",
@@ -441,7 +441,28 @@ internal val PortugueseStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "Aguardando varredura...",
     WebStringKey.WaitingForAnalysis to "Aguardando análise...",
-    WebStringKey.ScanURLToSeeResults to "Escaneie uma URL para ver os resultados detalhados."
+    WebStringKey.ScanURLToSeeResults to "Escaneie uma URL para ver os resultados detalhados.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Atalhos de Teclado",
+    WebStringKey.StartScanner to "Iniciar Scanner",
+    WebStringKey.CloseMenuModal to "Fechar Menu / Modal",
+    WebStringKey.NavigateToDashboard to "Ir para o Painel",
+    WebStringKey.NavigateToHistory to "Histórico de Varreduras",
+    WebStringKey.NavigateToTrust to "Centro de Confiança / Lista de Permitidos",
+    WebStringKey.NavigateToGame to "Jogo Vença o Bot",
+    WebStringKey.ShowHelp to "Mostrar Ajuda",
+    WebStringKey.GotIt to "Entendi",
+    WebStringKey.SecuritySettings to "Configurações de Segurança",
+    WebStringKey.SensitivityLevel to "Nível de Sensibilidade",
+    WebStringKey.AutoBlockThreats to "Bloquear Ameaças Automaticamente",
+    WebStringKey.RealTimeScanning to "Varredura em Tempo Real",
+    WebStringKey.SoundAlerts to "Alertas Sonoros",
+    WebStringKey.ThreatAlerts to "Alertas de Ameaças",
+    WebStringKey.ShowConfidenceScore to "Mostrar Pontuação de Confiança",
+    WebStringKey.CompactView to "Visualização Compacta",
+    WebStringKey.ResetDefaults to "Restaurar Padrões",
+    WebStringKey.SaveAndContinue to "Salvar e Continuar"
 )
 
 internal val PortugueseCommonStrings = mapOf(

@@ -205,7 +205,7 @@ internal val ItalianStrings = mapOf(
     WebStringKey.Points to "pt",
     WebStringKey.Streak to "Serie",
     WebStringKey.Accuracy to "Precisione",
-    WebStringKey.QrShieldBot to "Bot Mehr Guard",
+    WebStringKey.MehrGuardBot to "Bot Mehr Guard",
     WebStringKey.Confidence to "Confidenza",
     WebStringKey.RoundAnalysis to "Analisi Round",
     WebStringKey.Analysis to "Analisi",
@@ -347,7 +347,7 @@ internal val ItalianStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "Copia URL affidabili negli appunti.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "Informazioni su Mehr Guard",
+    WebStringKey.AboutMehrGuard to "Informazioni su Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Licenze Open Source",
     WebStringKey.PrivacyPolicy to "Informativa sulla Privacy",
     WebStringKey.Acknowledgements to "Ringraziamenti",
@@ -441,7 +441,28 @@ internal val ItalianStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "In attesa di scansione...",
     WebStringKey.WaitingForAnalysis to "In attesa di analisi...",
-    WebStringKey.ScanURLToSeeResults to "Scansiona un URL per vedere i risultati dettagliati."
+    WebStringKey.ScanURLToSeeResults to "Scansiona un URL per vedere i risultati dettagliati.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Scorciatoie da Tastiera",
+    WebStringKey.StartScanner to "Avvia Scanner",
+    WebStringKey.CloseMenuModal to "Chiudi Menu / Modale",
+    WebStringKey.NavigateToDashboard to "Vai alla Dashboard",
+    WebStringKey.NavigateToHistory to "Cronologia Scansioni",
+    WebStringKey.NavigateToTrust to "Centro Fiducia / Lista Consentiti",
+    WebStringKey.NavigateToGame to "Gioco Batti il Bot",
+    WebStringKey.ShowHelp to "Mostra Aiuto",
+    WebStringKey.GotIt to "Capito",
+    WebStringKey.SecuritySettings to "Impostazioni di Sicurezza",
+    WebStringKey.SensitivityLevel to "Livello di Sensibilità",
+    WebStringKey.AutoBlockThreats to "Blocca Minacce Automaticamente",
+    WebStringKey.RealTimeScanning to "Scansione in Tempo Reale",
+    WebStringKey.SoundAlerts to "Avvisi Sonori",
+    WebStringKey.ThreatAlerts to "Avvisi di Minacce",
+    WebStringKey.ShowConfidenceScore to "Mostra Punteggio di Confidenza",
+    WebStringKey.CompactView to "Vista Compatta",
+    WebStringKey.ResetDefaults to "Ripristina Predefiniti",
+    WebStringKey.SaveAndContinue to "Salva e Continua"
 )
 
 internal val ItalianCommonStrings = mapOf(

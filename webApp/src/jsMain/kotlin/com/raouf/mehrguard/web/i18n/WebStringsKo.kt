@@ -202,7 +202,7 @@ internal val KoreanStrings = mapOf(
     WebStringKey.Points to "포인트",
     WebStringKey.Streak to "연속",
     WebStringKey.Accuracy to "정확도",
-    WebStringKey.QrShieldBot to "Mehr Guard 봇",
+    WebStringKey.MehrGuardBot to "Mehr Guard 봇",
     WebStringKey.Confidence to "신뢰도",
     WebStringKey.RoundAnalysis to "라운드 분석",
     WebStringKey.Analysis to "분석",
@@ -320,7 +320,7 @@ internal val KoreanStrings = mapOf(
     WebStringKey.ShareDetectionStats to "탐지 통계 공유",
     WebStringKey.AutoCopySafeLinks to "안전한 링크 자동 복사",
     WebStringKey.CopyTrustedUrls to "신뢰할 수 있는 URL 복사",
-    WebStringKey.AboutQrShield to "Mehr Guard 정보",
+    WebStringKey.AboutMehrGuard to "Mehr Guard 정보",
     WebStringKey.OpenSourceLicenses to "오픈 소스 라이선스",
     WebStringKey.PrivacyPolicy to "개인정보 처리방침",
     WebStringKey.Acknowledgements to "감사의 글",
@@ -394,7 +394,28 @@ internal val KoreanStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "스캔 대기 중...",
     WebStringKey.WaitingForAnalysis to "분석 대기 중...",
-    WebStringKey.ScanURLToSeeResults to "URL을 스캔하여 상세 결과를 확인하세요."
+    WebStringKey.ScanURLToSeeResults to "URL을 스캠하여 상세 결과를 확인하세요.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "키보드 단축키",
+    WebStringKey.StartScanner to "스캠너 시작",
+    WebStringKey.CloseMenuModal to "메뉴 / 모달 닫기",
+    WebStringKey.NavigateToDashboard to "대시보드로 이동",
+    WebStringKey.NavigateToHistory to "스캠 기록",
+    WebStringKey.NavigateToTrust to "신뢰 센터 / 허용 목록",
+    WebStringKey.NavigateToGame to "봇을 이겨라 게임",
+    WebStringKey.ShowHelp to "도움말 보기",
+    WebStringKey.GotIt to "알겠습니다",
+    WebStringKey.SecuritySettings to "보안 설정",
+    WebStringKey.SensitivityLevel to "민감도 수준",
+    WebStringKey.AutoBlockThreats to "위협 자동 차단",
+    WebStringKey.RealTimeScanning to "실시간 스캠",
+    WebStringKey.SoundAlerts to "소리 알림",
+    WebStringKey.ThreatAlerts to "위협 알림",
+    WebStringKey.ShowConfidenceScore to "신뢰도 점수 표시",
+    WebStringKey.CompactView to "컴팩트 보기",
+    WebStringKey.ResetDefaults to "기본값으로 재설정",
+    WebStringKey.SaveAndContinue to "저장 및 계속"
 )
 
 internal val KoreanCommonStrings = mapOf(

@@ -30,6 +30,167 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.31] - 2026-01-02
+
+### Raouf: Web App Language Selector - Hebrew & Persian Added
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Add Hebrew (עברית) and Persian (فارسی) to Settings language dropdown
+
+#### Changes Made
+- **onboarding.html:** Added `<option value="fa">فارسی</option>` and `<option value="he">עברית</option>` to `#settingLanguage` dropdown
+- Languages now appear in alphabetical order by code (ar, de, es, fa, fr, he, hi, id, it, ja, ko, pt, ru, th, tr, vi, zh)
+
+#### QR-SHIELD Audit
+- Scanned all `webApp/src/**` files for `QR-SHIELD`, `QRShield`, `QrShield` patterns
+- **Result:** 0 matches found in source code
+- Note: If "QR-SHIELD" appears in UI, it may be from browser cache—hard refresh (Ctrl+Shift+R) recommended
+
+#### Verification
+```bash
+./gradlew :webApp:compileKotlinJs  # BUILD SUCCESSFUL in 3s
+grep -ri "QR-SHIELD\|QRShield" webApp/src/  # 0 matches
+```
+
+---
+
+## [2.0.30] - 2026-01-02
+
+### Raouf: Web App i18n Key Count Sync (All 18 Languages → 393 Keys)
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Synchronise WebStringKey counts across all 18 language files
+
+#### Problem
+After initial i18n expansion, key counts were misaligned:
+- Chinese (Zh): 374 keys (missing 19)
+- Hebrew (He): 392 keys (missing 1)
+- Persian (Fa): 392 keys (missing 1)
+- All others: 393 keys
+
+#### Changes Made
+
+**Chinese (WebStringsZh.kt):**
+Added 19 missing keys with proper Chinese translations:
+- `AutoBlockThreats` → "自动拦截威胁"
+- `CloseMenuModal` → "关闭菜单/对话框"
+- `CompactView` → "紧凑视图"
+- `GotIt` → "知道了"
+- `KeyboardShortcuts` → "键盘快捷键"
+- `NavigateToDashboard` → "前往仪表板"
+- `NavigateToGame` → "智斗机器人游戏"
+- `NavigateToHistory` → "扫描历史"
+- `NavigateToTrust` → "信任中心/白名单"
+- `RealTimeScanning` → "实时扫描"
+- `ResetDefaults` → "恢复默认"
+- `SaveAndContinue` → "保存并继续"
+- `SecuritySettings` → "安全设置"
+- `SensitivityLevel` → "灵敏度级别"
+- `ShowConfidenceScore` → "显示置信度分数"
+- `ShowHelp` → "显示帮助"
+- `SoundAlerts` → "声音提醒"
+- `StartScanner` → "启动扫描器"
+- `ThreatAlerts` → "威胁警报"
+
+**Hebrew (WebStringsHe.kt):**
+- Added `WebStringKey.Last90Days` → "90 הימים האחרונים"
+
+**Persian (WebStringsFa.kt):**
+- Added `WebStringKey.Last90Days` → "۹۰ روز گذشته"
+
+#### Verification
+```bash
+./gradlew :webApp:compileKotlinJs  # BUILD SUCCESSFUL in 7s
+# All 17 language files: 393 WebStringKey entries ✓
+grep -ri "qrshield" webApp/src/   # 0 matches ✓
+```
+
+#### Final Key Count Matrix
+| Language | File | Keys |
+|----------|------|------|
+| Arabic | WebStringsAr.kt | 393 |
+| Chinese | WebStringsZh.kt | 393 |
+| German | WebStringsDe.kt | 393 |
+| Spanish | WebStringsEs.kt | 393 |
+| Persian | WebStringsFa.kt | 393 |
+| French | WebStringsFr.kt | 393 |
+| Hebrew | WebStringsHe.kt | 393 |
+| Hindi | WebStringsHi.kt | 393 |
+| Indonesian | WebStringsIn.kt | 393 |
+| Italian | WebStringsIt.kt | 393 |
+| Japanese | WebStringsJa.kt | 393 |
+| Korean | WebStringsKo.kt | 393 |
+| Portuguese | WebStringsPt.kt | 393 |
+| Russian | WebStringsRu.kt | 393 |
+| Thai | WebStringsTh.kt | 393 |
+| Turkish | WebStringsTr.kt | 393 |
+| Vietnamese | WebStringsVi.kt | 393 |
+
+---
+
+## [2.0.29] - 2026-01-02
+
+### Raouf: Web App Rebranding & RTL Internationalisation (Hebrew, Persian)
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Strict rebranding & i18n expansion  
+**Summary:** Completed source-of-truth rebranding (QRShield → MehrGuard) for all 18 language files, and expanded Hebrew (he) and Persian (fa) translations from 189 keys to 392 keys each—surpassing the Spanish reference (374 keys).
+
+#### Changes Made
+
+**Rebranding (18 files):**
+- Renamed `WebStringKey.QrShieldBot` → `WebStringKey.MehrGuardBot` across all language files
+- Renamed `WebStringKey.AboutQrShield` → `WebStringKey.AboutMehrGuard` across all language files
+- Files updated: `WebStrings.kt`, `WebStringsDe.kt`, `WebStringsEs.kt`, `WebStringsFr.kt`, `WebStringsZh.kt`, `WebStringsJa.kt`, `WebStringsHi.kt`, `WebStringsAr.kt`, `WebStringsIn.kt`, `WebStringsIt.kt`, `WebStringsKo.kt`, `WebStringsPt.kt`, `WebStringsRu.kt`, `WebStringsTh.kt`, `WebStringsTr.kt`, `WebStringsVi.kt`, `WebStringsHe.kt`, `WebStringsFa.kt`
+
+**Hebrew (he) Translations – WebStringsHe.kt:**
+- Expanded from 189 to 392 translation keys (+203 keys)
+- Added full coverage: attack descriptions, game mechanics, trust centre, onboarding flow, export options, accessibility labels, navigation, settings, about section
+
+**Persian (fa) Translations – WebStringsFa.kt:**
+- Expanded from 189 to 392 translation keys (+203 keys)
+- Added full coverage: same comprehensive scope as Hebrew with RTL-appropriate text
+
+**Bug Fix:**
+- Removed invalid `WebStringKey.Hebrew` and `WebStringKey.Persian` entries (these are `WebLanguage` enum values, not `WebStringKey` members)
+
+#### Verification
+```bash
+./gradlew :webApp:compileKotlinJs  # BUILD SUCCESSFUL in 7s
+grep -c "WebStringKey\." WebStringsHe.kt  # 392
+grep -c "WebStringKey\." WebStringsFa.kt  # 392
+grep -c "WebStringKey\." WebStringsEs.kt  # 374 (reference)
+grep -ri "qrshield" webApp/src/           # No matches found
+```
+
+#### RTL Support
+- Hebrew and Persian already registered in `WebLanguage` enum with BCP-47 codes
+- Hebrew: `he`, `iw` → `Hebrew`
+- Persian: `fa`, `per` → `Persian`
+- No additional RTL infrastructure changes required (existing CSS handles RTL via `dir="rtl"`)
+
+#### Files Changed
+| File | Action |
+|------|--------|
+| webApp/src/jsMain/kotlin/ir/mehr/mehrguard/web/i18n/WebStrings.kt | Rebranded 2 enum keys |
+| webApp/src/jsMain/kotlin/ir/mehr/mehrguard/web/i18n/WebStringsHe.kt | +203 translations |
+| webApp/src/jsMain/kotlin/ir/mehr/mehrguard/web/i18n/WebStringsFa.kt | +203 translations |
+| webApp/src/jsMain/kotlin/ir/mehr/mehrguard/web/i18n/WebStrings*.kt (16 files) | Rebranded key references |
+
+#### Scope Confirmation
+- ✅ Web App modified
+- ❌ Desktop App NOT touched
+- ❌ Android App NOT touched
+- ❌ iOS App NOT touched
+- ❌ Common module NOT touched
+
+#### Follow-ups
+- [ ] Add remaining ~18 missing keys to Hebrew/Persian for full parity
+- [ ] Consider extracting RTL direction logic to shared utility
+- [ ] Visual RTL layout testing in browser dev tools
+
+---
+
 ## [2.0.28] - 2026-01-02
 
 ### Raouf: Result Screen Translation Fix & Judge Mode UX

@@ -205,7 +205,7 @@ internal val GermanStrings = mapOf(
     WebStringKey.Points to "Pkt",
     WebStringKey.Streak to "Serie",
     WebStringKey.Accuracy to "Genauigkeit",
-    WebStringKey.QrShieldBot to "Mehr Guard Bot",
+    WebStringKey.MehrGuardBot to "Mehr Guard Bot",
     WebStringKey.Confidence to "Konfidenz",
     WebStringKey.RoundAnalysis to "Rundenanalyse",
     WebStringKey.Analysis to "Analyse",
@@ -347,7 +347,7 @@ internal val GermanStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "Vertrauenswürdige URLs in Zwischenablage kopieren.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "Über Mehr Guard",
+    WebStringKey.AboutMehrGuard to "Über Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Open-Source-Lizenzen",
     WebStringKey.PrivacyPolicy to "Datenschutzrichtlinie",
     WebStringKey.Acknowledgements to "Danksagungen",
@@ -441,7 +441,28 @@ internal val GermanStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "Warten auf Scan...",
     WebStringKey.WaitingForAnalysis to "Warten auf Analyse...",
-    WebStringKey.ScanURLToSeeResults to "Scannen Sie eine URL, um detaillierte Ergebnisse zu sehen."
+    WebStringKey.ScanURLToSeeResults to "Scannen Sie eine URL, um detaillierte Ergebnisse zu sehen.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Tastaturkürzel",
+    WebStringKey.StartScanner to "Scanner starten",
+    WebStringKey.CloseMenuModal to "Menü / Modal schließen",
+    WebStringKey.NavigateToDashboard to "Zum Dashboard navigieren",
+    WebStringKey.NavigateToHistory to "Scan-Verlauf",
+    WebStringKey.NavigateToTrust to "Vertrauenszentrum / Freigabeliste",
+    WebStringKey.NavigateToGame to "Beat the Bot Spiel",
+    WebStringKey.ShowHelp to "Hilfe anzeigen",
+    WebStringKey.GotIt to "Verstanden",
+    WebStringKey.SecuritySettings to "Sicherheitseinstellungen",
+    WebStringKey.SensitivityLevel to "Empfindlichkeitsstufe",
+    WebStringKey.AutoBlockThreats to "Bedrohungen automatisch blockieren",
+    WebStringKey.RealTimeScanning to "Echtzeit-Scan",
+    WebStringKey.SoundAlerts to "Akustische Warnungen",
+    WebStringKey.ThreatAlerts to "Bedrohungswarnungen",
+    WebStringKey.ShowConfidenceScore to "Konfidenzwert anzeigen",
+    WebStringKey.CompactView to "Kompaktansicht",
+    WebStringKey.ResetDefaults to "Standardwerte zurücksetzen",
+    WebStringKey.SaveAndContinue to "Speichern & Fortfahren"
 )
 
 internal val GermanCommonStrings = mapOf(

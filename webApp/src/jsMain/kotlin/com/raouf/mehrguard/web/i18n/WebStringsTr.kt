@@ -202,7 +202,7 @@ internal val TurkishStrings = mapOf(
     WebStringKey.Points to "puan",
     WebStringKey.Streak to "Seri",
     WebStringKey.Accuracy to "Doğruluk",
-    WebStringKey.QrShieldBot to "Mehr Guard Bot",
+    WebStringKey.MehrGuardBot to "Mehr Guard Bot",
     WebStringKey.Confidence to "Güven",
     WebStringKey.RoundAnalysis to "Tur Analizi",
     WebStringKey.Analysis to "Analiz",
@@ -320,7 +320,7 @@ internal val TurkishStrings = mapOf(
     WebStringKey.ShareDetectionStats to "Tespit istatistiklerini paylaş",
     WebStringKey.AutoCopySafeLinks to "Güvenli bağlantıları otomatik kopyala",
     WebStringKey.CopyTrustedUrls to "Güvenilir URL'leri kopyala",
-    WebStringKey.AboutQrShield to "Mehr Guard Hakkında",
+    WebStringKey.AboutMehrGuard to "Mehr Guard Hakkında",
     WebStringKey.OpenSourceLicenses to "Açık Kaynak Lisansları",
     WebStringKey.PrivacyPolicy to "Gizlilik Politikası",
     WebStringKey.Acknowledgements to "Teşekkürler",
@@ -394,7 +394,28 @@ internal val TurkishStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "Tarama bekleniyor...",
     WebStringKey.WaitingForAnalysis to "Analiz bekleniyor...",
-    WebStringKey.ScanURLToSeeResults to "Detaylı sonuçları görmek için URL tarayın."
+    WebStringKey.ScanURLToSeeResults to "Detaylı sonuçları görmek için URL tarayın.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Klavye Kısayolları",
+    WebStringKey.StartScanner to "Tarayıcıyı Başlat",
+    WebStringKey.CloseMenuModal to "Menüyü / Pencereyi Kapat",
+    WebStringKey.NavigateToDashboard to "Gösterge Paneline Git",
+    WebStringKey.NavigateToHistory to "Tarama Geçmişi",
+    WebStringKey.NavigateToTrust to "Güven Merkezi / İzin Listesi",
+    WebStringKey.NavigateToGame to "Botu Yen Oyunu",
+    WebStringKey.ShowHelp to "Yardımı Göster",
+    WebStringKey.GotIt to "Anladım",
+    WebStringKey.SecuritySettings to "Güvenlik Ayarları",
+    WebStringKey.SensitivityLevel to "Hassasiyet Seviyesi",
+    WebStringKey.AutoBlockThreats to "Tehditleri Otomatik Engelle",
+    WebStringKey.RealTimeScanning to "Gerçek Zamanlı Tarama",
+    WebStringKey.SoundAlerts to "Sesli Uyarılar",
+    WebStringKey.ThreatAlerts to "Tehdit Uyarıları",
+    WebStringKey.ShowConfidenceScore to "Güven Puanını Göster",
+    WebStringKey.CompactView to "Kompakt Görünüm",
+    WebStringKey.ResetDefaults to "Varsayılanlara Sıfırla",
+    WebStringKey.SaveAndContinue to "Kaydet ve Devam Et"
 )
 
 internal val TurkishCommonStrings = mapOf(

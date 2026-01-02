@@ -202,7 +202,7 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.Points to "điểm",
     WebStringKey.Streak to "Chuỗi",
     WebStringKey.Accuracy to "Độ Chính Xác",
-    WebStringKey.QrShieldBot to "Mehr Guard Bot",
+    WebStringKey.MehrGuardBot to "Mehr Guard Bot",
     WebStringKey.Confidence to "Độ Tin Cậy",
     WebStringKey.RoundAnalysis to "Phân Tích Vòng",
     WebStringKey.Analysis to "Phân Tích",
@@ -320,7 +320,7 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.ShareDetectionStats to "Chia sẻ thống kê phát hiện",
     WebStringKey.AutoCopySafeLinks to "Tự động sao chép liên kết an toàn",
     WebStringKey.CopyTrustedUrls to "Sao chép URL tin cậy",
-    WebStringKey.AboutQrShield to "Về Mehr Guard",
+    WebStringKey.AboutMehrGuard to "Về Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Giấy Phép Nguồn Mở",
     WebStringKey.PrivacyPolicy to "Chính Sách Bảo Mật",
     WebStringKey.Acknowledgements to "Lời Cảm Ơn",
@@ -394,7 +394,28 @@ internal val VietnameseStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "Đang chờ quét...",
     WebStringKey.WaitingForAnalysis to "Đang chờ phân tích...",
-    WebStringKey.ScanURLToSeeResults to "Quét URL để xem kết quả chi tiết."
+    WebStringKey.ScanURLToSeeResults to "Quét URL để xem kết quả chi tiết.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Phím Tắt",
+    WebStringKey.StartScanner to "Bắt Đầu Quét",
+    WebStringKey.CloseMenuModal to "Đóng Menu / Hộp Thoại",
+    WebStringKey.NavigateToDashboard to "Đi Tới Bảng Điều Khiển",
+    WebStringKey.NavigateToHistory to "Lịch Sử Quét",
+    WebStringKey.NavigateToTrust to "Trung Tâm Tin Cậy / Danh Sách Cho Phép",
+    WebStringKey.NavigateToGame to "Trò Chơi Đánh Bại Bot",
+    WebStringKey.ShowHelp to "Hiển Thị Trợ Giúp",
+    WebStringKey.GotIt to "Đã Hiểu",
+    WebStringKey.SecuritySettings to "Cài Đặt Bảo Mật",
+    WebStringKey.SensitivityLevel to "Mức Độ Nhạy",
+    WebStringKey.AutoBlockThreats to "Tự Động Chặn Mối Đe Dọa",
+    WebStringKey.RealTimeScanning to "Quét Thời Gian Thực",
+    WebStringKey.SoundAlerts to "Cảnh Báo Âm Thanh",
+    WebStringKey.ThreatAlerts to "Cảnh Báo Mối Đe Dọa",
+    WebStringKey.ShowConfidenceScore to "Hiển Thị Điểm Tin Cậy",
+    WebStringKey.CompactView to "Chế Độ Xem Thu Gọn",
+    WebStringKey.ResetDefaults to "Đặt Lại Mặc Định",
+    WebStringKey.SaveAndContinue to "Lưu và Tiếp Tục"
 )
 
 internal val VietnameseCommonStrings = mapOf(

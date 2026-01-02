@@ -205,7 +205,7 @@ internal val SpanishStrings = mapOf(
     WebStringKey.Points to "ptos",
     WebStringKey.Streak to "Racha",
     WebStringKey.Accuracy to "Precisión",
-    WebStringKey.QrShieldBot to "Bot Mehr Guard",
+    WebStringKey.MehrGuardBot to "Bot Mehr Guard",
     WebStringKey.Confidence to "Confianza",
     WebStringKey.RoundAnalysis to "Análisis de Ronda",
     WebStringKey.Analysis to "Análisis",
@@ -347,7 +347,7 @@ internal val SpanishStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "Copiar URLs de confianza al portapapeles.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "Acerca de Mehr Guard",
+    WebStringKey.AboutMehrGuard to "Acerca de Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Licencias de Código Abierto",
     WebStringKey.PrivacyPolicy to "Política de Privacidad",
     WebStringKey.Acknowledgements to "Agradecimientos",
@@ -441,7 +441,28 @@ internal val SpanishStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "Esperando escaneo...",
     WebStringKey.WaitingForAnalysis to "Esperando análisis...",
-    WebStringKey.ScanURLToSeeResults to "Escanea una URL para ver resultados detallados."
+    WebStringKey.ScanURLToSeeResults to "Escanea una URL para ver resultados detallados.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Atajos de Teclado",
+    WebStringKey.StartScanner to "Iniciar Escáner",
+    WebStringKey.CloseMenuModal to "Cerrar Menú / Modal",
+    WebStringKey.NavigateToDashboard to "Ir al Panel",
+    WebStringKey.NavigateToHistory to "Historial de Escaneo",
+    WebStringKey.NavigateToTrust to "Centro de Confianza / Lista de Permitidos",
+    WebStringKey.NavigateToGame to "Juego Vence al Bot",
+    WebStringKey.ShowHelp to "Mostrar Ayuda",
+    WebStringKey.GotIt to "Entendido",
+    WebStringKey.SecuritySettings to "Configuración de Seguridad",
+    WebStringKey.SensitivityLevel to "Nivel de Sensibilidad",
+    WebStringKey.AutoBlockThreats to "Bloquear Amenazas Automáticamente",
+    WebStringKey.RealTimeScanning to "Escaneo en Tiempo Real",
+    WebStringKey.SoundAlerts to "Alertas Sonoras",
+    WebStringKey.ThreatAlerts to "Alertas de Amenazas",
+    WebStringKey.ShowConfidenceScore to "Mostrar Puntuación de Confianza",
+    WebStringKey.CompactView to "Vista Compacta",
+    WebStringKey.ResetDefaults to "Restablecer Valores Predeterminados",
+    WebStringKey.SaveAndContinue to "Guardar y Continuar"
 )
 
 internal val SpanishCommonStrings = mapOf(

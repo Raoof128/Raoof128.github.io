@@ -203,7 +203,7 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.Points to "poin",
     WebStringKey.Streak to "Beruntun",
     WebStringKey.Accuracy to "Akurasi",
-    WebStringKey.QrShieldBot to "Bot Mehr Guard",
+    WebStringKey.MehrGuardBot to "Bot Mehr Guard",
     WebStringKey.Confidence to "Kepercayaan",
     WebStringKey.RoundAnalysis to "Analisis Ronde",
     WebStringKey.Analysis to "Analisis",
@@ -321,7 +321,7 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.ShareDetectionStats to "Bagikan statistik deteksi.",
     WebStringKey.AutoCopySafeLinks to "Salin Otomatis Tautan Aman",
     WebStringKey.CopyTrustedUrls to "Salin URL terpercaya.",
-    WebStringKey.AboutQrShield to "Tentang Mehr Guard",
+    WebStringKey.AboutMehrGuard to "Tentang Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Lisensi Open Source",
     WebStringKey.PrivacyPolicy to "Kebijakan Privasi",
     WebStringKey.Acknowledgements to "Pengakuan",
@@ -395,7 +395,28 @@ internal val IndonesianStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "Menunggu pemindaian...",
     WebStringKey.WaitingForAnalysis to "Menunggu analisis...",
-    WebStringKey.ScanURLToSeeResults to "Pindai URL untuk melihat hasil terperinci."
+    WebStringKey.ScanURLToSeeResults to "Pindai URL untuk melihat hasil terperinci.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Pintasan Keyboard",
+    WebStringKey.StartScanner to "Mulai Pemindai",
+    WebStringKey.CloseMenuModal to "Tutup Menu / Modal",
+    WebStringKey.NavigateToDashboard to "Ke Dasbor",
+    WebStringKey.NavigateToHistory to "Riwayat Pemindaian",
+    WebStringKey.NavigateToTrust to "Pusat Kepercayaan / Daftar Izin",
+    WebStringKey.NavigateToGame to "Game Kalahkan Bot",
+    WebStringKey.ShowHelp to "Tampilkan Bantuan",
+    WebStringKey.GotIt to "Mengerti",
+    WebStringKey.SecuritySettings to "Pengaturan Keamanan",
+    WebStringKey.SensitivityLevel to "Tingkat Sensitivitas",
+    WebStringKey.AutoBlockThreats to "Blokir Ancaman Otomatis",
+    WebStringKey.RealTimeScanning to "Pemindaian Real-Time",
+    WebStringKey.SoundAlerts to "Peringatan Suara",
+    WebStringKey.ThreatAlerts to "Peringatan Ancaman",
+    WebStringKey.ShowConfidenceScore to "Tampilkan Skor Kepercayaan",
+    WebStringKey.CompactView to "Tampilan Ringkas",
+    WebStringKey.ResetDefaults to "Reset ke Default",
+    WebStringKey.SaveAndContinue to "Simpan & Lanjutkan"
 )
 
 internal val IndonesianCommonStrings = mapOf(

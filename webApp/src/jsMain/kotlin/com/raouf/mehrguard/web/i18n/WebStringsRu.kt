@@ -205,7 +205,7 @@ internal val RussianStrings = mapOf(
     WebStringKey.Points to "очки",
     WebStringKey.Streak to "Серия",
     WebStringKey.Accuracy to "Точность",
-    WebStringKey.QrShieldBot to "Бот Mehr Guard",
+    WebStringKey.MehrGuardBot to "Бот Mehr Guard",
     WebStringKey.Confidence to "Уверенность",
     WebStringKey.RoundAnalysis to "Анализ раунда",
     WebStringKey.Analysis to "Анализ",
@@ -347,7 +347,7 @@ internal val RussianStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "Копировать доверенные URL в буфер обмена.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "О Mehr Guard",
+    WebStringKey.AboutMehrGuard to "О Mehr Guard",
     WebStringKey.OpenSourceLicenses to "Лицензии открытого ПО",
     WebStringKey.PrivacyPolicy to "Политика конфиденциальности",
     WebStringKey.Acknowledgements to "Благодарности",
@@ -441,7 +441,28 @@ internal val RussianStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "Ожидание сканирования...",
     WebStringKey.WaitingForAnalysis to "Ожидание анализа...",
-    WebStringKey.ScanURLToSeeResults to "Отсканируйте URL для просмотра подробных результатов."
+    WebStringKey.ScanURLToSeeResults to "Отсканируйте URL для просмотра подробных результатов.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "Горячие клавиши",
+    WebStringKey.StartScanner to "Запустить сканер",
+    WebStringKey.CloseMenuModal to "Закрыть меню / окно",
+    WebStringKey.NavigateToDashboard to "Перейти на панель",
+    WebStringKey.NavigateToHistory to "История сканирования",
+    WebStringKey.NavigateToTrust to "Центр доверия / Белый список",
+    WebStringKey.NavigateToGame to "Игра Победи бота",
+    WebStringKey.ShowHelp to "Показать справку",
+    WebStringKey.GotIt to "Понятно",
+    WebStringKey.SecuritySettings to "Настройки безопасности",
+    WebStringKey.SensitivityLevel to "Уровень чувствительности",
+    WebStringKey.AutoBlockThreats to "Автоблокировка угроз",
+    WebStringKey.RealTimeScanning to "Сканирование в реальном времени",
+    WebStringKey.SoundAlerts to "Звуковые оповещения",
+    WebStringKey.ThreatAlerts to "Оповещения об угрозах",
+    WebStringKey.ShowConfidenceScore to "Показать оценку достоверности",
+    WebStringKey.CompactView to "Компактный вид",
+    WebStringKey.ResetDefaults to "Сбросить настройки",
+    WebStringKey.SaveAndContinue to "Сохранить и продолжить"
 )
 
 internal val RussianCommonStrings = mapOf(

@@ -202,7 +202,7 @@ internal val ThaiStrings = mapOf(
     WebStringKey.Points to "คะแนน",
     WebStringKey.Streak to "ต่อเนื่อง",
     WebStringKey.Accuracy to "ความแม่นยำ",
-    WebStringKey.QrShieldBot to "Mehr Guard บอท",
+    WebStringKey.MehrGuardBot to "Mehr Guard บอท",
     WebStringKey.Confidence to "ความมั่นใจ",
     WebStringKey.RoundAnalysis to "การวิเคราะห์รอบ",
     WebStringKey.Analysis to "การวิเคราะห์",
@@ -320,7 +320,7 @@ internal val ThaiStrings = mapOf(
     WebStringKey.ShareDetectionStats to "แชร์สถิติการตรวจจับ",
     WebStringKey.AutoCopySafeLinks to "คัดลอกลิงก์ที่ปลอดภัยอัตโนมัติ",
     WebStringKey.CopyTrustedUrls to "คัดลอก URL ที่เชื่อถือได้",
-    WebStringKey.AboutQrShield to "เกี่ยวกับ Mehr Guard",
+    WebStringKey.AboutMehrGuard to "เกี่ยวกับ Mehr Guard",
     WebStringKey.OpenSourceLicenses to "ใบอนุญาตโอเพนซอร์ส",
     WebStringKey.PrivacyPolicy to "นโยบายความเป็นส่วนตัว",
     WebStringKey.Acknowledgements to "กิตติกรรมประกาศ",
@@ -394,7 +394,28 @@ internal val ThaiStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "รอการสแกน...",
     WebStringKey.WaitingForAnalysis to "รอการวิเคราะห์...",
-    WebStringKey.ScanURLToSeeResults to "สแกน URL เพื่อดูผลลัพธ์โดยละเอียด"
+    WebStringKey.ScanURLToSeeResults to "สแกน URL เพื่อดูผลลัพธ์โดยละเอียด",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "ทางลัดคีย์บอร์ด",
+    WebStringKey.StartScanner to "เริ่มสแกนเนอร์",
+    WebStringKey.CloseMenuModal to "ปิดเมนู / หน้าต่าง",
+    WebStringKey.NavigateToDashboard to "ไปที่แดชบอร์ด",
+    WebStringKey.NavigateToHistory to "ประวัติการสแกน",
+    WebStringKey.NavigateToTrust to "ศูนย์ความไว้วางใจ / รายการอนุญาต",
+    WebStringKey.NavigateToGame to "เกมเอาชนะบอท",
+    WebStringKey.ShowHelp to "แสดงวิธีใช้",
+    WebStringKey.GotIt to "เข้าใจแล้ว",
+    WebStringKey.SecuritySettings to "การตั้งค่าความปลอดภัย",
+    WebStringKey.SensitivityLevel to "ระดับความไว",
+    WebStringKey.AutoBlockThreats to "บล็อกภัยคุกคามอัตโนมัติ",
+    WebStringKey.RealTimeScanning to "สแกนแบบเรียลไทม์",
+    WebStringKey.SoundAlerts to "การแจ้งเตือนเสียง",
+    WebStringKey.ThreatAlerts to "การแจ้งเตือนภัยคุกคาม",
+    WebStringKey.ShowConfidenceScore to "แสดงคะแนนความมั่นใจ",
+    WebStringKey.CompactView to "มุมมองกระชับ",
+    WebStringKey.ResetDefaults to "รีเซ็ตเป็นค่าเริ่มต้น",
+    WebStringKey.SaveAndContinue to "บันทึกและดำเนินการต่อ"
 )
 
 internal val ThaiCommonStrings = mapOf(

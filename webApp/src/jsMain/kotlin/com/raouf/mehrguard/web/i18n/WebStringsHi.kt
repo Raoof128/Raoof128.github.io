@@ -205,7 +205,7 @@ internal val HindiStrings = mapOf(
     WebStringKey.Points to "अंक",
     WebStringKey.Streak to "स्ट्रीक",
     WebStringKey.Accuracy to "सटीकता",
-    WebStringKey.QrShieldBot to "Mehr Guard बॉट",
+    WebStringKey.MehrGuardBot to "Mehr Guard बॉट",
     WebStringKey.Confidence to "विश्वास",
     WebStringKey.RoundAnalysis to "राउंड विश्लेषण",
     WebStringKey.Analysis to "विश्लेषण",
@@ -347,7 +347,7 @@ internal val HindiStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "विश्वसनीय URL क्लिपबोर्ड पर कॉपी करें।",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "Mehr Guard के बारे में",
+    WebStringKey.AboutMehrGuard to "Mehr Guard के बारे में",
     WebStringKey.OpenSourceLicenses to "ओपन सोर्स लाइसेंस",
     WebStringKey.PrivacyPolicy to "गोपनीयता नीति",
     WebStringKey.Acknowledgements to "आभार",
@@ -441,7 +441,28 @@ internal val HindiStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "स्कैन की प्रतीक्षा में...",
     WebStringKey.WaitingForAnalysis to "विश्लेषण की प्रतीक्षा में...",
-    WebStringKey.ScanURLToSeeResults to "विस्तृत परिणाम देखने के लिए URL स्कैन करें।"
+    WebStringKey.ScanURLToSeeResults to "विस्तृत परिणाम देखने के लिए URL स्कैन करें।",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "कीबोर्ड शॉर्टकट",
+    WebStringKey.StartScanner to "स्कैनर शुरू करें",
+    WebStringKey.CloseMenuModal to "मेन्यू / मोडल बंद करें",
+    WebStringKey.NavigateToDashboard to "डैशबोर्ड पर जाएं",
+    WebStringKey.NavigateToHistory to "स्कैन इतिहास",
+    WebStringKey.NavigateToTrust to "ट्रस्ट सेंटर / अनुमति सूची",
+    WebStringKey.NavigateToGame to "बीट द बॉट गेम",
+    WebStringKey.ShowHelp to "सहायता दिखाएं",
+    WebStringKey.GotIt to "समझ गया",
+    WebStringKey.SecuritySettings to "सुरक्षा सेटिंग्स",
+    WebStringKey.SensitivityLevel to "संवेदनशीलता स्तर",
+    WebStringKey.AutoBlockThreats to "खतरों को स्वचालित रूप से रोकें",
+    WebStringKey.RealTimeScanning to "रीयल-टाइम स्कैनिंग",
+    WebStringKey.SoundAlerts to "ध्वनि सूचनाएं",
+    WebStringKey.ThreatAlerts to "खतरे की सूचनाएं",
+    WebStringKey.ShowConfidenceScore to "विश्वास स्कोर दिखाएं",
+    WebStringKey.CompactView to "संक्षिप्त दृश्य",
+    WebStringKey.ResetDefaults to "डिफ़ॉल्ट रीसेट करें",
+    WebStringKey.SaveAndContinue to "सहेजें और जारी रखें"
 )
 
 internal val HindiCommonStrings = mapOf(

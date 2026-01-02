@@ -205,7 +205,7 @@ internal val ArabicStrings = mapOf(
     WebStringKey.Points to "نقطة",
     WebStringKey.Streak to "سلسلة",
     WebStringKey.Accuracy to "الدقة",
-    WebStringKey.QrShieldBot to "روبوت Mehr Guard",
+    WebStringKey.MehrGuardBot to "روبوت Mehr Guard",
     WebStringKey.Confidence to "الثقة",
     WebStringKey.RoundAnalysis to "تحليل الجولة",
     WebStringKey.Analysis to "تحليل",
@@ -347,7 +347,7 @@ internal val ArabicStrings = mapOf(
     WebStringKey.CopyTrustedUrls to "نسخ الروابط الموثوقة إلى الحافظة.",
     
     // Trust Centre - About
-    WebStringKey.AboutQrShield to "حول Mehr Guard",
+    WebStringKey.AboutMehrGuard to "حول Mehr Guard",
     WebStringKey.OpenSourceLicenses to "تراخيص المصدر المفتوح",
     WebStringKey.PrivacyPolicy to "سياسة الخصوصية",
     WebStringKey.Acknowledgements to "شكر وتقدير",
@@ -441,7 +441,28 @@ internal val ArabicStrings = mapOf(
     // Results Page Placeholders,
     WebStringKey.WaitingForScan to "في انتظار المسح...",
     WebStringKey.WaitingForAnalysis to "في انتظار التحليل...",
-    WebStringKey.ScanURLToSeeResults to "امسح رابطًا لرؤية النتائج التفصيلية."
+    WebStringKey.ScanURLToSeeResults to "امسح رابطًا لرؤية النتائج التفصيلية.",
+
+    // Keyboard Shortcuts & Settings
+    WebStringKey.KeyboardShortcuts to "اختصارات لوحة المفاتيح",
+    WebStringKey.StartScanner to "بدء الماسح",
+    WebStringKey.CloseMenuModal to "إغلاق القائمة / النافذة",
+    WebStringKey.NavigateToDashboard to "الانتقال إلى لوحة التحكم",
+    WebStringKey.NavigateToHistory to "سجل المسح",
+    WebStringKey.NavigateToTrust to "مركز الثقة / قائمة السماح",
+    WebStringKey.NavigateToGame to "لعبة تغلب على الروبوت",
+    WebStringKey.ShowHelp to "عرض المساعدة",
+    WebStringKey.GotIt to "فهمت",
+    WebStringKey.SecuritySettings to "إعدادات الأمان",
+    WebStringKey.SensitivityLevel to "مستوى الحساسية",
+    WebStringKey.AutoBlockThreats to "حظر التهديدات تلقائيًا",
+    WebStringKey.RealTimeScanning to "المسح في الوقت الفعلي",
+    WebStringKey.SoundAlerts to "تنبيهات صوتية",
+    WebStringKey.ThreatAlerts to "تنبيهات التهديدات",
+    WebStringKey.ShowConfidenceScore to "عرض درجة الثقة",
+    WebStringKey.CompactView to "عرض مضغوط",
+    WebStringKey.ResetDefaults to "إعادة تعيين الافتراضيات",
+    WebStringKey.SaveAndContinue to "حفظ والمتابعة"
 )
 
 internal val ArabicCommonStrings = mapOf(
