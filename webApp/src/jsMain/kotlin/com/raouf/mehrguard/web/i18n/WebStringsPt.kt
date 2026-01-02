@@ -462,7 +462,34 @@ internal val PortugueseStrings = mapOf(
     WebStringKey.ShowConfidenceScore to "Mostrar Pontuação de Confiança",
     WebStringKey.CompactView to "Visualização Compacta",
     WebStringKey.ResetDefaults to "Restaurar Padrões",
-    WebStringKey.SaveAndContinue to "Salvar e Continuar"
+    WebStringKey.SaveAndContinue to "Salvar e Continuar",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "ATIVIDADE SUSPEITA",
+    WebStringKey.VerdictWarning to "Aviso",
+    WebStringKey.VerdictSuspiciousDesc to "O código QR escaneado mostra padrões suspeitos que podem indicar riscos potenciais de segurança. Prossiga com cautela.",
+    WebStringKey.VerdictMinorConcerns to "PREOCUPAÇÕES MENORES",
+    WebStringKey.VerdictCaution to "Cuidado",
+    WebStringKey.VerdictMinorConcernsDesc to "Algumas preocupações de segurança menores foram identificadas. O link parece principalmente seguro, mas recomenda-se revisão.",
+    WebStringKey.VerdictVerifiedSafe to "VERIFICADO SEGURO",
+    WebStringKey.VerdictSafeLabel to "Seguro",
+    WebStringKey.VerdictVerifiedSafeDesc to "Nenhuma ameaça de segurança detectada. O código QR leva a um destino seguro verificado.",
+    WebStringKey.VerdictNoActivity to "Sem Atividade",
+    WebStringKey.VerdictAwaitingScan to "Aguardando Escaneamento",
+    WebStringKey.VerdictNoActivityDesc to "Nenhum dado de escaneamento disponível. Escaneie um código QR ou insira uma URL para analisar.",
+    WebStringKey.ScanQrToSeeActivity to "Escaneie um código QR para ver sua atividade aqui",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Ponto de Dados",
+    WebStringKey.ProcessingEnv to "Ambiente de Processamento",
+    WebStringKey.ExternalTransmission to "Transmissão Externa",
+    WebStringKey.RawImageBuffer to "Buffer de Imagem Bruta",
+    WebStringKey.LocalMemoryRam to "Memória Local (RAM)",
+    WebStringKey.TransmissionNone to "Nenhuma",
+    WebStringKey.DecodedUrlPayload to "URL/Payload Decodificado",
+    WebStringKey.LocalAnalysis to "Análise Local",
+    WebStringKey.ThreatVerdictLabel to "Veredicto de Ameaça",
+    WebStringKey.LocalDatabase to "Banco de Dados Local"
 )
 
 internal val PortugueseCommonStrings = mapOf(

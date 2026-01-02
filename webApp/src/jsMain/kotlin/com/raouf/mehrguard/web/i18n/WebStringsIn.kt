@@ -416,7 +416,34 @@ internal val IndonesianStrings = mapOf(
     WebStringKey.ShowConfidenceScore to "Tampilkan Skor Kepercayaan",
     WebStringKey.CompactView to "Tampilan Ringkas",
     WebStringKey.ResetDefaults to "Reset ke Default",
-    WebStringKey.SaveAndContinue to "Simpan & Lanjutkan"
+    WebStringKey.SaveAndContinue to "Simpan & Lanjutkan",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "AKTIVITAS MENCURIGAKAN",
+    WebStringKey.VerdictWarning to "Peringatan",
+    WebStringKey.VerdictSuspiciousDesc to "Kode QR yang dipindai menunjukkan pola mencurigakan yang mungkin mengindikasikan risiko keamanan potensial. Lanjutkan dengan hati-hati.",
+    WebStringKey.VerdictMinorConcerns to "KEKHAWATIRAN KECIL",
+    WebStringKey.VerdictCaution to "Perhatian",
+    WebStringKey.VerdictMinorConcernsDesc to "Beberapa kekhawatiran keamanan kecil teridentifikasi. Tautan tampak sebagian besar aman tetapi disarankan untuk ditinjau.",
+    WebStringKey.VerdictVerifiedSafe to "TERVERIFIKASI AMAN",
+    WebStringKey.VerdictSafeLabel to "Aman",
+    WebStringKey.VerdictVerifiedSafeDesc to "Tidak ada ancaman keamanan yang terdeteksi. Kode QR mengarah ke tujuan aman yang terverifikasi.",
+    WebStringKey.VerdictNoActivity to "Tidak Ada Aktivitas",
+    WebStringKey.VerdictAwaitingScan to "Menunggu Pemindaian",
+    WebStringKey.VerdictNoActivityDesc to "Tidak ada data pemindaian yang tersedia. Silakan pindai kode QR atau masukkan URL untuk dianalisis.",
+    WebStringKey.ScanQrToSeeActivity to "Pindai kode QR untuk melihat aktivitas Anda di sini",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Titik Data",
+    WebStringKey.ProcessingEnv to "Lingkungan Pemrosesan",
+    WebStringKey.ExternalTransmission to "Transmisi Eksternal",
+    WebStringKey.RawImageBuffer to "Buffer Gambar Mentah",
+    WebStringKey.LocalMemoryRam to "Memori Lokal (RAM)",
+    WebStringKey.TransmissionNone to "Tidak Ada",
+    WebStringKey.DecodedUrlPayload to "URL/Payload yang Didekode",
+    WebStringKey.LocalAnalysis to "Analisis Lokal",
+    WebStringKey.ThreatVerdictLabel to "Keputusan Ancaman",
+    WebStringKey.LocalDatabase to "Database Lokal"
 )
 
 internal val IndonesianCommonStrings = mapOf(

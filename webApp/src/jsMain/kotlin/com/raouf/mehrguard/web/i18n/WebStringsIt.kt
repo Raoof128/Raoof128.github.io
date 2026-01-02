@@ -529,5 +529,32 @@ internal val ItalianCommonStrings = mapOf(
     "Confidence" to "Confidenza",
     "Homograph Attack" to "Attacco Omografo",
     "Detected" to "Rilevato",
-    "Italiano" to "Italiano"
+    "Italiano" to "Italiano",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "ATTIVITÀ SOSPETTA",
+    WebStringKey.VerdictWarning to "Avviso",
+    WebStringKey.VerdictSuspiciousDesc to "Il codice QR scansionato mostra pattern sospetti che possono indicare potenziali rischi per la sicurezza. Procedere con cautela.",
+    WebStringKey.VerdictMinorConcerns to "PREOCCUPAZIONI MINORI",
+    WebStringKey.VerdictCaution to "Cautela",
+    WebStringKey.VerdictMinorConcernsDesc to "Sono state identificate alcune preoccupazioni di sicurezza minori. Il link sembra per lo più sicuro ma si consiglia una revisione.",
+    WebStringKey.VerdictVerifiedSafe to "VERIFICATO SICURO",
+    WebStringKey.VerdictSafeLabel to "Sicuro",
+    WebStringKey.VerdictVerifiedSafeDesc to "Nessuna minaccia alla sicurezza rilevata. Il codice QR porta a una destinazione sicura verificata.",
+    WebStringKey.VerdictNoActivity to "Nessuna Attività",
+    WebStringKey.VerdictAwaitingScan to "In Attesa di Scansione",
+    WebStringKey.VerdictNoActivityDesc to "Nessun dato di scansione disponibile. Scansiona un codice QR o inserisci un URL da analizzare.",
+    WebStringKey.ScanQrToSeeActivity to "Scansiona un codice QR per vedere la tua attività qui",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Punto Dati",
+    WebStringKey.ProcessingEnv to "Ambiente di Elaborazione",
+    WebStringKey.ExternalTransmission to "Trasmissione Esterna",
+    WebStringKey.RawImageBuffer to "Buffer Immagine Grezza",
+    WebStringKey.LocalMemoryRam to "Memoria Locale (RAM)",
+    WebStringKey.TransmissionNone to "Nessuna",
+    WebStringKey.DecodedUrlPayload to "URL/Payload Decodificato",
+    WebStringKey.LocalAnalysis to "Analisi Locale",
+    WebStringKey.ThreatVerdictLabel to "Verdetto Minaccia",
+    WebStringKey.LocalDatabase to "Database Locale"
 )

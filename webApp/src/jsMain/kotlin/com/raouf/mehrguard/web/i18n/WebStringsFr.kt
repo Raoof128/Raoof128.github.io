@@ -1359,4 +1359,31 @@ internal val FrenchCommonStrings = mapOf(
     "subdomain_chaining" to "enchaînement_de_sous-domaines",
     "suspicious_tld" to "tld_suspect",
     "threat_type" to "type_de_menace",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "ACTIVITÉ SUSPECTE",
+    WebStringKey.VerdictWarning to "Avertissement",
+    WebStringKey.VerdictSuspiciousDesc to "Le code QR scanné présente des modèles suspects pouvant indiquer des risques de sécurité potentiels. Procédez avec prudence.",
+    WebStringKey.VerdictMinorConcerns to "PRÉOCCUPATIONS MINEURES",
+    WebStringKey.VerdictCaution to "Prudence",
+    WebStringKey.VerdictMinorConcernsDesc to "Quelques préoccupations de sécurité mineures ont été identifiées. Le lien semble principalement sûr mais une vérification est recommandée.",
+    WebStringKey.VerdictVerifiedSafe to "VÉRIFIÉ SÛR",
+    WebStringKey.VerdictSafeLabel to "Sûr",
+    WebStringKey.VerdictVerifiedSafeDesc to "Aucune menace de sécurité détectée. Le code QR mène à une destination sûre vérifiée.",
+    WebStringKey.VerdictNoActivity to "Aucune Activité",
+    WebStringKey.VerdictAwaitingScan to "En Attente de Scan",
+    WebStringKey.VerdictNoActivityDesc to "Aucune donnée de scan disponible. Veuillez scanner un code QR ou entrer une URL à analyser.",
+    WebStringKey.ScanQrToSeeActivity to "Scannez un code QR pour voir votre activité ici",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Point de Données",
+    WebStringKey.ProcessingEnv to "Environnement de Traitement",
+    WebStringKey.ExternalTransmission to "Transmission Externe",
+    WebStringKey.RawImageBuffer to "Tampon d'Image Brute",
+    WebStringKey.LocalMemoryRam to "Mémoire Locale (RAM)",
+    WebStringKey.TransmissionNone to "Aucune",
+    WebStringKey.DecodedUrlPayload to "URL/Charge Décodée",
+    WebStringKey.LocalAnalysis to "Analyse Locale",
+    WebStringKey.ThreatVerdictLabel to "Verdict de Menace",
+    WebStringKey.LocalDatabase to "Base de Données Locale"
 )

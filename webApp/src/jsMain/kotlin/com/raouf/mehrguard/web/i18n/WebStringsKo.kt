@@ -482,5 +482,32 @@ internal val KoreanCommonStrings = mapOf(
     "Confidence" to "신뢰도",
     "Homograph Attack" to "동형 문자 공격",
     "Detected" to "감지됨",
-    "한국어" to "한국어"
+    "한국어" to "한국어",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "의심스러운 활동",
+    WebStringKey.VerdictWarning to "경고",
+    WebStringKey.VerdictSuspiciousDesc to "스캔된 QR 코드가 잠재적 보안 위험을 나타낼 수 있는 의심스러운 패턴을 보여줍니다. 주의하여 진행하십시오.",
+    WebStringKey.VerdictMinorConcerns to "경미한 우려",
+    WebStringKey.VerdictCaution to "주의",
+    WebStringKey.VerdictMinorConcernsDesc to "몇 가지 경미한 보안 우려가 식별되었습니다. 링크가 대체로 안전해 보이지만 검토를 권장합니다.",
+    WebStringKey.VerdictVerifiedSafe to "확인됨 안전",
+    WebStringKey.VerdictSafeLabel to "안전",
+    WebStringKey.VerdictVerifiedSafeDesc to "보안 위협이 감지되지 않았습니다. QR 코드가 확인된 안전한 목적지로 연결됩니다.",
+    WebStringKey.VerdictNoActivity to "활동 없음",
+    WebStringKey.VerdictAwaitingScan to "스캔 대기 중",
+    WebStringKey.VerdictNoActivityDesc to "스캔 데이터가 없습니다. QR 코드를 스캔하거나 분석할 URL을 입력하십시오.",
+    WebStringKey.ScanQrToSeeActivity to "QR 코드를 스캔하여 여기에서 활동을 확인하세요",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "데이터 포인트",
+    WebStringKey.ProcessingEnv to "처리 환경",
+    WebStringKey.ExternalTransmission to "외부 전송",
+    WebStringKey.RawImageBuffer to "원시 이미지 버퍼",
+    WebStringKey.LocalMemoryRam to "로컬 메모리 (RAM)",
+    WebStringKey.TransmissionNone to "없음",
+    WebStringKey.DecodedUrlPayload to "디코딩된 URL/페이로드",
+    WebStringKey.LocalAnalysis to "로컬 분석",
+    WebStringKey.ThreatVerdictLabel to "위협 판정",
+    WebStringKey.LocalDatabase to "로컬 데이터베이스"
 )

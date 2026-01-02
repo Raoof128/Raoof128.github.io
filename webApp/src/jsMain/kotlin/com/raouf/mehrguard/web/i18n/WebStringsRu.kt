@@ -462,7 +462,34 @@ internal val RussianStrings = mapOf(
     WebStringKey.ShowConfidenceScore to "Показать оценку достоверности",
     WebStringKey.CompactView to "Компактный вид",
     WebStringKey.ResetDefaults to "Сбросить настройки",
-    WebStringKey.SaveAndContinue to "Сохранить и продолжить"
+    WebStringKey.SaveAndContinue to "Сохранить и продолжить",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "ПОДОЗРИТЕЛЬНАЯ АКТИВНОСТЬ",
+    WebStringKey.VerdictWarning to "Предупреждение",
+    WebStringKey.VerdictSuspiciousDesc to "Отсканированный QR-код показывает подозрительные паттерны, которые могут указывать на потенциальные риски безопасности. Продолжайте с осторожностью.",
+    WebStringKey.VerdictMinorConcerns to "НЕЗНАЧИТЕЛЬНЫЕ ОПАСЕНИЯ",
+    WebStringKey.VerdictCaution to "Осторожно",
+    WebStringKey.VerdictMinorConcernsDesc to "Обнаружены незначительные проблемы безопасности. Ссылка выглядит в основном безопасно, но рекомендуется проверка.",
+    WebStringKey.VerdictVerifiedSafe to "ПРОВЕРЕНО БЕЗОПАСНО",
+    WebStringKey.VerdictSafeLabel to "Безопасно",
+    WebStringKey.VerdictVerifiedSafeDesc to "Угрозы безопасности не обнаружены. QR-код ведёт к проверенному безопасному назначению.",
+    WebStringKey.VerdictNoActivity to "Нет активности",
+    WebStringKey.VerdictAwaitingScan to "Ожидание сканирования",
+    WebStringKey.VerdictNoActivityDesc to "Данные сканирования недоступны. Отсканируйте QR-код или введите URL для анализа.",
+    WebStringKey.ScanQrToSeeActivity to "Отсканируйте QR-код, чтобы увидеть вашу активность здесь",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Точка данных",
+    WebStringKey.ProcessingEnv to "Среда обработки",
+    WebStringKey.ExternalTransmission to "Внешняя передача",
+    WebStringKey.RawImageBuffer to "Буфер сырого изображения",
+    WebStringKey.LocalMemoryRam to "Локальная память (RAM)",
+    WebStringKey.TransmissionNone to "Нет",
+    WebStringKey.DecodedUrlPayload to "Декодированный URL/Полезная нагрузка",
+    WebStringKey.LocalAnalysis to "Локальный анализ",
+    WebStringKey.ThreatVerdictLabel to "Вердикт угрозы",
+    WebStringKey.LocalDatabase to "Локальная база данных"
 )
 
 internal val RussianCommonStrings = mapOf(

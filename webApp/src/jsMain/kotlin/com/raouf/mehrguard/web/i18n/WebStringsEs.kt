@@ -1359,4 +1359,31 @@ internal val SpanishCommonStrings = mapOf(
     "subdomain_chaining" to "encadenamiento_de_subdominios",
     "suspicious_tld" to "tld_sospechosa",
     "threat_type" to "tipo_de_amenaza",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "ACTIVIDAD SOSPECHOSA",
+    WebStringKey.VerdictWarning to "Advertencia",
+    WebStringKey.VerdictSuspiciousDesc to "El código QR escaneado muestra patrones sospechosos que pueden indicar riesgos de seguridad potenciales. Proceda con precaución.",
+    WebStringKey.VerdictMinorConcerns to "PREOCUPACIONES MENORES",
+    WebStringKey.VerdictCaution to "Precaución",
+    WebStringKey.VerdictMinorConcernsDesc to "Se identificaron algunas preocupaciones de seguridad menores. El enlace parece mayormente seguro pero se recomienda revisar.",
+    WebStringKey.VerdictVerifiedSafe to "VERIFICADO SEGURO",
+    WebStringKey.VerdictSafeLabel to "Seguro",
+    WebStringKey.VerdictVerifiedSafeDesc to "No se detectaron amenazas de seguridad. El código QR lleva a un destino seguro verificado.",
+    WebStringKey.VerdictNoActivity to "Sin Actividad",
+    WebStringKey.VerdictAwaitingScan to "Esperando Escaneo",
+    WebStringKey.VerdictNoActivityDesc to "No hay datos de escaneo disponibles. Por favor escanee un código QR o ingrese una URL para analizar.",
+    WebStringKey.ScanQrToSeeActivity to "Escanee un código QR para ver su actividad aquí",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Punto de Datos",
+    WebStringKey.ProcessingEnv to "Entorno de Procesamiento",
+    WebStringKey.ExternalTransmission to "Transmisión Externa",
+    WebStringKey.RawImageBuffer to "Buffer de Imagen Sin Procesar",
+    WebStringKey.LocalMemoryRam to "Memoria Local (RAM)",
+    WebStringKey.TransmissionNone to "Ninguna",
+    WebStringKey.DecodedUrlPayload to "URL/Carga Decodificada",
+    WebStringKey.LocalAnalysis to "Análisis Local",
+    WebStringKey.ThreatVerdictLabel to "Veredicto de Amenaza",
+    WebStringKey.LocalDatabase to "Base de Datos Local"
 )

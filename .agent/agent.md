@@ -76,6 +76,43 @@ find src -name "*.kt" -exec sed -i '' 's/oldDbQueries/newDbQueries/g' {} \;
 
 ---
 
+## Raouf: Web App Hardcoded English → 18 Languages (2026-01-02 AEDT)
+
+**Scope:** Complete i18n for verdict screens and data lifecycle table in Web App
+
+**Problem:**
+- Data Lifecycle table (Settings): hardcoded "Data Point", "Processing Env", etc.
+- Result Screen verdicts: hardcoded "SUSPICIOUS ACTIVITY", "MINOR CONCERNS", "VERIFIED SAFE"
+- History empty state: hardcoded "No Activity", "Scan a QR code..."
+
+**Solution:**
+- Added 23 new WebStringKey entries to WebStrings.kt
+- Updated threat.js ThreatLevels to use translation keys
+- Updated onboarding.html Data Lifecycle table with data-i18n attributes
+- Translated all 23 keys to 18 languages:
+  - Arabic, Chinese, German, Spanish, Persian, French, Hebrew
+  - Hindi, Indonesian, Italian, Japanese, Korean, Portuguese
+  - Russian, Thai, Turkish, Vietnamese
+
+**Files Modified:**
+| Category | Files |
+|----------|-------|
+| Core | WebStrings.kt, threat.js, onboarding.html |
+| Translations | WebStringsAr/De/Es/Fa/Fr/He/Hi/In/It/Ja/Ko/Pt/Ru/Th/Tr/Vi/Zh.kt |
+
+**New Keys Added:**
+- VerdictSuspicious, VerdictWarning, VerdictSuspiciousDesc
+- VerdictMinorConcerns, VerdictCaution, VerdictMinorConcernsDesc
+- VerdictVerifiedSafe, VerdictSafeLabel, VerdictVerifiedSafeDesc
+- VerdictNoActivity, VerdictAwaitingScan, VerdictNoActivityDesc, ScanQrToSeeActivity
+- DataPoint, ProcessingEnv, ExternalTransmission, RawImageBuffer
+- LocalMemoryRam, TransmissionNone, DecodedUrlPayload
+- LocalAnalysis, ThreatVerdictLabel, LocalDatabase
+
+**Verification:** `./gradlew :webApp:compileKotlinJs` ✅ BUILD SUCCESSFUL
+
+---
+
 # 🤖 MESSAGES FOR ALL AGENTS - READ FIRST!
 
 ## ⚠️ CRITICAL: Version Management

@@ -80,39 +80,39 @@ const elements = {
 
 const ThreatLevels = {
     HIGH: {
-        title: 'HIGH RISK DETECTED',
-        badge: 'Dangerous',
+        title: 'VerdictHighRisk',
+        badge: 'VerdictDangerous',
         badgeClass: 'danger',
         icon: 'gpp_maybe',
-        description: 'The scanned QR code contains malicious indicators associated with phishing and credential harvesting. Do not proceed to the target URL.',
+        description: 'VerdictDangerousDesc',
     },
     MEDIUM: {
-        title: 'SUSPICIOUS ACTIVITY',
-        badge: 'Warning',
+        title: 'VerdictSuspicious',
+        badge: 'VerdictWarning',
         badgeClass: 'warning',
         icon: 'warning',
-        description: 'The scanned QR code shows suspicious patterns that may indicate potential security risks. Proceed with caution.',
+        description: 'VerdictSuspiciousDesc',
     },
     LOW: {
-        title: 'MINOR CONCERNS',
-        badge: 'Caution',
+        title: 'VerdictMinorConcerns',
+        badge: 'VerdictCaution',
         badgeClass: 'caution',
         icon: 'info',
-        description: 'Some minor security concerns were identified. The link appears mostly safe but review recommended.',
+        description: 'VerdictMinorConcernsDesc',
     },
     SAFE: {
-        title: 'VERIFIED SAFE',
-        badge: 'Safe',
+        title: 'VerdictVerifiedSafe',
+        badge: 'VerdictSafeLabel',
         badgeClass: 'safe',
         icon: 'verified',
-        description: 'No security threats were detected. The QR code leads to a verified safe destination.',
+        description: 'VerdictVerifiedSafeDesc',
     },
     UNKNOWN: {
-        title: 'No Activity',
-        badge: 'Awaiting Scan',
+        title: 'VerdictNoActivity',
+        badge: 'VerdictAwaitingScan',
         badgeClass: 'info',
         icon: 'schedule',
-        description: 'No scan data available. Please scan a QR code or enter a URL to analyze.',
+        description: 'VerdictNoActivityDesc',
     },
 };
 
@@ -607,8 +607,8 @@ function renderScanHistory() {
         historyContainer.innerHTML = `
             <div class="history-empty blue">
                 <span class="material-symbols-outlined">schedule</span>
-                <p>No Activity</p>
-                <span class="empty-hint">Scan a QR code to see your activity here</span>
+                <p data-i18n="VerdictNoActivity">${translateText('VerdictNoActivity')}</p>
+                <span class="empty-hint" data-i18n="ScanQrToSeeActivity">${translateText('ScanQrToSeeActivity')}</span>
             </div>
         `;
         return;

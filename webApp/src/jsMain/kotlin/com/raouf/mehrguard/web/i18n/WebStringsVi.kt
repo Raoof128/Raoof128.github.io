@@ -415,7 +415,34 @@ internal val VietnameseStrings = mapOf(
     WebStringKey.ShowConfidenceScore to "Hiển Thị Điểm Tin Cậy",
     WebStringKey.CompactView to "Chế Độ Xem Thu Gọn",
     WebStringKey.ResetDefaults to "Đặt Lại Mặc Định",
-    WebStringKey.SaveAndContinue to "Lưu và Tiếp Tục"
+    WebStringKey.SaveAndContinue to "Lưu và Tiếp Tục",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "HOẠT ĐỘNG ĐÁNG NGờ",
+    WebStringKey.VerdictWarning to "Cảnh báo",
+    WebStringKey.VerdictSuspiciousDesc to "Mã QR được quét cho thấy các mẫu đáng ngờ có thể chỉ ra rủi ro bảo mật tiềm ẩn. Hãy tiến hành thận trọng.",
+    WebStringKey.VerdictMinorConcerns to "LO NGẠI NHỎ",
+    WebStringKey.VerdictCaution to "Thận trọng",
+    WebStringKey.VerdictMinorConcernsDesc to "Đã phát hiện một số lo ngại bảo mật nhỏ. Liên kết có vẻ an toàn phần lớn nhưng khuyến cáo nên xem xét.",
+    WebStringKey.VerdictVerifiedSafe to "ĐÃ XÁC MINH AN TOÀN",
+    WebStringKey.VerdictSafeLabel to "An toàn",
+    WebStringKey.VerdictVerifiedSafeDesc to "Không phát hiện mối đe dọa bảo mật. Mã QR dẫn đến đích an toàn đã được xác minh.",
+    WebStringKey.VerdictNoActivity to "Không có hoạt động",
+    WebStringKey.VerdictAwaitingScan to "Đang chờ quét",
+    WebStringKey.VerdictNoActivityDesc to "Không có dữ liệu quét. Vui lòng quét mã QR hoặc nhập URL để phân tích.",
+    WebStringKey.ScanQrToSeeActivity to "Quét mã QR để xem hoạt động của bạn tại đây",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Điểm dữ liệu",
+    WebStringKey.ProcessingEnv to "Môi trường xử lý",
+    WebStringKey.ExternalTransmission to "Truyền tải ra ngoài",
+    WebStringKey.RawImageBuffer to "Bộ đệm hình ảnh thô",
+    WebStringKey.LocalMemoryRam to "Bộ nhớ cục bộ (RAM)",
+    WebStringKey.TransmissionNone to "Không có",
+    WebStringKey.DecodedUrlPayload to "URL/Tải trọng đã giải mã",
+    WebStringKey.LocalAnalysis to "Phân tích cục bộ",
+    WebStringKey.ThreatVerdictLabel to "Phán quyết mối đe dọa",
+    WebStringKey.LocalDatabase to "Cơ sở dữ liệu cục bộ"
 )
 
 internal val VietnameseCommonStrings = mapOf(

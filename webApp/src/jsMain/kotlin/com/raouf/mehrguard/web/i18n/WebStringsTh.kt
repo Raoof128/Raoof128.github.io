@@ -415,7 +415,34 @@ internal val ThaiStrings = mapOf(
     WebStringKey.ShowConfidenceScore to "แสดงคะแนนความมั่นใจ",
     WebStringKey.CompactView to "มุมมองกระชับ",
     WebStringKey.ResetDefaults to "รีเซ็ตเป็นค่าเริ่มต้น",
-    WebStringKey.SaveAndContinue to "บันทึกและดำเนินการต่อ"
+    WebStringKey.SaveAndContinue to "บันทึกและดำเนินการต่อ",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "กิจกรรมที่น่าสงสัย",
+    WebStringKey.VerdictWarning to "คำเตือน",
+    WebStringKey.VerdictSuspiciousDesc to "QR โค้ดที่สแกนแสดงรูปแบบที่น่าสงสัยซึ่งอาจบ่งบอกถึงความเสี่ยงด้านความปลอดภัย โปรดดำเนินการด้วยความระมัดระวัง",
+    WebStringKey.VerdictMinorConcerns to "ข้อกังวลเล็กน้อย",
+    WebStringKey.VerdictCaution to "ระวัง",
+    WebStringKey.VerdictMinorConcernsDesc to "พบข้อกังวลด้านความปลอดภัยเล็กน้อย ลิงก์ดูปลอดภัยเป็นส่วนใหญ่แต่แนะนำให้ตรวจสอบ",
+    WebStringKey.VerdictVerifiedSafe to "ตรวจสอบแล้วปลอดภัย",
+    WebStringKey.VerdictSafeLabel to "ปลอดภัย",
+    WebStringKey.VerdictVerifiedSafeDesc to "ไม่พบภัยคุกคามด้านความปลอดภัย QR โค้ดนำไปสู่ปลายทางที่ตรวจสอบแล้วว่าปลอดภัย",
+    WebStringKey.VerdictNoActivity to "ไม่มีกิจกรรม",
+    WebStringKey.VerdictAwaitingScan to "รอการสแกน",
+    WebStringKey.VerdictNoActivityDesc to "ไม่มีข้อมูลการสแกน กรุณาสแกน QR โค้ดหรือป้อน URL เพื่อวิเคราะห์",
+    WebStringKey.ScanQrToSeeActivity to "สแกน QR โค้ดเพื่อดูกิจกรรมของคุณที่นี่",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "จุดข้อมูล",
+    WebStringKey.ProcessingEnv to "สภาพแวดล้อมการประมวลผล",
+    WebStringKey.ExternalTransmission to "การส่งข้อมูลภายนอก",
+    WebStringKey.RawImageBuffer to "บัฟเฟอร์ภาพดิบ",
+    WebStringKey.LocalMemoryRam to "หน่วยความจำท้องถิ่น (RAM)",
+    WebStringKey.TransmissionNone to "ไม่มี",
+    WebStringKey.DecodedUrlPayload to "URL/เพย์โหลดที่ถอดรหัส",
+    WebStringKey.LocalAnalysis to "การวิเคราะห์ท้องถิ่น",
+    WebStringKey.ThreatVerdictLabel to "ผลตัดสินภัยคุกคาม",
+    WebStringKey.LocalDatabase to "ฐานข้อมูลท้องถิ่น"
 )
 
 internal val ThaiCommonStrings = mapOf(

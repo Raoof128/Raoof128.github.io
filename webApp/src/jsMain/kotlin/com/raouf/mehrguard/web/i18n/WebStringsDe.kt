@@ -1359,4 +1359,31 @@ internal val GermanCommonStrings = mapOf(
     "subdomain_chaining" to "subdomain_verkettung",
     "suspicious_tld" to "verdächtige_tld",
     "threat_type" to "bedrohungstyp",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "VERDÄCHTIGE AKTIVITÄT",
+    WebStringKey.VerdictWarning to "Warnung",
+    WebStringKey.VerdictSuspiciousDesc to "Der gescannte QR-Code zeigt verdächtige Muster, die auf potenzielle Sicherheitsrisiken hindeuten. Fahren Sie mit Vorsicht fort.",
+    WebStringKey.VerdictMinorConcerns to "KLEINERE BEDENKEN",
+    WebStringKey.VerdictCaution to "Vorsicht",
+    WebStringKey.VerdictMinorConcernsDesc to "Einige kleinere Sicherheitsbedenken wurden identifiziert. Der Link scheint größtenteils sicher, aber eine Überprüfung wird empfohlen.",
+    WebStringKey.VerdictVerifiedSafe to "VERIFIZIERT SICHER",
+    WebStringKey.VerdictSafeLabel to "Sicher",
+    WebStringKey.VerdictVerifiedSafeDesc to "Keine Sicherheitsbedrohungen erkannt. Der QR-Code führt zu einem verifizierten sicheren Ziel.",
+    WebStringKey.VerdictNoActivity to "Keine Aktivität",
+    WebStringKey.VerdictAwaitingScan to "Warte auf Scan",
+    WebStringKey.VerdictNoActivityDesc to "Keine Scandaten verfügbar. Bitte scannen Sie einen QR-Code oder geben Sie eine URL zur Analyse ein.",
+    WebStringKey.ScanQrToSeeActivity to "Scannen Sie einen QR-Code, um Ihre Aktivität hier zu sehen",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Datenpunkt",
+    WebStringKey.ProcessingEnv to "Verarbeitungsumgebung",
+    WebStringKey.ExternalTransmission to "Externe Übertragung",
+    WebStringKey.RawImageBuffer to "Rohbildpuffer",
+    WebStringKey.LocalMemoryRam to "Lokaler Speicher (RAM)",
+    WebStringKey.TransmissionNone to "Keine",
+    WebStringKey.DecodedUrlPayload to "Dekodierte URL/Nutzlast",
+    WebStringKey.LocalAnalysis to "Lokale Analyse",
+    WebStringKey.ThreatVerdictLabel to "Bedrohungsurteil",
+    WebStringKey.LocalDatabase to "Lokale Datenbank"
 )

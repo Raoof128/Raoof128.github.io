@@ -438,5 +438,32 @@ internal val HebrewCommonStrings = mapOf(
     "Persian" to "פרסית",
 
     // Missing key sync
-    WebStringKey.Last90Days to "90 הימים האחרונים"
+    WebStringKey.Last90Days to "90 הימים האחרונים",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "פעילות חשודה",
+    WebStringKey.VerdictWarning to "אזהרה",
+    WebStringKey.VerdictSuspiciousDesc to "קוד ה-QR הסרוק מציג דפוסים חשודים שעשויים להצביע על סיכוני אבטחה פוטנציאליים. המשך בזהירות.",
+    WebStringKey.VerdictMinorConcerns to "חששות קלים",
+    WebStringKey.VerdictCaution to "זהירות",
+    WebStringKey.VerdictMinorConcernsDesc to "זוהו כמה חששות אבטחה קלים. הקישור נראה בטוח ברובו אך מומלץ לבדוק.",
+    WebStringKey.VerdictVerifiedSafe to "מאומת בטוח",
+    WebStringKey.VerdictSafeLabel to "בטוח",
+    WebStringKey.VerdictVerifiedSafeDesc to "לא זוהו איומי אבטחה. קוד ה-QR מוביל ליעד בטוח מאומת.",
+    WebStringKey.VerdictNoActivity to "אין פעילות",
+    WebStringKey.VerdictAwaitingScan to "ממתין לסריקה",
+    WebStringKey.VerdictNoActivityDesc to "אין נתוני סריקה זמינים. אנא סרוק קוד QR או הזן URL לניתוח.",
+    WebStringKey.ScanQrToSeeActivity to "סרוק קוד QR כדי לראות את הפעילות שלך כאן",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "נקודת נתונים",
+    WebStringKey.ProcessingEnv to "סביבת עיבוד",
+    WebStringKey.ExternalTransmission to "שידור חיצוני",
+    WebStringKey.RawImageBuffer to "חוצץ תמונה גולמי",
+    WebStringKey.LocalMemoryRam to "זיכרון מקומי (RAM)",
+    WebStringKey.TransmissionNone to "ללא",
+    WebStringKey.DecodedUrlPayload to "URL/תוכן מפוענח",
+    WebStringKey.LocalAnalysis to "ניתוח מקומי",
+    WebStringKey.ThreatVerdictLabel to "פסק דין איום",
+    WebStringKey.LocalDatabase to "מסד נתונים מקומי"
 )

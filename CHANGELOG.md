@@ -30,6 +30,67 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.32] - 2026-01-02
+
+### Raouf: Web App Hardcoded English Strings → All 18 Languages
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Complete i18n for verdict screens and data lifecycle table
+
+#### Problem
+Hardcoded English strings appeared in:
+1. **Data Lifecycle table** (Settings page): "Data Point", "Processing Env", "External Transmission", etc.
+2. **Result Screen verdicts**: "SUSPICIOUS ACTIVITY", "MINOR CONCERNS", "VERIFIED SAFE", "No Activity", "AWAITING SCAN"
+3. **History empty state**: "No Activity", "Scan a QR code to see your activity here"
+
+#### Solution
+Added 23 new WebStringKey entries and translated to ALL 18 languages:
+- VerdictSuspicious, VerdictWarning, VerdictSuspiciousDesc
+- VerdictMinorConcerns, VerdictCaution, VerdictMinorConcernsDesc
+- VerdictVerifiedSafe, VerdictSafeLabel, VerdictVerifiedSafeDesc
+- VerdictNoActivity, VerdictAwaitingScan, VerdictNoActivityDesc
+- ScanQrToSeeActivity
+- DataPoint, ProcessingEnv, ExternalTransmission
+- RawImageBuffer, LocalMemoryRam, TransmissionNone
+- DecodedUrlPayload, LocalAnalysis, ThreatVerdictLabel, LocalDatabase
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| WebStrings.kt | +23 new WebStringKey entries |
+| threat.js | Updated ThreatLevels to use translation keys instead of hardcoded text |
+| threat.js | History empty state now uses translateText() |
+| onboarding.html | Added data-i18n attributes to Data Lifecycle table |
+| WebStringsAr.kt | +23 Arabic translations |
+| WebStringsDe.kt | +23 German translations |
+| WebStringsEs.kt | +23 Spanish translations |
+| WebStringsFa.kt | +23 Persian translations |
+| WebStringsFr.kt | +23 French translations |
+| WebStringsHe.kt | +23 Hebrew translations |
+| WebStringsHi.kt | +23 Hindi translations |
+| WebStringsIn.kt | +23 Indonesian translations |
+| WebStringsIt.kt | +23 Italian translations |
+| WebStringsJa.kt | +23 Japanese translations |
+| WebStringsKo.kt | +23 Korean translations |
+| WebStringsPt.kt | +23 Portuguese translations |
+| WebStringsRu.kt | +23 Russian translations |
+| WebStringsTh.kt | +23 Thai translations |
+| WebStringsTr.kt | +23 Turkish translations |
+| WebStringsVi.kt | +23 Vietnamese translations |
+| WebStringsZh.kt | +23 Chinese translations |
+
+#### Verification
+```bash
+./gradlew :webApp:compileKotlinJs
+# BUILD SUCCESSFUL
+```
+
+#### Follow-ups
+- Hard refresh (Ctrl+Shift+R) browser to see changes
+- Test language switching on all verdict states (red/yellow/green)
+
+---
+
 ## [2.0.31] - 2026-01-02
 
 ### Raouf: Web App Language Selector - Hebrew & Persian Added

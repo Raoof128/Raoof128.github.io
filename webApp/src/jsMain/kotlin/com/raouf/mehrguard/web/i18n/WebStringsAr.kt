@@ -529,5 +529,32 @@ internal val ArabicCommonStrings = mapOf(
     "Confidence" to "الثقة",
     "Homograph Attack" to "هجوم الأحرف المتشابهة",
     "Detected" to "تم الاكتشاف",
-    "العربية" to "العربية"
+    "العربية" to "العربية",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "نشاط مشبوه",
+    WebStringKey.VerdictWarning to "تحذير",
+    WebStringKey.VerdictSuspiciousDesc to "يُظهر رمز QR الممسوح أنماطًا مشبوهة قد تشير إلى مخاطر أمنية محتملة. تابع بحذر.",
+    WebStringKey.VerdictMinorConcerns to "مخاوف طفيفة",
+    WebStringKey.VerdictCaution to "تنبيه",
+    WebStringKey.VerdictMinorConcernsDesc to "تم تحديد بعض المخاوف الأمنية الطفيفة. يبدو الرابط آمنًا في الغالب لكن يُوصى بالمراجعة.",
+    WebStringKey.VerdictVerifiedSafe to "آمن ومُتحقق منه",
+    WebStringKey.VerdictSafeLabel to "آمن",
+    WebStringKey.VerdictVerifiedSafeDesc to "لم يتم اكتشاف أي تهديدات أمنية. يؤدي رمز QR إلى وجهة آمنة مُتحقق منها.",
+    WebStringKey.VerdictNoActivity to "لا يوجد نشاط",
+    WebStringKey.VerdictAwaitingScan to "في انتظار المسح",
+    WebStringKey.VerdictNoActivityDesc to "لا تتوفر بيانات مسح. يرجى مسح رمز QR أو إدخال عنوان URL للتحليل.",
+    WebStringKey.ScanQrToSeeActivity to "امسح رمز QR لرؤية نشاطك هنا",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "نقطة البيانات",
+    WebStringKey.ProcessingEnv to "بيئة المعالجة",
+    WebStringKey.ExternalTransmission to "النقل الخارجي",
+    WebStringKey.RawImageBuffer to "ذاكرة الصورة الخام",
+    WebStringKey.LocalMemoryRam to "الذاكرة المحلية (RAM)",
+    WebStringKey.TransmissionNone to "لا شيء",
+    WebStringKey.DecodedUrlPayload to "URL/المحتوى المفكك",
+    WebStringKey.LocalAnalysis to "التحليل المحلي",
+    WebStringKey.ThreatVerdictLabel to "حكم التهديد",
+    WebStringKey.LocalDatabase to "قاعدة البيانات المحلية"
 )

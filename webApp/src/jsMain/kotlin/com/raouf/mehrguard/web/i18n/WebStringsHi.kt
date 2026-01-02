@@ -462,7 +462,34 @@ internal val HindiStrings = mapOf(
     WebStringKey.ShowConfidenceScore to "विश्वास स्कोर दिखाएं",
     WebStringKey.CompactView to "संक्षिप्त दृश्य",
     WebStringKey.ResetDefaults to "डिफ़ॉल्ट रीसेट करें",
-    WebStringKey.SaveAndContinue to "सहेजें और जारी रखें"
+    WebStringKey.SaveAndContinue to "सहेजें और जारी रखें",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "संदिग्ध गतिविधि",
+    WebStringKey.VerdictWarning to "चेतावनी",
+    WebStringKey.VerdictSuspiciousDesc to "स्कैन किया गया QR कोड संदिग्ध पैटर्न दिखाता है जो संभावित सुरक्षा जोखिमों का संकेत दे सकते हैं। सावधानी से आगे बढ़ें।",
+    WebStringKey.VerdictMinorConcerns to "मामूली चिंताएं",
+    WebStringKey.VerdictCaution to "सावधान",
+    WebStringKey.VerdictMinorConcernsDesc to "कुछ मामूली सुरक्षा चिंताएं पहचानी गई। लिंक ज्यादातर सुरक्षित दिखता है लेकिन समीक्षा की सिफारिश की जाती है।",
+    WebStringKey.VerdictVerifiedSafe to "सत्यापित सुरक्षित",
+    WebStringKey.VerdictSafeLabel to "सुरक्षित",
+    WebStringKey.VerdictVerifiedSafeDesc to "कोई सुरक्षा खतरे नहीं मिले। QR कोड सत्यापित सुरक्षित गंतव्य की ओर ले जाता है।",
+    WebStringKey.VerdictNoActivity to "कोई गतिविधि नहीं",
+    WebStringKey.VerdictAwaitingScan to "स्कैन की प्रतीक्षा",
+    WebStringKey.VerdictNoActivityDesc to "कोई स्कैन डेटा उपलब्ध नहीं। कृपया QR कोड स्कैन करें या विश्लेषण के लिए URL दर्ज करें।",
+    WebStringKey.ScanQrToSeeActivity to "अपनी गतिविधि देखने के लिए QR कोड स्कैन करें",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "डेटा पॉइंट",
+    WebStringKey.ProcessingEnv to "प्रसंस्करण वातावरण",
+    WebStringKey.ExternalTransmission to "बाह्य प्रसारण",
+    WebStringKey.RawImageBuffer to "कच्चा छवि बफर",
+    WebStringKey.LocalMemoryRam to "स्थानीय मेमोरी (RAM)",
+    WebStringKey.TransmissionNone to "कोई नहीं",
+    WebStringKey.DecodedUrlPayload to "डिकोडेड URL/पेलोड",
+    WebStringKey.LocalAnalysis to "स्थानीय विश्लेषण",
+    WebStringKey.ThreatVerdictLabel to "खतरा निर्णय",
+    WebStringKey.LocalDatabase to "स्थानीय डेटाबेस"
 )
 
 internal val HindiCommonStrings = mapOf(

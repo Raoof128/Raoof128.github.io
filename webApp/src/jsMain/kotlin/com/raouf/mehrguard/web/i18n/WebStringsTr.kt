@@ -415,7 +415,34 @@ internal val TurkishStrings = mapOf(
     WebStringKey.ShowConfidenceScore to "Güven Puanını Göster",
     WebStringKey.CompactView to "Kompakt Görünüm",
     WebStringKey.ResetDefaults to "Varsayılanlara Sıfırla",
-    WebStringKey.SaveAndContinue to "Kaydet ve Devam Et"
+    WebStringKey.SaveAndContinue to "Kaydet ve Devam Et",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "ŞÜPHELİ AKTİVİTE",
+    WebStringKey.VerdictWarning to "Uyarı",
+    WebStringKey.VerdictSuspiciousDesc to "Taranan QR kod, potansiyel güvenlik risklerine işaret edebilecek şüpheli kalıplar gösteriyor. Dikkatli ilerleyin.",
+    WebStringKey.VerdictMinorConcerns to "KÜÇÜK ENDIŞELER",
+    WebStringKey.VerdictCaution to "Dikkat",
+    WebStringKey.VerdictMinorConcernsDesc to "Bazı küçük güvenlik endişeleri belirlendi. Bağlantı çoğunlukla güvenli görünüyor ancak inceleme önerilir.",
+    WebStringKey.VerdictVerifiedSafe to "DOĞRULANMIŞ GÜVENLİ",
+    WebStringKey.VerdictSafeLabel to "Güvenli",
+    WebStringKey.VerdictVerifiedSafeDesc to "Güvenlik tehdidi tespit edilmedi. QR kod doğrulanmış güvenli bir hedefe yönlendiriyor.",
+    WebStringKey.VerdictNoActivity to "Aktivite Yok",
+    WebStringKey.VerdictAwaitingScan to "Tarama Bekleniyor",
+    WebStringKey.VerdictNoActivityDesc to "Tarama verisi mevcut değil. Lütfen bir QR kod tarayın veya analiz için URL girin.",
+    WebStringKey.ScanQrToSeeActivity to "Aktivitenizi görmek için QR kod tarayın",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "Veri Noktası",
+    WebStringKey.ProcessingEnv to "İşleme Ortamı",
+    WebStringKey.ExternalTransmission to "Harici İletim",
+    WebStringKey.RawImageBuffer to "Ham Görüntü Arabelleği",
+    WebStringKey.LocalMemoryRam to "Yerel Bellek (RAM)",
+    WebStringKey.TransmissionNone to "Yok",
+    WebStringKey.DecodedUrlPayload to "Çözülmüş URL/Yük",
+    WebStringKey.LocalAnalysis to "Yerel Analiz",
+    WebStringKey.ThreatVerdictLabel to "Tehdit Kararı",
+    WebStringKey.LocalDatabase to "Yerel Veritabanı"
 )
 
 internal val TurkishCommonStrings = mapOf(

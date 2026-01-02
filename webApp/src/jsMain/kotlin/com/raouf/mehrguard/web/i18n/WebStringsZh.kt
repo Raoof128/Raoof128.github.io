@@ -1342,5 +1342,32 @@ internal val ChineseCommonStrings = mapOf(
     WebStringKey.ShowHelp to "显示帮助",
     WebStringKey.SoundAlerts to "声音提醒",
     WebStringKey.StartScanner to "启动扫描器",
-    WebStringKey.ThreatAlerts to "威胁警报"
+    WebStringKey.ThreatAlerts to "威胁警报",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "可疑活动",
+    WebStringKey.VerdictWarning to "警告",
+    WebStringKey.VerdictSuspiciousDesc to "扫描的二维码显示可疑模式，可能表明存在潜在安全风险。请谨慎操作。",
+    WebStringKey.VerdictMinorConcerns to "轻微问题",
+    WebStringKey.VerdictCaution to "注意",
+    WebStringKey.VerdictMinorConcernsDesc to "发现了一些轻微的安全问题。链接看起来基本安全，但建议进行审查。",
+    WebStringKey.VerdictVerifiedSafe to "已验证安全",
+    WebStringKey.VerdictSafeLabel to "安全",
+    WebStringKey.VerdictVerifiedSafeDesc to "未检测到安全威胁。二维码指向经过验证的安全目的地。",
+    WebStringKey.VerdictNoActivity to "无活动",
+    WebStringKey.VerdictAwaitingScan to "等待扫描",
+    WebStringKey.VerdictNoActivityDesc to "没有可用的扫描数据。请扫描二维码或输入URL进行分析。",
+    WebStringKey.ScanQrToSeeActivity to "扫描二维码以在此处查看您的活动",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "数据点",
+    WebStringKey.ProcessingEnv to "处理环境",
+    WebStringKey.ExternalTransmission to "外部传输",
+    WebStringKey.RawImageBuffer to "原始图像缓冲区",
+    WebStringKey.LocalMemoryRam to "本地内存 (RAM)",
+    WebStringKey.TransmissionNone to "无",
+    WebStringKey.DecodedUrlPayload to "解码的URL/载荷",
+    WebStringKey.LocalAnalysis to "本地分析",
+    WebStringKey.ThreatVerdictLabel to "威胁判定",
+    WebStringKey.LocalDatabase to "本地数据库"
 )

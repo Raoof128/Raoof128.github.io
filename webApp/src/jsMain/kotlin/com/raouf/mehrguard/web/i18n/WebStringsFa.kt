@@ -438,5 +438,32 @@ internal val PersianCommonStrings = mapOf(
     "Persian" to "فارسی",
 
     // Missing key sync
-    WebStringKey.Last90Days to "۹۰ روز گذشته"
+    WebStringKey.Last90Days to "۹۰ روز گذشته",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "فعالیت مشکوک",
+    WebStringKey.VerdictWarning to "هشدار",
+    WebStringKey.VerdictSuspiciousDesc to "کد QR اسکن شده الگوهای مشکوکی نشان می‌دهد که ممکن است خطرات امنیتی بالقوه داشته باشد. با احتیاط ادامه دهید.",
+    WebStringKey.VerdictMinorConcerns to "نگرانی‌های جزئی",
+    WebStringKey.VerdictCaution to "احتیاط",
+    WebStringKey.VerdictMinorConcernsDesc to "برخی نگرانی‌های امنیتی جزئی شناسایی شد. لینک تا حد زیادی امن به نظر می‌رسد اما بررسی توصیه می‌شود.",
+    WebStringKey.VerdictVerifiedSafe to "تأیید شده امن",
+    WebStringKey.VerdictSafeLabel to "امن",
+    WebStringKey.VerdictVerifiedSafeDesc to "هیچ تهدید امنیتی شناسایی نشد. کد QR به مقصد امن تأیید شده هدایت می‌کند.",
+    WebStringKey.VerdictNoActivity to "بدون فعالیت",
+    WebStringKey.VerdictAwaitingScan to "در انتظار اسکن",
+    WebStringKey.VerdictNoActivityDesc to "داده‌ای برای اسکن موجود نیست. لطفاً یک کد QR اسکن کنید یا URL وارد کنید.",
+    WebStringKey.ScanQrToSeeActivity to "برای مشاهده فعالیت خود یک کد QR اسکن کنید",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "نقطه داده",
+    WebStringKey.ProcessingEnv to "محیط پردازش",
+    WebStringKey.ExternalTransmission to "انتقال خارجی",
+    WebStringKey.RawImageBuffer to "بافر تصویر خام",
+    WebStringKey.LocalMemoryRam to "حافظه محلی (RAM)",
+    WebStringKey.TransmissionNone to "هیچ",
+    WebStringKey.DecodedUrlPayload to "URL/محتوای رمزگشایی شده",
+    WebStringKey.LocalAnalysis to "تحلیل محلی",
+    WebStringKey.ThreatVerdictLabel to "حکم تهدید",
+    WebStringKey.LocalDatabase to "پایگاه داده محلی"
 )

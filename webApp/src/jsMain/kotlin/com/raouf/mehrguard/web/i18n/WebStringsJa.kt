@@ -1296,4 +1296,31 @@ internal val JapaneseCommonStrings = mapOf(
     "subdomain_chaining" to "サブドメイン連鎖",
     "suspicious_tld" to "疑わしい_tld",
     "threat_type" to "脅威タイプ",
+    
+    // Result Screen Verdicts
+    WebStringKey.VerdictSuspicious to "疑わしいアクティビティ",
+    WebStringKey.VerdictWarning to "警告",
+    WebStringKey.VerdictSuspiciousDesc to "スキャンされたQRコードは、潜在的なセキュリティリスクを示す疑わしいパターンを示しています。注意して進んでください。",
+    WebStringKey.VerdictMinorConcerns to "軽微な懸念",
+    WebStringKey.VerdictCaution to "注意",
+    WebStringKey.VerdictMinorConcernsDesc to "いくつかの軽微なセキュリティ上の懸念が特定されました。リンクはほぼ安全に見えますが、確認をお勧めします。",
+    WebStringKey.VerdictVerifiedSafe to "検証済み安全",
+    WebStringKey.VerdictSafeLabel to "安全",
+    WebStringKey.VerdictVerifiedSafeDesc to "セキュリティの脅威は検出されませんでした。QRコードは検証済みの安全な宛先にリンクしています。",
+    WebStringKey.VerdictNoActivity to "アクティビティなし",
+    WebStringKey.VerdictAwaitingScan to "スキャン待ち",
+    WebStringKey.VerdictNoActivityDesc to "スキャンデータがありません。QRコードをスキャンするか、分析するURLを入力してください。",
+    WebStringKey.ScanQrToSeeActivity to "QRコードをスキャンして、ここでアクティビティを確認",
+    
+    // Data Lifecycle Table
+    WebStringKey.DataPoint to "データポイント",
+    WebStringKey.ProcessingEnv to "処理環境",
+    WebStringKey.ExternalTransmission to "外部送信",
+    WebStringKey.RawImageBuffer to "生画像バッファ",
+    WebStringKey.LocalMemoryRam to "ローカルメモリ (RAM)",
+    WebStringKey.TransmissionNone to "なし",
+    WebStringKey.DecodedUrlPayload to "デコードされたURL/ペイロード",
+    WebStringKey.LocalAnalysis to "ローカル分析",
+    WebStringKey.ThreatVerdictLabel to "脅威判定",
+    WebStringKey.LocalDatabase to "ローカルデータベース"
 )
