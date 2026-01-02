@@ -914,6 +914,79 @@ function mapVerdictToLevel(verdict) {
 }
 
 /**
+ * Translate known heuristic signal descriptions
+ * Maps English engine signals to i18n keys
+ */
+function translateSignalDescription(signal) {
+    // Known signal patterns from HeuristicsEngine.kt
+    const signalMappings = {
+        'Uses insecure HTTP protocol': 'SignalHttpNotHttps',
+        'Host is an IP address instead of domain': 'SignalIpAddressHost',
+        'Uses URL shortening service': 'SignalUrlShortener',
+        'High randomness in domain name': 'SignalHighEntropyHost',
+        'Credential-related parameters in URL': 'SignalCredentialParams',
+        'Encoded data detected in query parameters': 'SignalEncodedPayload',
+        'Numeric-only subdomain detected': 'SignalNumericSubdomain',
+        'Domain contains homograph/confusable characters': 'SignalHomographAttack',
+        'Potential brand impersonation detected': 'SignalBrandImpersonation',
+    };
+
+    // Check for exact matches first
+    if (signalMappings[signal]) {
+        return translateText(signalMappings[signal]);
+    }
+
+    // Check for partial matches with dynamic values
+    const lowerSignal = signal.toLowerCase();
+    
+    // Excessive subdomains: "Excessive subdomain depth (X levels)"
+    if (lowerSignal.includes('excessive subdomain depth')) {
+        const match = signal.match(/\((\d+) levels\)/);
+        if (match) {
+            return translateText('SignalExcessiveSubdomains').replace('{count}', match[1]);
+        }
+    }
+    
+    // Non-standard port: "Non-standard port: X"
+    if (lowerSignal.includes('non-standard port')) {
+        const match = signal.match(/port[:\s]+(\d+)/i);
+        if (match) {
+            return translateText('SignalNonStandardPort').replace('{port}', match[1]);
+        }
+    }
+    
+    // Long URL: "Unusually long URL (X characters)"
+    if (lowerSignal.includes('unusually long url')) {
+        const match = signal.match(/\((\d+) characters\)/);
+        if (match) {
+            if (lowerSignal.includes('marketing')) {
+                return translateText('SignalLongUrlMarketing').replace('{length}', match[1]);
+            }
+            return translateText('SignalLongUrl').replace('{length}', match[1]);
+        }
+    }
+    
+    // Suspicious path keywords: "Suspicious keywords in path (X found)"
+    if (lowerSignal.includes('suspicious keywords in path')) {
+        const match = signal.match(/\((\d+) found\)/);
+        if (match) {
+            return translateText('SignalSuspiciousPathKeywords').replace('{count}', match[1]);
+        }
+    }
+    
+    // Suspicious TLD: "Suspicious TLD: X"
+    if (lowerSignal.includes('suspicious') && lowerSignal.includes('tld')) {
+        const match = signal.match(/tld[:\s]+\.?(\w+)/i);
+        if (match) {
+            return translateText('SignalSuspiciousTld').replace('{tld}', match[1]);
+        }
+    }
+
+    // Return original signal if no translation found
+    return signal;
+}
+
+/**
  * Generate attack analysis from actual URL data and engine signals
  */
 function generateAttacksFromUrl(url, verdict, signals = []) {
@@ -925,12 +998,14 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
         signals.forEach(signal => {
             // Parse the signal string to extract useful info
             const signalLower = signal.toLowerCase();
+            // Translate signal description to user's language
+            const translatedSignal = translateSignalDescription(signal);
 
             if (signalLower.includes('punycode') || signalLower.includes('homograph') || signalLower.includes('idn')) {
                 attacks.push({
                     type: 'homograph',
                     title: translateText('HomographIdnAttack'),
-                    description: signal,
+                    description: translatedSignal,
                     visual: domain.replace(/^xn--/, '').replace(/-[a-z0-9]+$/, ''),
                     actual: domain,
                     explanation: translateText('DomainUsesInternationalChars'),
@@ -939,7 +1014,7 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
                 attacks.push({
                     type: 'redirect',
                     title: translateText('RedirectShortenerDetected'),
-                    description: signal,
+                    description: translatedSignal,
                     chain: [
                         { label: translateText('ScannedURLLabel'), url: url, status: 'warning' },
                     ],
@@ -948,38 +1023,38 @@ function generateAttacksFromUrl(url, verdict, signals = []) {
                 attacks.push({
                     type: 'suspicious_tld',
                     title: translateText('SuspiciousTld'),
-                    description: signal,
+                    description: translatedSignal,
                 });
             } else if (signalLower.includes('brand') || signalLower.includes('impersonat')) {
                 attacks.push({
                     type: 'brand_impersonation',
                     title: translateText('BrandImpersonation'),
-                    description: signal,
+                    description: translatedSignal,
                 });
             } else if (signalLower.includes('entropy') || signalLower.includes('obfuscat') || signalLower.includes('encoded')) {
                 attacks.push({
                     type: 'obfuscation',
                     title: translateText('SuspiciousEncoding'),
-                    description: signal,
+                    description: translatedSignal,
                 });
             } else if (signalLower.includes('phish') || signalLower.includes('credential')) {
                 attacks.push({
                     type: 'phishing',
                     title: translateText('PhishingIndicators'),
-                    description: signal,
+                    description: translatedSignal,
                 });
             } else if (signalLower.includes('keyword') || signalLower.includes('login') || signalLower.includes('verify')) {
                 attacks.push({
                     type: 'suspicious_keywords',
                     title: translateText('SuspiciousKeywords'),
-                    description: signal,
+                    description: translatedSignal,
                 });
             } else {
                 // Generic signal - still show it!
                 attacks.push({
                     type: 'heuristic',
                     title: translateText('SecuritySignal'),
-                    description: signal,
+                    description: translatedSignal,
                 });
             }
         });

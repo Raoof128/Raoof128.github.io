@@ -76,6 +76,35 @@ find src -name "*.kt" -exec sed -i '' 's/oldDbQueries/newDbQueries/g' {} \;
 
 ---
 
+## Raouf: Web App i18n - Result Screen + Trust Centre + Attack Signals (2026-01-02 AEDT)
+
+**Scope:** Fix remaining hardcoded English in result screen, sensitivity modes, privacy card, and attack signal descriptions
+
+**Problem:**
+- Result screen: Wrong translation keys (`NoScanDataUrl` instead of `VerdictNoActivityDesc`)
+- Trust Centre: Sensitivity modes and descriptions hardcoded in English
+- Privacy hero card: Description and button text hardcoded
+- Attack signals: Heuristic descriptions from Kotlin engine showing in English
+
+**Solution:**
+- Fixed 4 translation key mismatches in results.js
+- Added 21 new WebStringKey entries (sensitivity modes, privacy desc, 16 signal translations)
+- Updated trust.js to use translation keys for SensitivityLevels
+- Updated trust.html with data-i18n attributes for privacy hero card
+- Added translateSignalDescription() function in threat.js (90+ lines) to map engine signals
+- Translated all 21 keys to 18 languages
+
+**Files Modified:**
+| Category | Files |
+|----------|-------|
+| JavaScript | results.js, trust.js, threat.js |
+| HTML | trust.html |
+| i18n | WebStrings.kt + all 17 language files |
+
+**Verification:** `./gradlew :webApp:compileKotlinJs` BUILD SUCCESSFUL
+
+---
+
 ## Raouf: Web App Hardcoded English → 18 Languages (2026-01-02 AEDT)
 
 **Scope:** Complete i18n for verdict screens and data lifecycle table in Web App

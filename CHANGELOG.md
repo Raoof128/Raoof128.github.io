@@ -30,6 +30,79 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.34] - 2026-01-02
+
+### Raouf: Web App i18n - Fix Result Screen + Trust Centre + Attack Signals
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Complete i18n for result screen, sensitivity modes, privacy card, and attack signal descriptions
+
+#### Problem
+Screenshots showed hardcoded English strings still appearing:
+1. **Result Screen**: Wrong translation keys used (`NoScanDataUrl` instead of `VerdictNoActivityDesc`)
+2. **Sensitivity Modes**: "Low Sensitivity Mode", "Balanced Mode (Recommended)", "Paranoia Mode" hardcoded
+3. **Privacy Card**: "Mehr Guard uses local heuristic analysis engines..." and "Learn about our local architecture" hardcoded
+4. **Attack Signals**: Heuristic engine descriptions like "Host is an IP address instead of domain" hardcoded
+
+#### Solution
+1. **Fixed results.js** translation key mismatches:
+   - `NoScanDataUrl` → `VerdictNoActivityDesc`
+   - `WaitingForAnalysisDots` → `WaitingForAnalysisLabel`
+   - `ScanQrOrEnterUrl` → `ScanToAnalyze`
+   - `translateText('No Data')` → `translateText('NoData')` (no space)
+
+2. **Added 21 new WebStringKey entries**:
+   - Sensitivity: `LowSensitivityMode`, `LowSensitivityModeDesc`, `ParanoiaMode`, `ParanoiaModeDesc`
+   - Privacy: `PrivacyGuaranteeDesc`
+   - Signals (16): `SignalHttpNotHttps`, `SignalIpAddressHost`, `SignalUrlShortener`, `SignalExcessiveSubdomains`, `SignalNonStandardPort`, `SignalLongUrl`, `SignalLongUrlMarketing`, `SignalHighEntropyHost`, `SignalSuspiciousPathKeywords`, `SignalCredentialParams`, `SignalEncodedPayload`, `SignalNumericSubdomain`, `SignalSuspiciousTld`, `SignalNewlyRegisteredDomain`, `SignalHomographAttack`, `SignalBrandImpersonation`
+
+3. **Updated trust.js** to use translation keys for sensitivity levels (changed from hardcoded `name`, `title`, `description` to `nameKey`, `titleKey`, `descriptionKey`)
+
+4. **Updated trust.html** with data-i18n attributes for hero description and "Learn about our local architecture" button
+
+5. **Added translateSignalDescription()** function in threat.js to map Kotlin engine signal descriptions to i18n keys
+
+6. **Translated all 21 keys to all 18 languages**
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| results.js | Fixed 4 translation key mismatches |
+| trust.js | SensitivityLevels now use translation keys; updated all usages |
+| trust.html | Added data-i18n attributes to privacy hero card |
+| threat.js | Added translateSignalDescription() function (90+ lines) |
+| WebStrings.kt | +21 new WebStringKey entries |
+| WebStringsAr.kt | +21 Arabic translations |
+| WebStringsDe.kt | +21 German translations |
+| WebStringsEs.kt | +21 Spanish translations |
+| WebStringsFa.kt | +21 Persian translations |
+| WebStringsFr.kt | +21 French translations |
+| WebStringsHe.kt | +21 Hebrew translations |
+| WebStringsHi.kt | +21 Hindi translations |
+| WebStringsIn.kt | +21 Indonesian translations |
+| WebStringsIt.kt | +21 Italian translations |
+| WebStringsJa.kt | +21 Japanese translations |
+| WebStringsKo.kt | +21 Korean translations |
+| WebStringsPt.kt | +21 Portuguese translations |
+| WebStringsRu.kt | +21 Russian translations |
+| WebStringsTh.kt | +21 Thai translations |
+| WebStringsTr.kt | +21 Turkish translations |
+| WebStringsVi.kt | +21 Vietnamese translations |
+| WebStringsZh.kt | +21 Chinese translations |
+
+#### Verification
+```bash
+./gradlew :webApp:compileKotlinJs
+# BUILD SUCCESSFUL in 11s
+```
+
+#### Technical Notes
+- Signal translation uses pattern matching to handle dynamic values like `{count}`, `{port}`, `{length}`, `{tld}`
+- Exact match signals translate directly; dynamic signals use regex to extract values
+- Falls back to original English signal if no translation match found
+
+---
+
 ## [2.0.33] - 2026-01-02
 
 ### Raouf: Web App i18n - Scanner/Results JS Files + 70+ Missing Keys

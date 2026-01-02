@@ -100,19 +100,19 @@ const elements = {
 
 const SensitivityLevels = {
     1: {
-        name: 'Low',
-        title: 'Low Sensitivity Mode',
-        description: 'Only blocks known malicious URLs from the threat database. Minimal false positives, but may miss novel attacks.',
+        nameKey: 'SensitivityLow',
+        titleKey: 'LowSensitivityMode',
+        descriptionKey: 'LowSensitivityModeDesc',
     },
     2: {
-        name: 'Balanced',
-        title: 'Balanced Mode (Recommended)',
-        description: 'Scans for known malicious patterns and heuristic mismatches. Blocks homoglyph attacks and redirect chains. Low false positive rate expected.',
+        nameKey: 'SensitivityBalanced',
+        titleKey: 'BalancedModeRecommended',
+        descriptionKey: 'BalancedModeDesc',
     },
     3: {
-        name: 'Paranoia',
-        title: 'Paranoia Mode',
-        description: 'Maximum protection. Blocks any suspicious patterns including newly registered domains, uncommon TLDs, and any URL with potential encoding tricks.',
+        nameKey: 'SensitivityParanoia',
+        titleKey: 'ParanoiaMode',
+        descriptionKey: 'ParanoiaModeDesc',
     },
 };
 
@@ -342,7 +342,7 @@ function renderSensitivity() {
 
     // Update badge
     if (elements.sensitivityBadge) {
-        elements.sensitivityBadge.textContent = translateText(info.name);
+        elements.sensitivityBadge.textContent = translateText(info.nameKey);
     }
 
     // Update labels
@@ -357,8 +357,8 @@ function renderSensitivity() {
         elements.sensitivityInfo.innerHTML = `
             <span class="material-symbols-outlined">info</span>
             <div class="info-content">
-                <p class="info-title">${translateText(info.title)}</p>
-                <p class="info-description">${translateText(info.description)}</p>
+                <p class="info-title">${translateText(info.titleKey)}</p>
+                <p class="info-description">${translateText(info.descriptionKey)}</p>
             </div>
         `;
         window.mehrguardApplyTranslations?.(elements.sensitivityInfo);
@@ -482,7 +482,7 @@ function handleSensitivityChange(event) {
     saveSettings();
 
     const level = SensitivityLevels[TrustState.sensitivity];
-    showToast(formatText('Sensitivity set to {level}', { level: translateText(level.name) }), 'success');
+    showToast(formatText('Sensitivity set to {level}', { level: translateText(level.nameKey) }), 'success');
 }
 
 // =============================================================================
@@ -740,8 +740,8 @@ function generateSecurityAudit() {
 
         // Detection Settings
         detectionSettings: {
-            sensitivityLevel: SensitivityLevels[TrustState.sensitivity].name,
-            sensitivityDescription: SensitivityLevels[TrustState.sensitivity].description,
+            sensitivityLevel: translateText(SensitivityLevels[TrustState.sensitivity].nameKey),
+            sensitivityDescription: translateText(SensitivityLevels[TrustState.sensitivity].descriptionKey),
         },
 
         // Privacy Settings

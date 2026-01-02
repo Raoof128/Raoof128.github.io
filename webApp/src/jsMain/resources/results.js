@@ -1137,14 +1137,14 @@ function showNoDataState() {
     const verdictDescription = document.querySelector('.verdict-description');
     if (verdictDescription) {
         verdictDescription.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        verdictDescription.textContent = translateText('NoScanDataUrl');
+        verdictDescription.textContent = translateText('VerdictNoActivityDesc');
     }
 
     // Update verdict title
     const verdictTitle = document.getElementById('verdictTitle');
     if (verdictTitle) {
         verdictTitle.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        verdictTitle.textContent = translateText('WaitingForAnalysisDots');
+        verdictTitle.textContent = translateText('WaitingForAnalysisLabel');
     }
 
     // Update verdict icon
@@ -1163,7 +1163,7 @@ function showNoDataState() {
     const confidenceLabel = document.getElementById('confidenceLabel');
     if (confidenceLabel) {
         confidenceLabel.removeAttribute('data-i18n'); // Prevent i18n from overwriting
-        confidenceLabel.textContent = translateText('No Data');
+        confidenceLabel.textContent = translateText('NoData');
     }
 
     // Update URL display
@@ -1179,7 +1179,7 @@ function showNoDataState() {
         factorsGrid.innerHTML = `
             <div class="no-data-card">
                 <span class="material-symbols-outlined">info</span>
-                <p>${translateText('ScanQrOrEnterUrl')}</p>
+                <p>${translateText('ScanToAnalyze')}</p>
                 <a href="scanner.html" class="scan-link">${translateText('GoToScanner')}</a>
             </div>
         `;
