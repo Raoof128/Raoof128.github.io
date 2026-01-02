@@ -15,6 +15,18 @@
 
 ---
 
+## ⚡ 60-Second Judge Path
+
+| Step | Action | Time |
+|------|--------|------|
+| **1** | 📱 [Download APK](https://github.com/Raoof128/Raoof128.github.io/releases/tag/v2.0.36-submission) | 10s |
+| **2** | 🌐 [Open Web Demo](https://raoof128.github.io) — paste `paypa1-secure.tk` | 20s |
+| **3** | ✅ Run `./judge/verify_offline.sh` (proves zero network calls) | 30s |
+
+> 📋 **Full Guide:** [JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md) • 📝 **Essay:** [ESSAY.md](ESSAY.md)
+
+---
+
 ## What Is Mehr Guard?
 
 Mehr Guard is a **privacy-first QR code and URL security scanner** built with Kotlin Multiplatform. It detects phishing attacks, brand impersonation, and malicious redirects **entirely on-device** — no cloud APIs, no data collection, no network calls.
@@ -44,7 +56,9 @@ Paste any URL to test detection:
 
 **Download:** [releases/MehrGuard-2.0.36-debug.apk](releases/MehrGuard-2.0.36-debug.apk)
 
-Install on any Android 8+ device. No build required. Debug build for evaluation purposes.
+Install on any Android 8+ device. No build required.
+
+> **Note:** Debug-signed APK (suitable for judge evaluation). A release-signed APK is not required for evaluation.
 
 ---
 

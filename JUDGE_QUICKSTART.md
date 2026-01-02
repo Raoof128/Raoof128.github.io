@@ -95,9 +95,9 @@ cd mehrguard
 | **False Positive Rate** | <5% | [AlexaTop100FPTest.kt](common/src/commonTest/kotlin/com/mehrguard/benchmark/AlexaTop100FPTest.kt) |
 | **Shared Code** | ~11,000 LOC | [SHARED_CODE_REPORT.md](docs/SHARED_CODE_REPORT.md) |
 | **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
-| **Languages** | 16 | 629 Android strings, 547 iOS strings |
+| **Languages** | 18 | Full i18n support |
 | **Accessibility** | Full | 197+ content descriptions, VoiceOver labels |
-| **App Version** | 2.0.35 | Latest as of Jan 2, 2026 |
+| **App Version** | 2.0.36 | KotlinConf 2025-2026 Submission |
 
 ---
 
