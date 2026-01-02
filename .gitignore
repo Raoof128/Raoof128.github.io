@@ -104,3 +104,5 @@ androidApp/Androidapp.txt
 .agent/artifacts/android_gap_analysis.md
 releases/keystore-base64.txt
 *.bak
+.vscode/
+.claude/
