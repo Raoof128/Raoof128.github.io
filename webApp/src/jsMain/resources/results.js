@@ -183,7 +183,9 @@ function getEngineAnalysis(url) {
                         type: mapSeverityToType(reason.severity),
                         category: getCategoryFromCode(reason.code),
                         title: formatReasonTitle(reason.code),
-                        description: reason.description || formatReasonDescription(reason.code),
+                        // Use i18n description, fallback to Kotlin description, then formatReasonDescription
+                        description: formatReasonDescription(reason.code) || reason.description,
+                        reasonCode: reason.code, // Store original code for potential re-translation
                     });
                 });
             }
@@ -280,11 +282,15 @@ function getEngineAnalysis(url) {
 
         // Round ML score to whole number for cleaner display
         const displayPercent = Number.isNaN(mlPercent) ? 'N/A' : Math.round(mlPercent) + '%';
+        const mlTitle = translateText('MlPhishingScore') || 'ML Phishing Score';
+        const charAnalysis = translateText('MlCharacterAnalysis') || 'Character analysis';
+        const featureAnalysis = translateText('MlFeatureAnalysis') || 'Feature analysis';
+        const confidence = translateText('Confidence') || 'Confidence';
         result.factors.push({
             type: mlSeverity,
             category: 'ML ENGINE',
-            title: `ML Phishing Score: ${displayPercent}`,
-            description: `Character analysis: ${Math.round(result.mlScore.charScore * 100)}%, Feature analysis: ${Math.round(result.mlScore.featureScore * 100)}%. Confidence: ${Math.round(result.mlScore.confidence * 100)}%.`,
+            title: `${mlTitle}: ${displayPercent}`,
+            description: `${charAnalysis}: ${Math.round(result.mlScore.charScore * 100)}%, ${featureAnalysis}: ${Math.round(result.mlScore.featureScore * 100)}%. ${confidence}: ${Math.round(result.mlScore.confidence * 100)}%.`,
         });
     }
 
@@ -330,10 +336,83 @@ function getCategoryFromCode(code) {
 }
 
 /**
- * Format reason code to human-readable title
+ * Reason code to i18n key mapping.
+ * Maps ReasonCode.code values to WebStringKey enum names for localization.
+ */
+const REASON_CODE_I18N_KEYS = {
+    // CRITICAL severity
+    'JAVASCRIPT_URL': { title: 'ReasonJavascriptUrlTitle', desc: 'ReasonJavascriptUrlDesc' },
+    'DATA_URI': { title: 'ReasonDataUriTitle', desc: 'ReasonDataUriDesc' },
+    'AT_SYMBOL_INJECTION': { title: 'ReasonAtSymbolInjectionTitle', desc: 'ReasonAtSymbolInjectionDesc' },
+    // HIGH severity
+    'HOMOGRAPH': { title: 'ReasonHomographTitle', desc: 'ReasonHomographDesc' },
+    'MIXED_SCRIPT': { title: 'ReasonMixedScriptTitle', desc: 'ReasonMixedScriptDesc' },
+    'LOOKALIKE_CHARS': { title: 'ReasonLookalikeCharsTitle', desc: 'ReasonLookalikeCharsDesc' },
+    'ZERO_WIDTH_CHARS': { title: 'ReasonZeroWidthCharsTitle', desc: 'ReasonZeroWidthCharsDesc' },
+    'IP_HOST': { title: 'ReasonIpHostTitle', desc: 'ReasonIpHostDesc' },
+    'CREDENTIAL_PARAM': { title: 'ReasonCredentialParamTitle', desc: 'ReasonCredentialParamDesc' },
+    'BRAND_IMPERSONATION': { title: 'ReasonBrandImpersonationTitle', desc: 'ReasonBrandImpersonationDesc' },
+    'BRAND_IN_SUBDOMAIN': { title: 'ReasonBrandInSubdomainTitle', desc: 'ReasonBrandInSubdomainDesc' },
+    'RISKY_EXTENSION': { title: 'ReasonRiskyExtensionTitle', desc: 'ReasonRiskyExtensionDesc' },
+    'DOUBLE_EXTENSION': { title: 'ReasonDoubleExtensionTitle', desc: 'ReasonDoubleExtensionDesc' },
+    'ENCODED_PAYLOAD': { title: 'ReasonEncodedPayloadTitle', desc: 'ReasonEncodedPayloadDesc' },
+    // MEDIUM severity
+    'HTTP_NOT_HTTPS': { title: 'ReasonHttpNotHttpsTitle', desc: 'ReasonHttpNotHttpsDesc' },
+    'SUSPICIOUS_TLD': { title: 'ReasonSuspiciousTldTitle', desc: 'ReasonSuspiciousTldDesc' },
+    'HIGH_ENTROPY_HOST': { title: 'ReasonHighEntropyHostTitle', desc: 'ReasonHighEntropyHostDesc' },
+    'REDIRECT_PARAM': { title: 'ReasonRedirectParamTitle', desc: 'ReasonRedirectParamDesc' },
+    'DEEP_SUBDOMAIN': { title: 'ReasonDeepSubdomainTitle', desc: 'ReasonDeepSubdomainDesc' },
+    'MULTI_TLD': { title: 'ReasonMultiTldTitle', desc: 'ReasonMultiTldDesc' },
+    'NUMERIC_SUBDOMAIN': { title: 'ReasonNumericSubdomainTitle', desc: 'ReasonNumericSubdomainDesc' },
+    'NON_STANDARD_PORT': { title: 'ReasonNonStandardPortTitle', desc: 'ReasonNonStandardPortDesc' },
+    'SUSPICIOUS_PORT': { title: 'ReasonSuspiciousPortTitle', desc: 'ReasonSuspiciousPortDesc' },
+    'FRAGMENT_HIDING': { title: 'ReasonFragmentHidingTitle', desc: 'ReasonFragmentHidingDesc' },
+    'EXCESSIVE_ENCODING': { title: 'ReasonExcessiveEncodingTitle', desc: 'ReasonExcessiveEncodingDesc' },
+    'DOMAIN_AGE_PATTERN': { title: 'ReasonDomainAgePatternTitle', desc: 'ReasonDomainAgePatternDesc' },
+    // LOW severity
+    'URL_SHORTENER': { title: 'ReasonUrlShortenerTitle', desc: 'ReasonUrlShortenerDesc' },
+    'SUSPICIOUS_PATH': { title: 'ReasonSuspiciousPathTitle', desc: 'ReasonSuspiciousPathDesc' },
+    'LONG_URL': { title: 'ReasonLongUrlTitle', desc: 'ReasonLongUrlDesc' },
+    'CREDENTIAL_KEYWORDS': { title: 'ReasonCredentialKeywordsTitle', desc: 'ReasonCredentialKeywordsDesc' },
+    // INFO
+    'UNPARSEABLE': { title: 'ReasonUnparseableTitle', desc: 'ReasonUnparseableDesc' },
+    'ANALYSIS_COMPLETE': { title: 'ReasonAnalysisCompleteTitle', desc: 'ReasonAnalysisCompleteDesc' },
+};
+
+/**
+ * Get i18n key for reason code title
+ * @param {string} code - Reason code (e.g., "HTTP_NOT_HTTPS")
+ * @returns {string} - WebStringKey name for title
+ */
+function getReasonTitleKey(code) {
+    const mapping = REASON_CODE_I18N_KEYS[code];
+    return mapping ? mapping.title : null;
+}
+
+/**
+ * Get i18n key for reason code description
+ * @param {string} code - Reason code (e.g., "HTTP_NOT_HTTPS")
+ * @returns {string} - WebStringKey name for description
+ */
+function getReasonDescKey(code) {
+    const mapping = REASON_CODE_I18N_KEYS[code];
+    return mapping ? mapping.desc : null;
+}
+
+/**
+ * Format reason code to human-readable title (fallback for unmapped codes)
  */
 function formatReasonTitle(code) {
     if (!code) return 'Analysis Signal';
+    // Try i18n key first
+    const i18nKey = getReasonTitleKey(code);
+    if (i18nKey) {
+        const translated = window.mehrguardGetTranslation?.(i18nKey);
+        if (translated && translated !== i18nKey) {
+            return translated;
+        }
+    }
+    // Fallback: generate from code
     return code
         .replace(/REASON_/g, '')
         .replace(/_/g, ' ')
@@ -343,20 +422,30 @@ function formatReasonTitle(code) {
 }
 
 /**
- * Get description for common reason codes
+ * Format reason code to description (fallback for unmapped codes)
  */
 function formatReasonDescription(code) {
+    if (!code) return 'Analysis signal detected based on security heuristics.';
+    // Try i18n key first
+    const i18nKey = getReasonDescKey(code);
+    if (i18nKey) {
+        const translated = window.mehrguardGetTranslation?.(i18nKey);
+        if (translated && translated !== i18nKey) {
+            return translated;
+        }
+    }
+    // Fallback descriptions (English)
     const descriptions = {
-        'REASON_HIGH_RISK_TLD': 'This top-level domain (.tk, .ml, etc.) is frequently used in phishing attacks.',
-        'REASON_IP_ADDRESS': 'The URL uses an IP address instead of a domain name, commonly seen in phishing.',
-        'REASON_BRAND_IMPERSONATION': 'This domain appears to impersonate a known brand.',
-        'REASON_TYPOSQUATTING': 'This domain uses typosquatting techniques to mimic a legitimate site.',
-        'REASON_EXCESSIVE_SUBDOMAINS': 'Excessive subdomain depth is a common phishing indicator.',
-        'REASON_HOMOGRAPH': 'This domain uses look-alike characters from different scripts.',
-        'REASON_CREDENTIAL_KEYWORDS': 'The URL contains keywords associated with credential harvesting.',
-        'REASON_AT_SYMBOL': 'The @ symbol in URLs can be used to hide the actual destination.',
-        'REASON_SUSPICIOUS_EXTENSION': 'The URL has a suspicious or risky file extension.',
-        'REASON_REDIRECT_CHAIN': 'The URL contains redirect patterns that hide the final destination.',
+        'HIGH_RISK_TLD': 'This top-level domain (.tk, .ml, etc.) is frequently used in phishing attacks.',
+        'IP_ADDRESS': 'The URL uses an IP address instead of a domain name, commonly seen in phishing.',
+        'BRAND_IMPERSONATION': 'This domain appears to impersonate a known brand.',
+        'TYPOSQUATTING': 'This domain uses typosquatting techniques to mimic a legitimate site.',
+        'EXCESSIVE_SUBDOMAINS': 'Excessive subdomain depth is a common phishing indicator.',
+        'HOMOGRAPH': 'This domain uses look-alike characters from different scripts.',
+        'CREDENTIAL_KEYWORDS': 'The URL contains keywords associated with credential harvesting.',
+        'AT_SYMBOL': 'The @ symbol in URLs can be used to hide the actual destination.',
+        'SUSPICIOUS_EXTENSION': 'The URL has a suspicious or risky file extension.',
+        'REDIRECT_CHAIN': 'The URL contains redirect patterns that hide the final destination.',
     };
     return descriptions[code] || 'Analysis signal detected based on security heuristics.';
 }
@@ -992,12 +1081,23 @@ function showHelpInfo() {
     const modal = document.createElement('div');
     modal.id = 'helpModal';
     modal.className = 'qr-modal-overlay';
+    
+    // Get translated strings
+    const helpTitle = translateText('HelpKeyboardShortcuts') || 'Help & Keyboard Shortcuts';
+    const keyboardShortcuts = translateText('KeyboardShortcuts') || 'Keyboard Shortcuts';
+    const copyUrlLabel = translateText('CopyUrl') || 'Copy URL';
+    const goBackLabel = translateText('Back') || 'Go Back';
+    const newScanLabel = translateText('Scan') || 'New Scan';
+    const aboutThisPage = translateText('AboutMehrGuard') || 'About This Page';
+    const aboutDescription = translateText('AboutDescription') || 'This page shows the analysis results for a scanned URL. All analysis is performed locally on your device - no data is sent to external servers.';
+    const gotItLabel = translateText('GotIt') || 'Got it';
+    
     modal.innerHTML = `
         <div class="qr-modal">
             <div class="qr-modal-header">
                 <div class="qr-modal-title">
                     <span class="material-symbols-outlined" style="color: #6366f1;">help</span>
-                    <h3>Help & Keyboard Shortcuts</h3>
+                    <h3>${helpTitle}</h3>
                 </div>
                 <button class="qr-modal-close-btn" id="closeHelp">
                     <span class="material-symbols-outlined">close</span>
@@ -1006,27 +1106,27 @@ function showHelpInfo() {
             
             <div class="qr-modal-content" style="padding: 20px;">
                 <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
-                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">Keyboard Shortcuts</div>
+                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">${keyboardShortcuts}</div>
                     <div style="display: grid; gap: 8px; font-size: 14px;">
                         <div style="display: flex; justify-content: space-between;">
-                            <span style="color: var(--text-secondary, #94a3b8);">Copy URL</span>
+                            <span style="color: var(--text-secondary, #94a3b8);">${copyUrlLabel}</span>
                             <kbd style="background: rgba(99, 102, 241, 0.2); padding: 4px 8px; border-radius: 4px; font-family: monospace; color: #6366f1;">Ctrl/Cmd + C</kbd>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
-                            <span style="color: var(--text-secondary, #94a3b8);">Go Back</span>
+                            <span style="color: var(--text-secondary, #94a3b8);">${goBackLabel}</span>
                             <kbd style="background: rgba(99, 102, 241, 0.2); padding: 4px 8px; border-radius: 4px; font-family: monospace; color: #6366f1;">Backspace</kbd>
                         </div>
                         <div style="display: flex; justify-content: space-between;">
-                            <span style="color: var(--text-secondary, #94a3b8);">New Scan</span>
+                            <span style="color: var(--text-secondary, #94a3b8);">${newScanLabel}</span>
                             <kbd style="background: rgba(99, 102, 241, 0.2); padding: 4px 8px; border-radius: 4px; font-family: monospace; color: #6366f1;">N</kbd>
                         </div>
                     </div>
                 </div>
                 
                 <div style="background: var(--surface-dark, #1e293b); border-radius: 12px; padding: 16px;">
-                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">About This Page</div>
+                    <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-primary, #f1f5f9);">${aboutThisPage}</div>
                     <p style="font-size: 14px; color: var(--text-secondary, #94a3b8); line-height: 1.6;">
-                        This page shows the analysis results for a scanned URL. All analysis is performed locally on your device - no data is sent to external servers.
+                        ${aboutDescription}
                     </p>
                 </div>
             </div>
@@ -1041,7 +1141,7 @@ function showHelpInfo() {
                     cursor: pointer;
                     font-size: 14px;
                     font-weight: 600;
-                ">Got it</button>
+                ">${gotItLabel}</button>
             </div>
         </div>
     `;

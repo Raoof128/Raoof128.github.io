@@ -233,7 +233,7 @@ fun main() {
     engineInfo.capabilities = arrayOf("heuristics", "ml", "brand_detection", "threat_intel", "unicode_analysis", "psl")
     window.asDynamic().mehrguardEngineInfo = engineInfo
 
-    // Expose translation function
+    // Expose translation function for WebStringKey lookups
     window.asDynamic().mehrguardGetTranslation = { key: String -> 
         try {
             val language = com.raouf.mehrguard.web.i18n.WebLanguage.current()
@@ -244,6 +244,16 @@ fun main() {
             }
         } catch (e: Exception) {
             key
+        }
+    }
+    
+    // Expose text-to-text translation function for CommonStrings lookups
+    window.asDynamic().mehrguardTranslateText = { text: String ->
+        try {
+            val language = com.raouf.mehrguard.web.i18n.WebLanguage.current()
+            com.raouf.mehrguard.web.i18n.WebStrings.translate(text, language)
+        } catch (e: Exception) {
+            text
         }
     }
 
