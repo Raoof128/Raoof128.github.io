@@ -633,7 +633,15 @@ internal val ItalianStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "Punteggio Phishing ML",
     WebStringKey.MlCharacterAnalysis to "Analisi caratteri",
-    WebStringKey.MlFeatureAnalysis to "Analisi funzionalità"
+    WebStringKey.MlFeatureAnalysis to "Analisi funzionalità",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "Dominio IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "Questo dominio utilizza caratteri internazionalizzati. Visualizzazione sicura:",
+    WebStringKey.MixedScriptAttackTitle to "Attacco Script Misti",
+    WebStringKey.MixedScriptAttackDesc to "Il dominio contiene caratteri da più script (es. Cirillico + Latino). Comune negli attacchi omografi.",
+    WebStringKey.ConfusableCharsTitle to "Caratteri Confondibili",
+    WebStringKey.ConfusableCharsDesc to "Il dominio contiene caratteri simili a lettere comuni (es. 'а' vs 'a')."
 )
 
 internal val ItalianCommonStrings = mapOf(

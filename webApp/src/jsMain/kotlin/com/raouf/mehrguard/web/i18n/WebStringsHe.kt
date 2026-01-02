@@ -565,7 +565,15 @@ internal val HebrewStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "ציון פישינג ML",
     WebStringKey.MlCharacterAnalysis to "ניתוח תווים",
-    WebStringKey.MlFeatureAnalysis to "ניתוח תכונות"
+    WebStringKey.MlFeatureAnalysis to "ניתוח תכונות",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "דומיין IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "דומיין זה משתמש בתווים בינלאומיים. תצוגה בטוחה:",
+    WebStringKey.MixedScriptAttackTitle to "מתקפת סקריפטים מעורבים",
+    WebStringKey.MixedScriptAttackDesc to "הדומיין מכיל תווים ממספר כתבים (למשל קירילית + לטינית). נפוץ במתקפות הומוגרף.",
+    WebStringKey.ConfusableCharsTitle to "תווים מבלבלים",
+    WebStringKey.ConfusableCharsDesc to "הדומיין מכיל תווים הדומים לאותיות נפוצות (למשל 'а' לעומת 'a')."
 )
 
 internal val HebrewCommonStrings = mapOf(

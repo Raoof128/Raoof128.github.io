@@ -1556,5 +1556,13 @@ internal val SpanishCommonStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "Puntuación ML de Phishing",
     WebStringKey.MlCharacterAnalysis to "Análisis de caracteres",
-    WebStringKey.MlFeatureAnalysis to "Análisis de características"
+    WebStringKey.MlFeatureAnalysis to "Análisis de características",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "Dominio IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "Este dominio utiliza caracteres internacionalizados. Visualización segura:",
+    WebStringKey.MixedScriptAttackTitle to "Ataque de Scripts Mixtos",
+    WebStringKey.MixedScriptAttackDesc to "El dominio contiene caracteres de múltiples scripts (ej. Cirílico + Latino). Común en ataques homógrafos.",
+    WebStringKey.ConfusableCharsTitle to "Caracteres Confundibles",
+    WebStringKey.ConfusableCharsDesc to "El dominio contiene caracteres que se parecen a letras comunes (ej. 'а' vs 'a')."
 )

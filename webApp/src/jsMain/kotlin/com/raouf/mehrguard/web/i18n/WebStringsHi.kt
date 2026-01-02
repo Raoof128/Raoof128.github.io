@@ -660,7 +660,15 @@ internal val HindiStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "ML फ़िशिंग स्कोर",
     WebStringKey.MlCharacterAnalysis to "अक्षर विश्लेषण",
-    WebStringKey.MlFeatureAnalysis to "फ़ीचर विश्लेषण"
+    WebStringKey.MlFeatureAnalysis to "फ़ीचर विश्लेषण",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "IDN / Punycode डोमेन",
+    WebStringKey.IdnPunycodeDomainDesc to "यह डोमेन अंतर्राष्ट्रीय वर्णों का उपयोग करता है। सुरक्षित प्रदर्शन:",
+    WebStringKey.MixedScriptAttackTitle to "मिश्रित स्क्रिप्ट हमला",
+    WebStringKey.MixedScriptAttackDesc to "डोमेन में कई लिपियों के वर्ण हैं (जैसे सिरिलिक + लैटिन)। होमोग्राफ हमलों में आम।",
+    WebStringKey.ConfusableCharsTitle to "भ्रामक वर्ण",
+    WebStringKey.ConfusableCharsDesc to "डोमेन में ऐसे वर्ण हैं जो सामान्य अक्षरों जैसे दिखते हैं (जैसे 'а' बनाम 'a')।"
 )
 
 internal val HindiCommonStrings = mapOf(

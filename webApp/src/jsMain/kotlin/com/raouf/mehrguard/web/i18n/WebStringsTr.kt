@@ -613,7 +613,15 @@ internal val TurkishStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "ML Kimlik Avı Puanı",
     WebStringKey.MlCharacterAnalysis to "Karakter analizi",
-    WebStringKey.MlFeatureAnalysis to "Özellik analizi"
+    WebStringKey.MlFeatureAnalysis to "Özellik analizi",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "IDN / Punycode Alan Adı",
+    WebStringKey.IdnPunycodeDomainDesc to "Bu alan adı uluslararası karakterler kullanıyor. Güvenli görüntüleme:",
+    WebStringKey.MixedScriptAttackTitle to "Karışık Script Saldırısı",
+    WebStringKey.MixedScriptAttackDesc to "Alan adı birden fazla yazı sisteminden karakterler içeriyor (örn. Kiril + Latin). Homograf saldırılarında yaygın.",
+    WebStringKey.ConfusableCharsTitle to "Karıştırılabilir Karakterler",
+    WebStringKey.ConfusableCharsDesc to "Alan adı yaygın harflere benzeyen karakterler içeriyor (örn. 'а' vs 'a')."
 )
 
 internal val TurkishCommonStrings = mapOf(

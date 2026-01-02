@@ -660,7 +660,15 @@ internal val RussianStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "ML-оценка фишинга",
     WebStringKey.MlCharacterAnalysis to "Анализ символов",
-    WebStringKey.MlFeatureAnalysis to "Анализ признаков"
+    WebStringKey.MlFeatureAnalysis to "Анализ признаков",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "IDN / Punycode домен",
+    WebStringKey.IdnPunycodeDomainDesc to "Этот домен использует интернационализированные символы. Безопасное отображение:",
+    WebStringKey.MixedScriptAttackTitle to "Атака смешанных скриптов",
+    WebStringKey.MixedScriptAttackDesc to "Домен содержит символы из нескольких письменностей (например, кириллица + латиница). Часто используется в атаках-омографах.",
+    WebStringKey.ConfusableCharsTitle to "Похожие символы",
+    WebStringKey.ConfusableCharsDesc to "Домен содержит символы, похожие на обычные буквы (например, 'а' vs 'a')."
 )
 
 internal val RussianCommonStrings = mapOf(

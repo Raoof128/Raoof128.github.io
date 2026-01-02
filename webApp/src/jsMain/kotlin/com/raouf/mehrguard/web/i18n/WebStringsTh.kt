@@ -613,7 +613,15 @@ internal val ThaiStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "คะแนนฟิชชิ่ง ML",
     WebStringKey.MlCharacterAnalysis to "การวิเคราะห์อักขระ",
-    WebStringKey.MlFeatureAnalysis to "การวิเคราะห์คุณลักษณะ"
+    WebStringKey.MlFeatureAnalysis to "การวิเคราะห์คุณลักษณะ",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "โดเมน IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "โดเมนนี้ใช้อักขระสากล การแสดงผลที่ปลอดภัย:",
+    WebStringKey.MixedScriptAttackTitle to "การโจมตีสคริปต์ผสม",
+    WebStringKey.MixedScriptAttackDesc to "โดเมนมีอักขระจากหลายสคริปต์ (เช่น ซีริลลิก + ละติน) พบบ่อยในการโจมตีโฮโมกราฟ",
+    WebStringKey.ConfusableCharsTitle to "อักขระที่สับสนได้",
+    WebStringKey.ConfusableCharsDesc to "โดเมนมีอักขระที่ดูคล้ายกับตัวอักษรทั่วไป (เช่น 'а' vs 'a')"
 )
 
 internal val ThaiCommonStrings = mapOf(

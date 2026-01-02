@@ -1540,5 +1540,13 @@ internal val ChineseCommonStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "ML钓鱼评分",
     WebStringKey.MlCharacterAnalysis to "字符分析",
-    WebStringKey.MlFeatureAnalysis to "特征分析"
+    WebStringKey.MlFeatureAnalysis to "特征分析",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "IDN / Punycode 域名",
+    WebStringKey.IdnPunycodeDomainDesc to "此域名使用国际化字符。安全显示：",
+    WebStringKey.MixedScriptAttackTitle to "混合脚本攻击",
+    WebStringKey.MixedScriptAttackDesc to "域名包含来自多种文字的字符（如西里尔文 + 拉丁文）。常见于同形异义字攻击。",
+    WebStringKey.ConfusableCharsTitle to "易混淆字符",
+    WebStringKey.ConfusableCharsDesc to "域名包含与常见字母相似的字符（如 'а' vs 'a'）。"
 )

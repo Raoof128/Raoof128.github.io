@@ -594,7 +594,15 @@ internal val PersianStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "امتیاز فیشینگ ML",
     WebStringKey.MlCharacterAnalysis to "تحلیل کاراکتر",
-    WebStringKey.MlFeatureAnalysis to "تحلیل ویژگی"
+    WebStringKey.MlFeatureAnalysis to "تحلیل ویژگی",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "دامنه IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "این دامنه از کاراکترهای بین‌المللی استفاده می‌کند. نمایش امن:",
+    WebStringKey.MixedScriptAttackTitle to "حمله اسکریپت ترکیبی",
+    WebStringKey.MixedScriptAttackDesc to "دامنه شامل کاراکترهایی از اسکریپت‌های مختلف است (مثلاً سیریلیک + لاتین). رایج در حملات هوموگراف.",
+    WebStringKey.ConfusableCharsTitle to "کاراکترهای قابل اشتباه",
+    WebStringKey.ConfusableCharsDesc to "دامنه شامل کاراکترهایی است که شبیه حروف معمولی هستند (مثلاً 'а' در مقابل 'a')."
 )
 
 internal val PersianCommonStrings = mapOf(

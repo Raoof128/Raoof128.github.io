@@ -218,6 +218,26 @@ After making changes:
 
 ---
 
+## Raouf: Web App i18n - Unicode Attack Breakdowns (2026-01-02 AEDT)
+
+**Scope:** Web App ONLY – Translate hardcoded Unicode/IDN attack breakdown strings exposed during Red Team tests and normal scans
+
+**Problem:**
+- Results page and attack cards displayed hardcoded English for Punycode/IDN and related attack breakdowns (IDN title, safe display text, mixed script/confusable titles)
+
+**Solution:**
+- Added 6 new localization keys in `WebStrings.kt` and translated them to all 18 languages
+- Replaced hardcoded texts in `results.js` with translation lookups and ensured `safeDisplayHost` is included in translations where relevant
+
+**Files Modified:**
+- `webApp/src/jsMain/kotlin/com/raouf/mehrguard/web/i18n/WebStrings.kt` (+6 keys)
+- `webApp/src/jsMain/resources/results.js` (use translations for unicode factors)
+- `webApp/src/jsMain/kotlin/com/raouf/mehrguard/web/i18n/WebStrings<Lang>.kt` (added translations for 18 languages)
+
+**Verification:** `./gradlew :webApp:jsBrowserDevelopmentWebpack` ✅ BUILD SUCCESSFUL
+
+---
+
 ## Raouf: Web App Hardcoded English → 18 Languages (2026-01-02 AEDT)
 
 **Scope:** Complete i18n for verdict screens and data lifecycle table in Web App

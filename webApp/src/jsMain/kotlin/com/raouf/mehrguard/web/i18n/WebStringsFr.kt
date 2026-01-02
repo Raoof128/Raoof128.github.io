@@ -1556,5 +1556,13 @@ internal val FrenchCommonStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "Score ML de Phishing",
     WebStringKey.MlCharacterAnalysis to "Analyse des caractères",
-    WebStringKey.MlFeatureAnalysis to "Analyse des caractéristiques"
+    WebStringKey.MlFeatureAnalysis to "Analyse des caractéristiques",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "Domaine IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "Ce domaine utilise des caractères internationalisés. Affichage sécurisé :",
+    WebStringKey.MixedScriptAttackTitle to "Attaque Multi-Scripts",
+    WebStringKey.MixedScriptAttackDesc to "Le domaine contient des caractères de plusieurs scripts (ex. Cyrillique + Latin). Courant dans les attaques homographes.",
+    WebStringKey.ConfusableCharsTitle to "Caractères Confondables",
+    WebStringKey.ConfusableCharsDesc to "Le domaine contient des caractères ressemblant à des lettres courantes (ex. 'а' vs 'a')."
 )

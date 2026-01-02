@@ -613,7 +613,15 @@ internal val VietnameseStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "Điểm Lừa Đảo ML",
     WebStringKey.MlCharacterAnalysis to "Phân tích ký tự",
-    WebStringKey.MlFeatureAnalysis to "Phân tích tính năng"
+    WebStringKey.MlFeatureAnalysis to "Phân tích tính năng",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "Tên Miền IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "Tên miền này sử dụng ký tự quốc tế. Hiển thị an toàn:",
+    WebStringKey.MixedScriptAttackTitle to "Tấn Công Script Hỗn Hợp",
+    WebStringKey.MixedScriptAttackDesc to "Tên miền chứa ký tự từ nhiều hệ chữ viết (ví dụ: Cyrillic + Latin). Phổ biến trong các cuộc tấn công homograph.",
+    WebStringKey.ConfusableCharsTitle to "Ký Tự Dễ Nhầm Lẫn",
+    WebStringKey.ConfusableCharsDesc to "Tên miền chứa các ký tự trông giống chữ cái thông thường (ví dụ: 'а' vs 'a')."
 )
 
 internal val VietnameseCommonStrings = mapOf(

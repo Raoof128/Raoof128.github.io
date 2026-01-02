@@ -614,7 +614,15 @@ internal val IndonesianStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "Skor Phishing ML",
     WebStringKey.MlCharacterAnalysis to "Analisis karakter",
-    WebStringKey.MlFeatureAnalysis to "Analisis fitur"
+    WebStringKey.MlFeatureAnalysis to "Analisis fitur",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "Domain IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "Domain ini menggunakan karakter internasional. Tampilan aman:",
+    WebStringKey.MixedScriptAttackTitle to "Serangan Script Campuran",
+    WebStringKey.MixedScriptAttackDesc to "Domain berisi karakter dari beberapa script (mis. Sirilik + Latin). Umum dalam serangan homograf.",
+    WebStringKey.ConfusableCharsTitle to "Karakter yang Membingungkan",
+    WebStringKey.ConfusableCharsDesc to "Domain berisi karakter yang mirip dengan huruf umum (mis. 'а' vs 'a')."
 )
 
 internal val IndonesianCommonStrings = mapOf(

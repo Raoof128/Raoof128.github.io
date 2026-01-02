@@ -1493,5 +1493,13 @@ internal val JapaneseCommonStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "MLフィッシングスコア",
     WebStringKey.MlCharacterAnalysis to "文字分析",
-    WebStringKey.MlFeatureAnalysis to "特徴分析"
+    WebStringKey.MlFeatureAnalysis to "特徴分析",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "IDN / Punycodeドメイン",
+    WebStringKey.IdnPunycodeDomainDesc to "このドメインは国際化文字を使用しています。安全な表示:",
+    WebStringKey.MixedScriptAttackTitle to "混合スクリプト攻撃",
+    WebStringKey.MixedScriptAttackDesc to "ドメインに複数のスクリプトの文字が含まれています（例：キリル文字 + ラテン文字）。ホモグラフ攻撃で一般的です。",
+    WebStringKey.ConfusableCharsTitle to "紛らわしい文字",
+    WebStringKey.ConfusableCharsDesc to "ドメインに一般的な文字に似た文字が含まれています（例：'а' vs 'a'）。"
 )

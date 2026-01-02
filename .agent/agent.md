@@ -105,6 +105,28 @@ find src -name "*.kt" -exec sed -i '' 's/oldDbQueries/newDbQueries/g' {} \;
 
 ---
 
+## Raouf: Web App i18n - Unicode Attack Breakdowns (2026-01-02 AEDT)
+
+**Scope:** Web App ONLY – Translate hardcoded Unicode/IDN attack breakdown strings exposed during Red Team tests
+
+**Problem:**
+- Red Team scenario results showed hardcoded English for Unicode-related breakouts (Punycode/IDN, Mixed Script, Confusables)
+
+**Solution:**
+- Added 6 new localization keys in `WebStrings.kt` and translated to all 18 languages
+- Replaced hardcoded texts in `results.js` to use `getTranslation()` and formatted safe host values
+
+**Files Modified:**
+- `webApp/src/jsMain/kotlin/com/raouf/mehrguard/web/i18n/WebStrings.kt` (+6 keys)
+- `webApp/src/jsMain/resources/results.js` (use translations for unicode factors)
+- `webApp/src/jsMain/kotlin/com/raouf/mehrguard/web/i18n/WebStrings<Lang>.kt` (added translations for 18 languages)
+
+**Verification:** `./gradlew :webApp:jsBrowserDevelopmentWebpack` ✅ BUILD SUCCESSFUL
+
+**Impact:** Improved localization parity — Unicode attack breakdowns now appear in the user's selected language during Red Team demos and regular scans.
+
+---
+
 ## Raouf: Web App Hardcoded English → 18 Languages (2026-01-02 AEDT)
 
 **Scope:** Complete i18n for verdict screens and data lifecycle table in Web App

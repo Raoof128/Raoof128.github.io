@@ -230,27 +230,28 @@ function getEngineAnalysis(url) {
 
             if (unicode && unicode.hasRisk) {
                 if (unicode.isPunycode) {
+                    const safeDisplayHost = unicode.safeDisplayHost || host;
                     result.factors.push({
                         type: 'FAIL',
                         category: 'UNICODE',
-                        title: 'IDN / Punycode Domain',
-                        description: `This domain uses internationalized characters. Safe display: ${unicode.safeDisplayHost || host}`,
+                        title: getTranslation('IdnPunycodeDomainTitle'),
+                        description: `${getTranslation('IdnPunycodeDomainDesc')} [IDN: ${safeDisplayHost}]`,
                     });
                 }
                 if (unicode.hasMixedScript) {
                     result.factors.push({
                         type: 'FAIL',
                         category: 'HOMOGRAPH',
-                        title: 'Mixed Script Attack',
-                        description: 'Domain contains characters from multiple scripts (e.g., Cyrillic + Latin). Common in homograph attacks.',
+                        title: getTranslation('MixedScriptAttackTitle'),
+                        description: getTranslation('MixedScriptAttackDesc'),
                     });
                 }
                 if (unicode.hasConfusables) {
                     result.factors.push({
                         type: 'WARN',
                         category: 'VISUAL',
-                        title: 'Confusable Characters',
-                        description: 'Domain contains characters that look similar to common letters (e.g., "а" vs "a").',
+                        title: getTranslation('ConfusableCharsTitle'),
+                        description: getTranslation('ConfusableCharsDesc'),
                     });
                 }
             }

@@ -633,7 +633,15 @@ internal val ArabicStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "درجة التصيد ML",
     WebStringKey.MlCharacterAnalysis to "تحليل الأحرف",
-    WebStringKey.MlFeatureAnalysis to "تحليل الميزات"
+    WebStringKey.MlFeatureAnalysis to "تحليل الميزات",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "نطاق IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "يستخدم هذا النطاق أحرفاً دولية. العرض الآمن:",
+    WebStringKey.MixedScriptAttackTitle to "هجوم النصوص المختلطة",
+    WebStringKey.MixedScriptAttackDesc to "يحتوي النطاق على أحرف من نصوص متعددة (مثل السيريلية + اللاتينية). شائع في هجمات الأحرف المتشابهة.",
+    WebStringKey.ConfusableCharsTitle to "أحرف قابلة للخلط",
+    WebStringKey.ConfusableCharsDesc to "يحتوي النطاق على أحرف تشبه الأحرف الشائعة (مثل 'а' مقابل 'a')."
 )
 
 internal val ArabicCommonStrings = mapOf(

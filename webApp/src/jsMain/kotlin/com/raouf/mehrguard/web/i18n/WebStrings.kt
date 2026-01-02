@@ -739,7 +739,15 @@ enum class WebStringKey(val defaultText: String) {
     // ML Score Labels
     MlPhishingScore("ML Phishing Score"),
     MlCharacterAnalysis("Character analysis"),
-    MlFeatureAnalysis("Feature analysis")
+    MlFeatureAnalysis("Feature analysis"),
+    
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    IdnPunycodeDomainTitle("IDN / Punycode Domain"),
+    IdnPunycodeDomainDesc("This domain uses internationalized characters. Safe display:"),
+    MixedScriptAttackTitle("Mixed Script Attack"),
+    MixedScriptAttackDesc("Domain contains characters from multiple scripts (e.g., Cyrillic + Latin). Common in homograph attacks."),
+    ConfusableCharsTitle("Confusable Characters"),
+    ConfusableCharsDesc("Domain contains characters that look similar to common letters (e.g., 'а' vs 'a').")
 }
 
 object WebStrings {

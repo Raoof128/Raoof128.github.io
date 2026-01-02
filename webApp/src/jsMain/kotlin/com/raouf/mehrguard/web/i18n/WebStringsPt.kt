@@ -660,7 +660,15 @@ internal val PortugueseStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "Pontuação ML de Phishing",
     WebStringKey.MlCharacterAnalysis to "Análise de caracteres",
-    WebStringKey.MlFeatureAnalysis to "Análise de recursos"
+    WebStringKey.MlFeatureAnalysis to "Análise de recursos",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "Domínio IDN / Punycode",
+    WebStringKey.IdnPunycodeDomainDesc to "Este domínio utiliza caracteres internacionalizados. Exibição segura:",
+    WebStringKey.MixedScriptAttackTitle to "Ataque de Scripts Mistos",
+    WebStringKey.MixedScriptAttackDesc to "O domínio contém caracteres de múltiplos scripts (ex. Cirílico + Latino). Comum em ataques homógrafos.",
+    WebStringKey.ConfusableCharsTitle to "Caracteres Confundíveis",
+    WebStringKey.ConfusableCharsDesc to "O domínio contém caracteres semelhantes a letras comuns (ex. 'а' vs 'a')."
 )
 
 internal val PortugueseCommonStrings = mapOf(

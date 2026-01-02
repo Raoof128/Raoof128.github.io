@@ -586,7 +586,15 @@ internal val KoreanStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "ML 피싱 점수",
     WebStringKey.MlCharacterAnalysis to "문자 분석",
-    WebStringKey.MlFeatureAnalysis to "기능 분석"
+    WebStringKey.MlFeatureAnalysis to "기능 분석",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "IDN / Punycode 도메인",
+    WebStringKey.IdnPunycodeDomainDesc to "이 도메인은 국제화 문자를 사용합니다. 안전한 표시:",
+    WebStringKey.MixedScriptAttackTitle to "혼합 스크립트 공격",
+    WebStringKey.MixedScriptAttackDesc to "도메인에 여러 스크립트의 문자가 포함되어 있습니다 (예: 키릴 문자 + 라틴 문자). 호모그래프 공격에서 일반적입니다.",
+    WebStringKey.ConfusableCharsTitle to "혼동 가능한 문자",
+    WebStringKey.ConfusableCharsDesc to "도메인에 일반 문자와 유사한 문자가 포함되어 있습니다 (예: 'а' vs 'a')."
 )
 
 internal val KoreanCommonStrings = mapOf(

@@ -1556,5 +1556,13 @@ internal val GermanCommonStrings = mapOf(
     // ML Score Labels
     WebStringKey.MlPhishingScore to "ML-Phishing-Score",
     WebStringKey.MlCharacterAnalysis to "Zeichenanalyse",
-    WebStringKey.MlFeatureAnalysis to "Feature-Analyse"
+    WebStringKey.MlFeatureAnalysis to "Feature-Analyse",
+
+    // Unicode Attack Breakdowns (Red Team scenarios)
+    WebStringKey.IdnPunycodeDomainTitle to "IDN / Punycode-Domain",
+    WebStringKey.IdnPunycodeDomainDesc to "Diese Domain verwendet internationalisierte Zeichen. Sichere Anzeige:",
+    WebStringKey.MixedScriptAttackTitle to "Mixed-Script-Angriff",
+    WebStringKey.MixedScriptAttackDesc to "Domain enthält Zeichen aus mehreren Schriftsystemen (z.B. Kyrillisch + Latein). Häufig bei Homograph-Angriffen.",
+    WebStringKey.ConfusableCharsTitle to "Verwechselbare Zeichen",
+    WebStringKey.ConfusableCharsDesc to "Domain enthält Zeichen, die häufigen Buchstaben ähneln (z.B. 'а' vs 'a')."
 )

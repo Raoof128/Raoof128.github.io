@@ -30,6 +30,62 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.36] - 2026-01-02
+
+### Raouf: Web App i18n - Unicode Attack Breakdowns
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Web App ONLY – Translate hardcoded Unicode/IDN attack breakdown strings in Red Team results
+
+#### Problem
+Red Team scenario results showed hardcoded English strings for Unicode attack breakdowns:
+- "IDN / Punycode Domain" title
+- "This domain uses internationalized characters. Safe display: ..." description
+- "Mixed Script Attack" title
+- "Confusable Characters" title
+
+#### Solution
+1. **Added 6 new WebStringKey entries** for Unicode attack breakdowns:
+   - `IdnPunycodeDomainTitle` - "IDN / Punycode Domain"
+   - `IdnPunycodeDomainDesc` - "This domain uses internationalized characters. Safe display:"
+   - `MixedScriptAttackTitle` - "Mixed Script Attack"
+   - `MixedScriptAttackDesc` - "Domain contains characters from multiple scripts..."
+   - `ConfusableCharsTitle` - "Confusable Characters"
+   - `ConfusableCharsDesc` - "Domain contains characters that look similar to common letters..."
+
+2. **Updated results.js** to use `getTranslation()` for all Unicode attack cards
+
+3. **Translated to all 18 languages**
+
+#### Files Modified
+| File | Change |
+|------|--------|
+| `WebStrings.kt` | +6 new WebStringKey entries |
+| `results.js` | Updated Unicode analysis section to use translations |
+| `WebStringsAr.kt` | +6 Arabic translations |
+| `WebStringsDe.kt` | +6 German translations |
+| `WebStringsEs.kt` | +6 Spanish translations |
+| `WebStringsFa.kt` | +6 Persian translations |
+| `WebStringsFr.kt` | +6 French translations |
+| `WebStringsHe.kt` | +6 Hebrew translations |
+| `WebStringsHi.kt` | +6 Hindi translations |
+| `WebStringsIn.kt` | +6 Indonesian translations |
+| `WebStringsIt.kt` | +6 Italian translations |
+| `WebStringsJa.kt` | +6 Japanese translations |
+| `WebStringsKo.kt` | +6 Korean translations |
+| `WebStringsPt.kt` | +6 Portuguese translations |
+| `WebStringsRu.kt` | +6 Russian translations |
+| `WebStringsTh.kt` | +6 Thai translations |
+| `WebStringsTr.kt` | +6 Turkish translations |
+| `WebStringsVi.kt` | +6 Vietnamese translations |
+| `WebStringsZh.kt` | +6 Chinese translations |
+
+#### Verification
+```bash
+./gradlew :webApp:jsBrowserDevelopmentWebpack
+# BUILD SUCCESSFUL in 53s
+```
+
 ## [2.0.35] - 2026-01-02
 
 ### Raouf: Web App Red Team - Move to Scanner Page
