@@ -2,7 +2,7 @@
 # Updated December 2025 - Latest stable versions
 kotlin = "2.3.0"
 compose = "1.7.1"
-agp = "8.13.2"
+agp = "8.8.0"
 ktor = "3.0.2"
 coroutines = "1.9.0"
 sqldelight = "2.2.1"

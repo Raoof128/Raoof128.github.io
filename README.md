@@ -42,7 +42,7 @@ Paste any URL to test detection:
 
 ### 📱 Pre-Built Android APK
 
-**Download:** [releases/MehrGuard-1.1.0-release.apk](releases/MehrGuard-1.1.0-release.apk)
+**Download:** Available in [GitHub Releases](https://github.com/Raoof128/Raoof128.github.io/releases) after v2.0.36 tag is created
 
 Install on any Android 8+ device. No build required.
 

@@ -16,8 +16,8 @@ android {
         applicationId = "com.raouf.mehrguard.android"
         minSdk = 26
         targetSdk = 35  // Android 16
-        versionCode = 33
-        versionName = "1.20.33"
+        versionCode = 37
+        versionName = "2.0.37"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

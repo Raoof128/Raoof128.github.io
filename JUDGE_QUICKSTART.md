@@ -10,7 +10,7 @@
 |--------|------|
 | 🌐 **Try Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
 | 🎬 **Watch Video Demo** | [docs/VIDEO_DEMO.md](docs/VIDEO_DEMO.md) |
-| 📱 **Download Android APK** | [MehrGuard-1.1.0-release.apk](releases/MehrGuard-1.1.0-release.apk) |
+| 📱 **Download Android APK** | [GitHub Releases](https://github.com/Raoof128/Raoof128.github.io/releases) |
 | 📖 **Read Essay** | [ESSAY.md](ESSAY.md) |
 | 🔨 **One-Command Build Test** | `./scripts/judge-smoke.sh` |
 | ✅ **Verify All Claims** | `./judge/verify_all.sh` |
@@ -97,7 +97,7 @@ cd mehrguard
 | **Platforms** | 5 (Android, iOS, Desktop, JS, Wasm) | All build successfully |
 | **Languages** | 16 | 629 Android strings, 547 iOS strings |
 | **Accessibility** | Full | 197+ content descriptions, VoiceOver labels |
-| **App Version** | 2.0.35 | Latest as of Jan 2, 2026 |
+| **App Version** | 2.0.37 | Latest as of Jan 2, 2026 |
 
 ---
 

@@ -76,6 +76,77 @@ find src -name "*.kt" -exec sed -i '' 's/oldDbQueries/newDbQueries/g' {} \;
 
 ---
 
+## Raouf: Final Contest Submission Audit & Cleanup (2026-01-02 AEDT)
+
+**Scope:** Complete repository audit and preparation for Kotlin Multiplatform Contest 2026 final submission
+
+**Problem:**
+- Version inconsistencies across files (1.20.30 vs 1.20.33 vs 2.0.36)
+- Backup files (.bak) committed to repository
+- Build artifact folders (desktopApp/bin) in repo
+- Internal audit files cluttering root directory
+- Old branding iconset (QR-SHIELD.iconset) still present
+- Dead APK link in README pointing to non-existent releases/ folder
+- package-lock.json (npm artifact) in root
+
+**Solution:**
+1. **Version Synchronization (→ 2.0.37):**
+   - Updated build.gradle.kts: `1.20.30` → `2.0.36`
+   - Updated androidApp/build.gradle.kts: versionCode 33→37, versionName `1.20.33` → `2.0.36`
+   - Updated iOS project.pbxproj: MARKETING_VERSION `1.20.33` → `2.0.36`
+   - Updated JUDGE_QUICKSTART.md version reference
+
+2. **Files Removed:**
+   - `iosApp/MehrGuard/he.lproj/Localizable.strings.bak`
+   - `iosApp/MehrGuard/fa.lproj/Localizable.strings.bak`
+   - `package-lock.json`
+   - `mehr-guard-iconset/QR-SHIELD.iconset/` (old branding)
+   - `.agent/archived/AGENT.duplicate.Raouf.md`
+   - `desktopApp/bin/` (15MB build artifact)
+
+3. **Files Moved to docs/:**
+   - `PRODUCTION_READINESS.md` → `docs/`
+   - `ROADMAP.md` → `docs/`
+   - `README_FULL.md` → `docs/`
+
+4. **Files Moved to docs/internal/:**
+   - `AUDIT_FIXES_2025-12-31.md`
+   - `PARITY_LOG.md`
+   - `EXPORT_SURFACE.md`
+
+5. **Documentation Fixes:**
+   - README.md: Changed APK download link to GitHub Releases
+   - JUDGE_QUICKSTART.md: Changed APK download link to GitHub Releases
+
+6. **.gitignore Updates:**
+   - Added `desktopApp/bin/` to prevent build artifacts
+   - Added `*.bak` and `*.orig` to prevent backup files
+   - Removed obsolete QR-SHIELD.iconset entries
+
+7. **AGP Version Fix:**
+   - Changed `8.13.2` (non-existent) → `8.8.0` (valid)
+
+**Files Modified:**
+| File | Change |
+|------|--------|
+| `build.gradle.kts` | Version sync to 2.0.36 |
+| `androidApp/build.gradle.kts` | versionCode/versionName sync |
+| `iosApp/MehrGuard.xcodeproj/project.pbxproj` | MARKETING_VERSION sync |
+| `gradle/libs.versions.toml` | AGP version fix |
+| `.gitignore` | Added build artifacts exclusions |
+| `README.md` | Fixed APK link |
+| `JUDGE_QUICKSTART.md` | Fixed APK link, version |
+
+**Verification:** Repository structure is now clean and consistent for contest submission
+
+**Judge Impact:**
+- ✅ No temp/backup files visible to judges
+- ✅ Consistent version numbers everywhere
+- ✅ Clean root directory with essential docs only
+- ✅ Valid Gradle configuration (builds should pass in CI)
+
+---
+
 ## Raouf: Web App i18n - Result Screen + Trust Centre + Attack Signals (2026-01-02 AEDT)
 
 **Scope:** Fix remaining hardcoded English in result screen, sensitivity modes, privacy card, and attack signal descriptions

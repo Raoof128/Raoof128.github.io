@@ -30,6 +30,50 @@ All 6 platforms build successfully:
 
 ## Unreleased
 
+## [2.0.37] - 2026-01-02
+
+### Raouf: Final Contest Submission Audit & Repository Cleanup
+
+**Date:** 2026-01-02 (Australia/Sydney)  
+**Scope:** Complete repository audit and preparation for Kotlin Multiplatform Contest 2026 final submission
+
+#### Changes
+
+**Version Synchronization:**
+- Unified all version numbers to `2.0.37` across:
+  - `build.gradle.kts` (root)
+  - `androidApp/build.gradle.kts` (versionCode 37, versionName "2.0.37")
+  - `iosApp/MehrGuard.xcodeproj/project.pbxproj` (MARKETING_VERSION)
+  - `JUDGE_QUICKSTART.md` (App Version metric)
+
+**Files Removed:**
+- `iosApp/MehrGuard/he.lproj/Localizable.strings.bak` (backup file)
+- `iosApp/MehrGuard/fa.lproj/Localizable.strings.bak` (backup file)
+- `package-lock.json` (npm artifact)
+- `mehr-guard-iconset/QR-SHIELD.iconset/` (old branding)
+- `.agent/archived/AGENT.duplicate.Raouf.md` (internal duplicate)
+- `desktopApp/bin/` (15MB build artifact)
+
+**Files Restructured:**
+- Moved to `docs/`: PRODUCTION_READINESS.md, ROADMAP.md, README_FULL.md
+- Moved to `docs/internal/`: AUDIT_FIXES_2025-12-31.md, PARITY_LOG.md, EXPORT_SURFACE.md
+
+**Build Configuration:**
+- Fixed AGP version: `8.13.2` (non-existent) → `8.8.0` (stable)
+- Updated `.gitignore`: Added `desktopApp/bin/`, `*.bak`, `*.orig`
+
+**Documentation:**
+- Fixed dead APK links in README.md and JUDGE_QUICKSTART.md to point to GitHub Releases
+
+#### Impact
+Repository is now clean, consistent, and ready for judge evaluation with:
+- No temporary/backup files visible
+- Consistent version numbers across all platforms
+- Valid build configuration
+- Clean root directory with essential documentation only
+
+---
+
 ## [2.0.36] - 2026-01-02
 
 ### Raouf: Web App i18n - Unicode Attack Breakdowns

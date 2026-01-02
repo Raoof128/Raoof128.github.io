@@ -72,6 +72,8 @@ coverage/
 *.tmp
 *.swp
 *~
+*.bak
+*.orig
 
 # Build artifacts
 iosApp/.build/
@@ -79,6 +81,7 @@ iosApp/.swiftpm/
 kotlin-js-store/
 app_running*.png
 releases/
+desktopApp/bin/
 
 # iOS Frameworks (built locally)
 iosApp/Frameworks/
@@ -88,16 +91,6 @@ WebaPP_Light/
 
 # Compiled JS bundle (regenerated from Kotlin source)
 webApp/src/jsMain/resources/webApp.js
-QR-SHIELD.iconset/icon_512x512@2x.png
-QR-SHIELD.iconset/icon_512x512.png
-QR-SHIELD.iconset/icon_256x256@2x.png
-QR-SHIELD.iconset/icon_256x256.png
-QR-SHIELD.iconset/icon_128x128@2x.png
-QR-SHIELD.iconset/icon_128x128.png
-QR-SHIELD.iconset/icon_32x32@2x.png
-QR-SHIELD.iconset/icon_32x32.png
-QR-SHIELD.iconset/icon_16x16@2x.png
-QR-SHIELD.iconset/icon_16x16.png
 androidApp/Androidapp.txt
 .agent/artifacts/ios_ux_spec_for_android.md
 .agent/artifacts/ios_parity_implementation_log.md
