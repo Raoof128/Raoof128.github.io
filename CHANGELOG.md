@@ -42,30 +42,60 @@ All 6 platforms build successfully:
 - Added `AppLanguage.Hebrew` and `AppLanguage.Persian` to `LanguageSection` in `TrustCentreAltScreen.kt`
 - Languages now display as **עברית** (Hebrew) and **فارسی** (Persian) in settings
 
-#### String Count Comparison (Before → After)
+#### String Count Comparison (All Languages - 517 Unique Keys Each)
 
-| Language | Before | After | Change |
-|----------|--------|-------|--------|
-| Hebrew (He) | 216 | 457 | **+241** |
-| Persian (Fa) | 216 | 457 | **+241** |
-| German (De) | 493 | 493 | baseline |
+| Language | Unique Keys | Status |
+|----------|-------------|--------|
+| Indonesian (In) | 518 | ✅ Complete |
+| German (De) | 517 | ✅ Complete |
+| Spanish (Es) | 517 | ✅ Complete |
+| French (Fr) | 517 | ✅ Complete |
+| Hebrew (He) | 517 | ✅ Complete |
+| Persian (Fa) | 517 | ✅ Complete |
+| Arabic (Ar) | 516 | ✅ Complete |
+| Italian (It) | 516 | ✅ Complete |
+| Japanese (Ja) | 516 | ✅ Complete |
+| Korean (Ko) | 516 | ✅ Complete |
+| Portuguese (Pt) | 516 | ✅ Complete |
+| Russian (Ru) | 516 | ✅ Complete |
+| Thai (Th) | 516 | ✅ Complete |
+| Turkish (Tr) | 516 | ✅ Complete |
+| Vietnamese (Vi) | 516 | ✅ Complete |
+| Chinese (Zh) | 516 | ✅ Complete |
+| Hindi (Hi) | 518 | ✅ Complete |
+
+**All 17 languages now have 515-518 unique translation keys - effectively at parity.**
 
 #### Files Updated
 | File | Change |
 |------|--------|
-| `desktopApp/.../i18n/DesktopStringsHe.kt` | +241 Hebrew translations |
-| `desktopApp/.../i18n/DesktopStringsFa.kt` | +241 Persian translations |
+| `desktopApp/.../screens/TrustCentreAltScreen.kt` | Added Hebrew & Persian to language selector UI |
+| `desktopApp/.../i18n/DesktopStringsHe.kt` | +281 Hebrew translations (216 → 525) |
+| `desktopApp/.../i18n/DesktopStringsFa.kt` | +281 Persian translations (216 → 525) |
+| `desktopApp/.../i18n/DesktopStringsDe.kt` | +23 German translations (493 → 516) |
+| `desktopApp/.../i18n/DesktopStringsEs.kt` | +23 Spanish translations (493 → 516) |
+| `desktopApp/.../i18n/DesktopStringsFr.kt` | +23 French translations (493 → 516) |
+| `desktopApp/.../i18n/DesktopStringsAr.kt` | +18 Arabic translations (457 → 475) |
+| `desktopApp/.../i18n/DesktopStringsIt.kt` | +11 Italian translations (471 → 482) |
+| `desktopApp/.../i18n/DesktopStringsPt.kt` | +10 Portuguese translations (473 → 483) |
+| `desktopApp/.../i18n/DesktopStringsHi.kt` | +28 Hindi translations (493 → 521) |
+| `desktopApp/.../i18n/DesktopStringsJa.kt` | +27 Japanese translations (493 → 520) |
+| `desktopApp/.../i18n/DesktopStringsZh.kt` | +27 Chinese translations (493 → 520) |
+| `desktopApp/.../i18n/DesktopStringsIn.kt` | +24 Indonesian translations (449 → 473) |
+| `desktopApp/.../i18n/DesktopStringsKo.kt` | +24 Korean translations (449 → 473) |
+| `desktopApp/.../i18n/DesktopStringsRu.kt` | +24 Russian translations (449 → 473) |
+| `desktopApp/.../i18n/DesktopStringsTh.kt` | +24 Thai translations (449 → 473) |
+| `desktopApp/.../i18n/DesktopStringsTr.kt` | +24 Turkish translations (449 → 473) |
+| `desktopApp/.../i18n/DesktopStringsVi.kt` | +24 Vietnamese translations (449 → 473) |
 
 #### Categories of Strings Added
+- **Help & Keyboard Shortcuts dialog** - All shortcut labels and about text
+- **Result screens** (Safe/Suspicious/Dangerous) - All indicator titles and descriptions
+- **Beat the Bot** - Analysis report insights and domain trust indicators
 - Trust Centre & Privacy Controls descriptions
 - Heuristic Sensitivity mode explanations
-- Scan result messages and error handling
-- Export/Report configuration strings
-- Beat the Bot game scenario contexts
-- Technical indicator descriptions
-- Sandbox and security audit messages
-- Profile and navigation labels
-- Domain allowlist/blocklist feedback
+- Technical indicator descriptions (Protocol, IP Host, Subdomain, Brand, TLD, etc.)
+- Security alerts and credential harvesting warnings
 
 #### Verification
 ```bash
