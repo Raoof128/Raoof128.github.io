@@ -1,4 +1,8 @@
-# 🛡️ Mehr Guard
+<p align="center">
+  <img src="MehrGuard.iconset/icon_512x512@2x.png">
+</p>
+
+# Mehr Guard
 
 > **Offline QR & Link Security for the Privacy-Conscious**
 >
@@ -54,7 +58,7 @@ Paste any URL to test detection:
 
 ### 📱 Pre-Built Android APK
 
-**Download:** [releases/MehrGuard-2.0.36-debug.apk](releases/MehrGuard-2.0.36-debug.apk)
+**Download:** [MehrGuard-2.0.36-debug.apk](https://github.com/Raoof128/Raoof128.github.io/releases/tag/v2.0.36-submission)
 
 Install on any Android 8+ device. No build required.
 
