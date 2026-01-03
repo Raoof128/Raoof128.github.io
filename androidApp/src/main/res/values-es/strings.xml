@@ -234,8 +234,7 @@
     <string name="cd_open_url">Abrir URL en navegador</string>
     <string name="cd_delete_item">Eliminar este escaneo del historial</string>
     <string name="cd_clear_history">Borrar todo el historial de escaneos</string>
-    <string name="cd_search_history">Buscar historial de escaneos</string>
-    <string name="cd_filter_safe">Mostrar solo escaneos seguros</string>
+    <string name="cd_search_history">Buscar historial de escaneos</string>    <string name="filter_all">Todos</string>    <string name="cd_filter_safe">Mostrar solo escaneos seguros</string>
     <string name="cd_filter_suspicious">Mostrar solo escaneos sospechosos</string>
     <string name="cd_filter_malicious">Mostrar solo escaneos maliciosos</string>
     <string name="cd_history_item">Elemento del historial de escaneos</string>

@@ -9,7 +9,7 @@
 | Action | Link |
 |--------|------|
 | 🌐 **Try Live Demo** | [raoof128.github.io](https://raoof128.github.io) |
-| 🎬 **Watch Video Demo** | [docs/VIDEO_DEMO.md](docs/VIDEO_DEMO.md) |
+| 🎬 **Watch Video Demo** | [YouTube](https://youtu.be/n8bheouj4jM) |
 | 📱 **Download Android APK** | [MehrGuard-2.0.36-debug.apk](releases/MehrGuard-2.0.36-debug.apk) |
 | 📖 **Read Essay** | [ESSAY.md](ESSAY.md) |
 | 🔨 **One-Command Build Test** | `./scripts/judge-smoke.sh` |
@@ -73,7 +73,7 @@ cd mehrguard
 | **Web** | Settings → Security Settings → "Enable Red Team Scenarios" toggle | Toggle ON/OFF |
 
 **What You'll See:**
-- 11 curated attack scenarios (homographs, IP obfuscation, TLD abuse, brand impersonation, URL shorteners)
+- 19 curated attack scenarios (homographs, IP obfuscation, TLD abuse, brand impersonation, URL shorteners, safe controls)
 - One-tap testing of detection accuracy (bypasses camera, feeds URL directly to engine)
 - Useful for demonstrating engine capabilities to judges without needing QR codes
 

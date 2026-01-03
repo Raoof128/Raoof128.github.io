@@ -235,6 +235,7 @@
     <string name="cd_delete_item">기록에서 이 스캔 삭제</string>
     <string name="cd_clear_history">모든 스캔 기록 삭제</string>
     <string name="cd_search_history">스캔 기록 검색</string>
+    <string name="filter_all">전체</string>
     <string name="cd_filter_safe">안전한 스캔만 표시</string>
     <string name="cd_filter_suspicious">의심스러운 스캔만 표시</string>
     <string name="cd_filter_malicious">악성 스캔만 표시</string>

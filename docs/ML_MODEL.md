@@ -291,4 +291,4 @@ URL → Heuristics (25+ rules)
 
 ---
 
-*Documentation generated: December 2025*
+*Documentation generated: January 2026*

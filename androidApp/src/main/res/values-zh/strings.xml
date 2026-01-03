@@ -235,6 +235,7 @@
     <string name="cd_delete_item">从历史中删除此扫描</string>
     <string name="cd_clear_history">清除所有扫描历史</string>
     <string name="cd_search_history">搜索扫描历史</string>
+    <string name="filter_all">全部</string>
     <string name="cd_filter_safe">仅显示安全扫描</string>
     <string name="cd_filter_suspicious">仅显示可疑扫描</string>
     <string name="cd_filter_malicious">仅显示恶意扫描</string>

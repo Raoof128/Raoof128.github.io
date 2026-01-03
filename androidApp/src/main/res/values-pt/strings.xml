@@ -235,6 +235,7 @@
     <string name="cd_delete_item">Eliminar esta digitalização do histórico</string>
     <string name="cd_clear_history">Limpar todo o histórico de digitalizações</string>
     <string name="cd_search_history">Pesquisar histórico de digitalizações</string>
+    <string name="filter_all">Todos</string>
     <string name="cd_filter_safe">Mostrar apenas digitalizações seguras</string>
     <string name="cd_filter_suspicious">Mostrar apenas digitalizações suspeitas</string>
     <string name="cd_filter_malicious">Mostrar apenas digitalizações maliciosas</string>

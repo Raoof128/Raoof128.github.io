@@ -235,6 +235,7 @@
     <string name="cd_delete_item">حذف هذا المسح من السجل</string>
     <string name="cd_clear_history">مسح كل سجل المسح</string>
     <string name="cd_search_history">البحث في سجل المسح</string>
+    <string name="filter_all">الكل</string>
     <string name="cd_filter_safe">إظهار عمليات المسح الآمنة فقط</string>
     <string name="cd_filter_suspicious">إظهار عمليات المسح المشبوهة فقط</string>
     <string name="cd_filter_malicious">إظهار عمليات المسح الخبيثة فقط</string>

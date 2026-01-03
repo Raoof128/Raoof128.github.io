@@ -267,5 +267,5 @@ Legend: ✅ = Full implementation | ⚙️ = Platform limitation (documented fal
 
 ---
 
-*Last Updated: 2025-12-17*
-*Version: 1.6.1*
+*Last Updated: 2026-01-04*
+*Version: 2.0.36*

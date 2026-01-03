@@ -234,8 +234,7 @@
     <string name="cd_open_url">Открыть URL в браузере</string>
     <string name="cd_delete_item">Удалить это сканирование из истории</string>
     <string name="cd_clear_history">Очистить всю историю сканирований</string>
-    <string name="cd_search_history">Поиск в истории сканирований</string>
-    <string name="cd_filter_safe">Показать только безопасные сканирования</string>
+    <string name="cd_search_history">Поиск в истории сканирований</string>    <string name="filter_all">Все</string>    <string name="cd_filter_safe">Показать только безопасные сканирования</string>
     <string name="cd_filter_suspicious">Показать только подозрительные сканирования</string>
     <string name="cd_filter_malicious">Показать только вредоносные сканирования</string>
     <string name="cd_history_item">Элемент истории сканирований</string>

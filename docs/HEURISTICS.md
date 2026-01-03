@@ -10,9 +10,9 @@ Mehr Guard uses a **weighted heuristic scoring system** combined with ML and bra
 
 | Scoring Range | Verdict |
 |---------------|---------|
-| 0-10 | ✅ SAFE |
-| 11-49 | ⚠️ SUSPICIOUS |
-| 50-100 | 🔴 MALICIOUS |
+| 0-30 | ✅ SAFE |
+| 31-69 | ⚠️ SUSPICIOUS |
+| 70-100 | 🔴 MALICIOUS |
 
 ---
 

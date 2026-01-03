@@ -143,6 +143,7 @@
     <string name="cd_delete_item">Xóa quét này khỏi lịch sử</string>
     <string name="cd_clear_history">Xóa tất cả lịch sử quét</string>
     <string name="cd_search_history">Tìm kiếm lịch sử quét</string>
+    <string name="filter_all">Tất cả</string>
     <string name="cd_filter_safe">Chỉ hiển thị quét an toàn</string>
     <string name="cd_filter_suspicious">Chỉ hiển thị quét đáng ngờ</string>
     <string name="cd_filter_malicious">Chỉ hiển thị quét độc hại</string>

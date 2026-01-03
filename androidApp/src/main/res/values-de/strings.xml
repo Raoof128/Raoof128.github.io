@@ -235,6 +235,7 @@
     <string name="cd_delete_item">Diesen Scan aus dem Verlauf löschen</string>
     <string name="cd_clear_history">Gesamten Scan-Verlauf löschen</string>
     <string name="cd_search_history">Scan-Verlauf durchsuchen</string>
+    <string name="filter_all">Alle</string>
     <string name="cd_filter_safe">Nur sichere Scans anzeigen</string>
     <string name="cd_filter_suspicious">Nur verdächtige Scans anzeigen</string>
     <string name="cd_filter_malicious">Nur bösartige Scans anzeigen</string>

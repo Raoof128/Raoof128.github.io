@@ -12,7 +12,7 @@ plugins {
 
 allprojects {
     group = "com.raouf.mehrguard"
-    version = "1.20.30"
+    version = "2.0.36"
 }
 
 // Kover configuration - only include common module to avoid Android variant conflicts

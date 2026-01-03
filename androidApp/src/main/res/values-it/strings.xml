@@ -235,6 +235,7 @@
     <string name="cd_delete_item">Elimina questa scansione dalla cronologia</string>
     <string name="cd_clear_history">Cancella tutta la cronologia scansioni</string>
     <string name="cd_search_history">Cerca cronologia scansioni</string>
+    <string name="filter_all">Tutti</string>
     <string name="cd_filter_safe">Mostra solo scansioni sicure</string>
     <string name="cd_filter_suspicious">Mostra solo scansioni sospette</string>
     <string name="cd_filter_malicious">Mostra solo scansioni malevole</string>

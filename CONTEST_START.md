@@ -11,8 +11,9 @@
 | **Official Contest Opens** | September 15, 2025 | KotlinConf 2025-2026 Student Competition |
 | **Repository Created** | December 5, 2025 | [GitHub API](https://api.github.com/repos/Raoof128/Raoof128.github.io) |
 | **First Commit** | December 5, 2025 | `git log --oneline --reverse \| head -1` |
-| **Submission Ready** | December 31, 2025 | All platforms verified, v1.20.33 |
-| **Full Platform Parity** | December 31, 2025 | iOS matches Android/Desktop/Web |
+| **Submission Ready** | January 4, 2026 | All platforms verified, v2.0.36 |
+| **Full Platform Parity** | January 4, 2026 | iOS matches Android/Desktop/Web |
+| **Competition Deadline** | January 12, 2026 | 23:59:00 CET |
 | **Competition Period** | Within Contest Window | All development after Sep 15, 2025 ✅ |
 
 ---
@@ -42,7 +43,7 @@ No prior open-source project combines offline detection, explainability, and tru
 | Tag | Purpose | Commit |
 |-----|---------|--------|
 | `v0.1-contest-start` | First commit of contest period | [See GitHub releases](https://github.com/Raoof128/Raoof128.github.io/releases) |
-| `v1.20.33-submission` | Final submission version | [See GitHub releases](https://github.com/Raoof128/Raoof128.github.io/releases) |
+| `v2.0.36-submission` | Final submission version | [See GitHub releases](https://github.com/Raoof128/Raoof128.github.io/releases) |
 
 ---
 
@@ -52,8 +53,8 @@ No prior open-source project combines offline detection, explainability, and tru
 Repository: https://github.com/Raoof128/Raoof128.github.io
 Branch: main
 Repository Created: December 5, 2025 (well within contest period starting Sep 15, 2025)
-Total Development Time: 26 days (Dec 5-31, 2025)
-Current Version: 1.20.33 (as of December 31, 2025)
+Total Development Time: 30 days (Dec 5, 2025 - Jan 4, 2026)
+Current Version: 2.0.36 (as of January 4, 2026)
 ```
 
 To verify:

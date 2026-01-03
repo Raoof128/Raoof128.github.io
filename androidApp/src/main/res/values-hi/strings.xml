@@ -235,6 +235,7 @@
     <string name="cd_delete_item">इतिहास से यह स्कैन हटाएं</string>
     <string name="cd_clear_history">सभी स्कैन इतिहास साफ़ करें</string>
     <string name="cd_search_history">स्कैन इतिहास खोजें</string>
+    <string name="filter_all">सभी</string>
     <string name="cd_filter_safe">केवल सुरक्षित स्कैन दिखाएं</string>
     <string name="cd_filter_suspicious">केवल संदिग्ध स्कैन दिखाएं</string>
     <string name="cd_filter_malicious">केवल दुर्भावनापूर्ण स्कैन दिखाएं</string>

@@ -235,6 +235,7 @@
     <string name="cd_delete_item">Supprimer ce scan de l\'historique</string>
     <string name="cd_clear_history">Effacer tout l\'historique des scans</string>
     <string name="cd_search_history">Rechercher l\'historique des scans</string>
+    <string name="filter_all">Tous</string>
     <string name="cd_filter_safe">Afficher uniquement les scans sûrs</string>
     <string name="cd_filter_suspicious">Afficher uniquement les scans suspects</string>
     <string name="cd_filter_malicious">Afficher uniquement les scans malveillants</string>

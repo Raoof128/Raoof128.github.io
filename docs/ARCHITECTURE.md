@@ -237,7 +237,7 @@ let service = UnifiedAnalysisService.shared
 let result = await service.analyze(url: userUrl)
 // Same result as Android, Desktop, Web!
 
-// Features at full parity (v1.20.30):
+// Features at full parity (v2.0.36):
 // - Dynamic analysis breakdowns (16 flag types)
 // - Red Team developer mode
 // - 547 localized strings (18 languages)
@@ -255,4 +255,4 @@ let result = await service.analyze(url: userUrl)
 
 ---
 
-*Last updated: December 31, 2025 (v1.20.30)*
+*Last updated: January 4, 2026 (v2.0.36)*

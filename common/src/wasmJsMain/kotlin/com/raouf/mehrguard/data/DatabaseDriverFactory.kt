@@ -22,10 +22,7 @@ import com.raouf.mehrguard.db.MehrGuardDatabase
 import org.w3c.dom.Worker
 
 /**
- * Web SqlDriver Factory for SQLDelight.
- *
- * Shared implementation for both Kotlin/JS and Kotlin/Wasm targets
- * using the webMain source set introduced in Kotlin 2.2.20.
+ * WebAssembly (Wasm) SqlDriver Factory for SQLDelight.
  *
  * Creates a Web Worker-based SQLite driver using sql.js.
  * Data is stored in browser IndexedDB for persistence.
@@ -36,7 +33,7 @@ import org.w3c.dom.Worker
 actual class DatabaseDriverFactory {
 
     /**
-     * Create SqlDriver for Web (JS + Wasm).
+     * Create SqlDriver for Kotlin/Wasm Web.
      *
      * Uses WebWorkerDriver for non-blocking database operations.
      *
@@ -53,6 +50,6 @@ actual class DatabaseDriverFactory {
 
 /**
  * External declaration for worker URL.
- * Implementation provided in JavaScript/Wasm interop layer.
+ * Implementation provided in WebAssembly interop layer.
  */
 private external fun getSqlWorkerUrl(): String

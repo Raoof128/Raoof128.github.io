@@ -143,6 +143,7 @@
     <string name="cd_delete_item">Hapus pemindaian ini dari riwayat</string>
     <string name="cd_clear_history">Hapus semua riwayat pemindaian</string>
     <string name="cd_search_history">Cari riwayat pemindaian</string>
+    <string name="filter_all">Semua</string>
     <string name="cd_filter_safe">Tampilkan hanya pemindaian aman</string>
     <string name="cd_filter_suspicious">Tampilkan hanya pemindaian mencurigakan</string>
     <string name="cd_filter_malicious">Tampilkan hanya pemindaian berbahaya</string>

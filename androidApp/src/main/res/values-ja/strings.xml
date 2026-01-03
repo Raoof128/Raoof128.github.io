@@ -235,6 +235,7 @@
     <string name="cd_delete_item">このスキャンを履歴から削除</string>
     <string name="cd_clear_history">すべてのスキャン履歴をクリア</string>
     <string name="cd_search_history">スキャン履歴を検索</string>
+    <string name="filter_all">すべて</string>
     <string name="cd_filter_safe">安全なスキャンのみ表示</string>
     <string name="cd_filter_suspicious">疑わしいスキャンのみ表示</string>
     <string name="cd_filter_malicious">悪意あるスキャンのみ表示</string>

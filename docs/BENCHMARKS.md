@@ -1,7 +1,7 @@
 # Performance Benchmarks
 
-> **Version**: 1.0.0  
-> **Last Updated**: December 24, 2025  
+> **Version**: 2.0.36  
+> **Last Updated**: January 4, 2026  
 > **Claim**: <5ms engine analysis time
 
 ## Overview

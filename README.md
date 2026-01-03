@@ -9,6 +9,16 @@
 > **"Mehr"** (Persian: مهر) means *trust, covenant, light* — the foundation of secure scanning.
 
 <p align="center">
+  <a href="https://youtu.be/n8bheouj4jM">
+    <img src="https://img.shields.io/badge/🎬_Demo_Video-Watch_Now-red?style=for-the-badge&logo=youtube" alt="Demo Video">
+  </a>
+</p>
+
+<p align="center">
+  <b>📺 Watch the Demo:</b> <a href="https://youtu.be/n8bheouj4jM">https://youtu.be/n8bheouj4jM</a>
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Kotlin-2.3.0-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin">
   <img src="https://img.shields.io/badge/KMP_Targets-5-orange" alt="5 Platforms">
   <img src="https://img.shields.io/badge/Offline-100%25-brightgreen" alt="Offline">
@@ -16,6 +26,18 @@
   <img src="https://img.shields.io/badge/F1_Score-87%25-blue" alt="F1 Score">
   <img src="https://img.shields.io/badge/License-Apache_2.0-purple" alt="License">
 </p>
+
+---
+
+## 🏆 KotlinConf 2025-2026 Contest Submission
+
+| Item | Link |
+|------|------|
+| **📝 Essay (300 words)** | [ESSAY.md](ESSAY.md) |
+| **🎬 Demo Video** | [YouTube](https://youtu.be/n8bheouj4jM) |
+| **📋 Submission Checklist** | [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) |
+| **🔍 Judge Quickstart** | [JUDGE_QUICKSTART.md](JUDGE_QUICKSTART.md) |
+| **📅 Contest Timeline** | [CONTEST_START.md](CONTEST_START.md) |
 
 ---
 
@@ -246,25 +268,100 @@ All security-critical logic lives in `common/src/commonMain/kotlin/`. Platform m
 
 ---
 
-## Red Team Mode (For Judges)
+## Red Team Mode & Judge Testing
 
-A hidden developer mode exposes 11 curated attack scenarios for testing.
+Red Team Mode is a **hidden developer feature** that exposes curated attack scenarios for testing the detection engine. This allows judges and developers to instantly verify detection accuracy without needing to print QR codes.
 
-**How to Enable:**
+### How It Works (Technical Architecture)
 
-| Platform | Activation |
-|----------|------------|
-| Android | Settings → 7-tap version number |
-| iOS | Settings → 7-tap version number |
-| Desktop | Click "🕵️ Judge Mode" in header |
-| Web | Settings → Security → "Enable Red Team Scenarios" |
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                    RED TEAM MODE ARCHITECTURE                        │
+├─────────────────────────────────────────────────────────────────────┤
+│                                                                      │
+│  ┌───────────────────────────────────────────────────────────────┐  │
+│  │              SHARED MODULE (common/redteam/)                  │  │
+│  │                                                               │  │
+│  │  RedTeamScenarios.kt                                          │  │
+│  │  ├── 19 curated attack scenarios (object SCENARIOS)          │  │
+│  │  ├── Scenario data class (id, category, url, expectedScore)  │  │
+│  │  ├── Categories: Homograph, IP Obfuscation, TLD, Brand, etc. │  │
+│  │  └── Utility: groupedByCategory(), getById()                 │  │
+│  │                                                               │  │
+│  └───────────────────────────────────────────────────────────────┘  │
+│                              │                                       │
+│              ┌───────────────┼───────────────┐                      │
+│              ▼               ▼               ▼                      │
+│  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐           │
+│  │   Android     │  │     iOS       │  │   Desktop     │           │
+│  │ RedTeamPanel  │  │ RedTeamPanel  │  │ RedTeamChips  │           │
+│  │ (Compose)     │  │ (SwiftUI)     │  │ (Compose)     │           │
+│  └───────────────┘  └───────────────┘  └───────────────┘           │
+│                                                                      │
+│  ┌───────────────────────────────────────────────────────────────┐  │
+│  │   Web (JavaScript array mirrors Kotlin RedTeamScenarios)      │  │
+│  └───────────────────────────────────────────────────────────────┘  │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
-**Scenarios Include:**
-- Cyrillic homographs (аpple.com, раypal.com)
-- IP obfuscation (decimal, hex encoding)
-- Suspicious TLDs (.tk, .ml with brand keywords)
-- Brand impersonation (paypa1.com, netflix.secure-verify.com)
-- URL shortener chains
+### Cross-Platform Parity
+
+All 5 platforms share the **exact same scenarios** with identical IDs, URLs, and expected scores:
+
+| Source File | Platform | Implementation |
+|-------------|----------|----------------|
+| `common/.../redteam/RedTeamScenarios.kt` | Android, Desktop | Direct Kotlin import |
+| `iosApp/.../MockTypes.swift` | iOS | Swift enum mirroring Kotlin |
+| `webApp/.../scanner.js` | Web (JS/Wasm) | JavaScript array mirror |
+
+### How to Enable Red Team Mode
+
+| Platform | Activation Method | UI Location |
+|----------|-------------------|-------------|
+| **Android** | Settings → Tap version number **7 times** → Developer Mode unlocks | Red Team panel appears at top of Scanner screen |
+| **iOS** | Settings → Tap version number **7 times** → Developer Mode unlocks | Red Team scenarios panel in Scanner view |
+| **Desktop** | Click "🕵️ Judge Mode" toggle in header bar | Horizontal scrollable chip bar in Scanner |
+| **Web** | Settings → Security Settings → Toggle "Enable Red Team Scenarios" | Chip grid appears above scanner |
+
+### Attack Scenario Categories
+
+| Category | Count | Example | Detection Target |
+|----------|-------|---------|------------------|
+| **Homograph Attack** | 3 | `https://аpple.com` (Cyrillic 'а') | Mixed Unicode scripts |
+| **IP Obfuscation** | 3 | `http://3232235777/malware` | Decimal/Hex/Octal IP |
+| **Suspicious TLD** | 3 | `https://paypa1-secure.tk` | Free/abused TLDs |
+| **Nested Redirect** | 2 | `https://legit.com?url=https://phishing.tk` | URL-in-URL patterns |
+| **Brand Impersonation** | 3 | `https://paypa1.com` | Typosquatting |
+| **URL Shortener** | 2 | `https://bit.ly/xyz` | Destination hiding |
+| **Safe Control** | 2 | `https://google.com` | Baseline verification |
+
+### Code Flow (One-Click Testing)
+
+```kotlin
+// 1. User taps a Red Team scenario chip
+val scenario = RedTeamScenarios.getById("HG-001")  // Cyrillic Apple
+
+// 2. URL is fed directly to PhishingEngine (bypasses camera)
+val result = phishingEngine.analyze(scenario.maliciousUrl)
+
+// 3. Result displayed with full breakdown
+// - Expected: score 70-100, verdict MALICIOUS
+// - Signals: MIXED_SCRIPTS, BRAND_IMPERSONATION, HOMOGRAPH_DETECTED
+```
+
+### Verification Commands
+
+```bash
+# Run all judge verification tests
+./judge/verify_all.sh
+
+# Individual verifications:
+./judge/verify_offline.sh      # Proves zero network calls
+./judge/verify_performance.sh  # Proves <5ms latency
+./judge/verify_accuracy.sh     # Proves 87% F1 score on red team corpus
+./judge/verify_parity.sh       # Proves identical verdicts across platforms
+```
 
 ---
 

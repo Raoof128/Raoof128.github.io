@@ -6,7 +6,13 @@
 
 ## 📺 Watch the Demo
 
-**🎥 Demo Video Available**
+<p align="center">
+  <a href="https://youtu.be/n8bheouj4jM">
+    <img src="https://img.shields.io/badge/🎬_Watch_Demo-YouTube-red?style=for-the-badge&logo=youtube" alt="Demo Video">
+  </a>
+</p>
+
+**🎥 Demo Video:** [https://youtu.be/n8bheouj4jM](https://youtu.be/n8bheouj4jM)
 
 The video demonstrates:
 - 📷 Real-time QR code scanning on all 5 platforms
@@ -22,7 +28,7 @@ The video demonstrates:
 
 ## 🧪 Try It Yourself
 
-While waiting for the video, try the **live demo** at:
+Try the **live demo** at:
 
 **[👉 raoof128.github.io](https://raoof128.github.io)**
 

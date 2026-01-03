@@ -143,6 +143,7 @@
     <string name="cd_delete_item">Bu taramayı geçmişten sil</string>
     <string name="cd_clear_history">Tüm tarama geçmişini temizle</string>
     <string name="cd_search_history">Tarama geçmişinde ara</string>
+    <string name="filter_all">Tümü</string>
     <string name="cd_filter_safe">Yalnızca güvenli taramaları göster</string>
     <string name="cd_filter_suspicious">Yalnızca şüpheli taramaları göster</string>
     <string name="cd_filter_malicious">Yalnızca zararlı taramaları göster</string>

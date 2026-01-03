@@ -9,8 +9,8 @@
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **Precision** | 91% | Of flagged URLs, 91% are actually malicious |
-| **Recall** | 87 | Of actual malicious URLs, we catch 87 |
-| **F1 Score** | 87 | Harmonic mean of precision and recall |
+| **Recall** | 87% | Of actual malicious URLs, we catch 87% |
+| **F1 Score** | 87% | Harmonic mean of precision and recall |
 | **False Positive Rate** | ~3% | Safe URLs incorrectly flagged |
 | **P50 Latency** | <3ms | Median analysis time |
 | **P99 Latency** | <5ms | 99th percentile analysis time |
@@ -19,7 +19,7 @@
 
 ## 🧪 Test Corpus
 
-Since we don't use external datasets (privacy-first means no phishing URL databases), we maintain a **curated local corpus** in `/testdata/`.
+Since we don't use external datasets (privacy-first means no phishing URL databases), we maintain a **curated local corpus** in `data/` (including `data/test_urls.csv` and `data/red_team_corpus.md`).
 
 ### Corpus Composition
 

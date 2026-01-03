@@ -143,6 +143,7 @@
     <string name="cd_delete_item">ลบการสแกนนี้จากประวัติ</string>
     <string name="cd_clear_history">ล้างประวัติการสแกนทั้งหมด</string>
     <string name="cd_search_history">ค้นหาประวัติการสแกน</string>
+    <string name="filter_all">ทั้งหมด</string>
     <string name="cd_filter_safe">แสดงเฉพาะการสแกนที่ปลอดภัย</string>
     <string name="cd_filter_suspicious">แสดงเฉพาะการสแกนที่น่าสงสัย</string>
     <string name="cd_filter_malicious">แสดงเฉพาะการสแกนที่เป็นอันตราย</string>

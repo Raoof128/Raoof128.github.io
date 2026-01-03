@@ -47,7 +47,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "MehrGuard"
-            packageVersion = "1.2.0"
+            packageVersion = "2.0.36"
             
             // Include java.sql module in the bundled JRE for JDBC/SQLite support
             modules("java.sql")
