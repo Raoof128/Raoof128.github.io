@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="MehrGuard.iconset/icon_512x512@2x.png">
+  <img src="MehrGuard.iconset/icon_256x256@2x.png">
 </p>
 
 # Mehr Guard
