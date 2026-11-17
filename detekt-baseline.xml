@@ -2538,7 +2538,7 @@
     <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.DangerousWarning to "تم تصنيف هذا الرابط على أنه خطير محتمل. قد يعرضك فتحه للتصيد أو البرامج الضارة أو تهديدات أمنية أخرى. هل أنت متأكد أنك تريد المتابعة؟"</ID>
     <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.FeatureExplainableDesc to "لا تحصل فقط على \"حظر\". نقدم تحليلات استدلالية مفصلة لمعلمات URL والتحويلات وحمولات JavaScript."</ID>
     <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.FeatureOfflineDesc to "يتم إجراء التحليل الكامل محلياً. لا تصل بيانات الكاميرا والبيانات الممسوحة أبداً إلى خادم خارجي، مما يضمن الخصوصية المطلقة."</ID>
-    <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.FeaturePerformanceDesc to "محسّن لبيئات سطح المكتب. تتم معالجة المسوحات في أقل من 5 مللي ثانية باستخدام ثنائيات Kotlin Multiplatform الأصلية."</ID>
+    <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.FeaturePerformanceDesc to "محسّن لبيئات سطح المكتب. تتم معالجة المسوحات باستخدام ثنائيات Kotlin Multiplatform الأصلية."</ID>
     <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.LowSensitivityModeDesc to "يحظر فقط عناوين URL الخبيثة المعروفة من قاعدة بيانات التهديدات. أدنى معدل إيجابي خاطئ، لكن قد يفوت الهجمات الجديدة."</ID>
     <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.MetaOfflineGuaranteeDesc to "تم تحليل هذه الصورة محلياً على جهازك. لم يتم إرسال أي بيانات إلى السحابة لهذا الحكم."</ID>
     <ID>MaxLineLength:WebStringsAr.kt$WebStringKey.MixedScriptAttackDesc to "يحتوي النطاق على أحرف من نصوص متعددة (مثل السيريلية + اللاتينية). شائع في هجمات الأحرف المتشابهة."</ID>
@@ -2642,7 +2642,7 @@
     <ID>MaxLineLength:WebStringsDe.kt$"No security threats were detected. The QR code leads to a verified safe destination." to "Es wurden keine Sicherheitsbedrohungen erkannt. Der QR-Code führt zu einem verifizierten sicheren Ziel."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$"Official postal services use their primary domain (auspost.com.au) for all tracking. Verify by visiting the official website directly." to "Offizielle Postdienste verwenden ihre primäre Domain (auspost.com.au) für die gesamte Nachverfolgung. Überprüfen Sie dies, indem Sie direkt die offizielle Website besuchen."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$"Only blocks known malicious URLs from the threat database. Minimal false positives, but may miss novel attacks." to "Blockiert nur bekannte schädliche URLs aus der Bedrohungsdatenbank. Minimale Fehlalarme, aber möglicherweise übersehen neuartige Angriffe."</ID>
-    <ID>MaxLineLength:WebStringsDe.kt$"Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries." to "Optimiert für Desktop-Umgebungen. Scans werden in weniger als 5 ms mit nativen Kotlin-Multiplattform-Binärdateien verarbeitet."</ID>
+    <ID>MaxLineLength:WebStringsDe.kt$"Optimised for desktop environments. Scans are processed using native Kotlin Multiplatform binaries." to "Optimiert für Desktop-Umgebungen. Scans werden in weniger als 5 ms mit nativen Kotlin-Multiplattform-Binärdateien verarbeitet."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$"Privacy policy: 100% offline, zero data collection" to "Datenschutzrichtlinie: 100 % offline, keine Datenerfassung"</ID>
     <ID>MaxLineLength:WebStringsDe.kt$"Randomly generated domains are often temporary phishing sites" to "Zufällig generierte Domains sind oft temporäre Phishing-Sites"</ID>
     <ID>MaxLineLength:WebStringsDe.kt$"Removing or changing the suspicious pattern would reduce the overall risk score." to "Das Entfernen oder Ändern des verdächtigen Musters würde die reduzieren Gesamtrisikobewertung."</ID>
@@ -2712,7 +2712,7 @@
     <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.DomainUsesInternationalChars to "Diese Domain verwendet internationale Zeichen, die legitime Domains imitieren könnten."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.FeatureExplainableDesc to "Erhalten Sie nicht nur ein \"Block\". Wir bieten detaillierte heuristische Aufschlüsselungen von URL-Parametern, Weiterleitungen und Javascript-Payloads."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.FeatureOfflineDesc to "Die gesamte Analyse erfolgt lokal. Ihr Kamera-Feed und Ihre gescannten Daten berühren niemals einen externen Server, was absolute Privatsphäre gewährleistet."</ID>
-    <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.FeaturePerformanceDesc to "Optimiert für Desktop-Umgebungen. Scans werden in unter 5ms mit nativen Kotlin Multiplatform-Binärdateien verarbeitet."</ID>
+    <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.FeaturePerformanceDesc to "Optimiert für Desktop-Umgebungen. Scans werden mit nativen Kotlin Multiplatform-Binärdateien verarbeitet."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.HeroDescription to "Mehr Guard analysiert potenzielle Bedrohungen direkt auf Ihrer Hardware. Erleben Sie Schutz ohne Latenz."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.HeuristicAnalysisDesc to "URL wurde basierend auf mehreren von der Analyse-Engine erkannten Risikofaktoren markiert."</ID>
     <ID>MaxLineLength:WebStringsDe.kt$WebStringKey.LowSensitivityModeDesc to "Blockiert nur bekannte bösartige URLs aus der Bedrohungsdatenbank. Minimale Fehlalarme, kann aber neue Angriffe übersehen."</ID>
@@ -2836,7 +2836,7 @@
     <ID>MaxLineLength:WebStringsEs.kt$"Not found in 52 local offline threat databases." to "No se encuentra en 52 bases de datos de amenazas locales fuera de línea."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$"Official postal services use their primary domain (auspost.com.au) for all tracking. Verify by visiting the official website directly." to "Los servicios postales oficiales utilizan su dominio principal (auspost.com.au) para todo el seguimiento. Verifique visitando el sitio web oficial directamente."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$"Only blocks known malicious URLs from the threat database. Minimal false positives, but may miss novel attacks." to "Solo bloquea las URL maliciosas conocidas de la base de datos de amenazas. Falsos positivos mínimos, pero pueden pasar por alto ataques novedosos."</ID>
-    <ID>MaxLineLength:WebStringsEs.kt$"Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries." to "Optimizado para entornos de escritorio. Los escaneos se procesan en menos de 5 ms utilizando binarios multiplataforma nativos de Kotlin."</ID>
+    <ID>MaxLineLength:WebStringsEs.kt$"Optimised for desktop environments. Scans are processed using native Kotlin Multiplatform binaries." to "Optimizado para entornos de escritorio. Los escaneos se procesan utilizando binarios multiplataforma nativos de Kotlin."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$"PDF format. Best for sharing with stakeholders." to "Formato PDF. Lo mejor para compartir con las partes interesadas."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$"Privacy policy: 100% offline, zero data collection" to "Política de privacidad: 100% fuera de línea, cero recopilación de datos"</ID>
     <ID>MaxLineLength:WebStringsEs.kt$"Randomly generated domains are often temporary phishing sites" to "Los dominios generados aleatoriamente suelen ser sitios de phishing temporales"</ID>
@@ -2911,7 +2911,7 @@
     <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.ExportInfoNote to "Las exportaciones incluyen todos los vectores de amenaza identificados y el análisis de carga útil."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.FeatureExplainableDesc to "No obtenga solo un \"Bloqueo\". Proporcionamos desgloses heurísticos detallados de parámetros URL, redirecciones y cargas útiles de Javascript."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.FeatureOfflineDesc to "El análisis completo se realiza localmente. Su transmisión de cámara y datos escaneados nunca tocan un servidor externo, garantizando privacidad absoluta."</ID>
-    <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.FeaturePerformanceDesc to "Optimizado para entornos de escritorio. Los escaneos se procesan en menos de 5ms utilizando binarios nativos de Kotlin Multiplatform."</ID>
+    <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.FeaturePerformanceDesc to "Optimizado para entornos de escritorio. Los escaneos se procesan utilizando binarios nativos de Kotlin Multiplatform."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.HeroDescription to "Mehr Guard analiza amenazas potenciales directamente en su hardware. Experimente protección sin latencia."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.HeuristicAnalysisDesc to "URL marcada según múltiples factores de riesgo detectados por el motor de análisis."</ID>
     <ID>MaxLineLength:WebStringsEs.kt$WebStringKey.LowSensitivityModeDesc to "Solo bloquea URLs maliciosas conocidas de la base de datos de amenazas. Mínimos falsos positivos, pero puede perder ataques nuevos."</ID>
@@ -3082,7 +3082,7 @@
     <ID>MaxLineLength:WebStringsFr.kt$"Not found in 52 local offline threat databases." to "Introuvable dans 52 bases de données locales de menaces hors ligne."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$"Official postal services use their primary domain (auspost.com.au) for all tracking. Verify by visiting the official website directly." to "Les services postaux officiels utilisent leur domaine principal (auspost.com.au) pour tout suivi. Vérifiez en visitant directement le site officiel."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$"Only blocks known malicious URLs from the threat database. Minimal false positives, but may miss novel attacks." to "Bloque uniquement les URL malveillantes connues de la base de données des menaces. Faux positifs minimes, mais peuvent manquer de nouvelles attaques."</ID>
-    <ID>MaxLineLength:WebStringsFr.kt$"Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries." to "Optimisé pour les environnements de bureau. Les analyses sont traitées en moins de 5 ms à l'aide des binaires natifs Kotlin Multiplatform."</ID>
+    <ID>MaxLineLength:WebStringsFr.kt$"Optimised for desktop environments. Scans are processed using native Kotlin Multiplatform binaries." to "Optimisé pour les environnements de bureau. Les analyses sont traitées à l'aide des binaires natifs Kotlin Multiplatform."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$"Privacy policy: 100% offline, zero data collection" to "Politique de confidentialité : 100 % hors ligne, aucune collecte de données"</ID>
     <ID>MaxLineLength:WebStringsFr.kt$"Randomly generated domains are often temporary phishing sites" to "Les domaines générés aléatoirement sont souvent des sites de phishing temporaires"</ID>
     <ID>MaxLineLength:WebStringsFr.kt$"Removing or changing the suspicious pattern would reduce the overall risk score." to "La suppression ou la modification du modèle suspect réduirait le score de risque global."</ID>
@@ -3154,7 +3154,7 @@
     <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.ExportInfoNote to "Les exports incluent tous les vecteurs de menaces identifiés et l'analyse de charge utile."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.FeatureExplainableDesc to "Ne recevez pas juste un \"Blocage\". Nous fournissons des détails heuristiques sur les paramètres URL, les redirections et les charges utiles Javascript."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.FeatureOfflineDesc to "L'analyse complète est effectuée localement. Votre flux de caméra et les données scannées ne touchent jamais un serveur externe, garantissant une confidentialité absolue."</ID>
-    <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.FeaturePerformanceDesc to "Optimisé pour les environnements de bureau. Les scans sont traités en moins de 5 ms grâce aux binaires natifs Kotlin Multiplatform."</ID>
+    <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.FeaturePerformanceDesc to "Optimisé pour les environnements de bureau. Les scans sont traités grâce aux binaires natifs Kotlin Multiplatform."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.HeroDescription to "Mehr Guard analyse les menaces potentielles directement sur votre matériel. Profitez d'une protection sans latence."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.HeuristicAnalysisDesc to "URL signalée en fonction de plusieurs facteurs de risque détectés par le moteur d'analyse."</ID>
     <ID>MaxLineLength:WebStringsFr.kt$WebStringKey.LowSensitivityModeDesc to "Bloque uniquement les URLs malveillantes connues de la base de données des menaces. Minimum de faux positifs, mais peut manquer les nouvelles attaques."</ID>
@@ -3285,7 +3285,7 @@
     <ID>MaxLineLength:WebStringsHi.kt$"No security threats were detected. The QR code leads to a verified safe destination." to "कोई सुरक्षा ख़तरा नहीं पाया गया. क्यूआर कोड एक सत्यापित सुरक्षित गंतव्य की ओर ले जाता है।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$"Official postal services use their primary domain (auspost.com.au) for all tracking. Verify by visiting the official website directly." to "आधिकारिक डाक सेवाएँ सभी ट्रैकिंग के लिए अपने प्राथमिक डोमेन (auspost.com.au) का उपयोग करती हैं। सीधे आधिकारिक वेबसाइट पर जाकर सत्यापित करें।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$"Only blocks known malicious URLs from the threat database. Minimal false positives, but may miss novel attacks." to "केवल ख़तरे वाले डेटाबेस से ज्ञात दुर्भावनापूर्ण URL को ब्लॉक करता है। न्यूनतम झूठी सकारात्मकता, लेकिन नए हमलों की संभावना कम हो सकती है।"</ID>
-    <ID>MaxLineLength:WebStringsHi.kt$"Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries." to "डेस्कटॉप वातावरण के लिए अनुकूलित. देशी कोटलिन मल्टीप्लेटफ़ॉर्म बायनेरिज़ का उपयोग करके स्कैन को 5ms से कम में संसाधित किया जाता है।"</ID>
+    <ID>MaxLineLength:WebStringsHi.kt$"Optimised for desktop environments. Scans are processed using native Kotlin Multiplatform binaries." to "डेस्कटॉप वातावरण के लिए अनुकूलित. देशी कोटलिन मल्टीप्लेटफ़ॉर्म बायनेरिज़ का उपयोग करके स्कैन को संसाधित किया जाता है।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$"Randomly generated domains are often temporary phishing sites" to "बेतरतीब ढंग से उत्पन्न डोमेन अक्सर अस्थायी फ़िशिंग साइट होते हैं"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$"Removing or changing the suspicious pattern would reduce the overall risk score." to "संदिग्ध पैटर्न को हटाने या बदलने से समग्र जोखिम स्कोर कम हो जाएगा।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$"Scan this QR code with Mehr Guard to see malicious URL detection:" to "दुर्भावनापूर्ण URL पहचान देखने के लिए इस QR कोड को Mehr Guard से स्कैन करें:"</ID>
@@ -3348,7 +3348,7 @@
     <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.DomainUsesInternationalChars to "यह डोमेन अंतर्राष्ट्रीय वर्णों का उपयोग करता है जो वैध डोमेन की नकल कर सकते हैं।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.FeatureExplainableDesc to "सिर्फ़ 'ब्लॉक' न करें। हम URL मापदंडों, रीडायरेक्ट और जावास्क्रिप्ट पेलोड का विस्तृत ह्यूरिस्टिक विवरण प्रदान करते हैं।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.FeatureOfflineDesc to "पूर्ण विश्लेषण स्थानीय रूप से किया जाता है। आपकी कैमरा फ़ीड और स्कैन किया गया डेटा कभी भी किसी बाहरी सर्वर को नहीं छूता, जो पूर्ण गोपनीयता सुनिश्चित करता है।"</ID>
-    <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.FeaturePerformanceDesc to "डेस्कटॉप वातावरण के लिए अनुकूलित। स्कैन को देशी कोटलिन मल्टीप्लेटफ़ॉर्म बायनेरिज़ का उपयोग करके 5ms से कम समय में संसाधित किया जाता है।"</ID>
+    <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.FeaturePerformanceDesc to "डेस्कटॉप वातावरण के लिए अनुकूलित। स्कैन को देशी कोटलिन मल्टीप्लेटफ़ॉर्म बायनेरिज़ का उपयोग करके संसाधित किया जाता है।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.HeroDescription to "Mehr Guard आपके हार्डवेयर पर सीधे संभावित खतरों का विश्लेषण करता है। शून्य-विलंबता सुरक्षा का अनुभव करें।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.HeuristicAnalysisDesc to "URL को विश्लेषण इंजन द्वारा पता लगाए गए कई जोखिम कारकों के आधार पर चिह्नित किया गया।"</ID>
     <ID>MaxLineLength:WebStringsHi.kt$WebStringKey.LowSensitivityModeDesc to "केवल खतरे के डेटाबेस से ज्ञात दुर्भावनापूर्ण URLs को ब्लॉक करता है। न्यूनतम झूठी सकारात्मक, लेकिन नए हमलों को छोड़ सकता है।"</ID>
@@ -3378,7 +3378,7 @@
     <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.DomainUsesInternationalChars to "Domain ini menggunakan karakter internasional yang mungkin meniru domain yang sah."</ID>
     <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.FeatureExplainableDesc to "Jangan hanya mendapat \"Blokir\". Kami menyediakan analisis heuristik terperinci dari parameter URL, redirect, dan payload JavaScript."</ID>
     <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.FeatureOfflineDesc to "Analisis lengkap dilakukan secara lokal. Feed kamera dan data yang dipindai tidak pernah menyentuh server eksternal, memastikan privasi mutlak."</ID>
-    <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.FeaturePerformanceDesc to "Dioptimalkan untuk lingkungan desktop. Pemindaian diproses dalam waktu kurang dari 5ms menggunakan biner Kotlin Multiplatform native."</ID>
+    <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.FeaturePerformanceDesc to "Dioptimalkan untuk lingkungan desktop. Pemindaian diproses menggunakan biner Kotlin Multiplatform native."</ID>
     <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.HeroDescription to "Mehr Guard menganalisis ancaman potensial langsung di perangkat keras Anda. Nikmati perlindungan tanpa latensi."</ID>
     <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.HeuristicAnalysisDesc to "URL ditandai berdasarkan beberapa faktor risiko yang terdeteksi oleh mesin analisis."</ID>
     <ID>MaxLineLength:WebStringsIn.kt$WebStringKey.LowSensitivityModeDesc to "Hanya memblokir URL berbahaya yang diketahui dari database ancaman. Minimal false positive, tetapi mungkin melewatkan serangan baru."</ID>
@@ -3406,7 +3406,7 @@
     <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.ExportInfoNote to "Le esportazioni includono tutti i vettori di minaccia identificati e l'analisi del payload."</ID>
     <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.FeatureExplainableDesc to "Non ricevere solo un \"Blocco\". Forniamo analisi euristiche dettagliate di parametri URL, reindirizzamenti e payload JavaScript."</ID>
     <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.FeatureOfflineDesc to "L'analisi completa viene eseguita localmente. I dati della fotocamera e i dati scansionati non toccano mai un server esterno, garantendo privacy assoluta."</ID>
-    <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.FeaturePerformanceDesc to "Ottimizzato per ambienti desktop. Le scansioni vengono elaborate in meno di 5ms utilizzando binari nativi Kotlin Multiplatform."</ID>
+    <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.FeaturePerformanceDesc to "Ottimizzato per ambienti desktop. Le scansioni vengono elaborate utilizzando binari nativi Kotlin Multiplatform."</ID>
     <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.HeroDescription to "Mehr Guard analizza le potenziali minacce direttamente sul tuo hardware. Goditi una protezione a latenza zero."</ID>
     <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.HeuristicAnalysisDesc to "URL contrassegnato in base a molteplici fattori di rischio rilevati dal motore di analisi."</ID>
     <ID>MaxLineLength:WebStringsIt.kt$WebStringKey.IdnPunycodeDomainDesc to "Questo dominio utilizza caratteri internazionalizzati. Visualizzazione sicura:"</ID>
@@ -3503,7 +3503,7 @@
     <ID>MaxLineLength:WebStringsJa.kt$"No security threats were detected. The QR code leads to a verified safe destination." to "セキュリティ上の脅威は検出されませんでした。 QR コードは検証済みの安全な宛先につながります。"</ID>
     <ID>MaxLineLength:WebStringsJa.kt$"Official postal services use their primary domain (auspost.com.au) for all tracking. Verify by visiting the official website directly." to "公式の郵便サービスは、すべての追跡にプライマリ ドメイン (auspost.com.au) を使用します。公式 Web サイトに直接アクセスして確認してください。"</ID>
     <ID>MaxLineLength:WebStringsJa.kt$"Only blocks known malicious URLs from the threat database. Minimal false positives, but may miss novel attacks." to "既知の悪意のある URL のみを脅威データベースからブロックします。誤検知は最小限ですが、新たな攻撃を見逃す可能性があります。"</ID>
-    <ID>MaxLineLength:WebStringsJa.kt$"Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries." to "デスクトップ環境向けに最適化されています。スキャンは、ネイティブ Kotlin マルチプラットフォーム バイナリを使用して 5 ミリ秒未満で処理されます。"</ID>
+    <ID>MaxLineLength:WebStringsJa.kt$"Optimised for desktop environments. Scans are processed using native Kotlin Multiplatform binaries." to "デスクトップ環境向けに最適化されています。スキャンは、ネイティブ Kotlin マルチプラットフォーム バイナリを使用して処理されます。"</ID>
     <ID>MaxLineLength:WebStringsJa.kt$"Removing or changing the suspicious pattern would reduce the overall risk score." to "疑わしいパターンを削除または変更すると、全体的なリスク スコアが低下します。"</ID>
     <ID>MaxLineLength:WebStringsJa.kt$"Scan this QR code with Mehr Guard to see malicious URL detection:" to "Mehr Guard でこの QR コードをスキャンして、悪意のある URL を確認します検出:"</ID>
     <ID>MaxLineLength:WebStringsJa.kt$"Scans for known malicious patterns and heuristic mismatches. Blocks homoglyph attacks and redirect chains. Low false positive rate expected." to "既知の悪意のあるパターンとヒューリスティックな不一致をスキャンします。同形文字攻撃とリダイレクト チェーンをブロックします。誤検知率が低いと予想されます。"</ID>
@@ -3557,7 +3557,7 @@
     <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.ExportInfoNote to "As exportações incluem todos os vetores de ameaça identificados e a análise de payload."</ID>
     <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.FeatureExplainableDesc to "Não receba apenas um \"Bloqueio\". Fornecemos análises heurísticas detalhadas de parâmetros de URL, redirecionamentos e payloads JavaScript."</ID>
     <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.FeatureOfflineDesc to "A análise completa é realizada localmente. Sua câmera e dados escaneados nunca tocam um servidor externo, garantindo privacidade absoluta."</ID>
-    <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.FeaturePerformanceDesc to "Otimizado para ambientes desktop. Varreduras são processadas em menos de 5ms usando binários nativos Kotlin Multiplatform."</ID>
+    <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.FeaturePerformanceDesc to "Otimizado para ambientes desktop. Varreduras são processadas usando binários nativos Kotlin Multiplatform."</ID>
     <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.HeroDescription to "Mehr Guard analisa ameaças potenciais diretamente no seu hardware. Experimente proteção com latência zero."</ID>
     <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.HeuristicAnalysisDesc to "URL marcada com base em múltiplos fatores de risco detectados pelo motor de análise."</ID>
     <ID>MaxLineLength:WebStringsPt.kt$WebStringKey.LowSensitivityModeDesc to "Apenas bloqueia URLs maliciosas conhecidas do banco de dados de ameaças. Mínimo de falsos positivos, mas pode perder novos ataques."</ID>
@@ -3594,7 +3594,7 @@
     <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.DomainUsesInternationalChars to "Этот домен использует международные символы, которые могут имитировать легитимные домены."</ID>
     <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.FeatureExplainableDesc to "Не просто получите \"Блок\". Мы предоставляем подробный эвристический анализ параметров URL, перенаправлений и JavaScript-нагрузок."</ID>
     <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.FeatureOfflineDesc to "Полный анализ выполняется локально. Ваша камера и отсканированные данные никогда не попадают на внешний сервер, обеспечивая абсолютную конфиденциальность."</ID>
-    <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.FeaturePerformanceDesc to "Оптимизирован для настольных сред. Сканирования обрабатываются менее чем за 5мс с использованием нативных бинарных файлов Kotlin Multiplatform."</ID>
+    <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.FeaturePerformanceDesc to "Оптимизирован для настольных сред. Сканирования обрабатываются с использованием нативных бинарных файлов Kotlin Multiplatform."</ID>
     <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.HeroDescription to "Mehr Guard анализирует потенциальные угрозы непосредственно на вашем оборудовании. Получите защиту с нулевой задержкой."</ID>
     <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.HeuristicAnalysisDesc to "URL отмечен на основе нескольких факторов риска, обнаруженных аналитическим движком."</ID>
     <ID>MaxLineLength:WebStringsRu.kt$WebStringKey.IdnPunycodeDomainDesc to "Этот домен использует интернационализированные символы. Безопасное отображение:"</ID>
@@ -3629,7 +3629,7 @@
     <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.DangerousWarning to "URL นี้ถูกทำเครื่องหมายว่าอาจเป็นอันตราย การเปิดอาจทำให้คุณเสี่ยงต่อฟิชชิ่ง มัลแวร์ หรือภัยคุกคามความปลอดภัยอื่นๆ คุณแน่ใจหรือไม่ว่าต้องการดำเนินการต่อ?"</ID>
     <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.FeatureExplainableDesc to "อย่าแค่รับ \"บล็อก\" เราให้การวิเคราะห์ฮิวริสติกโดยละเอียดของพารามิเตอร์ URL การเปลี่ยนเส้นทาง และเพย์โหลด JavaScript"</ID>
     <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.FeatureOfflineDesc to "การวิเคราะห์ทั้งหมดดำเนินการในเครื่อง ฟีดกล้องและข้อมูลที่สแกนของคุณไม่เคยไปถึงเซิร์ฟเวอร์ภายนอก รับประกันความเป็นส่วนตัวอย่างสมบูรณ์"</ID>
-    <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.FeaturePerformanceDesc to "ปรับให้เหมาะสำหรับสภาพแวดล้อมเดสก์ท็อป การสแกนประมวลผลใน 5 มิลลิวินาทีโดยใช้ไบนารี Kotlin Multiplatform"</ID>
+    <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.FeaturePerformanceDesc to "ปรับให้เหมาะสำหรับสภาพแวดล้อมเดสก์ท็อป การสแกนประมวลผลโดยใช้ไบนารี Kotlin Multiplatform"</ID>
     <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.HeroDescription to "Mehr Guard วิเคราะห์ภัยคุกคามที่อาจเกิดขึ้นโดยตรงบนฮาร์ดแวร์ของคุณ สัมผัสการป้องกันที่ไม่มีความหน่วง"</ID>
     <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.LowSensitivityModeDesc to "บล็อกเฉพาะ URL ที่เป็นอันตรายที่รู้จักจากฐานข้อมูลภัยคุกคาม ผลบวกปลอมน้อยที่สุด แต่อาจพลาดการโจมตีใหม่"</ID>
     <ID>MaxLineLength:WebStringsTh.kt$WebStringKey.MetaOfflineGuaranteeDesc to "รูปภาพนี้ถูกวิเคราะห์ในเครื่องบนอุปกรณ์ของคุณ ไม่มีข้อมูลถูกส่งไปยังคลาวด์สำหรับคำตัดสินนี้"</ID>
@@ -3651,7 +3651,7 @@
     <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.DomainUsesInternationalChars to "Bu alan adı, meşru alan adlarını taklit edebilecek uluslararası karakterler kullanıyor."</ID>
     <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.FeatureExplainableDesc to "Sadece \"Engelle\" almayın. URL parametreleri, yönlendirmeler ve JavaScript yüklerinin ayrıntılı sezgisel analizlerini sunuyoruz."</ID>
     <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.FeatureOfflineDesc to "Tam analiz yerel olarak gerçekleştirilir. Kamera akışınız ve taranan veriler asla harici bir sunucuya ulaşmaz, mutlak gizlilik sağlar."</ID>
-    <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.FeaturePerformanceDesc to "Masaüstü ortamları için optimize edildi. Taramalar yerel Kotlin Multiplatform ikili dosyaları kullanılarak 5ms'nin altında işlenir."</ID>
+    <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.FeaturePerformanceDesc to "Masaüstü ortamları için optimize edildi. Taramalar yerel Kotlin Multiplatform ikili dosyaları kullanılarak işlenir."</ID>
     <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.HeroDescription to "Mehr Guard potansiyel tehditleri doğrudan donanımınızda analiz eder. Sıfır gecikme korumasını deneyimleyin."</ID>
     <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.HeuristicAnalysisDesc to "URL, analiz motoru tarafından tespit edilen birden fazla risk faktörüne göre işaretlendi."</ID>
     <ID>MaxLineLength:WebStringsTr.kt$WebStringKey.LowSensitivityModeDesc to "Yalnızca tehdit veritabanından bilinen kötü amaçlı URL'leri engeller. Minimum yanlış pozitif, ancak yeni saldırıları kaçırabilir."</ID>
@@ -3681,7 +3681,7 @@
     <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.DomainUsesInternationalChars to "Tên miền này sử dụng các ký tự quốc tế có thể bắt chước các tên miền hợp pháp."</ID>
     <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.FeatureExplainableDesc to "Đừng chỉ nhận \"Chặn\". Chúng tôi cung cấp phân tích heuristic chi tiết về các tham số URL, chuyển hướng và payload JavaScript."</ID>
     <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.FeatureOfflineDesc to "Phân tích hoàn chỉnh được thực hiện cục bộ. Nguồn cấp camera và dữ liệu quét của bạn không bao giờ chạm đến máy chủ bên ngoài, đảm bảo quyền riêng tư tuyệt đối."</ID>
-    <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.FeaturePerformanceDesc to "Được tối ưu hóa cho môi trường desktop. Quét được xử lý trong dưới 5ms sử dụng các tệp nhị phân Kotlin Multiplatform gốc."</ID>
+    <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.FeaturePerformanceDesc to "Được tối ưu hóa cho môi trường desktop. Quét được xử lý sử dụng các tệp nhị phân Kotlin Multiplatform gốc."</ID>
     <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.HeroDescription to "Mehr Guard phân tích các mối đe dọa tiềm ẩn trực tiếp trên phần cứng của bạn. Trải nghiệm bảo vệ với độ trễ bằng không."</ID>
     <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.HeuristicAnalysisDesc to "URL được đánh dấu dựa trên nhiều yếu tố rủi ro được phát hiện bởi công cụ phân tích."</ID>
     <ID>MaxLineLength:WebStringsVi.kt$WebStringKey.LowSensitivityModeDesc to "Chỉ chặn các URL độc hại đã biết từ cơ sở dữ liệu mối đe dọa. Dương tính giả tối thiểu, nhưng có thể bỏ lỡ các cuộc tấn công mới."</ID>
@@ -3745,7 +3745,7 @@
     <ID>MaxLineLength:WebStringsZh.kt$"No security threats were detected. The QR code leads to a verified safe destination." to "未检测到安全威胁。二维码指向经过验证的安全目的地。"</ID>
     <ID>MaxLineLength:WebStringsZh.kt$"Official postal services use their primary domain (auspost.com.au) for all tracking. Verify by visiting the official website directly." to "官方邮政服务使用其主域 (auspost.com.au) 进行所有跟踪。直接访问官网验证。"</ID>
     <ID>MaxLineLength:WebStringsZh.kt$"Only blocks known malicious URLs from the threat database. Minimal false positives, but may miss novel attacks." to "仅阻止威胁数据库中的已知恶意 URL。误报率极低，但可能会错过新的攻击。"</ID>
-    <ID>MaxLineLength:WebStringsZh.kt$"Optimised for desktop environments. Scans are processed in under 5ms using native Kotlin Multiplatform binaries." to "针对桌面环境进行了优化。使用本机 Kotlin 多平台二进制文件可在 5 毫秒内处理扫描。"</ID>
+    <ID>MaxLineLength:WebStringsZh.kt$"Optimised for desktop environments. Scans are processed using native Kotlin Multiplatform binaries." to "针对桌面环境进行了优化。使用本机 Kotlin 多平台二进制文件可处理扫描。"</ID>
     <ID>MaxLineLength:WebStringsZh.kt$"Scans for known malicious patterns and heuristic mismatches. Blocks homoglyph attacks and redirect chains. Low false positive rate expected." to "扫描已知的恶意模式和启发式不匹配。阻止同形文字攻击并重定向链。预计误报率较低。"</ID>
     <ID>MaxLineLength:WebStringsZh.kt$"Short URLs hide the actual destination. Prize claims from unknown numbers are almost always scams." to "短 URL 隐藏了实际目的地。来自未知号码的奖品索赔几乎总是骗局。"</ID>
     <ID>MaxLineLength:WebStringsZh.kt$"Some minor security concerns were identified. The link appears mostly safe but review recommended." to "发现了一些小的安全问题。该链接看起来基本安全，但建议检查。"</ID>
