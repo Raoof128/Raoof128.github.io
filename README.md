@@ -4,6 +4,8 @@
 
 # Mehr Guard
 
+> **Frozen contest submission (January 2026).** This repository is the KotlinConf 2025–26 submission as it was entered, kept because the web demo and the release builds are served from it. It is not maintained. A November 2026 audit could not reproduce several figures below: the 87% F1 score, the "<5ms" latency, the 19 red-team scenarios (there are 18) and "zero network calls" (the Android app checks for rule updates at startup), and the model described as trained is hand-set. The maintained source, with measured results and their limits, is **[Raoof128/MehrGuard](https://github.com/Raoof128/MehrGuard#summary)**.
+
 > **Offline QR & Link Security for the Privacy-Conscious**
 >
 > **"Mehr"** (Persian: مهر) means *trust, covenant, light* — the foundation of secure scanning.
