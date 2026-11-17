@@ -78,7 +78,7 @@ internal val PersianStrings = mapOf(
     WebStringKey.Dismiss to "بستن",
     WebStringKey.ScanComplete to "اسکن کامل شد",
     WebStringKey.Loading to "در حال بارگذاری...",
-    WebStringKey.AnalyzedOffline to "آفلاین در کمتر از 5 میلی‌ثانیه تحلیل شد",
+    WebStringKey.AnalyzedOffline to "آفلاین تحلیل شد",
     WebStringKey.NoDataLeaves to "هیچ داده‌ای دستگاه را ترک نمی‌کند",
     WebStringKey.ConfidenceScore to "امتیاز اطمینان",
     WebStringKey.RiskAssessment to "ارزیابی خطر",
